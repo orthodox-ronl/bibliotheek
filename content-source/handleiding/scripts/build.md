@@ -16,8 +16,9 @@ build
 
 # DESCRIPTION
 
-Zelfde keten als `check`: Coria-fingerprints + Hugo-build naar
-`generated\site`. Commit `generated\` en `static\mxl\` niet (gitignore).
+Maakt Coria-fingerprints en bouwt de site naar `generated\site`. Anders
+dan `check` draait `build` **geen** `vsa validate`. Commit `generated\`
+en `static\mxl\` niet (gitignore).
 
 # WHEN
 

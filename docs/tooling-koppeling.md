@@ -40,6 +40,10 @@ Override: omgevingvariabele `VSA_TOOLING_REF` (wint van pin/float).
 
 ## CI
 
+De Pages-workflow installeert `vsa-tool` (pin/float) en runt
+`vsa validate content-source/bibliotheek` vóór Coria-fingerprints en Hugo.
+Lokaal: `scripts\validate.cmd` of `check` (die validate eerst aanroept).
+
 Workflow Pages bepaalt de ref:
 
 | Trigger-branch | Mode | Ref |

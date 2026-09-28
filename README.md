@@ -23,7 +23,8 @@ Preview: http://127.0.0.1:18732/
 | -------- | ---- |
 | `serve` | lokale Hugo-preview |
 | `build` | productie-achtige build in `generated\site` |
-| `check` | preflight (nu Hugo-only) |
+| `validate` | `vsa validate` op bibliotheek-content |
+| `check` | preflight (validate + Coria + Hugo) |
 
 ## Structuur
 
@@ -50,6 +51,7 @@ Tooling-contract (geen forks; float op `development`, pin op `main`):
 
 ## Status
 
-Hugo-site + Coria-fingerprints. `check` / CI zetten `vsa-tool` klaar
-(float/pin). Productpipelines via `vsa` volgen wanneer die op VSA-tooling
-`main` beschikbaar zijn — geen gekopieerde tool-Python in deze repo.
+Hugo-site + Coria-fingerprints + `vsa validate` in `check` / Pages-CI
+(float/pin via [docs/tooling-koppeling.md](docs/tooling-koppeling.md)).
+Productpipelines (MSCZ/PDF/siblings, freshness-gates) volgen later in
+deze repo — geen gekopieerde tool-Python.

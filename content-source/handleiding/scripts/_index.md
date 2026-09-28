@@ -15,7 +15,8 @@ vanuit de repo-root.
 
 | Commando | Wat het doet | Man-page |
 | --- | --- | --- |
-| `check` | Preflight: Coria-fingerprints + Hugo-build (CI-spiegel). | [check](check/) |
+| `validate` | Controleert bibliotheek-`.vsa` (en eventueel `.mvsa`) via de `vsa`-CLI. | [validate](validate/) |
+| `check` | Preflight: validate + Coria-fingerprints + Hugo-build (CI-spiegel). | [check](check/) |
 | `build` | Bouwt de site naar `generated\site`. | [build](build/) |
 | `serve` | Lokale preview op http://127.0.0.1:18732/ (niet 1313, niet 18731). | [serve](serve/) |
 

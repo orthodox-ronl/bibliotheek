@@ -108,6 +108,13 @@ jobs:
           python -m pip install -e "vendor/VSA-tooling[rendering]"
           vsa --version
 
+      - name: Validate VSA content
+        run: |
+          vsa validate content-source/bibliotheek
+          if find content-source/bibliotheek -name '*.mvsa' -print -quit | grep -q .; then
+            mvsa validate content-source/bibliotheek
+          fi
+
       - name: Coria fingerprints
         run: python scripts/fingerprint_coria_mxl.py
 
