@@ -7,7 +7,7 @@ nav_sort: weight
 
 Hier zet je een ruwe Capella- of VOW-partituur om naar een **basispartituur-`.mscz`**
 (MuseScore-bestand volgens de basispartituur-norm in
-`scripts\mscz-partituur-contract.md` in de repository-map `VSA-demo`),
+`scripts\mscz-partituur-contract.md` in de repository-map `bibliotheek`),
 daarna naar een PDF en een bestand voor Coria. Volg de stappen in volgorde.
 De subpagina’s hieronder zijn de volledige instructie; deze pagina is alleen
 het overzicht.

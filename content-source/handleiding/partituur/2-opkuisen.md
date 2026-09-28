@@ -9,12 +9,12 @@ weight: 20
 {{< cue >}}
 Snel (Capella-`.mxl` → schone `.mxl` in `_werk`; origineel in `capella\` blijft):
 ```cmd
-scripts\opkuisen.cmd "content-source\praktijk\oefenhoek\input\capella\NAAM.mxl" -o content-source\praktijk\oefenhoek\input\_werk\STAM\STAM.mxl
+scripts\opkuisen.cmd "content-source\input\capella\NAAM.mxl" -o content-source\input\_werk\STAM\STAM.mxl
 ```
 Alleen herkomst + rapport (geen schrijven; `--analyze` en `--dry-run` zijn
 hetzelfde):
 ```cmd
-scripts\opkuisen.cmd content-source\praktijk\oefenhoek\input\capella --analyze
+scripts\opkuisen.cmd content-source\input\capella --analyze
 ```
 `STAM` = publicatiestam uit de bibliotheek-id, zonder spaties
 (voorbeeld: id `8-trisagion/8a-nederlands/hemelum` →
@@ -46,7 +46,7 @@ partituur voldoet aan de afspraken over lettergrepen, stemmen en
 reciteertoon die hieronder en op
 [standaard-.mscz](../3-standaard-mscz/) staan. De technische norm voor
 scripts staat in het bestand `scripts\mscz-partituur-contract.md` in je
-repository-map `VSA-demo` (niet als pagina op deze site).
+repository-map `bibliotheek` (niet als pagina op deze site).
 
 | Wel opkuisen | Niet opkuisen (andere stap) |
 | --- | --- |
@@ -70,7 +70,7 @@ doen; de checklist hieronder controleer je in MuseScore 4.
 
 ### 1. Stemmen en notenbalken
 
-De Oefenhoek-basispartituur is meestal één SATB-partituur op **twee notenbalken** in het
+De bibliotheek-basispartituur is meestal één SATB-partituur op **twee notenbalken** in het
 systeem: bovenstemmen (S/A/T) op de eerste balk, bas (B) op de tweede, met
 de gezongen tekst **tussen** die balken (niet onder de bas, niet vier keer
 herhaald per stem).
@@ -136,7 +136,7 @@ Het script **stript geen** `<rights>` / copyright uit de MusicXML.
 Twijfel over de herkomst? Eerst alleen analyseren (geen schrijven):
 
 ```cmd
-scripts\opkuisen.cmd "content-source\praktijk\oefenhoek\input\capella\NAAM.mxl" --analyze
+scripts\opkuisen.cmd "content-source\input\capella\NAAM.mxl" --analyze
 ```
 
 `--dry-run` doet precies hetzelfde als `--analyze`.
@@ -150,16 +150,16 @@ scripts\opkuisen.cmd "content-source\praktijk\oefenhoek\input\capella\NAAM.mxl" 
 2. Bepaal de **publicatiestam** (de drie id-lagen met `-` ertussen, zonder
    spaties): `8-trisagion-8a-nederlands-hemelum`.
 3. Maak de map
-   `content-source\praktijk\oefenhoek\input\_werk\8-trisagion-8a-nederlands-hemelum\`
+   `content-source\input\_werk\8-trisagion-8a-nederlands-hemelum\`
    (Verkenner of laat het script de map aanmaken bij schrijven). De map
    `_werk\` staat alleen op jouw pc (niet in git).
-4. Open het Windows-opdrachtvenster in de repository-map `VSA-demo`
+4. Open het Windows-opdrachtvenster in de repository-map `bibliotheek`
    ([hoe](../../start/wat-heb-je-nodig/)).
 5. Draai het opkuis-commando. Zet de **bron**-bestandsnaam tussen
    aanhalingstekens als er spaties in zitten. Voorbeeld:
 
 ```cmd
-scripts\opkuisen.cmd "content-source\praktijk\oefenhoek\input\capella\8a - 8-trisagion.mxl" -o content-source\praktijk\oefenhoek\input\_werk\8-trisagion-8a-nederlands-hemelum\8-trisagion-8a-nederlands-hemelum.mxl
+scripts\opkuisen.cmd "content-source\input\capella\8a - 8-trisagion.mxl" -o content-source\input\_werk\8-trisagion-8a-nederlands-hemelum\8-trisagion-8a-nederlands-hemelum.mxl
 ```
 
 6. Wacht tot de prompt terugkomt. Het script print hoek/confidence en
@@ -181,13 +181,13 @@ lettergreep). Dat vervangt **niet** jouw checklist hierboven: verkeerde
 stemverdeling of liturgische tekst corrigeer je in MuseScore 4.
 
 1. Zet of kopieer het bestand naar
-   `content-source\praktijk\oefenhoek\input\_werk\<stam>\` met een
+   `content-source\input\_werk\<stam>\` met een
    bestandsnaam **zonder spaties**. Het origineel in `input\vow\` of
    `input\musescore\` blijft onaangeroerd.
 2. Optioneel automatisch:
 
 ```cmd
-scripts\opkuisen.cmd content-source\praktijk\oefenhoek\input\_werk\STAM\STAM.mscz
+scripts\opkuisen.cmd content-source\input\_werk\STAM\STAM.mscz
 ```
 
 3. Open de `.mscz` in **MuseScore 4** (niet MuseScore 3).
@@ -201,7 +201,7 @@ scripts\opkuisen.cmd content-source\praktijk\oefenhoek\input\_werk\STAM\STAM.msc
    stemmen voor jou.
 
 Twijfel over de bibliotheek-id? Niet raden — vraag na en noteer in
-`content-source\praktijk\oefenhoek\input\werkvoorraad.md`.
+`content-source\input\werkvoorraad.md`.
 
 ## Wat je niet doet bij opkuisen
 

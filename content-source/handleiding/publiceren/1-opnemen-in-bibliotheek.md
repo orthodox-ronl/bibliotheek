@@ -14,7 +14,7 @@ Deze pagina is de HOW voor `bieb-accepteer`.
 1. Ken het **bibliotheek-id** (drie delen met schuine strepen), of vraag het na.
 2. Zorg dat je bestand al een bruikbare **basispartituur-`.mscz`**, **`.vsa`**,
    **`.print.mscz`**, of **`.tekstblad.md`** is — niet een ruwe Capella-file.
-3. Open het Windows-opdrachtvenster in de map `VSA-demo`.
+3. Open het Windows-opdrachtvenster in de map `ibliotheek`.
 4. Typ `scripts\bieb-accepteer.cmd` en Enter — het script vraagt id en
    bestand na. (Of plak een volledige regel, zie hieronder.)
 5. Op een vraag mag je `?` typen voor uitleg; daarna vul je alsnog in.
@@ -22,7 +22,7 @@ Deze pagina is de HOW voor `bieb-accepteer`.
 {{< /cue >}}
 
 **Wat je nu doet:** een klaar oefenbestand **opnemen** in de catalogus
-(de **bibliotheek**), zodat de Oefenhoek het kan tonen. Het script maakt de
+(de **bibliotheek**), zodat de bibliotheek-site het kan tonen. Het script maakt de
 mappen en de pagina-bestanden voor je; jij hoeft die niet met de hand te
 typen.
 
@@ -42,7 +42,7 @@ niet? **Niet verzinnen** — vraag na.
 Het commando `scripts\bieb-accepteer.cmd` (kort: **bieb-accepteer**):
 
 - maakt de mappen
-  `content-source\praktijk\oefenhoek\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\`
+  `content-source\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\`
   als die nog ontbreken;
 - zet daar een `index.md` met de knoppen via shortcode `bieb`;
 - kopieert je bestand en geeft het de **publicatiestam** als naam (zonder
@@ -57,7 +57,7 @@ of [VSA](../../vsa/).
 
 ## Stap voor stap
 
-1. Open het Windows-opdrachtvenster in `VSA-demo`
+1. Open het Windows-opdrachtvenster in `bibliotheek`
    ([hoe](../../start/wat-heb-je-nodig/)).
 2. **Eenvoudigste weg:** alleen het script starten. Het vraagt wat
    ontbreekt:

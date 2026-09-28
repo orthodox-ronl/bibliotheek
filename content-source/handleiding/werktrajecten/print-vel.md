@@ -83,6 +83,6 @@ Geen automatische PDF/Coria uit `.print.mscz`. CI en `check` eisen geen
 ## Zie ook
 
 - HOW: [Print-.mscz](../../partituur/7-print-mscz/)
-- Contract: `scripts\oefenhoek-product-contract.md` in `VSA-demo`
+- Contract: `scripts\oefenhoek-product-contract.md` in `bibliotheek`
 
 {{< navbuttons "VSA|/handleiding/werktrajecten/vsa/" "Site-build|/handleiding/werktrajecten/site-build/" >}}

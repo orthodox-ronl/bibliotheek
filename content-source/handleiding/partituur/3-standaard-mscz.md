@@ -9,7 +9,7 @@ weight: 30
 {{< cue >}}
 Van opgekuiste `.mxl`:
 ```cmd
-scripts\layout.cmd content-source\praktijk\oefenhoek\input\_werk\STAM\STAM.mxl -o content-source\praktijk\oefenhoek\input\_werk\STAM\STAM.mscz
+scripts\layout.cmd content-source\input\_werk\STAM\STAM.mxl -o content-source\input\_werk\STAM\STAM.mscz
 ```
 Van ruwe `.mscz` (VOW e.d.): zelfde script; invoer is die `.mscz`; `-o` naar
 `_werk\STAM\STAM.mscz` (geen spaties in de bestandsnaam).
@@ -17,12 +17,12 @@ Opnieuw op een bestaande basispartituur (in-place, na editslag):
 ```cmd
 scripts\layout.cmd pad\naar\bestand.mscz
 ```
-Norm: bestand `scripts\mscz-partituur-contract.md` in `VSA-demo`. Weigert `*.print.mscz`.
+Norm: bestand `scripts\mscz-partituur-contract.md` in `bibliotheek`. Weigert `*.print.mscz`.
 Man-page: [layout](../../scripts/layout/).
 {{< /cue >}}
 
 **Wat je nu doet:** **normaliseren** — in gewone taal vaak **layouten**
-genoemd. Je past de Oefenhoek-basispartituur-standaard toe met
+genoemd. Je past de bibliotheek-basispartituur-standaard toe met
 `scripts\layout.cmd`. Uitkomst: een **basispartituur-`.mscz`** (canonieke
 MuseScore-partituur) op A4, klaar om na te kijken en later PDF + Coria van te
 maken.
@@ -55,7 +55,7 @@ reciteertoon-encoding, tempo, copyright-velden). Details over inhoud:
    `a-z`, `0-9`, `-`, `_`. Helper: `scripts\score_filenames.py`.
 3. Geen `*.print.mscz` — die horen buiten deze pijplijn
    ([Print-.mscz](../7-print-mscz/)).
-4. Opdrachtvenster geopend in de repository-map `VSA-demo`
+4. Opdrachtvenster geopend in de repository-map `bibliotheek`
    ([hoe](../../start/wat-heb-je-nodig/)).
 
 ## Wat `scripts\layout.cmd` wél doet
@@ -136,7 +136,7 @@ feathered noot later tot één kwart per lettergreep.
 Voorbeeld voor bibliotheek-id `8-trisagion/8a-nederlands/hemelum`:
 
 ```cmd
-scripts\layout.cmd content-source\praktijk\oefenhoek\input\_werk\8-trisagion-8a-nederlands-hemelum\8-trisagion-8a-nederlands-hemelum.mxl -o content-source\praktijk\oefenhoek\input\_werk\8-trisagion-8a-nederlands-hemelum\8-trisagion-8a-nederlands-hemelum.mscz
+scripts\layout.cmd content-source\input\_werk\8-trisagion-8a-nederlands-hemelum\8-trisagion-8a-nederlands-hemelum.mxl -o content-source\input\_werk\8-trisagion-8a-nederlands-hemelum\8-trisagion-8a-nederlands-hemelum.mscz
 ```
 
 Het script converteert via MuseScore 4 naar `.mscz` en past daarna de
@@ -149,7 +149,7 @@ Kopieer de ruwe `.mscz` **niet** rechtstreeks naar de bibliotheek. Eerst
 normaliseren naar `_werk` met een naam zonder spaties:
 
 ```cmd
-scripts\layout.cmd content-source\praktijk\oefenhoek\input\vow\Cherubijnenlied-Kastorskij.mscz -o content-source\praktijk\oefenhoek\input\_werk\15-cherubijnenhymne-15c-kastorski-hemelum\15-cherubijnenhymne-15c-kastorski-hemelum.mscz
+scripts\layout.cmd content-source\input\vow\Cherubijnenlied-Kastorskij.mscz -o content-source\input\_werk\15-cherubijnenhymne-15c-kastorski-hemelum\15-cherubijnenhymne-15c-kastorski-hemelum.mscz
 ```
 
 Controleer vóór of na deze stap of stemmen en lettergrepen kloppen — dat is

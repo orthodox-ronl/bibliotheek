@@ -6,7 +6,7 @@ weight: 160
 
 # NAME
 
-`scripts\bieb-accepteer.cmd` — partituur opnemen in de Oefenhoek-bibliotheek
+`scripts\bieb-accepteer.cmd` — partituur opnemen in de bibliotheek-site-bibliotheek
 
 # SYNOPSIS
 
@@ -17,7 +17,7 @@ scripts\bieb-accepteer.cmd [id] [bestand...] [opties]
 # DESCRIPTION
 
 Neemt een klaar bestand op in de **bibliotheek** (de catalogus onder
-`oefenhoek\bibliotheek\`), onder een bibliotheek-id van drie lagen:
+`bibliotheek\`), onder een bibliotheek-id van drie lagen:
 `zangstuk/variant/uitvoeringsvorm`. Toegestaan: basispartituur-`.mscz`,
 `.vsa`, `.print.mscz`, of `.tekstblad.md` (optioneel sibling-`.pdf` / `.mxl`).
 Bij `.tekstblad.md` zet het script indien nodig frontmatter

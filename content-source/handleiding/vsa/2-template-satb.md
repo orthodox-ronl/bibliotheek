@@ -12,7 +12,7 @@ Werkt nu concreet voor **tropaar toon 4** (corpus `T4-01` … `T4-12`). In `VSA-
 cd /d C:\Git\orthodox-ronl\VSA-tooling
 python scripts\render_tropaar_toon4_corpus.py --id T4-11 --pdf
 ```
-Kopieer het resultaat naar de Oefenhoek-bibliotheek als **print-vel** +
+Kopieer het resultaat naar de bibliotheek-site-bibliotheek als **print-vel** +
 handmatige artefacten (zie stap 5), niet als automatische basispartituur.
 {{< /cue >}}
 

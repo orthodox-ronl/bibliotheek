@@ -64,7 +64,7 @@ zonder `--no-build`.
 2. Open een **bestaand** `.vsa` dat op het nieuwe stuk lijkt. Verzin de
    tekens niet vanaf nul. Antifoon-voorbeeld:
 
-`content-source\praktijk\oefenhoek\bibliotheek\2-eerste-antifoon\weekdagen-hemelum\hemelum\2-eerste-antifoon-weekdagen-hemelum-hemelum.vsa`
+`content-source\bibliotheek\2-eerste-antifoon\weekdagen-hemelum\hemelum\2-eerste-antifoon-weekdagen-hemelum-hemelum.vsa`
 
 3. Kopieer dat bestand naar jouw bibliotheek-map, hernoem naar de
    publicatiestam (geen spaties), plak jouw tekst in dezelfde notatie. Een
@@ -83,7 +83,7 @@ tempo: 120
 4. In het Windows-opdrachtvenster:
 
 ```cmd
-vsa validate content-source\praktijk\oefenhoek\bibliotheek\2-eerste-antifoon\weekdagen-hemelum\hemelum\2-eerste-antifoon-weekdagen-hemelum-hemelum.vsa
+vsa validate content-source\bibliotheek\2-eerste-antifoon\weekdagen-hemelum\hemelum\2-eerste-antifoon-weekdagen-hemelum-hemelum.vsa
 ```
 
    Foutmelding: de markering zit in de **gezongen tekst**, niet in het
@@ -105,7 +105,7 @@ automatische_inhoud: false
 ```
 
 6. Hetzelfde id in de **slot-pagina** van de koormap (bijv.
-   `liturgiemap-hemelum\2-eerste-antifoon\weekdagen\index.md`). Meerdere
+   `koormappen/hemelum/liturgie\2-eerste-antifoon\weekdagen\index.md`). Meerdere
    VSA’s op één liturgische plek? Sectie met kindpagina’s, of één
    compositieblad — zie
    [Bibliotheek en koormappen](../../start/bibliotheek-en-koormappen/).
@@ -125,7 +125,7 @@ Zie [Bibliotheek en koormap](../../publiceren/1-bladermap/).
 
 Uitleg van de VSA-tekens (`{/`, `{_`, `*`, …): de pagina’s onder
 [Tooling Demo](../../../demo/), niet deze handleiding. Hier gaat het over
-waar het `.vsa`-bestand hoort en hoe het op de Oefenhoek komt.
+waar het `.vsa`-bestand hoort en hoe het op de bibliotheek-site komt.
 
 ### Handmatige artefacten
 
@@ -134,7 +134,7 @@ vernieuwt `vsa-products` de Coria-`.mxl` **niet**. Dat hoort bij print-velden
 of template-exports die jij zelf bijhoudt — zie
 [Print-.mscz](../../partituur/7-print-mscz/) en de gele banner op die
 bibliotheekpagina. Afspraak over namen en sporen:
-`scripts\oefenhoek-product-contract.md` in `VSA-demo`.
+`scripts\oefenhoek-product-contract.md` in `bibliotheek`.
 
 Ligt er wél een `.vsa` naast een `{stam}.print.mscz`, dan mag de build
 nog steeds de **SVG** van die `.vsa` maken (notatie naast de handmatige
@@ -150,7 +150,7 @@ bestanden committen. Zie ook [Als het misgaat](../../publiceren/3-als-het-misgaa
 ### Hugo-waarschuwing “SVG ontbreekt”
 
 Shortcode `bieb` zoekt
-`static\vsa\bladermap\praktijk\oefenhoek\bibliotheek\<…>\<naam>.svg`.
+`static\vsa\bladermap\bibliotheek\<…>\<naam>.svg`.
 Ontbreekt dat bestand:
 
 ```cmd

@@ -7,16 +7,16 @@ weight: 10
 # Opnemen in de bibliotheek
 
 Dit werktraject is de **poort** naar de catalogus: van ruw aangeleverd
-materiaal naar een map onder `oefenhoek\bibliotheek\` met een
+materiaal naar een map onder `bibliotheek\` met een
 **bibliotheek-id** (`zangstuk/variant/uitvoeringsvorm`). Publicatiesporen
 ([Basispartituur](../basispartituur/), [VSA](../vsa/),
 [Print-vel](../print-vel/)) sluiten hierop aan — nádat het bestand klaar
 genoeg is om op te nemen.
 
 {{< cue >}}
-1. Bewaar het ruwe bestand onder `content-source\praktijk\oefenhoek\input\`.
+1. Bewaar het ruwe bestand onder `content-source\input\`.
 2. Werk de tabel
-   `content-source\praktijk\oefenhoek\input\werkvoorraad.md` bij
+   `content-source\input\werkvoorraad.md` bij
    (`update-werkvoorraad` of `check`).
 3. Vul het **doel-id** in — niet raden; zie het
    [Id-register](/bibliotheek/id-register/).
@@ -37,7 +37,7 @@ naam.
 
 | Op schijf | Rol |
 | --- | --- |
-| `content-source\praktijk\oefenhoek\input\<herkomst>\…` | Origineel ruw bestand (originele naam) |
+| `content-source\input\<herkomst>\…` | Origineel ruw bestand (originele naam) |
 | `input\werkvoorraad.md` | Rij per input, met doel-id / koormap / notitie |
 | `bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\` | Map met `index.md` + bestand onder **publicatiestam** |
 
@@ -66,11 +66,11 @@ horen bij [Basispartituur](../basispartituur/) of [VSA](../vsa/).
 > dan haar definitieve vorm.
 
 1. Kopieer het bestand naar
-   `content-source\praktijk\oefenhoek\input\<herkomst>\`
+   `content-source\input\<herkomst>\`
    (of eerst `_inbox\` — die map gaat niet naar git). Laat de
    **originele bestandsnaam** staan. Herkomst-mappen:
    [Waar ligt wat](../../start/waar-ligt-wat/).
-2. Open het Windows-opdrachtvenster in de repository-map `VSA-demo`.
+2. Open het Windows-opdrachtvenster in de repository-map `bibliotheek`.
 3. Ververs de werkvoorraad:
 
 ```cmd
@@ -79,7 +79,7 @@ scripts\update-werkvoorraad.cmd
 
    Of draai `scripts\check.cmd` — die doet dezelfde update plus de rest
    van de site-keten.
-4. Open `content-source\praktijk\oefenhoek\input\werkvoorraad.md`. Zoek
+4. Open `content-source\input\werkvoorraad.md`. Zoek
    de nieuwe rij. Vul kolom **Doel-id** in als je het bibliotheek-id kent
    (bijvoorbeeld `8-trisagion/8a-nederlands/hemelum`). Ken je het id
    niet? Laat de cel leeg en vraag na — **niet verzinnen**.
@@ -128,6 +128,6 @@ productbestanden moet jij lokaal maken en **meecommitten**.
   (doorverwijzing; canonieke plek is deze werktrajectpagina)
 - HOW: [Opnemen (Publiceren)](../../publiceren/1-opnemen-in-bibliotheek/)
 - [Id-register](/bibliotheek/id-register/)
-- Contract: `scripts\oefenhoek-product-contract.md` in `VSA-demo`
+- Contract: `scripts\oefenhoek-product-contract.md` in `bibliotheek`
 
 {{< navbuttons "Werktrajecten|/handleiding/werktrajecten/" "Basispartituur|/handleiding/werktrajecten/basispartituur/" >}}

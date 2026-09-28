@@ -22,7 +22,7 @@ bestand, exporteert via `vsa musicxml`, saniteert voor Coria en zet een
 `vsa-source-sha256`-stempel.
 
 Mappen met `artefacten_handmatig: true` in de frontmatter worden
-overgeslagen. Zonder pad werkt het onder `oefenhoek\bibliotheek`.
+overgeslagen. Zonder pad werkt het onder `bibliotheek`.
 
 De pipeline roept dit lokaal aan. Op branch `main` is de bijbehorende check
 streng.
@@ -43,4 +43,4 @@ Oefenen-knop meldt dat de `.vsa.mxl` verouderd is.
 
 - [oefenhoek-index](../oefenhoek-index/) (`--svg` voor het plaatje op de pagina)
 - Workflow: [VSA schrijven](/handleiding/vsa/1-vsa-schrijven/)
-- Bestand `scripts\oefenhoek-product-contract.md` in `VSA-demo`
+- Bestand `scripts\oefenhoek-product-contract.md` in `bibliotheek`

@@ -13,7 +13,7 @@ bestanden die koorleden downloaden en in Coria oefenen. Representatie-id:
 {{< cue >}}
 Na normaliseren en review in MuseScore 4:
 ```cmd
-scripts\mscz-products.cmd content-source\praktijk\oefenhoek\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>
+scripts\mscz-products.cmd content-source\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>
 ```
 Daarna `scripts\check.cmd --strict`. Geen `*.print.mscz` in deze keten.
 {{< /cue >}}
@@ -37,7 +37,7 @@ basispartituur.
 `.mscz` dragen; de colofonregel **Bibliotheek-id:** klopt met het pad;
 `check_partituur_products` (onderdeel van `check --strict`) is groen.
 Meerdere producten van hetzelfde type in één map → expliciete namen met
-representatie-id (zie `scripts\oefenhoek-product-contract.md` in `VSA-demo`).
+representatie-id (zie `scripts\oefenhoek-product-contract.md` in `bibliotheek`).
 
 ## Wanneer wel / wanneer niet
 
@@ -71,7 +71,7 @@ scripts\ensure-bibliotheek-id.cmd
 6. PDF en Coria-`.mxl` exporteren:
 
 ```cmd
-scripts\mscz-products.cmd content-source\praktijk\oefenhoek\bibliotheek\8-trisagion\8a-nederlands\hemelum
+scripts\mscz-products.cmd content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum
 ```
 
    Of heel `content-source`. `--force` als producten ouder zijn dan de
@@ -79,7 +79,7 @@ scripts\mscz-products.cmd content-source\praktijk\oefenhoek\bibliotheek\8-trisag
 7. Site zichtbaar maken: [Site-build](../site-build/).
 
 Voorbeeldbladermap:
-`content-source\praktijk\oefenhoek\bibliotheek\8-trisagion\8a-nederlands\hemelum\`.
+`content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum\`.
 
 ## Automatisch (CI)
 
@@ -108,7 +108,7 @@ ontbrekende bibliotheek-ids met `ensure_bibliotheek_id.py`.
 ## Zie ook
 
 - [Afgeleiden](../../partituur/6-afgeleiden/)
-- Contracten in `VSA-demo`: `scripts\oefenhoek-product-contract.md`,
+- Contracten in `bibliotheek`: `scripts\oefenhoek-product-contract.md`,
   `scripts\mscz-partituur-contract.md`, `scripts\mscz-product-transforms.md`
 
 {{< navbuttons "Opnemen|/handleiding/werktrajecten/opnemen-in-bibliotheek/" "VSA|/handleiding/werktrajecten/vsa/" >}}

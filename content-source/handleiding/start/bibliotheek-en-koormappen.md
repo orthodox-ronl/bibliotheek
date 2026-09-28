@@ -14,7 +14,7 @@ weight: 25
   kindpagina’s of een **compositieblad** (markdown + shortcodes)
 {{< /cue >}}
 
-**Wat je nu doet:** het model kennen waarmee de Oefenhoek werkt, zodat
+**Wat je nu doet:** het model kennen waarmee de bibliotheek-site werkt, zodat
 publicatie, ids en navigatie niet door elkaar lopen.
 
 ## Drie invalshoeken
@@ -45,13 +45,13 @@ keuzes (bijvoorbeeld eerste antifoon: weekdagen, zondag, later feestdagen).
 
 | Bouwsteen | Bestand | Rol |
 | --- | --- | --- |
-| **Koormap-root** | `liturgiemap-hemelum\_index.md` | Handmatige inhoudsopgave van de hele map |
+| **Koormap-root** | `koormappen/hemelum/liturgie\_index.md` | Handmatige inhoudsopgave van de hele map |
 | **Koormap-sectie** | map met `_index.md` | Liturgische plek / hoofdstuk; tekst plus kindlijst, of eigen TOC |
 | **Slot-pagina** | map met `index.md` | Lees- of oefenblad: markdown plus `bieb` (geen catalogus/`lokaal/`-include) |
 
 **Sectie** (`_index.md`): zet `automatische_inhoud: true` als de layout de
 kindpagina’s mag tonen (voorbeeld:
-`liturgiemap-hemelum\2-eerste-antifoon\`). Zet `false` als je zelf de
+`koormappen/hemelum/liturgie\2-eerste-antifoon\`). Zet `false` als je zelf de
 inhoudsopgave van dat hoofdstuk schrijft (zoals de root van de liturgiemap).
 Gebruik in sectie-`_index.md` geen `#`-titel in de body; die titel komt uit
 de layout.

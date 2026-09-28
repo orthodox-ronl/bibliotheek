@@ -71,7 +71,7 @@ boom). Een map wordt **recursief** doorzocht op ondersteunde extensies.
 - `*.print.mscz` in een mapscan worden overgeslagen.
 - Als de scan-root zelf geen mapsegment `input` heeft, worden paden onder
   `input\` overgeslagen (ruwe dumps niet per ongeluk meenemen vanuit
-  `content-source`). Een pad dat wél onder `oefenhoek\input\capella\`
+  `content-source`). Een pad dat wél onder `input\capella\`
   begint, wordt wél gescand.
 - Ongeldige of geweigerde bestanden tellen in de samenvatting; de run gaat
   door met de rest.
@@ -167,7 +167,7 @@ MuseScore 4).
 | Optie | Betekenis |
 | --- | --- |
 | `-o`, `--output` | Doelbestand (één invoer) of doelmap (één of meer invoeren) |
-| `--in-place` | Overschrijf de bron; **vereist** om naar ruwe `oefenhoek\input\<herkomst>\` te schrijven (niet `_werk`) |
+| `--in-place` | Overschrijf de bron; **vereist** om naar ruwe `input\<herkomst>\` te schrijven (niet `_werk`) |
 | `--ext` | Doel-extensie (bijvoorbeeld `.mxl`) |
 | Zonder `-o` | In-place alleen als de bestandsnaam **geen spaties** heeft; anders weigering met hint naar `_werk\STAM\` |
 
@@ -175,7 +175,7 @@ De **publicatiestam** is het bibliotheek-id met `-` tussen de drie lagen,
 zonder spaties (voorbeeld: id `8-trisagion/8a-nederlands/hemelum` → stam
 `8-trisagion-8a-nederlands-hemelum`). Schrijf opgekuiste Capella-uitvoer
 bij voorkeur naar
-`content-source\praktijk\oefenhoek\input\_werk\<stam>\<stam>.mxl`.
+`content-source\input\_werk\<stam>\<stam>.mxl`.
 
 ## Exitcodes
 
@@ -207,22 +207,22 @@ Aan het eind volgt een regel `samenvatting: ok=… geweigerd=… fout=…`.
 Capella-`.mxl` naar `_werk` (origineel blijft staan):
 
 ```cmd
-scripts\opkuisen.cmd "content-source\praktijk\oefenhoek\input\capella\8a - 8-trisagion.mxl" -o content-source\praktijk\oefenhoek\input\_werk\8-trisagion-8a-nederlands-hemelum\8-trisagion-8a-nederlands-hemelum.mxl
+scripts\opkuisen.cmd "content-source\input\capella\8a - 8-trisagion.mxl" -o content-source\input\_werk\8-trisagion-8a-nederlands-hemelum\8-trisagion-8a-nederlands-hemelum.mxl
 ```
 
 Alleen analyseren (geen schrijven) — beide vormen doen hetzelfde:
 
 ```cmd
-scripts\opkuisen.cmd content-source\praktijk\oefenhoek\input\capella --analyze
-scripts\opkuisen.cmd content-source\praktijk\oefenhoek\input\capella --dry-run
+scripts\opkuisen.cmd content-source\input\capella --analyze
+scripts\opkuisen.cmd content-source\input\capella --dry-run
 ```
 
 Ruwe `.mscz` inhoudsfixes in-place (bestandsnaam zonder spaties), daarna
 apart layouten of in één run:
 
 ```cmd
-scripts\opkuisen.cmd content-source\praktijk\oefenhoek\input\_werk\STAM\STAM.mscz
-scripts\opkuisen.cmd content-source\praktijk\oefenhoek\input\_werk\STAM\STAM.mscz --layout
+scripts\opkuisen.cmd content-source\input\_werk\STAM\STAM.mscz
+scripts\opkuisen.cmd content-source\input\_werk\STAM\STAM.mscz --layout
 ```
 
 Lage confidence forceren naar Capella-manier:
@@ -249,7 +249,7 @@ scripts\opkuisen.cmd pad\naar\stuk.vsa --analyze
 
 - Geen vervanging van menselijke stemverdeling of liturgische tekstcontrole.
 - Geen MusicXML-roundtrip “om MuseScore te repareren” als standaardpad.
-- Geen stil overschrijven van ruwe `oefenhoek\input\capella\` (en andere
+- Geen stil overschrijven van ruwe `input\capella\` (en andere
   herkomstmappen) zonder `--in-place`.
 - Generiek MusicXML wordt niet beloofd even schoon als Capella-pad.
 - VSA-autofix hoort later in VSA-tooling; `opkuisen` is in v1 alleen

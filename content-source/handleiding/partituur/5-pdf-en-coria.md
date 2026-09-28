@@ -13,7 +13,7 @@ Deze pagina is de HOW voor `mscz-products`.
 {{< cue >}}
 Basispartituur-`.mscz` staat in het **bibliotheek** (niet alleen in `_werk`). Daarna:
 ```cmd
-scripts\mscz-products.cmd content-source\praktijk\oefenhoek\bibliotheek\8-trisagion\8a-nederlands\hemelum
+scripts\mscz-products.cmd content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum
 ```
 Of heel `content-source`. `--force` als producten ouder zijn dan de basispartituur of
 de bestandsdatum niet klopt. Lokale `check`/`build`/`serve` vernieuwen
@@ -30,7 +30,7 @@ sibling-bestanden maken:
 
 Beide krijgen een ingebedde `partituur-sha256` zodat `check` kan zien of PDF/MXL
 nog bij de huidige basispartituur horen. Technische transforms staan in
-`scripts\mscz-product-transforms.md` in `VSA-demo`.
+`scripts\mscz-product-transforms.md` in `bibliotheek`.
 
 Dit is het **partituur**-spoor (representatie-id `partituur`). Eenstemmige VSA gebruikt
 `{stam}.vsa.mxl` via [`.vsa schrijven`](../../vsa/1-vsa-schrijven/). Als in
@@ -47,7 +47,7 @@ daarna opnieuw deze stap (of [Afgeleiden](../6-afgeleiden/)).
 
 1. De basispartituur-`.mscz` ligt in het **bibliotheek**, niet alleen in
    `input\_werk\`. Padvoorbeeld:
-   `content-source\praktijk\oefenhoek\bibliotheek\8-trisagion\8a-nederlands\hemelum\8-trisagion-8a-nederlands-hemelum.mscz`.
+   `content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum\8-trisagion-8a-nederlands-hemelum.mscz`.
 2. Die `.mscz` is na de laatste inhoudelijke edit opnieuw genormaliseerd
    (`scripts\layout.cmd`).
 3. **MuseScore 4** is geïnstalleerd (het product-script roept MuseScore aan).
@@ -64,17 +64,17 @@ daarna opnieuw deze stap (of [Afgeleiden](../6-afgeleiden/)).
    spaties:
 
 ```text
-content-source\praktijk\oefenhoek\bibliotheek\8-trisagion\8a-nederlands\hemelum\
+content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum\
   8-trisagion-8a-nederlands-hemelum.mscz
 ```
 
    Koormap-slot en verdere publicatie: zie
    [Bibliotheek en koormap](../../publiceren/1-bladermap/).
 
-2. Open het opdrachtvenster in `VSA-demo` en maak de producten:
+2. Open het opdrachtvenster in `bibliotheek` en maak de producten:
 
 ```cmd
-scripts\mscz-products.cmd content-source\praktijk\oefenhoek\bibliotheek\8-trisagion\8a-nederlands\hemelum
+scripts\mscz-products.cmd content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum
 ```
 
    Of alles onder content-source:
@@ -90,7 +90,7 @@ scripts\mscz-products.cmd content-source
 4. Open de PDF even in een PDF-viewer: pagina A4, titel, colofon, tekst
    leesbaar.
 5. Coria test je ná `scripts\check.cmd --strict` op het **koormap-slot**
-   (knop **Oefenen** komt uit de Oefenhoek-acties op die pagina — niet uit
+   (knop **Oefenen** komt uit de bibliotheek-acties op die pagina — niet uit
    een `.mxl` onder `input\`).
 
 ### Vernieuwen of forceren

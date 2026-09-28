@@ -18,7 +18,7 @@ scripts\sync-bron-zondagen.cmd [bron-root]
 
 Kopieert tropaar- en kondakbestanden voor de zondagstonen (en gerelateerde
 assets) uit de canonieke repository **bron** naar
-`content-source\praktijk\zondagen\` in `VSA-demo`. Het kopieert alleen
+`content-source\praktijk\zondagen\` in `bibliotheek`. Het kopieert alleen
 binaire bronbestanden: `.vsa`, melodie-afbeeldingen (`.jpg`) en
 `.coria.html`. Er wordt geen markdown geschreven.
 
@@ -44,4 +44,4 @@ Handmatig als je `bron` net hebt bijgewerkt en alleen die sync wilt.
 # SEE ALSO
 
 - [check](../check/)
-- Bestand `scripts\README.md` in de repository-map `VSA-demo`
+- Bestand `scripts\README.md` in de repository-map `bibliotheek`

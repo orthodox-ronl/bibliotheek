@@ -17,13 +17,13 @@ scripts\tekstblad-products.cmd [pad] [--force] [--dry-run]
 # DESCRIPTION
 
 Zoekt canonieke bronnen `{stam}.tekstblad.md` onder het opgegeven pad
-(of, zonder pad, onder `oefenhoek\bibliotheek\`) en schrijft ernaast
+(of, zonder pad, onder `bibliotheek\`) en schrijft ernaast
 `{stam}.tekstblad.pdf` via `vsa pdf` (zelfde renderer als
 [pdf](../pdf/)). In de PDF komt een stamp (`vsa-source-sha256`,
 `vsa-source-kind=tekstblad`) zodat `check` kan zien of de PDF nog bij de
 bron hoort.
 
-Bestanden in `oefenhoek\input\` en mappen met
+Bestanden in `input\` en mappen met
 `artefacten_handmatig: true` worden overgeslagen. Alias-varianten ook.
 
 **Waartoe:** liturgische tekst of dialoog in de bibliotheek als downloadbaar
@@ -45,7 +45,7 @@ dit commando lokaal en commit bron + PDF samen. Lokale `check` /
 
 ```cmd
 scripts\tekstblad-products.cmd
-scripts\tekstblad-products.cmd content-source\praktijk\oefenhoek\bibliotheek\7d-dialoog-met-diaken --force
+scripts\tekstblad-products.cmd content-source\bibliotheek\7d-dialoog-met-diaken --force
 ```
 
 # WHEN
@@ -57,4 +57,4 @@ Als de `.tekstblad.md` inhoudelijk klaar is voor publicatie-PDF, of als
 
 - [pdf](../pdf/) — generieke markdown → PDF
 - Workflow: [Tekstblad](/handleiding/werktrajecten/tekstblad/)
-- Bestand `scripts\oefenhoek-product-contract.md` in `VSA-demo`
+- Bestand `scripts\oefenhoek-product-contract.md` in `bibliotheek`

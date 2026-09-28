@@ -13,7 +13,7 @@ Representatie-id: `vsa`.
 {{< cue >}}
 Na een werkende `{stam}.vsa` in de bladermap:
 ```cmd
-scripts\vsa-products.cmd content-source\praktijk\oefenhoek\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>
+scripts\vsa-products.cmd content-source\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>
 scripts\oefenhoek-index.cmd --svg
 scripts\check.cmd --strict
 ```
@@ -61,7 +61,7 @@ voor SVG of `vsa-products`.
 3. Coria-`.vsa.mxl`:
 
 ```cmd
-scripts\vsa-products.cmd content-source\praktijk\oefenhoek\bibliotheek\5-eniggeboren-zoon
+scripts\vsa-products.cmd content-source\bibliotheek\5-eniggeboren-zoon
 ```
 
 4. SVG voor bibliotheek-`.vsa` (zonder sibling basispartituur-`.mscz`):
@@ -100,6 +100,6 @@ Lokaal vernieuwt `_pipeline.cmd` stale VSA-producten via
 ## Zie ook
 
 - Optioneel tropaar toon 4: [Template SATB](../../vsa/2-template-satb/)
-- Contract: `scripts\oefenhoek-product-contract.md` in `VSA-demo`
+- Contract: `scripts\oefenhoek-product-contract.md` in `bibliotheek`
 
 {{< navbuttons "Basispartituur|/handleiding/werktrajecten/basispartituur/" "Print-vel|/handleiding/werktrajecten/print-vel/" >}}

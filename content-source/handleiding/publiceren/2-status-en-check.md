@@ -13,7 +13,7 @@ Deze pagina is de HOW voor publicatiestatus en lokale controle.
 {{< cue >}}
 1. Zet `publicatiestatus` op bibliotheek-`index.md` **en** koormap-`index.md`.
 2. `scripts\check.cmd --strict` moet groen zijn.
-3. `scripts\serve.cmd --no-build` → http://127.0.0.1:18731/ — klik zelf als koorlid (koormap-slot).
+3. `scripts\serve.cmd --no-build` → http://127.0.0.1:18732/ — klik zelf als koorlid (koormap-slot).
 4. Live: pas na groen, via git naar `main` (of vragen). `productie` niet raden.
 {{< /cue >}}
 
@@ -22,7 +22,7 @@ controleren, zelf de pagina nalopen, daarna pas publiceren op internet.
 
 ## Publicatiestatus
 
-Op **elke** Oefenhoek-pagina die koorleden zien (bibliotheek en koormap),
+Op **elke** bibliotheek-pagina die koorleden zien (bibliotheek en koormap),
 in de `---` bovenaan:
 
 | Waarde | Wanneer |
@@ -42,7 +42,7 @@ template). Zie [Print-.mscz](../../partituur/7-print-mscz/).
 
 ## Check
 
-In de map `VSA-demo`:
+In de map `ibliotheek`:
 
 ```cmd
 scripts\check.cmd --strict
@@ -65,7 +65,7 @@ Als check groen is en je niet opnieuw wilt genereren:
 scripts\serve.cmd --no-build
 ```
 
-Browser: **http://127.0.0.1:18731/** — nooit poort 1313. Open jouw
+Browser: **http://127.0.0.1:18732/** — nooit poort 1313. Open jouw
 **koormap-slot** in de liturgiemap. Klik **Oefenen**, **Downloaden**,
 blader de PDF. Alsof je koorlid bent. Rode banner over partituur- of VSA-afgeleiden?
 Terug naar [Afgeleiden](../../partituur/6-afgeleiden/). Gele banner
@@ -76,7 +76,7 @@ Alles opnieuw opbouwen (langer): `scripts\serve.cmd` zonder `--no-build`.
 ## Op internet
 
 De publieke site is
-[orthodox-ronl.github.io/VSA-demo](https://orthodox-ronl.github.io/VSA-demo/).
+[orthodox-ronl.github.io/ibliotheek](https://orthodox-ronl.github.io/ibliotheek/).
 Die site volgt branch `main`. Lokaal groen is de drempel; daarna
 committen en pushen (of iemand vragen die git doet). Preview-branches
 komen onder `/preview/`.

@@ -31,7 +31,7 @@ commando’s en mappen kloppen.
 
 | Extensie | In het kort | Wat jij ermee doet |
 | --- | --- | --- |
-| basispartituur-`.mscz` | MuseScore 4-bestand volgens de basispartituur-norm (`scripts\mscz-partituur-contract.md` in `VSA-demo`) | Openen, nakijken, opslaan; daarna `scripts\layout.cmd`; bron voor PDF en Coria |
+| basispartituur-`.mscz` | MuseScore 4-bestand volgens de basispartituur-norm (`scripts\mscz-partituur-contract.md` in `bibliotheek`) | Openen, nakijken, opslaan; daarna `scripts\layout.cmd`; bron voor PDF en Coria |
 | print-`.mscz` | Zelfde soort MuseScore-bestand, naam eindigt op `.print.mscz` | Alleen in MuseScore bewerken; PDF handmatig; in bibliotheek, niet basispartituur-pijplijn — zie [Print-.mscz](/handleiding/partituur/7-print-mscz/) |
 | `.mxl` | Samengeperste MusicXML (partituur: `{stam}.mxl`; VSA: `{stam}.vsa.mxl`) | Naar Coria (afgeleide); of (na opkuisen) als start voor een nieuwe basispartituur. Nooit roundtrip: `.mscz` → `.mxl` → weer `.mscz` gooit de layout weg. |
 | `.pdf` | A4-blad (afgeleide of handmatige print-export) | Downloaden of printen; basispartituur opnieuw via [afgeleiden](/handleiding/partituur/6-afgeleiden/) |
@@ -56,7 +56,7 @@ Bij een `.mscz`: vaak handmatig in MuseScore. Zie
 
 | Woord | Betekenis |
 | --- | --- |
-| **Bibliotheek** | Catalogus onder `oefenhoek\bibliotheek\`: alle oefenbestanden per uitvoeringsvorm; mag stukken bevatten zonder koormap |
+| **Bibliotheek** | Catalogus onder `bibliotheek\`: alle oefenbestanden per uitvoeringsvorm; mag stukken bevatten zonder koormap |
 | **Bibliotheek-id** | Drie segmenten `[a-z0-9_-]+`, bijv. `8-trisagion/8a-nederlands/hemelum` |
 | **Variant-id `default`** | Middelste laag als er maar één variant is (bijv. `5-eniggeboren-zoon/default/hemelum`) |
 | **Taal-suffix** | Op uitvoeringsvorm-id: geen = NL; `-ksl` = Kerkslavisch Cyrillisch; `-ksl-trlat` = getranslitereerd; `-nl-ksl` = mengvorm |

@@ -49,4 +49,4 @@ zonder de browser te openen.
 # SEE ALSO
 
 - [Script-referentie](../)
-- Bestand `scripts\README.md` in de repository-map `VSA-demo`
+- Bestand `scripts\README.md` in de repository-map `bibliotheek`

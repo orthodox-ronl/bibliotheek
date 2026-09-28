@@ -16,10 +16,10 @@ Heb je je pc al eens klaargezet? Dan volstaat vaak alleen de
 [Bibliotheek en koormappen](bibliotheek-en-koormappen/).
 
 {{< cue >}}
-- Werkmap op schijf: `C:\Git\orthodox-ronl\VSA-demo`
-- Lokale preview: `scripts\serve.cmd --no-build` → http://127.0.0.1:18731/ (niet poort 1313)
+- Werkmap op schijf: `C:\Git\orthodox-ronl\bibliotheek`
+- Lokale preview: `scripts\serve.cmd --no-build` → http://127.0.0.1:18732/ (niet poort 1313)
 - Controle vóór publicatie: `scripts\check.cmd --strict`
-- Ruwe inputs: `content-source\praktijk\oefenhoek\input\` — nooit rechtstreeks in bibliotheek of koormap
+- Ruwe inputs: `content-source\input\` — nooit rechtstreeks in bibliotheek of koormap
 - Klaar met Start? → [Werktrajecten](../werktrajecten/)
 {{< /cue >}}
 

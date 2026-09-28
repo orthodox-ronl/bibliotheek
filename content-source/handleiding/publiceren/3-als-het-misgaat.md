@@ -72,9 +72,9 @@ scripts\layout.cmd pad\naar\bestand.mscz
 Coria haalt het muziekbestand zelf vanaf internet op. De Oefenen-knop
 moet daarom naar een **volledig** adres op `raw.githubusercontent.com`
 wijzen, bijvoorbeeld
-`https://raw.githubusercontent.com/orthodox-ronl/VSA-demo/gh-pages/preview/mxl/c/<hash>.musicxml`
+`https://raw.githubusercontent.com/orthodox-ronl/ibliotheek/gh-pages/preview/mxl/c/<hash>.musicxml`
 (fingerprint op branch `gh-pages`). De website voor mensen blijft
-`https://orthodox-ronl.github.io/VSA-demo/`; Coria's server faalt op
+`https://orthodox-ronl.github.io/ibliotheek/`; Coria's server faalt op
 `github.io`-MusicXML regelmatig met `failed to retrieve file`.
 Gebruik geen pad zonder host (`/mxl/c/…`), geen `http://127.0.0.1:…`,
 geen `github.io`-MusicXML, en geen page-bundle-`.mxl`.
@@ -142,12 +142,12 @@ eerste bron van waarheid bij.
 
 ## `publicatiestatus` ontbreekt
 
-Elke Oefenhoek-`index.md` en `_index.md` (bibliotheek en koormap) moet de
+Elke bibliotheek-`index.md` en `_index.md` (bibliotheek en koormap) moet de
 regel `publicatiestatus` in de `---` hebben. Handleiding-pagina’s niet.
 
 ## Preview op de verkeerde poort
 
-http://127.0.0.1:**18731**/ — niet 1313.
+http://127.0.0.1:**18732**/ — niet 1313.
 
 ## Check rood, lange muur tekst
 
@@ -157,7 +157,7 @@ foutenmuur tegelijk aan.
 
 ## Waar vraag je het
 
-Gebruik dezelfde kanalen als op de Oefenhoek-pagina’s (e-mail / GitHub).
+Gebruik dezelfde kanalen als op de bibliotheek-site-pagina’s (e-mail / GitHub).
 Stuur mee: welk bibliotheek-id, welk commando, de foutregel, en of het om
 Capella, VOW of VSA gaat.
 

@@ -35,4 +35,9 @@ verwijzen. Model: [Bibliotheek en koormappen](start/bibliotheek-en-koormappen/).
 
 Id-lijst: [Id-register](/bibliotheek/id-register/).
 
+**Fase 1:** site bekijken en markdown/koormappen bewerken kan hier.
+Productscripts (`opkuisen`, `mscz-products`, …) komen later; tot die tijd
+staan die HOW's hier al (met juiste paden) en kun je ze tijdelijk in
+[VSA-demo](https://github.com/orthodox-ronl/VSA-demo) uitvoeren.
+
 {{< navbuttons "Start|/handleiding/start/" "Werktrajecten|/handleiding/werktrajecten/" >}}

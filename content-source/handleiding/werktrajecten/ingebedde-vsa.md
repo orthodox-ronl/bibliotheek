@@ -21,7 +21,7 @@ onder `content-source`. Draai daarna `scripts\check.cmd` of
 ## Waartoe
 
 Je wilt VSA tonen op een pagina die geen bladermap onder
-`oefenhoek\bibliotheek\` is — bijvoorbeeld een samenstelling of de
+`bibliotheek\` is — bijvoorbeeld een samenstelling of de
 Tooling Demo — zonder `bieb` en zonder bibliotheek-id.
 
 ## Eindresultaat en criteria
@@ -41,13 +41,13 @@ Dit vervangt **niet** sibling `{stam}.vsa.mxl` in de bibliotheek (dat is
 
 | Wel | Niet |
 | --- | --- |
-| Demo, feesteigen, samenstelling, handleiding | Oefenhoek-bibliotheek-uitvoeringsvorm → [VSA](../vsa/) + `bieb` |
+| Demo, feesteigen, samenstelling, handleiding | bibliotheek-bibliotheek-uitvoeringsvorm → [VSA](../vsa/) + `bieb` |
 | Inline `::: vsa-notatie` of include van een `.vsa` | Alleen een A4-PDF uit markdown → [Markdown naar PDF](../markdown-naar-pdf/) |
 
 ## Volgorde (bestanden)
 
 1. Schrijf markdown onder `content-source` (buiten
-   `oefenhoek\bibliotheek\…` als bladermap), met VSA-blokken of includes.
+   `bibliotheek\…` als bladermap), met VSA-blokken of includes.
 2. Bouw de site (of laat `check` de generate-stap doen):
 
 ```cmd

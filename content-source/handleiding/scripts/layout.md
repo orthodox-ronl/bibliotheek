@@ -16,7 +16,7 @@ scripts\layout.cmd <bestand.mscz|.mxl> [-o doel.mscz] [--id ID] [--no-extenders]
 
 # DESCRIPTION
 
-Past de Oefenhoek-**basispartituur**-standaard toe: A4-papier, fonts,
+Past de bibliotheek-site-**basispartituur**-standaard toe: A4-papier, fonts,
 reciteertoon-codering (`||O||`), tempo, copyrightvelden en (in de
 bibliotheek) de colofonregel met bibliotheek-id. In het dagelijks taalgebruik
 heet deze stap vaak **layouten**; de contractterm is **normaliseren**.
@@ -31,7 +31,7 @@ heet deze stap vaak **layouten**; de contractterm is **normaliseren**.
   [Print-.mscz](/handleiding/partituur/7-print-mscz/)).
 
 Python-implementatie: `scripts\apply_mscz_layout.py`. Technische norm:
-`scripts\mscz-partituur-contract.md` in de repository-map `VSA-demo`.
+`scripts\mscz-partituur-contract.md` in de repository-map `bibliotheek`.
 
 # OPTIONS
 
@@ -47,7 +47,7 @@ Van een opgekuiste `.mxl` naar een basispartituur-`.mscz` (stam is
 illustratief):
 
 ```cmd
-scripts\layout.cmd content-source\praktijk\oefenhoek\input\_werk\STAM\STAM.mxl -o content-source\praktijk\oefenhoek\input\_werk\STAM\STAM.mscz
+scripts\layout.cmd content-source\input\_werk\STAM\STAM.mxl -o content-source\input\_werk\STAM\STAM.mscz
 ```
 
 Opnieuw op een bestaande basispartituur na een editslag in MuseScore:

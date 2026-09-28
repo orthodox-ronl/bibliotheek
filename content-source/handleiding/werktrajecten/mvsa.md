@@ -7,7 +7,7 @@ weight: 80
 # mvsa (voorzien)
 
 **mvsa** (meerstemmige VSA) is nog **geen** actief publicatiespoor in
-VSA-demo. Deze pagina reserveert de plek in de werktrajecten-catalogus.
+ibliotheek. Deze pagina reserveert de plek in de werktrajecten-catalogus.
 
 ## Waartoe (toekomst)
 

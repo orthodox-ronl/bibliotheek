@@ -16,7 +16,7 @@ scripts\ensure-bibliotheek-id.cmd [root] [--check-only] [--fail]
 
 # DESCRIPTION
 
-Elke basispartituur-`.mscz` onder `oefenhoek\bibliotheek\` moet in het
+Elke basispartituur-`.mscz` onder `bibliotheek\` moet in het
 colofon de regel `Bibliotheek-id:` hebben én in de MuseScore-metadata
 `vsaBibliotheekId`. Die waarde moet gelijk zijn aan het pad
 `zangstuk/variant/uitvoeringsvorm` van de map.
@@ -27,7 +27,7 @@ Op `main` of met een strenge pipeline faalt de check als er nog problemen
 zijn.
 
 Zonder `root` zoekt het script onder
-`content-source\praktijk\oefenhoek\bibliotheek`. Na een herstel: opnieuw
+`content-source\bibliotheek`. Na een herstel: opnieuw
 [mscz-products](../mscz-products/) voor verse PDF’s met het juiste colofon.
 
 # OPTIONS
@@ -47,4 +47,4 @@ een id-mismatch meldt.
 
 - [layout](../layout/)
 - [mscz-products](../mscz-products/)
-- Bestand `scripts\mscz-partituur-contract.md` in `VSA-demo`
+- Bestand `scripts\mscz-partituur-contract.md` in `bibliotheek`

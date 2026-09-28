@@ -11,23 +11,17 @@ weight: 30
 # SYNOPSIS
 
 ```cmd
-scripts\build.cmd
+build
 ```
 
 # DESCRIPTION
 
-Bouwt de volledige site naar de map `generated\site` op je pc. De keten is
-dezelfde als bij `check.cmd --strict` (via `scripts\_pipeline.cmd`), zonder
-externe linkcheck.
-
-Commit de mappen `generated\` en `static\vsa\` niet: dat is build-output.
-Voor «mag ik committen?» is `check.cmd --strict` genoeg; `build` is vooral
-handig als je het site-artifact zelf nodig hebt zonder Hugo-server.
+Zelfde keten als `check`: Coria-fingerprints + Hugo-build naar
+`generated\site`. Commit `generated\` en `static\mxl\` niet (gitignore).
 
 # WHEN
 
-Als je de gebouwde site in `generated\site` nodig hebt zonder
-`serve` te starten.
+Als je het site-artifact nodig hebt zonder een preview-server te starten.
 
 # SEE ALSO
 

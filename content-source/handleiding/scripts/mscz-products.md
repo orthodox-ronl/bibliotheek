@@ -22,7 +22,7 @@ koorleden gebruiken: een A4-**PDF** (downloaden/printen) en een
 herkomstinformatie (`partituur-sha256`, `generated-at`) in die producten.
 
 Het zoekt basispartituur-`.mscz` onder het opgegeven pad (of, zonder pad,
-onder `content-source`). Bestanden in `oefenhoek\input\` en namen die
+onder `content-source`). Bestanden in `input\` en namen die
 eindigen op `.print.mscz` worden overgeslagen.
 
 **Volgorde:** eerst [layout](../layout/), daarna eventueel een editslag in
@@ -40,7 +40,7 @@ editen. De pipeline roept `mscz-products` lokaal ook aan.
 
 ```cmd
 scripts\mscz-products.cmd
-scripts\mscz-products.cmd content-source\praktijk\oefenhoek\bibliotheek\8-trisagion --force
+scripts\mscz-products.cmd content-source\bibliotheek\8-trisagion --force
 ```
 
 # WHEN
@@ -52,4 +52,4 @@ publicatie-PDF en Coria.
 
 - [layout](../layout/)
 - Workflow: [PDF en Coria](/handleiding/partituur/5-pdf-en-coria/)
-- Bestand `scripts\oefenhoek-product-contract.md` in `VSA-demo`
+- Bestand `scripts\oefenhoek-product-contract.md` in `bibliotheek`

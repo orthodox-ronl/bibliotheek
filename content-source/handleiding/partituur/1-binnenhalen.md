@@ -12,7 +12,7 @@ De canonieke beschrijving staat onder het werktraject
 catalogus; een generieke opkuiser volgt later.
 
 {{< cue >}}
-1. Zet het bestand in `content-source\praktijk\oefenhoek\input\<herkomst>\` (of eerst `_inbox\`).
+1. Zet het bestand in `content-source\input\<herkomst>\` (of eerst `_inbox\`).
 2. Laat de originele bestandsnaam staan.
 3. Draai `scripts\update-werkvoorraad.cmd` of `scripts\check.cmd`.
 4. Vul in `input\werkvoorraad.md` het **doel-id** in als die kolom leeg is — niet raden, vragen.

@@ -21,7 +21,7 @@ scripts\layout.cmd pad\naar\bestand.mscz
 daarna de basispartituur-standaard **opnieuw** toepassen met
 `scripts\layout.cmd` (normaliseren / layouten). Zonder die tweede slag
 blijven A4, fonts, reciteertoon-encoding of copyright uit de pas lopen met
-de rest van de Oefenhoek.
+de rest van de bibliotheek-site.
 
 **Wanneer:** altijd tussen de eerste genormaliseerde basispartituur-`.mscz` en het maken
 van PDF of Coria-`.mxl`. Ook als het koor later een fout meldt: dezelfde
@@ -91,13 +91,13 @@ liturgische tekst ernaast. Vink af:
    bestandsnaam al goed is (zonder spaties):
 
 ```cmd
-scripts\layout.cmd content-source\praktijk\oefenhoek\input\_werk\8-trisagion-8a-nederlands-hemelum\8-trisagion-8a-nederlands-hemelum.mscz
+scripts\layout.cmd content-source\input\_werk\8-trisagion-8a-nederlands-hemelum\8-trisagion-8a-nederlands-hemelum.mscz
 ```
 
    Ligt de basispartituur al in de bibliotheek:
 
 ```cmd
-scripts\layout.cmd content-source\praktijk\oefenhoek\bibliotheek\8-trisagion\8a-nederlands\hemelum\8-trisagion-8a-nederlands-hemelum.mscz
+scripts\layout.cmd content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum\8-trisagion-8a-nederlands-hemelum.mscz
 ```
 
 5. Open de `.mscz` opnieuw in MuseScore 4.

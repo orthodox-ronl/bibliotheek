@@ -11,44 +11,36 @@ weight: 20
 # SYNOPSIS
 
 ```cmd
-scripts\check.cmd [--strict] [--external] [--skip-hugo]
+check
 ```
+
+Of: `scripts\check.cmd` vanuit de repo-root.
 
 # DESCRIPTION
 
-`check` draait lokaal de controles die ook op GitHub lopen: sync van
-zondag-materiaal, oefenhoek-index, VSA-validatie, genereren van markdown/SVG,
-Coria-controles, Hugo-build en interne linkcontrole. Het is een wrapper om
-`scripts\_pipeline.cmd`.
+`check` is de preflight voor deze repo (fase 1, Hugo-only):
 
-**Vóór commit** (alles streng, zoals CI): gebruik `--strict`. Dat betekent:
-ook VSA-waarschuwingen laten falen, niet alleen harde fouten.
+1. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
+2. Hugo-build naar `generated\site`
 
-MuseScore-PDF’s en Coria-`.mxl` uit een basispartituur maak je apart met
-[mscz-products](../mscz-products/); die stap zit niet in `check`.
-
-# OPTIONS
-
-| Optie | Betekenis |
-| --- | --- |
-| `--strict` | Faal ook op VSA-waarschuwingen (GitHub Actions doet dit standaard) |
-| `--external` | Controleer ook links naar internet (kan soms flaky zijn) |
-| `--skip-hugo` | Stop na sync, validatie en generate; geen Hugo en geen linkcheck |
+Er is **geen** VSA-validate of `vsa build-markdown` in deze keten. Die
+stappen komen later via de gepubliceerde `vsa`-CLI.
 
 # EXAMPLES
 
 ```cmd
-scripts\check.cmd --strict
-scripts\check.cmd --skip-hugo
+cd /d C:\Git\orthodox-ronl\bibliotheek
+check
 ```
 
 # WHEN
 
-Altijd vóór je commit of push: `scripts\check.cmd --strict`. Tussendoor
-alleen aan VSA-bestanden werken: `--skip-hugo` is sneller.
+Vóór je commit of push. Tussendoor alleen markdown bekijken: `serve` is
+genoeg (die runt fingerprints + Hugo-server).
 
 # SEE ALSO
 
 - [serve](../serve/)
+- [build](../build/)
 - [Wat heb je nodig](/handleiding/start/wat-heb-je-nodig/)
 - [Status en check](/handleiding/publiceren/2-status-en-check/)

@@ -31,7 +31,7 @@ mappen, woorden). Stapsgewijze MuseScore- of VSA-HOW’s staan onder
 ## Hoe de trajecten in elkaar haken
 
 ```text
-ruw materiaal (oefenhoek/input/)
+ruw materiaal (input/)
     |
     v
 Opnemen in de bibliotheek  (werkvoorraad + later opkuis + bieb-accepteer)
@@ -66,6 +66,6 @@ geen bibliotheek-producten.
 **Representatie-id** in de bibliotheek (`partituur`, `vsa`, `print`): welk
 bronbestand hoort bij welk afgeleid product. Technische namen en stamps:
 bestand `scripts\oefenhoek-product-contract.md` in de repository-map
-`VSA-demo`. Termen: [Woorden](../start/woorden/).
+`ibliotheek`. Termen: [Woorden](../start/woorden/).
 
 {{< navbuttons "Start|/handleiding/start/" "Opnemen|/handleiding/werktrajecten/opnemen-in-bibliotheek/" >}}

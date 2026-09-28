@@ -12,7 +12,7 @@ Nieuwe partituur in de bibliotheek zetten:
 (`scripts\bieb-accepteer.cmd`).
 
 Slot-pagina in de koormap:
-`content-source\praktijk\oefenhoek\liturgiemap-hemelum\…\index.md` met
+`content-source\praktijk\koormappen\hemelum\liturgie\…\index.md` met
 shortcode `bieb` (parameter `id` = bibliotheek-id) en
 `automatische_inhoud: false`. Geen basispartituur-bestanden in de koormap-map.
 
@@ -43,7 +43,7 @@ uitzonderingen. Details en voorbeelden van commando’s:
 [Opnemen in de bibliotheek](../1-opnemen-in-bibliotheek/).
 
 Pad na acceptatie:
-`content-source\praktijk\oefenhoek\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\`
+`content-source\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\`
 met `index.md` + oefenbestanden (publicatiestam zonder spaties).
 
 Een **alias-variant** (andere naam voor dezelfde variant) krijgt geen
@@ -53,7 +53,7 @@ uitvoeringsvorm-map. Zet `alias_van` op de variant-`_index.md`; zie
 ## Stap voor stap (slot-pagina in de koormap)
 
 1. Open of maak de slot-pagina (bijvoorbeeld
-   `liturgiemap-hemelum\8-trisagion\8a-trisagion\index.md`).
+   `koormappen/hemelum/liturgie\8-trisagion\8a-trisagion\index.md`).
 2. Zorg dat alleen **`index.md`** in die slotmap staat — geen `.mscz` meer
    in de koormap.
 3. Frontmatter: `automatische_inhoud: false`, `publicatiestatus` passend
@@ -63,14 +63,14 @@ uitvoeringsvorm-map. Zet `alias_van` op de variant-`_index.md`; zie
 
 | Situatie | Koormap-voorbeeld |
 | --- | --- |
-| Basispartituur via bibliotheek | `liturgiemap-hemelum\8-trisagion\8a-trisagion\index.md` |
-| VSA via bibliotheek | `liturgiemap-hemelum\2-eerste-antifoon\weekdagen\index.md` |
-| Sectie (boom van keuzes) | `liturgiemap-hemelum\15-cherubijnenhymne\_index.md` + kindmappen |
+| Basispartituur via bibliotheek | `koormappen/hemelum/liturgie\8-trisagion\8a-trisagion\index.md` |
+| VSA via bibliotheek | `koormappen/hemelum/liturgie\2-eerste-antifoon\weekdagen\index.md` |
+| Sectie (boom van keuzes) | `koormappen/hemelum/liturgie\15-cherubijnenhymne\_index.md` + kindmappen |
 | Compositieblad (meerdere scores) | Eén `index.md` met markdown en meerdere `bieb`-shortcodes — zie [Bibliotheek en koormappen](../../start/bibliotheek-en-koormappen/) |
 | Troparen / kondaken / losse gezangen | Bijv. `110-tropaar/…`, `120-kondak/…`, `220-uw-heilig-kruis/default/hemelum` — altijd `bieb`, geen `:::include` |
 
 5. Hoort het stuk in het liturgie-overzicht? Controleer
-   `liturgiemap-hemelum\_index.md` (handmatige inhoudsopgave).
+   `koormappen/hemelum/liturgie\_index.md` (handmatige inhoudsopgave).
 
 ### Meerdere shortcodes op één slot-pagina
 
