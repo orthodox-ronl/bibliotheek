@@ -45,6 +45,7 @@ De Pages-workflow installeert `vsa-tool` (pin/float), runt
 `check_vsa_products.py --fail` (sibling `{stam}.vsa.mxl` + sha-stamp),
 `check_mscz_products.py --fail` (sibling `{stam}.mscz.pdf` / `.mscz.mxl`),
 `check_tekstblad_products.py --fail` (sibling `{stam}.tekstblad.pdf`),
+`ensure_bibliotheek_id.py --check-only --fail` (colofon `Bibliotheek-id:`),
 daarna Coria-fingerprints en Hugo. CI genereert geen producten — vernieuw
 lokaal met `scripts\vsa-products.cmd` / `scripts\mscz-products.cmd` /
 `scripts\tekstblad-products.cmd` en commit de siblings.

@@ -22,6 +22,8 @@ vanuit de repo-root.
 | `vsa-products` | Maakt/vernieuwt sibling `{stam}.vsa.mxl` (Coria) bij een bibliotheek-`.vsa`. | [vsa-products](vsa-products/) |
 | `mscz-products` | Maakt/vernieuwt `{stam}.mscz.pdf` + `{stam}.mscz.mxl` bij een basispartituur-`.mscz`. | [mscz-products](mscz-products/) |
 | `tekstblad-products` | Maakt/vernieuwt `{stam}.tekstblad.pdf` bij een bibliotheek-`.tekstblad.md`. | [tekstblad-products](tekstblad-products/) |
+| `layout` | Past de basispartituur-standaard toe op `.mscz` of `.mxl` (tooling-layoutprofiel `partituur`). | [layout](layout/) |
+| `ensure-bibliotheek-id` | Zet of controleert de colofonregel `Bibliotheek-id:` op basispartituur-`.mscz`. | [ensure-bibliotheek-id](ensure-bibliotheek-id/) |
 
 Intern (geen apart gebruikerscommando): `python scripts\fingerprint_coria_mxl.py`
 maakt `/mxl/c/<hash>.musicxml` en `data/coria-fp.json` voor de Oefenen-knop.
@@ -42,13 +44,12 @@ repo afgestemd.
 | Commando (later) | Rol |
 | --- | --- |
 | `bieb accepteer` | Partituur/tekstblad opnemen onder een bibliotheek-id (`bieb` wordt de multi-command CLI) |
-| `opkuisen` / `layout` | Inhoudsfixes + basispartituur-normalisatie |
-| `ensure-bibliotheek-id` / `update-werkvoorraad` | Colofon-id / werkvoorraadtabel |
+| `opkuisen` | Inhoudsfixes (Capella/MusicXML); geen A4-layout |
+| `update-werkvoorraad` | Werkvoorraadtabel bijwerken |
 | `h` / `pdf` / ... | Console-hulp en overige VSA-demo-commando's |
 
 Man-pages (ter voorbereiding):
-[bieb accepteer](bieb-accepteer/), [opkuisen](opkuisen/), [layout](layout/),
-[ensure-bibliotheek-id](ensure-bibliotheek-id/),
+[bieb accepteer](bieb-accepteer/), [opkuisen](opkuisen/),
 [update-werkvoorraad](update-werkvoorraad/), [oefenhoek-index](oefenhoek-index/),
 [capella-mxl-to-mscz](capella-mxl-to-mscz/), [h](h/), [pdf](pdf/),
 [demo-pdf](demo-pdf/), [sync-bron-zondagen](sync-bron-zondagen/).
