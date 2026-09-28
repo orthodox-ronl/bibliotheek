@@ -1,4 +1,4 @@
----
+﻿---
 title: "Print-.mscz (koormap-vel)"
 linkTitle: "Print-.mscz"
 weight: 70
@@ -57,7 +57,7 @@ artefacten_handmatig: true
 Die regel betekent: PDF, Coria-`.mxl` en andere afgeleiden in **deze** map
 worden niet automatisch bijgewerkt. De bibliotheekpagina toont een gele
 beheerdersmelding. Afspraak over bestandsnamen per spoor:
-`scripts\oefenhoek-product-contract.md`.
+[Productgates](/handleiding/start/productgates/).
 
 ## Wat je niet doet
 

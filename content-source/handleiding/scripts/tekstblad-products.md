@@ -1,4 +1,4 @@
----
+﻿---
 title: "tekstblad-products"
 linkTitle: "tekstblad-products"
 weight: 115
@@ -57,4 +57,4 @@ Als de `.tekstblad.md` inhoudelijk klaar is voor publicatie-PDF, of als
 
 - [pdf](../pdf/) — generieke markdown → PDF
 - Workflow: [Tekstblad](/handleiding/werktrajecten/tekstblad/)
-- Bestand `scripts\oefenhoek-product-contract.md` in `bibliotheek`
+- [Productgates](/handleiding/start/productgates/)

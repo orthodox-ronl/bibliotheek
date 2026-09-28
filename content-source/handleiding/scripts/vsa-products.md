@@ -46,4 +46,5 @@ meldt dat de `.vsa.mxl` verouderd of zonder stamp is.
 
 - [check](../check/)
 - [validate](../validate/)
+- [Productgates](/handleiding/start/productgates/)
 - Workflow: [VSA → SVG en Coria](/handleiding/werktrajecten/vsa/)
