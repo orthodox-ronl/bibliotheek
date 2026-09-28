@@ -146,7 +146,6 @@ bron-checkout.&lt;/p&gt;</description></item><item><title>opkuisen</title><link>
 MusicXML- en MuseScore-bestanden (optioneel daarna layout)&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\opkuisen.cmd &amp;lt;pad&amp;gt; [pad...] [opties]
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\h.cmd opkuisen
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Python-entrypoint: &lt;code&gt;scripts\opkuisen.py&lt;/code&gt;. Compat-shim voor alleen Capella:
 &lt;code&gt;python scripts\cleanup_capella_mxl.py …&lt;/code&gt; (voegt &lt;code&gt;--assume capella&lt;/code&gt; toe).&lt;/p&gt;
 &lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
