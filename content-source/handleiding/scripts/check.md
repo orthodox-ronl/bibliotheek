@@ -18,13 +18,15 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 
 # DESCRIPTION
 
-`check` is de preflight voor deze repo (fase 1, Hugo-only):
+`check` is de preflight voor deze repo (CI-spiegel):
 
-1. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
-2. Hugo-build naar `generated\site`
+1. `validate` — `vsa validate` op `content-source\bibliotheek` (en
+   `mvsa validate` als daar `.mvsa`-bestanden staan)
+2. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
+3. Hugo-build naar `generated\site`
 
-Er is **geen** VSA-validate of `vsa build-markdown` in deze keten. Die
-stappen komen later via de gepubliceerde `vsa`-CLI.
+Productpipelines (sibling PDF/MSCZ, freshness-gates) horen hier nog niet
+bij; die komen later als aparte `check_*`-stappen in deze repo.
 
 # EXAMPLES
 
@@ -36,10 +38,11 @@ check
 # WHEN
 
 Vóór je commit of push. Tussendoor alleen markdown bekijken: `serve` is
-genoeg (die runt fingerprints + Hugo-server).
+genoeg (die runt fingerprints + Hugo-server, zonder validate).
 
 # SEE ALSO
 
+- [validate](../validate/)
 - [serve](../serve/)
 - [build](../build/)
 - [Wat heb je nodig](/handleiding/start/wat-heb-je-nodig/)

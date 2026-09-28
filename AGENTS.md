@@ -63,7 +63,8 @@ serve
 
 Preview: **http://127.0.0.1:18732/** — nooit poort **1313**, niet **18731** (VSA-demo).
 
-`check` = Coria-fingerprints + Hugo. Optioneel tooling klaarzetten:
+`check` = validate (`.vsa` / eventueel `.mvsa`) + Coria-fingerprints + Hugo.
+Optioneel tooling klaarzetten:
 
 ```cmd
 scripts\_ensure.cmd --hugo --vsa-tool
