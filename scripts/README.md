@@ -14,6 +14,8 @@ Tooling-contract: [docs/tooling-koppeling.md](../docs/tooling-koppeling.md)
 | `layout` | Past layoutprofiel `partituur` toe op `.mscz` / `.mxl` (via tooling) |
 | `ensure-bibliotheek-id` | Zet/controleert colofonregel `Bibliotheek-id:` op basispartituur-`.mscz` |
 | `opkuisen` | Herkomstanalyse + inhoudsopkuis (niet in `check`/CI) |
+| `bieb accepteer` | Opnemen in `content-source\bibliotheek` onder bibliotheek-id |
+| `update-werkvoorraad` | Tabel `input\werkvoorraad.md` bijwerken (ook in check/build/serve) |
 | `serve` | Hugo-preview op http://127.0.0.1:18732/ (niet 1313, niet 18731) |
 | `build` | Site in `generated\site` |
 | `check` | CI-spiegel / preflight (validate + publicatiecontroles + bibliotheek-id + Coria + Hugo) |
@@ -23,7 +25,8 @@ Intern: `_ensure.cmd` (`--hugo`, `--vsa-tool`), `fingerprint_coria_mxl.py`,
 `check_mscz_products.py`, `sync_tekstblad_products.py`,
 `check_tekstblad_products.py`, `apply_mscz_layout.py`,
 `ensure_bibliotheek_id.py`, `opkuisen.py`, `cleanup_capella_mxl.py`,
-`mscz_content_cleanup.py`, `product_meta.py`, `coria_mxl.py`.
+`mscz_content_cleanup.py`, `bieb.py`, `bieb_accepteer.py`,
+`update_werkvoorraad.py`, `bibliotheek.py`, `product_meta.py`, `coria_mxl.py`.
 
 **Geen forks van VSA-tooling.** Bibliotheek-specifieke wrappers mogen; die
 roepen `vsa` / `mvsa` aan. Zie tooling-koppeling (float op `development`,

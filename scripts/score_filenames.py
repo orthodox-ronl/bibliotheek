@@ -10,6 +10,7 @@ from pathlib import Path
 
 _UNSAFE = re.compile(r"[^a-zA-Z0-9_-]+")
 PRINT_MSCZ_SUFFIX = ".print.mscz"
+TEKSTBLAD_MD_SUFFIX = ".tekstblad.md"
 
 
 def require_no_spaces(path: Path) -> None:
@@ -20,6 +21,11 @@ def require_no_spaces(path: Path) -> None:
 def is_print_mscz(path: Path | str) -> bool:
     name = path.name if isinstance(path, Path) else Path(path).name
     return name.lower().endswith(PRINT_MSCZ_SUFFIX) or ".print." in name.lower()
+
+
+def is_tekstblad_md(path: Path | str) -> bool:
+    name = path.name if isinstance(path, Path) else Path(path).name
+    return name.lower().endswith(TEKSTBLAD_MD_SUFFIX)
 
 
 def published_stem(name: str) -> str:

@@ -11,26 +11,27 @@ weight: 160
 # SYNOPSIS
 
 ```cmd
-bieb accepteer [id] [bestand...] [opties]
+scripts\bieb.cmd accepteer [id] [bestand...] [opties]
 ```
 
-(Later: `scripts\bieb.cmd` met subcommando’s, zoals `vsa` / `mvsa`. Nog niet
-als `.cmd` in deze repo.)
+Compat-shim: `scripts\bieb-accepteer.cmd` (zelfde argumenten).
 
 # DESCRIPTION
 
 Neemt een klaar bestand op in de **bibliotheek** (de catalogus onder
-`bibliotheek\`), onder een bibliotheek-id van drie lagen:
+`content-source\bibliotheek\`), onder een bibliotheek-id van drie lagen:
 `zangstuk/variant/uitvoeringsvorm`. Toegestaan: basispartituur-`.mscz`,
-`.vsa`, `.mvsa`, handmatig `.mscz` (met `--artefacten-handmatig`), of
-`.tekstblad.md` (optioneel sibling-`.pdf` / `.mxl`). Bij `.tekstblad.md`
-zet het script indien nodig frontmatter `build: render: never` zodat de
-bron geen Hugo-pagina wordt.
+`.vsa`, `.mvsa`, handmatig `.mscz` (met `--artefacten-handmatig` of legacy
+`.print.mscz`), of `.tekstblad.md` (optioneel sibling-`.pdf` / `.mxl`). Bij
+`.tekstblad.md` zet het script indien nodig frontmatter `build: render: never`
+zodat de bron geen Hugo-pagina wordt.
 
 Het script maakt ontbrekende `_index.md` / `index.md` met shortcode `bieb`
-en hernoemt naar de publicatiestam. Een kale ongekuiste `.mxl` wordt
-geweigerd — eerst [opkuisen](../opkuisen/) / [layout](../layout/). Bij
-`.vsa` / `.mvsa` draait validate (tenzij `--skip-vsa-validate`). Default
+en hernoemt naar de publicatiestam. Sibling-PDF/MXL krijgen de doelvorm
+`{stam}.mscz.pdf` / `{stam}.mscz.mxl` (of `.vsa.mxl` / `.tekstblad.pdf`).
+Een kale ongekuiste `.mxl` wordt geweigerd — eerst
+[opkuisen](../opkuisen/) / [layout](../layout/). Bij `.vsa` / `.mvsa` draait
+validate (tenzij `--skip-vsa-validate`). Default
 `publicatiestatus: reviewable` (`voorzien` bij `--stub`). Status
 `productie` alleen met `--force`.
 
@@ -55,8 +56,8 @@ Latere subcommando’s van `bieb` (voorzien): `zoek`, `hernoem`, …
 # EXAMPLES
 
 ```cmd
-bieb accepteer
-bieb accepteer 8-trisagion/8a-nederlands/hemelum pad\naar\bestand.mscz --dry-run
+scripts\bieb.cmd accepteer
+scripts\bieb.cmd accepteer 8-trisagion/8a-nederlands/hemelum pad\naar\bestand.mscz --dry-run
 ```
 
 # WHEN
@@ -69,4 +70,5 @@ normaliseren, of na een werkende `.vsa` / `.mvsa`). Daarna koormap +
 
 - Workflow: [Opnemen in de bibliotheek](/handleiding/werktrajecten/opnemen-in-bibliotheek/)
 - [check](../check/)
+- [update-werkvoorraad](../update-werkvoorraad/)
 - [Publicatiecontrole](/handleiding/start/publicatiecontrole/)

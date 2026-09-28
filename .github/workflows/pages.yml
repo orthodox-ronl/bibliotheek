@@ -128,6 +128,9 @@ jobs:
       - name: Check bibliotheek-id in MSCZ colofon
         run: python scripts/ensure_bibliotheek_id.py --check-only --fail
 
+      - name: Update werkvoorraad table
+        run: python scripts/update_werkvoorraad.py
+
       - name: Coria fingerprints
         run: python scripts/fingerprint_coria_mxl.py
 
