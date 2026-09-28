@@ -1,0 +1,23 @@
+baseURL = "/"
+languageCode = "nl"
+title = "Bibliotheek"
+contentDir = "content-source"
+
+disableKinds = ["taxonomy", "term"]
+
+# Ruwe inputs + tekstblad-bronnen: geen Hugo-pagina's.
+ignoreFiles = [
+  '(?i)[/\\\\]input[/\\\\]',
+  '(?i)\\.tekstblad\\.md$',
+]
+
+[params]
+  linksBron = "https://orthodox-ronl.github.io/bron/"
+  linksVsaTooling = "https://orthodox-ronl.github.io/VSA-tooling/"
+  linksGithub = "https://github.com/orthodox-ronl/bibliotheek"
+  feedback_email = "orthodoxronl@duck.com"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

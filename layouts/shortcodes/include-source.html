@@ -1,0 +1,25 @@
+{{- /*
+  Toon de ruwe inhoud van een bestand (relatief t.o.v. de huidige pagina)
+  in een codeblok. Probeert generated/content en content-source.
+*/ -}}
+{{- $src := .Get "src" -}}
+{{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}
+{{- if not $src -}}
+  {{- errorf "%s: shortcode include-source mist parameter src. Oplossing: voeg src=\"bestandsnaam.md\" toe aan de shortcode include-source." $loc -}}
+{{- end -}}
+{{- $lang := or (.Get "lang") "markdown" -}}
+{{- $rel := replace (path.Join .Page.File.Dir $src) "\\" "/" -}}
+{{- $candidates := slice
+      (printf "content-source/%s" $rel)
+      (printf "generated/content/%s" $rel)
+-}}
+{{- $text := "" -}}
+{{- range $candidates -}}
+  {{- if and (eq $text "") (fileExists .) -}}
+    {{- $text = readFile . -}}
+  {{- end -}}
+{{- end -}}
+{{- if eq $text "" -}}
+  {{- errorf "%s: shortcode include-source: bestand %q niet gevonden. Oplossing: zet het bestand naast deze pagina (geprobeerd: %s)." $loc $src (delimit $candidates ", ") -}}
+{{- end -}}
+{{- highlight $text $lang "" -}}

@@ -1,0 +1,37 @@
+{{- /*
+  Sticky bladermap-paginakop: breadcrumb (vanaf deelrubriek) + publicatiestatus.
+  Deelrubriek = bibliotheek-root of een koormap (bijv. liturgie Hemelum).
+*/ -}}
+{{- $bladermap := or (strings.Contains .RelPermalink "/bibliotheek/") (strings.Contains .RelPermalink "/koormappen/") -}}
+{{- if $bladermap -}}
+{{- $deel := false -}}
+{{- if strings.Contains .RelPermalink "/bibliotheek/" -}}
+  {{- with site.GetPage "/bibliotheek" }}{{ $deel = . }}{{ end -}}
+{{- else if strings.Contains .RelPermalink "/koormappen/hemelum/liturgie/" -}}
+  {{- with site.GetPage "/koormappen/hemelum/liturgie" }}{{ $deel = . }}{{ end -}}
+{{- else if strings.Contains .RelPermalink "/koormappen/hemelum/" -}}
+  {{- with site.GetPage "/koormappen/hemelum" }}{{ $deel = . }}{{ end -}}
+{{- else -}}
+  {{- with site.GetPage "/koormappen" }}{{ $deel = . }}{{ end -}}
+{{- end -}}
+<header class="oefenhoek-header">
+  <div class="oefenhoek-header-inner">
+  {{- if $deel -}}
+  <nav class="oefenhoek-breadcrumb" aria-label="Broodkruimels">
+    {{- if .Eq $deel -}}
+    <span class="oefenhoek-breadcrumb-current" aria-current="page">{{ .LinkTitle }}</span>
+    {{- else -}}
+      {{- range .Ancestors.Reverse -}}
+        {{- if or (.Eq $deel) (.IsDescendant $deel) -}}
+    <a class="oefenhoek-breadcrumb-link" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+    <span class="oefenhoek-breadcrumb-sep" aria-hidden="true">&rsaquo;</span>
+        {{- end -}}
+      {{- end -}}
+    <span class="oefenhoek-breadcrumb-current" aria-current="page">{{ .LinkTitle }}</span>
+    {{- end -}}
+  </nav>
+  {{- end -}}
+  {{ partial "publicatiestatus.html" . }}
+  </div>
+</header>
+{{- end -}}

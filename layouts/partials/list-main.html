@@ -1,0 +1,8 @@
+<h1>{{ .Title }}</h1>
+
+{{ .Content }}
+
+{{- $bladermap := or (strings.Contains .RelPermalink "/bibliotheek/") (strings.Contains .RelPermalink "/koormappen/") -}}
+{{- if not $bladermap }}
+{{ partial "page-list.html" . }}
+{{- end }}

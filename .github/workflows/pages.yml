@@ -1,0 +1,129 @@
+# Deploy bibliotheek to GitHub Pages (Hugo-only; geen VSA-tooling).
+# - push main         -> productie (gh-pages root)
+# - push development  -> gedeelde preview (gh-pages:/preview/)
+# - andere branch     -> branch-preview (gh-pages:/{slug}/)
+# URL prod:        https://orthodox-ronl.github.io/bibliotheek/
+# URL development: https://orthodox-ronl.github.io/bibliotheek/preview/
+# Pages setting: Deploy from a branch -> gh-pages -> /.
+
+name: Deploy site to GitHub Pages
+
+on:
+  push:
+    branches-ignore:
+      - gh-pages
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build site
+    runs-on: ubuntu-latest
+
+    outputs:
+      destination_dir: ${{ steps.target.outputs.destination_dir }}
+      url_prefix: ${{ steps.target.outputs.url_prefix }}
+      pages_url: ${{ steps.target.outputs.pages_url }}
+      label: ${{ steps.target.outputs.label }}
+      keep_files: ${{ steps.target.outputs.keep_files }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Determine deploy target
+        id: target
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="${GITHUB_REF#refs/heads/}"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+
+          # Keep in sync with scripts/fingerprint_coria_mxl.py::_pages_subdir
+          reserved='^(preview|main|gh-pages|development|bibliotheek|koormappen|handleiding|coria|css|images|js|mxl|vsa|input)$'
+
+          if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
+            echo "base_url=https://orthodox-ronl.github.io/bibliotheek/" >> "$GITHUB_OUTPUT"
+            echo "destination_dir=" >> "$GITHUB_OUTPUT"
+            echo "url_prefix=/bibliotheek/" >> "$GITHUB_OUTPUT"
+            echo "pages_url=https://orthodox-ronl.github.io/bibliotheek/" >> "$GITHUB_OUTPUT"
+            echo "label=production" >> "$GITHUB_OUTPUT"
+            echo "keep_files=false" >> "$GITHUB_OUTPUT"
+          elif [[ "${GITHUB_REF}" == "refs/heads/development" ]]; then
+            echo "base_url=https://orthodox-ronl.github.io/bibliotheek/preview/" >> "$GITHUB_OUTPUT"
+            echo "destination_dir=preview" >> "$GITHUB_OUTPUT"
+            echo "url_prefix=/bibliotheek/preview/" >> "$GITHUB_OUTPUT"
+            echo "pages_url=https://orthodox-ronl.github.io/bibliotheek/preview/" >> "$GITHUB_OUTPUT"
+            echo "label=development-preview" >> "$GITHUB_OUTPUT"
+            echo "keep_files=true" >> "$GITHUB_OUTPUT"
+          else
+            slug="$(printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9_-]+/-/g; s/-+/-/g; s/^-+//; s/-+$//')"
+            if [[ -z "$slug" ]]; then
+              echo "::error::Branchnaam '$branch' levert geen bruikbare URL-slug op."
+              exit 1
+            fi
+            if [[ "$slug" =~ $reserved ]]; then
+              slug="b-${slug}"
+              echo "Reserved slug; using $slug"
+            fi
+            echo "base_url=https://orthodox-ronl.github.io/bibliotheek/${slug}/" >> "$GITHUB_OUTPUT"
+            echo "destination_dir=${slug}" >> "$GITHUB_OUTPUT"
+            echo "url_prefix=/bibliotheek/${slug}/" >> "$GITHUB_OUTPUT"
+            echo "pages_url=https://orthodox-ronl.github.io/bibliotheek/${slug}/" >> "$GITHUB_OUTPUT"
+            echo "label=branch-preview" >> "$GITHUB_OUTPUT"
+            echo "keep_files=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Show deploy target
+        run: |
+          echo "Target: ${{ steps.target.outputs.label }}"
+          echo "base_url: ${{ steps.target.outputs.base_url }}"
+          echo "destination_dir: '${{ steps.target.outputs.destination_dir }}'"
+          echo "url_prefix: ${{ steps.target.outputs.url_prefix }}"
+          echo "keep_files: ${{ steps.target.outputs.keep_files }}"
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+
+      - name: Coria fingerprints
+        run: python scripts/fingerprint_coria_mxl.py
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.160.1"
+          extended: true
+
+      - name: Build Hugo site
+        run: |
+          rm -rf generated/site
+          hugo \
+            --source . \
+            --destination generated/site \
+            --minify \
+            --baseURL "${{ steps.target.outputs.base_url }}"
+
+      - name: Upload site artifact
+        uses: actions/upload-artifact@v8
+        with:
+          name: pages-site
+          path: generated/site
+          if-no-files-found: error
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    uses: orthodox-ronl/VSA-tooling/.github/workflows/pages-deploy-reusable.yml@main
+    with:
+      artifact_name: pages-site
+      publish_dir: site
+      destination_dir: ${{ needs.build.outputs.destination_dir }}
+      url_prefix: ${{ needs.build.outputs.url_prefix }}
+      pages_url: ${{ needs.build.outputs.pages_url }}
+      keep_files: ${{ needs.build.outputs.keep_files == 'true' }}
+    permissions:
+      contents: write

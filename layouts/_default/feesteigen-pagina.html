@@ -1,0 +1,5 @@
+{{ define "main" }}
+<h1>{{ .Title }}{{ with .Params.source }} ({{ . }}){{ end }}</h1>
+
+{{ .Content }}
+{{ end }}
