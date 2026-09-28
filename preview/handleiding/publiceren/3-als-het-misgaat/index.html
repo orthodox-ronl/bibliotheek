@@ -60,7 +60,7 @@ uitvoer altijd met <code>-o</code> naar een schone naam.</p><h2 id=doel-id-leeg-
 en vraag het na. Twee inputs naar dezelfde uitvoeringsvorm mag (Capella én VOW);
 noteer dat in de notitie. Id-lijst:
 <a href=/bibliotheek/id-register/>Id-register</a>
-.</p><h2 id=bieb-accepteer-weigert-het-bestand>bieb-accepteer weigert het bestand</h2><p><strong>Symptoom:</strong> <code>scripts\bieb-accepteer.cmd</code> eindigt met <code>FAIL:</code>.</p><p>Lees de regel <code>Oplossing:</code> in het opdrachtvenster. Veelvoorkomend: verkeerd
+.</p><h2 id=bieb-accepteer-weigert-het-bestand>bieb accepteer weigert het bestand</h2><p><strong>Symptoom:</strong> <code>bieb accepteer</code> eindigt met <code>FAIL:</code>.</p><p>Lees de regel <code>Oplossing:</code> in het opdrachtvenster. Veelvoorkomend: verkeerd
 id, bestand bestaat al (dan <code>--force</code> alleen als je bewust overschrijft),
 <code>.vsa</code> die <code>vsa validate</code> niet haalt, of een Capella-<code>.mxl</code> zonder basispartituur.
 Stappen: <a href=../1-opnemen-in-bibliotheek/>Opnemen in de bibliotheek</a>
@@ -78,9 +78,9 @@ basispartituur-<code>.mscz</code> (of opnieuw vanaf opgekuiste <code>.mxl</code>
 </span></span></code></pre></div><h2 id=coria-failed-to-retrieve-file>Coria: <code>failed to retrieve file</code></h2><p>Coria haalt het muziekbestand zelf vanaf internet op. De Oefenen-knop
 moet daarom naar een <strong>volledig</strong> adres op <code>raw.githubusercontent.com</code>
 wijzen, bijvoorbeeld
-<code>https://raw.githubusercontent.com/orthodox-ronl/ibliotheek/gh-pages/preview/mxl/c/&lt;hash>.musicxml</code>
+<code>https://raw.githubusercontent.com/orthodox-ronl/bibliotheek/gh-pages/preview/mxl/c/&lt;hash>.musicxml</code>
 (fingerprint op branch <code>gh-pages</code>). De website voor mensen blijft
-<code>https://orthodox-ronl.github.io/ibliotheek/</code>; Coria&rsquo;s server faalt op
+<code>https://orthodox-ronl.github.io/bibliotheek/</code>; Coria&rsquo;s server faalt op
 <code>github.io</code>-MusicXML regelmatig met <code>failed to retrieve file</code>.
 Gebruik geen pad zonder host (<code>/mxl/c/…</code>), geen <code>http://127.0.0.1:…</code>,
 geen <code>github.io</code>-MusicXML, en geen page-bundle-<code>.mxl</code>.</p><p>Draai <code>scripts\check.cmd</code> of <code>scripts\build.cmd</code> opnieuw zodat

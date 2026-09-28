@@ -19,8 +19,8 @@ genoeg is om op te nemen.&lt;/p&gt;
 &lt;li&gt;Vul het &lt;strong&gt;doel-id&lt;/strong&gt; in — niet raden; zie het
 &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/id-register/"&gt;Id-register&lt;/a&gt;
 .&lt;/li&gt;
-&lt;li&gt;Als het bestand klaar is (basispartituur-&lt;code&gt;.mscz&lt;/code&gt;, &lt;code&gt;.vsa&lt;/code&gt;, &lt;code&gt;.print.mscz&lt;/code&gt;
-of &lt;code&gt;.tekstblad.md&lt;/code&gt;): &lt;code&gt;scripts\bieb-accepteer.cmd&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Als het bestand klaar is (basispartituur-&lt;code&gt;.mscz&lt;/code&gt;, &lt;code&gt;.vsa&lt;/code&gt;, &lt;code&gt;.mvsa&lt;/code&gt;,
+handmatig &lt;code&gt;.mscz&lt;/code&gt;, of &lt;code&gt;.tekstblad.md&lt;/code&gt;): &lt;code&gt;bieb accepteer&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;Controleer met &lt;code&gt;scripts\check.cmd --strict&lt;/code&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 
@@ -70,7 +70,7 @@ de bibliotheekpagina als plaatje verschijnen en via &lt;strong&gt;Oefenen&lt;/st
 afspeelbaar zijn — zonder een volledige MuseScore-basispartituur.&lt;/p&gt;</description></item><item><title>Print-vel</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/print-vel/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/print-vel/</guid><description>&lt;h1 id="print-vel-legacy-naam"&gt;Print-vel (legacy-naam)&lt;/h1&gt;
 &lt;p&gt;Dit werktraject houdt een &lt;strong&gt;handmatig MuseScore-blad&lt;/strong&gt; en een &lt;strong&gt;handmatige
 PDF&lt;/strong&gt; bij buiten de basispartituur-keten.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Doelvorm&lt;/strong&gt; (zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/productgates/"&gt;Productgates&lt;/a&gt;
+&lt;p&gt;&lt;strong&gt;Doelvorm&lt;/strong&gt; (zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/publicatiecontrole/"&gt;Publicatiecontrole&lt;/a&gt;
 ): het
 bestand heet &lt;code&gt;{stam}.mscz&lt;/code&gt; (geen &lt;code&gt;.print.&lt;/code&gt; in de naam) en de bladermap heeft
 &lt;code&gt;artefacten_handmatig: true&lt;/code&gt;. Afgeleide PDF: &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt;.&lt;/p&gt;
@@ -203,7 +203,7 @@ PDF, Coria) — analoog aan &lt;a href="../vsa/"&gt;VSA&lt;/a&gt;
 &lt;li&gt;eigen &lt;strong&gt;representatie-id&lt;/strong&gt; (bijvoorbeeld &lt;code&gt;mvsa&lt;/code&gt;, of een naam uit de
 glossary in &lt;code&gt;bron&lt;/code&gt;);&lt;/li&gt;
 &lt;li&gt;canonieke bron (verwacht: &lt;code&gt;.mvsa&lt;/code&gt;-bestand);&lt;/li&gt;
-&lt;li&gt;afgeleiden en stamps zoals bij &lt;code&gt;vsa-products&lt;/code&gt; / de partituur-gate.&lt;/li&gt;
+&lt;li&gt;afgeleiden en stamps zoals bij &lt;code&gt;vsa-products&lt;/code&gt; / de partituur-publicatiecontrole.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id="wanneer-wel--wanneer-niet"&gt;Wanneer wel / wanneer niet&lt;/h2&gt;
 &lt;p&gt;Nu: &lt;strong&gt;niet gebruiken&lt;/strong&gt;. Voor eenstemmig werk: &lt;a href="../vsa/"&gt;VSA&lt;/a&gt;

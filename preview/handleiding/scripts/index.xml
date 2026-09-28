@@ -39,13 +39,13 @@ preflight — die map is geen publicatiebron.&lt;/p&gt;</description></item><ite
 &lt;ol&gt;
 &lt;li&gt;&lt;code&gt;validate&lt;/code&gt; — &lt;code&gt;vsa validate&lt;/code&gt; op &lt;code&gt;content-source\bibliotheek&lt;/code&gt; (en
 &lt;code&gt;mvsa validate&lt;/code&gt; als daar &lt;code&gt;.mvsa&lt;/code&gt;-bestanden staan)&lt;/li&gt;
-&lt;li&gt;VSA-productgate — of elke bibliotheek-&lt;code&gt;.vsa&lt;/code&gt; (behalve
+&lt;li&gt;VSA-publicatiecontrole — of elke bibliotheek-&lt;code&gt;.vsa&lt;/code&gt; (behalve
 &lt;code&gt;artefacten_handmatig&lt;/code&gt;) een passende sibling &lt;code&gt;{stam}.vsa.mxl&lt;/code&gt; heeft
 met &lt;code&gt;vsa-source-sha256&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Coria-fingerprints (&lt;code&gt;python scripts\fingerprint_coria_mxl.py&lt;/code&gt;)&lt;/li&gt;
 &lt;li&gt;Hugo-build naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Zonder &lt;code&gt;--strict&lt;/code&gt; waarschuwt de productgate lokaal maar faalt niet
+&lt;p&gt;Zonder &lt;code&gt;--strict&lt;/code&gt; waarschuwt de publicatiecontrole lokaal maar faalt niet
 (behalve op &lt;code&gt;main&lt;/code&gt; of met &lt;code&gt;BIBLIOTHEEK_PRODUCTS_STRICT=1&lt;/code&gt;). Met
 &lt;code&gt;--strict&lt;/code&gt;, en altijd in CI, is een stale of missing &lt;code&gt;.vsa.mxl&lt;/code&gt; een
 fout. Vernieuw dan lokaal met &lt;a href="../vsa-products/"&gt;vsa-products&lt;/a&gt;
@@ -258,22 +258,17 @@ blijven behouden.&lt;/p&gt;
 &lt;p&gt;Het is hervatbaar: bestaande &lt;code&gt;.mscz&lt;/code&gt; die niet ouder zijn dan de bron worden
 overgeslagen, tenzij &lt;code&gt;--force&lt;/code&gt;. Logbestand: &lt;code&gt;doel\_batch-log.txt&lt;/code&gt;. MuseScore
 4 moet geïnstalleerd zijn en &lt;strong&gt;niet open&lt;/strong&gt; staan tijdens de run. Geen PDF
-en geen Coria-&lt;code&gt;.mxl&lt;/code&gt;. Niet in &lt;code&gt;check&lt;/code&gt; / &lt;code&gt;build&lt;/code&gt; / &lt;code&gt;serve&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>bieb-accepteer</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-accepteer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-accepteer/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;scripts\bieb-accepteer.cmd&lt;/code&gt; — partituur opnemen in de bibliotheek-site-bibliotheek&lt;/p&gt;
+en geen Coria-&lt;code&gt;.mxl&lt;/code&gt;. Niet in &lt;code&gt;check&lt;/code&gt; / &lt;code&gt;build&lt;/code&gt; / &lt;code&gt;serve&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>bieb accepteer</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-accepteer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-accepteer/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;bieb accepteer&lt;/code&gt; — partituur of tekstblad opnemen in de bibliotheek&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb-accepteer.cmd [id] [bestand...] [opties]
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;bieb accepteer [id] [bestand...] [opties]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;(Later: &lt;code&gt;scripts\bieb.cmd&lt;/code&gt; met subcommando’s, zoals &lt;code&gt;vsa&lt;/code&gt; / &lt;code&gt;mvsa&lt;/code&gt;. Nog niet
+als &lt;code&gt;.cmd&lt;/code&gt; in deze repo.)&lt;/p&gt;
+&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Neemt een klaar bestand op in de &lt;strong&gt;bibliotheek&lt;/strong&gt; (de catalogus onder
 &lt;code&gt;bibliotheek\&lt;/code&gt;), onder een bibliotheek-id van drie lagen:
 &lt;code&gt;zangstuk/variant/uitvoeringsvorm&lt;/code&gt;. Toegestaan: basispartituur-&lt;code&gt;.mscz&lt;/code&gt;,
-&lt;code&gt;.vsa&lt;/code&gt;, &lt;code&gt;.print.mscz&lt;/code&gt;, of &lt;code&gt;.tekstblad.md&lt;/code&gt; (optioneel sibling-&lt;code&gt;.pdf&lt;/code&gt; / &lt;code&gt;.mxl&lt;/code&gt;).
-Bij &lt;code&gt;.tekstblad.md&lt;/code&gt; zet het script indien nodig frontmatter
-&lt;code&gt;build: render: never&lt;/code&gt; zodat de bron geen Hugo-pagina wordt.&lt;/p&gt;
-&lt;p&gt;Het script maakt ontbrekende &lt;code&gt;_index.md&lt;/code&gt; / &lt;code&gt;index.md&lt;/code&gt; met shortcode &lt;code&gt;bieb&lt;/code&gt;
-en hernoemt naar de publicatiestam. Capella-bronformats en een kale
-Capella-&lt;code&gt;.mxl&lt;/code&gt; worden geweigerd — eerst &lt;a href="../opkuisen/"&gt;opkuisen&lt;/a&gt;
- /
-&lt;a href="../layout/"&gt;layout&lt;/a&gt;
-. Bij &lt;code&gt;.vsa&lt;/code&gt; draait &lt;code&gt;vsa validate&lt;/code&gt; (tenzij
-&lt;code&gt;--skip-vsa-validate&lt;/code&gt;). Default &lt;code&gt;publicatiestatus: reviewable&lt;/code&gt; (&lt;code&gt;voorzien&lt;/code&gt;
-bij &lt;code&gt;--stub&lt;/code&gt;). Status &lt;code&gt;productie&lt;/code&gt; alleen met &lt;code&gt;--force&lt;/code&gt;.&lt;/p&gt;</description></item></channel></rss>
+&lt;code&gt;.vsa&lt;/code&gt;, &lt;code&gt;.mvsa&lt;/code&gt;, handmatig &lt;code&gt;.mscz&lt;/code&gt; (met &lt;code&gt;--artefacten-handmatig&lt;/code&gt;), of
+&lt;code&gt;.tekstblad.md&lt;/code&gt; (optioneel sibling-&lt;code&gt;.pdf&lt;/code&gt; / &lt;code&gt;.mxl&lt;/code&gt;). Bij &lt;code&gt;.tekstblad.md&lt;/code&gt;
+zet het script indien nodig frontmatter &lt;code&gt;build: render: never&lt;/code&gt; zodat de
+bron geen Hugo-pagina wordt.&lt;/p&gt;</description></item></channel></rss>

@@ -64,8 +64,8 @@ voor SVG of <code>vsa-products</code>.</p><h2 id=wanneer-wel--wanneer-niet>Wanne
 <a href=../../vsa/1-vsa-schrijven/>.vsa schrijven</a>
 .</li><li>Neem op in de bibliotheek indien nodig:
 <a href=../opnemen-in-bibliotheek/>Opnemen</a>
-(<code>bieb-accepteer</code>).</li><li>Coria-<code>.vsa.mxl</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\vsa-products.cmd content-source\bibliotheek\5-eniggeboren-zoon
-</span></span></code></pre></div><ol start=4><li>Controleer: <code>check --strict</code> (validate + productgate + Hugo).</li><li>Site bekijken: <code>serve</code> → http://127.0.0.1:18732/</li></ol><p>Bibliotheek-<strong>Oefenen</strong> gebruikt de sibling <code>{stam}.vsa.mxl</code> in de
+(<code>bieb accepteer</code>).</li><li>Coria-<code>.vsa.mxl</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\vsa-products.cmd content-source\bibliotheek\5-eniggeboren-zoon
+</span></span></code></pre></div><ol start=4><li>Controleer: <code>check --strict</code> (validate + publicatiecontrole + Hugo).</li><li>Site bekijken: <code>serve</code> → http://127.0.0.1:18732/</li></ol><p>Bibliotheek-<strong>Oefenen</strong> gebruikt de sibling <code>{stam}.vsa.mxl</code> in de
 bladermap.</p><h2 id=automatisch-ci>Automatisch (CI)</h2><ul><li><strong>Wel:</strong> <code>check_vsa_products.py</code> controleert of <code>{stam}.vsa.mxl</code> bij de
 canonieke <code>.vsa</code> past (sha-stamp). Pages-CI faalt bij missing/stale.</li><li><strong>Niet:</strong> stilzwijgend een verouderde <code>.vsa.mxl</code> herschrijven zonder
 commit. Vernieuw lokaal met <code>vsa-products</code> en commit <code>{stam}.vsa.mxl</code>

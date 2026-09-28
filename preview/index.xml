@@ -126,16 +126,17 @@
 &lt;p&gt;&lt;strong&gt;Werktraject&lt;/strong&gt; (waartoe, criteria, CI, binnenhalen):
 &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/opnemen-in-bibliotheek/"&gt;Opnemen in de bibliotheek&lt;/a&gt;
 .
-Deze pagina is de HOW voor &lt;code&gt;bieb-accepteer&lt;/code&gt;.&lt;/p&gt;
+Deze pagina is de HOW voor &lt;code&gt;bieb accepteer&lt;/code&gt;.&lt;/p&gt;
 &lt;aside class="handleiding-cue"&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;ol&gt;
 &lt;li&gt;Ken het &lt;strong&gt;bibliotheek-id&lt;/strong&gt; (drie delen met schuine strepen), of vraag het na.&lt;/li&gt;
 &lt;li&gt;Zorg dat je bestand al een bruikbare &lt;strong&gt;basispartituur-&lt;code&gt;.mscz&lt;/code&gt;&lt;/strong&gt;, &lt;strong&gt;&lt;code&gt;.vsa&lt;/code&gt;&lt;/strong&gt;,
-&lt;strong&gt;&lt;code&gt;.print.mscz&lt;/code&gt;&lt;/strong&gt;, of &lt;strong&gt;&lt;code&gt;.tekstblad.md&lt;/code&gt;&lt;/strong&gt; is — niet een ruwe Capella-file.&lt;/li&gt;
-&lt;li&gt;Open het Windows-opdrachtvenster in de map &lt;code&gt;ibliotheek&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Typ &lt;code&gt;scripts\bieb-accepteer.cmd&lt;/code&gt; en Enter — het script vraagt id en
+&lt;strong&gt;&lt;code&gt;.mvsa&lt;/code&gt;&lt;/strong&gt;, handmatig &lt;code&gt;.mscz&lt;/code&gt;, of &lt;strong&gt;&lt;code&gt;.tekstblad.md&lt;/code&gt;&lt;/strong&gt; is — niet een
+ongekuiste &lt;code&gt;.mxl&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Open het Windows-opdrachtvenster in de map &lt;code&gt;bibliotheek&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Typ &lt;code&gt;bieb accepteer&lt;/code&gt; en Enter — het script vraagt id en
 bestand na. (Of plak een volledige regel, zie hieronder.)&lt;/li&gt;
 &lt;li&gt;Op een vraag mag je &lt;code&gt;?&lt;/code&gt; typen voor uitleg; daarna vul je alsnog in.&lt;/li&gt;
 &lt;li&gt;Controleer daarna met &lt;code&gt;scripts\check.cmd --strict&lt;/code&gt;.&lt;/li&gt;
@@ -205,7 +206,7 @@ alleen voor tropaar toon 4.&lt;/p&gt;</description></item><item><title>10 Evange
  &lt;p&gt;Nieuwe partituur in de bibliotheek zetten:
 &lt;a href="../1-opnemen-in-bibliotheek/"&gt;Opnemen in de bibliotheek&lt;/a&gt;
 
-(&lt;code&gt;scripts\bieb-accepteer.cmd&lt;/code&gt;).&lt;/p&gt;
+(&lt;code&gt;bieb accepteer&lt;/code&gt;).&lt;/p&gt;
 &lt;p&gt;Slot-pagina in de koormap:
 &lt;code&gt;content-source\praktijk\koormappen\hemelum\liturgie\…\index.md&lt;/code&gt; met
 shortcode &lt;code&gt;bieb&lt;/code&gt; (parameter &lt;code&gt;id&lt;/code&gt; = bibliotheek-id) en
@@ -272,8 +273,8 @@ genoeg is om op te nemen.&lt;/p&gt;
 &lt;li&gt;Vul het &lt;strong&gt;doel-id&lt;/strong&gt; in — niet raden; zie het
 &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/id-register/"&gt;Id-register&lt;/a&gt;
 .&lt;/li&gt;
-&lt;li&gt;Als het bestand klaar is (basispartituur-&lt;code&gt;.mscz&lt;/code&gt;, &lt;code&gt;.vsa&lt;/code&gt;, &lt;code&gt;.print.mscz&lt;/code&gt;
-of &lt;code&gt;.tekstblad.md&lt;/code&gt;): &lt;code&gt;scripts\bieb-accepteer.cmd&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Als het bestand klaar is (basispartituur-&lt;code&gt;.mscz&lt;/code&gt;, &lt;code&gt;.vsa&lt;/code&gt;, &lt;code&gt;.mvsa&lt;/code&gt;,
+handmatig &lt;code&gt;.mscz&lt;/code&gt;, of &lt;code&gt;.tekstblad.md&lt;/code&gt;): &lt;code&gt;bieb accepteer&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;Controleer met &lt;code&gt;scripts\check.cmd --strict&lt;/code&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 
@@ -409,13 +410,13 @@ basispartituur.&lt;/p&gt;</description></item><item><title>check</title><link>ht
 &lt;ol&gt;
 &lt;li&gt;&lt;code&gt;validate&lt;/code&gt; — &lt;code&gt;vsa validate&lt;/code&gt; op &lt;code&gt;content-source\bibliotheek&lt;/code&gt; (en
 &lt;code&gt;mvsa validate&lt;/code&gt; als daar &lt;code&gt;.mvsa&lt;/code&gt;-bestanden staan)&lt;/li&gt;
-&lt;li&gt;VSA-productgate — of elke bibliotheek-&lt;code&gt;.vsa&lt;/code&gt; (behalve
+&lt;li&gt;VSA-publicatiecontrole — of elke bibliotheek-&lt;code&gt;.vsa&lt;/code&gt; (behalve
 &lt;code&gt;artefacten_handmatig&lt;/code&gt;) een passende sibling &lt;code&gt;{stam}.vsa.mxl&lt;/code&gt; heeft
 met &lt;code&gt;vsa-source-sha256&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Coria-fingerprints (&lt;code&gt;python scripts\fingerprint_coria_mxl.py&lt;/code&gt;)&lt;/li&gt;
 &lt;li&gt;Hugo-build naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Zonder &lt;code&gt;--strict&lt;/code&gt; waarschuwt de productgate lokaal maar faalt niet
+&lt;p&gt;Zonder &lt;code&gt;--strict&lt;/code&gt; waarschuwt de publicatiecontrole lokaal maar faalt niet
 (behalve op &lt;code&gt;main&lt;/code&gt; of met &lt;code&gt;BIBLIOTHEEK_PRODUCTS_STRICT=1&lt;/code&gt;). Met
 &lt;code&gt;--strict&lt;/code&gt;, en altijd in CI, is een stale of missing &lt;code&gt;.vsa.mxl&lt;/code&gt; een
 fout. Vernieuw dan lokaal met &lt;a href="../vsa-products/"&gt;vsa-products&lt;/a&gt;
@@ -634,7 +635,7 @@ kindpagina’s of een &lt;strong&gt;compositieblad&lt;/strong&gt; (markdown + sh
 &lt;/aside&gt;
 
 &lt;p&gt;&lt;strong&gt;Wat je nu doet:&lt;/strong&gt; het model kennen waarmee de bibliotheek-site werkt, zodat
-publicatie, ids en navigatie niet door elkaar lopen.&lt;/p&gt;</description></item><item><title>Productgates en bestandsnamen</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/productgates/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/productgates/</guid><description>&lt;h1 id="productgates-en-bestandsnamen"&gt;Productgates en bestandsnamen&lt;/h1&gt;
+publicatie, ids en navigatie niet door elkaar lopen.&lt;/p&gt;</description></item><item><title>Publicatiecontrole en bestandsnamen</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/publicatiecontrole/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/publicatiecontrole/</guid><description>&lt;h1 id="publicatiecontrole-en-bestandsnamen"&gt;Publicatiecontrole en bestandsnamen&lt;/h1&gt;
 &lt;p&gt;Deze pagina is de &lt;strong&gt;specificatie&lt;/strong&gt; voor afgeleide bestanden in de
 bibliotheek: hoe ze heten, welke bron ze bijhouden, en wat CI controleert.
 Doelgroep: beheerder (MuseScore en Windows-cmd; geen programmeur).&lt;/p&gt;
@@ -652,8 +653,8 @@ Naamgevingsconventie voor conversies (tooling):
 &lt;li&gt;&lt;strong&gt;Bron&lt;/strong&gt; = één echte extensie: &lt;code&gt;{stam}.vsa&lt;/code&gt;, &lt;code&gt;{stam}.mscz&lt;/code&gt;, &lt;code&gt;{stam}.mvsa&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Afgeleide&lt;/strong&gt; = &lt;code&gt;{stam}.{bron-extensie}.{doel-extensie}&lt;/code&gt; —
 bijv. &lt;code&gt;{stam}.vsa.mxl&lt;/code&gt;, &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Productgate&lt;/strong&gt; = controle of die afgeleide nog bij de bron past (sha-stamp);
-CI genereert niet, jij wel lokaal&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Publicatiecontrole&lt;/strong&gt; = versheidscontrole op site-producten (sibling +
+herkomststempel); CI genereert niet, jij wel lokaal&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Handmatig&lt;/strong&gt; = &lt;code&gt;artefacten_handmatig: true&lt;/code&gt; op &lt;code&gt;index.md&lt;/code&gt; (vervangt het
 oude &lt;code&gt;.print.mscz&lt;/code&gt;-spoor)&lt;/li&gt;
 &lt;/ul&gt;
@@ -661,8 +662,38 @@ oude &lt;code&gt;.print.mscz&lt;/code&gt;-spoor)&lt;/li&gt;
  &lt;/div&gt;
 &lt;/aside&gt;
 
-&lt;h2 id="wat-is-een-productgate"&gt;Wat is een productgate?&lt;/h2&gt;
-&lt;p&gt;Een &lt;strong&gt;productgate&lt;/strong&gt; is een vaste controle in &lt;code&gt;check&lt;/code&gt; / GitHub Actions:&lt;/p&gt;</description></item><item><title>26 Gezegend Hij, Die komt ...</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/26-gezegend-hij-die-komt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/26-gezegend-hij-die-komt/</guid><description>&lt;h1 id="26-gezegend-hij-die-komt-"&gt;26 Gezegend Hij, Die komt &amp;hellip;&lt;/h1&gt;</description></item><item><title>27 Communiezang</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/27-communiezang/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/27-communiezang/</guid><description>&lt;h1 id="27-communiezang"&gt;27 Communiezang&lt;/h1&gt;</description></item><item><title>28 Wij hebben het Ware Licht</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/28-wij-hebben-het-ware-licht/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/28-wij-hebben-het-ware-licht/</guid><description>&lt;h1 id="28-wij-hebben-het-ware-licht"&gt;28 Wij hebben het Ware Licht&lt;/h1&gt;
+&lt;h2 id="controles-terminologie"&gt;Controles (terminologie)&lt;/h2&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Term&lt;/th&gt;
+ &lt;th&gt;Betekenis&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;Versheidscontrole&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;Meet en meldt of een sibling bestaat en of de herkomststempel (sha) bij de bron past. Regenereren doet dit niet.&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;Publicatiecontrole&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;Versheidscontrole op &lt;strong&gt;site-producten&lt;/strong&gt; (PDF, Coria-&lt;code&gt;.mxl&lt;/code&gt;, …).&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;Importcontrole&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;Versheidscontrole op een &lt;strong&gt;bewerk-/importvorm&lt;/strong&gt; (bijv. sibling &lt;code&gt;.mscz.mvsa&lt;/code&gt;).&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;Geldigheidscontrole&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;Bron geldig / formaat-check (&lt;code&gt;vsa validate&lt;/code&gt;, &lt;code&gt;mvsa validate&lt;/code&gt;, …).&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;Strengheid&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;Beleid op die controles (lokaal waarschuwen vs &lt;code&gt;--strict&lt;/code&gt; / CI falen) — geen apart functietype.&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Een &lt;strong&gt;publicatiecontrole&lt;/strong&gt; in &lt;code&gt;check&lt;/code&gt; / GitHub Actions doet dit:&lt;/p&gt;</description></item><item><title>26 Gezegend Hij, Die komt ...</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/26-gezegend-hij-die-komt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/26-gezegend-hij-die-komt/</guid><description>&lt;h1 id="26-gezegend-hij-die-komt-"&gt;26 Gezegend Hij, Die komt &amp;hellip;&lt;/h1&gt;</description></item><item><title>27 Communiezang</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/27-communiezang/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/27-communiezang/</guid><description>&lt;h1 id="27-communiezang"&gt;27 Communiezang&lt;/h1&gt;</description></item><item><title>28 Wij hebben het Ware Licht</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/28-wij-hebben-het-ware-licht/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/28-wij-hebben-het-ware-licht/</guid><description>&lt;h1 id="28-wij-hebben-het-ware-licht"&gt;28 Wij hebben het Ware Licht&lt;/h1&gt;
 &lt;div class="score-actions oefenhoek-acties oefenhoek-acties--bibliotheek" data-pdf-src="https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/28-wij-hebben-het-ware-licht/default/hemelum/28-wij-hebben-het-ware-licht-default-hemelum.pdf"&gt;
  &lt;a class="btn coria-play" href="https://coria.nl/play_from_url?back=coria.nl&amp;amp;url=https%3A%2F%2Fraw.githubusercontent.com%2Forthodox-ronl%2Fbibliotheek%2Fgh-pages%2Fpreview%2Fmxl%2Fc%2Fed2081e94002.musicxml" target="_blank" rel="noopener noreferrer"&gt;Oefenen&lt;/a&gt;
  &lt;a class="btn" href="https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/28-wij-hebben-het-ware-licht/default/hemelum/28-wij-hebben-het-ware-licht-default-hemelum.pdf" download&gt;Downloaden&lt;/a&gt;
@@ -859,23 +890,25 @@ afspeelbaar zijn — zonder een volledige MuseScore-basispartituur.&lt;/p&gt;</d
  &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;basispartituur&lt;/strong&gt; / basispartituur-&lt;code&gt;.mscz&lt;/code&gt; = canonieke MuseScore-partituur (hier bewerk je; daarna normaliseren). Bronextensie &lt;code&gt;.mscz&lt;/code&gt;; afgeleiden &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt; / &lt;code&gt;{stam}.mscz.mxl&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;handmatig MuseScore-blad&lt;/strong&gt; = gewone &lt;code&gt;{stam}.mscz&lt;/code&gt; in een map met &lt;code&gt;artefacten_handmatig: true&lt;/code&gt; (vervangt het oude &lt;code&gt;.print.mscz&lt;/code&gt;)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;productgate&lt;/strong&gt; = controle of afgeleiden bij de bron passen (sha-stamp); zie &lt;a href="productgates/"&gt;Productgates&lt;/a&gt;
+&lt;li&gt;&lt;strong&gt;versheidscontrole&lt;/strong&gt; = sibling bestaat + herkomststempel past bij bron; meet/meldt alleen&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;publicatiecontrole&lt;/strong&gt; = versheidscontrole op site-producten; zie &lt;a href="publicatiecontrole/"&gt;Publicatiecontrole&lt;/a&gt;
 &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;importcontrole&lt;/strong&gt; = versheidscontrole op bewerk-/importvorm (bijv. &lt;code&gt;.mscz.mvsa&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;geldigheidscontrole&lt;/strong&gt; = &lt;code&gt;vsa validate&lt;/code&gt; / &lt;code&gt;mvsa validate&lt;/code&gt; / …&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;artefacten_handmatig&lt;/strong&gt; = frontmatter op bibliotheek-&lt;code&gt;index.md&lt;/code&gt;: PDF/MXL niet auto-bijwerken&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;.mxl&lt;/code&gt; / &lt;code&gt;.vsa.mxl&lt;/code&gt; / &lt;code&gt;.mscz.mxl&lt;/code&gt; = MusicXML voor Coria (&lt;strong&gt;afgeleide&lt;/strong&gt;; niet terug importeren om te layouten)&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;.pdf&lt;/code&gt; / &lt;code&gt;.mscz.pdf&lt;/code&gt; = A4-afgeleide om te lezen of te printen&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;.vsa&lt;/code&gt; = tekst plus melodie in VSA-notatie (SVG + meestal auto Coria-&lt;code&gt;.vsa.mxl&lt;/code&gt;); overzicht trajecten: &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/"&gt;Werktrajecten&lt;/a&gt;
+&lt;li&gt;&lt;code&gt;.vsa&lt;/code&gt; / &lt;code&gt;.mvsa&lt;/code&gt; = tekstbronnen (VSA / meerstemmig); overzicht: &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/"&gt;Werktrajecten&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;werktraject&lt;/strong&gt; = vaste pijplijn (waartoe, eindresultaat, CI, handmatige &lt;code&gt;.cmd&lt;/code&gt;); catalogus: &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/"&gt;Werktrajecten&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;tekstblad&lt;/strong&gt; = bron &lt;code&gt;{stam}.tekstblad.md&lt;/code&gt; → product &lt;code&gt;{stam}.tekstblad.pdf&lt;/code&gt;; zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/tekstblad/"&gt;Tekstblad&lt;/a&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;opkuisen&lt;/strong&gt; = inhoud opschonen (stemmen/balken, lettergreep↔noot); Capella-script of handmatig in MuseScore&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;opkuisen&lt;/strong&gt; = inhoud opschonen (stemmen/balken, lettergreep↔noot); script of handmatig in MuseScore&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;normaliseren&lt;/strong&gt; / &lt;strong&gt;layouten&lt;/strong&gt; = basispartituur-standaard met &lt;code&gt;scripts\layout.cmd&lt;/code&gt; (zelfde scriptstap; “layouten” is de gewone naam)&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;bibliotheek-id&lt;/strong&gt; = &lt;code&gt;zangstuk/variant/uitvoeringsvorm&lt;/code&gt; (drie lagen); zichtbaar op bibliotheek-leaves en in het colofon van basispartituur-&lt;code&gt;.mscz&lt;/code&gt;/PDF&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;bieb&lt;/code&gt;&lt;/strong&gt; = shortcode die knoppen + partituur van een bibliotheek-id toont&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;bieb-accepteer&lt;/strong&gt; = script dat een &lt;code&gt;.mscz&lt;/code&gt; / &lt;code&gt;.vsa&lt;/code&gt; / tekstblad in de bibliotheek zet (mappen + &lt;code&gt;index.md&lt;/code&gt;); zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/opnemen-in-bibliotheek/"&gt;Opnemen&lt;/a&gt;
- en HOW &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/publiceren/1-opnemen-in-bibliotheek/"&gt;Publiceren&lt;/a&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;bieb&lt;/code&gt;&lt;/strong&gt; (shortcode) = knoppen + partituur van een bibliotheek-id; &lt;strong&gt;&lt;code&gt;bieb&lt;/code&gt;&lt;/strong&gt; (CLI, later) = beheercommando’s (&lt;code&gt;accepteer&lt;/code&gt;, &lt;code&gt;zoek&lt;/code&gt;, …)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;bieb accepteer&lt;/code&gt;&lt;/strong&gt; = bestand opnemen in de bibliotheek (mappen + &lt;code&gt;index.md&lt;/code&gt;); zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/opnemen-in-bibliotheek/"&gt;Opnemen&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;publicatiestatus&lt;/strong&gt; = wat koorleden op de pagina zien (sticky header); intern &lt;em&gt;Stap&lt;/em&gt; in de werkvoorraad is iets anders&lt;/li&gt;
 &lt;/ul&gt;
@@ -887,7 +920,7 @@ afspeelbaar zijn — zonder een volledige MuseScore-basispartituur.&lt;/p&gt;</d
 commando’s en mappen kloppen.&lt;/p&gt;</description></item><item><title>15d Cherubijnenhymne (Kastorski)</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/15-cherubijnenhymne/15d-kastorski/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/15-cherubijnenhymne/15d-kastorski/</guid><description>&lt;h1 id="15d-cherubijnenhymne-kastorski"&gt;15d Cherubijnenhymne (Kastorski)&lt;/h1&gt;</description></item><item><title>Print-vel</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/print-vel/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/print-vel/</guid><description>&lt;h1 id="print-vel-legacy-naam"&gt;Print-vel (legacy-naam)&lt;/h1&gt;
 &lt;p&gt;Dit werktraject houdt een &lt;strong&gt;handmatig MuseScore-blad&lt;/strong&gt; en een &lt;strong&gt;handmatige
 PDF&lt;/strong&gt; bij buiten de basispartituur-keten.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Doelvorm&lt;/strong&gt; (zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/productgates/"&gt;Productgates&lt;/a&gt;
+&lt;p&gt;&lt;strong&gt;Doelvorm&lt;/strong&gt; (zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/publicatiecontrole/"&gt;Publicatiecontrole&lt;/a&gt;
 ): het
 bestand heet &lt;code&gt;{stam}.mscz&lt;/code&gt; (geen &lt;code&gt;.print.&lt;/code&gt; in de naam) en de bladermap heeft
 &lt;code&gt;artefacten_handmatig: true&lt;/code&gt;. Afgeleide PDF: &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt;.&lt;/p&gt;
@@ -1185,7 +1218,7 @@ PDF, Coria) — analoog aan &lt;a href="../vsa/"&gt;VSA&lt;/a&gt;
 &lt;li&gt;eigen &lt;strong&gt;representatie-id&lt;/strong&gt; (bijvoorbeeld &lt;code&gt;mvsa&lt;/code&gt;, of een naam uit de
 glossary in &lt;code&gt;bron&lt;/code&gt;);&lt;/li&gt;
 &lt;li&gt;canonieke bron (verwacht: &lt;code&gt;.mvsa&lt;/code&gt;-bestand);&lt;/li&gt;
-&lt;li&gt;afgeleiden en stamps zoals bij &lt;code&gt;vsa-products&lt;/code&gt; / de partituur-gate.&lt;/li&gt;
+&lt;li&gt;afgeleiden en stamps zoals bij &lt;code&gt;vsa-products&lt;/code&gt; / de partituur-publicatiecontrole.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id="wanneer-wel--wanneer-niet"&gt;Wanneer wel / wanneer niet&lt;/h2&gt;
 &lt;p&gt;Nu: &lt;strong&gt;niet gebruiken&lt;/strong&gt;. Voor eenstemmig werk: &lt;a href="../vsa/"&gt;VSA&lt;/a&gt;
@@ -1327,25 +1360,20 @@ blijven behouden.&lt;/p&gt;
 &lt;p&gt;Het is hervatbaar: bestaande &lt;code&gt;.mscz&lt;/code&gt; die niet ouder zijn dan de bron worden
 overgeslagen, tenzij &lt;code&gt;--force&lt;/code&gt;. Logbestand: &lt;code&gt;doel\_batch-log.txt&lt;/code&gt;. MuseScore
 4 moet geïnstalleerd zijn en &lt;strong&gt;niet open&lt;/strong&gt; staan tijdens de run. Geen PDF
-en geen Coria-&lt;code&gt;.mxl&lt;/code&gt;. Niet in &lt;code&gt;check&lt;/code&gt; / &lt;code&gt;build&lt;/code&gt; / &lt;code&gt;serve&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>bieb-accepteer</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-accepteer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-accepteer/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;scripts\bieb-accepteer.cmd&lt;/code&gt; — partituur opnemen in de bibliotheek-site-bibliotheek&lt;/p&gt;
+en geen Coria-&lt;code&gt;.mxl&lt;/code&gt;. Niet in &lt;code&gt;check&lt;/code&gt; / &lt;code&gt;build&lt;/code&gt; / &lt;code&gt;serve&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>bieb accepteer</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-accepteer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-accepteer/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;bieb accepteer&lt;/code&gt; — partituur of tekstblad opnemen in de bibliotheek&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb-accepteer.cmd [id] [bestand...] [opties]
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;bieb accepteer [id] [bestand...] [opties]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;(Later: &lt;code&gt;scripts\bieb.cmd&lt;/code&gt; met subcommando’s, zoals &lt;code&gt;vsa&lt;/code&gt; / &lt;code&gt;mvsa&lt;/code&gt;. Nog niet
+als &lt;code&gt;.cmd&lt;/code&gt; in deze repo.)&lt;/p&gt;
+&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Neemt een klaar bestand op in de &lt;strong&gt;bibliotheek&lt;/strong&gt; (de catalogus onder
 &lt;code&gt;bibliotheek\&lt;/code&gt;), onder een bibliotheek-id van drie lagen:
 &lt;code&gt;zangstuk/variant/uitvoeringsvorm&lt;/code&gt;. Toegestaan: basispartituur-&lt;code&gt;.mscz&lt;/code&gt;,
-&lt;code&gt;.vsa&lt;/code&gt;, &lt;code&gt;.print.mscz&lt;/code&gt;, of &lt;code&gt;.tekstblad.md&lt;/code&gt; (optioneel sibling-&lt;code&gt;.pdf&lt;/code&gt; / &lt;code&gt;.mxl&lt;/code&gt;).
-Bij &lt;code&gt;.tekstblad.md&lt;/code&gt; zet het script indien nodig frontmatter
-&lt;code&gt;build: render: never&lt;/code&gt; zodat de bron geen Hugo-pagina wordt.&lt;/p&gt;
-&lt;p&gt;Het script maakt ontbrekende &lt;code&gt;_index.md&lt;/code&gt; / &lt;code&gt;index.md&lt;/code&gt; met shortcode &lt;code&gt;bieb&lt;/code&gt;
-en hernoemt naar de publicatiestam. Capella-bronformats en een kale
-Capella-&lt;code&gt;.mxl&lt;/code&gt; worden geweigerd — eerst &lt;a href="../opkuisen/"&gt;opkuisen&lt;/a&gt;
- /
-&lt;a href="../layout/"&gt;layout&lt;/a&gt;
-. Bij &lt;code&gt;.vsa&lt;/code&gt; draait &lt;code&gt;vsa validate&lt;/code&gt; (tenzij
-&lt;code&gt;--skip-vsa-validate&lt;/code&gt;). Default &lt;code&gt;publicatiestatus: reviewable&lt;/code&gt; (&lt;code&gt;voorzien&lt;/code&gt;
-bij &lt;code&gt;--stub&lt;/code&gt;). Status &lt;code&gt;productie&lt;/code&gt; alleen met &lt;code&gt;--force&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Tropaar zaterdag heiligen toon 2</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/110-tropaar/zaterdag-heiligen-toon-2/hemelum/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/110-tropaar/zaterdag-heiligen-toon-2/hemelum/</guid><description>&lt;h1 id="tropaar-zaterdag-heiligen-toon-2"&gt;Tropaar zaterdag heiligen toon 2&lt;/h1&gt;
+&lt;code&gt;.vsa&lt;/code&gt;, &lt;code&gt;.mvsa&lt;/code&gt;, handmatig &lt;code&gt;.mscz&lt;/code&gt; (met &lt;code&gt;--artefacten-handmatig&lt;/code&gt;), of
+&lt;code&gt;.tekstblad.md&lt;/code&gt; (optioneel sibling-&lt;code&gt;.pdf&lt;/code&gt; / &lt;code&gt;.mxl&lt;/code&gt;). Bij &lt;code&gt;.tekstblad.md&lt;/code&gt;
+zet het script indien nodig frontmatter &lt;code&gt;build: render: never&lt;/code&gt; zodat de
+bron geen Hugo-pagina wordt.&lt;/p&gt;</description></item><item><title>Tropaar zaterdag heiligen toon 2</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/110-tropaar/zaterdag-heiligen-toon-2/hemelum/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/110-tropaar/zaterdag-heiligen-toon-2/hemelum/</guid><description>&lt;h1 id="tropaar-zaterdag-heiligen-toon-2"&gt;Tropaar zaterdag heiligen toon 2&lt;/h1&gt;
 &lt;div class="score-actions oefenhoek-acties oefenhoek-acties--bibliotheek"&gt;
  &lt;a class="btn coria-play" href="https://coria.nl/play_from_url?back=coria.nl&amp;amp;url=https%3A%2F%2Fraw.githubusercontent.com%2Forthodox-ronl%2Fbibliotheek%2Fgh-pages%2Fpreview%2Fmxl%2Fc%2Fab6f5934ace2.musicxml" target="_blank" rel="noopener noreferrer"&gt;Oefenen&lt;/a&gt;
  
@@ -1453,7 +1481,7 @@ script tegelijk.&lt;/p&gt;
 | &lt;em&gt;(alleen bibliotheek voorlopig)&lt;/em&gt; | &lt;code&gt;19-eucharistische-canon/rostov/hemelum&lt;/code&gt; | &lt;code&gt;19-eucharistische-canon-rostov-hemelum&lt;/code&gt; | — | VOW-input; stub |
 | &lt;code&gt;20-moeder-godslied/20d-in-waarheid-moeder-godslied/&lt;/code&gt; | &lt;code&gt;20-moeder-godslied/20d-in-waarheid/hemelum&lt;/code&gt; | &lt;code&gt;20-moeder-godslied-20d-in-waarheid-hemelum&lt;/code&gt; | mscz, mxl, pdf | |
 | &lt;code&gt;20-moeder-godslied/20-moeder-godslied-ontslapen-mgods/&lt;/code&gt; | &lt;code&gt;20-moeder-godslied/ontslapen-moeder-gods/hemelum&lt;/code&gt; | &lt;code&gt;20-moeder-godslied-ontslapen-moeder-gods-hemelum&lt;/code&gt; | print.mscz, mxl, pdf, vsa | &lt;code&gt;artefacten_handmatig&lt;/code&gt;; print-track |
-| &lt;code&gt;25-communievers/25-communievers-onthoofding-johannes-de-doper/&lt;/code&gt; | &lt;code&gt;25-communievers/onthoofding-johannes-de-doper/hemelum&lt;/code&gt; | &lt;code&gt;25-communievers-onthoofding-johannes-de-doper-hemelum&lt;/code&gt; | vsa, vsa.mxl, pdf | Geen basispartituur-mscz; Coria via VSA-productgate |
+| &lt;code&gt;25-communievers/25-communievers-onthoofding-johannes-de-doper/&lt;/code&gt; | &lt;code&gt;25-communievers/onthoofding-johannes-de-doper/hemelum&lt;/code&gt; | &lt;code&gt;25-communievers-onthoofding-johannes-de-doper-hemelum&lt;/code&gt; | vsa, vsa.mxl, pdf | Geen basispartituur-mscz; Coria via VSA-publicatiecontrole |
 | &lt;code&gt;troparen-en-kondaken/tropaar-nikolaas-van-myra/&lt;/code&gt; | &lt;code&gt;110-tropaar/nikolaas-van-myra-toon-4/hemelum&lt;/code&gt; | &lt;code&gt;110-tropaar-nikolaas-van-myra-toon-4-hemelum&lt;/code&gt; | print.mscz, mxl, pdf, vsa | &lt;code&gt;artefacten_handmatig&lt;/code&gt;; onder zangstuk &lt;code&gt;110-tropaar/&lt;/code&gt; |
 | &lt;code&gt;2-eerste-antifoon/weekdagen/&lt;/code&gt; | &lt;code&gt;2-eerste-antifoon/weekdagen/hemelum&lt;/code&gt; | &lt;code&gt;2-eerste-antifoon-weekdagen-hemelum-hemelum&lt;/code&gt; | vsa, vsa.mxl | Koormap = Hemelum; geen &lt;code&gt;liturgikon/&lt;/code&gt;-slot meer |
 | &lt;em&gt;(alleen bibliotheek)&lt;/em&gt; | &lt;code&gt;2-eerste-antifoon/weekdagen-liturgikon/hemelum&lt;/code&gt; | &lt;code&gt;2-eerste-antifoon-weekdagen-liturgikon-hemelum&lt;/code&gt; | vsa, vsa.mxl | Niet in Hemelum-koormap |
