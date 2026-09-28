@@ -32,23 +32,25 @@ preflight — die map is geen publicatiebron.&lt;/p&gt;</description></item><ite
 &lt;p&gt;&lt;code&gt;scripts\check.cmd&lt;/code&gt; — controleren of de repository klaar is om te delen&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;check
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;check --strict
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Of: &lt;code&gt;scripts\check.cmd&lt;/code&gt; vanuit de repo-root.&lt;/p&gt;
 &lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;check&lt;/code&gt; is de preflight voor deze repo (CI-spiegel):&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;code&gt;validate&lt;/code&gt; — &lt;code&gt;vsa validate&lt;/code&gt; op &lt;code&gt;content-source\bibliotheek&lt;/code&gt; (en
 &lt;code&gt;mvsa validate&lt;/code&gt; als daar &lt;code&gt;.mvsa&lt;/code&gt;-bestanden staan)&lt;/li&gt;
+&lt;li&gt;VSA-productgate — of elke bibliotheek-&lt;code&gt;.vsa&lt;/code&gt; (behalve
+&lt;code&gt;artefacten_handmatig&lt;/code&gt;) een passende sibling &lt;code&gt;{stam}.vsa.mxl&lt;/code&gt; heeft
+met &lt;code&gt;vsa-source-sha256&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Coria-fingerprints (&lt;code&gt;python scripts\fingerprint_coria_mxl.py&lt;/code&gt;)&lt;/li&gt;
 &lt;li&gt;Hugo-build naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Productpipelines (sibling PDF/MSCZ, freshness-gates) horen hier nog niet
-bij; die komen later als aparte &lt;code&gt;check_*&lt;/code&gt;-stappen in deze repo.&lt;/p&gt;
-&lt;h1 id="examples"&gt;EXAMPLES&lt;/h1&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;cd&lt;/span&gt; /d C:\Git\orthodox-ronl\bibliotheek
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;check
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="when"&gt;WHEN&lt;/h1&gt;
-&lt;p&gt;Vóór je commit of push. Tussendoor alleen markdown bekijken: &lt;code&gt;serve&lt;/code&gt; is
-genoeg (die runt fingerprints + Hugo-server, zonder validate).&lt;/p&gt;</description></item><item><title>build</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;Zonder &lt;code&gt;--strict&lt;/code&gt; waarschuwt de productgate lokaal maar faalt niet
+(behalve op &lt;code&gt;main&lt;/code&gt; of met &lt;code&gt;BIBLIOTHEEK_PRODUCTS_STRICT=1&lt;/code&gt;). Met
+&lt;code&gt;--strict&lt;/code&gt;, en altijd in CI, is een stale of missing &lt;code&gt;.vsa.mxl&lt;/code&gt; een
+fout. Vernieuw dan lokaal met &lt;a href="../vsa-products/"&gt;vsa-products&lt;/a&gt;
+ en commit
+de sibling mee. CI genereert geen MuseScore-/MusicXML-producten.&lt;/p&gt;</description></item><item><title>build</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\build.cmd&lt;/code&gt; — hele website bouwen naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;build
@@ -181,13 +183,17 @@ editen. De pipeline roept &lt;code&gt;mscz-products&lt;/code&gt; lokaal ook aan.
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\vsa-products.cmd [pad] [--force] [--dry-run]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Maakt naast een bibliotheek-&lt;code&gt;.vsa&lt;/code&gt; het siblingbestand &lt;code&gt;{stam}.vsa.mxl&lt;/code&gt; voor
-Coria-afspelen (Oefenen-knop). Het script syllabificeert in een tijdelijk
-bestand, exporteert via &lt;code&gt;vsa musicxml&lt;/code&gt;, saniteert voor Coria en zet een
-&lt;code&gt;vsa-source-sha256&lt;/code&gt;-stempel.&lt;/p&gt;
+Coria-afspelen (Oefenen-knop). Het script:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;syllabificeert in een tijdelijk bestand (canonieke &lt;code&gt;.vsa&lt;/code&gt; blijft ongewijzigd);&lt;/li&gt;
+&lt;li&gt;exporteert via &lt;code&gt;vsa musicxml --musicxml-profile playback&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;saniteert voor Coria;&lt;/li&gt;
+&lt;li&gt;zet een &lt;code&gt;vsa-source-sha256&lt;/code&gt;-stempel van de canonieke &lt;code&gt;.vsa&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
 &lt;p&gt;Mappen met &lt;code&gt;artefacten_handmatig: true&lt;/code&gt; in de frontmatter worden
-overgeslagen. Zonder pad werkt het onder &lt;code&gt;bibliotheek&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;De pipeline roept dit lokaal aan. Op branch &lt;code&gt;main&lt;/code&gt; is de bijbehorende check
-streng.&lt;/p&gt;</description></item><item><title>tekstblad-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/tekstblad-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/tekstblad-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+overgeslagen. Zonder pad werkt het onder &lt;code&gt;content-source\bibliotheek&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Lokaal vernieuw je producten met dit commando. CI genereert &lt;strong&gt;niet&lt;/strong&gt; —
+&lt;code&gt;check_vsa_products&lt;/code&gt; faalt bij ontbrekende of verouderde siblings.&lt;/p&gt;</description></item><item><title>tekstblad-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/tekstblad-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/tekstblad-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\tekstblad-products.cmd&lt;/code&gt; — A4-PDF maken bij een bibliotheek-&lt;code&gt;.tekstblad.md&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\tekstblad-products.cmd [pad] [--force] [--dry-run]
