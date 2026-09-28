@@ -122,6 +122,9 @@ jobs:
       - name: Check MSCZ product freshness
         run: python scripts/check_mscz_products.py --fail
 
+      - name: Check tekstblad product freshness
+        run: python scripts/check_tekstblad_products.py --fail
+
       - name: Coria fingerprints
         run: python scripts/fingerprint_coria_mxl.py
 

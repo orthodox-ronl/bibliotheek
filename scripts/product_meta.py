@@ -21,10 +21,14 @@ FIELD_GENERATED_AT = "vsa-generated-at"
 FIELD_GENERATOR = "vsa-generator"
 GENERATOR_VSA = "vsa-musicxml"
 GENERATOR_MSCZ = "mscz-products"
+GENERATOR_TEKSTBLAD = "tekstblad-products"
 SOURCE_KIND_VSA = "vsa"
 SOURCE_KIND_PARTITUUR = "partituur"
+SOURCE_KIND_TEKSTBLAD = "tekstblad"
 PDF_KEY_PARTITUUR = "/VSAPartituurSHA256"
 PDF_KEY_PARTITUUR_LEGACY = "/VSAHubSHA256"
+PDF_KEY_SOURCE_SHA = "/VSASourceSHA256"
+PDF_KEY_SOURCE_KIND = "/VSASourceKind"
 PDF_KEY_GENERATED = "/VSAGeneratedAt"
 PDF_KEY_GENERATOR = "/VSAGenerator"
 
@@ -167,10 +171,14 @@ def read_mxl_stamp(path: Path) -> dict[str, str]:
 def stamp_pdf(
     path: Path,
     *,
-    partituur_hash: str,
     generated_at: str,
+    partituur_hash: str | None = None,
+    source_hash: str | None = None,
+    source_kind: str | None = None,
     generator: str = GENERATOR_MSCZ,
 ) -> None:
+    if not partituur_hash and not source_hash:
+        raise ValueError("partituur_hash of source_hash verplicht")
     try:
         from pypdf import PdfReader, PdfWriter
     except ImportError as exc:
@@ -181,14 +189,18 @@ def stamp_pdf(
     reader = PdfReader(str(path))
     writer = PdfWriter()
     writer.append(reader)
-    writer.add_metadata(
-        {
-            PDF_KEY_PARTITUUR: partituur_hash,
-            PDF_KEY_PARTITUUR_LEGACY: partituur_hash,
-            PDF_KEY_GENERATED: generated_at,
-            PDF_KEY_GENERATOR: generator,
-        }
-    )
+    meta: dict[str, str] = {
+        PDF_KEY_GENERATED: generated_at,
+        PDF_KEY_GENERATOR: generator,
+    }
+    if partituur_hash:
+        meta[PDF_KEY_PARTITUUR] = partituur_hash
+        meta[PDF_KEY_PARTITUUR_LEGACY] = partituur_hash
+    if source_hash:
+        meta[PDF_KEY_SOURCE_SHA] = source_hash
+        if source_kind:
+            meta[PDF_KEY_SOURCE_KIND] = source_kind
+    writer.add_metadata(meta)
     tmp = path.with_suffix(path.suffix + ".tmp")
     with tmp.open("wb") as fh:
         writer.write(fh)
@@ -216,6 +228,10 @@ def read_pdf_stamp(path: Path) -> dict[str, str]:
         "VSAPartituurSHA256": FIELD_PARTITUUR_SHA,
         PDF_KEY_PARTITUUR_LEGACY: FIELD_PARTITUUR_SHA_LEGACY,
         "VSAHubSHA256": FIELD_PARTITUUR_SHA_LEGACY,
+        PDF_KEY_SOURCE_SHA: FIELD_SOURCE_SHA,
+        "VSASourceSHA256": FIELD_SOURCE_SHA,
+        PDF_KEY_SOURCE_KIND: FIELD_SOURCE_KIND,
+        "VSASourceKind": FIELD_SOURCE_KIND,
         PDF_KEY_GENERATED: FIELD_GENERATED_AT,
         "VSAGeneratedAt": FIELD_GENERATED_AT,
         PDF_KEY_GENERATOR: FIELD_GENERATOR,
