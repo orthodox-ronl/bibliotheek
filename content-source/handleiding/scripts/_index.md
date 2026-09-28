@@ -24,6 +24,7 @@ vanuit de repo-root.
 | `tekstblad-products` | Maakt/vernieuwt `{stam}.tekstblad.pdf` bij een bibliotheek-`.tekstblad.md`. | [tekstblad-products](tekstblad-products/) |
 | `layout` | Past de basispartituur-standaard toe op `.mscz` of `.mxl` (tooling-layoutprofiel `partituur`). | [layout](layout/) |
 | `ensure-bibliotheek-id` | Zet of controleert de colofonregel `Bibliotheek-id:` op basispartituur-`.mscz`. | [ensure-bibliotheek-id](ensure-bibliotheek-id/) |
+| `opkuisen` | Herkomstanalyse + inhoudelijke opkuis (Capella/MusicXML/MuseScore); optioneel `--layout`. | [opkuisen](opkuisen/) |
 
 Intern (geen apart gebruikerscommando): `python scripts\fingerprint_coria_mxl.py`
 maakt `/mxl/c/<hash>.musicxml` en `data/coria-fp.json` voor de Oefenen-knop.
@@ -36,20 +37,14 @@ in de repo.
 
 ## Nog niet in deze repo (komt later)
 
-Product- en beheerpipelines die MuseScore-CLI of bredere batch nodig hebben,
-staan **nog niet** allemaal als `.cmd` in `bibliotheek`. De HOW-pagina's
-hieronder beschrijven het *bedoelde* werktraject; paden zijn al op deze
-repo afgestemd.
-
 | Commando (later) | Rol |
 | --- | --- |
 | `bieb accepteer` | Partituur/tekstblad opnemen onder een bibliotheek-id (`bieb` wordt de multi-command CLI) |
-| `opkuisen` | Inhoudsfixes (Capella/MusicXML); geen A4-layout |
 | `update-werkvoorraad` | Werkvoorraadtabel bijwerken |
 | `h` / `pdf` / ... | Console-hulp en overige VSA-demo-commando's |
 
 Man-pages (ter voorbereiding):
-[bieb accepteer](bieb-accepteer/), [opkuisen](opkuisen/),
+[bieb accepteer](bieb-accepteer/),
 [update-werkvoorraad](update-werkvoorraad/), [oefenhoek-index](oefenhoek-index/),
 [capella-mxl-to-mscz](capella-mxl-to-mscz/), [h](h/), [pdf](pdf/),
 [demo-pdf](demo-pdf/), [sync-bron-zondagen](sync-bron-zondagen/).

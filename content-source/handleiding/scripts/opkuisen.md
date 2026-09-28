@@ -13,7 +13,6 @@ MusicXML- en MuseScore-bestanden (optioneel daarna layout)
 
 ```cmd
 scripts\opkuisen.cmd <pad> [pad...] [opties]
-scripts\h.cmd opkuisen
 ```
 
 Python-entrypoint: `scripts\opkuisen.py`. Compat-shim voor alleen Capella:
@@ -29,7 +28,7 @@ toe die bij die hoek horen.
 
 De **default-diepte** is **content**: alleen inhoudsfixes, geen
 A4-pagina-layout. Met `--layout` volgt daarna normaliseren via
-`apply_mscz_layout` (zelfde werk als [layout](../layout/)). PDF en
+[layout](../layout/). PDF en
 Coria-`.mxl` blijven bij [mscz-products](../mscz-products/).
 
 Dit commando zit **niet** in `check` / `build` / `serve`. Workflow-checklist
@@ -49,7 +48,7 @@ Dit commando zit **niet** in `check` / `build` / `serve`. Workflow-checklist
 **Normaliseren / layouten** (A4, copyright/colofon, reciteer-collaps
 `||O||`, tempo) is een **andere verantwoordelijkheid**, ook als je die
 stap met `--layout` in dezelfde run start. Zie [layout](../layout/) en
-`scripts\mscz-partituur-contract.md`.
+`scripts\mscz-partituur-contract.md` (VSA-demo) / tooling-layoutprofiel `partituur`.
 
 ## Invoerformats
 
@@ -82,7 +81,7 @@ boom). Een map wordt **recursief** doorzocht op ondersteunde extensies.
 | --- | --- | --- |
 | **content** (default) | (geen extra flag) | Ja — alleen inhoudsfixes |
 | **analyze** | `--analyze` **of** `--dry-run` | Nee — alleen rapport |
-| **layout** | `--layout` (na content) | Ja — content + daarna `apply_mscz_layout` |
+| **layout** | `--layout` (na content) | Ja — content + daarna [layout](../layout/) |
 
 `--analyze` en `--dry-run` zijn **synoniemen**: beide zetten dezelfde
 optie. Wie “analyse” zoekt gebruikt `--analyze`; wie `--dry-run` kent van
@@ -137,7 +136,7 @@ Gebaseerd op `cleanup_capella_mxl.cleanup` (lagen 1–3).
 
 ### C. MuseScore-inhoud (`hoek=musescore`, default content)
 
-MSCX-fixes uit `apply_mscz_layout.content_cleanup_mscx`, **zonder**
+MSCX-fixes uit `mscz_content_cleanup.content_cleanup_mscx`, **zonder**
 volle layout.
 
 | Wel | Niet |
@@ -149,7 +148,7 @@ volle layout.
 ### D. Layout (`--layout`)
 
 Roept dezelfde keten aan als [layout](../layout/) (MuseScore-convert bij
-MusicXML-invoer, daarna `process_mscz`). Weigert `*.print.mscz`. Losse
+MusicXML-invoer, daarna layoutprofiel `partituur`). Weigert `*.print.mscz`. Losse
 `.mscx` + `--layout` wordt geweigerd (eerst als `.mscz` opslaan in
 MuseScore 4).
 
@@ -262,7 +261,6 @@ scripts\opkuisen.cmd pad\naar\stuk.vsa --analyze
 - [mscz-products](../mscz-products/)
 - Workflow: [Opkuisen](/handleiding/partituur/2-opkuisen/)
 - VSA: [.vsa schrijven](/handleiding/vsa/1-vsa-schrijven/)
-- mvsa (voorzien): [werktrajecten/mvsa](/handleiding/werktrajecten/mvsa/)
-- Console: `scripts\h.cmd opkuisen`
 - Implementatie: `scripts\opkuisen.py`, `scripts\opkuis_detect.py`,
-  `scripts\cleanup_capella_mxl.py`, `scripts\apply_mscz_layout.py`
+  `scripts\cleanup_capella_mxl.py`, `scripts\mscz_content_cleanup.py`,
+  `scripts\layout.cmd`
