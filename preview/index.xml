@@ -416,6 +416,8 @@ met &lt;code&gt;vsa-source-sha256&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;MSCZ-publicatiecontrole — of elke basispartituur-&lt;code&gt;.mscz&lt;/code&gt; (behalve
 handmatig/print) passende siblings &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt; en
 &lt;code&gt;{stam}.mscz.mxl&lt;/code&gt; heeft met &lt;code&gt;vsa-partituur-sha256&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Tekstblad-publicatiecontrole — of elke &lt;code&gt;{stam}.tekstblad.md&lt;/code&gt; een
+passende &lt;code&gt;{stam}.tekstblad.pdf&lt;/code&gt; heeft met &lt;code&gt;vsa-source-sha256&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Coria-fingerprints (&lt;code&gt;python scripts\fingerprint_coria_mxl.py&lt;/code&gt;)&lt;/li&gt;
 &lt;li&gt;Hugo-build naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
@@ -423,10 +425,12 @@ handmatig/print) passende siblings &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt; en
 niet (behalve op &lt;code&gt;main&lt;/code&gt; of met &lt;code&gt;BIBLIOTHEEK_PRODUCTS_STRICT=1&lt;/code&gt;). Met
 &lt;code&gt;--strict&lt;/code&gt;, en altijd in CI, is een stale of missing product een fout.
 Vernieuw dan lokaal met &lt;a href="../vsa-products/"&gt;vsa-products&lt;/a&gt;
- of
+,
 &lt;a href="../mscz-products/"&gt;mscz-products&lt;/a&gt;
- en commit de siblings mee. CI genereert
-geen MuseScore-/MusicXML-producten.&lt;/p&gt;</description></item><item><title>Ongerefereerd</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/speciaal/ongerefereerd/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/speciaal/ongerefereerd/</guid><description>&lt;p&gt;Uitvoeringsvormen die &lt;strong&gt;wel&lt;/strong&gt; in de bibliotheek staan, maar waar &lt;strong&gt;geen
+ of
+&lt;a href="../tekstblad-products/"&gt;tekstblad-products&lt;/a&gt;
+ en commit de siblings mee.
+CI genereert geen MuseScore-/PDF-producten.&lt;/p&gt;</description></item><item><title>Ongerefereerd</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/speciaal/ongerefereerd/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/speciaal/ongerefereerd/</guid><description>&lt;p&gt;Uitvoeringsvormen die &lt;strong&gt;wel&lt;/strong&gt; in de bibliotheek staan, maar waar &lt;strong&gt;geen
 koormap&lt;/strong&gt; (buiten de bibliotheek) met &lt;code&gt;bieb&lt;/code&gt; naar verwijst.&lt;/p&gt;
 &lt;p&gt;Dat mag: individuele koorleden kunnen zo’n stuk toch oefenen. Een
 koormap-slot is geen voorwaarde voor publicatie in de bibliotheek.&lt;/p&gt;
@@ -1306,14 +1310,13 @@ overgeslagen. Zonder pad werkt het onder &lt;code&gt;content-source\bibliotheek&
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\tekstblad-products.cmd [pad] [--force] [--dry-run]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Zoekt canonieke bronnen &lt;code&gt;{stam}.tekstblad.md&lt;/code&gt; onder het opgegeven pad
-(of, zonder pad, onder &lt;code&gt;bibliotheek\&lt;/code&gt;) en schrijft ernaast
-&lt;code&gt;{stam}.tekstblad.pdf&lt;/code&gt; via &lt;code&gt;vsa pdf&lt;/code&gt; (zelfde renderer als
-&lt;a href="../pdf/"&gt;pdf&lt;/a&gt;
-). In de PDF komt een stamp (&lt;code&gt;vsa-source-sha256&lt;/code&gt;,
-&lt;code&gt;vsa-source-kind=tekstblad&lt;/code&gt;) zodat &lt;code&gt;check&lt;/code&gt; kan zien of de PDF nog bij de
-bron hoort.&lt;/p&gt;
-&lt;p&gt;Bestanden in &lt;code&gt;input\&lt;/code&gt; en mappen met
-&lt;code&gt;artefacten_handmatig: true&lt;/code&gt; worden overgeslagen. Alias-varianten ook.&lt;/p&gt;</description></item><item><title>ensure-bibliotheek-id</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/ensure-bibliotheek-id/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/ensure-bibliotheek-id/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+(of, zonder pad, onder &lt;code&gt;content-source\bibliotheek&lt;/code&gt;) en schrijft ernaast
+&lt;code&gt;{stam}.tekstblad.pdf&lt;/code&gt; via &lt;code&gt;vsa pdf&lt;/code&gt;. In de PDF komt een stamp
+(&lt;code&gt;vsa-source-sha256&lt;/code&gt;, &lt;code&gt;vsa-source-kind=tekstblad&lt;/code&gt;) zodat &lt;code&gt;check&lt;/code&gt; kan zien
+of de PDF nog bij de bron past.&lt;/p&gt;
+&lt;p&gt;Bestanden in &lt;code&gt;input\&lt;/code&gt; en mappen met &lt;code&gt;artefacten_handmatig: true&lt;/code&gt; worden
+overgeslagen. CI genereert deze PDF’s niet; jij wel lokaal (Chrome of Edge
+nodig voor &lt;code&gt;vsa pdf&lt;/code&gt;), daarna bron + PDF samen committen.&lt;/p&gt;</description></item><item><title>ensure-bibliotheek-id</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/ensure-bibliotheek-id/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/ensure-bibliotheek-id/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\ensure-bibliotheek-id.cmd&lt;/code&gt; — bibliotheek-id in colofon en metadata zetten&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\ensure-bibliotheek-id.cmd [root] [--check-only] [--fail]
