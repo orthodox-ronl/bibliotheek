@@ -38,7 +38,7 @@ Geen nieuwe `.print.mscz`: handmatige MuseScore-bladen = `{stam}.mscz` +
 | Spoor | Bron | Sibling | Status in deze repo |
 | ----- | ---- | ------- | ------------------- |
 | VSA | `.vsa` | `.vsa.mxl` + `vsa-source-sha256` | **Actief** (`vsa-products` / `check_vsa_products`) |
-| Partituur (mscz) | `.mscz` | `.mscz.pdf` + `.mscz.mxl` + partituur-sha | Voorzien |
+| Partituur (mscz) | `.mscz` | `.mscz.pdf` + `.mscz.mxl` + partituur-sha | **Actief** (`mscz-products` / `check_mscz_products`) |
 | Tekstblad | `.tekstblad.md` | `.tekstblad.pdf` | Voorzien |
 | mvsa | `.mvsa` | naar gelang traject | Voorzien |
 

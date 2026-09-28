@@ -103,7 +103,7 @@ mogen; elk spoor houdt eigen siblings bij.
 | Spoor (brontype) | Canonieke bron | Verwachte afgeleiden (doelvorm) | Stamp in afgeleide | Lokaal maken | Publicatiecontrole |
 | --- | --- | --- | --- | --- | --- |
 | **vsa** | `{stam}.vsa` | `{stam}.vsa.mxl` (Coria) | `vsa-source-sha256` van de `.vsa` | `scripts\vsa-products.cmd` | **Actief:** `check_vsa_products` |
-| **mscz** (basispartituur) | `{stam}.mscz` | `{stam}.mscz.pdf`, `{stam}.mscz.mxl` | `vsa-partituur-sha256` van de `.mscz` | later `mscz-products` / MuseScore-export met `--bibliotheek-id` | **Voorzien** |
+| **mscz** (basispartituur) | `{stam}.mscz` | `{stam}.mscz.pdf`, `{stam}.mscz.mxl` | `vsa-partituur-sha256` van de `.mscz` | `scripts\mscz-products.cmd` | **Actief:** `check_mscz_products` |
 | **mvsa** | `{stam}.mvsa` | `{stam}.mvsa.mxl` / `.mscz` / `.pdf` (naarmate het traject) | source-sha van de `.mvsa` | later product-wrapper om `mvsa …` | **Voorzien** |
 | **tekstblad** | `{stam}.tekstblad.md` | `{stam}.tekstblad.pdf` | `vsa-source-sha256` van de `.md` | later `tekstblad-products` | **Voorzien** |
 
@@ -156,7 +156,8 @@ of **stale**. Ontbreekt het sibling-bestand → **missing**.
 | --- | --- | --- |
 | Geldigheidscontrole (`vsa validate`) op bibliotheek | ja | ja |
 | Publicatiecontrole VSA (`.vsa` ↔ `.vsa.mxl`) | waarschuwing; met `--strict` fout | fout (`--fail`) |
-| Publicatiecontrole partituur / tekstblad / mvsa | nog niet | nog niet |
+| Publicatiecontrole partituur (`.mscz` ↔ PDF/MXL) | waarschuwing; met `--strict` fout | fout (`--fail`) |
+| Publicatiecontrole tekstblad / mvsa | nog niet | nog niet |
 | Coria-fingerprints + Hugo | ja | ja |
 
 CI **genereert geen** producten. Vernieuw lokaal (nu: `vsa-products`),
@@ -196,7 +197,7 @@ scripts\vsa-products.cmd content-source\bibliotheek\110-tropaar\zondag-toon-1\gr
 check --strict
 ```
 
-Basispartituur (doelvorm; publicatiecontrole nog voorzien):
+Basispartituur (doelvorm; actieve publicatiecontrole):
 
 ```text
 …

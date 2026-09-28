@@ -16,15 +16,16 @@ vanuit de repo-root.
 | Commando | Wat het doet | Man-page |
 | --- | --- | --- |
 | `validate` | Controleert bibliotheek-`.vsa` (en eventueel `.mvsa`) via de `vsa`-CLI. | [validate](validate/) |
-| `check` | Preflight: validate + VSA-publicatiecontrole + Coria-fingerprints + Hugo-build. | [check](check/) |
+| `check` | Preflight: validate + VSA-/MSCZ-publicatiecontrole + Coria-fingerprints + Hugo-build. | [check](check/) |
 | `build` | Bouwt de site naar `generated\site`. | [build](build/) |
 | `serve` | Lokale preview op http://127.0.0.1:18732/ (niet 1313, niet 18731). | [serve](serve/) |
 | `vsa-products` | Maakt/vernieuwt sibling `{stam}.vsa.mxl` (Coria) bij een bibliotheek-`.vsa`. | [vsa-products](vsa-products/) |
+| `mscz-products` | Maakt/vernieuwt `{stam}.mscz.pdf` + `{stam}.mscz.mxl` bij een basispartituur-`.mscz`. | [mscz-products](mscz-products/) |
 
 Intern (geen apart gebruikerscommando): `python scripts\fingerprint_coria_mxl.py`
 maakt `/mxl/c/<hash>.musicxml` en `data/coria-fp.json` voor de Oefenen-knop.
 Wordt al door `check` / `build` / `serve` aangeroepen. `check_vsa_products.py`
-schrijft `data/vsa-product-status.json` (freshness).
+en `check_mscz_products.py` schrijven status-JSON (versheid).
 
 Detail: [scripts/README.md](https://github.com/orthodox-ronl/bibliotheek/blob/development/scripts/README.md)
 in de repo.
@@ -40,13 +41,12 @@ repo afgestemd.
 | --- | --- |
 | `bieb accepteer` | Partituur/tekstblad opnemen onder een bibliotheek-id (`bieb` wordt de multi-command CLI) |
 | `opkuisen` / `layout` | Inhoudsfixes + basispartituur-normalisatie |
-| `mscz-products` / `tekstblad-products` | PDF/Coria-afgeleiden uit basispartituur / tekstblad |
+| `tekstblad-products` | PDF-afgeleiden uit tekstblad |
 | `ensure-bibliotheek-id` / `update-werkvoorraad` | Colofon-id / werkvoorraadtabel |
 | `h` / `pdf` / ... | Console-hulp en overige VSA-demo-commando's |
 
 Man-pages (ter voorbereiding):
 [bieb accepteer](bieb-accepteer/), [opkuisen](opkuisen/), [layout](layout/),
-[mscz-products](mscz-products/),
 [tekstblad-products](tekstblad-products/), [ensure-bibliotheek-id](ensure-bibliotheek-id/),
 [update-werkvoorraad](update-werkvoorraad/), [oefenhoek-index](oefenhoek-index/),
 [capella-mxl-to-mscz](capella-mxl-to-mscz/), [h](h/), [pdf](pdf/),
