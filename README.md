@@ -24,7 +24,8 @@ Preview: http://127.0.0.1:18732/
 | `serve` | lokale Hugo-preview |
 | `build` | productie-achtige build in `generated\site` |
 | `validate` | `vsa validate` op bibliotheek-content |
-| `check` | preflight (validate + Coria + Hugo) |
+| `vsa-products` | Coria-sibling `{stam}.vsa.mxl` bij `.vsa` |
+| `check` | preflight (validate + productgate + Coria + Hugo) |
 
 ## Structuur
 
@@ -51,7 +52,7 @@ Tooling-contract (geen forks; float op `development`, pin op `main`):
 
 ## Status
 
-Hugo-site + Coria-fingerprints + `vsa validate` in `check` / Pages-CI
-(float/pin via [docs/tooling-koppeling.md](docs/tooling-koppeling.md)).
-Productpipelines (MSCZ/PDF/siblings, freshness-gates) volgen later in
-deze repo — geen gekopieerde tool-Python.
+Hugo-site + Coria-fingerprints + `vsa validate` + VSA-productgate
+(`{stam}.vsa.mxl` freshness) in `check` / Pages-CI (float/pin via
+[docs/tooling-koppeling.md](docs/tooling-koppeling.md)). Basispartituur-
+MSCZ/PDF-gates volgen later — geen gekopieerde tool-Python.

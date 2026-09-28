@@ -115,6 +115,9 @@ jobs:
             mvsa validate content-source/bibliotheek
           fi
 
+      - name: Check VSA product freshness
+        run: python scripts/check_vsa_products.py --fail
+
       - name: Coria fingerprints
         run: python scripts/fingerprint_coria_mxl.py
 

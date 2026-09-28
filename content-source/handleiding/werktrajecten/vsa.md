@@ -14,11 +14,9 @@ Representatie-id: `vsa`.
 Na een werkende `{stam}.vsa` in de bladermap:
 ```cmd
 scripts\vsa-products.cmd content-source\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>
-scripts\oefenhoek-index.cmd --svg
-scripts\check.cmd --strict
+check --strict
 ```
 {{< /cue >}}
-
 ## Waartoe
 
 Eenstemmige notatie (antifoon, communievers, tropaar-regels, …) moet op
@@ -64,42 +62,30 @@ voor SVG of `vsa-products`.
 scripts\vsa-products.cmd content-source\bibliotheek\5-eniggeboren-zoon
 ```
 
-4. SVG voor bibliotheek-`.vsa` (zonder sibling basispartituur-`.mscz`):
-
-```cmd
-scripts\oefenhoek-index.cmd --svg
-```
-
-   Lokale `check` / `build` / `serve` doen deze SVG-stap ook.
-5. Site: [Site-build](../site-build/).
+4. Controleer: `check --strict` (validate + productgate + Hugo).
+5. Site bekijken: `serve` → http://127.0.0.1:18732/
 
 Bibliotheek-**Oefenen** gebruikt de sibling `{stam}.vsa.mxl` in de
-bladermap — niet per se `static\vsa\mxl\` (dat is de embed-keten).
+bladermap.
 
 ## Automatisch (CI)
 
-- **Wel:** `vsa build-markdown` en `sync_oefenhoek_index.py --svg` bouwen
-  SVG’s; `check_vsa_products.py` controleert of `{stam}.vsa.mxl` bij de
-  canonieke `.vsa` past.
+- **Wel:** `check_vsa_products.py` controleert of `{stam}.vsa.mxl` bij de
+  canonieke `.vsa` past (sha-stamp). Pages-CI faalt bij missing/stale.
 - **Niet:** stilzwijgend een verouderde `.vsa.mxl` herschrijven zonder
-  commit. Ontbrekende of stale Coria-bestanden laten de strenge check
-  falen — vernieuw lokaal met `vsa-products` en commit `{stam}.vsa.mxl`
-  mee.
-
-Lokaal vernieuwt `_pipeline.cmd` stale VSA-producten via
-`sync_vsa_products.py`.
+  commit. Vernieuw lokaal met `vsa-products` en commit `{stam}.vsa.mxl`
+  mee. CI heeft geen MuseScore en genereert geen MusicXML-producten.
 
 ## Handmatig
 
 | Situatie | Commando | Man-page |
 | --- | --- | --- |
 | Coria-`.vsa.mxl` | `scripts\vsa-products.cmd` `[map]` | [vsa-products](../../scripts/vsa-products/) |
-| SVG bladermap | `scripts\oefenhoek-index.cmd --svg` | [oefenhoek-index](../../scripts/oefenhoek-index/) |
 | Alles vóór commit | `scripts\check.cmd --strict` | [check](../../scripts/check/) |
 
 ## Zie ook
 
 - Optioneel tropaar toon 4: [Template SATB](../../vsa/2-template-satb/)
-- Contract: `scripts\oefenhoek-product-contract.md` in `bibliotheek`
+- [validate](../../scripts/validate/) · [check](../../scripts/check/)
 
 {{< navbuttons "Basispartituur|/handleiding/werktrajecten/basispartituur/" "Print-vel|/handleiding/werktrajecten/print-vel/" >}}
