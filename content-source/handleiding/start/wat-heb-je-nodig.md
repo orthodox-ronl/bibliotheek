@@ -36,9 +36,9 @@ C:\Git\orthodox-ronl\
   bibliotheek\          <-- hier werk je
 ```
 
-Sibling-mappen `bron` en `VSA-tooling` zijn **niet** nodig om de site te
-bekijken of markdown/koormappen te bewerken. Die komen pas in beeld wanneer
-productpipelines (PDF/Coria uit MuseScore, VSA-export) in deze repo landen.
+Sibling-mappen `bron` en `VSA-tooling` zijn handig lokaal (`_ensure`
+gebruikt sibling `VSA-tooling` als die er is). Voor alleen site bekijken
+voldoet `check` / `serve` (die zetten `vsa-tool` via sibling of git).
 
 ## Het Windows-opdrachtvenster (eenmaal openen)
 

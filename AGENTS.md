@@ -5,6 +5,8 @@ Richtlijnen voor AI-assistenten in deze repository.
 Organisatie-context: [orthodox-ronl/AGENTS.md](https://github.com/orthodox-ronl/bron/blob/main/AGENTS.md)
 (of org-root). Terminologie: [bron/docs/specs/terminologie.md](https://github.com/orthodox-ronl/bron/blob/main/docs/specs/terminologie.md).
 
+Tooling-contract: [docs/tooling-koppeling.md](docs/tooling-koppeling.md).
+
 ---
 
 ## Rol
@@ -15,8 +17,17 @@ Organisatie-context: [orthodox-ronl/AGENTS.md](https://github.com/orthodox-ronl/
 2. **koormappen** per parochie/klooster/… (views via shortcode `bieb`);
 3. de **handleiding** om de bieb bij te houden.
 
-Geen fork van VSA-tooling-scripts. Repo-specifieke `.cmd` mag; tooling-logica
-hoort in VSA-tooling of als aanroep van de gepubliceerde `vsa`-CLI.
+---
+
+## Tooling-afspraken (hard)
+
+1. **Geen Python in deze repo die VSA-tooling uitbreidt of herschrijft.**
+   Dat werk hoort in [VSA-tooling](https://github.com/orthodox-ronl/VSA-tooling).
+2. **Bibliotheek-/koormap-beheertools wél hier** (`scripts\*.cmd` + dunne
+   helpers). Die **roepen** `vsa` / VSA-tooling aan; ze kopiëren die logica niet.
+3. **Float vs pin:** `development` float op tooling `main`; productie (`main`)
+   pin’t via [`vsa-tooling.pin`](vsa-tooling.pin). Detail:
+   [docs/tooling-koppeling.md](docs/tooling-koppeling.md).
 
 ---
 
@@ -38,6 +49,7 @@ impliciet weggelaten variant-id.
 | Statische assets | `static/` (SVG’s o.a. in `static/vsa/bladermap/`) |
 | Scripts | `scripts/` |
 | Gegenereerd | `generated/` (niet committen) |
+| Tooling-pin | `vsa-tooling.pin` |
 
 ---
 
@@ -51,7 +63,13 @@ serve
 
 Preview: **http://127.0.0.1:18732/** — nooit poort **1313**, niet **18731** (VSA-demo).
 
-Fase 1: `check` = Hugo-build only (geen `import vsa`).
+`check` = Coria-fingerprints + Hugo. Optioneel tooling klaarzetten:
+
+```cmd
+scripts\_ensure.cmd --hugo --vsa-tool
+```
+
+(Sibling `..\VSA-tooling` heeft voorrang; anders float/`pin` via git.)
 
 ---
 

@@ -42,10 +42,14 @@ Koormappen bevatten geen tweede partituur: ze verwijzen met `bieb`.
 | Repo | Rol |
 | ---- | --- |
 | **bron** | Org-SoT / VSA-catalogusmetadata — specs linken, niet dupliceren |
-| **VSA-tooling** | Parser/CLI — deze repo forkt die tools niet |
+| **VSA-tooling** | Parser/CLI — deze repo forkt die tools niet; wrappers roepen `vsa` aan |
 | **VSA-demo** | Tooling-demo; oefenhoek was de herkomst van deze content |
 
-## Fase 1-status
+Tooling-contract (geen forks; float op `development`, pin op `main`):
+[docs/tooling-koppeling.md](docs/tooling-koppeling.md).
 
-Inrichting **zonder** VSA-generate: gecommitteerde PDF/MXL/MSCZ/SVG.
-Beheer-scripts die `vsa` aanroepen volgen later.
+## Status
+
+Hugo-site + Coria-fingerprints. `check` / CI zetten `vsa-tool` klaar
+(float/pin). Productpipelines via `vsa` volgen wanneer die op VSA-tooling
+`main` beschikbaar zijn — geen gekopieerde tool-Python in deze repo.

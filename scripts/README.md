@@ -1,6 +1,7 @@
 # Scripts (bibliotheek)
 
-Org-conventie: https://github.com/orthodox-ronl/bron/blob/main/docs/specs/repo-scripts.md
+Org-conventie: https://github.com/orthodox-ronl/bron/blob/main/docs/specs/repo-scripts.md  
+Tooling-contract: [docs/tooling-koppeling.md](../docs/tooling-koppeling.md)
 
 `.\scripts` op PATH; Python 3.14; Hugo Extended 0.160.1.
 
@@ -10,8 +11,12 @@ Org-conventie: https://github.com/orthodox-ronl/bron/blob/main/docs/specs/repo-s
 | `build` | Site in `generated\site` |
 | `check` | CI-spiegel / preflight (Hugo + Coria-fingerprints) |
 
-**Fase 1:** geen VSA-tooling in deze repo. Partituren/PDF/SVG die al in
-`content-source/` en `static/` staan, worden als-is gepubliceerd.
-`fingerprint_coria_mxl.py` maakt Oefenen-URL's onder `static/mxl/c/`.
-Productpipelines (`vsa-products`, `mscz-products`, …) komen later via de
-gepubliceerde `vsa`-CLI, niet als forked scripts.
+Intern: `_ensure.cmd` (`--hugo`, `--vsa-tool`), `fingerprint_coria_mxl.py`.
+
+**Geen forks van VSA-tooling.** Bibliotheek-specifieke wrappers mogen; die
+roepen `vsa` aan. Zie tooling-koppeling (float op `development`, pin op `main`
+via `vsa-tooling.pin`).
+
+```cmd
+scripts\_ensure.cmd --hugo --vsa-tool
+```

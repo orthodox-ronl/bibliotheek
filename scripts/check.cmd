@@ -1,10 +1,18 @@
 @echo off
 setlocal
 cd /d "%~dp0.."
-call scripts\_ensure.cmd --hugo
+call scripts\_ensure.cmd --hugo --vsa-tool
 if errorlevel 1 exit /b 1
 
-echo === bibliotheek check ^(Hugo + Coria fingerprints^) ===
+echo === bibliotheek check ^(Hugo + Coria fingerprints; vsa-tool beschikbaar^) ===
+where vsa >nul 2>&1
+if errorlevel 1 (
+  echo ERROR: vsa not on PATH after _ensure --vsa-tool
+  exit /b 1
+)
+vsa --version
+if errorlevel 1 exit /b 1
+
 python scripts\fingerprint_coria_mxl.py
 if errorlevel 1 exit /b 1
 
