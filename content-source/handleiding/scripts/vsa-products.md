@@ -17,15 +17,18 @@ scripts\vsa-products.cmd [pad] [--force] [--dry-run]
 # DESCRIPTION
 
 Maakt naast een bibliotheek-`.vsa` het siblingbestand `{stam}.vsa.mxl` voor
-Coria-afspelen (Oefenen-knop). Het script syllabificeert in een tijdelijk
-bestand, exporteert via `vsa musicxml`, saniteert voor Coria en zet een
-`vsa-source-sha256`-stempel.
+Coria-afspelen (Oefenen-knop). Het script:
+
+1. syllabificeert in een tijdelijk bestand (canonieke `.vsa` blijft ongewijzigd);
+2. exporteert via `vsa musicxml --musicxml-profile playback`;
+3. saniteert voor Coria;
+4. zet een `vsa-source-sha256`-stempel van de canonieke `.vsa`.
 
 Mappen met `artefacten_handmatig: true` in de frontmatter worden
-overgeslagen. Zonder pad werkt het onder `bibliotheek`.
+overgeslagen. Zonder pad werkt het onder `content-source\bibliotheek`.
 
-De pipeline roept dit lokaal aan. Op branch `main` is de bijbehorende check
-streng.
+Lokaal vernieuw je producten met dit commando. CI genereert **niet** —
+`check_vsa_products` faalt bij ontbrekende of verouderde siblings.
 
 # OPTIONS
 
@@ -36,11 +39,11 @@ streng.
 
 # WHEN
 
-Na een wijziging aan een `.vsa` in de bibliotheek, of als `check` / de
-Oefenen-knop meldt dat de `.vsa.mxl` verouderd is.
+Na een wijziging aan een `.vsa` in de bibliotheek, of als `check --strict`
+meldt dat de `.vsa.mxl` verouderd of zonder stamp is.
 
 # SEE ALSO
 
-- [oefenhoek-index](../oefenhoek-index/) (`--svg` voor het plaatje op de pagina)
-- Workflow: [VSA schrijven](/handleiding/vsa/1-vsa-schrijven/)
-- Bestand `scripts\oefenhoek-product-contract.md` in `bibliotheek`
+- [check](../check/)
+- [validate](../validate/)
+- Workflow: [VSA → SVG en Coria](/handleiding/werktrajecten/vsa/)

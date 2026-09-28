@@ -40,9 +40,13 @@ Override: omgevingvariabele `VSA_TOOLING_REF` (wint van pin/float).
 
 ## CI
 
-De Pages-workflow installeert `vsa-tool` (pin/float) en runt
-`vsa validate content-source/bibliotheek` vóór Coria-fingerprints en Hugo.
-Lokaal: `scripts\validate.cmd` of `check` (die validate eerst aanroept).
+De Pages-workflow installeert `vsa-tool` (pin/float), runt
+`vsa validate content-source/bibliotheek`, daarna
+`check_vsa_products.py --fail` (sibling `{stam}.vsa.mxl` + sha-stamp),
+daarna Coria-fingerprints en Hugo. CI genereert geen producten — vernieuw
+lokaal met `scripts\vsa-products.cmd` en commit de siblings.
+
+Lokaal: `scripts\validate.cmd` of `check` / `check --strict`.
 
 Workflow Pages bepaalt de ref:
 

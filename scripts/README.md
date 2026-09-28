@@ -8,11 +8,14 @@ Tooling-contract: [docs/tooling-koppeling.md](../docs/tooling-koppeling.md)
 | Commando | Doel |
 | -------- | ---- |
 | `validate` | `vsa validate` op `content-source\bibliotheek` (plus `mvsa validate` als er `.mvsa` staat) |
+| `vsa-products` | Maakt/vernieuwt sibling `{stam}.vsa.mxl` via `vsa musicxml` + stamp |
 | `serve` | Hugo-preview op http://127.0.0.1:18732/ (niet 1313, niet 18731) |
 | `build` | Site in `generated\site` |
-| `check` | CI-spiegel / preflight (validate + Coria-fingerprints + Hugo) |
+| `check` | CI-spiegel / preflight (validate + VSA-productgate + Coria + Hugo) |
 
-Intern: `_ensure.cmd` (`--hugo`, `--vsa-tool`), `fingerprint_coria_mxl.py`.
+Intern: `_ensure.cmd` (`--hugo`, `--vsa-tool`), `fingerprint_coria_mxl.py`,
+`sync_vsa_products.py`, `check_vsa_products.py`, `product_meta.py`,
+`coria_mxl.py`.
 
 **Geen forks van VSA-tooling.** Bibliotheek-specifieke wrappers mogen; die
 roepen `vsa` / `mvsa` aan. Zie tooling-koppeling (float op `development`,
@@ -20,4 +23,6 @@ pin op `main` via `vsa-tooling.pin`).
 
 ```cmd
 scripts\_ensure.cmd --hugo --vsa-tool
+scripts\vsa-products.cmd
+check --strict
 ```
