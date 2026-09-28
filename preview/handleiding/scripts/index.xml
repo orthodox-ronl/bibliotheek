@@ -11,31 +11,51 @@
 &lt;code&gt;check&lt;/code&gt;, &lt;code&gt;opkuisen&lt;/code&gt; of &lt;code&gt;layout&lt;/code&gt;) print het opdrachtvenster een korte
 man-page: doel, opties en wanneer je het gebruikt.&lt;/p&gt;
 &lt;p&gt;Met een onbekende of gedeeltelijke tekst krijg je een gefilterde lijst, of
-een foutmelding met bekende namen.&lt;/p&gt;</description></item><item><title>check</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/check/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/check/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+een foutmelding met bekende namen.&lt;/p&gt;</description></item><item><title>validate</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/validate/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/validate/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;scripts\validate.cmd&lt;/code&gt; — controleer of bibliotheek-&lt;code&gt;.vsa&lt;/code&gt; (en eventueel
+&lt;code&gt;.mvsa&lt;/code&gt;) geldig is volgens de &lt;code&gt;vsa&lt;/code&gt;-/&lt;code&gt;mvsa&lt;/code&gt;-CLI&lt;/p&gt;
+&lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;validate
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;validate content-source\bibliotheek\110-tropaar
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Of: &lt;code&gt;scripts\validate.cmd&lt;/code&gt; vanuit de repo-root. Zonder argument valideert
+het script de map &lt;code&gt;content-source\bibliotheek&lt;/code&gt;.&lt;/p&gt;
+&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
+&lt;p&gt;Zet eerst &lt;code&gt;vsa-tool&lt;/code&gt; klaar (&lt;code&gt;scripts\_ensure.cmd --vsa-tool&lt;/code&gt;) en roept
+daarna de gepubliceerde CLI aan:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;vsa validate&lt;/code&gt; op het gekozen pad (standaard de hele bibliotheek-map)&lt;/li&gt;
+&lt;li&gt;Als er onder dat pad minstens één &lt;code&gt;.mvsa&lt;/code&gt; staat: ook &lt;code&gt;mvsa validate&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Het script kopieert geen validatielogica uit VSA-tooling; het geeft alleen
+het pad door. Ruwe dumps onder &lt;code&gt;content-source\input&lt;/code&gt; horen niet bij deze
+preflight — die map is geen publicatiebron.&lt;/p&gt;</description></item><item><title>check</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/check/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/check/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\check.cmd&lt;/code&gt; — controleren of de repository klaar is om te delen&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;check
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Of: &lt;code&gt;scripts\check.cmd&lt;/code&gt; vanuit de repo-root.&lt;/p&gt;
 &lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;check&lt;/code&gt; is de preflight voor deze repo (fase 1, Hugo-only):&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;check&lt;/code&gt; is de preflight voor deze repo (CI-spiegel):&lt;/p&gt;
 &lt;ol&gt;
+&lt;li&gt;&lt;code&gt;validate&lt;/code&gt; — &lt;code&gt;vsa validate&lt;/code&gt; op &lt;code&gt;content-source\bibliotheek&lt;/code&gt; (en
+&lt;code&gt;mvsa validate&lt;/code&gt; als daar &lt;code&gt;.mvsa&lt;/code&gt;-bestanden staan)&lt;/li&gt;
 &lt;li&gt;Coria-fingerprints (&lt;code&gt;python scripts\fingerprint_coria_mxl.py&lt;/code&gt;)&lt;/li&gt;
 &lt;li&gt;Hugo-build naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Er is &lt;strong&gt;geen&lt;/strong&gt; VSA-validate of &lt;code&gt;vsa build-markdown&lt;/code&gt; in deze keten. Die
-stappen komen later via de gepubliceerde &lt;code&gt;vsa&lt;/code&gt;-CLI.&lt;/p&gt;
+&lt;p&gt;Productpipelines (sibling PDF/MSCZ, freshness-gates) horen hier nog niet
+bij; die komen later als aparte &lt;code&gt;check_*&lt;/code&gt;-stappen in deze repo.&lt;/p&gt;
 &lt;h1 id="examples"&gt;EXAMPLES&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;cd&lt;/span&gt; /d C:\Git\orthodox-ronl\bibliotheek
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;check
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="when"&gt;WHEN&lt;/h1&gt;
 &lt;p&gt;Vóór je commit of push. Tussendoor alleen markdown bekijken: &lt;code&gt;serve&lt;/code&gt; is
-genoeg (die runt fingerprints + Hugo-server).&lt;/p&gt;</description></item><item><title>build</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+genoeg (die runt fingerprints + Hugo-server, zonder validate).&lt;/p&gt;</description></item><item><title>build</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\build.cmd&lt;/code&gt; — hele website bouwen naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;build
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Zelfde keten als &lt;code&gt;check&lt;/code&gt;: Coria-fingerprints + Hugo-build naar
-&lt;code&gt;generated\site&lt;/code&gt;. Commit &lt;code&gt;generated\&lt;/code&gt; en &lt;code&gt;static\mxl\&lt;/code&gt; niet (gitignore).&lt;/p&gt;
+&lt;p&gt;Maakt Coria-fingerprints en bouwt de site naar &lt;code&gt;generated\site&lt;/code&gt;. Anders
+dan &lt;code&gt;check&lt;/code&gt; draait &lt;code&gt;build&lt;/code&gt; &lt;strong&gt;geen&lt;/strong&gt; &lt;code&gt;vsa validate&lt;/code&gt;. Commit &lt;code&gt;generated\&lt;/code&gt;
+en &lt;code&gt;static\mxl\&lt;/code&gt; niet (gitignore).&lt;/p&gt;
 &lt;h1 id="when"&gt;WHEN&lt;/h1&gt;
 &lt;p&gt;Als je het site-artifact nodig hebt zonder een preview-server te starten.&lt;/p&gt;
 &lt;h1 id="see-also"&gt;SEE ALSO&lt;/h1&gt;
