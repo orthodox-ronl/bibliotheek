@@ -134,7 +134,7 @@ Deze pagina is de HOW voor &lt;code&gt;bieb-accepteer&lt;/code&gt;.&lt;/p&gt;
 &lt;li&gt;Ken het &lt;strong&gt;bibliotheek-id&lt;/strong&gt; (drie delen met schuine strepen), of vraag het na.&lt;/li&gt;
 &lt;li&gt;Zorg dat je bestand al een bruikbare &lt;strong&gt;basispartituur-&lt;code&gt;.mscz&lt;/code&gt;&lt;/strong&gt;, &lt;strong&gt;&lt;code&gt;.vsa&lt;/code&gt;&lt;/strong&gt;,
 &lt;strong&gt;&lt;code&gt;.print.mscz&lt;/code&gt;&lt;/strong&gt;, of &lt;strong&gt;&lt;code&gt;.tekstblad.md&lt;/code&gt;&lt;/strong&gt; is — niet een ruwe Capella-file.&lt;/li&gt;
-&lt;li&gt;Open het Windows-opdrachtvenster in de map &lt;code&gt;VSA-demo&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Open het Windows-opdrachtvenster in de map &lt;code&gt;ibliotheek&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;Typ &lt;code&gt;scripts\bieb-accepteer.cmd&lt;/code&gt; en Enter — het script vraagt id en
 bestand na. (Of plak een volledige regel, zie hieronder.)&lt;/li&gt;
 &lt;li&gt;Op een vraag mag je &lt;code&gt;?&lt;/code&gt; typen voor uitleg; daarna vul je alsnog in.&lt;/li&gt;
@@ -145,7 +145,7 @@ bestand na. (Of plak een volledige regel, zie hieronder.)&lt;/li&gt;
 &lt;/aside&gt;
 
 &lt;p&gt;&lt;strong&gt;Wat je nu doet:&lt;/strong&gt; een klaar oefenbestand &lt;strong&gt;opnemen&lt;/strong&gt; in de catalogus
-(de &lt;strong&gt;bibliotheek&lt;/strong&gt;), zodat de Oefenhoek het kan tonen. Het script maakt de
+(de &lt;strong&gt;bibliotheek&lt;/strong&gt;), zodat de bibliotheek-site het kan tonen. Het script maakt de
 mappen en de pagina-bestanden voor je; jij hoeft die niet met de hand te
 typen.&lt;/p&gt;</description></item><item><title>9b Alleluia</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/9b-alleluia/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/9b-alleluia/</guid><description>&lt;h1 id="9b-alleluia"&gt;9b Alleluia&lt;/h1&gt;
 &lt;p&gt;Compositieblad: alle Kiev-alleluias toon 1–8 (uitvoeringsvorm Groningen).&lt;/p&gt;
@@ -207,7 +207,7 @@ alleen voor tropaar toon 4.&lt;/p&gt;</description></item><item><title>10 Evange
 
 (&lt;code&gt;scripts\bieb-accepteer.cmd&lt;/code&gt;).&lt;/p&gt;
 &lt;p&gt;Slot-pagina in de koormap:
-&lt;code&gt;content-source\praktijk\oefenhoek\liturgiemap-hemelum\…\index.md&lt;/code&gt; met
+&lt;code&gt;content-source\praktijk\koormappen\hemelum\liturgie\…\index.md&lt;/code&gt; met
 shortcode &lt;code&gt;bieb&lt;/code&gt; (parameter &lt;code&gt;id&lt;/code&gt; = bibliotheek-id) en
 &lt;code&gt;automatische_inhoud: false&lt;/code&gt;. Geen basispartituur-bestanden in de koormap-map.&lt;/p&gt;
 &lt;p&gt;Een &lt;strong&gt;alias-variant&lt;/strong&gt; (andere naam voor dezelfde variant) krijgt geen
@@ -226,7 +226,7 @@ catalogus; een generieke opkuiser volgt later.&lt;/p&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;ol&gt;
-&lt;li&gt;Zet het bestand in &lt;code&gt;content-source\praktijk\oefenhoek\input\&amp;lt;herkomst&amp;gt;\&lt;/code&gt; (of eerst &lt;code&gt;_inbox\&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Zet het bestand in &lt;code&gt;content-source\input\&amp;lt;herkomst&amp;gt;\&lt;/code&gt; (of eerst &lt;code&gt;_inbox\&lt;/code&gt;).&lt;/li&gt;
 &lt;li&gt;Laat de originele bestandsnaam staan.&lt;/li&gt;
 &lt;li&gt;Draai &lt;code&gt;scripts\update-werkvoorraad.cmd&lt;/code&gt; of &lt;code&gt;scripts\check.cmd&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;Vul in &lt;code&gt;input\werkvoorraad.md&lt;/code&gt; het &lt;strong&gt;doel-id&lt;/strong&gt; in als die kolom leeg is — niet raden, vragen.&lt;/li&gt;
@@ -253,7 +253,7 @@ man-page: doel, opties en wanneer je het gebruikt.&lt;/p&gt;
 &lt;p&gt;Met een onbekende of gedeeltelijke tekst krijg je een gefilterde lijst, of
 een foutmelding met bekende namen.&lt;/p&gt;</description></item><item><title>Opnemen in de bibliotheek</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/opnemen-in-bibliotheek/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/opnemen-in-bibliotheek/</guid><description>&lt;h1 id="opnemen-in-de-bibliotheek"&gt;Opnemen in de bibliotheek&lt;/h1&gt;
 &lt;p&gt;Dit werktraject is de &lt;strong&gt;poort&lt;/strong&gt; naar de catalogus: van ruw aangeleverd
-materiaal naar een map onder &lt;code&gt;oefenhoek\bibliotheek\&lt;/code&gt; met een
+materiaal naar een map onder &lt;code&gt;bibliotheek\&lt;/code&gt; met een
 &lt;strong&gt;bibliotheek-id&lt;/strong&gt; (&lt;code&gt;zangstuk/variant/uitvoeringsvorm&lt;/code&gt;). Publicatiesporen
 (&lt;a href="../basispartituur/"&gt;Basispartituur&lt;/a&gt;
 , &lt;a href="../vsa/"&gt;VSA&lt;/a&gt;
@@ -265,9 +265,9 @@ genoeg is om op te nemen.&lt;/p&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;ol&gt;
-&lt;li&gt;Bewaar het ruwe bestand onder &lt;code&gt;content-source\praktijk\oefenhoek\input\&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Bewaar het ruwe bestand onder &lt;code&gt;content-source\input\&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;Werk de tabel
-&lt;code&gt;content-source\praktijk\oefenhoek\input\werkvoorraad.md&lt;/code&gt; bij
+&lt;code&gt;content-source\input\werkvoorraad.md&lt;/code&gt; bij
 (&lt;code&gt;update-werkvoorraad&lt;/code&gt; of &lt;code&gt;check&lt;/code&gt;).&lt;/li&gt;
 &lt;li&gt;Vul het &lt;strong&gt;doel-id&lt;/strong&gt; in — niet raden; zie het
 &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/id-register/"&gt;Id-register&lt;/a&gt;
@@ -294,11 +294,11 @@ van de bibliotheek.&lt;/p&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;ol&gt;
-&lt;li&gt;Installeer MuseScore &lt;strong&gt;4&lt;/strong&gt; (niet MuseScore 3).&lt;/li&gt;
-&lt;li&gt;Zorg dat de mappen &lt;code&gt;bron&lt;/code&gt;, &lt;code&gt;VSA-tooling&lt;/code&gt; en &lt;code&gt;VSA-demo&lt;/code&gt; naast elkaar staan onder &lt;code&gt;C:\Git\orthodox-ronl\&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Open Verkenner, ga naar &lt;code&gt;C:\Git\orthodox-ronl\VSA-demo&lt;/code&gt;, typ &lt;code&gt;cmd&lt;/code&gt; in de adresbalk, druk Enter.&lt;/li&gt;
-&lt;li&gt;Eerste keer: &lt;code&gt;scripts\check.cmd&lt;/code&gt; (wacht tot het klaar is).&lt;/li&gt;
-&lt;li&gt;Lokale preview: &lt;code&gt;scripts\serve.cmd --no-build&lt;/code&gt; en open http://127.0.0.1:18731/ in de browser.&lt;/li&gt;
+&lt;li&gt;Installeer MuseScore &lt;strong&gt;4&lt;/strong&gt; (niet MuseScore 3) als je partituren bewerkt.&lt;/li&gt;
+&lt;li&gt;Zorg dat de map &lt;code&gt;bibliotheek&lt;/code&gt; staat onder &lt;code&gt;C:\Git\orthodox-ronl\&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Open Verkenner, ga naar &lt;code&gt;C:\Git\orthodox-ronl\bibliotheek&lt;/code&gt;, typ &lt;code&gt;cmd&lt;/code&gt; in de adresbalk, druk Enter.&lt;/li&gt;
+&lt;li&gt;Zet &lt;code&gt;.\scripts&lt;/code&gt; op je PATH (org-conventie), of roep &lt;code&gt;scripts\….cmd&lt;/code&gt; aan vanuit de repo-root.&lt;/li&gt;
+&lt;li&gt;Lokale preview: &lt;code&gt;serve&lt;/code&gt; en open http://127.0.0.1:18732/ in de browser.&lt;/li&gt;
 &lt;/ol&gt;
 
  &lt;/div&gt;
@@ -371,7 +371,7 @@ bestanden die koorleden downloaden en in Coria oefenen. Representatie-id:
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;p&gt;Na normaliseren en review in MuseScore 4:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mscz-products.cmd content-source\praktijk\oefenhoek\bibliotheek\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mscz-products.cmd content-source\bibliotheek\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Daarna &lt;code&gt;scripts\check.cmd --strict&lt;/code&gt;. Geen &lt;code&gt;*.print.mscz&lt;/code&gt; in deze keten.&lt;/p&gt;
 
  &lt;/div&gt;
@@ -384,17 +384,22 @@ traject houdt PDF en Coria-&lt;code&gt;.mxl&lt;/code&gt; synchroon met de canoni
 basispartituur.&lt;/p&gt;</description></item><item><title>check</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/check/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/check/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\check.cmd&lt;/code&gt; — controleren of de repository klaar is om te delen&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\check.cmd [--strict] [--external] [--skip-hugo]
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;check&lt;/code&gt; draait lokaal de controles die ook op GitHub lopen: sync van
-zondag-materiaal, oefenhoek-index, VSA-validatie, genereren van markdown/SVG,
-Coria-controles, Hugo-build en interne linkcontrole. Het is een wrapper om
-&lt;code&gt;scripts\_pipeline.cmd&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Vóór commit&lt;/strong&gt; (alles streng, zoals CI): gebruik &lt;code&gt;--strict&lt;/code&gt;. Dat betekent:
-ook VSA-waarschuwingen laten falen, niet alleen harde fouten.&lt;/p&gt;
-&lt;p&gt;MuseScore-PDF’s en Coria-&lt;code&gt;.mxl&lt;/code&gt; uit een basispartituur maak je apart met
-&lt;a href="../mscz-products/"&gt;mscz-products&lt;/a&gt;
-; die stap zit niet in &lt;code&gt;check&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Ongerefereerd</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/speciaal/ongerefereerd/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/speciaal/ongerefereerd/</guid><description>&lt;p&gt;Uitvoeringsvormen die &lt;strong&gt;wel&lt;/strong&gt; in de bibliotheek staan, maar waar &lt;strong&gt;geen
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;check
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Of: &lt;code&gt;scripts\check.cmd&lt;/code&gt; vanuit de repo-root.&lt;/p&gt;
+&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;check&lt;/code&gt; is de preflight voor deze repo (fase 1, Hugo-only):&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Coria-fingerprints (&lt;code&gt;python scripts\fingerprint_coria_mxl.py&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Hugo-build naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Er is &lt;strong&gt;geen&lt;/strong&gt; VSA-validate of &lt;code&gt;vsa build-markdown&lt;/code&gt; in deze keten. Die
+stappen komen later via de gepubliceerde &lt;code&gt;vsa&lt;/code&gt;-CLI.&lt;/p&gt;
+&lt;h1 id="examples"&gt;EXAMPLES&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;cd&lt;/span&gt; /d C:\Git\orthodox-ronl\bibliotheek
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;check
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="when"&gt;WHEN&lt;/h1&gt;
+&lt;p&gt;Vóór je commit of push. Tussendoor alleen markdown bekijken: &lt;code&gt;serve&lt;/code&gt; is
+genoeg (die runt fingerprints + Hugo-server).&lt;/p&gt;</description></item><item><title>Ongerefereerd</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/speciaal/ongerefereerd/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/speciaal/ongerefereerd/</guid><description>&lt;p&gt;Uitvoeringsvormen die &lt;strong&gt;wel&lt;/strong&gt; in de bibliotheek staan, maar waar &lt;strong&gt;geen
 koormap&lt;/strong&gt; (buiten de bibliotheek) met &lt;code&gt;bieb&lt;/code&gt; naar verwijst.&lt;/p&gt;
 &lt;p&gt;Dat mag: individuele koorleden kunnen zo’n stuk toch oefenen. Een
 koormap-slot is geen voorwaarde voor publicatie in de bibliotheek.&lt;/p&gt;
@@ -520,10 +525,10 @@ koormap-slot is geen voorwaarde voor publicatie in de bibliotheek.&lt;/p&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;p&gt;Snel (Capella-&lt;code&gt;.mxl&lt;/code&gt; → schone &lt;code&gt;.mxl&lt;/code&gt; in &lt;code&gt;_werk&lt;/code&gt;; origineel in &lt;code&gt;capella\&lt;/code&gt; blijft):&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\opkuisen.cmd &lt;span style="color:#e6db74"&gt;&amp;#34;content-source\praktijk\oefenhoek\input\capella\NAAM.mxl&amp;#34;&lt;/span&gt; -o content-source\praktijk\oefenhoek\input\_werk\STAM\STAM.mxl
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\opkuisen.cmd &lt;span style="color:#e6db74"&gt;&amp;#34;content-source\input\capella\NAAM.mxl&amp;#34;&lt;/span&gt; -o content-source\input\_werk\STAM\STAM.mxl
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Alleen herkomst + rapport (geen schrijven; &lt;code&gt;--analyze&lt;/code&gt; en &lt;code&gt;--dry-run&lt;/code&gt; zijn
 hetzelfde):&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\opkuisen.cmd content-source\praktijk\oefenhoek\input\capella --analyze
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\opkuisen.cmd content-source\input\capella --analyze
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;STAM&lt;/code&gt; = publicatiestam uit de bibliotheek-id, zonder spaties
 (voorbeeld: id &lt;code&gt;8-trisagion/8a-nederlands/hemelum&lt;/code&gt; →
 &lt;code&gt;8-trisagion-8a-nederlands-hemelum&lt;/code&gt;).
@@ -545,7 +550,7 @@ Deze pagina is de HOW voor publicatiestatus en lokale controle.&lt;/p&gt;
  &lt;ol&gt;
 &lt;li&gt;Zet &lt;code&gt;publicatiestatus&lt;/code&gt; op bibliotheek-&lt;code&gt;index.md&lt;/code&gt; &lt;strong&gt;en&lt;/strong&gt; koormap-&lt;code&gt;index.md&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;scripts\check.cmd --strict&lt;/code&gt; moet groen zijn.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;scripts\serve.cmd --no-build&lt;/code&gt; → http://127.0.0.1:18731/ — klik zelf als koorlid (koormap-slot).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;scripts\serve.cmd --no-build&lt;/code&gt; → http://127.0.0.1:18732/ — klik zelf als koorlid (koormap-slot).&lt;/li&gt;
 &lt;li&gt;Live: pas na groen, via git naar &lt;code&gt;main&lt;/code&gt; (of vragen). &lt;code&gt;productie&lt;/code&gt; niet raden.&lt;/li&gt;
 &lt;/ol&gt;
 
@@ -560,7 +565,7 @@ controleren, zelf de pagina nalopen, daarna pas publiceren op internet.&lt;/p&gt
  &lt;p&gt;Werkt nu concreet voor &lt;strong&gt;tropaar toon 4&lt;/strong&gt; (corpus &lt;code&gt;T4-01&lt;/code&gt; … &lt;code&gt;T4-12&lt;/code&gt;). In &lt;code&gt;VSA-tooling&lt;/code&gt;:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;cd&lt;/span&gt; /d C:\Git\orthodox-ronl\VSA-tooling
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;python scripts\render_tropaar_toon4_corpus.py --id T4-11 --pdf
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Kopieer het resultaat naar de Oefenhoek-bibliotheek als &lt;strong&gt;print-vel&lt;/strong&gt; +
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Kopieer het resultaat naar de bibliotheek-site-bibliotheek als &lt;strong&gt;print-vel&lt;/strong&gt; +
 handmatige artefacten (zie stap 5), niet als automatische basispartituur.&lt;/p&gt;
 
  &lt;/div&gt;
@@ -580,11 +585,11 @@ formule &lt;code&gt;tropaar-toon-4&lt;/code&gt;, niet uit extra VSA-regels.&lt;/
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;ul&gt;
-&lt;li&gt;Input: &lt;code&gt;oefenhoek\input\&amp;lt;herkomst&amp;gt;\&lt;/code&gt; (originele bestandsnaam mag spaties hebben)&lt;/li&gt;
-&lt;li&gt;Tussenwerk: &lt;code&gt;oefenhoek\input\_werk\&amp;lt;stam&amp;gt;\&lt;/code&gt; (publicatiestam; alleen op jouw pc, niet in git)&lt;/li&gt;
-&lt;li&gt;Bibliotheek: &lt;code&gt;oefenhoek\bibliotheek\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;\&lt;/code&gt; — &lt;strong&gt;geen spaties&lt;/strong&gt; in bestandsnamen&lt;/li&gt;
-&lt;li&gt;Koormap: &lt;code&gt;oefenhoek\liturgiemap-hemelum\&lt;/code&gt; — sectie-&lt;code&gt;_index.md&lt;/code&gt; of slot-&lt;code&gt;index.md&lt;/code&gt; + verwijzing (geen basispartituur-bestanden)&lt;/li&gt;
-&lt;li&gt;Register: &lt;code&gt;oefenhoek\input\werkvoorraad.md&lt;/code&gt; en &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/id-register/"&gt;Id-register&lt;/a&gt;
+&lt;li&gt;Input: &lt;code&gt;content-source\input\&amp;lt;herkomst&amp;gt;\&lt;/code&gt; (originele bestandsnaam mag spaties hebben)&lt;/li&gt;
+&lt;li&gt;Tussenwerk: &lt;code&gt;content-source\input\_werk\&amp;lt;stam&amp;gt;\&lt;/code&gt; (publicatiestam; alleen op jouw pc, niet in git)&lt;/li&gt;
+&lt;li&gt;Bibliotheek: &lt;code&gt;content-source\bibliotheek\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;\&lt;/code&gt; — &lt;strong&gt;geen spaties&lt;/strong&gt; in bestandsnamen&lt;/li&gt;
+&lt;li&gt;Koormap: &lt;code&gt;content-source\koormappen\hemelum\liturgie\&lt;/code&gt; — sectie-&lt;code&gt;_index.md&lt;/code&gt; of slot-&lt;code&gt;index.md&lt;/code&gt; + &lt;code&gt;bieb&lt;/code&gt; (geen basispartituur-bestanden)&lt;/li&gt;
+&lt;li&gt;Register: &lt;code&gt;content-source\input\werkvoorraad.md&lt;/code&gt; en &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/id-register/"&gt;Id-register&lt;/a&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -607,7 +612,7 @@ kindpagina’s of een &lt;strong&gt;compositieblad&lt;/strong&gt; (markdown + sh
  &lt;/div&gt;
 &lt;/aside&gt;
 
-&lt;p&gt;&lt;strong&gt;Wat je nu doet:&lt;/strong&gt; het model kennen waarmee de Oefenhoek werkt, zodat
+&lt;p&gt;&lt;strong&gt;Wat je nu doet:&lt;/strong&gt; het model kennen waarmee de bibliotheek-site werkt, zodat
 publicatie, ids en navigatie niet door elkaar lopen.&lt;/p&gt;</description></item><item><title>26 Gezegend Hij, Die komt ...</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/26-gezegend-hij-die-komt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/26-gezegend-hij-die-komt/</guid><description>&lt;h1 id="26-gezegend-hij-die-komt-"&gt;26 Gezegend Hij, Die komt &amp;hellip;&lt;/h1&gt;</description></item><item><title>27 Communiezang</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/27-communiezang/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/27-communiezang/</guid><description>&lt;h1 id="27-communiezang"&gt;27 Communiezang&lt;/h1&gt;</description></item><item><title>28 Wij hebben het Ware Licht</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/28-wij-hebben-het-ware-licht/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/28-wij-hebben-het-ware-licht/</guid><description>&lt;h1 id="28-wij-hebben-het-ware-licht"&gt;28 Wij hebben het Ware Licht&lt;/h1&gt;
 &lt;div class="score-actions oefenhoek-acties oefenhoek-acties--bibliotheek" data-pdf-src="https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/28-wij-hebben-het-ware-licht/default/hemelum/28-wij-hebben-het-ware-licht-default-hemelum.pdf"&gt;
  &lt;a class="btn coria-play" href="https://coria.nl/play_from_url?back=coria.nl&amp;amp;url=https%3A%2F%2Fraw.githubusercontent.com%2Forthodox-ronl%2Fbibliotheek%2Fgh-pages%2Fpreview%2Fmxl%2Fc%2Fed2081e94002.musicxml" target="_blank" rel="noopener noreferrer"&gt;Oefenen&lt;/a&gt;
@@ -646,17 +651,19 @@ stuk: bewaar de fouttekst en vraag na; probeer niet drie andere scripts
 tegelijk.&lt;/p&gt;</description></item><item><title>build</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\build.cmd&lt;/code&gt; — hele website bouwen naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\build.cmd
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;build
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Bouwt de volledige site naar de map &lt;code&gt;generated\site&lt;/code&gt; op je pc. De keten is
-dezelfde als bij &lt;code&gt;check.cmd --strict&lt;/code&gt; (via &lt;code&gt;scripts\_pipeline.cmd&lt;/code&gt;), zonder
-externe linkcheck.&lt;/p&gt;
-&lt;p&gt;Commit de mappen &lt;code&gt;generated\&lt;/code&gt; en &lt;code&gt;static\vsa\&lt;/code&gt; niet: dat is build-output.
-Voor «mag ik committen?» is &lt;code&gt;check.cmd --strict&lt;/code&gt; genoeg; &lt;code&gt;build&lt;/code&gt; is vooral
-handig als je het site-artifact zelf nodig hebt zonder Hugo-server.&lt;/p&gt;
+&lt;p&gt;Zelfde keten als &lt;code&gt;check&lt;/code&gt;: Coria-fingerprints + Hugo-build naar
+&lt;code&gt;generated\site&lt;/code&gt;. Commit &lt;code&gt;generated\&lt;/code&gt; en &lt;code&gt;static\mxl\&lt;/code&gt; niet (gitignore).&lt;/p&gt;
 &lt;h1 id="when"&gt;WHEN&lt;/h1&gt;
-&lt;p&gt;Als je de gebouwde site in &lt;code&gt;generated\site&lt;/code&gt; nodig hebt zonder
-&lt;code&gt;serve&lt;/code&gt; te starten.&lt;/p&gt;</description></item><item><title>Kondak H. Nikolaas van Myra (toon 3)</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/troparen-en-kondaken/kondak-nikolaas-van-myra/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/troparen-en-kondaken/kondak-nikolaas-van-myra/</guid><description>&lt;h1 id="kondak-h-nikolaas-van-myra-toon-3"&gt;Kondak H. Nikolaas van Myra (toon 3)&lt;/h1&gt;
+&lt;p&gt;Als je het site-artifact nodig hebt zonder een preview-server te starten.&lt;/p&gt;
+&lt;h1 id="see-also"&gt;SEE ALSO&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="../check/"&gt;check&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="../serve/"&gt;serve&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>Kondak H. Nikolaas van Myra (toon 3)</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/troparen-en-kondaken/kondak-nikolaas-van-myra/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/troparen-en-kondaken/kondak-nikolaas-van-myra/</guid><description>&lt;h1 id="kondak-h-nikolaas-van-myra-toon-3"&gt;Kondak H. Nikolaas van Myra (toon 3)&lt;/h1&gt;
 &lt;div class="score-actions oefenhoek-acties oefenhoek-acties--bibliotheek"&gt;
  &lt;a class="btn coria-play" href="https://coria.nl/play_from_url?back=coria.nl&amp;amp;url=https%3A%2F%2Fraw.githubusercontent.com%2Forthodox-ronl%2Fbibliotheek%2Fgh-pages%2Fpreview%2Fmxl%2Fc%2Feec78f1e1f60.musicxml" target="_blank" rel="noopener noreferrer"&gt;Oefenen&lt;/a&gt;
  
@@ -752,12 +759,12 @@ hij hoeft (nog) niet via Coria te oefenen zijn.&lt;/p&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;p&gt;Van opgekuiste &lt;code&gt;.mxl&lt;/code&gt;:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\layout.cmd content-source\praktijk\oefenhoek\input\_werk\STAM\STAM.mxl -o content-source\praktijk\oefenhoek\input\_werk\STAM\STAM.mscz
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\layout.cmd content-source\input\_werk\STAM\STAM.mxl -o content-source\input\_werk\STAM\STAM.mscz
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Van ruwe &lt;code&gt;.mscz&lt;/code&gt; (VOW e.d.): zelfde script; invoer is die &lt;code&gt;.mscz&lt;/code&gt;; &lt;code&gt;-o&lt;/code&gt; naar
 &lt;code&gt;_werk\STAM\STAM.mscz&lt;/code&gt; (geen spaties in de bestandsnaam).
 Opnieuw op een bestaande basispartituur (in-place, na editslag):&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\layout.cmd pad\naar\bestand.mscz
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Norm: bestand &lt;code&gt;scripts\mscz-partituur-contract.md&lt;/code&gt; in &lt;code&gt;VSA-demo&lt;/code&gt;. Weigert &lt;code&gt;*.print.mscz&lt;/code&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Norm: bestand &lt;code&gt;scripts\mscz-partituur-contract.md&lt;/code&gt; in &lt;code&gt;bibliotheek&lt;/code&gt;. Weigert &lt;code&gt;*.print.mscz&lt;/code&gt;.
 Man-page: &lt;a href="../../scripts/layout/"&gt;layout&lt;/a&gt;
 .&lt;/p&gt;
 
@@ -765,7 +772,7 @@ Man-page: &lt;a href="../../scripts/layout/"&gt;layout&lt;/a&gt;
 &lt;/aside&gt;
 
 &lt;p&gt;&lt;strong&gt;Wat je nu doet:&lt;/strong&gt; &lt;strong&gt;normaliseren&lt;/strong&gt; — in gewone taal vaak &lt;strong&gt;layouten&lt;/strong&gt;
-genoemd. Je past de Oefenhoek-basispartituur-standaard toe met
+genoemd. Je past de bibliotheek-basispartituur-standaard toe met
 &lt;code&gt;scripts\layout.cmd&lt;/code&gt;. Uitkomst: een &lt;strong&gt;basispartituur-&lt;code&gt;.mscz&lt;/code&gt;&lt;/strong&gt; (canonieke
 MuseScore-partituur) op A4, klaar om na te kijken en later PDF + Coria van te
 maken.&lt;/p&gt;</description></item><item><title>Tropaar Heilige Martelaren toon 4</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/troparen-en-kondaken/weinig-gebruikt/tropaar-heilige-martelaren/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/troparen-en-kondaken/weinig-gebruikt/tropaar-heilige-martelaren/</guid><description>&lt;h1 id="tropaar-heilige-martelaren-toon-4"&gt;Tropaar Heilige Martelaren toon 4&lt;/h1&gt;
@@ -786,7 +793,7 @@ Representatie-id: &lt;code&gt;vsa&lt;/code&gt;.&lt;/p&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;p&gt;Na een werkende &lt;code&gt;{stam}.vsa&lt;/code&gt; in de bladermap:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\vsa-products.cmd content-source\praktijk\oefenhoek\bibliotheek\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\vsa-products.cmd content-source\bibliotheek\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\oefenhoek-index.cmd --svg
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\check.cmd --strict
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -867,20 +874,27 @@ stemmen, cues — &lt;strong&gt;opslaan&lt;/strong&gt; (Ctrl+S). Exporteer niet 
 daarna de basispartituur-standaard &lt;strong&gt;opnieuw&lt;/strong&gt; toepassen met
 &lt;code&gt;scripts\layout.cmd&lt;/code&gt; (normaliseren / layouten). Zonder die tweede slag
 blijven A4, fonts, reciteertoon-encoding of copyright uit de pas lopen met
-de rest van de Oefenhoek.&lt;/p&gt;</description></item><item><title>serve</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/serve/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/serve/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+de rest van de bibliotheek-site.&lt;/p&gt;</description></item><item><title>serve</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/serve/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/serve/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\serve.cmd&lt;/code&gt; — lokale website-preview in de browser&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\serve.cmd [--no-build]
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;serve
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Start de Hugo-development server. Open daarna in je browser
-&lt;strong&gt;http://127.0.0.1:18731/&lt;/strong&gt;. Gebruik niet poort &lt;strong&gt;1313&lt;/strong&gt;; die poort is lokaal
-voor iets anders gereserveerd.&lt;/p&gt;
-&lt;p&gt;Standaard draait &lt;code&gt;serve&lt;/code&gt; eerst de build-keten (sync, validatie, generate) en
-start daarna de server. Validatie is dan sneller dan bij &lt;code&gt;check --strict&lt;/code&gt;
-(zonder &lt;code&gt;--strict&lt;/code&gt;).&lt;/p&gt;
-&lt;p&gt;Met &lt;code&gt;--no-build&lt;/code&gt; slaat &lt;code&gt;serve&lt;/code&gt; die keten over en start alleen de server
-(plus Coria-fingerprints). Daarvoor moet &lt;code&gt;generated\content&lt;/code&gt; al bestaan —
-bijvoorbeeld na een geslaagde &lt;code&gt;check.cmd --strict&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Tropaar Icoon Moeder Gods Vladimir toon 4</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/troparen-en-kondaken/weinig-gebruikt/tropaar-icoon-moeder-gods-vladimir/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/troparen-en-kondaken/weinig-gebruikt/tropaar-icoon-moeder-gods-vladimir/</guid><description>&lt;h1 id="tropaar-icoon-moeder-gods-vladimir-toon-4"&gt;Tropaar Icoon Moeder Gods Vladimir toon 4&lt;/h1&gt;
+&lt;p&gt;Maakt Coria-fingerprints en start de Hugo-development server. Open daarna
+&lt;strong&gt;http://127.0.0.1:18732/&lt;/strong&gt;. Niet poort &lt;strong&gt;1313&lt;/strong&gt; (lokaal gereserveerd), niet
+&lt;strong&gt;18731&lt;/strong&gt; (VSA-demo).&lt;/p&gt;
+&lt;h1 id="examples"&gt;EXAMPLES&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;cd&lt;/span&gt; /d C:\Git\orthodox-ronl\bibliotheek
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;serve
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="when"&gt;WHEN&lt;/h1&gt;
+&lt;p&gt;Als je in de browser wilt zien hoe bibliotheek, koormappen en handleiding
+eruitzien tijdens beheerwerk.&lt;/p&gt;
+&lt;h1 id="see-also"&gt;SEE ALSO&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="../check/"&gt;check&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="../build/"&gt;build&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>Tropaar Icoon Moeder Gods Vladimir toon 4</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/troparen-en-kondaken/weinig-gebruikt/tropaar-icoon-moeder-gods-vladimir/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/troparen-en-kondaken/weinig-gebruikt/tropaar-icoon-moeder-gods-vladimir/</guid><description>&lt;h1 id="tropaar-icoon-moeder-gods-vladimir-toon-4"&gt;Tropaar Icoon Moeder Gods Vladimir toon 4&lt;/h1&gt;
 &lt;div class="score-actions oefenhoek-acties oefenhoek-acties--bibliotheek"&gt;
  &lt;a class="btn coria-play" href="https://coria.nl/play_from_url?back=coria.nl&amp;amp;url=https%3A%2F%2Fraw.githubusercontent.com%2Forthodox-ronl%2Fbibliotheek%2Fgh-pages%2Fpreview%2Fmxl%2Fc%2F4b47390dad41.musicxml" target="_blank" rel="noopener noreferrer"&gt;Oefenen&lt;/a&gt;
  
@@ -920,7 +934,7 @@ Deze pagina is de HOW voor &lt;code&gt;mscz-products&lt;/code&gt;.&lt;/p&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;p&gt;Basispartituur-&lt;code&gt;.mscz&lt;/code&gt; staat in het &lt;strong&gt;bibliotheek&lt;/strong&gt; (niet alleen in &lt;code&gt;_werk&lt;/code&gt;). Daarna:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mscz-products.cmd content-source\praktijk\oefenhoek\bibliotheek\8-trisagion\8a-nederlands\hemelum
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mscz-products.cmd content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Of heel &lt;code&gt;content-source&lt;/code&gt;. &lt;code&gt;--force&lt;/code&gt; als producten ouder zijn dan de basispartituur of
 de bestandsdatum niet klopt. Lokale &lt;code&gt;check&lt;/code&gt;/&lt;code&gt;build&lt;/code&gt;/&lt;code&gt;serve&lt;/code&gt; vernieuwen
 stale basispartituur-producten ook automatisch. Weigert / slaat &lt;code&gt;*.print.mscz&lt;/code&gt; over.&lt;/p&gt;
@@ -935,19 +949,41 @@ lokaal onder &lt;code&gt;generated\site&lt;/code&gt;, of op GitHub Pages na een 
 &lt;aside class="handleiding-cue"&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
- &lt;p&gt;Vóór commit:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\check.cmd --strict
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Lokale preview (als check al groen was):&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\serve.cmd --no-build
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open http://127.0.0.1:18731/ — &lt;strong&gt;niet&lt;/strong&gt; poort 1313.&lt;/p&gt;
-
+ &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;check
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;serve
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open http://127.0.0.1:18732/ — &lt;strong&gt;niet&lt;/strong&gt; poort 1313, niet 18731.&lt;/p&gt;
  &lt;/div&gt;
 &lt;/aside&gt;
 
 &lt;h2 id="waartoe"&gt;Waartoe&lt;/h2&gt;
 &lt;p&gt;Koorleden en jij zien markdown, SVG’s, PDF’s en knoppen pas nadat de
-site is gebouwd. Dit traject is de gemeenschappelijke keten achter
-&lt;code&gt;check&lt;/code&gt;, &lt;code&gt;build&lt;/code&gt;, &lt;code&gt;serve&lt;/code&gt; en de GitHub-workflows.&lt;/p&gt;</description></item><item><title>Tropaar Mantel Moeder Gods toon 4</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/troparen-en-kondaken/weinig-gebruikt/tropaar-mantel-moeder-gods/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/troparen-en-kondaken/weinig-gebruikt/tropaar-mantel-moeder-gods/</guid><description>&lt;h1 id="tropaar-mantel-moeder-gods-toon-4"&gt;Tropaar Mantel Moeder Gods toon 4&lt;/h1&gt;
+site is gebouwd. In &lt;strong&gt;fase 1&lt;/strong&gt; is die keten Hugo-only (geen &lt;code&gt;vsa&lt;/code&gt;
+generate).&lt;/p&gt;
+&lt;h2 id="eindresultaat"&gt;Eindresultaat&lt;/h2&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Output&lt;/th&gt;
+ &lt;th&gt;Rol&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;static\mxl\c\&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;Coria-MusicXML (fingerprint; gegenereerd, niet committen)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;generated\site&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;Hugo-site&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;GitHub Pages&lt;/td&gt;
+ &lt;td&gt;Productie / preview / branch-URL&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Klaar&lt;/strong&gt; als: &lt;code&gt;check&lt;/code&gt; groen is; lokaal opent de preview; na push is de
+juiste Pages-URL bijgewerkt.&lt;/p&gt;</description></item><item><title>Tropaar Mantel Moeder Gods toon 4</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/troparen-en-kondaken/weinig-gebruikt/tropaar-mantel-moeder-gods/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie/troparen-en-kondaken/weinig-gebruikt/tropaar-mantel-moeder-gods/</guid><description>&lt;h1 id="tropaar-mantel-moeder-gods-toon-4"&gt;Tropaar Mantel Moeder Gods toon 4&lt;/h1&gt;
 &lt;div class="score-actions oefenhoek-acties oefenhoek-acties--bibliotheek"&gt;
  &lt;a class="btn coria-play" href="https://coria.nl/play_from_url?back=coria.nl&amp;amp;url=https%3A%2F%2Fraw.githubusercontent.com%2Forthodox-ronl%2Fbibliotheek%2Fgh-pages%2Fpreview%2Fmxl%2Fc%2F20bf24b520d2.musicxml" target="_blank" rel="noopener noreferrer"&gt;Oefenen&lt;/a&gt;
  
@@ -960,7 +996,7 @@ site is gebouwd. Dit traject is de gemeenschappelijke keten achter
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;p&gt;Na een &lt;code&gt;{stam}.tekstblad.md&lt;/code&gt; in de bladermap:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\tekstblad-products.cmd content-source\praktijk\oefenhoek\bibliotheek\&amp;lt;zangstuk&amp;gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\tekstblad-products.cmd content-source\bibliotheek\&amp;lt;zangstuk&amp;gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\check.cmd --strict
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Commit de &lt;code&gt;.tekstblad.md&lt;/code&gt; en de &lt;code&gt;.tekstblad.pdf&lt;/code&gt; samen.&lt;/p&gt;
 
@@ -976,8 +1012,8 @@ van de tekst in de koormap.&lt;/p&gt;</description></item><item><title>Afgeleide
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;p&gt;Na basispartituur-edit in de bibliotheek:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\layout.cmd content-source\praktijk\oefenhoek\bibliotheek\DOEL\STAM.mscz
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mscz-products.cmd content-source\praktijk\oefenhoek\bibliotheek\DOEL
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\layout.cmd content-source\bibliotheek\DOEL\STAM.mscz
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mscz-products.cmd content-source\bibliotheek\DOEL
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\check.cmd --strict
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Of producten voor alles: &lt;code&gt;scripts\mscz-products.cmd content-source&lt;/code&gt;.
 &lt;code&gt;--force&lt;/code&gt; op &lt;code&gt;mscz-products&lt;/code&gt; als de basispartituur nieuwer is maar dat niet in de
@@ -1044,7 +1080,7 @@ onder &lt;code&gt;content-source&lt;/code&gt;. Draai daarna &lt;code&gt;scripts\
 
 &lt;h2 id="waartoe"&gt;Waartoe&lt;/h2&gt;
 &lt;p&gt;Je wilt VSA tonen op een pagina die geen bladermap onder
-&lt;code&gt;oefenhoek\bibliotheek\&lt;/code&gt; is — bijvoorbeeld een samenstelling of de
+&lt;code&gt;bibliotheek\&lt;/code&gt; is — bijvoorbeeld een samenstelling of de
 Tooling Demo — zonder &lt;code&gt;bieb&lt;/code&gt; en zonder bibliotheek-id.&lt;/p&gt;</description></item><item><title>Print-.mscz (koormap-vel)</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/partituur/7-print-mscz/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/partituur/7-print-mscz/</guid><description>&lt;h1 id="print-mscz-koormap-vel"&gt;Print-&lt;code&gt;.mscz&lt;/code&gt; (koormap-vel)&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Werktraject&lt;/strong&gt; (waartoe, criteria, CI):
 &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/print-vel/"&gt;Print-vel&lt;/a&gt;
@@ -1072,7 +1108,7 @@ template-SATB-blad dat jij handmatig bijhoudt. Het koormap-slot verwijst met
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Kopieert tropaar- en kondakbestanden voor de zondagstonen (en gerelateerde
 assets) uit de canonieke repository &lt;strong&gt;bron&lt;/strong&gt; naar
-&lt;code&gt;content-source\praktijk\zondagen\&lt;/code&gt; in &lt;code&gt;VSA-demo&lt;/code&gt;. Het kopieert alleen
+&lt;code&gt;content-source\praktijk\zondagen\&lt;/code&gt; in &lt;code&gt;bibliotheek&lt;/code&gt;. Het kopieert alleen
 binaire bronbestanden: &lt;code&gt;.vsa&lt;/code&gt;, melodie-afbeeldingen (&lt;code&gt;.jpg&lt;/code&gt;) en
 &lt;code&gt;.coria.html&lt;/code&gt;. Er wordt geen markdown geschreven.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Waartoe:&lt;/strong&gt; de demo-site blijft synchroon met de canonieke VSA in &lt;code&gt;bron&lt;/code&gt;,
@@ -1081,7 +1117,7 @@ zonder die stukken handmatig te kopiëren.&lt;/p&gt;
 &lt;code&gt;vendor\bron&lt;/code&gt;. Met argument geef je een expliciet pad naar een
 bron-checkout.&lt;/p&gt;</description></item><item><title>mvsa (voorzien)</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/mvsa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/mvsa/</guid><description>&lt;h1 id="mvsa-voorzien"&gt;mvsa (voorzien)&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;mvsa&lt;/strong&gt; (meerstemmige VSA) is nog &lt;strong&gt;geen&lt;/strong&gt; actief publicatiespoor in
-VSA-demo. Deze pagina reserveert de plek in de werktrajecten-catalogus.&lt;/p&gt;
+ibliotheek. Deze pagina reserveert de plek in de werktrajecten-catalogus.&lt;/p&gt;
 &lt;h2 id="waartoe-toekomst"&gt;Waartoe (toekomst)&lt;/h2&gt;
 &lt;p&gt;Meerstemmige notatie in VSA-achtige syntax, met eigen afgeleiden (SVG,
 PDF, Coria) — analoog aan &lt;a href="../vsa/"&gt;VSA&lt;/a&gt;
@@ -1122,7 +1158,7 @@ toe die bij die hoek horen.&lt;/p&gt;</description></item><item><title>Kondak H.
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\layout.cmd &amp;lt;bestand.mscz|.mxl&amp;gt; [-o doel.mscz] [--id ID] [--no-extenders]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Past de Oefenhoek-&lt;strong&gt;basispartituur&lt;/strong&gt;-standaard toe: A4-papier, fonts,
+&lt;p&gt;Past de bibliotheek-site-&lt;strong&gt;basispartituur&lt;/strong&gt;-standaard toe: A4-papier, fonts,
 reciteertoon-codering (&lt;code&gt;||O||&lt;/code&gt;), tempo, copyrightvelden en (in de
 bibliotheek) de colofonregel met bibliotheek-id. In het dagelijks taalgebruik
 heet deze stap vaak &lt;strong&gt;layouten&lt;/strong&gt;; de contractterm is &lt;strong&gt;normaliseren&lt;/strong&gt;.&lt;/p&gt;
@@ -1139,7 +1175,7 @@ in MuseScore.&lt;/li&gt;
 ).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Python-implementatie: &lt;code&gt;scripts\apply_mscz_layout.py&lt;/code&gt;. Technische norm:
-&lt;code&gt;scripts\mscz-partituur-contract.md&lt;/code&gt; in de repository-map &lt;code&gt;VSA-demo&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>mscz-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;code&gt;scripts\mscz-partituur-contract.md&lt;/code&gt; in de repository-map &lt;code&gt;bibliotheek&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>mscz-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\mscz-products.cmd&lt;/code&gt; — PDF en Coria-&lt;code&gt;.mxl&lt;/code&gt; maken bij een basispartituur-&lt;code&gt;.mscz&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mscz-products.cmd [pad] [--force] [--dry-run]
@@ -1149,7 +1185,7 @@ koorleden gebruiken: een A4-&lt;strong&gt;PDF&lt;/strong&gt; (downloaden/printen
 &lt;strong&gt;Coria-&lt;code&gt;.mxl&lt;/code&gt;&lt;/strong&gt; (afspelen via de Oefenen-knop). Het script schrijft ook
 herkomstinformatie (&lt;code&gt;partituur-sha256&lt;/code&gt;, &lt;code&gt;generated-at&lt;/code&gt;) in die producten.&lt;/p&gt;
 &lt;p&gt;Het zoekt basispartituur-&lt;code&gt;.mscz&lt;/code&gt; onder het opgegeven pad (of, zonder pad,
-onder &lt;code&gt;content-source&lt;/code&gt;). Bestanden in &lt;code&gt;oefenhoek\input\&lt;/code&gt; en namen die
+onder &lt;code&gt;content-source&lt;/code&gt;). Bestanden in &lt;code&gt;input\&lt;/code&gt; en namen die
 eindigen op &lt;code&gt;.print.mscz&lt;/code&gt; worden overgeslagen.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Volgorde:&lt;/strong&gt; eerst &lt;a href="../layout/"&gt;layout&lt;/a&gt;
 , daarna eventueel een editslag in
@@ -1164,7 +1200,7 @@ Coria-afspelen (Oefenen-knop). Het script syllabificeert in een tijdelijk
 bestand, exporteert via &lt;code&gt;vsa musicxml&lt;/code&gt;, saniteert voor Coria en zet een
 &lt;code&gt;vsa-source-sha256&lt;/code&gt;-stempel.&lt;/p&gt;
 &lt;p&gt;Mappen met &lt;code&gt;artefacten_handmatig: true&lt;/code&gt; in de frontmatter worden
-overgeslagen. Zonder pad werkt het onder &lt;code&gt;oefenhoek\bibliotheek&lt;/code&gt;.&lt;/p&gt;
+overgeslagen. Zonder pad werkt het onder &lt;code&gt;bibliotheek&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;De pipeline roept dit lokaal aan. Op branch &lt;code&gt;main&lt;/code&gt; is de bijbehorende check
 streng.&lt;/p&gt;</description></item><item><title>tekstblad-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/tekstblad-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/tekstblad-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\tekstblad-products.cmd&lt;/code&gt; — A4-PDF maken bij een bibliotheek-&lt;code&gt;.tekstblad.md&lt;/code&gt;&lt;/p&gt;
@@ -1172,19 +1208,19 @@ streng.&lt;/p&gt;</description></item><item><title>tekstblad-products</title><li
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\tekstblad-products.cmd [pad] [--force] [--dry-run]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Zoekt canonieke bronnen &lt;code&gt;{stam}.tekstblad.md&lt;/code&gt; onder het opgegeven pad
-(of, zonder pad, onder &lt;code&gt;oefenhoek\bibliotheek\&lt;/code&gt;) en schrijft ernaast
+(of, zonder pad, onder &lt;code&gt;bibliotheek\&lt;/code&gt;) en schrijft ernaast
 &lt;code&gt;{stam}.tekstblad.pdf&lt;/code&gt; via &lt;code&gt;vsa pdf&lt;/code&gt; (zelfde renderer als
 &lt;a href="../pdf/"&gt;pdf&lt;/a&gt;
 ). In de PDF komt een stamp (&lt;code&gt;vsa-source-sha256&lt;/code&gt;,
 &lt;code&gt;vsa-source-kind=tekstblad&lt;/code&gt;) zodat &lt;code&gt;check&lt;/code&gt; kan zien of de PDF nog bij de
 bron hoort.&lt;/p&gt;
-&lt;p&gt;Bestanden in &lt;code&gt;oefenhoek\input\&lt;/code&gt; en mappen met
+&lt;p&gt;Bestanden in &lt;code&gt;input\&lt;/code&gt; en mappen met
 &lt;code&gt;artefacten_handmatig: true&lt;/code&gt; worden overgeslagen. Alias-varianten ook.&lt;/p&gt;</description></item><item><title>ensure-bibliotheek-id</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/ensure-bibliotheek-id/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/ensure-bibliotheek-id/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\ensure-bibliotheek-id.cmd&lt;/code&gt; — bibliotheek-id in colofon en metadata zetten&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\ensure-bibliotheek-id.cmd [root] [--check-only] [--fail]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Elke basispartituur-&lt;code&gt;.mscz&lt;/code&gt; onder &lt;code&gt;oefenhoek\bibliotheek\&lt;/code&gt; moet in het
+&lt;p&gt;Elke basispartituur-&lt;code&gt;.mscz&lt;/code&gt; onder &lt;code&gt;bibliotheek\&lt;/code&gt; moet in het
 colofon de regel &lt;code&gt;Bibliotheek-id:&lt;/code&gt; hebben én in de MuseScore-metadata
 &lt;code&gt;vsaBibliotheekId&lt;/code&gt;. Die waarde moet gelijk zijn aan het pad
 &lt;code&gt;zangstuk/variant/uitvoeringsvorm&lt;/code&gt; van de map.&lt;/p&gt;
@@ -1197,11 +1233,11 @@ zijn.&lt;/p&gt;</description></item><item><title>update-werkvoorraad</title><lin
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\update-werkvoorraad.cmd
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Werkvoorraad is het register van ruwe bestanden onder
-&lt;code&gt;content-source\praktijk\oefenhoek\input\&lt;/code&gt; (nog niet gepubliceerd). Dit
+&lt;code&gt;content-source\input\&lt;/code&gt; (nog niet gepubliceerd). Dit
 commando vult de tabel in het bestand &lt;code&gt;werkvoorraad.md&lt;/code&gt; in die map aan de
 hand van wat er op schijf ligt. Doel-id, koormap en notitie in &lt;strong&gt;bestaande&lt;/strong&gt;
 rijen blijven staan; nieuwe bestanden krijgen een nieuwe rij.&lt;/p&gt;
-&lt;p&gt;Het verwijdert ook &lt;code&gt;generated\content\...\oefenhoek\input&lt;/code&gt;, zodat die
+&lt;p&gt;Het verwijdert ook &lt;code&gt;generated\content\...\input&lt;/code&gt;, zodat die
 inputs geen Hugo-pagina’s op de site worden.&lt;/p&gt;</description></item><item><title>oefenhoek-index</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/oefenhoek-index/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/oefenhoek-index/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\oefenhoek-index.cmd&lt;/code&gt; — bladermap-markdown opschonen; optioneel SVG uit &lt;code&gt;.vsa&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
@@ -1232,12 +1268,12 @@ blijven behouden.&lt;/p&gt;
 overgeslagen, tenzij &lt;code&gt;--force&lt;/code&gt;. Logbestand: &lt;code&gt;doel\_batch-log.txt&lt;/code&gt;. MuseScore
 4 moet geïnstalleerd zijn en &lt;strong&gt;niet open&lt;/strong&gt; staan tijdens de run. Geen PDF
 en geen Coria-&lt;code&gt;.mxl&lt;/code&gt;. Niet in &lt;code&gt;check&lt;/code&gt; / &lt;code&gt;build&lt;/code&gt; / &lt;code&gt;serve&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>bieb-accepteer</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-accepteer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-accepteer/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;scripts\bieb-accepteer.cmd&lt;/code&gt; — partituur opnemen in de Oefenhoek-bibliotheek&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;scripts\bieb-accepteer.cmd&lt;/code&gt; — partituur opnemen in de bibliotheek-site-bibliotheek&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb-accepteer.cmd [id] [bestand...] [opties]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Neemt een klaar bestand op in de &lt;strong&gt;bibliotheek&lt;/strong&gt; (de catalogus onder
-&lt;code&gt;oefenhoek\bibliotheek\&lt;/code&gt;), onder een bibliotheek-id van drie lagen:
+&lt;code&gt;bibliotheek\&lt;/code&gt;), onder een bibliotheek-id van drie lagen:
 &lt;code&gt;zangstuk/variant/uitvoeringsvorm&lt;/code&gt;. Toegestaan: basispartituur-&lt;code&gt;.mscz&lt;/code&gt;,
 &lt;code&gt;.vsa&lt;/code&gt;, &lt;code&gt;.print.mscz&lt;/code&gt;, of &lt;code&gt;.tekstblad.md&lt;/code&gt; (optioneel sibling-&lt;code&gt;.pdf&lt;/code&gt; / &lt;code&gt;.mxl&lt;/code&gt;).
 Bij &lt;code&gt;.tekstblad.md&lt;/code&gt; zet het script indien nodig frontmatter

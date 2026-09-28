@@ -55,13 +55,13 @@ onder <code>static\vsa\</code>.</p><aside class=handleiding-cue><p class=handlei
 onder <code>content-source</code>. Draai daarna <code>scripts\check.cmd</code> of
 <code>scripts\build.cmd</code> — de pipeline doet <code>vsa build-markdown</code> en
 <code>vsa musicxml</code>. Dit is <strong>geen</strong> bibliotheek-<code>{stam}.vsa.mxl</code>.</div></aside><h2 id=waartoe>Waartoe</h2><p>Je wilt VSA tonen op een pagina die geen bladermap onder
-<code>oefenhoek\bibliotheek\</code> is — bijvoorbeeld een samenstelling of de
+<code>bibliotheek\</code> is — bijvoorbeeld een samenstelling of de
 Tooling Demo — zonder <code>bieb</code> en zonder bibliotheek-id.</p><h2 id=eindresultaat-en-criteria>Eindresultaat en criteria</h2><div class=table-scroll><table><thead><tr><th>Output</th><th>Rol</th></tr></thead><tbody><tr><td>SVG onder <code>static\vsa\</code></td><td>Plaatje op de Hugo-pagina</td></tr><tr><td>Optioneel MXL onder <code>static\vsa\mxl\</code></td><td>Embed-Coria voor die content-keten</td></tr></tbody></table></div><p><strong>Klaar</strong> als: de pagina de SVG toont na build; <code>vsa validate</code> /
 <code>validate_content</code> stil is voor die bronnen.</p><p>Dit vervangt <strong>niet</strong> sibling <code>{stam}.vsa.mxl</code> in de bibliotheek (dat is
 <a href=../vsa/>VSA</a>
-).</p><h2 id=wanneer-wel--wanneer-niet>Wanneer wel / wanneer niet</h2><div class=table-scroll><table><thead><tr><th>Wel</th><th>Niet</th></tr></thead><tbody><tr><td>Demo, feesteigen, samenstelling, handleiding</td><td>Oefenhoek-bibliotheek-uitvoeringsvorm → <a href=../vsa/>VSA</a>
+).</p><h2 id=wanneer-wel--wanneer-niet>Wanneer wel / wanneer niet</h2><div class=table-scroll><table><thead><tr><th>Wel</th><th>Niet</th></tr></thead><tbody><tr><td>Demo, feesteigen, samenstelling, handleiding</td><td>bibliotheek-bibliotheek-uitvoeringsvorm → <a href=../vsa/>VSA</a>
 + <code>bieb</code></td></tr><tr><td>Inline <code>::: vsa-notatie</code> of include van een <code>.vsa</code></td><td>Alleen een A4-PDF uit markdown → <a href=../markdown-naar-pdf/>Markdown naar PDF</a></td></tr></tbody></table></div><h2 id=volgorde-bestanden>Volgorde (bestanden)</h2><ol><li>Schrijf markdown onder <code>content-source</code> (buiten
-<code>oefenhoek\bibliotheek\…</code> als bladermap), met VSA-blokken of includes.</li><li>Bouw de site (of laat <code>check</code> de generate-stap doen):</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\check.cmd --strict
+<code>bibliotheek\…</code> als bladermap), met VSA-blokken of includes.</li><li>Bouw de site (of laat <code>check</code> de generate-stap doen):</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\check.cmd --strict
 </span></span></code></pre></div><p>Intern: <code>vsa build-markdown</code> → <code>generated\content</code> + <code>static\vsa</code>;
 daarna <code>vsa musicxml content-source static\vsa\mxl</code> (embed-keten);
 sanitize/check op die MXL-map.

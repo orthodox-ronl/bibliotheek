@@ -3,11 +3,11 @@
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;ol&gt;
-&lt;li&gt;Installeer MuseScore &lt;strong&gt;4&lt;/strong&gt; (niet MuseScore 3).&lt;/li&gt;
-&lt;li&gt;Zorg dat de mappen &lt;code&gt;bron&lt;/code&gt;, &lt;code&gt;VSA-tooling&lt;/code&gt; en &lt;code&gt;VSA-demo&lt;/code&gt; naast elkaar staan onder &lt;code&gt;C:\Git\orthodox-ronl\&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Open Verkenner, ga naar &lt;code&gt;C:\Git\orthodox-ronl\VSA-demo&lt;/code&gt;, typ &lt;code&gt;cmd&lt;/code&gt; in de adresbalk, druk Enter.&lt;/li&gt;
-&lt;li&gt;Eerste keer: &lt;code&gt;scripts\check.cmd&lt;/code&gt; (wacht tot het klaar is).&lt;/li&gt;
-&lt;li&gt;Lokale preview: &lt;code&gt;scripts\serve.cmd --no-build&lt;/code&gt; en open http://127.0.0.1:18731/ in de browser.&lt;/li&gt;
+&lt;li&gt;Installeer MuseScore &lt;strong&gt;4&lt;/strong&gt; (niet MuseScore 3) als je partituren bewerkt.&lt;/li&gt;
+&lt;li&gt;Zorg dat de map &lt;code&gt;bibliotheek&lt;/code&gt; staat onder &lt;code&gt;C:\Git\orthodox-ronl\&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Open Verkenner, ga naar &lt;code&gt;C:\Git\orthodox-ronl\bibliotheek&lt;/code&gt;, typ &lt;code&gt;cmd&lt;/code&gt; in de adresbalk, druk Enter.&lt;/li&gt;
+&lt;li&gt;Zet &lt;code&gt;.\scripts&lt;/code&gt; op je PATH (org-conventie), of roep &lt;code&gt;scripts\….cmd&lt;/code&gt; aan vanuit de repo-root.&lt;/li&gt;
+&lt;li&gt;Lokale preview: &lt;code&gt;serve&lt;/code&gt; en open http://127.0.0.1:18732/ in de browser.&lt;/li&gt;
 &lt;/ol&gt;
 
  &lt;/div&gt;
@@ -19,11 +19,11 @@ neerkomt op copy-paste, zonder zoeken naar paden.&lt;/p&gt;</description></item>
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;ul&gt;
-&lt;li&gt;Input: &lt;code&gt;oefenhoek\input\&amp;lt;herkomst&amp;gt;\&lt;/code&gt; (originele bestandsnaam mag spaties hebben)&lt;/li&gt;
-&lt;li&gt;Tussenwerk: &lt;code&gt;oefenhoek\input\_werk\&amp;lt;stam&amp;gt;\&lt;/code&gt; (publicatiestam; alleen op jouw pc, niet in git)&lt;/li&gt;
-&lt;li&gt;Bibliotheek: &lt;code&gt;oefenhoek\bibliotheek\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;\&lt;/code&gt; — &lt;strong&gt;geen spaties&lt;/strong&gt; in bestandsnamen&lt;/li&gt;
-&lt;li&gt;Koormap: &lt;code&gt;oefenhoek\liturgiemap-hemelum\&lt;/code&gt; — sectie-&lt;code&gt;_index.md&lt;/code&gt; of slot-&lt;code&gt;index.md&lt;/code&gt; + verwijzing (geen basispartituur-bestanden)&lt;/li&gt;
-&lt;li&gt;Register: &lt;code&gt;oefenhoek\input\werkvoorraad.md&lt;/code&gt; en &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/id-register/"&gt;Id-register&lt;/a&gt;
+&lt;li&gt;Input: &lt;code&gt;content-source\input\&amp;lt;herkomst&amp;gt;\&lt;/code&gt; (originele bestandsnaam mag spaties hebben)&lt;/li&gt;
+&lt;li&gt;Tussenwerk: &lt;code&gt;content-source\input\_werk\&amp;lt;stam&amp;gt;\&lt;/code&gt; (publicatiestam; alleen op jouw pc, niet in git)&lt;/li&gt;
+&lt;li&gt;Bibliotheek: &lt;code&gt;content-source\bibliotheek\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;\&lt;/code&gt; — &lt;strong&gt;geen spaties&lt;/strong&gt; in bestandsnamen&lt;/li&gt;
+&lt;li&gt;Koormap: &lt;code&gt;content-source\koormappen\hemelum\liturgie\&lt;/code&gt; — sectie-&lt;code&gt;_index.md&lt;/code&gt; of slot-&lt;code&gt;index.md&lt;/code&gt; + &lt;code&gt;bieb&lt;/code&gt; (geen basispartituur-bestanden)&lt;/li&gt;
+&lt;li&gt;Register: &lt;code&gt;content-source\input\werkvoorraad.md&lt;/code&gt; en &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/id-register/"&gt;Id-register&lt;/a&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -46,7 +46,7 @@ kindpagina’s of een &lt;strong&gt;compositieblad&lt;/strong&gt; (markdown + sh
  &lt;/div&gt;
 &lt;/aside&gt;
 
-&lt;p&gt;&lt;strong&gt;Wat je nu doet:&lt;/strong&gt; het model kennen waarmee de Oefenhoek werkt, zodat
+&lt;p&gt;&lt;strong&gt;Wat je nu doet:&lt;/strong&gt; het model kennen waarmee de bibliotheek-site werkt, zodat
 publicatie, ids en navigatie niet door elkaar lopen.&lt;/p&gt;</description></item><item><title>Woorden en bestanden</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/woorden/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/woorden/</guid><description>&lt;h1 id="woorden-en-bestanden"&gt;Woorden en bestanden&lt;/h1&gt;
 &lt;aside class="handleiding-cue"&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
