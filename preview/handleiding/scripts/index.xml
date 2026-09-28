@@ -47,19 +47,24 @@ handmatig/print) passende siblings &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt; en
 &lt;code&gt;{stam}.mscz.mxl&lt;/code&gt; heeft met &lt;code&gt;vsa-partituur-sha256&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Tekstblad-publicatiecontrole — of elke &lt;code&gt;{stam}.tekstblad.md&lt;/code&gt; een
 passende &lt;code&gt;{stam}.tekstblad.pdf&lt;/code&gt; heeft met &lt;code&gt;vsa-source-sha256&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Bibliotheek-id — of elke basispartituur-&lt;code&gt;.mscz&lt;/code&gt; in het colofon de
+regel &lt;code&gt;Bibliotheek-id:&lt;/code&gt; heeft die bij het bladermap-pad past&lt;/li&gt;
 &lt;li&gt;Coria-fingerprints (&lt;code&gt;python scripts\fingerprint_coria_mxl.py&lt;/code&gt;)&lt;/li&gt;
 &lt;li&gt;Hugo-build naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Zonder &lt;code&gt;--strict&lt;/code&gt; waarschuwen de publicatiecontroles lokaal maar falen
-niet (behalve op &lt;code&gt;main&lt;/code&gt; of met &lt;code&gt;BIBLIOTHEEK_PRODUCTS_STRICT=1&lt;/code&gt;). Met
-&lt;code&gt;--strict&lt;/code&gt;, en altijd in CI, is een stale of missing product een fout.
-Vernieuw dan lokaal met &lt;a href="../vsa-products/"&gt;vsa-products&lt;/a&gt;
-,
-&lt;a href="../mscz-products/"&gt;mscz-products&lt;/a&gt;
+&lt;p&gt;Zonder &lt;code&gt;--strict&lt;/code&gt; waarschuwen de publicatie- en id-controles lokaal maar
+falen niet (behalve op &lt;code&gt;main&lt;/code&gt; of met &lt;code&gt;BIBLIOTHEEK_PRODUCTS_STRICT=1&lt;/code&gt; /
+&lt;code&gt;BIBLIOTHEEK_ID_STRICT=1&lt;/code&gt;). Met &lt;code&gt;--strict&lt;/code&gt;, en altijd in CI, is een stale
+of missing product of een id-mismatch een fout. Vernieuw producten lokaal
+met &lt;a href="../vsa-products/"&gt;vsa-products&lt;/a&gt;
+, &lt;a href="../mscz-products/"&gt;mscz-products&lt;/a&gt;
+
+of &lt;a href="../tekstblad-products/"&gt;tekstblad-products&lt;/a&gt;
+; herstel id’s met
+&lt;a href="../ensure-bibliotheek-id/"&gt;ensure-bibliotheek-id&lt;/a&gt;
  of
-&lt;a href="../tekstblad-products/"&gt;tekstblad-products&lt;/a&gt;
- en commit de siblings mee.
-CI genereert geen MuseScore-/PDF-producten.&lt;/p&gt;</description></item><item><title>build</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;a href="../layout/"&gt;layout&lt;/a&gt;
+. CI genereert geen MuseScore-/PDF-producten.&lt;/p&gt;</description></item><item><title>build</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\build.cmd&lt;/code&gt; — hele website bouwen naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;build
@@ -152,17 +157,19 @@ invoerbestand lijkt te komen) en past daarna alleen de &lt;strong&gt;opkuis-mani
 toe die bij die hoek horen.&lt;/p&gt;</description></item><item><title>layout</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/layout/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/layout/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\layout.cmd&lt;/code&gt; — basispartituur-standaard toepassen (normaliseren / layouten)&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\layout.cmd &amp;lt;bestand.mscz|.mxl&amp;gt; [-o doel.mscz] [--id ID] [--no-extenders]
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\layout.cmd &amp;lt;bestand.mscz|.mxl&amp;gt; [-o doel.mscz] [--id ID]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Past de bibliotheek-site-&lt;strong&gt;basispartituur&lt;/strong&gt;-standaard toe: A4-papier, fonts,
-reciteertoon-codering (&lt;code&gt;||O||&lt;/code&gt;), tempo, copyrightvelden en (in de
-bibliotheek) de colofonregel met bibliotheek-id. In het dagelijks taalgebruik
-heet deze stap vaak &lt;strong&gt;layouten&lt;/strong&gt;; de contractterm is &lt;strong&gt;normaliseren&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Past de bibliotheek-&lt;strong&gt;basispartituur&lt;/strong&gt;-standaard toe via het
+VSA-tooling-layoutprofiel &lt;code&gt;partituur&lt;/code&gt;: A4-papier, fonts, leesbaarheid,
+copyright/colofon, en (indien bekend) de colofonregel met bibliotheek-id.
+In het dagelijks taalgebruik heet deze stap vaak &lt;strong&gt;layouten&lt;/strong&gt;; de
+contractterm is &lt;strong&gt;normaliseren&lt;/strong&gt;.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Invoer is een opgekuiste &lt;code&gt;.mxl&lt;/code&gt; (na &lt;a href="../opkuisen/"&gt;opkuisen&lt;/a&gt;
-): MuseScore 4
-importeert het bestand; zet &lt;code&gt;-o&lt;/code&gt; naar een &lt;code&gt;.mscz&lt;/code&gt; zonder spaties in de
-naam (meestal onder &lt;code&gt;input\_werk\&amp;lt;stam&amp;gt;\&lt;/code&gt;).&lt;/li&gt;
+): het script
+roept &lt;code&gt;mxl mscz&lt;/code&gt; aan (MuseScore 4) en past daarna het layoutprofiel toe.
+Zet &lt;code&gt;-o&lt;/code&gt; naar een &lt;code&gt;.mscz&lt;/code&gt; zonder spaties in de naam (meestal onder
+&lt;code&gt;input\_werk\&amp;lt;stam&amp;gt;\&lt;/code&gt;).&lt;/li&gt;
 &lt;li&gt;Invoer is al een &lt;code&gt;.mscz&lt;/code&gt;: zonder &lt;code&gt;-o&lt;/code&gt; wijzigt het script het bestand
 &lt;strong&gt;in-place&lt;/strong&gt;. Opnieuw draaien mag en hoort na elke inhoudelijke editslag
 in MuseScore.&lt;/li&gt;
@@ -170,8 +177,9 @@ in MuseScore.&lt;/li&gt;
 &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/partituur/7-print-mscz/"&gt;Print-.mscz&lt;/a&gt;
 ).&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Python-implementatie: &lt;code&gt;scripts\apply_mscz_layout.py&lt;/code&gt;. Technische norm:
-&lt;code&gt;scripts\mscz-partituur-contract.md&lt;/code&gt; in de repository-map &lt;code&gt;bibliotheek&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>mscz-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;Implementatie: &lt;code&gt;scripts\apply_mscz_layout.py&lt;/code&gt; — dunne wrapper om
+&lt;code&gt;vsa.mscz_layout&lt;/code&gt; (geen fork van layout-logica). Technische norm in
+VSA-tooling: layoutprofiel &lt;code&gt;partituur&lt;/code&gt; / mscz-leesbaarheid.&lt;/p&gt;</description></item><item><title>mscz-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\mscz-products.cmd&lt;/code&gt; — PDF en Coria-&lt;code&gt;.mxl&lt;/code&gt; maken bij een basispartituur-&lt;code&gt;.mscz&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mscz-products.cmd [pad] [--force] [--dry-run]
@@ -215,18 +223,19 @@ of de PDF nog bij de bron past.&lt;/p&gt;
 &lt;p&gt;Bestanden in &lt;code&gt;input\&lt;/code&gt; en mappen met &lt;code&gt;artefacten_handmatig: true&lt;/code&gt; worden
 overgeslagen. CI genereert deze PDF’s niet; jij wel lokaal (Chrome of Edge
 nodig voor &lt;code&gt;vsa pdf&lt;/code&gt;), daarna bron + PDF samen committen.&lt;/p&gt;</description></item><item><title>ensure-bibliotheek-id</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/ensure-bibliotheek-id/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/ensure-bibliotheek-id/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;scripts\ensure-bibliotheek-id.cmd&lt;/code&gt; — bibliotheek-id in colofon en metadata zetten&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;scripts\ensure-bibliotheek-id.cmd&lt;/code&gt; — bibliotheek-id in het colofon zetten of controleren&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\ensure-bibliotheek-id.cmd [root] [--check-only] [--fail]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Elke basispartituur-&lt;code&gt;.mscz&lt;/code&gt; onder &lt;code&gt;bibliotheek\&lt;/code&gt; moet in het
-colofon de regel &lt;code&gt;Bibliotheek-id:&lt;/code&gt; hebben én in de MuseScore-metadata
-&lt;code&gt;vsaBibliotheekId&lt;/code&gt;. Die waarde moet gelijk zijn aan het pad
-&lt;code&gt;zangstuk/variant/uitvoeringsvorm&lt;/code&gt; van de map.&lt;/p&gt;
-&lt;p&gt;Lokaal herstelt dit commando ontbrekende of verkeerde id’s (zonder MuseScore
-te openen). Met &lt;code&gt;--check-only&lt;/code&gt; (of in CI) alleen rapporteren, niet schrijven.
-Op &lt;code&gt;main&lt;/code&gt; of met een strenge pipeline faalt de check als er nog problemen
-zijn.&lt;/p&gt;</description></item><item><title>update-werkvoorraad</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/update-werkvoorraad/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/update-werkvoorraad/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;Elke basispartituur-&lt;code&gt;.mscz&lt;/code&gt; onder &lt;code&gt;content-source\bibliotheek\&lt;/code&gt; moet in het
+colofon de regel &lt;code&gt;Bibliotheek-id:&lt;/code&gt; hebben. Die waarde moet gelijk zijn aan
+het pad &lt;code&gt;zangstuk/variant/uitvoeringsvorm&lt;/code&gt; van de map.&lt;/p&gt;
+&lt;p&gt;Lokaal herstelt dit commando ontbrekende of verkeerde id’s door hetzelfde
+layoutprofiel te draaien als &lt;a href="../layout/"&gt;layout&lt;/a&gt;
+ (geen MuseScore-venster
+nodig). Met &lt;code&gt;--check-only&lt;/code&gt; (of in CI) alleen rapporteren, niet schrijven.
+Op &lt;code&gt;main&lt;/code&gt;, met &lt;code&gt;--fail&lt;/code&gt;, of met &lt;code&gt;BIBLIOTHEEK_ID_STRICT=1&lt;/code&gt; faalt de check
+als er nog problemen zijn.&lt;/p&gt;</description></item><item><title>update-werkvoorraad</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/update-werkvoorraad/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/update-werkvoorraad/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\update-werkvoorraad.cmd&lt;/code&gt; — tabel «werkvoorraad» laten aansluiten op &lt;code&gt;input\&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\update-werkvoorraad.cmd

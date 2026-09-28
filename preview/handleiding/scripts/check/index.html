@@ -56,17 +56,20 @@
 met <code>vsa-source-sha256</code></li><li>MSCZ-publicatiecontrole — of elke basispartituur-<code>.mscz</code> (behalve
 handmatig/print) passende siblings <code>{stam}.mscz.pdf</code> en
 <code>{stam}.mscz.mxl</code> heeft met <code>vsa-partituur-sha256</code></li><li>Tekstblad-publicatiecontrole — of elke <code>{stam}.tekstblad.md</code> een
-passende <code>{stam}.tekstblad.pdf</code> heeft met <code>vsa-source-sha256</code></li><li>Coria-fingerprints (<code>python scripts\fingerprint_coria_mxl.py</code>)</li><li>Hugo-build naar <code>generated\site</code></li></ol><p>Zonder <code>--strict</code> waarschuwen de publicatiecontroles lokaal maar falen
-niet (behalve op <code>main</code> of met <code>BIBLIOTHEEK_PRODUCTS_STRICT=1</code>). Met
-<code>--strict</code>, en altijd in CI, is een stale of missing product een fout.
-Vernieuw dan lokaal met <a href=../vsa-products/>vsa-products</a>
-,
-<a href=../mscz-products/>mscz-products</a>
+passende <code>{stam}.tekstblad.pdf</code> heeft met <code>vsa-source-sha256</code></li><li>Bibliotheek-id — of elke basispartituur-<code>.mscz</code> in het colofon de
+regel <code>Bibliotheek-id:</code> heeft die bij het bladermap-pad past</li><li>Coria-fingerprints (<code>python scripts\fingerprint_coria_mxl.py</code>)</li><li>Hugo-build naar <code>generated\site</code></li></ol><p>Zonder <code>--strict</code> waarschuwen de publicatie- en id-controles lokaal maar
+falen niet (behalve op <code>main</code> of met <code>BIBLIOTHEEK_PRODUCTS_STRICT=1</code> /
+<code>BIBLIOTHEEK_ID_STRICT=1</code>). Met <code>--strict</code>, en altijd in CI, is een stale
+of missing product of een id-mismatch een fout. Vernieuw producten lokaal
+met <a href=../vsa-products/>vsa-products</a>
+, <a href=../mscz-products/>mscz-products</a>
+of <a href=../tekstblad-products/>tekstblad-products</a>
+; herstel id’s met
+<a href=../ensure-bibliotheek-id/>ensure-bibliotheek-id</a>
 of
-<a href=../tekstblad-products/>tekstblad-products</a>
-en commit de siblings mee.
-CI genereert geen MuseScore-/PDF-producten.</p><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span><span style=color:#66d9ef>cd</span> /d C:\Git\orthodox-ronl\bibliotheek
+<a href=../layout/>layout</a>
+. CI genereert geen MuseScore-/PDF-producten.</p><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span><span style=color:#66d9ef>cd</span> /d C:\Git\orthodox-ronl\bibliotheek
 </span></span><span style=display:flex><span>check
 </span></span><span style=display:flex><span>check --strict
 </span></span></code></pre></div><h1 id=when>WHEN</h1><p>Vóór je commit of push. Tussendoor alleen markdown bekijken: <code>serve</code> is
-genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole).</p><h1 id=see-also>SEE ALSO</h1><ul><li><a href=../validate/>validate</a></li><li><a href=../vsa-products/>vsa-products</a></li><li><a href=../mscz-products/>mscz-products</a></li><li><a href=../tekstblad-products/>tekstblad-products</a></li><li><a href=../serve/>serve</a></li><li><a href=../build/>build</a></li><li><a href=/handleiding/start/wat-heb-je-nodig/>Wat heb je nodig</a></li><li><a href=/handleiding/publiceren/2-status-en-check/>Status en check</a></li><li><a href=/handleiding/start/publicatiecontrole/>Publicatiecontrole</a></li></ul></main><footer class=site-footer><div class=site-meta></div></footer></body></html>
+genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole).</p><h1 id=see-also>SEE ALSO</h1><ul><li><a href=../validate/>validate</a></li><li><a href=../vsa-products/>vsa-products</a></li><li><a href=../mscz-products/>mscz-products</a></li><li><a href=../tekstblad-products/>tekstblad-products</a></li><li><a href=../layout/>layout</a></li><li><a href=../ensure-bibliotheek-id/>ensure-bibliotheek-id</a></li><li><a href=../serve/>serve</a></li><li><a href=../build/>build</a></li><li><a href=/handleiding/start/wat-heb-je-nodig/>Wat heb je nodig</a></li><li><a href=/handleiding/publiceren/2-status-en-check/>Status en check</a></li><li><a href=/handleiding/start/publicatiecontrole/>Publicatiecontrole</a></li></ul></main><footer class=site-footer><div class=site-meta></div></footer></body></html>
