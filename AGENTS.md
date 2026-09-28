@@ -65,9 +65,9 @@ serve
 
 Preview: **http://127.0.0.1:18732/** — nooit poort **1313**, niet **18731** (VSA-demo).
 
-`check` = validate + VSA-publicatiecontrole (`.vsa.mxl` freshness) + Coria-fingerprints
-+ Hugo. Producten vernieuwen: `scripts\vsa-products.cmd`. Optioneel tooling
-klaarzetten:
+`check` = validate + VSA-/MSCZ-publicatiecontrole + Coria-fingerprints
++ Hugo. Producten vernieuwen: `scripts\vsa-products.cmd` /
+`scripts\mscz-products.cmd`. Optioneel tooling klaarzetten:
 
 ```cmd
 scripts\_ensure.cmd --hugo --vsa-tool

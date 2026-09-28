@@ -17,7 +17,7 @@ goto usage
 call scripts\_ensure.cmd --hugo --vsa-tool
 if errorlevel 1 exit /b 1
 
-echo === bibliotheek check ^(validate + VSA-producten + Hugo + Coria^) ===
+echo === bibliotheek check ^(validate + producten + Hugo + Coria^) ===
 where vsa >nul 2>&1
 if errorlevel 1 (
   echo ERROR: vsa not on PATH after _ensure --vsa-tool
@@ -33,6 +33,13 @@ if defined STRICT (
   python scripts\check_vsa_products.py --fail
 ) else (
   python scripts\check_vsa_products.py
+)
+if errorlevel 1 exit /b 1
+
+if defined STRICT (
+  python scripts\check_mscz_products.py --fail
+) else (
+  python scripts\check_mscz_products.py
 )
 if errorlevel 1 exit /b 1
 
@@ -56,9 +63,9 @@ exit /b 0
 echo.
 echo Gebruik: scripts\check.cmd [--strict]
 echo.
-echo   --strict   faal op stale/missing Coria-.vsa.mxl ^(CI-spiegel^)
+echo   --strict   faal op stale/missing VSA-.vsa.mxl of MSCZ-PDF/MXL ^(CI-spiegel^)
 echo.
-echo Zonder --strict: productcheck waarschuwt lokaal maar faalt niet
+echo Zonder --strict: productchecks waarschuwen lokaal maar falen niet
 echo ^(behalve op main / BIBLIOTHEEK_PRODUCTS_STRICT=1^). CI faalt altijd.
 echo.
 endlocal
