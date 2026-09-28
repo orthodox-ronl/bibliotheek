@@ -72,7 +72,7 @@ scripts\pdf.cmd content-source\praktijk\demo\assets\voorbeeld-blad.md -o static\
 ```
 
 3. Hard refresh in de browser als een oude PDF gecached blijft.
-4. Commit bron én PDF samen als de demo-gate groen moet blijven.
+4. Commit bron én PDF samen als de demo-publicatiecontrole groen moet blijven.
 
 Site-demo-uitleg: [Markdown naar PDF (Tooling Demo)](/praktijk/demo/06-markdown-naar-pdf/).
 
@@ -95,7 +95,7 @@ validatiefouten als `vsa validate` bij kapotte VSA-blokken.
 
 ## Zie ook
 
-- [Site-build](../site-build/) (waar de demo-PDF-gate in de keten zit)
+- [Site-build](../site-build/) (waar de demo-PDF-publicatiecontrole in de keten zit)
 - [Ingebedde VSA](../ingebedde-vsa/) (SVG op de site, geen A4-PDF)
 
 {{< navbuttons "Site-build|/handleiding/werktrajecten/site-build/" "Ingebedde VSA|/handleiding/werktrajecten/ingebedde-vsa/" >}}

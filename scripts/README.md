@@ -11,7 +11,7 @@ Tooling-contract: [docs/tooling-koppeling.md](../docs/tooling-koppeling.md)
 | `vsa-products` | Maakt/vernieuwt sibling `{stam}.vsa.mxl` via `vsa musicxml` + stamp |
 | `serve` | Hugo-preview op http://127.0.0.1:18732/ (niet 1313, niet 18731) |
 | `build` | Site in `generated\site` |
-| `check` | CI-spiegel / preflight (validate + VSA-productgate + Coria + Hugo) |
+| `check` | CI-spiegel / preflight (validate + VSA-publicatiecontrole + Coria + Hugo) |
 
 Intern: `_ensure.cmd` (`--hugo`, `--vsa-tool`), `fingerprint_coria_mxl.py`,
 `sync_vsa_products.py`, `check_vsa_products.py`, `product_meta.py`,

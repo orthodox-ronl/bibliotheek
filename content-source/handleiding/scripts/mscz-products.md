@@ -52,4 +52,4 @@ publicatie-PDF en Coria.
 
 - [layout](../layout/)
 - Workflow: [PDF en Coria](/handleiding/partituur/5-pdf-en-coria/)
-- [Productgates](/handleiding/start/productgates/)
+- [Publicatiecontrole](/handleiding/start/publicatiecontrole/)

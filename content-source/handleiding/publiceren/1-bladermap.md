@@ -9,7 +9,7 @@ weight: 10
 {{< cue >}}
 Nieuwe partituur in de bibliotheek zetten:
 [Opnemen in de bibliotheek](../1-opnemen-in-bibliotheek/)
-(`scripts\bieb-accepteer.cmd`).
+(`bieb accepteer`).
 
 Slot-pagina in de koormap:
 `content-source\praktijk\koormappen\hemelum\liturgie\…\index.md` met
@@ -37,7 +37,7 @@ liturgische plek: zie
 
 ## Bibliotheek: kort
 
-Gebruik **bieb-accepteer** voor mappen, `index.md` en de juiste
+Gebruik **bieb accepteer** voor mappen, `index.md` en de juiste
 bestandsnamen. Handmatig kopiëren van voorbeelden is alleen nog nodig bij
 uitzonderingen. Details en voorbeelden van commando’s:
 [Opnemen in de bibliotheek](../1-opnemen-in-bibliotheek/).

@@ -1,10 +1,12 @@
 ---
-title: "Productgates en bestandsnamen"
-linkTitle: "Productgates"
+title: "Publicatiecontrole en bestandsnamen"
+linkTitle: "Publicatiecontrole"
 weight: 25
+aliases:
+  - /handleiding/start/productgates/
 ---
 
-# Productgates en bestandsnamen
+# Publicatiecontrole en bestandsnamen
 
 Deze pagina is de **specificatie** voor afgeleide bestanden in de
 bibliotheek: hoe ze heten, welke bron ze bijhouden, en wat CI controleert.
@@ -20,24 +22,32 @@ Naamgevingsconventie voor conversies (tooling):
 - **Bron** = één echte extensie: `{stam}.vsa`, `{stam}.mscz`, `{stam}.mvsa`
 - **Afgeleide** = `{stam}.{bron-extensie}.{doel-extensie}` —
   bijv. `{stam}.vsa.mxl`, `{stam}.mscz.pdf`
-- **Productgate** = controle of die afgeleide nog bij de bron past (sha-stamp);
-  CI genereert niet, jij wel lokaal
+- **Publicatiecontrole** = versheidscontrole op site-producten (sibling +
+  herkomststempel); CI genereert niet, jij wel lokaal
 - **Handmatig** = `artefacten_handmatig: true` op `index.md` (vervangt het
   oude `.print.mscz`-spoor)
 {{< /cue >}}
 
-## Wat is een productgate?
+## Controles (terminologie)
 
-Een **productgate** is een vaste controle in `check` / GitHub Actions:
+| Term | Betekenis |
+| --- | --- |
+| **Versheidscontrole** | Meet en meldt of een sibling bestaat en of de herkomststempel (sha) bij de bron past. Regenereren doet dit niet. |
+| **Publicatiecontrole** | Versheidscontrole op **site-producten** (PDF, Coria-`.mxl`, …). |
+| **Importcontrole** | Versheidscontrole op een **bewerk-/importvorm** (bijv. sibling `.mscz.mvsa`). |
+| **Geldigheidscontrole** | Bron geldig / formaat-check (`vsa validate`, `mvsa validate`, …). |
+| **Strengheid** | Beleid op die controles (lokaal waarschuwen vs `--strict` / CI falen) — geen apart functietype. |
+
+Een **publicatiecontrole** in `check` / GitHub Actions doet dit:
 
 1. Zoek canonieke **bronbestanden** in `content-source\bibliotheek\`.
 2. Eis dat de bijbehorende **afgeleide** (sibling) bestaat.
-3. Eis dat de afgeleide een **provenance-stamp** heeft die bij de huidige
+3. Eis dat de afgeleide een **herkomststempel** heeft die bij de huidige
    bron past (geen verouderd of “leeg” product).
 
-Faalt de gate, dan vernieuw je lokaal met het product-commando en commit je
-bron **en** afgeleide samen. De build op GitHub **schrijft geen** MuseScore-
-of MusicXML-producten opnieuw.
+Faalt de controle, dan vernieuw je lokaal met het product-commando en commit
+je bron **en** afgeleide samen. De build op GitHub **schrijft geen**
+MuseScore- of MusicXML-producten opnieuw.
 
 ## Bestandsnamen (doelvorm)
 
@@ -57,7 +67,7 @@ Voorbeeld: `8-trisagion-8a-nederlands-hemelum`.
 | **Bron** | `{stam}` + **één** echte extensie | `….vsa`, `….mscz`, `….mvsa` |
 | **Afgeleide** | `{stam}.{bron-extensie}.{doel-extensie}` | `….vsa.mxl`, `….mscz.pdf`, `….mscz.mxl`, `….mvsa.mscz` |
 
-De **laatste** segment is wat programma’s als bestandstype zien (`.mxl`,
+Het **laatste** segment is wat programma’s als bestandstype zien (`.mxl`,
 `.pdf`, `.mscz`, …). Het middelste segment zegt **uit welke bron** het
 product komt. Zo botsen een Coria-bestand uit VSA en een Coria-bestand uit
 een MuseScore-partituur nooit op dezelfde korte naam.
@@ -82,18 +92,19 @@ Geen Coria uit dit spoor.
   terug importeren om te “layouten”.
 - Bestanden onder `content-source\input\` — werkvoorraad, geen publicatiebron.
 
-## Publicatiesporen en gates
+## Publicatiesporen en publicatiecontroles
 
 Elke bladermap onder `content-source\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\`
 kan één of meer **sporen** hebben. Het spoor volgt uit het **brontype**
 (de echte extensie), niet uit een verzonnen middelste woord zoals vroeger
-`partituur` of `print` in de bestandsnaam.
+`partituur` of `print` in de bestandsnaam. Meerdere bronnen in één map
+mogen; elk spoor houdt eigen siblings bij.
 
-| Spoor (brontype) | Canonieke bron | Verwachte afgeleiden (doelvorm) | Stamp in afgeleide | Lokaal maken | Gate |
+| Spoor (brontype) | Canonieke bron | Verwachte afgeleiden (doelvorm) | Stamp in afgeleide | Lokaal maken | Publicatiecontrole |
 | --- | --- | --- | --- | --- | --- |
 | **vsa** | `{stam}.vsa` | `{stam}.vsa.mxl` (Coria) | `vsa-source-sha256` van de `.vsa` | `scripts\vsa-products.cmd` | **Actief:** `check_vsa_products` |
-| **mscz** (basispartituur) | `{stam}.mscz` | `{stam}.mscz.pdf`, `{stam}.mscz.mxl` | `vsa-partituur-sha256` van de `.mscz` | later `mscz-products` / `mvsa pdf`+`mscz` met `--bibliotheek-id` | **Voorzien** |
-| **mvsa** | `{stam}.mvsa` | `{stam}.mvsa.mxl` / `.mscz` / `.pdf` (naarmate het traject) | source-sha van de `.mvsa` | later product-wrapper om `mvsa …` | **Voorzien** (nog geen bieb-`.mvsa`) |
+| **mscz** (basispartituur) | `{stam}.mscz` | `{stam}.mscz.pdf`, `{stam}.mscz.mxl` | `vsa-partituur-sha256` van de `.mscz` | later `mscz-products` / MuseScore-export met `--bibliotheek-id` | **Voorzien** |
+| **mvsa** | `{stam}.mvsa` | `{stam}.mvsa.mxl` / `.mscz` / `.pdf` (naarmate het traject) | source-sha van de `.mvsa` | later product-wrapper om `mvsa …` | **Voorzien** |
 | **tekstblad** | `{stam}.tekstblad.md` | `{stam}.tekstblad.pdf` | `vsa-source-sha256` van de `.md` | later `tekstblad-products` | **Voorzien** |
 
 **Bibliotheek-id** (`zangstuk/variant/uitvoeringsvorm`) hoort op elk
@@ -118,16 +129,16 @@ artefacten_handmatig: true
 
 3. PDF (en eventuele Coria-`.mxl`) houd je zelf bij als
    `{stam}.mscz.pdf` / `{stam}.mscz.mxl` (of legacy korte namen tot
-   migratie). Productgates **slaan** zulke mappen over.
+   migratie). Publicatiecontroles **slaan** zulke mappen over.
 
 **Nog in de repo:** enkele legacy-bestanden `*.print.mscz`. Die blijven
 herkend tot ze hernoemd zijn; nieuwe bladen krijgen geen `.print.` meer
 in de naam.
 
-## Provenance-stamps (waarom CI “stale” zegt)
+## Herkomststempels (waarom CI “stale” zegt)
 
-De gate kijkt niet naar de klok van het bestand, maar naar een hash in
-het product:
+De publicatiecontrole kijkt niet naar de klok van het bestand, maar naar
+een hash in het product:
 
 | Veld | Betekenis |
 | --- | --- |
@@ -143,9 +154,9 @@ of **stale**. Ontbreekt het sibling-bestand → **missing**.
 
 | Stap | Lokaal `check` | Pages-CI |
 | --- | --- | --- |
-| `vsa validate` op bibliotheek | ja | ja |
-| VSA-productgate (`.vsa` ↔ `.vsa.mxl`) | waarschuwing; met `--strict` fout | fout (`--fail`) |
-| Partituur- / tekstblad- / mvsa-gate | nog niet | nog niet |
+| Geldigheidscontrole (`vsa validate`) op bibliotheek | ja | ja |
+| Publicatiecontrole VSA (`.vsa` ↔ `.vsa.mxl`) | waarschuwing; met `--strict` fout | fout (`--fail`) |
+| Publicatiecontrole partituur / tekstblad / mvsa | nog niet | nog niet |
 | Coria-fingerprints + Hugo | ja | ja |
 
 CI **genereert geen** producten. Vernieuw lokaal (nu: `vsa-products`),
@@ -171,7 +182,7 @@ expliciete `{stam}.{bron-extensie}.{doel-extensie}`-vorm **verplicht**
 
 ## Voorbeelden
 
-Alleen `.vsa` (actieve gate):
+Alleen `.vsa` (actieve publicatiecontrole):
 
 ```text
 content-source\bibliotheek\110-tropaar\zondag-toon-1\groningen\
@@ -185,7 +196,7 @@ scripts\vsa-products.cmd content-source\bibliotheek\110-tropaar\zondag-toon-1\gr
 check --strict
 ```
 
-Basispartituur (doelvorm; gate nog voorzien):
+Basispartituur (doelvorm; publicatiecontrole nog voorzien):
 
 ```text
 …
@@ -194,7 +205,7 @@ Basispartituur (doelvorm; gate nog voorzien):
   8-trisagion-8a-nederlands-hemelum.mscz.mxl
 ```
 
-Handmatig MuseScore-blad (geen auto-gate):
+Handmatig MuseScore-blad (geen automatische publicatiecontrole):
 
 ```yaml
 # index.md
@@ -212,7 +223,7 @@ artefacten_handmatig: true
 - [Werktrajecten](../werktrajecten/) — pijplijnen per spoor
 - [check](../scripts/check/) · [vsa-products](../scripts/vsa-products/) · [validate](../scripts/validate/)
 - [Woorden](woorden/)
-- Repo-contract (kort): [docs/productgates.md](https://github.com/orthodox-ronl/bibliotheek/blob/development/docs/productgates.md)
+- Repo-contract (kort): [docs/publicatiecontrole.md](https://github.com/orthodox-ronl/bibliotheek/blob/development/docs/publicatiecontrole.md)
 - Tooling-conventie: [bestandsnaamgeving](https://orthodox-ronl.github.io/VSA-tooling/formats/canonical-checklists/#bestandsnaamgeving-conventie)
 
 {{< navbuttons "Woorden|/handleiding/start/woorden/" "Werktrajecten|/handleiding/werktrajecten/" >}}

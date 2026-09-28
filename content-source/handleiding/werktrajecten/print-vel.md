@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Print-vel"
 linkTitle: "Print-vel"
 weight: 40
@@ -9,7 +9,7 @@ weight: 40
 Dit werktraject houdt een **handmatig MuseScore-blad** en een **handmatige
 PDF** bij buiten de basispartituur-keten.
 
-**Doelvorm** (zie [Productgates](/handleiding/start/productgates/)): het
+**Doelvorm** (zie [Publicatiecontrole](/handleiding/start/publicatiecontrole/)): het
 bestand heet `{stam}.mscz` (geen `.print.` in de naam) en de bladermap heeft
 `artefacten_handmatig: true`. Afgeleide PDF: `{stam}.mscz.pdf`.
 
@@ -59,7 +59,7 @@ Voorbeelden in de bibliotheek:
 1. Maak of bewerk `{stam}.print.mscz` in MuseScore 4 (naam moet op
    `.print.mscz` eindigen).
 2. Neem op via [Opnemen](../opnemen-in-bibliotheek/)
-   (`bieb-accepteer`), of leg het bestand handmatig in de bladermap.
+   (`bieb accepteer`), of leg het bestand handmatig in de bladermap.
 3. Exporteer PDF in MuseScore (Bestand → Exporteren → PDF) naar dezelfde
    map.
 4. Zet frontmatter op `index.md`:
@@ -84,12 +84,12 @@ Geen automatische PDF/Coria uit `.print.mscz`. CI en `check` eisen geen
 | Situatie | Actie |
 | --- | --- |
 | Layout / PDF / Coria | MuseScore 4 met de hand — **geen** `layout` / `mscz-products` |
-| Opnemen | `scripts\bieb-accepteer.cmd` — [bieb-accepteer](../../scripts/bieb-accepteer/) |
+| Opnemen | `bieb accepteer` — [bieb accepteer](../../scripts/bieb-accepteer/) |
 | Controle | `scripts\check.cmd --strict` — [check](../../scripts/check/) |
 
 ## Zie ook
 
 - HOW: [Print-.mscz](../../partituur/7-print-mscz/)
-- Namen/gates: [Productgates](/handleiding/start/productgates/)
+- Namen/publicatiecontrole: [Publicatiecontrole](/handleiding/start/publicatiecontrole/)
 
 {{< navbuttons "VSA|/handleiding/werktrajecten/vsa/" "Site-build|/handleiding/werktrajecten/site-build/" >}}

@@ -134,7 +134,7 @@ vernieuwt `vsa-products` de Coria-`.mxl` **niet**. Dat hoort bij print-velden
 of template-exports die jij zelf bijhoudt — zie
 [Print-.mscz](../../partituur/7-print-mscz/) en de gele banner op die
 bibliotheekpagina. Afspraak over namen en sporen:
-[Productgates](/handleiding/start/productgates/).
+[Publicatiecontrole](/handleiding/start/publicatiecontrole/).
 
 Ligt er wél een `.vsa` naast een `{stam}.print.mscz`, dan mag de build
 nog steeds de **SVG** van die `.vsa` maken (notatie naast de handmatige

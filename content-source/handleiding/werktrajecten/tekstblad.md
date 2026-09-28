@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Tekstblad → PDF"
 linkTitle: "Tekstblad"
 weight: 55
@@ -52,7 +52,7 @@ Voorbeeld:
 
 1. Schrijf of herstel `{stam}.tekstblad.md` (HTML en `::: vsa-notatie` mogen).
 2. Neem op met [Opnemen](../opnemen-in-bibliotheek/) /
-   `scripts\bieb-accepteer.cmd` (zet indien nodig de `build:`-frontmatter).
+   `bieb accepteer` (zet indien nodig de `build:`-frontmatter).
 3. Bouw de PDF:
 
 ```cmd
@@ -78,12 +78,12 @@ Lokaal vernieuwt `_pipeline.cmd` stale tekstblad-PDF’s via
 | --- | --- | --- |
 | PDF bij tekstblad | `scripts\tekstblad-products.cmd` `[map]` | [tekstblad-products](../../scripts/tekstblad-products/) |
 | Willekeurig markdownblad (niet bibliotheek) | `scripts\pdf.cmd` | [pdf](../../scripts/pdf/) |
-| Opnemen | `scripts\bieb-accepteer.cmd` | [bieb-accepteer](../../scripts/bieb-accepteer/) |
+| Opnemen | `bieb accepteer` | [bieb accepteer](../../scripts/bieb-accepteer/) |
 | Alles vóór commit | `scripts\check.cmd --strict` | [check](../../scripts/check/) |
 
 ## Zie ook
 
-- Namen/gates: [Productgates](/handleiding/start/productgates/)
+- Namen/publicatiecontrole: [Publicatiecontrole](/handleiding/start/publicatiecontrole/)
 - [Markdown naar PDF](../markdown-naar-pdf/) (generiek / demo)
 - [Opnemen](../opnemen-in-bibliotheek/)
 

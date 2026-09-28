@@ -77,7 +77,7 @@ python scripts\render_tropaar_toon4_corpus.py --id T4-11 --pdf
    - hernoem de `.mscz` naar `{stam}.print.mscz` (buiten basispartituur-pijplijn);
    - houd PDF en Coria-`.mxl` handmatig bij naast die print;
    - zet op bibliotheek-`index.md` `artefacten_handmatig: true`
-     (gele beheerdersbanner; `vsa-products` en partituur-productgate laten de map met rust);
+     (gele beheerdersbanner; `vsa-products` en partituur-publicatiecontrole laten de map met rust);
    - de eenstemmige `.vsa` mag ernaast blijven staan voor de notatie
      (SVG via `scripts\oefenhoek-index.cmd --svg` / volle
      `check`; zie [.vsa schrijven](../1-vsa-schrijven/)).

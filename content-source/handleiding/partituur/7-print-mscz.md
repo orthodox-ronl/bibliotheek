@@ -57,7 +57,7 @@ artefacten_handmatig: true
 Die regel betekent: PDF, Coria-`.mxl` en andere afgeleiden in **deze** map
 worden niet automatisch bijgewerkt. De bibliotheekpagina toont een gele
 beheerdersmelding. Afspraak over bestandsnamen per spoor:
-[Productgates](/handleiding/start/productgates/).
+[Publicatiecontrole](/handleiding/start/publicatiecontrole/).
 
 ## Wat je niet doet
 
@@ -70,17 +70,17 @@ beheerdersmelding. Afspraak over bestandsnamen per spoor:
 ## Stap voor stap
 
 1. Bewerk in MuseScore 4. Neem het bestand op met
-   [bieb-accepteer](/handleiding/publiceren/1-opnemen-in-bibliotheek/)
+   [bieb accepteer](/handleiding/publiceren/1-opnemen-in-bibliotheek/)
    (bestandsnaam eindigend op `.print.mscz`), of sla handmatig op als
    `{stam}.print.mscz` in de bibliotheek (geen spaties; stam uit
    bibliotheek-id).
 2. Exporteer PDF handmatig naar `{stam}.pdf` in dezelfde bibliotheek-map.
    Eventuele Coria-`.mxl` eveneens handmatig (of uit de template-render)
    ernaast zetten en bij elke bronwijziging meenemen.
-3. Bibliotheek-`index.md` met `artefacten_handmatig: true` (bieb-accepteer
+3. Bibliotheek-`index.md` met `artefacten_handmatig: true` (bieb accepteer
    zet dat automatisch bij `.print.mscz`) + koormap-slot met `bieb` (zie
    [Id-register](/bibliotheek/id-register/)).
-4. `scripts\check.cmd --strict` — partituur- en VSA-productgate slaan deze map over.
+4. `scripts\check.cmd --strict` — partituur- en VSA-publicatiecontrole slaan deze map over.
 
 ## Klaar als
 

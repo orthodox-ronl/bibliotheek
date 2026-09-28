@@ -20,8 +20,8 @@ mappen, woorden). Stapsgewijze MuseScore- of VSA-HOW’s staan onder
 
 {{< cue >}}
 - **Poort:** [Opnemen in de bibliotheek](opnemen-in-bibliotheek/) — ruw materiaal
-  binnenhalen, later opkuisen, daarna `bieb-accepteer`
-- **Namen / gates:** [Productgates](../start/productgates/) — bron vs afgeleide
+  binnenhalen, later opkuisen, daarna `bieb accepteer`
+- **Namen / publicatiecontrole:** [Publicatiecontrole](../start/publicatiecontrole/) — bron vs afgeleide
 - **Publicatiesporen:** [Basispartituur](basispartituur/), [VSA](vsa/),
   [Print-vel](print-vel/) (legacy `.print.mscz`), [Tekstblad](tekstblad/)
 - **Site zichtbaar maken:** [Site-build](site-build/)
@@ -35,7 +35,7 @@ mappen, woorden). Stapsgewijze MuseScore- of VSA-HOW’s staan onder
 ruw materiaal (input/)
     |
     v
-Opnemen in de bibliotheek  (werkvoorraad + later opkuis + bieb-accepteer)
+Opnemen in de bibliotheek  (werkvoorraad + later opkuis + bieb accepteer)
     |
     +-- Basispartituur  ->  PDF + Coria-.mxl
     +-- VSA             ->  SVG + Coria-.vsa.mxl
@@ -64,8 +64,8 @@ geen bibliotheek-producten.
 | Ingebedde VSA | VSA buiten de oefenhoek-bibliotheek naar SVG (en optioneel MXL) | [Ingebedde VSA](ingebedde-vsa/) |
 | mvsa | Meerstemmige VSA — nog niet actief | [mvsa (voorzien)](mvsa/) |
 
-**Bestandsnamen en productgates** (bron = één extensie; afgeleide =
+**Bestandsnamen en publicatiecontroles** (bron = één extensie; afgeleide =
 `{stam}.{bron-ext}.{doel-ext}`; wat CI controleert):
-[Productgates](../start/productgates/). Termen: [Woorden](../start/woorden/).
+[Publicatiecontrole](../start/publicatiecontrole/). Termen: [Woorden](../start/woorden/).
 
 {{< navbuttons "Start|/handleiding/start/" "Opnemen|/handleiding/werktrajecten/opnemen-in-bibliotheek/" >}}

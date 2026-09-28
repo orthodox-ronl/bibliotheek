@@ -55,14 +55,14 @@ voor SVG of `vsa-products`.
 1. Schrijf of herstel `{stam}.vsa`. HOW:
    [.vsa schrijven](../../vsa/1-vsa-schrijven/).
 2. Neem op in de bibliotheek indien nodig:
-   [Opnemen](../opnemen-in-bibliotheek/) (`bieb-accepteer`).
+   [Opnemen](../opnemen-in-bibliotheek/) (`bieb accepteer`).
 3. Coria-`.vsa.mxl`:
 
 ```cmd
 scripts\vsa-products.cmd content-source\bibliotheek\5-eniggeboren-zoon
 ```
 
-4. Controleer: `check --strict` (validate + productgate + Hugo).
+4. Controleer: `check --strict` (validate + publicatiecontrole + Hugo).
 5. Site bekijken: `serve` → http://127.0.0.1:18732/
 
 Bibliotheek-**Oefenen** gebruikt de sibling `{stam}.vsa.mxl` in de

@@ -26,7 +26,7 @@ Detail: [Wat heb je nodig](start/wat-heb-je-nodig/).
 | [Werktrajecten](werktrajecten/) | Per pijplijn: waartoe, eindresultaat, wanneer wel/niet |
 | [Partituur](partituur/) | Stapsgewijze HOW in MuseScore |
 | [VSA](vsa/) | HOW: `.vsa` schrijven |
-| [Publiceren](publiceren/) | Opnemen met `bieb-accepteer`, koormap-slot, publicatiestatus |
+| [Publiceren](publiceren/) | Opnemen met `bieb accepteer`, koormap-slot, publicatiestatus |
 | [Scripts](scripts/) | Man-pages van `scripts\….cmd` |
 
 **Bibliotheek** = catalogus van oefenbestanden. **Koormap** = geordende

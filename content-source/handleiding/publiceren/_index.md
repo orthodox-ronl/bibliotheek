@@ -20,7 +20,7 @@ Pijplijn-overzicht (opnemen, productsporen, site-build):
 - Id-lijst: [Id-register](/bibliotheek/id-register/)
 - Special: [voorzien / ongerefereerd / oefenbaar](/bibliotheek/speciaal/)
 
-1. [Opnemen in de bibliotheek](1-opnemen-in-bibliotheek/) — HOW `bieb-accepteer` (werktraject: [Opnemen](../werktrajecten/opnemen-in-bibliotheek/))
+1. [Opnemen in de bibliotheek](1-opnemen-in-bibliotheek/) — HOW `bieb accepteer` (werktraject: [Opnemen](../werktrajecten/opnemen-in-bibliotheek/))
 2. [Bibliotheek en koormap](1-bladermap/) — koormap-slot met `bieb`
 3. [Status en check](2-status-en-check/)
 4. [Als het misgaat](3-als-het-misgaat/)

@@ -16,7 +16,7 @@ vanuit de repo-root.
 | Commando | Wat het doet | Man-page |
 | --- | --- | --- |
 | `validate` | Controleert bibliotheek-`.vsa` (en eventueel `.mvsa`) via de `vsa`-CLI. | [validate](validate/) |
-| `check` | Preflight: validate + VSA-productgate + Coria-fingerprints + Hugo-build. | [check](check/) |
+| `check` | Preflight: validate + VSA-publicatiecontrole + Coria-fingerprints + Hugo-build. | [check](check/) |
 | `build` | Bouwt de site naar `generated\site`. | [build](build/) |
 | `serve` | Lokale preview op http://127.0.0.1:18732/ (niet 1313, niet 18731). | [serve](serve/) |
 | `vsa-products` | Maakt/vernieuwt sibling `{stam}.vsa.mxl` (Coria) bij een bibliotheek-`.vsa`. | [vsa-products](vsa-products/) |
@@ -38,14 +38,14 @@ repo afgestemd.
 
 | Commando (later) | Rol |
 | --- | --- |
-| `bieb-accepteer` | Partituur/tekstblad opnemen onder een bibliotheek-id |
+| `bieb accepteer` | Partituur/tekstblad opnemen onder een bibliotheek-id (`bieb` wordt de multi-command CLI) |
 | `opkuisen` / `layout` | Inhoudsfixes + basispartituur-normalisatie |
 | `mscz-products` / `tekstblad-products` | PDF/Coria-afgeleiden uit basispartituur / tekstblad |
 | `ensure-bibliotheek-id` / `update-werkvoorraad` | Colofon-id / werkvoorraadtabel |
 | `h` / `pdf` / ... | Console-hulp en overige VSA-demo-commando's |
 
 Man-pages (ter voorbereiding):
-[bieb-accepteer](bieb-accepteer/), [opkuisen](opkuisen/), [layout](layout/),
+[bieb accepteer](bieb-accepteer/), [opkuisen](opkuisen/), [layout](layout/),
 [mscz-products](mscz-products/),
 [tekstblad-products](tekstblad-products/), [ensure-bibliotheek-id](ensure-bibliotheek-id/),
 [update-werkvoorraad](update-werkvoorraad/), [oefenhoek-index](oefenhoek-index/),

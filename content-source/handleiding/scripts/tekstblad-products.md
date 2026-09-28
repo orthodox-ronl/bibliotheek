@@ -57,4 +57,4 @@ Als de `.tekstblad.md` inhoudelijk klaar is voor publicatie-PDF, of als
 
 - [pdf](../pdf/) — generieke markdown → PDF
 - Workflow: [Tekstblad](/handleiding/werktrajecten/tekstblad/)
-- [Productgates](/handleiding/start/productgates/)
+- [Publicatiecontrole](/handleiding/start/publicatiecontrole/)

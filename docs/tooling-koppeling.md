@@ -9,7 +9,7 @@ Normatief voor deze repo. Zie ook [AGENTS.md](../AGENTS.md).
    in [VSA-tooling](https://github.com/orthodox-ronl/VSA-tooling).
 
 2. **Bibliotheek-specifieke tools wél hier.** Scripts voor bibliotheek- en
-   koormappenbeheer (paden, `bieb-accepteer`, Hugo-check, Coria-fingerprints
+   koormappenbeheer (paden, `bieb accepteer`, Hugo-check, Coria-fingerprints
    met *deze* Pages-URL’s, …) horen in `bibliotheek/scripts/`. Die tools
    **roepen** VSA-tooling aan (`vsa` CLI of geïnstalleerd package), ze
    dupliceren die logica niet.
@@ -48,8 +48,8 @@ lokaal met `scripts\vsa-products.cmd` en commit de siblings.
 
 Lokaal: `scripts\validate.cmd` of `check` / `check --strict`.
 
-Naamgeving van bronnen en afgeleiden, en welke gates er (gaan) zijn:
-[productgates.md](productgates.md).
+Naamgeving van bronnen en afgeleiden, en welke publicatiecontroles er (gaan) zijn:
+[publicatiecontrole.md](publicatiecontrole.md).
 
 Workflow Pages bepaalt de ref:
 
