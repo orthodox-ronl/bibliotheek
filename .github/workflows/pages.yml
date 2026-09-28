@@ -17,17 +17,14 @@ on:
 permissions:
   contents: write
 
-jobs:
-  build:
-    name: Build site
-    runs-on: ubuntu-latest
+concurrency:
+  group: pages-${{ github.repository }}
+  cancel-in-progress: true
 
-    outputs:
-      destination_dir: ${{ steps.target.outputs.destination_dir }}
-      url_prefix: ${{ steps.target.outputs.url_prefix }}
-      pages_url: ${{ steps.target.outputs.pages_url }}
-      label: ${{ steps.target.outputs.label }}
-      keep_files: ${{ steps.target.outputs.keep_files }}
+jobs:
+  build-and-deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -47,14 +44,12 @@ jobs:
           if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
             echo "base_url=https://orthodox-ronl.github.io/bibliotheek/" >> "$GITHUB_OUTPUT"
             echo "destination_dir=" >> "$GITHUB_OUTPUT"
-            echo "url_prefix=/bibliotheek/" >> "$GITHUB_OUTPUT"
             echo "pages_url=https://orthodox-ronl.github.io/bibliotheek/" >> "$GITHUB_OUTPUT"
             echo "label=production" >> "$GITHUB_OUTPUT"
             echo "keep_files=false" >> "$GITHUB_OUTPUT"
           elif [[ "${GITHUB_REF}" == "refs/heads/development" ]]; then
             echo "base_url=https://orthodox-ronl.github.io/bibliotheek/preview/" >> "$GITHUB_OUTPUT"
             echo "destination_dir=preview" >> "$GITHUB_OUTPUT"
-            echo "url_prefix=/bibliotheek/preview/" >> "$GITHUB_OUTPUT"
             echo "pages_url=https://orthodox-ronl.github.io/bibliotheek/preview/" >> "$GITHUB_OUTPUT"
             echo "label=development-preview" >> "$GITHUB_OUTPUT"
             echo "keep_files=true" >> "$GITHUB_OUTPUT"
@@ -70,7 +65,6 @@ jobs:
             fi
             echo "base_url=https://orthodox-ronl.github.io/bibliotheek/${slug}/" >> "$GITHUB_OUTPUT"
             echo "destination_dir=${slug}" >> "$GITHUB_OUTPUT"
-            echo "url_prefix=/bibliotheek/${slug}/" >> "$GITHUB_OUTPUT"
             echo "pages_url=https://orthodox-ronl.github.io/bibliotheek/${slug}/" >> "$GITHUB_OUTPUT"
             echo "label=branch-preview" >> "$GITHUB_OUTPUT"
             echo "keep_files=true" >> "$GITHUB_OUTPUT"
@@ -81,7 +75,6 @@ jobs:
           echo "Target: ${{ steps.target.outputs.label }}"
           echo "base_url: ${{ steps.target.outputs.base_url }}"
           echo "destination_dir: '${{ steps.target.outputs.destination_dir }}'"
-          echo "url_prefix: ${{ steps.target.outputs.url_prefix }}"
           echo "keep_files: ${{ steps.target.outputs.keep_files }}"
 
       - name: Setup Python
@@ -107,23 +100,26 @@ jobs:
             --minify \
             --baseURL "${{ steps.target.outputs.base_url }}"
 
-      - name: Upload site artifact
-        uses: actions/upload-artifact@v8
+      - name: Deploy to GitHub Pages (subdirectory)
+        if: steps.target.outputs.destination_dir != ''
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          name: pages-site
-          path: generated/site
-          if-no-files-found: error
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./generated/site
+          destination_dir: ${{ steps.target.outputs.destination_dir }}
+          keep_files: ${{ steps.target.outputs.keep_files }}
 
-  deploy:
-    name: Deploy to GitHub Pages
-    needs: build
-    uses: orthodox-ronl/VSA-tooling/.github/workflows/pages-deploy-reusable.yml@main
-    with:
-      artifact_name: pages-site
-      publish_dir: site
-      destination_dir: ${{ needs.build.outputs.destination_dir }}
-      url_prefix: ${{ needs.build.outputs.url_prefix }}
-      pages_url: ${{ needs.build.outputs.pages_url }}
-      keep_files: ${{ needs.build.outputs.keep_files == 'true' }}
-    permissions:
-      contents: write
+      - name: Deploy to GitHub Pages (root)
+        if: steps.target.outputs.destination_dir == ''
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./generated/site
+          keep_files: false
+
+      - name: Show site URL
+        run: |
+          echo "Site URL: ${{ steps.target.outputs.pages_url }}"
+          echo "::notice::Pages-bron moet 'Deploy from a branch' zijn (gh-pages, /)."
