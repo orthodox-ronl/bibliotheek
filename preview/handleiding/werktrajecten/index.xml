@@ -67,16 +67,22 @@ Representatie-id: &lt;code&gt;vsa&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id="waartoe"&gt;Waartoe&lt;/h2&gt;
 &lt;p&gt;Eenstemmige notatie (antifoon, communievers, tropaar-regels, …) moet op
 de bibliotheekpagina als plaatje verschijnen en via &lt;strong&gt;Oefenen&lt;/strong&gt; in Coria
-afspeelbaar zijn — zonder een volledige MuseScore-basispartituur.&lt;/p&gt;</description></item><item><title>Print-vel</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/print-vel/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/print-vel/</guid><description>&lt;h1 id="print-vel"&gt;Print-vel&lt;/h1&gt;
-&lt;p&gt;Dit werktraject houdt een &lt;strong&gt;print-&lt;code&gt;.mscz&lt;/code&gt;&lt;/strong&gt; en een &lt;strong&gt;handmatige PDF&lt;/strong&gt; bij
-buiten de basispartituur-keten. Representatie-id: &lt;code&gt;print&lt;/code&gt;.&lt;/p&gt;
+afspeelbaar zijn — zonder een volledige MuseScore-basispartituur.&lt;/p&gt;</description></item><item><title>Print-vel</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/print-vel/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/print-vel/</guid><description>&lt;h1 id="print-vel-legacy-naam"&gt;Print-vel (legacy-naam)&lt;/h1&gt;
+&lt;p&gt;Dit werktraject houdt een &lt;strong&gt;handmatig MuseScore-blad&lt;/strong&gt; en een &lt;strong&gt;handmatige
+PDF&lt;/strong&gt; bij buiten de basispartituur-keten.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Doelvorm&lt;/strong&gt; (zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/productgates/"&gt;Productgates&lt;/a&gt;
+): het
+bestand heet &lt;code&gt;{stam}.mscz&lt;/code&gt; (geen &lt;code&gt;.print.&lt;/code&gt; in de naam) en de bladermap heeft
+&lt;code&gt;artefacten_handmatig: true&lt;/code&gt;. Afgeleide PDF: &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Legacy:&lt;/strong&gt; bestandsnaam eindigend op &lt;code&gt;.print.mscz&lt;/code&gt; blijft herkend tot
+migratie.&lt;/p&gt;
 &lt;aside class="handleiding-cue"&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
- Bestandsnaam eindigt op &lt;strong&gt;&lt;code&gt;.print.mscz&lt;/code&gt;&lt;/strong&gt;. Geen &lt;code&gt;scripts\layout.cmd&lt;/code&gt;, geen
-&lt;code&gt;mscz-products&lt;/code&gt;. Exporteer de PDF zelf in MuseScore 4 en commit die naast
-het print-bestand in de bibliotheek. Zet op de bibliotheek-&lt;code&gt;index.md&lt;/code&gt;
-&lt;code&gt;artefacten_handmatig: true&lt;/code&gt;.
+ Zet op de bibliotheek-&lt;code&gt;index.md&lt;/code&gt; &lt;code&gt;artefacten_handmatig: true&lt;/code&gt;. Geen
+&lt;code&gt;scripts\layout.cmd&lt;/code&gt;, geen &lt;code&gt;mscz-products&lt;/code&gt;. Exporteer de PDF zelf in
+MuseScore 4. Nieuwe bladen: &lt;code&gt;{stam}.mscz&lt;/code&gt; + &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt;. Oude bladen
+mogen nog &lt;code&gt;*.print.mscz&lt;/code&gt; heten.
  &lt;/div&gt;
 &lt;/aside&gt;
 
