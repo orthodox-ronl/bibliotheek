@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Start on Bibliotheek</title><link>https://orthodox-ronl.github.io/bibliotheek/feat-docs-publicatiecontrole/handleiding/start/</link><description>Recent content in Start on Bibliotheek</description><generator>Hugo</generator><language>nl</language><atom:link href="https://orthodox-ronl.github.io/bibliotheek/feat-docs-publicatiecontrole/handleiding/start/index.xml" rel="self" type="application/rss+xml"/><item><title>Wat heb je nodig</title><link>https://orthodox-ronl.github.io/bibliotheek/feat-docs-publicatiecontrole/handleiding/start/wat-heb-je-nodig/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/feat-docs-publicatiecontrole/handleiding/start/wat-heb-je-nodig/</guid><description>&lt;h1 id="wat-heb-je-nodig"&gt;Wat heb je nodig&lt;/h1&gt;
+&lt;aside class="handleiding-cue"&gt;
+ &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
+ &lt;div class="handleiding-cue-body"&gt;
+ &lt;ol&gt;
+&lt;li&gt;Installeer MuseScore &lt;strong&gt;4&lt;/strong&gt; (niet MuseScore 3) als je partituren bewerkt.&lt;/li&gt;
+&lt;li&gt;Zorg dat de map &lt;code&gt;bibliotheek&lt;/code&gt; staat onder &lt;code&gt;C:\Git\orthodox-ronl\&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Open Verkenner, ga naar &lt;code&gt;C:\Git\orthodox-ronl\bibliotheek&lt;/code&gt;, typ &lt;code&gt;cmd&lt;/code&gt; in de adresbalk, druk Enter.&lt;/li&gt;
+&lt;li&gt;Zet &lt;code&gt;.\scripts&lt;/code&gt; op je PATH (org-conventie), of roep &lt;code&gt;scripts\….cmd&lt;/code&gt; aan vanuit de repo-root.&lt;/li&gt;
+&lt;li&gt;Lokale preview: &lt;code&gt;serve&lt;/code&gt; en open http://127.0.0.1:18732/ in de browser.&lt;/li&gt;
+&lt;/ol&gt;
+
+ &lt;/div&gt;
+&lt;/aside&gt;
+
+&lt;p&gt;&lt;strong&gt;Wat je nu doet:&lt;/strong&gt; je pc zo inrichten dat de rest van deze handleiding
+neerkomt op copy-paste, zonder zoeken naar paden.&lt;/p&gt;</description></item><item><title>Waar ligt wat</title><link>https://orthodox-ronl.github.io/bibliotheek/feat-docs-publicatiecontrole/handleiding/start/waar-ligt-wat/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/feat-docs-publicatiecontrole/handleiding/start/waar-ligt-wat/</guid><description>&lt;h1 id="waar-ligt-wat"&gt;Waar ligt wat&lt;/h1&gt;
+&lt;aside class="handleiding-cue"&gt;
+ &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
+ &lt;div class="handleiding-cue-body"&gt;
+ &lt;ul&gt;
+&lt;li&gt;Input: &lt;code&gt;content-source\input\&amp;lt;herkomst&amp;gt;\&lt;/code&gt; (originele bestandsnaam mag spaties hebben)&lt;/li&gt;
+&lt;li&gt;Tussenwerk: &lt;code&gt;content-source\input\_werk\&amp;lt;stam&amp;gt;\&lt;/code&gt; (publicatiestam; alleen op jouw pc, niet in git)&lt;/li&gt;
+&lt;li&gt;Bibliotheek: &lt;code&gt;content-source\bibliotheek\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;\&lt;/code&gt; — &lt;strong&gt;geen spaties&lt;/strong&gt; in bestandsnamen&lt;/li&gt;
+&lt;li&gt;Koormap: &lt;code&gt;content-source\koormappen\hemelum\liturgie\&lt;/code&gt; — sectie-&lt;code&gt;_index.md&lt;/code&gt; of slot-&lt;code&gt;index.md&lt;/code&gt; + &lt;code&gt;bieb&lt;/code&gt; (geen basispartituur-bestanden)&lt;/li&gt;
+&lt;li&gt;Register: &lt;code&gt;content-source\input\werkvoorraad.md&lt;/code&gt; en &lt;a href="https://orthodox-ronl.github.io/bibliotheek/feat-docs-publicatiecontrole/bibliotheek/id-register/"&gt;Id-register&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+ &lt;/div&gt;
+&lt;/aside&gt;
+
+&lt;p&gt;&lt;strong&gt;Wat je nu doet:&lt;/strong&gt; vier soorten plekken uit elkaar houden. Anders verdwijnt
+het origineel, of komt een half af bestand op de publieke site.&lt;/p&gt;</description></item><item><title>Bibliotheek en koormappen</title><link>https://orthodox-ronl.github.io/bibliotheek/feat-docs-publicatiecontrole/handleiding/start/bibliotheek-en-koormappen/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/feat-docs-publicatiecontrole/handleiding/start/bibliotheek-en-koormappen/</guid><description>&lt;h1 id="bibliotheek-en-koormappen"&gt;Bibliotheek en koormappen&lt;/h1&gt;
+&lt;aside class="handleiding-cue"&gt;
+ &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
+ &lt;div class="handleiding-cue-body"&gt;
+ &lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Bibliotheek&lt;/strong&gt; = alles wat jullie &lt;em&gt;hebben&lt;/em&gt; (uitvoeringsvorm + id + partituur)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Koormap&lt;/strong&gt; = geordende &lt;em&gt;view&lt;/em&gt; voor één gelegenheid of thema (navigatie + leesbladen)&lt;/li&gt;
+&lt;li&gt;Een uitvoeringsvorm mag in de bibliotheek staan &lt;strong&gt;zonder&lt;/strong&gt; koormap&lt;/li&gt;
+&lt;li&gt;In een koormap is een liturgische plek vaak een &lt;strong&gt;hoofdstuk&lt;/strong&gt; (sectie) met
+kindpagina’s of een &lt;strong&gt;compositieblad&lt;/strong&gt; (markdown + shortcodes)&lt;/li&gt;
+&lt;/ul&gt;
+
+ &lt;/div&gt;
+&lt;/aside&gt;
+
+&lt;p&gt;&lt;strong&gt;Wat je nu doet:&lt;/strong&gt; het model kennen waarmee de bibliotheek-site werkt, zodat
+publicatie, ids en navigatie niet door elkaar lopen.&lt;/p&gt;</description></item><item><title>Publicatiecontrole en bestandsnamen</title><link>https://orthodox-ronl.github.io/bibliotheek/feat-docs-publicatiecontrole/handleiding/start/publicatiecontrole/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/feat-docs-publicatiecontrole/handleiding/start/publicatiecontrole/</guid><description>&lt;h1 id="publicatiecontrole-en-bestandsnamen"&gt;Publicatiecontrole en bestandsnamen&lt;/h1&gt;
+&lt;p&gt;Deze pagina is de &lt;strong&gt;specificatie&lt;/strong&gt; voor afgeleide bestanden in de
+bibliotheek: hoe ze heten, welke bron ze bijhouden, en wat CI controleert.
+Doelgroep: beheerder (MuseScore en Windows-cmd; geen programmeur).&lt;/p&gt;
+&lt;p&gt;Organisatie-termen (&lt;code&gt;zangstuk-id&lt;/code&gt; → &lt;code&gt;variant-id&lt;/code&gt; → &lt;code&gt;uitvoeringsvorm-id&lt;/code&gt; →
+&lt;code&gt;representatie-id&lt;/code&gt;): glossary in
+&lt;a href="https://github.com/orthodox-ronl/bron/blob/main/docs/specs/terminologie.md"&gt;bron&lt;/a&gt;
+.
+Naamgevingsconventie voor conversies (tooling):
+&lt;a href="https://orthodox-ronl.github.io/VSA-tooling/formats/canonical-checklists/#bestandsnaamgeving-conventie"&gt;canonieke checklists — bestandsnaamgeving&lt;/a&gt;
+.&lt;/p&gt;
+&lt;aside class="handleiding-cue"&gt;
+ &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
+ &lt;div class="handleiding-cue-body"&gt;
+ &lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Bron&lt;/strong&gt; = één echte extensie: &lt;code&gt;{stam}.vsa&lt;/code&gt;, &lt;code&gt;{stam}.mscz&lt;/code&gt;, &lt;code&gt;{stam}.mvsa&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Afgeleide&lt;/strong&gt; = &lt;code&gt;{stam}.{bron-extensie}.{doel-extensie}&lt;/code&gt; —
+bijv. &lt;code&gt;{stam}.vsa.mxl&lt;/code&gt;, &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Publicatiecontrole&lt;/strong&gt; = versheidscontrole op site-producten (sibling +
+herkomststempel); CI genereert niet, jij wel lokaal&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Handmatig&lt;/strong&gt; = &lt;code&gt;artefacten_handmatig: true&lt;/code&gt; op &lt;code&gt;index.md&lt;/code&gt; (vervangt het
+oude &lt;code&gt;.print.mscz&lt;/code&gt;-spoor)&lt;/li&gt;
+&lt;/ul&gt;
+
+ &lt;/div&gt;
+&lt;/aside&gt;
+
+&lt;h2 id="controles-terminologie"&gt;Controles (terminologie)&lt;/h2&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Term&lt;/th&gt;
+ &lt;th&gt;Betekenis&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;Versheidscontrole&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;Meet en meldt of een sibling bestaat en of de herkomststempel (sha) bij de bron past. Regenereren doet dit niet.&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;Publicatiecontrole&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;Versheidscontrole op &lt;strong&gt;site-producten&lt;/strong&gt; (PDF, Coria-&lt;code&gt;.mxl&lt;/code&gt;, …).&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;Importcontrole&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;Versheidscontrole op een &lt;strong&gt;bewerk-/importvorm&lt;/strong&gt; (bijv. sibling &lt;code&gt;.mscz.mvsa&lt;/code&gt;).&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;Geldigheidscontrole&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;Bron geldig / formaat-check (&lt;code&gt;vsa validate&lt;/code&gt;, &lt;code&gt;mvsa validate&lt;/code&gt;, …).&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;Strengheid&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;Beleid op die controles (lokaal waarschuwen vs &lt;code&gt;--strict&lt;/code&gt; / CI falen) — geen apart functietype.&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Een &lt;strong&gt;publicatiecontrole&lt;/strong&gt; in &lt;code&gt;check&lt;/code&gt; / GitHub Actions doet dit:&lt;/p&gt;</description></item><item><title>Woorden en bestanden</title><link>https://orthodox-ronl.github.io/bibliotheek/feat-docs-publicatiecontrole/handleiding/start/woorden/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/feat-docs-publicatiecontrole/handleiding/start/woorden/</guid><description>&lt;h1 id="woorden-en-bestanden"&gt;Woorden en bestanden&lt;/h1&gt;
+&lt;aside class="handleiding-cue"&gt;
+ &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
+ &lt;div class="handleiding-cue-body"&gt;
+ &lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;basispartituur&lt;/strong&gt; / basispartituur-&lt;code&gt;.mscz&lt;/code&gt; = canonieke MuseScore-partituur (hier bewerk je; daarna normaliseren). Bronextensie &lt;code&gt;.mscz&lt;/code&gt;; afgeleiden &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt; / &lt;code&gt;{stam}.mscz.mxl&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;handmatig MuseScore-blad&lt;/strong&gt; = gewone &lt;code&gt;{stam}.mscz&lt;/code&gt; in een map met &lt;code&gt;artefacten_handmatig: true&lt;/code&gt; (vervangt het oude &lt;code&gt;.print.mscz&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;versheidscontrole&lt;/strong&gt; = sibling bestaat + herkomststempel past bij bron; meet/meldt alleen&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;publicatiecontrole&lt;/strong&gt; = versheidscontrole op site-producten; zie &lt;a href="publicatiecontrole/"&gt;Publicatiecontrole&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;importcontrole&lt;/strong&gt; = versheidscontrole op bewerk-/importvorm (bijv. &lt;code&gt;.mscz.mvsa&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;geldigheidscontrole&lt;/strong&gt; = &lt;code&gt;vsa validate&lt;/code&gt; / &lt;code&gt;mvsa validate&lt;/code&gt; / …&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;artefacten_handmatig&lt;/strong&gt; = frontmatter op bibliotheek-&lt;code&gt;index.md&lt;/code&gt;: PDF/MXL niet auto-bijwerken&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.mxl&lt;/code&gt; / &lt;code&gt;.vsa.mxl&lt;/code&gt; / &lt;code&gt;.mscz.mxl&lt;/code&gt; = MusicXML voor Coria (&lt;strong&gt;afgeleide&lt;/strong&gt;; niet terug importeren om te layouten)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.pdf&lt;/code&gt; / &lt;code&gt;.mscz.pdf&lt;/code&gt; = A4-afgeleide om te lezen of te printen&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.vsa&lt;/code&gt; / &lt;code&gt;.mvsa&lt;/code&gt; = tekstbronnen (VSA / meerstemmig); overzicht: &lt;a href="https://orthodox-ronl.github.io/bibliotheek/feat-docs-publicatiecontrole/handleiding/werktrajecten/"&gt;Werktrajecten&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;werktraject&lt;/strong&gt; = vaste pijplijn (waartoe, eindresultaat, CI, handmatige &lt;code&gt;.cmd&lt;/code&gt;); catalogus: &lt;a href="https://orthodox-ronl.github.io/bibliotheek/feat-docs-publicatiecontrole/handleiding/werktrajecten/"&gt;Werktrajecten&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;tekstblad&lt;/strong&gt; = bron &lt;code&gt;{stam}.tekstblad.md&lt;/code&gt; → product &lt;code&gt;{stam}.tekstblad.pdf&lt;/code&gt;; zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/feat-docs-publicatiecontrole/handleiding/werktrajecten/tekstblad/"&gt;Tekstblad&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;opkuisen&lt;/strong&gt; = inhoud opschonen (stemmen/balken, lettergreep↔noot); script of handmatig in MuseScore&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;normaliseren&lt;/strong&gt; / &lt;strong&gt;layouten&lt;/strong&gt; = basispartituur-standaard met &lt;code&gt;scripts\layout.cmd&lt;/code&gt; (zelfde scriptstap; “layouten” is de gewone naam)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;bibliotheek-id&lt;/strong&gt; = &lt;code&gt;zangstuk/variant/uitvoeringsvorm&lt;/code&gt; (drie lagen); zichtbaar op bibliotheek-leaves en in het colofon van basispartituur-&lt;code&gt;.mscz&lt;/code&gt;/PDF&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;bieb&lt;/code&gt;&lt;/strong&gt; (shortcode) = knoppen + partituur van een bibliotheek-id; &lt;strong&gt;&lt;code&gt;bieb&lt;/code&gt;&lt;/strong&gt; (CLI, later) = beheercommando’s (&lt;code&gt;accepteer&lt;/code&gt;, &lt;code&gt;zoek&lt;/code&gt;, …)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;bieb accepteer&lt;/code&gt;&lt;/strong&gt; = bestand opnemen in de bibliotheek (mappen + &lt;code&gt;index.md&lt;/code&gt;); zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/feat-docs-publicatiecontrole/handleiding/werktrajecten/opnemen-in-bibliotheek/"&gt;Opnemen&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;publicatiestatus&lt;/strong&gt; = wat koorleden op de pagina zien (sticky header); intern &lt;em&gt;Stap&lt;/em&gt; in de werkvoorraad is iets anders&lt;/li&gt;
+&lt;/ul&gt;
+
+ &lt;/div&gt;
+&lt;/aside&gt;
+
+&lt;p&gt;&lt;strong&gt;Wat je nu doet:&lt;/strong&gt; dezelfde namen gebruiken als de rest van de keten, zodat
+commando’s en mappen kloppen.&lt;/p&gt;</description></item></channel></rss>
