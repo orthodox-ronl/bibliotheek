@@ -42,15 +42,20 @@ preflight — die map is geen publicatiebron.&lt;/p&gt;</description></item><ite
 &lt;li&gt;VSA-publicatiecontrole — of elke bibliotheek-&lt;code&gt;.vsa&lt;/code&gt; (behalve
 &lt;code&gt;artefacten_handmatig&lt;/code&gt;) een passende sibling &lt;code&gt;{stam}.vsa.mxl&lt;/code&gt; heeft
 met &lt;code&gt;vsa-source-sha256&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;MSCZ-publicatiecontrole — of elke basispartituur-&lt;code&gt;.mscz&lt;/code&gt; (behalve
+handmatig/print) passende siblings &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt; en
+&lt;code&gt;{stam}.mscz.mxl&lt;/code&gt; heeft met &lt;code&gt;vsa-partituur-sha256&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Coria-fingerprints (&lt;code&gt;python scripts\fingerprint_coria_mxl.py&lt;/code&gt;)&lt;/li&gt;
 &lt;li&gt;Hugo-build naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Zonder &lt;code&gt;--strict&lt;/code&gt; waarschuwt de publicatiecontrole lokaal maar faalt niet
-(behalve op &lt;code&gt;main&lt;/code&gt; of met &lt;code&gt;BIBLIOTHEEK_PRODUCTS_STRICT=1&lt;/code&gt;). Met
-&lt;code&gt;--strict&lt;/code&gt;, en altijd in CI, is een stale of missing &lt;code&gt;.vsa.mxl&lt;/code&gt; een
-fout. Vernieuw dan lokaal met &lt;a href="../vsa-products/"&gt;vsa-products&lt;/a&gt;
- en commit
-de sibling mee. CI genereert geen MuseScore-/MusicXML-producten.&lt;/p&gt;</description></item><item><title>build</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;Zonder &lt;code&gt;--strict&lt;/code&gt; waarschuwen de publicatiecontroles lokaal maar falen
+niet (behalve op &lt;code&gt;main&lt;/code&gt; of met &lt;code&gt;BIBLIOTHEEK_PRODUCTS_STRICT=1&lt;/code&gt;). Met
+&lt;code&gt;--strict&lt;/code&gt;, en altijd in CI, is een stale of missing product een fout.
+Vernieuw dan lokaal met &lt;a href="../vsa-products/"&gt;vsa-products&lt;/a&gt;
+ of
+&lt;a href="../mscz-products/"&gt;mscz-products&lt;/a&gt;
+ en commit de siblings mee. CI genereert
+geen MuseScore-/MusicXML-producten.&lt;/p&gt;</description></item><item><title>build</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\build.cmd&lt;/code&gt; — hele website bouwen naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;build
@@ -168,16 +173,16 @@ in MuseScore.&lt;/li&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mscz-products.cmd [pad] [--force] [--dry-run]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Exporteert naast een &lt;strong&gt;basispartituur-&lt;code&gt;.mscz&lt;/code&gt;&lt;/strong&gt; de sibling-bestanden die
-koorleden gebruiken: een A4-&lt;strong&gt;PDF&lt;/strong&gt; (downloaden/printen) en een
-&lt;strong&gt;Coria-&lt;code&gt;.mxl&lt;/code&gt;&lt;/strong&gt; (afspelen via de Oefenen-knop). Het script schrijft ook
-herkomstinformatie (&lt;code&gt;partituur-sha256&lt;/code&gt;, &lt;code&gt;generated-at&lt;/code&gt;) in die producten.&lt;/p&gt;
+koorleden gebruiken: een A4-&lt;strong&gt;PDF&lt;/strong&gt; (&lt;code&gt;{stam}.mscz.pdf&lt;/code&gt;) en een
+&lt;strong&gt;Coria-&lt;code&gt;.mxl&lt;/code&gt;&lt;/strong&gt; (&lt;code&gt;{stam}.mscz.mxl&lt;/code&gt;). Het script schrijft ook
+herkomstinformatie (&lt;code&gt;vsa-partituur-sha256&lt;/code&gt;, &lt;code&gt;vsa-generated-at&lt;/code&gt;) in die
+producten.&lt;/p&gt;
 &lt;p&gt;Het zoekt basispartituur-&lt;code&gt;.mscz&lt;/code&gt; onder het opgegeven pad (of, zonder pad,
-onder &lt;code&gt;content-source&lt;/code&gt;). Bestanden in &lt;code&gt;input\&lt;/code&gt; en namen die
-eindigen op &lt;code&gt;.print.mscz&lt;/code&gt; worden overgeslagen.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Volgorde:&lt;/strong&gt; eerst &lt;a href="../layout/"&gt;layout&lt;/a&gt;
-, daarna eventueel een editslag in
-MuseScore 4, daarna dit commando — niet meteen PDF maken als je nog gaat
-editen. De pipeline roept &lt;code&gt;mscz-products&lt;/code&gt; lokaal ook aan.&lt;/p&gt;</description></item><item><title>vsa-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+onder &lt;code&gt;content-source\bibliotheek&lt;/code&gt;). Bestanden in &lt;code&gt;input\&lt;/code&gt;, namen die
+eindigen op &lt;code&gt;.print.mscz&lt;/code&gt;, en mappen met &lt;code&gt;artefacten_handmatig: true&lt;/code&gt;
+worden overgeslagen.&lt;/p&gt;
+&lt;p&gt;Onder de motorkap: MuseScore 4 voor de PDF; de tooling-CLI &lt;code&gt;mscz mxl&lt;/code&gt; voor
+Coria (vier parts). Geen fork van VSA-tooling-logica.&lt;/p&gt;</description></item><item><title>vsa-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\vsa-products.cmd&lt;/code&gt; — Coria-&lt;code&gt;.vsa.mxl&lt;/code&gt; maken bij een bibliotheek-&lt;code&gt;.vsa&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\vsa-products.cmd [pad] [--force] [--dry-run]
