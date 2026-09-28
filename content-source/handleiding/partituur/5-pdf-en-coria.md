@@ -1,4 +1,4 @@
----
+﻿---
 title: "PDF en Coria-.mxl maken"
 linkTitle: "PDF en Coria"
 weight: 50
@@ -36,7 +36,7 @@ Dit is het **partituur**-spoor (representatie-id `partituur`). Eenstemmige VSA g
 `{stam}.vsa.mxl` via [`.vsa schrijven`](../../vsa/1-vsa-schrijven/). Als in
 één map ooit twee Coria-bestanden nodig zijn, gebruik expliciete namen
 `{stam}.partituur.mxl` / `{stam}.vsa.mxl` — zie
-`scripts\oefenhoek-product-contract.md`.
+[Productgates](/handleiding/start/productgates/).
 
 **Wanneer:** ná [reviewen en opnieuw normaliseren](../4-reviewen/). Niet
 meteen na de eerste normalisatie als je nog gaat editen: dan maak je de

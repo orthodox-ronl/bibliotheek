@@ -1,4 +1,4 @@
----
+﻿---
 title: "Partituur"
 linkTitle: "Partituur"
 weight: 20
@@ -35,7 +35,7 @@ houd je handmatig bij met `artefacten_handmatig: true` — zie
 niet in deze partituurstraat.
 
 Technische afspraken voor wie scripts of CI aanhoudt (bestanden in de repo,
-niet op deze site): `scripts\oefenhoek-product-contract.md`,
+niet op deze site): [Productgates](/handleiding/start/productgates/),
 `scripts\mscz-partituur-contract.md`, `scripts\mscz-product-transforms.md`.
 
 {{< cue >}}

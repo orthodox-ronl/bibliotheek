@@ -1,4 +1,4 @@
----
+﻿---
 title: "mscz-products"
 linkTitle: "mscz-products"
 weight: 100
@@ -52,4 +52,4 @@ publicatie-PDF en Coria.
 
 - [layout](../layout/)
 - Workflow: [PDF en Coria](/handleiding/partituur/5-pdf-en-coria/)
-- Bestand `scripts\oefenhoek-product-contract.md` in `bibliotheek`
+- [Productgates](/handleiding/start/productgates/)

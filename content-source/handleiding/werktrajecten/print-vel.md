@@ -1,19 +1,26 @@
----
+﻿---
 title: "Print-vel"
 linkTitle: "Print-vel"
 weight: 40
 ---
 
-# Print-vel
+# Print-vel (legacy-naam)
 
-Dit werktraject houdt een **print-`.mscz`** en een **handmatige PDF** bij
-buiten de basispartituur-keten. Representatie-id: `print`.
+Dit werktraject houdt een **handmatig MuseScore-blad** en een **handmatige
+PDF** bij buiten de basispartituur-keten.
+
+**Doelvorm** (zie [Productgates](/handleiding/start/productgates/)): het
+bestand heet `{stam}.mscz` (geen `.print.` in de naam) en de bladermap heeft
+`artefacten_handmatig: true`. Afgeleide PDF: `{stam}.mscz.pdf`.
+
+**Legacy:** bestandsnaam eindigend op `.print.mscz` blijft herkend tot
+migratie.
 
 {{< cue >}}
-Bestandsnaam eindigt op **`.print.mscz`**. Geen `scripts\layout.cmd`, geen
-`mscz-products`. Exporteer de PDF zelf in MuseScore 4 en commit die naast
-het print-bestand in de bibliotheek. Zet op de bibliotheek-`index.md`
-`artefacten_handmatig: true`.
+Zet op de bibliotheek-`index.md` `artefacten_handmatig: true`. Geen
+`scripts\layout.cmd`, geen `mscz-products`. Exporteer de PDF zelf in
+MuseScore 4. Nieuwe bladen: `{stam}.mscz` + `{stam}.mscz.pdf`. Oude bladen
+mogen nog `*.print.mscz` heten.
 {{< /cue >}}
 
 ## Waartoe
@@ -83,6 +90,6 @@ Geen automatische PDF/Coria uit `.print.mscz`. CI en `check` eisen geen
 ## Zie ook
 
 - HOW: [Print-.mscz](../../partituur/7-print-mscz/)
-- Contract: `scripts\oefenhoek-product-contract.md` in `bibliotheek`
+- Namen/gates: [Productgates](/handleiding/start/productgates/)
 
 {{< navbuttons "VSA|/handleiding/werktrajecten/vsa/" "Site-build|/handleiding/werktrajecten/site-build/" >}}

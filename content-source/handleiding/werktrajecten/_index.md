@@ -21,8 +21,9 @@ mappen, woorden). Stapsgewijze MuseScore- of VSA-HOW’s staan onder
 {{< cue >}}
 - **Poort:** [Opnemen in de bibliotheek](opnemen-in-bibliotheek/) — ruw materiaal
   binnenhalen, later opkuisen, daarna `bieb-accepteer`
+- **Namen / gates:** [Productgates](../start/productgates/) — bron vs afgeleide
 - **Publicatiesporen:** [Basispartituur](basispartituur/), [VSA](vsa/),
-  [Print-vel](print-vel/), [Tekstblad](tekstblad/)
+  [Print-vel](print-vel/) (legacy `.print.mscz`), [Tekstblad](tekstblad/)
 - **Site zichtbaar maken:** [Site-build](site-build/)
 - **Apart:** [Markdown naar PDF](markdown-naar-pdf/),
   [Ingebedde VSA](ingebedde-vsa/); voorzien: [mvsa](mvsa/)
@@ -63,9 +64,8 @@ geen bibliotheek-producten.
 | Ingebedde VSA | VSA buiten de oefenhoek-bibliotheek naar SVG (en optioneel MXL) | [Ingebedde VSA](ingebedde-vsa/) |
 | mvsa | Meerstemmige VSA — nog niet actief | [mvsa (voorzien)](mvsa/) |
 
-**Representatie-id** in de bibliotheek (`partituur`, `vsa`, `print`): welk
-bronbestand hoort bij welk afgeleid product. Technische namen en stamps:
-bestand `scripts\oefenhoek-product-contract.md` in de repository-map
-`ibliotheek`. Termen: [Woorden](../start/woorden/).
+**Bestandsnamen en productgates** (bron = één extensie; afgeleide =
+`{stam}.{bron-ext}.{doel-ext}`; wat CI controleert):
+[Productgates](../start/productgates/). Termen: [Woorden](../start/woorden/).
 
 {{< navbuttons "Start|/handleiding/start/" "Opnemen|/handleiding/werktrajecten/opnemen-in-bibliotheek/" >}}

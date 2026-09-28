@@ -1,4 +1,4 @@
----
+﻿---
 title: "Tekstblad → PDF"
 linkTitle: "Tekstblad"
 weight: 55
@@ -83,7 +83,7 @@ Lokaal vernieuwt `_pipeline.cmd` stale tekstblad-PDF’s via
 
 ## Zie ook
 
-- Contract: `scripts\oefenhoek-product-contract.md` in `bibliotheek`
+- Namen/gates: [Productgates](/handleiding/start/productgates/)
 - [Markdown naar PDF](../markdown-naar-pdf/) (generiek / demo)
 - [Opnemen](../opnemen-in-bibliotheek/)
 

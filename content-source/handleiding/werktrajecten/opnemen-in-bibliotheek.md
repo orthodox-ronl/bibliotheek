@@ -1,4 +1,4 @@
----
+﻿---
 title: "Opnemen in de bibliotheek"
 linkTitle: "Opnemen"
 weight: 10
@@ -128,6 +128,6 @@ productbestanden moet jij lokaal maken en **meecommitten**.
   (doorverwijzing; canonieke plek is deze werktrajectpagina)
 - HOW: [Opnemen (Publiceren)](../../publiceren/1-opnemen-in-bibliotheek/)
 - [Id-register](/bibliotheek/id-register/)
-- Contract: `scripts\oefenhoek-product-contract.md` in `bibliotheek`
+- Namen/gates: [Productgates](/handleiding/start/productgates/)
 
 {{< navbuttons "Werktrajecten|/handleiding/werktrajecten/" "Basispartituur|/handleiding/werktrajecten/basispartituur/" >}}

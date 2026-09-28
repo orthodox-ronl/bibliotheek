@@ -48,6 +48,9 @@ lokaal met `scripts\vsa-products.cmd` en commit de siblings.
 
 Lokaal: `scripts\validate.cmd` of `check` / `check --strict`.
 
+Naamgeving van bronnen en afgeleiden, en welke gates er (gaan) zijn:
+[productgates.md](productgates.md).
+
 Workflow Pages bepaalt de ref:
 
 | Trigger-branch | Mode | Ref |

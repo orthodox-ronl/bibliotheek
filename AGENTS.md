@@ -6,6 +6,8 @@ Organisatie-context: [orthodox-ronl/AGENTS.md](https://github.com/orthodox-ronl/
 (of org-root). Terminologie: [bron/docs/specs/terminologie.md](https://github.com/orthodox-ronl/bron/blob/main/docs/specs/terminologie.md).
 
 Tooling-contract: [docs/tooling-koppeling.md](docs/tooling-koppeling.md).
+Productgates / sibling-namen: [docs/productgates.md](docs/productgates.md)
+(leesbaar: handleiding *Productgates*).
 
 ---
 

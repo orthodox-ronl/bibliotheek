@@ -54,5 +54,6 @@ Tooling-contract (geen forks; float op `development`, pin op `main`):
 
 Hugo-site + Coria-fingerprints + `vsa validate` + VSA-productgate
 (`{stam}.vsa.mxl` freshness) in `check` / Pages-CI (float/pin via
-[docs/tooling-koppeling.md](docs/tooling-koppeling.md)). Basispartituur-
+[docs/tooling-koppeling.md](docs/tooling-koppeling.md)). Sibling-namen en
+gates: [docs/productgates.md](docs/productgates.md). Basispartituur-
 MSCZ/PDF-gates volgen later — geen gekopieerde tool-Python.

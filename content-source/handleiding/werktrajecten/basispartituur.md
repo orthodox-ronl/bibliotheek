@@ -1,4 +1,4 @@
----
+﻿---
 title: "Basispartituur → PDF en Coria"
 linkTitle: "Basispartituur"
 weight: 20
@@ -29,15 +29,15 @@ basispartituur.
 
 | Bestand (in de bladermap) | Rol |
 | --- | --- |
-| `{stam}.mscz` | Canonieke basispartituur (niet `.print.`) |
-| `{stam}.pdf` of `{stam}.partituur.pdf` | A4-afdruk |
-| `{stam}.mxl` of `{stam}.partituur.mxl` | MusicXML voor Coria |
+| `{stam}.mscz` | Canonieke basispartituur |
+| `{stam}.mscz.pdf` (doel) of legacy `{stam}.pdf` / `{stam}.partituur.pdf` | A4-afdruk |
+| `{stam}.mscz.mxl` (doel) of legacy `{stam}.mxl` / `{stam}.partituur.mxl` | MusicXML voor Coria |
 
 **Klaar** als: de PDF/MXL de stamp `partituur-sha256` van de huidige
 `.mscz` dragen; de colofonregel **Bibliotheek-id:** klopt met het pad;
 `check_partituur_products` (onderdeel van `check --strict`) is groen.
-Meerdere producten van hetzelfde type in één map → expliciete namen met
-representatie-id (zie `scripts\oefenhoek-product-contract.md` in `bibliotheek`).
+Meerdere producten van hetzelfde type in één map → expliciete
+doelvorm (zie [Productgates](/handleiding/start/productgates/)).
 
 ## Wanneer wel / wanneer niet
 
@@ -108,7 +108,6 @@ ontbrekende bibliotheek-ids met `ensure_bibliotheek_id.py`.
 ## Zie ook
 
 - [Afgeleiden](../../partituur/6-afgeleiden/)
-- Contracten in `bibliotheek`: `scripts\oefenhoek-product-contract.md`,
-  `scripts\mscz-partituur-contract.md`, `scripts\mscz-product-transforms.md`
+- [Productgates](/handleiding/start/productgates/)
 
 {{< navbuttons "Opnemen|/handleiding/werktrajecten/opnemen-in-bibliotheek/" "VSA|/handleiding/werktrajecten/vsa/" >}}
