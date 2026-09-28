@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Opnemen in de bibliotheek"
 linkTitle: "Opnemen"
 weight: 10
@@ -20,8 +20,8 @@ genoeg is om op te nemen.
    (`update-werkvoorraad` of `check`).
 3. Vul het **doel-id** in — niet raden; zie het
    [Id-register](/bibliotheek/id-register/).
-4. Als het bestand klaar is (basispartituur-`.mscz`, `.vsa`, `.print.mscz`
-   of `.tekstblad.md`): `scripts\bieb-accepteer.cmd`.
+4. Als het bestand klaar is (basispartituur-`.mscz`, `.vsa`, `.mvsa`,
+   handmatig `.mscz`, of `.tekstblad.md`): `bieb accepteer`.
 5. Controleer met `scripts\check.cmd --strict`.
 {{< /cue >}}
 
@@ -42,10 +42,10 @@ naam.
 | `bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\` | Map met `index.md` + bestand onder **publicatiestam** |
 
 **Klaar** als: het doel-id klopt (of bewust leeg met een vraag in de
-notitie); na `bieb-accepteer` bestaat de bladermap met shortcode `bieb`;
+notitie); na `bieb accepteer` bestaat de bladermap met shortcode `bieb`;
 `scripts\check.cmd --strict` is groen voor de bibliotheekstructuur.
 
-`bieb-accepteer` maakt **geen** PDF of Coria-`.mxl`. PDF en Coria-`.mxl`
+`bieb accepteer` maakt **geen** PDF of Coria-`.mxl`. PDF en Coria-`.mxl`
 horen bij [Basispartituur](../basispartituur/) of [VSA](../vsa/).
 
 ## Wanneer wel / wanneer niet
@@ -94,7 +94,7 @@ scripts\update-werkvoorraad.cmd
 7. Neem op in de bibliotheek:
 
 ```cmd
-scripts\bieb-accepteer.cmd
+bieb accepteer
 ```
 
    Het script vraagt bibliotheek-id en bestand na (of je geeft die op de
@@ -119,7 +119,7 @@ productbestanden moet jij lokaal maken en **meecommitten**.
 | Situatie | Commando | Man-page |
 | --- | --- | --- |
 | Werkvoorraad bijwerken | `scripts\update-werkvoorraad.cmd` | [update-werkvoorraad](../../scripts/update-werkvoorraad/) |
-| Bestand in de bibliotheek zetten | `scripts\bieb-accepteer.cmd` | [bieb-accepteer](../../scripts/bieb-accepteer/) |
+| Bestand in de bibliotheek zetten | `bieb accepteer` | [bieb accepteer](../../scripts/bieb-accepteer/) |
 | Alles controleren vóór commit | `scripts\check.cmd --strict` | [check](../../scripts/check/) |
 
 ## Zie ook
@@ -128,6 +128,6 @@ productbestanden moet jij lokaal maken en **meecommitten**.
   (doorverwijzing; canonieke plek is deze werktrajectpagina)
 - HOW: [Opnemen (Publiceren)](../../publiceren/1-opnemen-in-bibliotheek/)
 - [Id-register](/bibliotheek/id-register/)
-- Namen/gates: [Productgates](/handleiding/start/productgates/)
+- Namen/publicatiecontrole: [Publicatiecontrole](/handleiding/start/publicatiecontrole/)
 
 {{< navbuttons "Werktrajecten|/handleiding/werktrajecten/" "Basispartituur|/handleiding/werktrajecten/basispartituur/" >}}

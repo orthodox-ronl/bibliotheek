@@ -6,8 +6,8 @@ Organisatie-context: [orthodox-ronl/AGENTS.md](https://github.com/orthodox-ronl/
 (of org-root). Terminologie: [bron/docs/specs/terminologie.md](https://github.com/orthodox-ronl/bron/blob/main/docs/specs/terminologie.md).
 
 Tooling-contract: [docs/tooling-koppeling.md](docs/tooling-koppeling.md).
-Productgates / sibling-namen: [docs/productgates.md](docs/productgates.md)
-(leesbaar: handleiding *Productgates*).
+Publicatiecontrole / sibling-namen: [docs/publicatiecontrole.md](docs/publicatiecontrole.md)
+(leesbaar: handleiding *Publicatiecontrole*).
 
 ---
 
@@ -65,7 +65,7 @@ serve
 
 Preview: **http://127.0.0.1:18732/** — nooit poort **1313**, niet **18731** (VSA-demo).
 
-`check` = validate + VSA-productgate (`.vsa.mxl` freshness) + Coria-fingerprints
+`check` = validate + VSA-publicatiecontrole (`.vsa.mxl` freshness) + Coria-fingerprints
 + Hugo. Producten vernieuwen: `scripts\vsa-products.cmd`. Optioneel tooling
 klaarzetten:
 

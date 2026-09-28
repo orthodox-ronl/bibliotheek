@@ -29,6 +29,6 @@ Heb je je pc al eens klaargezet? Dan volstaat vaak alleen de
 2. [Waar ligt wat](waar-ligt-wat/)
 3. [Bibliotheek en koormappen](bibliotheek-en-koormappen/) — catalogus vs view; secties en compositiebladen
 4. [Woorden](woorden/)
-5. [Productgates](productgates/) — bron vs afgeleide, namen, wat CI controleert
+5. [Publicatiecontrole](publicatiecontrole/) — bron vs afgeleide, namen, wat CI controleert
 
 {{< navbuttons "Handleiding|/handleiding/" "Wat heb je nodig|/handleiding/start/wat-heb-je-nodig/" >}}

@@ -25,7 +25,7 @@ Preview: http://127.0.0.1:18732/
 | `build` | productie-achtige build in `generated\site` |
 | `validate` | `vsa validate` op bibliotheek-content |
 | `vsa-products` | Coria-sibling `{stam}.vsa.mxl` bij `.vsa` |
-| `check` | preflight (validate + productgate + Coria + Hugo) |
+| `check` | preflight (validate + publicatiecontrole + Coria + Hugo) |
 
 ## Structuur
 
@@ -52,8 +52,9 @@ Tooling-contract (geen forks; float op `development`, pin op `main`):
 
 ## Status
 
-Hugo-site + Coria-fingerprints + `vsa validate` + VSA-productgate
+Hugo-site + Coria-fingerprints + `vsa validate` + VSA-publicatiecontrole
 (`{stam}.vsa.mxl` freshness) in `check` / Pages-CI (float/pin via
 [docs/tooling-koppeling.md](docs/tooling-koppeling.md)). Sibling-namen en
-gates: [docs/productgates.md](docs/productgates.md). Basispartituur-
-MSCZ/PDF-gates volgen later — geen gekopieerde tool-Python.
+publicatiecontroles: [docs/publicatiecontrole.md](docs/publicatiecontrole.md).
+Basispartituur-MSCZ/PDF-publicatiecontroles volgen later — geen gekopieerde
+tool-Python.

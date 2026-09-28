@@ -1,4 +1,4 @@
-﻿---
+---
 title: "PDF en Coria-.mxl maken"
 linkTitle: "PDF en Coria"
 weight: 50
@@ -36,7 +36,7 @@ Dit is het **partituur**-spoor (representatie-id `partituur`). Eenstemmige VSA g
 `{stam}.vsa.mxl` via [`.vsa schrijven`](../../vsa/1-vsa-schrijven/). Als in
 één map ooit twee Coria-bestanden nodig zijn, gebruik expliciete namen
 `{stam}.partituur.mxl` / `{stam}.vsa.mxl` — zie
-[Productgates](/handleiding/start/productgates/).
+[Publicatiecontrole](/handleiding/start/publicatiecontrole/).
 
 **Wanneer:** ná [reviewen en opnieuw normaliseren](../4-reviewen/). Niet
 meteen na de eerste normalisatie als je nog gaat editen: dan maak je de
@@ -59,7 +59,7 @@ daarna opnieuw deze stap (of [Afgeleiden](../6-afgeleiden/)).
 1. Zet de `.mscz` in de bibliotheek als die daar nog niet staat. Gebruik
    bij voorkeur
    [opnemen in de bibliotheek](../../publiceren/1-opnemen-in-bibliotheek/)
-   (`scripts\bieb-accepteer.cmd`), zodat map, `index.md` en bestandsnaam
+   (`bieb accepteer`), zodat map, `index.md` en bestandsnaam
    kloppen. Handmatig: kopieer uit `_werk` naar de publicatiestam zonder
    spaties:
 

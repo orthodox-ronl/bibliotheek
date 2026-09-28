@@ -9,18 +9,21 @@ weight: 30
 {{< cue >}}
 - **basispartituur** / basispartituur-`.mscz` = canonieke MuseScore-partituur (hier bewerk je; daarna normaliseren). Bronextensie `.mscz`; afgeleiden `{stam}.mscz.pdf` / `{stam}.mscz.mxl`
 - **handmatig MuseScore-blad** = gewone `{stam}.mscz` in een map met `artefacten_handmatig: true` (vervangt het oude `.print.mscz`)
-- **productgate** = controle of afgeleiden bij de bron passen (sha-stamp); zie [Productgates](productgates/)
+- **versheidscontrole** = sibling bestaat + herkomststempel past bij bron; meet/meldt alleen
+- **publicatiecontrole** = versheidscontrole op site-producten; zie [Publicatiecontrole](publicatiecontrole/)
+- **importcontrole** = versheidscontrole op bewerk-/importvorm (bijv. `.mscz.mvsa`)
+- **geldigheidscontrole** = `vsa validate` / `mvsa validate` / …
 - **artefacten_handmatig** = frontmatter op bibliotheek-`index.md`: PDF/MXL niet auto-bijwerken
 - `.mxl` / `.vsa.mxl` / `.mscz.mxl` = MusicXML voor Coria (**afgeleide**; niet terug importeren om te layouten)
 - `.pdf` / `.mscz.pdf` = A4-afgeleide om te lezen of te printen
-- `.vsa` = tekst plus melodie in VSA-notatie (SVG + meestal auto Coria-`.vsa.mxl`); overzicht trajecten: [Werktrajecten](/handleiding/werktrajecten/)
+- `.vsa` / `.mvsa` = tekstbronnen (VSA / meerstemmig); overzicht: [Werktrajecten](/handleiding/werktrajecten/)
 - **werktraject** = vaste pijplijn (waartoe, eindresultaat, CI, handmatige `.cmd`); catalogus: [Werktrajecten](/handleiding/werktrajecten/)
 - **tekstblad** = bron `{stam}.tekstblad.md` → product `{stam}.tekstblad.pdf`; zie [Tekstblad](/handleiding/werktrajecten/tekstblad/)
-- **opkuisen** = inhoud opschonen (stemmen/balken, lettergreep↔noot); Capella-script of handmatig in MuseScore
+- **opkuisen** = inhoud opschonen (stemmen/balken, lettergreep↔noot); script of handmatig in MuseScore
 - **normaliseren** / **layouten** = basispartituur-standaard met `scripts\layout.cmd` (zelfde scriptstap; “layouten” is de gewone naam)
 - **bibliotheek-id** = `zangstuk/variant/uitvoeringsvorm` (drie lagen); zichtbaar op bibliotheek-leaves en in het colofon van basispartituur-`.mscz`/PDF
-- **`bieb`** = shortcode die knoppen + partituur van een bibliotheek-id toont
-- **bieb-accepteer** = script dat een `.mscz` / `.vsa` / tekstblad in de bibliotheek zet (mappen + `index.md`); zie [Opnemen](/handleiding/werktrajecten/opnemen-in-bibliotheek/) en HOW [Publiceren](/handleiding/publiceren/1-opnemen-in-bibliotheek/)
+- **`bieb`** (shortcode) = knoppen + partituur van een bibliotheek-id; **`bieb`** (CLI, later) = beheercommando’s (`accepteer`, `zoek`, …)
+- **`bieb accepteer`** = bestand opnemen in de bibliotheek (mappen + `index.md`); zie [Opnemen](/handleiding/werktrajecten/opnemen-in-bibliotheek/)
 - **publicatiestatus** = wat koorleden op de pagina zien (sticky header); intern *Stap* in de werkvoorraad is iets anders
 {{< /cue >}}
 
@@ -32,18 +35,18 @@ commando’s en mappen kloppen.
 | Extensie | In het kort | Wat jij ermee doet |
 | --- | --- | --- |
 | basispartituur-`.mscz` | MuseScore 4-bestand; bron voor PDF en Coria | Openen, nakijken, opslaan; daarna `scripts\layout.cmd`; afgeleiden `{stam}.mscz.pdf` / `{stam}.mscz.mxl` |
-| handmatig `.mscz` | Zelfde soort MuseScore-bestand, map met `artefacten_handmatig: true` | Alleen in MuseScore bewerken; PDF handmatig; geen auto-productgate — zie [Productgates](productgates/) |
+| handmatig `.mscz` | Zelfde soort MuseScore-bestand, map met `artefacten_handmatig: true` | Alleen in MuseScore bewerken; PDF handmatig; geen automatische publicatiecontrole — zie [Publicatiecontrole](publicatiecontrole/) |
 | `.mxl` / `.vsa.mxl` / `.mscz.mxl` | Samengeperste MusicXML (**afgeleide**) | Naar Coria; of (na opkuisen) als start voor een nieuwe basispartituur. Nooit roundtrip: `.mscz` → `.mxl` → weer `.mscz` gooit de layout weg. |
 | `.pdf` / `.mscz.pdf` | A4-blad (afgeleide of handmatige export) | Downloaden of printen |
 | `.vsa` | VSA-notatie | Schrijven in een editor; sitebuild maakt SVG; `check`/`vsa-products` maakt Coria-`.vsa.mxl` — zie [.vsa schrijven](/handleiding/vsa/1-vsa-schrijven/) |
-| `.cap` / `.capx` | Capella | Als bron bewaren; eerst naar `.mxl` (CapToMusic) als je nog geen `.mxl` hebt |
+| `.mvsa` | Meerstemmige tekstbron | Schrijven/valideren met `mvsa`; later producten via `mvsa-products` |
 
-**Namen en gates:** [Productgates](productgates/) (bron vs afgeleide,
-sha-stamps, wat CI controleert). Repo-kort: `docs/productgates.md`.
+**Namen en publicatiecontrole:** [Publicatiecontrole](publicatiecontrole/) (bron vs afgeleide,
+sha-stamps, wat CI controleert). Repo-kort: `docs/publicatiecontrole.md`.
 
 **Opkuisen** = inhoudelijke opschoning: stemmen en notenbalken goed zetten,
-lettergrepen synchroon met noten. Capella-`.mxl`: `scripts\opkuisen.cmd`.
-Bij een `.mscz`: vaak handmatig in MuseScore. Zie
+lettergrepen synchroon met noten. MusicXML: `scripts\opkuisen.cmd`. Bij een
+`.mscz`: vaak handmatig in MuseScore. Zie
 [Opkuisen](/handleiding/partituur/2-opkuisen/).
 
 **Normaliseren** (gangbaar: **layouten**) = de basispartituur-standaard toepassen met
@@ -91,8 +94,8 @@ Je kunt een mail “hier is de Capella” vertalen naar: input in
 handmatig MuseScore-blad: `{stam}.mscz` + handmatige PDF (+
 `artefacten_handmatig: true`) in de bibliotheek, slot-pagina in de koormap.
 Voor een eenstemmige VSA: `.vsa` + `.vsa.mxl` via `check` / `vsa-products`.
-Namen en gates: [Productgates](/handleiding/start/productgates/). Model van
+Namen en publicatiecontrole: [Publicatiecontrole](/handleiding/start/publicatiecontrole/). Model van
 secties en compositiebladen:
 [Bibliotheek en koormappen](/handleiding/start/bibliotheek-en-koormappen/).
 
-{{< navbuttons "Productgates|/handleiding/start/productgates/" "Werktrajecten|/handleiding/werktrajecten/" >}}
+{{< navbuttons "Publicatiecontrole|/handleiding/start/publicatiecontrole/" "Werktrajecten|/handleiding/werktrajecten/" >}}

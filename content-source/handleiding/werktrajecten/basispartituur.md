@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Basispartituur → PDF en Coria"
 linkTitle: "Basispartituur"
 weight: 20
@@ -37,7 +37,7 @@ basispartituur.
 `.mscz` dragen; de colofonregel **Bibliotheek-id:** klopt met het pad;
 `check_partituur_products` (onderdeel van `check --strict`) is groen.
 Meerdere producten van hetzelfde type in één map → expliciete
-doelvorm (zie [Productgates](/handleiding/start/productgates/)).
+doelvorm (zie [Publicatiecontrole](/handleiding/start/publicatiecontrole/)).
 
 ## Wanneer wel / wanneer niet
 
@@ -61,7 +61,7 @@ scripts\layout.cmd pad\naar\bestand.mscz
 3. Review in MuseScore 4, daarna opnieuw `layout` indien nodig.
    HOW: [Reviewen](../../partituur/4-reviewen/).
 4. Bestand in de bibliotheek (als dat nog niet zo is):
-   `scripts\bieb-accepteer.cmd` — zie [Opnemen](../opnemen-in-bibliotheek/).
+   `bieb accepteer` — zie [Opnemen](../opnemen-in-bibliotheek/).
 5. Bibliotheek-id in colofon/meta (lokaal vaak al via `check`):
 
 ```cmd
@@ -108,6 +108,6 @@ ontbrekende bibliotheek-ids met `ensure_bibliotheek_id.py`.
 ## Zie ook
 
 - [Afgeleiden](../../partituur/6-afgeleiden/)
-- [Productgates](/handleiding/start/productgates/)
+- [Publicatiecontrole](/handleiding/start/publicatiecontrole/)
 
 {{< navbuttons "Opnemen|/handleiding/werktrajecten/opnemen-in-bibliotheek/" "VSA|/handleiding/werktrajecten/vsa/" >}}

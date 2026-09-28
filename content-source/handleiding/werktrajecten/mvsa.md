@@ -21,7 +21,7 @@ Verwacht patroon, nog niet geïmplementeerd:
 - eigen **representatie-id** (bijvoorbeeld `mvsa`, of een naam uit de
   glossary in `bron`);
 - canonieke bron (verwacht: `.mvsa`-bestand);
-- afgeleiden en stamps zoals bij `vsa-products` / de partituur-gate.
+- afgeleiden en stamps zoals bij `vsa-products` / de partituur-publicatiecontrole.
 
 ## Wanneer wel / wanneer niet
 
@@ -30,7 +30,7 @@ meerstemmig MuseScore-werk: [Basispartituur](../basispartituur/).
 
 ## Volgorde / CI / handmatig
 
-Nog geen scripts, geen CI-gate, geen man-page. Syntax-plannen staan in
+Nog geen scripts, geen CI-publicatiecontrole, geen man-page. Syntax-plannen staan in
 de repository VSA-tooling (`docs/plans/mvsa-v0-syntax.md`).
 
 Zodra het spoor actief wordt, volgt dezelfde paginastructuur als de

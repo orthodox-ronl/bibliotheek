@@ -33,9 +33,9 @@ en vraag het na. Twee inputs naar dezelfde uitvoeringsvorm mag (Capella én VOW)
 noteer dat in de notitie. Id-lijst:
 [Id-register](/bibliotheek/id-register/).
 
-## bieb-accepteer weigert het bestand
+## bieb accepteer weigert het bestand
 
-**Symptoom:** `scripts\bieb-accepteer.cmd` eindigt met `FAIL:`.
+**Symptoom:** `bieb accepteer` eindigt met `FAIL:`.
 
 Lees de regel `Oplossing:` in het opdrachtvenster. Veelvoorkomend: verkeerd
 id, bestand bestaat al (dan `--force` alleen als je bewust overschrijft),
@@ -72,9 +72,9 @@ scripts\layout.cmd pad\naar\bestand.mscz
 Coria haalt het muziekbestand zelf vanaf internet op. De Oefenen-knop
 moet daarom naar een **volledig** adres op `raw.githubusercontent.com`
 wijzen, bijvoorbeeld
-`https://raw.githubusercontent.com/orthodox-ronl/ibliotheek/gh-pages/preview/mxl/c/<hash>.musicxml`
+`https://raw.githubusercontent.com/orthodox-ronl/bibliotheek/gh-pages/preview/mxl/c/<hash>.musicxml`
 (fingerprint op branch `gh-pages`). De website voor mensen blijft
-`https://orthodox-ronl.github.io/ibliotheek/`; Coria's server faalt op
+`https://orthodox-ronl.github.io/bibliotheek/`; Coria's server faalt op
 `github.io`-MusicXML regelmatig met `failed to retrieve file`.
 Gebruik geen pad zonder host (`/mxl/c/…`), geen `http://127.0.0.1:…`,
 geen `github.io`-MusicXML, en geen page-bundle-`.mxl`.

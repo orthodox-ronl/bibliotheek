@@ -8,14 +8,15 @@ weight: 5
 
 **Werktraject** (waartoe, criteria, CI, binnenhalen):
 [Opnemen in de bibliotheek](/handleiding/werktrajecten/opnemen-in-bibliotheek/).
-Deze pagina is de HOW voor `bieb-accepteer`.
+Deze pagina is de HOW voor `bieb accepteer`.
 
 {{< cue >}}
 1. Ken het **bibliotheek-id** (drie delen met schuine strepen), of vraag het na.
 2. Zorg dat je bestand al een bruikbare **basispartituur-`.mscz`**, **`.vsa`**,
-   **`.print.mscz`**, of **`.tekstblad.md`** is — niet een ruwe Capella-file.
-3. Open het Windows-opdrachtvenster in de map `ibliotheek`.
-4. Typ `scripts\bieb-accepteer.cmd` en Enter — het script vraagt id en
+   **`.mvsa`**, handmatig `.mscz`, of **`.tekstblad.md`** is — niet een
+   ongekuiste `.mxl`.
+3. Open het Windows-opdrachtvenster in de map `bibliotheek`.
+4. Typ `bieb accepteer` en Enter — het script vraagt id en
    bestand na. (Of plak een volledige regel, zie hieronder.)
 5. Op een vraag mag je `?` typen voor uitleg; daarna vul je alsnog in.
 6. Controleer daarna met `scripts\check.cmd --strict`.
@@ -39,7 +40,7 @@ niet? **Niet verzinnen** — vraag na.
 
 ## Wat het script voor je doet
 
-Het commando `scripts\bieb-accepteer.cmd` (kort: **bieb-accepteer**):
+Het commando `bieb accepteer`:
 
 - maakt de mappen
   `content-source\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\`
@@ -63,7 +64,7 @@ of [VSA](../../vsa/).
    ontbreekt:
 
 ```cmd
-scripts\bieb-accepteer.cmd
+bieb accepteer
 ```
 
    Typ het bibliotheek-id, daarna het pad naar het bestand. Weet je even
@@ -75,13 +76,13 @@ scripts\bieb-accepteer.cmd
    **droge proef** (niets wordt weggeschreven):
 
 ```cmd
-scripts\bieb-accepteer.cmd 5-eniggeboren-zoon/default/hemelum "C:\pad\naar\mijn-bestand.mscz" --dry-run
+bieb accepteer 5-eniggeboren-zoon/default/hemelum "C:\pad\naar\mijn-bestand.mscz" --dry-run
 ```
 
 4. Klopt de uitvoer? Draai dezelfde regel **zonder** `--dry-run`:
 
 ```cmd
-scripts\bieb-accepteer.cmd 5-eniggeboren-zoon/default/hemelum "C:\pad\naar\mijn-bestand.mscz"
+bieb accepteer 5-eniggeboren-zoon/default/hemelum "C:\pad\naar\mijn-bestand.mscz"
 ```
 
 5. Voor een **VSA**-bestand hetzelfde patroon, met `.vsa` in plaats van
@@ -90,7 +91,7 @@ scripts\bieb-accepteer.cmd 5-eniggeboren-zoon/default/hemelum "C:\pad\naar\mijn-
 6. Optioneel: geef een leesbare titel mee:
 
 ```cmd
-scripts\bieb-accepteer.cmd 5-eniggeboren-zoon/default/hemelum "C:\pad\naar\bestand.mscz" --title "5 Eniggeboren Zoon"
+bieb accepteer 5-eniggeboren-zoon/default/hemelum "C:\pad\naar\bestand.mscz" --title "5 Eniggeboren Zoon"
 ```
 
 7. Draai de controle:
@@ -106,7 +107,7 @@ scripts\check.cmd --strict
 
 ## Welke bestanden mag je aanleveren?
 
-| Bestand | Mag met bieb-accepteer? | Opmerking |
+| Bestand | Mag met bieb accepteer? | Opmerking |
 | --- | --- | --- |
 | Basispartituur-`.mscz` (MuseScore, genormaliseerd) | Ja | Daarna vaak nog PDF/Coria maken |
 | `.vsa` | Ja | Script runt `vsa validate` |
@@ -120,7 +121,7 @@ scripts\check.cmd --strict
 Wil je het id en de pagina alvast, maar nog geen partituur?
 
 ```cmd
-scripts\bieb-accepteer.cmd 1-vredeslitanie/default/hemelum --stub
+bieb accepteer 1-vredeslitanie/default/hemelum --stub
 ```
 
 Dan wordt `publicatiestatus` standaard `voorzien`.
