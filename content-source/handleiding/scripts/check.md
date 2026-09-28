@@ -29,15 +29,18 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 3. MSCZ-publicatiecontrole — of elke basispartituur-`.mscz` (behalve
    handmatig/print) passende siblings `{stam}.mscz.pdf` en
    `{stam}.mscz.mxl` heeft met `vsa-partituur-sha256`
-4. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
-5. Hugo-build naar `generated\site`
+4. Tekstblad-publicatiecontrole — of elke `{stam}.tekstblad.md` een
+   passende `{stam}.tekstblad.pdf` heeft met `vsa-source-sha256`
+5. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
+6. Hugo-build naar `generated\site`
 
 Zonder `--strict` waarschuwen de publicatiecontroles lokaal maar falen
 niet (behalve op `main` of met `BIBLIOTHEEK_PRODUCTS_STRICT=1`). Met
 `--strict`, en altijd in CI, is een stale of missing product een fout.
-Vernieuw dan lokaal met [vsa-products](../vsa-products/) of
-[mscz-products](../mscz-products/) en commit de siblings mee. CI genereert
-geen MuseScore-/MusicXML-producten.
+Vernieuw dan lokaal met [vsa-products](../vsa-products/),
+[mscz-products](../mscz-products/) of
+[tekstblad-products](../tekstblad-products/) en commit de siblings mee.
+CI genereert geen MuseScore-/PDF-producten.
 
 # EXAMPLES
 
@@ -57,6 +60,7 @@ genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole)
 - [validate](../validate/)
 - [vsa-products](../vsa-products/)
 - [mscz-products](../mscz-products/)
+- [tekstblad-products](../tekstblad-products/)
 - [serve](../serve/)
 - [build](../build/)
 - [Wat heb je nodig](/handleiding/start/wat-heb-je-nodig/)

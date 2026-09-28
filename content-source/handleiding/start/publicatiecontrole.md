@@ -105,7 +105,7 @@ mogen; elk spoor houdt eigen siblings bij.
 | **vsa** | `{stam}.vsa` | `{stam}.vsa.mxl` (Coria) | `vsa-source-sha256` van de `.vsa` | `scripts\vsa-products.cmd` | **Actief:** `check_vsa_products` |
 | **mscz** (basispartituur) | `{stam}.mscz` | `{stam}.mscz.pdf`, `{stam}.mscz.mxl` | `vsa-partituur-sha256` van de `.mscz` | `scripts\mscz-products.cmd` | **Actief:** `check_mscz_products` |
 | **mvsa** | `{stam}.mvsa` | `{stam}.mvsa.mxl` / `.mscz` / `.pdf` (naarmate het traject) | source-sha van de `.mvsa` | later product-wrapper om `mvsa …` | **Voorzien** |
-| **tekstblad** | `{stam}.tekstblad.md` | `{stam}.tekstblad.pdf` | `vsa-source-sha256` van de `.md` | later `tekstblad-products` | **Voorzien** |
+| **tekstblad** | `{stam}.tekstblad.md` | `{stam}.tekstblad.pdf` | `vsa-source-sha256` van de `.md` | `scripts\tekstblad-products.cmd` | **Actief:** `check_tekstblad_products` |
 
 **Bibliotheek-id** (`zangstuk/variant/uitvoeringsvorm`) hoort op elk
 menselijk leesbaar blad (PDF / MuseScore-colofon). Scripts geven dat
@@ -157,7 +157,8 @@ of **stale**. Ontbreekt het sibling-bestand → **missing**.
 | Geldigheidscontrole (`vsa validate`) op bibliotheek | ja | ja |
 | Publicatiecontrole VSA (`.vsa` ↔ `.vsa.mxl`) | waarschuwing; met `--strict` fout | fout (`--fail`) |
 | Publicatiecontrole partituur (`.mscz` ↔ PDF/MXL) | waarschuwing; met `--strict` fout | fout (`--fail`) |
-| Publicatiecontrole tekstblad / mvsa | nog niet | nog niet |
+| Publicatiecontrole tekstblad (`.tekstblad.md` ↔ PDF) | waarschuwing; met `--strict` fout | fout (`--fail`) |
+| Publicatiecontrole mvsa | nog niet | nog niet |
 | Coria-fingerprints + Hugo | ja | ja |
 
 CI **genereert geen** producten. Vernieuw lokaal (nu: `vsa-products`),

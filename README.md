@@ -26,6 +26,7 @@ Preview: http://127.0.0.1:18732/
 | `validate` | `vsa validate` op bibliotheek-content |
 | `vsa-products` | Coria-sibling `{stam}.vsa.mxl` bij `.vsa` |
 | `mscz-products` | PDF + Coria `{stam}.mscz.pdf` / `.mscz.mxl` bij `.mscz` |
+| `tekstblad-products` | A4-PDF `{stam}.tekstblad.pdf` bij `.tekstblad.md` |
 | `check` | preflight (validate + publicatiecontrole + Coria + Hugo) |
 
 ## Structuur
@@ -53,8 +54,8 @@ Tooling-contract (geen forks; float op `development`, pin op `main`):
 
 ## Status
 
-Hugo-site + Coria-fingerprints + `vsa validate` + VSA-/MSCZ-publicatiecontrole
-in `check` / Pages-CI (float/pin via
+Hugo-site + Coria-fingerprints + `vsa validate` + VSA-/MSCZ-/tekstblad-
+publicatiecontrole in `check` / Pages-CI (float/pin via
 [docs/tooling-koppeling.md](docs/tooling-koppeling.md)). Sibling-namen:
 [docs/publicatiecontrole.md](docs/publicatiecontrole.md). Geen gekopieerde
 tool-Python — wrappers roepen `vsa` / `mscz` aan.

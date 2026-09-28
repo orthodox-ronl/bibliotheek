@@ -39,7 +39,7 @@ Geen nieuwe `.print.mscz`: handmatige MuseScore-bladen = `{stam}.mscz` +
 | ----- | ---- | ------- | ------------------- |
 | VSA | `.vsa` | `.vsa.mxl` + `vsa-source-sha256` | **Actief** (`vsa-products` / `check_vsa_products`) |
 | Partituur (mscz) | `.mscz` | `.mscz.pdf` + `.mscz.mxl` + partituur-sha | **Actief** (`mscz-products` / `check_mscz_products`) |
-| Tekstblad | `.tekstblad.md` | `.tekstblad.pdf` | Voorzien |
+| Tekstblad | `.tekstblad.md` | `.tekstblad.pdf` | **Actief** (`tekstblad-products` / `check_tekstblad_products`) |
 | mvsa | `.mvsa` | naar gelang traject | Voorzien |
 
 CI genereert geen producten; alleen validate + actieve publicatiecontroles
