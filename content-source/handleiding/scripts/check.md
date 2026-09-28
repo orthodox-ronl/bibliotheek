@@ -31,16 +31,19 @@ Of: `scripts\check.cmd` vanuit de repo-root.
    `{stam}.mscz.mxl` heeft met `vsa-partituur-sha256`
 4. Tekstblad-publicatiecontrole — of elke `{stam}.tekstblad.md` een
    passende `{stam}.tekstblad.pdf` heeft met `vsa-source-sha256`
-5. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
-6. Hugo-build naar `generated\site`
+5. Bibliotheek-id — of elke basispartituur-`.mscz` in het colofon de
+   regel `Bibliotheek-id:` heeft die bij het bladermap-pad past
+6. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
+7. Hugo-build naar `generated\site`
 
-Zonder `--strict` waarschuwen de publicatiecontroles lokaal maar falen
-niet (behalve op `main` of met `BIBLIOTHEEK_PRODUCTS_STRICT=1`). Met
-`--strict`, en altijd in CI, is een stale of missing product een fout.
-Vernieuw dan lokaal met [vsa-products](../vsa-products/),
-[mscz-products](../mscz-products/) of
-[tekstblad-products](../tekstblad-products/) en commit de siblings mee.
-CI genereert geen MuseScore-/PDF-producten.
+Zonder `--strict` waarschuwen de publicatie- en id-controles lokaal maar
+falen niet (behalve op `main` of met `BIBLIOTHEEK_PRODUCTS_STRICT=1` /
+`BIBLIOTHEEK_ID_STRICT=1`). Met `--strict`, en altijd in CI, is een stale
+of missing product of een id-mismatch een fout. Vernieuw producten lokaal
+met [vsa-products](../vsa-products/), [mscz-products](../mscz-products/)
+of [tekstblad-products](../tekstblad-products/); herstel id’s met
+[ensure-bibliotheek-id](../ensure-bibliotheek-id/) of
+[layout](../layout/). CI genereert geen MuseScore-/PDF-producten.
 
 # EXAMPLES
 
@@ -61,6 +64,8 @@ genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole)
 - [vsa-products](../vsa-products/)
 - [mscz-products](../mscz-products/)
 - [tekstblad-products](../tekstblad-products/)
+- [layout](../layout/)
+- [ensure-bibliotheek-id](../ensure-bibliotheek-id/)
 - [serve](../serve/)
 - [build](../build/)
 - [Wat heb je nodig](/handleiding/start/wat-heb-je-nodig/)

@@ -50,6 +50,13 @@ if defined STRICT (
 )
 if errorlevel 1 exit /b 1
 
+if defined STRICT (
+  python scripts\ensure_bibliotheek_id.py --check-only --fail
+) else (
+  python scripts\ensure_bibliotheek_id.py --check-only
+)
+if errorlevel 1 exit /b 1
+
 python scripts\fingerprint_coria_mxl.py
 if errorlevel 1 exit /b 1
 
@@ -70,9 +77,9 @@ exit /b 0
 echo.
 echo Gebruik: scripts\check.cmd [--strict]
 echo.
-echo   --strict   faal op stale/missing VSA/MSCZ/tekstblad-producten ^(CI-spiegel^)
+echo   --strict   faal op stale/missing producten of bibliotheek-id ^(CI-spiegel^)
 echo.
-echo Zonder --strict: productchecks waarschuwen lokaal maar falen niet
+echo Zonder --strict: product-/id-checks waarschuwen lokaal maar falen niet
 echo ^(behalve op main / BIBLIOTHEEK_PRODUCTS_STRICT=1^). CI faalt altijd.
 echo.
 endlocal

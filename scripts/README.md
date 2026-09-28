@@ -11,14 +11,17 @@ Tooling-contract: [docs/tooling-koppeling.md](../docs/tooling-koppeling.md)
 | `vsa-products` | Maakt/vernieuwt sibling `{stam}.vsa.mxl` via `vsa musicxml` + stamp |
 | `mscz-products` | Maakt/vernieuwt `{stam}.mscz.pdf` + `{stam}.mscz.mxl` via MuseScore / `mscz mxl` + stamp |
 | `tekstblad-products` | Maakt/vernieuwt `{stam}.tekstblad.pdf` via `vsa pdf` + stamp |
+| `layout` | Past layoutprofiel `partituur` toe op `.mscz` / `.mxl` (via tooling) |
+| `ensure-bibliotheek-id` | Zet/controleert colofonregel `Bibliotheek-id:` op basispartituur-`.mscz` |
 | `serve` | Hugo-preview op http://127.0.0.1:18732/ (niet 1313, niet 18731) |
 | `build` | Site in `generated\site` |
-| `check` | CI-spiegel / preflight (validate + VSA-/MSCZ-/tekstblad-publicatiecontrole + Coria + Hugo) |
+| `check` | CI-spiegel / preflight (validate + publicatiecontroles + bibliotheek-id + Coria + Hugo) |
 
 Intern: `_ensure.cmd` (`--hugo`, `--vsa-tool`), `fingerprint_coria_mxl.py`,
 `sync_vsa_products.py`, `check_vsa_products.py`, `sync_mscz_products.py`,
 `check_mscz_products.py`, `sync_tekstblad_products.py`,
-`check_tekstblad_products.py`, `product_meta.py`, `coria_mxl.py`.
+`check_tekstblad_products.py`, `apply_mscz_layout.py`,
+`ensure_bibliotheek_id.py`, `product_meta.py`, `coria_mxl.py`.
 
 **Geen forks van VSA-tooling.** Bibliotheek-specifieke wrappers mogen; die
 roepen `vsa` / `mvsa` aan. Zie tooling-koppeling (float op `development`,
