@@ -106,6 +106,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -e "vendor/VSA-tooling[rendering]"
+          python -m pip install "pypdf>=5.0"
           vsa --version
 
       - name: Validate VSA content
@@ -117,6 +118,9 @@ jobs:
 
       - name: Check VSA product freshness
         run: python scripts/check_vsa_products.py --fail
+
+      - name: Check MSCZ product freshness
+        run: python scripts/check_mscz_products.py --fail
 
       - name: Coria fingerprints
         run: python scripts/fingerprint_coria_mxl.py

@@ -1,7 +1,7 @@
 """Provenance-stamps in afgeleide producten (consumer-beleid).
 
 VSA-Coria-``.vsa.mxl``: ``vsa-source-sha256`` + ``vsa-source-kind=vsa``.
-Basispartituur-PDF/MXL volgt later met ``vsa-partituur-sha256``.
+Basispartituur-PDF/MXL: ``vsa-partituur-sha256`` (+ legacy ``vsa-hub-sha256``).
 """
 
 from __future__ import annotations
@@ -15,18 +15,39 @@ from pathlib import Path
 
 FIELD_SOURCE_SHA = "vsa-source-sha256"
 FIELD_SOURCE_KIND = "vsa-source-kind"
+FIELD_PARTITUUR_SHA = "vsa-partituur-sha256"
+FIELD_PARTITUUR_SHA_LEGACY = "vsa-hub-sha256"
 FIELD_GENERATED_AT = "vsa-generated-at"
 FIELD_GENERATOR = "vsa-generator"
 GENERATOR_VSA = "vsa-musicxml"
+GENERATOR_MSCZ = "mscz-products"
 SOURCE_KIND_VSA = "vsa"
+SOURCE_KIND_PARTITUUR = "partituur"
+PDF_KEY_PARTITUUR = "/VSAPartituurSHA256"
+PDF_KEY_PARTITUUR_LEGACY = "/VSAHubSHA256"
+PDF_KEY_GENERATED = "/VSAGeneratedAt"
+PDF_KEY_GENERATOR = "/VSAGenerator"
 
 
 def source_sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def partituur_sha256(mscz: Path) -> str:
+    return hashlib.sha256(mscz.read_bytes()).hexdigest()
+
+
 def utc_now_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+
+
+def stamp_sha_from_dict(stamp: dict[str, str]) -> str:
+    """Lees partituur-hash uit stamp-dict (nieuw of legacy veld)."""
+    return (
+        stamp.get(FIELD_PARTITUUR_SHA, "")
+        or stamp.get(FIELD_PARTITUUR_SHA_LEGACY, "")
+        or ""
+    )
 
 
 def _local(tag: str) -> str:
@@ -94,6 +115,26 @@ def stamp_mxl_source(
     _set_misc_field(ident, FIELD_GENERATOR, generator)
 
 
+def stamp_mxl_partituur(
+    root: ET.Element,
+    *,
+    partituur_hash: str,
+    generated_at: str,
+    generator: str = GENERATOR_MSCZ,
+) -> None:
+    """Stamp basispartituur-Coria-``.mxl`` (partituur-sha + source-kind)."""
+    stamp_mxl_source(
+        root,
+        source_hash=partituur_hash,
+        source_kind=SOURCE_KIND_PARTITUUR,
+        generated_at=generated_at,
+        generator=generator,
+    )
+    ident = _ensure_identification(root)
+    _set_misc_field(ident, FIELD_PARTITUUR_SHA, partituur_hash)
+    _set_misc_field(ident, FIELD_PARTITUUR_SHA_LEGACY, partituur_hash)
+
+
 def read_mxl_stamp(path: Path) -> dict[str, str]:
     """Lees stamp uit .mxl of .musicxml/.xml."""
     if path.suffix.lower() == ".mxl":
@@ -120,4 +161,67 @@ def read_mxl_stamp(path: Path) -> dict[str, str]:
             name = field.get("name") or ""
             if name and (field.text or "").strip():
                 out[name] = (field.text or "").strip()
+    return out
+
+
+def stamp_pdf(
+    path: Path,
+    *,
+    partituur_hash: str,
+    generated_at: str,
+    generator: str = GENERATOR_MSCZ,
+) -> None:
+    try:
+        from pypdf import PdfReader, PdfWriter
+    except ImportError as exc:
+        raise RuntimeError(
+            "pypdf ontbreekt; installeer met: python -m pip install pypdf"
+        ) from exc
+
+    reader = PdfReader(str(path))
+    writer = PdfWriter()
+    writer.append(reader)
+    writer.add_metadata(
+        {
+            PDF_KEY_PARTITUUR: partituur_hash,
+            PDF_KEY_PARTITUUR_LEGACY: partituur_hash,
+            PDF_KEY_GENERATED: generated_at,
+            PDF_KEY_GENERATOR: generator,
+        }
+    )
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    with tmp.open("wb") as fh:
+        writer.write(fh)
+    tmp.replace(path)
+
+
+def read_pdf_stamp(path: Path) -> dict[str, str]:
+    try:
+        from pypdf import PdfReader
+    except ImportError as exc:
+        raise RuntimeError(
+            "pypdf ontbreekt; installeer met: python -m pip install pypdf"
+        ) from exc
+    try:
+        reader = PdfReader(str(path))
+    except Exception:  # noqa: BLE001
+        return {}
+    meta = reader.metadata
+    if meta is None:
+        return {}
+    raw = {str(k): str(v) for k, v in dict(meta).items() if v is not None}
+    out: dict[str, str] = {}
+    mapping = {
+        PDF_KEY_PARTITUUR: FIELD_PARTITUUR_SHA,
+        "VSAPartituurSHA256": FIELD_PARTITUUR_SHA,
+        PDF_KEY_PARTITUUR_LEGACY: FIELD_PARTITUUR_SHA_LEGACY,
+        "VSAHubSHA256": FIELD_PARTITUUR_SHA_LEGACY,
+        PDF_KEY_GENERATED: FIELD_GENERATED_AT,
+        "VSAGeneratedAt": FIELD_GENERATED_AT,
+        PDF_KEY_GENERATOR: FIELD_GENERATOR,
+        "VSAGenerator": FIELD_GENERATOR,
+    }
+    for key, field in mapping.items():
+        if key in raw and raw[key].strip():
+            out[field] = raw[key].strip()
     return out
