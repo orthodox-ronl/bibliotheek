@@ -58,7 +58,9 @@ handmatig/print) passende siblings <code>{stam}.mscz.pdf</code> en
 <code>{stam}.mscz.mxl</code> heeft met <code>vsa-partituur-sha256</code></li><li>Tekstblad-publicatiecontrole — of elke <code>{stam}.tekstblad.md</code> een
 passende <code>{stam}.tekstblad.pdf</code> heeft met <code>vsa-source-sha256</code></li><li>Importcontrole — of elke <strong>bestaande</strong> <code>{stam}.mscz.mvsa</code> bij de
 bijbehorende basispartituur-<code>.mscz</code> past (<code>vsa-partituur-sha256</code>);
-ontbrekende import-siblings zijn geen fout</li><li>Bibliotheek-id — of elke basispartituur-<code>.mscz</code> in het colofon de
+ontbrekende import-siblings zijn geen fout</li><li>MVSA-publicatiecontrole — of elke canonieke bibliotheek-<code>.mvsa</code>
+(geen <code>.mscz.mvsa</code>) passende siblings <code>{stam}.mvsa.mxl</code> en
+<code>{stam}.mvsa.pdf</code> heeft met <code>vsa-source-sha256</code></li><li>Bibliotheek-id — of elke basispartituur-<code>.mscz</code> in het colofon de
 regel <code>Bibliotheek-id:</code> heeft die bij het bladermap-pad past</li><li>Coria-fingerprints (<code>python scripts\fingerprint_coria_mxl.py</code>)</li><li>Hugo-build naar <code>generated\site</code></li></ol><p>Zonder <code>--strict</code> waarschuwen de publicatie-, import- en id-controles
 lokaal maar falen niet (behalve op <code>main</code> of met
 <code>BIBLIOTHEEK_PRODUCTS_STRICT=1</code> / <code>BIBLIOTHEEK_ID_STRICT=1</code>). Met
@@ -67,8 +69,10 @@ verouderde import-sibling, of een id-mismatch een fout. Vernieuw
 producten lokaal met <a href=../vsa-products/>vsa-products</a>
 ,
 <a href=../mscz-products/>mscz-products</a>
-of
+,
 <a href=../tekstblad-products/>tekstblad-products</a>
+of
+<a href=../mvsa-products/>mvsa-products</a>
 ; vernieuw
 import-siblings met <a href=../import-mvsa/>import-mvsa</a>
 ; herstel id’s met
@@ -79,4 +83,4 @@ of
 </span></span><span style=display:flex><span>check
 </span></span><span style=display:flex><span>check --strict
 </span></span></code></pre></div><h1 id=when>WHEN</h1><p>Vóór je commit of push. Tussendoor alleen markdown bekijken: <code>serve</code> is
-genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole).</p><h1 id=see-also>SEE ALSO</h1><ul><li><a href=../validate/>validate</a></li><li><a href=../vsa-products/>vsa-products</a></li><li><a href=../mscz-products/>mscz-products</a></li><li><a href=../tekstblad-products/>tekstblad-products</a></li><li><a href=../import-mvsa/>import-mvsa</a></li><li><a href=../layout/>layout</a></li><li><a href=../ensure-bibliotheek-id/>ensure-bibliotheek-id</a></li><li><a href=../serve/>serve</a></li><li><a href=../build/>build</a></li><li><a href=/handleiding/start/wat-heb-je-nodig/>Wat heb je nodig</a></li><li><a href=/handleiding/publiceren/2-status-en-check/>Status en check</a></li><li><a href=/handleiding/start/publicatiecontrole/>Publicatiecontrole</a></li></ul></main><footer class=site-footer><div class=site-meta></div></footer></body></html>
+genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole).</p><h1 id=see-also>SEE ALSO</h1><ul><li><a href=../validate/>validate</a></li><li><a href=../vsa-products/>vsa-products</a></li><li><a href=../mscz-products/>mscz-products</a></li><li><a href=../tekstblad-products/>tekstblad-products</a></li><li><a href=../import-mvsa/>import-mvsa</a></li><li><a href=../mvsa-products/>mvsa-products</a></li><li><a href=../layout/>layout</a></li><li><a href=../ensure-bibliotheek-id/>ensure-bibliotheek-id</a></li><li><a href=../serve/>serve</a></li><li><a href=../build/>build</a></li><li><a href=/handleiding/start/wat-heb-je-nodig/>Wat heb je nodig</a></li><li><a href=/handleiding/publiceren/2-status-en-check/>Status en check</a></li><li><a href=/handleiding/start/publicatiecontrole/>Publicatiecontrole</a></li></ul></main><footer class=site-footer><div class=site-meta></div></footer></body></html>

@@ -189,24 +189,40 @@ onder &lt;code&gt;content-source&lt;/code&gt;. Draai daarna &lt;code&gt;scripts\
 &lt;h2 id="waartoe"&gt;Waartoe&lt;/h2&gt;
 &lt;p&gt;Je wilt VSA tonen op een pagina die geen bladermap onder
 &lt;code&gt;bibliotheek\&lt;/code&gt; is — bijvoorbeeld een samenstelling of de
-Tooling Demo — zonder &lt;code&gt;bieb&lt;/code&gt; en zonder bibliotheek-id.&lt;/p&gt;</description></item><item><title>mvsa (voorzien)</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/mvsa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/mvsa/</guid><description>&lt;h1 id="mvsa-voorzien"&gt;mvsa (voorzien)&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;mvsa&lt;/strong&gt; (meerstemmige VSA) is nog &lt;strong&gt;geen&lt;/strong&gt; actief publicatiespoor in
-ibliotheek. Deze pagina reserveert de plek in de werktrajecten-catalogus.&lt;/p&gt;
-&lt;h2 id="waartoe-toekomst"&gt;Waartoe (toekomst)&lt;/h2&gt;
-&lt;p&gt;Meerstemmige notatie in VSA-achtige syntax, met eigen afgeleiden (SVG,
-PDF, Coria) — analoog aan &lt;a href="../vsa/"&gt;VSA&lt;/a&gt;
- en &lt;a href="../basispartituur/"&gt;Basispartituur&lt;/a&gt;
-.&lt;/p&gt;
-&lt;h2 id="eindresultaat-nog-te-bepalen"&gt;Eindresultaat (nog te bepalen)&lt;/h2&gt;
-&lt;p&gt;Verwacht patroon, nog niet geïmplementeerd:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;eigen &lt;strong&gt;representatie-id&lt;/strong&gt; (bijvoorbeeld &lt;code&gt;mvsa&lt;/code&gt;, of een naam uit de
-glossary in &lt;code&gt;bron&lt;/code&gt;);&lt;/li&gt;
-&lt;li&gt;canonieke bron (verwacht: &lt;code&gt;.mvsa&lt;/code&gt;-bestand);&lt;/li&gt;
-&lt;li&gt;afgeleiden en stamps zoals bij &lt;code&gt;vsa-products&lt;/code&gt; / de partituur-publicatiecontrole.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id="wanneer-wel--wanneer-niet"&gt;Wanneer wel / wanneer niet&lt;/h2&gt;
-&lt;p&gt;Nu: &lt;strong&gt;niet gebruiken&lt;/strong&gt;. Voor eenstemmig werk: &lt;a href="../vsa/"&gt;VSA&lt;/a&gt;
-. Voor
-meerstemmig MuseScore-werk: &lt;a href="../basispartituur/"&gt;Basispartituur&lt;/a&gt;
-.&lt;/p&gt;</description></item></channel></rss>
+Tooling Demo — zonder &lt;code&gt;bieb&lt;/code&gt; en zonder bibliotheek-id.&lt;/p&gt;</description></item><item><title>mvsa</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/mvsa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/mvsa/</guid><description>&lt;h1 id="mvsa"&gt;mvsa&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;mvsa&lt;/strong&gt; (meerstemmige VSA) is een &lt;strong&gt;actief&lt;/strong&gt; publicatiespoor: canonieke
+bron &lt;code&gt;{stam}.mvsa&lt;/code&gt;, afgeleiden &lt;code&gt;{stam}.mvsa.mxl&lt;/code&gt; (Coria) en
+&lt;code&gt;{stam}.mvsa.pdf&lt;/code&gt; (A4 voor zangers).&lt;/p&gt;
+&lt;h2 id="waartoe"&gt;Waartoe&lt;/h2&gt;
+&lt;p&gt;Meerstemmige notatie in tekstvorm bewerken en publiceren, met dezelfde
+soort siblings als bij &lt;a href="../vsa/"&gt;VSA&lt;/a&gt;
+ (Coria) en
+&lt;a href="../basispartituur/"&gt;Basispartituur&lt;/a&gt;
+ (PDF), maar vanuit &lt;code&gt;.mvsa&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id="eindresultaat"&gt;Eindresultaat&lt;/h2&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Rol&lt;/th&gt;
+ &lt;th&gt;Bestand&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Canonieke bron&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;{stam}.mvsa&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Coria&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;{stam}.mvsa.mxl&lt;/code&gt; + &lt;code&gt;vsa-source-sha256&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Print-PDF&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;{stam}.mvsa.pdf&lt;/code&gt; + &lt;code&gt;vsa-source-sha256&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;In één bladermap mag ook een basispartituur-&lt;code&gt;.mscz&lt;/code&gt; staan; elk spoor houdt
+eigen siblings bij. Import-siblings &lt;code&gt;{stam}.mscz.mvsa&lt;/code&gt; horen bij
+&lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/import-mvsa/"&gt;import-mvsa&lt;/a&gt;
+, niet bij dit spoor.&lt;/p&gt;</description></item></channel></rss>
