@@ -217,6 +217,11 @@
 {{- if $inBibliotheek -}}
   {{- $wrapClass = printf "%s oefenhoek-acties--bibliotheek" $wrapClass -}}
 {{- end -}}
+{{- $oefenHelp := "Speel mee in Coria: stemmen kiezen, tempo en meelezen op de partituur. Dit is bedoeld om echt te oefenen." -}}
+{{- $audioHelp := "Geeft een idee van hoe het lied klinkt. Niet bedoeld om volledig mee te oefenen — daarvoor gebruik je Oefenen." -}}
+{{- $downloadHelp := "Download het PDF-blad om te bewaren of later te printen." -}}
+{{- $printHelp := "Open of print het PDF-blad direct." -}}
+{{- $bronHelp := "Meer voor beheerders dan voor zangers: hier download je de bronbestanden (.mvsa, .mscz, .vsa), niet het koorblad." -}}
 {{- $oefenHint := "" -}}
 {{- if gt (len $oefenMenu) 1 -}}
   {{- $oefenHint = "Kies de versie die past bij het blad waarmee je meezingt." -}}
@@ -234,11 +239,11 @@
   {{- $bronHint = "Kies welk bronbestand je wilt downloaden." -}}
 {{- end -}}
 <div class="{{ $wrapClass }}"{{ with $primaryPdf }} data-pdf-src="{{ . }}"{{ end }}>
-  {{ partial "score-action-menu.html" (dict "title" "Oefenen" "items" $oefenMenu "btnClass" "btn" "hint" $oefenHint) }}
-  {{ partial "score-action-menu.html" (dict "title" "Beluisteren" "items" $audioMenu "btnClass" "btn" "hint" $audioHint) }}
-  {{ partial "score-action-menu.html" (dict "title" "Downloaden" "items" $downloadMenu "btnClass" "btn" "hint" $pdfHint) }}
-  {{ partial "score-action-menu.html" (dict "title" "Printen" "items" $printMenu "btnClass" "btn" "hint" $pdfHint) }}
-  {{ if $inBibliotheek }}{{ partial "score-action-menu.html" (dict "title" "Bronnen" "items" $bronMenu "btnClass" "btn" "hint" $bronHint) }}{{ end }}
+  {{ partial "score-action-menu.html" (dict "title" "Oefenen" "items" $oefenMenu "btnClass" "btn" "hint" $oefenHint "help" $oefenHelp) }}
+  {{ partial "score-action-menu.html" (dict "title" "Beluisteren" "items" $audioMenu "btnClass" "btn" "hint" $audioHint "help" $audioHelp) }}
+  {{ partial "score-action-menu.html" (dict "title" "Downloaden" "items" $downloadMenu "btnClass" "btn" "hint" $pdfHint "help" $downloadHelp) }}
+  {{ partial "score-action-menu.html" (dict "title" "Printen" "items" $printMenu "btnClass" "btn" "hint" $pdfHint "help" $printHelp) }}
+  {{ if $inBibliotheek }}{{ partial "score-action-menu.html" (dict "title" "Bronnen" "items" $bronMenu "btnClass" "btn" "hint" $bronHint "help" $bronHelp) }}{{ end }}
 </div>
 {{- end -}}
 {{- end -}}
