@@ -47,19 +47,26 @@ handmatig/print) passende siblings &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt; en
 &lt;code&gt;{stam}.mscz.mxl&lt;/code&gt; heeft met &lt;code&gt;vsa-partituur-sha256&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Tekstblad-publicatiecontrole — of elke &lt;code&gt;{stam}.tekstblad.md&lt;/code&gt; een
 passende &lt;code&gt;{stam}.tekstblad.pdf&lt;/code&gt; heeft met &lt;code&gt;vsa-source-sha256&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Importcontrole — of elke &lt;strong&gt;bestaande&lt;/strong&gt; &lt;code&gt;{stam}.mscz.mvsa&lt;/code&gt; bij de
+bijbehorende basispartituur-&lt;code&gt;.mscz&lt;/code&gt; past (&lt;code&gt;vsa-partituur-sha256&lt;/code&gt;);
+ontbrekende import-siblings zijn geen fout&lt;/li&gt;
 &lt;li&gt;Bibliotheek-id — of elke basispartituur-&lt;code&gt;.mscz&lt;/code&gt; in het colofon de
 regel &lt;code&gt;Bibliotheek-id:&lt;/code&gt; heeft die bij het bladermap-pad past&lt;/li&gt;
 &lt;li&gt;Coria-fingerprints (&lt;code&gt;python scripts\fingerprint_coria_mxl.py&lt;/code&gt;)&lt;/li&gt;
 &lt;li&gt;Hugo-build naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Zonder &lt;code&gt;--strict&lt;/code&gt; waarschuwen de publicatie- en id-controles lokaal maar
-falen niet (behalve op &lt;code&gt;main&lt;/code&gt; of met &lt;code&gt;BIBLIOTHEEK_PRODUCTS_STRICT=1&lt;/code&gt; /
-&lt;code&gt;BIBLIOTHEEK_ID_STRICT=1&lt;/code&gt;). Met &lt;code&gt;--strict&lt;/code&gt;, en altijd in CI, is een stale
-of missing product of een id-mismatch een fout. Vernieuw producten lokaal
-met &lt;a href="../vsa-products/"&gt;vsa-products&lt;/a&gt;
-, &lt;a href="../mscz-products/"&gt;mscz-products&lt;/a&gt;
-
-of &lt;a href="../tekstblad-products/"&gt;tekstblad-products&lt;/a&gt;
+&lt;p&gt;Zonder &lt;code&gt;--strict&lt;/code&gt; waarschuwen de publicatie-, import- en id-controles
+lokaal maar falen niet (behalve op &lt;code&gt;main&lt;/code&gt; of met
+&lt;code&gt;BIBLIOTHEEK_PRODUCTS_STRICT=1&lt;/code&gt; / &lt;code&gt;BIBLIOTHEEK_ID_STRICT=1&lt;/code&gt;). Met
+&lt;code&gt;--strict&lt;/code&gt;, en altijd in CI, is een stale of missing product, een
+verouderde import-sibling, of een id-mismatch een fout. Vernieuw
+producten lokaal met &lt;a href="../vsa-products/"&gt;vsa-products&lt;/a&gt;
+,
+&lt;a href="../mscz-products/"&gt;mscz-products&lt;/a&gt;
+ of
+&lt;a href="../tekstblad-products/"&gt;tekstblad-products&lt;/a&gt;
+; vernieuw
+import-siblings met &lt;a href="../import-mvsa/"&gt;import-mvsa&lt;/a&gt;
 ; herstel id’s met
 &lt;a href="../ensure-bibliotheek-id/"&gt;ensure-bibliotheek-id&lt;/a&gt;
  of
@@ -193,7 +200,21 @@ onder &lt;code&gt;content-source\bibliotheek&lt;/code&gt;). Bestanden in &lt;cod
 eindigen op &lt;code&gt;.print.mscz&lt;/code&gt;, en mappen met &lt;code&gt;artefacten_handmatig: true&lt;/code&gt;
 worden overgeslagen.&lt;/p&gt;
 &lt;p&gt;Onder de motorkap: MuseScore 4 voor de PDF; de tooling-CLI &lt;code&gt;mscz mxl&lt;/code&gt; voor
-Coria (vier parts). Geen fork van VSA-tooling-logica.&lt;/p&gt;</description></item><item><title>vsa-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+Coria (vier parts). Geen fork van VSA-tooling-logica.&lt;/p&gt;</description></item><item><title>import-mvsa</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/import-mvsa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/import-mvsa/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;scripts\import-mvsa.cmd&lt;/code&gt; — bewerkvorm &lt;code&gt;{stam}.mscz.mvsa&lt;/code&gt; maken naast een
+basispartituur-&lt;code&gt;.mscz&lt;/code&gt;&lt;/p&gt;
+&lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\import-mvsa.cmd [pad] [--force] [--dry-run] [--create] [--pitch a-g]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
+&lt;p&gt;Maakt of vernieuwt de sibling &lt;strong&gt;&lt;code&gt;{stam}.mscz.mvsa&lt;/code&gt;&lt;/strong&gt;: een meerstemmige
+tekstbron die je uit de basispartituur-&lt;code&gt;.mscz&lt;/code&gt; haalt om verder te bewerken
+in VSA/mvsa. Dit is een &lt;strong&gt;import-/bewerkvorm&lt;/strong&gt;, geen PDF of Coria voor de
+site. Koormappen en publicatiecontroles eisen die sibling &lt;strong&gt;niet&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Onder de motorkap roept het script de tooling-CLI &lt;code&gt;mscz import&lt;/code&gt; aan
+(MuseScore 4 zet de partituur eerst om naar MusicXML; daarna volgt
+&lt;code&gt;.mvsa&lt;/code&gt;). Daarna schrijft het script herkomstcommentaren bovenaan het
+bestand (&lt;code&gt;vsa-partituur-sha256&lt;/code&gt;, &lt;code&gt;vsa-generated-at&lt;/code&gt;), zodat
+&lt;code&gt;check&lt;/code&gt; / CI kunnen zien of de import nog bij de huidige &lt;code&gt;.mscz&lt;/code&gt; past.&lt;/p&gt;</description></item><item><title>vsa-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\vsa-products.cmd&lt;/code&gt; — Coria-&lt;code&gt;.vsa.mxl&lt;/code&gt; maken bij een bibliotheek-&lt;code&gt;.vsa&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\vsa-products.cmd [pad] [--force] [--dry-run]
