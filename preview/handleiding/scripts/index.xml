@@ -56,6 +56,8 @@ ontbrekende import-siblings zijn geen fout&lt;/li&gt;
 &lt;li&gt;Bibliotheek-id — of elke basispartituur-&lt;code&gt;.mscz&lt;/code&gt; in het colofon de
 regel &lt;code&gt;Bibliotheek-id:&lt;/code&gt; heeft die bij het bladermap-pad past&lt;/li&gt;
 &lt;li&gt;Coria-fingerprints (&lt;code&gt;python scripts\fingerprint_coria_mxl.py&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Bladermap-SVG (&lt;code&gt;oefenhoek-index --svg&lt;/code&gt;) — plaatjes uit &lt;code&gt;.vsa&lt;/code&gt;; geen
+stamp-publicatiecontrole&lt;/li&gt;
 &lt;li&gt;Hugo-build naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Zonder &lt;code&gt;--strict&lt;/code&gt; waarschuwen de publicatie-, import- en id-controles
@@ -285,19 +287,21 @@ hand van wat er op schijf ligt. Doel-id, koormap en notitie in &lt;strong&gt;bes
 rijen blijven staan; nieuwe bestanden krijgen een nieuwe rij.&lt;/p&gt;
 &lt;p&gt;Het verwijdert ook &lt;code&gt;generated\content\...\input&lt;/code&gt;, zodat die
 inputs geen Hugo-pagina’s op de site worden.&lt;/p&gt;</description></item><item><title>oefenhoek-index</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/oefenhoek-index/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/oefenhoek-index/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;scripts\oefenhoek-index.cmd&lt;/code&gt; — bladermap-markdown opschonen; optioneel SVG uit &lt;code&gt;.vsa&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;scripts\oefenhoek-index.cmd&lt;/code&gt; — SVG-plaatjes uit bibliotheek-&lt;code&gt;.vsa&lt;/code&gt;; optioneel
+legacy widgets uit &lt;code&gt;index.md&lt;/code&gt; strippen&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\oefenhoek-index.cmd [--dry-run] [--svg] [--verbose]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Zonder flags haalt dit commando automatische includes en score-shortcodes
-uit oefenhoek bladermap-&lt;code&gt;index.md&lt;/code&gt;. Frontmatter en tekst die jij zelf
-schreef blijven staan. Pagina’s met shortcode &lt;code&gt;bieb&lt;/code&gt; of met
-&lt;code&gt;automatische_inhoud: false&lt;/code&gt; worden niet aangepast. De partituurweergave
-komt uit de Hugo-layout of uit &lt;code&gt;bieb&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;Met &lt;code&gt;--svg&lt;/code&gt; schrijft het script SVG-plaatjes van lokale &lt;code&gt;.vsa&lt;/code&gt;-bestanden
-(zonder basispartituur-&lt;code&gt;.mscz&lt;/code&gt; ernaast; een &lt;code&gt;.print.mscz&lt;/code&gt; mag) naar
-&lt;code&gt;static\vsa\bladermap\&lt;/code&gt;, ook onder &lt;code&gt;bibliotheek\&lt;/code&gt;. Dat gebeurt normaal
-tijdens &lt;code&gt;check&lt;/code&gt; / &lt;code&gt;build&lt;/code&gt; / &lt;code&gt;serve&lt;/code&gt; (niet bij &lt;code&gt;serve --no-build&lt;/code&gt;).&lt;/p&gt;</description></item><item><title>capella-mxl-to-mscz</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/capella-mxl-to-mscz/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/capella-mxl-to-mscz/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;Met &lt;strong&gt;&lt;code&gt;--svg&lt;/code&gt;&lt;/strong&gt; schrijft dit commando SVG-plaatjes van canonieke
+bibliotheek-&lt;code&gt;.vsa&lt;/code&gt;-bestanden naar &lt;code&gt;static\vsa\bladermap\…&lt;/code&gt;. Shortcode
+&lt;code&gt;bieb&lt;/code&gt; toont die plaatjes wanneer er &lt;strong&gt;geen&lt;/strong&gt; basispartituur-&lt;code&gt;.mscz&lt;/code&gt; in
+dezelfde bladermap staat (een &lt;code&gt;.print.mscz&lt;/code&gt; mag wel). Sidecar-bestanden
+&lt;code&gt;*.syl.vsa&lt;/code&gt; worden overgeslagen.&lt;/p&gt;
+&lt;p&gt;Dit is &lt;strong&gt;geen&lt;/strong&gt; publicatiecontrole: er is geen herkomststempel en CI faalt
+niet op “stale SVG”. De SVG is een site-plaatje. &lt;code&gt;check&lt;/code&gt; / &lt;code&gt;build&lt;/code&gt; /
+&lt;code&gt;serve&lt;/code&gt; / Pages-CI vernieuwen de plaatjes vóór Hugo, zodat ze bij de
+huidige &lt;code&gt;.vsa&lt;/code&gt; passen. Je mag de SVG’s ook committen (handig voor diff);
+verplicht is dat niet voor de build.&lt;/p&gt;</description></item><item><title>capella-mxl-to-mscz</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/capella-mxl-to-mscz/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/capella-mxl-to-mscz/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\capella-mxl-to-mscz.cmd&lt;/code&gt; — hele map Capella-&lt;code&gt;.mxl&lt;/code&gt; omzetten naar standaard-&lt;code&gt;.mscz&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\capella-mxl-to-mscz.cmd [bronmap] [doelmap] [--force] [--dry-run] [--limit N]
