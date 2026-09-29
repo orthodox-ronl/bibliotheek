@@ -13,7 +13,8 @@ De bibliotheek bevat alles wat hier digitaal beschikbaar is:
 zangstukken → varianten → uitvoeringsvormen.
 
 Deze pagina is gericht op wie pagina's of koormappen maakt.
-Voorbeeld: de [liturgiemap van Hemelum](/koormappen/hemelum/liturgie/).
+Voorbeeld: de [liturgiemap Hemelum — zondag](/koormappen/hemelum/liturgie-zondag/)
+(of [weekdagen](/koormappen/hemelum/liturgie-weekdagen/)).
 
 {{< bibliotheek-overzicht >}}
 

@@ -1,28 +1,24 @@
 {{- /*
-  Sticky bladermap-paginakop: breadcrumb (vanaf deelrubriek) + publicatiestatus.
-  Deelrubriek = bibliotheek-root of een koormap (bijv. liturgie Hemelum).
+  Sticky broodkruimels vanaf sectieroots bibliotheek / koormappen / handleiding.
+  Publicatiestatus hoort NIET hier (die staat in main, niet sticky).
 */ -}}
-{{- $bladermap := or (strings.Contains .RelPermalink "/bibliotheek/") (strings.Contains .RelPermalink "/koormappen/") -}}
-{{- if $bladermap -}}
-{{- $deel := false -}}
+{{- $root := false -}}
 {{- if strings.Contains .RelPermalink "/bibliotheek/" -}}
-  {{- with site.GetPage "/bibliotheek" }}{{ $deel = . }}{{ end -}}
-{{- else if strings.Contains .RelPermalink "/koormappen/hemelum/liturgie/" -}}
-  {{- with site.GetPage "/koormappen/hemelum/liturgie" }}{{ $deel = . }}{{ end -}}
-{{- else if strings.Contains .RelPermalink "/koormappen/hemelum/" -}}
-  {{- with site.GetPage "/koormappen/hemelum" }}{{ $deel = . }}{{ end -}}
-{{- else -}}
-  {{- with site.GetPage "/koormappen" }}{{ $deel = . }}{{ end -}}
+  {{- with site.GetPage "/bibliotheek" }}{{ $root = . }}{{ end -}}
+{{- else if strings.Contains .RelPermalink "/koormappen/" -}}
+  {{- with site.GetPage "/koormappen" }}{{ $root = . }}{{ end -}}
+{{- else if strings.Contains .RelPermalink "/handleiding/" -}}
+  {{- with site.GetPage "/handleiding" }}{{ $root = . }}{{ end -}}
 {{- end -}}
+{{- if $root -}}
 <header class="oefenhoek-header">
   <div class="oefenhoek-header-inner">
-  {{- if $deel -}}
   <nav class="oefenhoek-breadcrumb" aria-label="Broodkruimels">
-    {{- if .Eq $deel -}}
+    {{- if .Eq $root -}}
     <span class="oefenhoek-breadcrumb-current" aria-current="page">{{ .LinkTitle }}</span>
     {{- else -}}
       {{- range .Ancestors.Reverse -}}
-        {{- if or (.Eq $deel) (.IsDescendant $deel) -}}
+        {{- if or (.Eq $root) (.IsDescendant $root) -}}
     <a class="oefenhoek-breadcrumb-link" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
     <span class="oefenhoek-breadcrumb-sep" aria-hidden="true">&rsaquo;</span>
         {{- end -}}
@@ -30,8 +26,6 @@
     <span class="oefenhoek-breadcrumb-current" aria-current="page">{{ .LinkTitle }}</span>
     {{- end -}}
   </nav>
-  {{- end -}}
-  {{ partial "publicatiestatus.html" . }}
   </div>
 </header>
 {{- end -}}

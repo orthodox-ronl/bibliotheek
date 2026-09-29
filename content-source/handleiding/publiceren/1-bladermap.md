@@ -12,7 +12,8 @@ Nieuwe partituur in de bibliotheek zetten:
 (`bieb accepteer`).
 
 Slot-pagina in de koormap:
-`content-source\praktijk\koormappen\hemelum\liturgie\…\index.md` met
+`content-source\koormappen\hemelum\liturgie-zondag\…\index.md` (of
+`liturgie-weekdagen`) met
 shortcode `bieb` (parameter `id` = bibliotheek-id) en
 `automatische_inhoud: false`. Geen basispartituur-bestanden in de koormap-map.
 
@@ -57,7 +58,7 @@ uitvoeringsvorm-map. Zet `alias_van` op de variant-`_index.md`; zie
 ## Stap voor stap (slot-pagina in de koormap)
 
 1. Open of maak de slot-pagina (bijvoorbeeld
-   `koormappen/hemelum/liturgie\8-trisagion\8a-trisagion\index.md`).
+   `koormappen/hemelum/liturgie-zondag\8-trisagion\8a-trisagion\index.md`).
 2. Zorg dat alleen **`index.md`** in die slotmap staat — geen `.mscz` meer
    in de koormap.
 3. Frontmatter: `automatische_inhoud: false`, `publicatiestatus` passend
@@ -67,14 +68,15 @@ uitvoeringsvorm-map. Zet `alias_van` op de variant-`_index.md`; zie
 
 | Situatie | Koormap-voorbeeld |
 | --- | --- |
-| Basispartituur via bibliotheek | `koormappen/hemelum/liturgie\8-trisagion\8a-trisagion\index.md` |
-| VSA via bibliotheek | `koormappen/hemelum/liturgie\2-eerste-antifoon\weekdagen\index.md` |
-| Sectie (boom van keuzes) | `koormappen/hemelum/liturgie\15-cherubijnenhymne\_index.md` + kindmappen |
+| Basispartituur via bibliotheek | `koormappen/hemelum/liturgie-zondag\8-trisagion\8a-trisagion\index.md` |
+| VSA via bibliotheek | `koormappen/hemelum/liturgie-weekdagen\2-eerste-antifoon\weekdagen\index.md` |
+| Sectie (boom van keuzes) | `koormappen/hemelum/liturgie-zondag\15-cherubijnenhymne\_index.md` + kindmappen |
 | Compositieblad (meerdere scores) | Eén `index.md` met markdown en meerdere `bieb`-shortcodes — zie [Bibliotheek en koormappen](../../start/bibliotheek-en-koormappen/) |
 | Troparen / kondaken / losse gezangen | Bijv. `110-tropaar/…`, `120-kondak/…`, `220-uw-heilig-kruis/default/hemelum` — altijd `bieb`, geen `:::include` |
 
 5. Hoort het stuk in het liturgie-overzicht? Controleer
-   `koormappen/hemelum/liturgie\_index.md` (handmatige inhoudsopgave).
+   `koormappen/hemelum/liturgie-zondag\_index.md` of
+   `liturgie-weekdagen\_index.md` (handmatige inhoudsopgave).
 
 ### Meerdere shortcodes op één slot-pagina
 

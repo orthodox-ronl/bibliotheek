@@ -8,4 +8,6 @@ Hoekje voor de parochie Hemelum.
 
 | Map | Inhoud |
 | --- | ------ |
-| [Liturgie](/koormappen/hemelum/liturgie/) | Liturgiemap (werk in uitvoering) |
+| [Liturgie zondag](/koormappen/hemelum/liturgie-zondag/) | Liturgiemap voor zondag |
+| [Liturgie weekdagen](/koormappen/hemelum/liturgie-weekdagen/) | Liturgiemap voor weekdagen |
+| [Liturgie (overzicht)](/koormappen/hemelum/liturgie/) | Keuze zondag / weekdagen |

@@ -10,7 +10,9 @@ weight: 20
 - Input: `content-source\input\<herkomst>\` (originele bestandsnaam mag spaties hebben)
 - Tussenwerk: `content-source\input\_werk\<stam>\` (publicatiestam; alleen op jouw pc, niet in git)
 - Bibliotheek: `content-source\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\` — **geen spaties** in bestandsnamen
-- Koormap: `content-source\koormappen\hemelum\liturgie\` — sectie-`_index.md` of slot-`index.md` + `bieb` (geen basispartituur-bestanden)
+- Koormap: `content-source\koormappen\hemelum\liturgie-zondag\` of
+  `liturgie-weekdagen\` — sectie-`_index.md` of slot-`index.md` + `bieb`
+  (geen basispartituur-bestanden)
 - Register: `content-source\input\werkvoorraad.md` en [Id-register](/bibliotheek/id-register/)
 {{< /cue >}}
 
@@ -32,7 +34,7 @@ plek. Zie
 | Ruw, ongewijzigd | `input\capella\` (of `vow\`, `musescore\`, `musicxml\`, `pdf\`) | Nee |
 | Halverwege (tussenwerk) | `input\_werk\` | Nee (en niet in git) |
 | Bibliotheek | `bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\` | Ja |
-| Koormap (sectie of slot-pagina) | `koormappen\hemelum\liturgie\…` | Ja |
+| Koormap (sectie of slot-pagina) | `koormappen\hemelum\liturgie-zondag\` of `liturgie-weekdagen\` | Ja |
 
 De map `input\_inbox\` is een lokale brievenbus (gitignore). Pas als een
 bestand dé bron is die je wilt houden, verplaats je het naar een

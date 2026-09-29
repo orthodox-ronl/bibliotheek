@@ -1,12 +1,12 @@
 {{/*
-  Menselijk label voor een productbestand (Oefenen / Downloaden / Printen).
+  Menselijk label voor een productbestand (Oefenen / Beluisteren / Downloaden / Printen).
 
   Context: dict
     "name"  — bestandsnaam
     "score" — optioneel Page: sibling basispartituur-.mscz / .vsa voor legacy korte namen
 
   Returns dict:
-    "id"     — representatie-id (partituur | vsa | print) of "" bij onbekend
+    "id"     — representatie-id (partituur | vsa | mvsa | print | tekstblad) of ""
     "label"  — knoptekst voor koorleden
     "detail" — korte uitleg onder het label (leeg mag)
 */}}
@@ -15,6 +15,7 @@
 {{- $base := path.Base $name -}}
 {{- $lower := lower $base -}}
 {{- $id := "" -}}
+{{- $isAudio := or (strings.HasSuffix $lower ".mp3") (strings.HasSuffix $lower ".ogg") (strings.HasSuffix $lower ".wav") -}}
 {{- if strings.HasSuffix $lower ".print.mscz" -}}
   {{- $id = "print" -}}
 {{- else -}}
@@ -26,6 +27,8 @@
     {{- $id = "vsa" -}}
   {{- else if strings.HasSuffix $stemLower ".mvsa" -}}
     {{- $id = "mvsa" -}}
+  {{- else if strings.HasSuffix $stemLower ".mscz" -}}
+    {{- $id = "partituur" -}}
   {{- else if strings.HasSuffix $stemLower ".print" -}}
     {{- $id = "print" -}}
   {{- else if strings.HasSuffix $stemLower ".tekstblad" -}}
@@ -83,5 +86,8 @@
 {{- else if eq $id "tekstblad" -}}
   {{- $label = "Tekstblad" -}}
   {{- $detail = "Liturgische tekst of dialoog (A4-PDF)" -}}
+{{- end -}}
+{{- if $isAudio -}}
+  {{- $detail = "Preview-audio om te beluisteren" -}}
 {{- end -}}
 {{- return (dict "id" $id "label" $label "detail" $detail) -}}

@@ -22,7 +22,7 @@ publicatie, ids en navigatie niet door elkaar lopen.
 | Wie | Vraag | Ingang |
 | --- | --- | --- |
 | Beheerder | Wat hebben we? Welk id gebruik ik? | [Bibliotheek](/bibliotheek/), [Id-register](/bibliotheek/id-register/), special pages |
-| Koor (in situ) | Wat zingen we in welke volgorde? | Koormap, nu vooral [liturgiemap Hemelum](/koormappen/hemelum/liturgie/) |
+| Koor (in situ) | Wat zingen we in welke volgorde? | Koormap, nu vooral [liturgie zondag](/koormappen/hemelum/liturgie-zondag/) / [weekdagen](/koormappen/hemelum/liturgie-weekdagen/) |
 | Individueel koorlid | Wat moet / wil ik oefenen? | Koormap *of* bibliotheek (ook stukken die nog in geen map zitten) |
 
 ## Kernregel
@@ -38,27 +38,29 @@ een map (feest, collectie, parochiekeuze) komen daarna.
 ## Bouwstenen in een koormap
 
 Een koormap is geen platte lijst “één zangstuk = één pagina”. De
-[liturgiemap Hemelum](/koormappen/hemelum/liturgie/) is een
+[liturgiemappen Hemelum](/koormappen/hemelum/liturgie/) (zondag /
+weekdagen) zijn een
 **inhoudsopgave van liturgische plekken**. Een titel in die inhoudsopgave
 kan naar één zangstuk wijzen, of naar een **hoofdstuk** met meerdere
 keuzes (bijvoorbeeld eerste antifoon: weekdagen, zondag, later feestdagen).
 
 | Bouwsteen | Bestand | Rol |
 | --- | --- | --- |
-| **Koormap-root** | `koormappen/hemelum/liturgie\_index.md` | Handmatige inhoudsopgave van de hele map |
+| **Koormap-root** | `koormappen/hemelum/liturgie-zondag\_index.md` (of `liturgie-weekdagen`) | Handmatige inhoudsopgave van die map |
 | **Koormap-sectie** | map met `_index.md` | Liturgische plek / hoofdstuk; tekst plus kindlijst, of eigen TOC |
 | **Slot-pagina** | map met `index.md` | Lees- of oefenblad: markdown plus `bieb` (geen catalogus/`lokaal/`-include) |
 
 **Sectie** (`_index.md`): zet `automatische_inhoud: true` als de layout de
 kindpagina’s mag tonen (voorbeeld:
-`koormappen/hemelum/liturgie\2-eerste-antifoon\`). Zet `false` als je zelf de
-inhoudsopgave van dat hoofdstuk schrijft (zoals de root van de liturgiemap).
+`koormappen/hemelum/liturgie-zondag\2-eerste-antifoon\`). Zet `false` als je zelf de
+inhoudsopgave van dat hoofdstuk schrijft (zoals de root van een liturgiemap).
 Gebruik in sectie-`_index.md` geen `#`-titel in de body; die titel komt uit
 de layout.
 
 **Slot-pagina** (`index.md`): gewone markdown. Daartussen kun je één of
 meer shortcodes `bieb` zetten. Elke shortcode zet eerst de knoppen
-**Oefenen** / **Downloaden** / **Printen** voor die uitvoeringsvorm, en
+**Oefenen** / **Beluisteren** / **Downloaden** / **Printen** voor die
+uitvoeringsvorm, en
 daarna de PDF of VSA-SVG. De partituur blijft in de bibliotheek; de
 slot-pagina is alleen de view. Navigatie naar Bibliotheek of Koormap loopt
 via de sticky broodkruimelregel bovenaan de pagina.
