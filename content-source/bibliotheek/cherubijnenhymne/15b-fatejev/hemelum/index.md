@@ -3,8 +3,10 @@ title: "15b Cherubijnenhymne (Fatejev)"
 linkTitle: "15b Cherubijnenhymne (Fatejev)"
 publicatiestatus: voorzien
 automatische_inhoud: false
+aliases:
+  - "/bibliotheek/15-cherubijnenhymne/15b-fatejev/hemelum/"
 ---
 
 # 15b Cherubijnenhymne (Fatejev)
 
-{{< bieb id="15-cherubijnenhymne/15b-fatejev/hemelum" >}}
+{{< bieb id="cherubijnenhymne/15b-fatejev/hemelum" >}}

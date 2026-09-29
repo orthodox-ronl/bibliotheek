@@ -46,9 +46,9 @@ voor wie converteert.
 
 | Input | Doel-id | Koormap | Doelvorm | Stap | Volgende | Notitie |
 | --- | --- | --- | --- | --- | --- | --- |
-| `capella/15c - cherubijnenhymne - kastorski.mxl` | `15-cherubijnenhymne/15c-kastorski/hemelum` | `15-cherubijnenhymne/15c-kastorski` | `.mscz` | gepubliceerd | — | gepubliceerd |
-| `capella/15c - cherubijnenhymne - kastorskij - ksl.mxl` | `15-cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` |  | `.mscz` | ontvangen | opkuisen | Kerkslavisch getranslitereerd |
-| `capella/15e Cherubijnenhymne Bortnjanski no.5.mxl` | `15-cherubijnenhymne/15e-bortnjanski/hemelum` | `15-cherubijnenhymne/15e-bortnjanski` | `.mscz` | gepubliceerd | — | Capella 15e |
+| `capella/15c - cherubijnenhymne - kastorski.mxl` | `cherubijnenhymne/15c-kastorski/hemelum` | `cherubijnenhymne/15c-kastorski` | `.mscz` | gepubliceerd | — | gepubliceerd |
+| `capella/15c - cherubijnenhymne - kastorskij - ksl.mxl` | `cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` |  | `.mscz` | ontvangen | opkuisen | Kerkslavisch getranslitereerd |
+| `capella/15e Cherubijnenhymne Bortnjanski no.5.mxl` | `cherubijnenhymne/15e-bortnjanski/hemelum` | `cherubijnenhymne/15e-bortnjanski` | `.mscz` | gepubliceerd | — | Capella 15e |
 | `capella/19a - eucharistische kanon - feofan.mxl` | `19-eucharistische-canon/19a-feofan/hemelum` | `19a-eucharistische-kanon` | `.mscz` | gepubliceerd | — | gepubliceerd |
 | `capella/2 - 1e antifoon.mxl` | `2-eerste-antifoon/zondag/hemelum` | `2-eerste-antifoon` | `.mscz` | gepubliceerd | — |  |
 | `capella/20d - in waarheid - moeder godslied.mxl` | `20-moeder-godslied/20d-in-waarheid/hemelum` | `20d-in-waarheid-moeder-godslied` | `.mscz` | gepubliceerd | — | gepubliceerd |
@@ -82,7 +82,7 @@ voor wie converteert.
 | `musicxml/028-prokimen-alleluja-toon-8.musicxml` |  |  | `.mscz` | ontvangen | doel-id |  |
 | `musicxml/tonen (vers, stichier, tropaar).musicxml` |  |  | `.mscz` | ontvangen | doel-id |  |
 | `musicxml/tonen-vers-stichier-tropaar.mscz` |  |  | `.mscz` | ontvangen | doel-id |  |
-| `vow/Cherubijnenlied-Kastorskij.mscz` | `15-cherubijnenhymne/15c-kastorski/hemelum` | `15-cherubijnenhymne/15c-kastorski` | `.mscz` | gepubliceerd | — | tweede bron (VOW); Capella is canonieke basispartituur |
+| `vow/Cherubijnenlied-Kastorskij.mscz` | `cherubijnenhymne/15c-kastorski/hemelum` | `cherubijnenhymne/15c-kastorski` | `.mscz` | gepubliceerd | — | tweede bron (VOW); Capella is canonieke basispartituur |
 | `vow/dankzegging_toon_2_Kyiv.mscz` |  |  | `.mscz` | ontvangen | doel-id | zie ID-REGISTER OPEN 7 |
 | `vow/eind-liturgie.mscz` |  |  | `.mscz` | ontvangen | doel-id | zie ID-REGISTER OPEN 7 |
 | `vow/Eucharistische Canon-Rostov.mscz` | `19-eucharistische-canon/rostov/hemelum` |  | `.mscz` | ontvangen | layout | sibling van 19a-feofan |

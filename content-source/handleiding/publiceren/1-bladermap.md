@@ -70,7 +70,7 @@ uitvoeringsvorm-map. Zet `alias_van` op de variant-`_index.md`; zie
 | --- | --- |
 | Basispartituur via bibliotheek | `koormappen/hemelum/liturgie-zondag\8-trisagion\8a-trisagion\index.md` |
 | VSA via bibliotheek | `koormappen/hemelum/liturgie-weekdagen\2-eerste-antifoon\weekdagen\index.md` |
-| Sectie (boom van keuzes) | `koormappen/hemelum/liturgie-zondag\15-cherubijnenhymne\_index.md` + kindmappen |
+| Sectie (boom van keuzes) | `koormappen/hemelum/liturgie-zondag\cherubijnenhymne\_index.md` + kindmappen |
 | Compositieblad (meerdere scores) | Eén `index.md` met markdown en meerdere `bieb`-shortcodes — zie [Bibliotheek en koormappen](../../start/bibliotheek-en-koormappen/) |
 | Troparen / kondaken / losse gezangen | Bijv. `tropaar/…`, `kondak/…`, `220-uw-heilig-kruis/default/hemelum` — altijd `bieb`, geen `:::include` |
 

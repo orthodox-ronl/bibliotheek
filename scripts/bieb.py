@@ -27,7 +27,7 @@ def main(argv: list[str] | None = None) -> int:
             "\n"
             "Voorbeelden:\n"
             "  bieb accepteer 8-trisagion/8a-nederlands/hemelum pad\\x.mscz --dry-run\n"
-            "  bieb hernoem 15-cherubijnenhymne cherubijnenhymne --dry-run\n"
+            "  bieb hernoem 8-trisagion trisagion --dry-run\n"
         )
         return 0 if argv else 2
     cmd = argv[0]
