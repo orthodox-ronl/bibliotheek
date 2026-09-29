@@ -36,8 +36,8 @@ _SLOT_TO_ID = {
     "15c-cherubijnenhymne-kastorski-ksl-trlat": (
         "cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat"
     ),
-    "8a-trisagion": "8-trisagion/8a-nederlands/hemelum",
-    "8a-trisagion-slav": "8-trisagion/8a-slav/hemelum",
+    "8a-trisagion": "trisagion/8a-nederlands/hemelum",
+    "8a-trisagion-slav": "trisagion/8a-slav/hemelum",
     "19a-eucharistische-kanon": "19-eucharistische-canon/19a-feofan/hemelum",
     "19-eucharistische-canon-rostov": "19-eucharistische-canon/rostov/hemelum",
     "20d-in-waarheid-moeder-godslied": "20-moeder-godslied/20d-in-waarheid/hemelum",

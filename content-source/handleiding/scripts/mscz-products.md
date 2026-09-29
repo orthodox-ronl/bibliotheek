@@ -45,7 +45,7 @@ editen. CI genereert deze producten niet; jij wel lokaal, daarna committen.
 
 ```cmd
 scripts\mscz-products.cmd
-scripts\mscz-products.cmd content-source\bibliotheek\8-trisagion --force
+scripts\mscz-products.cmd content-source\bibliotheek\trisagion --force
 ```
 
 # WHEN

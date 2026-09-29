@@ -45,8 +45,8 @@ script tegelijk.
 
 **Cherubijnen-varianten (Hemelum):** 15b Fatejev, 15c Kastorski, 15d Kastorski,
 15e Bortnjanski. Niet: 15a Staro-Simonovskaja, 15f Lvovsky.
-| `8-trisagion/8a-trisagion/` | `8-trisagion/8a-nederlands/hemelum` | `8-trisagion-8a-nederlands-hemelum` | mscz, mxl, pdf | Canoniek; niet de legacy-map `8a-trisagion/` |
-| `8-trisagion/8a-trisagion-slav/` | `8-trisagion/8a-slav/hemelum` | `8-trisagion-8a-slav-hemelum` | mscz, mxl, pdf, mvsa | Idem legacy `8a-trisagion-slav/` |
+| `trisagion/8a-trisagion/` | `trisagion/8a-nederlands/hemelum` | `trisagion-8a-nederlands-hemelum` | mscz, mxl, pdf | Canoniek; niet de legacy-map `8a-trisagion/` |
+| `trisagion/8a-trisagion-slav/` | `trisagion/8a-slav/hemelum` | `trisagion-8a-slav-hemelum` | mscz, mxl, pdf, mvsa | Idem legacy `8a-trisagion-slav/` |
 | `19a-eucharistische-kanon/` | `19-eucharistische-canon/19a-feofan/hemelum` | `19-eucharistische-canon-19a-feofan-hemelum` | mscz, mxl, pdf | |
 | *(alleen bibliotheek voorlopig)* | `19-eucharistische-canon/rostov/hemelum` | `19-eucharistische-canon-rostov-hemelum` | — | VOW-input; stub |
 | `20-moeder-godslied/20d-in-waarheid-moeder-godslied/` | `20-moeder-godslied/20d-in-waarheid/hemelum` | `20-moeder-godslied-20d-in-waarheid-hemelum` | mscz, mxl, pdf | |
@@ -153,7 +153,7 @@ Voorbeelden (publicatiestam):
 - `cherubijnenhymne-15c-kastorski-hemelum-ksl-trlat` — KSL getranslitereerd
 - `cherubijnenhymne-15c-kastorski-hemelum-nl-ksl` — mengvorm
 
-**Legacy:** `8-trisagion/8a-nederlands/…` en `8-trisagion/8a-slav/…` houden taal
+**Legacy:** `trisagion/8a-nederlands/…` en `trisagion/8a-slav/…` houden taal
 nog in de *variant*-laag; niet hernoemen tot een aparte migratie.
 
 ---
@@ -182,8 +182,8 @@ met `bieb` op de koormap.
 
 | Pad | Actie |
 | --- | --- |
-| `liturgiemap-hemelum/8a-trisagion/` | Verwijderd (dubbel van `8-trisagion/8a-trisagion/`) |
-| `liturgiemap-hemelum/8a-trisagion-slav/` | Verwijderd (dubbel van `8-trisagion/8a-trisagion-slav/`) |
+| `liturgiemap-hemelum/8a-trisagion/` | Verwijderd (dubbel van `trisagion/8a-trisagion/`) |
+| `liturgiemap-hemelum/8a-trisagion-slav/` | Verwijderd (dubbel van `trisagion/8a-trisagion-slav/`) |
 
 ---
 

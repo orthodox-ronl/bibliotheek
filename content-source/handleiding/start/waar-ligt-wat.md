@@ -59,15 +59,15 @@ Hernoemen gebeurt pas bij publicatie in de bibliotheek.
 ## Publicatienamen
 
 In de bibliotheek (en in `_werk`): geen spaties; alleen kleine letters,
-cijfers, `-` en `_`. Voorbeeld: id `8-trisagion/8a-nederlands/hemelum` →
-`8-trisagion-8a-nederlands-hemelum.mscz`.
+cijfers, `-` en `_`. Voorbeeld: id `trisagion/8a-nederlands/hemelum` →
+`trisagion-8a-nederlands-hemelum.mscz`.
 
 ## Koormap vs bibliotheek-id
 
 | Veld | Betekenis |
 | --- | --- |
 | **Bibliotheek-id** | Drie lagen: `zangstuk/variant/uitvoeringsvorm` — in werkvoorraad en in `bieb` |
-| **Koormap** | Liturgie-pad (bijv. `8-trisagion/8a-trisagion`) |
+| **Koormap** | Liturgie-pad (bijv. `trisagion/8a-trisagion`) |
 
 Weet je de bibliotheek-id niet? Laat **Doel-id** leeg en vraag na. Raad
 niet. Lijst: [Id-register](/bibliotheek/id-register/).

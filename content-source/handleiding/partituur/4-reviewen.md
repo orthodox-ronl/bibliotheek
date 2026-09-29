@@ -91,13 +91,13 @@ liturgische tekst ernaast. Vink af:
    bestandsnaam al goed is (zonder spaties):
 
 ```cmd
-scripts\layout.cmd content-source\input\_werk\8-trisagion-8a-nederlands-hemelum\8-trisagion-8a-nederlands-hemelum.mscz
+scripts\layout.cmd content-source\input\_werk\trisagion-8a-nederlands-hemelum\trisagion-8a-nederlands-hemelum.mscz
 ```
 
    Ligt de basispartituur al in de bibliotheek:
 
 ```cmd
-scripts\layout.cmd content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum\8-trisagion-8a-nederlands-hemelum.mscz
+scripts\layout.cmd content-source\bibliotheek\trisagion\8a-nederlands\hemelum\trisagion-8a-nederlands-hemelum.mscz
 ```
 
 5. Open de `.mscz` opnieuw in MuseScore 4.

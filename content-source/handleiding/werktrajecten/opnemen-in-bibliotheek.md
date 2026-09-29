@@ -81,7 +81,7 @@ scripts\update-werkvoorraad.cmd
    van de site-keten.
 4. Open `content-source\input\werkvoorraad.md`. Zoek
    de nieuwe rij. Vul kolom **Doel-id** in als je het bibliotheek-id kent
-   (bijvoorbeeld `8-trisagion/8a-nederlands/hemelum`). Ken je het id
+   (bijvoorbeeld `trisagion/8a-nederlands/hemelum`). Ken je het id
    niet? Laat de cel leeg en vraag na — **niet verzinnen**.
 5. Pas **Koormap** of **Notitie** aan als dat nodig is. Kolommen *Stap*
    en *Volgende* vult het script; die niet met de hand “rechtzetten”.

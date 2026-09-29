@@ -20,7 +20,7 @@ echo.
 echo   accepteer   partituur/tekstblad opnemen onder bibliotheek-id
 echo.
 echo Voorbeeld:
-echo   scripts\bieb.cmd accepteer 8-trisagion/8a-nederlands/hemelum pad\naar\x.mscz --dry-run
+echo   scripts\bieb.cmd accepteer trisagion/8a-nederlands/hemelum pad\naar\x.mscz --dry-run
 echo.
 echo Handleiding: content-source\handleiding\scripts\bieb-accepteer.md
 echo.

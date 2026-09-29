@@ -57,7 +57,7 @@ Latere subcommando’s van `bieb` (voorzien): `zoek`, `hernoem`, …
 
 ```cmd
 scripts\bieb.cmd accepteer
-scripts\bieb.cmd accepteer 8-trisagion/8a-nederlands/hemelum pad\naar\bestand.mscz --dry-run
+scripts\bieb.cmd accepteer trisagion/8a-nederlands/hemelum pad\naar\bestand.mscz --dry-run
 ```
 
 # WHEN

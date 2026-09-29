@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # 8a Trisagion (met Slavisch)
 
-{{< bieb id="8-trisagion/8a-slav/hemelum" >}}
+{{< bieb id="trisagion/8a-slav/hemelum" >}}

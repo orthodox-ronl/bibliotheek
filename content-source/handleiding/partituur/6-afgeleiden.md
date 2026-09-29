@@ -53,13 +53,13 @@ de preview een rode banner dat de basispartituur-afgeleiden niet bij de partituu
 2. Normaliseer opnieuw:
 
 ```cmd
-scripts\layout.cmd content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum\8-trisagion-8a-nederlands-hemelum.mscz
+scripts\layout.cmd content-source\bibliotheek\trisagion\8a-nederlands\hemelum\trisagion-8a-nederlands-hemelum.mscz
 ```
 
 3. Maak PDF en Coria-`.mxl` opnieuw:
 
 ```cmd
-scripts\mscz-products.cmd content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum
+scripts\mscz-products.cmd content-source\bibliotheek\trisagion\8a-nederlands\hemelum
 ```
 
 4. Controleer:

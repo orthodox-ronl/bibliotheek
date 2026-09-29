@@ -92,7 +92,7 @@ blijven geldig tot een bewuste hernoem-golf.
 | `6-derde-antifoon` | liturgische familie | `derde-antifoon` | |
 | `7-kleine-intocht` | liturgische familie | `kleine-intocht` | |
 | `7d-dialoog-met-diaken` | enkelvoudig werk | `dialoog-met-diaken` | |
-| `8-trisagion` | liturgische familie | `trisagion` | Varianten houden VO-/settinglabel (besluit 4) |
+| `8-trisagion` | liturgische familie | `trisagion` | Was hernoemd; varianten houden VO-/settinglabel (besluit 4) |
 | `9-prokimen` | liturgische familie | `prokimen` | |
 | `9-alleluia` | liturgische familie | `alleluia` | |
 | `10-evangelielezing` | enkelvoudig / liturgische plek | `evangelielezing` | |
@@ -135,10 +135,10 @@ blijven geldig tot een bewuste hernoem-golf.
   blijven gescheiden. Script: `scripts/migrate_ektinia.py`.
 - Cherubijnen-golf: `15-cherubijnenhymne` → `cherubijnenhymne`; variant-
   `linkTitle` met VO-label (bijv. «Kastorski (15c)»).
+- Trisagion-golf: `8-trisagion` → `trisagion`.
 
 ## Volgende stappen
 
-1. Latere golven: `8-trisagion` → `trisagion`; kruisstukken (`210` / `220`)
-   onder `tropaar`.
+1. Kruisstukken (`210` / `220` / tropaar-alias) onder `tropaar`.
 
 {{< navbuttons "Bibliotheek en koormappen|/handleiding/start/bibliotheek-en-koormappen/" "Woorden|/handleiding/start/woorden/" >}}

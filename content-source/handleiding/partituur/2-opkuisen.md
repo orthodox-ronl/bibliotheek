@@ -17,8 +17,8 @@ hetzelfde):
 scripts\opkuisen.cmd content-source\input\capella --analyze
 ```
 `STAM` = publicatiestam uit de bibliotheek-id, zonder spaties
-(voorbeeld: id `8-trisagion/8a-nederlands/hemelum` →
-`8-trisagion-8a-nederlands-hemelum`).
+(voorbeeld: id `trisagion/8a-nederlands/hemelum` →
+`trisagion-8a-nederlands-hemelum`).
 Volledige man-page (hoeken, manieren wel/niet, exitcodes):
 [opkuisen](../../scripts/opkuisen/).
 Ruwe `.mscz`: `scripts\opkuisen.cmd pad\naar\bestand.mscz` doet
@@ -144,13 +144,13 @@ scripts\opkuisen.cmd "content-source\input\capella\NAAM.mxl" --analyze
 ### Stap voor stap
 
 1. Ken het **bibliotheek-id** (drie lagen), bijvoorbeeld
-   `8-trisagion/8a-nederlands/hemelum`. Nog geen id? Ga terug naar
+   `trisagion/8a-nederlands/hemelum`. Nog geen id? Ga terug naar
    [binnenhalen](../1-binnenhalen/) en het
    [Id-register](/bibliotheek/id-register/).
 2. Bepaal de **publicatiestam** (de drie id-lagen met `-` ertussen, zonder
-   spaties): `8-trisagion-8a-nederlands-hemelum`.
+   spaties): `trisagion-8a-nederlands-hemelum`.
 3. Maak de map
-   `content-source\input\_werk\8-trisagion-8a-nederlands-hemelum\`
+   `content-source\input\_werk\trisagion-8a-nederlands-hemelum\`
    (Verkenner of laat het script de map aanmaken bij schrijven). De map
    `_werk\` staat alleen op jouw pc (niet in git).
 4. Open het Windows-opdrachtvenster in de repository-map `bibliotheek`
@@ -159,7 +159,7 @@ scripts\opkuisen.cmd "content-source\input\capella\NAAM.mxl" --analyze
    aanhalingstekens als er spaties in zitten. Voorbeeld:
 
 ```cmd
-scripts\opkuisen.cmd "content-source\input\capella\8a - 8-trisagion.mxl" -o content-source\input\_werk\8-trisagion-8a-nederlands-hemelum\8-trisagion-8a-nederlands-hemelum.mxl
+scripts\opkuisen.cmd "content-source\input\capella\8a - trisagion.mxl" -o content-source\input\_werk\trisagion-8a-nederlands-hemelum\trisagion-8a-nederlands-hemelum.mxl
 ```
 
 6. Wacht tot de prompt terugkomt. Het script print hoek/confidence en
