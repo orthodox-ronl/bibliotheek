@@ -57,18 +57,21 @@ Latere subcommando’s van `bieb` (voorzien): `zoek`, `hernoem`, …
 
 ```cmd
 scripts\bieb.cmd accepteer
-scripts\bieb.cmd accepteer 8-trisagion/8a-nederlands/hemelum pad\naar\bestand.mscz --dry-run
+scripts\bieb.cmd accepteer trisagion/8a-nederlands/hemelum pad\naar\bestand.mscz --dry-run
 ```
 
 # WHEN
 
-Als de partituur klaar is om in de catalogus te staan (na opkuisen /
-normaliseren, of na een werkende `.vsa` / `.mvsa`). Daarna koormap +
-`check --strict`.
+Als de partituur klaar is om van de **Werkbank** naar de **Catalogus** te
+gaan (na opkuisen / normaliseren, of na een werkende `.vsa` / `.mvsa`).
+Overgangscriteria: [Werkbank](/handleiding/start/werkbank/#overgangscriteria).
+Daarna producten + `check --strict` — [Catalogus](/handleiding/start/catalogus/).
 
 # SEE ALSO
 
+- Lifecycle: [Levenscyclus](/handleiding/start/levenscyclus/)
 - Workflow: [Opnemen in de bibliotheek](/handleiding/werktrajecten/opnemen-in-bibliotheek/)
+- [werkbank-status](../werkbank-status/)
 - [check](../check/)
 - [update-werkvoorraad](../update-werkvoorraad/)
 - [Publicatiecontrole](/handleiding/start/publicatiecontrole/)

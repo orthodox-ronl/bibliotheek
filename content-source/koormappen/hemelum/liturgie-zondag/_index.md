@@ -24,7 +24,7 @@ Liturgiemap voor **zondag**. Weekdagen staan in
 |   7  | [Kleine Intocht](7-kleine-intocht/) |
 |  --  | [Troparen en Kondaken](troparen-en-kondaken/) |
 |  --  | [Dialoog met de Diaken](7d-dialoog-met-diaken/) |
-|   8  | [Trisagion](8-trisagion/) |
+|   8  | [Trisagion](trisagion/) |
 |  9a  | [Prokimen (zondag)](9a-prokimen/) |
 |  9b  | [Alleluia](9b-alleluia/) |
 |  10  | Evangelielezing *(voorzien)* |
@@ -32,7 +32,7 @@ Liturgiemap voor **zondag**. Weekdagen staan in
 |  12  | Ontslapenen Litanie/Ektinia *(voorzien)* |
 |  13  | Catechumenen Litanie/Ektinia *(voorzien)* |
 |  14  | Gelovigen Litanie/Ektinia *(voorzien)* |
-|  15  | [Cherubijnenhymne](15-cherubijnenhymne/) |
+|  15  | [Cherubijnenhymne](cherubijnenhymne/) |
 |  16  | Vragende Litanie/Ektinia *(voorzien)* |
 |  17  | Vredeswens *(voorzien)* |
 |  18  | Geloofsbelijdenis *(voorzien)* |

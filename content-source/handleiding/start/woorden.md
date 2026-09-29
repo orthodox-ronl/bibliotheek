@@ -25,8 +25,10 @@ weight: 30
 - **normaliseren** / **layouten** = basispartituur-standaard met `scripts\layout.cmd` (zelfde scriptstap; “layouten” is de gewone naam)
 - **bibliotheek-id** = `zangstuk/variant/uitvoeringsvorm` (drie lagen); zichtbaar op bibliotheek-leaves en in het colofon van basispartituur-`.mscz`/PDF
 - **`bieb`** (shortcode) = knoppen + partituur van een bibliotheek-id; **`bieb`** (CLI, later) = beheercommando’s (`accepteer`, `zoek`, …)
-- **`bieb accepteer`** = bestand opnemen in de bibliotheek (mappen + `index.md`); zie [Opnemen](/handleiding/werktrajecten/opnemen-in-bibliotheek/)
-- **publicatiestatus** = wat koorleden op de pagina zien (sticky header); intern *Stap* in de werkvoorraad is iets anders
+- **`bieb accepteer`** = overgang Werkbank → Catalogus (bestand opnemen); zie [Opnemen](/handleiding/werktrajecten/opnemen-in-bibliotheek/)
+- **Werkbank** = lifecycle pre-productie (`input\`, `_werk\`); zie [Werkbank](/handleiding/start/werkbank/)
+- **Catalogus** (lifecycle) = canonieke bron in `bibliotheek\…`; zie [Catalogus](/handleiding/start/catalogus/)
+- **publicatiestatus** = wat koorleden op de pagina zien (sticky header); intern *Stap* in de werkvoorraad én lifecycle-fase zijn iets anders
 {{< /cue >}}
 
 **Wat je nu doet:** dezelfde namen gebruiken als de rest van de keten, zodat
@@ -62,7 +64,7 @@ lettergrepen synchroon met noten. MusicXML: `scripts\opkuisen.cmd`. Bij een
 | Woord | Betekenis |
 | --- | --- |
 | **Bibliotheek** | Catalogus onder `bibliotheek\`: alle oefenbestanden per uitvoeringsvorm; mag stukken bevatten zonder koormap |
-| **Bibliotheek-id** | Drie segmenten `[a-z0-9_-]+`, bijv. `8-trisagion/8a-nederlands/hemelum` |
+| **Bibliotheek-id** | Drie segmenten `[a-z0-9_-]+`, bijv. `trisagion/8a-nederlands/hemelum` |
 | **Variant-id `default`** | Middelste laag als er maar één variant is (bijv. `5-eniggeboren-zoon/default/hemelum`) |
 | **Taal-suffix** | Op uitvoeringsvorm-id: geen = NL; `-ksl` = Kerkslavisch Cyrillisch; `-ksl-trlat` = getranslitereerd; `-nl-ksl` = mengvorm |
 | **Koormap** | Geordende view (navigatieboom) voor een gelegenheid; geen basispartituur-bestanden in de slotmappen |
@@ -70,11 +72,14 @@ lettergrepen synchroon met noten. MusicXML: `scripts\opkuisen.cmd`. Bij een
 | **Slot-pagina** | Map met `index.md` in de koormap: markdown plus `bieb` (geen catalogus-include in de oefenhoek) |
 | **Compositieblad** | Slot-pagina met proza en **meerdere** `bieb`-shortcodes (bijv. prokimens van de week) |
 | **Alias-variant** | Variant zonder eigen uitvoeringsvorm-bestanden; op de variant-`_index.md` staat `alias_van: zangstuk/canonieke-variant` |
-| **Diversen** | (verouderd als zangstuk-id) Losse gezangen hebben nu een eigen zangstuk-id, bv. `220-uw-heilig-kruis/default/hemelum` |
+| **Diversen** | (verouderd als zangstuk-id) Losse gezangen hebben nu een eigen zangstuk-id, bv. `tropaar/uw-heilig-kruis/hemelum` |
 | **Tropaar** / **kondak** | Nederlandse termen voor die gezangen (niet “troparion” / “kondakion”) |
-| **Special page** | Automatisch overzicht onder `bibliotheek\speciaal\` (voorzien, ongerefereerd, oefenbaar) |
+| **Special page** | Automatisch overzicht onder `bibliotheek\speciaal\` (werkbank, voorzien, ongerefereerd, oefenbaar) |
 | **Werkvoorraad** | Tabel in `input\werkvoorraad.md`: per *input* hoe ver de conversie is |
 | **Stap** (werkvoorraad) | Intern: `ontvangen`, `opkuisen`, `layout`, `gepubliceerd`, … — niet zichtbaar voor koorleden |
+| **Werkbank** | Lifecycle-fase pre-productie: reserveren, binnenhalen, opkuisen, proefdraaien — [Werkbank](/handleiding/start/werkbank/) |
+| **Catalogus** (lifecycle) | Lifecycle-fase: canonieke bron + producten in `bibliotheek\…` — [Catalogus](/handleiding/start/catalogus/) |
+| **Levenscyclus** | Case per uitvoeringsvorm door fases; los van `publicatiestatus` — [Levenscyclus](/handleiding/start/levenscyclus/) |
 | **Publicatiestatus** | Op `index.md` in bibliotheek én koormap: `voorzien`, `reviewable`, `concept`, `productie` (sticky header; niet raden) |
 | **artefacten_handmatig** | Frontmatter: afgeleiden in die bibliotheekmap niet auto; gele banner voor beheerders |
 | **SATB** | Sopraan, alt, tenor, bas — de vier stemmen op één partituur |

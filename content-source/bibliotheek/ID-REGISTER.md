@@ -37,22 +37,22 @@ script tegelijk.
 
 | Koormap-pad (t.o.v. `liturgiemap-hemelum/`) | Bibliotheek-id | Publicatiestam (basispartituur) | Bestanden nu | Opmerking |
 | --- | --- | --- | --- | --- |
-| `15-cherubijnenhymne/15c-kastorski/` | `15-cherubijnenhymne/15c-kastorski/hemelum` | `15-cherubijnenhymne-15c-kastorski-hemelum` | mscz, mxl, pdf | reviewable; NL (ongemerkt) |
-| *(alleen bibliotheek voorlopig)* | `15-cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` | `15-cherubijnenhymne-15c-kastorski-hemelum-ksl-trlat` | — | Kerkslavisch getranslitereerd; stub |
-| `15-cherubijnenhymne/15b-fatejev/` | `15-cherubijnenhymne/15b-fatejev/hemelum` | — | — | voorzien |
-| `15-cherubijnenhymne/15d-kastorski/` | `15-cherubijnenhymne/15d-kastorski/hemelum` | — | — | voorzien (andere Kastorski dan 15c) |
-| `15-cherubijnenhymne/15e-bortnjanski/` | `15-cherubijnenhymne/15e-bortnjanski/hemelum` | `15-cherubijnenhymne-15e-bortnjanski-hemelum` | — | voorzien; Capella-input aanwezig |
+| `cherubijnenhymne/15c-kastorski/` | `cherubijnenhymne/15c-kastorski/hemelum` | `cherubijnenhymne-15c-kastorski-hemelum` | mscz, mxl, pdf | reviewable; NL (ongemerkt) |
+| *(alleen bibliotheek voorlopig)* | `cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` | `cherubijnenhymne-15c-kastorski-hemelum-ksl-trlat` | — | Kerkslavisch getranslitereerd; stub |
+| `cherubijnenhymne/15b-fatejev/` | `cherubijnenhymne/15b-fatejev/hemelum` | — | — | voorzien |
+| `cherubijnenhymne/15d-kastorski/` | `cherubijnenhymne/15d-kastorski/hemelum` | — | — | voorzien (andere Kastorski dan 15c) |
+| `cherubijnenhymne/15e-bortnjanski/` | `cherubijnenhymne/15e-bortnjanski/hemelum` | `cherubijnenhymne-15e-bortnjanski-hemelum` | — | voorzien; Capella-input aanwezig |
 
 **Cherubijnen-varianten (Hemelum):** 15b Fatejev, 15c Kastorski, 15d Kastorski,
 15e Bortnjanski. Niet: 15a Staro-Simonovskaja, 15f Lvovsky.
-| `8-trisagion/8a-trisagion/` | `8-trisagion/8a-nederlands/hemelum` | `8-trisagion-8a-nederlands-hemelum` | mscz, mxl, pdf | Canoniek; niet de legacy-map `8a-trisagion/` |
-| `8-trisagion/8a-trisagion-slav/` | `8-trisagion/8a-slav/hemelum` | `8-trisagion-8a-slav-hemelum` | mscz, mxl, pdf, mvsa | Idem legacy `8a-trisagion-slav/` |
+| `trisagion/8a-trisagion/` | `trisagion/8a-nederlands/hemelum` | `trisagion-8a-nederlands-hemelum` | mscz, mxl, pdf | Canoniek; niet de legacy-map `8a-trisagion/` |
+| `trisagion/8a-trisagion-slav/` | `trisagion/8a-slav/hemelum` | `trisagion-8a-slav-hemelum` | mscz, mxl, pdf, mvsa | Idem legacy `8a-trisagion-slav/` |
 | `19a-eucharistische-kanon/` | `19-eucharistische-canon/19a-feofan/hemelum` | `19-eucharistische-canon-19a-feofan-hemelum` | mscz, mxl, pdf | |
 | *(alleen bibliotheek voorlopig)* | `19-eucharistische-canon/rostov/hemelum` | `19-eucharistische-canon-rostov-hemelum` | — | VOW-input; stub |
 | `20-moeder-godslied/20d-in-waarheid-moeder-godslied/` | `20-moeder-godslied/20d-in-waarheid/hemelum` | `20-moeder-godslied-20d-in-waarheid-hemelum` | mscz, mxl, pdf | |
 | `20-moeder-godslied/20-moeder-godslied-ontslapen-mgods/` | `20-moeder-godslied/ontslapen-moeder-gods/hemelum` | `20-moeder-godslied-ontslapen-moeder-gods-hemelum` | print.mscz, mxl, pdf, vsa | `artefacten_handmatig`; print-track |
 | `25-communievers/25-communievers-onthoofding-johannes-de-doper/` | `25-communievers/onthoofding-johannes-de-doper/hemelum` | `25-communievers-onthoofding-johannes-de-doper-hemelum` | vsa, vsa.mxl, pdf | Geen basispartituur-mscz; Coria via VSA-publicatiecontrole |
-| `troparen-en-kondaken/tropaar-nikolaas-van-myra/` | `110-tropaar/nikolaas-van-myra-toon-4/hemelum` | `110-tropaar-nikolaas-van-myra-toon-4-hemelum` | print.mscz, mxl, pdf, vsa | `artefacten_handmatig`; onder zangstuk `110-tropaar/` |
+| `troparen-en-kondaken/tropaar-nikolaas-van-myra/` | `tropaar/nikolaas-van-myra-toon-4/hemelum` | `tropaar-nikolaas-van-myra-toon-4-hemelum` | print.mscz, mxl, pdf, vsa | `artefacten_handmatig`; onder zangstuk `tropaar/` |
 | `2-eerste-antifoon/weekdagen/` | `2-eerste-antifoon/weekdagen/hemelum` | `2-eerste-antifoon-weekdagen-hemelum-hemelum` | vsa, vsa.mxl | Koormap = Hemelum; geen `liturgikon/`-slot meer |
 | *(alleen bibliotheek)* | `2-eerste-antifoon/weekdagen-liturgikon/hemelum` | `2-eerste-antifoon-weekdagen-liturgikon-hemelum` | vsa, vsa.mxl | Niet in Hemelum-koormap |
 | `2-eerste-antifoon/zondag/` | `2-eerste-antifoon/zondag/hemelum` | `2-eerste-antifoon-zondag-hemelum` | mscz, mxl, pdf | stub-achtig in koormap |
@@ -74,7 +74,7 @@ script tegelijk.
 | Koormap-pad | Bibliotheek-id | Bestanden nu | Opmerking |
 | --- | --- | --- | --- |
 | `7-kleine-intocht/zo-wk-mg/` | `7-kleine-intocht/zo-wk-mg/hemelum` | `*.print.mscz`, pdf | Print-vel; bij voorkeur `artefacten_handmatig: true` |
-| `troparen-en-kondaken/tropaar-nikolaas-van-myra/` | `110-tropaar/nikolaas-van-myra-toon-4/hemelum` | print.mscz, mxl, pdf, vsa | Handmatige artefacten |
+| `troparen-en-kondaken/tropaar-nikolaas-van-myra/` | `tropaar/nikolaas-van-myra-toon-4/hemelum` | print.mscz, mxl, pdf, vsa | Handmatige artefacten |
 | `20-moeder-godslied/…` | `20-moeder-godslied/ontslapen-moeder-gods/hemelum` | print.mscz, mxl, pdf, vsa | Handmatige artefacten |
 
 ---
@@ -83,18 +83,18 @@ script tegelijk.
 
 | Koormap-pad | Bibliotheek-id | Opmerking |
 | --- | --- | --- |
-| `1-vredeslitanie/` | `1-vredeslitanie/default/hemelum` | `.mvsa` (reviewable) |
-| `3-eerste-kleine-litanie/` | `3-eerste-kleine-litanie/default/hemelum` | `.mvsa` (reviewable) |
+| `1-vredeslitanie/` | `ektinia/vrede/hemelum` | `.mvsa` (reviewable) |
+| `3-eerste-kleine-litanie/` | `ektinia/kleine/hemelum` | `.mvsa` (reviewable) |
 | `10-evangelielezing/` | `10-evangelielezing/default/hemelum` | |
-| `11-dringende-litanie/` | `11-dringende-litanie/default/hemelum` | |
-| `12-ontslapenen-litanie/` | `12-ontslapenen-litanie/default/hemelum` | |
-| `13-catechumenen-litanie/` | `13-catechumenen-litanie/default/hemelum` | |
-| `14-gelovigen-litanie/` | `14-gelovigen-litanie/default/hemelum` | |
-| `16-vragende-litanie/` | `16-vragende-litanie/default/hemelum` | |
+| `11-dringende-litanie/` | `ektinia/dringend/hemelum` | |
+| `12-ontslapenen-litanie/` | `ektinia/ontslapenen/hemelum` | |
+| `13-catechumenen-litanie/` | `ektinia/catechumenen/hemelum` | |
+| `14-gelovigen-litanie/` | `ektinia/gelovigen/hemelum` | |
+| `16-vragende-litanie/` | `ektinia/vragend/hemelum` | |
 | `17-vredeswens/` | `17-vredeswens/default/hemelum` | |
 | `18-geloofsbelijdenis/` | `18-geloofsbelijdenis/default/hemelum` | |
 | `21-en-allen/` | `21-en-allen/default/hemelum` | |
-| `22-vragende-litanie/` | `22-vragende-litanie/default/hemelum` | |
+| `22-vragende-litanie/` | `ektinia/vragend/hemelum` | |
 | `23-onze-vader/` | `23-onze-vader/default/hemelum` | |
 | `24-een-is-heilig/` | `24-een-is-heilig/default/hemelum` | |
 | `26-gezegend-hij-die-komt/` | `26-gezegend-hij-die-komt/default/hemelum` | |
@@ -118,19 +118,19 @@ de melodieklasse (Kiev / znameni), niet het liturgienummer.
 
 ### Tropaar / kondak
 
-Zangstuk-ids `110-tropaar/` en `120-kondak/`. Variant bv. `zondag-toon-3`,
+Zangstuk-ids `tropaar/` en `kondak/`. Variant bv. `zondag-toon-3`,
 `maandag-toon-4`, `nikolaas-van-myra-toon-4`. Alias-varianten: veld
 `alias_van` op de variant-`_index.md` (geen tweede `.vsa`, geen
 uitvoeringsvorm-map).
 
 | Voorbeeld | Id |
 | --- | --- |
-| Zondag tropaar toon 1 | `110-tropaar/zondag-toon-1/groningen` |
-| Weekdag + alias | canonieke variant `110-tropaar/maandag-toon-4` ← alias `110-tropaar/heilige-engelen-toon-4` |
-| Nikolaas tropaar | `110-tropaar/nikolaas-van-myra-toon-4/hemelum` |
-| Nikolaas kondak | `120-kondak/nikolaas-van-myra-toon-3/hemelum` |
-| Moeder Gods kondak | `120-kondak/moeder-gods-toon-6/hemelum` |
-| Losse Hemelum-troparen | `110-tropaar/heilige-martelaren-toon-4/hemelum`, `…/icoon-moeder-gods-vladimir-toon-4/…`, `…/mantel-moeder-gods-toon-4/…` |
+| Zondag tropaar toon 1 | `tropaar/zondag-toon-1/groningen` |
+| Weekdag + alias | canonieke variant `tropaar/maandag-toon-4` ← alias `tropaar/heilige-engelen-toon-4` |
+| Nikolaas tropaar | `tropaar/nikolaas-van-myra-toon-4/hemelum` |
+| Nikolaas kondak | `kondak/nikolaas-van-myra-toon-3/hemelum` |
+| Moeder Gods kondak | `kondak/moeder-gods-toon-6/hemelum` |
+| Losse Hemelum-troparen | `tropaar/heilige-martelaren-toon-4/hemelum`, `…/icoon-moeder-gods-vladimir-toon-4/…`, `…/mantel-moeder-gods-toon-4/…` |
 
 `default` als variant-id betekent: één uitvoeringsvorm in Hemelum, geen
 geneste varianten in de koormap.
@@ -148,12 +148,12 @@ Standaard in deze repo is **Nederlands**; dat markeer je niet.
 
 Voorbeelden (publicatiestam):
 
-- `15-cherubijnenhymne-15c-kastorski-hemelum` — NL
-- `15-cherubijnenhymne-15c-kastorski-hemelum-ksl` — KSL Cyrillisch
-- `15-cherubijnenhymne-15c-kastorski-hemelum-ksl-trlat` — KSL getranslitereerd
-- `15-cherubijnenhymne-15c-kastorski-hemelum-nl-ksl` — mengvorm
+- `cherubijnenhymne-15c-kastorski-hemelum` — NL
+- `cherubijnenhymne-15c-kastorski-hemelum-ksl` — KSL Cyrillisch
+- `cherubijnenhymne-15c-kastorski-hemelum-ksl-trlat` — KSL getranslitereerd
+- `cherubijnenhymne-15c-kastorski-hemelum-nl-ksl` — mengvorm
 
-**Legacy:** `8-trisagion/8a-nederlands/…` en `8-trisagion/8a-slav/…` houden taal
+**Legacy:** `trisagion/8a-nederlands/…` en `trisagion/8a-slav/…` houden taal
 nog in de *variant*-laag; niet hernoemen tot een aparte migratie.
 
 ---
@@ -161,20 +161,20 @@ nog in de *variant*-laag; niet hernoemen tot een aparte migratie.
 ## CATALOGUS_KOORMAP — niet meer in oefenhoek
 
 Oefenhoek-pagina’s gebruiken **geen** `:::include` naar catalogus/`lokaal/`.
-Kondaken en troparen staan als bibliotheek-leafs onder `120-kondak/` en
-`110-tropaar/`; losse gezangen onder eigen zangstuk-ids (bv. `220-uw-heilig-kruis/`),
+Kondaken en troparen staan als bibliotheek-leafs onder `kondak/` en
+`tropaar/`; losse gezangen onder eigen zangstuk-ids (bv. `220-uw-heilig-kruis/`),
 met `bieb` op de koormap.
 
 | Was (catalogus) | Nu (bibliotheek) |
 | --- | --- |
-| `kondak-nikolaas-van-myra/liturgikon/Liturgikon` | `120-kondak/nikolaas-van-myra-toon-3/hemelum` |
-| `kondak-moeder-gods-toon-6/hemelum/Hemelum` | `120-kondak/moeder-gods-toon-6/hemelum` |
+| `kondak-nikolaas-van-myra/liturgikon/Liturgikon` | `kondak/nikolaas-van-myra-toon-3/hemelum` |
+| `kondak-moeder-gods-toon-6/hemelum/Hemelum` | `kondak/moeder-gods-toon-6/hemelum` |
 
 ### Diversen
 
 | Koormap-pad | Bibliotheek-id |
 | --- | --- |
-| `troparen-en-kondaken/uw-heilig-kruis/` | `220-uw-heilig-kruis/default/hemelum` |
+| `troparen-en-kondaken/uw-heilig-kruis/` | `tropaar/uw-heilig-kruis/hemelum` |
 
 ---
 
@@ -182,8 +182,8 @@ met `bieb` op de koormap.
 
 | Pad | Actie |
 | --- | --- |
-| `liturgiemap-hemelum/8a-trisagion/` | Verwijderd (dubbel van `8-trisagion/8a-trisagion/`) |
-| `liturgiemap-hemelum/8a-trisagion-slav/` | Verwijderd (dubbel van `8-trisagion/8a-trisagion-slav/`) |
+| `liturgiemap-hemelum/8a-trisagion/` | Verwijderd (dubbel van `trisagion/8a-trisagion/`) |
+| `liturgiemap-hemelum/8a-trisagion-slav/` | Verwijderd (dubbel van `trisagion/8a-trisagion-slav/`) |
 
 ---
 
@@ -191,8 +191,8 @@ met `bieb` op de koormap.
 
 ### 1. Tropaar Nikolaas — besloten
 
-Bibliotheek-id: `110-tropaar/nikolaas-van-myra-toon-4/hemelum` (zangstuk
-`110-tropaar/`, niet een apart zangstuk-id). Oude map
+Bibliotheek-id: `tropaar/nikolaas-van-myra-toon-4/hemelum` (zangstuk
+`tropaar/`, niet een apart zangstuk-id). Oude map
 `tropaar-nikolaas-van-myra/…` verwijderd.
 
 ### 2. Variant-id `default` — besloten
@@ -217,8 +217,8 @@ Doel-id: `5-eniggeboren-zoon/default/hemelum`.
 
 | Input | Doel-id | Status |
 | --- | --- | --- |
-| `capella/…kastorskij - ksl.mxl` | `15-cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` | stub; nog converteren |
-| `capella/15e … Bortnjanski….mxl` | `15-cherubijnenhymne/15e-bortnjanski/hemelum` | stub; Capella zegt **15e** (niet 15c) |
+| `capella/…kastorskij - ksl.mxl` | `cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` | stub; nog converteren |
+| `capella/15e … Bortnjanski….mxl` | `cherubijnenhymne/15e-bortnjanski/hemelum` | stub; Capella zegt **15e** (niet 15c) |
 | `vow/Eucharistische Canon-Rostov.mscz` | `19-eucharistische-canon/rostov/hemelum` | stub naast Feofan |
 | `vow/Tropaar-opstanding-toon*.mscz` | *(leeg)* | voorlopig laten zitten |
 

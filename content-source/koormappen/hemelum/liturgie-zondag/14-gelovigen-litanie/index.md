@@ -11,4 +11,4 @@ automatische_inhoud: false
 **Het eerste deel hiervan wordt alleen gedaan als er een of meer Diakens zijn.**
 **Het tweede deel doe we altijd (vanaf *Nogmaals ... bidden*)**
 
-{{< bieb id="14-gelovigen-litanie/default/hemelum" >}}
+{{< bieb id="ektinia/gelovigen/hemelum" >}}

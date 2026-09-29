@@ -34,6 +34,10 @@ daarna MuseScore, daarna eenstemmig `.vsa`).
 basis-`.mscz`, `.vsa`), behalve mappen met `artefacten_handmatig: true`.
 Ontbrekende of verouderde audio faalt `check --strict` / CI.
 
+Bij `.vsa` syllabificeert `audio-products` in een **tijdelijk** bestand
+vóór `vsa audio` — dezelfde stap als `vsa-products` voor Coria-`.vsa.mxl`.
+De canonieke `.vsa` (en het SVG) blijven zonder orthografische `-`.
+
 ## Bestanden en scripts
 
 - Lokaal maken: [audio-products](/handleiding/scripts/audio-products/)

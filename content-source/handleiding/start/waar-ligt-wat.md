@@ -9,15 +9,18 @@ weight: 20
 {{< cue >}}
 - Input: `content-source\input\<herkomst>\` (originele bestandsnaam mag spaties hebben)
 - Tussenwerk: `content-source\input\_werk\<stam>\` (publicatiestam; alleen op jouw pc, niet in git)
-- Bibliotheek: `content-source\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\` — **geen spaties** in bestandsnamen
+- Bibliotheek (catalogus-fase): `content-source\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\` — **geen spaties** in bestandsnamen
 - Koormap: `content-source\koormappen\hemelum\liturgie-zondag\` of
   `liturgie-weekdagen\` — sectie-`_index.md` of slot-`index.md` + `bieb`
   (geen basispartituur-bestanden)
 - Register: `content-source\input\werkvoorraad.md` en [Id-register](/bibliotheek/id-register/)
+- Lifecycle: [Levenscyclus](levenscyclus/) — Werkbank vs Catalogus
 {{< /cue >}}
 
 **Wat je nu doet:** vier soorten plekken uit elkaar houden. Anders verdwijnt
-het origineel, of komt een half af bestand op de publieke site.
+het origineel, of komt een half af bestand op de publieke site. In de
+[Werkbank](werkbank/) horen input en `_werk`; in de
+[Catalogus](catalogus/) de canonieke bron onder `bibliotheek\`.
 
 Een **bibliotheek-uitvoeringsvorm** is één map in de bibliotheek met
 `index.md` en de bestanden die koorleden oefenen (basispartituur, PDF, Coria, VSA of
@@ -56,15 +59,15 @@ Hernoemen gebeurt pas bij publicatie in de bibliotheek.
 ## Publicatienamen
 
 In de bibliotheek (en in `_werk`): geen spaties; alleen kleine letters,
-cijfers, `-` en `_`. Voorbeeld: id `8-trisagion/8a-nederlands/hemelum` →
-`8-trisagion-8a-nederlands-hemelum.mscz`.
+cijfers, `-` en `_`. Voorbeeld: id `trisagion/8a-nederlands/hemelum` →
+`trisagion-8a-nederlands-hemelum.mscz`.
 
 ## Koormap vs bibliotheek-id
 
 | Veld | Betekenis |
 | --- | --- |
 | **Bibliotheek-id** | Drie lagen: `zangstuk/variant/uitvoeringsvorm` — in werkvoorraad en in `bieb` |
-| **Koormap** | Liturgie-pad (bijv. `8-trisagion/8a-trisagion`) |
+| **Koormap** | Liturgie-pad (bijv. `trisagion/8a-trisagion`) |
 
 Weet je de bibliotheek-id niet? Laat **Doel-id** leeg en vraag na. Raad
 niet. Lijst: [Id-register](/bibliotheek/id-register/).
@@ -72,6 +75,7 @@ niet. Lijst: [Id-register](/bibliotheek/id-register/).
 ## Klaar als
 
 Voor een willekeurig bestand kun je zeggen: input, tussenwerk, bibliotheek,
-of koormap — en je weet of het op de site hoort.
+of koormap — en of je in de [Werkbank](werkbank/) of
+[Catalogus](catalogus/) zit.
 
-{{< navbuttons "Wat heb je nodig|/handleiding/start/wat-heb-je-nodig/" "Bibliotheek en koormappen|/handleiding/start/bibliotheek-en-koormappen/" >}}
+{{< navbuttons "Wat heb je nodig|/handleiding/start/wat-heb-je-nodig/" "Levenscyclus|/handleiding/start/levenscyclus/" >}}

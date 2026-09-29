@@ -17,10 +17,13 @@ scripts\update-werkvoorraad.cmd
 # DESCRIPTION
 
 Werkvoorraad is het register van ruwe bestanden onder
-`content-source\input\` (nog niet gepubliceerd). Dit
+`content-source\input\` (lifecycle **Werkbank**). Dit
 commando vult de tabel in het bestand `werkvoorraad.md` in die map aan de
 hand van wat er op schijf ligt. Doel-id, koormap en notitie in **bestaande**
 rijen blijven staan; nieuwe bestanden krijgen een nieuwe rij.
+
+Het vernieuwt ook `data\werkbank-status.json` (special page
+[Werkbank](/bibliotheek/speciaal/werkbank/)).
 
 Het verwijdert ook `generated\content\...\input`, zodat die
 inputs geen Hugo-pagina’s op de site worden.
@@ -33,5 +36,7 @@ draaien.
 
 # SEE ALSO
 
+- [werkbank-status](../werkbank-status/)
 - [check](../check/)
+- [Werkbank](/handleiding/start/werkbank/)
 - Workflow: [Binnenhalen](/handleiding/partituur/1-binnenhalen/)

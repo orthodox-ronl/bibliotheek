@@ -27,17 +27,17 @@ END = "<!-- werkvoorraad-tabel:einde -->"
 
 # Oude mapnaam (Hemelum-slot of leaf) -> bibliotheek-id (koormap-aligned)
 _SLOT_TO_ID = {
-    "15c-cherubijnenhymne-kastorski": "15-cherubijnenhymne/15c-kastorski/hemelum",
-    "15-cherubijnenhymne/15c-kastorski": "15-cherubijnenhymne/15c-kastorski/hemelum",
-    "15e-cherubijnenhymne-bortnjanski": "15-cherubijnenhymne/15e-bortnjanski/hemelum",
-    "15-cherubijnenhymne/15e-bortnjanski": "15-cherubijnenhymne/15e-bortnjanski/hemelum",
-    "15b-fatejev": "15-cherubijnenhymne/15b-fatejev/hemelum",
-    "15d-kastorski": "15-cherubijnenhymne/15d-kastorski/hemelum",
+    "15c-cherubijnenhymne-kastorski": "cherubijnenhymne/15c-kastorski/hemelum",
+    "cherubijnenhymne/15c-kastorski": "cherubijnenhymne/15c-kastorski/hemelum",
+    "15e-cherubijnenhymne-bortnjanski": "cherubijnenhymne/15e-bortnjanski/hemelum",
+    "cherubijnenhymne/15e-bortnjanski": "cherubijnenhymne/15e-bortnjanski/hemelum",
+    "15b-fatejev": "cherubijnenhymne/15b-fatejev/hemelum",
+    "15d-kastorski": "cherubijnenhymne/15d-kastorski/hemelum",
     "15c-cherubijnenhymne-kastorski-ksl-trlat": (
-        "15-cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat"
+        "cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat"
     ),
-    "8a-trisagion": "8-trisagion/8a-nederlands/hemelum",
-    "8a-trisagion-slav": "8-trisagion/8a-slav/hemelum",
+    "8a-trisagion": "trisagion/8a-nederlands/hemelum",
+    "8a-trisagion-slav": "trisagion/8a-slav/hemelum",
     "19a-eucharistische-kanon": "19-eucharistische-canon/19a-feofan/hemelum",
     "19-eucharistische-canon-rostov": "19-eucharistische-canon/rostov/hemelum",
     "20d-in-waarheid-moeder-godslied": "20-moeder-godslied/20d-in-waarheid/hemelum",
@@ -279,6 +279,11 @@ def main() -> int:
             "generated/content/.../input verwijderd (geen Hugo-pagina's).",
             flush=True,
         )
+    # Special page + CLI: open werkbank-cases
+    from werkbank_status import collect, write_json  # noqa: PLC0415
+
+    write_json(collect())
+    print("Werkbank-status-JSON bijgewerkt.", flush=True)
     return 0
 
 

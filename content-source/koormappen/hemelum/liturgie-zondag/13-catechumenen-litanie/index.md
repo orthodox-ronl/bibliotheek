@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # 13 Catechumenen Litanie/Ektinia
 
-{{< bieb id="13-catechumenen-litanie/default/hemelum" >}}
+{{< bieb id="ektinia/catechumenen/hemelum" >}}

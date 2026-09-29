@@ -71,7 +71,7 @@ scripts\ensure-bibliotheek-id.cmd
 6. PDF en Coria-`.mxl` exporteren:
 
 ```cmd
-scripts\mscz-products.cmd content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum
+scripts\mscz-products.cmd content-source\bibliotheek\trisagion\8a-nederlands\hemelum
 ```
 
    Of heel `content-source`. `--force` als producten ouder zijn dan de
@@ -79,7 +79,7 @@ scripts\mscz-products.cmd content-source\bibliotheek\8-trisagion\8a-nederlands\h
 7. Site zichtbaar maken: [Site-build](../site-build/).
 
 Voorbeeldbladermap:
-`content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum\`.
+`content-source\bibliotheek\trisagion\8a-nederlands\hemelum\`.
 
 ## Automatisch (CI)
 

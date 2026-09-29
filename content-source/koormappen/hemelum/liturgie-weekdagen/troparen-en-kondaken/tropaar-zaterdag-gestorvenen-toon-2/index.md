@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # Tropaar zaterdag gestorvenen toon 2
 
-{{< bieb id="110-tropaar/zaterdag-gestorvenen-toon-2/hemelum" >}}
+{{< bieb id="tropaar/zaterdag-gestorvenen-toon-2/hemelum" >}}

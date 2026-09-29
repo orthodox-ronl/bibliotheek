@@ -51,7 +51,7 @@ beheerdersbanner op de bibliotheekpagina.
 
 Voorbeelden in de bibliotheek:
 `7-kleine-intocht/zo-wk-mg/hemelum`,
-`110-tropaar/nikolaas-van-myra-toon-4/hemelum`,
+`tropaar/nikolaas-van-myra-toon-4/hemelum`,
 `20-moeder-godslied/ontslapen-moeder-gods/hemelum`.
 
 ## Volgorde (bestanden)

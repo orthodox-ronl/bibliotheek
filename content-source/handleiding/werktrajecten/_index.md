@@ -19,8 +19,8 @@ mappen, woorden). Stapsgewijze MuseScore- of VSA-HOW’s staan onder
 [Partituur](../partituur/) en [VSA](../vsa/). Commando-flags: [Scripts](../scripts/).
 
 {{< cue >}}
-- **Poort:** [Opnemen in de bibliotheek](opnemen-in-bibliotheek/) — ruw materiaal
-  binnenhalen, later opkuisen, daarna `bieb accepteer`
+- **Poort / lifecycle:** [Levenscyclus](../start/levenscyclus/) —
+  Werkbank → Catalogus; [Opnemen](opnemen-in-bibliotheek/) — `bieb accepteer`
 - **Namen / publicatiecontrole:** [Publicatiecontrole](../start/publicatiecontrole/) — bron vs afgeleide
 - **Publicatiesporen:** [Basispartituur](basispartituur/), [VSA](vsa/),
   [mvsa](mvsa/), [audio](audio/), [Print-vel](print-vel/) (legacy `.print.mscz`),
@@ -33,13 +33,13 @@ mappen, woorden). Stapsgewijze MuseScore- of VSA-HOW’s staan onder
 ## Hoe de trajecten in elkaar haken
 
 ```text
-ruw materiaal (input/)
+Werkbank (input/ + _werk/)
     |
     v
-Opnemen in de bibliotheek  (werkvoorraad + later opkuis + bieb accepteer)
+Opnemen in de bibliotheek  (bieb accepteer → Catalogus)
     |
     +-- Basispartituur  ->  PDF + Coria-.mxl + .mscz.mp3
-    +-- VSA             ->  SVG + Coria-.vsa.mxl + .vsa.mp3
+    +-- VSA             ->  SVG + Coria-.vsa.mxl + .vsa.pdf + .vsa.mp3
     +-- mvsa            ->  Coria-.mvsa.mxl + .mvsa.pdf + .mvsa.mp3
     +-- Print-vel       ->  handmatige PDF
     +-- Tekstblad       ->  .tekstblad.md -> .tekstblad.pdf
@@ -58,7 +58,7 @@ geen bibliotheek-producten.
 | --- | --- | --- |
 | Opnemen in de bibliotheek | Ruw bestand bewaren en later als klaar oefenbestand in de catalogus zetten | [Opnemen](opnemen-in-bibliotheek/) |
 | Basispartituur | MuseScore-basispartituur naar A4-PDF en Coria-`.mxl` | [Basispartituur](basispartituur/) |
-| VSA | Eenstemmige `.vsa` naar SVG-plaatje en Coria-`.vsa.mxl` | [VSA](vsa/) |
+| VSA | Eenstemmige `.vsa` naar SVG, Coria-`.vsa.mxl` en A4-`.vsa.pdf` | [VSA](vsa/) |
 | mvsa | Meerstemmige `.mvsa` naar Coria-`.mvsa.mxl` en A4-`.mvsa.pdf` | [mvsa](mvsa/) |
 | audio | Preview-`.mp3` voor Beluisteren (zelfde bronnen als Coria-MXL) | [audio](audio/) |
 | Print-vel | Print-`.mscz` met handmatige PDF, buiten de basispartituur-keten | [Print-vel](print-vel/) |

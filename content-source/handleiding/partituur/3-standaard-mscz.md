@@ -133,10 +133,10 @@ feathered noot later tot één kwart per lettergreep.
 
 ### Van opgekuiste Capella-`.mxl`
 
-Voorbeeld voor bibliotheek-id `8-trisagion/8a-nederlands/hemelum`:
+Voorbeeld voor bibliotheek-id `trisagion/8a-nederlands/hemelum`:
 
 ```cmd
-scripts\layout.cmd content-source\input\_werk\8-trisagion-8a-nederlands-hemelum\8-trisagion-8a-nederlands-hemelum.mxl -o content-source\input\_werk\8-trisagion-8a-nederlands-hemelum\8-trisagion-8a-nederlands-hemelum.mscz
+scripts\layout.cmd content-source\input\_werk\trisagion-8a-nederlands-hemelum\trisagion-8a-nederlands-hemelum.mxl -o content-source\input\_werk\trisagion-8a-nederlands-hemelum\trisagion-8a-nederlands-hemelum.mscz
 ```
 
 Het script converteert via MuseScore 4 naar `.mscz` en past daarna de
@@ -149,7 +149,7 @@ Kopieer de ruwe `.mscz` **niet** rechtstreeks naar de bibliotheek. Eerst
 normaliseren naar `_werk` met een naam zonder spaties:
 
 ```cmd
-scripts\layout.cmd content-source\input\vow\Cherubijnenlied-Kastorskij.mscz -o content-source\input\_werk\15-cherubijnenhymne-15c-kastorski-hemelum\15-cherubijnenhymne-15c-kastorski-hemelum.mscz
+scripts\layout.cmd content-source\input\vow\Cherubijnenlied-Kastorskij.mscz -o content-source\input\_werk\cherubijnenhymne-15c-kastorski-hemelum\cherubijnenhymne-15c-kastorski-hemelum.mscz
 ```
 
 Controleer vóór of na deze stap of stemmen en lettergrepen kloppen — dat is

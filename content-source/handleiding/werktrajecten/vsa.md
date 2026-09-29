@@ -28,18 +28,20 @@ afspeelbaar zijn — zonder een volledige MuseScore-basispartituur.
 | Output | Rol |
 | --- | --- |
 | `{stam}.vsa` in de bladermap | Canonieke bron (YAML: `do`, `mode`, `tempo`) |
-| `static\vsa\bladermap\…\*.svg` | Plaatje voor de site; **geen** publicatiecontrole (vernieuwd door `oefenhoek-index --svg`) |
+| `static\vsa\bladermap\…\*.svg` | Plaatje voor de site als er (nog) geen PDF is; **geen** publicatiecontrole (vernieuwd door `oefenhoek-index --svg`) |
 | `{stam}.vsa.mxl` naast de `.vsa` | Coria; stamp `vsa-source-sha256` van de canonieke `.vsa` |
+| `{stam}.vsa.pdf` naast de `.vsa` | A4 voor **Downloaden** / **Printen**; zelfde stamp |
 
-**Klaar** als: `vsa validate` stil is; SVG zichtbaar via shortcode `bieb`;
-`check_vsa_products` (onder `check --strict`) is groen.
+**Klaar** als: `vsa validate` stil is; SVG of PDF zichtbaar via shortcode `bieb`;
+`check_vsa_products` (onder `check --strict`) is groen voor MXL én PDF.
 
 **Waarom geen lettergreepstreepjes in de canonieke `.vsa`?** Orthografische
-`-` (Pyphen) helpt Coria (één kwartnoot per lettergreep), maar hoort niet
-op het gepubliceerde SVG. `vsa-products` syllabify’t alleen in een
-**tijdelijk** bestand tijdens export en schrijft die tekst niet terug naar
-`{stam}.vsa`. Een experimentele sidecar `{stam}.syl.vsa` is **geen** bron
-voor SVG of `vsa-products`.
+`-` (Pyphen) helpt Coria én preview-audio (één kwartnoot per lettergreep),
+maar hoort niet op het gepubliceerde SVG. `vsa-products` en `audio-products`
+syllabify’t alleen in een **tijdelijk** bestand tijdens export en schrijft
+die tekst niet terug naar `{stam}.vsa`. Een experimentele sidecar
+`{stam}.syl.vsa` is **geen** bron voor SVG, `vsa-products` of
+`audio-products`.
 
 ## Wanneer wel / wanneer niet
 
@@ -56,7 +58,7 @@ voor SVG of `vsa-products`.
    [.vsa schrijven](../../vsa/1-vsa-schrijven/).
 2. Neem op in de bibliotheek indien nodig:
    [Opnemen](../opnemen-in-bibliotheek/) (`bieb accepteer`).
-3. Coria-`.vsa.mxl`:
+3. Coria-`.vsa.mxl` en A4-`.vsa.pdf`:
 
 ```cmd
 scripts\vsa-products.cmd content-source\bibliotheek\5-eniggeboren-zoon
@@ -65,24 +67,26 @@ scripts\vsa-products.cmd content-source\bibliotheek\5-eniggeboren-zoon
 4. Controleer: `check --strict` (validate + publicatiecontrole + Hugo).
 5. Site bekijken: `serve` → http://127.0.0.1:18732/
 
-Bibliotheek-**Oefenen** gebruikt de sibling `{stam}.vsa.mxl` in de
-bladermap.
+Bibliotheek-**Oefenen** gebruikt `{stam}.vsa.mxl`; **Downloaden** /
+**Printen** gebruiken `{stam}.vsa.pdf`.
 
 ## Automatisch (CI)
 
-- **Wel:** `check_vsa_products.py` controleert of `{stam}.vsa.mxl` bij de
-  canonieke `.vsa` past (sha-stamp). Pages-CI faalt bij missing/stale.
+- **Wel:** `check_vsa_products.py` controleert of `{stam}.vsa.mxl` en
+  `{stam}.vsa.pdf` bij de canonieke `.vsa` passen (sha-stamp). Pages-CI
+  faalt bij missing/stale.
 - **Wel:** `oefenhoek-index --svg` vernieuwt bladermap-SVG vóór Hugo
-  (geen stamp; geen “stale SVG”-fout).
-- **Niet:** stilzwijgend een verouderde `.vsa.mxl` herschrijven zonder
-  commit. Vernieuw lokaal met `vsa-products` en commit `{stam}.vsa.mxl`
-  mee. CI heeft geen MuseScore en genereert geen MusicXML-producten.
+  (geen stamp; geen “stale SVG”-fout; op de pagina zie je de PDF als die
+  er is, anders de SVG).
+- **Niet:** stilzwijgend verouderde producten herschrijven zonder commit.
+  Vernieuw lokaal met `vsa-products` en commit `.vsa.mxl` + `.vsa.pdf`
+  mee. CI heeft geen MuseScore/Chrome-PDF-run voor producten.
 
 ## Handmatig
 
 | Situatie | Commando | Man-page |
 | --- | --- | --- |
-| Coria-`.vsa.mxl` | `scripts\vsa-products.cmd` `[map]` | [vsa-products](../../scripts/vsa-products/) |
+| Coria-`.vsa.mxl` + A4-`.vsa.pdf` | `scripts\vsa-products.cmd` `[map]` | [vsa-products](../../scripts/vsa-products/) |
 | Alles vóór commit | `scripts\check.cmd --strict` | [check](../../scripts/check/) |
 
 ## Zie ook

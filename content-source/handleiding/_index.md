@@ -23,7 +23,8 @@ Detail: [Wat heb je nodig](start/wat-heb-je-nodig/).
 | Onderdeel | Voor wie / waartoe |
 | --- | --- |
 | [Start](start/) | Beginnende beheerder: programma’s, mappen, woorden, model bibliotheek/koormap |
-| [Werktrajecten](werktrajecten/) | Per pijplijn: waartoe, eindresultaat, wanneer wel/niet |
+| [Levenscyclus](start/levenscyclus/) | Werkbank vs catalogus: status per uitvoeringsvorm, overgang, scripts |
+| [Werktrajecten](werktrajecten/) | Per productpijplijn: waartoe, eindresultaat, wanneer wel/niet |
 | [Partituur](partituur/) | Stapsgewijze HOW in MuseScore |
 | [VSA](vsa/) | HOW: `.vsa` schrijven |
 | [Publiceren](publiceren/) | Opnemen met `bieb accepteer`, koormap-slot, publicatiestatus |
@@ -32,12 +33,8 @@ Detail: [Wat heb je nodig](start/wat-heb-je-nodig/).
 **Bibliotheek** = catalogus van oefenbestanden. **Koormap** = geordende
 route (nu vooral de Hemelum-liturgiemap) met slots die via `bieb`
 verwijzen. Model: [Bibliotheek en koormappen](start/bibliotheek-en-koormappen/).
+Lifecycle: [Levenscyclus](start/levenscyclus/) (Werkbank → Catalogus).
 
 Id-lijst: [Id-register](/bibliotheek/id-register/).
 
-**Fase 1:** site bekijken en markdown/koormappen bewerken kan hier.
-Productscripts (`opkuisen`, `mscz-products`, …) komen later; tot die tijd
-staan die HOW's hier al (met juiste paden) en kun je ze tijdelijk in
-[VSA-demo](https://github.com/orthodox-ronl/VSA-demo) uitvoeren.
-
-{{< navbuttons "Start|/handleiding/start/" "Werktrajecten|/handleiding/werktrajecten/" >}}
+{{< navbuttons "Start|/handleiding/start/" "Levenscyclus|/handleiding/start/levenscyclus/" >}}

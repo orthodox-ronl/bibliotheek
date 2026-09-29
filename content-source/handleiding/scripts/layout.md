@@ -61,7 +61,7 @@ scripts\layout.cmd pad\naar\bestand.mscz
 Met expliciete bibliotheek-id:
 
 ```cmd
-scripts\layout.cmd pad\naar\bestand.mscz --id 8-trisagion/8a-nederlands/hemelum
+scripts\layout.cmd pad\naar\bestand.mscz --id trisagion/8a-nederlands/hemelum
 ```
 
 # WHEN

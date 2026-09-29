@@ -1,24 +1,30 @@
 {{/*
-  Actieknop of hover-keuzemenu.
+  Actieknop of hover-keuzemenu, met optionele uitleg-popover voor nieuwe bezoekers.
   Context: dict
     "title"   — knoptekst (Oefenen / Downloaden / Printen)
     "items"   — slice van dict "href", "label", optioneel "detail",
                 "class", "target", "rel", "download", "extra"
     "btnClass" — extra classes op de trigger (default "btn")
     "hint"    — optioneel: korte hulpzin boven de keuzes (alleen bij menu)
+    "help"    — optioneel: uitleg-popover bij hover/focus op de knop
 */}}
 {{- $title := .title -}}
 {{- $items := .items | default (slice) -}}
 {{- $btnClass := or .btnClass "btn" -}}
 {{- $hint := .hint | default "" -}}
+{{- $help := .help | default "" -}}
 {{- $n := len $items -}}
 {{- if eq $n 0 -}}
-{{- else if eq $n 1 -}}
-  {{- $it := index $items 0 -}}
-  {{- $cls := trim (printf "%s %s" $btnClass ($it.class | default "")) " " -}}
-<a class="{{ $cls }}" href="{{ $it.href }}"{{ with $it.target }} target="{{ . }}"{{ end }}{{ with $it.rel }} rel="{{ . }}"{{ end }}{{ with $it.download }} download{{ end }}{{ with $it.extra }} {{ . | safeHTMLAttr }}{{ end }}>{{ $title }}</a>
 {{- else -}}
 <div class="score-action-menu">
+  {{- with $help -}}
+  <p class="score-action-help" role="tooltip">{{ . }}</p>
+  {{- end -}}
+  {{- if eq $n 1 -}}
+    {{- $it := index $items 0 -}}
+    {{- $cls := trim (printf "%s %s" $btnClass ($it.class | default "")) " " -}}
+  <a class="{{ $cls }}" href="{{ $it.href }}"{{ with $it.target }} target="{{ . }}"{{ end }}{{ with $it.rel }} rel="{{ . }}"{{ end }}{{ with $it.download }} download{{ end }}{{ with $it.extra }} {{ . | safeHTMLAttr }}{{ end }}>{{ $title }}</a>
+  {{- else -}}
   <button type="button" class="{{ $btnClass }} score-action-menu-trigger" aria-haspopup="true" aria-expanded="false">{{ $title }}</button>
   <ul class="score-action-menu-panel" role="menu">
     {{- with $hint -}}
@@ -35,5 +41,6 @@
     </li>
     {{- end -}}
   </ul>
+  {{- end -}}
 </div>
 {{- end -}}
