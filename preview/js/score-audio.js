@@ -23,16 +23,6 @@
     return m + ":" + (s < 10 ? "0" : "") + s;
   }
 
-  function srcMatches(linkHref) {
-    if (!linkHref || !activeSrc) return false;
-    try {
-      var abs = new URL(linkHref, window.location.href).href;
-      return abs === activeSrc || audio.currentSrc === abs;
-    } catch (e) {
-      return false;
-    }
-  }
-
   function setPlayingUi(playing) {
     bar.classList.toggle("score-audio-bar--paused", !playing);
     playBtn.setAttribute("aria-label", playing ? "Pauzeren" : "Afspelen");
@@ -194,9 +184,21 @@
   });
 
   document.addEventListener("click", function (event) {
-    var link = event.target.closest("a.score-audio-play");
-    if (!link) return;
-    event.preventDefault();
-    loadAndPlay(link);
+    var audioLink = event.target.closest("a.score-audio-play");
+    if (audioLink) {
+      event.preventDefault();
+      loadAndPlay(audioLink);
+      return;
+    }
+
+    // Andere score-acties (Oefenen, Downloaden, Printen, Bronnen): stop Beluisteren.
+    // Beluisteren-menu zelf (trigger of keuzes) blijft open/speelbaar.
+    if (bar.hidden) return;
+    var inActions = event.target.closest(".score-actions");
+    if (!inActions) return;
+    var beluisterMenu = event.target.closest(".score-action-menu");
+    if (beluisterMenu && beluisterMenu.querySelector("a.score-audio-play")) return;
+    if (!event.target.closest("a, button")) return;
+    hideBar();
   });
 })();

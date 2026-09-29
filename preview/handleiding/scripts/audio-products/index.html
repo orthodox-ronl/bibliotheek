@@ -58,7 +58,10 @@ velden als bij PDF/MXL: hash van de bron, wanneer gemaakt). Zo ziet
 <code>check</code> later of de bron is gewijzigd terwijl het mp3 nog oud is.</p><p>Zoekt onder het opgegeven pad (of, zonder pad, onder
 <code>content-source\bibliotheek</code>). Overgeslagen: <code>input\</code>, mappen met
 <code>artefacten_handmatig: true</code>, import-siblings <code>*.mscz.mvsa</code>, en
-<code>.print.mscz</code>.</p><p>Onder de motorkap: tooling-CLI <code>vsa audio</code> (MuseScore 4). CI genereert
+<code>.print.mscz</code>.</p><p>Onder de motorkap: tooling-CLI <code>vsa audio</code> (MuseScore 4). Bij <code>.vsa</code>
+syllabificeert het script eerst in een <strong>tijdelijk</strong> bestand (zelfde als
+<code>vsa-products</code> voor Coria), zodat Beluisteren dezelfde lettergreep-noten
+heeft als Oefenen; de canonieke <code>.vsa</code> blijft ongewijzigd. CI genereert
 <strong>geen</strong> audio; jij wel lokaal, daarna committen.</p><p><strong>Belangrijk:</strong> elke bibliotheek-<code>.mvsa</code> / basis-<code>.mscz</code> / <code>.vsa</code> (buiten
 handmatige mappen) hoort een passende <code>.mp3</code> te hebben — dezelfde scope
 als de Coria-<code>.mxl</code>. Ontbreekt of veroudert die, dan faalt
