@@ -200,14 +200,14 @@ expliciete `{stam}.{bron-extensie}.{doel-extensie}`-vorm **verplicht**
 Alleen `.vsa` (actieve publicatiecontrole):
 
 ```text
-content-source\bibliotheek\110-tropaar\zondag-toon-1\groningen\
-  110-tropaar-zondag-toon-1-groningen.vsa
-  110-tropaar-zondag-toon-1-groningen.vsa.mxl
+content-source\bibliotheek\tropaar\zondag-toon-1\groningen\
+  tropaar-zondag-toon-1-groningen.vsa
+  tropaar-zondag-toon-1-groningen.vsa.mxl
   index.md
 ```
 
 ```cmd
-scripts\vsa-products.cmd content-source\bibliotheek\110-tropaar\zondag-toon-1\groningen
+scripts\vsa-products.cmd content-source\bibliotheek\tropaar\zondag-toon-1\groningen
 check --strict
 ```
 

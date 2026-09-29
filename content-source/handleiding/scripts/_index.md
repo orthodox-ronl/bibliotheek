@@ -31,6 +31,7 @@ vanuit de repo-root.
 | `ensure-bibliotheek-id` | Zet of controleert de colofonregel `Bibliotheek-id:` op basispartituur-`.mscz`. | [ensure-bibliotheek-id](ensure-bibliotheek-id/) |
 | `opkuisen` | Herkomstanalyse + inhoudelijke opkuis (Capella/MusicXML/MuseScore); optioneel `--layout`. | [opkuisen](opkuisen/) |
 | `bieb accepteer` | Partituur/tekstblad opnemen onder een bibliotheek-id. | [bieb accepteer](bieb-accepteer/) |
+| `bieb hernoem` | Zangstuk-id hernoemen (map, stam, refs, Hugo-aliases). | [bieb hernoem](bieb-hernoem/) |
 | `update-werkvoorraad` | Tabel in `input\werkvoorraad.md` laten aansluiten op bestanden in `input\`. | [update-werkvoorraad](update-werkvoorraad/) |
 | `oefenhoek-index` | SVG-plaatjes uit bibliotheek-`.vsa` naar `static\vsa\bladermap\` (geen stamp); optioneel legacy-strip. | [oefenhoek-index](oefenhoek-index/) |
 
@@ -50,7 +51,7 @@ in de repo.
 
 | Commando (later) | Rol |
 | --- | --- |
-| `bieb zoek` / `bieb hernoem` | Zoeken / hernoemen van bibliotheek-ids |
+| `bieb zoek` | Zoeken van bibliotheek-ids op de commandoregel |
 | `h` / `pdf` / ... | Console-hulp en overige VSA-demo-commando's |
 
 Man-pages (ter voorbereiding):

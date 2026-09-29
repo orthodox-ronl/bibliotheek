@@ -101,16 +101,16 @@ van de Heilige Engelen, gezongen op maandag). Dat is een alias op
 Dan:
 
 - partituren (`.vsa`, PDF, …) staan **alleen** bij de canonieke variant, hier
-  de uitvoeringsvorm `110-tropaar/maandag-toon-4/hemelum`;
+  de uitvoeringsvorm `tropaar/maandag-toon-4/hemelum`;
 - de alias-variant heeft alleen een `_index.md` met frontmatter
-  `alias_van: 110-tropaar/maandag-toon-4` — geen map `hemelum/`, geen `index.md`,
+  `alias_van: tropaar/maandag-toon-4` — geen map `hemelum/`, geen `index.md`,
   geen partituur;
-- de bibliotheek-index van het zangstuk (`110-tropaar/`, `120-kondak/`, …) noemt
+- de bibliotheek-index van het zangstuk (`tropaar/`, `kondak/`, …) noemt
   **beide** varianten; achter de alias-naam staat dat het een alias is.
 
 Shortcode `bieb` krijgt een uitvoeringsvorm-id (drie lagen). Wie de
 alias-variant in dat id zet, bijvoorbeeld
-`110-tropaar/heilige-engelen-toon-4/hemelum`, wordt herschreven naar de canonieke
+`tropaar/heilige-engelen-toon-4/hemelum`, wordt herschreven naar de canonieke
 uitvoeringsvorm. Product-tools (`vsa-products`, basispartituur-producten) slaan
 alias-varianten over: daar is niets te genereren.
 
@@ -199,7 +199,7 @@ shortcodes op één pagina).
 ## Naamgevingsbeleid (nieuwe ids)
 
 1. **Nieuwe** `zangstuk-id`s krijgen **geen** sorteerprefix (`tropaar`, niet
-   `110-tropaar`). Liturgienummers horen in de koormap-titel en in Hugo-
+   `tropaar`). Liturgienummers horen in de koormap-titel en in Hugo-
    `weight`.
 2. Spelling voor *nieuwe* ids: `johannes`, `alleluia`; liever voluit dan
    `mg` of `zo-wk-mg`.
