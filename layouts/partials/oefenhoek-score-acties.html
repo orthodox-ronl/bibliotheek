@@ -26,10 +26,28 @@
     {{- end -}}
   {{- end -}}
 {{- end -}}
-{{- /* Voorkeur: basispartituur als de pagina een MuseScore-blad toont, anders VSA. */ -}}
+{{- /* Voorkeur: basispartituur als die er is, anders mvsa, anders VSA. */ -}}
 {{- $preferId := "vsa" -}}
+{{- $hasMvsa := false -}}
+{{- range $score.Resources.Match "*.mvsa" -}}
+  {{- if not (strings.HasSuffix (lower .Name) ".mscz.mvsa") -}}
+    {{- $hasMvsa = true -}}
+  {{- end -}}
+{{- end -}}
+{{- with $score.File -}}
+  {{- $srcDir := printf "content-source/%s" (strings.TrimSuffix "/" (replace .Dir "\\" "/")) -}}
+  {{- if fileExists $srcDir -}}
+    {{- range os.ReadDir $srcDir -}}
+      {{- if and (not .IsDir) (strings.HasSuffix (lower .Name) ".mvsa") (not (strings.HasSuffix (lower .Name) ".mscz.mvsa")) -}}
+        {{- $hasMvsa = true -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
 {{- if $hasBasispartituur -}}
   {{- $preferId = "partituur" -}}
+{{- else if $hasMvsa -}}
+  {{- $preferId = "mvsa" -}}
 {{- end -}}
 {{- $pdfItems := slice -}}
 {{- $coriaItems := slice -}}

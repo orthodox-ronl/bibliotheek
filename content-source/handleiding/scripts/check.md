@@ -34,10 +34,13 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 5. Importcontrole — of elke **bestaande** `{stam}.mscz.mvsa` bij de
    bijbehorende basispartituur-`.mscz` past (`vsa-partituur-sha256`);
    ontbrekende import-siblings zijn geen fout
-6. Bibliotheek-id — of elke basispartituur-`.mscz` in het colofon de
+6. MVSA-publicatiecontrole — of elke canonieke bibliotheek-`.mvsa`
+   (geen `.mscz.mvsa`) passende siblings `{stam}.mvsa.mxl` en
+   `{stam}.mvsa.pdf` heeft met `vsa-source-sha256`
+7. Bibliotheek-id — of elke basispartituur-`.mscz` in het colofon de
    regel `Bibliotheek-id:` heeft die bij het bladermap-pad past
-7. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
-8. Hugo-build naar `generated\site`
+8. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
+9. Hugo-build naar `generated\site`
 
 Zonder `--strict` waarschuwen de publicatie-, import- en id-controles
 lokaal maar falen niet (behalve op `main` of met
@@ -45,8 +48,9 @@ lokaal maar falen niet (behalve op `main` of met
 `--strict`, en altijd in CI, is een stale of missing product, een
 verouderde import-sibling, of een id-mismatch een fout. Vernieuw
 producten lokaal met [vsa-products](../vsa-products/),
-[mscz-products](../mscz-products/) of
-[tekstblad-products](../tekstblad-products/); vernieuw
+[mscz-products](../mscz-products/),
+[tekstblad-products](../tekstblad-products/) of
+[mvsa-products](../mvsa-products/); vernieuw
 import-siblings met [import-mvsa](../import-mvsa/); herstel id’s met
 [ensure-bibliotheek-id](../ensure-bibliotheek-id/) of
 [layout](../layout/). CI genereert geen MuseScore-/PDF-producten.
@@ -71,6 +75,7 @@ genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole)
 - [mscz-products](../mscz-products/)
 - [tekstblad-products](../tekstblad-products/)
 - [import-mvsa](../import-mvsa/)
+- [mvsa-products](../mvsa-products/)
 - [layout](../layout/)
 - [ensure-bibliotheek-id](../ensure-bibliotheek-id/)
 - [serve](../serve/)

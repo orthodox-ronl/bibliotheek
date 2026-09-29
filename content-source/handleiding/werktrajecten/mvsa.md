@@ -1,40 +1,49 @@
 ---
-title: "mvsa (voorzien)"
-linkTitle: "mvsa (voorzien)"
+title: "mvsa"
+linkTitle: "mvsa"
 weight: 80
 ---
 
-# mvsa (voorzien)
+# mvsa
 
-**mvsa** (meerstemmige VSA) is nog **geen** actief publicatiespoor in
-ibliotheek. Deze pagina reserveert de plek in de werktrajecten-catalogus.
+**mvsa** (meerstemmige VSA) is een **actief** publicatiespoor: canonieke
+bron `{stam}.mvsa`, afgeleiden `{stam}.mvsa.mxl` (Coria) en
+`{stam}.mvsa.pdf` (A4 voor zangers).
 
-## Waartoe (toekomst)
+## Waartoe
 
-Meerstemmige notatie in VSA-achtige syntax, met eigen afgeleiden (SVG,
-PDF, Coria) — analoog aan [VSA](../vsa/) en [Basispartituur](../basispartituur/).
+Meerstemmige notatie in tekstvorm bewerken en publiceren, met dezelfde
+soort siblings als bij [VSA](../vsa/) (Coria) en
+[Basispartituur](../basispartituur/) (PDF), maar vanuit `.mvsa`.
 
-## Eindresultaat (nog te bepalen)
+## Eindresultaat
 
-Verwacht patroon, nog niet geïmplementeerd:
+| Rol | Bestand |
+| --- | --- |
+| Canonieke bron | `{stam}.mvsa` |
+| Coria | `{stam}.mvsa.mxl` + `vsa-source-sha256` |
+| Print-PDF | `{stam}.mvsa.pdf` + `vsa-source-sha256` |
 
-- eigen **representatie-id** (bijvoorbeeld `mvsa`, of een naam uit de
-  glossary in `bron`);
-- canonieke bron (verwacht: `.mvsa`-bestand);
-- afgeleiden en stamps zoals bij `vsa-products` / de partituur-publicatiecontrole.
+In één bladermap mag ook een basispartituur-`.mscz` staan; elk spoor houdt
+eigen siblings bij. Import-siblings `{stam}.mscz.mvsa` horen bij
+[import-mvsa](/handleiding/scripts/import-mvsa/), niet bij dit spoor.
 
 ## Wanneer wel / wanneer niet
 
-Nu: **niet gebruiken**. Voor eenstemmig werk: [VSA](../vsa/). Voor
-meerstemmig MuseScore-werk: [Basispartituur](../basispartituur/).
+**Wel:** meerstemmige bron die je in `.mvsa` onderhoudt (alleluia’s,
+litanieën, …). **Niet** als enige bron: eenstemmig werk → [VSA](../vsa/);
+alleen MuseScore → [Basispartituur](../basispartituur/).
 
-## Volgorde / CI / handmatig
+## Bestanden en scripts
 
-Nog geen scripts, geen CI-publicatiecontrole, geen man-page. Syntax-plannen staan in
-de repository VSA-tooling (`docs/plans/mvsa-v0-syntax.md`).
+- Lokaal producten: [mvsa-products](/handleiding/scripts/mvsa-products/)
+- Controle: [check](/handleiding/scripts/check/) / CI
+- Namen: [Publicatiecontrole](/handleiding/start/publicatiecontrole/)
 
-Zodra het spoor actief wordt, volgt dezelfde paginastructuur als de
-andere werktrajecten (waartoe, resultaat, wanneer, bestanden, CI,
-handmatig).
+## CI / handmatig
+
+CI genereert geen MuseScore-PDF. Vernieuw lokaal met `mvsa-products`,
+commit bron én siblings. Syntax: VSA-tooling
+(`docs/specification-mvsa/`).
 
 {{< navbuttons "Ingebedde VSA|/handleiding/werktrajecten/ingebedde-vsa/" "Werktrajecten|/handleiding/werktrajecten/" >}}

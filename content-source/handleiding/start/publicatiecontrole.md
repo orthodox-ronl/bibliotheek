@@ -105,7 +105,7 @@ mogen; elk spoor houdt eigen siblings bij.
 | **vsa** | `{stam}.vsa` | `{stam}.vsa.mxl` (Coria) | `vsa-source-sha256` van de `.vsa` | `scripts\vsa-products.cmd` | **Actief:** `check_vsa_products` |
 | **mscz** (basispartituur) | `{stam}.mscz` | `{stam}.mscz.pdf`, `{stam}.mscz.mxl` | `vsa-partituur-sha256` van de `.mscz` | `scripts\mscz-products.cmd` | **Actief:** `check_mscz_products` |
 | **import** (bewerkvorm) | `{stam}.mscz` | `{stam}.mscz.mvsa` (optioneel) | `vsa-partituur-sha256` in commentaren | `scripts\import-mvsa.cmd` | **Actief:** `check_import_mvsa` (alleen bestaande siblings) |
-| **mvsa** | `{stam}.mvsa` | `{stam}.mvsa.mxl` / `.mscz` / `.pdf` (naarmate het traject) | source-sha van de `.mvsa` | later product-wrapper om `mvsa …` | **Voorzien** |
+| **mvsa** | `{stam}.mvsa` | `{stam}.mvsa.mxl`, `{stam}.mvsa.pdf` | `vsa-source-sha256` van de `.mvsa` | `scripts\mvsa-products.cmd` | **Actief:** `check_mvsa_products` |
 | **tekstblad** | `{stam}.tekstblad.md` | `{stam}.tekstblad.pdf` | `vsa-source-sha256` van de `.md` | `scripts\tekstblad-products.cmd` | **Actief:** `check_tekstblad_products` |
 
 **Bibliotheek-id** (`zangstuk/variant/uitvoeringsvorm`) hoort op elk
@@ -160,12 +160,12 @@ of **stale**. Ontbreekt het sibling-bestand → **missing**.
 | Publicatiecontrole partituur (`.mscz` ↔ PDF/MXL) | waarschuwing; met `--strict` fout | fout (`--fail`) |
 | Publicatiecontrole tekstblad (`.tekstblad.md` ↔ PDF) | waarschuwing; met `--strict` fout | fout (`--fail`) |
 | Importcontrole (bestaande `.mscz.mvsa` ↔ `.mscz`) | waarschuwing; met `--strict` fout | fout (`--fail`) |
-| Publicatiecontrole mvsa (canonieke bron) | nog niet | nog niet |
+| Publicatiecontrole mvsa (`.mvsa` ↔ MXL/PDF) | waarschuwing; met `--strict` fout | fout (`--fail`) |
 | Coria-fingerprints + Hugo | ja | ja |
 
 CI **genereert geen** producten. Vernieuw lokaal (nu: `vsa-products`,
-`mscz-products`, `tekstblad-products`, eventueel `import-mvsa`),
-commit siblings mee.
+`mscz-products`, `tekstblad-products`, `mvsa-products`, eventueel
+`import-mvsa`), commit siblings mee.
 
 ## Legacy-namen (nog toegestaan tot migratie)
 
