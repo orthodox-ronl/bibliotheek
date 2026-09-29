@@ -24,6 +24,8 @@
     {{- $id = "partituur" -}}
   {{- else if strings.HasSuffix $stemLower ".vsa" -}}
     {{- $id = "vsa" -}}
+  {{- else if strings.HasSuffix $stemLower ".mvsa" -}}
+    {{- $id = "mvsa" -}}
   {{- else if strings.HasSuffix $stemLower ".print" -}}
     {{- $id = "print" -}}
   {{- else if strings.HasSuffix $stemLower ".tekstblad" -}}
@@ -69,6 +71,9 @@
 {{- if eq $id "vsa" -}}
   {{- $label = "Melodie (één stem)" -}}
   {{- $detail = "Zoals de notatie op deze pagina" -}}
+{{- else if eq $id "mvsa" -}}
+  {{- $label = "Koorblad (meerdere stemmen)" -}}
+  {{- $detail = "Uit meerstemmige tekstbron (.mvsa)" -}}
 {{- else if eq $id "partituur" -}}
   {{- $label = "Koorblad (meerdere stemmen)" -}}
   {{- $detail = "Zoals het PDF-blad" -}}

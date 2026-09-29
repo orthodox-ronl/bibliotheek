@@ -41,7 +41,7 @@ Geen nieuwe `.print.mscz`: handmatige MuseScore-bladen = `{stam}.mscz` +
 | Partituur (mscz) | `.mscz` | `.mscz.pdf` + `.mscz.mxl` + partituur-sha | **Actief** (`mscz-products` / `check_mscz_products`) |
 | Tekstblad | `.tekstblad.md` | `.tekstblad.pdf` | **Actief** (`tekstblad-products` / `check_tekstblad_products`) |
 | Import (bewerkvorm) | `.mscz` | `.mscz.mvsa` + partituur-sha (optioneel) | **Actief** (`import-mvsa` / `check_import_mvsa`; alleen bestaande paren) |
-| mvsa (canonieke bron) | `.mvsa` | naar gelang traject | Voorzien (`mvsa-products`) |
+| mvsa (canonieke bron) | `.mvsa` | `.mvsa.mxl` + `.mvsa.pdf` + source-sha | **Actief** (`mvsa-products` / `check_mvsa_products`) |
 
 CI genereert geen producten; alleen validate + actieve publicatie-/
 importcontroles + Hugo. Importcontrole eist **geen** `.mscz.mvsa` bij
