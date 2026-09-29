@@ -59,7 +59,7 @@
       {{- $src := printf "vsa/bladermap/%s" $rel -}}
 <div class="vsa-container"><img class="vsa-notation" src="{{ $src | relURL }}" alt="{{ $alt }}" loading="lazy"></div>
     {{- else -}}
-      {{- warnf "%s: SVG ontbreekt voor %s (verwacht bestand %s). Oplossing: python scripts\\sync_oefenhoek_index.py --svg   (of scripts\\check.cmd --strict). serve --no-build slaat die stap over. Zie handleiding praktijk/handleiding/vsa/1-vsa-schrijven/." $loc $p.RelPermalink $svgFile -}}
+      {{- warnf "%s: SVG ontbreekt voor %s (verwacht bestand %s). Oplossing: scripts\\oefenhoek-index.cmd --svg (of scripts\\check.cmd). Zie handleiding /handleiding/vsa/1-vsa-schrijven/." $loc $p.RelPermalink $svgFile -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}

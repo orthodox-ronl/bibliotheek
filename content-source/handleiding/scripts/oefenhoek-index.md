@@ -6,7 +6,8 @@ weight: 140
 
 # NAME
 
-`scripts\oefenhoek-index.cmd` — bladermap-markdown opschonen; optioneel SVG uit `.vsa`
+`scripts\oefenhoek-index.cmd` — SVG-plaatjes uit bibliotheek-`.vsa`; optioneel
+legacy widgets uit `index.md` strippen
 
 # SYNOPSIS
 
@@ -16,18 +17,21 @@ scripts\oefenhoek-index.cmd [--dry-run] [--svg] [--verbose]
 
 # DESCRIPTION
 
-Zonder flags haalt dit commando automatische includes en score-shortcodes
-uit oefenhoek bladermap-`index.md`. Frontmatter en tekst die jij zelf
-schreef blijven staan. Pagina’s met shortcode `bieb` of met
-`automatische_inhoud: false` worden niet aangepast. De partituurweergave
-komt uit de Hugo-layout of uit `bieb`.
+Met **`--svg`** schrijft dit commando SVG-plaatjes van canonieke
+bibliotheek-`.vsa`-bestanden naar `static\vsa\bladermap\…`. Shortcode
+`bieb` toont die plaatjes wanneer er **geen** basispartituur-`.mscz` in
+dezelfde bladermap staat (een `.print.mscz` mag wel). Sidecar-bestanden
+`*.syl.vsa` worden overgeslagen.
 
-Met `--svg` schrijft het script SVG-plaatjes van lokale `.vsa`-bestanden
-(zonder basispartituur-`.mscz` ernaast; een `.print.mscz` mag) naar
-`static\vsa\bladermap\`, ook onder `bibliotheek\`. Dat gebeurt normaal
-tijdens `check` / `build` / `serve` (niet bij `serve --no-build`).
+Dit is **geen** publicatiecontrole: er is geen herkomststempel en CI faalt
+niet op “stale SVG”. De SVG is een site-plaatje. `check` / `build` /
+`serve` / Pages-CI vernieuwen de plaatjes vóór Hugo, zodat ze bij de
+huidige `.vsa` passen. Je mag de SVG’s ook committen (handig voor diff);
+verplicht is dat niet voor de build.
 
-Standaard zie je alleen een samenvatting; `--verbose` toont elk pad.
+Zonder flags haalt het script legacy auto-includes / score-shortcodes uit
+bladermap-`index.md`. Pagina’s met shortcode `bieb` of met
+`automatische_inhoud: false` worden niet aangepast.
 
 # OPTIONS
 
@@ -40,17 +44,18 @@ Standaard zie je alleen een samenvatting; `--verbose` toont elk pad.
 # EXAMPLES
 
 ```cmd
-scripts\oefenhoek-index.cmd --dry-run
 scripts\oefenhoek-index.cmd --svg
+scripts\oefenhoek-index.cmd --dry-run
 ```
 
 # WHEN
 
-Automatisch in `check` / `build` / `serve`. Handmatig: `--svg` na een
-`.vsa`-edit zonder volle check, of `--dry-run` om te zien wat de strip doet.
+Automatisch in `check` / `build` / `serve` / Pages-CI (alleen `--svg`).
+Handmatig na een `.vsa`-edit als je geen volle check wilt draaien.
 
 # SEE ALSO
 
 - [check](../check/)
-- [vsa-products](../vsa-products/)
-- Workflow: [VSA schrijven](/handleiding/vsa/1-vsa-schrijven/)
+- [vsa-products](../vsa-products/) (Coria-`.vsa.mxl` — wél publicatiecontrole)
+- [Publicatiecontrole](/handleiding/start/publicatiecontrole/)
+- Workflow: [VSA → SVG en Coria](/handleiding/werktrajecten/vsa/)

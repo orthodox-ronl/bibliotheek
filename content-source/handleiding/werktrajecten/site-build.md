@@ -40,16 +40,18 @@ juiste Pages-URL bijgewerkt.
 | `development` | https://orthodox-ronl.github.io/bibliotheek/preview/ |
 | andere | https://orthodox-ronl.github.io/bibliotheek/{slug}/ |
 
-## Volgorde (fase 1)
+## Volgorde
 
 ```text
-content-source + static/vsa/bladermap (SVG’s al in repo)
+content-source (bronnen + product-siblings)
     |
     +-- fingerprint_coria_mxl  ->  static/mxl/c + data/coria-fp.json
+    +-- oefenhoek-index --svg  ->  static/vsa/bladermap (plaatjes; geen stamp)
     +-- Hugo  ->  generated/site
 ```
 
-Productpipelines (`mscz-products`, `vsa-products`, …) komen later.
+Productpipelines (`vsa-products`, `mscz-products`, `mvsa-products`, …)
+draai je lokaal; CI controleert versheid maar schrijft die producten niet.
 
 ## See also
 

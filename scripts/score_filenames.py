@@ -28,6 +28,15 @@ def is_tekstblad_md(path: Path | str) -> bool:
     return name.lower().endswith(TEKSTBLAD_MD_SUFFIX)
 
 
+def is_vsa_source(path: Path | str) -> bool:
+    """Canonieke bibliotheek-``.vsa`` (geen ``.syl.vsa``-sidecar)."""
+    name = path.name if isinstance(path, Path) else Path(path).name
+    lower = name.lower()
+    if not lower.endswith(".vsa"):
+        return False
+    return not lower.endswith(".syl.vsa")
+
+
 def published_stem(name: str) -> str:
     stem = Path(name).stem.replace(" - ", "-").replace(" ", "-")
     stem = _UNSAFE.sub("-", stem)

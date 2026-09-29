@@ -7,6 +7,8 @@ python scripts\update_werkvoorraad.py
 if errorlevel 1 exit /b 1
 python scripts\fingerprint_coria_mxl.py
 if errorlevel 1 exit /b 1
+python scripts\sync_oefenhoek_index.py --svg
+if errorlevel 1 exit /b 1
 if exist generated\site rmdir /s /q generated\site
 hugo ^
   --minify ^

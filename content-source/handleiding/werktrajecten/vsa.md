@@ -28,7 +28,7 @@ afspeelbaar zijn — zonder een volledige MuseScore-basispartituur.
 | Output | Rol |
 | --- | --- |
 | `{stam}.vsa` in de bladermap | Canonieke bron (YAML: `do`, `mode`, `tempo`) |
-| `static\vsa\bladermap\…\*.svg` | Plaatje voor de site (geen Pyphen-streepjes tenzij jij die in de bron zet) |
+| `static\vsa\bladermap\…\*.svg` | Plaatje voor de site; **geen** publicatiecontrole (vernieuwd door `oefenhoek-index --svg`) |
 | `{stam}.vsa.mxl` naast de `.vsa` | Coria; stamp `vsa-source-sha256` van de canonieke `.vsa` |
 
 **Klaar** als: `vsa validate` stil is; SVG zichtbaar via shortcode `bieb`;
@@ -72,6 +72,8 @@ bladermap.
 
 - **Wel:** `check_vsa_products.py` controleert of `{stam}.vsa.mxl` bij de
   canonieke `.vsa` past (sha-stamp). Pages-CI faalt bij missing/stale.
+- **Wel:** `oefenhoek-index --svg` vernieuwt bladermap-SVG vóór Hugo
+  (geen stamp; geen “stale SVG”-fout).
 - **Niet:** stilzwijgend een verouderde `.vsa.mxl` herschrijven zonder
   commit. Vernieuw lokaal met `vsa-products` en commit `{stam}.vsa.mxl`
   mee. CI heeft geen MuseScore en genereert geen MusicXML-producten.
