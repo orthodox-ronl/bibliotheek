@@ -1,6 +1,6 @@
 ---
 title: "Tropaar donderdag toon 3 (Apostelen)"
-linkTitle: "hemelum"
+linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

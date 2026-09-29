@@ -23,10 +23,11 @@ mappen, woorden). Stapsgewijze MuseScore- of VSA-HOW’s staan onder
   binnenhalen, later opkuisen, daarna `bieb accepteer`
 - **Namen / publicatiecontrole:** [Publicatiecontrole](../start/publicatiecontrole/) — bron vs afgeleide
 - **Publicatiesporen:** [Basispartituur](basispartituur/), [VSA](vsa/),
-  [Print-vel](print-vel/) (legacy `.print.mscz`), [Tekstblad](tekstblad/)
+  [mvsa](mvsa/), [Print-vel](print-vel/) (legacy `.print.mscz`),
+  [Tekstblad](tekstblad/)
 - **Site zichtbaar maken:** [Site-build](site-build/)
 - **Apart:** [Markdown naar PDF](markdown-naar-pdf/),
-  [Ingebedde VSA](ingebedde-vsa/); voorzien: [mvsa](mvsa/)
+  [Ingebedde VSA](ingebedde-vsa/)
 {{< /cue >}}
 
 ## Hoe de trajecten in elkaar haken
@@ -39,6 +40,7 @@ Opnemen in de bibliotheek  (werkvoorraad + later opkuis + bieb accepteer)
     |
     +-- Basispartituur  ->  PDF + Coria-.mxl
     +-- VSA             ->  SVG + Coria-.vsa.mxl
+    +-- mvsa            ->  Coria-.mvsa.mxl + .mvsa.pdf
     +-- Print-vel       ->  handmatige PDF
     +-- Tekstblad       ->  .tekstblad.md -> .tekstblad.pdf
     |
@@ -57,12 +59,12 @@ geen bibliotheek-producten.
 | Opnemen in de bibliotheek | Ruw bestand bewaren en later als klaar oefenbestand in de catalogus zetten | [Opnemen](opnemen-in-bibliotheek/) |
 | Basispartituur | MuseScore-basispartituur naar A4-PDF en Coria-`.mxl` | [Basispartituur](basispartituur/) |
 | VSA | Eenstemmige `.vsa` naar SVG-plaatje en Coria-`.vsa.mxl` | [VSA](vsa/) |
+| mvsa | Meerstemmige `.mvsa` naar Coria-`.mvsa.mxl` en A4-`.mvsa.pdf` | [mvsa](mvsa/) |
 | Print-vel | Print-`.mscz` met handmatige PDF, buiten de basispartituur-keten | [Print-vel](print-vel/) |
 | Tekstblad | Liturgische tekst/dialoog: `.tekstblad.md` naar A4-PDF | [Tekstblad](tekstblad/) |
 | Site-build | `content-source` naar lokale site of GitHub Pages | [Site-build](site-build/) |
 | Markdown naar PDF | Markdownblad met VSA naar A4-PDF (generiek / demo) | [Markdown naar PDF](markdown-naar-pdf/) |
 | Ingebedde VSA | VSA buiten de oefenhoek-bibliotheek naar SVG (en optioneel MXL) | [Ingebedde VSA](ingebedde-vsa/) |
-| mvsa | Meerstemmige VSA — nog niet actief | [mvsa (voorzien)](mvsa/) |
 
 **Bestandsnamen en publicatiecontroles** (bron = één extensie; afgeleide =
 `{stam}.{bron-ext}.{doel-ext}`; wat CI controleert):

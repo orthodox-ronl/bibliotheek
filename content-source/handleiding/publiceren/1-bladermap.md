@@ -42,6 +42,10 @@ bestandsnamen. Handmatig kopiëren van voorbeelden is alleen nog nodig bij
 uitzonderingen. Details en voorbeelden van commando’s:
 [Opnemen in de bibliotheek](../1-opnemen-in-bibliotheek/).
 
+Titels en `linkTitle` (zangstuk / variant / leaf): zie
+[Bibliotheek en koormappen](../../start/bibliotheek-en-koormappen/)
+(sectie *Titels en frontmatter*).
+
 Pad na acceptatie:
 `content-source\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\`
 met `index.md` + oefenbestanden (publicatiestam zonder spaties).

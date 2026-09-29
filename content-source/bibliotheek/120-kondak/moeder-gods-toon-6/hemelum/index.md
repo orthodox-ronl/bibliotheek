@@ -1,6 +1,6 @@
 ---
 title: "Kondak Moeder Gods toon 6 (Hemelum)"
-linkTitle: "hemelum"
+linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

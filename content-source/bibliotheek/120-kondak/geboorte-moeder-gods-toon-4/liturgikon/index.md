@@ -1,10 +1,10 @@
 ---
-title: "120 kondak"
-linkTitle: "120 kondak"
+title: "Kondak Geboorte Moeder Gods toon 4 (Liturgikon)"
+linkTitle: "Liturgikon"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 120 kondak
+# Kondak Geboorte Moeder Gods toon 4 (Liturgikon)
 
 {{< bieb id="120-kondak/geboorte-moeder-gods-toon-4/liturgikon" >}}

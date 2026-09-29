@@ -116,6 +116,45 @@ alias-varianten over: daar is niets te genereren.
 partituur bevat. Dat patroon mag voor elk zangstuk waarvan een variant
 onder meerdere namen bekend is.
 
+## Titels en frontmatter in de bibliotheek
+
+Elke bibliotheek-pagina (`_index.md` of leaf-`index.md`) heeft minstens:
+
+| Veld | Rol |
+| --- | --- |
+| `title` | Volledige, leesbare paginatitel (vaak de H1) |
+| `linkTitle` | Korte naam in navigatie, kindlijsten en broodkruimels |
+| `publicatiestatus` | Wat koorleden mogen verwachten (`voorzien` / `concept` / `reviewable` / `productie`) |
+| `automatische_inhoud` | Sectie: meestal `true` (kindlijst). Leaf: altijd `false` (score via `bieb`) |
+
+Ids komen uit het **pad** (`zangstuk/variant/uitvoeringsvorm`), niet uit
+`title` of `linkTitle`. Tooling en shortcode `bieb` gebruiken het pad.
+
+### Naamgeving per laag
+
+| Laag | `title` | `linkTitle` |
+| --- | --- | --- |
+| **Zangstuk** | Liturgisch nummer + naam, bijv. `11 Dringende litanie` | Zelfde of iets korter voor de hoofdnavigatie |
+| **Variant** | Leesbare variantnaam, bijv. `Alleluia toon 1 (Kiev)` of `Kondak zondag toon 1` | Kort voor de kindlijst: `Toon 1`, of de folder-id zoals `zondag-toon-1` |
+| **Uitvoeringsvorm (leaf)** | Volledige titel mét herkomst, bijv. `Alleluia toon 1 (Kiev, Groningen)` | Label van de uitvoeringsvorm met hoofdletter: `Groningen`, `Hemelum`, `Liturgikon` — **niet** de mapnaam in kleine letters en **niet** alleen een slug |
+
+`title` en `linkTitle` mogen verschillen: lange titel op de pagina, korte
+label in de navigatie. Dat is bewust (alleluia’s, prokimens, troparen).
+
+### Variant-id `default`
+
+Als er nog maar één variant is, heet de map vaak `default`. Op die
+variant-`_index.md` mag `title` / `linkTitle` tijdelijk `default` blijven;
+de leaf draagt dan de echte liturgische titel. Zodra er een tweede variant
+komt, geef je `default` een echte naam of hernoem je de map.
+
+### Wat `check` (nog) niet doet
+
+`scripts\check.cmd` controleert **geen** frontmatter-schema (geen verplichte
+velden, geen capitalisatie van `linkTitle`). Wel verwacht de handleiding die
+velden op elke bibliotheek- en koormap-pagina. Mis je `publicatiestatus`,
+dan ontbreekt de statusbadge; de build faalt daar niet op.
+
 ## Soorten koormap (classificatie)
 
 Zelfde mechaniek, andere bedoeling — geen nieuwe id-laag:

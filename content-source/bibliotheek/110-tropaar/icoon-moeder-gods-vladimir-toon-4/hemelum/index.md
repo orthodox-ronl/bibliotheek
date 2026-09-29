@@ -1,6 +1,6 @@
 ---
 title: "Tropaar Icoon Moeder Gods Vladimir toon 4 (Hemelum)"
-linkTitle: "hemelum"
+linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

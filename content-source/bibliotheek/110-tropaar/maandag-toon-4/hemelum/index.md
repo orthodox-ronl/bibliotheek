@@ -1,6 +1,6 @@
 ---
 title: "Tropaar maandag toon 4 (Heilige Engelen)"
-linkTitle: "hemelum"
+linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

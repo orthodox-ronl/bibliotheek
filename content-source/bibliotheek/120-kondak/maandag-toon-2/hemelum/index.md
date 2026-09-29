@@ -1,6 +1,6 @@
 ---
 title: "Kondak maandag toon 2 (Heilige Engelen)"
-linkTitle: "hemelum"
+linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

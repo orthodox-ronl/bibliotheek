@@ -1,10 +1,10 @@
 ---
-title: "groningen-ksl"
-linkTitle: "groningen-ksl"
+title: "Uw Heilig Kruis (Groningen, Kerkslavisch)"
+linkTitle: "Groningen (ksl)"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# groningen-ksl
+# Uw Heilig Kruis (Groningen, Kerkslavisch)
 
 {{< bieb id="220-uw-heilig-kruis/default/groningen-ksl" >}}

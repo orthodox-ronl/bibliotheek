@@ -1,6 +1,6 @@
 ---
 title: "Kondak zaterdag gestorvenen toon 8"
-linkTitle: "hemelum"
+linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

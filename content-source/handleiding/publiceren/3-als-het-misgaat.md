@@ -144,6 +144,8 @@ eerste bron van waarheid bij.
 
 Elke bibliotheek-`index.md` en `_index.md` (bibliotheek en koormap) moet de
 regel `publicatiestatus` in de `---` hebben. Handleiding-pagina’s niet.
+`check` faalt hier (nog) niet op; zonder status ontbreekt wel de badge op
+de pagina.
 
 ## Preview op de verkeerde poort
 

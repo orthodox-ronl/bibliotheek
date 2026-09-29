@@ -1,6 +1,6 @@
 ---
 title: "Tropaar zaterdag heiligen toon 2"
-linkTitle: "hemelum"
+linkTitle: "Hemelum"
 nav_sort: weight
 weight: 207
 publicatiestatus: reviewable

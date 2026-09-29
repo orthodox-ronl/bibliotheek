@@ -1,6 +1,6 @@
 ---
 title: "Kondak donderdag toon 2 (Apostelen)"
-linkTitle: "hemelum"
+linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

@@ -42,16 +42,21 @@ template). Zie [Print-.mscz](../../partituur/7-print-mscz/).
 
 ## Check
 
-In de map `ibliotheek`:
+In de map `bibliotheek`:
 
 ```cmd
 scripts\check.cmd --strict
 ```
 
-Dat controleert onder meer VSA-notatie, Coria-`.mxl` (basispartituur én `.vsa.mxl`),
-of `publicatiestatus` erop staat, of partituur-/VSA-afgeleiden bij hun bron
-horen, en of links op de site kloppen. Rood = niet naar live; eerst
+Dat controleert onder meer VSA-notatie, Coria-`.mxl` (basispartituur én
+`.vsa.mxl`), of partituur-/VSA-/mvsa-afgeleiden bij hun bron horen, en of
+links op de site kloppen. Rood = niet naar live; eerst
 [als het misgaat](../3-als-het-misgaat/).
+
+`publicatiestatus` en andere frontmatter-titels controleert `check`
+**niet** automatisch; die zet je zelf volgens
+[Bibliotheek en koormappen](../../start/bibliotheek-en-koormappen/)
+(sectie *Titels en frontmatter*).
 
 Lokaal vernieuwt `check` ook stale basispartituur-PDF/MXL (MuseScore) en stale
 `.vsa.mxl`. Commit gewijzigde producten mee. Op branch `main` faalt de
@@ -76,7 +81,7 @@ Alles opnieuw opbouwen (langer): `scripts\serve.cmd` zonder `--no-build`.
 ## Op internet
 
 De publieke site is
-[orthodox-ronl.github.io/ibliotheek](https://orthodox-ronl.github.io/ibliotheek/).
+[orthodox-ronl.github.io/bibliotheek](https://orthodox-ronl.github.io/bibliotheek/).
 Die site volgt branch `main`. Lokaal groen is de drempel; daarna
 committen en pushen (of iemand vragen die git doet). Preview-branches
 komen onder `/preview/`.

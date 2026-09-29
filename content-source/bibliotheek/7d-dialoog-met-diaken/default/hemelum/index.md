@@ -1,11 +1,11 @@
 ---
-title: "7d-dialoog-met-diaken"
-linkTitle: "7d-dialoog-met-diaken"
+title: "7d Dialoog met de diaken"
+linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 7d Dialoog met de Diaken
+# 7d Dialoog met de diaken
 
 Dit is alleen van toepassing in een Liturgie waarin ook een Diaken deelneemt.
 

@@ -1,6 +1,6 @@
 ---
 title: "Tropaar Heilig Kruis toon 1"
-linkTitle: "hemelum"
+linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

@@ -39,7 +39,7 @@ commando’s en mappen kloppen.
 | `.mxl` / `.vsa.mxl` / `.mscz.mxl` | Samengeperste MusicXML (**afgeleide**) | Naar Coria; of (na opkuisen) als start voor een nieuwe basispartituur. Nooit roundtrip: `.mscz` → `.mxl` → weer `.mscz` gooit de layout weg. |
 | `.pdf` / `.mscz.pdf` | A4-blad (afgeleide of handmatige export) | Downloaden of printen |
 | `.vsa` | VSA-notatie | Schrijven in een editor; sitebuild maakt SVG; `check`/`vsa-products` maakt Coria-`.vsa.mxl` — zie [.vsa schrijven](/handleiding/vsa/1-vsa-schrijven/) |
-| `.mvsa` | Meerstemmige tekstbron | Schrijven/valideren met `mvsa`; later producten via `mvsa-products` |
+| `.mvsa` | Meerstemmige tekstbron | Schrijven/valideren met `mvsa`; producten via `mvsa-products` (Coria-`.mvsa.mxl` + A4-`.mvsa.pdf`) — zie [mvsa](/handleiding/werktrajecten/mvsa/) |
 
 **Namen en publicatiecontrole:** [Publicatiecontrole](publicatiecontrole/) (bron vs afgeleide,
 sha-stamps, wat CI controleert). Repo-kort: `docs/publicatiecontrole.md`.

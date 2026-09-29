@@ -1,6 +1,6 @@
 ---
 title: "Kondak zaterdag heiligen toon 8"
-linkTitle: "hemelum"
+linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---
