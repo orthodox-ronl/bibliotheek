@@ -58,9 +58,9 @@ Capella-partituur. Voorbeeld-bibliotheek-id:
 doet de build twee aparte dingen met hetzelfde <code>.vsa</code>-bestand:</p><div class=table-scroll><table><thead><tr><th>Afgeleide</th><th>Rol op de pagina</th><th>Hoe maak je die</th></tr></thead><tbody><tr><td>SVG onder <code>static\vsa\bladermap\…</code></td><td>Het <strong>plaatje</strong> dat shortcode <code>bieb</code> toont</td><td>Pipeline-stap <code>scripts\oefenhoek-index.cmd --svg</code> (zit in <code>check</code> / <code>build</code> / <code>serve</code> <strong>zonder</strong> <code>--no-build</code>)</td></tr><tr><td><code>{stam}.vsa.mxl</code> naast de <code>.vsa</code></td><td>Knop <strong>Oefenen</strong> (Coria)</td><td><code>scripts\vsa-products.cmd</code> (of dezelfde <code>check</code>-keten); export syllabificeert woorden tijdelijk voor Coria, zonder je <code>.vsa</code> te wijzigen</td></tr></tbody></table></div><p><code>scripts\opkuisen.cmd</code> past <strong>geen</strong> Capella-/MusicXML-heuristieken toe op een
 <code>.vsa</code>. Met <code>--analyze</code> of <code>--dry-run</code> kan <code>opkuisen</code> wél <code>vsa validate</code>
 rapporteren; automatische inhoudsfix op <code>.vsa</code> bestaat in v1 niet — zie
-<a href=/handleiding/scripts/opkuisen/>opkuisen</a>
-.</p><p>Volledig overzicht van de pijplijnen: <a href=/handleiding/werktrajecten/>Werktrajecten</a>
-(VSA-werktraject: <a href=/handleiding/werktrajecten/vsa/>VSA → SVG en Coria</a>
+<a href=/bibliotheek/preview/handleiding/scripts/opkuisen/>opkuisen</a>
+.</p><p>Volledig overzicht van de pijplijnen: <a href=/bibliotheek/preview/handleiding/werktrajecten/>Werktrajecten</a>
+(VSA-werktraject: <a href=/bibliotheek/preview/handleiding/werktrajecten/vsa/>VSA → SVG en Coria</a>
 ).
 HOW op deze pagina; de werktrajectpagina beschrijft waartoe, CI en commando’s.</p><p><code>*.print.mscz</code> in dezelfde map blokkeert de SVG <strong>niet</strong> (dat is een
 printvel, geen basispartituur). Een basispartituur-<code>.mscz</code> wél: dan toont de pagina de PDF uit
@@ -111,7 +111,7 @@ of template-exports die jij zelf bijhoudt — zie
 <a href=../../partituur/7-print-mscz/>Print-.mscz</a>
 en de gele banner op die
 bibliotheekpagina. Afspraak over namen en sporen:
-<a href=/handleiding/start/publicatiecontrole/>Publicatiecontrole</a>
+<a href=/bibliotheek/preview/handleiding/start/publicatiecontrole/>Publicatiecontrole</a>
 .</p><p>Ligt er wél een <code>.vsa</code> naast een <code>{stam}.print.mscz</code>, dan mag de build
 nog steeds de <strong>SVG</strong> van die <code>.vsa</code> maken (notatie naast de handmatige
 PDF). Alleen basispartituur-<code>.mscz</code> onderdrukt die SVG-route.</p><h3 id=banner-of-check-over-vsamxl>Banner of check over <code>.vsa.mxl</code></h3><p>Rode banner “VSA-afgeleiden niet in orde”, of <code>check</code> rood op <code>main</code>: de
@@ -126,4 +126,4 @@ Ontbreekt dat bestand:</p><div class=highlight><pre tabindex=0 style=color:#f8f8
 na <code>check</code> zie je het plaatje op de lokale preview, en er ligt een verse
 <code>{stam}.vsa.mxl</code> naast de <code>.vsa</code> (knop <strong>Oefenen</strong>), tenzij
 <code>artefacten_handmatig: true</code> op die bibliotheekpagina staat (dan houd jij
-de Coria-<code>.mxl</code> zelf bij; de SVG mag de pipeline nog steeds schrijven).</p><div class=nav-buttons><a class=btn href=/handleiding/vsa/2-template-satb/>Volgende: template SATB</a></div></main><footer class=site-footer><div class=site-meta></div></footer></body></html>
+de Coria-<code>.mxl</code> zelf bij; de SVG mag de pipeline nog steeds schrijven).</p><div class=nav-buttons><a class=btn href=/bibliotheek/preview/handleiding/vsa/2-template-satb/>Volgende: template SATB</a></div></main><footer class=site-footer><div class=site-meta></div></footer></body></html>

@@ -60,7 +60,7 @@ Zet <code>-o</code> naar een <code>.mscz</code> zonder spaties in de naam (meest
 <code>input\_werk\&lt;stam>\</code>).</li><li>Invoer is al een <code>.mscz</code>: zonder <code>-o</code> wijzigt het script het bestand
 <strong>in-place</strong>. Opnieuw draaien mag en hoort na elke inhoudelijke editslag
 in MuseScore.</li><li>Bestanden die eindigen op <code>.print.mscz</code> worden geweigerd (printvel:
-<a href=/handleiding/partituur/7-print-mscz/>Print-.mscz</a>
+<a href=/bibliotheek/preview/handleiding/partituur/7-print-mscz/>Print-.mscz</a>
 ).</li></ul><p>Implementatie: <code>scripts\apply_mscz_layout.py</code> — dunne wrapper om
 <code>vsa.mscz_layout</code> (geen fork van layout-logica). Technische norm in
 VSA-tooling: layoutprofiel <code>partituur</code> / mscz-leesbaarheid.</p><h1 id=options>OPTIONS</h1><div class=table-scroll><table><thead><tr><th>Optie</th><th>Betekenis</th></tr></thead><tbody><tr><td><code>-o</code>, <code>--output</code></td><td>Pad van de doel-<code>.mscz</code></td></tr><tr><td><code>--id</code></td><td>Bibliotheek-id <code>zangstuk/variant/uitvoeringsvorm</code> (anders afgeleid uit het pad onder <code>bibliotheek/</code>)</td></tr></tbody></table></div><h1 id=examples>EXAMPLES</h1><p>Van een opgekuiste <code>.mxl</code> naar een basispartituur-<code>.mscz</code> (stam is
@@ -69,4 +69,4 @@ illustratief):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;backg
 </span></span></code></pre></div><p>Met expliciete bibliotheek-id:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\layout.cmd pad\naar\bestand.mscz --id 8-trisagion/8a-nederlands/hemelum
 </span></span></code></pre></div><h1 id=when>WHEN</h1><p>Na opkuisen, of meteen als de inhoud van een ruwe <code>.mscz</code> al klopt. Opnieuw
 na elke inhoudelijke editslag, vóór <a href=../mscz-products/>mscz-products</a>
-.</p><h1 id=see-also>SEE ALSO</h1><ul><li><a href=../opkuisen/>opkuisen</a></li><li><a href=../mscz-products/>mscz-products</a></li><li><a href=../ensure-bibliotheek-id/>ensure-bibliotheek-id</a></li><li>Workflow: <a href=/handleiding/partituur/3-standaard-mscz/>Standaard-.mscz</a></li></ul></main><footer class=site-footer><div class=site-meta></div></footer></body></html>
+.</p><h1 id=see-also>SEE ALSO</h1><ul><li><a href=../opkuisen/>opkuisen</a></li><li><a href=../mscz-products/>mscz-products</a></li><li><a href=../ensure-bibliotheek-id/>ensure-bibliotheek-id</a></li><li>Workflow: <a href=/bibliotheek/preview/handleiding/partituur/3-standaard-mscz/>Standaard-.mscz</a></li></ul></main><footer class=site-footer><div class=site-meta></div></footer></body></html>
