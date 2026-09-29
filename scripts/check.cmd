@@ -29,6 +29,9 @@ if errorlevel 1 exit /b 1
 call scripts\validate.cmd content-source\bibliotheek
 if errorlevel 1 exit /b 1
 
+python scripts\update_werkvoorraad.py
+if errorlevel 1 exit /b 1
+
 if defined STRICT (
   python scripts\check_vsa_products.py --fail
 ) else (

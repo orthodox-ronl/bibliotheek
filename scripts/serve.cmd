@@ -3,6 +3,8 @@ setlocal
 cd /d "%~dp0.."
 call scripts\_ensure.cmd --hugo --vsa-tool
 if errorlevel 1 exit /b 1
+python scripts\update_werkvoorraad.py
+if errorlevel 1 exit /b 1
 python scripts\fingerprint_coria_mxl.py
 if errorlevel 1 exit /b 1
 
