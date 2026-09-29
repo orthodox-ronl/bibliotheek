@@ -37,9 +37,8 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 6. MVSA-publicatiecontrole — of elke canonieke bibliotheek-`.mvsa`
    (geen `.mscz.mvsa`) passende siblings `{stam}.mvsa.mxl` en
    `{stam}.mvsa.pdf` heeft met `vsa-source-sha256`
-7. Audio-publicatiecontrole — of elke **bestaande** preview-`.mp3`
-   (`{stam}.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3`) bij de bron past;
-   ontbrekende audio is geen fout
+7. Audio-publicatiecontrole — of elke canonieke `.mvsa` / basis-`.mscz` /
+   `.vsa` een passende preview-`.mp3` heeft met herkomststempel
 8. Bibliotheek-id — of elke basispartituur-`.mscz` in het colofon de
    regel `Bibliotheek-id:` heeft die bij het bladermap-pad past
 9. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
@@ -52,7 +51,8 @@ lokaal maar falen niet (behalve op `main` of met
 `BIBLIOTHEEK_PRODUCTS_STRICT=1` / `BIBLIOTHEEK_ID_STRICT=1`). Met
 `--strict`, en altijd in CI, is een stale of missing product, een
 verouderde import-sibling, of een id-mismatch een fout. Vernieuw
-producten lokaal met [vsa-products](../vsa-products/),
+producten lokaal met [all-products](../all-products/) (alles tegelijk)
+of met [vsa-products](../vsa-products/),
 [mscz-products](../mscz-products/),
 [tekstblad-products](../tekstblad-products/),
 [mvsa-products](../mvsa-products/) of
@@ -83,6 +83,7 @@ genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole)
 - [import-mvsa](../import-mvsa/)
 - [mvsa-products](../mvsa-products/)
 - [audio-products](../audio-products/)
+- [all-products](../all-products/)
 - [oefenhoek-index](../oefenhoek-index/)
 - [layout](../layout/)
 - [ensure-bibliotheek-id](../ensure-bibliotheek-id/)

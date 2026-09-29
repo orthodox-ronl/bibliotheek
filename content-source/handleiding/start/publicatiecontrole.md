@@ -106,7 +106,7 @@ mogen; elk spoor houdt eigen siblings bij.
 | **mscz** (basispartituur) | `{stam}.mscz` | `{stam}.mscz.pdf`, `{stam}.mscz.mxl` | `vsa-partituur-sha256` van de `.mscz` | `scripts\mscz-products.cmd` | **Actief:** `check_mscz_products` |
 | **import** (bewerkvorm) | `{stam}.mscz` | `{stam}.mscz.mvsa` (optioneel) | `vsa-partituur-sha256` in commentaren | `scripts\import-mvsa.cmd` | **Actief:** `check_import_mvsa` (alleen bestaande siblings) |
 | **mvsa** | `{stam}.mvsa` | `{stam}.mvsa.mxl`, `{stam}.mvsa.pdf` | `vsa-source-sha256` van de `.mvsa` | `scripts\mvsa-products.cmd` | **Actief:** `check_mvsa_products` |
-| **audio** (preview) | `{stam}.mvsa` / `.mscz` / `.vsa` | `{stam}.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3` | hash van die bron in het mp3 | `scripts\audio-products.cmd` | **Actief, opt-in:** `check_audio_products` (alleen bestaande siblings; ontbrekende audio is geen fout) |
+| **audio** (preview) | `{stam}.mvsa` / `.mscz` / `.vsa` | `{stam}.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3` | hash van die bron in het mp3 | `scripts\audio-products.cmd` (of `all-products`) | **Actief:** `check_audio_products` (zelfde bronnen als Coria-MXL) |
 | **tekstblad** | `{stam}.tekstblad.md` | `{stam}.tekstblad.pdf` | `vsa-source-sha256` van de `.md` | `scripts\tekstblad-products.cmd` | **Actief:** `check_tekstblad_products` |
 
 **Bibliotheek-id** (`zangstuk/variant/uitvoeringsvorm`) hoort op elk
@@ -162,18 +162,19 @@ of **stale**. Ontbreekt het sibling-bestand → **missing**.
 | Publicatiecontrole tekstblad (`.tekstblad.md` ↔ PDF) | waarschuwing; met `--strict` fout | fout (`--fail`) |
 | Importcontrole (bestaande `.mscz.mvsa` ↔ `.mscz`) | waarschuwing; met `--strict` fout | fout (`--fail`) |
 | Publicatiecontrole mvsa (`.mvsa` ↔ MXL/PDF) | waarschuwing; met `--strict` fout | fout (`--fail`) |
-| Publicatiecontrole audio (bestaande `.mp3` ↔ bron) | waarschuwing; met `--strict` fout | fout (`--fail`) |
+| Publicatiecontrole audio (`.mvsa`/`.mscz`/`.vsa` ↔ `.mp3`) | waarschuwing; met `--strict` fout | fout (`--fail`) |
 | Bladermap-SVG uit `.vsa` | vernieuwen (`oefenhoek-index --svg`) | vernieuwen (geen stamp-fail) |
 | Coria-fingerprints + Hugo | ja | ja |
 
 CI **genereert geen** MuseScore-/PDF-/audio-producten. Vernieuw die lokaal
-(`vsa-products`, `mscz-products`, `tekstblad-products`, `mvsa-products`,
-`audio-products`, eventueel `import-mvsa`) en commit siblings mee.
-SVG-plaatjes worden wél in check/CI vernieuwd (geen herkomststempel).
+(`all-products`, of apart `vsa-products`, `mscz-products`,
+`tekstblad-products`, `mvsa-products`, `audio-products`, eventueel
+`import-mvsa`) en commit siblings mee. SVG-plaatjes worden wél in
+check/CI vernieuwd (geen herkomststempel).
 
-Op bibliotheek-bladermappen: knop **Beluisteren** verschijnt als er een
-`.mp3` naast de bron staat; knop **Bronnen** (alleen in de bibliotheek)
-laat de bronbestanden (`.mvsa` / `.mscz` / `.vsa`) downloaden.
+Op bibliotheek-bladermappen: knop **Beluisteren** bij elke bron met
+Coria-`.mxl` (passende `.mp3`); knop **Bronnen** (alleen in de
+bibliotheek) laat de bronbestanden (`.mvsa` / `.mscz` / `.vsa`) downloaden.
 
 ## Legacy-namen (nog toegestaan tot migratie)
 

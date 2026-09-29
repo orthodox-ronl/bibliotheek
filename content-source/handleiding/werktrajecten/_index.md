@@ -38,9 +38,9 @@ ruw materiaal (input/)
     v
 Opnemen in de bibliotheek  (werkvoorraad + later opkuis + bieb accepteer)
     |
-    +-- Basispartituur  ->  PDF + Coria-.mxl  (+ optioneel .mscz.mp3)
-    +-- VSA             ->  SVG + Coria-.vsa.mxl  (+ optioneel .vsa.mp3)
-    +-- mvsa            ->  Coria-.mvsa.mxl + .mvsa.pdf  (+ optioneel .mvsa.mp3)
+    +-- Basispartituur  ->  PDF + Coria-.mxl + .mscz.mp3
+    +-- VSA             ->  SVG + Coria-.vsa.mxl + .vsa.mp3
+    +-- mvsa            ->  Coria-.mvsa.mxl + .mvsa.pdf + .mvsa.mp3
     +-- Print-vel       ->  handmatige PDF
     +-- Tekstblad       ->  .tekstblad.md -> .tekstblad.pdf
     |
@@ -60,7 +60,7 @@ geen bibliotheek-producten.
 | Basispartituur | MuseScore-basispartituur naar A4-PDF en Coria-`.mxl` | [Basispartituur](basispartituur/) |
 | VSA | Eenstemmige `.vsa` naar SVG-plaatje en Coria-`.vsa.mxl` | [VSA](vsa/) |
 | mvsa | Meerstemmige `.mvsa` naar Coria-`.mvsa.mxl` en A4-`.mvsa.pdf` | [mvsa](mvsa/) |
-| audio | Preview-`.mp3` voor Beluisteren (optioneel, per brontype) | [audio](audio/) |
+| audio | Preview-`.mp3` voor Beluisteren (zelfde bronnen als Coria-MXL) | [audio](audio/) |
 | Print-vel | Print-`.mscz` met handmatige PDF, buiten de basispartituur-keten | [Print-vel](print-vel/) |
 | Tekstblad | Liturgische tekst/dialoog: `.tekstblad.md` naar A4-PDF | [Tekstblad](tekstblad/) |
 | Site-build | `content-source` naar lokale site of GitHub Pages | [Site-build](site-build/) |

@@ -16,7 +16,7 @@ weight: 30
 - **artefacten_handmatig** = frontmatter op bibliotheek-`index.md`: PDF/MXL niet auto-bijwerken
 - `.mxl` / `.vsa.mxl` / `.mscz.mxl` = MusicXML voor Coria (**afgeleide**; niet terug importeren om te layouten)
 - `.pdf` / `.mscz.pdf` = A4-afgeleide om te lezen of te printen
-- `.mp3` / `.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3` = preview-audio voor **Beluisteren** (optioneel; zie [audio](/handleiding/werktrajecten/audio/))
+- `.mp3` / `.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3` = preview-audio voor **Beluisteren** (zelfde bronnen als Coria-`.mxl`; zie [audio](/handleiding/werktrajecten/audio/))
 - `.vsa` / `.mvsa` = tekstbronnen (VSA / meerstemmig); overzicht: [Werktrajecten](/handleiding/werktrajecten/)
 - **werktraject** = vaste pijplijn (waartoe, eindresultaat, CI, handmatige `.cmd`); catalogus: [Werktrajecten](/handleiding/werktrajecten/)
 - **tekstblad** = bron `{stam}.tekstblad.md` → product `{stam}.tekstblad.pdf`; zie [Tekstblad](/handleiding/werktrajecten/tekstblad/)

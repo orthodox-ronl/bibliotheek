@@ -1,8 +1,8 @@
-"""Controleer bestaande preview-``.mp3``-siblings (opt-in, zoals import-mvsa).
+"""Controleer bibliotheek-bronnen vs sibling preview-``.mp3``.
 
-Ontbrekende audio is **geen** fout: maak die lokaal met
-``scripts\\audio-products.cmd`` wanneer je Beluisteren wilt. Als een
-``.mp3`` wél bestaat, moet de herkomststempel bij de bron passen.
+Elke canonieke ``.mvsa``, basispartituur-``.mscz`` en ``.vsa`` (zelfde
+scope als de Coria-MXL-sporen) moet een passende ``.mp3`` hebben met
+herkomststempel. Orphan-``.mp3`` zonder bron faalt ook.
 
 Schrijft ``data/audio-product-status.json``. Exit 1 bij problemen tenzij
 ``--warn-only``.
@@ -127,13 +127,19 @@ def check_one(job: AudioJob) -> FolderStatus:
     )
 
     if not mp3.is_file():
-        # Opt-in: missing is geen fout; alleen bestaande siblings controleren.
+        issues.append(
+            Issue(
+                "missing_mp3",
+                _rel(mp3),
+                "Preview-.mp3 ontbreekt naast de bron (Beluisteren)",
+            )
+        )
         return FolderStatus(
             dir=_bladermap_key(job.source),
             source=_rel(job.source),
             product=_rel(mp3),
-            ok=True,
-            issues=[],
+            ok=False,
+            issues=issues,
             fix_cmd=fix,
         )
 
@@ -223,18 +229,16 @@ def check_orphan(mp3: Path) -> FolderStatus:
 
 def collect_statuses(root: Path) -> list[FolderStatus]:
     statuses: list[FolderStatus] = []
-    # Alleen bestaande mp3's (opt-in); jobs zonder mp3 negeren.
-    seen: set[Path] = set()
+    seen_products: set[Path] = set()
+    for job in collect_audio_jobs(root):
+        statuses.append(check_one(job))
+        seen_products.add(job.product.resolve())
     for mp3 in collect_existing_mp3(root):
+        if mp3.resolve() in seen_products:
+            continue
         job = _source_for_mp3(mp3)
         if job is None:
             statuses.append(check_orphan(mp3))
-            continue
-        statuses.append(check_one(job))
-        seen.add(job.source.resolve())
-    # Geen missing-eisen voor bronnen zonder audio.
-    _ = collect_audio_jobs  # beschikbaar voor tests / sync-pad
-    _ = seen
     return statuses
 
 
@@ -242,7 +246,7 @@ def write_status_json(statuses: list[FolderStatus], path: Path = STATUS_PATH) ->
     path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
         "fix_page": FIX_PAGE,
-        "policy": "existing_siblings_only",
+        "policy": "require_all_sources",
         "folders": {
             f"{s.dir}|{Path(s.product).name if s.product else 'missing'}": {
                 "source": s.source,

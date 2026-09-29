@@ -38,9 +38,11 @@ Zoekt onder het opgegeven pad (of, zonder pad, onder
 Onder de motorkap: tooling-CLI `vsa audio` (MuseScore 4). CI genereert
 **geen** audio; jij wel lokaal, daarna committen.
 
-**Belangrijk:** ontbrekende audio is geen fout in `check`. Je maakt mp3’s
-alleen wanneer je Beluisteren wilt. Zodra een mp3 bestaat, moet die wel
-vers blijven (anders faalt `check --strict` / CI).
+**Belangrijk:** elke bibliotheek-`.mvsa` / basis-`.mscz` / `.vsa` (buiten
+handmatige mappen) hoort een passende `.mp3` te hebben — dezelfde scope
+als de Coria-`.mxl`. Ontbreekt of veroudert die, dan faalt
+`check --strict` / CI. Maak ze lokaal met dit script (of
+[all-products](../all-products/)); CI genereert geen MuseScore-audio.
 
 # OPTIONS
 
