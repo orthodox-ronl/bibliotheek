@@ -2,6 +2,7 @@
 
 VSA-Coria-``.vsa.mxl``: ``vsa-source-sha256`` + ``vsa-source-kind=vsa``.
 Basispartituur-PDF/MXL: ``vsa-partituur-sha256`` (+ legacy ``vsa-hub-sha256``).
+Import-``.mscz.mvsa``: comment-regels ``# vsa-partituur-sha256: …``.
 """
 
 from __future__ import annotations
@@ -22,9 +23,24 @@ FIELD_GENERATOR = "vsa-generator"
 GENERATOR_VSA = "vsa-musicxml"
 GENERATOR_MSCZ = "mscz-products"
 GENERATOR_TEKSTBLAD = "tekstblad-products"
+GENERATOR_IMPORT_MVSA = "import-mvsa"
 SOURCE_KIND_VSA = "vsa"
 SOURCE_KIND_PARTITUUR = "partituur"
 SOURCE_KIND_TEKSTBLAD = "tekstblad"
+_MVSA_STAMP_LINE = re.compile(
+    r"^#\s*(vsa-(?:partituur-sha256|hub-sha256|source-sha256|source-kind|"
+    r"generated-at|generator))\s*:\s*(.+?)\s*$"
+)
+_MVSA_STAMP_KEYS = frozenset(
+    {
+        FIELD_PARTITUUR_SHA,
+        FIELD_PARTITUUR_SHA_LEGACY,
+        FIELD_SOURCE_SHA,
+        FIELD_SOURCE_KIND,
+        FIELD_GENERATED_AT,
+        FIELD_GENERATOR,
+    }
+)
 PDF_KEY_PARTITUUR = "/VSAPartituurSHA256"
 PDF_KEY_PARTITUUR_LEGACY = "/VSAHubSHA256"
 PDF_KEY_SOURCE_SHA = "/VSASourceSHA256"
@@ -240,4 +256,67 @@ def read_pdf_stamp(path: Path) -> dict[str, str]:
     for key, field in mapping.items():
         if key in raw and raw[key].strip():
             out[field] = raw[key].strip()
+    return out
+
+
+def _strip_mvsa_stamp_lines(text: str) -> str:
+    lines = text.splitlines(keepends=True)
+    kept: list[str] = []
+    for line in lines:
+        bare = line.rstrip("\r\n")
+        if _MVSA_STAMP_LINE.match(bare):
+            continue
+        kept.append(line)
+    return "".join(kept)
+
+
+def stamp_mvsa_partituur(
+    path: Path,
+    *,
+    partituur_hash: str,
+    generated_at: str,
+    generator: str = GENERATOR_IMPORT_MVSA,
+) -> None:
+    """Schrijf herkomstcommentaren bovenaan een import-``.mvsa``."""
+    raw = path.read_text(encoding="utf-8")
+    body = _strip_mvsa_stamp_lines(raw).lstrip("\n")
+    block = "\n".join(
+        [
+            f"# {FIELD_PARTITUUR_SHA}: {partituur_hash}",
+            f"# {FIELD_SOURCE_KIND}: {SOURCE_KIND_PARTITUUR}",
+            f"# {FIELD_GENERATED_AT}: {generated_at}",
+            f"# {FIELD_GENERATOR}: {generator}",
+            "",
+        ]
+    )
+    if body.startswith("---"):
+        # Frontmatter eerst; stamps direct daarna.
+        end = body.find("\n---", 3)
+        if end >= 0:
+            close = end + len("\n---")
+            if close < len(body) and body[close] == "\n":
+                close += 1
+            path.write_text(
+                body[:close] + block + body[close:].lstrip("\n"),
+                encoding="utf-8",
+                newline="\n",
+            )
+            return
+    path.write_text(block + body, encoding="utf-8", newline="\n")
+
+
+def read_mvsa_stamp(path: Path) -> dict[str, str]:
+    """Lees ``# vsa-…:``-stamps uit een ``.mvsa`` (of andere tekst)."""
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError:
+        return {}
+    out: dict[str, str] = {}
+    for line in text.splitlines():
+        m = _MVSA_STAMP_LINE.match(line)
+        if not m:
+            continue
+        key, value = m.group(1), m.group(2).strip()
+        if key in _MVSA_STAMP_KEYS and value:
+            out[key] = value
     return out

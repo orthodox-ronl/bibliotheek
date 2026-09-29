@@ -31,17 +31,23 @@ Of: `scripts\check.cmd` vanuit de repo-root.
    `{stam}.mscz.mxl` heeft met `vsa-partituur-sha256`
 4. Tekstblad-publicatiecontrole — of elke `{stam}.tekstblad.md` een
    passende `{stam}.tekstblad.pdf` heeft met `vsa-source-sha256`
-5. Bibliotheek-id — of elke basispartituur-`.mscz` in het colofon de
+5. Importcontrole — of elke **bestaande** `{stam}.mscz.mvsa` bij de
+   bijbehorende basispartituur-`.mscz` past (`vsa-partituur-sha256`);
+   ontbrekende import-siblings zijn geen fout
+6. Bibliotheek-id — of elke basispartituur-`.mscz` in het colofon de
    regel `Bibliotheek-id:` heeft die bij het bladermap-pad past
-6. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
-7. Hugo-build naar `generated\site`
+7. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
+8. Hugo-build naar `generated\site`
 
-Zonder `--strict` waarschuwen de publicatie- en id-controles lokaal maar
-falen niet (behalve op `main` of met `BIBLIOTHEEK_PRODUCTS_STRICT=1` /
-`BIBLIOTHEEK_ID_STRICT=1`). Met `--strict`, en altijd in CI, is een stale
-of missing product of een id-mismatch een fout. Vernieuw producten lokaal
-met [vsa-products](../vsa-products/), [mscz-products](../mscz-products/)
-of [tekstblad-products](../tekstblad-products/); herstel id’s met
+Zonder `--strict` waarschuwen de publicatie-, import- en id-controles
+lokaal maar falen niet (behalve op `main` of met
+`BIBLIOTHEEK_PRODUCTS_STRICT=1` / `BIBLIOTHEEK_ID_STRICT=1`). Met
+`--strict`, en altijd in CI, is een stale of missing product, een
+verouderde import-sibling, of een id-mismatch een fout. Vernieuw
+producten lokaal met [vsa-products](../vsa-products/),
+[mscz-products](../mscz-products/) of
+[tekstblad-products](../tekstblad-products/); vernieuw
+import-siblings met [import-mvsa](../import-mvsa/); herstel id’s met
 [ensure-bibliotheek-id](../ensure-bibliotheek-id/) of
 [layout](../layout/). CI genereert geen MuseScore-/PDF-producten.
 
@@ -64,6 +70,7 @@ genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole)
 - [vsa-products](../vsa-products/)
 - [mscz-products](../mscz-products/)
 - [tekstblad-products](../tekstblad-products/)
+- [import-mvsa](../import-mvsa/)
 - [layout](../layout/)
 - [ensure-bibliotheek-id](../ensure-bibliotheek-id/)
 - [serve](../serve/)

@@ -125,6 +125,9 @@ jobs:
       - name: Check tekstblad product freshness
         run: python scripts/check_tekstblad_products.py --fail
 
+      - name: Check import-.mvsa freshness
+        run: python scripts/check_import_mvsa.py --fail
+
       - name: Check bibliotheek-id in MSCZ colofon
         run: python scripts/ensure_bibliotheek_id.py --check-only --fail
 
