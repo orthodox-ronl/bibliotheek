@@ -59,8 +59,8 @@ voor wie converteert.
 | `capella/6b - zaligsprekingen.mxl` | `6-derde-antifoon/zondag/hemelum` | `6-derde-antifoon` | `.mscz` | gepubliceerd | — |  |
 | `capella/7 - kleine intocht - zondag.mxl` | `7-kleine-intocht/zondag/hemelum` | `7-kleine-intocht` | `.mscz` | gepubliceerd | — | zelfde koormap-sectie als 7b |
 | `capella/7b - kleine intocht - weekdagen.mxl` | `7-kleine-intocht/weekdagen/hemelum` | `7-kleine-intocht` | `.mscz` | gepubliceerd | — | zelfde koormap-sectie als 7 |
-| `capella/8a - trisagion (+slav).mxl` | `8-trisagion/8a-slav/hemelum` |  | `.mscz` | gepubliceerd | — |  |
-| `capella/8a - trisagion.mxl` | `8-trisagion/8a-nederlands/hemelum` |  | `.mscz` | gepubliceerd | — |  |
+| `capella/8a - trisagion (+slav).mxl` | `trisagion/8a-slav/hemelum` |  | `.mscz` | gepubliceerd | — |  |
+| `capella/8a - trisagion.mxl` | `trisagion/8a-nederlands/hemelum` |  | `.mscz` | gepubliceerd | — |  |
 | `musescore/15b CherubijneCherubijnenhymne Fatejev.musicxml` |  |  | `.mscz` | ontvangen | doel-id |  |
 | `musescore/alleluja-toon-1.mscz` |  |  | `.mscz` | ontvangen | doel-id |  |
 | `musescore/allelujas 1-8 - ruw.mscz` |  |  | `.mscz` | ontvangen | doel-id |  |

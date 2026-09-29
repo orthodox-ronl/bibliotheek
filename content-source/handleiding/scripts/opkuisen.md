@@ -176,8 +176,8 @@ MuseScore 4).
 | Zonder `-o` | In-place alleen als de bestandsnaam **geen spaties** heeft; anders weigering met hint naar `_werk\STAM\` |
 
 De **publicatiestam** is het bibliotheek-id met `-` tussen de drie lagen,
-zonder spaties (voorbeeld: id `8-trisagion/8a-nederlands/hemelum` → stam
-`8-trisagion-8a-nederlands-hemelum`). Schrijf opgekuiste Capella-uitvoer
+zonder spaties (voorbeeld: id `trisagion/8a-nederlands/hemelum` → stam
+`trisagion-8a-nederlands-hemelum`). Schrijf opgekuiste Capella-uitvoer
 bij voorkeur naar
 `content-source\input\_werk\<stam>\<stam>.mxl`.
 
@@ -211,7 +211,7 @@ Aan het eind volgt een regel `samenvatting: ok=… geweigerd=… fout=…`.
 Capella-`.mxl` naar `_werk` (origineel blijft staan):
 
 ```cmd
-scripts\opkuisen.cmd "content-source\input\capella\8a - 8-trisagion.mxl" -o content-source\input\_werk\8-trisagion-8a-nederlands-hemelum\8-trisagion-8a-nederlands-hemelum.mxl
+scripts\opkuisen.cmd "content-source\input\capella\8a - trisagion.mxl" -o content-source\input\_werk\trisagion-8a-nederlands-hemelum\trisagion-8a-nederlands-hemelum.mxl
 ```
 
 Alleen analyseren (geen schrijven) — beide vormen doen hetzelfde:

@@ -13,7 +13,7 @@ Deze pagina is de HOW voor `mscz-products`.
 {{< cue >}}
 Basispartituur-`.mscz` staat in het **bibliotheek** (niet alleen in `_werk`). Daarna:
 ```cmd
-scripts\mscz-products.cmd content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum
+scripts\mscz-products.cmd content-source\bibliotheek\trisagion\8a-nederlands\hemelum
 ```
 Of heel `content-source`. `--force` als producten ouder zijn dan de basispartituur of
 de bestandsdatum niet klopt. Lokale `check`/`build`/`serve` vernieuwen
@@ -47,7 +47,7 @@ daarna opnieuw deze stap (of [Afgeleiden](../6-afgeleiden/)).
 
 1. De basispartituur-`.mscz` ligt in het **bibliotheek**, niet alleen in
    `input\_werk\`. Padvoorbeeld:
-   `content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum\8-trisagion-8a-nederlands-hemelum.mscz`.
+   `content-source\bibliotheek\trisagion\8a-nederlands\hemelum\trisagion-8a-nederlands-hemelum.mscz`.
 2. Die `.mscz` is na de laatste inhoudelijke edit opnieuw genormaliseerd
    (`scripts\layout.cmd`).
 3. **MuseScore 4** is geïnstalleerd (het product-script roept MuseScore aan).
@@ -64,8 +64,8 @@ daarna opnieuw deze stap (of [Afgeleiden](../6-afgeleiden/)).
    spaties:
 
 ```text
-content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum\
-  8-trisagion-8a-nederlands-hemelum.mscz
+content-source\bibliotheek\trisagion\8a-nederlands\hemelum\
+  trisagion-8a-nederlands-hemelum.mscz
 ```
 
    Koormap-slot en verdere publicatie: zie
@@ -74,7 +74,7 @@ content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum\
 2. Open het opdrachtvenster in `bibliotheek` en maak de producten:
 
 ```cmd
-scripts\mscz-products.cmd content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum
+scripts\mscz-products.cmd content-source\bibliotheek\trisagion\8a-nederlands\hemelum
 ```
 
    Of alles onder content-source:
@@ -84,8 +84,8 @@ scripts\mscz-products.cmd content-source
 ```
 
 3. In die bibliotheek-map horen naast de `.mscz` ook
-   `8-trisagion-8a-nederlands-hemelum.pdf` en
-   `8-trisagion-8a-nederlands-hemelum.mxl` (zelfde stam).
+   `trisagion-8a-nederlands-hemelum.pdf` en
+   `trisagion-8a-nederlands-hemelum.mxl` (zelfde stam).
 
 4. Open de PDF even in een PDF-viewer: pagina A4, titel, colofon, tekst
    leesbaar.

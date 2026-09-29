@@ -26,8 +26,8 @@ def main(argv: list[str] | None = None) -> int:
             "  hernoem     zangstuk-id hernoemen (map, stam, refs, aliases)\n"
             "\n"
             "Voorbeelden:\n"
-            "  bieb accepteer 8-trisagion/8a-nederlands/hemelum pad\\x.mscz --dry-run\n"
-            "  bieb hernoem 8-trisagion trisagion --dry-run\n"
+            "  bieb accepteer trisagion/8a-nederlands/hemelum pad\\x.mscz --dry-run\n"
+            "  bieb hernoem 210-heer-red-uw-volk-en-zegen-uw-erfdeel tropaar --dry-run\n"
         )
         return 0 if argv else 2
     cmd = argv[0]

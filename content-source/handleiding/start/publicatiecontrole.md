@@ -58,7 +58,7 @@ De **publicatiestam** is de bestandsnaam zonder extensies:
 `{zangstuk-id}-{variant-id}-{uitvoeringsvorm-id}`
 
 Alleen kleine letters, cijfers, `_` en `-` — **geen spaties**.
-Voorbeeld: `8-trisagion-8a-nederlands-hemelum`.
+Voorbeeld: `trisagion-8a-nederlands-hemelum`.
 
 ### Bron versus afgeleide
 
@@ -215,9 +215,9 @@ Basispartituur (doelvorm; actieve publicatiecontrole):
 
 ```text
 …
-  8-trisagion-8a-nederlands-hemelum.mscz
-  8-trisagion-8a-nederlands-hemelum.mscz.pdf
-  8-trisagion-8a-nederlands-hemelum.mscz.mxl
+  trisagion-8a-nederlands-hemelum.mscz
+  trisagion-8a-nederlands-hemelum.mscz.pdf
+  trisagion-8a-nederlands-hemelum.mscz.mxl
 ```
 
 Handmatig MuseScore-blad (geen automatische publicatiecontrole):

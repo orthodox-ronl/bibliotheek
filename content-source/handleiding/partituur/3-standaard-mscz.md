@@ -133,10 +133,10 @@ feathered noot later tot één kwart per lettergreep.
 
 ### Van opgekuiste Capella-`.mxl`
 
-Voorbeeld voor bibliotheek-id `8-trisagion/8a-nederlands/hemelum`:
+Voorbeeld voor bibliotheek-id `trisagion/8a-nederlands/hemelum`:
 
 ```cmd
-scripts\layout.cmd content-source\input\_werk\8-trisagion-8a-nederlands-hemelum\8-trisagion-8a-nederlands-hemelum.mxl -o content-source\input\_werk\8-trisagion-8a-nederlands-hemelum\8-trisagion-8a-nederlands-hemelum.mscz
+scripts\layout.cmd content-source\input\_werk\trisagion-8a-nederlands-hemelum\trisagion-8a-nederlands-hemelum.mxl -o content-source\input\_werk\trisagion-8a-nederlands-hemelum\trisagion-8a-nederlands-hemelum.mscz
 ```
 
 Het script converteert via MuseScore 4 naar `.mscz` en past daarna de
