@@ -11,7 +11,7 @@
 <a href=/bibliotheek/preview/bibliotheek/kondak/>Kondaken</a>
 <a href=/bibliotheek/preview/bibliotheek/220-uw-heilig-kruis/>Uw Heilig Kruis</a>
 <a href=/bibliotheek/preview/bibliotheek/7d-dialoog-met-diaken/>7d Dialoog met diaken</a>
-<a href=/bibliotheek/preview/bibliotheek/8-trisagion/>8 Trisagion</a>
+<a href=/bibliotheek/preview/bibliotheek/trisagion/>Trisagion</a>
 <a href=/bibliotheek/preview/bibliotheek/9-prokimen/>9 Prokimen</a>
 <a href=/bibliotheek/preview/bibliotheek/9-alleluia/>9 Alleluia</a>
 <a href=/bibliotheek/preview/bibliotheek/10-evangelielezing/>10 Evangelielezing</a>
@@ -67,13 +67,13 @@ HOW: <a href=../../partituur/4-reviewen/>Reviewen</a>
 <code>bieb accepteer</code> — zie <a href=../opnemen-in-bibliotheek/>Opnemen</a>
 .
 5. Bibliotheek-id in colofon/meta (lokaal vaak al via <code>check</code>):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\ensure-bibliotheek-id.cmd
-</span></span></code></pre></div><ol start=6><li>PDF en Coria-<code>.mxl</code> exporteren:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\mscz-products.cmd content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum
+</span></span></code></pre></div><ol start=6><li>PDF en Coria-<code>.mxl</code> exporteren:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\mscz-products.cmd content-source\bibliotheek\trisagion\8a-nederlands\hemelum
 </span></span></code></pre></div><p>Of heel <code>content-source</code>. <code>--force</code> als producten ouder zijn dan de
 <code>.mscz</code>. HOW: <a href=../../partituur/5-pdf-en-coria/>PDF en Coria</a>
 .
 7. Site zichtbaar maken: <a href=../site-build/>Site-build</a>
 .</p><p>Voorbeeldbladermap:
-<code>content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum\</code>.</p><h2 id=automatisch-ci>Automatisch (CI)</h2><p>Op GitHub Actions (workflows <code>validate.yml</code> / <code>pages.yml</code>):</p><ul><li><strong>Wel:</strong> <code>check_partituur_products.py</code> en <code>check_bibliotheek_id.py</code>
+<code>content-source\bibliotheek\trisagion\8a-nederlands\hemelum\</code>.</p><h2 id=automatisch-ci>Automatisch (CI)</h2><p>Op GitHub Actions (workflows <code>validate.yml</code> / <code>pages.yml</code>):</p><ul><li><strong>Wel:</strong> <code>check_partituur_products.py</code> en <code>check_bibliotheek_id.py</code>
 controleren of PDF/MXL bij de <code>.mscz</code> passen en of het bibliotheek-id
 klopt.</li><li><strong>Niet:</strong> MuseScore-export (<code>mscz-products</code>). CI heeft geen MuseScore 4.
 Verouderde of ontbrekende producten laten de build <strong>falen</strong> — jij

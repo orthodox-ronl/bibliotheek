@@ -30,8 +30,8 @@ CI en vervolgstappen: &lt;a href="../../werktrajecten/opnemen-in-bibliotheek/"&g
 hetzelfde):&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\opkuisen.cmd content-source\input\capella --analyze
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;STAM&lt;/code&gt; = publicatiestam uit de bibliotheek-id, zonder spaties
-(voorbeeld: id &lt;code&gt;8-trisagion/8a-nederlands/hemelum&lt;/code&gt; →
-&lt;code&gt;8-trisagion-8a-nederlands-hemelum&lt;/code&gt;).
+(voorbeeld: id &lt;code&gt;trisagion/8a-nederlands/hemelum&lt;/code&gt; →
+&lt;code&gt;trisagion-8a-nederlands-hemelum&lt;/code&gt;).
 Volledige man-page (hoeken, manieren wel/niet, exitcodes):
 &lt;a href="../../scripts/opkuisen/"&gt;opkuisen&lt;/a&gt;
 .
@@ -92,7 +92,7 @@ Deze pagina is de HOW voor &lt;code&gt;mscz-products&lt;/code&gt;.&lt;/p&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;p&gt;Basispartituur-&lt;code&gt;.mscz&lt;/code&gt; staat in het &lt;strong&gt;bibliotheek&lt;/strong&gt; (niet alleen in &lt;code&gt;_werk&lt;/code&gt;). Daarna:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mscz-products.cmd content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mscz-products.cmd content-source\bibliotheek\trisagion\8a-nederlands\hemelum
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Of heel &lt;code&gt;content-source&lt;/code&gt;. &lt;code&gt;--force&lt;/code&gt; als producten ouder zijn dan de basispartituur of
 de bestandsdatum niet klopt. Lokale &lt;code&gt;check&lt;/code&gt;/&lt;code&gt;build&lt;/code&gt;/&lt;code&gt;serve&lt;/code&gt; vernieuwen
 stale basispartituur-producten ook automatisch. Weigert / slaat &lt;code&gt;*.print.mscz&lt;/code&gt; over.&lt;/p&gt;

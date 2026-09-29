@@ -11,7 +11,7 @@
 <a href=/bibliotheek/preview/bibliotheek/kondak/>Kondaken</a>
 <a href=/bibliotheek/preview/bibliotheek/220-uw-heilig-kruis/>Uw Heilig Kruis</a>
 <a href=/bibliotheek/preview/bibliotheek/7d-dialoog-met-diaken/>7d Dialoog met diaken</a>
-<a href=/bibliotheek/preview/bibliotheek/8-trisagion/>8 Trisagion</a>
+<a href=/bibliotheek/preview/bibliotheek/trisagion/>Trisagion</a>
 <a href=/bibliotheek/preview/bibliotheek/9-prokimen/>9 Prokimen</a>
 <a href=/bibliotheek/preview/bibliotheek/9-alleluia/>9 Alleluia</a>
 <a href=/bibliotheek/preview/bibliotheek/10-evangelielezing/>10 Evangelielezing</a>
@@ -46,7 +46,7 @@
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><span class=oefenhoek-breadcrumb-current aria-current=page>PDF en Coria</span></nav></div></header><main class=page><h1 id=pdf-en-coria-mxl-maken>PDF en Coria-.mxl maken</h1><p><strong>Werktraject</strong> (waartoe, criteria, CI):
 <a href=/bibliotheek/preview/handleiding/werktrajecten/basispartituur/>Basispartituur</a>
 .
-Deze pagina is de HOW voor <code>mscz-products</code>.</p><aside class=handleiding-cue><p class=handleiding-cue-label>Snel (als je het al eens deed)</p><div class=handleiding-cue-body><p>Basispartituur-<code>.mscz</code> staat in het <strong>bibliotheek</strong> (niet alleen in <code>_werk</code>). Daarna:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\mscz-products.cmd content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum
+Deze pagina is de HOW voor <code>mscz-products</code>.</p><aside class=handleiding-cue><p class=handleiding-cue-label>Snel (als je het al eens deed)</p><div class=handleiding-cue-body><p>Basispartituur-<code>.mscz</code> staat in het <strong>bibliotheek</strong> (niet alleen in <code>_werk</code>). Daarna:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\mscz-products.cmd content-source\bibliotheek\trisagion\8a-nederlands\hemelum
 </span></span></code></pre></div><p>Of heel <code>content-source</code>. <code>--force</code> als producten ouder zijn dan de basispartituur of
 de bestandsdatum niet klopt. Lokale <code>check</code>/<code>build</code>/<code>serve</code> vernieuwen
 stale basispartituur-producten ook automatisch. Weigert / slaat <code>*.print.mscz</code> over.</p></div></aside><p><strong>Wat je nu doet:</strong> uit de nagekeken, genormaliseerde <strong>basispartituur-<code>.mscz</code></strong> twee
@@ -65,7 +65,7 @@ producten twee keer. Bij een latere basispartituur-wijziging: opnieuw normaliser
 daarna opnieuw deze stap (of <a href=../6-afgeleiden/>Afgeleiden</a>
 ).</p><h2 id=voorwaarden>Voorwaarden</h2><ol><li>De basispartituur-<code>.mscz</code> ligt in het <strong>bibliotheek</strong>, niet alleen in
 <code>input\_werk\</code>. Padvoorbeeld:
-<code>content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum\8-trisagion-8a-nederlands-hemelum.mscz</code>.</li><li>Die <code>.mscz</code> is na de laatste inhoudelijke edit opnieuw genormaliseerd
+<code>content-source\bibliotheek\trisagion\8a-nederlands\hemelum\trisagion-8a-nederlands-hemelum.mscz</code>.</li><li>Die <code>.mscz</code> is na de laatste inhoudelijke edit opnieuw genormaliseerd
 (<code>scripts\layout.cmd</code>).</li><li><strong>MuseScore 4</strong> is geïnstalleerd (het product-script roept MuseScore aan).</li><li>Dit is een <strong>basispartituur</strong>-bestand, geen <code>*.print.mscz</code> — printvel: PDF handmatig
 (<a href=../7-print-mscz/>Print-.mscz</a>
 ).</li></ol><h2 id=stap-voor-stap>Stap voor stap</h2><ol><li>Zet de <code>.mscz</code> in de bibliotheek als die daar nog niet staat. Gebruik
@@ -73,15 +73,15 @@ bij voorkeur
 <a href=../../publiceren/1-opnemen-in-bibliotheek/>opnemen in de bibliotheek</a>
 (<code>bieb accepteer</code>), zodat map, <code>index.md</code> en bestandsnaam
 kloppen. Handmatig: kopieer uit <code>_werk</code> naar de publicatiestam zonder
-spaties:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum\
-</span></span><span style=display:flex><span>  8-trisagion-8a-nederlands-hemelum.mscz
+spaties:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>content-source\bibliotheek\trisagion\8a-nederlands\hemelum\
+</span></span><span style=display:flex><span>  trisagion-8a-nederlands-hemelum.mscz
 </span></span></code></pre></div><p>Koormap-slot en verdere publicatie: zie
 <a href=../../publiceren/1-bladermap/>Bibliotheek en koormap</a>
-.</p><ol start=2><li>Open het opdrachtvenster in <code>bibliotheek</code> en maak de producten:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\mscz-products.cmd content-source\bibliotheek\8-trisagion\8a-nederlands\hemelum
+.</p><ol start=2><li>Open het opdrachtvenster in <code>bibliotheek</code> en maak de producten:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\mscz-products.cmd content-source\bibliotheek\trisagion\8a-nederlands\hemelum
 </span></span></code></pre></div><p>Of alles onder content-source:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\mscz-products.cmd content-source
 </span></span></code></pre></div><ol start=3><li><p>In die bibliotheek-map horen naast de <code>.mscz</code> ook
-<code>8-trisagion-8a-nederlands-hemelum.pdf</code> en
-<code>8-trisagion-8a-nederlands-hemelum.mxl</code> (zelfde stam).</p></li><li><p>Open de PDF even in een PDF-viewer: pagina A4, titel, colofon, tekst
+<code>trisagion-8a-nederlands-hemelum.pdf</code> en
+<code>trisagion-8a-nederlands-hemelum.mxl</code> (zelfde stam).</p></li><li><p>Open de PDF even in een PDF-viewer: pagina A4, titel, colofon, tekst
 leesbaar.</p></li><li><p>Coria test je ná <code>scripts\check.cmd --strict</code> op het <strong>koormap-slot</strong>
 (knop <strong>Oefenen</strong> komt uit de bibliotheek-acties op die pagina — niet uit
 een <code>.mxl</code> onder <code>input\</code>).</p></li></ol><h3 id=vernieuwen-of-forceren>Vernieuwen of forceren</h3><div class=table-scroll><table><thead><tr><th>Situatie</th><th>Actie</th></tr></thead><tbody><tr><td>PDF/MXL ouder dan de basispartituur-<code>.mscz</code></td><td>Gewoon opnieuw <code>mscz-products</code> — of <code>check</code> lokaal (pipeline vernieuwt stale)</td></tr><tr><td>Basispartituur inhoudelijk gewijzigd maar bestandsdatum klopt niet</td><td>Zet <code>--force</code> achter het commando</td></tr><tr><td>Preview toont een banner dat basispartituur-afgeleiden niet kloppen</td><td>Zie <a href=../6-afgeleiden/>Afgeleiden</a>

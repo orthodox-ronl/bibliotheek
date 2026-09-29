@@ -11,7 +11,7 @@
 <a href=/bibliotheek/preview/bibliotheek/kondak/>Kondaken</a>
 <a href=/bibliotheek/preview/bibliotheek/220-uw-heilig-kruis/>Uw Heilig Kruis</a>
 <a href=/bibliotheek/preview/bibliotheek/7d-dialoog-met-diaken/>7d Dialoog met diaken</a>
-<a href=/bibliotheek/preview/bibliotheek/8-trisagion/>8 Trisagion</a>
+<a href=/bibliotheek/preview/bibliotheek/trisagion/>Trisagion</a>
 <a href=/bibliotheek/preview/bibliotheek/9-prokimen/>9 Prokimen</a>
 <a href=/bibliotheek/preview/bibliotheek/9-alleluia/>9 Alleluia</a>
 <a href=/bibliotheek/preview/bibliotheek/10-evangelielezing/>10 Evangelielezing</a>
@@ -58,7 +58,7 @@ oude <code>.print.mscz</code>-spoor)</li></ul></div></aside><h2 id=controles-ter
 bron past (geen verouderd of “leeg” product).</li></ol><p>Faalt de controle, dan vernieuw je lokaal met het product-commando en commit
 je bron <strong>en</strong> afgeleide samen. De build op GitHub <strong>schrijft geen</strong>
 MuseScore- of MusicXML-producten opnieuw.</p><h2 id=bestandsnamen-doelvorm>Bestandsnamen (doelvorm)</h2><h3 id=stam>Stam</h3><p>De <strong>publicatiestam</strong> is de bestandsnaam zonder extensies:</p><p><code>{zangstuk-id}-{variant-id}-{uitvoeringsvorm-id}</code></p><p>Alleen kleine letters, cijfers, <code>_</code> en <code>-</code> — <strong>geen spaties</strong>.
-Voorbeeld: <code>8-trisagion-8a-nederlands-hemelum</code>.</p><h3 id=bron-versus-afgeleide>Bron versus afgeleide</h3><div class=table-scroll><table><thead><tr><th>Rol</th><th>Patroon</th><th>Voorbeelden</th></tr></thead><tbody><tr><td><strong>Bron</strong></td><td><code>{stam}</code> + <strong>één</strong> echte extensie</td><td><code>….vsa</code>, <code>….mscz</code>, <code>….mvsa</code></td></tr><tr><td><strong>Afgeleide</strong></td><td><code>{stam}.{bron-extensie}.{doel-extensie}</code></td><td><code>….vsa.mxl</code>, <code>….mscz.pdf</code>, <code>….mscz.mxl</code>, <code>….mvsa.mscz</code>, <code>….vsa.lyrics.txt</code></td></tr></tbody></table></div><p>Het <strong>laatste</strong> segment is wat programma’s als bestandstype zien (<code>.mxl</code>,
+Voorbeeld: <code>trisagion-8a-nederlands-hemelum</code>.</p><h3 id=bron-versus-afgeleide>Bron versus afgeleide</h3><div class=table-scroll><table><thead><tr><th>Rol</th><th>Patroon</th><th>Voorbeelden</th></tr></thead><tbody><tr><td><strong>Bron</strong></td><td><code>{stam}</code> + <strong>één</strong> echte extensie</td><td><code>….vsa</code>, <code>….mscz</code>, <code>….mvsa</code></td></tr><tr><td><strong>Afgeleide</strong></td><td><code>{stam}.{bron-extensie}.{doel-extensie}</code></td><td><code>….vsa.mxl</code>, <code>….mscz.pdf</code>, <code>….mscz.mxl</code>, <code>….mvsa.mscz</code>, <code>….vsa.lyrics.txt</code></td></tr></tbody></table></div><p>Het <strong>laatste</strong> segment is wat programma’s als bestandstype zien (<code>.mxl</code>,
 <code>.pdf</code>, <code>.mscz</code>, …). Het middelste segment zegt <strong>uit welke bron</strong> het
 product komt. Zo botsen een Coria-bestand uit VSA en een Coria-bestand uit
 een MuseScore-partituur nooit op dezelfde korte naam.</p><p>Deze regel sluit aan bij VSA-tooling (<code>stem.brontype.doeltype</code>). In de
@@ -97,9 +97,9 @@ expliciete <code>{stam}.{bron-extensie}.{doel-extensie}</code>-vorm <strong>verp
 </span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\vsa-products.cmd content-source\bibliotheek\tropaar\zondag-toon-1\groningen
 </span></span><span style=display:flex><span>check --strict
 </span></span></code></pre></div><p>Basispartituur (doelvorm; actieve publicatiecontrole):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>…
-</span></span><span style=display:flex><span>  8-trisagion-8a-nederlands-hemelum.mscz
-</span></span><span style=display:flex><span>  8-trisagion-8a-nederlands-hemelum.mscz.pdf
-</span></span><span style=display:flex><span>  8-trisagion-8a-nederlands-hemelum.mscz.mxl
+</span></span><span style=display:flex><span>  trisagion-8a-nederlands-hemelum.mscz
+</span></span><span style=display:flex><span>  trisagion-8a-nederlands-hemelum.mscz.pdf
+</span></span><span style=display:flex><span>  trisagion-8a-nederlands-hemelum.mscz.mxl
 </span></span></code></pre></div><p>Handmatig MuseScore-blad (geen automatische publicatiecontrole):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#75715e># index.md</span>
 </span></span><span style=display:flex><span><span style=color:#f92672>artefacten_handmatig</span>: <span style=color:#66d9ef>true</span>
 </span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>…

@@ -11,7 +11,7 @@
 <a href=/bibliotheek/preview/bibliotheek/kondak/>Kondaken</a>
 <a href=/bibliotheek/preview/bibliotheek/220-uw-heilig-kruis/>Uw Heilig Kruis</a>
 <a href=/bibliotheek/preview/bibliotheek/7d-dialoog-met-diaken/>7d Dialoog met diaken</a>
-<a href=/bibliotheek/preview/bibliotheek/8-trisagion/>8 Trisagion</a>
+<a href=/bibliotheek/preview/bibliotheek/trisagion/>Trisagion</a>
 <a href=/bibliotheek/preview/bibliotheek/9-prokimen/>9 Prokimen</a>
 <a href=/bibliotheek/preview/bibliotheek/9-alleluia/>9 Alleluia</a>
 <a href=/bibliotheek/preview/bibliotheek/10-evangelielezing/>10 Evangelielezing</a>
@@ -47,8 +47,8 @@
 </span></span></code></pre></div><p>Alleen herkomst + rapport (geen schrijven; <code>--analyze</code> en <code>--dry-run</code> zijn
 hetzelfde):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\opkuisen.cmd content-source\input\capella --analyze
 </span></span></code></pre></div><p><code>STAM</code> = publicatiestam uit de bibliotheek-id, zonder spaties
-(voorbeeld: id <code>8-trisagion/8a-nederlands/hemelum</code> →
-<code>8-trisagion-8a-nederlands-hemelum</code>).
+(voorbeeld: id <code>trisagion/8a-nederlands/hemelum</code> →
+<code>trisagion-8a-nederlands-hemelum</code>).
 Volledige man-page (hoeken, manieren wel/niet, exitcodes):
 <a href=../../scripts/opkuisen/>opkuisen</a>
 .
@@ -94,18 +94,18 @@ Volledige wel/niet-tabellen, andere hoeken en exitcodes:
 <a href=../../scripts/opkuisen/>opkuisen</a>
 .</p><div class=table-scroll><table><thead><tr><th>Laag</th><th>Wat er gebeurt</th></tr></thead><tbody><tr><td>Capella-semantiek</td><td>Onzichtbare klinkende noten (<code>print-object=no</code>) worden zichtbare reciteerkwarten (duur en noottype blijven). Maatlengte mag groeien als er lettergrepen bijkomen. Halve/hele noten op cadensen blijven echte lengte</td></tr><tr><td>Tekst–noot-binding</td><td>Lettergreep ↔ noot; multi-klinker tokens splitsen met extra noten (zelfde duur op alle stemmen); lyrics alleen op stem 1; backups bijwerken zodat A/T/B niet te laat starten; partijnamen weg; titels naar work-title; boekpagina-cijfers weg; lege/rust-only maten weg</td></tr><tr><td>Partituurhint</td><td>Compactere systeem-/balkafstand in de XML als startpunt voor MuseScore</td></tr></tbody></table></div><p>Het script <strong>stript geen</strong> <code>&lt;rights></code> / copyright uit de MusicXML.</p><p>Twijfel over de herkomst? Eerst alleen analyseren (geen schrijven):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\opkuisen.cmd <span style=color:#e6db74>&#34;content-source\input\capella\NAAM.mxl&#34;</span> --analyze
 </span></span></code></pre></div><p><code>--dry-run</code> doet precies hetzelfde als <code>--analyze</code>.</p><h3 id=stap-voor-stap>Stap voor stap</h3><ol><li>Ken het <strong>bibliotheek-id</strong> (drie lagen), bijvoorbeeld
-<code>8-trisagion/8a-nederlands/hemelum</code>. Nog geen id? Ga terug naar
+<code>trisagion/8a-nederlands/hemelum</code>. Nog geen id? Ga terug naar
 <a href=../1-binnenhalen/>binnenhalen</a>
 en het
 <a href=/bibliotheek/preview/bibliotheek/id-register/>Id-register</a>
 .</li><li>Bepaal de <strong>publicatiestam</strong> (de drie id-lagen met <code>-</code> ertussen, zonder
-spaties): <code>8-trisagion-8a-nederlands-hemelum</code>.</li><li>Maak de map
-<code>content-source\input\_werk\8-trisagion-8a-nederlands-hemelum\</code>
+spaties): <code>trisagion-8a-nederlands-hemelum</code>.</li><li>Maak de map
+<code>content-source\input\_werk\trisagion-8a-nederlands-hemelum\</code>
 (Verkenner of laat het script de map aanmaken bij schrijven). De map
 <code>_werk\</code> staat alleen op jouw pc (niet in git).</li><li>Open het Windows-opdrachtvenster in de repository-map <code>bibliotheek</code>
 (<a href=../../start/wat-heb-je-nodig/>hoe</a>
 ).</li><li>Draai het opkuis-commando. Zet de <strong>bron</strong>-bestandsnaam tussen
-aanhalingstekens als er spaties in zitten. Voorbeeld:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\opkuisen.cmd <span style=color:#e6db74>&#34;content-source\input\capella\8a - 8-trisagion.mxl&#34;</span> -o content-source\input\_werk\8-trisagion-8a-nederlands-hemelum\8-trisagion-8a-nederlands-hemelum.mxl
+aanhalingstekens als er spaties in zitten. Voorbeeld:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\opkuisen.cmd <span style=color:#e6db74>&#34;content-source\input\capella\8a - trisagion.mxl&#34;</span> -o content-source\input\_werk\trisagion-8a-nederlands-hemelum\trisagion-8a-nederlands-hemelum.mxl
 </span></span></code></pre></div><ol start=6><li>Wacht tot de prompt terugkomt. Het script print hoek/confidence en
 tellers (<code>unhide=…</code>, <code>splits=…</code>, …). Fout over spaties in de
 <em>uitvoer</em>naam: kies een <code>-o</code>-pad zonder spaties. Overschrijf nooit het
