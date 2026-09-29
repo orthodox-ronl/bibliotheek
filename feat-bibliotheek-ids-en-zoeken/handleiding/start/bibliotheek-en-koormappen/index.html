@@ -7,9 +7,9 @@
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/5-eniggeboren-zoon/>5 Eniggeboren Zoon</a>
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/6-derde-antifoon/>6 Derde antifoon</a>
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/7-kleine-intocht/>7 Kleine intocht</a>
-<a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/110-tropaar/>Troparen</a>
+<a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/tropaar/>Troparen</a>
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/210-heer-red-uw-volk-en-zegen-uw-erfdeel/>Heer red Uw volk</a>
-<a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/120-kondak/>Kondaken</a>
+<a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/kondak/>Kondaken</a>
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/220-uw-heilig-kruis/>Uw Heilig Kruis</a>
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/7d-dialoog-met-diaken/>7d Dialoog met diaken</a>
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/8-trisagion/>8 Trisagion</a>
@@ -90,12 +90,12 @@ kindpagina’s te maken alleen om knoppen te scheiden.</p><h3 id=alias-varianten
 <code>maandag-toon-4</code> is dezelfde variant als <code>heilige-engelen-toon-4</code> (de tropaar
 van de Heilige Engelen, gezongen op maandag). Dat is een alias op
 <strong>variant-niveau</strong>, niet een tweede uitvoeringsvorm.</p><p>Dan:</p><ul><li>partituren (<code>.vsa</code>, PDF, …) staan <strong>alleen</strong> bij de canonieke variant, hier
-de uitvoeringsvorm <code>110-tropaar/maandag-toon-4/hemelum</code>;</li><li>de alias-variant heeft alleen een <code>_index.md</code> met frontmatter
-<code>alias_van: 110-tropaar/maandag-toon-4</code> — geen map <code>hemelum/</code>, geen <code>index.md</code>,
-geen partituur;</li><li>de bibliotheek-index van het zangstuk (<code>110-tropaar/</code>, <code>120-kondak/</code>, …) noemt
+de uitvoeringsvorm <code>tropaar/maandag-toon-4/hemelum</code>;</li><li>de alias-variant heeft alleen een <code>_index.md</code> met frontmatter
+<code>alias_van: tropaar/maandag-toon-4</code> — geen map <code>hemelum/</code>, geen <code>index.md</code>,
+geen partituur;</li><li>de bibliotheek-index van het zangstuk (<code>tropaar/</code>, <code>kondak/</code>, …) noemt
 <strong>beide</strong> varianten; achter de alias-naam staat dat het een alias is.</li></ul><p>Shortcode <code>bieb</code> krijgt een uitvoeringsvorm-id (drie lagen). Wie de
 alias-variant in dat id zet, bijvoorbeeld
-<code>110-tropaar/heilige-engelen-toon-4/hemelum</code>, wordt herschreven naar de canonieke
+<code>tropaar/heilige-engelen-toon-4/hemelum</code>, wordt herschreven naar de canonieke
 uitvoeringsvorm. Product-tools (<code>vsa-products</code>, basispartituur-producten) slaan
 alias-varianten over: daar is niets te genereren.</p><p><code>check</code> weigert een alias-variant die toch een uitvoeringsvorm-map of
 partituur bevat. Dat patroon mag voor elk zangstuk waarvan een variant
@@ -118,7 +118,7 @@ en het
 waarom de Hemelum-liturgiemap géén tweede opslag van PDF’s is; en wanneer je
 een <strong>sectie</strong> (boom) kiest versus een <strong>compositieblad</strong> (meerdere
 shortcodes op één pagina).</p><h2 id=naamgevingsbeleid-nieuwe-ids>Naamgevingsbeleid (nieuwe ids)</h2><ol><li><strong>Nieuwe</strong> <code>zangstuk-id</code>s krijgen <strong>geen</strong> sorteerprefix (<code>tropaar</code>, niet
-<code>110-tropaar</code>). Liturgienummers horen in de koormap-titel en in Hugo-
+<code>tropaar</code>). Liturgienummers horen in de koormap-titel en in Hugo-
 <code>weight</code>.</li><li>Spelling voor <em>nieuwe</em> ids: <code>johannes</code>, <code>alleluia</code>; liever voluit dan
 <code>mg</code> of <code>zo-wk-mg</code>.</li><li>Bestaande genummerde ids blijven geldig tot een bewuste hernoem-golf
 (tooling: later <code>bieb hernoem</code>).</li><li>Echte naamsynoniemen van dezelfde variant: <code>alias_van</code>. Spelling- en

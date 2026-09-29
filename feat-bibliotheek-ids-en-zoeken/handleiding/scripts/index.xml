@@ -16,7 +16,7 @@ een foutmelding met bekende namen.&lt;/p&gt;</description></item><item><title>va
 &lt;code&gt;.mvsa&lt;/code&gt;) geldig is volgens de &lt;code&gt;vsa&lt;/code&gt;-/&lt;code&gt;mvsa&lt;/code&gt;-CLI&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;validate
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;validate content-source\bibliotheek\110-tropaar
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;validate content-source\bibliotheek\tropaar
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Of: &lt;code&gt;scripts\validate.cmd&lt;/code&gt; vanuit de repo-root. Zonder argument valideert
 het script de map &lt;code&gt;content-source\bibliotheek&lt;/code&gt;.&lt;/p&gt;
 &lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
@@ -430,4 +430,22 @@ en geen Coria-&lt;code&gt;.mxl&lt;/code&gt;. Niet in &lt;code&gt;check&lt;/code&
 &lt;code&gt;.vsa&lt;/code&gt;, &lt;code&gt;.mvsa&lt;/code&gt;, handmatig &lt;code&gt;.mscz&lt;/code&gt; (met &lt;code&gt;--artefacten-handmatig&lt;/code&gt; of legacy
 &lt;code&gt;.print.mscz&lt;/code&gt;), of &lt;code&gt;.tekstblad.md&lt;/code&gt; (optioneel sibling-&lt;code&gt;.pdf&lt;/code&gt; / &lt;code&gt;.mxl&lt;/code&gt;). Bij
 &lt;code&gt;.tekstblad.md&lt;/code&gt; zet het script indien nodig frontmatter &lt;code&gt;build: render: never&lt;/code&gt;
-zodat de bron geen Hugo-pagina wordt.&lt;/p&gt;</description></item></channel></rss>
+zodat de bron geen Hugo-pagina wordt.&lt;/p&gt;</description></item><item><title>bieb hernoem</title><link>https://orthodox-ronl.github.io/bibliotheek/feat-bibliotheek-ids-en-zoeken/handleiding/scripts/bieb-hernoem/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/feat-bibliotheek-ids-en-zoeken/handleiding/scripts/bieb-hernoem/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;bieb hernoem&lt;/code&gt; — zangstuk-id hernoemen (map, publicatiestam, verwijzingen)&lt;/p&gt;
+&lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd hernoem &amp;lt;oud-zangstuk&amp;gt; &amp;lt;nieuw-zangstuk&amp;gt; [--dry-run]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
+&lt;p&gt;Hernoemt één &lt;strong&gt;zangstuk-id&lt;/strong&gt; (de bovenste map onder
+&lt;code&gt;content-source\bibliotheek\&lt;/code&gt;). Typisch: &lt;code&gt;110-tropaar&lt;/code&gt; → &lt;code&gt;tropaar&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Het script:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Verplaatst de zangstuk-map naar de nieuwe naam.&lt;/li&gt;
+&lt;li&gt;Hernoemt alle productbestanden waarvan de naam met &lt;code&gt;{oud}-&lt;/code&gt; begint
+(publicatiestam: &lt;code&gt;.vsa&lt;/code&gt;, &lt;code&gt;.vsa.mxl&lt;/code&gt;, &lt;code&gt;.lyrics.txt&lt;/code&gt;, &lt;code&gt;.mp3&lt;/code&gt;, …).&lt;/li&gt;
+&lt;li&gt;Verplaatst bladermap-SVG’s onder &lt;code&gt;static\vsa\bladermap\bibliotheek\&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Werkt tekstverwijzingen bij (&lt;code&gt;bieb id=…&lt;/code&gt;, &lt;code&gt;alias_van&lt;/code&gt;, colofons, docs).&lt;/li&gt;
+&lt;li&gt;Zet Hugo-&lt;code&gt;aliases&lt;/code&gt; op elke verhuisde pagina zodat oude URL’s blijven
+werken.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Daarna opnieuw: &lt;code&gt;python scripts\build_zoek_index.py&lt;/code&gt; en
+&lt;code&gt;scripts\check.cmd&lt;/code&gt; (SVG/fingerprints/Hugo).&lt;/p&gt;</description></item></channel></rss>

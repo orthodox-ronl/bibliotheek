@@ -7,9 +7,9 @@
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/5-eniggeboren-zoon/>5 Eniggeboren Zoon</a>
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/6-derde-antifoon/>6 Derde antifoon</a>
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/7-kleine-intocht/>7 Kleine intocht</a>
-<a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/110-tropaar/>Troparen</a>
+<a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/tropaar/>Troparen</a>
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/210-heer-red-uw-volk-en-zegen-uw-erfdeel/>Heer red Uw volk</a>
-<a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/120-kondak/>Kondaken</a>
+<a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/kondak/>Kondaken</a>
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/220-uw-heilig-kruis/>Uw Heilig Kruis</a>
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/7d-dialoog-met-diaken/>7d Dialoog met diaken</a>
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/8-trisagion/>8 Trisagion</a>
@@ -52,7 +52,7 @@
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><a class=oefenhoek-breadcrumb-link href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/handleiding/scripts/>Scripts</a>
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><span class=oefenhoek-breadcrumb-current aria-current=page>validate</span></nav></div></header><main class=page><h1 id=name>NAME</h1><p><code>scripts\validate.cmd</code> — controleer of bibliotheek-<code>.vsa</code> (en eventueel
 <code>.mvsa</code>) geldig is volgens de <code>vsa</code>-/<code>mvsa</code>-CLI</p><h1 id=synopsis>SYNOPSIS</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>validate
-</span></span><span style=display:flex><span>validate content-source\bibliotheek\110-tropaar
+</span></span><span style=display:flex><span>validate content-source\bibliotheek\tropaar
 </span></span></code></pre></div><p>Of: <code>scripts\validate.cmd</code> vanuit de repo-root. Zonder argument valideert
 het script de map <code>content-source\bibliotheek</code>.</p><h1 id=description>DESCRIPTION</h1><p>Zet eerst <code>vsa-tool</code> klaar (<code>scripts\_ensure.cmd --vsa-tool</code>) en roept
 daarna de gepubliceerde CLI aan:</p><ol><li><code>vsa validate</code> op het gekozen pad (standaard de hele bibliotheek-map)</li><li>Als er onder dat pad minstens één <code>.mvsa</code> staat: ook <code>mvsa validate</code></li></ol><p>Het script kopieert geen validatielogica uit VSA-tooling; het geeft alleen

@@ -7,9 +7,9 @@
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/5-eniggeboren-zoon/>5 Eniggeboren Zoon</a>
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/6-derde-antifoon/>6 Derde antifoon</a>
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/7-kleine-intocht/>7 Kleine intocht</a>
-<a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/110-tropaar/>Troparen</a>
+<a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/tropaar/>Troparen</a>
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/210-heer-red-uw-volk-en-zegen-uw-erfdeel/>Heer red Uw volk</a>
-<a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/120-kondak/>Kondaken</a>
+<a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/kondak/>Kondaken</a>
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/220-uw-heilig-kruis/>Uw Heilig Kruis</a>
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/7d-dialoog-met-diaken/>7d Dialoog met diaken</a>
 <a href=/bibliotheek/feat-bibliotheek-ids-en-zoeken/bibliotheek/8-trisagion/>8 Trisagion</a>
@@ -97,11 +97,11 @@ bibliotheek) laat de bronbestanden (<code>.mvsa</code> / <code>.mscz</code> / <c
 bepaald type is, kunnen oude namen nog voorkomen. Nieuwe of vernieuwde
 producten gebruiken de doelvorm hierboven.</p><div class=table-scroll><table><thead><tr><th>Legacy</th><th>Betekenis / migratie</th></tr></thead><tbody><tr><td><code>{stam}.mxl</code> / <code>{stam}.pdf</code> naast <code>{stam}.mscz</code></td><td>Impliciet partituur → doel <code>{stam}.mscz.mxl</code> / <code>{stam}.mscz.pdf</code></td></tr><tr><td><code>{stam}.partituur.mxl</code> / <code>{stam}.partituur.pdf</code></td><td>Oude representatie-id in de naam → zelfde doelvorm met <code>.mscz.</code></td></tr><tr><td><code>{stam}.print.mscz</code></td><td>→ <code>{stam}.mscz</code> + <code>artefacten_handmatig: true</code></td></tr><tr><td><code>{stam}.print.pdf</code></td><td>→ <code>{stam}.mscz.pdf</code> (handmatig)</td></tr><tr><td><code>{stam}.vsa.mxl</code></td><td><strong>Al doelvorm</strong> — geen hernoem nodig</td></tr></tbody></table></div><p>Zodra twee producten van hetzelfde type in één map moeten, is de
 expliciete <code>{stam}.{bron-extensie}.{doel-extensie}</code>-vorm <strong>verplicht</strong>
-(geen stille overwrite van een korte naam).</p><h2 id=voorbeelden>Voorbeelden</h2><p>Alleen <code>.vsa</code> (actieve publicatiecontrole):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>content-source\bibliotheek\110-tropaar\zondag-toon-1\groningen\
-</span></span><span style=display:flex><span>  110-tropaar-zondag-toon-1-groningen.vsa
-</span></span><span style=display:flex><span>  110-tropaar-zondag-toon-1-groningen.vsa.mxl
+(geen stille overwrite van een korte naam).</p><h2 id=voorbeelden>Voorbeelden</h2><p>Alleen <code>.vsa</code> (actieve publicatiecontrole):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>content-source\bibliotheek\tropaar\zondag-toon-1\groningen\
+</span></span><span style=display:flex><span>  tropaar-zondag-toon-1-groningen.vsa
+</span></span><span style=display:flex><span>  tropaar-zondag-toon-1-groningen.vsa.mxl
 </span></span><span style=display:flex><span>  index.md
-</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\vsa-products.cmd content-source\bibliotheek\110-tropaar\zondag-toon-1\groningen
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\vsa-products.cmd content-source\bibliotheek\tropaar\zondag-toon-1\groningen
 </span></span><span style=display:flex><span>check --strict
 </span></span></code></pre></div><p>Basispartituur (doelvorm; actieve publicatiecontrole):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>…
 </span></span><span style=display:flex><span>  8-trisagion-8a-nederlands-hemelum.mscz
