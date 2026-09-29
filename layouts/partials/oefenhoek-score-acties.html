@@ -161,7 +161,11 @@
 {{- $audioPreferred := slice -}}
 {{- $audioOther := slice -}}
 {{- range $audioItems -}}
-  {{- $it := dict "href" .href "label" .label "detail" .detail "class" "score-audio-play" -}}
+  {{- $audioTitle := .label -}}
+  {{- if .detail -}}
+    {{- $audioTitle = printf "%s — %s" .label .detail -}}
+  {{- end -}}
+  {{- $it := dict "href" .href "label" .label "detail" .detail "class" "score-audio-play" "extra" (printf "data-audio-title=%q" $audioTitle) -}}
   {{- if eq .id $audioPreferId -}}
     {{- $audioPreferred = $audioPreferred | append $it -}}
   {{- else -}}

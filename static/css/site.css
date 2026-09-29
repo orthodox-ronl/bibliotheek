@@ -789,6 +789,161 @@ a.btn.coria-play:focus,
   background: #e8f5ec;
 }
 
+/* Beluisteren: sticky speler onderaan */
+body.score-audio-bar-open {
+  padding-bottom: var(--score-audio-bar-height, 5.5rem);
+}
+
+.score-audio-bar {
+  --score-audio-bar-height: 5.5rem;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 900;
+  background: #f0f4f8;
+  border-top: 1px solid var(--border-color);
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.score-audio-bar-inner {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: 0.55rem var(--page-padding) 0.65rem;
+}
+
+.score-audio-bar-title {
+  margin: 0 0 0.35rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #003366;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.score-audio-bar-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+}
+
+.score-audio-bar-btn {
+  flex: 0 0 auto;
+  min-width: 2.25rem;
+  padding: 0.35rem 0.5rem;
+  font: inherit;
+  font-size: 0.85rem;
+  line-height: 1.2;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: #003366;
+}
+
+.score-audio-bar-btn:hover,
+.score-audio-bar-btn:focus {
+  background: #e8f1fa;
+  outline: none;
+}
+
+.score-audio-bar-close {
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0.2rem 0.55rem;
+  margin-left: auto;
+}
+
+.score-audio-bar-icon--play {
+  display: none;
+}
+
+.score-audio-bar--paused .score-audio-bar-icon--pause {
+  display: none;
+}
+
+.score-audio-bar--paused .score-audio-bar-icon--play {
+  display: inline;
+}
+
+.score-audio-bar-time {
+  flex: 0 0 auto;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  color: #445566;
+  white-space: nowrap;
+}
+
+.score-audio-bar-seek {
+  flex: 1 1 6rem;
+  min-width: 4rem;
+  margin: 0;
+  accent-color: #003366;
+}
+
+.score-audio-bar-rate {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex: 0 0 auto;
+  font-size: 0.82rem;
+  color: #445566;
+}
+
+.score-audio-bar-rate-select {
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.25rem 0.35rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: #fff;
+}
+
+.score-audio-bar-element {
+  display: none;
+}
+
+.bibliotheek-page .score-audio-bar-title,
+.bibliotheek-page .score-audio-bar-btn {
+  color: #1b5e20;
+}
+
+.bibliotheek-page .score-audio-bar {
+  background: #eef6f0;
+}
+
+.bibliotheek-page .score-audio-bar-seek {
+  accent-color: #1b5e20;
+}
+
+@media (max-width: 520px) {
+  body.score-audio-bar-open {
+    padding-bottom: 7.25rem;
+  }
+
+  .score-audio-bar {
+    --score-audio-bar-height: 7.25rem;
+  }
+
+  .score-audio-bar-rate-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .score-audio-bar-close {
+    margin-left: 0;
+  }
+}
+
 .handleiding-cue {
   margin: 0 0 1.35rem;
   padding: 0.85rem 1rem 1rem;
@@ -947,6 +1102,7 @@ a.btn.coria-play:focus,
   .site-jumps,
   .nav-buttons,
   .score-actions,
+  .score-audio-bar,
   .publicatiestatus,
   .oefenhoek-header,
   .werkvoorraad,
