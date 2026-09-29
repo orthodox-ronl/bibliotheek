@@ -57,9 +57,12 @@ velden als bij PDF/MXL: hash van de bron, wanneer gemaakt). Zo ziet
 <code>content-source\bibliotheek</code>). Overgeslagen: <code>input\</code>, mappen met
 <code>artefacten_handmatig: true</code>, import-siblings <code>*.mscz.mvsa</code>, en
 <code>.print.mscz</code>.</p><p>Onder de motorkap: tooling-CLI <code>vsa audio</code> (MuseScore 4). CI genereert
-<strong>geen</strong> audio; jij wel lokaal, daarna committen.</p><p><strong>Belangrijk:</strong> ontbrekende audio is geen fout in <code>check</code>. Je maakt mp3’s
-alleen wanneer je Beluisteren wilt. Zodra een mp3 bestaat, moet die wel
-vers blijven (anders faalt <code>check --strict</code> / CI).</p><h1 id=options>OPTIONS</h1><div class=table-scroll><table><thead><tr><th>Optie</th><th>Betekenis</th></tr></thead><tbody><tr><td><code>--force</code></td><td>Bestaande mp3’s overschrijven</td></tr><tr><td><code>--dry-run</code></td><td>Alleen tonen wat er zou gebeuren</td></tr></tbody></table></div><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\audio-products.cmd content-source\bibliotheek\9-alleluia\9a-toon-1\groningen
+<strong>geen</strong> audio; jij wel lokaal, daarna committen.</p><p><strong>Belangrijk:</strong> elke bibliotheek-<code>.mvsa</code> / basis-<code>.mscz</code> / <code>.vsa</code> (buiten
+handmatige mappen) hoort een passende <code>.mp3</code> te hebben — dezelfde scope
+als de Coria-<code>.mxl</code>. Ontbreekt of veroudert die, dan faalt
+<code>check --strict</code> / CI. Maak ze lokaal met dit script (of
+<a href=../all-products/>all-products</a>
+); CI genereert geen MuseScore-audio.</p><h1 id=options>OPTIONS</h1><div class=table-scroll><table><thead><tr><th>Optie</th><th>Betekenis</th></tr></thead><tbody><tr><td><code>--force</code></td><td>Bestaande mp3’s overschrijven</td></tr><tr><td><code>--dry-run</code></td><td>Alleen tonen wat er zou gebeuren</td></tr></tbody></table></div><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\audio-products.cmd content-source\bibliotheek\9-alleluia\9a-toon-1\groningen
 </span></span><span style=display:flex><span>scripts\audio-products.cmd content-source\bibliotheek\110-tropaar\maandag-toon-4\hemelum --force
 </span></span></code></pre></div><h1 id=when>WHEN</h1><p>Als je Beluisteren wilt tonen op een bladermap, of als <code>check --strict</code>
 meldt dat een bestaand <code>.mp3</code> verouderd is.</p><h1 id=see-also>SEE ALSO</h1><ul><li><a href=../check/>check</a></li><li><a href=/bibliotheek/preview/handleiding/start/publicatiecontrole/>Publicatiecontrole</a></li><li>Werktraject: <a href=/bibliotheek/preview/handleiding/werktrajecten/audio/>audio</a></li></ul></main><footer class=site-footer><div class=site-meta></div></footer></body></html>

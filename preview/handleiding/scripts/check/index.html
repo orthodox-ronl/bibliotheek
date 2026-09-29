@@ -60,16 +60,17 @@ passende <code>{stam}.tekstblad.pdf</code> heeft met <code>vsa-source-sha256</co
 bijbehorende basispartituur-<code>.mscz</code> past (<code>vsa-partituur-sha256</code>);
 ontbrekende import-siblings zijn geen fout</li><li>MVSA-publicatiecontrole — of elke canonieke bibliotheek-<code>.mvsa</code>
 (geen <code>.mscz.mvsa</code>) passende siblings <code>{stam}.mvsa.mxl</code> en
-<code>{stam}.mvsa.pdf</code> heeft met <code>vsa-source-sha256</code></li><li>Audio-publicatiecontrole — of elke <strong>bestaande</strong> preview-<code>.mp3</code>
-(<code>{stam}.mvsa.mp3</code> / <code>.mscz.mp3</code> / <code>.vsa.mp3</code>) bij de bron past;
-ontbrekende audio is geen fout</li><li>Bibliotheek-id — of elke basispartituur-<code>.mscz</code> in het colofon de
+<code>{stam}.mvsa.pdf</code> heeft met <code>vsa-source-sha256</code></li><li>Audio-publicatiecontrole — of elke canonieke <code>.mvsa</code> / basis-<code>.mscz</code> /
+<code>.vsa</code> een passende preview-<code>.mp3</code> heeft met herkomststempel</li><li>Bibliotheek-id — of elke basispartituur-<code>.mscz</code> in het colofon de
 regel <code>Bibliotheek-id:</code> heeft die bij het bladermap-pad past</li><li>Coria-fingerprints (<code>python scripts\fingerprint_coria_mxl.py</code>)</li><li>Bladermap-SVG (<code>oefenhoek-index --svg</code>) — plaatjes uit <code>.vsa</code>; geen
 stamp-publicatiecontrole</li><li>Hugo-build naar <code>generated\site</code></li></ol><p>Zonder <code>--strict</code> waarschuwen de publicatie-, import- en id-controles
 lokaal maar falen niet (behalve op <code>main</code> of met
 <code>BIBLIOTHEEK_PRODUCTS_STRICT=1</code> / <code>BIBLIOTHEEK_ID_STRICT=1</code>). Met
 <code>--strict</code>, en altijd in CI, is een stale of missing product, een
 verouderde import-sibling, of een id-mismatch een fout. Vernieuw
-producten lokaal met <a href=../vsa-products/>vsa-products</a>
+producten lokaal met <a href=../all-products/>all-products</a>
+(alles tegelijk)
+of met <a href=../vsa-products/>vsa-products</a>
 ,
 <a href=../mscz-products/>mscz-products</a>
 ,
@@ -88,4 +89,4 @@ of
 </span></span><span style=display:flex><span>check
 </span></span><span style=display:flex><span>check --strict
 </span></span></code></pre></div><h1 id=when>WHEN</h1><p>Vóór je commit of push. Tussendoor alleen markdown bekijken: <code>serve</code> is
-genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole).</p><h1 id=see-also>SEE ALSO</h1><ul><li><a href=../validate/>validate</a></li><li><a href=../vsa-products/>vsa-products</a></li><li><a href=../mscz-products/>mscz-products</a></li><li><a href=../tekstblad-products/>tekstblad-products</a></li><li><a href=../import-mvsa/>import-mvsa</a></li><li><a href=../mvsa-products/>mvsa-products</a></li><li><a href=../audio-products/>audio-products</a></li><li><a href=../oefenhoek-index/>oefenhoek-index</a></li><li><a href=../layout/>layout</a></li><li><a href=../ensure-bibliotheek-id/>ensure-bibliotheek-id</a></li><li><a href=../serve/>serve</a></li><li><a href=../build/>build</a></li><li><a href=/bibliotheek/preview/handleiding/start/wat-heb-je-nodig/>Wat heb je nodig</a></li><li><a href=/bibliotheek/preview/handleiding/publiceren/2-status-en-check/>Status en check</a></li><li><a href=/bibliotheek/preview/handleiding/start/publicatiecontrole/>Publicatiecontrole</a></li></ul></main><footer class=site-footer><div class=site-meta></div></footer></body></html>
+genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole).</p><h1 id=see-also>SEE ALSO</h1><ul><li><a href=../validate/>validate</a></li><li><a href=../vsa-products/>vsa-products</a></li><li><a href=../mscz-products/>mscz-products</a></li><li><a href=../tekstblad-products/>tekstblad-products</a></li><li><a href=../import-mvsa/>import-mvsa</a></li><li><a href=../mvsa-products/>mvsa-products</a></li><li><a href=../audio-products/>audio-products</a></li><li><a href=../all-products/>all-products</a></li><li><a href=../oefenhoek-index/>oefenhoek-index</a></li><li><a href=../layout/>layout</a></li><li><a href=../ensure-bibliotheek-id/>ensure-bibliotheek-id</a></li><li><a href=../serve/>serve</a></li><li><a href=../build/>build</a></li><li><a href=/bibliotheek/preview/handleiding/start/wat-heb-je-nodig/>Wat heb je nodig</a></li><li><a href=/bibliotheek/preview/handleiding/publiceren/2-status-en-check/>Status en check</a></li><li><a href=/bibliotheek/preview/handleiding/start/publicatiecontrole/>Publicatiecontrole</a></li></ul></main><footer class=site-footer><div class=site-meta></div></footer></body></html>

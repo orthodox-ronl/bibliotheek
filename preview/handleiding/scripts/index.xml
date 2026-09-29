@@ -53,9 +53,8 @@ ontbrekende import-siblings zijn geen fout&lt;/li&gt;
 &lt;li&gt;MVSA-publicatiecontrole — of elke canonieke bibliotheek-&lt;code&gt;.mvsa&lt;/code&gt;
 (geen &lt;code&gt;.mscz.mvsa&lt;/code&gt;) passende siblings &lt;code&gt;{stam}.mvsa.mxl&lt;/code&gt; en
 &lt;code&gt;{stam}.mvsa.pdf&lt;/code&gt; heeft met &lt;code&gt;vsa-source-sha256&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Audio-publicatiecontrole — of elke &lt;strong&gt;bestaande&lt;/strong&gt; preview-&lt;code&gt;.mp3&lt;/code&gt;
-(&lt;code&gt;{stam}.mvsa.mp3&lt;/code&gt; / &lt;code&gt;.mscz.mp3&lt;/code&gt; / &lt;code&gt;.vsa.mp3&lt;/code&gt;) bij de bron past;
-ontbrekende audio is geen fout&lt;/li&gt;
+&lt;li&gt;Audio-publicatiecontrole — of elke canonieke &lt;code&gt;.mvsa&lt;/code&gt; / basis-&lt;code&gt;.mscz&lt;/code&gt; /
+&lt;code&gt;.vsa&lt;/code&gt; een passende preview-&lt;code&gt;.mp3&lt;/code&gt; heeft met herkomststempel&lt;/li&gt;
 &lt;li&gt;Bibliotheek-id — of elke basispartituur-&lt;code&gt;.mscz&lt;/code&gt; in het colofon de
 regel &lt;code&gt;Bibliotheek-id:&lt;/code&gt; heeft die bij het bladermap-pad past&lt;/li&gt;
 &lt;li&gt;Coria-fingerprints (&lt;code&gt;python scripts\fingerprint_coria_mxl.py&lt;/code&gt;)&lt;/li&gt;
@@ -68,7 +67,9 @@ lokaal maar falen niet (behalve op &lt;code&gt;main&lt;/code&gt; of met
 &lt;code&gt;BIBLIOTHEEK_PRODUCTS_STRICT=1&lt;/code&gt; / &lt;code&gt;BIBLIOTHEEK_ID_STRICT=1&lt;/code&gt;). Met
 &lt;code&gt;--strict&lt;/code&gt;, en altijd in CI, is een stale of missing product, een
 verouderde import-sibling, of een id-mismatch een fout. Vernieuw
-producten lokaal met &lt;a href="../vsa-products/"&gt;vsa-products&lt;/a&gt;
+producten lokaal met &lt;a href="../all-products/"&gt;all-products&lt;/a&gt;
+ (alles tegelijk)
+of met &lt;a href="../vsa-products/"&gt;vsa-products&lt;/a&gt;
 ,
 &lt;a href="../mscz-products/"&gt;mscz-products&lt;/a&gt;
 ,
@@ -271,7 +272,33 @@ eigen sibling:&lt;/p&gt;
 &lt;/table&gt;
 &lt;p&gt;Het script schrijft een &lt;strong&gt;herkomststempel&lt;/strong&gt; in het mp3-bestand (zelfde
 velden als bij PDF/MXL: hash van de bron, wanneer gemaakt). Zo ziet
-&lt;code&gt;check&lt;/code&gt; later of de bron is gewijzigd terwijl het mp3 nog oud is.&lt;/p&gt;</description></item><item><title>vsa-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;code&gt;check&lt;/code&gt; later of de bron is gewijzigd terwijl het mp3 nog oud is.&lt;/p&gt;</description></item><item><title>all-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/all-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/all-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;scripts\all-products.cmd&lt;/code&gt; — alle ontbrekende of verouderde bibliotheek-producten
+in één keer bijwerken&lt;/p&gt;
+&lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\all-products.cmd [pad] [--force] [--dry-run]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
+&lt;p&gt;Roept achter elkaar de product-scripts aan die siblings maken naast
+bibliotheek-bronnen onder &lt;code&gt;content-source\bibliotheek&lt;/code&gt; (of onder een
+opgegeven pad). Mappen met &lt;code&gt;artefacten_handmatig: true&lt;/code&gt; en bestanden in
+&lt;code&gt;input\&lt;/code&gt; worden door die scripts overgeslagen.&lt;/p&gt;
+&lt;p&gt;Volgorde:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="../vsa-products/"&gt;vsa-products&lt;/a&gt;
+ — &lt;code&gt;{stam}.vsa.mxl&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="../mscz-products/"&gt;mscz-products&lt;/a&gt;
+ — &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt; + &lt;code&gt;{stam}.mscz.mxl&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="../tekstblad-products/"&gt;tekstblad-products&lt;/a&gt;
+ — &lt;code&gt;{stam}.tekstblad.pdf&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="../mvsa-products/"&gt;mvsa-products&lt;/a&gt;
+ — &lt;code&gt;{stam}.mvsa.mxl&lt;/code&gt; + &lt;code&gt;{stam}.mvsa.pdf&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="../import-mvsa/"&gt;import-mvsa&lt;/a&gt;
+ — alleen &lt;strong&gt;bestaande&lt;/strong&gt; &lt;code&gt;{stam}.mscz.mvsa&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="../audio-products/"&gt;audio-products&lt;/a&gt;
+ — &lt;code&gt;{stam}.mvsa.mp3&lt;/code&gt; / &lt;code&gt;.mscz.mp3&lt;/code&gt; / &lt;code&gt;.vsa.mp3&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Elk spoor vernieuwt alleen wat ontbreekt of waarvan de herkomststempel
+niet meer bij de bron past (tenzij &lt;code&gt;--force&lt;/code&gt;).&lt;/p&gt;</description></item><item><title>vsa-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\vsa-products.cmd&lt;/code&gt; — Coria-&lt;code&gt;.vsa.mxl&lt;/code&gt; maken bij een bibliotheek-&lt;code&gt;.vsa&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\vsa-products.cmd [pad] [--force] [--dry-run]
