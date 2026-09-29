@@ -1,0 +1,125 @@
+{{/*
+  Menselijk label voor een productbestand (Oefenen / Beluisteren / Downloaden / Printen / Bronnen).
+
+  Context: dict
+    "name"  — bestandsnaam
+    "score" — optioneel Page: sibling basispartituur-.mscz / .vsa voor legacy korte namen
+
+  Returns dict:
+    "id"     — representatie-id (partituur | vsa | mvsa | print | tekstblad) of ""
+    "label"  — knoptekst voor koorleden
+    "detail" — korte uitleg onder het label (leeg mag)
+*/}}
+{{- $name := .name | default "" -}}
+{{- $score := .score -}}
+{{- $base := path.Base $name -}}
+{{- $lower := lower $base -}}
+{{- $id := "" -}}
+{{- $isAudio := or (strings.HasSuffix $lower ".mp3") (strings.HasSuffix $lower ".ogg") (strings.HasSuffix $lower ".wav") -}}
+{{- $isSource := false -}}
+{{- if and (strings.HasSuffix $lower ".mvsa") (not (strings.HasSuffix $lower ".mscz.mvsa")) -}}
+  {{- $isSource = true -}}
+  {{- $id = "mvsa" -}}
+{{- else if and (strings.HasSuffix $lower ".mscz") (not (strings.HasSuffix $lower ".print.mscz")) -}}
+  {{- $isSource = true -}}
+  {{- $id = "partituur" -}}
+{{- else if strings.HasSuffix $lower ".vsa" -}}
+  {{- $isSource = true -}}
+  {{- $id = "vsa" -}}
+{{- end -}}
+{{- if strings.HasSuffix $lower ".print.mscz" -}}
+  {{- $id = "print" -}}
+  {{- $isSource = false -}}
+{{- else if not $isSource -}}
+  {{- $stem := strings.TrimSuffix (path.Ext $base) $base -}}
+  {{- $stemLower := lower $stem -}}
+  {{- if or (strings.HasSuffix $stemLower ".partituur") (strings.HasSuffix $stemLower ".hub") -}}
+    {{- $id = "partituur" -}}
+  {{- else if strings.HasSuffix $stemLower ".vsa" -}}
+    {{- $id = "vsa" -}}
+  {{- else if strings.HasSuffix $stemLower ".mvsa" -}}
+    {{- $id = "mvsa" -}}
+  {{- else if strings.HasSuffix $stemLower ".mscz" -}}
+    {{- $id = "partituur" -}}
+  {{- else if strings.HasSuffix $stemLower ".print" -}}
+    {{- $id = "print" -}}
+  {{- else if strings.HasSuffix $stemLower ".tekstblad" -}}
+    {{- $id = "tekstblad" -}}
+  {{- end -}}
+{{- end -}}
+{{- /* Legacy {stam}.mxl / {stam}.pdf: afleiden uit siblings in de bladermap. */ -}}
+{{- if and (eq $id "") $score -}}
+  {{- $hasBasispartituur := false -}}
+  {{- $hasVsa := false -}}
+  {{- range $score.Resources.Match "*.mscz" -}}
+    {{- if not (strings.HasSuffix (lower .Name) ".print.mscz") -}}
+      {{- $hasBasispartituur = true -}}
+    {{- end -}}
+  {{- end -}}
+  {{- range $score.Resources.Match "*.vsa" -}}
+    {{- $hasVsa = true -}}
+  {{- end -}}
+  {{- with $score.File -}}
+    {{- $dir := printf "content-source/%s" (strings.TrimSuffix "/" (replace .Dir "\\" "/")) -}}
+    {{- if fileExists $dir -}}
+      {{- range os.ReadDir $dir -}}
+        {{- if not .IsDir -}}
+          {{- $n := lower .Name -}}
+          {{- if and (strings.HasSuffix $n ".mscz") (not (strings.HasSuffix $n ".print.mscz")) -}}
+            {{- $hasBasispartituur = true -}}
+          {{- end -}}
+          {{- if strings.HasSuffix $n ".vsa" -}}
+            {{- $hasVsa = true -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if $hasBasispartituur -}}
+    {{- $id = "partituur" -}}
+  {{- else if $hasVsa -}}
+    {{- $id = "vsa" -}}
+  {{- end -}}
+{{- end -}}
+{{- $label := "Blad" -}}
+{{- $detail := "" -}}
+{{- if eq $id "vsa" -}}
+  {{- $label = "Melodie (één stem)" -}}
+  {{- $detail = "Zoals de notatie op deze pagina" -}}
+{{- else if eq $id "mvsa" -}}
+  {{- $label = "Koorblad (meerdere stemmen)" -}}
+  {{- $detail = "Uit meerstemmige tekstbron (.mvsa)" -}}
+{{- else if eq $id "partituur" -}}
+  {{- $label = "Koorblad (meerdere stemmen)" -}}
+  {{- $detail = "Uit MuseScore-partituur (.mscz)" -}}
+{{- else if eq $id "print" -}}
+  {{- $label = "Printblad" -}}
+  {{- $detail = "Koormap-vel om te printen" -}}
+{{- else if eq $id "tekstblad" -}}
+  {{- $label = "Tekstblad" -}}
+  {{- $detail = "Liturgische tekst of dialoog (A4-PDF)" -}}
+{{- end -}}
+{{- if $isAudio -}}
+  {{- if eq $id "mvsa" -}}
+    {{- $detail = "Beluisteren vanuit het koorblad (.mvsa)" -}}
+  {{- else if eq $id "partituur" -}}
+    {{- $detail = "Beluisteren vanuit de MuseScore-partituur" -}}
+  {{- else if eq $id "vsa" -}}
+    {{- $detail = "Beluisteren vanuit de eenstemmige melodie" -}}
+  {{- else -}}
+    {{- $detail = "Preview-audio om te beluisteren" -}}
+  {{- end -}}
+{{- end -}}
+{{- if $isSource -}}
+  {{- if eq $id "mvsa" -}}
+    {{- $label = "Meerstemmige tekstbron (.mvsa)" -}}
+    {{- $detail = "Bronbestand downloaden" -}}
+  {{- else if eq $id "partituur" -}}
+    {{- $label = "MuseScore-partituur (.mscz)" -}}
+    {{- $detail = "Bronbestand downloaden" -}}
+  {{- else if eq $id "vsa" -}}
+    {{- $label = "Eenstemmige tekstbron (.vsa)" -}}
+    {{- $detail = "Bronbestand downloaden" -}}
+  {{- end -}}
+{{- end -}}
+{{- return (dict "id" $id "label" $label "detail" $detail) -}}

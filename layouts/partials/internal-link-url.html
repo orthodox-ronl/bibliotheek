@@ -1,0 +1,20 @@
+{{- /*
+  Interne URL voor markdown-links en navbuttons.
+
+  Site-absolute paden (beginnend met `/`) gaan via relURL, zodat een
+  subdirectory-baseURL (GitHub Pages productie of preview) wordt
+  meegenomen. Zonder die stap wijzen `/bibliotheek/` en `/koormappen/`
+  naar het domeinwortelpad i.p.v. onder de site.
+
+  Relatieve paden (`./`, `../`, of zonder slash), ankers en externe
+  schema's blijven ongewijzigd.
+*/ -}}
+{{- $dest := . -}}
+{{- $passThrough := or (hasPrefix $dest "http") (hasPrefix $dest "#") (hasPrefix $dest "mailto:") (hasPrefix $dest "tel:") (hasPrefix $dest "../") (hasPrefix $dest "./") -}}
+{{- if $passThrough -}}
+{{- $dest -}}
+{{- else if hasPrefix $dest "/" -}}
+{{- strings.TrimPrefix "/" $dest | relURL -}}
+{{- else -}}
+{{- $dest -}}
+{{- end -}}

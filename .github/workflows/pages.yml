@@ -1,0 +1,186 @@
+# Deploy bibliotheek to GitHub Pages.
+# - push main         -> productie (gh-pages root); VSA-tooling PINNED
+# - push development  -> preview (gh-pages:/preview/); VSA-tooling FLOAT @main
+# - andere branch     -> branch-preview; VSA-tooling FLOAT @main
+# URL prod:        https://orthodox-ronl.github.io/bibliotheek/
+# URL development: https://orthodox-ronl.github.io/bibliotheek/preview/
+# Pages setting: Deploy from a branch -> gh-pages -> /.
+# Tooling: docs/tooling-koppeling.md
+
+name: Deploy site to GitHub Pages
+
+on:
+  push:
+    branches-ignore:
+      - gh-pages
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-${{ github.repository }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Determine deploy target
+        id: target
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="${GITHUB_REF#refs/heads/}"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+
+          # Keep in sync with scripts/fingerprint_coria_mxl.py::_pages_subdir
+          reserved='^(preview|main|gh-pages|development|bibliotheek|koormappen|handleiding|coria|css|images|js|mxl|vsa|input)$'
+
+          if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
+            echo "base_url=https://orthodox-ronl.github.io/bibliotheek/" >> "$GITHUB_OUTPUT"
+            echo "destination_dir=" >> "$GITHUB_OUTPUT"
+            echo "pages_url=https://orthodox-ronl.github.io/bibliotheek/" >> "$GITHUB_OUTPUT"
+            echo "label=production" >> "$GITHUB_OUTPUT"
+            echo "keep_files=false" >> "$GITHUB_OUTPUT"
+            echo "tooling_mode=pin" >> "$GITHUB_OUTPUT"
+            ref="$(tr -d '[:space:]' < vsa-tooling.pin | head -n1)"
+            if [[ -z "$ref" ]]; then
+              echo "::error::vsa-tooling.pin is empty"
+              exit 1
+            fi
+            echo "tooling_ref=$ref" >> "$GITHUB_OUTPUT"
+          elif [[ "${GITHUB_REF}" == "refs/heads/development" ]]; then
+            echo "base_url=https://orthodox-ronl.github.io/bibliotheek/preview/" >> "$GITHUB_OUTPUT"
+            echo "destination_dir=preview" >> "$GITHUB_OUTPUT"
+            echo "pages_url=https://orthodox-ronl.github.io/bibliotheek/preview/" >> "$GITHUB_OUTPUT"
+            echo "label=development-preview" >> "$GITHUB_OUTPUT"
+            echo "keep_files=true" >> "$GITHUB_OUTPUT"
+            echo "tooling_mode=float" >> "$GITHUB_OUTPUT"
+            echo "tooling_ref=main" >> "$GITHUB_OUTPUT"
+          else
+            slug="$(printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9_-]+/-/g; s/-+/-/g; s/^-+//; s/-+$//')"
+            if [[ -z "$slug" ]]; then
+              echo "::error::Branchnaam '$branch' levert geen bruikbare URL-slug op."
+              exit 1
+            fi
+            if [[ "$slug" =~ $reserved ]]; then
+              slug="b-${slug}"
+              echo "Reserved slug; using $slug"
+            fi
+            echo "base_url=https://orthodox-ronl.github.io/bibliotheek/${slug}/" >> "$GITHUB_OUTPUT"
+            echo "destination_dir=${slug}" >> "$GITHUB_OUTPUT"
+            echo "pages_url=https://orthodox-ronl.github.io/bibliotheek/${slug}/" >> "$GITHUB_OUTPUT"
+            echo "label=branch-preview" >> "$GITHUB_OUTPUT"
+            echo "keep_files=true" >> "$GITHUB_OUTPUT"
+            echo "tooling_mode=float" >> "$GITHUB_OUTPUT"
+            echo "tooling_ref=main" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Show deploy target
+        run: |
+          echo "Target: ${{ steps.target.outputs.label }}"
+          echo "base_url: ${{ steps.target.outputs.base_url }}"
+          echo "destination_dir: '${{ steps.target.outputs.destination_dir }}'"
+          echo "keep_files: ${{ steps.target.outputs.keep_files }}"
+          echo "VSA-tooling mode=${{ steps.target.outputs.tooling_mode }} ref=${{ steps.target.outputs.tooling_ref }}"
+
+      - name: Checkout VSA-tooling
+        uses: actions/checkout@v5
+        with:
+          repository: orthodox-ronl/VSA-tooling
+          path: vendor/VSA-tooling
+          ref: ${{ steps.target.outputs.tooling_ref }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+
+      - name: Install vsa-tool
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e "vendor/VSA-tooling[rendering]"
+          python -m pip install "pypdf>=5.0"
+          vsa --version
+
+      - name: Validate VSA content
+        run: |
+          vsa validate content-source/bibliotheek
+          if find content-source/bibliotheek -name '*.mvsa' -print -quit | grep -q .; then
+            mvsa validate content-source/bibliotheek
+          fi
+
+      - name: Check VSA product freshness
+        run: python scripts/check_vsa_products.py --fail
+
+      - name: Check MSCZ product freshness
+        run: python scripts/check_mscz_products.py --fail
+
+      - name: Check tekstblad product freshness
+        run: python scripts/check_tekstblad_products.py --fail
+
+      - name: Check import-.mvsa freshness
+        run: python scripts/check_import_mvsa.py --fail
+
+      - name: Check MVSA product freshness
+        run: python scripts/check_mvsa_products.py --fail
+
+      - name: Check audio product freshness
+        run: python scripts/check_audio_products.py --fail
+
+      - name: Check bibliotheek-id in MSCZ colofon
+        run: python scripts/ensure_bibliotheek_id.py --check-only --fail
+
+      - name: Update werkvoorraad table
+        run: python scripts/update_werkvoorraad.py
+
+      - name: Coria fingerprints
+        run: python scripts/fingerprint_coria_mxl.py
+
+      - name: Bladermap SVG from .vsa
+        run: python scripts/sync_oefenhoek_index.py --svg
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.160.1"
+          extended: true
+
+      - name: Build Hugo site
+        run: |
+          rm -rf generated/site
+          hugo \
+            --source . \
+            --destination generated/site \
+            --minify \
+            --baseURL "${{ steps.target.outputs.base_url }}"
+
+      - name: Deploy to GitHub Pages (subdirectory)
+        if: steps.target.outputs.destination_dir != ''
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./generated/site
+          destination_dir: ${{ steps.target.outputs.destination_dir }}
+          keep_files: ${{ steps.target.outputs.keep_files }}
+
+      - name: Deploy to GitHub Pages (root)
+        if: steps.target.outputs.destination_dir == ''
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./generated/site
+          keep_files: false
+
+      - name: Show site URL
+        run: |
+          echo "Site URL: ${{ steps.target.outputs.pages_url }}"
+          echo "::notice::Pages-bron moet 'Deploy from a branch' zijn (gh-pages, /)."

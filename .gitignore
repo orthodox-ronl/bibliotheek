@@ -1,0 +1,41 @@
+# Generated
+generated/
+public/
+resources/
+.hugo_build.lock
+data/build.yaml
+data/coria-fp.json
+data/coria-public-base.json
+static/mxl/
+static/vsa/mxl/
+static/coria/
+
+# Local inbox / tussenwerk
+content-source/input/_inbox/
+content-source/input/_werk/
+
+# MuseScore backups
+.mscbackup/
+.archief/
+*.autosave
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ensure-stamp
+
+# Vendor checkouts (later)
+vendor/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Cursor: lokale state negeren; gedeelde regels wél committen
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**

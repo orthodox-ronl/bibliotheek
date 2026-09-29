@@ -1,0 +1,240 @@
+{{- /*
+  Oefenen / Downloaden / Printen voor één score-pagina (bibliotheek-uitvoeringsvorm).
+  Context: dict "score" (Page met PDF/MXL), optioneel "viewer" (pagina waar de
+  shortcode staat — bepaalt knopkleur bibliotheek vs koormap), optioneel "position".
+
+  Geen Bibliotheek/Koormap-knop: navigatie zit in oefenhoek-header.
+*/ -}}
+{{- $score := .score -}}
+{{- $viewer := or .viewer $score -}}
+{{- $loc := partial "diag-location.html" (dict "position" .position "page" $viewer) -}}
+{{- if $score -}}
+{{- $inBibliotheek := eq $viewer.Section "bibliotheek" -}}
+{{- $hasBasispartituur := false -}}
+{{- range $score.Resources.Match "*.mscz" -}}
+  {{- if not (strings.HasSuffix (lower .Name) ".print.mscz") -}}
+    {{- $hasBasispartituur = true -}}
+  {{- end -}}
+{{- end -}}
+{{- with $score.File -}}
+  {{- $srcDir := printf "content-source/%s" (strings.TrimSuffix "/" (replace .Dir "\\" "/")) -}}
+  {{- if fileExists $srcDir -}}
+    {{- range os.ReadDir $srcDir -}}
+      {{- if and (not .IsDir) (strings.HasSuffix (lower .Name) ".mscz") (not (strings.HasSuffix (lower .Name) ".print.mscz")) -}}
+        {{- $hasBasispartituur = true -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- /* Voorkeur: basispartituur als die er is, anders mvsa, anders VSA. */ -}}
+{{- $preferId := "vsa" -}}
+{{- $hasMvsa := false -}}
+{{- range $score.Resources.Match "*.mvsa" -}}
+  {{- if not (strings.HasSuffix (lower .Name) ".mscz.mvsa") -}}
+    {{- $hasMvsa = true -}}
+  {{- end -}}
+{{- end -}}
+{{- with $score.File -}}
+  {{- $srcDir := printf "content-source/%s" (strings.TrimSuffix "/" (replace .Dir "\\" "/")) -}}
+  {{- if fileExists $srcDir -}}
+    {{- range os.ReadDir $srcDir -}}
+      {{- if and (not .IsDir) (strings.HasSuffix (lower .Name) ".mvsa") (not (strings.HasSuffix (lower .Name) ".mscz.mvsa")) -}}
+        {{- $hasMvsa = true -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if $hasBasispartituur -}}
+  {{- $preferId = "partituur" -}}
+{{- else if $hasMvsa -}}
+  {{- $preferId = "mvsa" -}}
+{{- end -}}
+{{- $pdfItems := slice -}}
+{{- $coriaItems := slice -}}
+{{- $scoreDir := "" -}}
+{{- with $score.File -}}
+  {{- $scoreDir = strings.TrimSuffix "/" (replace .Dir "\\" "/") -}}
+{{- end -}}
+{{- range $score.Resources.Match "*.pdf" -}}
+  {{- $meta := partial "product-representatie-label.html" (dict "name" .Name "score" $score) -}}
+  {{- $pdfItems = $pdfItems | append (dict "href" .RelPermalink "label" $meta.label "detail" $meta.detail "id" $meta.id "name" .Name) -}}
+{{- end -}}
+{{- range $score.Resources.Match "*.mxl" -}}
+  {{- if $scoreDir -}}
+    {{- $src := printf "mxl/%s/%s" $scoreDir .Name -}}
+    {{- $meta := partial "product-representatie-label.html" (dict "name" .Name "score" $score) -}}
+    {{- $coriaItems = $coriaItems | append (dict "src" $src "label" $meta.label "detail" $meta.detail "id" $meta.id "name" .Name) -}}
+  {{- end -}}
+{{- end -}}
+{{- $fps := dict -}}
+{{- if fileExists "data/coria-fp.json" -}}
+  {{- $fps = transform.Unmarshal (readFile "data/coria-fp.json") -}}
+{{- end -}}
+{{- $oefenPreferred := slice -}}
+{{- $oefenOther := slice -}}
+{{- range $coriaItems -}}
+  {{- $src := replaceRE "^/" "" .src -}}
+  {{- $fpKey := replace $src "/" "__" -}}
+  {{- $mapped := "" -}}
+  {{- with index $fps $fpKey -}}
+    {{- $mapped = strings.TrimSpace . -}}
+  {{- end -}}
+  {{- if and $mapped (or (strings.HasSuffix $mapped ".mxl") (strings.HasSuffix $mapped ".musicxml") (strings.HasSuffix $mapped ".xml")) -}}
+    {{- $absolute := strings.TrimSpace (partial "coria-file-absolute-url.html" (dict "src" $mapped "position" $.position "page" $viewer)) -}}
+    {{- if $absolute -}}
+    {{- $coria := printf "https://coria.nl/play_from_url?back=coria.nl&url=%s" (urlquery $absolute) -}}
+    {{- $item := dict "href" $coria "label" .label "detail" .detail "name" .name "class" "coria-play" "target" "_blank" "rel" "noopener noreferrer" -}}
+    {{- if eq .id $preferId -}}
+      {{- $oefenPreferred = $oefenPreferred | append $item -}}
+    {{- else -}}
+      {{- $oefenOther = $oefenOther | append $item -}}
+    {{- end -}}
+    {{- end -}}
+  {{- else -}}
+    {{- errorf "%s: geen Coria-fingerprint voor MusicXML-bestand %q. Oplossing: python scripts\\fingerprint_coria_mxl.py (of scripts\\check.cmd)." $loc $src -}}
+  {{- end -}}
+{{- end -}}
+{{- $oefenMenu := $oefenPreferred | append $oefenOther -}}
+{{- /* Zelfde label twee keer: bestandsstam erachter zodat de keuze leesbaar blijft. */ -}}
+{{- if gt (len $oefenMenu) 1 -}}
+  {{- $counts := dict -}}
+  {{- range $oefenMenu -}}
+    {{- $k := .label -}}
+    {{- $n := 0 -}}
+    {{- with index $counts $k -}}{{- $n = . -}}{{- end -}}
+    {{- $counts = merge $counts (dict $k (add $n 1)) -}}
+  {{- end -}}
+  {{- $fixed := slice -}}
+  {{- range $oefenMenu -}}
+    {{- $label := .label -}}
+    {{- $c := 0 -}}
+    {{- with index $counts $label -}}{{- $c = . -}}{{- end -}}
+    {{- if gt $c 1 -}}
+      {{- $stem := strings.TrimSuffix (path.Ext .name) (path.Base .name) -}}
+      {{- $stem = strings.TrimSuffix ".vsa" $stem -}}
+      {{- $stem = strings.TrimSuffix ".partituur" $stem -}}
+      {{- $stem = strings.TrimSuffix ".hub" $stem -}}
+      {{- $label = printf "%s — %s" $label $stem -}}
+    {{- end -}}
+    {{- $fixed = $fixed | append (dict "href" .href "label" $label "detail" .detail "class" .class "target" .target "rel" .rel) -}}
+  {{- end -}}
+  {{- $oefenMenu = $fixed -}}
+{{- end -}}
+{{- $downloadPreferred := slice -}}
+{{- $downloadOther := slice -}}
+{{- $printPreferred := slice -}}
+{{- $printOther := slice -}}
+{{- range $pdfItems -}}
+  {{- $dl := dict "href" .href "label" .label "detail" .detail "download" true -}}
+  {{- $pr := dict "href" .href "label" .label "detail" .detail "class" "pdf-sheet-print" -}}
+  {{- if eq .id $preferId -}}
+    {{- $downloadPreferred = $downloadPreferred | append $dl -}}
+    {{- $printPreferred = $printPreferred | append $pr -}}
+  {{- else -}}
+    {{- $downloadOther = $downloadOther | append $dl -}}
+    {{- $printOther = $printOther | append $pr -}}
+  {{- end -}}
+{{- end -}}
+{{- $downloadMenu := $downloadPreferred | append $downloadOther -}}
+{{- $printMenu := $printPreferred | append $printOther -}}
+{{- /* Preview-audio: {stam}.vsa.mp3 / .mvsa.mp3 / .mscz.mp3 (e.d.).
+     Volgorde Beluisteren: mvsa → partituur → vsa (mvsa is de primaire bron). */ -}}
+{{- $audioPreferId := "vsa" -}}
+{{- if $hasMvsa -}}
+  {{- $audioPreferId = "mvsa" -}}
+{{- else if $hasBasispartituur -}}
+  {{- $audioPreferId = "partituur" -}}
+{{- end -}}
+{{- $audioItems := slice -}}
+{{- range $score.Resources.Match "*.mp3" -}}
+  {{- $meta := partial "product-representatie-label.html" (dict "name" .Name "score" $score) -}}
+  {{- $audioItems = $audioItems | append (dict "href" .RelPermalink "label" $meta.label "detail" $meta.detail "id" $meta.id "name" .Name) -}}
+{{- end -}}
+{{- range $score.Resources.Match "*.ogg" -}}
+  {{- $meta := partial "product-representatie-label.html" (dict "name" .Name "score" $score) -}}
+  {{- $audioItems = $audioItems | append (dict "href" .RelPermalink "label" $meta.label "detail" $meta.detail "id" $meta.id "name" .Name) -}}
+{{- end -}}
+{{- range $score.Resources.Match "*.wav" -}}
+  {{- $meta := partial "product-representatie-label.html" (dict "name" .Name "score" $score) -}}
+  {{- $audioItems = $audioItems | append (dict "href" .RelPermalink "label" $meta.label "detail" $meta.detail "id" $meta.id "name" .Name) -}}
+{{- end -}}
+{{- $audioPreferred := slice -}}
+{{- $audioOther := slice -}}
+{{- range $audioItems -}}
+  {{- $it := dict "href" .href "label" .label "detail" .detail "class" "score-audio-play" -}}
+  {{- if eq .id $audioPreferId -}}
+    {{- $audioPreferred = $audioPreferred | append $it -}}
+  {{- else -}}
+    {{- $audioOther = $audioOther | append $it -}}
+  {{- end -}}
+{{- end -}}
+{{- $audioMenu := $audioPreferred | append $audioOther -}}
+{{- /* Bronbestanden (alleen op bibliotheek-pagina's): .mvsa / .mscz / .vsa. */ -}}
+{{- $bronMenu := slice -}}
+{{- if $inBibliotheek -}}
+  {{- $bronItems := slice -}}
+  {{- range $score.Resources.Match "*.mvsa" -}}
+    {{- if not (strings.HasSuffix (lower .Name) ".mscz.mvsa") -}}
+      {{- $meta := partial "product-representatie-label.html" (dict "name" .Name "score" $score) -}}
+      {{- $bronItems = $bronItems | append (dict "href" .RelPermalink "label" $meta.label "detail" $meta.detail "id" $meta.id "download" true) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- range $score.Resources.Match "*.mscz" -}}
+    {{- if not (strings.HasSuffix (lower .Name) ".print.mscz") -}}
+      {{- $meta := partial "product-representatie-label.html" (dict "name" .Name "score" $score) -}}
+      {{- $bronItems = $bronItems | append (dict "href" .RelPermalink "label" $meta.label "detail" $meta.detail "id" $meta.id "download" true) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- range $score.Resources.Match "*.vsa" -}}
+    {{- $meta := partial "product-representatie-label.html" (dict "name" .Name "score" $score) -}}
+    {{- $bronItems = $bronItems | append (dict "href" .RelPermalink "label" $meta.label "detail" $meta.detail "id" $meta.id "download" true) -}}
+  {{- end -}}
+  {{- $bronPreferred := slice -}}
+  {{- $bronOther := slice -}}
+  {{- range $bronItems -}}
+    {{- if eq .id $audioPreferId -}}
+      {{- $bronPreferred = $bronPreferred | append . -}}
+    {{- else -}}
+      {{- $bronOther = $bronOther | append . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $bronMenu = $bronPreferred | append $bronOther -}}
+{{- end -}}
+{{- $primaryPdf := "" -}}
+{{- if gt (len $pdfItems) 0 -}}
+  {{- $primaryPdf = (index $downloadMenu 0).href -}}
+{{- end -}}
+{{- $hasOefenen := gt (len $oefenMenu) 0 -}}
+{{- $hasPdf := gt (len $downloadMenu) 0 -}}
+{{- $hasAudio := gt (len $audioMenu) 0 -}}
+{{- $hasBron := gt (len $bronMenu) 0 -}}
+{{- if or $hasOefenen $hasPdf $hasAudio $hasBron -}}
+{{- $wrapClass := "score-actions oefenhoek-acties" -}}
+{{- if $inBibliotheek -}}
+  {{- $wrapClass = printf "%s oefenhoek-acties--bibliotheek" $wrapClass -}}
+{{- end -}}
+{{- $oefenHint := "" -}}
+{{- if gt (len $oefenMenu) 1 -}}
+  {{- $oefenHint = "Kies de versie die past bij het blad waarmee je meezingt." -}}
+{{- end -}}
+{{- $pdfHint := "" -}}
+{{- if gt (len $downloadMenu) 1 -}}
+  {{- $pdfHint = "Kies het blad dat je wilt downloaden of printen." -}}
+{{- end -}}
+{{- $audioHint := "" -}}
+{{- if gt (len $audioMenu) 1 -}}
+  {{- $audioHint = "Kies welke bron je wilt beluisteren (meerstemmig .mvsa eerst, daarna MuseScore, daarna eenstemmig)." -}}
+{{- end -}}
+{{- $bronHint := "" -}}
+{{- if gt (len $bronMenu) 1 -}}
+  {{- $bronHint = "Kies welk bronbestand je wilt downloaden." -}}
+{{- end -}}
+<div class="{{ $wrapClass }}"{{ with $primaryPdf }} data-pdf-src="{{ . }}"{{ end }}>
+  {{ partial "score-action-menu.html" (dict "title" "Oefenen" "items" $oefenMenu "btnClass" "btn" "hint" $oefenHint) }}
+  {{ partial "score-action-menu.html" (dict "title" "Beluisteren" "items" $audioMenu "btnClass" "btn" "hint" $audioHint) }}
+  {{ partial "score-action-menu.html" (dict "title" "Downloaden" "items" $downloadMenu "btnClass" "btn" "hint" $pdfHint) }}
+  {{ partial "score-action-menu.html" (dict "title" "Printen" "items" $printMenu "btnClass" "btn" "hint" $pdfHint) }}
+  {{ if $inBibliotheek }}{{ partial "score-action-menu.html" (dict "title" "Bronnen" "items" $bronMenu "btnClass" "btn" "hint" $bronHint) }}{{ end }}
+</div>
+{{- end -}}
+{{- end -}}
