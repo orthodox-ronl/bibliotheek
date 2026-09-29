@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # 1 Vredeslitanie
 
-{{< bieb id="1-vredeslitanie/default/hemelum" >}}
+{{< bieb id="ektinia/vrede/hemelum" >}}

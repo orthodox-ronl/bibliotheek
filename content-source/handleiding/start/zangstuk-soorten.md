@@ -129,10 +129,14 @@ blijven geldig tot een bewuste hernoem-golf.
 - Sitezoeken + lyrics-producten (zie [Zoeken](/bibliotheek/zoeken/)).
 - Eerste hernoem-golf: `110-tropaar` → `tropaar`, `120-kondak` → `kondak`
   (oude URL’s via Hugo-`aliases`).
+- Ektinia-golf: litanie-zangstukken geconsolideerd onder `ektinia`
+  (varianten `vrede`, `kleine`, `dringend`, `ontslapenen`, `catechumenen`,
+  `gelovigen`, `vragend`). `16` en `22` vragende → één variant; koormap-slots
+  blijven gescheiden. Script: `scripts/migrate_ektinia.py`.
 
 ## Volgende stappen
 
-1. Latere golven: `ektinia`, cherubijnen/trisagion zonder zangstuk-nummer,
+1. Latere golven: cherubijnen/trisagion zonder zangstuk-nummer,
    kruisstukken onder `tropaar`.
 
 {{< navbuttons "Bibliotheek en koormappen|/handleiding/start/bibliotheek-en-koormappen/" "Woorden|/handleiding/start/woorden/" >}}

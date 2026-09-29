@@ -79,16 +79,19 @@ def _insert_aliases(text: str, alias_paths: list[str]) -> str:
         lines = fm.splitlines(keepends=True)
         out: list[str] = []
         i = 0
+        def _with_nl(line: str) -> str:
+            return line if line.endswith("\n") else line + "\n"
+
         while i < len(lines):
-            out.append(lines[i])
-            if re.match(r"^aliases:\s*$", lines[i]):
+            out.append(_with_nl(lines[i]))
+            if re.match(r"^aliases:\s*$", lines[i].rstrip("\n")):
                 i += 1
                 existing: list[str] = []
                 while i < len(lines) and (
                     lines[i].startswith("  -") or lines[i].startswith("\t-")
                 ):
                     existing.append(lines[i].strip().lstrip("-").strip().strip("\"'"))
-                    out.append(lines[i])
+                    out.append(_with_nl(lines[i]))
                     i += 1
                 for p in alias_paths:
                     if p not in existing:
