@@ -53,6 +53,9 @@ ontbrekende import-siblings zijn geen fout&lt;/li&gt;
 &lt;li&gt;MVSA-publicatiecontrole — of elke canonieke bibliotheek-&lt;code&gt;.mvsa&lt;/code&gt;
 (geen &lt;code&gt;.mscz.mvsa&lt;/code&gt;) passende siblings &lt;code&gt;{stam}.mvsa.mxl&lt;/code&gt; en
 &lt;code&gt;{stam}.mvsa.pdf&lt;/code&gt; heeft met &lt;code&gt;vsa-source-sha256&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Audio-publicatiecontrole — of elke &lt;strong&gt;bestaande&lt;/strong&gt; preview-&lt;code&gt;.mp3&lt;/code&gt;
+(&lt;code&gt;{stam}.mvsa.mp3&lt;/code&gt; / &lt;code&gt;.mscz.mp3&lt;/code&gt; / &lt;code&gt;.vsa.mp3&lt;/code&gt;) bij de bron past;
+ontbrekende audio is geen fout&lt;/li&gt;
 &lt;li&gt;Bibliotheek-id — of elke basispartituur-&lt;code&gt;.mscz&lt;/code&gt; in het colofon de
 regel &lt;code&gt;Bibliotheek-id:&lt;/code&gt; heeft die bij het bladermap-pad past&lt;/li&gt;
 &lt;li&gt;Coria-fingerprints (&lt;code&gt;python scripts\fingerprint_coria_mxl.py&lt;/code&gt;)&lt;/li&gt;
@@ -70,15 +73,17 @@ producten lokaal met &lt;a href="../vsa-products/"&gt;vsa-products&lt;/a&gt;
 &lt;a href="../mscz-products/"&gt;mscz-products&lt;/a&gt;
 ,
 &lt;a href="../tekstblad-products/"&gt;tekstblad-products&lt;/a&gt;
- of
+,
 &lt;a href="../mvsa-products/"&gt;mvsa-products&lt;/a&gt;
+ of
+&lt;a href="../audio-products/"&gt;audio-products&lt;/a&gt;
 ; vernieuw
 import-siblings met &lt;a href="../import-mvsa/"&gt;import-mvsa&lt;/a&gt;
 ; herstel id’s met
 &lt;a href="../ensure-bibliotheek-id/"&gt;ensure-bibliotheek-id&lt;/a&gt;
  of
 &lt;a href="../layout/"&gt;layout&lt;/a&gt;
-. CI genereert geen MuseScore-/PDF-producten.&lt;/p&gt;</description></item><item><title>build</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+. CI genereert geen MuseScore-/PDF-/audio-producten.&lt;/p&gt;</description></item><item><title>build</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\build.cmd&lt;/code&gt; — hele website bouwen naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;build
@@ -234,7 +239,39 @@ producten.&lt;/p&gt;
 &lt;p&gt;Het zoekt &lt;code&gt;.mvsa&lt;/code&gt; onder het opgegeven pad (of, zonder pad, onder
 &lt;code&gt;content-source\bibliotheek&lt;/code&gt;). Import-siblings die eindigen op
 &lt;code&gt;.mscz.mvsa&lt;/code&gt;, bestanden in &lt;code&gt;input\&lt;/code&gt;, en mappen met
-&lt;code&gt;artefacten_handmatig: true&lt;/code&gt; worden overgeslagen.&lt;/p&gt;</description></item><item><title>vsa-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;code&gt;artefacten_handmatig: true&lt;/code&gt; worden overgeslagen.&lt;/p&gt;</description></item><item><title>audio-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/audio-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/audio-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;scripts\audio-products.cmd&lt;/code&gt; — preview-&lt;code&gt;.mp3&lt;/code&gt; maken bij een bibliotheek-bron&lt;/p&gt;
+&lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\audio-products.cmd [pad] [--force] [--dry-run]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
+&lt;p&gt;Maakt naast een bibliotheek-bron een &lt;strong&gt;afspeelbaar mp3-bestand&lt;/strong&gt; zodat
+koorleden op de site op &lt;strong&gt;Beluisteren&lt;/strong&gt; kunnen klikken. Per brontype een
+eigen sibling:&lt;/p&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Bron&lt;/th&gt;
+ &lt;th&gt;Audio-product&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;{stam}.mvsa&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;{stam}.mvsa.mp3&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;{stam}.mscz&lt;/code&gt; (basispartituur)&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;{stam}.mscz.mp3&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;{stam}.vsa&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;{stam}.vsa.mp3&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Het script schrijft een &lt;strong&gt;herkomststempel&lt;/strong&gt; in het mp3-bestand (zelfde
+velden als bij PDF/MXL: hash van de bron, wanneer gemaakt). Zo ziet
+&lt;code&gt;check&lt;/code&gt; later of de bron is gewijzigd terwijl het mp3 nog oud is.&lt;/p&gt;</description></item><item><title>vsa-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\vsa-products.cmd&lt;/code&gt; — Coria-&lt;code&gt;.vsa.mxl&lt;/code&gt; maken bij een bibliotheek-&lt;code&gt;.vsa&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\vsa-products.cmd [pad] [--force] [--dry-run]
