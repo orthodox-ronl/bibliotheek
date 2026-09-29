@@ -32,7 +32,7 @@ Liturgiemap voor **zondag**. Weekdagen staan in
 |  12  | Ontslapenen Litanie/Ektinia *(voorzien)* |
 |  13  | Catechumenen Litanie/Ektinia *(voorzien)* |
 |  14  | Gelovigen Litanie/Ektinia *(voorzien)* |
-|  15  | [Cherubijnenhymne](15-cherubijnenhymne/) |
+|  15  | [Cherubijnenhymne](cherubijnenhymne/) |
 |  16  | Vragende Litanie/Ektinia *(voorzien)* |
 |  17  | Vredeswens *(voorzien)* |
 |  18  | Geloofsbelijdenis *(voorzien)* |

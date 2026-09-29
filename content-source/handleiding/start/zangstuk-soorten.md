@@ -102,7 +102,7 @@ blijven geldig tot een bewuste hernoem-golf.
 | `kondak` | genre-emmer | `kondak` | Was `120-kondak` (hernoemd) |
 | `13-catechumenen-litanie` | liturgische familie | `ektinia` (variant `catechumenen`) | Besluit 1 |
 | `14-gelovigen-litanie` | liturgische familie | `ektinia` (variant `gelovigen`) | Besluit 1 |
-| `15-cherubijnenhymne` | liturgische familie | `cherubijnenhymne` | VO-codes op variant (besluit 4) |
+| `15-cherubijnenhymne` | liturgische familie | `cherubijnenhymne` | Was hernoemd; VO-codes op variant (besluit 4) |
 | `16-vragende-litanie` | liturgische familie | `ektinia` (variant `vragend`) | Zelfde als 22 (besluit 2) |
 | `17-vredeswens` | enkelvoudig werk | `vredeswens` | |
 | `18-geloofsbelijdenis` | enkelvoudig werk | `geloofsbelijdenis` | |
@@ -133,10 +133,12 @@ blijven geldig tot een bewuste hernoem-golf.
   (varianten `vrede`, `kleine`, `dringend`, `ontslapenen`, `catechumenen`,
   `gelovigen`, `vragend`). `16` en `22` vragende → één variant; koormap-slots
   blijven gescheiden. Script: `scripts/migrate_ektinia.py`.
+- Cherubijnen-golf: `15-cherubijnenhymne` → `cherubijnenhymne`; variant-
+  `linkTitle` met VO-label (bijv. «Kastorski (15c)»).
 
 ## Volgende stappen
 
-1. Latere golven: cherubijnen/trisagion zonder zangstuk-nummer,
-   kruisstukken onder `tropaar`.
+1. Latere golven: `8-trisagion` → `trisagion`; kruisstukken (`210` / `220`)
+   onder `tropaar`.
 
 {{< navbuttons "Bibliotheek en koormappen|/handleiding/start/bibliotheek-en-koormappen/" "Woorden|/handleiding/start/woorden/" >}}

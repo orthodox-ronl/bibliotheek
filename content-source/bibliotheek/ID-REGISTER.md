@@ -37,11 +37,11 @@ script tegelijk.
 
 | Koormap-pad (t.o.v. `liturgiemap-hemelum/`) | Bibliotheek-id | Publicatiestam (basispartituur) | Bestanden nu | Opmerking |
 | --- | --- | --- | --- | --- |
-| `15-cherubijnenhymne/15c-kastorski/` | `15-cherubijnenhymne/15c-kastorski/hemelum` | `15-cherubijnenhymne-15c-kastorski-hemelum` | mscz, mxl, pdf | reviewable; NL (ongemerkt) |
-| *(alleen bibliotheek voorlopig)* | `15-cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` | `15-cherubijnenhymne-15c-kastorski-hemelum-ksl-trlat` | — | Kerkslavisch getranslitereerd; stub |
-| `15-cherubijnenhymne/15b-fatejev/` | `15-cherubijnenhymne/15b-fatejev/hemelum` | — | — | voorzien |
-| `15-cherubijnenhymne/15d-kastorski/` | `15-cherubijnenhymne/15d-kastorski/hemelum` | — | — | voorzien (andere Kastorski dan 15c) |
-| `15-cherubijnenhymne/15e-bortnjanski/` | `15-cherubijnenhymne/15e-bortnjanski/hemelum` | `15-cherubijnenhymne-15e-bortnjanski-hemelum` | — | voorzien; Capella-input aanwezig |
+| `cherubijnenhymne/15c-kastorski/` | `cherubijnenhymne/15c-kastorski/hemelum` | `cherubijnenhymne-15c-kastorski-hemelum` | mscz, mxl, pdf | reviewable; NL (ongemerkt) |
+| *(alleen bibliotheek voorlopig)* | `cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` | `cherubijnenhymne-15c-kastorski-hemelum-ksl-trlat` | — | Kerkslavisch getranslitereerd; stub |
+| `cherubijnenhymne/15b-fatejev/` | `cherubijnenhymne/15b-fatejev/hemelum` | — | — | voorzien |
+| `cherubijnenhymne/15d-kastorski/` | `cherubijnenhymne/15d-kastorski/hemelum` | — | — | voorzien (andere Kastorski dan 15c) |
+| `cherubijnenhymne/15e-bortnjanski/` | `cherubijnenhymne/15e-bortnjanski/hemelum` | `cherubijnenhymne-15e-bortnjanski-hemelum` | — | voorzien; Capella-input aanwezig |
 
 **Cherubijnen-varianten (Hemelum):** 15b Fatejev, 15c Kastorski, 15d Kastorski,
 15e Bortnjanski. Niet: 15a Staro-Simonovskaja, 15f Lvovsky.
@@ -148,10 +148,10 @@ Standaard in deze repo is **Nederlands**; dat markeer je niet.
 
 Voorbeelden (publicatiestam):
 
-- `15-cherubijnenhymne-15c-kastorski-hemelum` — NL
-- `15-cherubijnenhymne-15c-kastorski-hemelum-ksl` — KSL Cyrillisch
-- `15-cherubijnenhymne-15c-kastorski-hemelum-ksl-trlat` — KSL getranslitereerd
-- `15-cherubijnenhymne-15c-kastorski-hemelum-nl-ksl` — mengvorm
+- `cherubijnenhymne-15c-kastorski-hemelum` — NL
+- `cherubijnenhymne-15c-kastorski-hemelum-ksl` — KSL Cyrillisch
+- `cherubijnenhymne-15c-kastorski-hemelum-ksl-trlat` — KSL getranslitereerd
+- `cherubijnenhymne-15c-kastorski-hemelum-nl-ksl` — mengvorm
 
 **Legacy:** `8-trisagion/8a-nederlands/…` en `8-trisagion/8a-slav/…` houden taal
 nog in de *variant*-laag; niet hernoemen tot een aparte migratie.
@@ -217,8 +217,8 @@ Doel-id: `5-eniggeboren-zoon/default/hemelum`.
 
 | Input | Doel-id | Status |
 | --- | --- | --- |
-| `capella/…kastorskij - ksl.mxl` | `15-cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` | stub; nog converteren |
-| `capella/15e … Bortnjanski….mxl` | `15-cherubijnenhymne/15e-bortnjanski/hemelum` | stub; Capella zegt **15e** (niet 15c) |
+| `capella/…kastorskij - ksl.mxl` | `cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` | stub; nog converteren |
+| `capella/15e … Bortnjanski….mxl` | `cherubijnenhymne/15e-bortnjanski/hemelum` | stub; Capella zegt **15e** (niet 15c) |
 | `vow/Eucharistische Canon-Rostov.mscz` | `19-eucharistische-canon/rostov/hemelum` | stub naast Feofan |
 | `vow/Tropaar-opstanding-toon*.mscz` | *(leeg)* | voorlopig laten zitten |
 
