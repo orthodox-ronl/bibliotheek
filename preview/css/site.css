@@ -696,8 +696,55 @@ a.btn.coria-play:focus,
   flex: 1 1 9rem;
 }
 
+.score-action-menu > .btn {
+  width: 100%;
+}
+
 .score-action-menu-trigger {
   width: 100%;
+}
+
+.score-action-help {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: auto;
+  bottom: calc(100% + 0.4rem);
+  z-index: 30;
+  width: max(100%, 16rem);
+  max-width: min(22rem, 90vw);
+  margin: 0;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.88rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #223344;
+  background: #fffef8;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+}
+
+.score-action-help::after {
+  content: "";
+  position: absolute;
+  left: 1.1rem;
+  top: 100%;
+  border: 6px solid transparent;
+  border-top-color: #fffef8;
+  filter: drop-shadow(0 1px 0 var(--border-color));
+}
+
+.score-action-menu:hover > .score-action-help,
+.score-action-menu:focus-within > .score-action-help {
+  display: block;
+}
+
+.oefenhoek-acties--bibliotheek .score-action-help,
+.bibliotheek-page .score-action-help {
+  color: #2e4a32;
+  border-color: #9bbb9f;
 }
 
 .score-action-menu-panel {
