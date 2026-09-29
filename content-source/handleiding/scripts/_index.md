@@ -29,6 +29,7 @@ vanuit de repo-root.
 | `opkuisen` | Herkomstanalyse + inhoudelijke opkuis (Capella/MusicXML/MuseScore); optioneel `--layout`. | [opkuisen](opkuisen/) |
 | `bieb accepteer` | Partituur/tekstblad opnemen onder een bibliotheek-id. | [bieb accepteer](bieb-accepteer/) |
 | `update-werkvoorraad` | Tabel in `input\werkvoorraad.md` laten aansluiten op bestanden in `input\`. | [update-werkvoorraad](update-werkvoorraad/) |
+| `oefenhoek-index` | SVG-plaatjes uit bibliotheek-`.vsa` naar `static\vsa\bladermap\` (geen stamp); optioneel legacy-strip. | [oefenhoek-index](oefenhoek-index/) |
 
 Intern (geen apart gebruikerscommando): `python scripts\fingerprint_coria_mxl.py`
 maakt `/mxl/c/<hash>.musicxml` en `data/coria-fp.json` voor de Oefenen-knop.
@@ -48,7 +49,6 @@ in de repo.
 | `h` / `pdf` / ... | Console-hulp en overige VSA-demo-commando's |
 
 Man-pages (ter voorbereiding):
-[oefenhoek-index](oefenhoek-index/),
 [capella-mxl-to-mscz](capella-mxl-to-mscz/), [h](h/), [pdf](pdf/),
 [demo-pdf](demo-pdf/), [sync-bron-zondagen](sync-bron-zondagen/).
 

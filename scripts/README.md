@@ -18,6 +18,7 @@ Tooling-contract: [docs/tooling-koppeling.md](../docs/tooling-koppeling.md)
 | `opkuisen` | Herkomstanalyse + inhoudsopkuis (niet in `check`/CI) |
 | `bieb accepteer` | Opnemen in `content-source\bibliotheek` onder bibliotheek-id |
 | `update-werkvoorraad` | Tabel `input\werkvoorraad.md` bijwerken (ook in check/build/serve) |
+| `oefenhoek-index` | SVG uit bibliotheek-`.vsa` → `static\vsa\bladermap\` (check/build/serve/CI; geen stamp) |
 | `serve` | Hugo-preview op http://127.0.0.1:18732/ (niet 1313, niet 18731) |
 | `build` | Site in `generated\site` |
 | `check` | CI-spiegel / preflight (validate + publicatie-/importcontroles + bibliotheek-id + Coria + Hugo) |

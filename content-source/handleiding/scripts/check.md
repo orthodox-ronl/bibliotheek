@@ -40,7 +40,9 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 7. Bibliotheek-id — of elke basispartituur-`.mscz` in het colofon de
    regel `Bibliotheek-id:` heeft die bij het bladermap-pad past
 8. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
-9. Hugo-build naar `generated\site`
+9. Bladermap-SVG (`oefenhoek-index --svg`) — plaatjes uit `.vsa`; geen
+   stamp-publicatiecontrole
+10. Hugo-build naar `generated\site`
 
 Zonder `--strict` waarschuwen de publicatie-, import- en id-controles
 lokaal maar falen niet (behalve op `main` of met
@@ -76,6 +78,7 @@ genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole)
 - [tekstblad-products](../tekstblad-products/)
 - [import-mvsa](../import-mvsa/)
 - [mvsa-products](../mvsa-products/)
+- [oefenhoek-index](../oefenhoek-index/)
 - [layout](../layout/)
 - [ensure-bibliotheek-id](../ensure-bibliotheek-id/)
 - [serve](../serve/)

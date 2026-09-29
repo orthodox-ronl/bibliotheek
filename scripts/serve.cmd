@@ -7,6 +7,8 @@ python scripts\update_werkvoorraad.py
 if errorlevel 1 exit /b 1
 python scripts\fingerprint_coria_mxl.py
 if errorlevel 1 exit /b 1
+python scripts\sync_oefenhoek_index.py --svg
+if errorlevel 1 exit /b 1
 
 REM Poort 18732: niet 1313 (lokaal gereserveerd), niet 18731 (VSA-demo).
 hugo server ^

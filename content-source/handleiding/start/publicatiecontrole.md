@@ -161,11 +161,13 @@ of **stale**. Ontbreekt het sibling-bestand → **missing**.
 | Publicatiecontrole tekstblad (`.tekstblad.md` ↔ PDF) | waarschuwing; met `--strict` fout | fout (`--fail`) |
 | Importcontrole (bestaande `.mscz.mvsa` ↔ `.mscz`) | waarschuwing; met `--strict` fout | fout (`--fail`) |
 | Publicatiecontrole mvsa (`.mvsa` ↔ MXL/PDF) | waarschuwing; met `--strict` fout | fout (`--fail`) |
+| Bladermap-SVG uit `.vsa` | vernieuwen (`oefenhoek-index --svg`) | vernieuwen (geen stamp-fail) |
 | Coria-fingerprints + Hugo | ja | ja |
 
-CI **genereert geen** producten. Vernieuw lokaal (nu: `vsa-products`,
-`mscz-products`, `tekstblad-products`, `mvsa-products`, eventueel
-`import-mvsa`), commit siblings mee.
+CI **genereert geen** MuseScore-/PDF-producten. Vernieuw die lokaal
+(`vsa-products`, `mscz-products`, `tekstblad-products`, `mvsa-products`,
+eventueel `import-mvsa`) en commit siblings mee. SVG-plaatjes worden wél
+in check/CI vernieuwd (geen herkomststempel).
 
 ## Legacy-namen (nog toegestaan tot migratie)
 
