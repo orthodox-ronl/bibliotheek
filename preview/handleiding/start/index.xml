@@ -66,7 +66,7 @@ Naamgevingsconventie voor conversies (tooling):
  &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Bron&lt;/strong&gt; = één echte extensie: &lt;code&gt;{stam}.vsa&lt;/code&gt;, &lt;code&gt;{stam}.mscz&lt;/code&gt;, &lt;code&gt;{stam}.mvsa&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Afgeleide&lt;/strong&gt; = &lt;code&gt;{stam}.{bron-extensie}.{doel-extensie}&lt;/code&gt; —
-bijv. &lt;code&gt;{stam}.vsa.mxl&lt;/code&gt;, &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt;&lt;/li&gt;
+bijv. &lt;code&gt;{stam}.vsa.mxl&lt;/code&gt;, &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt;, &lt;code&gt;{stam}.vsa.lyrics.txt&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Publicatiecontrole&lt;/strong&gt; = versheidscontrole op site-producten (sibling +
 herkomststempel); CI genereert niet, jij wel lokaal&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Handmatig&lt;/strong&gt; = &lt;code&gt;artefacten_handmatig: true&lt;/code&gt; op &lt;code&gt;index.md&lt;/code&gt; (vervangt het
@@ -107,7 +107,55 @@ oude &lt;code&gt;.print.mscz&lt;/code&gt;-spoor)&lt;/li&gt;
  &lt;/tr&gt;
  &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;Een &lt;strong&gt;publicatiecontrole&lt;/strong&gt; in &lt;code&gt;check&lt;/code&gt; / GitHub Actions doet dit:&lt;/p&gt;</description></item><item><title>Woorden en bestanden</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/woorden/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/woorden/</guid><description>&lt;h1 id="woorden-en-bestanden"&gt;Woorden en bestanden&lt;/h1&gt;
+&lt;p&gt;Een &lt;strong&gt;publicatiecontrole&lt;/strong&gt; in &lt;code&gt;check&lt;/code&gt; / GitHub Actions doet dit:&lt;/p&gt;</description></item><item><title>Zangstuk-soorten</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/zangstuk-soorten/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/zangstuk-soorten/</guid><description>&lt;h1 id="zangstuk-soorten"&gt;Zangstuk-soorten&lt;/h1&gt;
+&lt;p&gt;De bibliotheek gebruikt overal dezelfde drie lagen:
+&lt;code&gt;zangstuk&lt;/code&gt; → &lt;code&gt;variant&lt;/code&gt; → &lt;code&gt;uitvoeringsvorm&lt;/code&gt;. Niet elk zangstuk betekent
+hetzelfde. Dit blad legt drie soorten uit, zodat ids, titels en later
+hernoemen dezelfde taal spreken.&lt;/p&gt;
+&lt;aside class="handleiding-cue"&gt;
+ &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
+ &lt;div class="handleiding-cue-body"&gt;
+ &lt;ul&gt;
+&lt;li&gt;Soort zegt wat het zangstuk &lt;em&gt;is&lt;/em&gt;; de koormap zegt waar je het in de
+dienst &lt;em&gt;zet&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Liturgische nummers horen in de koormap en in Hugo-&lt;code&gt;weight&lt;/code&gt;, niet per
+se in het &lt;code&gt;zangstuk-id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Hernoemen van bestaande ids gebeurt pas na akkoord (besluiten hieronder)&lt;/li&gt;
+&lt;/ul&gt;
+
+ &lt;/div&gt;
+&lt;/aside&gt;
+
+&lt;h2 id="drie-soorten"&gt;Drie soorten&lt;/h2&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Soort&lt;/th&gt;
+ &lt;th&gt;Betekenis&lt;/th&gt;
+ &lt;th&gt;Voorbeelden (huidige ids)&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;Genre-emmer&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;Catalogus van losse werken onder één genre. Elk werk is een &lt;strong&gt;variant&lt;/strong&gt;.&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;tropaar&lt;/code&gt;, &lt;code&gt;kondak&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;Liturgische familie&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;Zelfde liturgische rol of tekstfamilie; meerdere teksten of settings als variant.&lt;/td&gt;
+ &lt;td&gt;antifonen, &lt;strong&gt;ektinia’s&lt;/strong&gt; (litanieën), communieverzen, prijsliederen, moeder-godsliederen, cherubijnenhymne&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;Enkelvoudig werk&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;Eén herkenbaar stuk; hoogstens settings of talen als variant.&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;5-eniggeboren-zoon&lt;/code&gt;, &lt;code&gt;28-wij-hebben-het-ware-licht&lt;/code&gt;, &lt;code&gt;29-de-naam-des-heren-zij-gezegend&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Alias-varianten&lt;/strong&gt; (&lt;code&gt;alias_van&lt;/code&gt;) blijven een apart mechanisme: dezelfde
+variant onder een tweede naam (bijvoorbeeld maandag-tropaar = tropaar van
+de Heilige Engelen). Dat is geen vierde soort zangstuk.&lt;/p&gt;</description></item><item><title>Woorden en bestanden</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/woorden/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/woorden/</guid><description>&lt;h1 id="woorden-en-bestanden"&gt;Woorden en bestanden&lt;/h1&gt;
 &lt;aside class="handleiding-cue"&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
