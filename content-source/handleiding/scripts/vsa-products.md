@@ -31,9 +31,12 @@ Voor de `.mxl`:
 3. saniteert voor Coria;
 4. zet een `vsa-source-sha256`-stempel van de canonieke `.vsa`.
 
-Voor de `.pdf`: tijdelijke Markdown met `::: vsa-notatie` → `vsa pdf`
-(Chrome of Edge nodig), daarna dezelfde herkomststempel in de PDF.
-Zonder PDF blijven **Downloaden** en **Printen** op VSA-only bladermappen weg.
+Voor de `.pdf`: tijdelijke Markdown met alleen de VSA-notatie (de
+YAML-frontmatter van de `.vsa` eraf, zodat die niet als tekst op het blad
+komt) in `::: vsa-notatie` → `vsa pdf` (Chrome of Edge nodig). De titel
+bovenaan komt uit de bladermap-`index.md`. Daarna dezelfde
+herkomststempel in de PDF. Zonder PDF blijven **Downloaden** en
+**Printen** op VSA-only bladermappen weg.
 
 Mappen met `artefacten_handmatig: true` in de frontmatter worden
 overgeslagen. Zonder pad werkt het onder `content-source\bibliotheek`.

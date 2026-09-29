@@ -2,8 +2,10 @@
 
 Siblings: ``{stam}.vsa.mxl`` (Coria / Oefenen) en ``{stam}.vsa.pdf``
 (Downloaden / Printen). MXL: ``vsa musicxml --musicxml-profile playback``
-na tijdelijke syllabify. PDF: tijdelijke Markdown met ``::: vsa-notatie``
-via ``vsa pdf`` (Chrome/Edge). Beide krijgen ``vsa-source-sha256``.
+na tijdelijke syllabify. PDF: tijdelijke Markdown met alleen de
+VSA-notatie (YAML-frontmatter van de ``.vsa`` eraf) in ``::: vsa-notatie``
+via ``vsa pdf`` (Chrome/Edge); titel uit bladermap-``index.md``.
+Beide krijgen ``vsa-source-sha256``.
 
 Slaat mappen met ``artefacten_handmatig: true`` over. CI genereert niet —
 alleen ``check_vsa_products``; vernieuw lokaal met ``scripts\\vsa-products.cmd``.
@@ -167,10 +169,43 @@ def _run_vsa_musicxml(vsa: Path, mxl: Path) -> None:
     subprocess.check_call(cmd, cwd=str(REPO_ROOT))
 
 
+def _title_for_vsa(vsa: Path) -> str:
+    """Titel uit sibling ``index.md`` (frontmatter), anders stam van de ``.vsa``."""
+    for name in ("index.md", "_index.md"):
+        index = vsa.parent / name
+        if not index.is_file():
+            continue
+        try:
+            text = index.read_text(encoding="utf-8")
+        except OSError:
+            continue
+        in_fm = False
+        for line in text.splitlines():
+            if line.strip() == "---":
+                if not in_fm:
+                    in_fm = True
+                    continue
+                break
+            if in_fm and line.lower().startswith("title:"):
+                val = line.split(":", 1)[1].strip().strip("\"'")
+                if val:
+                    return val
+    return vsa.stem.replace("-", " ")
+
+
 def _run_vsa_pdf(vsa: Path, pdf: Path) -> None:
-    """A4-PDF via tijdelijke Markdown + ``vsa pdf`` (site-SVG-look, printbaar)."""
-    body = vsa.read_text(encoding="utf-8").rstrip() + "\n"
-    title = vsa.stem.replace("-", " ")
+    """A4-PDF via tijdelijke Markdown + ``vsa pdf`` (site-SVG-look, printbaar).
+
+    Alleen de VSA-notatie (zonder YAML-frontmatter van de ``.vsa``) in
+    ``::: vsa-notatie``; anders verschijnen ``do:`` / ``tempo:`` als tekst
+    op het blad. Titel komt uit de bladermap-``index.md``.
+    """
+    from vsa.yaml_frontmatter import parse_vsa_frontmatter
+
+    raw = vsa.read_text(encoding="utf-8")
+    _meta, body = parse_vsa_frontmatter(raw)
+    body = body.rstrip() + "\n"
+    title = _title_for_vsa(vsa)
     md_text = f"# {title}\n\n::: vsa-notatie\n{body}:::\n"
     handle, tmp_name = tempfile.mkstemp(suffix=".md", prefix="vsa-pdf-")
     tmp_path = Path(tmp_name)
