@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # 11 Dringende Litanie/Ektinia
 
-{{< bieb id="11-dringende-litanie/default/hemelum" >}}
+{{< bieb id="ektinia/dringend/hemelum" >}}

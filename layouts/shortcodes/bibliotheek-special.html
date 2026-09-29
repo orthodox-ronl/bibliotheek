@@ -1,7 +1,7 @@
 {{- /*
   Special-page lijsten voor de bibliotheek (build-time, Wikipedia-achtig).
 
-  kind: voorzien | ongerefereerd | oefenbaar
+  kind: voorzien | ongerefereerd | oefenbaar | werkbank
 */ -}}
 {{- $kind := .Get "kind" | default "voorzien" -}}
 {{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}
@@ -11,7 +11,62 @@
 {{- end -}}
 {{- $prefix := "bibliotheek/" -}}
 
-{{- if eq $kind "voorzien" -}}
+{{- if eq $kind "werkbank" -}}
+  {{- $statusPath := "data/werkbank-status.json" -}}
+  {{- if not (fileExists $statusPath) -}}
+<p>Nog geen werkbank-status. Draai
+<code>scripts\update-werkvoorraad.cmd</code> of
+<code>scripts\werkbank-status.cmd</code> (schrijft
+<code>data/werkbank-status.json</code>). Handleiding:
+<a href="{{ "/handleiding/start/werkbank/" | relURL }}">Werkbank</a>.</p>
+  {{- else -}}
+    {{- $wb := transform.Unmarshal (readFile $statusPath) -}}
+    {{- $inputs := $wb.open_inputs | default slice -}}
+    {{- $stubs := $wb.stubs | default slice -}}
+    {{- $werk := $wb.werk_dirs | default slice -}}
+    {{- if and (not $inputs) (not $stubs) -}}
+<p>Geen open werkbank-cases in de werkvoorraad of als stub zonder bron.</p>
+    {{- end -}}
+    {{- if $inputs -}}
+<h2>Open inputs (werkvoorraad)</h2>
+<ul class="page-list bibliotheek-special">
+      {{- range $inputs -}}
+  <li>
+    <code>{{ .input }}</code>
+        {{- if .doel_id -}}
+    → <code class="bibliotheek-id">{{ .doel_id }}</code>
+        {{- else -}}
+    → <span class="oefenhoek-voorzien-tag">(geen doel-id)</span>
+        {{- end -}}
+    <span class="oefenhoek-voorzien-tag">{{ .stap }} → {{ .volgende }}</span>
+        {{- with .notitie -}} — {{ . }}{{- end -}}
+  </li>
+      {{- end -}}
+</ul>
+    {{- end -}}
+    {{- if $stubs -}}
+<h2>Stubs zonder canonieke bron</h2>
+<ul class="page-list bibliotheek-special">
+      {{- range $stubs -}}
+  <li>
+    <code class="bibliotheek-id">{{ .id }}</code>
+    <span class="oefenhoek-voorzien-tag">{{ .publicatiestatus }}</span>
+  </li>
+      {{- end -}}
+</ul>
+    {{- end -}}
+    {{- if $werk -}}
+<h2>Lokale _werk-mappen</h2>
+<p>Alleen zichtbaar op de machine die de status laatst schreef (niet in git).</p>
+<ul class="page-list bibliotheek-special">
+      {{- range $werk -}}
+  <li><code>{{ .stam }}</code> ({{ len .files }} bestand(en))</li>
+      {{- end -}}
+</ul>
+    {{- end -}}
+  {{- end -}}
+
+{{- else if eq $kind "voorzien" -}}
   {{- $items := slice -}}
   {{- range $bib.Sections -}}
     {{- if ne .File.ContentBaseName "speciaal" -}}
@@ -87,5 +142,5 @@
   {{- end -}}
 
 {{- else -}}
-  {{- errorf "%s: shortcode bibliotheek-special: onbekend kind %q. Oplossing: gebruik kind=\"voorzien\", \"ongerefereerd\" of \"oefenbaar\"." $loc $kind -}}
+  {{- errorf "%s: shortcode bibliotheek-special: onbekend kind %q. Oplossing: gebruik kind=\"voorzien\", \"ongerefereerd\", \"oefenbaar\" of \"werkbank\"." $loc $kind -}}
 {{- end -}}

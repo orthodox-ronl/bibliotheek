@@ -10,4 +10,4 @@ automatische_inhoud: false
 
 **Deze wordt alleen gezongen als het in de koorinstructie staat.**
 
-{{< bieb id="12-ontslapenen-litanie/default/hemelum" >}}
+{{< bieb id="ektinia/ontslapenen/hemelum" >}}

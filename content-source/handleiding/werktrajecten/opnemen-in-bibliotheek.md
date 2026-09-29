@@ -29,9 +29,10 @@ genoeg is om op te nemen.
 
 Koorleden zien alleen wat in de **bibliotheek** staat (of via een
 **koormap**-slot ernaar verwijst). Ruwe Capella-, PDF- of VOW-bestanden
-horen niet rechtstreeks in die catalogus. Dit traject houdt de input
-bij, en zet een **klaar** oefenbestand op de juiste plek met de juiste
-naam.
+horen niet rechtstreeks in die catalogus. Dit traject is de
+**overgang** van lifecycle-fase [Werkbank](../../start/werkbank/) naar
+[Catalogus](../../start/catalogus/): input bijhouden, klaar bestand
+opnemen met `bieb accepteer`. Model: [Levenscyclus](../../start/levenscyclus/).
 
 ## Eindresultaat en criteria
 
@@ -59,11 +60,10 @@ horen bij [Basispartituur](../basispartituur/) of [VSA](../vsa/).
 
 ### Placeholder: ruw materiaal binnenhalen
 
-> **Let op:** een generieke **opkuiser** (één traject voor Capella, PDF,
-> `.mscz`, `.vsa`, …) wordt elders gebouwd. Tot die tijd is “binnenhalen”
-> het vaste begin; daarna volg je nog de HOW’s onder
-> [Partituur](../../partituur/) of [VSA](../../vsa/). Deze sectie krijgt
-> dan haar definitieve vorm.
+> **Let op:** opkuisen is fase-afhankelijk — in de
+> [Werkbank](../../start/werkbank/) zwaar (Capella → `_werk`), in de
+> [Catalogus](../../start/catalogus/) alleen gericht herstel. HOW’s:
+> [Partituur](../../partituur/) en [VSA](../../vsa/).
 
 1. Kopieer het bestand naar
    `content-source\input\<herkomst>\`
@@ -118,8 +118,10 @@ productbestanden moet jij lokaal maken en **meecommitten**.
 
 | Situatie | Commando | Man-page |
 | --- | --- | --- |
+| Open werkbank tonen | `scripts\werkbank-status.cmd` | [werkbank-status](../../scripts/werkbank-status/) |
 | Werkvoorraad bijwerken | `scripts\update-werkvoorraad.cmd` | [update-werkvoorraad](../../scripts/update-werkvoorraad/) |
 | Bestand in de bibliotheek zetten | `bieb accepteer` | [bieb accepteer](../../scripts/bieb-accepteer/) |
+| Grenzen werkbank/catalogus | `scripts\lifecycle-grenzen.cmd` | [lifecycle-grenzen](../../scripts/lifecycle-grenzen/) |
 | Alles controleren vóór commit | `scripts\check.cmd --strict` | [check](../../scripts/check/) |
 
 ## Zie ook

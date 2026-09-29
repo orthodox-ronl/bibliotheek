@@ -27,7 +27,9 @@ Deze pagina is de HOW voor `bieb accepteer`.
 mappen en de pagina-bestanden voor je; jij hoeft die niet met de hand te
 typen.
 
-**Wanneer:** als de partituur inhoudelijk klaar genoeg is (na opkuisen en
+**Wanneer:** als de partituur inhoudelijk klaar genoeg is voor de overgang
+van [Werkbank](/handleiding/start/werkbank/) naar
+[Catalogus](/handleiding/start/catalogus/) (na opkuisen en
 normaliseren bij MuseScore, of na een werkende `.vsa`). Nog niet klaar?
 Laat het bestand in `input\` staan; zie
 [Opnemen — ruw binnenhalen](/handleiding/werktrajecten/opnemen-in-bibliotheek/).
@@ -121,7 +123,7 @@ scripts\check.cmd --strict
 Wil je het id en de pagina alvast, maar nog geen partituur?
 
 ```cmd
-bieb accepteer 1-vredeslitanie/default/hemelum --stub
+bieb accepteer ektinia/vrede/hemelum --stub
 ```
 
 Dan wordt `publicatiestatus` standaard `voorzien`.

@@ -83,18 +83,18 @@ script tegelijk.
 
 | Koormap-pad | Bibliotheek-id | Opmerking |
 | --- | --- | --- |
-| `1-vredeslitanie/` | `1-vredeslitanie/default/hemelum` | `.mvsa` (reviewable) |
-| `3-eerste-kleine-litanie/` | `3-eerste-kleine-litanie/default/hemelum` | `.mvsa` (reviewable) |
+| `1-vredeslitanie/` | `ektinia/vrede/hemelum` | `.mvsa` (reviewable) |
+| `3-eerste-kleine-litanie/` | `ektinia/kleine/hemelum` | `.mvsa` (reviewable) |
 | `10-evangelielezing/` | `10-evangelielezing/default/hemelum` | |
-| `11-dringende-litanie/` | `11-dringende-litanie/default/hemelum` | |
-| `12-ontslapenen-litanie/` | `12-ontslapenen-litanie/default/hemelum` | |
-| `13-catechumenen-litanie/` | `13-catechumenen-litanie/default/hemelum` | |
-| `14-gelovigen-litanie/` | `14-gelovigen-litanie/default/hemelum` | |
-| `16-vragende-litanie/` | `16-vragende-litanie/default/hemelum` | |
+| `11-dringende-litanie/` | `ektinia/dringend/hemelum` | |
+| `12-ontslapenen-litanie/` | `ektinia/ontslapenen/hemelum` | |
+| `13-catechumenen-litanie/` | `ektinia/catechumenen/hemelum` | |
+| `14-gelovigen-litanie/` | `ektinia/gelovigen/hemelum` | |
+| `16-vragende-litanie/` | `ektinia/vragend/hemelum` | |
 | `17-vredeswens/` | `17-vredeswens/default/hemelum` | |
 | `18-geloofsbelijdenis/` | `18-geloofsbelijdenis/default/hemelum` | |
 | `21-en-allen/` | `21-en-allen/default/hemelum` | |
-| `22-vragende-litanie/` | `22-vragende-litanie/default/hemelum` | |
+| `22-vragende-litanie/` | `ektinia/vragend/hemelum` | |
 | `23-onze-vader/` | `23-onze-vader/default/hemelum` | |
 | `24-een-is-heilig/` | `24-een-is-heilig/default/hemelum` | |
 | `26-gezegend-hij-die-komt/` | `26-gezegend-hij-die-komt/default/hemelum` | |

@@ -279,6 +279,11 @@ def main() -> int:
             "generated/content/.../input verwijderd (geen Hugo-pagina's).",
             flush=True,
         )
+    # Special page + CLI: open werkbank-cases
+    from werkbank_status import collect, write_json  # noqa: PLC0415
+
+    write_json(collect())
+    print("Werkbank-status-JSON bijgewerkt.", flush=True)
     return 0
 
 

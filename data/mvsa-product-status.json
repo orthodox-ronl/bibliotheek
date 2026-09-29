@@ -1,18 +1,6 @@
 {
   "fix_page": "/handleiding/scripts/mvsa-products/",
   "folders": {
-    "bibliotheek/1-vredeslitanie/default/hemelum": {
-      "source": "content-source/bibliotheek/1-vredeslitanie/default/hemelum/1-vredeslitanie-default-hemelum.mvsa",
-      "ok": true,
-      "fix_cmd": "scripts\\mvsa-products.cmd",
-      "issues": []
-    },
-    "bibliotheek/3-eerste-kleine-litanie/default/hemelum": {
-      "source": "content-source/bibliotheek/3-eerste-kleine-litanie/default/hemelum/3-eerste-kleine-litanie-default-hemelum.mvsa",
-      "ok": true,
-      "fix_cmd": "scripts\\mvsa-products.cmd",
-      "issues": []
-    },
     "bibliotheek/7-kleine-intocht/zondag/hemelum": {
       "source": "content-source/bibliotheek/7-kleine-intocht/zondag/hemelum/7-kleine-intocht-zondag-hemelum.mvsa",
       "ok": true,
@@ -69,6 +57,18 @@
     },
     "bibliotheek/9-alleluia/9a-toon-8/groningen": {
       "source": "content-source/bibliotheek/9-alleluia/9a-toon-8/groningen/9-alleluia-9a-toon-8-groningen.mvsa",
+      "ok": true,
+      "fix_cmd": "scripts\\mvsa-products.cmd",
+      "issues": []
+    },
+    "bibliotheek/ektinia/kleine/hemelum": {
+      "source": "content-source/bibliotheek/ektinia/kleine/hemelum/ektinia-kleine-hemelum.mvsa",
+      "ok": true,
+      "fix_cmd": "scripts\\mvsa-products.cmd",
+      "issues": []
+    },
+    "bibliotheek/ektinia/vrede/hemelum": {
+      "source": "content-source/bibliotheek/ektinia/vrede/hemelum/ektinia-vrede-hemelum.mvsa",
       "ok": true,
       "fix_cmd": "scripts\\mvsa-products.cmd",
       "issues": []

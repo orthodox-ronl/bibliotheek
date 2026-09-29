@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # 16 Vragende Litanie/Ektinia
 
-{{< bieb id="16-vragende-litanie/default/hemelum" >}}
+{{< bieb id="ektinia/vragend/hemelum" >}}

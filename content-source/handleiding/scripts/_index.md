@@ -30,9 +30,11 @@ vanuit de repo-root.
 | `layout` | Past de basispartituur-standaard toe op `.mscz` of `.mxl` (tooling-layoutprofiel `partituur`). | [layout](layout/) |
 | `ensure-bibliotheek-id` | Zet of controleert de colofonregel `Bibliotheek-id:` op basispartituur-`.mscz`. | [ensure-bibliotheek-id](ensure-bibliotheek-id/) |
 | `opkuisen` | Herkomstanalyse + inhoudelijke opkuis (Capella/MusicXML/MuseScore); optioneel `--layout`. | [opkuisen](opkuisen/) |
-| `bieb accepteer` | Partituur/tekstblad opnemen onder een bibliotheek-id. | [bieb accepteer](bieb-accepteer/) |
+| `bieb accepteer` | Partituur/tekstblad opnemen onder een bibliotheek-id (Werkbank → Catalogus). | [bieb accepteer](bieb-accepteer/) |
 | `bieb hernoem` | Zangstuk-id hernoemen (map, stam, refs, Hugo-aliases). | [bieb hernoem](bieb-hernoem/) |
 | `update-werkvoorraad` | Tabel in `input\werkvoorraad.md` laten aansluiten op bestanden in `input\`. | [update-werkvoorraad](update-werkvoorraad/) |
+| `werkbank-status` | Overzicht open werkbank-cases; schrijft `data\werkbank-status.json`. | [werkbank-status](werkbank-status/) |
+| `lifecycle-grenzen` | Spaties/ruwe formats in catalogusmappen melden (optioneel `--fail`). | [lifecycle-grenzen](lifecycle-grenzen/) |
 | `oefenhoek-index` | SVG-plaatjes uit bibliotheek-`.vsa` naar `static\vsa\bladermap\` (geen stamp); optioneel legacy-strip. | [oefenhoek-index](oefenhoek-index/) |
 
 Intern (geen apart gebruikerscommando): `python scripts\fingerprint_coria_mxl.py`

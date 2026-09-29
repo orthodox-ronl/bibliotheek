@@ -35,6 +35,11 @@ Dit commando zit **niet** in `check` / `build` / `serve`. Workflow-checklist
 (menselijk werk, stemmen controleren): 
 [Opkuisen (partituur)](/handleiding/partituur/2-opkuisen/).
 
+**Lifecycle:** in de [Werkbank](/handleiding/start/werkbank/) is dit het
+zware opkuiswerk (vaak `-o` naar `input\_werk\`). In de
+[Catalogus](/handleiding/start/catalogus/) alleen gericht herstel op de
+canonieke bron — niet opnieuw de ruwe dump als waarheid.
+
 ## Wat opkuisen wél is / niet is
 
 | Wel | Niet |

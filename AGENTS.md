@@ -8,6 +8,8 @@ Organisatie-context: [orthodox-ronl/AGENTS.md](https://github.com/orthodox-ronl/
 Tooling-contract: [docs/tooling-koppeling.md](docs/tooling-koppeling.md).
 Publicatiecontrole / sibling-namen: [docs/publicatiecontrole.md](docs/publicatiecontrole.md)
 (leesbaar: handleiding *Publicatiecontrole*).
+Lifecycle Werkbank/Catalogus: [docs/levenscyclus.md](docs/levenscyclus.md)
+(leesbaar: handleiding *Levenscyclus*).
 
 ---
 

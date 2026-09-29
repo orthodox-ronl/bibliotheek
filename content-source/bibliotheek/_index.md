@@ -22,7 +22,9 @@ Voorbeeld: de [liturgiemap Hemelum — zondag](/koormappen/hemelum/liturgie-zond
 
 ## Beheer
 
+- [Werkbank](speciaal/werkbank/) — onder handen werk (lifecycle pre-productie)
 - [Voorzien](speciaal/voorzien/) — zangstukken zonder oefenbare inhoud
 - [Ongerefereerd](speciaal/ongerefereerd/) — in de bibliotheek, nog niet in een koormap
 - [Alle oefenbare uitvoeringsvormen](speciaal/oefenbaar/) — platte lijst met id
 - [Id-register](id-register/) — id’s voor beheerders (niet voor koorleden)
+- Handleiding: [Levenscyclus](/handleiding/start/levenscyclus/)
