@@ -7,9 +7,7 @@
 <a href=/bibliotheek/preview/bibliotheek/6-derde-antifoon/>6 Derde antifoon</a>
 <a href=/bibliotheek/preview/bibliotheek/7-kleine-intocht/>7 Kleine intocht</a>
 <a href=/bibliotheek/preview/bibliotheek/tropaar/>Troparen</a>
-<a href=/bibliotheek/preview/bibliotheek/210-heer-red-uw-volk-en-zegen-uw-erfdeel/>Heer red Uw volk</a>
 <a href=/bibliotheek/preview/bibliotheek/kondak/>Kondaken</a>
-<a href=/bibliotheek/preview/bibliotheek/220-uw-heilig-kruis/>Uw Heilig Kruis</a>
 <a href=/bibliotheek/preview/bibliotheek/7d-dialoog-met-diaken/>7d Dialoog met diaken</a>
 <a href=/bibliotheek/preview/bibliotheek/trisagion/>Trisagion</a>
 <a href=/bibliotheek/preview/bibliotheek/9-prokimen/>9 Prokimen</a>
@@ -49,8 +47,8 @@ Representatie-id: <code>vsa</code>.</p><aside class=handleiding-cue><p class=han
 </span></span><span style=display:flex><span>check --strict
 </span></span></code></pre></div></div></aside><h2 id=waartoe>Waartoe</h2><p>Eenstemmige notatie (antifoon, communievers, tropaar-regels, …) moet op
 de bibliotheekpagina als plaatje verschijnen en via <strong>Oefenen</strong> in Coria
-afspeelbaar zijn — zonder een volledige MuseScore-basispartituur.</p><h2 id=eindresultaat-en-criteria>Eindresultaat en criteria</h2><div class=table-scroll><table><thead><tr><th>Output</th><th>Rol</th></tr></thead><tbody><tr><td><code>{stam}.vsa</code> in de bladermap</td><td>Canonieke bron (YAML: <code>do</code>, <code>mode</code>, <code>tempo</code>)</td></tr><tr><td><code>static\vsa\bladermap\…\*.svg</code></td><td>Plaatje voor de site; <strong>geen</strong> publicatiecontrole (vernieuwd door <code>oefenhoek-index --svg</code>)</td></tr><tr><td><code>{stam}.vsa.mxl</code> naast de <code>.vsa</code></td><td>Coria; stamp <code>vsa-source-sha256</code> van de canonieke <code>.vsa</code></td></tr></tbody></table></div><p><strong>Klaar</strong> als: <code>vsa validate</code> stil is; SVG zichtbaar via shortcode <code>bieb</code>;
-<code>check_vsa_products</code> (onder <code>check --strict</code>) is groen.</p><p><strong>Waarom geen lettergreepstreepjes in de canonieke <code>.vsa</code>?</strong> Orthografische
+afspeelbaar zijn — zonder een volledige MuseScore-basispartituur.</p><h2 id=eindresultaat-en-criteria>Eindresultaat en criteria</h2><div class=table-scroll><table><thead><tr><th>Output</th><th>Rol</th></tr></thead><tbody><tr><td><code>{stam}.vsa</code> in de bladermap</td><td>Canonieke bron (YAML: <code>do</code>, <code>mode</code>, <code>tempo</code>)</td></tr><tr><td><code>static\vsa\bladermap\…\*.svg</code></td><td>Plaatje voor de site als er (nog) geen PDF is; <strong>geen</strong> publicatiecontrole (vernieuwd door <code>oefenhoek-index --svg</code>)</td></tr><tr><td><code>{stam}.vsa.mxl</code> naast de <code>.vsa</code></td><td>Coria; stamp <code>vsa-source-sha256</code> van de canonieke <code>.vsa</code></td></tr><tr><td><code>{stam}.vsa.pdf</code> naast de <code>.vsa</code></td><td>A4 voor <strong>Downloaden</strong> / <strong>Printen</strong>; zelfde stamp</td></tr></tbody></table></div><p><strong>Klaar</strong> als: <code>vsa validate</code> stil is; SVG of PDF zichtbaar via shortcode <code>bieb</code>;
+<code>check_vsa_products</code> (onder <code>check --strict</code>) is groen voor MXL én PDF.</p><p><strong>Waarom geen lettergreepstreepjes in de canonieke <code>.vsa</code>?</strong> Orthografische
 <code>-</code> (Pyphen) helpt Coria én preview-audio (één kwartnoot per lettergreep),
 maar hoort niet op het gepubliceerde SVG. <code>vsa-products</code> en <code>audio-products</code>
 syllabify’t alleen in een <strong>tijdelijk</strong> bestand tijdens export en schrijft
@@ -60,13 +58,15 @@ die tekst niet terug naar <code>{stam}.vsa</code>. Een experimentele sidecar
 <a href=../../vsa/1-vsa-schrijven/>.vsa schrijven</a>
 .</li><li>Neem op in de bibliotheek indien nodig:
 <a href=../opnemen-in-bibliotheek/>Opnemen</a>
-(<code>bieb accepteer</code>).</li><li>Coria-<code>.vsa.mxl</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\vsa-products.cmd content-source\bibliotheek\5-eniggeboren-zoon
-</span></span></code></pre></div><ol start=4><li>Controleer: <code>check --strict</code> (validate + publicatiecontrole + Hugo).</li><li>Site bekijken: <code>serve</code> → http://127.0.0.1:18732/</li></ol><p>Bibliotheek-<strong>Oefenen</strong> gebruikt de sibling <code>{stam}.vsa.mxl</code> in de
-bladermap.</p><h2 id=automatisch-ci>Automatisch (CI)</h2><ul><li><strong>Wel:</strong> <code>check_vsa_products.py</code> controleert of <code>{stam}.vsa.mxl</code> bij de
-canonieke <code>.vsa</code> past (sha-stamp). Pages-CI faalt bij missing/stale.</li><li><strong>Wel:</strong> <code>oefenhoek-index --svg</code> vernieuwt bladermap-SVG vóór Hugo
-(geen stamp; geen “stale SVG”-fout).</li><li><strong>Niet:</strong> stilzwijgend een verouderde <code>.vsa.mxl</code> herschrijven zonder
-commit. Vernieuw lokaal met <code>vsa-products</code> en commit <code>{stam}.vsa.mxl</code>
-mee. CI heeft geen MuseScore en genereert geen MusicXML-producten.</li></ul><h2 id=handmatig>Handmatig</h2><div class=table-scroll><table><thead><tr><th>Situatie</th><th>Commando</th><th>Man-page</th></tr></thead><tbody><tr><td>Coria-<code>.vsa.mxl</code></td><td><code>scripts\vsa-products.cmd</code> <code>[map]</code></td><td><a href=../../scripts/vsa-products/>vsa-products</a></td></tr><tr><td>Alles vóór commit</td><td><code>scripts\check.cmd --strict</code></td><td><a href=../../scripts/check/>check</a></td></tr></tbody></table></div><h2 id=zie-ook>Zie ook</h2><ul><li>Optioneel tropaar toon 4: <a href=../../vsa/2-template-satb/>Template SATB</a></li><li><a href=../../scripts/validate/>validate</a>
+(<code>bieb accepteer</code>).</li><li>Coria-<code>.vsa.mxl</code> en A4-<code>.vsa.pdf</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\vsa-products.cmd content-source\bibliotheek\5-eniggeboren-zoon
+</span></span></code></pre></div><ol start=4><li>Controleer: <code>check --strict</code> (validate + publicatiecontrole + Hugo).</li><li>Site bekijken: <code>serve</code> → http://127.0.0.1:18732/</li></ol><p>Bibliotheek-<strong>Oefenen</strong> gebruikt <code>{stam}.vsa.mxl</code>; <strong>Downloaden</strong> /
+<strong>Printen</strong> gebruiken <code>{stam}.vsa.pdf</code>.</p><h2 id=automatisch-ci>Automatisch (CI)</h2><ul><li><strong>Wel:</strong> <code>check_vsa_products.py</code> controleert of <code>{stam}.vsa.mxl</code> en
+<code>{stam}.vsa.pdf</code> bij de canonieke <code>.vsa</code> passen (sha-stamp). Pages-CI
+faalt bij missing/stale.</li><li><strong>Wel:</strong> <code>oefenhoek-index --svg</code> vernieuwt bladermap-SVG vóór Hugo
+(geen stamp; geen “stale SVG”-fout; op de pagina zie je de PDF als die
+er is, anders de SVG).</li><li><strong>Niet:</strong> stilzwijgend verouderde producten herschrijven zonder commit.
+Vernieuw lokaal met <code>vsa-products</code> en commit <code>.vsa.mxl</code> + <code>.vsa.pdf</code>
+mee. CI heeft geen MuseScore/Chrome-PDF-run voor producten.</li></ul><h2 id=handmatig>Handmatig</h2><div class=table-scroll><table><thead><tr><th>Situatie</th><th>Commando</th><th>Man-page</th></tr></thead><tbody><tr><td>Coria-<code>.vsa.mxl</code> + A4-<code>.vsa.pdf</code></td><td><code>scripts\vsa-products.cmd</code> <code>[map]</code></td><td><a href=../../scripts/vsa-products/>vsa-products</a></td></tr><tr><td>Alles vóór commit</td><td><code>scripts\check.cmd --strict</code></td><td><a href=../../scripts/check/>check</a></td></tr></tbody></table></div><h2 id=zie-ook>Zie ook</h2><ul><li>Optioneel tropaar toon 4: <a href=../../vsa/2-template-satb/>Template SATB</a></li><li><a href=../../scripts/validate/>validate</a>
 · <a href=../../scripts/check/>check</a></li></ul><div class=nav-buttons><a class=btn href=/bibliotheek/preview/handleiding/werktrajecten/basispartituur/>Basispartituur
 </a><a class=btn href=/bibliotheek/preview/handleiding/werktrajecten/print-vel/>Print-vel</a></div></main><div id=score-audio-bar class=score-audio-bar hidden><div class=score-audio-bar-inner><p class=score-audio-bar-title id=score-audio-bar-title></p><div class=score-audio-bar-row><button type=button class="score-audio-bar-btn score-audio-bar-play" aria-label=Pauzeren aria-controls=score-audio-bar-element aria-pressed=true>
 <span class="score-audio-bar-icon score-audio-bar-icon--pause" aria-hidden=true>❚❚</span>
