@@ -1,7 +1,7 @@
 ---
 title: "3 Eerste Kleine Litanie / Ektinia"
 linkTitle: "3 Eerste Kleine Litanie / Ektinia"
-publicatiestatus: voorzien
+publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 

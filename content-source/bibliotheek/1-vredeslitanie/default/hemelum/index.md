@@ -1,7 +1,7 @@
 ---
 title: "1 Vredeslitanie"
 linkTitle: "1 Vredeslitanie"
-publicatiestatus: voorzien
+publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
