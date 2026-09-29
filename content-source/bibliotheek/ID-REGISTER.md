@@ -174,7 +174,7 @@ met `bieb` op de koormap.
 
 | Koormap-pad | Bibliotheek-id |
 | --- | --- |
-| `troparen-en-kondaken/uw-heilig-kruis/` | `220-uw-heilig-kruis/default/hemelum` |
+| `troparen-en-kondaken/uw-heilig-kruis/` | `tropaar/uw-heilig-kruis/hemelum` |
 
 ---
 
