@@ -25,8 +25,10 @@ weight: 30
 - **normaliseren** / **layouten** = basispartituur-standaard met `scripts\layout.cmd` (zelfde scriptstap; “layouten” is de gewone naam)
 - **bibliotheek-id** = `zangstuk/variant/uitvoeringsvorm` (drie lagen); zichtbaar op bibliotheek-leaves en in het colofon van basispartituur-`.mscz`/PDF
 - **`bieb`** (shortcode) = knoppen + partituur van een bibliotheek-id; **`bieb`** (CLI, later) = beheercommando’s (`accepteer`, `zoek`, …)
-- **`bieb accepteer`** = bestand opnemen in de bibliotheek (mappen + `index.md`); zie [Opnemen](/handleiding/werktrajecten/opnemen-in-bibliotheek/)
-- **publicatiestatus** = wat koorleden op de pagina zien (sticky header); intern *Stap* in de werkvoorraad is iets anders
+- **`bieb accepteer`** = overgang Werkbank → Catalogus (bestand opnemen); zie [Opnemen](/handleiding/werktrajecten/opnemen-in-bibliotheek/)
+- **Werkbank** = lifecycle pre-productie (`input\`, `_werk\`); zie [Werkbank](/handleiding/start/werkbank/)
+- **Catalogus** (lifecycle) = canonieke bron in `bibliotheek\…`; zie [Catalogus](/handleiding/start/catalogus/)
+- **publicatiestatus** = wat koorleden op de pagina zien (sticky header); intern *Stap* in de werkvoorraad én lifecycle-fase zijn iets anders
 {{< /cue >}}
 
 **Wat je nu doet:** dezelfde namen gebruiken als de rest van de keten, zodat
@@ -72,9 +74,12 @@ lettergrepen synchroon met noten. MusicXML: `scripts\opkuisen.cmd`. Bij een
 | **Alias-variant** | Variant zonder eigen uitvoeringsvorm-bestanden; op de variant-`_index.md` staat `alias_van: zangstuk/canonieke-variant` |
 | **Diversen** | (verouderd als zangstuk-id) Losse gezangen hebben nu een eigen zangstuk-id, bv. `220-uw-heilig-kruis/default/hemelum` |
 | **Tropaar** / **kondak** | Nederlandse termen voor die gezangen (niet “troparion” / “kondakion”) |
-| **Special page** | Automatisch overzicht onder `bibliotheek\speciaal\` (voorzien, ongerefereerd, oefenbaar) |
+| **Special page** | Automatisch overzicht onder `bibliotheek\speciaal\` (werkbank, voorzien, ongerefereerd, oefenbaar) |
 | **Werkvoorraad** | Tabel in `input\werkvoorraad.md`: per *input* hoe ver de conversie is |
 | **Stap** (werkvoorraad) | Intern: `ontvangen`, `opkuisen`, `layout`, `gepubliceerd`, … — niet zichtbaar voor koorleden |
+| **Werkbank** | Lifecycle-fase pre-productie: reserveren, binnenhalen, opkuisen, proefdraaien — [Werkbank](/handleiding/start/werkbank/) |
+| **Catalogus** (lifecycle) | Lifecycle-fase: canonieke bron + producten in `bibliotheek\…` — [Catalogus](/handleiding/start/catalogus/) |
+| **Levenscyclus** | Case per uitvoeringsvorm door fases; los van `publicatiestatus` — [Levenscyclus](/handleiding/start/levenscyclus/) |
 | **Publicatiestatus** | Op `index.md` in bibliotheek én koormap: `voorzien`, `reviewable`, `concept`, `productie` (sticky header; niet raden) |
 | **artefacten_handmatig** | Frontmatter: afgeleiden in die bibliotheekmap niet auto; gele banner voor beheerders |
 | **SATB** | Sopraan, alt, tenor, bas — de vier stemmen op één partituur |

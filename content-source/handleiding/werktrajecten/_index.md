@@ -19,8 +19,8 @@ mappen, woorden). Stapsgewijze MuseScore- of VSA-HOW’s staan onder
 [Partituur](../partituur/) en [VSA](../vsa/). Commando-flags: [Scripts](../scripts/).
 
 {{< cue >}}
-- **Poort:** [Opnemen in de bibliotheek](opnemen-in-bibliotheek/) — ruw materiaal
-  binnenhalen, later opkuisen, daarna `bieb accepteer`
+- **Poort / lifecycle:** [Levenscyclus](../start/levenscyclus/) —
+  Werkbank → Catalogus; [Opnemen](opnemen-in-bibliotheek/) — `bieb accepteer`
 - **Namen / publicatiecontrole:** [Publicatiecontrole](../start/publicatiecontrole/) — bron vs afgeleide
 - **Publicatiesporen:** [Basispartituur](basispartituur/), [VSA](vsa/),
   [mvsa](mvsa/), [audio](audio/), [Print-vel](print-vel/) (legacy `.print.mscz`),
@@ -33,10 +33,10 @@ mappen, woorden). Stapsgewijze MuseScore- of VSA-HOW’s staan onder
 ## Hoe de trajecten in elkaar haken
 
 ```text
-ruw materiaal (input/)
+Werkbank (input/ + _werk/)
     |
     v
-Opnemen in de bibliotheek  (werkvoorraad + later opkuis + bieb accepteer)
+Opnemen in de bibliotheek  (bieb accepteer → Catalogus)
     |
     +-- Basispartituur  ->  PDF + Coria-.mxl + .mscz.mp3
     +-- VSA             ->  SVG + Coria-.vsa.mxl + .vsa.mp3
