@@ -11,7 +11,7 @@ weight: 30
 - **handmatig MuseScore-blad** = gewone `{stam}.mscz` in een map met `artefacten_handmatig: true` (vervangt het oude `.print.mscz`)
 - **versheidscontrole** = sibling bestaat + herkomststempel past bij bron; meet/meldt alleen
 - **publicatiecontrole** = versheidscontrole op site-producten; zie [Publicatiecontrole](publicatiecontrole/)
-- **importcontrole** = versheidscontrole op bewerk-/importvorm (bijv. `.mscz.mvsa`)
+- **importcontrole** = versheidscontrole op bewerk-/importvorm (bijv. `.mscz.mvsa`); zie [import-mvsa](/handleiding/scripts/import-mvsa/)
 - **geldigheidscontrole** = `vsa validate` / `mvsa validate` / …
 - **artefacten_handmatig** = frontmatter op bibliotheek-`index.md`: PDF/MXL niet auto-bijwerken
 - `.mxl` / `.vsa.mxl` / `.mscz.mxl` = MusicXML voor Coria (**afgeleide**; niet terug importeren om te layouten)

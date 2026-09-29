@@ -104,6 +104,7 @@ mogen; elk spoor houdt eigen siblings bij.
 | --- | --- | --- | --- | --- | --- |
 | **vsa** | `{stam}.vsa` | `{stam}.vsa.mxl` (Coria) | `vsa-source-sha256` van de `.vsa` | `scripts\vsa-products.cmd` | **Actief:** `check_vsa_products` |
 | **mscz** (basispartituur) | `{stam}.mscz` | `{stam}.mscz.pdf`, `{stam}.mscz.mxl` | `vsa-partituur-sha256` van de `.mscz` | `scripts\mscz-products.cmd` | **Actief:** `check_mscz_products` |
+| **import** (bewerkvorm) | `{stam}.mscz` | `{stam}.mscz.mvsa` (optioneel) | `vsa-partituur-sha256` in commentaren | `scripts\import-mvsa.cmd` | **Actief:** `check_import_mvsa` (alleen bestaande siblings) |
 | **mvsa** | `{stam}.mvsa` | `{stam}.mvsa.mxl` / `.mscz` / `.pdf` (naarmate het traject) | source-sha van de `.mvsa` | later product-wrapper om `mvsa …` | **Voorzien** |
 | **tekstblad** | `{stam}.tekstblad.md` | `{stam}.tekstblad.pdf` | `vsa-source-sha256` van de `.md` | `scripts\tekstblad-products.cmd` | **Actief:** `check_tekstblad_products` |
 
@@ -144,7 +145,7 @@ een hash in het product:
 | --- | --- |
 | `vsa-source-sha256` | Hash van de tekstbron (`.vsa` / tekstblad-`.md` / later `.mvsa`) |
 | `vsa-source-kind` | Welk brontype (`vsa`, `tekstblad`, …) |
-| `vsa-partituur-sha256` | Hash van de basispartituur-`.mscz` |
+| `vsa-partituur-sha256` | Hash van de basispartituur-`.mscz` (ook in import-`.mscz.mvsa`-commentaren) |
 | `vsa-generated-at` | Wanneer het product is gemaakt (informatief) |
 
 Ontbreekt de stamp, of wijkt de hash af van de huidige bron → **unstamped**
@@ -158,10 +159,12 @@ of **stale**. Ontbreekt het sibling-bestand → **missing**.
 | Publicatiecontrole VSA (`.vsa` ↔ `.vsa.mxl`) | waarschuwing; met `--strict` fout | fout (`--fail`) |
 | Publicatiecontrole partituur (`.mscz` ↔ PDF/MXL) | waarschuwing; met `--strict` fout | fout (`--fail`) |
 | Publicatiecontrole tekstblad (`.tekstblad.md` ↔ PDF) | waarschuwing; met `--strict` fout | fout (`--fail`) |
-| Publicatiecontrole mvsa | nog niet | nog niet |
+| Importcontrole (bestaande `.mscz.mvsa` ↔ `.mscz`) | waarschuwing; met `--strict` fout | fout (`--fail`) |
+| Publicatiecontrole mvsa (canonieke bron) | nog niet | nog niet |
 | Coria-fingerprints + Hugo | ja | ja |
 
-CI **genereert geen** producten. Vernieuw lokaal (nu: `vsa-products`),
+CI **genereert geen** producten. Vernieuw lokaal (nu: `vsa-products`,
+`mscz-products`, `tekstblad-products`, eventueel `import-mvsa`),
 commit siblings mee.
 
 ## Legacy-namen (nog toegestaan tot migratie)

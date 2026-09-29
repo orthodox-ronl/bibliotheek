@@ -40,9 +40,11 @@ Geen nieuwe `.print.mscz`: handmatige MuseScore-bladen = `{stam}.mscz` +
 | VSA | `.vsa` | `.vsa.mxl` + `vsa-source-sha256` | **Actief** (`vsa-products` / `check_vsa_products`) |
 | Partituur (mscz) | `.mscz` | `.mscz.pdf` + `.mscz.mxl` + partituur-sha | **Actief** (`mscz-products` / `check_mscz_products`) |
 | Tekstblad | `.tekstblad.md` | `.tekstblad.pdf` | **Actief** (`tekstblad-products` / `check_tekstblad_products`) |
-| mvsa | `.mvsa` | naar gelang traject | Voorzien |
+| Import (bewerkvorm) | `.mscz` | `.mscz.mvsa` + partituur-sha (optioneel) | **Actief** (`import-mvsa` / `check_import_mvsa`; alleen bestaande paren) |
+| mvsa (canonieke bron) | `.mvsa` | naar gelang traject | Voorzien (`mvsa-products`) |
 
-CI genereert geen producten; alleen validate + actieve publicatiecontroles
-+ Hugo.
+CI genereert geen producten; alleen validate + actieve publicatie-/
+importcontroles + Hugo. Importcontrole eist **geen** `.mscz.mvsa` bij
+elke partituur — alleen dat bestaande siblings vers zijn.
 
 Oude bestandsnaam: `docs/productgates.md` (stub blijft als doorverwijzing).
