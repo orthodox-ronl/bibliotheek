@@ -35,7 +35,10 @@ Zoekt onder het opgegeven pad (of, zonder pad, onder
 `artefacten_handmatig: true`, import-siblings `*.mscz.mvsa`, en
 `.print.mscz`.
 
-Onder de motorkap: tooling-CLI `vsa audio` (MuseScore 4). CI genereert
+Onder de motorkap: tooling-CLI `vsa audio` (MuseScore 4). Bij `.vsa`
+syllabificeert het script eerst in een **tijdelijk** bestand (zelfde als
+`vsa-products` voor Coria), zodat Beluisteren dezelfde lettergreep-noten
+heeft als Oefenen; de canonieke `.vsa` blijft ongewijzigd. CI genereert
 **geen** audio; jij wel lokaal, daarna committen.
 
 **Belangrijk:** elke bibliotheek-`.mvsa` / basis-`.mscz` / `.vsa` (buiten

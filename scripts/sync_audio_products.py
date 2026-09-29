@@ -1,7 +1,9 @@
 """Maak sibling preview-``.mp3`` bij bibliotheek-``.mvsa`` / ``.mscz`` / ``.vsa``.
 
 Per brontype een eigen product: ``{stam}.mvsa.mp3``, ``{stam}.mscz.mp3``,
-``{stam}.vsa.mp3``. Roept ``vsa audio`` aan (MuseScore). Zet herkomststempel
+``{stam}.vsa.mp3``. Roept ``vsa audio`` aan (MuseScore). Bij ``.vsa`` eerst
+tijdelijk syllabifyen (zelfde als ``vsa-products`` / Coria-``.vsa.mxl``),
+zodat preview-audio dezelfde lettergreep-notatie krijgt. Zet herkomststempel
 in ID3 (``vsa-source-sha256`` of ``vsa-partituur-sha256``).
 
 Slaat ``input/``, ``artefacten_handmatig``, import-``.mscz.mvsa`` en
@@ -36,7 +38,7 @@ from product_meta import (
 )
 from sync_import_mvsa import is_import_mvsa
 from sync_mscz_products import is_print_mscz
-from sync_vsa_products import folder_is_handmatig
+from sync_vsa_products import folder_is_handmatig, playback_vsa_for_export
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ROOT = REPO_ROOT / "content-source" / "bibliotheek"
@@ -128,7 +130,14 @@ def sync_one(job: AudioJob, *, dry_run: bool) -> None:
     if dry_run:
         return
     require_no_spaces(mp3)
-    _run_vsa_audio(job.source, mp3)
+    if job.kind == SOURCE_KIND_VSA:
+        playback = playback_vsa_for_export(job.source)
+        try:
+            _run_vsa_audio(playback.path, mp3)
+        finally:
+            playback.cleanup()
+    else:
+        _run_vsa_audio(job.source, mp3)
     if not mp3.is_file():
         raise RuntimeError(f"MP3 ontbreekt na vsa audio: {mp3}")
     generated_at = utc_now_iso()
