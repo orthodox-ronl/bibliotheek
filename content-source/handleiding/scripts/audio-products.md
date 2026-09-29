@@ -55,7 +55,7 @@ als de Coria-`.mxl`. Ontbreekt of veroudert die, dan faalt
 
 ```cmd
 scripts\audio-products.cmd content-source\bibliotheek\9-alleluia\9a-toon-1\groningen
-scripts\audio-products.cmd content-source\bibliotheek\110-tropaar\maandag-toon-4\hemelum --force
+scripts\audio-products.cmd content-source\bibliotheek\tropaar\maandag-toon-4\hemelum --force
 ```
 
 # WHEN

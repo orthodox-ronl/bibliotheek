@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # Kondak zaterdag gestorvenen toon 8
 
-{{< bieb id="120-kondak/zaterdag-gestorvenen-toon-8/hemelum" >}}
+{{< bieb id="kondak/zaterdag-gestorvenen-toon-8/hemelum" >}}

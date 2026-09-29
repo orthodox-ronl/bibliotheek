@@ -27,7 +27,7 @@ Ownership: sibling-namen, publicatie-/importcontroles en Hugo-CI horen
 | Rol | Patroon |
 | --- | --- |
 | Bron | `{stam}.{ext}` met één echte extensie: `.vsa` / `.mscz` / `.mvsa` |
-| Afgeleide | `{stam}.{bron-ext}.{doel-ext}` — bijv. `.vsa.mxl`, `.mscz.pdf`, `.mscz.mxl` |
+| Afgeleide | `{stam}.{bron-ext}.{doel-ext}` — bijv. `.vsa.mxl`, `.mscz.pdf`, `.mscz.mxl`, `.vsa.lyrics.txt` |
 | Tekstblad | uitzondering: `{stam}.tekstblad.md` → `{stam}.tekstblad.pdf` |
 
 Geen nieuwe `.print.mscz`: handmatige MuseScore-bladen = `{stam}.mscz` +
@@ -38,6 +38,7 @@ Geen nieuwe `.print.mscz`: handmatige MuseScore-bladen = `{stam}.mscz` +
 | Spoor | Bron | Sibling | Status in deze repo |
 | ----- | ---- | ------- | ------------------- |
 | VSA | `.vsa` | `.vsa.mxl` + `vsa-source-sha256` | **Actief** (`vsa-products` / `check_vsa_products`) |
+| Lyrics (zoektekst) | `.vsa` / `.mvsa` | `.vsa.lyrics.txt` / `.mvsa.lyrics.txt` + source-sha | **Actief** (`lyrics-products` / `check_lyrics_products`) |
 | Partituur (mscz) | `.mscz` | `.mscz.pdf` + `.mscz.mxl` + partituur-sha | **Actief** (`mscz-products` / `check_mscz_products`) |
 | Tekstblad | `.tekstblad.md` | `.tekstblad.pdf` | **Actief** (`tekstblad-products` / `check_tekstblad_products`) |
 | Import (bewerkvorm) | `.mscz` | `.mscz.mvsa` + partituur-sha (optioneel) | **Actief** (`import-mvsa` / `check_import_mvsa`; alleen bestaande paren) |

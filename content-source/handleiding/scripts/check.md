@@ -39,12 +39,15 @@ Of: `scripts\check.cmd` vanuit de repo-root.
    `{stam}.mvsa.pdf` heeft met `vsa-source-sha256`
 7. Audio-publicatiecontrole — of elke canonieke `.mvsa` / basis-`.mscz` /
    `.vsa` een passende preview-`.mp3` heeft met herkomststempel
-8. Bibliotheek-id — of elke basispartituur-`.mscz` in het colofon de
+8. Lyrics-publicatiecontrole — of elke bibliotheek-`.vsa` / `.mvsa` een
+   passende `{stam}.….lyrics.txt` heeft met `vsa-source-sha256`
+9. Bibliotheek-id — of elke basispartituur-`.mscz` in het colofon de
    regel `Bibliotheek-id:` heeft die bij het bladermap-pad past
-9. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
-10. Bladermap-SVG (`oefenhoek-index --svg`) — plaatjes uit `.vsa`; geen
+10. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
+11. Bladermap-SVG (`oefenhoek-index --svg`) — plaatjes uit `.vsa`; geen
    stamp-publicatiecontrole
-11. Hugo-build naar `generated\site`
+12. Zoekindex (`python scripts\build_zoek_index.py` → `static\zoek\index.json`)
+13. Hugo-build naar `generated\site`
 
 Zonder `--strict` waarschuwen de publicatie-, import- en id-controles
 lokaal maar falen niet (behalve op `main` of met
@@ -55,11 +58,12 @@ producten lokaal met [all-products](../all-products/) (alles tegelijk)
 of met [vsa-products](../vsa-products/),
 [mscz-products](../mscz-products/),
 [tekstblad-products](../tekstblad-products/),
-[mvsa-products](../mvsa-products/) of
-[audio-products](../audio-products/); vernieuw
+[mvsa-products](../mvsa-products/),
+[audio-products](../audio-products/) of
+[lyrics-products](../lyrics-products/); vernieuw
 import-siblings met [import-mvsa](../import-mvsa/); herstel id’s met
 [ensure-bibliotheek-id](../ensure-bibliotheek-id/) of
-[layout](../layout/). CI genereert geen MuseScore-/PDF-/audio-producten.
+[layout](../layout/). CI genereert geen MuseScore-/PDF-/audio-/lyrics-producten.
 
 # EXAMPLES
 

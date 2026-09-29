@@ -1,6 +1,6 @@
 ---
-title: "8a-nederlands"
-linkTitle: "8a-nederlands"
+title: "Trisagion Nederlands"
+linkTitle: "Nederlands"
 nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true

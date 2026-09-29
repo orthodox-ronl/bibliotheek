@@ -13,7 +13,7 @@ weight: 15
 
 ```cmd
 validate
-validate content-source\bibliotheek\110-tropaar
+validate content-source\bibliotheek\tropaar
 ```
 
 Of: `scripts\validate.cmd` vanuit de repo-root. Zonder argument valideert

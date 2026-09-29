@@ -1,6 +1,6 @@
 """Multi-command CLI ``bieb`` (zoals ``vsa`` / ``mvsa``).
 
-Subcommando's: ``accepteer`` (meer volgt: zoek, hernoem, …).
+Subcommando's: ``accepteer``, ``hernoem``.
 """
 
 from __future__ import annotations
@@ -13,6 +13,7 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 import bieb_accepteer  # noqa: E402
+import bieb_hernoem  # noqa: E402
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -22,15 +23,22 @@ def main(argv: list[str] | None = None) -> int:
             "Gebruik: bieb <subcommando> [args...]\n"
             "\n"
             "  accepteer   partituur/tekstblad opnemen onder bibliotheek-id\n"
+            "  hernoem     zangstuk-id hernoemen (map, stam, refs, aliases)\n"
             "\n"
-            "Voorbeeld:\n"
+            "Voorbeelden:\n"
             "  bieb accepteer 8-trisagion/8a-nederlands/hemelum pad\\x.mscz --dry-run\n"
+            "  bieb hernoem 15-cherubijnenhymne cherubijnenhymne --dry-run\n"
         )
         return 0 if argv else 2
     cmd = argv[0]
     if cmd == "accepteer":
         return bieb_accepteer.main(argv[1:])
-    print(f"Onbekend subcommando: {cmd!r} (probeer: accepteer)", file=sys.stderr)
+    if cmd == "hernoem":
+        return bieb_hernoem.main(argv[1:])
+    print(
+        f"Onbekend subcommando: {cmd!r} (probeer: accepteer, hernoem)",
+        file=sys.stderr,
+    )
     return 2
 
 
