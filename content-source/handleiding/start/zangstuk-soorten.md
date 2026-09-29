@@ -67,7 +67,7 @@ blijven geldig tot een bewuste hernoem-golf.
    **variant-niveau**, in id én zichtbaar label — niet alleen via
    beluisteren.
 
-   Voorbeeld (richting, nog niet gemigreerd):
+   Voorbeeld:
 
    | Laag | Voorbeeld |
    | --- | --- |
@@ -109,9 +109,9 @@ blijven geldig tot een bewuste hernoem-golf.
 | `19-eucharistische-canon` | liturgische familie | `eucharistische-canon` | |
 | `20-moeder-godslied` | liturgische familie | `moeder-godslied` | |
 | `21-en-allen` | enkelvoudig werk | `en-allen` | |
-| `210-heer-red-uw-volk-en-zegen-uw-erfdeel` | genre-emmer (tropaar) | onder `tropaar` | Besluit 3 |
+| `210-heer-red-uw-volk-en-zegen-uw-erfdeel` | genre-emmer (tropaar) | `tropaar/heer-red-uw-volk` | Was gemigreerd (besluit 3) |
 | `22-vragende-litanie` | liturgische familie | `ektinia` (variant `vragend`) | Alias/slot van 16 (besluit 2) |
-| `220-uw-heilig-kruis` | genre-emmer (tropaar) | onder `tropaar` | Besluit 3 |
+| `220-uw-heilig-kruis` | genre-emmer (tropaar) | `tropaar/uw-heilig-kruis` | Was gemigreerd (besluit 3) |
 | `23-onze-vader` | enkelvoudig werk | `onze-vader` | |
 | `24-een-is-heilig` | enkelvoudig werk | `een-is-heilig` | |
 | `25-communievers` | liturgische familie | `communievers` | |
@@ -136,9 +136,13 @@ blijven geldig tot een bewuste hernoem-golf.
 - Cherubijnen-golf: `15-cherubijnenhymne` → `cherubijnenhymne`; variant-
   `linkTitle` met VO-label (bijv. «Kastorski (15c)»).
 - Trisagion-golf: `8-trisagion` → `trisagion`.
+- Kruis-golf: `210-heer-red-uw-volk-en-zegen-uw-erfdeel` →
+  `tropaar/heer-red-uw-volk`; `220-uw-heilig-kruis` →
+  `tropaar/uw-heilig-kruis`. Script: `scripts/migrate_tropaar_kruis.py`.
 
 ## Volgende stappen
 
-1. Kruisstukken (`210` / `220` / tropaar-alias) onder `tropaar`.
+1. Optioneel: overige genummerde zangstuk-ids in de inventaris (antifonen,
+   enz.) zonder liturgienummer in het id.
 
 {{< navbuttons "Bibliotheek en koormappen|/handleiding/start/bibliotheek-en-koormappen/" "Woorden|/handleiding/start/woorden/" >}}
