@@ -24,7 +24,7 @@ opgegeven pad). Mappen met `artefacten_handmatig: true` en bestanden in
 
 Volgorde:
 
-1. [vsa-products](../vsa-products/) — `{stam}.vsa.mxl`
+1. [vsa-products](../vsa-products/) — `{stam}.vsa.mxl` + `{stam}.vsa.pdf`
 2. [mscz-products](../mscz-products/) — `{stam}.mscz.pdf` + `{stam}.mscz.mxl`
 3. [tekstblad-products](../tekstblad-products/) — `{stam}.tekstblad.pdf`
 4. [mvsa-products](../mvsa-products/) — `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf`

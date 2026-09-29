@@ -8,7 +8,7 @@ Tooling-contract: [docs/tooling-koppeling.md](../docs/tooling-koppeling.md)
 | Commando | Doel |
 | -------- | ---- |
 | `validate` | `vsa validate` op `content-source\bibliotheek` (plus `mvsa validate` als er `.mvsa` staat) |
-| `vsa-products` | Maakt/vernieuwt sibling `{stam}.vsa.mxl` via `vsa musicxml` + stamp |
+| `vsa-products` | Maakt/vernieuwt `{stam}.vsa.mxl` + `{stam}.vsa.pdf` via `vsa musicxml` / `vsa pdf` + stamp |
 | `mscz-products` | Maakt/vernieuwt `{stam}.mscz.pdf` + `{stam}.mscz.mxl` via MuseScore / `mscz mxl` + stamp |
 | `tekstblad-products` | Maakt/vernieuwt `{stam}.tekstblad.pdf` via `vsa pdf` + stamp |
 | `import-mvsa` | Maakt/vernieuwt bewerkvorm `{stam}.mscz.mvsa` via `mscz import` + stamp (standaard alleen bestaande siblings) |

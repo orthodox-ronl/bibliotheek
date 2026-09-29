@@ -49,8 +49,7 @@
 <div class="pdf-sheet vsa-container" data-pdf-src="{{ $pdf }}">
   <div class="pdf-sheet-pages vsa-notation" role="img" aria-label="PDF"></div>
 </div>
-{{- end -}}
-{{- if and $vsas (not $hasMscz) $dir -}}
+{{- else if and $vsas (not $hasMscz) $dir -}}
   {{- $alt := $p.Title -}}
   {{- range $vsas -}}
     {{- $rel := replaceRE "\\.vsa$" ".svg" (printf "%s/%s" $dir .) -}}

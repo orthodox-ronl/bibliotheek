@@ -39,7 +39,7 @@ Werkbank (input/ + _werk/)
 Opnemen in de bibliotheek  (bieb accepteer → Catalogus)
     |
     +-- Basispartituur  ->  PDF + Coria-.mxl + .mscz.mp3
-    +-- VSA             ->  SVG + Coria-.vsa.mxl + .vsa.mp3
+    +-- VSA             ->  SVG + Coria-.vsa.mxl + .vsa.pdf + .vsa.mp3
     +-- mvsa            ->  Coria-.mvsa.mxl + .mvsa.pdf + .mvsa.mp3
     +-- Print-vel       ->  handmatige PDF
     +-- Tekstblad       ->  .tekstblad.md -> .tekstblad.pdf
@@ -58,7 +58,7 @@ geen bibliotheek-producten.
 | --- | --- | --- |
 | Opnemen in de bibliotheek | Ruw bestand bewaren en later als klaar oefenbestand in de catalogus zetten | [Opnemen](opnemen-in-bibliotheek/) |
 | Basispartituur | MuseScore-basispartituur naar A4-PDF en Coria-`.mxl` | [Basispartituur](basispartituur/) |
-| VSA | Eenstemmige `.vsa` naar SVG-plaatje en Coria-`.vsa.mxl` | [VSA](vsa/) |
+| VSA | Eenstemmige `.vsa` naar SVG, Coria-`.vsa.mxl` en A4-`.vsa.pdf` | [VSA](vsa/) |
 | mvsa | Meerstemmige `.mvsa` naar Coria-`.mvsa.mxl` en A4-`.mvsa.pdf` | [mvsa](mvsa/) |
 | audio | Preview-`.mp3` voor Beluisteren (zelfde bronnen als Coria-MXL) | [audio](audio/) |
 | Print-vel | Print-`.mscz` met handmatige PDF, buiten de basispartituur-keten | [Print-vel](print-vel/) |

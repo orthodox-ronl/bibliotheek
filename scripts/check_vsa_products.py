@@ -1,4 +1,4 @@
-"""Controleer bibliotheek-``.vsa`` vs sibling ``{stam}.vsa.mxl`` (source-sha256).
+"""Controleer bibliotheek-``.vsa`` vs siblings ``{stam}.vsa.mxl`` + ``.vsa.pdf``.
 
 Schrijft ``data/vsa-product-status.json`` voor eventuele Hugo-banners.
 Slaat ``artefacten_handmatig`` over. Exit 1 bij problemen tenzij ``--warn-only``.
@@ -19,12 +19,14 @@ from product_meta import (
     FIELD_SOURCE_SHA,
     SOURCE_KIND_VSA,
     read_mxl_stamp,
+    read_pdf_stamp,
     source_sha256,
 )
 from sync_vsa_products import (
     DEFAULT_ROOT,
     collect_vsa,
     product_path_for_vsa,
+    product_pdf_for_vsa,
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -34,7 +36,7 @@ FIX_PAGE = "/handleiding/vsa/1-vsa-schrijven/"
 
 @dataclass
 class Issue:
-    kind: str  # missing_mxl | stale_mxl | unstamped_mxl | wrong_kind
+    kind: str  # missing_mxl | stale_mxl | missing_pdf | stale_pdf | ...
     file: str
     detail: str
 
@@ -100,6 +102,45 @@ def check_one(vsa: Path) -> FolderStatus:
                     "stale_mxl",
                     _rel(mxl),
                     f"MXL-source-hash wijkt af (gegenereerd {when}); .vsa is gewijzigd",
+                )
+            )
+
+    pdf = product_pdf_for_vsa(vsa)
+    if not pdf.is_file():
+        issues.append(
+            Issue(
+                "missing_pdf",
+                _rel(pdf),
+                "A4-.vsa.pdf ontbreekt naast de bibliotheek-.vsa (Downloaden/Printen)",
+            )
+        )
+    else:
+        stamp = read_pdf_stamp(pdf)
+        kind = stamp.get(FIELD_SOURCE_KIND, "")
+        got = stamp.get(FIELD_SOURCE_SHA, "")
+        if not got:
+            issues.append(
+                Issue(
+                    "unstamped_pdf",
+                    _rel(pdf),
+                    "PDF heeft geen vsa-source-sha256 (opnieuw genereren)",
+                )
+            )
+        elif kind and kind != SOURCE_KIND_VSA:
+            issues.append(
+                Issue(
+                    "wrong_kind_pdf",
+                    _rel(pdf),
+                    f"PDF source-kind is {kind!r}, verwacht {SOURCE_KIND_VSA!r}",
+                )
+            )
+        elif got != src_hash:
+            when = stamp.get(FIELD_GENERATED_AT, "?")
+            issues.append(
+                Issue(
+                    "stale_pdf",
+                    _rel(pdf),
+                    f"PDF-source-hash wijkt af (gegenereerd {when}); .vsa is gewijzigd",
                 )
             )
     return FolderStatus(

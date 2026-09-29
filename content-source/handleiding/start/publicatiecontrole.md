@@ -102,7 +102,7 @@ mogen; elk spoor houdt eigen siblings bij.
 
 | Spoor (brontype) | Canonieke bron | Verwachte afgeleiden (doelvorm) | Stamp in afgeleide | Lokaal maken | Publicatiecontrole |
 | --- | --- | --- | --- | --- | --- |
-| **vsa** | `{stam}.vsa` | `{stam}.vsa.mxl` (Coria) | `vsa-source-sha256` van de `.vsa` | `scripts\vsa-products.cmd` | **Actief:** `check_vsa_products` |
+| **vsa** | `{stam}.vsa` | `{stam}.vsa.mxl` (Coria), `{stam}.vsa.pdf` (A4) | `vsa-source-sha256` van de `.vsa` | `scripts\vsa-products.cmd` | **Actief:** `check_vsa_products` |
 | **lyrics** (zoektekst) | `{stam}.vsa` / `.mvsa` | `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` | `vsa-source-sha256` van de bron | `scripts\lyrics-products.cmd` | **Actief:** `check_lyrics_products` |
 | **mscz** (basispartituur) | `{stam}.mscz` | `{stam}.mscz.pdf`, `{stam}.mscz.mxl` | `vsa-partituur-sha256` van de `.mscz` | `scripts\mscz-products.cmd` | **Actief:** `check_mscz_products` |
 | **import** (bewerkvorm) | `{stam}.mscz` | `{stam}.mscz.mvsa` (optioneel) | `vsa-partituur-sha256` in commentaren | `scripts\import-mvsa.cmd` | **Actief:** `check_import_mvsa` (alleen bestaande siblings) |
