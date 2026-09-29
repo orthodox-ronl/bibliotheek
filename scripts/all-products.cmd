@@ -37,5 +37,10 @@ call scripts\audio-products.cmd %*
 if errorlevel 1 exit /b 1
 
 echo.
+echo --- lyrics-products ---
+call scripts\lyrics-products.cmd %*
+if errorlevel 1 exit /b 1
+
+echo.
 echo OK: all-products klaar
 exit /b 0

@@ -196,4 +196,19 @@ waarom de Hemelum-liturgiemap géén tweede opslag van PDF’s is; en wanneer je
 een **sectie** (boom) kiest versus een **compositieblad** (meerdere
 shortcodes op één pagina).
 
-{{< navbuttons "Waar ligt wat|/handleiding/start/waar-ligt-wat/" "Woorden|/handleiding/start/woorden/" >}}
+## Naamgevingsbeleid (nieuwe ids)
+
+1. **Nieuwe** `zangstuk-id`s krijgen **geen** sorteerprefix (`tropaar`, niet
+   `110-tropaar`). Liturgienummers horen in de koormap-titel en in Hugo-
+   `weight`.
+2. Spelling voor *nieuwe* ids: `johannes`, `alleluia`; liever voluit dan
+   `mg` of `zo-wk-mg`.
+3. Bestaande genummerde ids blijven geldig tot een bewuste hernoem-golf
+   (tooling: later `bieb hernoem`).
+4. Echte naamsynoniemen van dezelfde variant: `alias_van`. Spelling- en
+   woordvolgorde-varianten: zoekindex + [`data/zoek-synoniemen.yaml`](https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml).
+
+Zie [Zangstuk-soorten](/handleiding/start/zangstuk-soorten/) voor de
+inventaristabel en open beslispunten.
+
+{{< navbuttons "Waar ligt wat|/handleiding/start/waar-ligt-wat/" "Zangstuk-soorten|/handleiding/start/zangstuk-soorten/" >}}

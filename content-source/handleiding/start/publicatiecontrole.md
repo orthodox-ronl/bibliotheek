@@ -21,7 +21,7 @@ Naamgevingsconventie voor conversies (tooling):
 {{< cue >}}
 - **Bron** = één echte extensie: `{stam}.vsa`, `{stam}.mscz`, `{stam}.mvsa`
 - **Afgeleide** = `{stam}.{bron-extensie}.{doel-extensie}` —
-  bijv. `{stam}.vsa.mxl`, `{stam}.mscz.pdf`
+  bijv. `{stam}.vsa.mxl`, `{stam}.mscz.pdf`, `{stam}.vsa.lyrics.txt`
 - **Publicatiecontrole** = versheidscontrole op site-producten (sibling +
   herkomststempel); CI genereert niet, jij wel lokaal
 - **Handmatig** = `artefacten_handmatig: true` op `index.md` (vervangt het
@@ -65,7 +65,7 @@ Voorbeeld: `8-trisagion-8a-nederlands-hemelum`.
 | Rol | Patroon | Voorbeelden |
 | --- | --- | --- |
 | **Bron** | `{stam}` + **één** echte extensie | `….vsa`, `….mscz`, `….mvsa` |
-| **Afgeleide** | `{stam}.{bron-extensie}.{doel-extensie}` | `….vsa.mxl`, `….mscz.pdf`, `….mscz.mxl`, `….mvsa.mscz` |
+| **Afgeleide** | `{stam}.{bron-extensie}.{doel-extensie}` | `….vsa.mxl`, `….mscz.pdf`, `….mscz.mxl`, `….mvsa.mscz`, `….vsa.lyrics.txt` |
 
 Het **laatste** segment is wat programma’s als bestandstype zien (`.mxl`,
 `.pdf`, `.mscz`, …). Het middelste segment zegt **uit welke bron** het
@@ -103,6 +103,7 @@ mogen; elk spoor houdt eigen siblings bij.
 | Spoor (brontype) | Canonieke bron | Verwachte afgeleiden (doelvorm) | Stamp in afgeleide | Lokaal maken | Publicatiecontrole |
 | --- | --- | --- | --- | --- | --- |
 | **vsa** | `{stam}.vsa` | `{stam}.vsa.mxl` (Coria) | `vsa-source-sha256` van de `.vsa` | `scripts\vsa-products.cmd` | **Actief:** `check_vsa_products` |
+| **lyrics** (zoektekst) | `{stam}.vsa` / `.mvsa` | `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` | `vsa-source-sha256` van de bron | `scripts\lyrics-products.cmd` | **Actief:** `check_lyrics_products` |
 | **mscz** (basispartituur) | `{stam}.mscz` | `{stam}.mscz.pdf`, `{stam}.mscz.mxl` | `vsa-partituur-sha256` van de `.mscz` | `scripts\mscz-products.cmd` | **Actief:** `check_mscz_products` |
 | **import** (bewerkvorm) | `{stam}.mscz` | `{stam}.mscz.mvsa` (optioneel) | `vsa-partituur-sha256` in commentaren | `scripts\import-mvsa.cmd` | **Actief:** `check_import_mvsa` (alleen bestaande siblings) |
 | **mvsa** | `{stam}.mvsa` | `{stam}.mvsa.mxl`, `{stam}.mvsa.pdf` | `vsa-source-sha256` van de `.mvsa` | `scripts\mvsa-products.cmd` | **Actief:** `check_mvsa_products` |

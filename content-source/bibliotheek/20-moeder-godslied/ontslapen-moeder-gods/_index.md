@@ -1,6 +1,6 @@
 ---
-title: "ontslapen-moeder-gods"
-linkTitle: "ontslapen-moeder-gods"
+title: "Ontslapen Moeder Gods"
+linkTitle: "Ontslapen Moeder Gods"
 nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true

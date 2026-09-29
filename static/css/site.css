@@ -1083,3 +1083,75 @@ a.btn.coria-play:focus,
 @media print {
   .print-only { display: block; }
 }
+
+/* Bibliotheek-zoeken */
+.bibliotheek-zoek-form {
+  margin: 1.25rem 0 0.75rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border-color);
+  background: var(--nav-bg);
+}
+
+.bibliotheek-zoek-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.bibliotheek-zoek-rij {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.bibliotheek-zoek-rij input[type="search"] {
+  flex: 1 1 16rem;
+  min-width: 0;
+  font: inherit;
+  padding: 0.4rem 0.55rem;
+}
+
+.bibliotheek-zoek-rij button {
+  font: inherit;
+  padding: 0.4rem 0.85rem;
+  cursor: pointer;
+}
+
+.bibliotheek-zoek-meta {
+  color: #444;
+  font-size: 0.95rem;
+  margin: 0.5rem 0;
+}
+
+.bibliotheek-zoek-lijst {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+}
+
+.bibliotheek-zoek-lijst li {
+  padding: 0.65rem 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.bibliotheek-zoek-id {
+  margin-top: 0.2rem;
+  font-size: 0.9rem;
+}
+
+.bibliotheek-zoek-incipit {
+  margin-top: 0.2rem;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+.bibliotheek-zoek-status {
+  margin-left: 0.4rem;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.bibliotheek-zoek-leeg {
+  margin: 0.75rem 0;
+  color: #555;
+}
