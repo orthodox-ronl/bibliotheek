@@ -46,7 +46,7 @@ script tegelijk.
 **Cherubijnen-varianten (Hemelum):** 15b Fatejev, 15c Kastorski, 15d Kastorski,
 15e Bortnjanski. Niet: 15a Staro-Simonovskaja, 15f Lvovsky.
 | `8-trisagion/8a-trisagion/` | `8-trisagion/8a-nederlands/hemelum` | `8-trisagion-8a-nederlands-hemelum` | mscz, mxl, pdf | Canoniek; niet de legacy-map `8a-trisagion/` |
-| `8-trisagion/8a-trisagion-slav/` | `8-trisagion/8a-slav/hemelum` | `8-trisagion-8a-slav-hemelum` | mscz, mxl, pdf | Idem legacy `8a-trisagion-slav/` |
+| `8-trisagion/8a-trisagion-slav/` | `8-trisagion/8a-slav/hemelum` | `8-trisagion-8a-slav-hemelum` | mscz, mxl, pdf, mvsa | Idem legacy `8a-trisagion-slav/` |
 | `19a-eucharistische-kanon/` | `19-eucharistische-canon/19a-feofan/hemelum` | `19-eucharistische-canon-19a-feofan-hemelum` | mscz, mxl, pdf | |
 | *(alleen bibliotheek voorlopig)* | `19-eucharistische-canon/rostov/hemelum` | `19-eucharistische-canon-rostov-hemelum` | — | VOW-input; stub |
 | `20-moeder-godslied/20d-in-waarheid-moeder-godslied/` | `20-moeder-godslied/20d-in-waarheid/hemelum` | `20-moeder-godslied-20d-in-waarheid-hemelum` | mscz, mxl, pdf | |
@@ -61,7 +61,7 @@ script tegelijk.
 | `6-derde-antifoon/weekdagen/` | `6-derde-antifoon/weekdagen/hemelum` | `6-derde-antifoon-weekdagen-hemelum-hemelum` | vsa, vsa.mxl | |
 | `6-derde-antifoon/zondag/` | `6-derde-antifoon/zondag/hemelum` | `6-derde-antifoon-zondag-hemelum` | mscz, mxl, pdf | Variant-id = koormap-mapnaam |
 | `5-eniggeboren-zoon/` | `5-eniggeboren-zoon/default/hemelum` | `5-eniggeboren-zoon-default-hemelum` | mscz, mxl, pdf | `default` = enige variant |
-| `7-kleine-intocht/zondag/` | `7-kleine-intocht/zondag/hemelum` | `7-kleine-intocht-zondag-hemelum` | mscz, mxl, pdf | |
+| `7-kleine-intocht/zondag/` | `7-kleine-intocht/zondag/hemelum` | `7-kleine-intocht-zondag-hemelum` | mscz, mxl, pdf, mvsa | |
 | `7-kleine-intocht/weekdagen/` | `7-kleine-intocht/weekdagen/hemelum` | `7-kleine-intocht-weekdagen-hemelum` | mscz, mxl, pdf | |
 | `7-kleine-intocht/moeder-gods/` | `7-kleine-intocht/moeder-gods/hemelum` | `7-kleine-intocht-moeder-gods-hemelum` | mscz, mxl, pdf | |
 | `28-wij-hebben-het-ware-licht/` | `28-wij-hebben-het-ware-licht/default/hemelum` | `28-wij-hebben-het-ware-licht-default-hemelum` | mscz, mxl, pdf | |
@@ -83,8 +83,8 @@ script tegelijk.
 
 | Koormap-pad | Bibliotheek-id | Opmerking |
 | --- | --- | --- |
-| `1-vredeslitanie/` | `1-vredeslitanie/default/hemelum` | voorzien |
-| `3-eerste-kleine-litanie/` | `3-eerste-kleine-litanie/default/hemelum` | |
+| `1-vredeslitanie/` | `1-vredeslitanie/default/hemelum` | `.mvsa` (reviewable) |
+| `3-eerste-kleine-litanie/` | `3-eerste-kleine-litanie/default/hemelum` | `.mvsa` (reviewable) |
 | `10-evangelielezing/` | `10-evangelielezing/default/hemelum` | |
 | `11-dringende-litanie/` | `11-dringende-litanie/default/hemelum` | |
 | `12-ontslapenen-litanie/` | `12-ontslapenen-litanie/default/hemelum` | |
@@ -110,8 +110,8 @@ de melodieklasse (Kiev / znameni), niet het liturgienummer.
 | Koormap-pad | Bibliotheek-id (voorbeeld) | Status |
 | --- | --- | --- |
 | `9a-prokimen/weekdagen/` | `9-prokimen/9a-maandag/groningen` … `9a-zaterdag` | score (VSA); compositieblad |
-| `9a-prokimen/zondag-toon-N/` | `9-prokimen/9a-zondag-toon-N/groningen` + `9-alleluia/9a-toon-N/groningen` | voorzien (nog geen `.vsa`) |
-| `9b-alleluia/` | `9-alleluia/9a-toon-1/groningen` … `9a-toon-8` | voorzien; compositieblad |
+| `9a-prokimen/zondag-toon-N/` | `9-prokimen/9a-zondag-toon-N/groningen` + `9-alleluia/9a-toon-N/groningen` | alleluia: `.mvsa` (reviewable); prokimen zondag: voorzien |
+| `9b-alleluia/` | `9-alleluia/9a-toon-1/groningen` … `9a-toon-8` | `.mvsa` (reviewable) |
 
 **Znameni (alleen register):** `9-prokimen/9b-{naam}/{uv}`,
 `9-alleluia/9b-toon-{1..8}/{uv}` — nog geen leafs.

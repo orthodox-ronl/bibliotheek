@@ -1,10 +1,10 @@
 ---
 title: "Alleluia toon 2 (Kiev, Groningen)"
 linkTitle: "Groningen"
-publicatiestatus: voorzien
+publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
 # Alleluia toon 2 (Kiev, Groningen)
 
-Nog geen `.vsa` — bron Groningen voorzien.
+{{< bieb id="9-alleluia/9a-toon-2/groningen" >}}
