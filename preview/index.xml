@@ -1379,17 +1379,16 @@ overgeslagen, tenzij &lt;code&gt;--force&lt;/code&gt;. Logbestand: &lt;code&gt;d
 en geen Coria-&lt;code&gt;.mxl&lt;/code&gt;. Niet in &lt;code&gt;check&lt;/code&gt; / &lt;code&gt;build&lt;/code&gt; / &lt;code&gt;serve&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>bieb accepteer</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-accepteer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-accepteer/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;bieb accepteer&lt;/code&gt; — partituur of tekstblad opnemen in de bibliotheek&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;bieb accepteer [id] [bestand...] [opties]
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;(Later: &lt;code&gt;scripts\bieb.cmd&lt;/code&gt; met subcommando’s, zoals &lt;code&gt;vsa&lt;/code&gt; / &lt;code&gt;mvsa&lt;/code&gt;. Nog niet
-als &lt;code&gt;.cmd&lt;/code&gt; in deze repo.)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd accepteer [id] [bestand...] [opties]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Compat-shim: &lt;code&gt;scripts\bieb-accepteer.cmd&lt;/code&gt; (zelfde argumenten).&lt;/p&gt;
 &lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Neemt een klaar bestand op in de &lt;strong&gt;bibliotheek&lt;/strong&gt; (de catalogus onder
-&lt;code&gt;bibliotheek\&lt;/code&gt;), onder een bibliotheek-id van drie lagen:
+&lt;code&gt;content-source\bibliotheek\&lt;/code&gt;), onder een bibliotheek-id van drie lagen:
 &lt;code&gt;zangstuk/variant/uitvoeringsvorm&lt;/code&gt;. Toegestaan: basispartituur-&lt;code&gt;.mscz&lt;/code&gt;,
-&lt;code&gt;.vsa&lt;/code&gt;, &lt;code&gt;.mvsa&lt;/code&gt;, handmatig &lt;code&gt;.mscz&lt;/code&gt; (met &lt;code&gt;--artefacten-handmatig&lt;/code&gt;), of
-&lt;code&gt;.tekstblad.md&lt;/code&gt; (optioneel sibling-&lt;code&gt;.pdf&lt;/code&gt; / &lt;code&gt;.mxl&lt;/code&gt;). Bij &lt;code&gt;.tekstblad.md&lt;/code&gt;
-zet het script indien nodig frontmatter &lt;code&gt;build: render: never&lt;/code&gt; zodat de
-bron geen Hugo-pagina wordt.&lt;/p&gt;</description></item><item><title>Tropaar zaterdag heiligen toon 2</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/110-tropaar/zaterdag-heiligen-toon-2/hemelum/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/110-tropaar/zaterdag-heiligen-toon-2/hemelum/</guid><description>&lt;h1 id="tropaar-zaterdag-heiligen-toon-2"&gt;Tropaar zaterdag heiligen toon 2&lt;/h1&gt;
+&lt;code&gt;.vsa&lt;/code&gt;, &lt;code&gt;.mvsa&lt;/code&gt;, handmatig &lt;code&gt;.mscz&lt;/code&gt; (met &lt;code&gt;--artefacten-handmatig&lt;/code&gt; of legacy
+&lt;code&gt;.print.mscz&lt;/code&gt;), of &lt;code&gt;.tekstblad.md&lt;/code&gt; (optioneel sibling-&lt;code&gt;.pdf&lt;/code&gt; / &lt;code&gt;.mxl&lt;/code&gt;). Bij
+&lt;code&gt;.tekstblad.md&lt;/code&gt; zet het script indien nodig frontmatter &lt;code&gt;build: render: never&lt;/code&gt;
+zodat de bron geen Hugo-pagina wordt.&lt;/p&gt;</description></item><item><title>Tropaar zaterdag heiligen toon 2</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/110-tropaar/zaterdag-heiligen-toon-2/hemelum/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/110-tropaar/zaterdag-heiligen-toon-2/hemelum/</guid><description>&lt;h1 id="tropaar-zaterdag-heiligen-toon-2"&gt;Tropaar zaterdag heiligen toon 2&lt;/h1&gt;
 &lt;div class="score-actions oefenhoek-acties oefenhoek-acties--bibliotheek"&gt;
  &lt;a class="btn coria-play" href="https://coria.nl/play_from_url?back=coria.nl&amp;amp;url=https%3A%2F%2Fraw.githubusercontent.com%2Forthodox-ronl%2Fbibliotheek%2Fgh-pages%2Fpreview%2Fmxl%2Fc%2Fab6f5934ace2.musicxml" target="_blank" rel="noopener noreferrer"&gt;Oefenen&lt;/a&gt;
  
