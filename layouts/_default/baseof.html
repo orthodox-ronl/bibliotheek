@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ .Title }}</title>
-  {{- $bladermap := or (strings.Contains .RelPermalink "/bibliotheek/") (strings.Contains .RelPermalink "/koormappen/") -}}
+  {{- $bladermap := or (eq .Section "bibliotheek") (eq .Section "koormappen") -}}
   {{- if and .IsSection $bladermap }}
     {{- $items := partial "oefenhoek-kind-items.html" . -}}
     {{- if eq (len $items) 1 -}}
@@ -27,7 +27,7 @@
   <script type="module" src="{{ "js/pdf-sheet.js" | relURL }}"></script>
 </head>
 
-<body{{ if $bladermap }} class="oefenhoek-page{{ if strings.Contains .RelPermalink "/bibliotheek/" }} bibliotheek-page{{ end }}"{{ end }}>
+<body{{ if $bladermap }} class="oefenhoek-page{{ if eq .Section "bibliotheek" }} bibliotheek-page{{ end }}"{{ end }}>
   <div class="site-chrome">
     <header class="site-header">
       <div class="site-header-inner">

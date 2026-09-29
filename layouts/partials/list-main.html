@@ -2,7 +2,7 @@
 
 {{ .Content }}
 
-{{- $bladermap := or (strings.Contains .RelPermalink "/bibliotheek/") (strings.Contains .RelPermalink "/koormappen/") -}}
+{{- $bladermap := or (eq .Section "bibliotheek") (eq .Section "koormappen") -}}
 {{- if not $bladermap }}
 {{ partial "page-list.html" . }}
 {{- end }}

@@ -3,7 +3,7 @@
 
   Frontmatter alias_van: zangstuk/canonieke-variant op de variant-_index.
 */ -}}
-{{- if and (strings.Contains .RelPermalink "/bibliotheek/") .Params.alias_van -}}
+{{- if and (eq .Section "bibliotheek") .Params.alias_van -}}
 {{- $aliasVan := .Params.alias_van -}}
 {{- $loc := partial "diag-location.html" (dict "page" .) -}}
 {{- $canonPath := printf "/bibliotheek/%s" $aliasVan -}}

@@ -1,14 +1,15 @@
 {{- /*
   Sticky broodkruimels vanaf sectieroots bibliotheek / koormappen / handleiding.
+  Sectie via .Section (niet RelPermalink): op Pages zit /bibliotheek/ in de
+  baseURL (/preview/), waardoor string-match op RelPermalink vals positief is.
   Publicatiestatus hoort NIET hier (die staat in main, niet sticky).
 */ -}}
 {{- $root := false -}}
-{{- if strings.Contains .RelPermalink "/bibliotheek/" -}}
-  {{- with site.GetPage "/bibliotheek" }}{{ $root = . }}{{ end -}}
-{{- else if strings.Contains .RelPermalink "/koormappen/" -}}
-  {{- with site.GetPage "/koormappen" }}{{ $root = . }}{{ end -}}
-{{- else if strings.Contains .RelPermalink "/handleiding/" -}}
-  {{- with site.GetPage "/handleiding" }}{{ $root = . }}{{ end -}}
+{{- $sec := .Section -}}
+{{- if in (slice "bibliotheek" "koormappen" "handleiding") $sec -}}
+  {{- with site.GetPage (printf "/%s" $sec) -}}
+    {{- $root = . -}}
+  {{- end -}}
 {{- end -}}
 {{- if $root -}}
 <header class="oefenhoek-header">

@@ -9,7 +9,7 @@
 {{- $viewer := or .viewer $score -}}
 {{- $loc := partial "diag-location.html" (dict "position" .position "page" $viewer) -}}
 {{- if $score -}}
-{{- $inBibliotheek := strings.Contains $viewer.RelPermalink "/bibliotheek/" -}}
+{{- $inBibliotheek := eq $viewer.Section "bibliotheek" -}}
 {{- $hasBasispartituur := false -}}
 {{- range $score.Resources.Match "*.mscz" -}}
   {{- if not (strings.HasSuffix (lower .Name) ".print.mscz") -}}

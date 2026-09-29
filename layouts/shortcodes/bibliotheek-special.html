@@ -35,7 +35,7 @@
   {{- $refs := dict -}}
   {{- if eq $kind "ongerefereerd" -}}
     {{- range site.Pages -}}
-      {{- if not (strings.Contains .RelPermalink "/bibliotheek/") -}}
+      {{- if ne .Section "bibliotheek" -}}
         {{- range findRE `\bbieb\s+id="([^"]+)"` .RawContent -}}
           {{- $id := replaceRE `.*id="([^"]+)".*` `$1` . -}}
           {{- $id = partial "bibliotheek-canonical-id.html" $id -}}

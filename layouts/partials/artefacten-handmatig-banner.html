@@ -2,7 +2,7 @@
   Beheerdersmelding als artefacten_handmatig: true op deze bibliotheekpagina
   (of op het bieb-doel vanaf een koormap-slot).
 */}}
-{{- $bladermap := or (strings.Contains .RelPermalink "/bibliotheek/") (strings.Contains .RelPermalink "/koormappen/") -}}
+{{- $bladermap := or (eq .Section "bibliotheek") (eq .Section "koormappen") -}}
 {{- if $bladermap -}}
 {{- $page := . -}}
 {{- with findRE `\bbieb\s+id="([^"]+)"` .RawContent 1 -}}
@@ -19,7 +19,7 @@
     {{- $handmatig = true -}}
   {{- end -}}
 {{- end -}}
-{{- if and $handmatig (strings.Contains $.RelPermalink "/bibliotheek/") -}}
+{{- if and $handmatig (eq $.Section "bibliotheek") -}}
 <aside class="artefacten-handmatig-banner" role="status">
   <p class="artefacten-handmatig-banner-title">Handmatige artefacten</p>
   <p>PDF, Coria-<code>.mxl</code> en andere afgeleiden in deze map worden
