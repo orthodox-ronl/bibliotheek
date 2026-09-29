@@ -13,6 +13,7 @@ Tooling-contract: [docs/tooling-koppeling.md](../docs/tooling-koppeling.md)
 | `tekstblad-products` | Maakt/vernieuwt `{stam}.tekstblad.pdf` via `vsa pdf` + stamp |
 | `import-mvsa` | Maakt/vernieuwt bewerkvorm `{stam}.mscz.mvsa` via `mscz import` + stamp (standaard alleen bestaande siblings) |
 | `mvsa-products` | Maakt/vernieuwt `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf` via `mvsa musicxml` / `mvsa pdf` + stamp |
+| `audio-products` | Maakt/vernieuwt preview-`{stam}.{bron}.mp3` via `vsa audio` + ID3-stamp (optioneel Beluisteren) |
 | `layout` | Past layoutprofiel `partituur` toe op `.mscz` / `.mxl` (via tooling) |
 | `ensure-bibliotheek-id` | Zet/controleert colofonregel `Bibliotheek-id:` op basispartituur-`.mscz` |
 | `opkuisen` | Herkomstanalyse + inhoudsopkuis (niet in `check`/CI) |
@@ -28,7 +29,8 @@ Intern: `_ensure.cmd` (`--hugo`, `--vsa-tool`), `fingerprint_coria_mxl.py`,
 `check_mscz_products.py`, `sync_tekstblad_products.py`,
 `check_tekstblad_products.py`, `sync_import_mvsa.py`,
 `check_import_mvsa.py`, `sync_mvsa_products.py`,
-`check_mvsa_products.py`, `apply_mscz_layout.py`,
+`check_mvsa_products.py`, `sync_audio_products.py`,
+`check_audio_products.py`, `apply_mscz_layout.py`,
 `ensure_bibliotheek_id.py`, `opkuisen.py`, `cleanup_capella_mxl.py`,
 `mscz_content_cleanup.py`, `bieb.py`, `bieb_accepteer.py`,
 `update_werkvoorraad.py`, `bibliotheek.py`, `product_meta.py`, `coria_mxl.py`.

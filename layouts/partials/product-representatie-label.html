@@ -1,5 +1,5 @@
 {{/*
-  Menselijk label voor een productbestand (Oefenen / Beluisteren / Downloaden / Printen).
+  Menselijk label voor een productbestand (Oefenen / Beluisteren / Downloaden / Printen / Bronnen).
 
   Context: dict
     "name"  — bestandsnaam
@@ -16,9 +16,21 @@
 {{- $lower := lower $base -}}
 {{- $id := "" -}}
 {{- $isAudio := or (strings.HasSuffix $lower ".mp3") (strings.HasSuffix $lower ".ogg") (strings.HasSuffix $lower ".wav") -}}
+{{- $isSource := false -}}
+{{- if and (strings.HasSuffix $lower ".mvsa") (not (strings.HasSuffix $lower ".mscz.mvsa")) -}}
+  {{- $isSource = true -}}
+  {{- $id = "mvsa" -}}
+{{- else if and (strings.HasSuffix $lower ".mscz") (not (strings.HasSuffix $lower ".print.mscz")) -}}
+  {{- $isSource = true -}}
+  {{- $id = "partituur" -}}
+{{- else if strings.HasSuffix $lower ".vsa" -}}
+  {{- $isSource = true -}}
+  {{- $id = "vsa" -}}
+{{- end -}}
 {{- if strings.HasSuffix $lower ".print.mscz" -}}
   {{- $id = "print" -}}
-{{- else -}}
+  {{- $isSource = false -}}
+{{- else if not $isSource -}}
   {{- $stem := strings.TrimSuffix (path.Ext $base) $base -}}
   {{- $stemLower := lower $stem -}}
   {{- if or (strings.HasSuffix $stemLower ".partituur") (strings.HasSuffix $stemLower ".hub") -}}
@@ -79,7 +91,7 @@
   {{- $detail = "Uit meerstemmige tekstbron (.mvsa)" -}}
 {{- else if eq $id "partituur" -}}
   {{- $label = "Koorblad (meerdere stemmen)" -}}
-  {{- $detail = "Zoals het PDF-blad" -}}
+  {{- $detail = "Uit MuseScore-partituur (.mscz)" -}}
 {{- else if eq $id "print" -}}
   {{- $label = "Printblad" -}}
   {{- $detail = "Koormap-vel om te printen" -}}
@@ -88,6 +100,26 @@
   {{- $detail = "Liturgische tekst of dialoog (A4-PDF)" -}}
 {{- end -}}
 {{- if $isAudio -}}
-  {{- $detail = "Preview-audio om te beluisteren" -}}
+  {{- if eq $id "mvsa" -}}
+    {{- $detail = "Beluisteren vanuit het koorblad (.mvsa)" -}}
+  {{- else if eq $id "partituur" -}}
+    {{- $detail = "Beluisteren vanuit de MuseScore-partituur" -}}
+  {{- else if eq $id "vsa" -}}
+    {{- $detail = "Beluisteren vanuit de eenstemmige melodie" -}}
+  {{- else -}}
+    {{- $detail = "Preview-audio om te beluisteren" -}}
+  {{- end -}}
+{{- end -}}
+{{- if $isSource -}}
+  {{- if eq $id "mvsa" -}}
+    {{- $label = "Meerstemmige tekstbron (.mvsa)" -}}
+    {{- $detail = "Bronbestand downloaden" -}}
+  {{- else if eq $id "partituur" -}}
+    {{- $label = "MuseScore-partituur (.mscz)" -}}
+    {{- $detail = "Bronbestand downloaden" -}}
+  {{- else if eq $id "vsa" -}}
+    {{- $label = "Eenstemmige tekstbron (.vsa)" -}}
+    {{- $detail = "Bronbestand downloaden" -}}
+  {{- end -}}
 {{- end -}}
 {{- return (dict "id" $id "label" $label "detail" $detail) -}}

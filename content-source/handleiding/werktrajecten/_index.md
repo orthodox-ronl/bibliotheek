@@ -23,7 +23,7 @@ mappen, woorden). Stapsgewijze MuseScore- of VSA-HOW’s staan onder
   binnenhalen, later opkuisen, daarna `bieb accepteer`
 - **Namen / publicatiecontrole:** [Publicatiecontrole](../start/publicatiecontrole/) — bron vs afgeleide
 - **Publicatiesporen:** [Basispartituur](basispartituur/), [VSA](vsa/),
-  [mvsa](mvsa/), [Print-vel](print-vel/) (legacy `.print.mscz`),
+  [mvsa](mvsa/), [audio](audio/), [Print-vel](print-vel/) (legacy `.print.mscz`),
   [Tekstblad](tekstblad/)
 - **Site zichtbaar maken:** [Site-build](site-build/)
 - **Apart:** [Markdown naar PDF](markdown-naar-pdf/),
@@ -38,9 +38,9 @@ ruw materiaal (input/)
     v
 Opnemen in de bibliotheek  (werkvoorraad + later opkuis + bieb accepteer)
     |
-    +-- Basispartituur  ->  PDF + Coria-.mxl
-    +-- VSA             ->  SVG + Coria-.vsa.mxl
-    +-- mvsa            ->  Coria-.mvsa.mxl + .mvsa.pdf
+    +-- Basispartituur  ->  PDF + Coria-.mxl  (+ optioneel .mscz.mp3)
+    +-- VSA             ->  SVG + Coria-.vsa.mxl  (+ optioneel .vsa.mp3)
+    +-- mvsa            ->  Coria-.mvsa.mxl + .mvsa.pdf  (+ optioneel .mvsa.mp3)
     +-- Print-vel       ->  handmatige PDF
     +-- Tekstblad       ->  .tekstblad.md -> .tekstblad.pdf
     |
@@ -60,6 +60,7 @@ geen bibliotheek-producten.
 | Basispartituur | MuseScore-basispartituur naar A4-PDF en Coria-`.mxl` | [Basispartituur](basispartituur/) |
 | VSA | Eenstemmige `.vsa` naar SVG-plaatje en Coria-`.vsa.mxl` | [VSA](vsa/) |
 | mvsa | Meerstemmige `.mvsa` naar Coria-`.mvsa.mxl` en A4-`.mvsa.pdf` | [mvsa](mvsa/) |
+| audio | Preview-`.mp3` voor Beluisteren (optioneel, per brontype) | [audio](audio/) |
 | Print-vel | Print-`.mscz` met handmatige PDF, buiten de basispartituur-keten | [Print-vel](print-vel/) |
 | Tekstblad | Liturgische tekst/dialoog: `.tekstblad.md` naar A4-PDF | [Tekstblad](tekstblad/) |
 | Site-build | `content-source` naar lokale site of GitHub Pages | [Site-build](site-build/) |

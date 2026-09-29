@@ -137,7 +137,14 @@
 {{- end -}}
 {{- $downloadMenu := $downloadPreferred | append $downloadOther -}}
 {{- $printMenu := $printPreferred | append $printOther -}}
-{{- /* Preview-audio: {stam}.vsa.mp3 / .mvsa.mp3 / .mscz.mp3 (e.d.). */ -}}
+{{- /* Preview-audio: {stam}.vsa.mp3 / .mvsa.mp3 / .mscz.mp3 (e.d.).
+     Volgorde Beluisteren: mvsa → partituur → vsa (mvsa is de primaire bron). */ -}}
+{{- $audioPreferId := "vsa" -}}
+{{- if $hasMvsa -}}
+  {{- $audioPreferId = "mvsa" -}}
+{{- else if $hasBasispartituur -}}
+  {{- $audioPreferId = "partituur" -}}
+{{- end -}}
 {{- $audioItems := slice -}}
 {{- range $score.Resources.Match "*.mp3" -}}
   {{- $meta := partial "product-representatie-label.html" (dict "name" .Name "score" $score) -}}
@@ -155,13 +162,44 @@
 {{- $audioOther := slice -}}
 {{- range $audioItems -}}
   {{- $it := dict "href" .href "label" .label "detail" .detail "class" "score-audio-play" -}}
-  {{- if eq .id $preferId -}}
+  {{- if eq .id $audioPreferId -}}
     {{- $audioPreferred = $audioPreferred | append $it -}}
   {{- else -}}
     {{- $audioOther = $audioOther | append $it -}}
   {{- end -}}
 {{- end -}}
 {{- $audioMenu := $audioPreferred | append $audioOther -}}
+{{- /* Bronbestanden (alleen op bibliotheek-pagina's): .mvsa / .mscz / .vsa. */ -}}
+{{- $bronMenu := slice -}}
+{{- if $inBibliotheek -}}
+  {{- $bronItems := slice -}}
+  {{- range $score.Resources.Match "*.mvsa" -}}
+    {{- if not (strings.HasSuffix (lower .Name) ".mscz.mvsa") -}}
+      {{- $meta := partial "product-representatie-label.html" (dict "name" .Name "score" $score) -}}
+      {{- $bronItems = $bronItems | append (dict "href" .RelPermalink "label" $meta.label "detail" $meta.detail "id" $meta.id "download" true) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- range $score.Resources.Match "*.mscz" -}}
+    {{- if not (strings.HasSuffix (lower .Name) ".print.mscz") -}}
+      {{- $meta := partial "product-representatie-label.html" (dict "name" .Name "score" $score) -}}
+      {{- $bronItems = $bronItems | append (dict "href" .RelPermalink "label" $meta.label "detail" $meta.detail "id" $meta.id "download" true) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- range $score.Resources.Match "*.vsa" -}}
+    {{- $meta := partial "product-representatie-label.html" (dict "name" .Name "score" $score) -}}
+    {{- $bronItems = $bronItems | append (dict "href" .RelPermalink "label" $meta.label "detail" $meta.detail "id" $meta.id "download" true) -}}
+  {{- end -}}
+  {{- $bronPreferred := slice -}}
+  {{- $bronOther := slice -}}
+  {{- range $bronItems -}}
+    {{- if eq .id $audioPreferId -}}
+      {{- $bronPreferred = $bronPreferred | append . -}}
+    {{- else -}}
+      {{- $bronOther = $bronOther | append . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $bronMenu = $bronPreferred | append $bronOther -}}
+{{- end -}}
 {{- $primaryPdf := "" -}}
 {{- if gt (len $pdfItems) 0 -}}
   {{- $primaryPdf = (index $downloadMenu 0).href -}}
@@ -169,7 +207,8 @@
 {{- $hasOefenen := gt (len $oefenMenu) 0 -}}
 {{- $hasPdf := gt (len $downloadMenu) 0 -}}
 {{- $hasAudio := gt (len $audioMenu) 0 -}}
-{{- if or $hasOefenen $hasPdf $hasAudio -}}
+{{- $hasBron := gt (len $bronMenu) 0 -}}
+{{- if or $hasOefenen $hasPdf $hasAudio $hasBron -}}
 {{- $wrapClass := "score-actions oefenhoek-acties" -}}
 {{- if $inBibliotheek -}}
   {{- $wrapClass = printf "%s oefenhoek-acties--bibliotheek" $wrapClass -}}
@@ -184,13 +223,18 @@
 {{- end -}}
 {{- $audioHint := "" -}}
 {{- if gt (len $audioMenu) 1 -}}
-  {{- $audioHint = "Kies de versie die je wilt beluisteren." -}}
+  {{- $audioHint = "Kies welke bron je wilt beluisteren (meerstemmig .mvsa eerst, daarna MuseScore, daarna eenstemmig)." -}}
+{{- end -}}
+{{- $bronHint := "" -}}
+{{- if gt (len $bronMenu) 1 -}}
+  {{- $bronHint = "Kies welk bronbestand je wilt downloaden." -}}
 {{- end -}}
 <div class="{{ $wrapClass }}"{{ with $primaryPdf }} data-pdf-src="{{ . }}"{{ end }}>
   {{ partial "score-action-menu.html" (dict "title" "Oefenen" "items" $oefenMenu "btnClass" "btn" "hint" $oefenHint) }}
   {{ partial "score-action-menu.html" (dict "title" "Beluisteren" "items" $audioMenu "btnClass" "btn" "hint" $audioHint) }}
   {{ partial "score-action-menu.html" (dict "title" "Downloaden" "items" $downloadMenu "btnClass" "btn" "hint" $pdfHint) }}
   {{ partial "score-action-menu.html" (dict "title" "Printen" "items" $printMenu "btnClass" "btn" "hint" $pdfHint) }}
+  {{ if $inBibliotheek }}{{ partial "score-action-menu.html" (dict "title" "Bronnen" "items" $bronMenu "btnClass" "btn" "hint" $bronHint) }}{{ end }}
 </div>
 {{- end -}}
 {{- end -}}

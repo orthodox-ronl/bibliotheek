@@ -4,7 +4,7 @@ linkTitle: "Hemelum"
 weight: 10
 ---
 
-Hoekje voor de parochie Hemelum.
+Koormappen voor Hemelum.
 
 | Map | Inhoud |
 | --- | ------ |

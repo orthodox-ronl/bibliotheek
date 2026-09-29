@@ -3,12 +3,14 @@
 VSA-Coria-``.vsa.mxl``: ``vsa-source-sha256`` + ``vsa-source-kind=vsa``.
 Basispartituur-PDF/MXL: ``vsa-partituur-sha256`` (+ legacy ``vsa-hub-sha256``).
 Import-``.mscz.mvsa``: comment-regels ``# vsa-partituur-sha256: …``.
+Preview-audio-``.mp3``: ID3v2 TXXX-frames met dezelfde veldnamen.
 """
 
 from __future__ import annotations
 
 import hashlib
 import re
+import struct
 import zipfile
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
@@ -25,10 +27,20 @@ GENERATOR_MSCZ = "mscz-products"
 GENERATOR_TEKSTBLAD = "tekstblad-products"
 GENERATOR_IMPORT_MVSA = "import-mvsa"
 GENERATOR_MVSA = "mvsa-products"
+GENERATOR_AUDIO = "audio-products"
 SOURCE_KIND_VSA = "vsa"
 SOURCE_KIND_PARTITUUR = "partituur"
 SOURCE_KIND_TEKSTBLAD = "tekstblad"
 SOURCE_KIND_MVSA = "mvsa"
+_AUDIO_STAMP_KEYS = frozenset(
+    {
+        FIELD_SOURCE_SHA,
+        FIELD_SOURCE_KIND,
+        FIELD_PARTITUUR_SHA,
+        FIELD_GENERATED_AT,
+        FIELD_GENERATOR,
+    }
+)
 _MVSA_STAMP_LINE = re.compile(
     r"^#\s*(vsa-(?:partituur-sha256|hub-sha256|source-sha256|source-kind|"
     r"generated-at|generator))\s*:\s*(.+?)\s*$"
@@ -322,3 +334,118 @@ def read_mvsa_stamp(path: Path) -> dict[str, str]:
         if key in _MVSA_STAMP_KEYS and value:
             out[key] = value
     return out
+
+
+def _synchsafe_encode(n: int) -> bytes:
+    return bytes(
+        [
+            (n >> 21) & 0x7F,
+            (n >> 14) & 0x7F,
+            (n >> 7) & 0x7F,
+            n & 0x7F,
+        ]
+    )
+
+
+def _synchsafe_decode(raw: bytes) -> int:
+    return (
+        ((raw[0] & 0x7F) << 21)
+        | ((raw[1] & 0x7F) << 14)
+        | ((raw[2] & 0x7F) << 7)
+        | (raw[3] & 0x7F)
+    )
+
+
+def _strip_id3v2(data: bytes) -> bytes:
+    if len(data) < 10 or data[0:3] != b"ID3":
+        return data
+    size = _synchsafe_decode(data[6:10])
+    return data[10 + size :]
+
+
+def _id3v2_txxx_frame(description: str, value: str) -> bytes:
+    # encoding 0 = ISO-8859-1; description\0 value
+    body = (
+        b"\x00"
+        + description.encode("latin-1", errors="replace")
+        + b"\x00"
+        + value.encode("latin-1", errors="replace")
+    )
+    return b"TXXX" + struct.pack(">I", len(body)) + b"\x00\x00" + body
+
+
+def _build_id3v2(fields: dict[str, str]) -> bytes:
+    frames = b"".join(
+        _id3v2_txxx_frame(key, value)
+        for key, value in fields.items()
+        if value
+    )
+    return b"ID3\x03\x00\x00" + _synchsafe_encode(len(frames)) + frames
+
+
+def _parse_id3v2_txxx(data: bytes) -> dict[str, str]:
+    if len(data) < 10 or data[0:3] != b"ID3":
+        return {}
+    tag_size = _synchsafe_decode(data[6:10])
+    end = 10 + tag_size
+    pos = 10
+    out: dict[str, str] = {}
+    while pos + 10 <= end:
+        frame_id = data[pos : pos + 4]
+        if frame_id == b"\x00\x00\x00\x00":
+            break
+        frame_size = struct.unpack(">I", data[pos + 4 : pos + 8])[0]
+        frame_start = pos + 10
+        frame_end = frame_start + frame_size
+        if frame_end > end or frame_size < 1:
+            break
+        if frame_id == b"TXXX":
+            payload = data[frame_start:frame_end]
+            # skip encoding byte
+            rest = payload[1:] if payload else b""
+            if b"\x00" in rest:
+                desc_b, val_b = rest.split(b"\x00", 1)
+                desc = desc_b.decode("latin-1", errors="replace").strip()
+                val = val_b.decode("latin-1", errors="replace").strip()
+                if desc in _AUDIO_STAMP_KEYS and val:
+                    out[desc] = val
+        pos = frame_end
+    return out
+
+
+def stamp_audio(
+    path: Path,
+    *,
+    generated_at: str,
+    source_hash: str | None = None,
+    source_kind: str | None = None,
+    partituur_hash: str | None = None,
+    generator: str = GENERATOR_AUDIO,
+) -> None:
+    """Schrijf herkomststempel als ID3v2 TXXX in een ``.mp3``."""
+    if not source_hash and not partituur_hash:
+        raise ValueError("source_hash of partituur_hash verplicht")
+    fields: dict[str, str] = {
+        FIELD_GENERATED_AT: generated_at,
+        FIELD_GENERATOR: generator,
+    }
+    if source_hash:
+        fields[FIELD_SOURCE_SHA] = source_hash
+        if source_kind:
+            fields[FIELD_SOURCE_KIND] = source_kind
+    if partituur_hash:
+        fields[FIELD_PARTITUUR_SHA] = partituur_hash
+        if source_kind:
+            fields[FIELD_SOURCE_KIND] = source_kind
+    raw = path.read_bytes()
+    audio = _strip_id3v2(raw)
+    path.write_bytes(_build_id3v2(fields) + audio)
+
+
+def read_audio_stamp(path: Path) -> dict[str, str]:
+    """Lees herkomststempel uit ID3v2 TXXX van een ``.mp3``."""
+    try:
+        data = path.read_bytes()
+    except OSError:
+        return {}
+    return _parse_id3v2_txxx(data)

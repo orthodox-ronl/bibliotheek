@@ -16,9 +16,11 @@ weight: 30
 - **artefacten_handmatig** = frontmatter op bibliotheek-`index.md`: PDF/MXL niet auto-bijwerken
 - `.mxl` / `.vsa.mxl` / `.mscz.mxl` = MusicXML voor Coria (**afgeleide**; niet terug importeren om te layouten)
 - `.pdf` / `.mscz.pdf` = A4-afgeleide om te lezen of te printen
+- `.mp3` / `.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3` = preview-audio voor **Beluisteren** (optioneel; zie [audio](/handleiding/werktrajecten/audio/))
 - `.vsa` / `.mvsa` = tekstbronnen (VSA / meerstemmig); overzicht: [Werktrajecten](/handleiding/werktrajecten/)
 - **werktraject** = vaste pijplijn (waartoe, eindresultaat, CI, handmatige `.cmd`); catalogus: [Werktrajecten](/handleiding/werktrajecten/)
 - **tekstblad** = bron `{stam}.tekstblad.md` → product `{stam}.tekstblad.pdf`; zie [Tekstblad](/handleiding/werktrajecten/tekstblad/)
+- **audio** = preview-`.mp3` naast `.mvsa` / `.mscz` / `.vsa`; zie [audio](/handleiding/werktrajecten/audio/)
 - **opkuisen** = inhoud opschonen (stemmen/balken, lettergreep↔noot); script of handmatig in MuseScore
 - **normaliseren** / **layouten** = basispartituur-standaard met `scripts\layout.cmd` (zelfde scriptstap; “layouten” is de gewone naam)
 - **bibliotheek-id** = `zangstuk/variant/uitvoeringsvorm` (drie lagen); zichtbaar op bibliotheek-leaves en in het colofon van basispartituur-`.mscz`/PDF
@@ -38,6 +40,7 @@ commando’s en mappen kloppen.
 | handmatig `.mscz` | Zelfde soort MuseScore-bestand, map met `artefacten_handmatig: true` | Alleen in MuseScore bewerken; PDF handmatig; geen automatische publicatiecontrole — zie [Publicatiecontrole](publicatiecontrole/) |
 | `.mxl` / `.vsa.mxl` / `.mscz.mxl` | Samengeperste MusicXML (**afgeleide**) | Naar Coria; of (na opkuisen) als start voor een nieuwe basispartituur. Nooit roundtrip: `.mscz` → `.mxl` → weer `.mscz` gooit de layout weg. |
 | `.pdf` / `.mscz.pdf` | A4-blad (afgeleide of handmatige export) | Downloaden of printen |
+| `.mp3` / `.mvsa.mp3` e.d. | Preview-audio (afgeleide) | Beluisteren op de site; maken met `audio-products` |
 | `.vsa` | VSA-notatie | Schrijven in een editor; sitebuild maakt SVG; `check`/`vsa-products` maakt Coria-`.vsa.mxl` — zie [.vsa schrijven](/handleiding/vsa/1-vsa-schrijven/) |
 | `.mvsa` | Meerstemmige tekstbron | Schrijven/valideren met `mvsa`; producten via `mvsa-products` (Coria-`.mvsa.mxl` + A4-`.mvsa.pdf`) — zie [mvsa](/handleiding/werktrajecten/mvsa/) |
 

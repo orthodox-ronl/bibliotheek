@@ -131,6 +131,9 @@ jobs:
       - name: Check MVSA product freshness
         run: python scripts/check_mvsa_products.py --fail
 
+      - name: Check audio product freshness
+        run: python scripts/check_audio_products.py --fail
+
       - name: Check bibliotheek-id in MSCZ colofon
         run: python scripts/ensure_bibliotheek_id.py --check-only --fail
 

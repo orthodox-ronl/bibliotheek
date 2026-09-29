@@ -37,12 +37,15 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 6. MVSA-publicatiecontrole — of elke canonieke bibliotheek-`.mvsa`
    (geen `.mscz.mvsa`) passende siblings `{stam}.mvsa.mxl` en
    `{stam}.mvsa.pdf` heeft met `vsa-source-sha256`
-7. Bibliotheek-id — of elke basispartituur-`.mscz` in het colofon de
+7. Audio-publicatiecontrole — of elke **bestaande** preview-`.mp3`
+   (`{stam}.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3`) bij de bron past;
+   ontbrekende audio is geen fout
+8. Bibliotheek-id — of elke basispartituur-`.mscz` in het colofon de
    regel `Bibliotheek-id:` heeft die bij het bladermap-pad past
-8. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
-9. Bladermap-SVG (`oefenhoek-index --svg`) — plaatjes uit `.vsa`; geen
+9. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
+10. Bladermap-SVG (`oefenhoek-index --svg`) — plaatjes uit `.vsa`; geen
    stamp-publicatiecontrole
-10. Hugo-build naar `generated\site`
+11. Hugo-build naar `generated\site`
 
 Zonder `--strict` waarschuwen de publicatie-, import- en id-controles
 lokaal maar falen niet (behalve op `main` of met
@@ -51,11 +54,12 @@ lokaal maar falen niet (behalve op `main` of met
 verouderde import-sibling, of een id-mismatch een fout. Vernieuw
 producten lokaal met [vsa-products](../vsa-products/),
 [mscz-products](../mscz-products/),
-[tekstblad-products](../tekstblad-products/) of
-[mvsa-products](../mvsa-products/); vernieuw
+[tekstblad-products](../tekstblad-products/),
+[mvsa-products](../mvsa-products/) of
+[audio-products](../audio-products/); vernieuw
 import-siblings met [import-mvsa](../import-mvsa/); herstel id’s met
 [ensure-bibliotheek-id](../ensure-bibliotheek-id/) of
-[layout](../layout/). CI genereert geen MuseScore-/PDF-producten.
+[layout](../layout/). CI genereert geen MuseScore-/PDF-/audio-producten.
 
 # EXAMPLES
 
@@ -78,6 +82,7 @@ genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole)
 - [tekstblad-products](../tekstblad-products/)
 - [import-mvsa](../import-mvsa/)
 - [mvsa-products](../mvsa-products/)
+- [audio-products](../audio-products/)
 - [oefenhoek-index](../oefenhoek-index/)
 - [layout](../layout/)
 - [ensure-bibliotheek-id](../ensure-bibliotheek-id/)

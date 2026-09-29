@@ -42,10 +42,12 @@ Geen nieuwe `.print.mscz`: handmatige MuseScore-bladen = `{stam}.mscz` +
 | Tekstblad | `.tekstblad.md` | `.tekstblad.pdf` | **Actief** (`tekstblad-products` / `check_tekstblad_products`) |
 | Import (bewerkvorm) | `.mscz` | `.mscz.mvsa` + partituur-sha (optioneel) | **Actief** (`import-mvsa` / `check_import_mvsa`; alleen bestaande paren) |
 | mvsa (canonieke bron) | `.mvsa` | `.mvsa.mxl` + `.mvsa.pdf` + source-sha | **Actief** (`mvsa-products` / `check_mvsa_products`) |
+| Audio (preview) | `.mvsa` / `.mscz` / `.vsa` | `.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3` + stamp | **Actief, opt-in** (`audio-products` / `check_audio_products`; alleen bestaande siblings) |
 | VSA-SVG (plaatje) | `.vsa` | `static/vsa/bladermap/….svg` | **Geen** versheidscontrole; `oefenhoek-index --svg` in check/build/CI |
 
-CI genereert geen MuseScore-/PDF-producten; wel bladermap-SVG uit `.vsa`
+CI genereert geen MuseScore-/PDF-/audio-producten; wel bladermap-SVG uit `.vsa`
 vóór Hugo. Importcontrole eist **geen** `.mscz.mvsa` bij elke partituur —
-alleen dat bestaande siblings vers zijn.
+alleen dat bestaande siblings vers zijn. Audio-controle eist **geen** mp3
+bij elke bron — alleen dat bestaande `.mp3`-siblings vers zijn.
 
 Oude bestandsnaam: `docs/productgates.md` (stub blijft als doorverwijzing).

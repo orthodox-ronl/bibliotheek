@@ -24,6 +24,7 @@ vanuit de repo-root.
 | `tekstblad-products` | Maakt/vernieuwt `{stam}.tekstblad.pdf` bij een bibliotheek-`.tekstblad.md`. | [tekstblad-products](tekstblad-products/) |
 | `import-mvsa` | Maakt/vernieuwt bewerkvorm `{stam}.mscz.mvsa` naast een basispartituur-`.mscz` (alleen bestaande siblings, tenzij pad/`--create`). | [import-mvsa](import-mvsa/) |
 | `mvsa-products` | Maakt/vernieuwt `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf` bij een bibliotheek-`.mvsa`. | [mvsa-products](mvsa-products/) |
+| `audio-products` | Maakt/vernieuwt preview-`{stam}.{bron}.mp3` bij `.mvsa` / `.mscz` / `.vsa` (optioneel Beluisteren). | [audio-products](audio-products/) |
 | `layout` | Past de basispartituur-standaard toe op `.mscz` of `.mxl` (tooling-layoutprofiel `partituur`). | [layout](layout/) |
 | `ensure-bibliotheek-id` | Zet of controleert de colofonregel `Bibliotheek-id:` op basispartituur-`.mscz`. | [ensure-bibliotheek-id](ensure-bibliotheek-id/) |
 | `opkuisen` | Herkomstanalyse + inhoudelijke opkuis (Capella/MusicXML/MuseScore); optioneel `--layout`. | [opkuisen](opkuisen/) |
@@ -35,8 +36,9 @@ Intern (geen apart gebruikerscommando): `python scripts\fingerprint_coria_mxl.py
 maakt `/mxl/c/<hash>.musicxml` en `data/coria-fp.json` voor de Oefenen-knop.
 Wordt al door `check` / `build` / `serve` aangeroepen.
 `check_vsa_products.py`, `check_mscz_products.py`,
-`check_tekstblad_products.py`, `check_import_mvsa.py` en
-`check_mvsa_products.py` schrijven status-JSON (versheid / importcontrole).
+`check_tekstblad_products.py`, `check_import_mvsa.py`,
+`check_mvsa_products.py` en `check_audio_products.py` schrijven status-JSON
+(versheid / importcontrole).
 
 Detail: [scripts/README.md](https://github.com/orthodox-ronl/bibliotheek/blob/development/scripts/README.md)
 in de repo.
