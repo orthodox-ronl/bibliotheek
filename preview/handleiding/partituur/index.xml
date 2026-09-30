@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Partituur on Bibliotheek</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/partituur/</link><description>Recent content in Partituur on Bibliotheek</description><generator>Hugo</generator><language>nl</language><atom:link href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/partituur/index.xml" rel="self" type="application/rss+xml"/><item><title>Ruw materiaal binnenhalen</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/partituur/1-binnenhalen/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/partituur/1-binnenhalen/</guid><description>&lt;h1 id="ruw-materiaal-binnenhalen"&gt;Ruw materiaal binnenhalen&lt;/h1&gt;
 &lt;p&gt;De canonieke beschrijving staat onder het werktraject
-&lt;a href="../../werktrajecten/opnemen-in-bibliotheek/"&gt;Opnemen in de bibliotheek&lt;/a&gt;
+&lt;a href="../../werktrajecten/opnemen-in-catalogus/"&gt;Opnemen in de catalogus&lt;/a&gt;
 
 (sectie &lt;em&gt;Ruw materiaal binnenhalen&lt;/em&gt;). Die pagina is de poort naar de
 catalogus; een generieke opkuiser volgt later.&lt;/p&gt;
@@ -19,7 +19,7 @@ catalogus; een generieke opkuiser volgt later.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Wat je nu doet:&lt;/strong&gt; het ruwe bestand bewaren op de afgesproken plek en in
 de werkvoorraad zetten, nog zonder te converteren. Volledige criteria,
-CI en vervolgstappen: &lt;a href="../../werktrajecten/opnemen-in-bibliotheek/"&gt;Opnemen&lt;/a&gt;
+CI en vervolgstappen: &lt;a href="../../werktrajecten/opnemen-in-catalogus/"&gt;Opnemen&lt;/a&gt;
 .&lt;/p&gt;</description></item><item><title>Opkuisen</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/partituur/2-opkuisen/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/partituur/2-opkuisen/</guid><description>&lt;h1 id="opkuisen"&gt;Opkuisen&lt;/h1&gt;
 &lt;aside class="handleiding-cue"&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
@@ -29,7 +29,7 @@ CI en vervolgstappen: &lt;a href="../../werktrajecten/opnemen-in-bibliotheek/"&g
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Alleen herkomst + rapport (geen schrijven; &lt;code&gt;--analyze&lt;/code&gt; en &lt;code&gt;--dry-run&lt;/code&gt; zijn
 hetzelfde):&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\opkuisen.cmd content-source\input\capella --analyze
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;STAM&lt;/code&gt; = publicatiestam uit de bibliotheek-id, zonder spaties
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;STAM&lt;/code&gt; = publicatiestam uit de catalogus-id, zonder spaties
 (voorbeeld: id &lt;code&gt;trisagion/8a-nederlands/hemelum&lt;/code&gt; →
 &lt;code&gt;trisagion-8a-nederlands-hemelum&lt;/code&gt;).
 Volledige man-page (hoeken, manieren wel/niet, exitcodes):
@@ -83,7 +83,7 @@ stemmen, cues — &lt;strong&gt;opslaan&lt;/strong&gt; (Ctrl+S). Exporteer niet 
 daarna de basispartituur-standaard &lt;strong&gt;opnieuw&lt;/strong&gt; toepassen met
 &lt;code&gt;scripts\layout.cmd&lt;/code&gt; (normaliseren / layouten). Zonder die tweede slag
 blijven A4, fonts, reciteertoon-encoding of copyright uit de pas lopen met
-de rest van de bibliotheek-site.&lt;/p&gt;</description></item><item><title>PDF en Coria-.mxl maken</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/partituur/5-pdf-en-coria/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/partituur/5-pdf-en-coria/</guid><description>&lt;h1 id="pdf-en-coria-mxl-maken"&gt;PDF en Coria-.mxl maken&lt;/h1&gt;
+de rest van de catalogus-site.&lt;/p&gt;</description></item><item><title>PDF en Coria-.mxl maken</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/partituur/5-pdf-en-coria/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/partituur/5-pdf-en-coria/</guid><description>&lt;h1 id="pdf-en-coria-mxl-maken"&gt;PDF en Coria-.mxl maken&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Werktraject&lt;/strong&gt; (waartoe, criteria, CI):
 &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/basispartituur/"&gt;Basispartituur&lt;/a&gt;
 .
@@ -92,7 +92,7 @@ Deze pagina is de HOW voor &lt;code&gt;mscz-products&lt;/code&gt;.&lt;/p&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;p&gt;Basispartituur-&lt;code&gt;.mscz&lt;/code&gt; staat in het &lt;strong&gt;bibliotheek&lt;/strong&gt; (niet alleen in &lt;code&gt;_werk&lt;/code&gt;). Daarna:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mscz-products.cmd content-source\bibliotheek\trisagion\8a-nederlands\hemelum
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mscz-products.cmd content-source\catalogus\trisagion\8a-nederlands\hemelum
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Of heel &lt;code&gt;content-source&lt;/code&gt;. &lt;code&gt;--force&lt;/code&gt; als producten ouder zijn dan de basispartituur of
 de bestandsdatum niet klopt. Lokale &lt;code&gt;check&lt;/code&gt;/&lt;code&gt;build&lt;/code&gt;/&lt;code&gt;serve&lt;/code&gt; vernieuwen
 stale basispartituur-producten ook automatisch. Weigert / slaat &lt;code&gt;*.print.mscz&lt;/code&gt; over.&lt;/p&gt;
@@ -105,9 +105,9 @@ sibling-bestanden maken:&lt;/p&gt;</description></item><item><title>Afgeleiden b
 &lt;aside class="handleiding-cue"&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
- &lt;p&gt;Na basispartituur-edit in de bibliotheek:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\layout.cmd content-source\bibliotheek\DOEL\STAM.mscz
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mscz-products.cmd content-source\bibliotheek\DOEL
+ &lt;p&gt;Na basispartituur-edit in de catalogus:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\layout.cmd content-source\catalogus\DOEL\STAM.mscz
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mscz-products.cmd content-source\catalogus\DOEL
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\check.cmd --strict
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Of producten voor alles: &lt;code&gt;scripts\mscz-products.cmd content-source&lt;/code&gt;.
 &lt;code&gt;--force&lt;/code&gt; op &lt;code&gt;mscz-products&lt;/code&gt; als de basispartituur nieuwer is maar dat niet in de
@@ -131,7 +131,7 @@ Deze pagina is de HOW.&lt;/p&gt;
  Bestandsnaam eindigt op &lt;strong&gt;&lt;code&gt;.print.mscz&lt;/code&gt;&lt;/strong&gt;. Geen &lt;code&gt;scripts\layout.cmd&lt;/code&gt;, geen
 &lt;code&gt;mscz-products&lt;/code&gt;, geen Coria-eis uit dit MuseScore-bestand. PDF maak je zelf in
 MuseScore 4 (Bestand → Exporteren → PDF) en commit je naast het print-bestand
-&lt;strong&gt;in het bibliotheek&lt;/strong&gt;. Zet op de bibliotheek-&lt;code&gt;index.md&lt;/code&gt;
+&lt;strong&gt;in het bibliotheek&lt;/strong&gt;. Zet op de catalogus-&lt;code&gt;index.md&lt;/code&gt;
 &lt;code&gt;artefacten_handmatig: true&lt;/code&gt; (gele beheerdersbanner).
  &lt;/div&gt;
 &lt;/aside&gt;

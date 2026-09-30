@@ -15,7 +15,7 @@
 
 &lt;p&gt;&lt;strong&gt;Wat je nu doet:&lt;/strong&gt; je pc zo inrichten dat de rest van deze handleiding
 neerkomt op copy-paste, zonder zoeken naar paden.&lt;/p&gt;</description></item><item><title>Levenscyclus van een uitvoeringsvorm</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/levenscyclus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/levenscyclus/</guid><description>&lt;h1 id="levenscyclus-van-een-uitvoeringsvorm"&gt;Levenscyclus van een uitvoeringsvorm&lt;/h1&gt;
-&lt;p&gt;Elke &lt;strong&gt;uitvoeringsvorm&lt;/strong&gt; (bibliotheek-id
+&lt;p&gt;Elke &lt;strong&gt;uitvoeringsvorm&lt;/strong&gt; (catalogus-id
 &lt;code&gt;zangstuk/variant/uitvoeringsvorm&lt;/code&gt;) is een &lt;em&gt;case&lt;/em&gt;: je weet in welke
 &lt;strong&gt;lifecycle-fase&lt;/strong&gt; die zit, welke scripts en bestanden bij die fase
 horen, en wanneer je naar de volgende fase mag.&lt;/p&gt;
@@ -29,13 +29,13 @@ lifecycle is voor beheerders die het materiaal maken.&lt;/p&gt;
 &lt;li&gt;&lt;strong&gt;Werkbank&lt;/strong&gt; — reserveren, materiaal binnenhalen, opkuisen, editen,
 proefdraaien. Bestanden in &lt;code&gt;input\&lt;/code&gt; en &lt;code&gt;_werk\&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Catalogus&lt;/strong&gt; — canonieke bron in
-&lt;code&gt;content-source\bibliotheek\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;\&lt;/code&gt;;
+&lt;code&gt;content-source\catalogus\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;\&lt;/code&gt;;
 producten via &lt;code&gt;*-products&lt;/code&gt;; &lt;code&gt;check --strict&lt;/code&gt; groen.&lt;/li&gt;
 &lt;li&gt;Overgang Werkbank → Catalogus: &lt;code&gt;bieb accepteer&lt;/code&gt; als de
 &lt;a href="werkbank/#overgangscriteria"&gt;overgangscriteria&lt;/a&gt;
  kloppen.&lt;/li&gt;
 &lt;li&gt;Overzicht open werk: &lt;code&gt;scripts\werkbank-status.cmd&lt;/code&gt; en special page
-&lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/speciaal/werkbank/"&gt;Werkbank&lt;/a&gt;
+&lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/speciaal/werkbank/"&gt;Werkbank&lt;/a&gt;
 .&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -55,13 +55,13 @@ producten via &lt;code&gt;*-products&lt;/code&gt;; &lt;code&gt;check --strict&lt
  &lt;tr&gt;
  &lt;td&gt;&lt;a href="werkbank/"&gt;Werkbank&lt;/a&gt;
 &lt;/td&gt;
- &lt;td&gt;&lt;code&gt;input\&amp;lt;herkomst&amp;gt;\&lt;/code&gt;, &lt;code&gt;_inbox\&lt;/code&gt;, &lt;code&gt;_werk\&amp;lt;stam&amp;gt;\&lt;/code&gt;; optioneel stub in de bibliotheek&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;input\&amp;lt;herkomst&amp;gt;\&lt;/code&gt;, &lt;code&gt;_inbox\&lt;/code&gt;, &lt;code&gt;_werk\&amp;lt;stam&amp;gt;\&lt;/code&gt;; optioneel stub in de catalogus&lt;/td&gt;
  &lt;td&gt;“Waar werk ik dit stuk af?”&lt;/td&gt;
  &lt;/tr&gt;
  &lt;tr&gt;
  &lt;td&gt;&lt;a href="catalogus/"&gt;Catalogus&lt;/a&gt;
 &lt;/td&gt;
- &lt;td&gt;&lt;code&gt;bibliotheek\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;\&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;catalogus\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;\&lt;/code&gt;&lt;/td&gt;
  &lt;td&gt;“Wat is de canonieke bron, en zijn de producten vers?”&lt;/td&gt;
  &lt;/tr&gt;
  &lt;/tbody&gt;
@@ -70,7 +70,7 @@ producten via &lt;code&gt;*-products&lt;/code&gt;; &lt;code&gt;check --strict&lt
 blijft hetzelfde: status per uitvoeringsvorm, fase-eigen pijplijnen,
 overgangscriteria.&lt;/p&gt;</description></item><item><title>Werkbank (pre-productie)</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/werkbank/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/werkbank/</guid><description>&lt;h1 id="werkbank-pre-productie"&gt;Werkbank (pre-productie)&lt;/h1&gt;
 &lt;p&gt;De &lt;strong&gt;werkbank&lt;/strong&gt; is de lifecycle-fase waarin een uitvoeringsvorm nog
-&lt;strong&gt;niet&lt;/strong&gt; (of alleen als lege stub) als canonieke bron in de bibliotheek
+&lt;strong&gt;niet&lt;/strong&gt; (of alleen als lege stub) als canonieke bron in de catalogus
 staat. Hier reserveer je een id, haal je materiaal binnen, kuis je op,
 layout je, en proefdraai je. Overzicht: &lt;a href="levenscyclus/"&gt;Levenscyclus&lt;/a&gt;
 .&lt;/p&gt;
@@ -117,18 +117,18 @@ layout je, en proefdraai je. Overzicht: &lt;a href="levenscyclus/"&gt;Levenscycl
  &lt;td&gt;Tussenproducten (opgekuiste &lt;code&gt;.mxl&lt;/code&gt;, layout-&lt;code&gt;.mscz&lt;/code&gt;, proeven)&lt;/td&gt;
  &lt;/tr&gt;
  &lt;tr&gt;
- &lt;td&gt;&lt;code&gt;bibliotheek\…\&lt;/code&gt; met &lt;code&gt;--stub&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;catalogus\…\&lt;/code&gt; met &lt;code&gt;--stub&lt;/code&gt;&lt;/td&gt;
  &lt;td&gt;Ja&lt;/td&gt;
  &lt;td&gt;Alleen gereserveerd id / lege pagina (&lt;code&gt;voorzien&lt;/code&gt;)&lt;/td&gt;
  &lt;/tr&gt;
  &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;Geen canonieke oefenbron onder &lt;code&gt;bibliotheek\&lt;/code&gt; in deze fase — behalve een
+&lt;p&gt;Geen canonieke oefenbron onder &lt;code&gt;catalogus\&lt;/code&gt; in deze fase — behalve een
 bewuste stub. Zie &lt;a href="waar-ligt-wat/"&gt;Waar ligt wat&lt;/a&gt;
-.&lt;/p&gt;</description></item><item><title>Catalogus (in de bibliotheek)</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/catalogus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/catalogus/</guid><description>&lt;h1 id="catalogus-in-de-bibliotheek"&gt;Catalogus (in de bibliotheek)&lt;/h1&gt;
+.&lt;/p&gt;</description></item><item><title>Catalogus</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/catalogus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/catalogus/</guid><description>&lt;h1 id="catalogus"&gt;Catalogus&lt;/h1&gt;
 &lt;p&gt;De &lt;strong&gt;catalogus&lt;/strong&gt; is de lifecycle-fase waarin de uitvoeringsvorm een
 &lt;strong&gt;canonieke bron&lt;/strong&gt; heeft onder
-&lt;code&gt;content-source\bibliotheek\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;\&lt;/code&gt;.
+&lt;code&gt;content-source\catalogus\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;\&lt;/code&gt;.
 Afgeleide producten (PDF, Coria-&lt;code&gt;.mxl&lt;/code&gt;, audio, …) horen bij die bron via
 de bestaande productscripts en publicatiecontrole. Overzicht:
 &lt;a href="levenscyclus/"&gt;Levenscyclus&lt;/a&gt;
@@ -137,7 +137,7 @@ de bestaande productscripts en publicatiecontrole. Overzicht:
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;ol&gt;
-&lt;li&gt;Canonieke bron bewerken in de bibliotheekmap (niet opnieuw vanuit
+&lt;li&gt;Canonieke bron bewerken in de catalogusmap (niet opnieuw vanuit
 een ruwe dump “ernaast”).&lt;/li&gt;
 &lt;li&gt;Producten: &lt;code&gt;scripts\all-products.cmd&lt;/code&gt; met pad naar die map (of het
 passende &lt;code&gt;*-products.cmd&lt;/code&gt;).&lt;/li&gt;
@@ -158,7 +158,7 @@ passende &lt;code&gt;*-products.cmd&lt;/code&gt;).&lt;/li&gt;
  &lt;/thead&gt;
  &lt;tbody&gt;
  &lt;tr&gt;
- &lt;td&gt;&lt;code&gt;bibliotheek\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;\index.md&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;catalogus\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;\index.md&lt;/code&gt;&lt;/td&gt;
  &lt;td&gt;Pagina + shortcode &lt;code&gt;bieb&lt;/code&gt;; &lt;code&gt;publicatiestatus&lt;/code&gt;&lt;/td&gt;
  &lt;/tr&gt;
  &lt;tr&gt;
@@ -177,7 +177,7 @@ passende &lt;code&gt;*-products.cmd&lt;/code&gt;).&lt;/li&gt;
 &lt;/table&gt;
 &lt;p&gt;Namen: &lt;a href="publicatiecontrole/"&gt;Publicatiecontrole&lt;/a&gt;
 . Model:
-&lt;a href="bibliotheek-en-koormappen/"&gt;Bibliotheek en koormappen&lt;/a&gt;
+&lt;a href="catalogus-en-koormappen/"&gt;Catalogus en koormappen&lt;/a&gt;
 .&lt;/p&gt;</description></item><item><title>Waar ligt wat</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/waar-ligt-wat/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/waar-ligt-wat/</guid><description>&lt;h1 id="waar-ligt-wat"&gt;Waar ligt wat&lt;/h1&gt;
 &lt;aside class="handleiding-cue"&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
@@ -185,11 +185,11 @@ passende &lt;code&gt;*-products.cmd&lt;/code&gt;).&lt;/li&gt;
  &lt;ul&gt;
 &lt;li&gt;Input: &lt;code&gt;content-source\input\&amp;lt;herkomst&amp;gt;\&lt;/code&gt; (originele bestandsnaam mag spaties hebben)&lt;/li&gt;
 &lt;li&gt;Tussenwerk: &lt;code&gt;content-source\input\_werk\&amp;lt;stam&amp;gt;\&lt;/code&gt; (publicatiestam; alleen op jouw pc, niet in git)&lt;/li&gt;
-&lt;li&gt;Bibliotheek (catalogus-fase): &lt;code&gt;content-source\bibliotheek\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;\&lt;/code&gt; — &lt;strong&gt;geen spaties&lt;/strong&gt; in bestandsnamen&lt;/li&gt;
+&lt;li&gt;Bibliotheek (catalogus-fase): &lt;code&gt;content-source\catalogus\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;\&lt;/code&gt; — &lt;strong&gt;geen spaties&lt;/strong&gt; in bestandsnamen&lt;/li&gt;
 &lt;li&gt;Koormap: &lt;code&gt;content-source\koormappen\hemelum\liturgie-zondag\&lt;/code&gt; of
 &lt;code&gt;liturgie-weekdagen\&lt;/code&gt; — sectie-&lt;code&gt;_index.md&lt;/code&gt; of slot-&lt;code&gt;index.md&lt;/code&gt; + &lt;code&gt;bieb&lt;/code&gt;
 (geen basispartituur-bestanden)&lt;/li&gt;
-&lt;li&gt;Register: &lt;code&gt;content-source\input\werkvoorraad.md&lt;/code&gt; en &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/bibliotheek/id-register/"&gt;Id-register&lt;/a&gt;
+&lt;li&gt;Register: &lt;code&gt;content-source\input\werkvoorraad.md&lt;/code&gt; en &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/id-register/"&gt;Id-register&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;Lifecycle: &lt;a href="levenscyclus/"&gt;Levenscyclus&lt;/a&gt;
  — Werkbank vs Catalogus&lt;/li&gt;
@@ -203,14 +203,14 @@ het origineel, of komt een half af bestand op de publieke site. In de
 &lt;a href="werkbank/"&gt;Werkbank&lt;/a&gt;
  horen input en &lt;code&gt;_werk&lt;/code&gt;; in de
 &lt;a href="catalogus/"&gt;Catalogus&lt;/a&gt;
- de canonieke bron onder &lt;code&gt;bibliotheek\&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Bibliotheek en koormappen</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/bibliotheek-en-koormappen/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/bibliotheek-en-koormappen/</guid><description>&lt;h1 id="bibliotheek-en-koormappen"&gt;Bibliotheek en koormappen&lt;/h1&gt;
+ de canonieke bron onder &lt;code&gt;catalogus\&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Catalogus en koormappen</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/catalogus-en-koormappen/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/catalogus-en-koormappen/</guid><description>&lt;h1 id="catalogus-en-koormappen"&gt;Catalogus en koormappen&lt;/h1&gt;
 &lt;aside class="handleiding-cue"&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Bibliotheek&lt;/strong&gt; = alles wat jullie &lt;em&gt;hebben&lt;/em&gt; (uitvoeringsvorm + id + partituur)&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Koormap&lt;/strong&gt; = geordende &lt;em&gt;view&lt;/em&gt; voor één gelegenheid of thema (navigatie + leesbladen)&lt;/li&gt;
-&lt;li&gt;Een uitvoeringsvorm mag in de bibliotheek staan &lt;strong&gt;zonder&lt;/strong&gt; koormap&lt;/li&gt;
+&lt;li&gt;Een uitvoeringsvorm mag in de catalogus staan &lt;strong&gt;zonder&lt;/strong&gt; koormap&lt;/li&gt;
 &lt;li&gt;In een koormap is een liturgische plek vaak een &lt;strong&gt;hoofdstuk&lt;/strong&gt; (sectie) met
 kindpagina’s of een &lt;strong&gt;compositieblad&lt;/strong&gt; (markdown + shortcodes)&lt;/li&gt;
 &lt;/ul&gt;
@@ -357,13 +357,13 @@ de Heilige Engelen). Dat is geen vierde soort zangstuk.&lt;/p&gt;</description><
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;opkuisen&lt;/strong&gt; = inhoud opschonen (stemmen/balken, lettergreep↔noot); script of handmatig in MuseScore&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;normaliseren&lt;/strong&gt; / &lt;strong&gt;layouten&lt;/strong&gt; = basispartituur-standaard met &lt;code&gt;scripts\layout.cmd&lt;/code&gt; (zelfde scriptstap; “layouten” is de gewone naam)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;bibliotheek-id&lt;/strong&gt; = &lt;code&gt;zangstuk/variant/uitvoeringsvorm&lt;/code&gt; (drie lagen); zichtbaar op bibliotheek-leaves en in het colofon van basispartituur-&lt;code&gt;.mscz&lt;/code&gt;/PDF&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;bieb&lt;/code&gt;&lt;/strong&gt; (shortcode) = knoppen + partituur van een bibliotheek-id; &lt;strong&gt;&lt;code&gt;bieb&lt;/code&gt;&lt;/strong&gt; (CLI, later) = beheercommando’s (&lt;code&gt;accepteer&lt;/code&gt;, &lt;code&gt;zoek&lt;/code&gt;, …)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;bieb accepteer&lt;/code&gt;&lt;/strong&gt; = overgang Werkbank → Catalogus (bestand opnemen); zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/opnemen-in-bibliotheek/"&gt;Opnemen&lt;/a&gt;
+&lt;li&gt;&lt;strong&gt;catalogus-id&lt;/strong&gt; = &lt;code&gt;zangstuk/variant/uitvoeringsvorm&lt;/code&gt; (drie lagen); zichtbaar op bibliotheek-leaves en in het colofon van basispartituur-&lt;code&gt;.mscz&lt;/code&gt;/PDF&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;bieb&lt;/code&gt;&lt;/strong&gt; (shortcode) = knoppen + partituur van een catalogus-id; &lt;strong&gt;&lt;code&gt;bieb&lt;/code&gt;&lt;/strong&gt; (CLI, later) = beheercommando’s (&lt;code&gt;accepteer&lt;/code&gt;, &lt;code&gt;zoek&lt;/code&gt;, …)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;bieb accepteer&lt;/code&gt;&lt;/strong&gt; = overgang Werkbank → Catalogus (bestand opnemen); zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/opnemen-in-catalogus/"&gt;Opnemen&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Werkbank&lt;/strong&gt; = lifecycle pre-productie (&lt;code&gt;input\&lt;/code&gt;, &lt;code&gt;_werk\&lt;/code&gt;); zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/werkbank/"&gt;Werkbank&lt;/a&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Catalogus&lt;/strong&gt; (lifecycle) = canonieke bron in &lt;code&gt;bibliotheek\…&lt;/code&gt;; zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/catalogus/"&gt;Catalogus&lt;/a&gt;
+&lt;li&gt;&lt;strong&gt;Catalogus&lt;/strong&gt; (lifecycle) = canonieke bron in &lt;code&gt;catalogus\…&lt;/code&gt;; zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/catalogus/"&gt;Catalogus&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;publicatiestatus&lt;/strong&gt; = wat koorleden op de pagina zien (sticky header); intern &lt;em&gt;Stap&lt;/em&gt; in de werkvoorraad én lifecycle-fase zijn iets anders&lt;/li&gt;
 &lt;/ul&gt;
