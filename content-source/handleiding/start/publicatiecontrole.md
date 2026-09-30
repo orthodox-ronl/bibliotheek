@@ -223,7 +223,10 @@ check/CI vernieuwd (geen herkomststempel).
 
 Op bibliotheek-bladermappen: knop **Beluisteren** bij elke bron met
 Coria-`.mxl` (passende `.mp3`); knop **Bronnen** (alleen in de
-bibliotheek) laat de bronbestanden (`.mvsa` / `.mscz` / `.vsa`) downloaden.
+bibliotheek, en alleen als er een `.vsa` of `.mvsa` is) toont de
+feitelijke brontekst in plaats van de gerenderde partituur. **Downloaden**
+en **Printen** gelden dan voor dat bronbestand. Bij alleen een `.mscz`
+(geen VSA-tekst) ontbreekt de knop **Bronnen**.
 
 ## Legacy-namen (nog toegestaan tot migratie)
 
