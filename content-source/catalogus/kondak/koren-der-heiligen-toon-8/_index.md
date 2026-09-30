@@ -8,4 +8,5 @@ automatische_inhoud: false
 alias_van: kondak/zaterdag-heiligen-toon-8
 aliases:
   - "/bibliotheek/120-kondak/koren-der-heiligen-toon-8/"
+  - "/bibliotheek/kondak/koren-der-heiligen-toon-8/"
 ---

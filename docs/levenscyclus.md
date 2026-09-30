@@ -6,10 +6,10 @@ Leesbare vorm voor beheerders:
 ## Model
 
 - **Case** = één uitvoeringsvorm (`zangstuk/variant/uitvoeringsvorm`),
-  ook als de bibliotheekmap nog ontbreekt (alleen Doel-id / stub).
+  ook als de catalogusmap nog ontbreekt (alleen Doel-id / stub).
 - **Lifecycle-fase** ≠ `publicatiestatus` (die is voor koorleden).
 - Huidige fases: **Werkbank** (pre-productie) → **Catalogus** (canonieke
-  bron in `content-source/bibliotheek/…`).
+  bron in `content-source/catalogus/…`).
 - Overgang: meetbare criteria + handmatig `bieb accepteer` (geen
   stille auto-promote).
 - Fase-docs: `handleiding/start/werkbank.md`,

@@ -31,7 +31,7 @@ velden als bij PDF/MXL: hash van de bron, wanneer gemaakt). Zo ziet
 `check` later of de bron is gewijzigd terwijl het mp3 nog oud is.
 
 Zoekt onder het opgegeven pad (of, zonder pad, onder
-`content-source\bibliotheek`). Overgeslagen: `input\`, mappen met
+`content-source\catalogus`). Overgeslagen: `input\`, mappen met
 `artefacten_handmatig: true`, import-siblings `*.mscz.mvsa`, en
 `.print.mscz`.
 
@@ -57,8 +57,8 @@ als de Coria-`.mxl`. Ontbreekt of veroudert die, dan faalt
 # EXAMPLES
 
 ```cmd
-scripts\audio-products.cmd content-source\bibliotheek\9-alleluia\9a-toon-1\groningen
-scripts\audio-products.cmd content-source\bibliotheek\tropaar\maandag-toon-4\hemelum --force
+scripts\audio-products.cmd content-source\catalogus\9-alleluia\9a-toon-1\groningen
+scripts\audio-products.cmd content-source\catalogus\tropaar\maandag-toon-4\hemelum --force
 ```
 
 # WHEN

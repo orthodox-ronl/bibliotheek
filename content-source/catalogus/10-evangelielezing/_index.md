@@ -5,4 +5,6 @@ nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true
 weight: 1000
+aliases:
+  - "/bibliotheek/10-evangelielezing/"
 ---

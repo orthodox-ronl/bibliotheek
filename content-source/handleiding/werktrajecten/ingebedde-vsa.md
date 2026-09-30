@@ -21,8 +21,8 @@ onder `content-source`. Draai daarna `scripts\check.cmd` of
 ## Waartoe
 
 Je wilt VSA tonen op een pagina die geen bladermap onder
-`bibliotheek\` is — bijvoorbeeld een samenstelling of de
-Tooling Demo — zonder `bieb` en zonder bibliotheek-id.
+`catalogus\` is — bijvoorbeeld een samenstelling of de
+Tooling Demo — zonder `bieb` en zonder catalogus-id.
 
 ## Eindresultaat en criteria
 
@@ -34,7 +34,7 @@ Tooling Demo — zonder `bieb` en zonder bibliotheek-id.
 **Klaar** als: de pagina de SVG toont na build; `vsa validate` /
 `validate_content` stil is voor die bronnen.
 
-Dit vervangt **niet** sibling `{stam}.vsa.mxl` in de bibliotheek (dat is
+Dit vervangt **niet** sibling `{stam}.vsa.mxl` in de catalogus (dat is
 [VSA](../vsa/)).
 
 ## Wanneer wel / wanneer niet
@@ -47,7 +47,7 @@ Dit vervangt **niet** sibling `{stam}.vsa.mxl` in de bibliotheek (dat is
 ## Volgorde (bestanden)
 
 1. Schrijf markdown onder `content-source` (buiten
-   `bibliotheek\…` als bladermap), met VSA-blokken of includes.
+   `catalogus\…` als bladermap), met VSA-blokken of includes.
 2. Bouw de site (of laat `check` de generate-stap doen):
 
 ```cmd

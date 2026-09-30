@@ -1,8 +1,9 @@
 """Zet of controleer bibliotheek-id in basispartituur-``.mscz``-colofon.
 
 Verwacht id = pad ``zangstuk/variant/uitvoeringsvorm`` onder
-``content-source\\bibliotheek``. Schrijven gebeurt via tooling-layoutprofiel
+``content-source\\catalogus``. Schrijven gebeurt via tooling-layoutprofiel
 ``partituur`` (zelfde als ``layout.cmd``). CI / ``--check-only`` schrijft niet.
+Colofonregel blijft ``Bibliotheek-id:`` (VSA-tooling-contract).
 """
 
 from __future__ import annotations
@@ -18,7 +19,7 @@ from sync_mscz_products import collect_mscz, is_print_mscz
 from sync_vsa_products import folder_is_handmatig
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_ROOT = REPO_ROOT / "content-source" / "bibliotheek"
+DEFAULT_ROOT = REPO_ROOT / "content-source" / "catalogus"
 _BIB_ID_LABEL = "Bibliotheek-id:"
 _ID_PART = re.compile(r"^[a-z0-9_-]+$")
 FIX_PAGE = "/handleiding/partituur/3-standaard-mscz/"
@@ -35,15 +36,15 @@ def _rel(path: Path) -> str:
         return path.as_posix()
 
 
-def id_from_bibliotheek_path(path: Path) -> str | None:
-    """``content-source/bibliotheek/<zangstuk>/<variant>/<uitvoeringsvorm>/…``.
+def id_from_catalogus_path(path: Path) -> str | None:
+    """``content-source/catalogus/<zangstuk>/<variant>/<uitvoeringsvorm>/…``.
 
     De repo-root heet ook ``bibliotheek``; pad-sniffing in tooling grijpt die
-    eerst. Hier zoeken we daarom expliciet onder ``content-source/bibliotheek``.
+    eerst. Hier zoeken we daarom expliciet onder ``content-source/catalogus``.
     """
     parts = Path(path).resolve().parts
     for i, part in enumerate(parts):
-        if part != "bibliotheek":
+        if part != "catalogus":
             continue
         if i == 0 or parts[i - 1] != "content-source":
             continue
@@ -90,7 +91,7 @@ def collect_basispartituren(root: Path) -> list[tuple[Path, str]]:
             continue
         if folder_is_handmatig(mscz.parent):
             continue
-        ident = id_from_bibliotheek_path(mscz)
+        ident = id_from_catalogus_path(mscz)
         if not ident:
             continue
         out.append((mscz, ident))
@@ -137,7 +138,7 @@ def main(argv: list[str] | None = None) -> int:
         nargs="?",
         type=Path,
         default=DEFAULT_ROOT,
-        help="Zoekroot (default: content-source/bibliotheek)",
+        help="Zoekroot (default: content-source/catalogus)",
     )
     p.add_argument(
         "--check-only",

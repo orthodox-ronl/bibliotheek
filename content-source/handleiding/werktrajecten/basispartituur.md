@@ -13,14 +13,14 @@ bestanden die koorleden downloaden en in Coria oefenen. Representatie-id:
 {{< cue >}}
 Na normaliseren en review in MuseScore 4:
 ```cmd
-scripts\mscz-products.cmd content-source\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>
+scripts\mscz-products.cmd content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>
 ```
 Daarna `scripts\check.cmd --strict`. Geen `*.print.mscz` in deze keten.
 {{< /cue >}}
 
 ## Waartoe
 
-Een vierstemmig (of meer) blad in de bibliotheek moet op de site als
+Een vierstemmig (of meer) blad in de catalogus moet op de site als
 A4-PDF leesbaar zijn en via de knop **Oefenen** in Coria afspeelbaar. Dit
 traject houdt PDF en Coria-`.mxl` synchroon met de canonieke
 basispartituur.
@@ -49,7 +49,7 @@ doelvorm (zie [Publicatiecontrole](/handleiding/start/publicatiecontrole/)).
 
 ## Volgorde (bestanden)
 
-1. Ruw materiaal via [Opnemen](../opnemen-in-bibliotheek/) (of al in
+1. Ruw materiaal via [Opnemen](../opnemen-in-catalogus/) (of al in
    `_werk\`). Inhoudelijk opkuisen: [Opkuisen](../../partituur/2-opkuisen/).
 2. Normaliseren naar basispartituur-standaard:
 
@@ -60,9 +60,9 @@ scripts\layout.cmd pad\naar\bestand.mscz
    HOW: [Standaard-.mscz](../../partituur/3-standaard-mscz/).
 3. Review in MuseScore 4, daarna opnieuw `layout` indien nodig.
    HOW: [Reviewen](../../partituur/4-reviewen/).
-4. Bestand in de bibliotheek (als dat nog niet zo is):
-   `bieb accepteer` — zie [Opnemen](../opnemen-in-bibliotheek/).
-5. Bibliotheek-id in colofon/meta (lokaal vaak al via `check`):
+4. Bestand in de catalogus (als dat nog niet zo is):
+   `bieb accepteer` — zie [Opnemen](../opnemen-in-catalogus/).
+5. Catalogus-id in colofon/meta (lokaal vaak al via `check`):
 
 ```cmd
 scripts\ensure-bibliotheek-id.cmd
@@ -71,7 +71,7 @@ scripts\ensure-bibliotheek-id.cmd
 6. PDF en Coria-`.mxl` exporteren:
 
 ```cmd
-scripts\mscz-products.cmd content-source\bibliotheek\trisagion\8a-nederlands\hemelum
+scripts\mscz-products.cmd content-source\catalogus\trisagion\8a-nederlands\hemelum
 ```
 
    Of heel `content-source`. `--force` als producten ouder zijn dan de
@@ -79,14 +79,14 @@ scripts\mscz-products.cmd content-source\bibliotheek\trisagion\8a-nederlands\hem
 7. Site zichtbaar maken: [Site-build](../site-build/).
 
 Voorbeeldbladermap:
-`content-source\bibliotheek\trisagion\8a-nederlands\hemelum\`.
+`content-source\catalogus\trisagion\8a-nederlands\hemelum\`.
 
 ## Automatisch (CI)
 
 Op GitHub Actions (workflows `validate.yml` / `pages.yml`):
 
 - **Wel:** `check_partituur_products.py` en `check_bibliotheek_id.py`
-  controleren of PDF/MXL bij de `.mscz` passen en of het bibliotheek-id
+  controleren of PDF/MXL bij de `.mscz` passen en of het catalogus-id
   klopt.
 - **Niet:** MuseScore-export (`mscz-products`). CI heeft geen MuseScore 4.
   Verouderde of ontbrekende producten laten de build **falen** — jij
@@ -94,7 +94,7 @@ Op GitHub Actions (workflows `validate.yml` / `pages.yml`):
 
 Lokaal vernieuwt `scripts\check.cmd` (via `_pipeline.cmd`) stale
 basispartituur-producten wél met `sync_mscz_products.py`, en zet
-ontbrekende bibliotheek-ids met `ensure_bibliotheek_id.py`.
+ontbrekende catalogus-ids met `ensure_bibliotheek_id.py`.
 
 ## Handmatig
 
@@ -102,7 +102,7 @@ ontbrekende bibliotheek-ids met `ensure_bibliotheek_id.py`.
 | --- | --- | --- |
 | Layout / normaliseren | `scripts\layout.cmd` `<pad>` | [layout](../../scripts/layout/) |
 | PDF + Coria | `scripts\mscz-products.cmd` `[map]` | [mscz-products](../../scripts/mscz-products/) |
-| Bibliotheek-id in `.mscz` | `scripts\ensure-bibliotheek-id.cmd` | [ensure-bibliotheek-id](../../scripts/ensure-bibliotheek-id/) |
+| Catalogus-id in `.mscz` | `scripts\ensure-bibliotheek-id.cmd` | [ensure-bibliotheek-id](../../scripts/ensure-bibliotheek-id/) |
 | Alles vóór commit | `scripts\check.cmd --strict` | [check](../../scripts/check/) |
 
 ## Zie ook
@@ -110,4 +110,4 @@ ontbrekende bibliotheek-ids met `ensure_bibliotheek_id.py`.
 - [Afgeleiden](../../partituur/6-afgeleiden/)
 - [Publicatiecontrole](/handleiding/start/publicatiecontrole/)
 
-{{< navbuttons "Opnemen|/handleiding/werktrajecten/opnemen-in-bibliotheek/" "VSA|/handleiding/werktrajecten/vsa/" >}}
+{{< navbuttons "Opnemen|/handleiding/werktrajecten/opnemen-in-catalogus/" "VSA|/handleiding/werktrajecten/vsa/" >}}

@@ -16,7 +16,7 @@ scripts\lifecycle-grenzen.cmd [--fail]
 
 # DESCRIPTION
 
-Loopt `content-source\bibliotheek` na op signalen dat **werkbank-materiaal**
+Loopt `content-source\catalogus` na op signalen dat **werkbank-materiaal**
 per ongeluk als catalogus-bron geldt:
 
 - bestandsnamen **met spaties**;
@@ -41,7 +41,7 @@ scripts\lifecycle-grenzen.cmd --fail
 # WHEN
 
 Na rommelen in mappen, of als `bieb accepteer` weigert en je wilt zien of
-er al iets verkeerds onder `bibliotheek\` ligt. Model:
+er al iets verkeerds onder `catalogus\` ligt. Model:
 [Levenscyclus](/handleiding/start/levenscyclus/).
 
 # SEE ALSO

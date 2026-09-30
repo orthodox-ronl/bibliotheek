@@ -40,7 +40,7 @@ jobs:
           echo "branch=$branch" >> "$GITHUB_OUTPUT"
 
           # Keep in sync with scripts/fingerprint_coria_mxl.py::_pages_subdir
-          reserved='^(preview|main|gh-pages|development|bibliotheek|koormappen|handleiding|coria|css|images|js|mxl|vsa|input)$'
+          reserved='^(preview|main|gh-pages|development|bibliotheek|catalogus|koormappen|handleiding|coria|css|images|js|mxl|vsa|input)$'
 
           if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
             echo "base_url=https://orthodox-ronl.github.io/bibliotheek/" >> "$GITHUB_OUTPUT"
@@ -111,9 +111,9 @@ jobs:
 
       - name: Validate VSA content
         run: |
-          vsa validate content-source/bibliotheek
-          if find content-source/bibliotheek -name '*.mvsa' -print -quit | grep -q .; then
-            mvsa validate content-source/bibliotheek
+          vsa validate content-source/catalogus
+          if find content-source/catalogus -name '*.mvsa' -print -quit | grep -q .; then
+            mvsa validate content-source/catalogus
           fi
 
       - name: Check VSA product freshness

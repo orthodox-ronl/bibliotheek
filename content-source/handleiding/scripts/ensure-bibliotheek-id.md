@@ -6,7 +6,7 @@ weight: 120
 
 # NAME
 
-`scripts\ensure-bibliotheek-id.cmd` — bibliotheek-id in het colofon zetten of controleren
+`scripts\ensure-bibliotheek-id.cmd` — catalogus-id in het colofon zetten of controleren
 
 # SYNOPSIS
 
@@ -16,7 +16,7 @@ scripts\ensure-bibliotheek-id.cmd [root] [--check-only] [--fail]
 
 # DESCRIPTION
 
-Elke basispartituur-`.mscz` onder `content-source\bibliotheek\` moet in het
+Elke basispartituur-`.mscz` onder `content-source\catalogus\` moet in het
 colofon de regel `Bibliotheek-id:` hebben. Die waarde moet gelijk zijn aan
 het pad `zangstuk/variant/uitvoeringsvorm` van de map.
 
@@ -26,7 +26,7 @@ nodig). Met `--check-only` (of in CI) alleen rapporteren, niet schrijven.
 Op `main`, met `--fail`, of met `BIBLIOTHEEK_ID_STRICT=1` faalt de check
 als er nog problemen zijn.
 
-Zonder `root` zoekt het script onder `content-source\bibliotheek`.
+Zonder `root` zoekt het script onder `content-source\catalogus`.
 Mappen met `artefacten_handmatig: true` en bestanden `*.print.mscz` worden
 overgeslagen. Na een herstel: opnieuw [mscz-products](../mscz-products/)
 voor verse PDF’s met het juiste colofon.
@@ -41,7 +41,7 @@ voor verse PDF’s met het juiste colofon.
 
 # WHEN
 
-Na [layout](../layout/) of na verplaatsing in de bibliotheek, of als `check`
+Na [layout](../layout/) of na verplaatsing in de catalogus, of als `check`
 een id-mismatch meldt.
 
 # SEE ALSO

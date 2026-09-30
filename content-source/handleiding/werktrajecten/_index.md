@@ -20,7 +20,7 @@ mappen, woorden). Stapsgewijze MuseScore- of VSA-HOW’s staan onder
 
 {{< cue >}}
 - **Poort / lifecycle:** [Levenscyclus](../start/levenscyclus/) —
-  Werkbank → Catalogus; [Opnemen](opnemen-in-bibliotheek/) — `bieb accepteer`
+  Werkbank → Catalogus; [Opnemen](opnemen-in-catalogus/) — `bieb accepteer`
 - **Namen / publicatiecontrole:** [Publicatiecontrole](../start/publicatiecontrole/) — bron vs afgeleide
 - **Publicatiesporen:** [Basispartituur](basispartituur/), [VSA](vsa/),
   [mvsa](mvsa/), [audio](audio/), [Print-vel](print-vel/) (legacy `.print.mscz`),
@@ -36,7 +36,7 @@ mappen, woorden). Stapsgewijze MuseScore- of VSA-HOW’s staan onder
 Werkbank (input/ + _werk/)
     |
     v
-Opnemen in de bibliotheek  (bieb accepteer → Catalogus)
+Opnemen in de catalogus  (bieb accepteer → Catalogus)
     |
     +-- Basispartituur  ->  PDF + Coria-.mxl + .mscz.mp3
     +-- VSA             ->  SVG + Coria-.vsa.mxl + .vsa.pdf + .vsa.mp3
@@ -56,7 +56,7 @@ geen bibliotheek-producten.
 
 | Werktraject | Waartoe (kort) | Pagina |
 | --- | --- | --- |
-| Opnemen in de bibliotheek | Ruw bestand bewaren en later als klaar oefenbestand in de catalogus zetten | [Opnemen](opnemen-in-bibliotheek/) |
+| Opnemen in de catalogus | Ruw bestand bewaren en later als klaar oefenbestand in de catalogus zetten | [Opnemen](opnemen-in-catalogus/) |
 | Basispartituur | MuseScore-basispartituur naar A4-PDF en Coria-`.mxl` | [Basispartituur](basispartituur/) |
 | VSA | Eenstemmige `.vsa` naar SVG, Coria-`.vsa.mxl` en A4-`.vsa.pdf` | [VSA](vsa/) |
 | mvsa | Meerstemmige `.mvsa` naar Coria-`.mvsa.mxl` en A4-`.mvsa.pdf` | [mvsa](mvsa/) |
@@ -71,4 +71,4 @@ geen bibliotheek-producten.
 `{stam}.{bron-ext}.{doel-ext}`; wat CI controleert):
 [Publicatiecontrole](../start/publicatiecontrole/). Termen: [Woorden](../start/woorden/).
 
-{{< navbuttons "Start|/handleiding/start/" "Opnemen|/handleiding/werktrajecten/opnemen-in-bibliotheek/" >}}
+{{< navbuttons "Start|/handleiding/start/" "Opnemen|/handleiding/werktrajecten/opnemen-in-catalogus/" >}}

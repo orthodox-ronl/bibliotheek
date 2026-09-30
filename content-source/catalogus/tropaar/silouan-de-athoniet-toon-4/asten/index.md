@@ -5,6 +5,7 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 aliases:
   - "/bibliotheek/110-tropaar/silouan-de-athoniet-toon-4/asten/"
+  - "/bibliotheek/tropaar/silouan-de-athoniet-toon-4/asten/"
 ---
 
 # Tropaar H. Silouan de Athoniet (Asten)

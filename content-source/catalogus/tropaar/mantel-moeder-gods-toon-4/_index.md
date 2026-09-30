@@ -6,4 +6,5 @@ publicatiestatus: concept
 automatische_inhoud: true
 aliases:
   - "/bibliotheek/110-tropaar/mantel-moeder-gods-toon-4/"
+  - "/bibliotheek/tropaar/mantel-moeder-gods-toon-4/"
 ---

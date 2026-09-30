@@ -41,7 +41,7 @@ Naamgevingsconventie voor conversies (tooling):
 
 Een **publicatiecontrole** in `check` / GitHub Actions doet dit:
 
-1. Zoek canonieke **bronbestanden** in `content-source\bibliotheek\`.
+1. Zoek canonieke **bronbestanden** in `content-source\catalogus\`.
 2. Eis dat de bijbehorende **afgeleide** (sibling) bestaat.
 3. Eis dat de afgeleide een **herkomststempel** heeft die bij de huidige
    bron past (geen verouderd of “leeg” product).
@@ -76,7 +76,7 @@ REM Eerst kijken zonder te schrijven
 scripts\products.cmd --dry-run
 
 REM Alleen één bladermap, alleen partituur + audio
-scripts\products.cmd content-source\bibliotheek\trisagion --kinds mscz,audio
+scripts\products.cmd content-source\catalogus\trisagion --kinds mscz,audio
 ```
 
 | Optie                             | Betekenis                                                                                        |
@@ -141,7 +141,7 @@ Geen Coria uit dit spoor.
 
 ## Publicatiesporen en publicatiecontroles
 
-Elke bladermap onder `content-source\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\`
+Elke bladermap onder `content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\`
 kan één of meer **sporen** hebben. Het spoor volgt uit het **brontype**
 (de echte extensie), niet uit een verzonnen middelste woord zoals vroeger
 `partituur` of `print` in de bestandsnaam. Meerdere bronnen in één map
@@ -158,9 +158,9 @@ mogen; elk spoor houdt eigen siblings bij.
 | **tekstblad**             | `{stam}.tekstblad.md`                            | `{stam}.tekstblad.pdf`                          | `vsa-source-sha256` van de `.md`      | `scripts\tekstblad-products.cmd`                            | **Actief:** `check_tekstblad_products`                            |
 | **Coria-contract**        | bestaande `.vsa.mxl` / `.mscz.mxl` / `.mvsa.mxl` | (geen nieuw bestand; checklist op de sibling)   | —                                     | `scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid` | **Actief:** `check_mxl_playback_contract`                         |
 
-**Bibliotheek-id** (`zangstuk/variant/uitvoeringsvorm`) hoort op elk
+**Catalogus-id** (`zangstuk/variant/uitvoeringsvorm`) hoort op elk
 menselijk leesbaar blad (PDF / MuseScore-colofon). Scripts geven dat
-expliciet door (`--bibliotheek-id`); pad-raden is alleen fallback in de
+expliciet door (`--catalogus-id`); pad-raden is alleen fallback in de
 tooling.
 
 ### Handmatige artefacten (vervangt `.print.mscz`)
@@ -251,21 +251,21 @@ expliciete `{stam}.{bron-extensie}.{doel-extensie}`-vorm **verplicht**
 Alleen `.vsa` (actieve publicatiecontrole):
 
 ```text
-content-source\bibliotheek\tropaar\zondag-toon-1\groningen\
+content-source\catalogus\tropaar\zondag-toon-1\groningen\
   tropaar-zondag-toon-1-groningen.vsa
   tropaar-zondag-toon-1-groningen.vsa.mxl
   index.md
 ```
 
 ```cmd
-scripts\vsa-products.cmd content-source\bibliotheek\tropaar\zondag-toon-1\groningen
+scripts\vsa-products.cmd content-source\catalogus\tropaar\zondag-toon-1\groningen
 check --strict
 ```
 
 Of via de wrapper (zelfde map, alle kinds die daar van toepassing zijn):
 
 ```cmd
-scripts\products.cmd content-source\bibliotheek\tropaar\zondag-toon-1\groningen
+scripts\products.cmd content-source\catalogus\tropaar\zondag-toon-1\groningen
 ```
 
 Basispartituur (doelvorm; actieve publicatiecontrole):

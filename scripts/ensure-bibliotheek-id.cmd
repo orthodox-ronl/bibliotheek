@@ -16,8 +16,8 @@ exit /b %ERRORLEVEL%
 echo.
 echo Gebruik: scripts\ensure-bibliotheek-id.cmd [root] [--check-only] [--fail]
 echo.
-echo   Zet of herstelt Bibliotheek-id in basispartituur-.mscz onder bibliotheek/.
-echo   Zonder root: content-source\bibliotheek.
+echo   Zet of herstelt Bibliotheek-id in basispartituur-.mscz onder catalogus/.
+echo   Zonder root: content-source\catalogus.
 echo   Daarna mscz-products voor verse PDF's.
 echo.
 echo Handleiding: content-source\handleiding\scripts\ensure-bibliotheek-id.md

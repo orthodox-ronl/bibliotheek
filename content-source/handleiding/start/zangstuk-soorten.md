@@ -126,7 +126,7 @@ blijven geldig tot een bewuste hernoem-golf.
 - Overzicht-`weight` van genre-/collectie-emmers rechtgezet (`tropaar` 750,
   `kondak` 760, kruis-buurt 755/765, `prijslied` 3000).
 - Leesbare `title` / `linkTitle` op een aantal slug-achtige variantpagina’s.
-- Sitezoeken + lyrics-producten (zie [Zoeken](/bibliotheek/zoeken/)).
+- Sitezoeken + lyrics-producten (zie [Zoeken](/catalogus/zoeken/)).
 - Eerste hernoem-golf: `110-tropaar` → `tropaar`, `120-kondak` → `kondak`
   (oude URL’s via Hugo-`aliases`).
 - Ektinia-golf: litanie-zangstukken geconsolideerd onder `ektinia`
@@ -145,4 +145,4 @@ blijven geldig tot een bewuste hernoem-golf.
 1. Optioneel: overige genummerde zangstuk-ids in de inventaris (antifonen,
    enz.) zonder liturgienummer in het id.
 
-{{< navbuttons "Bibliotheek en koormappen|/handleiding/start/bibliotheek-en-koormappen/" "Woorden|/handleiding/start/woorden/" >}}
+{{< navbuttons "Catalogus en koormappen|/handleiding/start/catalogus-en-koormappen/" "Woorden|/handleiding/start/woorden/" >}}

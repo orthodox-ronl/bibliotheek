@@ -9,12 +9,12 @@ vsa_nav_exclude: true
 
 # Id-register — liturgiemap Hemelum → bibliotheek
 
-Dit register is de **bron van waarheid** voor bibliotheek-id's tijdens de
-conversie op `feat/oefenhoek-mxl-opkuis`. Een bibliotheek-id heeft altijd drie
+Dit register is de **bron van waarheid** voor catalogus-id's tijdens de
+conversie op `feat/oefenhoek-mxl-opkuis`. Een catalogus-id heeft altijd drie
 lagen: `zangstuk-id` / `variant-id` / `uitvoeringsvorm-id` (elk segment
 `[a-z0-9_-]+`). De **publicatiestam** voor basispartituur-bestanden is
 `{zangstuk}-{variant}-{uitvoeringsvorm}` (functie `stem()` in
-`scripts/bibliotheek.py`).
+`scripts/catalogus.py`).
 
 Het migratiescript `scripts/migrate_oefenhoek_bibliotheek.py` volgt de tabellen
 **SCORE**, **PRINT** en **STUB** hieronder. Wijzig id's eerst hier en in dat
@@ -35,7 +35,7 @@ script tegelijk.
 
 ## SCORE — basispartituur, VSA of gemengd
 
-| Koormap-pad (t.o.v. `liturgiemap-hemelum/`) | Bibliotheek-id | Publicatiestam (basispartituur) | Bestanden nu | Opmerking |
+| Koormap-pad (t.o.v. `liturgiemap-hemelum/`) | Catalogus-id | Publicatiestam (basispartituur) | Bestanden nu | Opmerking |
 | --- | --- | --- | --- | --- |
 | `cherubijnenhymne/15c-kastorski/` | `cherubijnenhymne/15c-kastorski/hemelum` | `cherubijnenhymne-15c-kastorski-hemelum` | mscz, mxl, pdf | reviewable; NL (ongemerkt) |
 | *(alleen bibliotheek voorlopig)* | `cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` | `cherubijnenhymne-15c-kastorski-hemelum-ksl-trlat` | — | Kerkslavisch getranslitereerd; stub |
@@ -71,7 +71,7 @@ script tegelijk.
 
 ## PRINT — koormap-vel (geen basispartituur-pijplijn)
 
-| Koormap-pad | Bibliotheek-id | Bestanden nu | Opmerking |
+| Koormap-pad | Catalogus-id | Bestanden nu | Opmerking |
 | --- | --- | --- | --- |
 | `7-kleine-intocht/zo-wk-mg/` | `7-kleine-intocht/zo-wk-mg/hemelum` | `*.print.mscz`, pdf | Print-vel; bij voorkeur `artefacten_handmatig: true` |
 | `troparen-en-kondaken/tropaar-nikolaas-van-myra/` | `tropaar/nikolaas-van-myra-toon-4/hemelum` | print.mscz, mxl, pdf, vsa | Handmatige artefacten |
@@ -81,7 +81,7 @@ script tegelijk.
 
 ## STUB — alleen koormap + lege bibliotheek-leaf
 
-| Koormap-pad | Bibliotheek-id | Opmerking |
+| Koormap-pad | Catalogus-id | Opmerking |
 | --- | --- | --- |
 | `1-vredeslitanie/` | `ektinia/vrede/hemelum` | `.mvsa` (reviewable) |
 | `3-eerste-kleine-litanie/` | `ektinia/kleine/hemelum` | `.mvsa` (reviewable) |
@@ -107,7 +107,7 @@ script tegelijk.
 `9b-alleluia/`. In de **bibliotheek** is `9a-` / `9b-` op de *variant*-laag
 de melodieklasse (Kiev / znameni), niet het liturgienummer.
 
-| Koormap-pad | Bibliotheek-id (voorbeeld) | Status |
+| Koormap-pad | Catalogus-id (voorbeeld) | Status |
 | --- | --- | --- |
 | `9a-prokimen/weekdagen/` | `9-prokimen/9a-maandag/groningen` … `9a-zaterdag` | score (VSA); compositieblad |
 | `9a-prokimen/zondag-toon-N/` | `9-prokimen/9a-zondag-toon-N/groningen` + `9-alleluia/9a-toon-N/groningen` | alleluia: `.mvsa` (reviewable); prokimen zondag: voorzien |
@@ -172,7 +172,7 @@ met `bieb` op de koormap.
 
 ### Diversen
 
-| Koormap-pad | Bibliotheek-id |
+| Koormap-pad | Catalogus-id |
 | --- | --- |
 | `troparen-en-kondaken/uw-heilig-kruis/` | `tropaar/uw-heilig-kruis/hemelum` |
 
@@ -191,7 +191,7 @@ met `bieb` op de koormap.
 
 ### 1. Tropaar Nikolaas — besloten
 
-Bibliotheek-id: `tropaar/nikolaas-van-myra-toon-4/hemelum` (zangstuk
+Catalogus-id: `tropaar/nikolaas-van-myra-toon-4/hemelum` (zangstuk
 `tropaar/`, niet een apart zangstuk-id). Oude map
 `tropaar-nikolaas-van-myra/…` verwijderd.
 
@@ -202,7 +202,7 @@ Voor slots zonder geneste varianten: middelste laag = `default`
 
 ### 3. Derde antifoon zondag — besloten
 
-Bibliotheek-id: `6-derde-antifoon/zondag/hemelum` (niet `zaligsprekingen-zondag`).
+Catalogus-id: `6-derde-antifoon/zondag/hemelum` (niet `zaligsprekingen-zondag`).
 
 ### 4. Familie-`_index.md` zonder `bieb` — besloten
 
@@ -263,7 +263,7 @@ in de liturgiemap (dat is de migratie, geen verdwijning).
 - [x] Variant-id `default` (was `standaard`)
 - [x] Derde antifoon zondag: bibliotheek-variant `zondag`
 - [x] Familie-`_index` zonder `bieb`
-- [x] Werkvoorraad: gepubliceerde rijen op bibliotheek-id; open inputs nog zonder doel-id
+- [x] Werkvoorraad: gepubliceerde rijen op catalogus-id; open inputs nog zonder doel-id
 - [x] Uitvoeringsvorm mét partituur → `reviewable` (koormap + bibliotheek)
 - [x] Term “input” (niet “dump”) in werkvoorraad/handleiding
 - [x] Taal-suffix op uitvoeringsvorm gedocumenteerd (`-ksl`, `-ksl-trlat`, `-nl-ksl`)

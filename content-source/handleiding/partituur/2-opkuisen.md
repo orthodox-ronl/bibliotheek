@@ -16,7 +16,7 @@ hetzelfde):
 ```cmd
 scripts\opkuisen.cmd content-source\input\capella --analyze
 ```
-`STAM` = publicatiestam uit de bibliotheek-id, zonder spaties
+`STAM` = publicatiestam uit de catalogus-id, zonder spaties
 (voorbeeld: id `trisagion/8a-nederlands/hemelum` →
 `trisagion-8a-nederlands-hemelum`).
 Volledige man-page (hoeken, manieren wel/niet, exitcodes):
@@ -143,10 +143,10 @@ scripts\opkuisen.cmd "content-source\input\capella\NAAM.mxl" --analyze
 
 ### Stap voor stap
 
-1. Ken het **bibliotheek-id** (drie lagen), bijvoorbeeld
+1. Ken het **catalogus-id** (drie lagen), bijvoorbeeld
    `trisagion/8a-nederlands/hemelum`. Nog geen id? Ga terug naar
    [binnenhalen](../1-binnenhalen/) en het
-   [Id-register](/bibliotheek/id-register/).
+   [Id-register](/catalogus/id-register/).
 2. Bepaal de **publicatiestam** (de drie id-lagen met `-` ertussen, zonder
    spaties): `trisagion-8a-nederlands-hemelum`.
 3. Maak de map
@@ -200,7 +200,7 @@ scripts\opkuisen.cmd content-source\input\_werk\STAM\STAM.mscz
    balken weg en kan lettergrepen knippen, maar herschikt geen verkeerde
    stemmen voor jou.
 
-Twijfel over de bibliotheek-id? Niet raden — vraag na en noteer in
+Twijfel over de catalogus-id? Niet raden — vraag na en noteer in
 `content-source\input\werkvoorraad.md`.
 
 ## Wat je niet doet bij opkuisen

@@ -5,6 +5,7 @@ publicatiestatus: voorzien
 automatische_inhoud: false
 aliases:
   - "/bibliotheek/15-cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat/"
+  - "/bibliotheek/cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat/"
 ---
 
 # 15c Cherubijnenhymne (Kastorski, Kerkslavisch transliteratie)

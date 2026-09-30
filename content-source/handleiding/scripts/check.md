@@ -21,7 +21,7 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 
 `check` is de preflight voor deze repo (CI-spiegel):
 
-1. `validate` — `vsa validate` op `content-source\bibliotheek` (en
+1. `validate` — `vsa validate` op `content-source\catalogus` (en
    `mvsa validate` als daar `.mvsa`-bestanden staan)
 2. VSA-publicatiecontrole — of elke bibliotheek-`.vsa` (behalve
    `artefacten_handmatig`) een passende sibling `{stam}.vsa.mxl` heeft
@@ -41,7 +41,7 @@ Of: `scripts\check.cmd` vanuit de repo-root.
    `.vsa` een passende preview-`.mp3` heeft met herkomststempel
 8. Lyrics-publicatiecontrole — of elke bibliotheek-`.vsa` / `.mvsa` een
    passende `{stam}.….lyrics.txt` heeft met `vsa-source-sha256`
-9. Bibliotheek-id — of elke basispartituur-`.mscz` in het colofon de
+9. Catalogus-id — of elke basispartituur-`.mscz` in het colofon de
    regel `Bibliotheek-id:` heeft die bij het bladermap-pad past
 10. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
 11. Bladermap-SVG (`oefenhoek-index --svg`) — plaatjes uit `.vsa`; geen

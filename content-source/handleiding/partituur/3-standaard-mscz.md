@@ -116,7 +116,7 @@ feathered noot later tot één kwart per lettergreep.
 | Leidende rusten | Ritmisch behouden; na start/dubbele streep met gap |
 | Lyric-underlines (melisma-ticks) | Standaard weg (Capella-slurs zijn frasen); opt-in via meta `vsaLyricExtenders` |
 | Tempo | Verplicht voor Coria; default **120 BPM** als er geen metronoom in de basispartituur staat |
-| Copyright | Notice uit de bron → korte footer + colofon; ontbreekt notice → CC BY-SA 4.0 (deze uitgave) + eredienst-kopieertoestemming; in de bibliotheek: regel `Bibliotheek-id:` + meta `vsaBibliotheekId` |
+| Copyright | Notice uit de bron → korte footer + colofon; ontbreekt notice → CC BY-SA 4.0 (deze uitgave) + eredienst-kopieertoestemming; in de catalogus: regel `Bibliotheek-id:` + meta `vsaBibliotheekId` |
 | Contractmeta | `vsaPartituurContract` = `partituur-1` |
 
 ## Wat het script níet doet
@@ -133,7 +133,7 @@ feathered noot later tot één kwart per lettergreep.
 
 ### Van opgekuiste Capella-`.mxl`
 
-Voorbeeld voor bibliotheek-id `trisagion/8a-nederlands/hemelum`:
+Voorbeeld voor catalogus-id `trisagion/8a-nederlands/hemelum`:
 
 ```cmd
 scripts\layout.cmd content-source\input\_werk\trisagion-8a-nederlands-hemelum\trisagion-8a-nederlands-hemelum.mxl -o content-source\input\_werk\trisagion-8a-nederlands-hemelum\trisagion-8a-nederlands-hemelum.mscz
@@ -145,7 +145,7 @@ korte notities (bijvoorbeeld reciteer-collaps, copyright).
 
 ### Van een VOW- of andere ruwe `.mscz`
 
-Kopieer de ruwe `.mscz` **niet** rechtstreeks naar de bibliotheek. Eerst
+Kopieer de ruwe `.mscz` **niet** rechtstreeks naar de catalogus. Eerst
 normaliseren naar `_werk` met een naam zonder spaties:
 
 ```cmd
@@ -153,7 +153,7 @@ scripts\layout.cmd content-source\input\vow\Cherubijnenlied-Kastorskij.mscz -o c
 ```
 
 Controleer vóór of na deze stap of stemmen en lettergrepen kloppen — dat is
-[opkuisen](../2-opkuisen/). Doe de normalisatie alleen als de bibliotheek-id
+[opkuisen](../2-opkuisen/). Doe de normalisatie alleen als de catalogus-id
 in de werkvoorraad klopt; anders eerst vragen.
 
 ### Na de eerste normalisatie
@@ -169,7 +169,7 @@ in de werkvoorraad klopt; anders eerst vragen.
 
 ## Klaar als
 
-Je hebt een `.mscz` in `_werk\<stam>\` (of al in de bibliotheek) die:
+Je hebt een `.mscz` in `_werk\<stam>\` (of al in de catalogus) die:
 
 - in MuseScore 4 opent op A4 met de basispartituur-typografie;
 - tekst tussen de balken toont;

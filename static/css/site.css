@@ -350,24 +350,24 @@ body {
   margin: 0.35rem 0 0;
 }
 
-code.bibliotheek-id {
+code.catalogus-id {
   margin-left: 0.5rem;
   font-size: 0.85em;
   color: #555;
 }
 
-.bibliotheek-id-line {
+.catalogus-id-line {
   margin: 0.25rem 0 0.75rem;
   font-size: 0.9rem;
   color: #444;
 }
 
-.bibliotheek-id-line code.bibliotheek-id {
+.catalogus-id-line code.catalogus-id {
   margin-left: 0.25rem;
 }
 
-.bibliotheek-overzicht,
-.bibliotheek-special {
+.catalogus-overzicht,
+.catalogus-special {
   margin-top: 0.75rem;
 }
 
@@ -665,30 +665,30 @@ a.btn.coria-play:focus,
 }
 
 /* Bibliotheek-context: groene actieknoppen */
-.oefenhoek-acties--bibliotheek .btn,
-.oefenhoek-acties--bibliotheek .score-action-menu-trigger,
-.oefenhoek-acties--bibliotheek a.btn.coria-play,
-.bibliotheek-page .score-actions .btn,
-.bibliotheek-page .score-actions .score-action-menu-trigger,
-.bibliotheek-page a.btn.coria-play {
+.oefenhoek-acties--catalogus .btn,
+.oefenhoek-acties--catalogus .score-action-menu-trigger,
+.oefenhoek-acties--catalogus a.btn.coria-play,
+.catalogus-page .score-actions .btn,
+.catalogus-page .score-actions .score-action-menu-trigger,
+.catalogus-page a.btn.coria-play {
   background: #e8f5ec;
   border-color: #1b5e20;
   color: #1b5e20;
   box-shadow: 0 1px 3px rgba(27, 94, 32, 0.18);
 }
 
-.oefenhoek-acties--bibliotheek .btn:hover,
-.oefenhoek-acties--bibliotheek .btn:focus,
-.oefenhoek-acties--bibliotheek .score-action-menu-trigger:hover,
-.oefenhoek-acties--bibliotheek .score-action-menu-trigger:focus,
-.oefenhoek-acties--bibliotheek a.btn.coria-play:hover,
-.oefenhoek-acties--bibliotheek a.btn.coria-play:focus,
-.bibliotheek-page .score-actions .btn:hover,
-.bibliotheek-page .score-actions .btn:focus,
-.bibliotheek-page .score-actions .score-action-menu-trigger:hover,
-.bibliotheek-page .score-actions .score-action-menu-trigger:focus,
-.bibliotheek-page a.btn.coria-play:hover,
-.bibliotheek-page a.btn.coria-play:focus {
+.oefenhoek-acties--catalogus .btn:hover,
+.oefenhoek-acties--catalogus .btn:focus,
+.oefenhoek-acties--catalogus .score-action-menu-trigger:hover,
+.oefenhoek-acties--catalogus .score-action-menu-trigger:focus,
+.oefenhoek-acties--catalogus a.btn.coria-play:hover,
+.oefenhoek-acties--catalogus a.btn.coria-play:focus,
+.catalogus-page .score-actions .btn:hover,
+.catalogus-page .score-actions .btn:focus,
+.catalogus-page .score-actions .score-action-menu-trigger:hover,
+.catalogus-page .score-actions .score-action-menu-trigger:focus,
+.catalogus-page a.btn.coria-play:hover,
+.catalogus-page a.btn.coria-play:focus {
   background: #d4edd9;
   color: #1b5e20;
 }
@@ -744,8 +744,8 @@ a.btn.coria-play:focus,
   display: block;
 }
 
-.oefenhoek-acties--bibliotheek .score-action-help,
-.bibliotheek-page .score-action-help {
+.oefenhoek-acties--catalogus .score-action-help,
+.catalogus-page .score-action-help {
   color: #2e4a32;
   border-color: #9bbb9f;
 }
@@ -772,8 +772,8 @@ a.btn.coria-play:focus,
   box-shadow: 0 4px 14px rgba(0, 51, 102, 0.18);
 }
 
-.oefenhoek-acties--bibliotheek .score-action-menu-panel,
-.bibliotheek-page .score-action-menu-panel {
+.oefenhoek-acties--catalogus .score-action-menu-panel,
+.catalogus-page .score-action-menu-panel {
   border-color: #1b5e20;
   box-shadow: 0 4px 14px rgba(27, 94, 32, 0.16);
 }
@@ -831,8 +831,8 @@ a.btn.coria-play:focus,
   line-height: 1.35;
 }
 
-.oefenhoek-acties--bibliotheek .score-action-menu-hint,
-.bibliotheek-page .score-action-menu-hint {
+.oefenhoek-acties--catalogus .score-action-menu-hint,
+.catalogus-page .score-action-menu-hint {
   color: #3d5a40;
 }
 
@@ -859,13 +859,13 @@ a.btn.coria-play:focus,
   line-height: 1.3;
 }
 
-.oefenhoek-acties--bibliotheek .score-action-menu-panel a,
-.bibliotheek-page .score-action-menu-panel a {
+.oefenhoek-acties--catalogus .score-action-menu-panel a,
+.catalogus-page .score-action-menu-panel a {
   color: #1b5e20;
 }
 
-.oefenhoek-acties--bibliotheek .score-action-menu-detail,
-.bibliotheek-page .score-action-menu-detail {
+.oefenhoek-acties--catalogus .score-action-menu-detail,
+.catalogus-page .score-action-menu-detail {
   color: #3d5a40;
 }
 
@@ -875,10 +875,10 @@ a.btn.coria-play:focus,
   text-decoration: none;
 }
 
-.oefenhoek-acties--bibliotheek .score-action-menu-panel a:hover,
-.oefenhoek-acties--bibliotheek .score-action-menu-panel a:focus,
-.bibliotheek-page .score-action-menu-panel a:hover,
-.bibliotheek-page .score-action-menu-panel a:focus {
+.oefenhoek-acties--catalogus .score-action-menu-panel a:hover,
+.oefenhoek-acties--catalogus .score-action-menu-panel a:focus,
+.catalogus-page .score-action-menu-panel a:hover,
+.catalogus-page .score-action-menu-panel a:focus {
   background: #e8f5ec;
 }
 
@@ -998,16 +998,16 @@ body.score-audio-bar-open {
   display: none;
 }
 
-.bibliotheek-page .score-audio-bar-title,
-.bibliotheek-page .score-audio-bar-btn {
+.catalogus-page .score-audio-bar-title,
+.catalogus-page .score-audio-bar-btn {
   color: #1b5e20;
 }
 
-.bibliotheek-page .score-audio-bar {
+.catalogus-page .score-audio-bar {
   background: #eef6f0;
 }
 
-.bibliotheek-page .score-audio-bar-seek {
+.catalogus-page .score-audio-bar-seek {
   accent-color: #1b5e20;
 }
 
@@ -1334,73 +1334,73 @@ body.score-audio-bar-open {
 }
 
 /* Bibliotheek-zoeken */
-.bibliotheek-zoek-form {
+.catalogus-zoek-form {
   margin: 1.25rem 0 0.75rem;
   padding: 0.85rem 1rem;
   border: 1px solid var(--border-color);
   background: var(--nav-bg);
 }
 
-.bibliotheek-zoek-form label {
+.catalogus-zoek-form label {
   display: block;
   font-weight: 600;
   margin-bottom: 0.35rem;
 }
 
-.bibliotheek-zoek-rij {
+.catalogus-zoek-rij {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-.bibliotheek-zoek-rij input[type="search"] {
+.catalogus-zoek-rij input[type="search"] {
   flex: 1 1 16rem;
   min-width: 0;
   font: inherit;
   padding: 0.4rem 0.55rem;
 }
 
-.bibliotheek-zoek-rij button {
+.catalogus-zoek-rij button {
   font: inherit;
   padding: 0.4rem 0.85rem;
   cursor: pointer;
 }
 
-.bibliotheek-zoek-meta {
+.catalogus-zoek-meta {
   color: #444;
   font-size: 0.95rem;
   margin: 0.5rem 0;
 }
 
-.bibliotheek-zoek-lijst {
+.catalogus-zoek-lijst {
   list-style: none;
   padding: 0;
   margin: 0.75rem 0 0;
 }
 
-.bibliotheek-zoek-lijst li {
+.catalogus-zoek-lijst li {
   padding: 0.65rem 0;
   border-top: 1px solid var(--border-color);
 }
 
-.bibliotheek-zoek-id {
+.catalogus-zoek-id {
   margin-top: 0.2rem;
   font-size: 0.9rem;
 }
 
-.bibliotheek-zoek-incipit {
+.catalogus-zoek-incipit {
   margin-top: 0.2rem;
   color: #444;
   font-size: 0.95rem;
 }
 
-.bibliotheek-zoek-status {
+.catalogus-zoek-status {
   margin-left: 0.4rem;
   font-size: 0.85rem;
   color: #555;
 }
 
-.bibliotheek-zoek-leeg {
+.catalogus-zoek-leeg {
   margin: 0.75rem 0;
   color: #555;
 }

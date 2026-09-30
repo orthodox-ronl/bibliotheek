@@ -41,7 +41,7 @@ Override: omgevingvariabele `VSA_TOOLING_REF` (wint van pin/float).
 ## CI
 
 De Pages-workflow installeert `vsa-tool` (pin/float), runt
-`vsa validate content-source/bibliotheek`, daarna versheidscontroles
+`vsa validate content-source/catalogus`, daarna versheidscontroles
 (`check_vsa_products`, `check_mscz_products`, `check_tekstblad_products`,
 `check_import_mvsa`, `check_mvsa_products`, `check_audio_products` — allemaal
 met `--fail`), daarna `check_mxl_playback_contract.py --fail` (bestaande

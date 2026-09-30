@@ -6,4 +6,5 @@ publicatiestatus: concept
 automatische_inhoud: true
 aliases:
   - "/bibliotheek/120-kondak/geboorte-moeder-gods-toon-4/"
+  - "/bibliotheek/kondak/geboorte-moeder-gods-toon-4/"
 ---

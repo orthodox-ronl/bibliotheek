@@ -8,4 +8,5 @@ weight: 1200
 aliases:
   - "/bibliotheek/12-ontslapenen-litanie/"
   - "/bibliotheek/12-ontslapenen-litanie/default/"
+  - "/bibliotheek/ektinia/ontslapenen/"
 ---

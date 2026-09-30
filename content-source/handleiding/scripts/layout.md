@@ -18,7 +18,7 @@ scripts\layout.cmd <bestand.mscz|.mxl> [-o doel.mscz] [--id ID]
 
 Past de bibliotheek-**basispartituur**-standaard toe via het
 VSA-tooling-layoutprofiel `partituur`: A4-papier, fonts, leesbaarheid,
-copyright/colofon, en (indien bekend) de colofonregel met bibliotheek-id.
+copyright/colofon, en (indien bekend) de colofonregel met catalogus-id.
 In het dagelijks taalgebruik heet deze stap vaak **layouten**; de
 contractterm is **normaliseren**.
 
@@ -41,7 +41,7 @@ VSA-tooling: layoutprofiel `partituur` / mscz-leesbaarheid.
 | Optie | Betekenis |
 | --- | --- |
 | `-o`, `--output` | Pad van de doel-`.mscz` |
-| `--id` | Bibliotheek-id `zangstuk/variant/uitvoeringsvorm` (anders afgeleid uit het pad onder `bibliotheek/`) |
+| `--id` | Catalogus-id `zangstuk/variant/uitvoeringsvorm` (anders afgeleid uit het pad onder `catalogus/`) |
 
 # EXAMPLES
 
@@ -58,7 +58,7 @@ Opnieuw op een bestaande basispartituur na een editslag in MuseScore:
 scripts\layout.cmd pad\naar\bestand.mscz
 ```
 
-Met expliciete bibliotheek-id:
+Met expliciete catalogus-id:
 
 ```cmd
 scripts\layout.cmd pad\naar\bestand.mscz --id trisagion/8a-nederlands/hemelum

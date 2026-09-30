@@ -5,4 +5,6 @@ nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true
 weight: 790
+aliases:
+  - "/bibliotheek/7d-dialoog-met-diaken/"
 ---

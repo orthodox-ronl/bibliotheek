@@ -1,7 +1,7 @@
 """Grenzen tussen lifecycle-fases Werkbank en Catalogus.
 
 Waarschuwt (of faalt met --fail) bij:
-- bestandsnamen met spaties onder content-source/bibliotheek
+- bestandsnamen met spaties onder content-source/catalogus
 - ruwe formats (.cap/.capx/.musicxml/.xml) in de bibliotheek
 - kale .mxl in de bibliotheek die geen product-sibling lijkt
 
@@ -14,7 +14,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from bibliotheek import BIBLIOTHEEK_ROOT, REPO_ROOT
+from catalogus import CATALOGUS_ROOT, REPO_ROOT
 
 RAW_SUFFIXES = frozenset({".cap", ".capx", ".musicxml", ".xml"})
 # Sibling-producten eindigen zo; kale .mxl hoort niet als catalogus-bron.
@@ -37,7 +37,7 @@ def _is_product_mxl(name: str) -> bool:
     return any(lower.endswith(m) for m in PRODUCT_MXL_MARKERS)
 
 
-def collect_issues(root: Path = BIBLIOTHEEK_ROOT) -> list[str]:
+def collect_issues(root: Path = CATALOGUS_ROOT) -> list[str]:
     issues: list[str] = []
     if not root.is_dir():
         return issues

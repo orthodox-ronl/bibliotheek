@@ -23,7 +23,7 @@ herkomstinformatie (`vsa-partituur-sha256`, `vsa-generated-at`) in die
 producten.
 
 Het zoekt basispartituur-`.mscz` onder het opgegeven pad (of, zonder pad,
-onder `content-source\bibliotheek`). Bestanden in `input\`, namen die
+onder `content-source\catalogus`). Bestanden in `input\`, namen die
 eindigen op `.print.mscz`, en mappen met `artefacten_handmatig: true`
 worden overgeslagen.
 
@@ -45,7 +45,7 @@ editen. CI genereert deze producten niet; jij wel lokaal, daarna committen.
 
 ```cmd
 scripts\mscz-products.cmd
-scripts\mscz-products.cmd content-source\bibliotheek\trisagion --force
+scripts\mscz-products.cmd content-source\catalogus\trisagion --force
 ```
 
 # WHEN

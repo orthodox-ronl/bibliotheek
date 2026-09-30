@@ -17,9 +17,12 @@ Lifecycle Werkbank/Catalogus: [docs/levenscyclus.md](docs/levenscyclus.md)
 
 **bibliotheek** is de publicatie-/oefensite voor:
 
-1. de gedeelde **bibliotheek** (`zangstuk` → `variant` → `uitvoeringsvorm`);
+1. de gedeelde **catalogus** (`zangstuk` → `variant` → `uitvoeringsvorm`);
 2. **koormappen** per parochie/klooster/… (views via shortcode `bieb`);
 3. de **handleiding** om de bieb bij te houden.
+
+Onderscheid: **bibliotheek** = deze repository / de site als geheel;
+**catalogus** = de Hugo-sectie met zangstukken → varianten → uitvoeringsvormen.
 
 ---
 
@@ -68,7 +71,7 @@ serve
 Preview: **http://127.0.0.1:18732/** — nooit poort **1313**, niet **18731** (VSA-demo).
 
 `check` = validate + VSA-/MSCZ-/tekstblad-publicatiecontrole +
-bibliotheek-id-colofon + Coria-fingerprints + Hugo. Producten vernieuwen:
+bibliotheek-id-colofon (`Bibliotheek-id:`) + Coria-fingerprints + Hugo. Producten vernieuwen:
 `scripts\vsa-products.cmd` / `scripts\mscz-products.cmd` /
 `scripts\tekstblad-products.cmd`. Optioneel tooling klaarzetten:
 
@@ -82,7 +85,7 @@ scripts\_ensure.cmd --hugo --vsa-tool
 
 ## Content-regels (bladermap)
 
-- Partituren alleen onder `content-source/bibliotheek/…`
+- Partituren alleen onder `content-source/catalogus/…`
 - Koormap-slots: markdown + `{{</* bieb id="zangstuk/variant/uitvoeringsvorm" */>}}`
 - `publicatiestatus` + `automatische_inhoud` op bladermap-pagina’s
 - Ruwe dumps in `content-source/input/` (gitignore `_inbox/` / `_werk/`)

@@ -5,6 +5,7 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 aliases:
   - "/bibliotheek/110-tropaar/geboorte-mg-toon-4/meneon-i-den-haag/"
+  - "/bibliotheek/tropaar/geboorte-mg-toon-4/meneon-i-den-haag/"
 ---
 
 # 110 tropaar

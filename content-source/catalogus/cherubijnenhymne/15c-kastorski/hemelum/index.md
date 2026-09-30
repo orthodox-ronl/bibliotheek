@@ -5,6 +5,7 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 aliases:
   - "/bibliotheek/15-cherubijnenhymne/15c-kastorski/hemelum/"
+  - "/bibliotheek/cherubijnenhymne/15c-kastorski/hemelum/"
 ---
 
 # 15c Cherubijnenhymne (Kastorski)

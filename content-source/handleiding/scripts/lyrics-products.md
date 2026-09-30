@@ -28,10 +28,10 @@ Bovenaan het tekstbestand staan herkomstregels (`# vsa-source-sha256:` …),
 zodat `check` kan zien of de bron nieuwer is dan de lyrics. De site bouwt
 daarna `static\zoek\index.json` (`python scripts\build_zoek_index.py`,
 ook vanuit `check`) voor de pagina
-[Zoeken in de bibliotheek](/bibliotheek/zoeken/).
+[Zoeken in de catalogus](/catalogus/zoeken/).
 
 Zoekt onder het opgegeven pad (of, zonder pad, onder
-`content-source\bibliotheek`). Overgeslagen: `input\`, mappen met
+`content-source\catalogus`). Overgeslagen: `input\`, mappen met
 `artefacten_handmatig: true`.
 
 CI genereert **geen** lyrics; jij wel lokaal (of via `all-products`),
@@ -41,7 +41,7 @@ daarna committen.
 
 ```cmd
 scripts\lyrics-products.cmd
-scripts\lyrics-products.cmd content-source\bibliotheek\2-eerste-antifoon
+scripts\lyrics-products.cmd content-source\catalogus\2-eerste-antifoon
 scripts\lyrics-products.cmd --dry-run
 ```
 

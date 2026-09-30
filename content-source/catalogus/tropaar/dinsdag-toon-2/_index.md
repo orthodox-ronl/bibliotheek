@@ -7,4 +7,5 @@ publicatiestatus: concept
 automatische_inhoud: true
 aliases:
   - "/bibliotheek/110-tropaar/dinsdag-toon-2/"
+  - "/bibliotheek/tropaar/dinsdag-toon-2/"
 ---

@@ -1,10 +1,10 @@
 {{- /* Zoekformulier + resultatencontainer; data-index via relURL. */ -}}
-<form id="bibliotheek-zoek-form" class="bibliotheek-zoek-form" data-index="{{ "zoek/index.json" | relURL }}" action="#" method="get" role="search">
-  <label for="bibliotheek-zoek-q">Zoekterm</label>
-  <div class="bibliotheek-zoek-rij">
-    <input id="bibliotheek-zoek-q" name="q" type="search" autocomplete="off" placeholder="bijv. Juich voor God gehele aarde" />
+<form id="catalogus-zoek-form" class="catalogus-zoek-form" data-index="{{ "zoek/index.json" | relURL }}" action="#" method="get" role="search">
+  <label for="catalogus-zoek-q">Zoekterm</label>
+  <div class="catalogus-zoek-rij">
+    <input id="catalogus-zoek-q" name="q" type="search" autocomplete="off" placeholder="bijv. Juich voor God gehele aarde" />
     <button type="submit">Zoeken</button>
   </div>
 </form>
-<p id="bibliotheek-zoek-meta" class="bibliotheek-zoek-meta" aria-live="polite"></p>
-<div id="bibliotheek-zoek-resultaten" class="bibliotheek-zoek-resultaten"></div>
+<p id="catalogus-zoek-meta" class="catalogus-zoek-meta" aria-live="polite"></p>
+<div id="catalogus-zoek-resultaten" class="catalogus-zoek-resultaten"></div>

@@ -14,7 +14,7 @@ Deze pagina is de HOW.
 Bestandsnaam eindigt op **`.print.mscz`**. Geen `scripts\layout.cmd`, geen
 `mscz-products`, geen Coria-eis uit dit MuseScore-bestand. PDF maak je zelf in
 MuseScore 4 (Bestand → Exporteren → PDF) en commit je naast het print-bestand
-**in het bibliotheek**. Zet op de bibliotheek-`index.md`
+**in het bibliotheek**. Zet op de catalogus-`index.md`
 `artefacten_handmatig: true` (gele beheerdersbanner).
 {{< /cue >}}
 
@@ -30,7 +30,7 @@ gewone basispartituur-`.mscz` via [standaard-.mscz](../3-standaard-mscz/) en
 [PDF en Coria](../5-pdf-en-coria/), of een eenstemmige `.vsa` via
 [.vsa schrijven](../../vsa/1-vsa-schrijven/).
 
-Voorbeelden in de bibliotheek:
+Voorbeelden in de catalogus:
 
 - `7-kleine-intocht/zo-wk-mg/hemelum` — gecombineerd printvel;
 - `tropaar/nikolaas-van-myra-toon-4/hemelum` — template-SATB + handmatige
@@ -46,7 +46,7 @@ Voorbeelden in de bibliotheek:
 | Optioneel: Coria-`.mxl` | Alleen als jij die zelf neerzet en bijhoudt (geen `mscz-products`) |
 | Optioneel: `.vsa` | Notatie naast het printvel; `vsa-products` slaat de map over bij `artefacten_handmatig: true` |
 
-Bibliotheek-id voorbeeld: `7-kleine-intocht/zo-wk-mg/hemelum`.
+Catalogus-id voorbeeld: `7-kleine-intocht/zo-wk-mg/hemelum`.
 
 Frontmatter op bibliotheek-`index.md`:
 
@@ -70,16 +70,16 @@ beheerdersmelding. Afspraak over bestandsnamen per spoor:
 ## Stap voor stap
 
 1. Bewerk in MuseScore 4. Neem het bestand op met
-   [bieb accepteer](/handleiding/publiceren/1-opnemen-in-bibliotheek/)
+   [bieb accepteer](/handleiding/publiceren/1-opnemen-in-catalogus/)
    (bestandsnaam eindigend op `.print.mscz`), of sla handmatig op als
-   `{stam}.print.mscz` in de bibliotheek (geen spaties; stam uit
-   bibliotheek-id).
-2. Exporteer PDF handmatig naar `{stam}.pdf` in dezelfde bibliotheek-map.
+   `{stam}.print.mscz` in de catalogus (geen spaties; stam uit
+   catalogus-id).
+2. Exporteer PDF handmatig naar `{stam}.pdf` in dezelfde catalogus-map.
    Eventuele Coria-`.mxl` eveneens handmatig (of uit de template-render)
    ernaast zetten en bij elke bronwijziging meenemen.
 3. Bibliotheek-`index.md` met `artefacten_handmatig: true` (bieb accepteer
    zet dat automatisch bij `.print.mscz`) + koormap-slot met `bieb` (zie
-   [Id-register](/bibliotheek/id-register/)).
+   [Id-register](/catalogus/id-register/)).
 4. `scripts\check.cmd --strict` — partituur- en VSA-publicatiecontrole slaan deze map over.
 
 ## Klaar als

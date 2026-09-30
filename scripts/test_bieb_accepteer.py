@@ -8,7 +8,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import bieb_accepteer as ba
-from bibliotheek import BIBLIOTHEEK_ROOT, stem
+from catalogus import CATALOGUS_ROOT, stem
 
 
 class ClassifyTests(unittest.TestCase):
@@ -81,7 +81,7 @@ class AcceptDryRunTests(unittest.TestCase):
             artefacten_handmatig=False,
         )
         self.assertEqual(code, 0)
-        leaf = BIBLIOTHEEK_ROOT / "zz-test-accepteer" / "default" / "hemelum"
+        leaf = CATALOGUS_ROOT / "zz-test-accepteer" / "default" / "hemelum"
         self.assertFalse(leaf.exists())
 
     def test_refuse_bare_mxl(self) -> None:

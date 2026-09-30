@@ -5,6 +5,7 @@ publicatiestatus: voorzien
 automatische_inhoud: false
 aliases:
   - "/bibliotheek/15-cherubijnenhymne/15b-fatejev/hemelum/"
+  - "/bibliotheek/cherubijnenhymne/15b-fatejev/hemelum/"
 ---
 
 # 15b Cherubijnenhymne (Fatejev)

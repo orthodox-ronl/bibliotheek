@@ -22,7 +22,7 @@ controleren, zelf de pagina nalopen, daarna pas publiceren op internet.
 
 ## Publicatiestatus
 
-Op **elke** bibliotheek-pagina die koorleden zien (bibliotheek en koormap),
+Op **elke** catalogus-pagina die koorleden zien (bibliotheek en koormap),
 in de `---` bovenaan:
 
 | Waarde | Wanneer |
@@ -55,7 +55,7 @@ links op de site kloppen. Rood = niet naar live; eerst
 
 `publicatiestatus` en andere frontmatter-titels controleert `check`
 **niet** automatisch; die zet je zelf volgens
-[Bibliotheek en koormappen](../../start/bibliotheek-en-koormappen/)
+[Catalogus en koormappen](../../start/catalogus-en-koormappen/)
 (sectie *Titels en frontmatter*).
 
 Lokaal vernieuwt `check` ook stale basispartituur-PDF/MXL (MuseScore) en stale

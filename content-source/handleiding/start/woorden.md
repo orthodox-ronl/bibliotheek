@@ -23,11 +23,11 @@ weight: 30
 - **audio** = preview-`.mp3` naast `.mvsa` / `.mscz` / `.vsa`; zie [audio](/handleiding/werktrajecten/audio/)
 - **opkuisen** = inhoud opschonen (stemmen/balken, lettergreep↔noot); script of handmatig in MuseScore
 - **normaliseren** / **layouten** = basispartituur-standaard met `scripts\layout.cmd` (zelfde scriptstap; “layouten” is de gewone naam)
-- **bibliotheek-id** = `zangstuk/variant/uitvoeringsvorm` (drie lagen); zichtbaar op bibliotheek-leaves en in het colofon van basispartituur-`.mscz`/PDF
-- **`bieb`** (shortcode) = knoppen + partituur van een bibliotheek-id; **`bieb`** (CLI, later) = beheercommando’s (`accepteer`, `zoek`, …)
-- **`bieb accepteer`** = overgang Werkbank → Catalogus (bestand opnemen); zie [Opnemen](/handleiding/werktrajecten/opnemen-in-bibliotheek/)
+- **catalogus-id** = `zangstuk/variant/uitvoeringsvorm` (drie lagen); zichtbaar op bibliotheek-leaves en in het colofon van basispartituur-`.mscz`/PDF
+- **`bieb`** (shortcode) = knoppen + partituur van een catalogus-id; **`bieb`** (CLI, later) = beheercommando’s (`accepteer`, `zoek`, …)
+- **`bieb accepteer`** = overgang Werkbank → Catalogus (bestand opnemen); zie [Opnemen](/handleiding/werktrajecten/opnemen-in-catalogus/)
 - **Werkbank** = lifecycle pre-productie (`input\`, `_werk\`); zie [Werkbank](/handleiding/start/werkbank/)
-- **Catalogus** (lifecycle) = canonieke bron in `bibliotheek\…`; zie [Catalogus](/handleiding/start/catalogus/)
+- **Catalogus** (lifecycle) = canonieke bron in `catalogus\…`; zie [Catalogus](/handleiding/start/catalogus/)
 - **publicatiestatus** = wat koorleden op de pagina zien (sticky header); intern *Stap* in de werkvoorraad én lifecycle-fase zijn iets anders
 {{< /cue >}}
 
@@ -63,8 +63,9 @@ lettergrepen synchroon met noten. MusicXML: `scripts\opkuisen.cmd`. Bij een
 
 | Woord | Betekenis |
 | --- | --- |
-| **Bibliotheek** | Catalogus onder `bibliotheek\`: alle oefenbestanden per uitvoeringsvorm; mag stukken bevatten zonder koormap |
-| **Bibliotheek-id** | Drie segmenten `[a-z0-9_-]+`, bijv. `trisagion/8a-nederlands/hemelum` |
+| **Bibliotheek** | Deze repository / de site als geheel (`github.com/orthodox-ronl/bibliotheek`) |
+| **Catalogus** (sectie) | Hugo-sectie onder `catalogus\`: alle oefenbestanden per uitvoeringsvorm; mag stukken bevatten zonder koormap |
+| **Catalogus-id** | Drie segmenten `[a-z0-9_-]+`, bijv. `trisagion/8a-nederlands/hemelum` (colofon in `.mscz`: regel `Bibliotheek-id:`) |
 | **Variant-id `default`** | Middelste laag als er maar één variant is (bijv. `5-eniggeboren-zoon/default/hemelum`) |
 | **Taal-suffix** | Op uitvoeringsvorm-id: geen = NL; `-ksl` = Kerkslavisch Cyrillisch; `-ksl-trlat` = getranslitereerd; `-nl-ksl` = mengvorm |
 | **Koormap** | Geordende view (navigatieboom) voor een gelegenheid; geen basispartituur-bestanden in de slotmappen |
@@ -74,36 +75,36 @@ lettergrepen synchroon met noten. MusicXML: `scripts\opkuisen.cmd`. Bij een
 | **Alias-variant** | Variant zonder eigen uitvoeringsvorm-bestanden; op de variant-`_index.md` staat `alias_van: zangstuk/canonieke-variant` |
 | **Diversen** | (verouderd als zangstuk-id) Losse gezangen hebben nu een eigen zangstuk-id, bv. `tropaar/uw-heilig-kruis/hemelum` |
 | **Tropaar** / **kondak** | Nederlandse termen voor die gezangen (niet “troparion” / “kondakion”) |
-| **Special page** | Automatisch overzicht onder `bibliotheek\speciaal\` (werkbank, voorzien, ongerefereerd, oefenbaar) |
+| **Special page** | Automatisch overzicht onder `catalogus\speciaal\` (werkbank, voorzien, ongerefereerd, oefenbaar) |
 | **Werkvoorraad** | Tabel in `input\werkvoorraad.md`: per *input* hoe ver de conversie is |
 | **Stap** (werkvoorraad) | Intern: `ontvangen`, `opkuisen`, `layout`, `gepubliceerd`, … — niet zichtbaar voor koorleden |
 | **Werkbank** | Lifecycle-fase pre-productie: reserveren, binnenhalen, opkuisen, proefdraaien — [Werkbank](/handleiding/start/werkbank/) |
-| **Catalogus** (lifecycle) | Lifecycle-fase: canonieke bron + producten in `bibliotheek\…` — [Catalogus](/handleiding/start/catalogus/) |
+| **Catalogus** (lifecycle) | Lifecycle-fase: canonieke bron + producten in `catalogus\…` — [Catalogus](/handleiding/start/catalogus/) |
 | **Levenscyclus** | Case per uitvoeringsvorm door fases; los van `publicatiestatus` — [Levenscyclus](/handleiding/start/levenscyclus/) |
-| **Publicatiestatus** | Op `index.md` in bibliotheek én koormap: `voorzien`, `reviewable`, `concept`, `productie` (sticky header; niet raden) |
-| **artefacten_handmatig** | Frontmatter: afgeleiden in die bibliotheekmap niet auto; gele banner voor beheerders |
+| **Publicatiestatus** | Op `index.md` in catalogus én koormap: `voorzien`, `reviewable`, `concept`, `productie` (sticky header; niet raden) |
+| **artefacten_handmatig** | Frontmatter: afgeleiden in die catalogusmap niet auto; gele banner voor beheerders |
 | **SATB** | Sopraan, alt, tenor, bas — de vier stemmen op één partituur |
 | **Coria** | Online oefenen; knop **Oefenen** bij shortcode `bieb`; heeft een schone `.mxl` nodig |
 | **Uitvoeringsvorm** | Een concrete manier om een zangstuk uit te voeren (schrijf het woord uit; gebruik niet de afkorting “uv”) |
 | **Werktraject** | Pijplijn van bron naar eindproduct (site of PDF); zie [Werktrajecten](/handleiding/werktrajecten/) |
-| **Tekstblad** | Bibliotheek-spoor: `{stam}.tekstblad.md` → `{stam}.tekstblad.pdf` (geen Hugo-pagina); [Tekstblad](/handleiding/werktrajecten/tekstblad/) |
+| **Tekstblad** | Catalogus-spoor: `{stam}.tekstblad.md` → `{stam}.tekstblad.pdf` (geen Hugo-pagina); [Tekstblad](/handleiding/werktrajecten/tekstblad/) |
 
 Org-brede termen: [glossary in bron](https://github.com/orthodox-ronl/bron/blob/main/docs/specs/terminologie.md).
 
-Id-lijst Hemelum: [Id-register](/bibliotheek/id-register/).
-Model: [Bibliotheek en koormappen](/handleiding/start/bibliotheek-en-koormappen/).
+Id-lijst Hemelum: [Id-register](/catalogus/id-register/).
+Model: [Catalogus en koormappen](/handleiding/start/catalogus-en-koormappen/).
 Pijplijnen: [Werktrajecten](/handleiding/werktrajecten/).
 
 ## Klaar als
 
 Je kunt een mail “hier is de Capella” vertalen naar: input in
-`input\capella\`, later een basispartituur-`.mscz` in de bibliotheek, plus
+`input\capella\`, later een basispartituur-`.mscz` in de catalogus, plus
 `{stam}.mscz.pdf` en `{stam}.mscz.mxl` — slot-pagina met `bieb`. Voor een
 handmatig MuseScore-blad: `{stam}.mscz` + handmatige PDF (+
-`artefacten_handmatig: true`) in de bibliotheek, slot-pagina in de koormap.
+`artefacten_handmatig: true`) in de catalogus, slot-pagina in de koormap.
 Voor een eenstemmige VSA: `.vsa` + `.vsa.mxl` via `check` / `vsa-products`.
 Namen en publicatiecontrole: [Publicatiecontrole](/handleiding/start/publicatiecontrole/). Model van
 secties en compositiebladen:
-[Bibliotheek en koormappen](/handleiding/start/bibliotheek-en-koormappen/).
+[Catalogus en koormappen](/handleiding/start/catalogus-en-koormappen/).
 
 {{< navbuttons "Publicatiecontrole|/handleiding/start/publicatiecontrole/" "Werktrajecten|/handleiding/werktrajecten/" >}}

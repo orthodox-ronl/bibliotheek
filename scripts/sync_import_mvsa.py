@@ -193,7 +193,7 @@ def main(argv: list[str] | None = None) -> int:
         nargs="?",
         type=Path,
         default=DEFAULT_ROOT,
-        help="Zoekroot of één .mscz (default: content-source/bibliotheek)",
+        help="Zoekroot of één .mscz (default: content-source/catalogus)",
     )
     add_regen_arguments(parser)
     parser.add_argument(

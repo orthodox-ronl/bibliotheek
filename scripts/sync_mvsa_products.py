@@ -17,7 +17,7 @@ import sys
 from pathlib import Path
 
 from coria_mxl import load_score_xml, require_no_spaces, write_mxl
-from ensure_bibliotheek_id import id_from_bibliotheek_path
+from ensure_bibliotheek_id import id_from_catalogus_path
 from product_meta import (
     FIELD_SOURCE_KIND,
     FIELD_SOURCE_SHA,
@@ -34,7 +34,7 @@ from sync_import_mvsa import is_import_mvsa
 from sync_vsa_products import folder_is_handmatig
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_ROOT = REPO_ROOT / "content-source" / "bibliotheek"
+DEFAULT_ROOT = REPO_ROOT / "content-source" / "catalogus"
 
 
 def _running_in_ci() -> bool:
@@ -134,7 +134,7 @@ def sync_one(
     generated_at = utc_now_iso()
     mxl = product_mxl_for_mvsa(mvsa)
     pdf = product_pdf_for_mvsa(mvsa)
-    bib = id_from_bibliotheek_path(mvsa)
+    bib = id_from_catalogus_path(mvsa)
 
     if need_mxl:
         print(f"  MXL  {rel} -> {mxl.name}", flush=True)
@@ -185,7 +185,7 @@ def main(argv: list[str] | None = None) -> int:
         nargs="?",
         type=Path,
         default=DEFAULT_ROOT,
-        help="Zoekroot (default: content-source/bibliotheek)",
+        help="Zoekroot (default: content-source/catalogus)",
     )
     add_regen_arguments(parser)
     args = parser.parse_args(argv)

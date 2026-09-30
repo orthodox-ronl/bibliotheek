@@ -1,20 +1,20 @@
 ---
-title: "Catalogus (in de bibliotheek)"
+title: "Catalogus"
 linkTitle: "Catalogus"
 weight: 17
 ---
 
-# Catalogus (in de bibliotheek)
+# Catalogus
 
 De **catalogus** is de lifecycle-fase waarin de uitvoeringsvorm een
 **canonieke bron** heeft onder
-`content-source\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\`.
+`content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\`.
 Afgeleide producten (PDF, Coria-`.mxl`, audio, …) horen bij die bron via
 de bestaande productscripts en publicatiecontrole. Overzicht:
 [Levenscyclus](levenscyclus/).
 
 {{< cue >}}
-1. Canonieke bron bewerken in de bibliotheekmap (niet opnieuw vanuit
+1. Canonieke bron bewerken in de catalogusmap (niet opnieuw vanuit
    een ruwe dump “ernaast”).
 2. Producten: `scripts\all-products.cmd` met pad naar die map (of het
    passende `*-products.cmd`).
@@ -26,13 +26,13 @@ de bestaande productscripts en publicatiecontrole. Overzicht:
 
 | Pad | Rol |
 | --- | --- |
-| `bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\index.md` | Pagina + shortcode `bieb`; `publicatiestatus` |
+| `catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\index.md` | Pagina + shortcode `bieb`; `publicatiestatus` |
 | Zelfde map: `{stam}.mscz` / `.vsa` / `.mvsa` / `.tekstblad.md` | **Canonieke bron** |
 | Zelfde map: `{stam}.mscz.pdf`, `.vsa.mxl`, `.mp3`, … | **Afgeleiden** (siblings); vernieuwen via products |
 | `koormappen\…\index.md` | View: verwijst met `bieb`, bevat geen partituurbestanden |
 
 Namen: [Publicatiecontrole](publicatiecontrole/). Model:
-[Bibliotheek en koormappen](bibliotheek-en-koormappen/).
+[Catalogus en koormappen](catalogus-en-koormappen/).
 
 ## Wat je mag wijzigen vs. regenereren
 
@@ -50,9 +50,9 @@ automatische productcontrole slaat die map over. Zie
 
 | Stap | Commando | Wat het hier doet |
 | --- | --- | --- |
-| Producten (één map) | `scripts\all-products.cmd content-source\bibliotheek\…` | Alle ontbrekende/stale siblings voor die boom |
+| Producten (één map) | `scripts\all-products.cmd content-source\catalogus\…` | Alle ontbrekende/stale siblings voor die boom |
 | Eén spoor | `vsa-products` / `mscz-products` / `mvsa-products` / `audio-products` / … | Alleen dat producttype |
-| Validate | `scripts\validate.cmd` | Geldigheid `.vsa` / `.mvsa` in de bibliotheek |
+| Validate | `scripts\validate.cmd` | Geldigheid `.vsa` / `.mvsa` in de catalogus |
 | Preflight | `scripts\check.cmd --strict` | Publicatiecontrole + Hugo + … |
 | Grenzen | `scripts\lifecycle-grenzen.cmd` | Geen ruwe formats / spaties in catalogusmappen |
 | Opkuisen (licht) | `scripts\opkuisen.cmd` op de **canonieke** `.mscz`/`.mxl` | Gericht herstel — niet opnieuw de Capella-dump als bron |
@@ -75,7 +75,7 @@ verwijst alleen:
 
 Zie [Bibliotheek en koormap](../publiceren/1-bladermap/). Een
 uitvoeringsvorm mag in de catalogus staan zonder koormap (special page
-[Ongerefereerd](/bibliotheek/speciaal/ongerefereerd/)).
+[Ongerefereerd](/catalogus/speciaal/ongerefereerd/)).
 
 ## Publicatiestatus (los van lifecycle)
 
@@ -88,13 +88,13 @@ Op `index.md` (bibliotheek én koormap): `voorzien`, `concept`,
 
 ```cmd
 cd /d C:\Git\orthodox-ronl\bibliotheek
-scripts\all-products.cmd content-source\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>
+scripts\all-products.cmd content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>
 scripts\check.cmd --strict
 ```
 
 ## Klaar als
 
-De canonieke bron ligt in de bibliotheekmap; siblings zijn vers volgens
+De canonieke bron ligt in de catalogusmap; siblings zijn vers volgens
 `check --strict`; je weet of een koormap-slot nog moet.
 
 {{< navbuttons "Werkbank|/handleiding/start/werkbank/" "Publicatiecontrole|/handleiding/start/publicatiecontrole/" >}}

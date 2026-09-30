@@ -23,12 +23,12 @@ A4-**PDF** (`{stam}.mvsa.pdf`). Het script schrijft herkomstinformatie
 producten.
 
 Het zoekt `.mvsa` onder het opgegeven pad (of, zonder pad, onder
-`content-source\bibliotheek`). Import-siblings die eindigen op
+`content-source\catalogus`). Import-siblings die eindigen op
 `.mscz.mvsa`, bestanden in `input\`, en mappen met
 `artefacten_handmatig: true` worden overgeslagen.
 
 Onder de motorkap: tooling-CLI `mvsa musicxml` voor Coria; `mvsa pdf` met
-layoutprofiel `partituur` en bibliotheek-id uit het bladermap-pad voor de
+layoutprofiel `partituur` en catalogus-id uit het bladermap-pad voor de
 PDF (MuseScore 4). Geen fork van VSA-tooling-logica.
 
 CI genereert deze producten niet; jij wel lokaal, daarna committen. Zonder
@@ -46,7 +46,7 @@ PDF’s.
 
 ```cmd
 scripts\mvsa-products.cmd
-scripts\mvsa-products.cmd content-source\bibliotheek\9-alleluia --force
+scripts\mvsa-products.cmd content-source\catalogus\9-alleluia --force
 ```
 
 # WHEN

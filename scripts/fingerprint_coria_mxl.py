@@ -47,6 +47,7 @@ RESERVED_SLUGS = frozenset(
         "gh-pages",
         "development",
         "bibliotheek",
+        "catalogus",
         "koormappen",
         "handleiding",
         "coria",

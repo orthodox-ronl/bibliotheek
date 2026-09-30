@@ -1,17 +1,19 @@
 ---
-title: "Opnemen in de bibliotheek"
-linkTitle: "Opnemen in de bibliotheek"
+title: "Opnemen in de catalogus"
+linkTitle: "Opnemen in de catalogus"
 weight: 5
+aliases:
+  - "/handleiding/publiceren/1-opnemen-in-bibliotheek/"
 ---
 
-# Opnemen in de bibliotheek
+# Opnemen in de catalogus
 
 **Werktraject** (waartoe, criteria, CI, binnenhalen):
-[Opnemen in de bibliotheek](/handleiding/werktrajecten/opnemen-in-bibliotheek/).
+[Opnemen in de catalogus](/handleiding/werktrajecten/opnemen-in-catalogus/).
 Deze pagina is de HOW voor `bieb accepteer`.
 
 {{< cue >}}
-1. Ken het **bibliotheek-id** (drie delen met schuine strepen), of vraag het na.
+1. Ken het **catalogus-id** (drie delen met schuine strepen), of vraag het na.
 2. Zorg dat je bestand al een bruikbare **basispartituur-`.mscz`**, **`.vsa`**,
    **`.mvsa`**, handmatig `.mscz`, of **`.tekstblad.md`** is — niet een
    ongekuiste `.mxl`.
@@ -32,12 +34,12 @@ van [Werkbank](/handleiding/start/werkbank/) naar
 [Catalogus](/handleiding/start/catalogus/) (na opkuisen en
 normaliseren bij MuseScore, of na een werkende `.vsa`). Nog niet klaar?
 Laat het bestand in `input\` staan; zie
-[Opnemen — ruw binnenhalen](/handleiding/werktrajecten/opnemen-in-bibliotheek/).
+[Opnemen — ruw binnenhalen](/handleiding/werktrajecten/opnemen-in-catalogus/).
 
-**Bibliotheek-id** = drie namen, gescheiden door `/`, bijvoorbeeld
+**Catalogus-id** = drie namen, gescheiden door `/`, bijvoorbeeld
 `5-eniggeboren-zoon/default/hemelum`. Elke naam mag alleen kleine letters,
 cijfers, `-` en `_` bevatten. Lijst:
-[Id-register](/bibliotheek/id-register/). Ken je het id
+[Id-register](/catalogus/id-register/). Ken je het id
 niet? **Niet verzinnen** — vraag na.
 
 ## Wat het script voor je doet
@@ -45,12 +47,12 @@ niet? **Niet verzinnen** — vraag na.
 Het commando `bieb accepteer`:
 
 - maakt de mappen
-  `content-source\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\`
+  `content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\`
   als die nog ontbreken;
 - zet daar een `index.md` met de knoppen via shortcode `bieb`;
 - kopieert je bestand en geeft het de **publicatiestam** als naam (zonder
   spaties), afgeleid van het id;
-- weigert bestanden die niet in de bibliotheek horen (bijvoorbeeld Capella
+- weigert bestanden die niet in de catalogus horen (bijvoorbeeld Capella
   `.capx`, of alleen een ruwe `.mxl` zonder basispartituur of VSA);
 - controleert een `.vsa` met `vsa validate` voordat die wordt opgenomen.
 
@@ -69,7 +71,7 @@ of [VSA](../../vsa/).
 bieb accepteer
 ```
 
-   Typ het bibliotheek-id, daarna het pad naar het bestand. Weet je even
+   Typ het catalogus-id, daarna het pad naar het bestand. Weet je even
    niet wat er gevraagd wordt? Typ `?` en Enter — dan komt uitleg, en mag
    je daarna alsnog invullen. Geen partituur, alleen een lege pagina?
    Typ `stub` als bestand.
@@ -132,17 +134,17 @@ Dan wordt `publicatiestatus` standaard `voorzien`.
 
 | Melding (kort) | Wat je doet |
 | --- | --- |
-| ongeldig bibliotheek-id | Id nakijken in het [Id-register](/bibliotheek/id-register/); drie lagen, kleine letters |
+| ongeldig catalogus-id | Id nakijken in het [Id-register](/catalogus/id-register/); drie lagen, kleine letters |
 | doel bestaat al | Bewust overschrijven: zelfde opdracht met `--force`, of ander id |
 | vsa validate faalde | `.vsa` eerst herstellen; pas daarna opnieuw accepteren |
-| formaat weigert / alleen .mxl | Terug naar [partituur](../../partituur/); niet forceren in de bibliotheek |
-| alias-variant | Partituur hoort bij de canonieke variant; zie [Bibliotheek en koormappen](../../start/bibliotheek-en-koormappen/) |
+| formaat weigert / alleen .mxl | Terug naar [partituur](../../partituur/); niet forceren in de catalogus |
+| alias-variant | Partituur hoort bij de canonieke variant; zie [Catalogus en koormappen](../../start/catalogus-en-koormappen/) |
 
 Meer storingen: [Als het misgaat](../3-als-het-misgaat/).
 
 ## Klaar als
 
-- Onder `bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\` staat je
+- Onder `catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\` staat je
   bestand met de publicatiestam-naam.
 - Er staat een `index.md` met shortcode `bieb` en hetzelfde id.
 - `scripts\check.cmd --strict` eindigt zonder fout.

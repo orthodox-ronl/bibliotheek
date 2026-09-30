@@ -1,5 +1,5 @@
 {{- /*
-  Herschrijf een bibliotheek-id via variant-alias_van.
+  Herschrijf een catalogus-id via variant-alias_van.
 
   In:  string zangstuk/variant/uitvoeringsvorm
   Uit: canonieke id (ongewijzigd als de variant geen alias is).
@@ -7,7 +7,7 @@
 {{- $id := . -}}
 {{- $parts := split $id "/" -}}
 {{- if eq (len $parts) 3 -}}
-  {{- $varPath := printf "/bibliotheek/%s/%s" (index $parts 0) (index $parts 1) -}}
+  {{- $varPath := printf "/catalogus/%s/%s" (index $parts 0) (index $parts 1) -}}
   {{- with site.GetPage $varPath -}}
     {{- with .Params.alias_van -}}
       {{- $id = printf "%s/%s" . (index $parts 2) -}}

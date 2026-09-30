@@ -13,18 +13,18 @@ weight: 15
 
 ```cmd
 validate
-validate content-source\bibliotheek\tropaar
+validate content-source\catalogus\tropaar
 ```
 
 Of: `scripts\validate.cmd` vanuit de repo-root. Zonder argument valideert
-het script de map `content-source\bibliotheek`.
+het script de map `content-source\catalogus`.
 
 # DESCRIPTION
 
 Zet eerst `vsa-tool` klaar (`scripts\_ensure.cmd --vsa-tool`) en roept
 daarna de gepubliceerde CLI aan:
 
-1. `vsa validate` op het gekozen pad (standaard de hele bibliotheek-map)
+1. `vsa validate` op het gekozen pad (standaard de hele catalogus-map)
 2. Als er onder dat pad minstens één `.mvsa` staat: ook `mvsa validate`
 
 Het script kopieert geen validatielogica uit VSA-tooling; het geeft alleen

@@ -6,4 +6,5 @@ publicatiestatus: concept
 automatische_inhoud: true
 aliases:
   - "/bibliotheek/110-tropaar/nikolaas-van-myra-toon-4/"
+  - "/bibliotheek/tropaar/nikolaas-van-myra-toon-4/"
 ---

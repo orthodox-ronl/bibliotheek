@@ -5,6 +5,7 @@ publicatiestatus: voorzien
 automatische_inhoud: false
 aliases:
   - "/bibliotheek/15-cherubijnenhymne/15e-bortnjanski/hemelum/"
+  - "/bibliotheek/cherubijnenhymne/15e-bortnjanski/hemelum/"
 ---
 
 # 15e Cherubijnenhymne (Bortnjanski)

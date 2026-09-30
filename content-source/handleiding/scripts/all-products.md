@@ -18,7 +18,7 @@ scripts\all-products.cmd [pad] [--force] [--dry-run]
 # DESCRIPTION
 
 Roept achter elkaar de product-scripts aan die siblings maken naast
-bibliotheek-bronnen onder `content-source\bibliotheek` (of onder een
+bibliotheek-bronnen onder `content-source\catalogus` (of onder een
 opgegeven pad). Mappen met `artefacten_handmatig: true` en bestanden in
 `input\` worden door die scripts overgeslagen.
 
@@ -47,7 +47,7 @@ script.
 
 ```cmd
 scripts\all-products.cmd
-scripts\all-products.cmd content-source\bibliotheek\9-alleluia
+scripts\all-products.cmd content-source\catalogus\9-alleluia
 scripts\all-products.cmd --dry-run
 ```
 

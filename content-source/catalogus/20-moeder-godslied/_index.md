@@ -5,4 +5,6 @@ nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true
 weight: 2000
+aliases:
+  - "/bibliotheek/20-moeder-godslied/"
 ---

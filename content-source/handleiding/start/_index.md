@@ -13,7 +13,7 @@ onder Partituur / VSA / Publiceren.
 
 Heb je je pc al eens klaargezet? Dan volstaat vaak alleen de
 [woordenlijst](woorden/). Het model bibliotheek/koormap staat in
-[Bibliotheek en koormappen](bibliotheek-en-koormappen/).
+[Catalogus en koormappen](catalogus-en-koormappen/).
 
 {{< cue >}}
 - Werkmap op schijf: `C:\Git\orthodox-ronl\bibliotheek`
@@ -31,7 +31,7 @@ Heb je je pc al eens klaargezet? Dan volstaat vaak alleen de
 3. [Levenscyclus](levenscyclus/) — Werkbank vs Catalogus; case per uitvoeringsvorm
 4. [Werkbank](werkbank/) — pre-productie: input, `_werk`, opkuisen, overgang
 5. [Catalogus](catalogus/) — canonieke bron, products, check
-6. [Bibliotheek en koormappen](bibliotheek-en-koormappen/) — catalogus vs view; secties en compositiebladen
+6. [Catalogus en koormappen](catalogus-en-koormappen/) — catalogus vs view; secties en compositiebladen
 7. [Zangstuk-soorten](zangstuk-soorten/) — genre-emmer, liturgische familie, enkelvoudig werk
 8. [Woorden](woorden/)
 9. [Publicatiecontrole](publicatiecontrole/) — bron vs afgeleide, namen, wat CI controleert

@@ -5,6 +5,7 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 aliases:
   - "/bibliotheek/220-uw-heilig-kruis/default/groningen/"
+  - "/bibliotheek/tropaar/uw-heilig-kruis/groningen/"
 ---
 
 # Uw Heilig Kruis (Groningen)

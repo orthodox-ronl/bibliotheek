@@ -175,7 +175,7 @@ MuseScore 4).
 | `--ext` | Doel-extensie (bijvoorbeeld `.mxl`) |
 | Zonder `-o` | In-place alleen als de bestandsnaam **geen spaties** heeft; anders weigering met hint naar `_werk\STAM\` |
 
-De **publicatiestam** is het bibliotheek-id met `-` tussen de drie lagen,
+De **publicatiestam** is het catalogus-id met `-` tussen de drie lagen,
 zonder spaties (voorbeeld: id `trisagion/8a-nederlands/hemelum` → stam
 `trisagion-8a-nederlands-hemelum`). Schrijf opgekuiste Capella-uitvoer
 bij voorkeur naar
@@ -203,7 +203,7 @@ Aan het eind volgt een regel `samenvatting: ok=… geweigerd=… fout=…`.
 | `-o`, `--output` | Doelbestand of doelmap |
 | `--in-place` | Bron overschrijven / ruwe input toestaan |
 | `--ext EXT` | Doel-extensie |
-| `--id ID` | Bibliotheek-id voor layout-diepte (optioneel) |
+| `--id ID` | Catalogus-id voor layout-diepte (optioneel) |
 | `-h`, `--help` | Korte usage in `opkuisen.cmd` |
 
 # EXAMPLES

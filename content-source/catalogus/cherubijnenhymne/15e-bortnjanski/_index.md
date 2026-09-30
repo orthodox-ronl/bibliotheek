@@ -7,4 +7,5 @@ publicatiestatus: concept
 automatische_inhoud: true
 aliases:
   - "/bibliotheek/15-cherubijnenhymne/15e-bortnjanski/"
+  - "/bibliotheek/cherubijnenhymne/15e-bortnjanski/"
 ---

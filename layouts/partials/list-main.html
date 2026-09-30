@@ -2,7 +2,7 @@
 
 {{ .Content }}
 
-{{- $bladermap := or (eq .Section "bibliotheek") (eq .Section "koormappen") -}}
+{{- $bladermap := or (eq .Section "catalogus") (eq .Section "koormappen") -}}
 {{- if not $bladermap }}
 {{ partial "page-list.html" . }}
 {{- end }}

@@ -7,4 +7,5 @@ publicatiestatus: concept
 automatische_inhoud: true
 aliases:
   - "/bibliotheek/15-cherubijnenhymne/15b-fatejev/"
+  - "/bibliotheek/cherubijnenhymne/15b-fatejev/"
 ---

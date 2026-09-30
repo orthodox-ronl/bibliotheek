@@ -26,7 +26,7 @@ if errorlevel 1 (
 vsa --version
 if errorlevel 1 exit /b 1
 
-call scripts\validate.cmd content-source\bibliotheek
+call scripts\validate.cmd content-source\catalogus
 if errorlevel 1 exit /b 1
 
 python scripts\update_werkvoorraad.py

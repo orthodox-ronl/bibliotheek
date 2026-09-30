@@ -30,7 +30,7 @@ vanuit de repo-root.
 | `layout` | Past de basispartituur-standaard toe op `.mscz` of `.mxl` (tooling-layoutprofiel `partituur`). | [layout](layout/) |
 | `ensure-bibliotheek-id` | Zet of controleert de colofonregel `Bibliotheek-id:` op basispartituur-`.mscz`. | [ensure-bibliotheek-id](ensure-bibliotheek-id/) |
 | `opkuisen` | Herkomstanalyse + inhoudelijke opkuis (Capella/MusicXML/MuseScore); optioneel `--layout`. | [opkuisen](opkuisen/) |
-| `bieb accepteer` | Partituur/tekstblad opnemen onder een bibliotheek-id (Werkbank → Catalogus). | [bieb accepteer](bieb-accepteer/) |
+| `bieb accepteer` | Partituur/tekstblad opnemen onder een catalogus-id (Werkbank → Catalogus). | [bieb accepteer](bieb-accepteer/) |
 | `bieb hernoem` | Zangstuk-id hernoemen (map, stam, refs, Hugo-aliases). | [bieb hernoem](bieb-hernoem/) |
 | `update-werkvoorraad` | Tabel in `input\werkvoorraad.md` laten aansluiten op bestanden in `input\`. | [update-werkvoorraad](update-werkvoorraad/) |
 | `werkbank-status` | Overzicht open werkbank-cases; schrijft `data\werkbank-status.json`. | [werkbank-status](werkbank-status/) |
@@ -53,7 +53,7 @@ in de repo.
 
 | Commando (later) | Rol |
 | --- | --- |
-| `bieb zoek` | Zoeken van bibliotheek-ids op de commandoregel |
+| `bieb zoek` | Zoeken van catalogus-ids op de commandoregel |
 | `h` / `pdf` / ... | Console-hulp en overige VSA-demo-commando's |
 
 Man-pages (ter voorbereiding):

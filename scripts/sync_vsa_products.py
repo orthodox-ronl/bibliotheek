@@ -36,7 +36,7 @@ from product_meta import (
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_ROOT = REPO_ROOT / "content-source" / "bibliotheek"
+DEFAULT_ROOT = REPO_ROOT / "content-source" / "catalogus"
 
 
 def _fm_bool(text: str, key: str) -> bool:
@@ -301,7 +301,7 @@ def main(argv: list[str] | None = None) -> int:
         nargs="?",
         type=Path,
         default=DEFAULT_ROOT,
-        help="Zoekroot (default: content-source/bibliotheek)",
+        help="Zoekroot (default: content-source/catalogus)",
     )
     add_regen_arguments(parser)
     args = parser.parse_args(argv)
