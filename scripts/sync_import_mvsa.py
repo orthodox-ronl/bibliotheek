@@ -126,9 +126,11 @@ def _resolve_targets(
     root: Path,
     *,
     create: bool,
-    force: bool,
+    policy,
 ) -> list[Path]:
     """Lijst basispartituur-``.mscz`` die (opnieuw) geïmporteerd moeten worden."""
+    from product_regen import need_regen
+
     if root.is_file():
         path = root
         if is_print_mscz(path):
@@ -143,25 +145,43 @@ def _resolve_targets(
 
     if create:
         msczs = collect_mscz(root)
-        if force:
-            return msczs
-        return [m for m in msczs if is_stale(m)]
+        todo: list[Path] = []
+        for m in msczs:
+            mvsa = product_mvsa_for_mscz(m)
+            exists = mvsa.is_file()
+            stamp_ok = _stamp_ok(mvsa, partituur_sha256(m)) if exists else False
+            if need_regen(
+                policy,
+                exists=exists,
+                stamp_ok=stamp_ok,
+                contract_ok=None,
+            ):
+                todo.append(m)
+        return todo
 
     # Standaard: alleen bestaande siblings vernieuwen.
-    todo: list[Path] = []
+    todo = []
     for mvsa in collect_import_mvsa(root):
         mscz = mscz_for_import_mvsa(mvsa)
         if not mscz.is_file():
-            # check_import_mvsa meldt orphan; sync kan niets regenereren
             continue
         if is_print_mscz(mscz) or folder_is_handmatig(mscz.parent):
             continue
-        if force or is_stale(mscz, mvsa):
+        exists = True
+        stamp_ok = _stamp_ok(mvsa, partituur_sha256(mscz))
+        if need_regen(
+            policy,
+            exists=exists,
+            stamp_ok=stamp_ok,
+            contract_ok=None,
+        ):
             todo.append(mscz)
     return todo
 
 
 def main(argv: list[str] | None = None) -> int:
+    from product_regen import add_regen_arguments, policy_from_args
+
     parser = argparse.ArgumentParser(
         description=(
             "Importeer basispartituur-.mscz naar sibling .mscz.mvsa "
@@ -175,12 +195,7 @@ def main(argv: list[str] | None = None) -> int:
         default=DEFAULT_ROOT,
         help="Zoekroot of één .mscz (default: content-source/bibliotheek)",
     )
-    parser.add_argument("--dry-run", action="store_true")
-    parser.add_argument(
-        "--force",
-        action="store_true",
-        help="Ook importeren als .mscz.mvsa al bij de bron past",
-    )
+    add_regen_arguments(parser)
     parser.add_argument(
         "--create",
         action="store_true",
@@ -196,8 +211,9 @@ def main(argv: list[str] | None = None) -> int:
         help=f"Spelling voor mscz import (default: {DEFAULT_PITCH})",
     )
     args = parser.parse_args(argv)
+    policy = policy_from_args(args)
     root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
-    todo = _resolve_targets(root, create=args.create, force=args.force)
+    todo = _resolve_targets(root, create=args.create, policy=policy)
     if not todo:
         existing = (
             1

@@ -97,7 +97,9 @@ def sync_one(md: Path, *, dry_run: bool) -> None:
     )
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    from product_regen import add_regen_arguments, need_regen, policy_from_args
+
     parser = argparse.ArgumentParser(
         description="Exporteer stale tekstblad-PDF vanuit .tekstblad.md."
     )
@@ -108,20 +110,23 @@ def main() -> int:
         default=DEFAULT_ROOT,
         help="Zoekroot (default: content-source/bibliotheek)",
     )
-    parser.add_argument("--dry-run", action="store_true")
-    parser.add_argument(
-        "--force",
-        action="store_true",
-        help="Ook exporteren als PDF al bij de bron past",
-    )
-    args = parser.parse_args()
+    add_regen_arguments(parser)
+    args = parser.parse_args(argv)
+    policy = policy_from_args(args)
     root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
     sources = collect_tekstblad(root)
-    todo = [
-        md
-        for md in sources
-        if args.force or is_stale(md, product_pdf_for_md(md))
-    ]
+    todo: list[Path] = []
+    for md in sources:
+        pdf = product_pdf_for_md(md)
+        exists = pdf.is_file()
+        stamp_ok = (not is_stale(md, pdf)) if exists else False
+        if need_regen(
+            policy,
+            exists=exists,
+            stamp_ok=stamp_ok,
+            contract_ok=None,
+        ):
+            todo.append(md)
     if not todo:
         print(f"Tekstblad-producten up-to-date ({len(sources)} .tekstblad.md)", flush=True)
         return 0

@@ -52,3 +52,12 @@ alleen dat bestaande siblings vers zijn. Audio eist wél een `.mp3` bij elke
 canonieke `.mvsa` / basis-`.mscz` / `.vsa` (buiten handmatige mappen).
 
 Oude bestandsnaam: `docs/productgates.md` (stub blijft als doorverwijzing).
+
+## Genereren (`products.cmd`)
+
+Lokaal (niet in CI): [`scripts/products.cmd`](../scripts/products.cmd) —
+wrapper over alle `sync_*_products`. Default-condities: **missing ∪ stale ∪
+invalid** (`mxl validate` op Coria-siblings). Opties: `--kinds`, `--dry-run`,
+`--force`, `--only-missing` / `--only-stale` / `--only-invalid`, `--reasons`.
+
+Leesbare HOW: [handleiding — Publicatiecontrole](../content-source/handleiding/start/publicatiecontrole.md#producten-opnieuw-genereren--productscmd).

@@ -49,6 +49,47 @@ Faalt de controle, dan vernieuw je lokaal met het product-commando en commit
 je bron **en** afgeleide samen. De build op GitHub **schrijft geen**
 MuseScore- of MusicXML-producten opnieuw.
 
+## Producten (opnieuw) genereren — `products.cmd`
+
+Eén wrapper voor alle product-sporen. Zoekt **recursief** onder een map
+naar bronbestanden (`.vsa`, `.mscz`, `.mvsa`, …) en runt de bijbehorende
+pijplijnen.
+
+**Default-condities** (alle drie tegelijk): het product **ontbreekt**, is
+**verouderd** (herkomststempel past niet bij de bron), of is **ongeldig**
+(Coria-MXL faalt `mxl validate`). Gebruik `--force` om álles opnieuw te
+maken.
+
+```cmd
+cd /d C:\Git\orthodox-ronl\bibliotheek
+
+REM Hele bibliotheek: missing + stale + invalid (alle kinds)
+scripts\products.cmd
+
+REM Eerst kijken zonder te schrijven
+scripts\products.cmd --dry-run
+
+REM Alleen één bladermap, alleen partituur + audio
+scripts\products.cmd content-source\bibliotheek\trisagion --kinds mscz,audio
+```
+
+| Optie | Betekenis |
+| --- | --- |
+| `--kinds LIST` | Komma-lijst: `vsa`, `mscz`, `tekstblad`, `mvsa`, `import`, `audio`, `lyrics`, of `all` (default) |
+| `--dry-run` | Toon wat zou gebeuren, schrijf niet |
+| `--force` | Alles onder de root opnieuw (negeert condities) |
+| `--only-missing` | Alleen als het productbestand ontbreekt |
+| `--only-stale` | Alleen als de stempel niet meer bij de bron past |
+| `--only-invalid` | Alleen als Coria-`.mxl` de checklist faalt (`mxl validate`) |
+| `--reasons missing,stale,invalid` | Expliciete subset (niet met `--only-*`) |
+
+Alias: `scripts\all-products.cmd` = `products.cmd --kinds all …`.
+Losse `mscz-products.cmd` e.d. blijven werken (zelfde flags).
+
+Contract-ongeldigheid geldt voor **`.mscz.mxl` / `.mvsa.mxl` / `.vsa.mxl`**
+(profiel satb of mono). PDF, mp3, lyrics en tekstblad kennen geen aparte
+contract-gate in deze stap — daar tellen missing/stale (en `--force`).
+
 ## Bestandsnamen (doelvorm)
 
 ### Stam
@@ -209,6 +250,12 @@ content-source\bibliotheek\tropaar\zondag-toon-1\groningen\
 ```cmd
 scripts\vsa-products.cmd content-source\bibliotheek\tropaar\zondag-toon-1\groningen
 check --strict
+```
+
+Of via de wrapper (zelfde map, alle kinds die daar van toepassing zijn):
+
+```cmd
+scripts\products.cmd content-source\bibliotheek\tropaar\zondag-toon-1\groningen
 ```
 
 Basispartituur (doelvorm; actieve publicatiecontrole):
