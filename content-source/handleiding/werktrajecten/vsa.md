@@ -61,7 +61,7 @@ die tekst niet terug naar `{stam}.vsa`. Een experimentele sidecar
 3. Coria-`.vsa.mxl` en A4-`.vsa.pdf`:
 
 ```cmd
-scripts\vsa-products.cmd content-source\bibliotheek\5-eniggeboren-zoon
+scripts\vsa-products.cmd content-source\bibliotheek\eniggeboren-zoon
 ```
 
 4. Controleer: `check --strict` (validate + publicatiecontrole + Hugo).

@@ -41,7 +41,7 @@ daarna committen.
 
 ```cmd
 scripts\lyrics-products.cmd
-scripts\lyrics-products.cmd content-source\bibliotheek\2-eerste-antifoon
+scripts\lyrics-products.cmd content-source\bibliotheek\eerste-antifoon
 scripts\lyrics-products.cmd --dry-run
 ```
 

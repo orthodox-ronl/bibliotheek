@@ -5,6 +5,8 @@ weight: 15
 nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true
+aliases:
+  - "/koormappen/hemelum/liturgie-weekdagen/15-cherubijnenhymne/"
 ---
 
 Varianten in de liturgiemap van Hemelum. Niet in deze map: 15a Staro-Simonovskaja

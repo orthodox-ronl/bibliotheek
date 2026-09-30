@@ -47,25 +47,25 @@ script tegelijk.
 15e Bortnjanski. Niet: 15a Staro-Simonovskaja, 15f Lvovsky.
 | `trisagion/8a-trisagion/` | `trisagion/8a-nederlands/hemelum` | `trisagion-8a-nederlands-hemelum` | mscz, mxl, pdf | Canoniek; niet de legacy-map `8a-trisagion/` |
 | `trisagion/8a-trisagion-slav/` | `trisagion/8a-slav/hemelum` | `trisagion-8a-slav-hemelum` | mscz, mxl, pdf, mvsa | Idem legacy `8a-trisagion-slav/` |
-| `19a-eucharistische-kanon/` | `19-eucharistische-canon/19a-feofan/hemelum` | `19-eucharistische-canon-19a-feofan-hemelum` | mscz, mxl, pdf | |
-| *(alleen bibliotheek voorlopig)* | `19-eucharistische-canon/rostov/hemelum` | `19-eucharistische-canon-rostov-hemelum` | — | VOW-input; stub |
-| `20-moeder-godslied/20d-in-waarheid-moeder-godslied/` | `20-moeder-godslied/20d-in-waarheid/hemelum` | `20-moeder-godslied-20d-in-waarheid-hemelum` | mscz, mxl, pdf | |
-| `20-moeder-godslied/20-moeder-godslied-ontslapen-mgods/` | `20-moeder-godslied/ontslapen-moeder-gods/hemelum` | `20-moeder-godslied-ontslapen-moeder-gods-hemelum` | print.mscz, mxl, pdf, vsa | `artefacten_handmatig`; print-track |
-| `25-communievers/25-communievers-onthoofding-johannes-de-doper/` | `25-communievers/onthoofding-johannes-de-doper/hemelum` | `25-communievers-onthoofding-johannes-de-doper-hemelum` | vsa, vsa.mxl, pdf | Geen basispartituur-mscz; Coria via VSA-publicatiecontrole |
+| `19a-eucharistische-kanon/` | `eucharistische-canon/19a-feofan/hemelum` | `eucharistische-canon-19a-feofan-hemelum` | mscz, mxl, pdf | |
+| *(alleen bibliotheek voorlopig)* | `eucharistische-canon/rostov/hemelum` | `eucharistische-canon-rostov-hemelum` | — | VOW-input; stub |
+| `moeder-godslied/20d-in-waarheid-moeder-godslied/` | `moeder-godslied/20d-in-waarheid/hemelum` | `moeder-godslied-20d-in-waarheid-hemelum` | mscz, mxl, pdf | |
+| `moeder-godslied/moeder-godslied-ontslapen-mgods/` | `moeder-godslied/ontslapen-moeder-gods/hemelum` | `moeder-godslied-ontslapen-moeder-gods-hemelum` | print.mscz, mxl, pdf, vsa | `artefacten_handmatig`; print-track |
+| `communievers/communievers-onthoofding-johannes-de-doper/` | `communievers/onthoofding-johannes-de-doper/hemelum` | `communievers-onthoofding-johannes-de-doper-hemelum` | vsa, vsa.mxl, pdf | Geen basispartituur-mscz; Coria via VSA-publicatiecontrole |
 | `troparen-en-kondaken/tropaar-nikolaas-van-myra/` | `tropaar/nikolaas-van-myra-toon-4/hemelum` | `tropaar-nikolaas-van-myra-toon-4-hemelum` | print.mscz, mxl, pdf, vsa | `artefacten_handmatig`; onder zangstuk `tropaar/` |
-| `2-eerste-antifoon/weekdagen/` | `2-eerste-antifoon/weekdagen/hemelum` | `2-eerste-antifoon-weekdagen-hemelum-hemelum` | vsa, vsa.mxl | Koormap = Hemelum; geen `liturgikon/`-slot meer |
-| *(alleen bibliotheek)* | `2-eerste-antifoon/weekdagen-liturgikon/hemelum` | `2-eerste-antifoon-weekdagen-liturgikon-hemelum` | vsa, vsa.mxl | Niet in Hemelum-koormap |
-| `2-eerste-antifoon/zondag/` | `2-eerste-antifoon/zondag/hemelum` | `2-eerste-antifoon-zondag-hemelum` | mscz, mxl, pdf | stub-achtig in koormap |
-| `4-tweede-antifoon/weekdagen/` | `4-tweede-antifoon/weekdagen/hemelum` | `4-tweede-antifoon-weekdagen-hemelum-hemelum` | vsa, vsa.mxl | |
-| `4-tweede-antifoon/zondag/` | `4-tweede-antifoon/zondag/hemelum` | `4-tweede-antifoon-zondag-hemelum` | mscz, mxl, pdf | |
-| `6-derde-antifoon/weekdagen/` | `6-derde-antifoon/weekdagen/hemelum` | `6-derde-antifoon-weekdagen-hemelum-hemelum` | vsa, vsa.mxl | |
-| `6-derde-antifoon/zondag/` | `6-derde-antifoon/zondag/hemelum` | `6-derde-antifoon-zondag-hemelum` | mscz, mxl, pdf | Variant-id = koormap-mapnaam |
-| `5-eniggeboren-zoon/` | `5-eniggeboren-zoon/default/hemelum` | `5-eniggeboren-zoon-default-hemelum` | mscz, mxl, pdf | `default` = enige variant |
-| `7-kleine-intocht/zondag/` | `7-kleine-intocht/zondag/hemelum` | `7-kleine-intocht-zondag-hemelum` | mscz, mxl, pdf, mvsa | |
-| `7-kleine-intocht/weekdagen/` | `7-kleine-intocht/weekdagen/hemelum` | `7-kleine-intocht-weekdagen-hemelum` | mscz, mxl, pdf | |
-| `7-kleine-intocht/moeder-gods/` | `7-kleine-intocht/moeder-gods/hemelum` | `7-kleine-intocht-moeder-gods-hemelum` | mscz, mxl, pdf | |
-| `28-wij-hebben-het-ware-licht/` | `28-wij-hebben-het-ware-licht/default/hemelum` | `28-wij-hebben-het-ware-licht-default-hemelum` | mscz, mxl, pdf | |
-| `29-de-naam-des-heren-zij-gezegend/` | `29-de-naam-des-heren-zij-gezegend/default/hemelum` | `29-de-naam-des-heren-zij-gezegend-default-hemelum` | mscz, mxl, pdf | |
+| `eerste-antifoon/weekdagen/` | `eerste-antifoon/weekdagen/hemelum` | `eerste-antifoon-weekdagen-hemelum-hemelum` | vsa, vsa.mxl | Koormap = Hemelum; geen `liturgikon/`-slot meer |
+| *(alleen bibliotheek)* | `eerste-antifoon/weekdagen-liturgikon/hemelum` | `eerste-antifoon-weekdagen-liturgikon-hemelum` | vsa, vsa.mxl | Niet in Hemelum-koormap |
+| `eerste-antifoon/zondag/` | `eerste-antifoon/zondag/hemelum` | `eerste-antifoon-zondag-hemelum` | mscz, mxl, pdf | stub-achtig in koormap |
+| `tweede-antifoon/weekdagen/` | `tweede-antifoon/weekdagen/hemelum` | `tweede-antifoon-weekdagen-hemelum-hemelum` | vsa, vsa.mxl | |
+| `tweede-antifoon/zondag/` | `tweede-antifoon/zondag/hemelum` | `tweede-antifoon-zondag-hemelum` | mscz, mxl, pdf | |
+| `derde-antifoon/weekdagen/` | `derde-antifoon/weekdagen/hemelum` | `derde-antifoon-weekdagen-hemelum-hemelum` | vsa, vsa.mxl | |
+| `derde-antifoon/zondag/` | `derde-antifoon/zondag/hemelum` | `derde-antifoon-zondag-hemelum` | mscz, mxl, pdf | Variant-id = koormap-mapnaam |
+| `eniggeboren-zoon/` | `eniggeboren-zoon/default/hemelum` | `eniggeboren-zoon-default-hemelum` | mscz, mxl, pdf | `default` = enige variant |
+| `kleine-intocht/zondag/` | `kleine-intocht/zondag/hemelum` | `kleine-intocht-zondag-hemelum` | mscz, mxl, pdf, mvsa | |
+| `kleine-intocht/weekdagen/` | `kleine-intocht/weekdagen/hemelum` | `kleine-intocht-weekdagen-hemelum` | mscz, mxl, pdf | |
+| `kleine-intocht/moeder-gods/` | `kleine-intocht/moeder-gods/hemelum` | `kleine-intocht-moeder-gods-hemelum` | mscz, mxl, pdf | |
+| `wij-hebben-het-ware-licht/` | `wij-hebben-het-ware-licht/default/hemelum` | `wij-hebben-het-ware-licht-default-hemelum` | mscz, mxl, pdf | |
+| `de-naam-des-heren-zij-gezegend/` | `de-naam-des-heren-zij-gezegend/default/hemelum` | `de-naam-des-heren-zij-gezegend-default-hemelum` | mscz, mxl, pdf | |
 
 ---
 
@@ -73,9 +73,9 @@ script tegelijk.
 
 | Koormap-pad | Bibliotheek-id | Bestanden nu | Opmerking |
 | --- | --- | --- | --- |
-| `7-kleine-intocht/zo-wk-mg/` | `7-kleine-intocht/zo-wk-mg/hemelum` | `*.print.mscz`, pdf | Print-vel; bij voorkeur `artefacten_handmatig: true` |
+| `kleine-intocht/zo-wk-mg/` | `kleine-intocht/zo-wk-mg/hemelum` | `*.print.mscz`, pdf | Print-vel; bij voorkeur `artefacten_handmatig: true` |
 | `troparen-en-kondaken/tropaar-nikolaas-van-myra/` | `tropaar/nikolaas-van-myra-toon-4/hemelum` | print.mscz, mxl, pdf, vsa | Handmatige artefacten |
-| `20-moeder-godslied/…` | `20-moeder-godslied/ontslapen-moeder-gods/hemelum` | print.mscz, mxl, pdf, vsa | Handmatige artefacten |
+| `moeder-godslied/…` | `moeder-godslied/ontslapen-moeder-gods/hemelum` | print.mscz, mxl, pdf, vsa | Handmatige artefacten |
 
 ---
 
@@ -85,21 +85,21 @@ script tegelijk.
 | --- | --- | --- |
 | `1-vredeslitanie/` | `ektinia/vrede/hemelum` | `.mvsa` (reviewable) |
 | `3-eerste-kleine-litanie/` | `ektinia/kleine/hemelum` | `.mvsa` (reviewable) |
-| `10-evangelielezing/` | `10-evangelielezing/default/hemelum` | |
+| `evangelielezing/` | `evangelielezing/default/hemelum` | |
 | `11-dringende-litanie/` | `ektinia/dringend/hemelum` | |
 | `12-ontslapenen-litanie/` | `ektinia/ontslapenen/hemelum` | |
 | `13-catechumenen-litanie/` | `ektinia/catechumenen/hemelum` | |
 | `14-gelovigen-litanie/` | `ektinia/gelovigen/hemelum` | |
 | `16-vragende-litanie/` | `ektinia/vragend/hemelum` | |
-| `17-vredeswens/` | `17-vredeswens/default/hemelum` | |
-| `18-geloofsbelijdenis/` | `18-geloofsbelijdenis/default/hemelum` | |
-| `21-en-allen/` | `21-en-allen/default/hemelum` | |
+| `vredeswens/` | `vredeswens/default/hemelum` | |
+| `geloofsbelijdenis/` | `geloofsbelijdenis/default/hemelum` | |
+| `en-allen/` | `en-allen/default/hemelum` | |
 | `22-vragende-litanie/` | `ektinia/vragend/hemelum` | |
-| `23-onze-vader/` | `23-onze-vader/default/hemelum` | |
-| `24-een-is-heilig/` | `24-een-is-heilig/default/hemelum` | |
-| `26-gezegend-hij-die-komt/` | `26-gezegend-hij-die-komt/default/hemelum` | |
-| `27-communiezang/` | `27-communiezang/default/hemelum` | |
-| `7d-dialoog-met-diaken/` | `7d-dialoog-met-diaken/default/hemelum` | tekstblad.md, tekstblad.pdf |
+| `onze-vader/` | `onze-vader/default/hemelum` | |
+| `een-is-heilig/` | `een-is-heilig/default/hemelum` | |
+| `gezegend-hij-die-komt/` | `gezegend-hij-die-komt/default/hemelum` | |
+| `communiezang/` | `communiezang/default/hemelum` | |
+| `dialoog-met-diaken/` | `dialoog-met-diaken/default/hemelum` | tekstblad.md, tekstblad.pdf |
 
 ### Prokimen / alleluia (Kiev + znameni-reservering)
 
@@ -109,12 +109,12 @@ de melodieklasse (Kiev / znameni), niet het liturgienummer.
 
 | Koormap-pad | Bibliotheek-id (voorbeeld) | Status |
 | --- | --- | --- |
-| `9a-prokimen/weekdagen/` | `9-prokimen/9a-maandag/groningen` … `9a-zaterdag` | score (VSA); compositieblad |
-| `9a-prokimen/zondag-toon-N/` | `9-prokimen/9a-zondag-toon-N/groningen` + `9-alleluia/9a-toon-N/groningen` | alleluia: `.mvsa` (reviewable); prokimen zondag: voorzien |
-| `9b-alleluia/` | `9-alleluia/9a-toon-1/groningen` … `9a-toon-8` | `.mvsa` (reviewable) |
+| `9a-prokimen/weekdagen/` | `prokimen/9a-maandag/groningen` … `9a-zaterdag` | score (VSA); compositieblad |
+| `9a-prokimen/zondag-toon-N/` | `prokimen/9a-zondag-toon-N/groningen` + `alleluia/9a-toon-N/groningen` | alleluia: `.mvsa` (reviewable); prokimen zondag: voorzien |
+| `9b-alleluia/` | `alleluia/9a-toon-1/groningen` … `9a-toon-8` | `.mvsa` (reviewable) |
 
-**Znameni (alleen register):** `9-prokimen/9b-{naam}/{uv}`,
-`9-alleluia/9b-toon-{1..8}/{uv}` — nog geen leafs.
+**Znameni (alleen register):** `prokimen/9b-{naam}/{uv}`,
+`alleluia/9b-toon-{1..8}/{uv}` — nog geen leafs.
 
 ### Tropaar / kondak
 
@@ -198,11 +198,11 @@ Bibliotheek-id: `tropaar/nikolaas-van-myra-toon-4/hemelum` (zangstuk
 ### 2. Variant-id `default` — besloten
 
 Voor slots zonder geneste varianten: middelste laag = `default`
-(bijv. `5-eniggeboren-zoon/default/hemelum`).
+(bijv. `eniggeboren-zoon/default/hemelum`).
 
 ### 3. Derde antifoon zondag — besloten
 
-Bibliotheek-id: `6-derde-antifoon/zondag/hemelum` (niet `zaligsprekingen-zondag`).
+Bibliotheek-id: `derde-antifoon/zondag/hemelum` (niet `zaligsprekingen-zondag`).
 
 ### 4. Familie-`_index.md` zonder `bieb` — besloten
 
@@ -211,7 +211,7 @@ Alleen leaves krijgen `bieb`; familie-pagina’s blijven TOC
 
 ### 5. Capella `5a Eniggeboren Zoon.mxl` — afgerond
 
-Doel-id: `5-eniggeboren-zoon/default/hemelum`.
+Doel-id: `eniggeboren-zoon/default/hemelum`.
 
 ### 6. Inputs met doel-id — deels gezet
 
@@ -219,7 +219,7 @@ Doel-id: `5-eniggeboren-zoon/default/hemelum`.
 | --- | --- | --- |
 | `capella/…kastorskij - ksl.mxl` | `cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` | stub; nog converteren |
 | `capella/15e … Bortnjanski….mxl` | `cherubijnenhymne/15e-bortnjanski/hemelum` | stub; Capella zegt **15e** (niet 15c) |
-| `vow/Eucharistische Canon-Rostov.mscz` | `19-eucharistische-canon/rostov/hemelum` | stub naast Feofan |
+| `vow/Eucharistische Canon-Rostov.mscz` | `eucharistische-canon/rostov/hemelum` | stub naast Feofan |
 | `vow/Tropaar-opstanding-toon*.mscz` | *(leeg)* | voorlopig laten zitten |
 
 ### 7. Dankzegging / eind-liturgie — strategie (voorstel)
@@ -235,19 +235,19 @@ Voorstel:
    als slot 28, een ander danklied, of een medley? Idem voor `eind-liturgie`
    (één stuk, of bundel 28+29?).
 2. Bibliotheek: `zangstuk-id` = functie (bijv. `dankzegging` of het bestaande
-   `28-wij-hebben-het-ware-licht` als het dát is); `variant-id` =
+   `wij-hebben-het-ware-licht` als het dát is); `variant-id` =
    `kyiv-toon-2` (niet de functienaam).
 3. Koormap: map/slot blijft functioneel (`28-…` of `dankzegging/`); kindpagina
    of `linkTitle` mag “Kyiv toon 2” heten.
 4. Doel-id leeg houden tot stap 1 klaar is — niet raden.
 
-### 8. Eucharistische kanon + 20-moeder-godslied — al in bibliotheek
+### 8. Eucharistische kanon + moeder-godslied — al in bibliotheek
 
 Lokaal aanwezig (nog untracked tot commit):
 
-- `19-eucharistische-canon/19a-feofan/hemelum` (+ stub `rostov/hemelum`)
-- `20-moeder-godslied/20d-in-waarheid/hemelum`
-- `20-moeder-godslied/ontslapen-moeder-gods/hemelum`
+- `eucharistische-canon/19a-feofan/hemelum` (+ stub `rostov/hemelum`)
+- `moeder-godslied/20d-in-waarheid/hemelum`
+- `moeder-godslied/ontslapen-moeder-gods/hemelum`
 
 Koormap-slots verwijzen via `bieb`; basispartituur-bestanden staan niet meer
 in de liturgiemap (dat is de migratie, geen verdwijning).

@@ -1,0 +1,13 @@
+---
+title: "28 Wij hebben het Ware Licht"
+linkTitle: "28 Wij hebben het Ware Licht"
+weight: 28
+publicatiestatus: reviewable
+automatische_inhoud: false
+aliases:
+  - "/koormappen/hemelum/liturgie-weekdagen/28-wij-hebben-het-ware-licht/"
+---
+
+# 28 Wij hebben het Ware Licht
+
+{{< bieb id="wij-hebben-het-ware-licht/default/hemelum" >}}

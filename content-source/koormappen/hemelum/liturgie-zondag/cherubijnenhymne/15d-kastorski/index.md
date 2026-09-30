@@ -4,6 +4,8 @@ linkTitle: "15d Kastorski"
 weight: 40
 publicatiestatus: voorzien
 automatische_inhoud: false
+aliases:
+  - "/koormappen/hemelum/liturgie-zondag/15-cherubijnenhymne/15d-kastorski/"
 ---
 
 # 15d Cherubijnenhymne (Kastorski)

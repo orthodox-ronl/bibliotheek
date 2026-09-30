@@ -65,7 +65,7 @@ lettergrepen synchroon met noten. MusicXML: `scripts\opkuisen.cmd`. Bij een
 | --- | --- |
 | **Bibliotheek** | Catalogus onder `bibliotheek\`: alle oefenbestanden per uitvoeringsvorm; mag stukken bevatten zonder koormap |
 | **Bibliotheek-id** | Drie segmenten `[a-z0-9_-]+`, bijv. `trisagion/8a-nederlands/hemelum` |
-| **Variant-id `default`** | Middelste laag als er maar één variant is (bijv. `5-eniggeboren-zoon/default/hemelum`) |
+| **Variant-id `default`** | Middelste laag als er maar één variant is (bijv. `eniggeboren-zoon/default/hemelum`) |
 | **Taal-suffix** | Op uitvoeringsvorm-id: geen = NL; `-ksl` = Kerkslavisch Cyrillisch; `-ksl-trlat` = getranslitereerd; `-nl-ksl` = mengvorm |
 | **Koormap** | Geordende view (navigatieboom) voor een gelegenheid; geen basispartituur-bestanden in de slotmappen |
 | **Koormap-sectie** | Map met `_index.md` in de koormap: liturgische plek / hoofdstuk (kindlijst of eigen TOC) |

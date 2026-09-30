@@ -49,16 +49,16 @@ voor wie converteert.
 | `capella/15c - cherubijnenhymne - kastorski.mxl` | `cherubijnenhymne/15c-kastorski/hemelum` | `cherubijnenhymne/15c-kastorski` | `.mscz` | gepubliceerd | — | gepubliceerd |
 | `capella/15c - cherubijnenhymne - kastorskij - ksl.mxl` | `cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` |  | `.mscz` | ontvangen | opkuisen | Kerkslavisch getranslitereerd |
 | `capella/15e Cherubijnenhymne Bortnjanski no.5.mxl` | `cherubijnenhymne/15e-bortnjanski/hemelum` | `cherubijnenhymne/15e-bortnjanski` | `.mscz` | gepubliceerd | — | Capella 15e |
-| `capella/19a - eucharistische kanon - feofan.mxl` | `19-eucharistische-canon/19a-feofan/hemelum` | `19a-eucharistische-kanon` | `.mscz` | gepubliceerd | — | gepubliceerd |
-| `capella/2 - 1e antifoon.mxl` | `2-eerste-antifoon/zondag/hemelum` | `2-eerste-antifoon` | `.mscz` | gepubliceerd | — |  |
-| `capella/20d - in waarheid - moeder godslied.mxl` | `20-moeder-godslied/20d-in-waarheid/hemelum` | `20d-in-waarheid-moeder-godslied` | `.mscz` | gepubliceerd | — | gepubliceerd |
-| `capella/28a - wij hebben het ware licht aanschouwd.mxl` | `28-wij-hebben-het-ware-licht/default/hemelum` | `28-wij-hebben-het-ware-licht` | `.mscz` | gepubliceerd | — |  |
-| `capella/29 - de naam des heren zij gezegend.mxl` | `29-de-naam-des-heren-zij-gezegend/default/hemelum` | `29-de-naam-des-heren-zij-gezegend` | `.mscz` | gepubliceerd | — |  |
-| `capella/4 - 2e antifoon.mxl` | `4-tweede-antifoon/zondag/hemelum` | `4-tweede-antifoon` | `.mscz` | gepubliceerd | — |  |
-| `capella/5a Eniggeboren Zoon.mxl` | `5-eniggeboren-zoon/default/hemelum` | `5-eniggeboren-zoon` | `.mscz` | gepubliceerd | — |  |
-| `capella/6b - zaligsprekingen.mxl` | `6-derde-antifoon/zondag/hemelum` | `6-derde-antifoon` | `.mscz` | gepubliceerd | — |  |
-| `capella/7 - kleine intocht - zondag.mxl` | `7-kleine-intocht/zondag/hemelum` | `7-kleine-intocht` | `.mscz` | gepubliceerd | — | zelfde koormap-sectie als 7b |
-| `capella/7b - kleine intocht - weekdagen.mxl` | `7-kleine-intocht/weekdagen/hemelum` | `7-kleine-intocht` | `.mscz` | gepubliceerd | — | zelfde koormap-sectie als 7 |
+| `capella/19a - eucharistische kanon - feofan.mxl` | `eucharistische-canon/19a-feofan/hemelum` | `19a-eucharistische-kanon` | `.mscz` | gepubliceerd | — | gepubliceerd |
+| `capella/2 - 1e antifoon.mxl` | `eerste-antifoon/zondag/hemelum` | `eerste-antifoon` | `.mscz` | gepubliceerd | — |  |
+| `capella/20d - in waarheid - moeder godslied.mxl` | `moeder-godslied/20d-in-waarheid/hemelum` | `20d-in-waarheid-moeder-godslied` | `.mscz` | gepubliceerd | — | gepubliceerd |
+| `capella/28a - wij hebben het ware licht aanschouwd.mxl` | `wij-hebben-het-ware-licht/default/hemelum` | `wij-hebben-het-ware-licht` | `.mscz` | gepubliceerd | — |  |
+| `capella/29 - de naam des heren zij gezegend.mxl` | `de-naam-des-heren-zij-gezegend/default/hemelum` | `de-naam-des-heren-zij-gezegend` | `.mscz` | gepubliceerd | — |  |
+| `capella/4 - 2e antifoon.mxl` | `tweede-antifoon/zondag/hemelum` | `tweede-antifoon` | `.mscz` | gepubliceerd | — |  |
+| `capella/5a Eniggeboren Zoon.mxl` | `eniggeboren-zoon/default/hemelum` | `eniggeboren-zoon` | `.mscz` | gepubliceerd | — |  |
+| `capella/6b - zaligsprekingen.mxl` | `derde-antifoon/zondag/hemelum` | `derde-antifoon` | `.mscz` | gepubliceerd | — |  |
+| `capella/7 - kleine intocht - zondag.mxl` | `kleine-intocht/zondag/hemelum` | `kleine-intocht` | `.mscz` | gepubliceerd | — | zelfde koormap-sectie als 7b |
+| `capella/7b - kleine intocht - weekdagen.mxl` | `kleine-intocht/weekdagen/hemelum` | `kleine-intocht` | `.mscz` | gepubliceerd | — | zelfde koormap-sectie als 7 |
 | `capella/8a - trisagion (+slav).mxl` | `trisagion/8a-slav/hemelum` |  | `.mscz` | gepubliceerd | — |  |
 | `capella/8a - trisagion.mxl` | `trisagion/8a-nederlands/hemelum` |  | `.mscz` | gepubliceerd | — |  |
 | `musescore/15b CherubijneCherubijnenhymne Fatejev.musicxml` |  |  | `.mscz` | ontvangen | doel-id |  |
@@ -85,10 +85,10 @@ voor wie converteert.
 | `vow/Cherubijnenlied-Kastorskij.mscz` | `cherubijnenhymne/15c-kastorski/hemelum` | `cherubijnenhymne/15c-kastorski` | `.mscz` | gepubliceerd | — | tweede bron (VOW); Capella is canonieke basispartituur |
 | `vow/dankzegging_toon_2_Kyiv.mscz` |  |  | `.mscz` | ontvangen | doel-id | zie ID-REGISTER OPEN 7 |
 | `vow/eind-liturgie.mscz` |  |  | `.mscz` | ontvangen | doel-id | zie ID-REGISTER OPEN 7 |
-| `vow/Eucharistische Canon-Rostov.mscz` | `19-eucharistische-canon/rostov/hemelum` |  | `.mscz` | ontvangen | layout | sibling van 19a-feofan |
-| `vow/Kleine_intocht-moedergods.mscz` | `7-kleine-intocht/moeder-gods/hemelum` | `7-kleine-intocht` | `.mscz` | ontvangen | migratie |  |
-| `vow/Kleine_intocht-weekdagen.mscz` | `7-kleine-intocht/weekdagen/hemelum` | `7-kleine-intocht` | `.mscz` | gepubliceerd | — | tweede bron (VOW) |
-| `vow/Kleine_intocht-zondag.mscz` | `7-kleine-intocht/zondag/hemelum` | `7-kleine-intocht` | `.mscz` | gepubliceerd | — | tweede bron (VOW) |
+| `vow/Eucharistische Canon-Rostov.mscz` | `eucharistische-canon/rostov/hemelum` |  | `.mscz` | ontvangen | layout | sibling van 19a-feofan |
+| `vow/Kleine_intocht-moedergods.mscz` | `kleine-intocht/moeder-gods/hemelum` | `kleine-intocht` | `.mscz` | ontvangen | migratie |  |
+| `vow/Kleine_intocht-weekdagen.mscz` | `kleine-intocht/weekdagen/hemelum` | `kleine-intocht` | `.mscz` | gepubliceerd | — | tweede bron (VOW) |
+| `vow/Kleine_intocht-zondag.mscz` | `kleine-intocht/zondag/hemelum` | `kleine-intocht` | `.mscz` | gepubliceerd | — | tweede bron (VOW) |
 | `vow/Tropaar-opstanding-toon1.mscz` |  |  | `.mscz` | ontvangen | doel-id | voorlopig laten zitten |
 | `vow/Tropaar-opstanding-toon2.mscz` |  |  | `.mscz` | ontvangen | doel-id | voorlopig laten zitten |
 | `vow/Tropaar-opstanding-toon3.mscz` |  |  | `.mscz` | ontvangen | doel-id | voorlopig laten zitten |

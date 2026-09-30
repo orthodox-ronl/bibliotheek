@@ -35,7 +35,7 @@ Laat het bestand in `input\` staan; zie
 [Opnemen — ruw binnenhalen](/handleiding/werktrajecten/opnemen-in-bibliotheek/).
 
 **Bibliotheek-id** = drie namen, gescheiden door `/`, bijvoorbeeld
-`5-eniggeboren-zoon/default/hemelum`. Elke naam mag alleen kleine letters,
+`eniggeboren-zoon/default/hemelum`. Elke naam mag alleen kleine letters,
 cijfers, `-` en `_` bevatten. Lijst:
 [Id-register](/bibliotheek/id-register/). Ken je het id
 niet? **Niet verzinnen** — vraag na.
@@ -78,13 +78,13 @@ bieb accepteer
    **droge proef** (niets wordt weggeschreven):
 
 ```cmd
-bieb accepteer 5-eniggeboren-zoon/default/hemelum "C:\pad\naar\mijn-bestand.mscz" --dry-run
+bieb accepteer eniggeboren-zoon/default/hemelum "C:\pad\naar\mijn-bestand.mscz" --dry-run
 ```
 
 4. Klopt de uitvoer? Draai dezelfde regel **zonder** `--dry-run`:
 
 ```cmd
-bieb accepteer 5-eniggeboren-zoon/default/hemelum "C:\pad\naar\mijn-bestand.mscz"
+bieb accepteer eniggeboren-zoon/default/hemelum "C:\pad\naar\mijn-bestand.mscz"
 ```
 
 5. Voor een **VSA**-bestand hetzelfde patroon, met `.vsa` in plaats van
@@ -93,7 +93,7 @@ bieb accepteer 5-eniggeboren-zoon/default/hemelum "C:\pad\naar\mijn-bestand.mscz
 6. Optioneel: geef een leesbare titel mee:
 
 ```cmd
-bieb accepteer 5-eniggeboren-zoon/default/hemelum "C:\pad\naar\bestand.mscz" --title "5 Eniggeboren Zoon"
+bieb accepteer eniggeboren-zoon/default/hemelum "C:\pad\naar\bestand.mscz" --title "5 Eniggeboren Zoon"
 ```
 
 7. Draai de controle:

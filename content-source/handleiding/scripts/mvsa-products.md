@@ -46,7 +46,7 @@ PDF’s.
 
 ```cmd
 scripts\mvsa-products.cmd
-scripts\mvsa-products.cmd content-source\bibliotheek\9-alleluia --force
+scripts\mvsa-products.cmd content-source\bibliotheek\alleluia --force
 ```
 
 # WHEN

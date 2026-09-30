@@ -22,7 +22,7 @@ alleen voor tropaar toon 4.
 
 **Wanneer:** je hebt tekst (en een bekende melodie) in plaats van een
 Capella-partituur. Voorbeeld-bibliotheek-id:
-`2-eerste-antifoon/weekdagen/hemelum`.
+`eerste-antifoon/weekdagen/hemelum`.
 
 ## Wat de site van je `.vsa` maakt
 
@@ -64,7 +64,7 @@ zonder `--no-build`.
 2. Open een **bestaand** `.vsa` dat op het nieuwe stuk lijkt. Verzin de
    tekens niet vanaf nul. Antifoon-voorbeeld:
 
-`content-source\bibliotheek\2-eerste-antifoon\weekdagen-hemelum\hemelum\2-eerste-antifoon-weekdagen-hemelum-hemelum.vsa`
+`content-source\bibliotheek\eerste-antifoon\weekdagen-hemelum\hemelum\eerste-antifoon-weekdagen-hemelum-hemelum.vsa`
 
 3. Kopieer dat bestand naar jouw bibliotheek-map, hernoem naar de
    publicatiestam (geen spaties), plak jouw tekst in dezelfde notatie. Een
@@ -83,7 +83,7 @@ tempo: 120
 4. In het Windows-opdrachtvenster:
 
 ```cmd
-vsa validate content-source\bibliotheek\2-eerste-antifoon\weekdagen-hemelum\hemelum\2-eerste-antifoon-weekdagen-hemelum-hemelum.vsa
+vsa validate content-source\bibliotheek\eerste-antifoon\weekdagen-hemelum\hemelum\eerste-antifoon-weekdagen-hemelum-hemelum.vsa
 ```
 
    Foutmelding: de markering zit in de **gezongen tekst**, niet in het
@@ -101,11 +101,11 @@ automatische_inhoud: false
 
 # …
 
-{{</* bieb id="2-eerste-antifoon/weekdagen/hemelum" */>}}
+{{</* bieb id="eerste-antifoon/weekdagen/hemelum" */>}}
 ```
 
 6. Hetzelfde id in de **slot-pagina** van de koormap (bijv.
-   `koormappen/hemelum/liturgie\2-eerste-antifoon\weekdagen\index.md`). Meerdere
+   `koormappen/hemelum/liturgie\eerste-antifoon\weekdagen\index.md`). Meerdere
    VSA’s op één liturgische plek? Sectie met kindpagina’s, of één
    compositieblad — zie
    [Bibliotheek en koormappen](../../start/bibliotheek-en-koormappen/).

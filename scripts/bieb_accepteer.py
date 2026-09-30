@@ -522,7 +522,7 @@ def accept(
 
 HELP_IDENT = """\
 Bibliotheek-id = drie delen met schuine streep, bijvoorbeeld:
-  5-eniggeboren-zoon/default/hemelum
+  eniggeboren-zoon/default/hemelum
   zangstuk / variant / uitvoeringsvorm
 
 Alleen kleine letters, cijfers, - en _. Geen spaties.

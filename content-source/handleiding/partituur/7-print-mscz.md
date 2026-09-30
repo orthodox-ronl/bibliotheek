@@ -32,10 +32,10 @@ gewone basispartituur-`.mscz` via [standaard-.mscz](../3-standaard-mscz/) en
 
 Voorbeelden in de bibliotheek:
 
-- `7-kleine-intocht/zo-wk-mg/hemelum` — gecombineerd printvel;
+- `kleine-intocht/zo-wk-mg/hemelum` — gecombineerd printvel;
 - `tropaar/nikolaas-van-myra-toon-4/hemelum` — template-SATB + handmatige
   PDF/MXL + `.vsa`;
-- `20-moeder-godslied/ontslapen-moeder-gods/hemelum` — idem print + handmatig.
+- `moeder-godslied/ontslapen-moeder-gods/hemelum` — idem print + handmatig.
 
 ## Wat het is
 
@@ -46,7 +46,7 @@ Voorbeelden in de bibliotheek:
 | Optioneel: Coria-`.mxl` | Alleen als jij die zelf neerzet en bijhoudt (geen `mscz-products`) |
 | Optioneel: `.vsa` | Notatie naast het printvel; `vsa-products` slaat de map over bij `artefacten_handmatig: true` |
 
-Bibliotheek-id voorbeeld: `7-kleine-intocht/zo-wk-mg/hemelum`.
+Bibliotheek-id voorbeeld: `kleine-intocht/zo-wk-mg/hemelum`.
 
 Frontmatter op bibliotheek-`index.md`:
 

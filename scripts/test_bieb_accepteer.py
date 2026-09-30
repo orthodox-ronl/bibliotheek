@@ -33,7 +33,7 @@ class ClassifyTests(unittest.TestCase):
             plain.write_text("# hi\n", encoding="utf-8")
             self.assertEqual(ba.classify_source(md), "tekstblad")
             self.assertTrue(ba.classify_source(plain).startswith("refuse:"))
-            ident = "5-eniggeboren-zoon/default/hemelum"
+            ident = "eniggeboren-zoon/default/hemelum"
             self.assertEqual(
                 ba.target_name("tekstblad", ident, with_vsa=False),
                 f"{stem(ident)}.tekstblad.md",
@@ -55,7 +55,7 @@ class ClassifyTests(unittest.TestCase):
             self.assertTrue(kind.startswith("refuse:"))
 
     def test_target_names(self) -> None:
-        ident = "5-eniggeboren-zoon/default/hemelum"
+        ident = "eniggeboren-zoon/default/hemelum"
         self.assertEqual(
             ba.target_name("partituur_mscz", ident, with_vsa=False),
             f"{stem(ident)}.mscz",
@@ -106,24 +106,24 @@ class AcceptDryRunTests(unittest.TestCase):
 class PromptTests(unittest.TestCase):
     def test_resolve_ident_from_cli(self) -> None:
         self.assertEqual(
-            ba.resolve_ident("5-eniggeboren-zoon/default/hemelum"),
-            "5-eniggeboren-zoon/default/hemelum",
+            ba.resolve_ident("eniggeboren-zoon/default/hemelum"),
+            "eniggeboren-zoon/default/hemelum",
         )
 
     def test_resolve_ident_asks_after_question_mark(self) -> None:
-        answers = iter(["5-eniggeboren-zoon/default/hemelum"])
+        answers = iter(["eniggeboren-zoon/default/hemelum"])
         with patch("bieb_accepteer.prompt_line", side_effect=lambda _m: next(answers)):
             self.assertEqual(
                 ba.resolve_ident("?"),
-                "5-eniggeboren-zoon/default/hemelum",
+                "eniggeboren-zoon/default/hemelum",
             )
 
     def test_resolve_ident_rejects_then_accepts(self) -> None:
-        answers = iter(["niet-geldig", "5-eniggeboren-zoon/default/hemelum"])
+        answers = iter(["niet-geldig", "eniggeboren-zoon/default/hemelum"])
         with patch("bieb_accepteer.prompt_line", side_effect=lambda _m: next(answers)):
             self.assertEqual(
                 ba.resolve_ident(None),
-                "5-eniggeboren-zoon/default/hemelum",
+                "eniggeboren-zoon/default/hemelum",
             )
 
     def test_resolve_bestand_stub(self) -> None:

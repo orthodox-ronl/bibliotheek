@@ -47,7 +47,7 @@ script.
 
 ```cmd
 scripts\all-products.cmd
-scripts\all-products.cmd content-source\bibliotheek\9-alleluia
+scripts\all-products.cmd content-source\bibliotheek\alleluia
 scripts\all-products.cmd --dry-run
 ```
 

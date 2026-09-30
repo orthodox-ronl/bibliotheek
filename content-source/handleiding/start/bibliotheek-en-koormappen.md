@@ -52,7 +52,7 @@ keuzes (bijvoorbeeld eerste antifoon: weekdagen, zondag, later feestdagen).
 
 **Sectie** (`_index.md`): zet `automatische_inhoud: true` als de layout de
 kindpagina’s mag tonen (voorbeeld:
-`koormappen/hemelum/liturgie-zondag\2-eerste-antifoon\`). Zet `false` als je zelf de
+`koormappen/hemelum/liturgie-zondag\eerste-antifoon\`). Zet `false` als je zelf de
 inhoudsopgave van dat hoofdstuk schrijft (zoals de root van een liturgiemap).
 Gebruik in sectie-`_index.md` geen `#`-titel in de body; die titel komt uit
 de layout.
@@ -81,10 +81,10 @@ Voorbeeld compositieblad (schets):
 # Prokimen weekdagen (Kiev, Groningen)
 
 ## Maandag
-{{</* bieb id="9-prokimen/9a-maandag/groningen" */>}}
+{{</* bieb id="prokimen/9a-maandag/groningen" */>}}
 
 ## Dinsdag
-{{</* bieb id="9-prokimen/9a-dinsdag/groningen" */>}}
+{{</* bieb id="prokimen/9a-dinsdag/groningen" */>}}
 ```
 
 **Let op:** elke `bieb` op dezelfde pagina heeft een **eigen** knoppenrij
@@ -170,6 +170,10 @@ Zelfde mechaniek, andere bedoeling — geen nieuwe id-laag:
 
 Optioneel later: frontmatter `type:` op de koormap-`_index` (`liturgie`,
 `feest`, `collectie`, `parochie`).
+
+«Collectie» hier is dus een *view* in de koormap, geen extra maplaag boven
+zangstukken in de bibliotheek. Zie besluit 5 in
+[Zangstuk-soorten](/handleiding/start/zangstuk-soorten/).
 
 ## Wat de bibliotheek-root toont
 

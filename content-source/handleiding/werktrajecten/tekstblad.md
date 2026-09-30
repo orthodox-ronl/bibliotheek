@@ -38,7 +38,7 @@ heeft; de PDF bij de bron past (`check_tekstblad_products`); `bieb` toont
 de PDF met Downloaden/Printen. Geen Coria uit dit spoor.
 
 Voorbeeld:
-`content-source\bibliotheek\7d-dialoog-met-diaken\default\hemelum\`.
+`content-source\bibliotheek\dialoog-met-diaken\default\hemelum\`.
 
 ## Wanneer wel / wanneer niet
 
@@ -56,7 +56,7 @@ Voorbeeld:
 3. Bouw de PDF:
 
 ```cmd
-scripts\tekstblad-products.cmd content-source\bibliotheek\7d-dialoog-met-diaken
+scripts\tekstblad-products.cmd content-source\bibliotheek\dialoog-met-diaken
 ```
 
 4. Koormap-slot: alleen intro + `bieb` (geen tweede kopie van de tekst).

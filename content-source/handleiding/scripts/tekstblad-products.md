@@ -37,7 +37,7 @@ nodig voor `vsa pdf`), daarna bron + PDF samen committen.
 
 ```cmd
 scripts\tekstblad-products.cmd
-scripts\tekstblad-products.cmd content-source\bibliotheek\7d-dialoog-met-diaken --force
+scripts\tekstblad-products.cmd content-source\bibliotheek\dialoog-met-diaken --force
 ```
 
 # WHEN
