@@ -6,6 +6,8 @@ nav_sort: weight
 publicatiestatus: productie
 automatische_inhoud: false
 vsa_nav_exclude: true
+aliases:
+  - "/bibliotheek/zoeken/"
 ---
 
 Zoek op **titel**, **bibliotheek-id** of een stukje **gezongen tekst**.

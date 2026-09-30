@@ -6,4 +6,5 @@ publicatiestatus: concept
 automatische_inhoud: true
 aliases:
   - "/bibliotheek/110-tropaar/heilig-kruis-toon-1/"
+  - "/bibliotheek/tropaar/heilig-kruis-toon-1/"
 ---

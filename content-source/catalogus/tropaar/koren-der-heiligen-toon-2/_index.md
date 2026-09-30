@@ -8,4 +8,5 @@ automatische_inhoud: false
 alias_van: tropaar/zaterdag-heiligen-toon-2
 aliases:
   - "/bibliotheek/110-tropaar/koren-der-heiligen-toon-2/"
+  - "/bibliotheek/tropaar/koren-der-heiligen-toon-2/"
 ---

@@ -5,6 +5,7 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 aliases:
   - "/bibliotheek/120-kondak/zondag-toon-4/groningen/"
+  - "/bibliotheek/kondak/zondag-toon-4/groningen/"
 ---
 
 # Kondak zondag toon 4 (Groningen)

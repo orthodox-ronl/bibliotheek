@@ -7,4 +7,5 @@ publicatiestatus: concept
 automatische_inhoud: true
 aliases:
   - "/bibliotheek/120-kondak/heilig-kruis-toon-1/"
+  - "/bibliotheek/kondak/heilig-kruis-toon-1/"
 ---

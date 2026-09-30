@@ -3,10 +3,10 @@
 
   Frontmatter alias_van: zangstuk/canonieke-variant op de variant-_index.
 */ -}}
-{{- if and (eq .Section "bibliotheek") .Params.alias_van -}}
+{{- if and (eq .Section "catalogus") .Params.alias_van -}}
 {{- $aliasVan := .Params.alias_van -}}
 {{- $loc := partial "diag-location.html" (dict "page" .) -}}
-{{- $canonPath := printf "/bibliotheek/%s" $aliasVan -}}
+{{- $canonPath := printf "/catalogus/%s" $aliasVan -}}
 {{- $canon := site.GetPage $canonPath -}}
 {{- if not $canon -}}
   {{- errorf "%s: alias_van %q wijst niet naar een bestaande bibliotheek-variant. Oplossing: zet alias_van op zangstuk/canonieke-variant die wel bestaat (verwacht pad %s)." $loc $aliasVan $canonPath -}}

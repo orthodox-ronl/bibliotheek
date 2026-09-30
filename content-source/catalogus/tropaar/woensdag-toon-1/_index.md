@@ -8,4 +8,5 @@ automatische_inhoud: false
 alias_van: tropaar/heilig-kruis-toon-1
 aliases:
   - "/bibliotheek/110-tropaar/woensdag-toon-1/"
+  - "/bibliotheek/tropaar/woensdag-toon-1/"
 ---

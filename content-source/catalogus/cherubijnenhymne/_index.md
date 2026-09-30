@@ -5,6 +5,8 @@ nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true
 weight: 1500
+aliases:
+  - "/bibliotheek/cherubijnenhymne/"
 ---
 
 Varianten met VO-codes (`15b`, `15c`, …) zodat settings die anders

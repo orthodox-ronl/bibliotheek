@@ -8,4 +8,5 @@ weight: 220
 aliases:
   - "/bibliotheek/220-uw-heilig-kruis/"
   - "/bibliotheek/220-uw-heilig-kruis/default/"
+  - "/bibliotheek/tropaar/uw-heilig-kruis/"
 ---

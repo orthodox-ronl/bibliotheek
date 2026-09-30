@@ -10,7 +10,7 @@ if errorlevel 1 (
   exit /b 1
 )
 
-set "TARGET=content-source\bibliotheek"
+set "TARGET=content-source\catalogus"
 if not "%~1"=="" set "TARGET=%~1"
 
 echo === bibliotheek validate: vsa validate %TARGET% ===

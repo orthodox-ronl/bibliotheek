@@ -10,9 +10,9 @@
 {{- if not $p -}}
   {{- errorf "%s: bieb-score: score-pagina ontbreekt. Oplossing: geef een bestaande bibliotheek-uitvoeringsvorm door." $loc -}}
 {{- end -}}
-{{- $inBibliotheek := eq $viewer.Section "bibliotheek" -}}
+{{- $inCatalogus := eq $viewer.Section "catalogus" -}}
 {{- $bronPanels := slice -}}
-{{- if $inBibliotheek -}}
+{{- if $inCatalogus -}}
   {{- $dir := "" -}}
   {{- with $p.File -}}
     {{- $dir = strings.TrimSuffix "/" (replace .Dir "\\" "/") -}}

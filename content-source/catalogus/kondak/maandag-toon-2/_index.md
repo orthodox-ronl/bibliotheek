@@ -7,4 +7,5 @@ publicatiestatus: concept
 automatische_inhoud: true
 aliases:
   - "/bibliotheek/120-kondak/maandag-toon-2/"
+  - "/bibliotheek/kondak/maandag-toon-2/"
 ---

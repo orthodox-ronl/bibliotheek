@@ -8,4 +8,5 @@ weight: 100
 aliases:
   - "/bibliotheek/1-vredeslitanie/"
   - "/bibliotheek/1-vredeslitanie/default/"
+  - "/bibliotheek/ektinia/vrede/"
 ---

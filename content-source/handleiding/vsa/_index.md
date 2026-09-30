@@ -23,10 +23,10 @@ automatische basispartituur — zie [template SATB](2-template-satb/).
 
 Oefenbare `.vsa`-bestanden staan in het **bibliotheek**; het **koormap-slot**
 in de liturgiemap toont ze via shortcode `bieb` (zelfde id
-als de bibliotheek-map).
+als de catalogus-map).
 
 {{< cue >}}
-- Antifoon / eenstemmig: `.vsa` in de bibliotheek → [schrijven](1-vsa-schrijven/) (SVG-plaatje + Coria-`.vsa.mxl`).
+- Antifoon / eenstemmig: `.vsa` in de catalogus → [schrijven](1-vsa-schrijven/) (SVG-plaatje + Coria-`.vsa.mxl`).
 - Tropaar toon 4, meerstemmig blad: `.vsa` met `template: tropaar-toon-4` → [template SATB](2-template-satb/).
 - Valideren: `vsa validate pad\naar\bestand.vsa`
 {{< /cue >}}

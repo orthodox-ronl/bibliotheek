@@ -5,6 +5,7 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 aliases:
   - "/bibliotheek/120-kondak/donderdag-toon-2/hemelum/"
+  - "/bibliotheek/kondak/donderdag-toon-2/hemelum/"
 ---
 
 # Kondak donderdag toon 2 (Apostelen)

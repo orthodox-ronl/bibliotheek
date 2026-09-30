@@ -10,4 +10,5 @@ aliases:
   - "/bibliotheek/16-vragende-litanie/default/"
   - "/bibliotheek/22-vragende-litanie/"
   - "/bibliotheek/22-vragende-litanie/default/"
+  - "/bibliotheek/ektinia/vragend/"
 ---

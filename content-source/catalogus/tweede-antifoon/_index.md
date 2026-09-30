@@ -5,6 +5,8 @@ nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true
 weight: 400
+aliases:
+  - "/bibliotheek/tweede-antifoon/"
 ---
 
 De tweede antifoon (en ook de eerste) zijn verschillend voor zon- en weekdagen.

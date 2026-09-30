@@ -7,4 +7,5 @@ publicatiestatus: concept
 automatische_inhoud: true
 aliases:
   - "/bibliotheek/110-tropaar/maandag-toon-4/"
+  - "/bibliotheek/tropaar/maandag-toon-4/"
 ---

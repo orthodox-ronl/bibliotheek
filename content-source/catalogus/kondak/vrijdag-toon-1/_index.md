@@ -8,4 +8,5 @@ automatische_inhoud: false
 alias_van: kondak/heilig-kruis-toon-1
 aliases:
   - "/bibliotheek/120-kondak/vrijdag-toon-1/"
+  - "/bibliotheek/kondak/vrijdag-toon-1/"
 ---

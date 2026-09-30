@@ -23,7 +23,7 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from bibliotheek import BIBLIOTHEEK_ROOT, REPO_ROOT  # noqa: E402
+from catalogus import CATALOGUS_ROOT, REPO_ROOT  # noqa: E402
 from bieb_hernoem import _SKIP_DIR_NAMES, _TEXT_SUFFIXES, _insert_aliases, _rel  # noqa: E402
 
 # (oud-zangstuk, nieuwe-variant-id, weight, title, linkTitle)
@@ -119,11 +119,11 @@ def _add_aliases_to_tree(variant_dir: Path, old_zangstuk: str, *, dry_run: bool)
         rel_s = "" if str(rel) in {".", ""} else rel.as_posix().rstrip("/")
         if not rel_s:
             alias_paths = [
-                f"/bibliotheek/{old_zangstuk}/",
-                f"/bibliotheek/{old_zangstuk}/default/",
+                f"/catalogus/{old_zangstuk}/",
+                f"/catalogus/{old_zangstuk}/default/",
             ]
         else:
-            alias_paths = [f"/bibliotheek/{old_zangstuk}/default/{rel_s}/"]
+            alias_paths = [f"/catalogus/{old_zangstuk}/default/{rel_s}/"]
         text = index.read_text(encoding="utf-8")
         new_text = _insert_aliases(text, alias_paths)
         if new_text == text:
@@ -149,7 +149,7 @@ def _rewrite_paths(text: str) -> str:
 
 
 def migrate(*, dry_run: bool) -> int:
-    tropaar = BIBLIOTHEEK_ROOT / "tropaar"
+    tropaar = CATALOGUS_ROOT / "tropaar"
     if not tropaar.is_dir():
         print(f"tropaar ontbreekt: {_rel(tropaar)}", file=sys.stderr)
         return 1
@@ -157,7 +157,7 @@ def migrate(*, dry_run: bool) -> int:
     print("=== migrate 210/220 -> tropaar" + (" (dry-run)" if dry_run else ""))
 
     for old, variant, weight, title, link_title in _MOVES:
-        src = BIBLIOTHEEK_ROOT / old
+        src = CATALOGUS_ROOT / old
         src_default = src / "default"
         dest_variant = tropaar / variant
         if not src_default.is_dir():
@@ -212,7 +212,7 @@ def migrate(*, dry_run: bool) -> int:
             print(f"  remove tree {_rel(src)}", flush=True)
 
     # Bladermap-SVG
-    svg_root = REPO_ROOT / "static" / "vsa" / "bladermap" / "bibliotheek"
+    svg_root = REPO_ROOT / "static" / "vsa" / "bladermap" / "catalogus"
     for old, variant, *_ in _MOVES:
         svg_src = svg_root / old
         if not svg_src.is_dir():

@@ -3,6 +3,8 @@ title: "26 Gezegend Hij, Die komt ..."
 linkTitle: "26 Gezegend Hij, Die komt ..."
 publicatiestatus: voorzien
 automatische_inhoud: false
+aliases:
+  - "/bibliotheek/gezegend-hij-die-komt/default/hemelum/"
 ---
 
 # 26 Gezegend Hij, Die komt ...

@@ -17,7 +17,7 @@
 {{- $ok := false -}}
 {{- if $p.IsSection -}}
   {{- with $p.Params.alias_van -}}
-    {{- with site.GetPage (printf "/bibliotheek/%s" .) -}}
+    {{- with site.GetPage (printf "/catalogus/%s" .) -}}
       {{- if partial "oefenhoek-linkbaar.html" . -}}{{- $ok = true -}}{{- end -}}
     {{- end -}}
   {{- end -}}
@@ -48,8 +48,8 @@
     {{- with findRE `\bbieb\s+id="([^"]+)"` $p.RawContent 1 -}}
       {{- $m := index . 0 -}}
       {{- $id := replaceRE `.*id="([^"]+)".*` `$1` $m -}}
-      {{- $id = partial "bibliotheek-canonical-id.html" $id -}}
-      {{- with site.GetPage (printf "/bibliotheek/%s" $id) -}}
+      {{- $id = partial "catalogus-canonical-id.html" $id -}}
+      {{- with site.GetPage (printf "/catalogus/%s" $id) -}}
         {{- if ne .RelPermalink $p.RelPermalink -}}
           {{- if partial "oefenhoek-linkbaar.html" . -}}{{- $ok = true -}}{{- end -}}
         {{- end -}}

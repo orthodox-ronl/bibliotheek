@@ -20,7 +20,7 @@ from score_filenames import is_print_mscz, is_vsa_source
 
 REPO = Path(__file__).resolve().parents[1]
 CONTENT = REPO / "content-source"
-BIBLIOTHEEK = CONTENT / "bibliotheek"
+CATALOGUS = CONTENT / "catalogus"
 SVG_ROOT = REPO / "static" / "vsa" / "bladermap"
 
 RE_BIEB = re.compile(r"\{\{<\s*bieb\b", re.I)
@@ -75,9 +75,9 @@ def _strip_widgets(body: str) -> str:
 
 
 def _iter_indexes() -> list[Path]:
-    if not BIBLIOTHEEK.is_dir():
+    if not CATALOGUS.is_dir():
         return []
-    return sorted(BIBLIOTHEEK.rglob("index.md"))
+    return sorted(CATALOGUS.rglob("index.md"))
 
 
 def strip_indexes(*, dry_run: bool, verbose: bool) -> int:
@@ -131,10 +131,10 @@ def _render_one_vsa(src: Path, dest: Path) -> None:
 
 
 def _bladermap_folders() -> list[Path]:
-    if not BIBLIOTHEEK.is_dir():
+    if not CATALOGUS.is_dir():
         return []
     out: list[Path] = []
-    for folder in sorted(BIBLIOTHEEK.rglob("*")):
+    for folder in sorted(CATALOGUS.rglob("*")):
         if not folder.is_dir():
             continue
         if "input" in folder.parts:
@@ -202,7 +202,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument(
         "--svg",
         action="store_true",
-        help="Schrijf SVG van bibliotheek-.vsa naar static/vsa/bladermap/",
+        help="Schrijf SVG van catalogus-.vsa naar static/vsa/bladermap/",
     )
     p.add_argument(
         "--verbose",

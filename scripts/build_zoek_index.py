@@ -100,7 +100,7 @@ def token_sort_key(normalized: str) -> str:
 def _bibliotheek_id(source: Path) -> str | None:
     try:
         rel = source.resolve().relative_to(
-            (REPO_ROOT / "content-source" / "bibliotheek").resolve()
+            (REPO_ROOT / "content-source" / "catalogus").resolve()
         )
     except ValueError:
         return None
@@ -137,7 +137,7 @@ def build_entries(root: Path) -> list[dict]:
         leaf = (
             REPO_ROOT
             / "content-source"
-            / "bibliotheek"
+            / "catalogus"
             / zangstuk
             / variant
             / uitvoeringsvorm
@@ -146,12 +146,12 @@ def build_entries(root: Path) -> list[dict]:
         var_idx = (
             REPO_ROOT
             / "content-source"
-            / "bibliotheek"
+            / "catalogus"
             / zangstuk
             / variant
             / "_index.md"
         )
-        zs_idx = REPO_ROOT / "content-source" / "bibliotheek" / zangstuk / "_index.md"
+        zs_idx = REPO_ROOT / "content-source" / "catalogus" / zangstuk / "_index.md"
         leaf_fm = _fm(leaf)
         var_fm = _fm(var_idx)
         zs_fm = _fm(zs_idx)
@@ -173,7 +173,7 @@ def build_entries(root: Path) -> list[dict]:
         )
         entry = {
             "id": ident,
-            "url": f"/bibliotheek/{ident}/",
+            "url": f"/catalogus/{ident}/",
             "title": title,
             "linkTitle": link,
             "zangstukTitle": zs_fm.get("title") or zangstuk,

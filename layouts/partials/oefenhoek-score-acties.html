@@ -1,15 +1,15 @@
 {{- /*
-  Oefenen / Downloaden / Printen voor één score-pagina (bibliotheek-uitvoeringsvorm).
+  Oefenen / Downloaden / Printen voor één score-pagina (catalogus-uitvoeringsvorm).
   Context: dict "score" (Page met PDF/MXL), optioneel "viewer" (pagina waar de
-  shortcode staat — bepaalt knopkleur bibliotheek vs koormap), optioneel "position".
+  shortcode staat — bepaalt knopkleur catalogus vs koormap), optioneel "position".
 
-  Geen Bibliotheek/Koormap-knop: navigatie zit in oefenhoek-header.
+  Geen Catalogus/Koormap-knop: navigatie zit in oefenhoek-header.
 */ -}}
 {{- $score := .score -}}
 {{- $viewer := or .viewer $score -}}
 {{- $loc := partial "diag-location.html" (dict "position" .position "page" $viewer) -}}
 {{- if $score -}}
-{{- $inBibliotheek := eq $viewer.Section "bibliotheek" -}}
+{{- $inCatalogus := eq $viewer.Section "catalogus" -}}
 {{- $hasBasispartituur := false -}}
 {{- range $score.Resources.Match "*.mscz" -}}
   {{- if not (strings.HasSuffix (lower .Name) ".print.mscz") -}}
@@ -173,10 +173,10 @@
   {{- end -}}
 {{- end -}}
 {{- $audioMenu := $audioPreferred | append $audioOther -}}
-{{- /* Bronbestanden (alleen op bibliotheek-pagina's): .mvsa / .vsa tonen als tekst.
+{{- /* Bronbestanden (alleen op catalogus-pagina's): .mvsa / .vsa tonen als tekst.
      Alleen-.mscz: geen Bronnen-knop (die bron is niet als tekst te lezen). */ -}}
 {{- $bronMenu := slice -}}
-{{- if $inBibliotheek -}}
+{{- if $inCatalogus -}}
   {{- $bronItems := slice -}}
   {{- range $score.Resources.Match "*.mvsa" -}}
     {{- if not (strings.HasSuffix (lower .Name) ".mscz.mvsa") -}}
@@ -211,8 +211,8 @@
 {{- $hasBron := gt (len $bronMenu) 0 -}}
 {{- if or $hasOefenen $hasPdf $hasAudio $hasBron -}}
 {{- $wrapClass := "score-actions oefenhoek-acties" -}}
-{{- if $inBibliotheek -}}
-  {{- $wrapClass = printf "%s oefenhoek-acties--bibliotheek" $wrapClass -}}
+{{- if $inCatalogus -}}
+  {{- $wrapClass = printf "%s oefenhoek-acties--catalogus" $wrapClass -}}
 {{- end -}}
 {{- $oefenHelp := "Speel mee in Coria: stemmen kiezen, tempo en meelezen op de partituur. Dit is bedoeld om echt te oefenen." -}}
 {{- $audioHelp := "Geeft een idee van hoe het lied klinkt. Niet bedoeld om volledig mee te oefenen — daarvoor gebruik je Oefenen." -}}
@@ -252,7 +252,7 @@
     <button type="button" class="btn" data-bron-print>Printen</button>
   </div>
   {{- end -}}
-  {{ if $inBibliotheek }}{{ partial "score-action-menu.html" (dict "title" "Bronnen" "items" $bronMenu "btnClass" "btn" "hint" $bronHint "help" $bronHelp "role" "bronnen") }}{{ end }}
+  {{ if $inCatalogus }}{{ partial "score-action-menu.html" (dict "title" "Bronnen" "items" $bronMenu "btnClass" "btn" "hint" $bronHint "help" $bronHelp "role" "bronnen") }}{{ end }}
 </div>
 {{- end -}}
 {{- end -}}

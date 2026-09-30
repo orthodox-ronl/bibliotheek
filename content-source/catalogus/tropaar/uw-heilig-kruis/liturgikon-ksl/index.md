@@ -5,6 +5,7 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 aliases:
   - "/bibliotheek/220-uw-heilig-kruis/default/liturgikon-ksl/"
+  - "/bibliotheek/tropaar/uw-heilig-kruis/liturgikon-ksl/"
 ---
 
 # Uw Heilig Kruis (Liturgikon, Kerkslavisch)

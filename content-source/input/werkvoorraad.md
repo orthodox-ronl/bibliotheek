@@ -6,7 +6,7 @@ heen, hoever is de conversie.
 
 De **tabel** hieronder wordt bij `check` / `build` / `serve` opnieuw opgebouwd
 uit de bestanden in `capella/`, `vow/`, `musescore/`, `musicxml/` en `pdf/`.
-Zet **doel-id** (bibliotheek-id) en **notitie** zelf in de rij als de
+Zet **doel-id** (catalogus-id) en **notitie** zelf in de rij als de
 automatische match ze niet kent; die velden worden bij een update bewaard.
 Stap en volgende actie komen van wat er op schijf staat (bibliotheek-map mét
 partituur of VSA, of nog niet).
@@ -19,7 +19,7 @@ ná de lijst met deelrubrieken.
 | Kolom | Betekenis |
 | --- | --- |
 | Input | Pad vanaf `input/` (herkomstmap + originele bestandsnaam) |
-| Doel-id | Bibliotheek-id `zangstuk/variant/uitvoeringsvorm` (`[a-z0-9_-]+` per laag). Leeg = nog niet gekozen. Oude bladermap-namen worden genormaliseerd. |
+| Doel-id | Catalogus-id `zangstuk/variant/uitvoeringsvorm` (`[a-z0-9_-]+` per laag). Leeg = nog niet gekozen. Oude bladermap-namen worden genormaliseerd. |
 | Koormap | Slot in de liturgiemap (of leeg). Los van de bibliotheek-map. |
 | Doelvorm | Meestal `.mscz` (oefenhoek-layout); soms `.vsa` |
 | Stap | Hoever de input is (zie hieronder) |
@@ -31,12 +31,12 @@ ná de lijst met deelrubrieken.
 | Stap | Betekenis |
 | --- | --- |
 | `ontvangen` | Input ligt hier; conversie nog niet klaar of doel-id ontbreekt |
-| `doel-id` | (in *Volgende*) eerst een bibliotheek-id kiezen |
+| `doel-id` | (in *Volgende*) eerst een catalogus-id kiezen |
 | `opkuisen` | Inhoud opschonen: Capella via `cleanup_capella_mxl.py`; bij `.mscz` ook stemmen/lettergrepen in MuseScore |
 | `layout` | Normaliseren / layouten: `apply_mscz_layout.py` → standaard-`.mscz` |
 | `playback` | Coria-`.mxl` uit die `.mscz` |
 | `pdf` | A4-PDF naast de `.mscz` |
-| `gepubliceerd` | Er staat al oefenbare inhoud in de bibliotheek (basispartituur, VSA, print-PDF, …) |
+| `gepubliceerd` | Er staat al oefenbare inhoud in de catalogus (basispartituur, VSA, print-PDF, …) |
 
 `publicatiestatus` (`voorzien` / `concept` / `reviewable` / `productie`) staat
 op bibliotheek-`index.md` en koormap-`index.md`, voor koorleden. Deze tabel is

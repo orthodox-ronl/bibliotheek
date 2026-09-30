@@ -13,7 +13,7 @@ Dit werktraject maakt uit een bibliotheek-bron **`{stam}.tekstblad.md`**
 {{< cue >}}
 Na een `{stam}.tekstblad.md` in de bladermap:
 ```cmd
-scripts\tekstblad-products.cmd content-source\bibliotheek\<zangstuk>
+scripts\tekstblad-products.cmd content-source\catalogus\<zangstuk>
 scripts\check.cmd --strict
 ```
 Commit de `.tekstblad.md` en de `.tekstblad.pdf` samen.
@@ -38,7 +38,7 @@ heeft; de PDF bij de bron past (`check_tekstblad_products`); `bieb` toont
 de PDF met Downloaden/Printen. Geen Coria uit dit spoor.
 
 Voorbeeld:
-`content-source\bibliotheek\dialoog-met-diaken\default\hemelum\`.
+`content-source\catalogus\7d-dialoog-met-diaken\default\hemelum\`.
 
 ## Wanneer wel / wanneer niet
 
@@ -51,12 +51,12 @@ Voorbeeld:
 ## Volgorde (bestanden)
 
 1. Schrijf of herstel `{stam}.tekstblad.md` (HTML en `::: vsa-notatie` mogen).
-2. Neem op met [Opnemen](../opnemen-in-bibliotheek/) /
+2. Neem op met [Opnemen](../opnemen-in-catalogus/) /
    `bieb accepteer` (zet indien nodig de `build:`-frontmatter).
 3. Bouw de PDF:
 
 ```cmd
-scripts\tekstblad-products.cmd content-source\bibliotheek\dialoog-met-diaken
+scripts\tekstblad-products.cmd content-source\catalogus\7d-dialoog-met-diaken
 ```
 
 4. Koormap-slot: alleen intro + `bieb` (geen tweede kopie van de tekst).
@@ -85,6 +85,6 @@ Lokaal vernieuwt `_pipeline.cmd` stale tekstblad-PDF’s via
 
 - Namen/publicatiecontrole: [Publicatiecontrole](/handleiding/start/publicatiecontrole/)
 - [Markdown naar PDF](../markdown-naar-pdf/) (generiek / demo)
-- [Opnemen](../opnemen-in-bibliotheek/)
+- [Opnemen](../opnemen-in-catalogus/)
 
 {{< navbuttons "Site-build|/handleiding/werktrajecten/site-build/" "Markdown naar PDF|/handleiding/werktrajecten/markdown-naar-pdf/" >}}

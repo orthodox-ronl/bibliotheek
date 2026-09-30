@@ -1,7 +1,8 @@
-"""Bibliotheek-root: bibliotheek-id <-> pad.
+"""Catalogus-root: catalogus-id (zangstuk/variant/uitvoeringsvorm) <-> pad.
 
 Id: ``zangstuk/variant/uitvoeringsvorm`` (``[a-z0-9_-]+``, drie lagen).
 Publicatiestam: ``zangstuk-variant-uitvoeringsvorm``.
+Colofon in ``.mscz`` blijft de tooling-regel ``Bibliotheek-id:``.
 """
 
 from __future__ import annotations
@@ -10,7 +11,7 @@ import re
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-BIBLIOTHEEK_ROOT = REPO_ROOT / "content-source" / "bibliotheek"
+CATALOGUS_ROOT = REPO_ROOT / "content-source" / "catalogus"
 _ID_PART = re.compile(r"^[a-z0-9_-]+$")
 
 
@@ -38,12 +39,12 @@ def parse_variant_id(value: str) -> tuple[str, str]:
 
 def folder(value: str) -> Path:
     zangstuk, variant, uitvoeringsvorm = parse_id(value)
-    return BIBLIOTHEEK_ROOT / zangstuk / variant / uitvoeringsvorm
+    return CATALOGUS_ROOT / zangstuk / variant / uitvoeringsvorm
 
 
 def variant_folder(value: str) -> Path:
     zangstuk, variant = parse_variant_id(value)
-    return BIBLIOTHEEK_ROOT / zangstuk / variant
+    return CATALOGUS_ROOT / zangstuk / variant
 
 
 def stem(value: str) -> str:
@@ -53,7 +54,7 @@ def stem(value: str) -> str:
 
 def id_from_path(path: Path) -> str | None:
     try:
-        rel = path.resolve().relative_to(BIBLIOTHEEK_ROOT.resolve())
+        rel = path.resolve().relative_to(CATALOGUS_ROOT.resolve())
     except ValueError:
         return None
     parts = rel.parts
@@ -91,7 +92,7 @@ def alias_van_of(variant_id: str) -> str | None:
 
 def under_alias_variant(path: Path) -> bool:
     try:
-        rel = path.resolve().relative_to(BIBLIOTHEEK_ROOT.resolve())
+        rel = path.resolve().relative_to(CATALOGUS_ROOT.resolve())
     except ValueError:
         return False
     if len(rel.parts) < 2:
@@ -114,9 +115,9 @@ def resolve_id(value: str) -> str:
 
 def leaf_folders() -> list[tuple[str, Path]]:
     found: list[tuple[str, Path]] = []
-    if not BIBLIOTHEEK_ROOT.is_dir():
+    if not CATALOGUS_ROOT.is_dir():
         return found
-    for index in BIBLIOTHEEK_ROOT.rglob("index.md"):
+    for index in CATALOGUS_ROOT.rglob("index.md"):
         ident = id_from_path(index.parent)
         if not ident:
             continue

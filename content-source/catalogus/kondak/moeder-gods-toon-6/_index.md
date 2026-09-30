@@ -7,4 +7,5 @@ publicatiestatus: concept
 automatische_inhoud: true
 aliases:
   - "/bibliotheek/120-kondak/moeder-gods-toon-6/"
+  - "/bibliotheek/kondak/moeder-gods-toon-6/"
 ---

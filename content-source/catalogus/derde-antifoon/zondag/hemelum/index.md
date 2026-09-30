@@ -3,6 +3,8 @@ title: "6 Derde antifoon (zondag)"
 linkTitle: "6 Derde antifoon (zondag)"
 publicatiestatus: reviewable
 automatische_inhoud: false
+aliases:
+  - "/bibliotheek/derde-antifoon/zondag/hemelum/"
 ---
 
 # 6 Derde antifoon (zondag)

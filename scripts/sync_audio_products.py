@@ -41,7 +41,7 @@ from sync_mscz_products import is_print_mscz
 from sync_vsa_products import folder_is_handmatig, playback_vsa_for_export
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_ROOT = REPO_ROOT / "content-source" / "bibliotheek"
+DEFAULT_ROOT = REPO_ROOT / "content-source" / "catalogus"
 
 
 @dataclass(frozen=True)
@@ -171,7 +171,7 @@ def main(argv: list[str] | None = None) -> int:
         nargs="?",
         type=Path,
         default=DEFAULT_ROOT,
-        help="Zoekroot (default: content-source/bibliotheek)",
+        help="Zoekroot (default: content-source/catalogus)",
     )
     add_regen_arguments(parser)
     args = parser.parse_args(argv)

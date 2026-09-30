@@ -17,7 +17,7 @@ from product_regen import (
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_ROOT = REPO_ROOT / "content-source" / "bibliotheek"
+DEFAULT_ROOT = REPO_ROOT / "content-source" / "catalogus"
 
 
 def _parse_kinds(raw: str) -> list[str]:
@@ -49,7 +49,7 @@ def main(argv: list[str] | None = None) -> int:
             "\n"
             "voorbeelden:\n"
             "  python scripts/products.py\n"
-            "  python scripts/products.py content-source/bibliotheek/trisagion "
+            "  python scripts/products.py content-source/catalogus/trisagion "
             "--kinds mscz,audio\n"
             "  python scripts/products.py --kinds all --dry-run\n"
             "  python scripts/products.py --only-invalid --kinds mscz,mvsa,vsa\n"
@@ -60,7 +60,7 @@ def main(argv: list[str] | None = None) -> int:
         nargs="?",
         type=Path,
         default=DEFAULT_ROOT,
-        help="Zoekroot (default: content-source/bibliotheek)",
+        help="Zoekroot (default: content-source/catalogus)",
     )
     parser.add_argument(
         "--kinds",

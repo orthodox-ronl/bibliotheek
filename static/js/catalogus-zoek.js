@@ -1,14 +1,14 @@
 /**
  * Client-side zoeken over static/zoek/index.json.
- * Activeert alleen als #bibliotheek-zoek-form op de pagina staat.
+ * Activeert alleen als #catalogus-zoek-form op de pagina staat.
  */
 (function () {
-  const form = document.getElementById("bibliotheek-zoek-form");
+  const form = document.getElementById("catalogus-zoek-form");
   if (!form) return;
 
-  const input = document.getElementById("bibliotheek-zoek-q");
-  const out = document.getElementById("bibliotheek-zoek-resultaten");
-  const meta = document.getElementById("bibliotheek-zoek-meta");
+  const input = document.getElementById("catalogus-zoek-q");
+  const out = document.getElementById("catalogus-zoek-resultaten");
+  const meta = document.getElementById("catalogus-zoek-meta");
   if (!input || !out) return;
 
   let entries = [];
@@ -50,27 +50,27 @@
 
   function render(rows, q) {
     if (!q) {
-      out.innerHTML = "<p class=\"bibliotheek-zoek-leeg\">Typ een titel, id of stukje tekst.</p>";
+      out.innerHTML = "<p class=\"catalogus-zoek-leeg\">Typ een titel, id of stukje tekst.</p>";
       if (meta) meta.textContent = "";
       return;
     }
     if (!rows.length) {
-      out.innerHTML = "<p class=\"bibliotheek-zoek-leeg\">Geen treffers.</p>";
+      out.innerHTML = "<p class=\"catalogus-zoek-leeg\">Geen treffers.</p>";
       if (meta) meta.textContent = "";
       return;
     }
     if (meta) meta.textContent = rows.length + " treffer(s)";
-    const html = ["<ul class=\"bibliotheek-zoek-lijst\">"];
+    const html = ["<ul class=\"catalogus-zoek-lijst\">"];
     for (const row of rows.slice(0, 40)) {
       const e = row.entry;
-      const status = e.status ? ` <span class="bibliotheek-zoek-status">${escapeHtml(e.status)}</span>` : "";
+      const status = e.status ? ` <span class="catalogus-zoek-status">${escapeHtml(e.status)}</span>` : "";
       const incipit = e.incipit
-        ? `<div class="bibliotheek-zoek-incipit">${escapeHtml(e.incipit)}</div>`
+        ? `<div class="catalogus-zoek-incipit">${escapeHtml(e.incipit)}</div>`
         : "";
       html.push(
         `<li><a href="${escapeAttr(e.url)}"><strong>${escapeHtml(e.title)}</strong></a>` +
           status +
-          `<div class="bibliotheek-zoek-id"><code>${escapeHtml(e.id)}</code></div>` +
+          `<div class="catalogus-zoek-id"><code>${escapeHtml(e.id)}</code></div>` +
           incipit +
           `</li>`
       );
@@ -128,6 +128,6 @@
     })
     .catch(function () {
       out.innerHTML =
-        "<p class=\"bibliotheek-zoek-leeg\">Zoekindex ontbreekt. Draai <code>python scripts\\build_zoek_index.py</code> (na lyrics-products).</p>";
+        "<p class=\"catalogus-zoek-leeg\">Zoekindex ontbreekt. Draai <code>python scripts\\build_zoek_index.py</code> (na lyrics-products).</p>";
     });
 })();

@@ -15,7 +15,7 @@ import re
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
-from bibliotheek import BIBLIOTHEEK_ROOT, REPO_ROOT, leaf_folders, parse_id
+from catalogus import CATALOGUS_ROOT, REPO_ROOT, leaf_folders, parse_id
 from score_filenames import is_tekstblad_md
 
 INPUT = REPO_ROOT / "content-source" / "input"

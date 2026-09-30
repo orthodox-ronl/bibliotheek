@@ -6,7 +6,7 @@ publicatiestatus: concept
 automatische_inhoud: false
 ---
 
-Platte catalogus van linkbare uitvoeringsvormen, met **bibliotheek-id**.
+Platte catalogus van linkbare uitvoeringsvormen, met **catalogus-id**.
 Handig voor beheerders die een koormap samenstellen.
 
 Een uitvoeringsvorm kwalificeren we als 'oefenbaar'
@@ -15,4 +15,4 @@ hij hoeft (nog) niet via Coria te oefenen zijn.
 
 Deze lijst wordt bij elke sitebuild opnieuw opgebouwd.
 
-{{< bibliotheek-special kind="oefenbaar" >}}
+{{< catalogus-special kind="oefenbaar" >}}

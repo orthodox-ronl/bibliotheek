@@ -17,7 +17,7 @@ scripts\tekstblad-products.cmd [pad] [--force] [--dry-run]
 # DESCRIPTION
 
 Zoekt canonieke bronnen `{stam}.tekstblad.md` onder het opgegeven pad
-(of, zonder pad, onder `content-source\bibliotheek`) en schrijft ernaast
+(of, zonder pad, onder `content-source\catalogus`) en schrijft ernaast
 `{stam}.tekstblad.pdf` via `vsa pdf`. In de PDF komt een stamp
 (`vsa-source-sha256`, `vsa-source-kind=tekstblad`) zodat `check` kan zien
 of de PDF nog bij de bron past.
@@ -37,7 +37,7 @@ nodig voor `vsa pdf`), daarna bron + PDF samen committen.
 
 ```cmd
 scripts\tekstblad-products.cmd
-scripts\tekstblad-products.cmd content-source\bibliotheek\dialoog-met-diaken --force
+scripts\tekstblad-products.cmd content-source\catalogus\7d-dialoog-met-diaken --force
 ```
 
 # WHEN

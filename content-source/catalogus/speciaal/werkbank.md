@@ -14,4 +14,4 @@ inputs in de werkvoorraad, stubs zonder canonieke bron). Lokale
 Deze lijst wordt bij `check` / `build` / `serve` (via
 `update-werkvoorraad`) opnieuw opgebouwd.
 
-{{< bibliotheek-special kind="werkbank" >}}
+{{< catalogus-special kind="werkbank" >}}

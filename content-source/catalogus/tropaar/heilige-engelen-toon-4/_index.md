@@ -8,4 +8,5 @@ automatische_inhoud: false
 alias_van: tropaar/maandag-toon-4
 aliases:
   - "/bibliotheek/110-tropaar/heilige-engelen-toon-4/"
+  - "/bibliotheek/tropaar/heilige-engelen-toon-4/"
 ---

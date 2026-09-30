@@ -4,4 +4,6 @@ linkTitle: "Geboorte MG"
 nav_sort: weight
 publicatiestatus: reviewable
 automatische_inhoud: true
+aliases:
+  - "/bibliotheek/prijslied/geboorte-moeder-gods/"
 ---

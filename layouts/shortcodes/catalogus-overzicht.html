@@ -1,7 +1,7 @@
 {{- /*
   Root-overzicht: alleen linkbare zangstukken, op Weight (liturgienummer).
 */ -}}
-{{- $root := site.GetPage "/bibliotheek" -}}
+{{- $root := site.GetPage "/catalogus" -}}
 {{- $items := slice -}}
 {{- with $root -}}
   {{- range .Sections -}}
@@ -14,11 +14,11 @@
 {{- end -}}
 {{- $items = sort $items "Weight" -}}
 {{- if $items -}}
-<ul class="page-list bibliotheek-overzicht">
+<ul class="page-list catalogus-overzicht">
   {{- range $items -}}
   <li><a href="{{ .RelPermalink }}">{{ or .Params.linkTitle .Title }}</a></li>
   {{- end -}}
 </ul>
 {{- else -}}
-<p class="bibliotheek-overzicht-leeg">Nog geen oefenbare uitvoeringsvormen in de bibliotheek.</p>
+<p class="catalogus-overzicht-leeg">Nog geen oefenbare uitvoeringsvormen in de catalogus.</p>
 {{- end -}}

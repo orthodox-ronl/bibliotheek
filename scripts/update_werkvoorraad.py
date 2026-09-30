@@ -13,7 +13,7 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
-from bibliotheek import folder, leaf_folders, parse_id, resolve_id
+from catalogus import folder, leaf_folders, parse_id, resolve_id
 from score_filenames import published_stem
 
 REPO = Path(__file__).resolve().parents[1]

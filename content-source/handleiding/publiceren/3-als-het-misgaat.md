@@ -22,16 +22,16 @@ tegelijk.
 
 **Symptoom:** een script weigert, Coria doet het niet, of `check` klaagt.
 
-Publicatiebestanden in de bibliotheek: geen spaties, geen `(` of `+`. Stam
+Publicatiebestanden in de catalogus: geen spaties, geen `(` of `+`. Stam
 alleen `a-z0-9_-`. Ruwe inputs in `input\` mogen hun oude naam houden. Schrijf
 uitvoer altijd met `-o` naar een schone naam.
 
 ## Doel-id leeg of twijfel
 
-Niet verzinnen. Zet in de werkvoorraad-rij een notitie “welk bibliotheek-id?”
+Niet verzinnen. Zet in de werkvoorraad-rij een notitie “welk catalogus-id?”
 en vraag het na. Twee inputs naar dezelfde uitvoeringsvorm mag (Capella én VOW);
 noteer dat in de notitie. Id-lijst:
-[Id-register](/bibliotheek/id-register/).
+[Id-register](/catalogus/id-register/).
 
 ## bieb accepteer weigert het bestand
 
@@ -40,7 +40,7 @@ noteer dat in de notitie. Id-lijst:
 Lees de regel `Oplossing:` in het opdrachtvenster. Veelvoorkomend: verkeerd
 id, bestand bestaat al (dan `--force` alleen als je bewust overschrijft),
 `.vsa` die `vsa validate` niet haalt, of een Capella-`.mxl` zonder basispartituur.
-Stappen: [Opnemen in de bibliotheek](../1-opnemen-in-bibliotheek/).
+Stappen: [Opnemen in de catalogus](../1-opnemen-in-catalogus/).
 
 ## Layout of `mscz-products` “herstelt” je speciale partituur
 
@@ -48,7 +48,7 @@ Eindigt de bestandsnaam op `.print.mscz`? Dan hoort die **niet** door
 `scripts\layout.cmd` of `mscz-products`. Zie
 [Print-.mscz](/handleiding/partituur/7-print-mscz/). Per ongeluk
 als gewone `.mscz` gezet? Hernoem terug naar `.print.mscz` vóór de
-volgende `check`. Zet `artefacten_handmatig: true` op de bibliotheek-`index.md`
+volgende `check`. Zet `artefacten_handmatig: true` op de catalogus-`index.md`
 als PDF/MXL handmatig blijven.
 
 ## MuseScore start niet / “niet gevonden”
@@ -90,7 +90,7 @@ pas na een `git push` (Coria kan de lokale Hugo-server niet bereiken).
 
 ## Coria: `translation failed` of check weigert de `.mxl`
 
-De `.mxl` in de bibliotheek moet uit `mscz-products` of `vsa-products`
+De `.mxl` in de catalogus moet uit `mscz-products` of `vsa-products`
 komen (of handmatig bij `artefacten_handmatig`), niet een ruwe Capella-`.mxl`.
 Maak basispartituur-producten opnieuw ná de laatste normalisatie, of draai
 `scripts\vsa-products.cmd` voor een bibliotheek-`.vsa`. `check` heeft een
@@ -112,9 +112,9 @@ PDF/MXL vernieuwen de scripts niet; doe dat zelf na elke bronwijziging.
 
 ## `bieb` faalt bij build
 
-De shortcode verwijst naar een bibliotheek-pagina die nog niet bestaat, of
+De shortcode verwijst naar een catalogus-pagina die nog niet bestaat, of
 het id klopt niet (`zangstuk/variant/uitvoeringsvorm`). Maak eerst de
-bibliotheek-map + `index.md`, of corrigeer het id in het koormap-slot.
+catalogus-map + `index.md`, of corrigeer het id in het koormap-slot.
 
 ## Hugo-waarschuwing: SVG ontbreekt
 
@@ -159,8 +159,8 @@ foutenmuur tegelijk aan.
 
 ## Waar vraag je het
 
-Gebruik dezelfde kanalen als op de bibliotheek-site-pagina’s (e-mail / GitHub).
-Stuur mee: welk bibliotheek-id, welk commando, de foutregel, en of het om
+Gebruik dezelfde kanalen als op de catalogus-site-pagina’s (e-mail / GitHub).
+Stuur mee: welk catalogus-id, welk commando, de foutregel, en of het om
 Capella, VOW of VSA gaat.
 
 {{< navbuttons "Terug naar overzicht|/handleiding/" >}}

@@ -14,10 +14,10 @@
 {{- if not $id -}}
   {{- errorf "%s: shortcode bieb mist parameter id. Oplossing: voeg id=\"zangstuk/variant/uitvoeringsvorm\" toe aan de shortcode bieb." $loc -}}
 {{- end -}}
-{{- $id = partial "bibliotheek-canonical-id.html" $id -}}
-{{- $path := printf "/bibliotheek/%s" $id -}}
+{{- $id = partial "catalogus-canonical-id.html" $id -}}
+{{- $path := printf "/catalogus/%s" $id -}}
 {{- $p := site.GetPage $path -}}
 {{- if not $p -}}
-  {{- errorf "%s: shortcode bieb: geen bibliotheek-pagina voor id %q. Oplossing: controleer of die uitvoeringsvorm bestaat onder bibliotheek/ (pad %s), of verbeter het id." $loc $id $path -}}
+  {{- errorf "%s: shortcode bieb: geen bibliotheek-pagina voor id %q. Oplossing: controleer of die uitvoeringsvorm bestaat onder catalogus/ (pad %s), of verbeter het id." $loc $id $path -}}
 {{- end -}}
 {{ partial "bieb-score.html" (dict "score" $p "viewer" .Page "position" .Position) }}

@@ -8,4 +8,5 @@ automatische_inhoud: false
 alias_van: tropaar/dinsdag-toon-2
 aliases:
   - "/bibliotheek/110-tropaar/joannes-de-doper-toon-2/"
+  - "/bibliotheek/tropaar/joannes-de-doper-toon-2/"
 ---

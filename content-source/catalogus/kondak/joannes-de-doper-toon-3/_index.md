@@ -8,4 +8,5 @@ automatische_inhoud: false
 alias_van: kondak/dinsdag-toon-3
 aliases:
   - "/bibliotheek/120-kondak/joannes-de-doper-toon-3/"
+  - "/bibliotheek/kondak/joannes-de-doper-toon-3/"
 ---

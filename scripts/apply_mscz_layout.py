@@ -22,14 +22,14 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 def _resolve_id(explicit: str | None, path: Path) -> str | None:
-    """Expliciete ``--id`` wint; anders pad onder ``content-source/bibliotheek``."""
+    """Expliciete ``--id`` wint; anders pad onder ``content-source/catalogus``."""
     from vsa.bibliotheek_id import normalize_bibliotheek_id
 
-    from ensure_bibliotheek_id import id_from_bibliotheek_path
+    from ensure_bibliotheek_id import id_from_catalogus_path
 
     if explicit is not None:
         return normalize_bibliotheek_id(explicit)
-    return id_from_bibliotheek_path(path)
+    return id_from_catalogus_path(path)
 
 
 def _mxl_to_mscz(src: Path, out: Path) -> None:

@@ -4,7 +4,7 @@ Gebruik::
 
     bieb hernoem tropaar tropaar [--dry-run]
 
-Verplaatst ``content-source/bibliotheek/<oud>`` → ``<nieuw>``, hernoemt
+Verplaatst ``content-source/catalogus/<oud>`` → ``<nieuw>``, hernoemt
 bestanden waarvan de naam met ``{oud}-`` begint, werkt tekstverwijzingen
 bij (``bieb id``, ``alias_van``, colofon, docs), verplaatst bladermap-SVG,
 en zet Hugo-``aliases`` op elke verhuisde pagina voor de oude URL.
@@ -20,7 +20,7 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from bibliotheek import BIBLIOTHEEK_ROOT, REPO_ROOT, _ID_PART  # noqa: E402
+from catalogus import CATALOGUS_ROOT, REPO_ROOT, _ID_PART  # noqa: E402
 
 _TEXT_SUFFIXES = frozenset(
     {
@@ -170,9 +170,9 @@ def _add_page_aliases(zangstuk_dir: Path, old: str, new: str, *, dry_run: bool) 
             continue
         rel_s = "" if str(rel) in {".", ""} else rel.as_posix().rstrip("/")
         old_url = (
-            f"/bibliotheek/{old}/"
+            f"/catalogus/{old}/"
             if not rel_s
-            else f"/bibliotheek/{old}/{rel_s}/"
+            else f"/catalogus/{old}/{rel_s}/"
         )
         text = index.read_text(encoding="utf-8")
         new_text = _insert_aliases(text, [old_url])
@@ -192,8 +192,8 @@ def hernoem_zangstuk(old: str, new: str, *, dry_run: bool) -> int:
         print("oud en nieuw zijn gelijk", file=sys.stderr)
         return 2
 
-    src = BIBLIOTHEEK_ROOT / old
-    dest = BIBLIOTHEEK_ROOT / new
+    src = CATALOGUS_ROOT / old
+    dest = CATALOGUS_ROOT / new
     if not src.is_dir():
         print(f"bronmap ontbreekt: {_rel(src)}", file=sys.stderr)
         return 1
@@ -214,8 +214,8 @@ def hernoem_zangstuk(old: str, new: str, *, dry_run: bool) -> int:
     print(f"  stam-bestanden: {n_stem}", flush=True)
 
     # Bladermap-SVG
-    svg_src = REPO_ROOT / "static" / "vsa" / "bladermap" / "bibliotheek" / old
-    svg_dest = REPO_ROOT / "static" / "vsa" / "bladermap" / "bibliotheek" / new
+    svg_src = REPO_ROOT / "static" / "vsa" / "bladermap" / "catalogus" / old
+    svg_dest = REPO_ROOT / "static" / "vsa" / "bladermap" / "catalogus" / new
     if svg_src.is_dir():
         print(f"  move {_rel(svg_src)} -> {_rel(svg_dest)}", flush=True)
         if not dry_run:
@@ -250,7 +250,7 @@ def hernoem_zangstuk(old: str, new: str, *, dry_run: bool) -> int:
 
     # Hugo-aliases op verhuisde pagina's
     alias_root = dest if not dry_run else src
-    # Na rewrite heten aliases-doelen al /bibliotheek/new/… — we willen OUDE urls.
+    # Na rewrite heten aliases-doelen al /catalogus/new/… — we willen OUDE urls.
     # Dus aliases toevoegen met old-naam, onafhankelijk van rewrite.
     n_alias = _add_page_aliases(alias_root, old, new, dry_run=dry_run)
     print(f"  hugo-aliases: {n_alias}", flush=True)

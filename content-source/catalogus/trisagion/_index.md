@@ -5,6 +5,8 @@ nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true
 weight: 800
+aliases:
+  - "/bibliotheek/trisagion/"
 ---
 
 Varianten met settinglabel (`8a-nederlands`, `8a-slav`, …).

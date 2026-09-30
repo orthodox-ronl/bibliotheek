@@ -1,15 +1,17 @@
 ---
-title: "Bibliotheek en koormappen"
-linkTitle: "Bibliotheek en koormappen"
+title: "Catalogus en koormappen"
+linkTitle: "Catalogus en koormappen"
 weight: 25
+aliases:
+  - "/handleiding/start/bibliotheek-en-koormappen/"
 ---
 
-# Bibliotheek en koormappen
+# Catalogus en koormappen
 
 {{< cue >}}
 - **Bibliotheek** = alles wat jullie *hebben* (uitvoeringsvorm + id + partituur)
 - **Koormap** = geordende *view* voor één gelegenheid of thema (navigatie + leesbladen)
-- Een uitvoeringsvorm mag in de bibliotheek staan **zonder** koormap
+- Een uitvoeringsvorm mag in de catalogus staan **zonder** koormap
 - In een koormap is een liturgische plek vaak een **hoofdstuk** (sectie) met
   kindpagina’s of een **compositieblad** (markdown + shortcodes)
 {{< /cue >}}
@@ -21,7 +23,7 @@ publicatie, ids en navigatie niet door elkaar lopen.
 
 | Wie | Vraag | Ingang |
 | --- | --- | --- |
-| Beheerder | Wat hebben we? Welk id gebruik ik? | [Bibliotheek](/bibliotheek/), [Id-register](/bibliotheek/id-register/), special pages |
+| Beheerder | Wat hebben we? Welk id gebruik ik? | [Bibliotheek](/catalogus/), [Id-register](/catalogus/id-register/), special pages |
 | Koor (in situ) | Wat zingen we in welke volgorde? | Koormap, nu vooral [liturgie zondag](/koormappen/hemelum/liturgie-zondag/) / [weekdagen](/koormappen/hemelum/liturgie-weekdagen/) |
 | Individueel koorlid | Wat moet / wil ik oefenen? | Koormap *of* bibliotheek (ook stukken die nog in geen map zitten) |
 
@@ -31,7 +33,7 @@ De bibliotheek is de **bron van waarheid**. Koormappen zijn **views**: ze
 bevatten geen tweede kopie van de basispartituur-bestanden, maar verwijzen met
 `bieb` naar `zangstuk/variant/uitvoeringsvorm`.
 
-Een uitvoeringsvorm mag publiek in de bibliotheek staan terwijl **geen
+Een uitvoeringsvorm mag publiek in de catalogus staan terwijl **geen
 enkele** koormap ernaar wijst. Dat is bewust: ontdekking en latere opname in
 een map (feest, collectie, parochiekeuze) komen daarna.
 
@@ -61,7 +63,7 @@ de layout.
 meer shortcodes `bieb` zetten. Elke shortcode zet eerst de knoppen
 **Oefenen** / **Beluisteren** / **Downloaden** / **Printen** voor die
 uitvoeringsvorm, en
-daarna de PDF of VSA-SVG. De partituur blijft in de bibliotheek; de
+daarna de PDF of VSA-SVG. De partituur blijft in de catalogus; de
 slot-pagina is alleen de view. Navigatie naar Bibliotheek of Koormap loopt
 via de sticky broodkruimelregel bovenaan de pagina.
 
@@ -118,9 +120,9 @@ alias-varianten over: daar is niets te genereren.
 partituur bevat. Dat patroon mag voor elk zangstuk waarvan een variant
 onder meerdere namen bekend is.
 
-## Titels en frontmatter in de bibliotheek
+## Titels en frontmatter in de catalogus
 
-Elke bibliotheek-pagina (`_index.md` of leaf-`index.md`) heeft minstens:
+Elke catalogus-pagina (`_index.md` of leaf-`index.md`) heeft minstens:
 
 | Veld | Rol |
 | --- | --- |
@@ -177,11 +179,11 @@ zangstukken in de bibliotheek. Zie besluit 5 in
 
 ## Wat de bibliotheek-root toont
 
-De root van de bibliotheek is **geen** sitemap van alle stubs. Koorleden zien
+De root van de catalogus is **geen** sitemap van alle stubs. Koorleden zien
 daar vooral **oefenbare** zangstukken (nette titel, liturgienummer-volgorde).
 Voorzien-items en technische registers staan onder
-[Speciaal](/bibliotheek/speciaal/) en het
-[Id-register](/bibliotheek/id-register/).
+[Speciaal](/catalogus/speciaal/) en het
+[Id-register](/catalogus/id-register/).
 
 ## Special pages
 
@@ -189,13 +191,13 @@ Automatisch bijgehouden (bij elke sitebuild):
 
 | Pagina | Inhoud |
 | --- | --- |
-| [Voorzien](/bibliotheek/speciaal/voorzien/) | Zangstukken zonder oefenbare inhoud |
-| [Ongerefereerd](/bibliotheek/speciaal/ongerefereerd/) | In de bibliotheek, nog niet in een koormap |
-| [Oefenbaar](/bibliotheek/speciaal/oefenbaar/) | Platte lijst van linkbare uitvoeringsvormen + id |
+| [Voorzien](/catalogus/speciaal/voorzien/) | Zangstukken zonder oefenbare inhoud |
+| [Ongerefereerd](/catalogus/speciaal/ongerefereerd/) | In de catalogus, nog niet in een koormap |
+| [Oefenbaar](/catalogus/speciaal/oefenbaar/) | Platte lijst van linkbare uitvoeringsvormen + id |
 
 ## Klaar als
 
-Je kunt uitleggen waarom een Zwolle-cherubijn eerst in de bibliotheek hoort;
+Je kunt uitleggen waarom een Zwolle-cherubijn eerst in de catalogus hoort;
 waarom de Hemelum-liturgiemap géén tweede opslag van PDF’s is; en wanneer je
 een **sectie** (boom) kiest versus een **compositieblad** (meerdere
 shortcodes op één pagina).
