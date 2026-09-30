@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Werktrajecten on Bibliotheek</title><link>https://orthodox-ronl.github.io/bibliotheek/feat-hernoem-zangstuk-ids/handleiding/werktrajecten/</link><description>Recent content in Werktrajecten on Bibliotheek</description><generator>Hugo</generator><language>nl</language><atom:link href="https://orthodox-ronl.github.io/bibliotheek/feat-hernoem-zangstuk-ids/handleiding/werktrajecten/index.xml" rel="self" type="application/rss+xml"/><item><title>Opnemen in de bibliotheek</title><link>https://orthodox-ronl.github.io/bibliotheek/feat-hernoem-zangstuk-ids/handleiding/werktrajecten/opnemen-in-bibliotheek/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/feat-hernoem-zangstuk-ids/handleiding/werktrajecten/opnemen-in-bibliotheek/</guid><description>&lt;h1 id="opnemen-in-de-bibliotheek"&gt;Opnemen in de bibliotheek&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Werktrajecten on Bibliotheek</title><link>https://orthodox-ronl.github.io/bibliotheek/feat-hernoem-zangstuk-ids/handleiding/werktrajecten/</link><description>Recent content in Werktrajecten on Bibliotheek</description><generator>Hugo</generator><language>nl</language><atom:link href="https://orthodox-ronl.github.io/bibliotheek/feat-hernoem-zangstuk-ids/handleiding/werktrajecten/index.xml" rel="self" type="application/rss+xml"/><item><title>Opnemen in de catalogus</title><link>https://orthodox-ronl.github.io/bibliotheek/feat-hernoem-zangstuk-ids/handleiding/werktrajecten/opnemen-in-catalogus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/feat-hernoem-zangstuk-ids/handleiding/werktrajecten/opnemen-in-catalogus/</guid><description>&lt;h1 id="opnemen-in-de-catalogus"&gt;Opnemen in de catalogus&lt;/h1&gt;
 &lt;p&gt;Dit werktraject is de &lt;strong&gt;poort&lt;/strong&gt; naar de catalogus: van ruw aangeleverd
-materiaal naar een map onder &lt;code&gt;bibliotheek\&lt;/code&gt; met een
-&lt;strong&gt;bibliotheek-id&lt;/strong&gt; (&lt;code&gt;zangstuk/variant/uitvoeringsvorm&lt;/code&gt;). Publicatiesporen
+materiaal naar een map onder &lt;code&gt;catalogus\&lt;/code&gt; met een
+&lt;strong&gt;catalogus-id&lt;/strong&gt; (&lt;code&gt;zangstuk/variant/uitvoeringsvorm&lt;/code&gt;). Publicatiesporen
 (&lt;a href="../basispartituur/"&gt;Basispartituur&lt;/a&gt;
 , &lt;a href="../vsa/"&gt;VSA&lt;/a&gt;
 ,
@@ -17,7 +17,7 @@ genoeg is om op te nemen.&lt;/p&gt;
 &lt;code&gt;content-source\input\werkvoorraad.md&lt;/code&gt; bij
 (&lt;code&gt;update-werkvoorraad&lt;/code&gt; of &lt;code&gt;check&lt;/code&gt;).&lt;/li&gt;
 &lt;li&gt;Vul het &lt;strong&gt;doel-id&lt;/strong&gt; in — niet raden; zie het
-&lt;a href="https://orthodox-ronl.github.io/bibliotheek/feat-hernoem-zangstuk-ids/bibliotheek/id-register/"&gt;Id-register&lt;/a&gt;
+&lt;a href="https://orthodox-ronl.github.io/bibliotheek/feat-hernoem-zangstuk-ids/catalogus/id-register/"&gt;Id-register&lt;/a&gt;
 .&lt;/li&gt;
 &lt;li&gt;Als het bestand klaar is (basispartituur-&lt;code&gt;.mscz&lt;/code&gt;, &lt;code&gt;.vsa&lt;/code&gt;, &lt;code&gt;.mvsa&lt;/code&gt;,
 handmatig &lt;code&gt;.mscz&lt;/code&gt;, of &lt;code&gt;.tekstblad.md&lt;/code&gt;): &lt;code&gt;bieb accepteer&lt;/code&gt;.&lt;/li&gt;
@@ -44,14 +44,14 @@ bestanden die koorleden downloaden en in Coria oefenen. Representatie-id:
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;p&gt;Na normaliseren en review in MuseScore 4:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mscz-products.cmd content-source\bibliotheek\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mscz-products.cmd content-source\catalogus\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Daarna &lt;code&gt;scripts\check.cmd --strict&lt;/code&gt;. Geen &lt;code&gt;*.print.mscz&lt;/code&gt; in deze keten.&lt;/p&gt;
 
  &lt;/div&gt;
 &lt;/aside&gt;
 
 &lt;h2 id="waartoe"&gt;Waartoe&lt;/h2&gt;
-&lt;p&gt;Een vierstemmig (of meer) blad in de bibliotheek moet op de site als
+&lt;p&gt;Een vierstemmig (of meer) blad in de catalogus moet op de site als
 A4-PDF leesbaar zijn en via de knop &lt;strong&gt;Oefenen&lt;/strong&gt; in Coria afspeelbaar. Dit
 traject houdt PDF en Coria-&lt;code&gt;.mxl&lt;/code&gt; synchroon met de canonieke
 basispartituur.&lt;/p&gt;</description></item><item><title>VSA → SVG en Coria</title><link>https://orthodox-ronl.github.io/bibliotheek/feat-hernoem-zangstuk-ids/handleiding/werktrajecten/vsa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/feat-hernoem-zangstuk-ids/handleiding/werktrajecten/vsa/</guid><description>&lt;h1 id="vsa--svg-en-coria"&gt;VSA → SVG en Coria&lt;/h1&gt;
@@ -62,7 +62,7 @@ Representatie-id: &lt;code&gt;vsa&lt;/code&gt;.&lt;/p&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;p&gt;Na een werkende &lt;code&gt;{stam}.vsa&lt;/code&gt; in de bladermap:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\vsa-products.cmd content-source\bibliotheek\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\vsa-products.cmd content-source\catalogus\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;check --strict
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
  &lt;/div&gt;
@@ -83,7 +83,7 @@ migratie.&lt;/p&gt;
 &lt;aside class="handleiding-cue"&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
- Zet op de bibliotheek-&lt;code&gt;index.md&lt;/code&gt; &lt;code&gt;artefacten_handmatig: true&lt;/code&gt;. Geen
+ Zet op de catalogus-&lt;code&gt;index.md&lt;/code&gt; &lt;code&gt;artefacten_handmatig: true&lt;/code&gt;. Geen
 &lt;code&gt;scripts\layout.cmd&lt;/code&gt;, geen &lt;code&gt;mscz-products&lt;/code&gt;. Exporteer de PDF zelf in
 MuseScore 4. Nieuwe bladen: &lt;code&gt;{stam}.mscz&lt;/code&gt; + &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt;. Oude bladen
 mogen nog &lt;code&gt;*.print.mscz&lt;/code&gt; heten.
@@ -120,7 +120,7 @@ producten niet. Lifecycle van een uitvoeringsvorm:
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;p&gt;Na een &lt;code&gt;{stam}.tekstblad.md&lt;/code&gt; in de bladermap:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\tekstblad-products.cmd content-source\bibliotheek\&amp;lt;zangstuk&amp;gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\tekstblad-products.cmd content-source\catalogus\&amp;lt;zangstuk&amp;gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\check.cmd --strict
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Commit de &lt;code&gt;.tekstblad.md&lt;/code&gt; en de &lt;code&gt;.tekstblad.pdf&lt;/code&gt; samen.&lt;/p&gt;
 
@@ -170,8 +170,8 @@ onder &lt;code&gt;content-source&lt;/code&gt;. Draai daarna &lt;code&gt;scripts\
 
 &lt;h2 id="waartoe"&gt;Waartoe&lt;/h2&gt;
 &lt;p&gt;Je wilt VSA tonen op een pagina die geen bladermap onder
-&lt;code&gt;bibliotheek\&lt;/code&gt; is — bijvoorbeeld een samenstelling of de
-Tooling Demo — zonder &lt;code&gt;bieb&lt;/code&gt; en zonder bibliotheek-id.&lt;/p&gt;</description></item><item><title>mvsa</title><link>https://orthodox-ronl.github.io/bibliotheek/feat-hernoem-zangstuk-ids/handleiding/werktrajecten/mvsa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/feat-hernoem-zangstuk-ids/handleiding/werktrajecten/mvsa/</guid><description>&lt;h1 id="mvsa"&gt;mvsa&lt;/h1&gt;
+&lt;code&gt;catalogus\&lt;/code&gt; is — bijvoorbeeld een samenstelling of de
+Tooling Demo — zonder &lt;code&gt;bieb&lt;/code&gt; en zonder catalogus-id.&lt;/p&gt;</description></item><item><title>mvsa</title><link>https://orthodox-ronl.github.io/bibliotheek/feat-hernoem-zangstuk-ids/handleiding/werktrajecten/mvsa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/feat-hernoem-zangstuk-ids/handleiding/werktrajecten/mvsa/</guid><description>&lt;h1 id="mvsa"&gt;mvsa&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;mvsa&lt;/strong&gt; (meerstemmige VSA) is een &lt;strong&gt;actief&lt;/strong&gt; publicatiespoor: canonieke
 bron &lt;code&gt;{stam}.mvsa&lt;/code&gt;, afgeleiden &lt;code&gt;{stam}.mvsa.mxl&lt;/code&gt; (Coria) en
 &lt;code&gt;{stam}.mvsa.pdf&lt;/code&gt; (A4 voor zangers).&lt;/p&gt;
