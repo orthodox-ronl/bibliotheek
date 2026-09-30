@@ -82,6 +82,13 @@ if defined STRICT (
 if errorlevel 1 exit /b 1
 
 if defined STRICT (
+  python scripts\check_mxl_playback_contract.py --fail
+) else (
+  python scripts\check_mxl_playback_contract.py
+)
+if errorlevel 1 exit /b 1
+
+if defined STRICT (
   python scripts\ensure_bibliotheek_id.py --check-only --fail
 ) else (
   python scripts\ensure_bibliotheek_id.py --check-only

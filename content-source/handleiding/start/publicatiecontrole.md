@@ -30,13 +30,14 @@ Naamgevingsconventie voor conversies (tooling):
 
 ## Controles (terminologie)
 
-| Term | Betekenis |
-| --- | --- |
-| **Versheidscontrole** | Meet en meldt of een sibling bestaat en of de herkomststempel (sha) bij de bron past. Regenereren doet dit niet. |
-| **Publicatiecontrole** | Versheidscontrole op **site-producten** (PDF, Coria-`.mxl`, …). |
-| **Importcontrole** | Versheidscontrole op een **bewerk-/importvorm** (bijv. sibling `.mscz.mvsa`). |
-| **Geldigheidscontrole** | Bron geldig / formaat-check (`vsa validate`, `mvsa validate`, …). |
-| **Strengheid** | Beleid op die controles (lokaal waarschuwen vs `--strict` / CI falen) — geen apart functietype. |
+| Term                    | Betekenis                                                                                                        |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **Versheidscontrole**   | Meet en meldt of een sibling bestaat en of de herkomststempel (sha) bij de bron past. Regenereren doet dit niet. |
+| **Publicatiecontrole**  | Versheidscontrole op **site-producten** (PDF, Coria-`.mxl`, …).                                                  |
+| **Importcontrole**      | Versheidscontrole op een **bewerk-/importvorm** (bijv. sibling `.mscz.mvsa`).                                    |
+| **Contractcontrole**    | Meet of een bestaande Coria-`.mxl` de playback-checklist haalt (`mxl validate`).                                 |
+| **Geldigheidscontrole** | Bron geldig / formaat-check (`vsa validate`, `mvsa validate`, …).                                                |
+| **Strengheid**          | Beleid op die controles (lokaal waarschuwen vs `--strict` / CI falen) — geen apart functietype.                  |
 
 Een **publicatiecontrole** in `check` / GitHub Actions doet dit:
 
@@ -45,8 +46,13 @@ Een **publicatiecontrole** in `check` / GitHub Actions doet dit:
 3. Eis dat de afgeleide een **herkomststempel** heeft die bij de huidige
    bron past (geen verouderd of “leeg” product).
 
-Faalt de controle, dan vernieuw je lokaal met het product-commando en commit
-je bron **en** afgeleide samen. De build op GitHub **schrijft geen**
+Daarna volgt de **contractcontrole** op bestaande Coria-`.mxl`
+(`scripts\check_mxl_playback_contract.py`): M2/M8, Coria-importer-tags en
+meta. Faalt die, vernieuw lokaal met
+`scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid`.
+
+Faalt een versheidscontrole, dan vernieuw je lokaal met het product-commando
+en commit je bron **en** afgeleide samen. De build op GitHub **schrijft geen**
 MuseScore- of MusicXML-producten opnieuw.
 
 ## Producten (opnieuw) genereren — `products.cmd`
@@ -73,15 +79,15 @@ REM Alleen één bladermap, alleen partituur + audio
 scripts\products.cmd content-source\bibliotheek\trisagion --kinds mscz,audio
 ```
 
-| Optie | Betekenis |
-| --- | --- |
-| `--kinds LIST` | Komma-lijst: `vsa`, `mscz`, `tekstblad`, `mvsa`, `import`, `audio`, `lyrics`, of `all` (default) |
-| `--dry-run` | Toon wat zou gebeuren, schrijf niet |
-| `--force` | Alles onder de root opnieuw (negeert condities) |
-| `--only-missing` | Alleen als het productbestand ontbreekt |
-| `--only-stale` | Alleen als de stempel niet meer bij de bron past |
-| `--only-invalid` | Alleen als Coria-`.mxl` de checklist faalt (`mxl validate`) |
-| `--reasons missing,stale,invalid` | Expliciete subset (niet met `--only-*`) |
+| Optie                             | Betekenis                                                                                        |
+| --------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `--kinds LIST`                    | Komma-lijst: `vsa`, `mscz`, `tekstblad`, `mvsa`, `import`, `audio`, `lyrics`, of `all` (default) |
+| `--dry-run`                       | Toon wat zou gebeuren, schrijf niet                                                              |
+| `--force`                         | Alles onder de root opnieuw (negeert condities)                                                  |
+| `--only-missing`                  | Alleen als het productbestand ontbreekt                                                          |
+| `--only-stale`                    | Alleen als de stempel niet meer bij de bron past                                                 |
+| `--only-invalid`                  | Alleen als Coria-`.mxl` de checklist faalt (`mxl validate`)                                      |
+| `--reasons missing,stale,invalid` | Expliciete subset (niet met `--only-*`)                                                          |
 
 Alias: `scripts\all-products.cmd` = `products.cmd --kinds all …`.
 Losse `mscz-products.cmd` e.d. blijven werken (zelfde flags).
@@ -103,9 +109,9 @@ Voorbeeld: `trisagion-8a-nederlands-hemelum`.
 
 ### Bron versus afgeleide
 
-| Rol | Patroon | Voorbeelden |
-| --- | --- | --- |
-| **Bron** | `{stam}` + **één** echte extensie | `….vsa`, `….mscz`, `….mvsa` |
+| Rol           | Patroon                                  | Voorbeelden                                                                |
+| ------------- | ---------------------------------------- | -------------------------------------------------------------------------- |
+| **Bron**      | `{stam}` + **één** echte extensie        | `….vsa`, `….mscz`, `….mvsa`                                                |
 | **Afgeleide** | `{stam}.{bron-extensie}.{doel-extensie}` | `….vsa.mxl`, `….mscz.pdf`, `….mscz.mxl`, `….mvsa.mscz`, `….vsa.lyrics.txt` |
 
 Het **laatste** segment is wat programma’s als bestandstype zien (`.mxl`,
@@ -121,8 +127,8 @@ bibliotheek is die vorm **normatief voor nieuwe en vernieuwde producten**.
 Liturgische tekst/dialoog is Markdown, maar een kale `.md` is te breed
 (Hugo-pagina’s zijn ook `.md`). Daarom blijft het inhoudstype in de naam:
 
-| Bron | Afgeleide |
-| --- | --- |
+| Bron                  | Afgeleide              |
+| --------------------- | ---------------------- |
 | `{stam}.tekstblad.md` | `{stam}.tekstblad.pdf` |
 
 Geen Coria uit dit spoor.
@@ -141,15 +147,16 @@ kan één of meer **sporen** hebben. Het spoor volgt uit het **brontype**
 `partituur` of `print` in de bestandsnaam. Meerdere bronnen in één map
 mogen; elk spoor houdt eigen siblings bij.
 
-| Spoor (brontype) | Canonieke bron | Verwachte afgeleiden (doelvorm) | Stamp in afgeleide | Lokaal maken | Publicatiecontrole |
-| --- | --- | --- | --- | --- | --- |
-| **vsa** | `{stam}.vsa` | `{stam}.vsa.mxl` (Coria), `{stam}.vsa.pdf` (A4) | `vsa-source-sha256` van de `.vsa` | `scripts\vsa-products.cmd` | **Actief:** `check_vsa_products` |
-| **lyrics** (zoektekst) | `{stam}.vsa` / `.mvsa` | `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` | `vsa-source-sha256` van de bron | `scripts\lyrics-products.cmd` | **Actief:** `check_lyrics_products` |
-| **mscz** (basispartituur) | `{stam}.mscz` | `{stam}.mscz.pdf`, `{stam}.mscz.mxl` | `vsa-partituur-sha256` van de `.mscz` | `scripts\mscz-products.cmd` | **Actief:** `check_mscz_products` |
-| **import** (bewerkvorm) | `{stam}.mscz` | `{stam}.mscz.mvsa` (optioneel) | `vsa-partituur-sha256` in commentaren | `scripts\import-mvsa.cmd` | **Actief:** `check_import_mvsa` (alleen bestaande siblings) |
-| **mvsa** | `{stam}.mvsa` | `{stam}.mvsa.mxl`, `{stam}.mvsa.pdf` | `vsa-source-sha256` van de `.mvsa` | `scripts\mvsa-products.cmd` | **Actief:** `check_mvsa_products` |
-| **audio** (preview) | `{stam}.mvsa` / `.mscz` / `.vsa` | `{stam}.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3` | hash van die bron in het mp3 | `scripts\audio-products.cmd` (of `all-products`) | **Actief:** `check_audio_products` (zelfde bronnen als Coria-MXL) |
-| **tekstblad** | `{stam}.tekstblad.md` | `{stam}.tekstblad.pdf` | `vsa-source-sha256` van de `.md` | `scripts\tekstblad-products.cmd` | **Actief:** `check_tekstblad_products` |
+| Spoor (brontype)          | Canonieke bron                                   | Verwachte afgeleiden (doelvorm)                 | Stamp in afgeleide                    | Lokaal maken                                                | Publicatiecontrole                                                |
+| ------------------------- | ------------------------------------------------ | ----------------------------------------------- | ------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------------- |
+| **vsa**                   | `{stam}.vsa`                                     | `{stam}.vsa.mxl` (Coria), `{stam}.vsa.pdf` (A4) | `vsa-source-sha256` van de `.vsa`     | `scripts\vsa-products.cmd`                                  | **Actief:** `check_vsa_products`                                  |
+| **lyrics** (zoektekst)    | `{stam}.vsa` / `.mvsa`                           | `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt`    | `vsa-source-sha256` van de bron       | `scripts\lyrics-products.cmd`                               | **Actief:** `check_lyrics_products`                               |
+| **mscz** (basispartituur) | `{stam}.mscz`                                    | `{stam}.mscz.pdf`, `{stam}.mscz.mxl`            | `vsa-partituur-sha256` van de `.mscz` | `scripts\mscz-products.cmd`                                 | **Actief:** `check_mscz_products`                                 |
+| **import** (bewerkvorm)   | `{stam}.mscz`                                    | `{stam}.mscz.mvsa` (optioneel)                  | `vsa-partituur-sha256` in commentaren | `scripts\import-mvsa.cmd`                                   | **Actief:** `check_import_mvsa` (alleen bestaande siblings)       |
+| **mvsa**                  | `{stam}.mvsa`                                    | `{stam}.mvsa.mxl`, `{stam}.mvsa.pdf`            | `vsa-source-sha256` van de `.mvsa`    | `scripts\mvsa-products.cmd`                                 | **Actief:** `check_mvsa_products`                                 |
+| **audio** (preview)       | `{stam}.mvsa` / `.mscz` / `.vsa`                 | `{stam}.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3`    | hash van die bron in het mp3          | `scripts\audio-products.cmd` (of `products`)                | **Actief:** `check_audio_products` (zelfde bronnen als Coria-MXL) |
+| **tekstblad**             | `{stam}.tekstblad.md`                            | `{stam}.tekstblad.pdf`                          | `vsa-source-sha256` van de `.md`      | `scripts\tekstblad-products.cmd`                            | **Actief:** `check_tekstblad_products`                            |
+| **Coria-contract**        | bestaande `.vsa.mxl` / `.mscz.mxl` / `.mvsa.mxl` | (geen nieuw bestand; checklist op de sibling)   | —                                     | `scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid` | **Actief:** `check_mxl_playback_contract`                         |
 
 **Bibliotheek-id** (`zangstuk/variant/uitvoeringsvorm`) hoort op elk
 menselijk leesbaar blad (PDF / MuseScore-colofon). Scripts geven dat
@@ -184,29 +191,29 @@ in de naam.
 De publicatiecontrole kijkt niet naar de klok van het bestand, maar naar
 een hash in het product (bij PDF/MXL in metagegevens; bij mp3 in ID3-tags):
 
-| Veld | Betekenis |
-| --- | --- |
-| `vsa-source-sha256` | Hash van de tekstbron (`.vsa` / tekstblad-`.md` / `.mvsa`) |
-| `vsa-source-kind` | Welk brontype (`vsa`, `tekstblad`, `mvsa`, `partituur`, …) |
+| Veld                   | Betekenis                                                                                  |
+| ---------------------- | ------------------------------------------------------------------------------------------ |
+| `vsa-source-sha256`    | Hash van de tekstbron (`.vsa` / tekstblad-`.md` / `.mvsa`)                                 |
+| `vsa-source-kind`      | Welk brontype (`vsa`, `tekstblad`, `mvsa`, `partituur`, …)                                 |
 | `vsa-partituur-sha256` | Hash van de basispartituur-`.mscz` (ook in import-`.mscz.mvsa`-commentaren en `.mscz.mp3`) |
-| `vsa-generated-at` | Wanneer het product is gemaakt (informatief) |
+| `vsa-generated-at`     | Wanneer het product is gemaakt (informatief)                                               |
 
 Ontbreekt de stamp, of wijkt de hash af van de huidige bron → **unstamped**
 of **stale**. Ontbreekt het sibling-bestand → **missing**.
 
 ## Wat `check` en CI doen
 
-| Stap | Lokaal `check` | Pages-CI |
-| --- | --- | --- |
-| Geldigheidscontrole (`vsa validate`) op bibliotheek | ja | ja |
-| Publicatiecontrole VSA (`.vsa` ↔ `.vsa.mxl`) | waarschuwing; met `--strict` fout | fout (`--fail`) |
-| Publicatiecontrole partituur (`.mscz` ↔ PDF/MXL) | waarschuwing; met `--strict` fout | fout (`--fail`) |
-| Publicatiecontrole tekstblad (`.tekstblad.md` ↔ PDF) | waarschuwing; met `--strict` fout | fout (`--fail`) |
-| Importcontrole (bestaande `.mscz.mvsa` ↔ `.mscz`) | waarschuwing; met `--strict` fout | fout (`--fail`) |
-| Publicatiecontrole mvsa (`.mvsa` ↔ MXL/PDF) | waarschuwing; met `--strict` fout | fout (`--fail`) |
-| Publicatiecontrole audio (`.mvsa`/`.mscz`/`.vsa` ↔ `.mp3`) | waarschuwing; met `--strict` fout | fout (`--fail`) |
-| Bladermap-SVG uit `.vsa` | vernieuwen (`oefenhoek-index --svg`) | vernieuwen (geen stamp-fail) |
-| Coria-fingerprints + Hugo | ja | ja |
+| Stap                                                       | Lokaal `check`                       | Pages-CI                     |
+| ---------------------------------------------------------- | ------------------------------------ | ---------------------------- |
+| Geldigheidscontrole (`vsa validate`) op bibliotheek        | ja                                   | ja                           |
+| Publicatiecontrole VSA (`.vsa` ↔ `.vsa.mxl`)               | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
+| Publicatiecontrole partituur (`.mscz` ↔ PDF/MXL)           | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
+| Publicatiecontrole tekstblad (`.tekstblad.md` ↔ PDF)       | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
+| Importcontrole (bestaande `.mscz.mvsa` ↔ `.mscz`)          | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
+| Publicatiecontrole mvsa (`.mvsa` ↔ MXL/PDF)                | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
+| Publicatiecontrole audio (`.mvsa`/`.mscz`/`.vsa` ↔ `.mp3`) | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
+| Bladermap-SVG uit `.vsa`                                   | vernieuwen (`oefenhoek-index --svg`) | vernieuwen (geen stamp-fail) |
+| Coria-fingerprints + Hugo                                  | ja                                   | ja                           |
 
 CI **genereert geen** MuseScore-/PDF-/audio-producten. Vernieuw die lokaal
 (`all-products`, of apart `vsa-products`, `mscz-products`,
@@ -224,13 +231,13 @@ Zolang er in één bladermap **hoogstens één** PDF of Coria-`.mxl` van een
 bepaald type is, kunnen oude namen nog voorkomen. Nieuwe of vernieuwde
 producten gebruiken de doelvorm hierboven.
 
-| Legacy | Betekenis / migratie |
-| --- | --- |
+| Legacy                                          | Betekenis / migratie                                             |
+| ----------------------------------------------- | ---------------------------------------------------------------- |
 | `{stam}.mxl` / `{stam}.pdf` naast `{stam}.mscz` | Impliciet partituur → doel `{stam}.mscz.mxl` / `{stam}.mscz.pdf` |
-| `{stam}.partituur.mxl` / `{stam}.partituur.pdf` | Oude representatie-id in de naam → zelfde doelvorm met `.mscz.` |
-| `{stam}.print.mscz` | → `{stam}.mscz` + `artefacten_handmatig: true` |
-| `{stam}.print.pdf` | → `{stam}.mscz.pdf` (handmatig) |
-| `{stam}.vsa.mxl` | **Al doelvorm** — geen hernoem nodig |
+| `{stam}.partituur.mxl` / `{stam}.partituur.pdf` | Oude representatie-id in de naam → zelfde doelvorm met `.mscz.`  |
+| `{stam}.print.mscz`                             | → `{stam}.mscz` + `artefacten_handmatig: true`                   |
+| `{stam}.print.pdf`                              | → `{stam}.mscz.pdf` (handmatig)                                  |
+| `{stam}.vsa.mxl`                                | **Al doelvorm** — geen hernoem nodig                             |
 
 Zodra twee producten van hetzelfde type in één map moeten, is de
 expliciete `{stam}.{bron-extensie}.{doel-extensie}`-vorm **verplicht**
