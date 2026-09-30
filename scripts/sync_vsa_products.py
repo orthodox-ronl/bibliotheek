@@ -285,7 +285,14 @@ def sync_one(
         )
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    from product_regen import (
+        add_regen_arguments,
+        mxl_contract_ok,
+        need_regen,
+        policy_from_args,
+    )
+
     parser = argparse.ArgumentParser(
         description="Exporteer stale Coria-.mxl en A4-.vsa.pdf vanuit bibliotheek-.vsa."
     )
@@ -296,20 +303,34 @@ def main() -> int:
         default=DEFAULT_ROOT,
         help="Zoekroot (default: content-source/bibliotheek)",
     )
-    parser.add_argument("--dry-run", action="store_true")
-    parser.add_argument(
-        "--force",
-        action="store_true",
-        help="Ook exporteren als producten al bij de bron passen",
-    )
-    args = parser.parse_args()
+    add_regen_arguments(parser)
+    args = parser.parse_args(argv)
+    policy = policy_from_args(args)
     root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
     vsas = collect_vsa(root)
     todo: list[tuple[Path, bool, bool]] = []
     for vsa in vsas:
-        need_mxl, need_pdf = is_stale_pair(vsa)
-        if args.force:
-            need_mxl, need_pdf = True, True
+        digest = source_sha256(vsa)
+        mxl = product_path_for_vsa(vsa)
+        pdf = product_pdf_for_vsa(vsa)
+        mxl_exists = mxl.is_file()
+        contract = (
+            mxl_contract_ok(mxl, profile="mono")
+            if policy.invalid and mxl_exists
+            else None
+        )
+        need_mxl = need_regen(
+            policy,
+            exists=mxl_exists,
+            stamp_ok=_stamp_ok_mxl(mxl, digest),
+            contract_ok=contract,
+        )
+        need_pdf = need_regen(
+            policy,
+            exists=pdf.is_file(),
+            stamp_ok=_stamp_ok_pdf(pdf, digest),
+            contract_ok=None,
+        )
         if need_mxl or need_pdf:
             todo.append((vsa, need_mxl, need_pdf))
     if not todo:

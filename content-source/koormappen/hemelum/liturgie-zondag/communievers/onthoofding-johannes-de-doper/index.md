@@ -4,8 +4,6 @@ linkTitle: "Onthoofding Johannes de Doper"
 weight: 10
 publicatiestatus: reviewable
 automatische_inhoud: false
-aliases:
-  - "/koormappen/hemelum/liturgie-zondag/25-communievers/onthoofding-johannes-de-doper/"
 ---
 
 # Communievers — Onthoofding Johannes de Doper

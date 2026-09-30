@@ -5,6 +5,4 @@ weight: 30
 nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true
-aliases:
-  - "/bibliotheek/15-cherubijnenhymne/15c-kastorski/"
 ---

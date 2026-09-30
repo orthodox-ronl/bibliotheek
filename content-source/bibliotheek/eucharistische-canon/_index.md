@@ -5,6 +5,4 @@ nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true
 weight: 1900
-aliases:
-  - "/bibliotheek/19-eucharistische-canon/"
 ---

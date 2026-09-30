@@ -4,8 +4,6 @@ linkTitle: "29 De Naam des Heren zij gezegend"
 weight: 29
 publicatiestatus: reviewable
 automatische_inhoud: false
-aliases:
-  - "/koormappen/hemelum/liturgie-weekdagen/29-de-naam-des-heren-zij-gezegend/"
 ---
 
 # 29 De Naam des Heren zij gezegend

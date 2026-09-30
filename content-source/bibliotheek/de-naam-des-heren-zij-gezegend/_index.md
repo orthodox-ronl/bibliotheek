@@ -5,6 +5,4 @@ nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true
 weight: 2900
-aliases:
-  - "/bibliotheek/29-de-naam-des-heren-zij-gezegend/"
 ---

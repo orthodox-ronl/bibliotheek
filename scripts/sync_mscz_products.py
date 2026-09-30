@@ -159,7 +159,14 @@ def sync_one(
             _remove_legacy(mxl, partituur_mxl)
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    from product_regen import (
+        add_regen_arguments,
+        mxl_contract_ok,
+        need_regen,
+        policy_from_args,
+    )
+
     parser = argparse.ArgumentParser(
         description="Exporteer stale PDF/Coria-.mxl vanuit basispartituur-.mscz."
     )
@@ -170,23 +177,44 @@ def main() -> int:
         default=DEFAULT_ROOT,
         help="Zoekroot (default: content-source/bibliotheek)",
     )
-    parser.add_argument("--dry-run", action="store_true")
-    parser.add_argument(
-        "--force",
-        action="store_true",
-        help="Ook exporteren als producten al bij de bron passen",
-    )
-    args = parser.parse_args()
+    add_regen_arguments(parser)
+    args = parser.parse_args(argv)
+    policy = policy_from_args(args)
     root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
     msczs = collect_mscz(root)
     todo: list[tuple[Path, bool, bool]] = []
     for mscz in msczs:
-        if args.force:
-            todo.append((mscz, True, True))
-        else:
-            need_pdf, need_mxl = is_stale(mscz)
-            if need_pdf or need_mxl:
-                todo.append((mscz, need_pdf, need_mxl))
+        digest = partituur_sha256(mscz)
+        pdf = product_pdf_for_mscz(mscz)
+        mxl = product_mxl_for_mscz(mscz)
+
+        pdf_exists = pdf.is_file() or legacy_pdf_for_mscz(mscz).is_file()
+        pdf_stamp_ok = _stamp_ok_pdf(pdf, digest) or _stamp_ok_pdf(
+            legacy_pdf_for_mscz(mscz), digest
+        )
+        need_pdf = need_regen(
+            policy,
+            exists=pdf_exists,
+            stamp_ok=pdf_stamp_ok,
+            contract_ok=None,
+        )
+
+        mxl_exists = mxl.is_file() or legacy_mxl_for_mscz(mscz).is_file()
+        mxl_stamp_ok = _stamp_ok_mxl(mxl, digest) or _stamp_ok_mxl(
+            legacy_mxl_for_mscz(mscz), digest
+        )
+        mxl_path = mxl if mxl.is_file() else legacy_mxl_for_mscz(mscz)
+        contract = None
+        if policy.invalid and mxl_path.is_file():
+            contract = mxl_contract_ok(mxl_path, profile="satb")
+        need_mxl = need_regen(
+            policy,
+            exists=mxl_exists,
+            stamp_ok=mxl_stamp_ok,
+            contract_ok=contract,
+        )
+        if need_pdf or need_mxl:
+            todo.append((mscz, need_pdf, need_mxl))
     if not todo:
         print(f"MSCZ-producten up-to-date ({len(msczs)} .mscz)", flush=True)
         return 0

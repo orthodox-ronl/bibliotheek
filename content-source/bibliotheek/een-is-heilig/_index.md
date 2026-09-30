@@ -5,6 +5,4 @@ nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true
 weight: 2400
-aliases:
-  - "/bibliotheek/24-een-is-heilig/"
 ---

@@ -4,8 +4,6 @@ linkTitle: "9b Alleluia"
 weight: 9
 publicatiestatus: reviewable
 automatische_inhoud: false
-aliases:
-  - "/koormappen/hemelum/liturgie-zondag/9b-alleluia/"
 ---
 
 # 9b Alleluia

@@ -225,6 +225,8 @@ houden).
 1. Eventueel `speciaal` beoordelen (utility, geen zangstuk).
 2. Hernoem-tooling (koormap-slots automatisch + slotlink-check) uit
    stash landen — nu alle hernoemingen inhoudelijk klaar zijn.
-3. PR van deze branch naar `development`.
+
+Hugo-`aliases` voor de genummerde paden van deze golf zijn bewust
+weggelaten: die URL’s werden niet gebruikt.
 
 {{< navbuttons "Bibliotheek en koormappen|/handleiding/start/bibliotheek-en-koormappen/" "Woorden|/handleiding/start/woorden/" >}}

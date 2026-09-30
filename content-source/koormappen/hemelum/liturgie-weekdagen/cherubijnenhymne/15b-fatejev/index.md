@@ -4,8 +4,6 @@ linkTitle: "15b Fatejev"
 weight: 20
 publicatiestatus: voorzien
 automatische_inhoud: false
-aliases:
-  - "/koormappen/hemelum/liturgie-weekdagen/15-cherubijnenhymne/15b-fatejev/"
 ---
 
 # 15b Cherubijnenhymne (Fatejev)

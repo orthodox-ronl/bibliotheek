@@ -113,13 +113,13 @@
 {{- if $isSource -}}
   {{- if eq $id "mvsa" -}}
     {{- $label = "Meerstemmige tekstbron (.mvsa)" -}}
-    {{- $detail = "Bronbestand downloaden" -}}
+    {{- $detail = "Feitelijke brontekst tonen" -}}
   {{- else if eq $id "partituur" -}}
     {{- $label = "MuseScore-partituur (.mscz)" -}}
     {{- $detail = "Bronbestand downloaden" -}}
   {{- else if eq $id "vsa" -}}
     {{- $label = "Eenstemmige tekstbron (.vsa)" -}}
-    {{- $detail = "Bronbestand downloaden" -}}
+    {{- $detail = "Feitelijke brontekst tonen" -}}
   {{- end -}}
 {{- end -}}
 {{- return (dict "id" $id "label" $label "detail" $detail) -}}

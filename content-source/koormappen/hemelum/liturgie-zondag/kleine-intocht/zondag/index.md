@@ -4,8 +4,6 @@ linkTitle: "7a Kleine intocht (zondag)"
 weight: 1
 publicatiestatus: reviewable
 automatische_inhoud: false
-aliases:
-  - "/koormappen/hemelum/liturgie-zondag/7-kleine-intocht/zondag/"
 ---
 
 # 7a Kleine intocht (zondag)

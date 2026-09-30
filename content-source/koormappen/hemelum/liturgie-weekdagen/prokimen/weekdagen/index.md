@@ -4,8 +4,6 @@ linkTitle: "Weekdagen"
 weight: 1
 publicatiestatus: reviewable
 automatische_inhoud: false
-aliases:
-  - "/koormappen/hemelum/liturgie-weekdagen/9a-prokimen/weekdagen/"
 ---
 
 # Prokimen weekdagen (Kiev, Groningen)

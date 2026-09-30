@@ -4,8 +4,6 @@ linkTitle: "Moeder Godslied (Ontslapen van de Moeder Gods)"
 weight: 50
 publicatiestatus: reviewable
 automatische_inhoud: false
-aliases:
-  - "/koormappen/hemelum/liturgie-zondag/20-moeder-godslied/moeder-godslied-ontslapen-mgods/"
 ---
 
 # Moeder Godslied (Ontslapen van de Moeder Gods)

@@ -4,8 +4,6 @@ linkTitle: "Zondag toon 6"
 weight: 16
 publicatiestatus: voorzien
 automatische_inhoud: false
-aliases:
-  - "/koormappen/hemelum/liturgie-zondag/9a-prokimen/zondag-toon-6/"
 ---
 
 # Zondag — toon 6

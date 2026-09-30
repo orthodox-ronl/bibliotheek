@@ -5,8 +5,6 @@ weight: 25
 nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true
-aliases:
-  - "/koormappen/hemelum/liturgie-weekdagen/20-moeder-godslied/"
 ---
 
 Moeder Godsliederen die in de liturgie in Hemelum kunnen worden gebruikt.

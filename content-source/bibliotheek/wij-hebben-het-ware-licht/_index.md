@@ -5,6 +5,4 @@ nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true
 weight: 2800
-aliases:
-  - "/bibliotheek/28-wij-hebben-het-ware-licht/"
 ---

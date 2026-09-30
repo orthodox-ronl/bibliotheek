@@ -4,8 +4,6 @@ linkTitle: "Moeder Godslied (Ontslapen van de Moeder Gods)"
 publicatiestatus: reviewable
 automatische_inhoud: false
 artefacten_handmatig: true
-aliases:
-  - "/bibliotheek/20-moeder-godslied/ontslapen-moeder-gods/hemelum/"
 ---
 
 # Moeder Godslied (Ontslapen van de Moeder Gods)

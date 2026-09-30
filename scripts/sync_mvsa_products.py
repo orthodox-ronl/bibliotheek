@@ -170,6 +170,13 @@ def sync_one(
 
 
 def main(argv: list[str] | None = None) -> int:
+    from product_regen import (
+        add_regen_arguments,
+        mxl_contract_ok,
+        need_regen,
+        policy_from_args,
+    )
+
     parser = argparse.ArgumentParser(
         description="Exporteer stale Coria-.mxl + PDF vanuit bibliotheek-.mvsa."
     )
@@ -180,23 +187,37 @@ def main(argv: list[str] | None = None) -> int:
         default=DEFAULT_ROOT,
         help="Zoekroot (default: content-source/bibliotheek)",
     )
-    parser.add_argument("--dry-run", action="store_true")
-    parser.add_argument(
-        "--force",
-        action="store_true",
-        help="Ook exporteren als producten al bij de bron passen",
-    )
+    add_regen_arguments(parser)
     args = parser.parse_args(argv)
+    policy = policy_from_args(args)
     root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
     sources = collect_mvsa(root)
     todo: list[tuple[Path, bool, bool]] = []
     for mvsa in sources:
-        if args.force:
-            todo.append((mvsa, True, True))
-        else:
-            need_mxl, need_pdf = is_stale(mvsa)
-            if need_mxl or need_pdf:
-                todo.append((mvsa, need_mxl, need_pdf))
+        digest = source_sha256(mvsa)
+        mxl = product_mxl_for_mvsa(mvsa)
+        pdf = product_pdf_for_mvsa(mvsa)
+        mxl_exists = mxl.is_file()
+        mxl_stamp_ok = _stamp_ok_mxl(mxl, digest)
+        contract = (
+            mxl_contract_ok(mxl, profile="satb")
+            if policy.invalid and mxl_exists
+            else None
+        )
+        need_mxl = need_regen(
+            policy,
+            exists=mxl_exists,
+            stamp_ok=mxl_stamp_ok,
+            contract_ok=contract,
+        )
+        need_pdf = need_regen(
+            policy,
+            exists=pdf.is_file(),
+            stamp_ok=_stamp_ok_pdf(pdf, digest),
+            contract_ok=None,
+        )
+        if need_mxl or need_pdf:
+            todo.append((mvsa, need_mxl, need_pdf))
     if not todo:
         print(f"MVSA-producten up-to-date ({len(sources)} .mvsa)", flush=True)
         return 0

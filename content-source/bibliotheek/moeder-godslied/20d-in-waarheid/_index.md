@@ -4,6 +4,4 @@ linkTitle: "In waarheid"
 nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true
-aliases:
-  - "/bibliotheek/20-moeder-godslied/20d-in-waarheid/"
 ---

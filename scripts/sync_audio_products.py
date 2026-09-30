@@ -161,6 +161,8 @@ def sync_one(job: AudioJob, *, dry_run: bool) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
+    from product_regen import add_regen_arguments, need_regen, policy_from_args
+
     parser = argparse.ArgumentParser(
         description="Exporteer stale preview-.mp3 vanuit bibliotheek-bronnen."
     )
@@ -171,16 +173,22 @@ def main(argv: list[str] | None = None) -> int:
         default=DEFAULT_ROOT,
         help="Zoekroot (default: content-source/bibliotheek)",
     )
-    parser.add_argument("--dry-run", action="store_true")
-    parser.add_argument(
-        "--force",
-        action="store_true",
-        help="Ook exporteren als het mp3 al bij de bron past",
-    )
+    add_regen_arguments(parser)
     args = parser.parse_args(argv)
+    policy = policy_from_args(args)
     root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
     jobs = collect_audio_jobs(root)
-    todo = [j for j in jobs if args.force or is_stale(j)]
+    todo: list[AudioJob] = []
+    for job in jobs:
+        exists = job.product.is_file()
+        stamp_ok = _stamp_ok(job) if exists else False
+        if need_regen(
+            policy,
+            exists=exists,
+            stamp_ok=stamp_ok,
+            contract_ok=None,
+        ):
+            todo.append(job)
     if not todo:
         print(f"Audio-producten up-to-date ({len(jobs)} bronnen)", flush=True)
         return 0

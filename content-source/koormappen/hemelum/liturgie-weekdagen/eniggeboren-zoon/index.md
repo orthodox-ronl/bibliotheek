@@ -4,8 +4,6 @@ linkTitle: "5 Eniggeboren Zoon"
 weight: 5
 publicatiestatus: reviewable
 automatische_inhoud: false
-aliases:
-  - "/koormappen/hemelum/liturgie-weekdagen/5-eniggeboren-zoon/"
 ---
 
 # 5 Eniggeboren/Eengeboren Zoon
