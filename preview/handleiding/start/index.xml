@@ -185,7 +185,7 @@ passende &lt;code&gt;*-products.cmd&lt;/code&gt;).&lt;/li&gt;
  &lt;ul&gt;
 &lt;li&gt;Input: &lt;code&gt;content-source\input\&amp;lt;herkomst&amp;gt;\&lt;/code&gt; (originele bestandsnaam mag spaties hebben)&lt;/li&gt;
 &lt;li&gt;Tussenwerk: &lt;code&gt;content-source\input\_werk\&amp;lt;stam&amp;gt;\&lt;/code&gt; (publicatiestam; alleen op jouw pc, niet in git)&lt;/li&gt;
-&lt;li&gt;Bibliotheek (catalogus-fase): &lt;code&gt;content-source\catalogus\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;\&lt;/code&gt; — &lt;strong&gt;geen spaties&lt;/strong&gt; in bestandsnamen&lt;/li&gt;
+&lt;li&gt;Catalogus: &lt;code&gt;content-source\catalogus\&amp;lt;zangstuk&amp;gt;\&amp;lt;variant&amp;gt;\&amp;lt;uitvoeringsvorm&amp;gt;\&lt;/code&gt; — &lt;strong&gt;geen spaties&lt;/strong&gt; in bestandsnamen&lt;/li&gt;
 &lt;li&gt;Koormap: &lt;code&gt;content-source\koormappen\hemelum\liturgie-zondag\&lt;/code&gt; of
 &lt;code&gt;liturgie-weekdagen\&lt;/code&gt; — sectie-&lt;code&gt;_index.md&lt;/code&gt; of slot-&lt;code&gt;index.md&lt;/code&gt; + &lt;code&gt;bieb&lt;/code&gt;
 (geen basispartituur-bestanden)&lt;/li&gt;
@@ -295,7 +295,8 @@ dienst &lt;em&gt;zet&lt;/em&gt;&lt;/li&gt;
 &lt;li&gt;Liturgische nummers horen in de koormap en in Hugo-&lt;code&gt;weight&lt;/code&gt;, niet per
 se in het &lt;code&gt;zangstuk-id&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Geen vierde padlaag «collectie» — zie besluit 5&lt;/li&gt;
-&lt;li&gt;Hernoemen van bestaande ids gebeurt pas na akkoord (besluiten hieronder)&lt;/li&gt;
+&lt;li&gt;Genummerde top-level &lt;code&gt;zangstuk-id&lt;/code&gt;s zijn hernoemd; nieuwe ids volgen
+het beleid hieronder&lt;/li&gt;
 &lt;/ul&gt;
 
  &lt;/div&gt;
@@ -343,7 +344,7 @@ de Heilige Engelen). Dat is geen vierde soort zangstuk.&lt;/p&gt;</description><
 &lt;li&gt;&lt;strong&gt;importcontrole&lt;/strong&gt; = versheidscontrole op bewerk-/importvorm (bijv. &lt;code&gt;.mscz.mvsa&lt;/code&gt;); zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/import-mvsa/"&gt;import-mvsa&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;geldigheidscontrole&lt;/strong&gt; = &lt;code&gt;vsa validate&lt;/code&gt; / &lt;code&gt;mvsa validate&lt;/code&gt; / …&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;artefacten_handmatig&lt;/strong&gt; = frontmatter op bibliotheek-&lt;code&gt;index.md&lt;/code&gt;: PDF/MXL niet auto-bijwerken&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;artefacten_handmatig&lt;/strong&gt; = frontmatter op catalogus-&lt;code&gt;index.md&lt;/code&gt;: PDF/MXL niet auto-bijwerken&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;.mxl&lt;/code&gt; / &lt;code&gt;.vsa.mxl&lt;/code&gt; / &lt;code&gt;.mscz.mxl&lt;/code&gt; = MusicXML voor Coria (&lt;strong&gt;afgeleide&lt;/strong&gt;; niet terug importeren om te layouten)&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;.pdf&lt;/code&gt; / &lt;code&gt;.mscz.pdf&lt;/code&gt; = A4-afgeleide om te lezen of te printen&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;.mp3&lt;/code&gt; / &lt;code&gt;.mvsa.mp3&lt;/code&gt; / &lt;code&gt;.mscz.mp3&lt;/code&gt; / &lt;code&gt;.vsa.mp3&lt;/code&gt; = preview-audio voor &lt;strong&gt;Beluisteren&lt;/strong&gt; (zelfde bronnen als Coria-&lt;code&gt;.mxl&lt;/code&gt;; zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/audio/"&gt;audio&lt;/a&gt;

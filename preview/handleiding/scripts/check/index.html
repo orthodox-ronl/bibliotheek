@@ -44,17 +44,17 @@
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><span class=oefenhoek-breadcrumb-current aria-current=page>check</span></nav></div></header><main class=page><h1 id=name>NAME</h1><p><code>scripts\check.cmd</code> — controleren of de repository klaar is om te delen</p><h1 id=synopsis>SYNOPSIS</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>check
 </span></span><span style=display:flex><span>check --strict
 </span></span></code></pre></div><p>Of: <code>scripts\check.cmd</code> vanuit de repo-root.</p><h1 id=description>DESCRIPTION</h1><p><code>check</code> is de preflight voor deze repo (CI-spiegel):</p><ol><li><code>validate</code> — <code>vsa validate</code> op <code>content-source\catalogus</code> (en
-<code>mvsa validate</code> als daar <code>.mvsa</code>-bestanden staan)</li><li>VSA-publicatiecontrole — of elke bibliotheek-<code>.vsa</code> (behalve
+<code>mvsa validate</code> als daar <code>.mvsa</code>-bestanden staan)</li><li>VSA-publicatiecontrole — of elke catalogus-<code>.vsa</code> (behalve
 <code>artefacten_handmatig</code>) een passende sibling <code>{stam}.vsa.mxl</code> heeft
 met <code>vsa-source-sha256</code></li><li>MSCZ-publicatiecontrole — of elke basispartituur-<code>.mscz</code> (behalve
 handmatig/print) passende siblings <code>{stam}.mscz.pdf</code> en
 <code>{stam}.mscz.mxl</code> heeft met <code>vsa-partituur-sha256</code></li><li>Tekstblad-publicatiecontrole — of elke <code>{stam}.tekstblad.md</code> een
 passende <code>{stam}.tekstblad.pdf</code> heeft met <code>vsa-source-sha256</code></li><li>Importcontrole — of elke <strong>bestaande</strong> <code>{stam}.mscz.mvsa</code> bij de
 bijbehorende basispartituur-<code>.mscz</code> past (<code>vsa-partituur-sha256</code>);
-ontbrekende import-siblings zijn geen fout</li><li>MVSA-publicatiecontrole — of elke canonieke bibliotheek-<code>.mvsa</code>
+ontbrekende import-siblings zijn geen fout</li><li>MVSA-publicatiecontrole — of elke canonieke catalogus-<code>.mvsa</code>
 (geen <code>.mscz.mvsa</code>) passende siblings <code>{stam}.mvsa.mxl</code> en
 <code>{stam}.mvsa.pdf</code> heeft met <code>vsa-source-sha256</code></li><li>Audio-publicatiecontrole — of elke canonieke <code>.mvsa</code> / basis-<code>.mscz</code> /
-<code>.vsa</code> een passende preview-<code>.mp3</code> heeft met herkomststempel</li><li>Lyrics-publicatiecontrole — of elke bibliotheek-<code>.vsa</code> / <code>.mvsa</code> een
+<code>.vsa</code> een passende preview-<code>.mp3</code> heeft met herkomststempel</li><li>Lyrics-publicatiecontrole — of elke catalogus-<code>.vsa</code> / <code>.mvsa</code> een
 passende <code>{stam}.….lyrics.txt</code> heeft met <code>vsa-source-sha256</code></li><li>Catalogus-id — of elke basispartituur-<code>.mscz</code> in het colofon de
 regel <code>Bibliotheek-id:</code> heeft die bij het bladermap-pad past</li><li>Coria-fingerprints (<code>python scripts\fingerprint_coria_mxl.py</code>)</li><li>Bladermap-SVG (<code>oefenhoek-index --svg</code>) — plaatjes uit <code>.vsa</code>; geen
 stamp-publicatiecontrole</li><li>Zoekindex (<code>python scripts\build_zoek_index.py</code> → <code>static\zoek\index.json</code>)</li><li>Hugo-build naar <code>generated\site</code></li></ol><p>Zonder <code>--strict</code> waarschuwen de publicatie-, import- en id-controles

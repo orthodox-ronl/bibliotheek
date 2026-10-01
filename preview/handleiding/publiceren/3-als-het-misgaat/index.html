@@ -84,9 +84,9 @@ of Coria het bestand echt ophaalt.</p><p>Een nieuw zangstuk dat nog niet op bran
 pas na een <code>git push</code> (Coria kan de lokale Hugo-server niet bereiken).</p><h2 id=coria-translation-failed-of-check-weigert-de-mxl>Coria: <code>translation failed</code> of check weigert de <code>.mxl</code></h2><p>De <code>.mxl</code> in de catalogus moet uit <code>mscz-products</code> of <code>vsa-products</code>
 komen (of handmatig bij <code>artefacten_handmatig</code>), niet een ruwe Capella-<code>.mxl</code>.
 Maak basispartituur-producten opnieuw ná de laatste normalisatie, of draai
-<code>scripts\vsa-products.cmd</code> voor een bibliotheek-<code>.vsa</code>. <code>check</code> heeft een
+<code>scripts\vsa-products.cmd</code> voor een catalogus-<code>.vsa</code>. <code>check</code> heeft een
 aparte Coria-controle; de melding wijst het bestand aan.</p><h2 id=rode-banner-partituur--of-vsa-afgeleiden-niet-in-orde>Rode banner: partituur- of VSA-afgeleiden niet in orde</h2><div class=table-scroll><table><thead><tr><th>Banner</th><th>Oorzaak</th><th>Actie</th></tr></thead><tbody><tr><td>Basispartituur-afgeleiden</td><td>PDF/MXL passen niet bij de basispartituur-<code>.mscz</code></td><td><a href=../../partituur/6-afgeleiden/>Afgeleiden</a>
-— layout + <code>mscz-products</code></td></tr><tr><td>VSA-afgeleiden</td><td><code>{stam}.vsa.mxl</code> ontbreekt of is ouder dan de <code>.vsa</code></td><td><code>scripts\vsa-products.cmd</code>, commit beide</td></tr></tbody></table></div><p>Op <code>main</code> faalt de build bij dezelfde situaties.</p><h2 id=gele-banner-handmatige-artefacten>Gele banner: handmatige artefacten</h2><p>Geen fout: <code>artefacten_handmatig: true</code> staat op die bibliotheekpagina.
+— layout + <code>mscz-products</code></td></tr><tr><td>VSA-afgeleiden</td><td><code>{stam}.vsa.mxl</code> ontbreekt of is ouder dan de <code>.vsa</code></td><td><code>scripts\vsa-products.cmd</code>, commit beide</td></tr></tbody></table></div><p>Op <code>main</code> faalt de build bij dezelfde situaties.</p><h2 id=gele-banner-handmatige-artefacten>Gele banner: handmatige artefacten</h2><p>Geen fout: <code>artefacten_handmatig: true</code> staat op die cataloguspagina.
 PDF/MXL vernieuwen de scripts niet; doe dat zelf na elke bronwijziging.</p><h2 id=bieb-faalt-bij-build><code>bieb</code> faalt bij build</h2><p>De shortcode verwijst naar een catalogus-pagina die nog niet bestaat, of
 het id klopt niet (<code>zangstuk/variant/uitvoeringsvorm</code>). Maak eerst de
 catalogus-map + <code>index.md</code>, of corrigeer het id in het koormap-slot.</p><h2 id=hugo-waarschuwing-svg-ontbreekt>Hugo-waarschuwing: SVG ontbreekt</h2><p>Shortcode <code>bieb</code> toont het VSA-plaatje uit
@@ -97,7 +97,7 @@ Uitleg: <a href=../../vsa/1-vsa-schrijven/>.vsa schrijven</a>
 ernaast. Haal niet “even de rare tekens weg” om groen te worden.</p><h2 id=template-satb-templateinstanceerror>Template SATB: <code>TemplateInstanceError</code></h2><p>De sopraan in de VSA volgt de tropaar-toon-4-formule niet (toon of
 verplicht slot). Lees de hint in het venster; pas de VSA aan, of (met
 iemand die de formule beheert) de template. Werk de <code>.mscz</code> niet als
-eerste bron van waarheid bij.</p><h2 id=publicatiestatus-ontbreekt><code>publicatiestatus</code> ontbreekt</h2><p>Elke bibliotheek-<code>index.md</code> en <code>_index.md</code> (bibliotheek en koormap) moet de
+eerste bron van waarheid bij.</p><h2 id=publicatiestatus-ontbreekt><code>publicatiestatus</code> ontbreekt</h2><p>Elke catalogus-<code>index.md</code> en <code>_index.md</code> (catalogus en koormap) moet de
 regel <code>publicatiestatus</code> in de <code>---</code> hebben. Handleiding-pagina’s niet.
 <code>check</code> faalt hier (nog) niet op; zonder status ontbreekt wel de badge op
 de pagina.</p><h2 id=preview-op-de-verkeerde-poort>Preview op de verkeerde poort</h2><p>http://127.0.0.1:<strong>18732</strong>/ — niet 1313.</p><h2 id=check-rood-lange-muur-tekst>Check rood, lange muur tekst</h2><p>Scroll naar het <strong>eerste</strong> <code>FAILED</code> of <code>error</code>. Vaak is één bestand de

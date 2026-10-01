@@ -43,13 +43,16 @@
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><a class=oefenhoek-breadcrumb-link href=/bibliotheek/preview/handleiding/scripts/>Scripts</a>
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><span class=oefenhoek-breadcrumb-current aria-current=page>bieb hernoem</span></nav></div></header><main class=page><h1 id=name>NAME</h1><p><code>bieb hernoem</code> — zangstuk-id hernoemen (map, publicatiestam, verwijzingen)</p><h1 id=synopsis>SYNOPSIS</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\bieb.cmd hernoem &lt;oud-zangstuk&gt; &lt;nieuw-zangstuk&gt; [--dry-run]
 </span></span></code></pre></div><h1 id=description>DESCRIPTION</h1><p>Hernoemt één <strong>zangstuk-id</strong> (de bovenste map onder
-<code>content-source\catalogus\</code>). Typisch: <code>110-tropaar</code> → <code>tropaar</code>.</p><p>Het script:</p><ol><li>Verplaatst de zangstuk-map naar de nieuwe naam.</li><li>Hernoemt alle productbestanden waarvan de naam met <code>{oud}-</code> begint
+<code>content-source\catalogus\</code>). Voorbeeld uit de afgeronde hernoem-golf:
+<code>110-tropaar</code> → <code>tropaar</code> (die hernoeming is al uitgevoerd; de
+commando’s hieronder zijn ter illustratie).</p><p>Het script:</p><ol><li>Verplaatst de zangstuk-map naar de nieuwe naam.</li><li>Hernoemt alle productbestanden waarvan de naam met <code>{oud}-</code> begint
 (publicatiestam: <code>.vsa</code>, <code>.vsa.mxl</code>, <code>.lyrics.txt</code>, <code>.mp3</code>, …).</li><li>Verplaatst bladermap-SVG’s onder <code>static\vsa\bladermap\catalogus\</code>.</li><li>Werkt tekstverwijzingen bij (<code>bieb id=…</code>, <code>alias_van</code>, colofons, docs).</li><li>Zet Hugo-<code>aliases</code> op elke verhuisde pagina zodat oude URL’s blijven
 werken.</li></ol><p>Daarna opnieuw: <code>python scripts\build_zoek_index.py</code> en
 <code>scripts\check.cmd</code> (SVG/fingerprints/Hugo).</p><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\bieb.cmd hernoem 110-tropaar tropaar --dry-run
 </span></span><span style=display:flex><span>scripts\bieb.cmd hernoem 110-tropaar tropaar
 </span></span><span style=display:flex><span>scripts\bieb.cmd hernoem 120-kondak kondak
-</span></span></code></pre></div><h1 id=see-also>SEE ALSO</h1><p><a href=../bieb-accepteer/>bieb accepteer</a>
+</span></span></code></pre></div><p>(Die voorbeelden zijn historisch; die mappen heten al <code>tropaar</code> /
+<code>kondak</code>.)</p><h1 id=see-also>SEE ALSO</h1><p><a href=../bieb-accepteer/>bieb accepteer</a>
 ,
 <a href=/bibliotheek/preview/handleiding/start/zangstuk-soorten/>Zangstuk-soorten</a></p></main><div id=score-audio-bar class=score-audio-bar hidden><div class=score-audio-bar-inner><p class=score-audio-bar-title id=score-audio-bar-title></p><div class=score-audio-bar-row><button type=button class="score-audio-bar-btn score-audio-bar-play" aria-label=Pauzeren aria-controls=score-audio-bar-element aria-pressed=true>
 <span class="score-audio-bar-icon score-audio-bar-icon--pause" aria-hidden=true>❚❚</span>

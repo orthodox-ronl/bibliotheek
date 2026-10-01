@@ -97,12 +97,12 @@ variant-<code>_index.md</code> mag <code>title</code> / <code>linkTitle</code> t
 de leaf draagt dan de echte liturgische titel. Zodra er een tweede variant
 komt, geef je <code>default</code> een echte naam of hernoem je de map.</p><h3 id=wat-check-nog-niet-doet>Wat <code>check</code> (nog) niet doet</h3><p><code>scripts\check.cmd</code> controleert <strong>geen</strong> frontmatter-schema (geen verplichte
 velden, geen capitalisatie van <code>linkTitle</code>). Wel verwacht de handleiding die
-velden op elke bibliotheek- en koormap-pagina. Mis je <code>publicatiestatus</code>,
+velden op elke catalogus- en koormap-pagina. Mis je <code>publicatiestatus</code>,
 dan ontbreekt de statusbadge; de build faalt daar niet op.</p><h2 id=soorten-koormap-classificatie>Soorten koormap (classificatie)</h2><p>Zelfde mechaniek, andere bedoeling — geen nieuwe id-laag:</p><div class=table-scroll><table><thead><tr><th>Type</th><th>Ordening</th><th>Voorbeeld</th></tr></thead><tbody><tr><td>Liturgisch</td><td>Volgorde in de dienst</td><td>Liturgiemap Hemelum</td></tr><tr><td>Feest / kalender</td><td>Orde van die dag of cyclus</td><td>Pasen, 15 augustus</td></tr><tr><td>Collectie</td><td>Thematisch</td><td>Alle cherubijnen, troparen toon 1–8</td></tr><tr><td>Parochiekeuze</td><td>Wat <em>dit</em> koor deze periode zingt</td><td>“Hemelum najaar”, “Zwolle-cherubijn”</td></tr></tbody></table></div><p>Optioneel later: frontmatter <code>type:</code> op de koormap-<code>_index</code> (<code>liturgie</code>,
 <code>feest</code>, <code>collectie</code>, <code>parochie</code>).</p><p>«Collectie» hier is dus een <em>view</em> in de koormap, geen extra maplaag boven
-zangstukken in de bibliotheek. Zie besluit 5 in
+zangstukken in de catalogus. Zie besluit 5 in
 <a href=/bibliotheek/preview/handleiding/start/zangstuk-soorten/>Zangstuk-soorten</a>
-.</p><h2 id=wat-de-bibliotheek-root-toont>Wat de bibliotheek-root toont</h2><p>De root van de catalogus is <strong>geen</strong> sitemap van alle stubs. Koorleden zien
+.</p><h2 id=wat-de-catalogus-root-toont>Wat de catalogus-root toont</h2><p>De root van de catalogus is <strong>geen</strong> sitemap van alle stubs. Koorleden zien
 daar vooral <strong>oefenbare</strong> zangstukken (nette titel, liturgienummer-volgorde).
 Voorzien-items en technische registers staan onder
 <a href=/bibliotheek/preview/catalogus/speciaal/>Speciaal</a>
@@ -114,12 +114,15 @@ een <strong>sectie</strong> (boom) kiest versus een <strong>compositieblad</stro
 shortcodes op één pagina).</p><h2 id=naamgevingsbeleid-nieuwe-ids>Naamgevingsbeleid (nieuwe ids)</h2><ol><li><strong>Nieuwe</strong> <code>zangstuk-id</code>s krijgen <strong>geen</strong> sorteerprefix (<code>tropaar</code>, niet
 <code>tropaar</code>). Liturgienummers horen in de koormap-titel en in Hugo-
 <code>weight</code>.</li><li>Spelling voor <em>nieuwe</em> ids: <code>johannes</code>, <code>alleluia</code>; liever voluit dan
-<code>mg</code> of <code>zo-wk-mg</code>.</li><li>Bestaande genummerde ids blijven geldig tot een bewuste hernoem-golf
-(tooling: later <code>bieb hernoem</code>).</li><li>Echte naamsynoniemen van dezelfde variant: <code>alias_van</code>. Spelling- en
+<code>mg</code> of <code>zo-wk-mg</code>.</li><li>Genummerde top-level <code>zangstuk-id</code>s zijn hernoemd (zie
+<a href=/bibliotheek/preview/handleiding/start/zangstuk-soorten/>Zangstuk-soorten</a>
+). Nieuwe
+hernoemingen: <a href=/bibliotheek/preview/handleiding/scripts/bieb-hernoem/><code>bieb hernoem</code></a>
+.</li><li>Echte naamsynoniemen van dezelfde variant: <code>alias_van</code>. Spelling- en
 woordvolgorde-varianten: zoekindex + <a href=https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml><code>data/zoek-synoniemen.yaml</code></a>
 .</li></ol><p>Zie <a href=/bibliotheek/preview/handleiding/start/zangstuk-soorten/>Zangstuk-soorten</a>
 voor de
-inventaristabel en open beslispunten.</p><div class=nav-buttons><a class=btn href=/bibliotheek/preview/handleiding/start/waar-ligt-wat/>Waar ligt wat
+inventaristabel en resterende vervolgstappen.</p><div class=nav-buttons><a class=btn href=/bibliotheek/preview/handleiding/start/waar-ligt-wat/>Waar ligt wat
 </a><a class=btn href=/bibliotheek/preview/handleiding/start/zangstuk-soorten/>Zangstuk-soorten</a></div></main><div id=score-audio-bar class=score-audio-bar hidden><div class=score-audio-bar-inner><p class=score-audio-bar-title id=score-audio-bar-title></p><div class=score-audio-bar-row><button type=button class="score-audio-bar-btn score-audio-bar-play" aria-label=Pauzeren aria-controls=score-audio-bar-element aria-pressed=true>
 <span class="score-audio-bar-icon score-audio-bar-icon--pause" aria-hidden=true>❚❚</span>
 <span class="score-audio-bar-icon score-audio-bar-icon--play" aria-hidden=true>▶</span>

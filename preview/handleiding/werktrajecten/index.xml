@@ -55,7 +55,7 @@ bestanden die koorleden downloaden en in Coria oefenen. Representatie-id:
 A4-PDF leesbaar zijn en via de knop &lt;strong&gt;Oefenen&lt;/strong&gt; in Coria afspeelbaar. Dit
 traject houdt PDF en Coria-&lt;code&gt;.mxl&lt;/code&gt; synchroon met de canonieke
 basispartituur.&lt;/p&gt;</description></item><item><title>VSA → SVG en Coria</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/vsa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/vsa/</guid><description>&lt;h1 id="vsa--svg-en-coria"&gt;VSA → SVG en Coria&lt;/h1&gt;
-&lt;p&gt;Dit werktraject maakt uit een canonieke &lt;strong&gt;&lt;code&gt;.vsa&lt;/code&gt;&lt;/strong&gt; in de oefenhoek-bibliotheek
+&lt;p&gt;Dit werktraject maakt uit een canonieke &lt;strong&gt;&lt;code&gt;.vsa&lt;/code&gt;&lt;/strong&gt; in de catalogus
 een SVG-plaatje op de site en een Coria-bestand &lt;code&gt;{stam}.vsa.mxl&lt;/code&gt;.
 Representatie-id: &lt;code&gt;vsa&lt;/code&gt;.&lt;/p&gt;
 &lt;aside class="handleiding-cue"&gt;
@@ -70,7 +70,7 @@ Representatie-id: &lt;code&gt;vsa&lt;/code&gt;.&lt;/p&gt;
 
 &lt;h2 id="waartoe"&gt;Waartoe&lt;/h2&gt;
 &lt;p&gt;Eenstemmige notatie (antifoon, communievers, tropaar-regels, …) moet op
-de bibliotheekpagina als plaatje verschijnen en via &lt;strong&gt;Oefenen&lt;/strong&gt; in Coria
+de cataloguspagina als plaatje verschijnen en via &lt;strong&gt;Oefenen&lt;/strong&gt; in Coria
 afspeelbaar zijn — zonder een volledige MuseScore-basispartituur.&lt;/p&gt;</description></item><item><title>Print-vel</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/print-vel/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/print-vel/</guid><description>&lt;h1 id="print-vel-legacy-naam"&gt;Print-vel (legacy-naam)&lt;/h1&gt;
 &lt;p&gt;Dit werktraject houdt een &lt;strong&gt;handmatig MuseScore-blad&lt;/strong&gt; en een &lt;strong&gt;handmatige
 PDF&lt;/strong&gt; bij buiten de basispartituur-keten.&lt;/p&gt;
@@ -134,7 +134,7 @@ en downloaden/printen de PDF via shortcode &lt;code&gt;bieb&lt;/code&gt; — nie
 van de tekst in de koormap.&lt;/p&gt;</description></item><item><title>Markdown naar PDF</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/markdown-naar-pdf/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/markdown-naar-pdf/</guid><description>&lt;h1 id="markdown-naar-pdf"&gt;Markdown naar PDF&lt;/h1&gt;
 &lt;p&gt;Dit werktraject maakt van één Markdownbestand (tekst, VSA-blokken,
 includes, paginascheidingen) een &lt;strong&gt;A4-PDF&lt;/strong&gt;. Gebruik dit voor demo’s en
-losse bladen &lt;strong&gt;buiten&lt;/strong&gt; de oefenhoek-bibliotheek. Voor liturgische tekst
+losse bladen &lt;strong&gt;buiten&lt;/strong&gt; de catalogus. Voor liturgische tekst
 &lt;strong&gt;in&lt;/strong&gt; de bibliotheek: werktraject
 &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/tekstblad/"&gt;Tekstblad&lt;/a&gt;
 
@@ -154,7 +154,7 @@ losse bladen &lt;strong&gt;buiten&lt;/strong&gt; de oefenhoek-bibliotheek. Voor 
 &lt;p&gt;Je wilt een printbaar blad (bijvoorbeeld een demo of een liturgisch
 leesblad) dat markdown en &lt;code&gt;::: vsa-notatie&lt;/code&gt; combineert, zonder een
 basispartituur-&lt;code&gt;.mscz&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Ingebedde VSA</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/ingebedde-vsa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/ingebedde-vsa/</guid><description>&lt;h1 id="ingebedde-vsa"&gt;Ingebedde VSA&lt;/h1&gt;
-&lt;p&gt;Dit werktraject betreft &lt;strong&gt;VSA buiten&lt;/strong&gt; de oefenhoek-bibliotheek: notatie
+&lt;p&gt;Dit werktraject betreft &lt;strong&gt;VSA buiten&lt;/strong&gt; de catalogus: notatie
 in gewone content-pagina’s (demo’s, feesteigen, samenstellingen,
 handleidingen). De site-build maakt daar SVG (en optioneel MusicXML)
 onder &lt;code&gt;static\vsa\&lt;/code&gt;.&lt;/p&gt;
@@ -164,7 +164,7 @@ onder &lt;code&gt;static\vsa\&lt;/code&gt;.&lt;/p&gt;
  Zet &lt;code&gt;::: vsa-notatie&lt;/code&gt; … &lt;code&gt;:::&lt;/code&gt; of een &lt;code&gt;.vsa&lt;/code&gt;-include in een markdownpagina
 onder &lt;code&gt;content-source&lt;/code&gt;. Draai daarna &lt;code&gt;scripts\check.cmd&lt;/code&gt; of
 &lt;code&gt;scripts\build.cmd&lt;/code&gt; — de pipeline doet &lt;code&gt;vsa build-markdown&lt;/code&gt; en
-&lt;code&gt;vsa musicxml&lt;/code&gt;. Dit is &lt;strong&gt;geen&lt;/strong&gt; bibliotheek-&lt;code&gt;{stam}.vsa.mxl&lt;/code&gt;.
+&lt;code&gt;vsa musicxml&lt;/code&gt;. Dit is &lt;strong&gt;geen&lt;/strong&gt; catalogus-&lt;code&gt;{stam}.vsa.mxl&lt;/code&gt;.
  &lt;/div&gt;
 &lt;/aside&gt;
 

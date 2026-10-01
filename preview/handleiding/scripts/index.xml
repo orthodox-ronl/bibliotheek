@@ -12,7 +12,7 @@
 man-page: doel, opties en wanneer je het gebruikt.&lt;/p&gt;
 &lt;p&gt;Met een onbekende of gedeeltelijke tekst krijg je een gefilterde lijst, of
 een foutmelding met bekende namen.&lt;/p&gt;</description></item><item><title>validate</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/validate/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/validate/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;scripts\validate.cmd&lt;/code&gt; — controleer of bibliotheek-&lt;code&gt;.vsa&lt;/code&gt; (en eventueel
+&lt;p&gt;&lt;code&gt;scripts\validate.cmd&lt;/code&gt; — controleer of catalogus-&lt;code&gt;.vsa&lt;/code&gt; (en eventueel
 &lt;code&gt;.mvsa&lt;/code&gt;) geldig is volgens de &lt;code&gt;vsa&lt;/code&gt;-/&lt;code&gt;mvsa&lt;/code&gt;-CLI&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;validate
@@ -39,7 +39,7 @@ preflight — die map is geen publicatiebron.&lt;/p&gt;</description></item><ite
 &lt;ol&gt;
 &lt;li&gt;&lt;code&gt;validate&lt;/code&gt; — &lt;code&gt;vsa validate&lt;/code&gt; op &lt;code&gt;content-source\catalogus&lt;/code&gt; (en
 &lt;code&gt;mvsa validate&lt;/code&gt; als daar &lt;code&gt;.mvsa&lt;/code&gt;-bestanden staan)&lt;/li&gt;
-&lt;li&gt;VSA-publicatiecontrole — of elke bibliotheek-&lt;code&gt;.vsa&lt;/code&gt; (behalve
+&lt;li&gt;VSA-publicatiecontrole — of elke catalogus-&lt;code&gt;.vsa&lt;/code&gt; (behalve
 &lt;code&gt;artefacten_handmatig&lt;/code&gt;) een passende sibling &lt;code&gt;{stam}.vsa.mxl&lt;/code&gt; heeft
 met &lt;code&gt;vsa-source-sha256&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;MSCZ-publicatiecontrole — of elke basispartituur-&lt;code&gt;.mscz&lt;/code&gt; (behalve
@@ -50,12 +50,12 @@ passende &lt;code&gt;{stam}.tekstblad.pdf&lt;/code&gt; heeft met &lt;code&gt;vsa
 &lt;li&gt;Importcontrole — of elke &lt;strong&gt;bestaande&lt;/strong&gt; &lt;code&gt;{stam}.mscz.mvsa&lt;/code&gt; bij de
 bijbehorende basispartituur-&lt;code&gt;.mscz&lt;/code&gt; past (&lt;code&gt;vsa-partituur-sha256&lt;/code&gt;);
 ontbrekende import-siblings zijn geen fout&lt;/li&gt;
-&lt;li&gt;MVSA-publicatiecontrole — of elke canonieke bibliotheek-&lt;code&gt;.mvsa&lt;/code&gt;
+&lt;li&gt;MVSA-publicatiecontrole — of elke canonieke catalogus-&lt;code&gt;.mvsa&lt;/code&gt;
 (geen &lt;code&gt;.mscz.mvsa&lt;/code&gt;) passende siblings &lt;code&gt;{stam}.mvsa.mxl&lt;/code&gt; en
 &lt;code&gt;{stam}.mvsa.pdf&lt;/code&gt; heeft met &lt;code&gt;vsa-source-sha256&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Audio-publicatiecontrole — of elke canonieke &lt;code&gt;.mvsa&lt;/code&gt; / basis-&lt;code&gt;.mscz&lt;/code&gt; /
 &lt;code&gt;.vsa&lt;/code&gt; een passende preview-&lt;code&gt;.mp3&lt;/code&gt; heeft met herkomststempel&lt;/li&gt;
-&lt;li&gt;Lyrics-publicatiecontrole — of elke bibliotheek-&lt;code&gt;.vsa&lt;/code&gt; / &lt;code&gt;.mvsa&lt;/code&gt; een
+&lt;li&gt;Lyrics-publicatiecontrole — of elke catalogus-&lt;code&gt;.vsa&lt;/code&gt; / &lt;code&gt;.mvsa&lt;/code&gt; een
 passende &lt;code&gt;{stam}.….lyrics.txt&lt;/code&gt; heeft met &lt;code&gt;vsa-source-sha256&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Catalogus-id — of elke basispartituur-&lt;code&gt;.mscz&lt;/code&gt; in het colofon de
 regel &lt;code&gt;Bibliotheek-id:&lt;/code&gt; heeft die bij het bladermap-pad past&lt;/li&gt;
@@ -237,7 +237,7 @@ bestand (&lt;code&gt;vsa-partituur-sha256&lt;/code&gt;, &lt;code&gt;vsa-generate
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\lyrics-products.cmd [pad] [--force] [--dry-run]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Haalt de &lt;strong&gt;gezongen tekst&lt;/strong&gt; uit een bibliotheek-&lt;code&gt;.vsa&lt;/code&gt; of &lt;code&gt;.mvsa&lt;/code&gt; (via
+&lt;p&gt;Haalt de &lt;strong&gt;gezongen tekst&lt;/strong&gt; uit een catalogus-&lt;code&gt;.vsa&lt;/code&gt; of &lt;code&gt;.mvsa&lt;/code&gt; (via
 &lt;code&gt;vsa text&lt;/code&gt; in VSA-tooling) en schrijft die naast de bron als sibling:&lt;/p&gt;
 &lt;table&gt;
  &lt;thead&gt;
@@ -263,11 +263,11 @@ daarna &lt;code&gt;static\zoek\index.json&lt;/code&gt; (&lt;code&gt;python scrip
 ook vanuit &lt;code&gt;check&lt;/code&gt;) voor de pagina
 &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/zoeken/"&gt;Zoeken in de catalogus&lt;/a&gt;
 .&lt;/p&gt;</description></item><item><title>mvsa-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mvsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mvsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;scripts\mvsa-products.cmd&lt;/code&gt; — Coria-&lt;code&gt;.mxl&lt;/code&gt; en A4-PDF maken bij een bibliotheek-&lt;code&gt;.mvsa&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;scripts\mvsa-products.cmd&lt;/code&gt; — Coria-&lt;code&gt;.mxl&lt;/code&gt; en A4-PDF maken bij een catalogus-&lt;code&gt;.mvsa&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mvsa-products.cmd [pad] [--force] [--dry-run]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Exporteert naast een &lt;strong&gt;canonieke bibliotheek-&lt;code&gt;.mvsa&lt;/code&gt;&lt;/strong&gt; de siblings die
+&lt;p&gt;Exporteert naast een &lt;strong&gt;canonieke catalogus-&lt;code&gt;.mvsa&lt;/code&gt;&lt;/strong&gt; de siblings die
 koorleden gebruiken: een &lt;strong&gt;Coria-&lt;code&gt;.mxl&lt;/code&gt;&lt;/strong&gt; (&lt;code&gt;{stam}.mvsa.mxl&lt;/code&gt;) en een
 A4-&lt;strong&gt;PDF&lt;/strong&gt; (&lt;code&gt;{stam}.mvsa.pdf&lt;/code&gt;). Het script schrijft herkomstinformatie
 (&lt;code&gt;vsa-source-sha256&lt;/code&gt;, &lt;code&gt;vsa-source-kind=mvsa&lt;/code&gt;, &lt;code&gt;vsa-generated-at&lt;/code&gt;) in die
@@ -337,11 +337,11 @@ opgegeven pad). Mappen met &lt;code&gt;artefacten_handmatig: true&lt;/code&gt; e
 &lt;p&gt;Elk spoor vernieuwt alleen wat ontbreekt of waarvan de herkomststempel
 niet meer bij de bron past (tenzij &lt;code&gt;--force&lt;/code&gt;).&lt;/p&gt;</description></item><item><title>vsa-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\vsa-products.cmd&lt;/code&gt; — Coria-&lt;code&gt;.vsa.mxl&lt;/code&gt; en A4-&lt;code&gt;.vsa.pdf&lt;/code&gt; maken bij een
-bibliotheek-&lt;code&gt;.vsa&lt;/code&gt;&lt;/p&gt;
+catalogus-&lt;code&gt;.vsa&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\vsa-products.cmd [pad] [--force] [--dry-run]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Maakt naast een bibliotheek-&lt;code&gt;.vsa&lt;/code&gt; twee siblings:&lt;/p&gt;
+&lt;p&gt;Maakt naast een catalogus-&lt;code&gt;.vsa&lt;/code&gt; twee siblings:&lt;/p&gt;
 &lt;table&gt;
  &lt;thead&gt;
  &lt;tr&gt;
@@ -373,7 +373,7 @@ komt) in &lt;code&gt;::: vsa-notatie&lt;/code&gt; → &lt;code&gt;vsa pdf&lt;/co
 bovenaan komt uit de bladermap-&lt;code&gt;index.md&lt;/code&gt;. Daarna dezelfde
 herkomststempel in de PDF. Zonder PDF blijven &lt;strong&gt;Downloaden&lt;/strong&gt; en
 &lt;strong&gt;Printen&lt;/strong&gt; op VSA-only bladermappen weg.&lt;/p&gt;</description></item><item><title>tekstblad-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/tekstblad-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/tekstblad-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;scripts\tekstblad-products.cmd&lt;/code&gt; — A4-PDF maken bij een bibliotheek-&lt;code&gt;.tekstblad.md&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;scripts\tekstblad-products.cmd&lt;/code&gt; � A4-PDF maken bij een catalogus-&lt;code&gt;.tekstblad.md&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\tekstblad-products.cmd [pad] [--force] [--dry-run]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
@@ -383,7 +383,7 @@ herkomststempel in de PDF. Zonder PDF blijven &lt;strong&gt;Downloaden&lt;/stron
 (&lt;code&gt;vsa-source-sha256&lt;/code&gt;, &lt;code&gt;vsa-source-kind=tekstblad&lt;/code&gt;) zodat &lt;code&gt;check&lt;/code&gt; kan zien
 of de PDF nog bij de bron past.&lt;/p&gt;
 &lt;p&gt;Bestanden in &lt;code&gt;input\&lt;/code&gt; en mappen met &lt;code&gt;artefacten_handmatig: true&lt;/code&gt; worden
-overgeslagen. CI genereert deze PDF’s niet; jij wel lokaal (Chrome of Edge
+overgeslagen. CI genereert deze PDF�s niet; jij wel lokaal (Chrome of Edge
 nodig voor &lt;code&gt;vsa pdf&lt;/code&gt;), daarna bron + PDF samen committen.&lt;/p&gt;</description></item><item><title>ensure-bibliotheek-id</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/ensure-bibliotheek-id/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/ensure-bibliotheek-id/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\ensure-bibliotheek-id.cmd&lt;/code&gt; — catalogus-id in het colofon zetten of controleren&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
@@ -444,13 +444,13 @@ per ongeluk als catalogus-bron geldt:&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;Default: print problemen en eindigt met exitcode 0. Met &lt;code&gt;--fail&lt;/code&gt;: exitcode
 1 als er minstens één probleem is (handig vóór een strenge commit).&lt;/p&gt;</description></item><item><title>oefenhoek-index</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/oefenhoek-index/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/oefenhoek-index/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;scripts\oefenhoek-index.cmd&lt;/code&gt; — SVG-plaatjes uit bibliotheek-&lt;code&gt;.vsa&lt;/code&gt;; optioneel
+&lt;p&gt;&lt;code&gt;scripts\oefenhoek-index.cmd&lt;/code&gt; — SVG-plaatjes uit catalogus-&lt;code&gt;.vsa&lt;/code&gt;; optioneel
 legacy widgets uit &lt;code&gt;index.md&lt;/code&gt; strippen&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\oefenhoek-index.cmd [--dry-run] [--svg] [--verbose]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Met &lt;strong&gt;&lt;code&gt;--svg&lt;/code&gt;&lt;/strong&gt; schrijft dit commando SVG-plaatjes van canonieke
-bibliotheek-&lt;code&gt;.vsa&lt;/code&gt;-bestanden naar &lt;code&gt;static\vsa\bladermap\…&lt;/code&gt;. Shortcode
+catalogus-&lt;code&gt;.vsa&lt;/code&gt;-bestanden naar &lt;code&gt;static\vsa\bladermap\…&lt;/code&gt;. Shortcode
 &lt;code&gt;bieb&lt;/code&gt; toont die plaatjes wanneer er &lt;strong&gt;geen&lt;/strong&gt; basispartituur-&lt;code&gt;.mscz&lt;/code&gt; in
 dezelfde bladermap staat (een &lt;code&gt;.print.mscz&lt;/code&gt; mag wel). Sidecar-bestanden
 &lt;code&gt;*.syl.vsa&lt;/code&gt; worden overgeslagen.&lt;/p&gt;
@@ -492,7 +492,9 @@ zodat de bron geen Hugo-pagina wordt.&lt;/p&gt;</description></item><item><title
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd hernoem &amp;lt;oud-zangstuk&amp;gt; &amp;lt;nieuw-zangstuk&amp;gt; [--dry-run]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Hernoemt één &lt;strong&gt;zangstuk-id&lt;/strong&gt; (de bovenste map onder
-&lt;code&gt;content-source\catalogus\&lt;/code&gt;). Typisch: &lt;code&gt;110-tropaar&lt;/code&gt; → &lt;code&gt;tropaar&lt;/code&gt;.&lt;/p&gt;
+&lt;code&gt;content-source\catalogus\&lt;/code&gt;). Voorbeeld uit de afgeronde hernoem-golf:
+&lt;code&gt;110-tropaar&lt;/code&gt; → &lt;code&gt;tropaar&lt;/code&gt; (die hernoeming is al uitgevoerd; de
+commando’s hieronder zijn ter illustratie).&lt;/p&gt;
 &lt;p&gt;Het script:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Verplaatst de zangstuk-map naar de nieuwe naam.&lt;/li&gt;

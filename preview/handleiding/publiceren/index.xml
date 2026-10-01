@@ -21,10 +21,10 @@ bestand na. (Of plak een volledige regel, zie hieronder.)&lt;/li&gt;
  &lt;/div&gt;
 &lt;/aside&gt;
 
-&lt;p&gt;&lt;strong&gt;Wat je nu doet:&lt;/strong&gt; een klaar oefenbestand &lt;strong&gt;opnemen&lt;/strong&gt; in de catalogus
-(de &lt;strong&gt;bibliotheek&lt;/strong&gt;), zodat de bibliotheek-site het kan tonen. Het script maakt de
+&lt;p&gt;&lt;strong&gt;Wat je nu doet:&lt;/strong&gt; een klaar oefenbestand &lt;strong&gt;opnemen&lt;/strong&gt; in de catalogus,
+zodat de site het kan tonen. Het script maakt de
 mappen en de pagina-bestanden voor je; jij hoeft die niet met de hand te
-typen.&lt;/p&gt;</description></item><item><title>Bibliotheek en koormap</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/publiceren/1-bladermap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/publiceren/1-bladermap/</guid><description>&lt;h1 id="bibliotheek-en-koormap"&gt;Bibliotheek en koormap&lt;/h1&gt;
+typen.&lt;/p&gt;</description></item><item><title>Catalogus en koormap</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/publiceren/1-bladermap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/publiceren/1-bladermap/</guid><description>&lt;h1 id="catalogus-en-koormap"&gt;Catalogus en koormap&lt;/h1&gt;
 &lt;aside class="handleiding-cue"&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
@@ -52,7 +52,7 @@ Deze pagina is de HOW voor publicatiestatus en lokale controle.&lt;/p&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;ol&gt;
-&lt;li&gt;Zet &lt;code&gt;publicatiestatus&lt;/code&gt; op bibliotheek-&lt;code&gt;index.md&lt;/code&gt; &lt;strong&gt;en&lt;/strong&gt; koormap-&lt;code&gt;index.md&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Zet &lt;code&gt;publicatiestatus&lt;/code&gt; op catalogus-&lt;code&gt;index.md&lt;/code&gt; &lt;strong&gt;en&lt;/strong&gt; koormap-&lt;code&gt;index.md&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;scripts\check.cmd --strict&lt;/code&gt; moet groen zijn.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;scripts\serve.cmd --no-build&lt;/code&gt; → http://127.0.0.1:18732/ — klik zelf als koorlid (koormap-slot).&lt;/li&gt;
 &lt;li&gt;Live: pas na groen, via git naar &lt;code&gt;main&lt;/code&gt; (of vragen). &lt;code&gt;productie&lt;/code&gt; niet raden.&lt;/li&gt;
