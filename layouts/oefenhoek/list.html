@@ -1,5 +1,7 @@
 {{ define "main" }}
-<h1>{{ .Title }}</h1>
+<div class="page-title-row">
+  <h1>{{ .Title }}</h1>
+</div>
 {{ partial "oefenhoek-alias.html" . }}
 {{ .Content }}
 {{ end }}

@@ -21,9 +21,6 @@
   }
 
   var groups = document.querySelectorAll(".site-nav-group");
-  if (!groups.length) {
-    return;
-  }
 
   groups.forEach(function (group) {
     group.addEventListener("toggle", function () {
@@ -39,6 +36,9 @@
   document.addEventListener("click", function (event) {
     groups.forEach(function (group) {
       if (group.open && !group.contains(event.target)) group.open = false;
+    });
+    document.querySelectorAll("details.publicatiestatus-tip[open]").forEach(function (tip) {
+      if (!tip.contains(event.target)) tip.open = false;
     });
     syncChromeHeight();
   });

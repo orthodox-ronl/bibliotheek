@@ -1,23 +1,29 @@
-{{/* Publieke publicatiestatus op Oefenhoek-pagina's (frontmatter publicatiestatus). */}}
+{{/* Publicatiestatus als ?-popover bij de paginatitel.
+
+  Alleen op catalogus-/koormap-**leaves** (geen sectie-overzichten),
+  met frontmatter `publicatiestatus`, en niet op hulppagina’s
+  (`vsa_nav_exclude`, o.a. zoeken).
+*/}}
+{{- $bladermap := or (eq .Section "catalogus") (eq .Section "koormappen") -}}
 {{- $raw := .Params.publicatiestatus -}}
-{{- if $raw -}}
+{{- if and $bladermap $raw (not .IsSection) (not .Params.vsa_nav_exclude) -}}
 {{- $key := $raw | lower -}}
 {{- $labels := dict
       "voorzien" "Voorzien"
       "concept" "Concept"
       "reviewable" "Reviewable"
       "productie" "Productie"
--}}
+    -}}
 {{- $meanings := dict
       "voorzien" "Nog geen oefenbare uitgave; gepland."
       "concept" "Eerste versie; er zitten waarschijnlijk fouten in."
       "reviewable" "Zou goed moeten zijn; feedback is welkom."
       "productie" "Bruikbaar als oefenmateriaal; fouten alsnog doorgeven."
--}}
+    -}}
 {{- $label := index $labels $key | default $raw -}}
 {{- $meaning := index $meanings $key | default "" -}}
 {{- $email := site.Params.feedback_email -}}
-{{- $github := site.Params.linksGithub | default "https://github.com/orthodox-ronl/VSA-demo" -}}
+{{- $github := site.Params.linksGithub | default "https://github.com/orthodox-ronl/bibliotheek" -}}
 {{- $pageTitle := .Title -}}
 {{- $pageURL := .Permalink -}}
 {{- $mailSubject := printf "Oefenhoek: %s (%s)" $pageTitle $label -}}
@@ -26,19 +32,20 @@
 {{- $issueBody := printf "Pagina: %s\nAdres: %s\n\nOpmerking:\n" $pageTitle $pageURL -}}
 {{- $mailto := printf "mailto:%s?subject=%s&body=%s" $email ($mailSubject | urlquery) ($mailBody | urlquery) -}}
 {{- $issue := printf "%s/issues/new?title=%s&body=%s" $github ($issueTitle | urlquery) ($issueBody | urlquery) -}}
-<aside class="publicatiestatus" data-publicatiestatus="{{ $key }}">
-  <div class="publicatiestatus-line">
-    <span class="publicatiestatus-label">{{ $label }}</span>
-    <details class="publicatiestatus-help">
-      <summary>Wat betekent dit?</summary>
-      <p>{{ $meaning }}</p>
-    </details>
+<details class="publicatiestatus-tip" data-publicatiestatus="{{ $key }}">
+  <summary
+    class="publicatiestatus-tip-trigger"
+    aria-label="Publicatiestatus: {{ $label }}. Uitleg en feedback."
+    title="Publicatiestatus: {{ $label }}"
+  >?</summary>
+  <div class="publicatiestatus-tip-panel">
+    <p><strong>{{ $label }}:</strong> {{ $meaning }}</p>
+    <p class="publicatiestatus-tip-feedback">
+      Feedback:
+      {{ if $email }}<a href="{{ $mailto }}">e-mail</a>{{ end }}{{ if and $email $github }}
+      ·{{ end }}
+      {{ if $github }}<a href="{{ $issue }}">GitHub-issue</a>{{ end }}
+    </p>
   </div>
-  <p class="publicatiestatus-feedback">
-    Feedback:
-    {{ if $email }}<a href="{{ $mailto }}">e-mail</a>{{ end }}{{ if and $email $github }}
-    ·{{ end }}
-    {{ if $github }}<a href="{{ $issue }}">GitHub-issue</a>{{ end }}
-  </p>
-</aside>
+</details>
 {{- end -}}

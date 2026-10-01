@@ -144,8 +144,9 @@ eerste bron van waarheid bij.
 
 Elke catalogus-`index.md` en `_index.md` (catalogus en koormap) moet de
 regel `publicatiestatus` in de `---` hebben. Handleiding-pagina’s niet.
-`check` faalt hier (nog) niet op; zonder status ontbreekt wel de badge op
-de pagina.
+`check` faalt hier (nog) niet op. Op **leaves** (concrete stukken /
+koormap-slots) verschijnt een `?` naast de titel met uitleg en
+feedbacklinks; op map-overzichten en hulppagina’s (zoals zoeken) niet.
 
 ## Preview op de verkeerde poort
 

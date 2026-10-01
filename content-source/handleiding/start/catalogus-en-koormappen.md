@@ -156,8 +156,10 @@ komt, geef je `default` een echte naam of hernoem je de map.
 
 `scripts\check.cmd` controleert **geen** frontmatter-schema (geen verplichte
 velden, geen capitalisatie van `linkTitle`). Wel verwacht de handleiding die
-velden op elke catalogus- en koormap-pagina. Mis je `publicatiestatus`,
-dan ontbreekt de statusbadge; de build faalt daar niet op.
+velden op elke catalogus- en koormap-pagina. Mis je `publicatiestatus` op
+een **leaf**, dan ontbreekt de `?` naast de titel; de build faalt daar niet
+op. Op sectie-overzichten en hulppagina’s (zoals zoeken) zie je die tip
+niet, ook al staat het veld wel in de frontmatter.
 
 ## Soorten koormap (classificatie)
 

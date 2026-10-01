@@ -1,5 +1,8 @@
 {{ define "main" }}
-<h1>{{ .Title }}</h1>
+<div class="page-title-row">
+  <h1>{{ .Title }}</h1>
+  {{ partial "publicatiestatus.html" . }}
+</div>
 {{ partial "catalogus-id-line.html" . }}
 {{ partial "artefacten-handmatig-banner.html" . }}
 {{ partial "partituur-product-banner.html" . }}

@@ -28,7 +28,9 @@ weight: 30
 - **`bieb accepteer`** = overgang Werkbank → Catalogus (bestand opnemen); zie [Opnemen](/handleiding/werktrajecten/opnemen-in-catalogus/)
 - **Werkbank** = lifecycle pre-productie (`input\`, `_werk\`); zie [Werkbank](/handleiding/start/werkbank/)
 - **Catalogus** (lifecycle) = canonieke bron in `catalogus\…`; zie [Catalogus](/handleiding/start/catalogus/)
-- **publicatiestatus** = wat koorleden op de pagina zien (sticky header); intern *Stap* in de werkvoorraad én lifecycle-fase zijn iets anders
+- **publicatiestatus** = wat koorleden op een catalogus- of koormap-**leaf**
+  mogen verwachten (`?` naast de titel); intern *Stap* in de werkvoorraad én
+  lifecycle-fase zijn iets anders
 {{< /cue >}}
 
 **Wat je nu doet:** dezelfde namen gebruiken als de rest van de keten, zodat
@@ -81,7 +83,7 @@ lettergrepen synchroon met noten. MusicXML: `scripts\opkuisen.cmd`. Bij een
 | **Werkbank** | Lifecycle-fase pre-productie: reserveren, binnenhalen, opkuisen, proefdraaien — [Werkbank](/handleiding/start/werkbank/) |
 | **Catalogus** (lifecycle) | Lifecycle-fase: canonieke bron + producten in `catalogus\…` — [Catalogus](/handleiding/start/catalogus/) |
 | **Levenscyclus** | Case per uitvoeringsvorm door fases; los van `publicatiestatus` — [Levenscyclus](/handleiding/start/levenscyclus/) |
-| **Publicatiestatus** | Op `index.md` in catalogus én koormap: `voorzien`, `reviewable`, `concept`, `productie` (sticky header; niet raden) |
+| **Publicatiestatus** | Op leaf-`index.md` in catalogus én koormap: `voorzien`, `reviewable`, `concept`, `productie` (`?` naast de titel; niet raden) |
 | **artefacten_handmatig** | Frontmatter: afgeleiden in die catalogusmap niet auto; gele banner voor beheerders |
 | **SATB** | Sopraan, alt, tenor, bas — de vier stemmen op één partituur |
 | **Coria** | Online oefenen; knop **Oefenen** bij shortcode `bieb`; heeft een schone `.mxl` nodig |
