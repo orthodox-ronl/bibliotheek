@@ -1,0 +1,51 @@
+---
+description: Interne site-links moeten altijd werken onder elke baseURL (main, preview, branch).
+alwaysApply: true
+---
+
+# Interne links × baseURL
+
+De site draait onder wisselende subdirectory-baseURL’s, o.a.:
+
+- productie: `https://orthodox-ronl.github.io/bibliotheek/`
+- development-preview: `https://orthodox-ronl.github.io/bibliotheek/preview/`
+- branch-previews: `…/bibliotheek/<slug>/`
+- lokaal: `http://127.0.0.1:18732/` (base `/`)
+
+**Eis:** elke link *binnen* de site moet op al die instanties landen op de juiste
+pagina. Geen treffers, knoppen of nav die op preview naar
+`https://orthodox-ronl.github.io/catalogus/…` gaan i.p.v.
+`…/bibliotheek/preview/catalogus/…`.
+
+## Regels
+
+1. **Hardcoded root-paden in HTML/JS/JSON vermijden** als die zonder base
+   in de browser terechtkomen (`href="/catalogus/…"`, `url: "/catalogus/…"` in
+   client-side render, enz.).
+2. **Hugo:** site-absolute paden via `relURL` of
+   [`layouts/partials/internal-link-url.html`](layouts/partials/internal-link-url.html)
+   (markdown-links, shortcodes, templates).
+3. **Client-side / statische indexen:** geef de pagina een `data-base` (pad uit
+   `site.BaseURL`, eindigend op `/`) en resolve index-URL’s daarmee — zie
+   zoekformulier + `static/js/catalogus-zoek.js`. `relURL` op alleen `"/"` is
+   *niet* betrouwbaar onder subdirectory-baseURL.
+4. **Controleren** bij wijzigingen aan navigatie, zoeken, actieknoppen of
+   gegenereerde URL’s: denk expliciet aan preview/branch, niet alleen lokaal.
+
+## Voorbeelden
+
+```html
+<!-- FOUT: breekt op preview/branch -->
+<a href="/catalogus/zoeken/">Zoeken</a>
+
+<!-- GOED -->
+<a href="{{ "catalogus/zoeken/" | relURL }}">Zoeken</a>
+```
+
+```js
+// FOUT: e.url = "/catalogus/…/" rechtstreeks in href
+a.href = e.url;
+
+// GOED: prefix met data-base van het formulier/pagina
+a.href = baseNorm + e.url.replace(/^\//, "");
+```

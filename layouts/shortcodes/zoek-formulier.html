@@ -1,5 +1,16 @@
-{{- /* Zoekformulier + resultatencontainer; data-index via relURL. */ -}}
-<form id="catalogus-zoek-form" class="catalogus-zoek-form" data-index="{{ "zoek/index.json" | relURL }}" action="#" method="get" role="search">
+{{- /* Zoekformulier + resultatencontainer.
+     data-index via relURL; data-base = pad van site.BaseURL (Pages subdirectory),
+     zodat trefferlinks uit de index (/catalogus/…) onder prod/preview blijven. */ -}}
+{{- $basePath := "/" -}}
+{{- with urls.Parse site.BaseURL -}}
+  {{- if .Path -}}
+    {{- $basePath = .Path -}}
+  {{- end -}}
+{{- end -}}
+{{- if not (hasSuffix $basePath "/") -}}
+  {{- $basePath = printf "%s/" $basePath -}}
+{{- end -}}
+<form id="catalogus-zoek-form" class="catalogus-zoek-form" data-index="{{ "zoek/index.json" | relURL }}" data-base="{{ $basePath }}" action="#" method="get" role="search">
   <label for="catalogus-zoek-q">Zoekterm</label>
   <div class="catalogus-zoek-rij">
     <input id="catalogus-zoek-q" name="q" type="search" autocomplete="off" placeholder="bijv. Juich voor God gehele aarde" />
