@@ -7,7 +7,7 @@ weight: 16
 # Werkbank (pre-productie)
 
 De **werkbank** is de lifecycle-fase waarin een uitvoeringsvorm nog
-**niet** (of alleen als lege stub) als canonieke bron in de bibliotheek
+**niet** (of alleen als lege stub) als canonieke bron in de catalogus
 staat. Hier reserveer je een id, haal je materiaal binnen, kuis je op,
 layout je, en proefdraai je. Overzicht: [Levenscyclus](levenscyclus/).
 
@@ -27,9 +27,9 @@ layout je, en proefdraai je. Overzicht: [Levenscyclus](levenscyclus/).
 | `input\_inbox\` | Nee | Brievenbus; nog niet gekozen als te bewaren bron |
 | `input\capella\` / `vow\` / `musescore\` / `musicxml\` / `pdf\` | Ja | Ruwe herkomst; **originele bestandsnaam** (spaties mag) |
 | `input\_werk\<stam>\` | Nee | Tussenproducten (opgekuiste `.mxl`, layout-`.mscz`, proeven) |
-| `bibliotheek\…\` met `--stub` | Ja | Alleen gereserveerd id / lege pagina (`voorzien`) |
+| `catalogus\…\` met `--stub` | Ja | Alleen gereserveerd id / lege pagina (`voorzien`) |
 
-Geen canonieke oefenbron onder `bibliotheek\` in deze fase — behalve een
+Geen canonieke oefenbron onder `catalogus\` in deze fase — behalve een
 bewuste stub. Zie [Waar ligt wat](waar-ligt-wat/).
 
 ## Toegestane bestanden (werkbank)
@@ -74,8 +74,8 @@ blijven herkomst.
 
 Je mag overgaan als **alle** punten kloppen:
 
-1. **Doel-id** is een geldig bibliotheek-id (drie lagen); zie
-   [Id-register](/bibliotheek/id-register/) — niet verzinnen.
+1. **Doel-id** is een geldig catalogus-id (drie lagen); zie
+   [Id-register](/catalogus/id-register/) — niet verzinnen.
 2. Er is een **bruikbaar bronbestand**: basispartituur-`.mscz`, `.vsa`,
    `.mvsa`, handmatig `.mscz` (later `artefacten_handmatig`), of
    `.tekstblad.md` — geen kale ongekuiste `.mxl` / `.capx`.
@@ -95,14 +95,14 @@ bieb accepteer
 Daarna fase [Catalogus](catalogus/): producten maken en
 `scripts\check.cmd --strict`.
 
-HOW: [Opnemen in de bibliotheek](../publiceren/1-opnemen-in-bibliotheek/).
-Werktraject: [Opnemen](../werktrajecten/opnemen-in-bibliotheek/).
+HOW: [Opnemen in de catalogus](../publiceren/1-opnemen-in-catalogus/).
+Werktraject: [Opnemen](../werktrajecten/opnemen-in-catalogus/).
 
 ## Overzicht op de site
 
-- Special page: [Werkbank](/bibliotheek/speciaal/werkbank/)
+- Special page: [Werkbank](/catalogus/speciaal/werkbank/)
 - Uitklapbare tabel: werkvoorraad onderaan het
-  [bibliotheek-overzicht](/bibliotheek/)
+  [catalogus-overzicht](/catalogus/)
 
 ## Klaar als
 

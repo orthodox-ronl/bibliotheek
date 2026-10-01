@@ -17,7 +17,7 @@ import sys
 from pathlib import Path
 
 from coria_mxl import load_score_xml, require_no_spaces, write_mxl
-from ensure_bibliotheek_id import id_from_bibliotheek_path
+from ensure_bibliotheek_id import id_from_catalogus_path
 from product_meta import (
     FIELD_SOURCE_KIND,
     FIELD_SOURCE_SHA,
@@ -34,7 +34,7 @@ from sync_import_mvsa import is_import_mvsa
 from sync_vsa_products import folder_is_handmatig
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_ROOT = REPO_ROOT / "content-source" / "bibliotheek"
+DEFAULT_ROOT = REPO_ROOT / "content-source" / "catalogus"
 
 
 def _running_in_ci() -> bool:
@@ -134,7 +134,7 @@ def sync_one(
     generated_at = utc_now_iso()
     mxl = product_mxl_for_mvsa(mvsa)
     pdf = product_pdf_for_mvsa(mvsa)
-    bib = id_from_bibliotheek_path(mvsa)
+    bib = id_from_catalogus_path(mvsa)
 
     if need_mxl:
         print(f"  MXL  {rel} -> {mxl.name}", flush=True)
@@ -170,6 +170,13 @@ def sync_one(
 
 
 def main(argv: list[str] | None = None) -> int:
+    from product_regen import (
+        add_regen_arguments,
+        mxl_contract_ok,
+        need_regen,
+        policy_from_args,
+    )
+
     parser = argparse.ArgumentParser(
         description="Exporteer stale Coria-.mxl + PDF vanuit bibliotheek-.mvsa."
     )
@@ -178,25 +185,39 @@ def main(argv: list[str] | None = None) -> int:
         nargs="?",
         type=Path,
         default=DEFAULT_ROOT,
-        help="Zoekroot (default: content-source/bibliotheek)",
+        help="Zoekroot (default: content-source/catalogus)",
     )
-    parser.add_argument("--dry-run", action="store_true")
-    parser.add_argument(
-        "--force",
-        action="store_true",
-        help="Ook exporteren als producten al bij de bron passen",
-    )
+    add_regen_arguments(parser)
     args = parser.parse_args(argv)
+    policy = policy_from_args(args)
     root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
     sources = collect_mvsa(root)
     todo: list[tuple[Path, bool, bool]] = []
     for mvsa in sources:
-        if args.force:
-            todo.append((mvsa, True, True))
-        else:
-            need_mxl, need_pdf = is_stale(mvsa)
-            if need_mxl or need_pdf:
-                todo.append((mvsa, need_mxl, need_pdf))
+        digest = source_sha256(mvsa)
+        mxl = product_mxl_for_mvsa(mvsa)
+        pdf = product_pdf_for_mvsa(mvsa)
+        mxl_exists = mxl.is_file()
+        mxl_stamp_ok = _stamp_ok_mxl(mxl, digest)
+        contract = (
+            mxl_contract_ok(mxl, profile="satb")
+            if policy.invalid and mxl_exists
+            else None
+        )
+        need_mxl = need_regen(
+            policy,
+            exists=mxl_exists,
+            stamp_ok=mxl_stamp_ok,
+            contract_ok=contract,
+        )
+        need_pdf = need_regen(
+            policy,
+            exists=pdf.is_file(),
+            stamp_ok=_stamp_ok_pdf(pdf, digest),
+            contract_ok=None,
+        )
+        if need_mxl or need_pdf:
+            todo.append((mvsa, need_mxl, need_pdf))
     if not todo:
         print(f"MVSA-producten up-to-date ({len(sources)} .mvsa)", flush=True)
         return 0

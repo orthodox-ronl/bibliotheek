@@ -1,12 +1,12 @@
 {{- /*
-  Sticky broodkruimels vanaf sectieroots bibliotheek / koormappen / handleiding.
-  Sectie via .Section (niet RelPermalink): op Pages zit /bibliotheek/ in de
+  Sticky broodkruimels vanaf sectieroots catalogus / koormappen / handleiding.
+  Sectie via .Section (niet RelPermalink): op Pages zit /catalogus/ in de
   baseURL (/preview/), waardoor string-match op RelPermalink vals positief is.
   Publicatiestatus hoort NIET hier (die staat in main, niet sticky).
 */ -}}
 {{- $root := false -}}
 {{- $sec := .Section -}}
-{{- if in (slice "bibliotheek" "koormappen" "handleiding") $sec -}}
+{{- if in (slice "catalogus" "koormappen" "handleiding") $sec -}}
   {{- with site.GetPage (printf "/%s" $sec) -}}
     {{- $root = . -}}
   {{- end -}}

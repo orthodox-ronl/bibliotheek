@@ -26,7 +26,7 @@ from product_meta import (
 from sync_vsa_products import folder_is_handmatig
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_ROOT = REPO_ROOT / "content-source" / "bibliotheek"
+DEFAULT_ROOT = REPO_ROOT / "content-source" / "catalogus"
 
 _STAMP_PREFIX = "# vsa-"
 
@@ -123,7 +123,9 @@ def sync_one(source: Path, *, dry_run: bool) -> None:
     lyrics.write_text(header + body, encoding="utf-8", newline="\n")
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    from product_regen import add_regen_arguments, need_regen, policy_from_args
+
     parser = argparse.ArgumentParser(
         description="Genereer stale .lyrics.txt naast bibliotheek-.vsa/.mvsa."
     )
@@ -132,19 +134,11 @@ def main() -> int:
         nargs="?",
         type=Path,
         default=DEFAULT_ROOT,
-        help="Map onder content-source/bibliotheek (default: hele bibliotheek).",
+        help="Map onder content-source/catalogus (default: hele bibliotheek).",
     )
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Toon wat zou worden geschreven, zonder te schrijven.",
-    )
-    parser.add_argument(
-        "--force",
-        action="store_true",
-        help="Schrijf alle lyrics opnieuw, ook als de stamp nog klopt.",
-    )
-    args = parser.parse_args()
+    add_regen_arguments(parser)
+    args = parser.parse_args(argv)
+    policy = policy_from_args(args)
     root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
     if not root.exists():
         print(f"Pad niet gevonden: {root}", file=sys.stderr)
@@ -158,7 +152,14 @@ def main() -> int:
     n = 0
     for source in sources:
         lyrics = product_path_for_source(source)
-        if not args.force and not is_stale(source, lyrics):
+        exists = lyrics.is_file()
+        stamp_ok = (not is_stale(source, lyrics)) if exists else False
+        if not need_regen(
+            policy,
+            exists=exists,
+            stamp_ok=stamp_ok,
+            contract_ok=None,
+        ):
             continue
         sync_one(source, dry_run=args.dry_run)
         n += 1

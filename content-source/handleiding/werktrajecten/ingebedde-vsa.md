@@ -6,7 +6,7 @@ weight: 70
 
 # Ingebedde VSA
 
-Dit werktraject betreft **VSA buiten** de oefenhoek-bibliotheek: notatie
+Dit werktraject betreft **VSA buiten** de catalogus: notatie
 in gewone content-pagina’s (demo’s, feesteigen, samenstellingen,
 handleidingen). De site-build maakt daar SVG (en optioneel MusicXML)
 onder `static\vsa\`.
@@ -15,14 +15,14 @@ onder `static\vsa\`.
 Zet `::: vsa-notatie` … `:::` of een `.vsa`-include in een markdownpagina
 onder `content-source`. Draai daarna `scripts\check.cmd` of
 `scripts\build.cmd` — de pipeline doet `vsa build-markdown` en
-`vsa musicxml`. Dit is **geen** bibliotheek-`{stam}.vsa.mxl`.
+`vsa musicxml`. Dit is **geen** catalogus-`{stam}.vsa.mxl`.
 {{< /cue >}}
 
 ## Waartoe
 
 Je wilt VSA tonen op een pagina die geen bladermap onder
-`bibliotheek\` is — bijvoorbeeld een samenstelling of de
-Tooling Demo — zonder `bieb` en zonder bibliotheek-id.
+`catalogus\` is — bijvoorbeeld een samenstelling of de
+Tooling Demo — zonder `bieb` en zonder catalogus-id.
 
 ## Eindresultaat en criteria
 
@@ -34,20 +34,20 @@ Tooling Demo — zonder `bieb` en zonder bibliotheek-id.
 **Klaar** als: de pagina de SVG toont na build; `vsa validate` /
 `validate_content` stil is voor die bronnen.
 
-Dit vervangt **niet** sibling `{stam}.vsa.mxl` in de bibliotheek (dat is
+Dit vervangt **niet** sibling `{stam}.vsa.mxl` in de catalogus (dat is
 [VSA](../vsa/)).
 
 ## Wanneer wel / wanneer niet
 
 | Wel | Niet |
 | --- | --- |
-| Demo, feesteigen, samenstelling, handleiding | bibliotheek-bibliotheek-uitvoeringsvorm → [VSA](../vsa/) + `bieb` |
+| Demo, feesteigen, samenstelling, handleiding | catalogus-uitvoeringsvorm → [VSA](../vsa/) + `bieb` |
 | Inline `::: vsa-notatie` of include van een `.vsa` | Alleen een A4-PDF uit markdown → [Markdown naar PDF](../markdown-naar-pdf/) |
 
 ## Volgorde (bestanden)
 
 1. Schrijf markdown onder `content-source` (buiten
-   `bibliotheek\…` als bladermap), met VSA-blokken of includes.
+   `catalogus\…` als bladermap), met VSA-blokken of includes.
 2. Bouw de site (of laat `check` de generate-stap doen):
 
 ```cmd

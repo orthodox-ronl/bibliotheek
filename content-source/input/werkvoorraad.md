@@ -6,7 +6,7 @@ heen, hoever is de conversie.
 
 De **tabel** hieronder wordt bij `check` / `build` / `serve` opnieuw opgebouwd
 uit de bestanden in `capella/`, `vow/`, `musescore/`, `musicxml/` en `pdf/`.
-Zet **doel-id** (bibliotheek-id) en **notitie** zelf in de rij als de
+Zet **doel-id** (catalogus-id) en **notitie** zelf in de rij als de
 automatische match ze niet kent; die velden worden bij een update bewaard.
 Stap en volgende actie komen van wat er op schijf staat (bibliotheek-map mét
 partituur of VSA, of nog niet).
@@ -19,7 +19,7 @@ ná de lijst met deelrubrieken.
 | Kolom | Betekenis |
 | --- | --- |
 | Input | Pad vanaf `input/` (herkomstmap + originele bestandsnaam) |
-| Doel-id | Bibliotheek-id `zangstuk/variant/uitvoeringsvorm` (`[a-z0-9_-]+` per laag). Leeg = nog niet gekozen. Oude bladermap-namen worden genormaliseerd. |
+| Doel-id | Catalogus-id `zangstuk/variant/uitvoeringsvorm` (`[a-z0-9_-]+` per laag). Leeg = nog niet gekozen. Oude bladermap-namen worden genormaliseerd. |
 | Koormap | Slot in de liturgiemap (of leeg). Los van de bibliotheek-map. |
 | Doelvorm | Meestal `.mscz` (oefenhoek-layout); soms `.vsa` |
 | Stap | Hoever de input is (zie hieronder) |
@@ -31,15 +31,15 @@ ná de lijst met deelrubrieken.
 | Stap | Betekenis |
 | --- | --- |
 | `ontvangen` | Input ligt hier; conversie nog niet klaar of doel-id ontbreekt |
-| `doel-id` | (in *Volgende*) eerst een bibliotheek-id kiezen |
+| `doel-id` | (in *Volgende*) eerst een catalogus-id kiezen |
 | `opkuisen` | Inhoud opschonen: Capella via `cleanup_capella_mxl.py`; bij `.mscz` ook stemmen/lettergrepen in MuseScore |
 | `layout` | Normaliseren / layouten: `apply_mscz_layout.py` → standaard-`.mscz` |
 | `playback` | Coria-`.mxl` uit die `.mscz` |
 | `pdf` | A4-PDF naast de `.mscz` |
-| `gepubliceerd` | Er staat al oefenbare inhoud in de bibliotheek (basispartituur, VSA, print-PDF, …) |
+| `gepubliceerd` | Er staat al oefenbare inhoud in de catalogus (basispartituur, VSA, print-PDF, …) |
 
 `publicatiestatus` (`voorzien` / `concept` / `reviewable` / `productie`) staat
-op bibliotheek-`index.md` en koormap-`index.md`, voor koorleden. Deze tabel is
+op catalogus-`index.md` en koormap-`index.md`, voor koorleden. Deze tabel is
 voor wie converteert.
 
 <!-- werkvoorraad-tabel:begin -->
@@ -49,16 +49,16 @@ voor wie converteert.
 | `capella/15c - cherubijnenhymne - kastorski.mxl` | `cherubijnenhymne/15c-kastorski/hemelum` | `cherubijnenhymne/15c-kastorski` | `.mscz` | gepubliceerd | — | gepubliceerd |
 | `capella/15c - cherubijnenhymne - kastorskij - ksl.mxl` | `cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` |  | `.mscz` | ontvangen | opkuisen | Kerkslavisch getranslitereerd |
 | `capella/15e Cherubijnenhymne Bortnjanski no.5.mxl` | `cherubijnenhymne/15e-bortnjanski/hemelum` | `cherubijnenhymne/15e-bortnjanski` | `.mscz` | gepubliceerd | — | Capella 15e |
-| `capella/19a - eucharistische kanon - feofan.mxl` | `19-eucharistische-canon/19a-feofan/hemelum` | `19a-eucharistische-kanon` | `.mscz` | gepubliceerd | — | gepubliceerd |
-| `capella/2 - 1e antifoon.mxl` | `2-eerste-antifoon/zondag/hemelum` | `2-eerste-antifoon` | `.mscz` | gepubliceerd | — |  |
-| `capella/20d - in waarheid - moeder godslied.mxl` | `20-moeder-godslied/20d-in-waarheid/hemelum` | `20d-in-waarheid-moeder-godslied` | `.mscz` | gepubliceerd | — | gepubliceerd |
-| `capella/28a - wij hebben het ware licht aanschouwd.mxl` | `28-wij-hebben-het-ware-licht/default/hemelum` | `28-wij-hebben-het-ware-licht` | `.mscz` | gepubliceerd | — |  |
-| `capella/29 - de naam des heren zij gezegend.mxl` | `29-de-naam-des-heren-zij-gezegend/default/hemelum` | `29-de-naam-des-heren-zij-gezegend` | `.mscz` | gepubliceerd | — |  |
-| `capella/4 - 2e antifoon.mxl` | `4-tweede-antifoon/zondag/hemelum` | `4-tweede-antifoon` | `.mscz` | gepubliceerd | — |  |
-| `capella/5a Eniggeboren Zoon.mxl` | `5-eniggeboren-zoon/default/hemelum` | `5-eniggeboren-zoon` | `.mscz` | gepubliceerd | — |  |
-| `capella/6b - zaligsprekingen.mxl` | `6-derde-antifoon/zondag/hemelum` | `6-derde-antifoon` | `.mscz` | gepubliceerd | — |  |
-| `capella/7 - kleine intocht - zondag.mxl` | `7-kleine-intocht/zondag/hemelum` | `7-kleine-intocht` | `.mscz` | gepubliceerd | — | zelfde koormap-sectie als 7b |
-| `capella/7b - kleine intocht - weekdagen.mxl` | `7-kleine-intocht/weekdagen/hemelum` | `7-kleine-intocht` | `.mscz` | gepubliceerd | — | zelfde koormap-sectie als 7 |
+| `capella/19a - eucharistische kanon - feofan.mxl` | `eucharistische-canon/19a-feofan/hemelum` | `19a-eucharistische-kanon` | `.mscz` | gepubliceerd | — | gepubliceerd |
+| `capella/2 - 1e antifoon.mxl` | `eerste-antifoon/zondag/hemelum` | `eerste-antifoon` | `.mscz` | gepubliceerd | — |  |
+| `capella/20d - in waarheid - moeder godslied.mxl` | `moeder-godslied/20d-in-waarheid/hemelum` | `20d-in-waarheid-moeder-godslied` | `.mscz` | gepubliceerd | — | gepubliceerd |
+| `capella/28a - wij hebben het ware licht aanschouwd.mxl` | `wij-hebben-het-ware-licht/default/hemelum` | `wij-hebben-het-ware-licht` | `.mscz` | gepubliceerd | — |  |
+| `capella/29 - de naam des heren zij gezegend.mxl` | `de-naam-des-heren-zij-gezegend/default/hemelum` | `de-naam-des-heren-zij-gezegend` | `.mscz` | gepubliceerd | — |  |
+| `capella/4 - 2e antifoon.mxl` | `tweede-antifoon/zondag/hemelum` | `tweede-antifoon` | `.mscz` | gepubliceerd | — |  |
+| `capella/5a Eniggeboren Zoon.mxl` | `eniggeboren-zoon/default/hemelum` | `eniggeboren-zoon` | `.mscz` | gepubliceerd | — |  |
+| `capella/6b - zaligsprekingen.mxl` | `derde-antifoon/zondag/hemelum` | `derde-antifoon` | `.mscz` | gepubliceerd | — |  |
+| `capella/7 - kleine intocht - zondag.mxl` | `kleine-intocht/zondag/hemelum` | `kleine-intocht` | `.mscz` | gepubliceerd | — | zelfde koormap-sectie als 7b |
+| `capella/7b - kleine intocht - weekdagen.mxl` | `kleine-intocht/weekdagen/hemelum` | `kleine-intocht` | `.mscz` | gepubliceerd | — | zelfde koormap-sectie als 7 |
 | `capella/8a - trisagion (+slav).mxl` | `trisagion/8a-slav/hemelum` |  | `.mscz` | gepubliceerd | — |  |
 | `capella/8a - trisagion.mxl` | `trisagion/8a-nederlands/hemelum` |  | `.mscz` | gepubliceerd | — |  |
 | `musescore/15b CherubijneCherubijnenhymne Fatejev.musicxml` |  |  | `.mscz` | ontvangen | doel-id |  |
@@ -85,10 +85,10 @@ voor wie converteert.
 | `vow/Cherubijnenlied-Kastorskij.mscz` | `cherubijnenhymne/15c-kastorski/hemelum` | `cherubijnenhymne/15c-kastorski` | `.mscz` | gepubliceerd | — | tweede bron (VOW); Capella is canonieke basispartituur |
 | `vow/dankzegging_toon_2_Kyiv.mscz` |  |  | `.mscz` | ontvangen | doel-id | zie ID-REGISTER OPEN 7 |
 | `vow/eind-liturgie.mscz` |  |  | `.mscz` | ontvangen | doel-id | zie ID-REGISTER OPEN 7 |
-| `vow/Eucharistische Canon-Rostov.mscz` | `19-eucharistische-canon/rostov/hemelum` |  | `.mscz` | ontvangen | layout | sibling van 19a-feofan |
-| `vow/Kleine_intocht-moedergods.mscz` | `7-kleine-intocht/moeder-gods/hemelum` | `7-kleine-intocht` | `.mscz` | ontvangen | migratie |  |
-| `vow/Kleine_intocht-weekdagen.mscz` | `7-kleine-intocht/weekdagen/hemelum` | `7-kleine-intocht` | `.mscz` | gepubliceerd | — | tweede bron (VOW) |
-| `vow/Kleine_intocht-zondag.mscz` | `7-kleine-intocht/zondag/hemelum` | `7-kleine-intocht` | `.mscz` | gepubliceerd | — | tweede bron (VOW) |
+| `vow/Eucharistische Canon-Rostov.mscz` | `eucharistische-canon/rostov/hemelum` |  | `.mscz` | ontvangen | layout | sibling van 19a-feofan |
+| `vow/Kleine_intocht-moedergods.mscz` | `kleine-intocht/moeder-gods/hemelum` | `kleine-intocht` | `.mscz` | ontvangen | migratie |  |
+| `vow/Kleine_intocht-weekdagen.mscz` | `kleine-intocht/weekdagen/hemelum` | `kleine-intocht` | `.mscz` | gepubliceerd | — | tweede bron (VOW) |
+| `vow/Kleine_intocht-zondag.mscz` | `kleine-intocht/zondag/hemelum` | `kleine-intocht` | `.mscz` | gepubliceerd | — | tweede bron (VOW) |
 | `vow/Tropaar-opstanding-toon1.mscz` |  |  | `.mscz` | ontvangen | doel-id | voorlopig laten zitten |
 | `vow/Tropaar-opstanding-toon2.mscz` |  |  | `.mscz` | ontvangen | doel-id | voorlopig laten zitten |
 | `vow/Tropaar-opstanding-toon3.mscz` |  |  | `.mscz` | ontvangen | doel-id | voorlopig laten zitten |
@@ -104,7 +104,7 @@ voor wie converteert.
 
 ### Nieuwe input
 
-1. Niet in bibliotheek of koormap zetten. Eerst `input/<herkomst>/` (of lokaal `_inbox/` tot je zeker weet dat je hem bewaart).
+1. Niet in catalogus of koormap zetten. Eerst `input/<herkomst>/` (of lokaal `_inbox/` tot je zeker weet dat je hem bewaart).
 2. Originele bestandsnaam laten staan.
 3. Sitebuild draaien of `python scripts/update_werkvoorraad.py`: er komt een rij. Doel-id leeg? Invullen of vragen; niet gokken.
 4. Notitie gebruiken voor “tweede bron”, “zelfde koormap-slot als …”, open vragen.
@@ -116,8 +116,8 @@ Tussenproducten in `_werk/`, origineel blijft in `capella/`.
 1. `cleanup_capella_mxl.py` → opgekuiste `.mxl` zonder spaties in de naam.
 2. MuseScore-import + `apply_mscz_layout.py` → standaard-`.mscz`.
 3. `export_mscz_coria_mxl.py` → playback-`.mxl`; PDF uit dezelfde `.mscz`.
-4. Bestanden in `oefenhoek/bibliotheek/<zangstuk>/<variant>/<uitvoeringsvorm>/` plus bibliotheek-`index.md`; koormap-slot met `bieb`.
-5. `publicatiestatus: reviewable` op bibliotheek én koormap als er oefenbare inhoud in staat, anders `voorzien`.
+4. Bestanden in `catalogus/<zangstuk>/<variant>/<uitvoeringsvorm>/` plus catalogus-`index.md`; koormap-slot met `bieb`.
+5. `publicatiestatus: reviewable` op catalogus én koormap als er oefenbare inhoud in staat, anders `voorzien`.
 6. `check --strict`.
 
 **Copyright:** alleen wat in *deze* Capella-`.mxl` staat. Geen notice → geen

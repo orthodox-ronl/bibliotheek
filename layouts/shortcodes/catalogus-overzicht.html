@@ -1,0 +1,24 @@
+{{- /*
+  Root-overzicht: alleen linkbare zangstukken, op Weight (liturgienummer).
+*/ -}}
+{{- $root := site.GetPage "/catalogus" -}}
+{{- $items := slice -}}
+{{- with $root -}}
+  {{- range .Sections -}}
+    {{- if ne .File.ContentBaseName "speciaal" -}}
+      {{- if partial "oefenhoek-linkbaar.html" . -}}
+        {{- $items = $items | append . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $items = sort $items "Weight" -}}
+{{- if $items -}}
+<ul class="page-list catalogus-overzicht">
+  {{- range $items -}}
+  <li><a href="{{ .RelPermalink }}">{{ or .Params.linkTitle .Title }}</a></li>
+  {{- end -}}
+</ul>
+{{- else -}}
+<p class="catalogus-overzicht-leeg">Nog geen oefenbare uitvoeringsvormen in de catalogus.</p>
+{{- end -}}

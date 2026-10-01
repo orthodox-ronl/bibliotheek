@@ -12,7 +12,7 @@ Werkt nu concreet voor **tropaar toon 4** (corpus `T4-01` … `T4-12`). In `VSA-
 cd /d C:\Git\orthodox-ronl\VSA-tooling
 python scripts\render_tropaar_toon4_corpus.py --id T4-11 --pdf
 ```
-Kopieer het resultaat naar de bibliotheek-site-bibliotheek als **print-vel** +
+Kopieer het resultaat naar de catalogus-site-bibliotheek als **print-vel** +
 handmatige artefacten (zie stap 5), niet als automatische basispartituur.
 {{< /cue >}}
 
@@ -70,20 +70,20 @@ python scripts\render_tropaar_toon4_corpus.py --id T4-11 --pdf
 
    naast de `.vsa`: `.mscz`, `.mxl`, en met `--pdf` ook `.pdf`.
 
-5. Kopieer naar de bibliotheek (voorbeeld Nikolaas:
-   `bibliotheek\tropaar-nikolaas-van-myra\liturgikon\hemelum\`).
+5. Kopieer naar de catalogus (voorbeeld Nikolaas:
+   `catalogus\tropaar-nikolaas-van-myra\liturgikon\hemelum\`).
    Bestandsnamen **zonder spaties**. Voor dit soort template-blad:
 
    - hernoem de `.mscz` naar `{stam}.print.mscz` (buiten basispartituur-pijplijn);
    - houd PDF en Coria-`.mxl` handmatig bij naast die print;
-   - zet op bibliotheek-`index.md` `artefacten_handmatig: true`
+   - zet op catalogus-`index.md` `artefacten_handmatig: true`
      (gele beheerdersbanner; `vsa-products` en partituur-publicatiecontrole laten de map met rust);
    - de eenstemmige `.vsa` mag ernaast blijven staan voor de notatie
      (SVG via `scripts\oefenhoek-index.cmd --svg` / volle
      `check`; zie [.vsa schrijven](../1-vsa-schrijven/)).
 
    Daarna koormap-slot via
-   [Bibliotheek en koormap](../../publiceren/1-bladermap/). Print-details:
+   [Catalogus en koormap](../../publiceren/1-bladermap/). Print-details:
    [Print-.mscz](../../partituur/7-print-mscz/).
 
 6. Fout `TemplateInstanceError`: de VSA-sopraan landt niet op de formule
@@ -96,9 +96,9 @@ niet even tussendoor. Dat is een andere taak, in VSA-tooling.
 
 ## Klaar als
 
-In de bibliotheek liggen `{stam}.print.mscz`, handmatige PDF/MXL en de
+In de catalogus liggen `{stam}.print.mscz`, handmatige PDF/MXL en de
 `.vsa`, met `artefacten_handmatig: true` op de `index.md`. MuseScore toont
 SATB; de preview (koormap-slot) heeft PDF plus **Oefenen** / **Downloaden**
 waar je die bestanden hebt neergezet.
 
-{{< navbuttons "Volgende: bibliotheek en koormap|/handleiding/publiceren/1-bladermap/" >}}
+{{< navbuttons "Volgende: catalogus en koormap|/handleiding/publiceren/1-bladermap/" >}}

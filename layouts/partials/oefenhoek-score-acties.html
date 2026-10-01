@@ -1,15 +1,15 @@
 {{- /*
-  Oefenen / Downloaden / Printen voor één score-pagina (bibliotheek-uitvoeringsvorm).
+  Oefenen / Downloaden / Printen voor één score-pagina (catalogus-uitvoeringsvorm).
   Context: dict "score" (Page met PDF/MXL), optioneel "viewer" (pagina waar de
-  shortcode staat — bepaalt knopkleur bibliotheek vs koormap), optioneel "position".
+  shortcode staat — bepaalt knopkleur catalogus vs koormap), optioneel "position".
 
-  Geen Bibliotheek/Koormap-knop: navigatie zit in oefenhoek-header.
+  Geen Catalogus/Koormap-knop: navigatie zit in oefenhoek-header.
 */ -}}
 {{- $score := .score -}}
 {{- $viewer := or .viewer $score -}}
 {{- $loc := partial "diag-location.html" (dict "position" .position "page" $viewer) -}}
 {{- if $score -}}
-{{- $inBibliotheek := eq $viewer.Section "bibliotheek" -}}
+{{- $inCatalogus := eq $viewer.Section "catalogus" -}}
 {{- $hasBasispartituur := false -}}
 {{- range $score.Resources.Match "*.mscz" -}}
   {{- if not (strings.HasSuffix (lower .Name) ".print.mscz") -}}
@@ -173,25 +173,22 @@
   {{- end -}}
 {{- end -}}
 {{- $audioMenu := $audioPreferred | append $audioOther -}}
-{{- /* Bronbestanden (alleen op bibliotheek-pagina's): .mvsa / .mscz / .vsa. */ -}}
+{{- /* Bronbestanden (alleen op catalogus-pagina's): .mvsa / .vsa tonen als tekst.
+     Alleen-.mscz: geen Bronnen-knop (die bron is niet als tekst te lezen). */ -}}
 {{- $bronMenu := slice -}}
-{{- if $inBibliotheek -}}
+{{- if $inCatalogus -}}
   {{- $bronItems := slice -}}
   {{- range $score.Resources.Match "*.mvsa" -}}
     {{- if not (strings.HasSuffix (lower .Name) ".mscz.mvsa") -}}
       {{- $meta := partial "product-representatie-label.html" (dict "name" .Name "score" $score) -}}
-      {{- $bronItems = $bronItems | append (dict "href" .RelPermalink "label" $meta.label "detail" $meta.detail "id" $meta.id "download" true) -}}
-    {{- end -}}
-  {{- end -}}
-  {{- range $score.Resources.Match "*.mscz" -}}
-    {{- if not (strings.HasSuffix (lower .Name) ".print.mscz") -}}
-      {{- $meta := partial "product-representatie-label.html" (dict "name" .Name "score" $score) -}}
-      {{- $bronItems = $bronItems | append (dict "href" .RelPermalink "label" $meta.label "detail" $meta.detail "id" $meta.id "download" true) -}}
+      {{- $extra := printf "data-bron-href=%q data-bron-key=%q" .RelPermalink .Name -}}
+      {{- $bronItems = $bronItems | append (dict "href" .RelPermalink "label" $meta.label "detail" $meta.detail "id" $meta.id "class" "score-bron-show" "extra" $extra) -}}
     {{- end -}}
   {{- end -}}
   {{- range $score.Resources.Match "*.vsa" -}}
     {{- $meta := partial "product-representatie-label.html" (dict "name" .Name "score" $score) -}}
-    {{- $bronItems = $bronItems | append (dict "href" .RelPermalink "label" $meta.label "detail" $meta.detail "id" $meta.id "download" true) -}}
+    {{- $extra := printf "data-bron-href=%q data-bron-key=%q" .RelPermalink .Name -}}
+    {{- $bronItems = $bronItems | append (dict "href" .RelPermalink "label" $meta.label "detail" $meta.detail "id" $meta.id "class" "score-bron-show" "extra" $extra) -}}
   {{- end -}}
   {{- $bronPreferred := slice -}}
   {{- $bronOther := slice -}}
@@ -214,14 +211,16 @@
 {{- $hasBron := gt (len $bronMenu) 0 -}}
 {{- if or $hasOefenen $hasPdf $hasAudio $hasBron -}}
 {{- $wrapClass := "score-actions oefenhoek-acties" -}}
-{{- if $inBibliotheek -}}
-  {{- $wrapClass = printf "%s oefenhoek-acties--bibliotheek" $wrapClass -}}
+{{- if $inCatalogus -}}
+  {{- $wrapClass = printf "%s oefenhoek-acties--catalogus" $wrapClass -}}
 {{- end -}}
 {{- $oefenHelp := "Speel mee in Coria: stemmen kiezen, tempo en meelezen op de partituur. Dit is bedoeld om echt te oefenen." -}}
 {{- $audioHelp := "Geeft een idee van hoe het lied klinkt. Niet bedoeld om volledig mee te oefenen — daarvoor gebruik je Oefenen." -}}
 {{- $downloadHelp := "Download het PDF-blad om te bewaren of later te printen." -}}
 {{- $printHelp := "Open of print het PDF-blad direct." -}}
-{{- $bronHelp := "Meer voor beheerders dan voor zangers: hier download je de bronbestanden (.mvsa, .mscz, .vsa), niet het koorblad." -}}
+{{- $bronHelp := "Meer voor beheerders dan voor zangers: toont de feitelijke tekst van een .vsa- of .mvsa-bronbestand (niet de gerenderde partituur). Downloaden en Printen gelden dan voor die brontekst. Terug naar de partituur: opnieuw op Bronnen / Partituur." -}}
+{{- $bronDownloadHelp := "Download het getoonde .vsa- of .mvsa-bronbestand." -}}
+{{- $bronPrintHelp := "Print de getoonde brontekst." -}}
 {{- $oefenHint := "" -}}
 {{- if gt (len $oefenMenu) 1 -}}
   {{- $oefenHint = "Kies de versie die past bij het blad waarmee je meezingt." -}}
@@ -236,14 +235,24 @@
 {{- end -}}
 {{- $bronHint := "" -}}
 {{- if gt (len $bronMenu) 1 -}}
-  {{- $bronHint = "Kies welk bronbestand je wilt downloaden." -}}
+  {{- $bronHint = "Kies welk bronbestand je wilt bekijken als tekst." -}}
 {{- end -}}
 <div class="{{ $wrapClass }}"{{ with $primaryPdf }} data-pdf-src="{{ . }}"{{ end }}>
-  {{ partial "score-action-menu.html" (dict "title" "Oefenen" "items" $oefenMenu "btnClass" "btn" "hint" $oefenHint "help" $oefenHelp) }}
-  {{ partial "score-action-menu.html" (dict "title" "Beluisteren" "items" $audioMenu "btnClass" "btn" "hint" $audioHint "help" $audioHelp) }}
-  {{ partial "score-action-menu.html" (dict "title" "Downloaden" "items" $downloadMenu "btnClass" "btn" "hint" $pdfHint "help" $downloadHelp) }}
-  {{ partial "score-action-menu.html" (dict "title" "Printen" "items" $printMenu "btnClass" "btn" "hint" $pdfHint "help" $printHelp) }}
-  {{ if $inBibliotheek }}{{ partial "score-action-menu.html" (dict "title" "Bronnen" "items" $bronMenu "btnClass" "btn" "hint" $bronHint "help" $bronHelp) }}{{ end }}
+  {{ partial "score-action-menu.html" (dict "title" "Oefenen" "items" $oefenMenu "btnClass" "btn" "hint" $oefenHint "help" $oefenHelp "role" "oefenen") }}
+  {{ partial "score-action-menu.html" (dict "title" "Beluisteren" "items" $audioMenu "btnClass" "btn" "hint" $audioHint "help" $audioHelp "role" "beluisteren") }}
+  {{ partial "score-action-menu.html" (dict "title" "Downloaden" "items" $downloadMenu "btnClass" "btn" "hint" $pdfHint "help" $downloadHelp "role" "download") }}
+  {{ partial "score-action-menu.html" (dict "title" "Printen" "items" $printMenu "btnClass" "btn" "hint" $pdfHint "help" $printHelp "role" "print") }}
+  {{- if $hasBron -}}
+  <div class="score-action-menu score-action-menu--bron-mode" data-score-role="bron-download" hidden>
+    <p class="score-action-help" role="tooltip">{{ $bronDownloadHelp }}</p>
+    <a class="btn" data-bron-download href="#" download>Downloaden</a>
+  </div>
+  <div class="score-action-menu score-action-menu--bron-mode" data-score-role="bron-print" hidden>
+    <p class="score-action-help" role="tooltip">{{ $bronPrintHelp }}</p>
+    <button type="button" class="btn" data-bron-print>Printen</button>
+  </div>
+  {{- end -}}
+  {{ if $inCatalogus }}{{ partial "score-action-menu.html" (dict "title" "Bronnen" "items" $bronMenu "btnClass" "btn" "hint" $bronHint "help" $bronHelp "role" "bronnen") }}{{ end }}
 </div>
 {{- end -}}
 {{- end -}}

@@ -8,7 +8,7 @@ weight: 60
 
 Dit werktraject maakt van één Markdownbestand (tekst, VSA-blokken,
 includes, paginascheidingen) een **A4-PDF**. Gebruik dit voor demo’s en
-losse bladen **buiten** de oefenhoek-bibliotheek. Voor liturgische tekst
+losse bladen **buiten** de catalogus. Voor liturgische tekst
 **in** de bibliotheek: werktraject
 [Tekstblad](/handleiding/werktrajecten/tekstblad/)
 (`{stam}.tekstblad.md` → `{stam}.tekstblad.pdf`).

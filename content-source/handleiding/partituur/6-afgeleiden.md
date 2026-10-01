@@ -7,10 +7,10 @@ weight: 60
 # Afgeleiden bijwerken
 
 {{< cue >}}
-Na basispartituur-edit in de bibliotheek:
+Na basispartituur-edit in de catalogus:
 ```cmd
-scripts\layout.cmd content-source\bibliotheek\DOEL\STAM.mscz
-scripts\mscz-products.cmd content-source\bibliotheek\DOEL
+scripts\layout.cmd content-source\catalogus\DOEL\STAM.mscz
+scripts\mscz-products.cmd content-source\catalogus\DOEL
 scripts\check.cmd --strict
 ```
 Of producten voor alles: `scripts\mscz-products.cmd content-source`.
@@ -30,7 +30,7 @@ Basispartituur: `{stam}.pdf` en `{stam}.mxl`. VSA: `{stam}.vsa.mxl`. De bron bli
 plek waar je editet (basispartituur-`.mscz` of `.vsa`).
 
 **Wanneer:** na elke inhoudelijke wijziging aan een basispartituur-`.mscz` of
-bibliotheek-`.vsa` die al gepubliceerd wordt, vóór je opnieuw
+catalogus-`.vsa` die al gepubliceerd wordt, vóór je opnieuw
 `publicatiestatus: reviewable` (of hoger) zet. Eerste keer basispartituur-producten:
 [PDF en Coria](../5-pdf-en-coria/). Eerste keer VSA-Coria:
 [.vsa schrijven](../../vsa/1-vsa-schrijven/).
@@ -39,7 +39,7 @@ bibliotheek-`.vsa` die al gepubliceerd wordt, vóór je opnieuw
 
 1. Basispartituur in MuseScore 4 bewerken → Opslaan.
 2. **Opnieuw normaliseren** (`scripts\layout.cmd` op diezelfde basispartituur).
-3. **Producten** (`mscz-products.cmd` op de bibliotheek-map).
+3. **Producten** (`mscz-products.cmd` op de catalogus-map).
 4. **`check --strict`**.
 5. Preview: koormap-slot openen; PDF-download en **Oefenen** testen.
 
@@ -53,13 +53,13 @@ de preview een rode banner dat de basispartituur-afgeleiden niet bij de partituu
 2. Normaliseer opnieuw:
 
 ```cmd
-scripts\layout.cmd content-source\bibliotheek\trisagion\8a-nederlands\hemelum\trisagion-8a-nederlands-hemelum.mscz
+scripts\layout.cmd content-source\catalogus\trisagion\8a-nederlands\hemelum\trisagion-8a-nederlands-hemelum.mscz
 ```
 
 3. Maak PDF en Coria-`.mxl` opnieuw:
 
 ```cmd
-scripts\mscz-products.cmd content-source\bibliotheek\trisagion\8a-nederlands\hemelum
+scripts\mscz-products.cmd content-source\catalogus\trisagion\8a-nederlands\hemelum
 ```
 
 4. Controleer:
@@ -78,7 +78,7 @@ scripts\check.cmd --strict
 site. Zie [Werktrajecten](/handleiding/werktrajecten/)
 (basispartituur: [Basispartituur](/handleiding/werktrajecten/basispartituur/)).
 
-Na een wijziging in de bibliotheek-`.vsa`:
+Na een wijziging in de catalogus-`.vsa`:
 
 ```cmd
 scripts\vsa-products.cmd
@@ -112,4 +112,4 @@ Meer storingen: [Als het misgaat](../../publiceren/3-als-het-misgaat/).
 hoort bij de huidige `.vsa` (tenzij handmatig); preview toont geen
 verouderde-afgeleiden-banner.
 
-{{< navbuttons "Print-.mscz|/handleiding/partituur/7-print-mscz/" "Bibliotheek en koormap|/handleiding/publiceren/1-bladermap/" >}}
+{{< navbuttons "Print-.mscz|/handleiding/partituur/7-print-mscz/" "Catalogus en koormap|/handleiding/publiceren/1-bladermap/" >}}

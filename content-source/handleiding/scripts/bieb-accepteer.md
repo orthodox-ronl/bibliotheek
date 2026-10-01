@@ -6,7 +6,7 @@ weight: 160
 
 # NAME
 
-`bieb accepteer` — partituur of tekstblad opnemen in de bibliotheek
+`bieb accepteer` — partituur of tekstblad opnemen in de catalogus
 
 # SYNOPSIS
 
@@ -19,7 +19,7 @@ Compat-shim: `scripts\bieb-accepteer.cmd` (zelfde argumenten).
 # DESCRIPTION
 
 Neemt een klaar bestand op in de **bibliotheek** (de catalogus onder
-`content-source\bibliotheek\`), onder een bibliotheek-id van drie lagen:
+`content-source\catalogus\`), onder een catalogus-id van drie lagen:
 `zangstuk/variant/uitvoeringsvorm`. Toegestaan: basispartituur-`.mscz`,
 `.vsa`, `.mvsa`, handmatig `.mscz` (met `--artefacten-handmatig` of legacy
 `.print.mscz`), of `.tekstblad.md` (optioneel sibling-`.pdf` / `.mxl`). Bij
@@ -70,7 +70,7 @@ Daarna producten + `check --strict` — [Catalogus](/handleiding/start/catalogus
 # SEE ALSO
 
 - Lifecycle: [Levenscyclus](/handleiding/start/levenscyclus/)
-- Workflow: [Opnemen in de bibliotheek](/handleiding/werktrajecten/opnemen-in-bibliotheek/)
+- Workflow: [Opnemen in de catalogus](/handleiding/werktrajecten/opnemen-in-catalogus/)
 - [werkbank-status](../werkbank-status/)
 - [check](../check/)
 - [update-werkvoorraad](../update-werkvoorraad/)

@@ -13,7 +13,7 @@ Deze pagina is de HOW voor `mscz-products`.
 {{< cue >}}
 Basispartituur-`.mscz` staat in het **bibliotheek** (niet alleen in `_werk`). Daarna:
 ```cmd
-scripts\mscz-products.cmd content-source\bibliotheek\trisagion\8a-nederlands\hemelum
+scripts\mscz-products.cmd content-source\catalogus\trisagion\8a-nederlands\hemelum
 ```
 Of heel `content-source`. `--force` als producten ouder zijn dan de basispartituur of
 de bestandsdatum niet klopt. Lokale `check`/`build`/`serve` vernieuwen
@@ -47,7 +47,7 @@ daarna opnieuw deze stap (of [Afgeleiden](../6-afgeleiden/)).
 
 1. De basispartituur-`.mscz` ligt in het **bibliotheek**, niet alleen in
    `input\_werk\`. Padvoorbeeld:
-   `content-source\bibliotheek\trisagion\8a-nederlands\hemelum\trisagion-8a-nederlands-hemelum.mscz`.
+   `content-source\catalogus\trisagion\8a-nederlands\hemelum\trisagion-8a-nederlands-hemelum.mscz`.
 2. Die `.mscz` is na de laatste inhoudelijke edit opnieuw genormaliseerd
    (`scripts\layout.cmd`).
 3. **MuseScore 4** is geïnstalleerd (het product-script roept MuseScore aan).
@@ -56,25 +56,25 @@ daarna opnieuw deze stap (of [Afgeleiden](../6-afgeleiden/)).
 
 ## Stap voor stap
 
-1. Zet de `.mscz` in de bibliotheek als die daar nog niet staat. Gebruik
+1. Zet de `.mscz` in de catalogus als die daar nog niet staat. Gebruik
    bij voorkeur
-   [opnemen in de bibliotheek](../../publiceren/1-opnemen-in-bibliotheek/)
+   [opnemen in de catalogus](../../publiceren/1-opnemen-in-catalogus/)
    (`bieb accepteer`), zodat map, `index.md` en bestandsnaam
    kloppen. Handmatig: kopieer uit `_werk` naar de publicatiestam zonder
    spaties:
 
 ```text
-content-source\bibliotheek\trisagion\8a-nederlands\hemelum\
+content-source\catalogus\trisagion\8a-nederlands\hemelum\
   trisagion-8a-nederlands-hemelum.mscz
 ```
 
    Koormap-slot en verdere publicatie: zie
-   [Bibliotheek en koormap](../../publiceren/1-bladermap/).
+   [Catalogus en koormap](../../publiceren/1-bladermap/).
 
 2. Open het opdrachtvenster in `bibliotheek` en maak de producten:
 
 ```cmd
-scripts\mscz-products.cmd content-source\bibliotheek\trisagion\8a-nederlands\hemelum
+scripts\mscz-products.cmd content-source\catalogus\trisagion\8a-nederlands\hemelum
 ```
 
    Of alles onder content-source:
@@ -83,14 +83,14 @@ scripts\mscz-products.cmd content-source\bibliotheek\trisagion\8a-nederlands\hem
 scripts\mscz-products.cmd content-source
 ```
 
-3. In die bibliotheek-map horen naast de `.mscz` ook
+3. In die catalogus-map horen naast de `.mscz` ook
    `trisagion-8a-nederlands-hemelum.pdf` en
    `trisagion-8a-nederlands-hemelum.mxl` (zelfde stam).
 
 4. Open de PDF even in een PDF-viewer: pagina A4, titel, colofon, tekst
    leesbaar.
 5. Coria test je ná `scripts\check.cmd --strict` op het **koormap-slot**
-   (knop **Oefenen** komt uit de bibliotheek-acties op die pagina — niet uit
+   (knop **Oefenen** komt uit de catalogus-acties op die pagina — niet uit
    een `.mxl` onder `input\`).
 
 ### Vernieuwen of forceren
@@ -111,8 +111,8 @@ scripts\mscz-products.cmd content-source
 
 ## Klaar als
 
-In de bibliotheek liggen `.mscz`, `.pdf` en `.mxl` met dezelfde
+In de catalogus liggen `.mscz`, `.pdf` en `.mxl` met dezelfde
 publicatiestam; de PDF ziet er basispartituur-achtig uit; je kunt door naar
-[bibliotheek en koormap](../../publiceren/1-bladermap/).
+[catalogus en koormap](../../publiceren/1-bladermap/).
 
 {{< navbuttons "Volgende: afgeleiden|/handleiding/partituur/6-afgeleiden/" >}}

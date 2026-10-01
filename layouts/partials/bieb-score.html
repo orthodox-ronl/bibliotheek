@@ -10,7 +10,45 @@
 {{- if not $p -}}
   {{- errorf "%s: bieb-score: score-pagina ontbreekt. Oplossing: geef een bestaande bibliotheek-uitvoeringsvorm door." $loc -}}
 {{- end -}}
+{{- $inCatalogus := eq $viewer.Section "catalogus" -}}
+{{- $bronPanels := slice -}}
+{{- if $inCatalogus -}}
+  {{- $dir := "" -}}
+  {{- with $p.File -}}
+    {{- $dir = strings.TrimSuffix "/" (replace .Dir "\\" "/") -}}
+  {{- end -}}
+  {{- range $p.Resources.Match "*.mvsa" -}}
+    {{- if not (strings.HasSuffix (lower .Name) ".mscz.mvsa") -}}
+      {{- $text := "" -}}
+      {{- if $dir -}}
+        {{- $srcPath := printf "content-source/%s/%s" $dir .Name -}}
+        {{- if fileExists $srcPath -}}
+          {{- $text = readFile $srcPath -}}
+        {{- end -}}
+      {{- end -}}
+      {{- if not $text -}}
+        {{- with .Content -}}{{- $text = . -}}{{- end -}}
+      {{- end -}}
+      {{- $bronPanels = $bronPanels | append (dict "key" .Name "href" .RelPermalink "text" $text) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- range $p.Resources.Match "*.vsa" -}}
+    {{- $text := "" -}}
+    {{- if $dir -}}
+      {{- $srcPath := printf "content-source/%s/%s" $dir .Name -}}
+      {{- if fileExists $srcPath -}}
+        {{- $text = readFile $srcPath -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if not $text -}}
+      {{- with .Content -}}{{- $text = . -}}{{- end -}}
+    {{- end -}}
+    {{- $bronPanels = $bronPanels | append (dict "key" .Name "href" .RelPermalink "text" $text) -}}
+  {{- end -}}
+{{- end -}}
+<div class="score-bundle">
 {{ partial "oefenhoek-score-acties.html" (dict "score" $p "viewer" $viewer "position" .position) }}
+<div class="score-partituur">
 {{- $pdf := "" -}}
 {{- $vsas := slice -}}
 {{- $hasMscz := false -}}
@@ -62,3 +100,10 @@
     {{- end -}}
   {{- end -}}
 {{- end -}}
+</div>
+{{- range $bronPanels -}}
+<div class="score-bron-panel" data-bron-panel="{{ .key }}" data-bron-href="{{ .href }}" hidden>
+  <pre class="score-bron-text">{{ .text }}</pre>
+</div>
+{{- end -}}
+</div>

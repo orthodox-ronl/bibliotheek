@@ -17,14 +17,16 @@ scripts\bieb.cmd hernoem <oud-zangstuk> <nieuw-zangstuk> [--dry-run]
 # DESCRIPTION
 
 Hernoemt één **zangstuk-id** (de bovenste map onder
-`content-source\bibliotheek\`). Typisch: `110-tropaar` → `tropaar`.
+`content-source\catalogus\`). Voorbeeld uit de afgeronde hernoem-golf:
+`110-tropaar` → `tropaar` (die hernoeming is al uitgevoerd; de
+commando’s hieronder zijn ter illustratie).
 
 Het script:
 
 1. Verplaatst de zangstuk-map naar de nieuwe naam.
 2. Hernoemt alle productbestanden waarvan de naam met `{oud}-` begint
    (publicatiestam: `.vsa`, `.vsa.mxl`, `.lyrics.txt`, `.mp3`, …).
-3. Verplaatst bladermap-SVG’s onder `static\vsa\bladermap\bibliotheek\`.
+3. Verplaatst bladermap-SVG’s onder `static\vsa\bladermap\catalogus\`.
 4. Werkt tekstverwijzingen bij (`bieb id=…`, `alias_van`, colofons, docs).
 5. Zet Hugo-`aliases` op elke verhuisde pagina zodat oude URL’s blijven
    werken.
@@ -40,6 +42,8 @@ scripts\bieb.cmd hernoem 110-tropaar tropaar
 scripts\bieb.cmd hernoem 120-kondak kondak
 ```
 
+(Die voorbeelden zijn historisch; die mappen heten al `tropaar` /
+`kondak`.)
 # SEE ALSO
 
 [bieb accepteer](../bieb-accepteer/),

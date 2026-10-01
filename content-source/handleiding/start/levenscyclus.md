@@ -6,7 +6,7 @@ weight: 15
 
 # Levenscyclus van een uitvoeringsvorm
 
-Elke **uitvoeringsvorm** (bibliotheek-id
+Elke **uitvoeringsvorm** (catalogus-id
 `zangstuk/variant/uitvoeringsvorm`) is een *case*: je weet in welke
 **lifecycle-fase** die zit, welke scripts en bestanden bij die fase
 horen, en wanneer je naar de volgende fase mag.
@@ -19,20 +19,20 @@ lifecycle is voor beheerders die het materiaal maken.
 - **Werkbank** — reserveren, materiaal binnenhalen, opkuisen, editen,
   proefdraaien. Bestanden in `input\` en `_werk\`.
 - **Catalogus** — canonieke bron in
-  `content-source\bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\`;
+  `content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\`;
   producten via `*-products`; `check --strict` groen.
 - Overgang Werkbank → Catalogus: `bieb accepteer` als de
   [overgangscriteria](werkbank/#overgangscriteria) kloppen.
 - Overzicht open werk: `scripts\werkbank-status.cmd` en special page
-  [Werkbank](/bibliotheek/speciaal/werkbank/).
+  [Werkbank](/catalogus/speciaal/werkbank/).
 {{< /cue >}}
 
 ## Twee fases (nu)
 
 | Fase | Waar bestanden horen | Kernvraag |
 | --- | --- | --- |
-| [Werkbank](werkbank/) | `input\<herkomst>\`, `_inbox\`, `_werk\<stam>\`; optioneel stub in de bibliotheek | “Waar werk ik dit stuk af?” |
-| [Catalogus](catalogus/) | `bibliotheek\<zangstuk>\<variant>\<uitvoeringsvorm>\` | “Wat is de canonieke bron, en zijn de producten vers?” |
+| [Werkbank](werkbank/) | `input\<herkomst>\`, `_inbox\`, `_werk\<stam>\`; optioneel stub in de catalogus | “Waar werk ik dit stuk af?” |
+| [Catalogus](catalogus/) | `catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\` | “Wat is de canonieke bron, en zijn de producten vers?” |
 
 Later kunnen er fases bij (bijvoorbeeld review of archief). Het model
 blijft hetzelfde: status per uitvoeringsvorm, fase-eigen pijplijnen,
@@ -67,7 +67,7 @@ bron leidt. Andere inputs blijven herkomst in `input\`, niet een tweede
 | Grenzen werkbank/catalogus checken | `scripts\lifecycle-grenzen.cmd` |
 | Werkvoorraad-tabel bijwerken | `scripts\update-werkvoorraad.cmd` |
 | Opnemen in de catalogus | `bieb accepteer` |
-| Producten voor één map | `scripts\all-products.cmd content-source\bibliotheek\…` |
+| Producten voor één map | `scripts\all-products.cmd content-source\catalogus\…` |
 | Alles controleren | `scripts\check.cmd --strict` |
 
 Detail per fase: [Werkbank](werkbank/), [Catalogus](catalogus/).
@@ -76,14 +76,14 @@ Productsporen: [Werktrajecten](../werktrajecten/). Mappen:
 
 ## Special pages
 
-Automatische overzichten onder [Bibliotheek → Speciaal](/bibliotheek/speciaal/):
+Automatische overzichten onder [Bibliotheek → Speciaal](/catalogus/speciaal/):
 
 | Pagina | Rol t.o.v. lifecycle |
 | --- | --- |
-| [Werkbank](/bibliotheek/speciaal/werkbank/) | Onder handen: open werkvoorraad + stubs |
-| [Voorzien](/bibliotheek/speciaal/voorzien/) | Zangstukken zonder oefenbare inhoud (`publicatiestatus`) |
-| [Ongerefereerd](/bibliotheek/speciaal/ongerefereerd/) | In catalogus, nog geen koormap-`bieb` |
-| [Oefenbaar](/bibliotheek/speciaal/oefenbaar/) | Platte lijst oefenbare uitvoeringsvormen |
+| [Werkbank](/catalogus/speciaal/werkbank/) | Onder handen: open werkvoorraad + stubs |
+| [Voorzien](/catalogus/speciaal/voorzien/) | Zangstukken zonder oefenbare inhoud (`publicatiestatus`) |
+| [Ongerefereerd](/catalogus/speciaal/ongerefereerd/) | In catalogus, nog geen koormap-`bieb` |
+| [Oefenbaar](/catalogus/speciaal/oefenbaar/) | Platte lijst oefenbare uitvoeringsvormen |
 
 ## Klaar als
 

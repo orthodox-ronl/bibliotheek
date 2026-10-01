@@ -17,7 +17,7 @@ exit /b %ERRORLEVEL%
 echo.
 echo Gebruik: scripts\bieb.cmd ^<subcommando^> [args...]
 echo.
-echo   accepteer   partituur/tekstblad opnemen onder bibliotheek-id
+echo   accepteer   partituur/tekstblad opnemen onder catalogus-id
 echo.
 echo Voorbeeld:
 echo   scripts\bieb.cmd accepteer trisagion/8a-nederlands/hemelum pad\naar\x.mscz --dry-run

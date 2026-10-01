@@ -195,7 +195,7 @@
     },
     {
       "input": "vow/Eucharistische Canon-Rostov.mscz",
-      "doel_id": "19-eucharistische-canon/rostov/hemelum",
+      "doel_id": "eucharistische-canon/rostov/hemelum",
       "stap": "ontvangen",
       "volgende": "layout",
       "notitie": "sibling van 19a-feofan",
@@ -203,7 +203,7 @@
     },
     {
       "input": "vow/Kleine_intocht-moedergods.mscz",
-      "doel_id": "7-kleine-intocht/moeder-gods/hemelum",
+      "doel_id": "kleine-intocht/moeder-gods/hemelum",
       "stap": "ontvangen",
       "volgende": "migratie",
       "notitie": "",
@@ -276,159 +276,130 @@
   ],
   "stubs": [
     {
-      "id": "10-evangelielezing/default/hemelum",
-      "dir": "content-source/bibliotheek/10-evangelielezing/default/hemelum",
-      "publicatiestatus": "voorzien"
-    },
-    {
-      "id": "ektinia/dringend/hemelum",
-      "dir": "content-source/bibliotheek/ektinia/dringend/hemelum",
-      "publicatiestatus": "voorzien"
-    },
-    {
-      "id": "ektinia/ontslapenen/hemelum",
-      "dir": "content-source/bibliotheek/ektinia/ontslapenen/hemelum",
-      "publicatiestatus": "voorzien"
-    },
-    {
-      "id": "ektinia/catechumenen/hemelum",
-      "dir": "content-source/bibliotheek/ektinia/catechumenen/hemelum",
-      "publicatiestatus": "voorzien"
-    },
-    {
-      "id": "ektinia/gelovigen/hemelum",
-      "dir": "content-source/bibliotheek/ektinia/gelovigen/hemelum",
-      "publicatiestatus": "voorzien"
-    },
-    {
       "id": "cherubijnenhymne/15b-fatejev/hemelum",
-      "dir": "content-source/bibliotheek/cherubijnenhymne/15b-fatejev/hemelum",
+      "dir": "content-source/catalogus/cherubijnenhymne/15b-fatejev/hemelum",
       "publicatiestatus": "voorzien"
     },
     {
       "id": "cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat",
-      "dir": "content-source/bibliotheek/cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat",
+      "dir": "content-source/catalogus/cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat",
       "publicatiestatus": "voorzien"
     },
     {
       "id": "cherubijnenhymne/15d-kastorski/hemelum",
-      "dir": "content-source/bibliotheek/cherubijnenhymne/15d-kastorski/hemelum",
+      "dir": "content-source/catalogus/cherubijnenhymne/15d-kastorski/hemelum",
+      "publicatiestatus": "voorzien"
+    },
+    {
+      "id": "communiezang/default/hemelum",
+      "dir": "content-source/catalogus/communiezang/default/hemelum",
+      "publicatiestatus": "voorzien"
+    },
+    {
+      "id": "een-is-heilig/default/hemelum",
+      "dir": "content-source/catalogus/een-is-heilig/default/hemelum",
+      "publicatiestatus": "voorzien"
+    },
+    {
+      "id": "ektinia/catechumenen/hemelum",
+      "dir": "content-source/catalogus/ektinia/catechumenen/hemelum",
+      "publicatiestatus": "voorzien"
+    },
+    {
+      "id": "ektinia/dringend/hemelum",
+      "dir": "content-source/catalogus/ektinia/dringend/hemelum",
+      "publicatiestatus": "voorzien"
+    },
+    {
+      "id": "ektinia/gelovigen/hemelum",
+      "dir": "content-source/catalogus/ektinia/gelovigen/hemelum",
+      "publicatiestatus": "voorzien"
+    },
+    {
+      "id": "ektinia/ontslapenen/hemelum",
+      "dir": "content-source/catalogus/ektinia/ontslapenen/hemelum",
       "publicatiestatus": "voorzien"
     },
     {
       "id": "ektinia/vragend/hemelum",
-      "dir": "content-source/bibliotheek/ektinia/vragend/hemelum",
+      "dir": "content-source/catalogus/ektinia/vragend/hemelum",
       "publicatiestatus": "voorzien"
     },
     {
-      "id": "17-vredeswens/default/hemelum",
-      "dir": "content-source/bibliotheek/17-vredeswens/default/hemelum",
+      "id": "en-allen/default/hemelum",
+      "dir": "content-source/catalogus/en-allen/default/hemelum",
       "publicatiestatus": "voorzien"
     },
     {
-      "id": "18-geloofsbelijdenis/default/hemelum",
-      "dir": "content-source/bibliotheek/18-geloofsbelijdenis/default/hemelum",
+      "id": "eucharistische-canon/rostov/hemelum",
+      "dir": "content-source/catalogus/eucharistische-canon/rostov/hemelum",
       "publicatiestatus": "voorzien"
     },
     {
-      "id": "19-eucharistische-canon/rostov/hemelum",
-      "dir": "content-source/bibliotheek/19-eucharistische-canon/rostov/hemelum",
+      "id": "evangelielezing/default/hemelum",
+      "dir": "content-source/catalogus/evangelielezing/default/hemelum",
       "publicatiestatus": "voorzien"
     },
     {
-      "id": "21-en-allen/default/hemelum",
-      "dir": "content-source/bibliotheek/21-en-allen/default/hemelum",
+      "id": "geloofsbelijdenis/default/hemelum",
+      "dir": "content-source/catalogus/geloofsbelijdenis/default/hemelum",
       "publicatiestatus": "voorzien"
     },
     {
-      "id": "ektinia/vragend/hemelum",
-      "dir": "content-source/bibliotheek/ektinia/vragend/hemelum",
+      "id": "gezegend-hij-die-komt/default/hemelum",
+      "dir": "content-source/catalogus/gezegend-hij-die-komt/default/hemelum",
       "publicatiestatus": "voorzien"
     },
     {
-      "id": "23-onze-vader/default/hemelum",
-      "dir": "content-source/bibliotheek/23-onze-vader/default/hemelum",
+      "id": "onze-vader/default/hemelum",
+      "dir": "content-source/catalogus/onze-vader/default/hemelum",
       "publicatiestatus": "voorzien"
     },
     {
-      "id": "24-een-is-heilig/default/hemelum",
-      "dir": "content-source/bibliotheek/24-een-is-heilig/default/hemelum",
+      "id": "prokimen/9a-zondag-toon-1/groningen",
+      "dir": "content-source/catalogus/prokimen/9a-zondag-toon-1/groningen",
       "publicatiestatus": "voorzien"
     },
     {
-      "id": "26-gezegend-hij-die-komt/default/hemelum",
-      "dir": "content-source/bibliotheek/26-gezegend-hij-die-komt/default/hemelum",
+      "id": "prokimen/9a-zondag-toon-2/groningen",
+      "dir": "content-source/catalogus/prokimen/9a-zondag-toon-2/groningen",
       "publicatiestatus": "voorzien"
     },
     {
-      "id": "27-communiezang/default/hemelum",
-      "dir": "content-source/bibliotheek/27-communiezang/default/hemelum",
+      "id": "prokimen/9a-zondag-toon-3/groningen",
+      "dir": "content-source/catalogus/prokimen/9a-zondag-toon-3/groningen",
       "publicatiestatus": "voorzien"
     },
     {
-      "id": "9-prokimen/9a-zondag-toon-1/groningen",
-      "dir": "content-source/bibliotheek/9-prokimen/9a-zondag-toon-1/groningen",
+      "id": "prokimen/9a-zondag-toon-4/groningen",
+      "dir": "content-source/catalogus/prokimen/9a-zondag-toon-4/groningen",
       "publicatiestatus": "voorzien"
     },
     {
-      "id": "9-prokimen/9a-zondag-toon-2/groningen",
-      "dir": "content-source/bibliotheek/9-prokimen/9a-zondag-toon-2/groningen",
+      "id": "prokimen/9a-zondag-toon-5/groningen",
+      "dir": "content-source/catalogus/prokimen/9a-zondag-toon-5/groningen",
       "publicatiestatus": "voorzien"
     },
     {
-      "id": "9-prokimen/9a-zondag-toon-3/groningen",
-      "dir": "content-source/bibliotheek/9-prokimen/9a-zondag-toon-3/groningen",
+      "id": "prokimen/9a-zondag-toon-6/groningen",
+      "dir": "content-source/catalogus/prokimen/9a-zondag-toon-6/groningen",
       "publicatiestatus": "voorzien"
     },
     {
-      "id": "9-prokimen/9a-zondag-toon-4/groningen",
-      "dir": "content-source/bibliotheek/9-prokimen/9a-zondag-toon-4/groningen",
+      "id": "prokimen/9a-zondag-toon-7/groningen",
+      "dir": "content-source/catalogus/prokimen/9a-zondag-toon-7/groningen",
       "publicatiestatus": "voorzien"
     },
     {
-      "id": "9-prokimen/9a-zondag-toon-5/groningen",
-      "dir": "content-source/bibliotheek/9-prokimen/9a-zondag-toon-5/groningen",
+      "id": "prokimen/9a-zondag-toon-8/groningen",
+      "dir": "content-source/catalogus/prokimen/9a-zondag-toon-8/groningen",
       "publicatiestatus": "voorzien"
     },
     {
-      "id": "9-prokimen/9a-zondag-toon-6/groningen",
-      "dir": "content-source/bibliotheek/9-prokimen/9a-zondag-toon-6/groningen",
-      "publicatiestatus": "voorzien"
-    },
-    {
-      "id": "9-prokimen/9a-zondag-toon-7/groningen",
-      "dir": "content-source/bibliotheek/9-prokimen/9a-zondag-toon-7/groningen",
-      "publicatiestatus": "voorzien"
-    },
-    {
-      "id": "9-prokimen/9a-zondag-toon-8/groningen",
-      "dir": "content-source/bibliotheek/9-prokimen/9a-zondag-toon-8/groningen",
+      "id": "vredeswens/default/hemelum",
+      "dir": "content-source/catalogus/vredeswens/default/hemelum",
       "publicatiestatus": "voorzien"
     }
   ],
-  "werk_dirs": [
-    {
-      "stam": "mvsa",
-      "path": "content-source/input/_werk/mvsa",
-      "files": [
-        "1a-vredeslitanie.mvsa",
-        "3-eerste-kleine-litanie.mvsa",
-        "7-kleine-intocht-zondag-hemelum.mvsa",
-        "ISSUES.md",
-        "README.md",
-        "TOPICS.md",
-        "alleluia-toon-1.mvsa",
-        "alleluia-toon-2.mvsa",
-        "alleluia-toon-3.mvsa",
-        "alleluia-toon-4.mvsa",
-        "alleluia-toon-5.mvsa",
-        "alleluia-toon-6.mvsa",
-        "alleluia-toon-7.mvsa",
-        "alleluia-toon-8.mvsa",
-        "kleine-intocht-zondag-hemelum.mvsa",
-        "make.cmd",
-        "trisagion-8a-slav-hemelum.mvsa"
-      ]
-    }
-  ]
+  "werk_dirs": []
 }

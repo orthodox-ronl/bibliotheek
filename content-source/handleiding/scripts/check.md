@@ -21,9 +21,9 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 
 `check` is de preflight voor deze repo (CI-spiegel):
 
-1. `validate` — `vsa validate` op `content-source\bibliotheek` (en
+1. `validate` — `vsa validate` op `content-source\catalogus` (en
    `mvsa validate` als daar `.mvsa`-bestanden staan)
-2. VSA-publicatiecontrole — of elke bibliotheek-`.vsa` (behalve
+2. VSA-publicatiecontrole — of elke catalogus-`.vsa` (behalve
    `artefacten_handmatig`) een passende sibling `{stam}.vsa.mxl` heeft
    met `vsa-source-sha256`
 3. MSCZ-publicatiecontrole — of elke basispartituur-`.mscz` (behalve
@@ -34,20 +34,24 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 5. Importcontrole — of elke **bestaande** `{stam}.mscz.mvsa` bij de
    bijbehorende basispartituur-`.mscz` past (`vsa-partituur-sha256`);
    ontbrekende import-siblings zijn geen fout
-6. MVSA-publicatiecontrole — of elke canonieke bibliotheek-`.mvsa`
+6. MVSA-publicatiecontrole — of elke canonieke catalogus-`.mvsa`
    (geen `.mscz.mvsa`) passende siblings `{stam}.mvsa.mxl` en
    `{stam}.mvsa.pdf` heeft met `vsa-source-sha256`
 7. Audio-publicatiecontrole — of elke canonieke `.mvsa` / basis-`.mscz` /
    `.vsa` een passende preview-`.mp3` heeft met herkomststempel
-8. Lyrics-publicatiecontrole — of elke bibliotheek-`.vsa` / `.mvsa` een
+8. Lyrics-publicatiecontrole — of elke catalogus-`.vsa` / `.mvsa` een
    passende `{stam}.….lyrics.txt` heeft met `vsa-source-sha256`
-9. Bibliotheek-id — of elke basispartituur-`.mscz` in het colofon de
+9. Catalogus-id — of elke basispartituur-`.mscz` in het colofon de
    regel `Bibliotheek-id:` heeft die bij het bladermap-pad past
 10. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
 11. Bladermap-SVG (`oefenhoek-index --svg`) — plaatjes uit `.vsa`; geen
    stamp-publicatiecontrole
 12. Zoekindex (`python scripts\build_zoek_index.py` → `static\zoek\index.json`)
 13. Hugo-build naar `generated\site`
+
+De Pages-deploy (productie, `/preview/`, branch-previews) bouwt de
+zoekindex ook vóór Hugo, zodat zoeken niet afhangt van een verouderde
+gecommitte `index.json`.
 
 Zonder `--strict` waarschuwen de publicatie-, import- en id-controles
 lokaal maar falen niet (behalve op `main` of met
@@ -63,7 +67,8 @@ of met [vsa-products](../vsa-products/),
 [lyrics-products](../lyrics-products/); vernieuw
 import-siblings met [import-mvsa](../import-mvsa/); herstel id’s met
 [ensure-bibliotheek-id](../ensure-bibliotheek-id/) of
-[layout](../layout/). CI genereert geen MuseScore-/PDF-/audio-/lyrics-producten.
+[layout](../layout/). CI genereert geen MuseScore-/PDF-/audio-/lyrics-producten;
+wel de zoekindex bij elke site-deploy.
 
 # EXAMPLES
 

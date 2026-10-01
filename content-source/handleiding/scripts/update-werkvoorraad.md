@@ -23,7 +23,7 @@ hand van wat er op schijf ligt. Doel-id, koormap en notitie in **bestaande**
 rijen blijven staan; nieuwe bestanden krijgen een nieuwe rij.
 
 Het vernieuwt ook `data\werkbank-status.json` (special page
-[Werkbank](/bibliotheek/speciaal/werkbank/)).
+[Werkbank](/catalogus/speciaal/werkbank/)).
 
 Het verwijdert ook `generated\content\...\input`, zodat die
 inputs geen Hugo-pagina’s op de site worden.

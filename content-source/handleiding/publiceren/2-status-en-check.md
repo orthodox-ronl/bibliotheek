@@ -11,7 +11,7 @@ weight: 20
 Deze pagina is de HOW voor publicatiestatus en lokale controle.
 
 {{< cue >}}
-1. Zet `publicatiestatus` op bibliotheek-`index.md` **en** koormap-`index.md`.
+1. Zet `publicatiestatus` op catalogus-`index.md` **en** koormap-`index.md`.
 2. `scripts\check.cmd --strict` moet groen zijn.
 3. `scripts\serve.cmd --no-build` → http://127.0.0.1:18732/ — klik zelf als koorlid (koormap-slot).
 4. Live: pas na groen, via git naar `main` (of vragen). `productie` niet raden.
@@ -22,7 +22,7 @@ controleren, zelf de pagina nalopen, daarna pas publiceren op internet.
 
 ## Publicatiestatus
 
-Op **elke** bibliotheek-pagina die koorleden zien (bibliotheek en koormap),
+Op **elke** pagina die koorleden zien (catalogus én koormap),
 in de `---` bovenaan:
 
 | Waarde | Wanneer |
@@ -32,11 +32,11 @@ in de `---` bovenaan:
 | `reviewable` | Er staat iets in; feedback welkom |
 | `productie` | Alleen bewust, nooit gokken |
 
-Bibliotheek mét basispartituur, VSA of print-PDF: meestal `reviewable`. Lege stub:
+Catalogus mét basispartituur, VSA of print-PDF: meestal `reviewable`. Lege stub:
 `voorzien`. Intern *Stap* in de werkvoorraad (`opkuisen`, `layout`, …) is
 iets anders — dat zien koorleden niet.
 
-Optioneel op bibliotheek-`index.md`: `artefacten_handmatig: true` als PDF
+Optioneel op catalogus-`index.md`: `artefacten_handmatig: true` als PDF
 en Coria-`.mxl` in die map niet via de product-pipeline mogen lopen (print /
 template). Zie [Print-.mscz](../../partituur/7-print-mscz/).
 
@@ -55,7 +55,7 @@ links op de site kloppen. Rood = niet naar live; eerst
 
 `publicatiestatus` en andere frontmatter-titels controleert `check`
 **niet** automatisch; die zet je zelf volgens
-[Bibliotheek en koormappen](../../start/bibliotheek-en-koormappen/)
+[Catalogus en koormappen](../../start/catalogus-en-koormappen/)
 (sectie *Titels en frontmatter*).
 
 Lokaal vernieuwt `check` ook stale basispartituur-PDF/MXL (MuseScore) en stale

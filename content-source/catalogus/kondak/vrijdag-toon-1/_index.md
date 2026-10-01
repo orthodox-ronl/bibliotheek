@@ -1,0 +1,12 @@
+---
+title: "Kondak vrijdag-toon-1 (= heilig-kruis-toon-1)"
+linkTitle: "vrijdag-toon-1"
+nav_sort: weight
+weight: 205
+publicatiestatus: concept
+automatische_inhoud: false
+alias_van: kondak/heilig-kruis-toon-1
+aliases:
+  - "/bibliotheek/120-kondak/vrijdag-toon-1/"
+  - "/bibliotheek/kondak/vrijdag-toon-1/"
+---

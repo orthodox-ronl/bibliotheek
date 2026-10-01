@@ -26,7 +26,7 @@ Toont welke uitvoeringsvormen of inputs nog in de lifecycle-fase
 - lokale mappen onder `content-source\input\_werk\` (alleen op jouw pc).
 
 Schrijft `data\werkbank-status.json` voor de special page
-[Werkbank](/bibliotheek/speciaal/werkbank/). Met `--quiet` alleen die
+[Werkbank](/catalogus/speciaal/werkbank/). Met `--quiet` alleen die
 JSON (zoals vanuit `update-werkvoorraad` / `check` / `build` / `serve`).
 
 # EXAMPLES

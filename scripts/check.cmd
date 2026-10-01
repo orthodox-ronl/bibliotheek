@@ -26,7 +26,7 @@ if errorlevel 1 (
 vsa --version
 if errorlevel 1 exit /b 1
 
-call scripts\validate.cmd content-source\bibliotheek
+call scripts\validate.cmd content-source\catalogus
 if errorlevel 1 exit /b 1
 
 python scripts\update_werkvoorraad.py
@@ -78,6 +78,13 @@ if defined STRICT (
   python scripts\check_lyrics_products.py --fail
 ) else (
   python scripts\check_lyrics_products.py
+)
+if errorlevel 1 exit /b 1
+
+if defined STRICT (
+  python scripts\check_mxl_playback_contract.py --fail
+) else (
+  python scripts\check_mxl_playback_contract.py
 )
 if errorlevel 1 exit /b 1
 

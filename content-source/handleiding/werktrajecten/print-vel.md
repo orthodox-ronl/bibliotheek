@@ -17,7 +17,7 @@ bestand heet `{stam}.mscz` (geen `.print.` in de naam) en de bladermap heeft
 migratie.
 
 {{< cue >}}
-Zet op de bibliotheek-`index.md` `artefacten_handmatig: true`. Geen
+Zet op de catalogus-`index.md` `artefacten_handmatig: true`. Geen
 `scripts\layout.cmd`, geen `mscz-products`. Exporteer de PDF zelf in
 MuseScore 4. Nieuwe bladen: `{stam}.mscz` + `{stam}.mscz.pdf`. Oude bladen
 mogen nog `*.print.mscz` heten.
@@ -38,9 +38,9 @@ lopen.
 | `{stam}.print.pdf` of korte `{stam}.pdf` | Handmatige A4-export |
 | Optioneel: Coria-`.mxl` / `.vsa` | Alleen als jij die zelf neerzet en bijhoudt |
 
-**Klaar** als: `artefacten_handmatig: true` op de bibliotheek-`index.md`;
+**Klaar** als: `artefacten_handmatig: true` op de catalogus-`index.md`;
 PDF staat naast het print-bestand; shortcode `bieb` toont de PDF; gele
-beheerdersbanner op de bibliotheekpagina.
+beheerdersbanner op de cataloguspagina.
 
 ## Wanneer wel / wanneer niet
 
@@ -49,16 +49,16 @@ beheerdersbanner op de bibliotheekpagina.
 | Bewust buiten de basispartituur-spoor | Gewoon oefenmateriaal met automatische Coria → [Basispartituur](../basispartituur/) |
 | Gecombineerd printvel, template-SATB | Eenstemmige notatie alleen → [VSA](../vsa/) |
 
-Voorbeelden in de bibliotheek:
-`7-kleine-intocht/zo-wk-mg/hemelum`,
+Voorbeelden in de catalogus:
+`kleine-intocht/zo-wk-mg/hemelum`,
 `tropaar/nikolaas-van-myra-toon-4/hemelum`,
-`20-moeder-godslied/ontslapen-moeder-gods/hemelum`.
+`moeder-godslied/ontslapen-moeder-gods/hemelum`.
 
 ## Volgorde (bestanden)
 
 1. Maak of bewerk `{stam}.print.mscz` in MuseScore 4 (naam moet op
    `.print.mscz` eindigen).
-2. Neem op via [Opnemen](../opnemen-in-bibliotheek/)
+2. Neem op via [Opnemen](../opnemen-in-catalogus/)
    (`bieb accepteer`), of leg het bestand handmatig in de bladermap.
 3. Exporteer PDF in MuseScore (Bestand → Exporteren → PDF) naar dezelfde
    map.

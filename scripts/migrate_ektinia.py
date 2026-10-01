@@ -18,7 +18,7 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from bibliotheek import BIBLIOTHEEK_ROOT, REPO_ROOT  # noqa: E402
+from catalogus import CATALOGUS_ROOT, REPO_ROOT  # noqa: E402
 from bieb_hernoem import (  # noqa: E402
     _SKIP_DIR_NAMES,
     _TEXT_SUFFIXES,
@@ -130,12 +130,12 @@ def _add_aliases_to_tree(variant_dir: Path, old_zangstuk: str, *, dry_run: bool)
         # variant root ≈ oud/default; uitvoeringsvorm ≈ oud/default/<uv>
         if not rel_s:
             alias_paths = [
-                f"/bibliotheek/{old_zangstuk}/",
-                f"/bibliotheek/{old_zangstuk}/default/",
+                f"/catalogus/{old_zangstuk}/",
+                f"/catalogus/{old_zangstuk}/default/",
             ]
         else:
             alias_paths = [
-                f"/bibliotheek/{old_zangstuk}/default/{rel_s}/",
+                f"/catalogus/{old_zangstuk}/default/{rel_s}/",
             ]
         text = index.read_text(encoding="utf-8")
         new_text = _insert_aliases(text, alias_paths)
@@ -150,7 +150,7 @@ def _add_aliases_to_tree(variant_dir: Path, old_zangstuk: str, *, dry_run: bool)
 
 
 def migrate(*, dry_run: bool) -> int:
-    dest_root = BIBLIOTHEEK_ROOT / "ektinia"
+    dest_root = CATALOGUS_ROOT / "ektinia"
     if dest_root.exists() and any(dest_root.iterdir()):
         print(f"doel bestaat al en is niet leeg: {_rel(dest_root)}", file=sys.stderr)
         return 1
@@ -178,7 +178,7 @@ def migrate(*, dry_run: bool) -> int:
         print(f"  write {_rel(index)}", flush=True)
 
     for old, variant, weight, title, link_title in _MOVES:
-        src = BIBLIOTHEEK_ROOT / old
+        src = CATALOGUS_ROOT / old
         src_variant = src / "default"
         dest_variant = dest_root / variant
         if not src_variant.is_dir():
@@ -222,14 +222,14 @@ def migrate(*, dry_run: bool) -> int:
 
     # 22: inhoud weg (zelfde werk als 16); aliases later op vragend
     old22, variant22 = _ALIAS_ONLY
-    src22 = BIBLIOTHEEK_ROOT / old22
+    src22 = CATALOGUS_ROOT / old22
     print(f"  drop duplicate {old22} (-> ektinia/{variant22})", flush=True)
     if not dry_run and src22.is_dir():
         shutil.rmtree(src22)
         print(f"  remove tree {_rel(src22)}", flush=True)
 
     # Bladermap-SVG (indien aanwezig)
-    svg_root = REPO_ROOT / "static" / "vsa" / "bladermap" / "bibliotheek"
+    svg_root = REPO_ROOT / "static" / "vsa" / "bladermap" / "catalogus"
     for old, variant, *_ in _MOVES:
         svg_src = svg_root / old
         if not svg_src.is_dir():

@@ -18,7 +18,7 @@ scripts\all-products.cmd [pad] [--force] [--dry-run]
 # DESCRIPTION
 
 Roept achter elkaar de product-scripts aan die siblings maken naast
-bibliotheek-bronnen onder `content-source\bibliotheek` (of onder een
+bibliotheek-bronnen onder `content-source\catalogus` (of onder een
 opgegeven pad). Mappen met `artefacten_handmatig: true` en bestanden in
 `input\` worden door die scripts overgeslagen.
 
@@ -31,6 +31,11 @@ Volgorde:
 5. [import-mvsa](../import-mvsa/) — alleen **bestaande** `{stam}.mscz.mvsa`
 6. [audio-products](../audio-products/) — `{stam}.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3`
 7. [lyrics-products](../lyrics-products/) — `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt`
+
+Daarna (tenzij `--dry-run`): `static\zoek\index.json` opnieuw bouwen,
+zodat zoeken lyrics, status en audio-paden volgt. Op GitHub Pages
+gebeurt die indexstap opnieuw in de deploy (ook voor `/preview/` en
+branch-previews).
 
 Elk spoor vernieuwt alleen wat ontbreekt of waarvan de herkomststempel
 niet meer bij de bron past (tenzij `--force`).
@@ -47,7 +52,7 @@ script.
 
 ```cmd
 scripts\all-products.cmd
-scripts\all-products.cmd content-source\bibliotheek\9-alleluia
+scripts\all-products.cmd content-source\catalogus\alleluia
 scripts\all-products.cmd --dry-run
 ```
 

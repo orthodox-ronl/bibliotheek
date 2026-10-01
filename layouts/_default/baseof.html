@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ .Title }}</title>
-  {{- $bladermap := or (eq .Section "bibliotheek") (eq .Section "koormappen") -}}
+  {{- $bladermap := or (eq .Section "catalogus") (eq .Section "koormappen") -}}
   {{- if and .IsSection $bladermap }}
     {{- $items := partial "oefenhoek-kind-items.html" . -}}
     {{- if eq (len $items) 1 -}}
@@ -24,11 +24,12 @@
   <link rel="stylesheet" href="{{ "css/site.css" | relURL }}">
   <script src="{{ "js/site-nav.js" | relURL }}" defer></script>
   <script src="{{ "js/score-audio.js" | relURL }}" defer></script>
-  <script src="{{ "js/bibliotheek-zoek.js" | relURL }}" defer></script>
+  <script src="{{ "js/score-bron.js" | relURL }}" defer></script>
+  <script src="{{ "js/catalogus-zoek.js" | relURL }}" defer></script>
   <script type="module" src="{{ "js/pdf-sheet.js" | relURL }}"></script>
 </head>
 
-<body{{ if $bladermap }} class="oefenhoek-page{{ if eq .Section "bibliotheek" }} bibliotheek-page{{ end }}"{{ end }}>
+<body{{ if $bladermap }} class="oefenhoek-page{{ if eq .Section "catalogus" }} catalogus-page{{ end }}"{{ end }}>
   <div class="site-chrome">
     <header class="site-header">
       <div class="site-header-inner">
@@ -39,6 +40,7 @@
           </a>
           {{ partial "site-nav.html" . }}
         </div>
+        {{ partial "site-zoek.html" . }}
         {{ partial "site-jumps.html" . }}
       </div>
     </header>
@@ -49,9 +51,6 @@
   {{ partial "oefenhoek-header.html" . }}
 
   <main class="page">
-    {{- if $bladermap -}}
-      {{ partial "publicatiestatus.html" . }}
-    {{- end -}}
     {{ block "main" . }}{{ end }}
     {{- if $bladermap }}
       {{ partial "oefenhoek-kinderen.html" . }}

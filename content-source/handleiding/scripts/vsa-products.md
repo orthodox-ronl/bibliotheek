@@ -7,7 +7,7 @@ weight: 110
 # NAME
 
 `scripts\vsa-products.cmd` — Coria-`.vsa.mxl` en A4-`.vsa.pdf` maken bij een
-bibliotheek-`.vsa`
+catalogus-`.vsa`
 
 # SYNOPSIS
 
@@ -17,7 +17,7 @@ scripts\vsa-products.cmd [pad] [--force] [--dry-run]
 
 # DESCRIPTION
 
-Maakt naast een bibliotheek-`.vsa` twee siblings:
+Maakt naast een catalogus-`.vsa` twee siblings:
 
 | Product | Waartoe |
 | --- | --- |
@@ -39,7 +39,7 @@ herkomststempel in de PDF. Zonder PDF blijven **Downloaden** en
 **Printen** op VSA-only bladermappen weg.
 
 Mappen met `artefacten_handmatig: true` in de frontmatter worden
-overgeslagen. Zonder pad werkt het onder `content-source\bibliotheek`.
+overgeslagen. Zonder pad werkt het onder `content-source\catalogus`.
 
 Lokaal vernieuw je producten met dit commando. CI genereert **niet** —
 `check_vsa_products` faalt bij ontbrekende of verouderde siblings.
@@ -53,7 +53,7 @@ Lokaal vernieuw je producten met dit commando. CI genereert **niet** —
 
 # WHEN
 
-Na een wijziging aan een `.vsa` in de bibliotheek, of als `check --strict`
+Na een wijziging aan een `.vsa` in de catalogus, of als `check --strict`
 meldt dat de `.vsa.mxl` of `.vsa.pdf` verouderd of zonder stamp is.
 
 # SEE ALSO

@@ -1,0 +1,18 @@
+{{- /*
+  Toon catalogus-id op een leaf onder catalogus/.
+  Id = drie padsegmenten na catalogus/; alias via canonical-id.
+  Colofon in .mscz blijft de tooling-regel Bibliotheek-id:.
+*/ -}}
+{{- $marker := "catalogus/" -}}
+{{- if and .File (not .IsSection) (strings.Contains .RelPermalink (printf "/%s" $marker)) -}}
+  {{- $dir := strings.TrimSuffix "/" (replace .File.Dir "\\" "/") -}}
+  {{- if strings.HasPrefix $dir $marker -}}
+    {{- $rel := strings.TrimPrefix $marker $dir -}}
+    {{- $segs := split $rel "/" -}}
+    {{- if eq (len $segs) 3 -}}
+      {{- $id := delimit $segs "/" -}}
+      {{- $id = partial "catalogus-canonical-id.html" $id -}}
+<p class="catalogus-id-line">Catalogus-id: <code class="catalogus-id">{{ $id }}</code></p>
+    {{- end -}}
+  {{- end -}}
+{{- end -}}

@@ -270,7 +270,7 @@ def main() -> int:
         nargs="?",
         type=Path,
         default=DEFAULT_ROOT,
-        help="Zoekroot (default: content-source/bibliotheek)",
+        help="Zoekroot (default: content-source/catalogus)",
     )
     parser.add_argument(
         "--warn-only",

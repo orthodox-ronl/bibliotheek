@@ -7,16 +7,18 @@
     "btnClass" — extra classes op de trigger (default "btn")
     "hint"    — optioneel: korte hulpzin boven de keuzes (alleen bij menu)
     "help"    — optioneel: uitleg-popover bij hover/focus op de knop
+    "role"    — optioneel: data-score-role op de wrapper (download/print/bronnen/…)
 */}}
 {{- $title := .title -}}
 {{- $items := .items | default (slice) -}}
 {{- $btnClass := or .btnClass "btn" -}}
 {{- $hint := .hint | default "" -}}
 {{- $help := .help | default "" -}}
+{{- $role := .role | default "" -}}
 {{- $n := len $items -}}
 {{- if eq $n 0 -}}
 {{- else -}}
-<div class="score-action-menu">
+<div class="score-action-menu"{{ with $role }} data-score-role="{{ . }}"{{ end }}>
   {{- with $help -}}
   <p class="score-action-help" role="tooltip">{{ . }}</p>
   {{- end -}}

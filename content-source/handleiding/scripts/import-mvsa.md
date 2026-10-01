@@ -56,10 +56,10 @@ rem Vernieuw bestaande import-siblings onder de hele bibliotheek:
 scripts\import-mvsa.cmd
 
 rem Eerste import voor één partituur:
-scripts\import-mvsa.cmd content-source\bibliotheek\trisagion\8a-nederlands\hemelum\trisagion-8a-nederlands-hemelum.mscz
+scripts\import-mvsa.cmd content-source\catalogus\trisagion\8a-nederlands\hemelum\trisagion-8a-nederlands-hemelum.mscz
 
 rem Alle ontbrekende siblings in één tak (zeldzaam):
-scripts\import-mvsa.cmd content-source\bibliotheek\trisagion --create
+scripts\import-mvsa.cmd content-source\catalogus\trisagion --create
 ```
 
 # WHEN

@@ -7,26 +7,26 @@ weight: 10
 # .vsa schrijven en op de pagina
 
 {{< cue >}}
-1. Kopieer een bestaand `.vsa` in de bibliotheek (bijvoorbeeld eerste antifoon weekdagen Hemelum).
-2. Zet het bestand in de bibliotheek-map; bestandsnaam zonder spaties (publicatiestam).
+1. Kopieer een bestaand `.vsa` in de catalogus (bijvoorbeeld eerste antifoon weekdagen Hemelum).
+2. Zet het bestand in de catalogus-map; bestandsnaam zonder spaties (publicatiestam).
 3. Zet bovenaan YAML met minstens `do`, `mode` en `tempo: 120`.
 4. `vsa validate pad\naar\bestand.vsa`
-5. Bibliotheek-`index.md` + slot-pagina (of compositieblad): shortcode `bieb` met de bibliotheek-id
+5. Catalogus-`index.md` + slot-pagina (of compositieblad): shortcode `bieb` met de catalogus-id
 6. `scripts\check.cmd --strict` — maakt SVG (plaatje) én Coria-`.vsa.mxl`; commit `.vsa` + `.vsa.mxl` samen
 {{< /cue >}}
 
-**Wat je nu doet:** de gezongen tekst in VSA-notatie zetten en via het
-bibliotheek op de site tonen, inclusief oefenen in Coria. Nog geen
+**Wat je nu doet:** de gezongen tekst in VSA-notatie zetten en via de
+catalogus op de site tonen, inclusief oefenen in Coria. Nog geen
 vierstemmig blad — daarvoor is de [volgende pagina](../2-template-satb/),
 alleen voor tropaar toon 4.
 
 **Wanneer:** je hebt tekst (en een bekende melodie) in plaats van een
-Capella-partituur. Voorbeeld-bibliotheek-id:
-`2-eerste-antifoon/weekdagen/hemelum`.
+Capella-partituur. Voorbeeld-catalogus-id:
+`eerste-antifoon/weekdagen/hemelum`.
 
 ## Wat de site van je `.vsa` maakt
 
-Op een gewone eenstemmige bibliotheek-pagina (geen basispartituur-`.mscz` ernaast)
+Op een gewone eenstemmige catalogus-pagina (geen basispartituur-`.mscz` ernaast)
 doet de build twee aparte dingen met hetzelfde `.vsa`-bestand:
 
 | Afgeleide | Rol op de pagina | Hoe maak je die |
@@ -60,13 +60,13 @@ zonder `--no-build`.
 
 ## Stap voor stap
 
-1. Maak of kies de bibliotheek-map ([publiceren](../../publiceren/1-bladermap/)).
+1. Maak of kies de catalogus-map ([publiceren](../../publiceren/1-bladermap/)).
 2. Open een **bestaand** `.vsa` dat op het nieuwe stuk lijkt. Verzin de
    tekens niet vanaf nul. Antifoon-voorbeeld:
 
-`content-source\bibliotheek\2-eerste-antifoon\weekdagen-hemelum\hemelum\2-eerste-antifoon-weekdagen-hemelum-hemelum.vsa`
+`content-source\catalogus\eerste-antifoon\weekdagen\hemelum\eerste-antifoon-weekdagen.vsa`
 
-3. Kopieer dat bestand naar jouw bibliotheek-map, hernoem naar de
+3. Kopieer dat bestand naar jouw catalogus-map, hernoem naar de
    publicatiestam (geen spaties), plak jouw tekst in dezelfde notatie. Een
    `.vsa` is **geen** Markdown-pagina: zet geen `#`-koppen in de notatie
    zelf. Zet wél YAML bovenaan tussen `---` met minstens `do`, `mode` en
@@ -83,14 +83,14 @@ tempo: 120
 4. In het Windows-opdrachtvenster:
 
 ```cmd
-vsa validate content-source\bibliotheek\2-eerste-antifoon\weekdagen-hemelum\hemelum\2-eerste-antifoon-weekdagen-hemelum-hemelum.vsa
+vsa validate content-source\catalogus\eerste-antifoon\weekdagen\hemelum\eerste-antifoon-weekdagen.vsa
 ```
 
    Foutmelding: de markering zit in de **gezongen tekst**, niet in het
    programma. Verbeter de notatie. “Even stil krijgen” door tekens weg te
    halen is geen oplossing.
 
-5. In bibliotheek-`index.md` (kopieer een bestaand voorbeeld):
+5. In catalogus-`index.md` (kopieer een bestaand voorbeeld):
 
 ```markdown
 ---
@@ -101,14 +101,14 @@ automatische_inhoud: false
 
 # …
 
-{{</* bieb id="2-eerste-antifoon/weekdagen/hemelum" */>}}
+{{</* bieb id="eerste-antifoon/weekdagen/hemelum" */>}}
 ```
 
 6. Hetzelfde id in de **slot-pagina** van de koormap (bijv.
-   `koormappen/hemelum/liturgie\2-eerste-antifoon\weekdagen\index.md`). Meerdere
+   `koormappen/hemelum/liturgie-weekdagen\eerste-antifoon\weekdagen\index.md`). Meerdere
    VSA’s op één liturgische plek? Sectie met kindpagina’s, of één
    compositieblad — zie
-   [Bibliotheek en koormappen](../../start/bibliotheek-en-koormappen/).
+   [Catalogus en koormappen](../../start/catalogus-en-koormappen/).
 
 7. Draai `scripts\check.cmd --strict`. Die keten:
    - schrijft de SVG voor het plaatje (`scripts\oefenhoek-index.cmd --svg`);
@@ -120,20 +120,20 @@ automatische_inhoud: false
    het plaatje én de knop **Oefenen**.
 
 Catalogus-includes horen **niet** in de oefenhoek (geen verwijzing naar
-`content-source/lokaal/`). Kondaken en troparen: bibliotheek-leaf + `bieb`.
-Zie [Bibliotheek en koormap](../../publiceren/1-bladermap/).
+`content-source/lokaal/`). Kondaken en troparen: catalogus-leaf + `bieb`.
+Zie [Catalogus en koormap](../../publiceren/1-bladermap/).
 
 Uitleg van de VSA-tekens (`{/`, `{_`, `*`, …): de pagina’s onder
 [Tooling Demo](../../../demo/), niet deze handleiding. Hier gaat het over
-waar het `.vsa`-bestand hoort en hoe het op de bibliotheek-site komt.
+waar het `.vsa`-bestand hoort en hoe het op de catalogus-site komt.
 
 ### Handmatige artefacten
 
-Zet je op de bibliotheek-`index.md` `artefacten_handmatig: true`, dan
+Zet je op de catalogus-`index.md` `artefacten_handmatig: true`, dan
 vernieuwt `vsa-products` de Coria-`.mxl` **niet**. Dat hoort bij print-velden
 of template-exports die jij zelf bijhoudt — zie
 [Print-.mscz](../../partituur/7-print-mscz/) en de gele banner op die
-bibliotheekpagina. Afspraak over namen en sporen:
+cataloguspagina. Afspraak over namen en sporen:
 [Publicatiecontrole](/handleiding/start/publicatiecontrole/).
 
 Ligt er wél een `.vsa` naast een `{stam}.print.mscz`, dan mag de build
@@ -150,7 +150,7 @@ bestanden committen. Zie ook [Als het misgaat](../../publiceren/3-als-het-misgaa
 ### Hugo-waarschuwing “SVG ontbreekt”
 
 Shortcode `bieb` zoekt
-`static\vsa\bladermap\bibliotheek\<…>\<naam>.svg`.
+`static\vsa\bladermap\catalogus\<…>\<naam>.svg`.
 Ontbreekt dat bestand:
 
 ```cmd
@@ -162,10 +162,10 @@ of `scripts\check.cmd --strict`. Daarna opnieuw previewen. Met
 
 ## Klaar als
 
-`vsa validate` is stil, bibliotheek en koormap verwijzen met hetzelfde id,
+`vsa validate` is stil, catalogus en koormap verwijzen met hetzelfde id,
 na `check` zie je het plaatje op de lokale preview, en er ligt een verse
 `{stam}.vsa.mxl` naast de `.vsa` (knop **Oefenen**), tenzij
-`artefacten_handmatig: true` op die bibliotheekpagina staat (dan houd jij
+`artefacten_handmatig: true` op die cataloguspagina staat (dan houd jij
 de Coria-`.mxl` zelf bij; de SVG mag de pipeline nog steeds schrijven).
 
 {{< navbuttons "Volgende: template SATB|/handleiding/vsa/2-template-satb/" >}}

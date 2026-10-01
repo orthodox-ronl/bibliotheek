@@ -13,7 +13,7 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
-from bibliotheek import folder, leaf_folders, parse_id, resolve_id
+from catalogus import folder, leaf_folders, parse_id, resolve_id
 from score_filenames import published_stem
 
 REPO = Path(__file__).resolve().parents[1]
@@ -38,29 +38,29 @@ _SLOT_TO_ID = {
     ),
     "8a-trisagion": "trisagion/8a-nederlands/hemelum",
     "8a-trisagion-slav": "trisagion/8a-slav/hemelum",
-    "19a-eucharistische-kanon": "19-eucharistische-canon/19a-feofan/hemelum",
-    "19-eucharistische-canon-rostov": "19-eucharistische-canon/rostov/hemelum",
-    "20d-in-waarheid-moeder-godslied": "20-moeder-godslied/20d-in-waarheid/hemelum",
-    "20-moeder-godslied-ontslapen-mgods": "20-moeder-godslied/ontslapen-moeder-gods/hemelum",
-    "25-communievers-onthoofding-johannes-de-doper": (
-        "25-communievers/onthoofding-johannes-de-doper/hemelum"
+    "19a-eucharistische-kanon": "eucharistische-canon/19a-feofan/hemelum",
+    "eucharistische-canon-rostov": "eucharistische-canon/rostov/hemelum",
+    "20d-in-waarheid-moeder-godslied": "moeder-godslied/20d-in-waarheid/hemelum",
+    "moeder-godslied-ontslapen-mgods": "moeder-godslied/ontslapen-moeder-gods/hemelum",
+    "communievers-onthoofding-johannes-de-doper": (
+        "communievers/onthoofding-johannes-de-doper/hemelum"
     ),
     "tropaar-nikolaas-van-myra": "tropaar/nikolaas-van-myra-toon-4/hemelum",
-    "2-eerste-antifoon": "2-eerste-antifoon/zondag/hemelum",
-    "4-tweede-antifoon": "4-tweede-antifoon/zondag/hemelum",
-    "5-eniggeboren-zoon": "5-eniggeboren-zoon/default/hemelum",
-    "6-derde-antifoon-zaligsprekingen": (
-        "6-derde-antifoon/zondag/hemelum"
+    "eerste-antifoon": "eerste-antifoon/zondag/hemelum",
+    "tweede-antifoon": "tweede-antifoon/zondag/hemelum",
+    "eniggeboren-zoon": "eniggeboren-zoon/default/hemelum",
+    "derde-antifoon-zaligsprekingen": (
+        "derde-antifoon/zondag/hemelum"
     ),
-    "6-derde-antifoon": "6-derde-antifoon/zondag/hemelum",
-    "7-kleine-intocht": "7-kleine-intocht/zondag/hemelum",
-    "7-kleine-intocht/weekdagen/hemelum": "7-kleine-intocht/weekdagen/hemelum",
-    "7-kleine-intocht/moeder-gods/hemelum": "7-kleine-intocht/moeder-gods/hemelum",
-    "7-kleine-intocht/zo-wk-mg/hemelum": "7-kleine-intocht/zo-wk-mg/hemelum",
-    "zo-wk-mg": "7-kleine-intocht/zo-wk-mg/hemelum",
-    "28-wij-hebben-het-ware-licht": "28-wij-hebben-het-ware-licht/default/hemelum",
-    "29-de-naam-des-heren-zij-gezegend": (
-        "29-de-naam-des-heren-zij-gezegend/default/hemelum"
+    "derde-antifoon": "derde-antifoon/zondag/hemelum",
+    "kleine-intocht": "kleine-intocht/zondag/hemelum",
+    "kleine-intocht/weekdagen/hemelum": "kleine-intocht/weekdagen/hemelum",
+    "kleine-intocht/moeder-gods/hemelum": "kleine-intocht/moeder-gods/hemelum",
+    "kleine-intocht/zo-wk-mg/hemelum": "kleine-intocht/zo-wk-mg/hemelum",
+    "zo-wk-mg": "kleine-intocht/zo-wk-mg/hemelum",
+    "wij-hebben-het-ware-licht": "wij-hebben-het-ware-licht/default/hemelum",
+    "de-naam-des-heren-zij-gezegend": (
+        "de-naam-des-heren-zij-gezegend/default/hemelum"
     ),
 }
 _ID_TO_SLOT = {v: k for k, v in _SLOT_TO_ID.items()}
@@ -120,12 +120,12 @@ def _match_doel(dump_name: str, old_id: str) -> tuple[str, Path | None]:
     # Capella 7b deelde vroeger doel-id met 7 (zondag).
     lower = dump_name.lower()
     if "7b" in lower and "weekdagen" in lower:
-        old_id = "7-kleine-intocht/weekdagen/hemelum"
+        old_id = "kleine-intocht/weekdagen/hemelum"
     elif "moedergods" in lower.replace("-", "").replace("_", "") or (
         "moeder" in lower and "gods" in lower and "intocht" in lower
     ):
-        if not old_id or old_id == "7-kleine-intocht":
-            old_id = "7-kleine-intocht/moeder-gods/hemelum"
+        if not old_id or old_id == "kleine-intocht":
+            old_id = "kleine-intocht/moeder-gods/hemelum"
     ident = _normalize_id(old_id)
     if ident:
         try:

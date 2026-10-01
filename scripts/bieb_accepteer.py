@@ -6,7 +6,7 @@ die niet in de bibliotheek horen.
 
 Niet in check. Geen volledige muzikale opkuis; wel poorten (id, formaat,
 vsa validate). Zie scripts/h.cmd bieb-accepteer en de handleiding
-publiceren/1-opnemen-in-bibliotheek.
+publiceren/1-opnemen-in-catalogus.
 """
 
 from __future__ import annotations
@@ -18,8 +18,8 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from bibliotheek import (  # noqa: E402
-    BIBLIOTHEEK_ROOT,
+from catalogus import (  # noqa: E402
+    CATALOGUS_ROOT,
     REPO_ROOT,
     folder,
     parse_id,
@@ -214,7 +214,7 @@ def leaf_index_text(
 
 def ensure_sections(ident: str, *, dry_run: bool) -> None:
     zangstuk, variant, _uv = parse_id(ident)
-    zdir = BIBLIOTHEEK_ROOT / zangstuk
+    zdir = CATALOGUS_ROOT / zangstuk
     zindex = zdir / "_index.md"
     if not zindex.is_file():
         _write(zindex, section_index_text(zangstuk.replace("-", " ")), dry_run=dry_run)
@@ -317,7 +317,7 @@ def accept(
     try:
         parse_id(ident)
     except ValueError as exc:
-        print(f"FAIL: ongeldig bibliotheek-id ({exc})", flush=True)
+        print(f"FAIL: ongeldig catalogus-id ({exc})", flush=True)
         print(
             "Oplossing: gebruik zangstuk/variant/uitvoeringsvorm "
             "(alleen a-z, 0-9, -, _). Zie Id-register.",
@@ -419,7 +419,7 @@ def accept(
     with_tekstblad = "tekstblad" in kinds
     handmatig = artefacten_handmatig or ("print_mscz" in kinds)
 
-    print(f"Bibliotheek-id: {ident}", flush=True)
+    print(f"Catalogus-id: {ident}", flush=True)
     print(f"Doelmap: {_rel(dest_dir)}", flush=True)
     if dry_run:
         print("(dry-run: niets geschreven)", flush=True)
@@ -491,7 +491,7 @@ def accept(
         )
         print(f"  index {_rel(index_path)} ({resolved_status})", flush=True)
 
-    print("OK: opgenomen in de bibliotheek", flush=True)
+    print("OK: opgenomen in de catalogus", flush=True)
     if dry_run:
         print("(dry-run: herhaal zonder --dry-run om echt te schrijven)", flush=True)
     if not stub and "partituur_mscz" in kinds:
@@ -521,12 +521,12 @@ def accept(
 
 
 HELP_IDENT = """\
-Bibliotheek-id = drie delen met schuine streep, bijvoorbeeld:
+Catalogus-id = drie delen met schuine streep, bijvoorbeeld:
   5-eniggeboren-zoon/default/hemelum
   zangstuk / variant / uitvoeringsvorm
 
 Alleen kleine letters, cijfers, - en _. Geen spaties.
-Lijst: content-source\\bibliotheek\\ID-REGISTER.md
+Lijst: content-source\\catalogus\\ID-REGISTER.md
   (op de site: Bibliotheek > Id-register)
 
 Ken je het id niet? Verzin het niet - vraag na bij een beheerder.
@@ -534,7 +534,7 @@ Typ daarna het id opnieuw (of Enter om te stoppen).
 """
 
 HELP_BESTAND = """\
-Geef het volledige pad naar het bestand dat in de bibliotheek moet, bijvoorbeeld:
+Geef het volledige pad naar het bestand dat in de catalogus moet, bijvoorbeeld:
   C:\\Git\\orthodox-ronl\\bibliotheek\\content-source\\input\\_werk\\...\\stam.mscz
 
 Toegestaan:
@@ -603,12 +603,12 @@ def resolve_ident(raw: str | None) -> str | None:
     if raw is not None and raw.strip() == "?":
         _print_help_block(HELP_IDENT)
     print(
-        "Bibliotheek-id ontbreekt. Typ het id, of ? voor uitleg.",
+        "Catalogus-id ontbreekt. Typ het id, of ? voor uitleg.",
         flush=True,
     )
     while True:
         value = prompt_until(
-            "Bibliotheek-id (zangstuk/variant/uitvoeringsvorm): ",
+            "Catalogus-id (zangstuk/variant/uitvoeringsvorm): ",
             HELP_IDENT,
         )
         if value is None:
@@ -696,7 +696,7 @@ def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         description=(
             "Neem .mscz / .vsa / .mvsa / .tekstblad.md (en optioneel PDF/MXL) op in "
-            "content-source/bibliotheek onder een bibliotheek-id. "
+            "content-source/catalogus onder een catalogus-id. "
             "Ontbrekende id/bestand worden gevraagd; typ ? voor uitleg."
         )
     )
@@ -704,7 +704,7 @@ def build_parser() -> argparse.ArgumentParser:
         "ident",
         nargs="?",
         default=None,
-        help="bibliotheek-id: zangstuk/variant/uitvoeringsvorm (of ?)",
+        help="catalogus-id: zangstuk/variant/uitvoeringsvorm (of ?)",
     )
     p.add_argument(
         "bestanden",
@@ -758,7 +758,7 @@ def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     ident = resolve_ident(args.ident)
     if ident is None:
-        print("Gestopt: geen bibliotheek-id.", flush=True)
+        print("Gestopt: geen catalogus-id.", flush=True)
         return 2
     resolved = resolve_bestanden_en_stub(list(args.bestanden), stub=args.stub)
     if resolved is None:
