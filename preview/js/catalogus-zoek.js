@@ -68,7 +68,7 @@
         ? `<div class="catalogus-zoek-incipit">${escapeHtml(e.incipit)}</div>`
         : "";
       html.push(
-        `<li><a href="${escapeAttr(e.url)}"><strong>${escapeHtml(e.title)}</strong></a>` +
+        `<li><a href="${escapeAttr(resolveUrl(e.url))}"><strong>${escapeHtml(e.title)}</strong></a>` +
           status +
           `<div class="catalogus-zoek-id"><code>${escapeHtml(e.id)}</code></div>` +
           incipit +
@@ -89,6 +89,16 @@
 
   function escapeAttr(s) {
     return escapeHtml(s).replace(/'/g, "&#39;");
+  }
+
+  /** Index-URL’s zijn site-absoluut (/catalogus/…); onder Pages-baseURL prefixen. */
+  function resolveUrl(url) {
+    if (!url) return "#";
+    if (/^(https?:|mailto:|tel:|#)/i.test(url)) return url;
+    const base = form.getAttribute("data-base") || "/";
+    const path = String(url).replace(/^\//, "");
+    const baseNorm = base.endsWith("/") ? base : base + "/";
+    return baseNorm + path;
   }
 
   function run() {

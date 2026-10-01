@@ -294,7 +294,7 @@ Spellingvarianten (alleluja/alleluia, Johannes/Joannes) en omgewisselde
 woorden worden meegenomen via de zoekindex. De index komt uit de platte
 tekst naast elke &lt;code&gt;.vsa&lt;/code&gt; / &lt;code&gt;.mvsa&lt;/code&gt; (bestand &lt;code&gt;*.lyrics.txt&lt;/code&gt;), niet uit de
 ruwe VSA-markeringen.&lt;/p&gt;
-&lt;form id="catalogus-zoek-form" class="catalogus-zoek-form" data-index="/bibliotheek/preview/zoek/index.json" action="#" method="get" role="search"&gt;
+&lt;form id="catalogus-zoek-form" class="catalogus-zoek-form" data-index="/bibliotheek/preview/zoek/index.json" data-base="/bibliotheek/preview/" action="#" method="get" role="search"&gt;
  &lt;label for="catalogus-zoek-q"&gt;Zoekterm&lt;/label&gt;
  &lt;div class="catalogus-zoek-rij"&gt;
  &lt;input id="catalogus-zoek-q" name="q" type="search" autocomplete="off" placeholder="bijv. Juich voor God gehele aarde" /&gt;
