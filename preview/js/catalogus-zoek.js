@@ -554,6 +554,7 @@
           escapeHtml(e.title) +
           "</strong></a>" +
           status +
+          incipit +
           '<div class="catalogus-zoek-id-rij">' +
           audio +
           '<button type="button" class="catalogus-zoek-id" data-id="' +
@@ -565,7 +566,6 @@
           "</button>" +
           idHelpHtml(root) +
           "</div>" +
-          incipit +
           "</li>"
       );
     }
