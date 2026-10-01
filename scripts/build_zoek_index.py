@@ -199,12 +199,15 @@ def main() -> int:
     )
     args = parser.parse_args()
     root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
+    synonyms = _load_synonyms()
     entries = build_entries(root)
     payload = {
         "generated_at": datetime.now(timezone.utc)
-        .replace(microsecond=0)
-        .isoformat(),
+            .replace(microsecond=0)
+            .isoformat(),
         "count": len(entries),
+        # Client-side zoeken past dezelfde map toe op de zoekterm (en titel/id).
+        "synonyms": synonyms,
         "entries": entries,
     }
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)

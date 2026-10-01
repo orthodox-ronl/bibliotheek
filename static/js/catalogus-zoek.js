@@ -1,6 +1,10 @@
 /**
  * Client-side zoeken over static/zoek/index.json.
  * Activeert alleen als #catalogus-zoek-form op de pagina staat.
+ *
+ * Synoniemen komen uit index.json (gebouwd uit data/zoek-synoniemen.yaml)
+ * en worden toegepast op zoekterm én op titel/id bij scoren — dezelfde
+ * token→canon-logica als scripts/build_zoek_index.py.
  */
 (function () {
   const form = document.getElementById("catalogus-zoek-form");
@@ -12,8 +16,9 @@
   if (!input || !out) return;
 
   let entries = [];
+  let synonyms = {};
 
-  function normalize(s) {
+  function strip(s) {
     return String(s || "")
       .toLowerCase()
       .normalize("NFD")
@@ -21,6 +26,19 @@
       .replace(/[^\w\s]+/g, " ")
       .replace(/\s+/g, " ")
       .trim();
+  }
+
+  /** Plat maken + synoniemen per woord (zoals Python normalize_text). */
+  function normalize(s) {
+    const base = strip(s);
+    if (!base) return "";
+    return base
+      .split(" ")
+      .filter(Boolean)
+      .map(function (token) {
+        return synonyms[token] || token;
+      })
+      .join(" ");
   }
 
   function tokenSort(s) {
@@ -130,6 +148,8 @@
     })
     .then(function (data) {
       entries = data.entries || [];
+      synonyms =
+        data.synonyms && typeof data.synonyms === "object" ? data.synonyms : {};
       if (meta) {
         meta.textContent =
           (data.count || entries.length) + " uitvoeringsvormen in de index";
