@@ -23,4 +23,8 @@ een **?** naast het **id** (uitleg dat je op het id klikt om een regel
 voor een koormap te kopiëren). Dezelfde knoppen zitten in het zoekvenster
 in de site-kop.
 
+Naast **▶** staat de afspeelsnelheid (standaard **1,5×**). Klik daarop om
+die voor alle zoektreffers te wijzigen; de keuze blijft in dit tabblad
+bewaard tot je de site sluit.
+
 {{< zoek-formulier >}}

@@ -1530,6 +1530,14 @@ body.score-audio-bar-open {
   min-width: 0;
 }
 
+.catalogus-zoek-play-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  flex: 0 0 auto;
+  position: relative;
+}
+
 .catalogus-zoek-play {
   flex: 0 0 auto;
   width: 1.6rem;
@@ -1560,6 +1568,94 @@ body.score-audio-bar-open {
   pointer-events: none;
   border: none;
   background: transparent;
+}
+
+.catalogus-zoek-rate {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+.catalogus-zoek-rate-trigger {
+  min-width: 2.1rem;
+  height: 1.6rem;
+  padding: 0 0.25rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: #fff;
+  color: #445;
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.catalogus-zoek-rate-trigger:hover,
+.catalogus-zoek-rate-trigger:focus {
+  background: #f0f4f8;
+  border-color: #789;
+  outline: none;
+}
+
+.catalogus-zoek-rate-panel {
+  display: none;
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 0.35rem);
+  z-index: 45;
+  width: max(14rem, 100%);
+  max-width: min(18rem, 92vw);
+  margin: 0;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.88rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: #223344;
+  background: #fffef8;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  text-align: left;
+}
+
+.catalogus-zoek-rate-panel p {
+  margin: 0 0 0.5rem;
+}
+
+.catalogus-zoek-rate-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.catalogus-zoek-rate-option {
+  min-width: 2.4rem;
+  padding: 0.25rem 0.4rem;
+  border: 1px solid #aab;
+  border-radius: 4px;
+  background: #fff;
+  color: #223;
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.catalogus-zoek-rate-option:hover,
+.catalogus-zoek-rate-option:focus {
+  background: #f0f4f8;
+  outline: none;
+}
+
+.catalogus-zoek-rate-option.is-active {
+  background: #003366;
+  border-color: #003366;
+  color: #fff;
+}
+
+.catalogus-zoek-rate.is-open .catalogus-zoek-rate-panel,
+.catalogus-zoek-rate:focus-within .catalogus-zoek-rate-panel {
+  display: block;
 }
 
 .catalogus-zoek-id {

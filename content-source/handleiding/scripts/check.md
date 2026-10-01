@@ -49,6 +49,10 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 12. Zoekindex (`python scripts\build_zoek_index.py` → `static\zoek\index.json`)
 13. Hugo-build naar `generated\site`
 
+De Pages-deploy (productie, `/preview/`, branch-previews) bouwt de
+zoekindex ook vóór Hugo, zodat zoeken niet afhangt van een verouderde
+gecommitte `index.json`.
+
 Zonder `--strict` waarschuwen de publicatie-, import- en id-controles
 lokaal maar falen niet (behalve op `main` of met
 `BIBLIOTHEEK_PRODUCTS_STRICT=1` / `BIBLIOTHEEK_ID_STRICT=1`). Met
@@ -63,7 +67,8 @@ of met [vsa-products](../vsa-products/),
 [lyrics-products](../lyrics-products/); vernieuw
 import-siblings met [import-mvsa](../import-mvsa/); herstel id’s met
 [ensure-bibliotheek-id](../ensure-bibliotheek-id/) of
-[layout](../layout/). CI genereert geen MuseScore-/PDF-/audio-/lyrics-producten.
+[layout](../layout/). CI genereert geen MuseScore-/PDF-/audio-/lyrics-producten;
+wel de zoekindex bij elke site-deploy.
 
 # EXAMPLES
 

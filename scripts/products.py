@@ -141,6 +141,18 @@ def main(argv: list[str] | None = None) -> int:
     if failed:
         print(f"\nproducts: {failed} kind(s) mislukt", flush=True)
         return 1
+
+    # Zoekindex hangt af van lyrics, status en audio-paden — altijd vernieuwen
+    # na een geslaagde products-run (ook --only-stale), behalve dry-run.
+    if not args.dry_run:
+        print("\n--- zoekindex (static/zoek/index.json) ---", flush=True)
+        from build_zoek_index import main as build_zoek_main
+
+        zoek_code = build_zoek_main([])
+        if zoek_code not in (0, None):
+            print(f"FAILED zoekindex exit={zoek_code}", flush=True)
+            return 1
+
     print("\nOK: products klaar", flush=True)
     return 0
 

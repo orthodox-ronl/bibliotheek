@@ -149,6 +149,9 @@ jobs:
       - name: Bladermap SVG from .vsa
         run: python scripts/sync_oefenhoek_index.py --svg
 
+      - name: Build catalogus zoekindex
+        run: python scripts/build_zoek_index.py
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:

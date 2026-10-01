@@ -221,7 +221,7 @@ def build_entries(root: Path) -> list[dict]:
     return [by_id[k] for k in sorted(by_id)]
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Bouw static/zoek/index.json")
     parser.add_argument(
         "root",
@@ -229,7 +229,7 @@ def main() -> int:
         type=Path,
         default=DEFAULT_ROOT,
     )
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
     synonyms = _load_synonyms()
     entries = build_entries(root)

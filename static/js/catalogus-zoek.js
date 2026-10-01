@@ -3,7 +3,8 @@
  *
  * Werkt op elke .catalogus-zoek-root (pagina-formulier én header-overlay).
  * Synoniemen uit index.json (data/zoek-synoniemen.yaml).
- * Trefferregel: afspelen .mp3 + klik op id kopieert {{< bieb id="…" >}}.
+ * Trefferregel: afspelen .mp3 (snelheid via popover, default 1,5×,
+ * sessionStorage) + klik op id kopieert {{< bieb id="…" >}}.
  */
 (function () {
   const roots = Array.from(document.querySelectorAll(".catalogus-zoek"));
@@ -16,6 +17,124 @@
   /** Één gedeelde speler voor zoektreffers. */
   const player = new Audio();
   let playingBtn = null;
+
+  /** Afspeelsnelheid voor treffers: tab-sessie (sessionStorage), default 1,5×. */
+  const RATE_KEY = "orthodox-ronl-bibliotheek-zoek-rate";
+  const DEFAULT_RATE = 1.5;
+  const RATE_OPTIONS = [0.75, 1, 1.25, 1.5, 2];
+  let memoryRate = DEFAULT_RATE;
+
+  function formatRate(rate) {
+    const n = Number(rate);
+    if (!isFinite(n)) return "1,5×";
+    return String(n).replace(".", ",") + "×";
+  }
+
+  function normalizeRate(value) {
+    const n = parseFloat(value, 10);
+    if (!isFinite(n)) return DEFAULT_RATE;
+    for (let i = 0; i < RATE_OPTIONS.length; i++) {
+      if (Math.abs(RATE_OPTIONS[i] - n) < 0.001) return RATE_OPTIONS[i];
+    }
+    return DEFAULT_RATE;
+  }
+
+  function getRate() {
+    try {
+      const raw = sessionStorage.getItem(RATE_KEY);
+      if (raw != null && raw !== "") {
+        memoryRate = normalizeRate(raw);
+        return memoryRate;
+      }
+    } catch (e) {
+      /* private mode / geblokkeerd: geheugen blijft gelden tot tab dicht */
+    }
+    return memoryRate;
+  }
+
+  function setRate(value) {
+    memoryRate = normalizeRate(value);
+    try {
+      sessionStorage.setItem(RATE_KEY, String(memoryRate));
+    } catch (e) {
+      /* ignore */
+    }
+    applyPlaybackRate();
+    syncRateUi(document);
+  }
+
+  function applyPlaybackRate() {
+    try {
+      player.playbackRate = getRate();
+    } catch (e) {
+      try {
+        player.playbackRate = DEFAULT_RATE;
+      } catch (e2) {
+        /* ignore */
+      }
+    }
+  }
+
+  function syncRateUi(scope) {
+    const root = scope || document;
+    const label = formatRate(getRate());
+    root.querySelectorAll(".catalogus-zoek-rate-trigger").forEach(function (btn) {
+      btn.textContent = label;
+      btn.setAttribute(
+        "aria-label",
+        "Afspeelsnelheid zoektreffers: " + label + ". Klik om te wijzigen."
+      );
+      btn.title = "Afspeelsnelheid voor zoektreffers (" + label + ")";
+    });
+    root.querySelectorAll(".catalogus-zoek-rate-option").forEach(function (opt) {
+      const active = normalizeRate(opt.getAttribute("data-rate")) === getRate();
+      opt.classList.toggle("is-active", active);
+      opt.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+  }
+
+  function closeAllRatePanels(scope) {
+    const root = scope || document;
+    root.querySelectorAll(".catalogus-zoek-rate.is-open").forEach(function (wrap) {
+      wrap.classList.remove("is-open");
+      const btn = wrap.querySelector(".catalogus-zoek-rate-trigger");
+      const panel = wrap.querySelector(".catalogus-zoek-rate-panel");
+      if (btn) btn.setAttribute("aria-expanded", "false");
+      if (panel) panel.hidden = true;
+    });
+  }
+
+  function rateControlHtml() {
+    const current = getRate();
+    const opts = RATE_OPTIONS.map(function (r) {
+      const active = r === current;
+      return (
+        '<button type="button" class="catalogus-zoek-rate-option' +
+        (active ? " is-active" : "") +
+        '" data-rate="' +
+        r +
+        '" aria-pressed="' +
+        (active ? "true" : "false") +
+        '">' +
+        formatRate(r) +
+        "</button>"
+      );
+    }).join("");
+    return (
+      '<span class="catalogus-zoek-rate">' +
+      '<button type="button" class="catalogus-zoek-rate-trigger" aria-expanded="false" title="Afspeelsnelheid voor zoektreffers (' +
+      escapeAttr(formatRate(current)) +
+      ')">' +
+      escapeHtml(formatRate(current)) +
+      "</button>" +
+      '<span class="catalogus-zoek-rate-panel" hidden role="dialog" aria-label="Afspeelsnelheid zoektreffers">' +
+      "<p>Snelheid voor beluisteren bij zoektreffers. Geldt voor deze browsersessie tot je de site (of dit tabblad) sluit.</p>" +
+      '<div class="catalogus-zoek-rate-options">' +
+      opts +
+      "</div>" +
+      "</span></span>"
+    );
+  }
 
   function strip(s) {
     return String(s || "")
@@ -271,6 +390,7 @@
 
     if (same) {
       if (player.paused) {
+        applyPlaybackRate();
         player.play().catch(function () {
           stopAudio();
         });
@@ -283,6 +403,7 @@
 
     stopAudio();
     player.src = src;
+    applyPlaybackRate();
     setPlayingButton(btn, true);
     player.play().catch(function () {
       stopAudio();
@@ -360,9 +481,12 @@
           "</div>"
         : "";
       const audio = e.audio
-        ? '<button type="button" class="catalogus-zoek-play" data-audio="' +
+        ? '<span class="catalogus-zoek-play-wrap">' +
+          '<button type="button" class="catalogus-zoek-play" data-audio="' +
           escapeAttr(e.audio) +
-          '" aria-label="Beluisteren" aria-pressed="false" title="Beluisteren">▶</button>'
+          '" aria-label="Beluisteren" aria-pressed="false" title="Beluisteren">▶</button>' +
+          rateControlHtml() +
+          "</span>"
         : '<span class="catalogus-zoek-play catalogus-zoek-play--empty" aria-hidden="true"></span>';
       html.push(
         "<li>" +
@@ -389,6 +513,7 @@
     }
     html.push("</ul>");
     out.innerHTML = html.join("");
+    syncRateUi(out);
   }
 
   function runRoot(root) {
@@ -473,6 +598,30 @@
     });
 
     out.addEventListener("click", function (ev) {
+      const rateOpt = ev.target.closest(".catalogus-zoek-rate-option");
+      if (rateOpt) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        setRate(rateOpt.getAttribute("data-rate"));
+        closeAllRatePanels(root);
+        return;
+      }
+      const rateTrigger = ev.target.closest(".catalogus-zoek-rate-trigger");
+      if (rateTrigger) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        const wrap = rateTrigger.closest(".catalogus-zoek-rate");
+        const panel = wrap && wrap.querySelector(".catalogus-zoek-rate-panel");
+        const open = wrap && !wrap.classList.contains("is-open");
+        closeAllTips(root);
+        closeAllRatePanels(root);
+        if (wrap && open) {
+          wrap.classList.add("is-open");
+          rateTrigger.setAttribute("aria-expanded", "true");
+          if (panel) panel.hidden = false;
+        }
+        return;
+      }
       const tipTrigger = ev.target.closest(".catalogus-zoek-tip-trigger");
       if (tipTrigger) {
         ev.preventDefault();
@@ -481,6 +630,7 @@
         const panel = tip && tip.querySelector(".catalogus-zoek-tip-panel");
         const open = tip && !tip.classList.contains("is-open");
         closeAllTips(root);
+        closeAllRatePanels(root);
         if (tip && open) {
           tip.classList.add("is-open");
           tipTrigger.setAttribute("aria-expanded", "true");
@@ -494,6 +644,7 @@
       const play = ev.target.closest(".catalogus-zoek-play");
       if (play && play.dataset.audio) {
         ev.preventDefault();
+        closeAllRatePanels(root);
         playAudio(root, play, play.dataset.audio);
         return;
       }
@@ -507,7 +658,9 @@
     document.addEventListener("click", function (ev) {
       if (!root.contains(ev.target)) return;
       if (ev.target.closest(".catalogus-zoek-tip")) return;
+      if (ev.target.closest(".catalogus-zoek-rate")) return;
       closeAllTips(root);
+      closeAllRatePanels(root);
     });
 
     if (isNav && toggle) {
@@ -523,7 +676,11 @@
         });
       });
       document.addEventListener("keydown", function (ev) {
-        if (ev.key === "Escape") closeNavPanel(root);
+        if (ev.key === "Escape") {
+          closeAllRatePanels(root);
+          closeAllTips(root);
+          closeNavPanel(root);
+        }
       });
     }
 

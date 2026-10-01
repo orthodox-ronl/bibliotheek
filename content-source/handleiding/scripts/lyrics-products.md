@@ -25,17 +25,19 @@ Haalt de **gezongen tekst** uit een catalogus-`.vsa` of `.mvsa` (via
 | `{stam}.mvsa` | `{stam}.mvsa.lyrics.txt` |
 
 Bovenaan het tekstbestand staan herkomstregels (`# vsa-source-sha256:` …),
-zodat `check` kan zien of de bron nieuwer is dan de lyrics. De site bouwt
-daarna `static\zoek\index.json` (`python scripts\build_zoek_index.py`,
-ook vanuit `check`) voor de pagina
-[Zoeken in de catalogus](/catalogus/zoeken/).
+zodat `check` kan zien of de bron nieuwer is dan de lyrics. Na een
+geslaagde run vernieuwt dit script ook `static\zoek\index.json` (zelfde
+stap als `products` en `check`). Op GitHub Pages (productie, preview én
+branch-previews) bouwt de deploy-workflow die index opnieuw vóór Hugo,
+zodat zoeken altijd bij de gecommitte catalogus past.
 
 Zoekt onder het opgegeven pad (of, zonder pad, onder
 `content-source\catalogus`). Overgeslagen: `input\`, mappen met
 `artefacten_handmatig: true`.
 
-CI genereert **geen** lyrics; jij wel lokaal (of via `all-products`),
-daarna committen.
+CI genereert **geen** lyrics; jij wel lokaal (of via `products` /
+`all-products`), daarna committen. De **zoekindex** wel: die wordt
+bij elke Pages-deploy opnieuw gebouwd.
 
 # EXAMPLES
 
