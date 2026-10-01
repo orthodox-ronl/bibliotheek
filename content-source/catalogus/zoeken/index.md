@@ -10,14 +10,19 @@ aliases:
   - "/bibliotheek/zoeken/"
 ---
 
-Zoek op **titel**, **catalogus-id** of een stukje **gezongen tekst**.
-Spellingvarianten (alleluja/alleluia, Johannes/Joannes/Ioannes) en
-omgewisselde woorden worden meegenomen: bij het bouwen van de index én
-op jouw zoekterm (`data/zoek-synoniemen.yaml`). Ook **beginletters** van
-zo’n variant tellen mee (bijv. `ioa` → zelfde treffers als `johannes`),
-vanaf drie tekens. De index komt uit de
-platte tekst naast elke `.vsa` / `.mvsa` (bestand `*.lyrics.txt`), niet
-uit de ruwe VSA-markeringen.
+{{< zoek-formulier >}}
+
+## Uitleg
+
+Je kunt zoeken op **titel**, **catalogus-id** of een stukje **gezongen tekst**.
+Een aantal spellingvarianten zoals alleluja/alleluia, Johannes/Joannes/Ioannes
+en ook omgewisselde woorden worden meegenomen.
+
+Elke treffer toont:
+- de titel van het gevonden stuk; erop klikken brengt je erheen.
+- de status van het stuk; klik op **?** ernaast voor uitleg.
+- **▶**; klik erop om het af te spelen (met daarnaast de mogelijkheid de snelheid aan te passen)
+-  bij een treffer kun je het gevonden item afspelen
 
 Bij elke treffer staat een **?** naast de **publicatiestatus** (uitleg
 wat *concept*, *reviewable* enz. betekent en hoe je feedback geeft) en
@@ -28,5 +33,3 @@ in de site-kop.
 Naast **▶** staat de afspeelsnelheid (standaard **1,5×**). Klik daarop om
 die voor alle zoektreffers te wijzigen; de keuze blijft in dit tabblad
 bewaard tot je de site sluit.
-
-{{< zoek-formulier >}}
