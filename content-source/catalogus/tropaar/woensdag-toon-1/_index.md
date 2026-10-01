@@ -6,7 +6,9 @@ weight: 203
 publicatiestatus: concept
 automatische_inhoud: false
 alias_van: tropaar/heilig-kruis-toon-1
-aliases:
-  - "/bibliotheek/110-tropaar/woensdag-toon-1/"
-  - "/bibliotheek/tropaar/woensdag-toon-1/"
 ---
+cd C:\Git\orthodox-ronl\bibliotheek
+git worktree add ..\bibliotheek-onderhoud zangstukken
+
+git push origin -u zangstukken
+git push origin --delete onderhoud/zangstukken

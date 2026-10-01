@@ -6,7 +6,4 @@ weight: 304
 publicatiestatus: concept
 automatische_inhoud: false
 alias_van: kondak/donderdag-toon-2
-aliases:
-  - "/bibliotheek/120-kondak/apostelen-toon-2/"
-  - "/bibliotheek/kondak/apostelen-toon-2/"
 ---

@@ -28,8 +28,6 @@ Het script:
    (publicatiestam: `.vsa`, `.vsa.mxl`, `.lyrics.txt`, `.mp3`, …).
 3. Verplaatst bladermap-SVG’s onder `static\vsa\bladermap\catalogus\`.
 4. Werkt tekstverwijzingen bij (`bieb id=…`, `alias_van`, colofons, docs).
-5. Zet Hugo-`aliases` op elke verhuisde pagina zodat oude URL’s blijven
-   werken.
 
 Daarna opnieuw: `python scripts\build_zoek_index.py` en
 `scripts\check.cmd` (SVG/fingerprints/Hugo).

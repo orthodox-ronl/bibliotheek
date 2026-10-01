@@ -1,4 +1,4 @@
-"""Hernoem een zangstuk-id (map + stam + verwijzingen + Hugo-aliases).
+"""Hernoem een zangstuk-id (map + stam + verwijzingen).
 
 Gebruik::
 
@@ -6,8 +6,8 @@ Gebruik::
 
 Verplaatst ``content-source/catalogus/<oud>`` → ``<nieuw>``, hernoemt
 bestanden waarvan de naam met ``{oud}-`` begint, werkt tekstverwijzingen
-bij (``bieb id``, ``alias_van``, colofon, docs), verplaatst bladermap-SVG,
-en zet Hugo-``aliases`` op elke verhuisde pagina voor de oude URL.
+bij (``bieb id``, ``alias_van``, colofon, docs), en verplaatst
+bladermap-SVG. Hugo-``aliases`` voor oude URL’s worden niet gezet.
 """
 
 from __future__ import annotations
@@ -65,7 +65,7 @@ def _validate_zangstuk(name: str) -> str:
 
 
 def _insert_aliases(text: str, alias_paths: list[str]) -> str:
-    """Voeg aliases toe aan YAML-frontmatter (of maak frontmatter)."""
+    """Voeg aliases toe aan YAML-frontmatter (helper voor eenmalige migrate-scripts)."""
     aliases_block = "aliases:\n" + "".join(f'  - "{p}"\n' for p in alias_paths)
     if not text.startswith("---"):
         return f"---\n{aliases_block}---\n\n{text}"
@@ -159,32 +159,6 @@ def _rename_stem_files(root: Path, old: str, new: str, *, dry_run: bool) -> int:
     return n
 
 
-def _add_page_aliases(zangstuk_dir: Path, old: str, new: str, *, dry_run: bool) -> int:
-    """Zet Hugo-aliases voor oude URL’s op _index.md / index.md onder nieuw pad."""
-    n = 0
-    indexes = list(zangstuk_dir.rglob("_index.md")) + list(zangstuk_dir.rglob("index.md"))
-    for index in indexes:
-        try:
-            rel = index.parent.resolve().relative_to(zangstuk_dir.resolve())
-        except ValueError:
-            continue
-        rel_s = "" if str(rel) in {".", ""} else rel.as_posix().rstrip("/")
-        old_url = (
-            f"/catalogus/{old}/"
-            if not rel_s
-            else f"/catalogus/{old}/{rel_s}/"
-        )
-        text = index.read_text(encoding="utf-8")
-        new_text = _insert_aliases(text, [old_url])
-        if new_text == text:
-            continue
-        print(f"  alias {_rel(index)} <- {old_url}", flush=True)
-        if not dry_run:
-            index.write_text(new_text, encoding="utf-8", newline="\n")
-        n += 1
-    return n
-
-
 def hernoem_zangstuk(old: str, new: str, *, dry_run: bool) -> int:
     old = _validate_zangstuk(old)
     new = _validate_zangstuk(new)
@@ -248,13 +222,6 @@ def hernoem_zangstuk(old: str, new: str, *, dry_run: bool) -> int:
             path.write_text(updated, encoding="utf-8", newline="\n")
     print(f"  tekstbestanden bijgewerkt: {n_files} (~{n_hits} treffers)", flush=True)
 
-    # Hugo-aliases op verhuisde pagina's
-    alias_root = dest if not dry_run else src
-    # Na rewrite heten aliases-doelen al /catalogus/new/… — we willen OUDE urls.
-    # Dus aliases toevoegen met old-naam, onafhankelijk van rewrite.
-    n_alias = _add_page_aliases(alias_root, old, new, dry_run=dry_run)
-    print(f"  hugo-aliases: {n_alias}", flush=True)
-
     print("OK: hernoem klaar" + (" (dry-run, niets geschreven)" if dry_run else ""))
     if not dry_run:
         print(
@@ -267,7 +234,7 @@ def hernoem_zangstuk(old: str, new: str, *, dry_run: bool) -> int:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="bieb hernoem",
-        description="Hernoem een zangstuk-id (map, stam, refs, aliases).",
+        description="Hernoem een zangstuk-id (map, stam, refs).",
     )
     parser.add_argument("oud", help="Huidig zangstuk-id (mapnaam)")
     parser.add_argument("nieuw", help="Nieuw zangstuk-id")

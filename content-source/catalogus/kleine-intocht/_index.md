@@ -5,6 +5,4 @@ nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true
 weight: 700
-aliases:
-  - "/bibliotheek/kleine-intocht/"
 ---

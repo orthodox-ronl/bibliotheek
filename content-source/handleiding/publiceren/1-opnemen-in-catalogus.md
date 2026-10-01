@@ -2,8 +2,6 @@
 title: "Opnemen in de catalogus"
 linkTitle: "Opnemen in de catalogus"
 weight: 5
-aliases:
-  - "/handleiding/publiceren/1-opnemen-in-bibliotheek/"
 ---
 
 # Opnemen in de catalogus

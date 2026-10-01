@@ -6,7 +6,4 @@ weight: 304
 publicatiestatus: concept
 automatische_inhoud: false
 alias_van: tropaar/donderdag-toon-3
-aliases:
-  - "/bibliotheek/110-tropaar/apostelen-toon-3/"
-  - "/bibliotheek/tropaar/apostelen-toon-3/"
 ---

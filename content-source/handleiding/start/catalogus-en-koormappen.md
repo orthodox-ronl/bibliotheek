@@ -2,8 +2,6 @@
 title: "Catalogus en koormappen"
 linkTitle: "Catalogus en koormappen"
 weight: 25
-aliases:
-  - "/handleiding/start/bibliotheek-en-koormappen/"
 ---
 
 # Catalogus en koormappen

@@ -195,8 +195,7 @@ houden). De Hugo-sectie heet **catalogus** (niet meer
   `kondak` 760, kruis-buurt 755/765, `prijslied` 3000).
 - Leesbare `title` / `linkTitle` op een aantal slug-achtige variantpagina’s.
 - Sitezoeken + lyrics-producten (zie [Zoeken](/catalogus/zoeken/)).
-- Eerste hernoem-golf: `110-tropaar` → `tropaar`, `120-kondak` → `kondak`
-  (oude URL’s via Hugo-`aliases`).
+- Eerste hernoem-golf: `110-tropaar` → `tropaar`, `120-kondak` → `kondak`.
 - Ektinia-golf: litanie-zangstukken geconsolideerd onder `ektinia`
   (varianten `vrede`, `kleine`, `dringend`, `ontslapenen`, `catechumenen`,
   `gelovigen`, `vragend`). `16` en `22` vragende → één variant; koormap-slots
@@ -229,8 +228,7 @@ houden). De Hugo-sectie heet **catalogus** (niet meer
    slotlink-check) — `bieb hernoem` bestaat; zie
    [bieb hernoem](/handleiding/scripts/bieb-hernoem/).
 
-Hugo-`aliases` voor de genummerde paden van de laatste golf zijn bewust
-weggelaten: die URL’s werden niet gebruikt. Sectie-URL’s
-`/bibliotheek/…` → `/catalogus/…` hebben wél aliases.
+Hugo-`aliases` voor oude URL’s (`/bibliotheek/…`, genummerde paden) zijn
+bewust weggelaten: die paden werden niet gebruikt.
 
 {{< navbuttons "Catalogus en koormappen|/handleiding/start/catalogus-en-koormappen/" "Woorden|/handleiding/start/woorden/" >}}

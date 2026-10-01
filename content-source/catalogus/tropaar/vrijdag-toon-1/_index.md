@@ -6,7 +6,4 @@ weight: 305
 publicatiestatus: concept
 automatische_inhoud: false
 alias_van: tropaar/heilig-kruis-toon-1
-aliases:
-  - "/bibliotheek/110-tropaar/vrijdag-toon-1/"
-  - "/bibliotheek/tropaar/vrijdag-toon-1/"
 ---
