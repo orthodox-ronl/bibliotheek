@@ -76,14 +76,14 @@ python scripts\render_tropaar_toon4_corpus.py --id T4-11 --pdf
 
    - hernoem de `.mscz` naar `{stam}.print.mscz` (buiten basispartituur-pijplijn);
    - houd PDF en Coria-`.mxl` handmatig bij naast die print;
-   - zet op bibliotheek-`index.md` `artefacten_handmatig: true`
+   - zet op catalogus-`index.md` `artefacten_handmatig: true`
      (gele beheerdersbanner; `vsa-products` en partituur-publicatiecontrole laten de map met rust);
    - de eenstemmige `.vsa` mag ernaast blijven staan voor de notatie
      (SVG via `scripts\oefenhoek-index.cmd --svg` / volle
      `check`; zie [.vsa schrijven](../1-vsa-schrijven/)).
 
    Daarna koormap-slot via
-   [Bibliotheek en koormap](../../publiceren/1-bladermap/). Print-details:
+   [Catalogus en koormap](../../publiceren/1-bladermap/). Print-details:
    [Print-.mscz](../../partituur/7-print-mscz/).
 
 6. Fout `TemplateInstanceError`: de VSA-sopraan landt niet op de formule
@@ -101,4 +101,4 @@ In de catalogus liggen `{stam}.print.mscz`, handmatige PDF/MXL en de
 SATB; de preview (koormap-slot) heeft PDF plus **Oefenen** / **Downloaden**
 waar je die bestanden hebt neergezet.
 
-{{< navbuttons "Volgende: bibliotheek en koormap|/handleiding/publiceren/1-bladermap/" >}}
+{{< navbuttons "Volgende: catalogus en koormap|/handleiding/publiceren/1-bladermap/" >}}

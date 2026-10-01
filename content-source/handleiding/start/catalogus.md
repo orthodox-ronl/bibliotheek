@@ -73,7 +73,7 @@ verwijst alleen:
 {{</* bieb id="zangstuk/variant/uitvoeringsvorm" */>}}
 ```
 
-Zie [Bibliotheek en koormap](../publiceren/1-bladermap/). Een
+Zie [Catalogus en koormap](../publiceren/1-bladermap/). Een
 uitvoeringsvorm mag in de catalogus staan zonder koormap (special page
 [Ongerefereerd](/catalogus/speciaal/ongerefereerd/)).
 

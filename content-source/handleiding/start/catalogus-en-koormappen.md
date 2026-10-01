@@ -156,7 +156,7 @@ komt, geef je `default` een echte naam of hernoem je de map.
 
 `scripts\check.cmd` controleert **geen** frontmatter-schema (geen verplichte
 velden, geen capitalisatie van `linkTitle`). Wel verwacht de handleiding die
-velden op elke bibliotheek- en koormap-pagina. Mis je `publicatiestatus`,
+velden op elke catalogus- en koormap-pagina. Mis je `publicatiestatus`,
 dan ontbreekt de statusbadge; de build faalt daar niet op.
 
 ## Soorten koormap (classificatie)
@@ -174,10 +174,10 @@ Optioneel later: frontmatter `type:` op de koormap-`_index` (`liturgie`,
 `feest`, `collectie`, `parochie`).
 
 «Collectie» hier is dus een *view* in de koormap, geen extra maplaag boven
-zangstukken in de bibliotheek. Zie besluit 5 in
+zangstukken in de catalogus. Zie besluit 5 in
 [Zangstuk-soorten](/handleiding/start/zangstuk-soorten/).
 
-## Wat de bibliotheek-root toont
+## Wat de catalogus-root toont
 
 De root van de catalogus is **geen** sitemap van alle stubs. Koorleden zien
 daar vooral **oefenbare** zangstukken (nette titel, liturgienummer-volgorde).
@@ -209,12 +209,13 @@ shortcodes op één pagina).
    `weight`.
 2. Spelling voor *nieuwe* ids: `johannes`, `alleluia`; liever voluit dan
    `mg` of `zo-wk-mg`.
-3. Bestaande genummerde ids blijven geldig tot een bewuste hernoem-golf
-   (tooling: later `bieb hernoem`).
+3. Genummerde top-level `zangstuk-id`s zijn hernoemd (zie
+   [Zangstuk-soorten](/handleiding/start/zangstuk-soorten/)). Nieuwe
+   hernoemingen: [`bieb hernoem`](/handleiding/scripts/bieb-hernoem/).
 4. Echte naamsynoniemen van dezelfde variant: `alias_van`. Spelling- en
    woordvolgorde-varianten: zoekindex + [`data/zoek-synoniemen.yaml`](https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml).
 
 Zie [Zangstuk-soorten](/handleiding/start/zangstuk-soorten/) voor de
-inventaristabel en open beslispunten.
+inventaristabel en resterende vervolgstappen.
 
 {{< navbuttons "Waar ligt wat|/handleiding/start/waar-ligt-wat/" "Zangstuk-soorten|/handleiding/start/zangstuk-soorten/" >}}

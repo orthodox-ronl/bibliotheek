@@ -39,7 +39,7 @@ ná de lijst met deelrubrieken.
 | `gepubliceerd` | Er staat al oefenbare inhoud in de catalogus (basispartituur, VSA, print-PDF, …) |
 
 `publicatiestatus` (`voorzien` / `concept` / `reviewable` / `productie`) staat
-op bibliotheek-`index.md` en koormap-`index.md`, voor koorleden. Deze tabel is
+op catalogus-`index.md` en koormap-`index.md`, voor koorleden. Deze tabel is
 voor wie converteert.
 
 <!-- werkvoorraad-tabel:begin -->
@@ -104,7 +104,7 @@ voor wie converteert.
 
 ### Nieuwe input
 
-1. Niet in bibliotheek of koormap zetten. Eerst `input/<herkomst>/` (of lokaal `_inbox/` tot je zeker weet dat je hem bewaart).
+1. Niet in catalogus of koormap zetten. Eerst `input/<herkomst>/` (of lokaal `_inbox/` tot je zeker weet dat je hem bewaart).
 2. Originele bestandsnaam laten staan.
 3. Sitebuild draaien of `python scripts/update_werkvoorraad.py`: er komt een rij. Doel-id leeg? Invullen of vragen; niet gokken.
 4. Notitie gebruiken voor “tweede bron”, “zelfde koormap-slot als …”, open vragen.
@@ -116,8 +116,8 @@ Tussenproducten in `_werk/`, origineel blijft in `capella/`.
 1. `cleanup_capella_mxl.py` → opgekuiste `.mxl` zonder spaties in de naam.
 2. MuseScore-import + `apply_mscz_layout.py` → standaard-`.mscz`.
 3. `export_mscz_coria_mxl.py` → playback-`.mxl`; PDF uit dezelfde `.mscz`.
-4. Bestanden in `oefenhoek/bibliotheek/<zangstuk>/<variant>/<uitvoeringsvorm>/` plus bibliotheek-`index.md`; koormap-slot met `bieb`.
-5. `publicatiestatus: reviewable` op bibliotheek én koormap als er oefenbare inhoud in staat, anders `voorzien`.
+4. Bestanden in `catalogus/<zangstuk>/<variant>/<uitvoeringsvorm>/` plus catalogus-`index.md`; koormap-slot met `bieb`.
+5. `publicatiestatus: reviewable` op catalogus én koormap als er oefenbare inhoud in staat, anders `voorzien`.
 6. `check --strict`.
 
 **Copyright:** alleen wat in *deze* Capella-`.mxl` staat. Geen notice → geen

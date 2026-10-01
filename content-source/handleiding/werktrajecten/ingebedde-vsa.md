@@ -6,7 +6,7 @@ weight: 70
 
 # Ingebedde VSA
 
-Dit werktraject betreft **VSA buiten** de oefenhoek-bibliotheek: notatie
+Dit werktraject betreft **VSA buiten** de catalogus: notatie
 in gewone content-pagina’s (demo’s, feesteigen, samenstellingen,
 handleidingen). De site-build maakt daar SVG (en optioneel MusicXML)
 onder `static\vsa\`.
@@ -15,7 +15,7 @@ onder `static\vsa\`.
 Zet `::: vsa-notatie` … `:::` of een `.vsa`-include in een markdownpagina
 onder `content-source`. Draai daarna `scripts\check.cmd` of
 `scripts\build.cmd` — de pipeline doet `vsa build-markdown` en
-`vsa musicxml`. Dit is **geen** bibliotheek-`{stam}.vsa.mxl`.
+`vsa musicxml`. Dit is **geen** catalogus-`{stam}.vsa.mxl`.
 {{< /cue >}}
 
 ## Waartoe
@@ -41,7 +41,7 @@ Dit vervangt **niet** sibling `{stam}.vsa.mxl` in de catalogus (dat is
 
 | Wel | Niet |
 | --- | --- |
-| Demo, feesteigen, samenstelling, handleiding | bibliotheek-bibliotheek-uitvoeringsvorm → [VSA](../vsa/) + `bieb` |
+| Demo, feesteigen, samenstelling, handleiding | catalogus-uitvoeringsvorm → [VSA](../vsa/) + `bieb` |
 | Inline `::: vsa-notatie` of include van een `.vsa` | Alleen een A4-PDF uit markdown → [Markdown naar PDF](../markdown-naar-pdf/) |
 
 ## Volgorde (bestanden)

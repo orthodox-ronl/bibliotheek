@@ -50,9 +50,9 @@ beheerdersbanner op de cataloguspagina.
 | Gecombineerd printvel, template-SATB | Eenstemmige notatie alleen → [VSA](../vsa/) |
 
 Voorbeelden in de catalogus:
-`7-kleine-intocht/zo-wk-mg/hemelum`,
+`kleine-intocht/zo-wk-mg/hemelum`,
 `tropaar/nikolaas-van-myra-toon-4/hemelum`,
-`20-moeder-godslied/ontslapen-moeder-gods/hemelum`.
+`moeder-godslied/ontslapen-moeder-gods/hemelum`.
 
 ## Volgorde (bestanden)
 

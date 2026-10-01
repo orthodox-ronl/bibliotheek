@@ -13,7 +13,7 @@ weight: 30
 - **publicatiecontrole** = versheidscontrole op site-producten; zie [Publicatiecontrole](publicatiecontrole/)
 - **importcontrole** = versheidscontrole op bewerk-/importvorm (bijv. `.mscz.mvsa`); zie [import-mvsa](/handleiding/scripts/import-mvsa/)
 - **geldigheidscontrole** = `vsa validate` / `mvsa validate` / …
-- **artefacten_handmatig** = frontmatter op bibliotheek-`index.md`: PDF/MXL niet auto-bijwerken
+- **artefacten_handmatig** = frontmatter op catalogus-`index.md`: PDF/MXL niet auto-bijwerken
 - `.mxl` / `.vsa.mxl` / `.mscz.mxl` = MusicXML voor Coria (**afgeleide**; niet terug importeren om te layouten)
 - `.pdf` / `.mscz.pdf` = A4-afgeleide om te lezen of te printen
 - `.mp3` / `.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3` = preview-audio voor **Beluisteren** (zelfde bronnen als Coria-`.mxl`; zie [audio](/handleiding/werktrajecten/audio/))
@@ -66,7 +66,7 @@ lettergrepen synchroon met noten. MusicXML: `scripts\opkuisen.cmd`. Bij een
 | **Bibliotheek** | Deze repository / de site als geheel (`github.com/orthodox-ronl/bibliotheek`) |
 | **Catalogus** (sectie) | Hugo-sectie onder `catalogus\`: alle oefenbestanden per uitvoeringsvorm; mag stukken bevatten zonder koormap |
 | **Catalogus-id** | Drie segmenten `[a-z0-9_-]+`, bijv. `trisagion/8a-nederlands/hemelum` (colofon in `.mscz`: regel `Bibliotheek-id:`) |
-| **Variant-id `default`** | Middelste laag als er maar één variant is (bijv. `5-eniggeboren-zoon/default/hemelum`) |
+| **Variant-id `default`** | Middelste laag als er maar één variant is (bijv. `eniggeboren-zoon/default/hemelum`) |
 | **Taal-suffix** | Op uitvoeringsvorm-id: geen = NL; `-ksl` = Kerkslavisch Cyrillisch; `-ksl-trlat` = getranslitereerd; `-nl-ksl` = mengvorm |
 | **Koormap** | Geordende view (navigatieboom) voor een gelegenheid; geen basispartituur-bestanden in de slotmappen |
 | **Koormap-sectie** | Map met `_index.md` in de koormap: liturgische plek / hoofdstuk (kindlijst of eigen TOC) |

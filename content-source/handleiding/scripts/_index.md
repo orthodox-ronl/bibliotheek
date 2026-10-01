@@ -15,15 +15,15 @@ vanuit de repo-root.
 
 | Commando | Wat het doet | Man-page |
 | --- | --- | --- |
-| `validate` | Controleert bibliotheek-`.vsa` (en eventueel `.mvsa`) via de `vsa`-CLI. | [validate](validate/) |
+| `validate` | Controleert catalogus-`.vsa` (en eventueel `.mvsa`) via de `vsa`-CLI. | [validate](validate/) |
 | `check` | Preflight: validate + VSA-/MSCZ-publicatiecontrole + Coria-fingerprints + Hugo-build. | [check](check/) |
 | `build` | Bouwt de site naar `generated\site`. | [build](build/) |
 | `serve` | Lokale preview op http://127.0.0.1:18732/ (niet 1313, niet 18731). | [serve](serve/) |
-| `vsa-products` | Maakt/vernieuwt `{stam}.vsa.mxl` (Coria) + `{stam}.vsa.pdf` (A4) bij een bibliotheek-`.vsa`. | [vsa-products](vsa-products/) |
+| `vsa-products` | Maakt/vernieuwt `{stam}.vsa.mxl` (Coria) + `{stam}.vsa.pdf` (A4) bij een catalogus-`.vsa`. | [vsa-products](vsa-products/) |
 | `mscz-products` | Maakt/vernieuwt `{stam}.mscz.pdf` + `{stam}.mscz.mxl` bij een basispartituur-`.mscz`. | [mscz-products](mscz-products/) |
-| `tekstblad-products` | Maakt/vernieuwt `{stam}.tekstblad.pdf` bij een bibliotheek-`.tekstblad.md`. | [tekstblad-products](tekstblad-products/) |
+| `tekstblad-products` | Maakt/vernieuwt `{stam}.tekstblad.pdf` bij een catalogus-`.tekstblad.md`. | [tekstblad-products](tekstblad-products/) |
 | `import-mvsa` | Maakt/vernieuwt bewerkvorm `{stam}.mscz.mvsa` naast een basispartituur-`.mscz` (alleen bestaande siblings, tenzij pad/`--create`). | [import-mvsa](import-mvsa/) |
-| `mvsa-products` | Maakt/vernieuwt `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf` bij een bibliotheek-`.mvsa`. | [mvsa-products](mvsa-products/) |
+| `mvsa-products` | Maakt/vernieuwt `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf` bij een catalogus-`.mvsa`. | [mvsa-products](mvsa-products/) |
 | `audio-products` | Maakt/vernieuwt preview-`{stam}.{bron}.mp3` bij `.mvsa` / `.mscz` / `.vsa` (Beluisteren). | [audio-products](audio-products/) |
 | `lyrics-products` | Maakt/vernieuwt `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` (zoektekst). | [lyrics-products](lyrics-products/) |
 | `all-products` | Roept alle `*-products` (+ import-mvsa) achter elkaar aan voor ontbrekende/stale siblings. | [all-products](all-products/) |
@@ -35,7 +35,7 @@ vanuit de repo-root.
 | `update-werkvoorraad` | Tabel in `input\werkvoorraad.md` laten aansluiten op bestanden in `input\`. | [update-werkvoorraad](update-werkvoorraad/) |
 | `werkbank-status` | Overzicht open werkbank-cases; schrijft `data\werkbank-status.json`. | [werkbank-status](werkbank-status/) |
 | `lifecycle-grenzen` | Spaties/ruwe formats in catalogusmappen melden (optioneel `--fail`). | [lifecycle-grenzen](lifecycle-grenzen/) |
-| `oefenhoek-index` | SVG-plaatjes uit bibliotheek-`.vsa` naar `static\vsa\bladermap\` (geen stamp); optioneel legacy-strip. | [oefenhoek-index](oefenhoek-index/) |
+| `oefenhoek-index` | SVG-plaatjes uit catalogus-`.vsa` naar `static\vsa\bladermap\` (geen stamp); optioneel legacy-strip. | [oefenhoek-index](oefenhoek-index/) |
 
 Intern (geen apart gebruikerscommando): `python scripts\fingerprint_coria_mxl.py`
 maakt `/mxl/c/<hash>.musicxml` en `data/coria-fp.json` voor de Oefenen-knop.

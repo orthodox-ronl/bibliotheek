@@ -16,7 +16,7 @@ scripts\lyrics-products.cmd [pad] [--force] [--dry-run]
 
 # DESCRIPTION
 
-Haalt de **gezongen tekst** uit een bibliotheek-`.vsa` of `.mvsa` (via
+Haalt de **gezongen tekst** uit een catalogus-`.vsa` of `.mvsa` (via
 `vsa text` in VSA-tooling) en schrijft die naast de bron als sibling:
 
 | Bron | Lyrics-product |
@@ -41,7 +41,7 @@ daarna committen.
 
 ```cmd
 scripts\lyrics-products.cmd
-scripts\lyrics-products.cmd content-source\catalogus\2-eerste-antifoon
+scripts\lyrics-products.cmd content-source\catalogus\eerste-antifoon
 scripts\lyrics-products.cmd --dry-run
 ```
 

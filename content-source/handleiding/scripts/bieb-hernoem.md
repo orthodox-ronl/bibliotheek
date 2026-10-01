@@ -17,7 +17,9 @@ scripts\bieb.cmd hernoem <oud-zangstuk> <nieuw-zangstuk> [--dry-run]
 # DESCRIPTION
 
 Hernoemt één **zangstuk-id** (de bovenste map onder
-`content-source\catalogus\`). Typisch: `110-tropaar` → `tropaar`.
+`content-source\catalogus\`). Voorbeeld uit de afgeronde hernoem-golf:
+`110-tropaar` → `tropaar` (die hernoeming is al uitgevoerd; de
+commando’s hieronder zijn ter illustratie).
 
 Het script:
 
@@ -40,6 +42,8 @@ scripts\bieb.cmd hernoem 110-tropaar tropaar
 scripts\bieb.cmd hernoem 120-kondak kondak
 ```
 
+(Die voorbeelden zijn historisch; die mappen heten al `tropaar` /
+`kondak`.)
 # SEE ALSO
 
 [bieb accepteer](../bieb-accepteer/),

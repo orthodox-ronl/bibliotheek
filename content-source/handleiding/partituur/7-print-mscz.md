@@ -14,11 +14,11 @@ Deze pagina is de HOW.
 Bestandsnaam eindigt op **`.print.mscz`**. Geen `scripts\layout.cmd`, geen
 `mscz-products`, geen Coria-eis uit dit MuseScore-bestand. PDF maak je zelf in
 MuseScore 4 (Bestand → Exporteren → PDF) en commit je naast het print-bestand
-**in het bibliotheek**. Zet op de catalogus-`index.md`
+**in de catalogus**. Zet op de catalogus-`index.md`
 `artefacten_handmatig: true` (gele beheerdersbanner).
 {{< /cue >}}
 
-**Wat je nu doet:** een MuseScore-bestand in het **bibliotheek** zetten dat de
+**Wat je nu doet:** een MuseScore-bestand in de **catalogus** zetten dat de
 basispartituur-pijplijn **niet** mag aanpassen — typisch één A4-vel voor de koormap met
 layout of tekstregels die de basispartituur-normalisatie zou vernielen, of een
 template-SATB-blad dat jij handmatig bijhoudt. Het koormap-slot verwijst met
@@ -32,30 +32,30 @@ gewone basispartituur-`.mscz` via [standaard-.mscz](../3-standaard-mscz/) en
 
 Voorbeelden in de catalogus:
 
-- `7-kleine-intocht/zo-wk-mg/hemelum` — gecombineerd printvel;
+- `kleine-intocht/zo-wk-mg/hemelum` — gecombineerd printvel;
 - `tropaar/nikolaas-van-myra-toon-4/hemelum` — template-SATB + handmatige
   PDF/MXL + `.vsa`;
-- `20-moeder-godslied/ontslapen-moeder-gods/hemelum` — idem print + handmatig.
+- `moeder-godslied/ontslapen-moeder-gods/hemelum` — idem print + handmatig.
 
 ## Wat het is
 
-| In Verkenner (bibliotheek) | Rol |
+| In Verkenner (catalogus) | Rol |
 | --- | --- |
 | `{stam}.print.mscz` | MuseScore-bron voor een printvel; scripts laten dit met rust |
 | `{stam}.pdf` | Handmatige A4-export |
 | Optioneel: Coria-`.mxl` | Alleen als jij die zelf neerzet en bijhoudt (geen `mscz-products`) |
 | Optioneel: `.vsa` | Notatie naast het printvel; `vsa-products` slaat de map over bij `artefacten_handmatig: true` |
 
-Catalogus-id voorbeeld: `7-kleine-intocht/zo-wk-mg/hemelum`.
+Catalogus-id voorbeeld: `kleine-intocht/zo-wk-mg/hemelum`.
 
-Frontmatter op bibliotheek-`index.md`:
+Frontmatter op catalogus-`index.md`:
 
 ```yaml
 artefacten_handmatig: true
 ```
 
 Die regel betekent: PDF, Coria-`.mxl` en andere afgeleiden in **deze** map
-worden niet automatisch bijgewerkt. De bibliotheekpagina toont een gele
+worden niet automatisch bijgewerkt. De cataloguspagina toont een gele
 beheerdersmelding. Afspraak over bestandsnamen per spoor:
 [Publicatiecontrole](/handleiding/start/publicatiecontrole/).
 
@@ -77,14 +77,14 @@ beheerdersmelding. Afspraak over bestandsnamen per spoor:
 2. Exporteer PDF handmatig naar `{stam}.pdf` in dezelfde catalogus-map.
    Eventuele Coria-`.mxl` eveneens handmatig (of uit de template-render)
    ernaast zetten en bij elke bronwijziging meenemen.
-3. Bibliotheek-`index.md` met `artefacten_handmatig: true` (bieb accepteer
+3. Catalogus-`index.md` met `artefacten_handmatig: true` (bieb accepteer
    zet dat automatisch bij `.print.mscz`) + koormap-slot met `bieb` (zie
    [Id-register](/catalogus/id-register/)).
 4. `scripts\check.cmd --strict` — partituur- en VSA-publicatiecontrole slaan deze map over.
 
 ## Klaar als
 
-Bibliotheek bevat `*.print.mscz` en PDF (plus eventueel handmatige `.mxl` /
+De catalogusmap bevat `*.print.mscz` en PDF (plus eventueel handmatige `.mxl` /
 `.vsa`); `artefacten_handmatig: true` staat op de `index.md`; koormap-slot
 verwijst ernaar; check klaagt niet over ontbrekende automatische Coria voor
 dit printvel.

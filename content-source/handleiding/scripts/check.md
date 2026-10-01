@@ -23,7 +23,7 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 
 1. `validate` — `vsa validate` op `content-source\catalogus` (en
    `mvsa validate` als daar `.mvsa`-bestanden staan)
-2. VSA-publicatiecontrole — of elke bibliotheek-`.vsa` (behalve
+2. VSA-publicatiecontrole — of elke catalogus-`.vsa` (behalve
    `artefacten_handmatig`) een passende sibling `{stam}.vsa.mxl` heeft
    met `vsa-source-sha256`
 3. MSCZ-publicatiecontrole — of elke basispartituur-`.mscz` (behalve
@@ -34,12 +34,12 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 5. Importcontrole — of elke **bestaande** `{stam}.mscz.mvsa` bij de
    bijbehorende basispartituur-`.mscz` past (`vsa-partituur-sha256`);
    ontbrekende import-siblings zijn geen fout
-6. MVSA-publicatiecontrole — of elke canonieke bibliotheek-`.mvsa`
+6. MVSA-publicatiecontrole — of elke canonieke catalogus-`.mvsa`
    (geen `.mscz.mvsa`) passende siblings `{stam}.mvsa.mxl` en
    `{stam}.mvsa.pdf` heeft met `vsa-source-sha256`
 7. Audio-publicatiecontrole — of elke canonieke `.mvsa` / basis-`.mscz` /
    `.vsa` een passende preview-`.mp3` heeft met herkomststempel
-8. Lyrics-publicatiecontrole — of elke bibliotheek-`.vsa` / `.mvsa` een
+8. Lyrics-publicatiecontrole — of elke catalogus-`.vsa` / `.mvsa` een
    passende `{stam}.….lyrics.txt` heeft met `vsa-source-sha256`
 9. Catalogus-id — of elke basispartituur-`.mscz` in het colofon de
    regel `Bibliotheek-id:` heeft die bij het bladermap-pad past

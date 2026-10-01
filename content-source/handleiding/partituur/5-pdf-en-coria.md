@@ -69,7 +69,7 @@ content-source\catalogus\trisagion\8a-nederlands\hemelum\
 ```
 
    Koormap-slot en verdere publicatie: zie
-   [Bibliotheek en koormap](../../publiceren/1-bladermap/).
+   [Catalogus en koormap](../../publiceren/1-bladermap/).
 
 2. Open het opdrachtvenster in `bibliotheek` en maak de producten:
 
@@ -113,6 +113,6 @@ scripts\mscz-products.cmd content-source
 
 In de catalogus liggen `.mscz`, `.pdf` en `.mxl` met dezelfde
 publicatiestam; de PDF ziet er basispartituur-achtig uit; je kunt door naar
-[bibliotheek en koormap](../../publiceren/1-bladermap/).
+[catalogus en koormap](../../publiceren/1-bladermap/).
 
 {{< navbuttons "Volgende: afgeleiden|/handleiding/partituur/6-afgeleiden/" >}}

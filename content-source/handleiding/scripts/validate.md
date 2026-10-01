@@ -6,7 +6,7 @@ weight: 15
 
 # NAME
 
-`scripts\validate.cmd` — controleer of bibliotheek-`.vsa` (en eventueel
+`scripts\validate.cmd` — controleer of catalogus-`.vsa` (en eventueel
 `.mvsa`) geldig is volgens de `vsa`-/`mvsa`-CLI
 
 # SYNOPSIS

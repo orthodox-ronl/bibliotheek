@@ -17,7 +17,8 @@ hernoemen dezelfde taal spreken.
 - Liturgische nummers horen in de koormap en in Hugo-`weight`, niet per
   se in het `zangstuk-id`
 - Geen vierde padlaag «collectie» — zie besluit 5
-- Hernoemen van bestaande ids gebeurt pas na akkoord (besluiten hieronder)
+- Genummerde top-level `zangstuk-id`s zijn hernoemd; nieuwe ids volgen
+  het beleid hieronder
 {{< /cue >}}
 
 ## Drie soorten
@@ -35,11 +36,11 @@ de Heilige Engelen). Dat is geen vierde soort zangstuk.
 De woorden *genre-emmer*, *liturgische familie* en *enkelvoudig werk*
 zijn **cataloguslabels** in deze handleiding. Ze zijn geen nieuwe
 org-termen in de glossary van `bron`, en ze vormen geen extra maplaag
-onder `content-source\bibliotheek\`.
+onder `content-source\catalogus\`.
 
 ## Padmodel: geen collectie-laag
 
-Het bibliotheek-id blijft altijd drie padsegmenten:
+Het catalogus-id blijft altijd drie padsegmenten:
 
 `zangstuk-id` / `variant-id` / `uitvoeringsvorm-id`
 
@@ -47,19 +48,19 @@ Daaronder liggen de bestanden (`.vsa`, `.mscz`, …): dat is de
 **representatie** uit de org-glossary, geen vierde URL-segment.
 
 **Collectie** in
-[Bibliotheek en koormappen](/handleiding/start/bibliotheek-en-koormappen/)
+[Catalogus en koormappen](/handleiding/start/catalogus-en-koormappen/)
 is een *soort koormap* (thematische view, bijvoorbeeld «alle
 cherubijnen»). Dat is geen tussenmap boven zangstukken.
 
 ### Waarom geen extra map «collectie»
 
-Stel je de bibliotheek voor als een ladekast. Elke lade heeft een naam
+Stel je de catalogus voor als een ladekast. Elke lade heeft een naam
 (`tropaar`, `eerste-antifoon`, `eniggeboren-zoon`). In de lade zitten
 varianten; daaronder de uitvoeringsvorm die je oefent. Shortcode `bieb`,
 publicatiestam, zoekindex en ID-REGISTER verwachten precies die drie
 stukken.
 
-Een tussenmap als `content-source\bibliotheek\genres\tropaar\…` zou die
+Een tussenmap als `content-source\catalogus\genres\tropaar\…` zou die
 afspraak breken: tooling zou de eerste drie padstukken als id lezen en
 colofon, `bieb` en zoeken zouden niet meer kloppen — tenzij alles
 org-breed wordt omgebouwd. Dat is disproportioneel: genre-emmers werken
@@ -72,7 +73,7 @@ al als `zangstuk-id`.
 | Genre-emmer | `tropaar/zondag-toon-3/groningen` | Catalogus «Troparen»; elk werk = variant |
 | Liturgische familie | `ektinia/kleine/hemelum` | Familie «Ektinia»; soort ektinia = variant |
 | Familie + VO-code | `cherubijnenhymne/15c-kastorski/hemelum` | Setting/VO-label op variant |
-| Enkelvoudig werk | `eniggeboren-zoon/default/hemelum` (kandidaat: `eniggeboren-zoon/…`) | Eén stuk; `default` tot er een tweede setting is |
+| Enkelvoudig werk | `eniggeboren-zoon/default/hemelum` | Eén stuk; `default` tot er een tweede setting is |
 
 ### Spanning met de org-glossary (bewust)
 
@@ -89,7 +90,7 @@ een vierde padlaag.
 | --- | --- |
 | Stabiele, leesbare naam (`tropaar`, `ektinia`, `eerste-antifoon`) | Sorteernummer alleen voor mappenlijst (`110-`, `250-`) |
 | Spellingnorm voor nieuwe ids (`johannes`, `alleluia`) | Afkortingen die alleen insiders kennen (`mg`, `zo-wk-mg`) |
-| Volgorde via `weight` en via de koormap | Liturgienummer verplicht in elke bibliotheek-titel |
+| Volgorde via `weight` en via de koormap | Liturgienummer verplicht in elke catalogus-titel |
 
 Nieuwe zangstukken volgen dit beleid meteen. Bestaande genummerde ids
 blijven geldig tot een bewuste hernoem-golf.
@@ -137,11 +138,11 @@ blijven geldig tot een bewuste hernoem-golf.
    «Collectie» blijft een koormap-type. Zie [Padmodel](#padmodel-geen-collectie-laag)
    hierboven. Geen glossary-PR op `bron` nodig voor dit besluit.
 
-## Inventaris (stand na PR #16–#20)
+## Inventaris (stand na PR #16–#22)
 
-Kolom **Huidig** = mapnaam onder `content-source\bibliotheek\` nu.
-Kolom **Kandidaat** = beoogd id na een latere hernoem-golf (1:1, tenzij
-anders vermeld).
+Kolom **Huidig** = mapnaam onder `content-source\catalogus\` nu.
+De genummerde hernoem-golven zijn klaar; kolom **Was** in de
+opmerkingen is alleen geschiedenis.
 
 ### Klaar (geen nummer meer in het zangstuk-id)
 
@@ -176,9 +177,10 @@ anders vermeld).
 | `de-naam-des-heren-zij-gezegend` | enkelvoudig werk | Was `29-de-naam-des-heren-zij-gezegend` |
 
 Er staan geen genummerde top-level zangstuk-ids meer onder
-`content-source\bibliotheek\` (behalve variant-ids zoals `9a-…` /
+`content-source\catalogus\` (behalve variant-ids zoals `9a-…` /
 `15c-…` / `20d-…` en koormap-litanie-slots die bewust de pleknaam
-houden).
+houden). De Hugo-sectie heet **catalogus** (niet meer
+`content-source\bibliotheek\`).
 
 ### Geen zangstuk-taxonomie
 
@@ -223,10 +225,12 @@ houden).
 ## Volgende stappen
 
 1. Eventueel `speciaal` beoordelen (utility, geen zangstuk).
-2. Hernoem-tooling (koormap-slots automatisch + slotlink-check) uit
-   stash landen — nu alle hernoemingen inhoudelijk klaar zijn.
+2. Hernoem-tooling verder versterken (koormap-slots automatisch +
+   slotlink-check) — `bieb hernoem` bestaat; zie
+   [bieb hernoem](/handleiding/scripts/bieb-hernoem/).
 
-Hugo-`aliases` voor de genummerde paden van deze golf zijn bewust
-weggelaten: die URL’s werden niet gebruikt.
+Hugo-`aliases` voor de genummerde paden van de laatste golf zijn bewust
+weggelaten: die URL’s werden niet gebruikt. Sectie-URL’s
+`/bibliotheek/…` → `/catalogus/…` hebben wél aliases.
 
 {{< navbuttons "Catalogus en koormappen|/handleiding/start/catalogus-en-koormappen/" "Woorden|/handleiding/start/woorden/" >}}

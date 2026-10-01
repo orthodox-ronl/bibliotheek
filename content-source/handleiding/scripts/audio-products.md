@@ -41,7 +41,7 @@ syllabificeert het script eerst in een **tijdelijk** bestand (zelfde als
 heeft als Oefenen; de canonieke `.vsa` blijft ongewijzigd. CI genereert
 **geen** audio; jij wel lokaal, daarna committen.
 
-**Belangrijk:** elke bibliotheek-`.mvsa` / basis-`.mscz` / `.vsa` (buiten
+**Belangrijk:** elke catalogus-`.mvsa` / basis-`.mscz` / `.vsa` (buiten
 handmatige mappen) hoort een passende `.mp3` te hebben — dezelfde scope
 als de Coria-`.mxl`. Ontbreekt of veroudert die, dan faalt
 `check --strict` / CI. Maak ze lokaal met dit script (of
@@ -57,7 +57,7 @@ als de Coria-`.mxl`. Ontbreekt of veroudert die, dan faalt
 # EXAMPLES
 
 ```cmd
-scripts\audio-products.cmd content-source\catalogus\9-alleluia\9a-toon-1\groningen
+scripts\audio-products.cmd content-source\catalogus\alleluia\9a-toon-1\groningen
 scripts\audio-products.cmd content-source\catalogus\tropaar\maandag-toon-4\hemelum --force
 ```
 

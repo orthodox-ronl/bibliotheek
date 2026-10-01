@@ -6,7 +6,7 @@ weight: 30
 
 # VSA → SVG en Coria
 
-Dit werktraject maakt uit een canonieke **`.vsa`** in de oefenhoek-bibliotheek
+Dit werktraject maakt uit een canonieke **`.vsa`** in de catalogus
 een SVG-plaatje op de site en een Coria-bestand `{stam}.vsa.mxl`.
 Representatie-id: `vsa`.
 
@@ -20,7 +20,7 @@ check --strict
 ## Waartoe
 
 Eenstemmige notatie (antifoon, communievers, tropaar-regels, …) moet op
-de bibliotheekpagina als plaatje verschijnen en via **Oefenen** in Coria
+de cataloguspagina als plaatje verschijnen en via **Oefenen** in Coria
 afspeelbaar zijn — zonder een volledige MuseScore-basispartituur.
 
 ## Eindresultaat en criteria
@@ -48,7 +48,7 @@ die tekst niet terug naar `{stam}.vsa`. Een experimentele sidecar
 | Wel | Niet |
 | --- | --- |
 | Eenstemmige tekst op bekende melodie | Vierstemmig blad → [Basispartituur](../basispartituur/) |
-| Bibliotheek-uitvoeringsvorm met `.vsa` | VSA alleen op een demo-/handleidingpagina → [Ingebedde VSA](../ingebedde-vsa/) |
+| catalogus-uitvoeringsvorm met `.vsa` | VSA alleen op een demo-/handleidingpagina → [Ingebedde VSA](../ingebedde-vsa/) |
 | | Printvel met handmatige PDF → [Print-vel](../print-vel/) |
 | | Map met `artefacten_handmatig: true` (pipeline slaat auto-producten over) |
 
@@ -61,7 +61,7 @@ die tekst niet terug naar `{stam}.vsa`. Een experimentele sidecar
 3. Coria-`.vsa.mxl` en A4-`.vsa.pdf`:
 
 ```cmd
-scripts\vsa-products.cmd content-source\catalogus\5-eniggeboren-zoon
+scripts\vsa-products.cmd content-source\catalogus\eniggeboren-zoon
 ```
 
 4. Controleer: `check --strict` (validate + publicatiecontrole + Hugo).

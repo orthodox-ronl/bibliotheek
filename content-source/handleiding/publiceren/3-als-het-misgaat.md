@@ -93,7 +93,7 @@ pas na een `git push` (Coria kan de lokale Hugo-server niet bereiken).
 De `.mxl` in de catalogus moet uit `mscz-products` of `vsa-products`
 komen (of handmatig bij `artefacten_handmatig`), niet een ruwe Capella-`.mxl`.
 Maak basispartituur-producten opnieuw ná de laatste normalisatie, of draai
-`scripts\vsa-products.cmd` voor een bibliotheek-`.vsa`. `check` heeft een
+`scripts\vsa-products.cmd` voor een catalogus-`.vsa`. `check` heeft een
 aparte Coria-controle; de melding wijst het bestand aan.
 
 ## Rode banner: partituur- of VSA-afgeleiden niet in orde
@@ -107,7 +107,7 @@ Op `main` faalt de build bij dezelfde situaties.
 
 ## Gele banner: handmatige artefacten
 
-Geen fout: `artefacten_handmatig: true` staat op die bibliotheekpagina.
+Geen fout: `artefacten_handmatig: true` staat op die cataloguspagina.
 PDF/MXL vernieuwen de scripts niet; doe dat zelf na elke bronwijziging.
 
 ## `bieb` faalt bij build
@@ -142,7 +142,7 @@ eerste bron van waarheid bij.
 
 ## `publicatiestatus` ontbreekt
 
-Elke bibliotheek-`index.md` en `_index.md` (bibliotheek en koormap) moet de
+Elke catalogus-`index.md` en `_index.md` (catalogus en koormap) moet de
 regel `publicatiestatus` in de `---` hebben. Handleiding-pagina’s niet.
 `check` faalt hier (nog) niet op; zonder status ontbreekt wel de badge op
 de pagina.

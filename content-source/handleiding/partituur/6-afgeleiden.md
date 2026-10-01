@@ -30,7 +30,7 @@ Basispartituur: `{stam}.pdf` en `{stam}.mxl`. VSA: `{stam}.vsa.mxl`. De bron bli
 plek waar je editet (basispartituur-`.mscz` of `.vsa`).
 
 **Wanneer:** na elke inhoudelijke wijziging aan een basispartituur-`.mscz` of
-bibliotheek-`.vsa` die al gepubliceerd wordt, vóór je opnieuw
+catalogus-`.vsa` die al gepubliceerd wordt, vóór je opnieuw
 `publicatiestatus: reviewable` (of hoger) zet. Eerste keer basispartituur-producten:
 [PDF en Coria](../5-pdf-en-coria/). Eerste keer VSA-Coria:
 [.vsa schrijven](../../vsa/1-vsa-schrijven/).
@@ -112,4 +112,4 @@ Meer storingen: [Als het misgaat](../../publiceren/3-als-het-misgaat/).
 hoort bij de huidige `.vsa` (tenzij handmatig); preview toont geen
 verouderde-afgeleiden-banner.
 
-{{< navbuttons "Print-.mscz|/handleiding/partituur/7-print-mscz/" "Bibliotheek en koormap|/handleiding/publiceren/1-bladermap/" >}}
+{{< navbuttons "Print-.mscz|/handleiding/partituur/7-print-mscz/" "Catalogus en koormap|/handleiding/publiceren/1-bladermap/" >}}

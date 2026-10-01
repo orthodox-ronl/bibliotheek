@@ -7,7 +7,7 @@ weight: 110
 # NAME
 
 `scripts\vsa-products.cmd` — Coria-`.vsa.mxl` en A4-`.vsa.pdf` maken bij een
-bibliotheek-`.vsa`
+catalogus-`.vsa`
 
 # SYNOPSIS
 
@@ -17,7 +17,7 @@ scripts\vsa-products.cmd [pad] [--force] [--dry-run]
 
 # DESCRIPTION
 
-Maakt naast een bibliotheek-`.vsa` twee siblings:
+Maakt naast een catalogus-`.vsa` twee siblings:
 
 | Product | Waartoe |
 | --- | --- |

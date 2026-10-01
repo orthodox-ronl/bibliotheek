@@ -65,7 +65,7 @@ geen bibliotheek-producten.
 | Tekstblad | Liturgische tekst/dialoog: `.tekstblad.md` naar A4-PDF | [Tekstblad](tekstblad/) |
 | Site-build | `content-source` naar lokale site of GitHub Pages | [Site-build](site-build/) |
 | Markdown naar PDF | Markdownblad met VSA naar A4-PDF (generiek / demo) | [Markdown naar PDF](markdown-naar-pdf/) |
-| Ingebedde VSA | VSA buiten de oefenhoek-bibliotheek naar SVG (en optioneel MXL) | [Ingebedde VSA](ingebedde-vsa/) |
+| Ingebedde VSA | VSA buiten de catalogus naar SVG (en optioneel MXL) | [Ingebedde VSA](ingebedde-vsa/) |
 
 **Bestandsnamen en publicatiecontroles** (bron = één extensie; afgeleide =
 `{stam}.{bron-ext}.{doel-ext}`; wat CI controleert):

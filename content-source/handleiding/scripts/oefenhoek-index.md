@@ -6,7 +6,7 @@ weight: 140
 
 # NAME
 
-`scripts\oefenhoek-index.cmd` — SVG-plaatjes uit bibliotheek-`.vsa`; optioneel
+`scripts\oefenhoek-index.cmd` — SVG-plaatjes uit catalogus-`.vsa`; optioneel
 legacy widgets uit `index.md` strippen
 
 # SYNOPSIS
@@ -18,7 +18,7 @@ scripts\oefenhoek-index.cmd [--dry-run] [--svg] [--verbose]
 # DESCRIPTION
 
 Met **`--svg`** schrijft dit commando SVG-plaatjes van canonieke
-bibliotheek-`.vsa`-bestanden naar `static\vsa\bladermap\…`. Shortcode
+catalogus-`.vsa`-bestanden naar `static\vsa\bladermap\…`. Shortcode
 `bieb` toont die plaatjes wanneer er **geen** basispartituur-`.mscz` in
 dezelfde bladermap staat (een `.print.mscz` mag wel). Sidecar-bestanden
 `*.syl.vsa` worden overgeslagen.

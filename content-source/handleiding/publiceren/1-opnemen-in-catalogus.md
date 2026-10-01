@@ -24,8 +24,8 @@ Deze pagina is de HOW voor `bieb accepteer`.
 6. Controleer daarna met `scripts\check.cmd --strict`.
 {{< /cue >}}
 
-**Wat je nu doet:** een klaar oefenbestand **opnemen** in de catalogus
-(de **bibliotheek**), zodat de bibliotheek-site het kan tonen. Het script maakt de
+**Wat je nu doet:** een klaar oefenbestand **opnemen** in de catalogus,
+zodat de site het kan tonen. Het script maakt de
 mappen en de pagina-bestanden voor je; jij hoeft die niet met de hand te
 typen.
 
@@ -37,7 +37,7 @@ Laat het bestand in `input\` staan; zie
 [Opnemen — ruw binnenhalen](/handleiding/werktrajecten/opnemen-in-catalogus/).
 
 **Catalogus-id** = drie namen, gescheiden door `/`, bijvoorbeeld
-`5-eniggeboren-zoon/default/hemelum`. Elke naam mag alleen kleine letters,
+`eniggeboren-zoon/default/hemelum`. Elke naam mag alleen kleine letters,
 cijfers, `-` en `_` bevatten. Lijst:
 [Id-register](/catalogus/id-register/). Ken je het id
 niet? **Niet verzinnen** — vraag na.
@@ -80,13 +80,13 @@ bieb accepteer
    **droge proef** (niets wordt weggeschreven):
 
 ```cmd
-bieb accepteer 5-eniggeboren-zoon/default/hemelum "C:\pad\naar\mijn-bestand.mscz" --dry-run
+bieb accepteer eniggeboren-zoon/default/hemelum "C:\pad\naar\mijn-bestand.mscz" --dry-run
 ```
 
 4. Klopt de uitvoer? Draai dezelfde regel **zonder** `--dry-run`:
 
 ```cmd
-bieb accepteer 5-eniggeboren-zoon/default/hemelum "C:\pad\naar\mijn-bestand.mscz"
+bieb accepteer eniggeboren-zoon/default/hemelum "C:\pad\naar\mijn-bestand.mscz"
 ```
 
 5. Voor een **VSA**-bestand hetzelfde patroon, met `.vsa` in plaats van
@@ -95,7 +95,7 @@ bieb accepteer 5-eniggeboren-zoon/default/hemelum "C:\pad\naar\mijn-bestand.mscz
 6. Optioneel: geef een leesbare titel mee:
 
 ```cmd
-bieb accepteer 5-eniggeboren-zoon/default/hemelum "C:\pad\naar\bestand.mscz" --title "5 Eniggeboren Zoon"
+bieb accepteer eniggeboren-zoon/default/hemelum "C:\pad\naar\bestand.mscz" --title "Eniggeboren Zoon"
 ```
 
 7. Draai de controle:
@@ -106,8 +106,8 @@ scripts\check.cmd --strict
 
 8. Hoort het stuk in de liturgiemap (koormap)? Zet of controleer daar een
    slot-pagina met `bieb` — zie
-   [Bibliotheek en koormap](../1-bladermap/). De partituur blijft in de
-   bibliotheek; de koormap is alleen de route voor koorleden.
+   [Catalogus en koormap](../1-bladermap/). De partituur blijft in de
+   catalogus; de koormap is alleen de route voor koorleden.
 
 ## Welke bestanden mag je aanleveren?
 
@@ -150,4 +150,4 @@ Meer storingen: [Als het misgaat](../3-als-het-misgaat/).
 - `scripts\check.cmd --strict` eindigt zonder fout.
 - (Optioneel) De koormap-slotpagina verwijst naar hetzelfde id.
 
-{{< navbuttons "Volgende: bibliotheek en koormap|/handleiding/publiceren/1-bladermap/" >}}
+{{< navbuttons "Volgende: catalogus en koormap|/handleiding/publiceren/1-bladermap/" >}}

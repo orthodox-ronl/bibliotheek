@@ -20,7 +20,7 @@ op de publieke site. Daarom geen `_index.md` hier.
 | ------------ | -------------- |
 | `capella/`   | Capella / CapToMusic: `.cap`, `.capx`, of een input-`.mxl` (originele naam, spaties mag) |
 | `vow/`       | ruwe VOW-`.mscz` |
-| `musescore/` | andere ruwe `.mscz` (nog niet de bibliotheek-layout) |
+| `musescore/` | andere ruwe `.mscz` (nog niet de catalogus-layout) |
 | `musicxml/`  | `.xml` / `.musicxml` / `.mxl` uit andere programma's |
 | `pdf/`       | scans of print-PDF die je als bron bewaart |
 | `_inbox/`    | lokaal, niet in git: “gisteren in de mail, nog niet gekozen” |
@@ -32,7 +32,7 @@ op de publieke site. Daarom geen `_index.md` hier.
 
 **Namen:** inputs mag je laten zoals ze binnenkwamen. Publicatie in de
 catalogus: geen spaties, stam = publicatiestam uit de catalogus-id
-(`scripts/bibliotheek.py`, `scripts/score_filenames.py`).
+(`scripts/catalogus.py`, `scripts/score_filenames.py`).
 
 **Overzicht:** `werkvoorraad.md` in deze map — één rij per input. Kolommen
 **Doel-id** (catalogus-id) en **Koormap** (liturgie-slot). De tabel wordt
@@ -41,7 +41,7 @@ bij `check` / `build` / `serve` opnieuw gevuld. Handmatige **notitie** en
 [Werkbank](/catalogus/speciaal/werkbank/) en uitklapbaar onderaan het
 catalogus-overzicht.
 
-**Id-lijst:** [bibliotheek/ID-REGISTER.md](../bibliotheek/ID-REGISTER.md).
+**Id-lijst:** [catalogus/ID-REGISTER.md](../catalogus/ID-REGISTER.md).
 
 ## Workflow (kort)
 
@@ -52,6 +52,6 @@ catalogus-overzicht.
 3. Converteren in `_werk/` (`opkuisen`, `layout`, MuseScore-review).
 4. Klaar: `bieb accepteer` → catalogusmap; daarna `*-products` en
    `check --strict`.
-5. `publicatiestatus` op bibliotheek-`index.md` (en koormap) bewust zetten.
+5. `publicatiestatus` op catalogus-`index.md` (en koormap) bewust zetten.
 
 Uitgebreider: [Handleiding — Werkbank](/handleiding/start/werkbank/).

@@ -9,7 +9,7 @@ weight: 20
 {{< cue >}}
 - Input: `content-source\input\<herkomst>\` (originele bestandsnaam mag spaties hebben)
 - Tussenwerk: `content-source\input\_werk\<stam>\` (publicatiestam; alleen op jouw pc, niet in git)
-- Bibliotheek (catalogus-fase): `content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\` — **geen spaties** in bestandsnamen
+- Catalogus: `content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\` — **geen spaties** in bestandsnamen
 - Koormap: `content-source\koormappen\hemelum\liturgie-zondag\` of
   `liturgie-weekdagen\` — sectie-`_index.md` of slot-`index.md` + `bieb`
   (geen basispartituur-bestanden)
@@ -22,7 +22,7 @@ het origineel, of komt een half af bestand op de publieke site. In de
 [Werkbank](werkbank/) horen input en `_werk`; in de
 [Catalogus](catalogus/) de canonieke bron onder `catalogus\`.
 
-Een **bibliotheek-uitvoeringsvorm** is één map in de catalogus met
+Een **catalogus-uitvoeringsvorm** is één map in de catalogus met
 `index.md` en de bestanden die koorleden oefenen (basispartituur, PDF, Coria, VSA of
 print). In de Hemelum-**koormap** verwijst een **slot-pagina**
 (`index.md`) met `bieb` naar die uitvoeringsvorm. Een
@@ -36,7 +36,7 @@ plek. Zie
 | --- | --- | --- |
 | Ruw, ongewijzigd | `input\capella\` (of `vow\`, `musescore\`, `musicxml\`, `pdf\`) | Nee |
 | Halverwege (tussenwerk) | `input\_werk\` | Nee (en niet in git) |
-| Bibliotheek | `catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\` | Ja |
+| Catalogus | `catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\` | Ja |
 | Koormap (sectie of slot-pagina) | `koormappen\hemelum\liturgie-zondag\` of `liturgie-weekdagen\` | Ja |
 
 De map `input\_inbox\` is een lokale brievenbus (gitignore). Pas als een
@@ -49,7 +49,7 @@ herkomst-map.
 | --- | --- |
 | `capella\` | Capella / CapToMusic: `.cap`, `.capx`, of een `.mxl` zoals het binnenkwam |
 | `vow\` | Ruwe VOW-`.mscz` |
-| `musescore\` | Andere ruwe `.mscz` (nog niet de bibliotheek-layout) |
+| `musescore\` | Andere ruwe `.mscz` (nog niet de catalogus-layout) |
 | `musicxml\` | `.xml` / `.musicxml` / `.mxl` uit een ander programma |
 | `pdf\` | Scans of print-PDF die je als bron bewaart |
 
@@ -74,7 +74,7 @@ niet. Lijst: [Id-register](/catalogus/id-register/).
 
 ## Klaar als
 
-Voor een willekeurig bestand kun je zeggen: input, tussenwerk, bibliotheek,
+Voor een willekeurig bestand kun je zeggen: input, tussenwerk, catalogus,
 of koormap — en of je in de [Werkbank](werkbank/) of
 [Catalogus](catalogus/) zit.
 

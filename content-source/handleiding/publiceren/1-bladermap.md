@@ -1,10 +1,10 @@
 ---
-title: "Bibliotheek en koormap"
-linkTitle: "Bibliotheek en koormap"
+title: "Catalogus en koormap"
+linkTitle: "Catalogus en koormap"
 weight: 10
 ---
 
-# Bibliotheek en koormap
+# Catalogus en koormap
 
 {{< cue >}}
 Nieuwe partituur in de catalogus zetten:
@@ -27,7 +27,7 @@ zie [Catalogus en koormappen](../../start/catalogus-en-koormappen/).
 Id-lijst: [Id-register](/catalogus/id-register/).
 {{< /cue >}}
 
-**Wat je nu doet:** na het opnemen van bestanden in de **bibliotheek** de
+**Wat je nu doet:** na het opnemen van bestanden in de **catalogus** de
 **koormap** laten verwijzen, zodat koorleden de liturgiemap kunnen volgen.
 De partituur blijft in de catalogus; de koormap is de route.
 
@@ -36,7 +36,7 @@ klaar is (of de leaf al bestaat). Familie met meerdere varianten op één
 liturgische plek: zie
 [Catalogus en koormappen](../../start/catalogus-en-koormappen/).
 
-## Bibliotheek: kort
+## Catalogus: kort
 
 Gebruik **bieb accepteer** voor mappen, `index.md` en de juiste
 bestandsnamen. Handmatig kopiëren van voorbeelden is alleen nog nodig bij
@@ -68,8 +68,8 @@ uitvoeringsvorm-map. Zet `alias_van` op de variant-`_index.md`; zie
 
 | Situatie | Koormap-voorbeeld |
 | --- | --- |
-| Basispartituur via bibliotheek | `koormappen/hemelum/liturgie-zondag\trisagion\8a-trisagion\index.md` |
-| VSA via bibliotheek | `koormappen/hemelum/liturgie-weekdagen\eerste-antifoon\weekdagen\index.md` |
+| Basispartituur via catalogus | `koormappen/hemelum/liturgie-zondag\trisagion\8a-trisagion\index.md` |
+| VSA via catalogus | `koormappen/hemelum/liturgie-weekdagen\eerste-antifoon\weekdagen\index.md` |
 | Sectie (boom van keuzes) | `koormappen/hemelum/liturgie-zondag\cherubijnenhymne\_index.md` + kindmappen |
 | Compositieblad (meerdere scores) | Eén `index.md` met markdown en meerdere `bieb`-shortcodes — zie [Catalogus en koormappen](../../start/catalogus-en-koormappen/) |
 | Troparen / kondaken / losse gezangen | Bijv. `tropaar/…`, `kondak/…`, `tropaar/uw-heilig-kruis/hemelum` — altijd `bieb`, geen `:::include` |
@@ -96,7 +96,7 @@ al gedaan. Nieuwe stukken gaan via
 ## Klaar als
 
 Na `check --strict` toont de preview de slot-pagina met PDF/**Oefenen**/VSA
-via `bieb`. De bibliotheek heeft de bestanden; de
+via `bieb`. De catalogus heeft de bestanden; de
 koormap-map heeft geen basispartituur meer. Je weet wanneer je een sectie (boom)
 gebruikt en wanneer een compositieblad.
 

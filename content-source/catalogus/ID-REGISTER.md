@@ -7,18 +7,19 @@ automatische_inhoud: false
 vsa_nav_exclude: true
 ---
 
-# Id-register — liturgiemap Hemelum → bibliotheek
+# Id-register — liturgiemap Hemelum → catalogus
 
-Dit register is de **bron van waarheid** voor bibliotheek-id's tijdens de
-conversie op `feat/oefenhoek-mxl-opkuis`. Een bibliotheek-id heeft altijd drie
-lagen: `zangstuk-id` / `variant-id` / `uitvoeringsvorm-id` (elk segment
-`[a-z0-9_-]+`). De **publicatiestam** voor basispartituur-bestanden is
-`{zangstuk}-{variant}-{uitvoeringsvorm}` (functie `stem()` in
-`scripts/bibliotheek.py`).
+Dit register is de **bron van waarheid** voor catalogus-id's tijdens de
+conversie (historisch begonnen op `feat/oefenhoek-mxl-opkuis`). Een
+catalogus-id heeft altijd drie lagen: `zangstuk-id` / `variant-id` /
+`uitvoeringsvorm-id` (elk segment `[a-z0-9_-]+`). De **publicatiestam**
+voor basispartituur-bestanden is `{zangstuk}-{variant}-{uitvoeringsvorm}`
+(functie `stem()` in `scripts/catalogus.py`).
 
-Het migratiescript `scripts/migrate_oefenhoek_bibliotheek.py` volgt de tabellen
-**SCORE**, **PRINT** en **STUB** hieronder. Wijzig id's eerst hier en in dat
-script tegelijk.
+Het oude migratiescript `scripts/migrate_oefenhoek_bibliotheek.py` volgde
+de tabellen **SCORE**, **PRINT** en **STUB** hieronder (niet meer in
+dagelijks gebruik; nieuwe stukken via `bieb accepteer`). Wijzig id's eerst
+hier en in tooling tegelijk.
 
 **Status legenda**
 
@@ -26,8 +27,8 @@ script tegelijk.
 | --- | --- |
 | score | Basispartituur of VSA-bundle verhuist via `SCORE_MOVES` |
 | print | Print-`.mscz` + PDF via `PRINT_MOVES` (geen Coria-basispartituur) |
-| stub | Geen partituur; bibliotheek-stub + `bieb` op koormap |
-| catalogus | Koormap blijft catalogus-include; **geen** bibliotheek-leaf in fase 2 |
+| stub | Geen partituur; catalogus-stub + `bieb` op koormap |
+| catalogus | Koormap blijft catalogus-include; **geen** catalogus-leaf in fase 2 |
 | legacy | Dubbele/oude map; opruimen na migratie |
 | open | Id of migratiepad nog afspreken |
 
@@ -38,7 +39,7 @@ script tegelijk.
 | Koormap-pad (t.o.v. `liturgiemap-hemelum/`) | Bibliotheek-id | Publicatiestam (basispartituur) | Bestanden nu | Opmerking |
 | --- | --- | --- | --- | --- |
 | `cherubijnenhymne/15c-kastorski/` | `cherubijnenhymne/15c-kastorski/hemelum` | `cherubijnenhymne-15c-kastorski-hemelum` | mscz, mxl, pdf | reviewable; NL (ongemerkt) |
-| *(alleen bibliotheek voorlopig)* | `cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` | `cherubijnenhymne-15c-kastorski-hemelum-ksl-trlat` | — | Kerkslavisch getranslitereerd; stub |
+| *(alleen catalogus voorlopig)* | `cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` | `cherubijnenhymne-15c-kastorski-hemelum-ksl-trlat` | — | Kerkslavisch getranslitereerd; stub |
 | `cherubijnenhymne/15b-fatejev/` | `cherubijnenhymne/15b-fatejev/hemelum` | — | — | voorzien |
 | `cherubijnenhymne/15d-kastorski/` | `cherubijnenhymne/15d-kastorski/hemelum` | — | — | voorzien (andere Kastorski dan 15c) |
 | `cherubijnenhymne/15e-bortnjanski/` | `cherubijnenhymne/15e-bortnjanski/hemelum` | `cherubijnenhymne-15e-bortnjanski-hemelum` | — | voorzien; Capella-input aanwezig |
@@ -48,13 +49,13 @@ script tegelijk.
 | `trisagion/8a-trisagion/` | `trisagion/8a-nederlands/hemelum` | `trisagion-8a-nederlands-hemelum` | mscz, mxl, pdf | Canoniek; niet de legacy-map `8a-trisagion/` |
 | `trisagion/8a-trisagion-slav/` | `trisagion/8a-slav/hemelum` | `trisagion-8a-slav-hemelum` | mscz, mxl, pdf, mvsa | Idem legacy `8a-trisagion-slav/` |
 | `19a-eucharistische-kanon/` | `eucharistische-canon/19a-feofan/hemelum` | `eucharistische-canon-19a-feofan-hemelum` | mscz, mxl, pdf | |
-| *(alleen bibliotheek voorlopig)* | `eucharistische-canon/rostov/hemelum` | `eucharistische-canon-rostov-hemelum` | — | VOW-input; stub |
+| *(alleen catalogus voorlopig)* | `eucharistische-canon/rostov/hemelum` | `eucharistische-canon-rostov-hemelum` | — | VOW-input; stub |
 | `moeder-godslied/20d-in-waarheid-moeder-godslied/` | `moeder-godslied/20d-in-waarheid/hemelum` | `moeder-godslied-20d-in-waarheid-hemelum` | mscz, mxl, pdf | |
 | `moeder-godslied/moeder-godslied-ontslapen-mgods/` | `moeder-godslied/ontslapen-moeder-gods/hemelum` | `moeder-godslied-ontslapen-moeder-gods-hemelum` | print.mscz, mxl, pdf, vsa | `artefacten_handmatig`; print-track |
 | `communievers/communievers-onthoofding-johannes-de-doper/` | `communievers/onthoofding-johannes-de-doper/hemelum` | `communievers-onthoofding-johannes-de-doper-hemelum` | vsa, vsa.mxl, pdf | Geen basispartituur-mscz; Coria via VSA-publicatiecontrole |
 | `troparen-en-kondaken/tropaar-nikolaas-van-myra/` | `tropaar/nikolaas-van-myra-toon-4/hemelum` | `tropaar-nikolaas-van-myra-toon-4-hemelum` | print.mscz, mxl, pdf, vsa | `artefacten_handmatig`; onder zangstuk `tropaar/` |
 | `eerste-antifoon/weekdagen/` | `eerste-antifoon/weekdagen/hemelum` | `eerste-antifoon-weekdagen-hemelum-hemelum` | vsa, vsa.mxl | Koormap = Hemelum; geen `liturgikon/`-slot meer |
-| *(alleen bibliotheek)* | `eerste-antifoon/weekdagen-liturgikon/hemelum` | `eerste-antifoon-weekdagen-liturgikon-hemelum` | vsa, vsa.mxl | Niet in Hemelum-koormap |
+| *(alleen catalogus)* | `eerste-antifoon/weekdagen-liturgikon/hemelum` | `eerste-antifoon-weekdagen-liturgikon-hemelum` | vsa, vsa.mxl | Niet in Hemelum-koormap |
 | `eerste-antifoon/zondag/` | `eerste-antifoon/zondag/hemelum` | `eerste-antifoon-zondag-hemelum` | mscz, mxl, pdf | stub-achtig in koormap |
 | `tweede-antifoon/weekdagen/` | `tweede-antifoon/weekdagen/hemelum` | `tweede-antifoon-weekdagen-hemelum-hemelum` | vsa, vsa.mxl | |
 | `tweede-antifoon/zondag/` | `tweede-antifoon/zondag/hemelum` | `tweede-antifoon-zondag-hemelum` | mscz, mxl, pdf | |
@@ -79,7 +80,7 @@ script tegelijk.
 
 ---
 
-## STUB — alleen koormap + lege bibliotheek-leaf
+## STUB — alleen koormap + lege catalogus-leaf
 
 | Koormap-pad | Bibliotheek-id | Opmerking |
 | --- | --- | --- |
@@ -104,7 +105,7 @@ script tegelijk.
 ### Prokimen / alleluia (Kiev + znameni-reservering)
 
 **Koormap-slots:** `9a-prokimen/` (prokimens eerder in de liturgie) en
-`9b-alleluia/`. In de **bibliotheek** is `9a-` / `9b-` op de *variant*-laag
+`9b-alleluia/`. In de **catalogus** is `9a-` / `9b-` op de *variant*-laag
 de melodieklasse (Kiev / znameni), niet het liturgienummer.
 
 | Koormap-pad | Bibliotheek-id (voorbeeld) | Status |
@@ -161,11 +162,11 @@ nog in de *variant*-laag; niet hernoemen tot een aparte migratie.
 ## CATALOGUS_KOORMAP — niet meer in oefenhoek
 
 Oefenhoek-pagina’s gebruiken **geen** `:::include` naar catalogus/`lokaal/`.
-Kondaken en troparen staan als bibliotheek-leafs onder `kondak/` en
+Kondaken en troparen staan als catalogus-leafs onder `kondak/` en
 `tropaar/`; losse gezangen onder eigen zangstuk-ids (bv. `220-uw-heilig-kruis/`),
 met `bieb` op de koormap.
 
-| Was (catalogus) | Nu (bibliotheek) |
+| Was (oude catalogus) | Nu (catalogus) |
 | --- | --- |
 | `kondak-nikolaas-van-myra/liturgikon/Liturgikon` | `kondak/nikolaas-van-myra-toon-3/hemelum` |
 | `kondak-moeder-gods-toon-6/hemelum/Hemelum` | `kondak/moeder-gods-toon-6/hemelum` |
@@ -225,7 +226,7 @@ Doel-id: `eniggeboren-zoon/default/hemelum`.
 ### 7. Dankzegging / eind-liturgie — strategie (voorstel)
 
 Probleem: bestandsnamen mengen liturgische plek (`dankzegging`, `eind-liturgie`)
-met variantinfo (`toon_2_Kyiv`). In het **bibliotheek** hoort de liturgische
+met variantinfo (`toon_2_Kyiv`). In de **catalogus** hoort de liturgische
 functie in `zangstuk-id`, de melodische/traditionele uitwerking in
 `variant-id`. De **koormap-TOC** mag wél de variantnaam tonen (`linkTitle`).
 
@@ -241,7 +242,7 @@ Voorstel:
    of `linkTitle` mag “Kyiv toon 2” heten.
 4. Doel-id leeg houden tot stap 1 klaar is — niet raden.
 
-### 8. Eucharistische kanon + moeder-godslied — al in bibliotheek
+### 8. Eucharistische kanon + moeder-godslied — al in catalogus
 
 Lokaal aanwezig (nog untracked tot commit):
 
@@ -256,14 +257,14 @@ in de liturgiemap (dat is de migratie, geen verdwijning).
 
 ## Review-checklist (na migratie)
 
-- [x] Geen basispartituur-bestanden meer in koormap-leaves (`*.print.mscz` alleen in bibliotheek)
+- [x] Geen basispartituur-bestanden meer in koormap-leaves (`*.print.mscz` alleen in catalogus)
 - [x] Legacy-mappen `8a-trisagion*` weg
 - [x] Catalogus-kondak-pagina's ongewijzigd qua includes
 - [x] `check --strict` groen (2026-09-16)
 - [x] Variant-id `default` (was `standaard`)
-- [x] Derde antifoon zondag: bibliotheek-variant `zondag`
+- [x] Derde antifoon zondag: catalogus-variant `zondag`
 - [x] Familie-`_index` zonder `bieb`
-- [x] Werkvoorraad: gepubliceerde rijen op bibliotheek-id; open inputs nog zonder doel-id
-- [x] Uitvoeringsvorm mét partituur → `reviewable` (koormap + bibliotheek)
+- [x] Werkvoorraad: gepubliceerde rijen op catalogus-id; open inputs nog zonder doel-id
+- [x] Uitvoeringsvorm mét partituur → `reviewable` (koormap + catalogus)
 - [x] Term “input” (niet “dump”) in werkvoorraad/handleiding
 - [x] Taal-suffix op uitvoeringsvorm gedocumenteerd (`-ksl`, `-ksl-trlat`, `-nl-ksl`)
