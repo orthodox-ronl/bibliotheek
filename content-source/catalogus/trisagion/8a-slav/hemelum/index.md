@@ -4,7 +4,6 @@ linkTitle: "8a Trisagion (met Slavisch)"
 publicatiestatus: reviewable
 automatische_inhoud: false
 aliases:
-  - "/bibliotheek/8-trisagion/8a-slav/hemelum/"
   - "/bibliotheek/trisagion/8a-slav/hemelum/"
 ---
 

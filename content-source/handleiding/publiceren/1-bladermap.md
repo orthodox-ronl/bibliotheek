@@ -69,7 +69,7 @@ uitvoeringsvorm-map. Zet `alias_van` op de variant-`_index.md`; zie
 | Situatie | Koormap-voorbeeld |
 | --- | --- |
 | Basispartituur via bibliotheek | `koormappen/hemelum/liturgie-zondag\trisagion\8a-trisagion\index.md` |
-| VSA via bibliotheek | `koormappen/hemelum/liturgie-weekdagen\2-eerste-antifoon\weekdagen\index.md` |
+| VSA via bibliotheek | `koormappen/hemelum/liturgie-weekdagen\eerste-antifoon\weekdagen\index.md` |
 | Sectie (boom van keuzes) | `koormappen/hemelum/liturgie-zondag\cherubijnenhymne\_index.md` + kindmappen |
 | Compositieblad (meerdere scores) | Eén `index.md` met markdown en meerdere `bieb`-shortcodes — zie [Catalogus en koormappen](../../start/catalogus-en-koormappen/) |
 | Troparen / kondaken / losse gezangen | Bijv. `tropaar/…`, `kondak/…`, `tropaar/uw-heilig-kruis/hemelum` — altijd `bieb`, geen `:::include` |
