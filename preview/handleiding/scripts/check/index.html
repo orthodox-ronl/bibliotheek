@@ -61,7 +61,9 @@ ontbrekende import-siblings zijn geen fout</li><li>MVSA-publicatiecontrole — o
 <code>.vsa</code> een passende preview-<code>.mp3</code> heeft met herkomststempel</li><li>Lyrics-publicatiecontrole — of elke catalogus-<code>.vsa</code> / <code>.mvsa</code> een
 passende <code>{stam}.….lyrics.txt</code> heeft met <code>vsa-source-sha256</code></li><li>Catalogus-id — of elke basispartituur-<code>.mscz</code> in het colofon de
 regel <code>Bibliotheek-id:</code> heeft die bij het bladermap-pad past</li><li>Coria-fingerprints (<code>python scripts\fingerprint_coria_mxl.py</code>)</li><li>Bladermap-SVG (<code>oefenhoek-index --svg</code>) — plaatjes uit <code>.vsa</code>; geen
-stamp-publicatiecontrole</li><li>Zoekindex (<code>python scripts\build_zoek_index.py</code> → <code>static\zoek\index.json</code>)</li><li>Hugo-build naar <code>generated\site</code></li></ol><p>Zonder <code>--strict</code> waarschuwen de publicatie-, import- en id-controles
+stamp-publicatiecontrole</li><li>Zoekindex (<code>python scripts\build_zoek_index.py</code> → <code>static\zoek\index.json</code>)</li><li>Hugo-build naar <code>generated\site</code></li></ol><p>De Pages-deploy (productie, <code>/preview/</code>, branch-previews) bouwt de
+zoekindex ook vóór Hugo, zodat zoeken niet afhangt van een verouderde
+gecommitte <code>index.json</code>.</p><p>Zonder <code>--strict</code> waarschuwen de publicatie-, import- en id-controles
 lokaal maar falen niet (behalve op <code>main</code> of met
 <code>BIBLIOTHEEK_PRODUCTS_STRICT=1</code> / <code>BIBLIOTHEEK_ID_STRICT=1</code>). Met
 <code>--strict</code>, en altijd in CI, is een stale of missing product, een
@@ -85,7 +87,8 @@ import-siblings met <a href=../import-mvsa/>import-mvsa</a>
 <a href=../ensure-bibliotheek-id/>ensure-bibliotheek-id</a>
 of
 <a href=../layout/>layout</a>
-. CI genereert geen MuseScore-/PDF-/audio-/lyrics-producten.</p><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span><span style=color:#66d9ef>cd</span> /d C:\Git\orthodox-ronl\bibliotheek
+. CI genereert geen MuseScore-/PDF-/audio-/lyrics-producten;
+wel de zoekindex bij elke site-deploy.</p><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span><span style=color:#66d9ef>cd</span> /d C:\Git\orthodox-ronl\bibliotheek
 </span></span><span style=display:flex><span>check
 </span></span><span style=display:flex><span>check --strict
 </span></span></code></pre></div><h1 id=when>WHEN</h1><p>Vóór je commit of push. Tussendoor alleen markdown bekijken: <code>serve</code> is

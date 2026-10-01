@@ -57,7 +57,10 @@ opgegeven pad). Mappen met <code>artefacten_handmatig: true</code> en bestanden 
 — <code>{stam}.mvsa.mxl</code> + <code>{stam}.mvsa.pdf</code></li><li><a href=../import-mvsa/>import-mvsa</a>
 — alleen <strong>bestaande</strong> <code>{stam}.mscz.mvsa</code></li><li><a href=../audio-products/>audio-products</a>
 — <code>{stam}.mvsa.mp3</code> / <code>.mscz.mp3</code> / <code>.vsa.mp3</code></li><li><a href=../lyrics-products/>lyrics-products</a>
-— <code>{stam}.vsa.lyrics.txt</code> / <code>.mvsa.lyrics.txt</code></li></ol><p>Elk spoor vernieuwt alleen wat ontbreekt of waarvan de herkomststempel
+— <code>{stam}.vsa.lyrics.txt</code> / <code>.mvsa.lyrics.txt</code></li></ol><p>Daarna (tenzij <code>--dry-run</code>): <code>static\zoek\index.json</code> opnieuw bouwen,
+zodat zoeken lyrics, status en audio-paden volgt. Op GitHub Pages
+gebeurt die indexstap opnieuw in de deploy (ook voor <code>/preview/</code> en
+branch-previews).</p><p>Elk spoor vernieuwt alleen wat ontbreekt of waarvan de herkomststempel
 niet meer bij de bron past (tenzij <code>--force</code>).</p><p><strong>MuseScore 4</strong> is nodig voor PDF en audio. Zonder MuseScore stoppen die
 stappen met een foutmelding. CI draait dit script <strong>niet</strong>; jij wel
 lokaal, daarna committen. Audio voor de hele bibliotheek kan tientallen

@@ -65,31 +65,9 @@ stamp-publicatiecontrole&lt;/li&gt;
 &lt;li&gt;Zoekindex (&lt;code&gt;python scripts\build_zoek_index.py&lt;/code&gt; → &lt;code&gt;static\zoek\index.json&lt;/code&gt;)&lt;/li&gt;
 &lt;li&gt;Hugo-build naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Zonder &lt;code&gt;--strict&lt;/code&gt; waarschuwen de publicatie-, import- en id-controles
-lokaal maar falen niet (behalve op &lt;code&gt;main&lt;/code&gt; of met
-&lt;code&gt;BIBLIOTHEEK_PRODUCTS_STRICT=1&lt;/code&gt; / &lt;code&gt;BIBLIOTHEEK_ID_STRICT=1&lt;/code&gt;). Met
-&lt;code&gt;--strict&lt;/code&gt;, en altijd in CI, is een stale of missing product, een
-verouderde import-sibling, of een id-mismatch een fout. Vernieuw
-producten lokaal met &lt;a href="../all-products/"&gt;all-products&lt;/a&gt;
- (alles tegelijk)
-of met &lt;a href="../vsa-products/"&gt;vsa-products&lt;/a&gt;
-,
-&lt;a href="../mscz-products/"&gt;mscz-products&lt;/a&gt;
-,
-&lt;a href="../tekstblad-products/"&gt;tekstblad-products&lt;/a&gt;
-,
-&lt;a href="../mvsa-products/"&gt;mvsa-products&lt;/a&gt;
-,
-&lt;a href="../audio-products/"&gt;audio-products&lt;/a&gt;
- of
-&lt;a href="../lyrics-products/"&gt;lyrics-products&lt;/a&gt;
-; vernieuw
-import-siblings met &lt;a href="../import-mvsa/"&gt;import-mvsa&lt;/a&gt;
-; herstel id’s met
-&lt;a href="../ensure-bibliotheek-id/"&gt;ensure-bibliotheek-id&lt;/a&gt;
- of
-&lt;a href="../layout/"&gt;layout&lt;/a&gt;
-. CI genereert geen MuseScore-/PDF-/audio-/lyrics-producten.&lt;/p&gt;</description></item><item><title>build</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;De Pages-deploy (productie, &lt;code&gt;/preview/&lt;/code&gt;, branch-previews) bouwt de
+zoekindex ook vóór Hugo, zodat zoeken niet afhangt van een verouderde
+gecommitte &lt;code&gt;index.json&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>build</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\build.cmd&lt;/code&gt; — hele website bouwen naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;build
@@ -258,11 +236,11 @@ bestand (&lt;code&gt;vsa-partituur-sha256&lt;/code&gt;, &lt;code&gt;vsa-generate
  &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Bovenaan het tekstbestand staan herkomstregels (&lt;code&gt;# vsa-source-sha256:&lt;/code&gt; …),
-zodat &lt;code&gt;check&lt;/code&gt; kan zien of de bron nieuwer is dan de lyrics. De site bouwt
-daarna &lt;code&gt;static\zoek\index.json&lt;/code&gt; (&lt;code&gt;python scripts\build_zoek_index.py&lt;/code&gt;,
-ook vanuit &lt;code&gt;check&lt;/code&gt;) voor de pagina
-&lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/zoeken/"&gt;Zoeken in de catalogus&lt;/a&gt;
-.&lt;/p&gt;</description></item><item><title>mvsa-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mvsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mvsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+zodat &lt;code&gt;check&lt;/code&gt; kan zien of de bron nieuwer is dan de lyrics. Na een
+geslaagde run vernieuwt dit script ook &lt;code&gt;static\zoek\index.json&lt;/code&gt; (zelfde
+stap als &lt;code&gt;products&lt;/code&gt; en &lt;code&gt;check&lt;/code&gt;). Op GitHub Pages (productie, preview én
+branch-previews) bouwt de deploy-workflow die index opnieuw vóór Hugo,
+zodat zoeken altijd bij de gecommitte catalogus past.&lt;/p&gt;</description></item><item><title>mvsa-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mvsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mvsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\mvsa-products.cmd&lt;/code&gt; — Coria-&lt;code&gt;.mxl&lt;/code&gt; en A4-PDF maken bij een catalogus-&lt;code&gt;.mvsa&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mvsa-products.cmd [pad] [--force] [--dry-run]
@@ -334,8 +312,10 @@ opgegeven pad). Mappen met &lt;code&gt;artefacten_handmatig: true&lt;/code&gt; e
 &lt;li&gt;&lt;a href="../lyrics-products/"&gt;lyrics-products&lt;/a&gt;
  — &lt;code&gt;{stam}.vsa.lyrics.txt&lt;/code&gt; / &lt;code&gt;.mvsa.lyrics.txt&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Elk spoor vernieuwt alleen wat ontbreekt of waarvan de herkomststempel
-niet meer bij de bron past (tenzij &lt;code&gt;--force&lt;/code&gt;).&lt;/p&gt;</description></item><item><title>vsa-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;Daarna (tenzij &lt;code&gt;--dry-run&lt;/code&gt;): &lt;code&gt;static\zoek\index.json&lt;/code&gt; opnieuw bouwen,
+zodat zoeken lyrics, status en audio-paden volgt. Op GitHub Pages
+gebeurt die indexstap opnieuw in de deploy (ook voor &lt;code&gt;/preview/&lt;/code&gt; en
+branch-previews).&lt;/p&gt;</description></item><item><title>vsa-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\vsa-products.cmd&lt;/code&gt; — Coria-&lt;code&gt;.vsa.mxl&lt;/code&gt; en A4-&lt;code&gt;.vsa.pdf&lt;/code&gt; maken bij een
 catalogus-&lt;code&gt;.vsa&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;

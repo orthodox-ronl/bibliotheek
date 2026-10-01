@@ -48,14 +48,15 @@
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><span class=oefenhoek-breadcrumb-current aria-current=page>lyrics-products</span></nav></div></header><main class=page><h1 id=name>NAME</h1><p><code>scripts\lyrics-products.cmd</code> — platte zoektekst naast <code>.vsa</code> / <code>.mvsa</code></p><h1 id=synopsis>SYNOPSIS</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\lyrics-products.cmd [pad] [--force] [--dry-run]
 </span></span></code></pre></div><h1 id=description>DESCRIPTION</h1><p>Haalt de <strong>gezongen tekst</strong> uit een catalogus-<code>.vsa</code> of <code>.mvsa</code> (via
 <code>vsa text</code> in VSA-tooling) en schrijft die naast de bron als sibling:</p><div class=table-scroll><table><thead><tr><th>Bron</th><th>Lyrics-product</th></tr></thead><tbody><tr><td><code>{stam}.vsa</code></td><td><code>{stam}.vsa.lyrics.txt</code></td></tr><tr><td><code>{stam}.mvsa</code></td><td><code>{stam}.mvsa.lyrics.txt</code></td></tr></tbody></table></div><p>Bovenaan het tekstbestand staan herkomstregels (<code># vsa-source-sha256:</code> …),
-zodat <code>check</code> kan zien of de bron nieuwer is dan de lyrics. De site bouwt
-daarna <code>static\zoek\index.json</code> (<code>python scripts\build_zoek_index.py</code>,
-ook vanuit <code>check</code>) voor de pagina
-<a href=/bibliotheek/preview/catalogus/zoeken/>Zoeken in de catalogus</a>
-.</p><p>Zoekt onder het opgegeven pad (of, zonder pad, onder
+zodat <code>check</code> kan zien of de bron nieuwer is dan de lyrics. Na een
+geslaagde run vernieuwt dit script ook <code>static\zoek\index.json</code> (zelfde
+stap als <code>products</code> en <code>check</code>). Op GitHub Pages (productie, preview én
+branch-previews) bouwt de deploy-workflow die index opnieuw vóór Hugo,
+zodat zoeken altijd bij de gecommitte catalogus past.</p><p>Zoekt onder het opgegeven pad (of, zonder pad, onder
 <code>content-source\catalogus</code>). Overgeslagen: <code>input\</code>, mappen met
-<code>artefacten_handmatig: true</code>.</p><p>CI genereert <strong>geen</strong> lyrics; jij wel lokaal (of via <code>all-products</code>),
-daarna committen.</p><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\lyrics-products.cmd
+<code>artefacten_handmatig: true</code>.</p><p>CI genereert <strong>geen</strong> lyrics; jij wel lokaal (of via <code>products</code> /
+<code>all-products</code>), daarna committen. De <strong>zoekindex</strong> wel: die wordt
+bij elke Pages-deploy opnieuw gebouwd.</p><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\lyrics-products.cmd
 </span></span><span style=display:flex><span>scripts\lyrics-products.cmd content-source\catalogus\eerste-antifoon
 </span></span><span style=display:flex><span>scripts\lyrics-products.cmd --dry-run
 </span></span></code></pre></div><h1 id=see-also>SEE ALSO</h1><p><a href=../all-products/>all-products</a>
