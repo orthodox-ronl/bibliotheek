@@ -13,7 +13,9 @@ aliases:
 Zoek op **titel**, **catalogus-id** of een stukje **gezongen tekst**.
 Spellingvarianten (alleluja/alleluia, Johannes/Joannes/Ioannes) en
 omgewisselde woorden worden meegenomen: bij het bouwen van de index én
-op jouw zoekterm (`data/zoek-synoniemen.yaml`). De index komt uit de
+op jouw zoekterm (`data/zoek-synoniemen.yaml`). Ook **beginletters** van
+zo’n variant tellen mee (bijv. `ioa` → zelfde treffers als `johannes`),
+vanaf drie tekens. De index komt uit de
 platte tekst naast elke `.vsa` / `.mvsa` (bestand `*.lyrics.txt`), niet
 uit de ruwe VSA-markeringen.
 

@@ -146,6 +146,30 @@
       .trim();
   }
 
+  /** Exacte synoniemen; vanaf 3 letters ook prefix van een synoniemsleutel/canon. */
+  const SYNONYM_PREFIX_MIN = 3;
+
+  function expandToken(token) {
+    if (!token) return [];
+    const exact = synonyms[token];
+    if (exact) return [exact];
+    const alts = [token];
+    if (token.length < SYNONYM_PREFIX_MIN) return alts;
+    const seen = Object.create(null);
+    seen[token] = true;
+    Object.keys(synonyms).forEach(function (key) {
+      const canon = synonyms[key];
+      if (!canon) return;
+      if (key.startsWith(token) || canon.startsWith(token)) {
+        if (!seen[canon]) {
+          seen[canon] = true;
+          alts.push(canon);
+        }
+      }
+    });
+    return alts;
+  }
+
   function normalize(s) {
     const base = strip(s);
     if (!base) return "";
@@ -158,27 +182,61 @@
       .join(" ");
   }
 
-  function tokenSort(s) {
-    return Array.from(new Set(normalize(s).split(" ").filter(Boolean)))
-      .sort()
-      .join(" ");
+  function queryPhrases(rawQ) {
+    const tokens = strip(rawQ).split(" ").filter(Boolean);
+    if (!tokens.length) return [];
+    let phrases = [[]];
+    for (let i = 0; i < tokens.length; i++) {
+      const alts = expandToken(tokens[i]);
+      const next = [];
+      for (let p = 0; p < phrases.length; p++) {
+        for (let a = 0; a < alts.length; a++) {
+          next.push(phrases[p].concat([alts[a]]));
+        }
+      }
+      phrases = next;
+      if (phrases.length > 48) break;
+    }
+    return phrases;
   }
 
-  function score(entry, qNorm, qTokens) {
-    if (!qNorm) return 0;
+  function score(entry, rawQ) {
+    const phrases = queryPhrases(rawQ);
+    if (!phrases.length) return 0;
     let s = 0;
     const title = normalize(entry.title + " " + entry.linkTitle);
     const id = normalize(entry.id.replace(/\//g, " ").replace(/-/g, " "));
-    if (title.includes(qNorm)) s += 50;
-    if (id.includes(qNorm)) s += 30;
-    if ((entry.text || "").includes(qNorm)) s += 20;
-    if (qTokens && entry.tokens && entry.tokens.includes(qTokens)) s += 25;
-    const words = qNorm.split(" ").filter(Boolean);
-    let hit = 0;
-    for (const w of words) {
-      if ((entry.text || "").includes(w) || title.includes(w)) hit += 1;
+    const text = entry.text || "";
+    let best = 0;
+    for (let i = 0; i < phrases.length; i++) {
+      const words = phrases[i];
+      const qNorm = words.join(" ");
+      let ps = 0;
+      if (title.includes(qNorm)) ps += 50;
+      if (id.includes(qNorm)) ps += 30;
+      if (text.includes(qNorm)) ps += 20;
+      const qTokens = Array.from(new Set(words.filter(Boolean)))
+        .sort()
+        .join(" ");
+      if (qTokens && entry.tokens && entry.tokens.includes(qTokens)) ps += 25;
+      if (ps > best) best = ps;
     }
-    if (words.length) s += (hit / words.length) * 15;
+    s += best;
+    const tokens = strip(rawQ).split(" ").filter(Boolean);
+    let hit = 0;
+    for (let i = 0; i < tokens.length; i++) {
+      const alts = expandToken(tokens[i]);
+      let ok = false;
+      for (let a = 0; a < alts.length; a++) {
+        const w = alts[a];
+        if (text.includes(w) || title.includes(w) || id.includes(w)) {
+          ok = true;
+          break;
+        }
+      }
+      if (ok) hit += 1;
+    }
+    if (tokens.length) s += (hit / tokens.length) * 15;
     return s;
   }
 
@@ -524,11 +582,9 @@
 
     const q = input.value.trim();
     stopAudio();
-    const qNorm = normalize(q);
-    const qTokens = tokenSort(q);
     const scored = [];
     for (const entry of entries) {
-      const sc = score(entry, qNorm, qTokens);
+      const sc = score(entry, q);
       if (sc > 0) scored.push({ entry, sc });
     }
     scored.sort(
