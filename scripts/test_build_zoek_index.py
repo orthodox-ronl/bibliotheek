@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from build_zoek_index import normalize_text
+from pathlib import Path
+
+from build_zoek_index import normalize_text, preferred_audio_url
 
 
 def test_synonyms_map_variants_to_johannes() -> None:
@@ -19,3 +21,11 @@ def test_synonyms_map_variants_to_johannes() -> None:
 
 def test_normalize_without_synonyms_keeps_tokens() -> None:
     assert normalize_text("Alleluja", {}) == "alleluja"
+
+
+def test_preferred_audio_prefers_mvsa(tmp_path: Path) -> None:
+    (tmp_path / "x.vsa.mp3").write_bytes(b"a")
+    (tmp_path / "x.mvsa.mp3").write_bytes(b"b")
+    url = preferred_audio_url(tmp_path, "ektinia/kleine/hemelum")
+    assert url.endswith("/x.mvsa.mp3")
+    assert url.startswith("/catalogus/ektinia/kleine/hemelum/")

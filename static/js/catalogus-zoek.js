@@ -1,22 +1,21 @@
 /**
  * Client-side zoeken over static/zoek/index.json.
- * Activeert alleen als #catalogus-zoek-form op de pagina staat.
  *
- * Synoniemen komen uit index.json (gebouwd uit data/zoek-synoniemen.yaml)
- * en worden toegepast op zoekterm én op titel/id bij scoren — dezelfde
- * token→canon-logica als scripts/build_zoek_index.py.
+ * Werkt op elke .catalogus-zoek-root (pagina-formulier én header-overlay).
+ * Synoniemen uit index.json (data/zoek-synoniemen.yaml).
+ * Trefferregel: afspelen .mp3 + klik op id kopieert {{< bieb id="…" >}}.
  */
 (function () {
-  const form = document.getElementById("catalogus-zoek-form");
-  if (!form) return;
-
-  const input = document.getElementById("catalogus-zoek-q");
-  const out = document.getElementById("catalogus-zoek-resultaten");
-  const meta = document.getElementById("catalogus-zoek-meta");
-  if (!input || !out) return;
+  const roots = Array.from(document.querySelectorAll(".catalogus-zoek"));
+  if (!roots.length) return;
 
   let entries = [];
   let synonyms = {};
+  let indexPromise = null;
+
+  /** Één gedeelde speler voor zoektreffers. */
+  const player = new Audio();
+  let playingBtn = null;
 
   function strip(s) {
     return String(s || "")
@@ -28,7 +27,6 @@
       .trim();
   }
 
-  /** Plat maken + synoniemen per woord (zoals Python normalize_text). */
   function normalize(s) {
     const base = strip(s);
     if (!base) return "";
@@ -56,7 +54,6 @@
     if (id.includes(qNorm)) s += 30;
     if ((entry.text || "").includes(qNorm)) s += 20;
     if (qTokens && entry.tokens && entry.tokens.includes(qTokens)) s += 25;
-    // Deelmatches op query-woorden
     const words = qNorm.split(" ").filter(Boolean);
     let hit = 0;
     for (const w of words) {
@@ -64,37 +61,6 @@
     }
     if (words.length) s += (hit / words.length) * 15;
     return s;
-  }
-
-  function render(rows, q) {
-    if (!q) {
-      out.innerHTML = "<p class=\"catalogus-zoek-leeg\">Typ een titel, id of stukje tekst.</p>";
-      if (meta) meta.textContent = "";
-      return;
-    }
-    if (!rows.length) {
-      out.innerHTML = "<p class=\"catalogus-zoek-leeg\">Geen treffers.</p>";
-      if (meta) meta.textContent = "";
-      return;
-    }
-    if (meta) meta.textContent = rows.length + " treffer(s)";
-    const html = ["<ul class=\"catalogus-zoek-lijst\">"];
-    for (const row of rows.slice(0, 40)) {
-      const e = row.entry;
-      const status = e.status ? ` <span class="catalogus-zoek-status">${escapeHtml(e.status)}</span>` : "";
-      const incipit = e.incipit
-        ? `<div class="catalogus-zoek-incipit">${escapeHtml(e.incipit)}</div>`
-        : "";
-      html.push(
-        `<li><a href="${escapeAttr(resolveUrl(e.url))}"><strong>${escapeHtml(e.title)}</strong></a>` +
-          status +
-          `<div class="catalogus-zoek-id"><code>${escapeHtml(e.id)}</code></div>` +
-          incipit +
-          `</li>`
-      );
-    }
-    html.push("</ul>");
-    out.innerHTML = html.join("");
   }
 
   function escapeHtml(s) {
@@ -109,18 +75,330 @@
     return escapeHtml(s).replace(/'/g, "&#39;");
   }
 
-  /** Index-URL’s zijn site-absoluut (/catalogus/…); onder Pages-baseURL prefixen. */
-  function resolveUrl(url) {
+  function resolveUrl(root, url) {
     if (!url) return "#";
     if (/^(https?:|mailto:|tel:|#)/i.test(url)) return url;
-    const base = form.getAttribute("data-base") || "/";
+    const base = root.getAttribute("data-base") || "/";
     const path = String(url).replace(/^\//, "");
     const baseNorm = base.endsWith("/") ? base : base + "/";
     return baseNorm + path;
   }
 
-  function run() {
+  function biebShortcode(id) {
+    return "{{< bieb id=\"" + id + "\" >}}";
+  }
+
+  const STATUS_MEANINGS = {
+    voorzien:
+      "Nog gepland: er is nog geen oefenbare uitgave van dit stuk op de site.",
+    concept:
+      "Eerste versie: er kunnen nog duidelijke fouten in zitten. Beheerders werken het stuk verder uit.",
+    reviewable:
+      "Er staat oefenmateriaal; het zou goed moeten zijn. Opmerkingen en correcties zijn welkom.",
+    productie:
+      "Bewust als oefenmateriaal vrijgegeven. Meld fouten alsnog als je ze tegenkomt.",
+  };
+
+  function closeAllTips(root) {
+    root.querySelectorAll(".catalogus-zoek-tip.is-open").forEach(function (tip) {
+      tip.classList.remove("is-open");
+      const btn = tip.querySelector(".catalogus-zoek-tip-trigger");
+      const panel = tip.querySelector(".catalogus-zoek-tip-panel");
+      if (btn) btn.setAttribute("aria-expanded", "false");
+      if (panel) panel.hidden = true;
+    });
+  }
+
+  function feedbackSnippet(root, entry) {
+    const email = root.getAttribute("data-feedback-email") || "";
+    const github = root.getAttribute("data-github") || "";
+    const pageUrl = entry && entry.url ? resolveUrl(root, entry.url) : "";
+    const pageTitle = entry && entry.title ? entry.title : "Catalogus";
+    const parts = [];
+    if (email && pageUrl) {
+      const subject = encodeURIComponent(
+        "Oefenhoek: " + pageTitle + " (" + (entry.status || "") + ")"
+      );
+      const body = encodeURIComponent(
+        "Pagina: " + pageTitle + "\nAdres: " + pageUrl + "\n\nUw opmerking:\n"
+      );
+      parts.push(
+        '<a href="mailto:' +
+          escapeAttr(email) +
+          "?subject=" +
+          subject +
+          "&body=" +
+          body +
+          '">e-mail</a>'
+      );
+    }
+    if (github && pageUrl) {
+      const issueTitle = encodeURIComponent("Oefenhoek: " + pageTitle);
+      const issueBody = encodeURIComponent(
+        "Pagina: " + pageTitle + "\nAdres: " + pageUrl + "\n\nOpmerking:\n"
+      );
+      const issueHref =
+        github.replace(/\/$/, "") +
+        "/issues/new?title=" +
+        issueTitle +
+        "&body=" +
+        issueBody;
+      parts.push(
+        '<a href="' + escapeAttr(issueHref) + '">GitHub-issue</a>'
+      );
+    }
+    if (!parts.length) return "";
+    return (
+      "<p>Feedback over dit stuk: " +
+      parts.join(" · ") +
+      ".</p>"
+    );
+  }
+
+  function statusHelpHtml(root, statusRaw, entry) {
+    const key = String(statusRaw || "").toLowerCase();
+    const meaning =
+      STATUS_MEANINGS[key] ||
+      "De publicatiestatus zegt koorleden wat ze van deze pagina mogen verwachten.";
+    const statusHelpUrl = resolveUrl(
+      root,
+      "handleiding/publiceren/2-status-en-check/"
+    );
+    let extra = "";
+    if (key === "concept") {
+      extra =
+        "<p>Als koorlid: oefen vooral niet als enige bron zonder check; wel fouten doorgeven helpt. " +
+        "Als beheerder: na controle en inhoudelijke afronding zet je de status op " +
+        "<code>reviewable</code> (zie handleiding).</p>";
+    } else if (key === "reviewable" || key === "productie") {
+      extra =
+        "<p>Typo, tekst of muziek niet kloppend? Geef het door — ook bij " +
+        "<code>productie</code>.</p>";
+    } else if (key === "voorzien") {
+      extra =
+        "<p>Er is nog weinig te oefenen; status wijzigt wanneer er materiaal klaarstaat.</p>";
+    }
+    return (
+      '<span class="catalogus-zoek-tip catalogus-zoek-tip--status">' +
+      '<button type="button" class="catalogus-zoek-tip-trigger" aria-expanded="false" aria-label="Uitleg over publicatiestatus ' +
+      escapeAttr(key || statusRaw) +
+      '">?</button>' +
+      '<span class="catalogus-zoek-tip-panel" hidden role="tooltip">' +
+      "<p><strong>" +
+      escapeHtml(statusRaw) +
+      ":</strong> " +
+      escapeHtml(meaning) +
+      "</p>" +
+      extra +
+      feedbackSnippet(root, entry) +
+      '<p><a href="' +
+      escapeAttr(statusHelpUrl) +
+      '">Meer in de handleiding (status en check)</a></p>' +
+      "</span></span>"
+    );
+  }
+
+  function idHelpHtml(root) {
+    const bladerUrl = resolveUrl(root, "handleiding/publiceren/1-bladermap/");
+    const koormapUrl = resolveUrl(
+      root,
+      "handleiding/start/catalogus-en-koormappen/"
+    );
+    return (
+      '<span class="catalogus-zoek-tip catalogus-zoek-tip--id">' +
+      '<button type="button" class="catalogus-zoek-tip-trigger" aria-expanded="false" aria-label="Uitleg: id kopiëren voor koormap">?</button>' +
+      '<span class="catalogus-zoek-tip-panel" hidden role="tooltip">' +
+      "<p>Klik op het id links van dit vraagteken. Dan kopieer je een korte Hugo-regel naar het klembord, " +
+      "bijvoorbeeld " +
+      "<code>" +
+      escapeHtml(biebShortcode("zangstuk/variant/uitvoeringsvorm")) +
+      "</code>.</p>" +
+      "<p>Plak die regel in het Markdown-bestand van een koormap of liturgie-overzicht. " +
+      "De site toont daar automatisch oefen- en downloadknoppen voor dat stuk.</p>" +
+      '<p><a href="' +
+      escapeAttr(bladerUrl) +
+      '">Bladermap en koormap</a> · ' +
+      '<a href="' +
+      escapeAttr(koormapUrl) +
+      '">Catalogus en koormappen</a></p>' +
+      "</span></span>"
+    );
+  }
+
+  function stopAudio() {
+    player.pause();
+    try {
+      player.removeAttribute("src");
+      player.load();
+    } catch (e) {
+      /* ignore */
+    }
+    if (playingBtn) {
+      playingBtn.classList.remove("is-playing");
+      playingBtn.setAttribute("aria-pressed", "false");
+      playingBtn.setAttribute("aria-label", "Beluisteren");
+      playingBtn = null;
+    }
+  }
+
+  function setPlayingButton(btn, playing) {
+    if (playingBtn && playingBtn !== btn) {
+      playingBtn.classList.remove("is-playing");
+      playingBtn.setAttribute("aria-pressed", "false");
+      playingBtn.setAttribute("aria-label", "Beluisteren");
+    }
+    playingBtn = playing ? btn : null;
+    if (btn) {
+      btn.classList.toggle("is-playing", !!playing);
+      btn.setAttribute("aria-pressed", playing ? "true" : "false");
+      btn.setAttribute("aria-label", playing ? "Stoppen" : "Beluisteren");
+    }
+  }
+
+  function playAudio(root, btn, audioPath) {
+    if (!audioPath) return;
+    const src = resolveUrl(root, audioPath);
+    let abs;
+    try {
+      abs = new URL(src, window.location.href).href;
+    } catch (e) {
+      return;
+    }
+
+    const same =
+      playingBtn === btn &&
+      (player.src === abs || player.currentSrc === abs);
+
+    if (same) {
+      if (player.paused) {
+        player.play().catch(function () {
+          stopAudio();
+        });
+        setPlayingButton(btn, true);
+      } else {
+        stopAudio();
+      }
+      return;
+    }
+
+    stopAudio();
+    player.src = src;
+    setPlayingButton(btn, true);
+    player.play().catch(function () {
+      stopAudio();
+    });
+  }
+
+  player.addEventListener("ended", function () {
+    stopAudio();
+  });
+
+  function copyText(text, feedbackEl) {
+    function ok() {
+      if (!feedbackEl) return;
+      feedbackEl.classList.add("is-copied");
+      feedbackEl.setAttribute("data-copy-label", "gekopieerd");
+      window.setTimeout(function () {
+        feedbackEl.classList.remove("is-copied");
+        feedbackEl.removeAttribute("data-copy-label");
+      }, 1200);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(ok).catch(function () {
+        fallbackCopy(text, ok);
+      });
+    } else {
+      fallbackCopy(text, ok);
+    }
+  }
+
+  function fallbackCopy(text, ok) {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.left = "-9999px";
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand("copy");
+      ok();
+    } catch (e) {
+      /* ignore */
+    }
+    document.body.removeChild(ta);
+  }
+
+  function render(root, out, meta, rows, q) {
+    closeAllTips(root);
+    if (!q) {
+      out.innerHTML =
+        '<p class="catalogus-zoek-leeg">Typ een titel, id of stukje tekst.</p>';
+      if (meta) meta.textContent = "";
+      return;
+    }
+    if (!rows.length) {
+      out.innerHTML = '<p class="catalogus-zoek-leeg">Geen treffers.</p>';
+      if (meta) meta.textContent = "";
+      return;
+    }
+    if (meta) meta.textContent = rows.length + " treffer(s)";
+    const html = ['<ul class="catalogus-zoek-lijst">'];
+    for (const row of rows.slice(0, 40)) {
+      const e = row.entry;
+      const status = e.status
+        ? ' <span class="catalogus-zoek-status-line">' +
+          '<span class="catalogus-zoek-status">' +
+          escapeHtml(e.status) +
+          "</span>" +
+          statusHelpHtml(root, e.status, e) +
+          "</span>"
+        : "";
+      const incipit = e.incipit
+        ? '<div class="catalogus-zoek-incipit">' +
+          escapeHtml(e.incipit) +
+          "</div>"
+        : "";
+      const audio = e.audio
+        ? '<button type="button" class="catalogus-zoek-play" data-audio="' +
+          escapeAttr(e.audio) +
+          '" aria-label="Beluisteren" aria-pressed="false" title="Beluisteren">▶</button>'
+        : '<span class="catalogus-zoek-play catalogus-zoek-play--empty" aria-hidden="true"></span>';
+      html.push(
+        "<li>" +
+          '<a class="catalogus-zoek-title" href="' +
+          escapeAttr(resolveUrl(root, e.url)) +
+          '"><strong>' +
+          escapeHtml(e.title) +
+          "</strong></a>" +
+          status +
+          '<div class="catalogus-zoek-id-rij">' +
+          audio +
+          '<button type="button" class="catalogus-zoek-id" data-id="' +
+          escapeAttr(e.id) +
+          '" title="Kopieer bieb-shortcode">' +
+          "<code>" +
+          escapeHtml(e.id) +
+          "</code>" +
+          "</button>" +
+          idHelpHtml(root) +
+          "</div>" +
+          incipit +
+          "</li>"
+      );
+    }
+    html.push("</ul>");
+    out.innerHTML = html.join("");
+  }
+
+  function runRoot(root) {
+    const input = root.querySelector(".catalogus-zoek-input, input[type='search']");
+    const out = root.querySelector(".catalogus-zoek-resultaten");
+    const meta = root.querySelector(".catalogus-zoek-meta");
+    if (!input || !out) return;
+
     const q = input.value.trim();
+    stopAudio();
     const qNorm = normalize(q);
     const qTokens = tokenSort(q);
     const scored = [];
@@ -128,36 +406,143 @@
       const sc = score(entry, qNorm, qTokens);
       if (sc > 0) scored.push({ entry, sc });
     }
-    scored.sort((a, b) => b.sc - a.sc || a.entry.id.localeCompare(b.entry.id));
-    render(scored, q);
+    scored.sort(
+      (a, b) => b.sc - a.sc || a.entry.id.localeCompare(b.entry.id)
+    );
+    render(root, out, meta, scored, q);
   }
 
-  form.addEventListener("submit", function (ev) {
-    ev.preventDefault();
-    run();
-  });
-  input.addEventListener("input", function () {
-    run();
-  });
+  function loadIndex(root) {
+    if (indexPromise) return indexPromise;
+    const indexUrl = root.getAttribute("data-index") || "/zoek/index.json";
+    indexPromise = fetch(indexUrl)
+      .then(function (r) {
+        if (!r.ok) throw new Error("index niet geladen");
+        return r.json();
+      })
+      .then(function (data) {
+        entries = data.entries || [];
+        synonyms =
+          data.synonyms && typeof data.synonyms === "object"
+            ? data.synonyms
+            : {};
+        return data;
+      });
+    return indexPromise;
+  }
 
-  const indexUrl = form.getAttribute("data-index") || "/zoek/index.json";
-  fetch(indexUrl)
-    .then(function (r) {
-      if (!r.ok) throw new Error("index niet geladen");
-      return r.json();
-    })
-    .then(function (data) {
-      entries = data.entries || [];
-      synonyms =
-        data.synonyms && typeof data.synonyms === "object" ? data.synonyms : {};
-      if (meta) {
-        meta.textContent =
-          (data.count || entries.length) + " uitvoeringsvormen in de index";
-      }
-      if (input.value.trim()) run();
-    })
-    .catch(function () {
-      out.innerHTML =
-        "<p class=\"catalogus-zoek-leeg\">Zoekindex ontbreekt. Draai <code>python scripts\\build_zoek_index.py</code> (na lyrics-products).</p>";
+  function closeNavPanel(root) {
+    const panel = root.querySelector(".site-zoek-panel");
+    const toggle = root.querySelector(".site-zoek-toggle");
+    if (!panel) return;
+    panel.hidden = true;
+    document.body.classList.remove("site-zoek-open");
+    if (toggle) toggle.setAttribute("aria-expanded", "false");
+    stopAudio();
+  }
+
+  function openNavPanel(root) {
+    const panel = root.querySelector(".site-zoek-panel");
+    const toggle = root.querySelector(".site-zoek-toggle");
+    const input = root.querySelector(".catalogus-zoek-input, input[type='search']");
+    if (!panel) return;
+    panel.hidden = false;
+    document.body.classList.add("site-zoek-open");
+    if (toggle) toggle.setAttribute("aria-expanded", "true");
+    window.setTimeout(function () {
+      if (input) input.focus();
+    }, 10);
+  }
+
+  function bindRoot(root) {
+    const form = root.querySelector(".catalogus-zoek-form");
+    const input = root.querySelector(".catalogus-zoek-input, input[type='search']");
+    const out = root.querySelector(".catalogus-zoek-resultaten");
+    const meta = root.querySelector(".catalogus-zoek-meta");
+    if (!form || !input || !out) return;
+
+    const isNav = root.classList.contains("site-zoek");
+    const toggle = root.querySelector(".site-zoek-toggle");
+
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      runRoot(root);
     });
+    input.addEventListener("input", function () {
+      runRoot(root);
+    });
+
+    out.addEventListener("click", function (ev) {
+      const tipTrigger = ev.target.closest(".catalogus-zoek-tip-trigger");
+      if (tipTrigger) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        const tip = tipTrigger.closest(".catalogus-zoek-tip");
+        const panel = tip && tip.querySelector(".catalogus-zoek-tip-panel");
+        const open = tip && !tip.classList.contains("is-open");
+        closeAllTips(root);
+        if (tip && open) {
+          tip.classList.add("is-open");
+          tipTrigger.setAttribute("aria-expanded", "true");
+          if (panel) panel.hidden = false;
+        }
+        return;
+      }
+      if (ev.target.closest(".catalogus-zoek-tip-panel a")) {
+        return;
+      }
+      const play = ev.target.closest(".catalogus-zoek-play");
+      if (play && play.dataset.audio) {
+        ev.preventDefault();
+        playAudio(root, play, play.dataset.audio);
+        return;
+      }
+      const idBtn = ev.target.closest(".catalogus-zoek-id");
+      if (idBtn && idBtn.dataset.id) {
+        ev.preventDefault();
+        copyText(biebShortcode(idBtn.dataset.id), idBtn);
+      }
+    });
+
+    document.addEventListener("click", function (ev) {
+      if (!root.contains(ev.target)) return;
+      if (ev.target.closest(".catalogus-zoek-tip")) return;
+      closeAllTips(root);
+    });
+
+    if (isNav && toggle) {
+      toggle.addEventListener("click", function () {
+        const panel = root.querySelector(".site-zoek-panel");
+        if (!panel) return;
+        if (panel.hidden) openNavPanel(root);
+        else closeNavPanel(root);
+      });
+      root.querySelectorAll("[data-site-zoek-close]").forEach(function (el) {
+        el.addEventListener("click", function () {
+          closeNavPanel(root);
+        });
+      });
+      document.addEventListener("keydown", function (ev) {
+        if (ev.key === "Escape") closeNavPanel(root);
+      });
+    }
+
+    loadIndex(root)
+      .then(function (data) {
+        if (meta && !input.value.trim()) {
+          meta.textContent =
+            (data.count || entries.length) + " uitvoeringsvormen in de index";
+        }
+        if (input.value.trim()) runRoot(root);
+      })
+      .catch(function () {
+        out.innerHTML =
+          '<p class="catalogus-zoek-leeg">Zoekindex ontbreekt. Draai <code>python scripts\\build_zoek_index.py</code> (na lyrics-products).</p>';
+      });
+  }
+
+  roots.forEach(bindRoot);
+
+  window.addEventListener("pagehide", stopAudio);
+  window.addEventListener("beforeunload", stopAudio);
 })();

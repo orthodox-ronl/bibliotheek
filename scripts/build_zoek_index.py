@@ -110,6 +110,31 @@ def _bibliotheek_id(source: Path) -> str | None:
     return "/".join(parts[:3])
 
 
+def _audio_rank(name: str) -> int:
+    """Lagere rank = voorkeur (mvsa → mscz/partituur → vsa → overig)."""
+    n = name.lower()
+    if n.endswith(".mvsa.mp3"):
+        return 0
+    if n.endswith(".mscz.mp3"):
+        return 1
+    if n.endswith(".vsa.mp3"):
+        return 2
+    if n.endswith(".mp3"):
+        return 3
+    return 99
+
+
+def preferred_audio_url(leaf_dir: Path, ident: str) -> str:
+    """Site-absoluut pad naar voorkeurs-``.mp3`` in de bladermap, of leeg."""
+    if not leaf_dir.is_dir():
+        return ""
+    mp3s = [p for p in leaf_dir.iterdir() if p.is_file() and p.suffix.lower() == ".mp3"]
+    if not mp3s:
+        return ""
+    best = sorted(mp3s, key=lambda p: (_audio_rank(p.name), p.name.lower()))[0]
+    return f"/catalogus/{ident}/{best.name}"
+
+
 def _plain_for_source(source: Path) -> str:
     lyrics = product_path_for_source(source)
     if lyrics.is_file():
@@ -143,6 +168,7 @@ def build_entries(root: Path) -> list[dict]:
             / uitvoeringsvorm
             / "index.md"
         )
+        leaf_dir = leaf.parent
         var_idx = (
             REPO_ROOT
             / "content-source"
@@ -182,10 +208,16 @@ def build_entries(root: Path) -> list[dict]:
             "text": norm,
             "tokens": token_sort_key(norm),
             "incipit": " ".join(plain.split()[:12]),
+            "audio": preferred_audio_url(leaf_dir, ident),
         }
         prev = by_id.get(ident)
         if prev is None or len(entry["text"]) > len(prev["text"]):
+            # Behoud betere audio als de langere tekst-entry geen mp3 heeft.
+            if prev and prev.get("audio") and not entry.get("audio"):
+                entry["audio"] = prev["audio"]
             by_id[ident] = entry
+        elif prev and not prev.get("audio") and entry.get("audio"):
+            prev["audio"] = entry["audio"]
     return [by_id[k] for k in sorted(by_id)]
 
 

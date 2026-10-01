@@ -1,0 +1,66 @@
+{{- /* Globale zoekknop in de header + overlay/paneel.
+     Zelfde index/base als shortcode zoek-formulier. */ -}}
+{{- $basePath := "/" -}}
+{{- with urls.Parse site.BaseURL -}}
+  {{- if .Path -}}
+    {{- $basePath = .Path -}}
+  {{- end -}}
+{{- end -}}
+{{- if not (hasSuffix $basePath "/") -}}
+  {{- $basePath = printf "%s/" $basePath -}}
+{{- end -}}
+<div
+  class="site-zoek catalogus-zoek"
+  data-index="{{ "zoek/index.json" | relURL }}"
+  data-base="{{ $basePath }}"
+  data-feedback-email="{{ site.Params.feedback_email }}"
+  data-github="{{ site.Params.linksGithub }}"
+>
+  <button
+    type="button"
+    class="site-zoek-toggle"
+    aria-expanded="false"
+    aria-controls="site-zoek-panel"
+    title="Zoeken in de catalogus"
+  >
+    <svg class="site-zoek-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path
+        fill="currentColor"
+        d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+      />
+    </svg>
+    <span class="site-zoek-toggle-label">Zoeken</span>
+  </button>
+  <div id="site-zoek-panel" class="site-zoek-panel" hidden>
+    <div class="site-zoek-backdrop" data-site-zoek-close tabindex="-1" aria-hidden="true"></div>
+    <div
+      class="site-zoek-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="site-zoek-heading"
+    >
+      <div class="site-zoek-dialog-head">
+        <h2 id="site-zoek-heading" class="site-zoek-heading">Zoeken in de catalogus</h2>
+        <button type="button" class="site-zoek-close" data-site-zoek-close aria-label="Zoeken sluiten">
+          ×
+        </button>
+      </div>
+      <form class="catalogus-zoek-form site-zoek-form" action="#" method="get" role="search">
+        <label class="site-zoek-label" for="site-zoek-q">Zoekterm</label>
+        <div class="catalogus-zoek-rij">
+          <input
+            id="site-zoek-q"
+            class="catalogus-zoek-input"
+            name="q"
+            type="search"
+            autocomplete="off"
+            placeholder="bijv. Johannes, ektinia, Juich voor God…"
+          />
+          <button type="submit">Zoeken</button>
+        </div>
+      </form>
+      <p class="catalogus-zoek-meta" aria-live="polite"></p>
+      <div class="catalogus-zoek-resultaten"></div>
+    </div>
+  </div>
+</div>

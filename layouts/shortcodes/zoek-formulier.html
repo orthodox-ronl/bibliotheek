@@ -10,12 +10,27 @@
 {{- if not (hasSuffix $basePath "/") -}}
   {{- $basePath = printf "%s/" $basePath -}}
 {{- end -}}
-<form id="catalogus-zoek-form" class="catalogus-zoek-form" data-index="{{ "zoek/index.json" | relURL }}" data-base="{{ $basePath }}" action="#" method="get" role="search">
-  <label for="catalogus-zoek-q">Zoekterm</label>
-  <div class="catalogus-zoek-rij">
-    <input id="catalogus-zoek-q" name="q" type="search" autocomplete="off" placeholder="bijv. Juich voor God gehele aarde" />
-    <button type="submit">Zoeken</button>
-  </div>
-</form>
-<p id="catalogus-zoek-meta" class="catalogus-zoek-meta" aria-live="polite"></p>
-<div id="catalogus-zoek-resultaten" class="catalogus-zoek-resultaten"></div>
+<div
+  class="catalogus-zoek"
+  data-index="{{ "zoek/index.json" | relURL }}"
+  data-base="{{ $basePath }}"
+  data-feedback-email="{{ site.Params.feedback_email }}"
+  data-github="{{ site.Params.linksGithub }}"
+>
+  <form class="catalogus-zoek-form" action="#" method="get" role="search">
+    <label for="catalogus-zoek-q">Zoekterm</label>
+    <div class="catalogus-zoek-rij">
+      <input
+        id="catalogus-zoek-q"
+        class="catalogus-zoek-input"
+        name="q"
+        type="search"
+        autocomplete="off"
+        placeholder="bijv. Juich voor God gehele aarde"
+      />
+      <button type="submit">Zoeken</button>
+    </div>
+  </form>
+  <p class="catalogus-zoek-meta" aria-live="polite"></p>
+  <div class="catalogus-zoek-resultaten"></div>
+</div>
