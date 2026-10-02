@@ -423,19 +423,21 @@ uitvoeringsvorm-map. Zet &lt;code&gt;alias_van&lt;/code&gt; op de variant-&lt;co
 &lt;p&gt;Koormap-sectie (hoofdstuk): map met &lt;code&gt;_index.md&lt;/code&gt; — kindlijst of eigen TOC;
 zie &lt;a href="../../start/catalogus-en-koormappen/"&gt;Catalogus en koormappen&lt;/a&gt;
 .&lt;/p&gt;</description></item><item><title>h</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/h/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/h/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;scripts\h.cmd&lt;/code&gt; — hulp in het opdrachtvenster: catalogus of korte man-page&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;scripts\h.cmd&lt;/code&gt; — overzicht van commando’s, of doorverwijzen naar &lt;code&gt;-h&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\h.cmd
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\h.cmd &amp;lt;naam&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\h.cmd bieb hernoem
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\h.cmd -h
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Met &lt;code&gt;.\scripts&lt;/code&gt; op PATH kun je ook &lt;code&gt;h&lt;/code&gt; of &lt;code&gt;h check&lt;/code&gt; typen.&lt;/p&gt;
 &lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Zonder argument toont &lt;code&gt;h&lt;/code&gt; een korte lijst van alle gebruikerscommando’s
-(&lt;code&gt;.cmd&lt;/code&gt;) die bij deze repository horen. Met een exacte naam (bijvoorbeeld
-&lt;code&gt;check&lt;/code&gt;, &lt;code&gt;opkuisen&lt;/code&gt; of &lt;code&gt;layout&lt;/code&gt;) print het opdrachtvenster een korte
-man-page: doel, opties en wanneer je het gebruikt.&lt;/p&gt;
-&lt;p&gt;Met een onbekende of gedeeltelijke tekst krijg je een gefilterde lijst, of
-een foutmelding met bekende namen.&lt;/p&gt;</description></item><item><title>Communievers — Onthoofding Johannes de Doper</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/communievers/onthoofding-johannes-de-doper/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/communievers/onthoofding-johannes-de-doper/</guid><description>&lt;h1 id="communievers--onthoofding-johannes-de-doper"&gt;Communievers — Onthoofding Johannes de Doper&lt;/h1&gt;
+&lt;p&gt;Zonder argument toont &lt;code&gt;h&lt;/code&gt; een korte lijst van de
+gebruikerscommando’s (&lt;code&gt;.cmd&lt;/code&gt;) in deze repository, met één zin wat elk
+doet.&lt;/p&gt;
+&lt;p&gt;Met een naam (bijvoorbeeld &lt;code&gt;check&lt;/code&gt;, &lt;code&gt;serve&lt;/code&gt; of &lt;code&gt;bieb&lt;/code&gt;) roept &lt;code&gt;h&lt;/code&gt;
+&lt;strong&gt;hetzelfde&lt;/strong&gt; aan als &lt;code&gt;&amp;lt;naam&amp;gt; -h&lt;/code&gt;. Voor subcommando’s:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;h bieb hernoem
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;is gelijk aan &lt;code&gt;bieb hernoem -h&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Communievers — Onthoofding Johannes de Doper</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/communievers/onthoofding-johannes-de-doper/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/communievers/onthoofding-johannes-de-doper/</guid><description>&lt;h1 id="communievers--onthoofding-johannes-de-doper"&gt;Communievers — Onthoofding Johannes de Doper&lt;/h1&gt;
 &lt;div class="score-bundle"&gt;
 &lt;div class="score-actions oefenhoek-acties" data-pdf-src="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/communievers/onthoofding-johannes-de-doper/hemelum/communievers-onthoofding-johannes-de-doper-hemelum.pdf"&gt;
  &lt;div class="score-action-menu" data-score-role="oefenen"&gt;&lt;p class="score-action-help" role="tooltip"&gt;Speel mee in Coria: stemmen kiezen, tempo en meelezen op de partituur. Dit is bedoeld om echt te oefenen.&lt;/p&gt;&lt;a class="btn coria-play" href="https://coria.nl/play_from_url?back=coria.nl&amp;amp;url=https%3A%2F%2Fraw.githubusercontent.com%2Forthodox-ronl%2Fbibliotheek%2Fgh-pages%2Fpreview%2Fmxl%2Fc%2F6c0ee48a2647.musicxml" target="_blank" rel="noopener noreferrer"&gt;Oefenen&lt;/a&gt;&lt;/div&gt;
@@ -590,7 +592,31 @@ neerkomt op copy-paste, zonder zoeken naar paden.&lt;/p&gt;</description></item>
 &lt;div class="score-bundle"&gt;
 &lt;div class="score-actions oefenhoek-acties" data-pdf-src="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/alleluia/9a-toon-4/groningen/alleluia-9a-toon-4-groningen.mvsa.pdf"&gt;
  &lt;div class="score-action-menu" data-score-role="oefenen"&gt;&lt;p class="score-action-help" role="tooltip"&gt;Speel mee in Coria: stemmen kiezen, tempo en meelezen op de partituur. Dit is bedoeld om echt te oefenen.&lt;/p&gt;&lt;a class="btn coria-play" href="https://coria.nl/play_from_url?back=coria.nl&amp;amp;url=https%3A%2F%2Fraw.githubusercontent.com%2Forthodox-ronl%2Fbibliotheek%2Fgh-pages%2Fpreview%2Fmxl%2Fc%2F1274ed2ccef4.musicxml" target="_blank" rel="noopener noreferrer"&gt;Oefenen&lt;/a&gt;&lt;/div&gt;
- &lt;div class="score-action-menu" data-score-role="beluisteren"&gt;&lt;p class="score-action-help" role="tooltip"&gt;Geeft een idee van hoe het lied klinkt. Niet bedoeld om volledig mee te oefenen — daarvoor gebruik je Oefenen.&lt;/p&gt;</description></item><item><title>Levenscyclus van een uitvoeringsvorm</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/levenscyclus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/levenscyclus/</guid><description>&lt;h1 id="levenscyclus-van-een-uitvoeringsvorm"&gt;Levenscyclus van een uitvoeringsvorm&lt;/h1&gt;
+ &lt;div class="score-action-menu" data-score-role="beluisteren"&gt;&lt;p class="score-action-help" role="tooltip"&gt;Geeft een idee van hoe het lied klinkt. Niet bedoeld om volledig mee te oefenen — daarvoor gebruik je Oefenen.&lt;/p&gt;</description></item><item><title>Zangstuk hernoemen</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/zangstuk-hernoemen/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/zangstuk-hernoemen/</guid><description>&lt;h1 id="zangstuk-hernoemen"&gt;Zangstuk hernoemen&lt;/h1&gt;
+&lt;p&gt;Dit werktraject wijzigt één &lt;strong&gt;zangstuk-id&lt;/strong&gt; (de bovenste map onder
+&lt;code&gt;content-source\catalogus\&lt;/code&gt;) en houdt producten, tekstverwijzingen en
+passende koormap-slots in de pas. HOW-detail: &lt;a href="../scripts/bieb-hernoem/"&gt;bieb hernoem&lt;/a&gt;
+.&lt;/p&gt;
+&lt;aside class="handleiding-cue"&gt;
+ &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
+ &lt;div class="handleiding-cue-body"&gt;
+ &lt;ol&gt;
+&lt;li&gt;Bepaal oud en nieuw id (&lt;code&gt;[a-z0-9_-]+&lt;/code&gt;, geen slash).&lt;/li&gt;
+&lt;li&gt;Dry-run: &lt;code&gt;scripts\bieb.cmd hernoem &amp;lt;oud&amp;gt; &amp;lt;nieuw&amp;gt; --dry-run&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Uitvoeren zonder &lt;code&gt;--dry-run&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Zoekindex: &lt;code&gt;python scripts\build_zoek_index.py&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Controle: &lt;code&gt;scripts\check.cmd --strict&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+ &lt;/div&gt;
+&lt;/aside&gt;
+
+&lt;h2 id="waartoe"&gt;Waartoe&lt;/h2&gt;
+&lt;p&gt;Na taxonomie-besluiten (bijvoorbeeld genummerde ids weg) moet de mapnaam
+op schijf gelijk zijn aan het canonieke id. Zonder dit traject blijven
+oude paden in docs, &lt;code&gt;bieb id=…&lt;/code&gt;, of koormap-inhoudsopgaven staan — of
+ontstaat een 404 omdat de TOC al &lt;code&gt;{nieuw}/&lt;/code&gt; zegt terwijl de map nog
+&lt;code&gt;{oud}/&lt;/code&gt; heet.&lt;/p&gt;</description></item><item><title>Levenscyclus van een uitvoeringsvorm</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/levenscyclus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/levenscyclus/</guid><description>&lt;h1 id="levenscyclus-van-een-uitvoeringsvorm"&gt;Levenscyclus van een uitvoeringsvorm&lt;/h1&gt;
 &lt;p&gt;Elke &lt;strong&gt;uitvoeringsvorm&lt;/strong&gt; (catalogus-id
 &lt;code&gt;zangstuk/variant/uitvoeringsvorm&lt;/code&gt;) is een &lt;em&gt;case&lt;/em&gt;: je weet in welke
 &lt;strong&gt;lifecycle-fase&lt;/strong&gt; die zit, welke scripts en bestanden bij die fase
@@ -908,6 +934,9 @@ ontbrekende import-siblings zijn geen fout&lt;/li&gt;
 passende &lt;code&gt;{stam}.….lyrics.txt&lt;/code&gt; heeft met &lt;code&gt;vsa-source-sha256&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Catalogus-id — of elke basispartituur-&lt;code&gt;.mscz&lt;/code&gt; in het colofon de
 regel &lt;code&gt;Bibliotheek-id:&lt;/code&gt; heeft die bij het bladermap-pad past&lt;/li&gt;
+&lt;li&gt;Koormap-slotlinks (&lt;code&gt;python scripts\check_koormap_slot_links.py --fail&lt;/code&gt;) — of relatieve links in koormap-markdown (inhoudsopgaven)
+naar bestaande mappen of pagina’s wijzen; vangt 404’s na een half
+uitgevoerde &lt;code&gt;bieb hernoem&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Coria-fingerprints (&lt;code&gt;python scripts\fingerprint_coria_mxl.py&lt;/code&gt;)&lt;/li&gt;
 &lt;li&gt;Bladermap-SVG (&lt;code&gt;oefenhoek-index --svg&lt;/code&gt;) — plaatjes uit &lt;code&gt;.vsa&lt;/code&gt;; geen
 stamp-publicatiecontrole&lt;/li&gt;
@@ -2248,10 +2277,13 @@ en geen Coria-&lt;code&gt;.mxl&lt;/code&gt;. Niet in &lt;code&gt;check&lt;/code&
 &lt;code&gt;.print.mscz&lt;/code&gt;), of &lt;code&gt;.tekstblad.md&lt;/code&gt; (optioneel sibling-&lt;code&gt;.pdf&lt;/code&gt; / &lt;code&gt;.mxl&lt;/code&gt;). Bij
 &lt;code&gt;.tekstblad.md&lt;/code&gt; zet het script indien nodig frontmatter &lt;code&gt;build: render: never&lt;/code&gt;
 zodat de bron geen Hugo-pagina wordt.&lt;/p&gt;</description></item><item><title>bieb hernoem</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-hernoem/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-hernoem/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;bieb hernoem&lt;/code&gt; — zangstuk-id hernoemen (map, publicatiestam, verwijzingen)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;bieb hernoem&lt;/code&gt; — zangstuk-id hernoemen (catalogusmap, publicatiestam,
+tekstverwijzingen, koormap-slots)&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd hernoem &amp;lt;oud-zangstuk&amp;gt; &amp;lt;nieuw-zangstuk&amp;gt; [--dry-run]
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Met &lt;code&gt;.\scripts&lt;/code&gt; op PATH: &lt;code&gt;bieb hernoem …&lt;/code&gt;. Korte hulp: &lt;code&gt;h bieb hernoem&lt;/code&gt;
+of &lt;code&gt;bieb hernoem -h&lt;/code&gt;.&lt;/p&gt;
+&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Hernoemt één &lt;strong&gt;zangstuk-id&lt;/strong&gt; (de bovenste map onder
 &lt;code&gt;content-source\catalogus\&lt;/code&gt;). Voorbeeld uit de afgeronde hernoem-golf:
 &lt;code&gt;110-tropaar&lt;/code&gt; → &lt;code&gt;tropaar&lt;/code&gt; (die hernoeming is al uitgevoerd; de
@@ -2262,10 +2294,14 @@ commando’s hieronder zijn ter illustratie).&lt;/p&gt;
 &lt;li&gt;Hernoemt alle productbestanden waarvan de naam met &lt;code&gt;{oud}-&lt;/code&gt; begint
 (publicatiestam: &lt;code&gt;.vsa&lt;/code&gt;, &lt;code&gt;.vsa.mxl&lt;/code&gt;, &lt;code&gt;.lyrics.txt&lt;/code&gt;, &lt;code&gt;.mp3&lt;/code&gt;, …).&lt;/li&gt;
 &lt;li&gt;Verplaatst bladermap-SVG’s onder &lt;code&gt;static\vsa\bladermap\catalogus\&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Werkt tekstverwijzingen bij (&lt;code&gt;bieb id=…&lt;/code&gt;, &lt;code&gt;alias_van&lt;/code&gt;, colofons, docs).&lt;/li&gt;
+&lt;li&gt;Hernoemt &lt;strong&gt;koormap-slotmappen&lt;/strong&gt; die exact &lt;code&gt;{oud}&lt;/code&gt; heten naar &lt;code&gt;{nieuw}&lt;/code&gt;
+(bijvoorbeeld &lt;code&gt;…\liturgie-weekdagen\8-trisagion\&lt;/code&gt; → &lt;code&gt;…\trisagion\&lt;/code&gt;).
+Zo blijven inhoudsopgave-links en mapnamen gelijk; anders ontstaat een
+404 doordat Hugo de mapnaam volgt.&lt;/li&gt;
+&lt;li&gt;Werkt tekstverwijzingen bij (&lt;code&gt;bieb id=…&lt;/code&gt;, &lt;code&gt;alias_van&lt;/code&gt;, colofons, docs,
+inclusief koormap-inhoudsopgaven).&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Daarna opnieuw: &lt;code&gt;python scripts\build_zoek_index.py&lt;/code&gt; en
-&lt;code&gt;scripts\check.cmd&lt;/code&gt; (SVG/fingerprints/Hugo).&lt;/p&gt;</description></item><item><title>Tropaar zaterdag heiligen toon 2</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum/</guid><description>&lt;h1 id="tropaar-zaterdag-heiligen-toon-2"&gt;Tropaar zaterdag heiligen toon 2&lt;/h1&gt;
+&lt;p&gt;Hugo-&lt;code&gt;aliases&lt;/code&gt; voor oude URL’s worden &lt;strong&gt;niet&lt;/strong&gt; gezet.&lt;/p&gt;</description></item><item><title>Tropaar zaterdag heiligen toon 2</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum/</guid><description>&lt;h1 id="tropaar-zaterdag-heiligen-toon-2"&gt;Tropaar zaterdag heiligen toon 2&lt;/h1&gt;
 &lt;div class="score-bundle"&gt;
 &lt;div class="score-actions oefenhoek-acties oefenhoek-acties--catalogus" data-pdf-src="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum/tropaar-zaterdag-heiligen-toon-2-hemelum.vsa.pdf"&gt;
  &lt;div class="score-action-menu" data-score-role="oefenen"&gt;&lt;p class="score-action-help" role="tooltip"&gt;Speel mee in Coria: stemmen kiezen, tempo en meelezen op de partituur. Dit is bedoeld om echt te oefenen.&lt;/p&gt;&lt;a class="btn coria-play" href="https://coria.nl/play_from_url?back=coria.nl&amp;amp;url=https%3A%2F%2Fraw.githubusercontent.com%2Forthodox-ronl%2Fbibliotheek%2Fgh-pages%2Fpreview%2Fmxl%2Fc%2F31629d8ae7c1.musicxml" target="_blank" rel="noopener noreferrer"&gt;Oefenen&lt;/a&gt;&lt;/div&gt;

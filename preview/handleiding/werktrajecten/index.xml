@@ -36,7 +36,31 @@ horen niet rechtstreeks in die catalogus. Dit traject is de
 &lt;a href="../../start/catalogus/"&gt;Catalogus&lt;/a&gt;
 : input bijhouden, klaar bestand
 opnemen met &lt;code&gt;bieb accepteer&lt;/code&gt;. Model: &lt;a href="../../start/levenscyclus/"&gt;Levenscyclus&lt;/a&gt;
-.&lt;/p&gt;</description></item><item><title>Basispartituur → PDF en Coria</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/basispartituur/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/basispartituur/</guid><description>&lt;h1 id="basispartituur--pdf-en-coria"&gt;Basispartituur → PDF en Coria&lt;/h1&gt;
+.&lt;/p&gt;</description></item><item><title>Zangstuk hernoemen</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/zangstuk-hernoemen/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/zangstuk-hernoemen/</guid><description>&lt;h1 id="zangstuk-hernoemen"&gt;Zangstuk hernoemen&lt;/h1&gt;
+&lt;p&gt;Dit werktraject wijzigt één &lt;strong&gt;zangstuk-id&lt;/strong&gt; (de bovenste map onder
+&lt;code&gt;content-source\catalogus\&lt;/code&gt;) en houdt producten, tekstverwijzingen en
+passende koormap-slots in de pas. HOW-detail: &lt;a href="../scripts/bieb-hernoem/"&gt;bieb hernoem&lt;/a&gt;
+.&lt;/p&gt;
+&lt;aside class="handleiding-cue"&gt;
+ &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
+ &lt;div class="handleiding-cue-body"&gt;
+ &lt;ol&gt;
+&lt;li&gt;Bepaal oud en nieuw id (&lt;code&gt;[a-z0-9_-]+&lt;/code&gt;, geen slash).&lt;/li&gt;
+&lt;li&gt;Dry-run: &lt;code&gt;scripts\bieb.cmd hernoem &amp;lt;oud&amp;gt; &amp;lt;nieuw&amp;gt; --dry-run&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Uitvoeren zonder &lt;code&gt;--dry-run&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Zoekindex: &lt;code&gt;python scripts\build_zoek_index.py&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Controle: &lt;code&gt;scripts\check.cmd --strict&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+ &lt;/div&gt;
+&lt;/aside&gt;
+
+&lt;h2 id="waartoe"&gt;Waartoe&lt;/h2&gt;
+&lt;p&gt;Na taxonomie-besluiten (bijvoorbeeld genummerde ids weg) moet de mapnaam
+op schijf gelijk zijn aan het canonieke id. Zonder dit traject blijven
+oude paden in docs, &lt;code&gt;bieb id=…&lt;/code&gt;, of koormap-inhoudsopgaven staan — of
+ontstaat een 404 omdat de TOC al &lt;code&gt;{nieuw}/&lt;/code&gt; zegt terwijl de map nog
+&lt;code&gt;{oud}/&lt;/code&gt; heet.&lt;/p&gt;</description></item><item><title>Basispartituur → PDF en Coria</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/basispartituur/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/basispartituur/</guid><description>&lt;h1 id="basispartituur--pdf-en-coria"&gt;Basispartituur → PDF en Coria&lt;/h1&gt;
 &lt;p&gt;Dit werktraject maakt uit een &lt;strong&gt;basispartituur-&lt;code&gt;.mscz&lt;/code&gt;&lt;/strong&gt; (MuseScore) de
 bestanden die koorleden downloaden en in Coria oefenen. Representatie-id:
 &lt;code&gt;partituur&lt;/code&gt;.&lt;/p&gt;
