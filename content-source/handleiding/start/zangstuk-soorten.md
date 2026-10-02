@@ -224,11 +224,11 @@ houden). De Hugo-sectie heet **catalogus** (niet meer
 ## Volgende stappen
 
 1. Eventueel `speciaal` beoordelen (utility, geen zangstuk).
-2. Hernoem-tooling verder versterken (koormap-slots automatisch +
-   slotlink-check) — `bieb hernoem` bestaat; zie
-   [bieb hernoem](/handleiding/scripts/bieb-hernoem/).
 
-Hugo-`aliases` voor oude URL’s (`/bibliotheek/…`, genummerde paden) zijn
-bewust weggelaten: die paden werden niet gebruikt.
+Nieuwe hernoemingen: werktraject
+[Zangstuk hernoemen](/handleiding/werktrajecten/zangstuk-hernoemen/)
+(`bieb hernoem` neemt 1:1-koormap-slots mee; `check` bevat de
+slotlink-controle). Hugo-`aliases` voor oude URL’s (`/bibliotheek/…`,
+genummerde paden) zijn bewust weggelaten: die paden werden niet gebruikt.
 
 {{< navbuttons "Catalogus en koormappen|/handleiding/start/catalogus-en-koormappen/" "Woorden|/handleiding/start/woorden/" >}}

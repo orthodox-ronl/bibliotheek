@@ -15,6 +15,7 @@ vanuit de repo-root.
 
 | Commando | Wat het doet | Man-page |
 | --- | --- | --- |
+| `h` | Overzicht van commando’s; `h <naam>` = `<naam> -h`. | [h](h/) |
 | `validate` | Controleert catalogus-`.vsa` (en eventueel `.mvsa`) via de `vsa`-CLI. | [validate](validate/) |
 | `check` | Preflight: validate + VSA-/MSCZ-publicatiecontrole + Coria-fingerprints + Hugo-build. | [check](check/) |
 | `build` | Bouwt de site naar `generated\site`. | [build](build/) |
@@ -31,7 +32,7 @@ vanuit de repo-root.
 | `ensure-bibliotheek-id` | Zet of controleert de colofonregel `Bibliotheek-id:` op basispartituur-`.mscz`. | [ensure-bibliotheek-id](ensure-bibliotheek-id/) |
 | `opkuisen` | Herkomstanalyse + inhoudelijke opkuis (Capella/MusicXML/MuseScore); optioneel `--layout`. | [opkuisen](opkuisen/) |
 | `bieb accepteer` | Partituur/tekstblad opnemen onder een catalogus-id (Werkbank → Catalogus). | [bieb accepteer](bieb-accepteer/) |
-| `bieb hernoem` | Zangstuk-id hernoemen (map, stam, refs). | [bieb hernoem](bieb-hernoem/) |
+| `bieb hernoem` | Zangstuk-id hernoemen (map, stam, refs, koormap-slots). | [bieb hernoem](bieb-hernoem/) |
 | `update-werkvoorraad` | Tabel in `input\werkvoorraad.md` laten aansluiten op bestanden in `input\`. | [update-werkvoorraad](update-werkvoorraad/) |
 | `werkbank-status` | Overzicht open werkbank-cases; schrijft `data\werkbank-status.json`. | [werkbank-status](werkbank-status/) |
 | `lifecycle-grenzen` | Spaties/ruwe formats in catalogusmappen melden (optioneel `--fail`). | [lifecycle-grenzen](lifecycle-grenzen/) |
@@ -40,11 +41,12 @@ vanuit de repo-root.
 Intern (geen apart gebruikerscommando): `python scripts\fingerprint_coria_mxl.py`
 maakt `/mxl/c/<hash>.musicxml` en `data/coria-fp.json` voor de Oefenen-knop.
 Wordt al door `check` / `build` / `serve` aangeroepen.
-`check_vsa_products.py`, `check_mscz_products.py`,
-`check_tekstblad_products.py`, `check_import_mvsa.py`,
-`check_mvsa_products.py`, `check_audio_products.py` en
-`check_lyrics_products.py` schrijven status-JSON
-(versheid / importcontrole).
+`check_koormap_slot_links.py` controleert relatieve links in koormappen
+(onderdeel van `check` / CI). `check_vsa_products.py`,
+`check_mscz_products.py`, `check_tekstblad_products.py`,
+`check_import_mvsa.py`, `check_mvsa_products.py`,
+`check_audio_products.py` en `check_lyrics_products.py` schrijven
+status-JSON (versheid / importcontrole).
 
 Detail: [scripts/README.md](https://github.com/orthodox-ronl/bibliotheek/blob/development/scripts/README.md)
 in de repo.
@@ -54,10 +56,9 @@ in de repo.
 | Commando (later) | Rol |
 | --- | --- |
 | `bieb zoek` | Zoeken van catalogus-ids op de commandoregel |
-| `h` / `pdf` / ... | Console-hulp en overige VSA-demo-commando's |
 
-Man-pages (ter voorbereiding):
-[capella-mxl-to-mscz](capella-mxl-to-mscz/), [h](h/), [pdf](pdf/),
+Man-pages (ter voorbereiding / andere repo):
+[capella-mxl-to-mscz](capella-mxl-to-mscz/), [pdf](pdf/),
 [demo-pdf](demo-pdf/), [sync-bron-zondagen](sync-bron-zondagen/).
 
 {{< navbuttons "Werktrajecten|/handleiding/werktrajecten/" "Check|/handleiding/scripts/check/" >}}

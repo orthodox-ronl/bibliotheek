@@ -140,6 +140,9 @@ jobs:
       - name: Check bibliotheek-id in MSCZ colofon
         run: python scripts/ensure_bibliotheek_id.py --check-only --fail
 
+      - name: Check koormap slot relative links
+        run: python scripts/check_koormap_slot_links.py --fail
+
       - name: Update werkvoorraad table
         run: python scripts/update_werkvoorraad.py
 

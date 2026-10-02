@@ -6,13 +6,14 @@ weight: 10
 
 # NAME
 
-`scripts\h.cmd` — hulp in het opdrachtvenster: catalogus of korte man-page
+`scripts\h.cmd` — overzicht van commando’s, of doorverwijzen naar `-h`
 
 # SYNOPSIS
 
 ```cmd
 scripts\h.cmd
 scripts\h.cmd <naam>
+scripts\h.cmd bieb hernoem
 scripts\h.cmd -h
 ```
 
@@ -20,31 +21,35 @@ Met `.\scripts` op PATH kun je ook `h` of `h check` typen.
 
 # DESCRIPTION
 
-Zonder argument toont `h` een korte lijst van alle gebruikerscommando’s
-(`.cmd`) die bij deze repository horen. Met een exacte naam (bijvoorbeeld
-`check`, `opkuisen` of `layout`) print het opdrachtvenster een korte
-man-page: doel, opties en wanneer je het gebruikt.
+Zonder argument toont `h` een korte lijst van de
+gebruikerscommando’s (`.cmd`) in deze repository, met één zin wat elk
+doet.
 
-Met een onbekende of gedeeltelijke tekst krijg je een gefilterde lijst, of
-een foutmelding met bekende namen.
+Met een naam (bijvoorbeeld `check`, `serve` of `bieb`) roept `h`
+**hetzelfde** aan als `<naam> -h`. Voor subcommando’s:
 
-De console-tekst is bewust kort (alleen eenvoudige tekens). De **uitgebreide**
-uitleg staat in deze handleiding-sectie [Scripts](../).
+```cmd
+h bieb hernoem
+```
+
+is gelijk aan `bieb hernoem -h`.
+
+De console-tekst is bewust kort. De **uitgebreide** uitleg staat in
+deze handleiding-sectie [Scripts](../).
 
 # EXAMPLES
 
-Voorbeelden (niet de enige geldige namen):
-
 ```cmd
 scripts\h.cmd
-scripts\h.cmd opkuisen
-scripts\h.cmd layout
+scripts\h.cmd check
+scripts\h.cmd bieb
+scripts\h.cmd bieb hernoem
 ```
 
 # WHEN
 
-Als je de naam van een script niet meer weet, of even de opties wilt zien
-zonder de browser te openen.
+Als je de naam van een script niet meer weet, of even de opties wilt
+zien zonder de browser te openen.
 
 # SEE ALSO
 

@@ -43,11 +43,15 @@ Of: `scripts\check.cmd` vanuit de repo-root.
    passende `{stam}.….lyrics.txt` heeft met `vsa-source-sha256`
 9. Catalogus-id — of elke basispartituur-`.mscz` in het colofon de
    regel `Bibliotheek-id:` heeft die bij het bladermap-pad past
-10. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
-11. Bladermap-SVG (`oefenhoek-index --svg`) — plaatjes uit `.vsa`; geen
+10. Koormap-slotlinks (`python scripts\check_koormap_slot_links.py
+    --fail`) — of relatieve links in koormap-markdown (inhoudsopgaven)
+    naar bestaande mappen of pagina’s wijzen; vangt 404’s na een half
+    uitgevoerde `bieb hernoem`
+11. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
+12. Bladermap-SVG (`oefenhoek-index --svg`) — plaatjes uit `.vsa`; geen
    stamp-publicatiecontrole
-12. Zoekindex (`python scripts\build_zoek_index.py` → `static\zoek\index.json`)
-13. Hugo-build naar `generated\site`
+13. Zoekindex (`python scripts\build_zoek_index.py` → `static\zoek\index.json`)
+14. Hugo-build naar `generated\site`
 
 De Pages-deploy (productie, `/preview/`, branch-previews) bouwt de
 zoekindex ook vóór Hugo, zodat zoeken niet afhangt van een verouderde
@@ -96,8 +100,11 @@ genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole)
 - [oefenhoek-index](../oefenhoek-index/)
 - [layout](../layout/)
 - [ensure-bibliotheek-id](../ensure-bibliotheek-id/)
+- [bieb hernoem](../bieb-hernoem/)
+- [h](../h/)
 - [serve](../serve/)
 - [build](../build/)
+- [Zangstuk hernoemen](/handleiding/werktrajecten/zangstuk-hernoemen/)
 - [Wat heb je nodig](/handleiding/start/wat-heb-je-nodig/)
 - [Status en check](/handleiding/publiceren/2-status-en-check/)
 - [Publicatiecontrole](/handleiding/start/publicatiecontrole/)

@@ -211,7 +211,9 @@ shortcodes op één pagina).
    `mg` of `zo-wk-mg`.
 3. Genummerde top-level `zangstuk-id`s zijn hernoemd (zie
    [Zangstuk-soorten](/handleiding/start/zangstuk-soorten/)). Nieuwe
-   hernoemingen: [`bieb hernoem`](/handleiding/scripts/bieb-hernoem/).
+   hernoemingen: werktraject
+   [Zangstuk hernoemen](/handleiding/werktrajecten/zangstuk-hernoemen/)
+   ([`bieb hernoem`](/handleiding/scripts/bieb-hernoem/)).
 4. Echte naamsynoniemen van dezelfde variant: `alias_van`. Spelling- en
    woordvolgorde-varianten: zoekindex + [`data/zoek-synoniemen.yaml`](https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml).
 

@@ -1,6 +1,9 @@
 @echo off
 setlocal EnableExtensions
 cd /d "%~dp0.."
+
+if /I "%~1"=="-h" goto usage
+if /I "%~1"=="--help" goto usage
 call scripts\_ensure.cmd --vsa-tool
 if errorlevel 1 exit /b 1
 python scripts\sync_lyrics_products.py %*
@@ -10,4 +13,14 @@ REM Zoekindex vernieuwen (tenzij dry-run: lyrics ongewijzigd, index toch ok).
 echo.
 echo --- zoekindex (static/zoek/index.json) ---
 python scripts\build_zoek_index.py
+exit /b %ERRORLEVEL%
+
+:usage
+echo.
+echo Gebruik: scripts\lyrics-products.cmd [args...]
+echo.
+echo   Korte hulp via Python ^(argparse^). Voorbeeldopties vaak: [pad] --dry-run --force
+echo.
+python scripts\sync_lyrics_products.py -h
+endlocal
 exit /b %ERRORLEVEL%

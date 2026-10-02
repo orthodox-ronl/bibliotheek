@@ -1,4 +1,4 @@
-"""Hernoem een zangstuk-id (map + stam + verwijzingen).
+"""Hernoem een zangstuk-id (map + stam + verwijzingen + koormap-slots).
 
 Gebruik::
 
@@ -6,8 +6,10 @@ Gebruik::
 
 Verplaatst ``content-source/catalogus/<oud>`` → ``<nieuw>``, hernoemt
 bestanden waarvan de naam met ``{oud}-`` begint, werkt tekstverwijzingen
-bij (``bieb id``, ``alias_van``, colofon, docs), en verplaatst
-bladermap-SVG. Hugo-``aliases`` voor oude URL’s worden niet gezet.
+bij (``bieb id``, ``alias_van``, colofon, docs), verplaatst bladermap-SVG,
+en hernoemt koormap-slotmappen die exact ``<oud>`` heten (zodat
+inhoudsopgave-links en mapnamen gelijk blijven). Hugo-``aliases`` voor
+oude URL’s worden niet gezet.
 """
 
 from __future__ import annotations
@@ -46,6 +48,7 @@ _SKIP_DIR_NAMES = frozenset(
         ".hugo_build.lock",
     }
 )
+KOORMAPPEN_ROOT = REPO_ROOT / "content-source" / "koormappen"
 
 
 def _rel(path: Path) -> str:
@@ -159,6 +162,32 @@ def _rename_stem_files(root: Path, old: str, new: str, *, dry_run: bool) -> int:
     return n
 
 
+def _rename_koormap_slots(old: str, new: str, *, dry_run: bool) -> int:
+    """Hernoem koormap-mappen die exact ``old`` heten → ``new``.
+
+    Inhoudsopgave-links in koormap-``_index.md`` worden door tekstrewrite
+    ``{new}/``. Zonder maphernoem blijft de map ``{old}/`` → 404.
+    """
+    if not KOORMAPPEN_ROOT.is_dir():
+        return 0
+    # Diepste eerst, zodat geneste gelijknamige mappen (zeldzaam) veilig gaan.
+    slots = sorted(
+        (p for p in KOORMAPPEN_ROOT.rglob(old) if p.is_dir() and p.name == old),
+        key=lambda p: len(p.parts),
+        reverse=True,
+    )
+    n = 0
+    for src in slots:
+        dest = src.with_name(new)
+        print(f"  move {_rel(src)} -> {_rel(dest)}", flush=True)
+        if dest.exists():
+            raise SystemExit(f"koormap-doel bestaat al: {_rel(dest)}")
+        if not dry_run:
+            shutil.move(str(src), str(dest))
+        n += 1
+    return n
+
+
 def hernoem_zangstuk(old: str, new: str, *, dry_run: bool) -> int:
     old = _validate_zangstuk(old)
     new = _validate_zangstuk(new)
@@ -183,7 +212,7 @@ def hernoem_zangstuk(old: str, new: str, *, dry_run: bool) -> int:
     else:
         zangstuk_dir = src  # dry-run: werk op bron voor listing
 
-    # Stam-bestanden (in bibliotheek-map)
+    # Stam-bestanden (in catalogus-map)
     n_stem = _rename_stem_files(zangstuk_dir if not dry_run else src, old, new, dry_run=dry_run)
     print(f"  stam-bestanden: {n_stem}", flush=True)
 
@@ -200,6 +229,10 @@ def hernoem_zangstuk(old: str, new: str, *, dry_run: bool) -> int:
             _rename_stem_files(svg_dest, old, new, dry_run=False)
         else:
             _rename_stem_files(svg_src, old, new, dry_run=True)
+
+    # Koormap-slotmappen met dezelfde mapnaam als het oude zangstuk-id
+    n_koor = _rename_koormap_slots(old, new, dry_run=dry_run)
+    print(f"  koormap-slots: {n_koor}", flush=True)
 
     # Tekstverwijzingen in de hele repo (na mapverplaatsing: nieuw pad)
     n_files = 0
@@ -234,7 +267,7 @@ def hernoem_zangstuk(old: str, new: str, *, dry_run: bool) -> int:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="bieb hernoem",
-        description="Hernoem een zangstuk-id (map, stam, refs).",
+        description="Hernoem een zangstuk-id (map, stam, refs, koormap-slots).",
     )
     parser.add_argument("oud", help="Huidig zangstuk-id (mapnaam)")
     parser.add_argument("nieuw", help="Nieuw zangstuk-id")
