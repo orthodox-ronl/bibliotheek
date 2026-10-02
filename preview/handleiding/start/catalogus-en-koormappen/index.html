@@ -114,10 +114,37 @@ Voorzien-items en technische registers staan onder
 <a href=/bibliotheek/preview/catalogus/speciaal/>Speciaal</a>
 en het
 <a href=/bibliotheek/preview/catalogus/id-register/>Id-register</a>
-.</p><h2 id=special-pages>Special pages</h2><p>Automatisch bijgehouden (bij elke sitebuild):</p><div class=table-scroll><table><thead><tr><th>Pagina</th><th>Inhoud</th></tr></thead><tbody><tr><td><a href=/bibliotheek/preview/catalogus/speciaal/voorzien/>Voorzien</a></td><td>Zangstukken zonder oefenbare inhoud</td></tr><tr><td><a href=/bibliotheek/preview/catalogus/speciaal/ongerefereerd/>Ongerefereerd</a></td><td>In de catalogus, nog niet in een koormap</td></tr><tr><td><a href=/bibliotheek/preview/catalogus/speciaal/oefenbaar/>Oefenbaar</a></td><td>Platte lijst van linkbare uitvoeringsvormen + id</td></tr></tbody></table></div><h2 id=klaar-als>Klaar als</h2><p>Je kunt uitleggen waarom een Zwolle-cherubijn eerst in de catalogus hoort;
-waarom de Hemelum-liturgiemap géén tweede opslag van PDF’s is; en wanneer je
-een <strong>sectie</strong> (boom) kiest versus een <strong>compositieblad</strong> (meerdere
-shortcodes op één pagina).</p><h2 id=naamgevingsbeleid-nieuwe-ids>Naamgevingsbeleid (nieuwe ids)</h2><ol><li><strong>Nieuwe</strong> <code>zangstuk-id</code>s krijgen <strong>geen</strong> sorteerprefix (<code>tropaar</code>, niet
+.</p><h2 id=special-pages>Special pages</h2><p>Automatisch bijgehouden (bij elke sitebuild):</p><div class=table-scroll><table><thead><tr><th>Pagina</th><th>Inhoud</th></tr></thead><tbody><tr><td><a href=/bibliotheek/preview/catalogus/speciaal/voorzien/>Voorzien</a></td><td>Zangstukken zonder oefenbare inhoud</td></tr><tr><td><a href=/bibliotheek/preview/catalogus/speciaal/ongerefereerd/>Ongerefereerd</a></td><td>In de catalogus, nog niet in een koormap</td></tr><tr><td><a href=/bibliotheek/preview/catalogus/speciaal/oefenbaar/>Oefenbaar</a></td><td>Platte lijst van linkbare uitvoeringsvormen + id</td></tr></tbody></table></div><h2 id=taalvarianten-op-de-uitvoeringsvorm>Taalvarianten op de uitvoeringsvorm</h2><p>Nederlands en kerkslavisch zijn <strong>aparte uitvoeringsvormen</strong>. De taal
+hoort in het derde padsegment (de leaf-map), niet in een vierde maplaag
+en niet als aparte map per bestandsformaat. Markeer de taal met suffix
+<code>-nl</code> of <code>-ksl</code> op de uitvoeringsvorm-id — alleen waar nodig.</p><h3 id=wanneer-wel-wanneer-niet>Wanneer wel, wanneer niet</h3><div class=table-scroll><table><thead><tr><th>Situatie</th><th>Wat je doet</th></tr></thead><tbody><tr><td>Alleen Nederlands voor die herkomst (geen kerkslavisch-sibling)</td><td>Geen taalsuffix: leaf <code>hemelum</code></td></tr><tr><td>Zelfde herkomst in <strong>beide</strong> talen</td><td>Twee leaves: <code>hemelum-nl</code> en <code>hemelum-ksl</code></td></tr><tr><td>Alleen kerkslavisch (Cyrillisch)</td><td>Suffix <code>-ksl</code> op de uitvoeringsvorm-id</td></tr><tr><td>Mengvorm NL + kerkslavisch in één partituur</td><td>Suffix <code>-nl-ksl</code> (zeldzaam)</td></tr></tbody></table></div><p>Gebruik <code>-nl</code> <strong>alleen waar nodig</strong>: als er een <code>-ksl</code>-sibling is (of komt),
+zodat beide leaves even duidelijk zijn. Zet geen <code>-nl</code> op elke
+Nederlandse leaf «voor de zekerheid».</p><p><strong>Voorkeursconventie</strong> voor nieuw werk: taal via suffix op de
+<strong>uitvoeringsvorm-id</strong> (<code>-nl</code> / <code>-ksl</code>). Zet de taal <strong>niet</strong> in de
+variant-id.</p><p><strong>Legacy / alternatief:</strong> sommige oudere stukken houden taal in de
+variant, bijvoorbeeld <code>trisagion/8a-nederlands/hemelum</code> naast
+<code>trisagion/8a-slav/hemelum</code>. Die maps niet hernoemen tot een aparte
+migratie; voor <strong>nieuwe</strong> ids volg je de suffix op de uitvoeringsvorm.</p><p>Getranslitereerde producten (Latijns schrift naast Cyrillisch) horen
+later; die conventie staat nog niet vast in dit padmodel.</p><h3 id=pad-catalogus-id-en-bestandsstam>Pad, catalogus-id en bestandsstam</h3><div class=table-scroll><table><thead><tr><th>Begrip</th><th>Vorm</th><th>Voorbeeld (schets)</th></tr></thead><tbody><tr><td>Cataloguspad</td><td><code>catalogus\&lt;zangstuk>\&lt;variant>\&lt;uitvoeringsvorm>\</code></td><td><code>catalogus\prijslied\bisschop-gregorios\hemelum-nl\</code></td></tr><tr><td>Catalogus-id (<code>bieb</code>)</td><td><code>zangstuk/variant/uitvoeringsvorm</code></td><td><code>prijslied/bisschop-gregorios/hemelum-nl</code></td></tr><tr><td>Publicatiestam</td><td><code>{zangstuk}-{variant}-{uitvoeringsvorm}</code></td><td><code>prijslied-bisschop-gregorios-hemelum-nl</code></td></tr></tbody></table></div><p>Voorbeeld-paar (nog niet per se in de catalogus; richting voor nieuw werk):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>content-source\catalogus\prijslied\bisschop-gregorios\hemelum-nl\
+</span></span><span style=display:flex><span>content-source\catalogus\prijslied\bisschop-gregorios\hemelum-ksl\
+</span></span></code></pre></div><p>Catalogus-ids: <code>prijslied/bisschop-gregorios/hemelum-nl</code> en
+<code>prijslied/bisschop-gregorios/hemelum-ksl</code>. Bestandsstam van de
+Nederlandse leaf:
+<code>prijslied-bisschop-gregorios-hemelum-nl</code> (plus extensie van de bron).</p><p>Precedent in het <a href=/bibliotheek/preview/catalogus/id-register/>Id-register</a>
+: o.a.
+<code>cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat</code> (stub) en bestaande
+<code>-ksl</code>-leaves zoals <code>tropaar/uw-heilig-kruis/groningen-ksl</code>.</p><h3 id=canonieke-bron-vs-afgeleiden>Canonieke bron vs afgeleiden</h3><p>In <strong>elke</strong> leaf-map liggen bron en afgeleiden naast elkaar (siblings):</p><div class=table-scroll><table><thead><tr><th>Soort</th><th>Voorbeelden</th><th>Rol</th></tr></thead><tbody><tr><td><strong>Canonieke bron</strong></td><td><code>{stam}.vsa</code>, <code>{stam}.mscz</code>, <code>{stam}.mvsa</code>, <code>{stam}.tekstblad.md</code></td><td>Hier bewerk je</td></tr><tr><td><strong>Afgeleiden</strong></td><td><code>{stam}.vsa.mxl</code>, <code>{stam}.vsa.pdf</code>, <code>{stam}.mp3</code>, <code>{stam}.mscz.pdf</code>, …</td><td>Regenereren met productscripts</td></tr></tbody></table></div><p>Formaat is <strong>geen</strong> id-laag: geen aparte map <code>pdf/</code> of <code>mxl/</code> onder de
+leaf. PDF, MusicXML en audio blijven siblings van de bron in dezelfde
+uitvoeringsvorm-map. Detail:
+<a href=publicatiecontrole/>Publicatiecontrole</a>
+.</p><h3 id=koormap-alleen-bieb>Koormap: alleen <code>bieb</code></h3><p>Koormap-slots bevatten <strong>geen</strong> kopie van de partituur. Ze verwijzen
+met shortcode <code>bieb</code> naar het catalogus-id, inclusief het taalsuffix
+wanneer dat in de leaf-naam zit:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-markdown data-lang=markdown><span style=display:flex><span>{{&lt; bieb id=&#34;prijslied/bisschop-gregorios/hemelum-nl&#34; &gt;}}
+</span></span><span style=display:flex><span>{{&lt; bieb id=&#34;prijslied/bisschop-gregorios/hemelum-ksl&#34; &gt;}}
+</span></span></code></pre></div><p>Korte woordenlijst: <a href=woorden/>Woorden</a>
+(regel <strong>Taal-suffix</strong>). Concrete
+ids: <a href=/bibliotheek/preview/catalogus/id-register/>Id-register</a>
+.</p><h2 id=naamgevingsbeleid-nieuwe-ids>Naamgevingsbeleid (nieuwe ids)</h2><ol><li><strong>Nieuwe</strong> <code>zangstuk-id</code>s krijgen <strong>geen</strong> sorteerprefix (<code>tropaar</code>, niet
 <code>tropaar</code>). Liturgienummers horen in de koormap-titel en in Hugo-
 <code>weight</code>.</li><li>Spelling voor <em>nieuwe</em> ids: <code>johannes</code>, <code>alleluia</code>; liever voluit dan
 <code>mg</code> of <code>zo-wk-mg</code>.</li><li>Genummerde top-level <code>zangstuk-id</code>s zijn hernoemd (zie
@@ -128,9 +155,16 @@ hernoemingen: werktraject
 (<a href=/bibliotheek/preview/handleiding/scripts/bieb-hernoem/><code>bieb hernoem</code></a>
 ).</li><li>Echte naamsynoniemen van dezelfde variant: <code>alias_van</code>. Spelling- en
 woordvolgorde-varianten: zoekindex + <a href=https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml><code>data/zoek-synoniemen.yaml</code></a>
+.</li><li>Taal (NL / kerkslavisch): suffix op de <strong>uitvoeringsvorm</strong> (<code>-nl</code> /
+<code>-ksl</code>), alleen waar nodig — zie
+<a href=#taalvarianten-op-de-uitvoeringsvorm>Taalvarianten</a>
 .</li></ol><p>Zie <a href=/bibliotheek/preview/handleiding/start/zangstuk-soorten/>Zangstuk-soorten</a>
 voor de
-inventaristabel en resterende vervolgstappen.</p><div class=nav-buttons><a class=btn href=/bibliotheek/preview/handleiding/start/waar-ligt-wat/>Waar ligt wat
+inventaristabel en resterende vervolgstappen.</p><h2 id=klaar-als>Klaar als</h2><p>Je kunt uitleggen waarom een Zwolle-cherubijn eerst in de catalogus hoort;
+waarom de Hemelum-liturgiemap géén tweede opslag van PDF’s is; wanneer je
+een <strong>sectie</strong> (boom) kiest versus een <strong>compositieblad</strong> (meerdere
+shortcodes op één pagina); en hoe je een NL/kerkslavisch-paar als twee
+uitvoeringsvormen met <code>-nl</code> / <code>-ksl</code> aanmaakt.</p><div class=nav-buttons><a class=btn href=/bibliotheek/preview/handleiding/start/waar-ligt-wat/>Waar ligt wat
 </a><a class=btn href=/bibliotheek/preview/handleiding/start/zangstuk-soorten/>Zangstuk-soorten</a></div></main><div id=score-audio-bar class=score-audio-bar hidden><div class=score-audio-bar-inner><p class=score-audio-bar-title id=score-audio-bar-title></p><div class=score-audio-bar-row><button type=button class="score-audio-bar-btn score-audio-bar-play" aria-label=Pauzeren aria-controls=score-audio-bar-element aria-pressed=true>
 <span class="score-audio-bar-icon score-audio-bar-icon--pause" aria-hidden=true>❚❚</span>
 <span class="score-audio-bar-icon score-audio-bar-icon--play" aria-hidden=true>▶</span>
