@@ -379,4 +379,33 @@ lifecycle-fase zijn iets anders&lt;/li&gt;
 &lt;/aside&gt;
 
 &lt;p&gt;&lt;strong&gt;Wat je nu doet:&lt;/strong&gt; dezelfde namen gebruiken als de rest van de keten, zodat
-commando’s en mappen kloppen.&lt;/p&gt;</description></item></channel></rss>
+commando’s en mappen kloppen.&lt;/p&gt;</description></item><item><title>Zoeken in de catalogus</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/zoeken/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/zoeken/</guid><description>&lt;p&gt;Met &lt;strong&gt;Zoeken&lt;/strong&gt; vind je een uitvoeringsvorm in de catalogus: op titel, op
+catalogus-id, of op een stukje gezongen tekst. Je opent Zoeken via de knop
+in de site-kop, of via &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/zoeken/"&gt;Catalogus → Zoeken&lt;/a&gt;
+.&lt;/p&gt;
+&lt;p&gt;Deze pagina legt eerst uit wat een bezoeker mag verwachten. Daarna volgt
+de technische specificatie, zodat je kunt beoordelen of het zoeken nog
+past bij wat jullie nodig hebben.&lt;/p&gt;
+&lt;aside class="handleiding-cue"&gt;
+ &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
+ &lt;div class="handleiding-cue-body"&gt;
+ &lt;ul&gt;
+&lt;li&gt;Ingang voor koorleden: knop &lt;strong&gt;Zoeken&lt;/strong&gt; in de kop, of &lt;code&gt;/catalogus/zoeken/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Korte tip: klik op &lt;strong&gt;?&lt;/strong&gt; naast de knop Zoeken&lt;/li&gt;
+&lt;li&gt;Indexbestand: &lt;code&gt;static\zoek\index.json&lt;/code&gt; (bij Pages-deploy opnieuw gebouwd)&lt;/li&gt;
+&lt;li&gt;Synoniemen: &lt;a href="https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml"&gt;&lt;code&gt;data/zoek-synoniemen.yaml&lt;/code&gt;&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;Gezongen tekst: sibling &lt;code&gt;{stam}.vsa.lyrics.txt&lt;/code&gt; / &lt;code&gt;.mvsa.lyrics.txt&lt;/code&gt; — zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/lyrics-products/"&gt;lyrics-products&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+ &lt;/div&gt;
+&lt;/aside&gt;
+
+&lt;h2 id="hoofdlijnen"&gt;Hoofdlijnen&lt;/h2&gt;
+&lt;h3 id="wat-zit-er-in-de-zoekindex"&gt;Wat zit er in de zoekindex?&lt;/h3&gt;
+&lt;p&gt;Elke &lt;strong&gt;uitvoeringsvorm&lt;/strong&gt; in &lt;code&gt;content-source\catalogus\&lt;/code&gt; (bladermap met
+&lt;code&gt;index.md&lt;/code&gt;) kan in de index komen — ook als er alleen een &lt;code&gt;.mscz&lt;/code&gt; staat
+of nog geen bronbestand. Per treffer zie je onder meer de titel, de
+publicatiestatus, soms een stukje begrotekst (incipit uit &lt;code&gt;.vsa&lt;/code&gt;/&lt;code&gt;.mvsa&lt;/code&gt;),
+het catalogus-id, en soms een beluister-knop.&lt;/p&gt;</description></item></channel></rss>

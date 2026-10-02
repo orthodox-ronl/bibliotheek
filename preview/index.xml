@@ -289,7 +289,7 @@ inputs in de werkvoorraad, stubs zonder canonieke bron). Lokale
  &lt;/li&gt;&lt;li&gt;
  &lt;code class="catalogus-id"&gt;vredeswens/default/hemelum&lt;/code&gt;
  &lt;span class="oefenhoek-voorzien-tag"&gt;voorzien&lt;/span&gt;
- &lt;/li&gt;&lt;/ul&gt;</description></item><item><title>Zoeken in de bibliotheek</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/zoeken/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/zoeken/</guid><description>&lt;div
+ &lt;/li&gt;&lt;/ul&gt;</description></item><item><title>Zoeken in de catalogus</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/zoeken/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/zoeken/</guid><description>&lt;div
  class="catalogus-zoek"
  data-index="/bibliotheek/preview/zoek/index.json"
  data-base="/bibliotheek/preview/"
@@ -308,28 +308,21 @@ inputs in de werkvoorraad, stubs zonder canonieke bron). Lokale
  placeholder="bijv. Juich voor God gehele aarde"
  /&gt;
  &lt;button type="submit"&gt;Zoeken&lt;/button&gt;
- &lt;/div&gt;
- &lt;/form&gt;
- &lt;p class="catalogus-zoek-meta" aria-live="polite"&gt;&lt;/p&gt;
- &lt;div class="catalogus-zoek-resultaten"&gt;&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;h2 id="uitleg"&gt;Uitleg&lt;/h2&gt;
-&lt;p&gt;Je kunt zoeken op &lt;strong&gt;titel&lt;/strong&gt;, &lt;strong&gt;catalogus-id&lt;/strong&gt; of een stukje &lt;strong&gt;gezongen tekst&lt;/strong&gt;.
-Een aantal spellingvarianten zoals alleluja/alleluia, Johannes/Joannes/Ioannes
-en ook omgewisselde woorden worden meegenomen.&lt;/p&gt;
-&lt;p&gt;Elke treffer toont:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;de titel van het gevonden stuk; erop klikken brengt je erheen.&lt;/li&gt;
-&lt;li&gt;de status van het stuk; klik op &lt;strong&gt;?&lt;/strong&gt; ernaast voor uitleg.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;▶&lt;/strong&gt;; klik erop om het af te spelen (met daarnaast de mogelijkheid de snelheid aan te passen)&lt;/li&gt;
-&lt;li&gt;bij een treffer kun je het gevonden item afspelen&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Bij elke treffer staat een &lt;strong&gt;?&lt;/strong&gt; naast de &lt;strong&gt;publicatiestatus&lt;/strong&gt; (uitleg
-wat &lt;em&gt;concept&lt;/em&gt;, &lt;em&gt;reviewable&lt;/em&gt; enz. betekent en hoe je feedback geeft) en
-een &lt;strong&gt;?&lt;/strong&gt; naast het &lt;strong&gt;id&lt;/strong&gt; (uitleg dat je op het id klikt om een regel
-voor een koormap te kopiëren). Dezelfde knoppen zitten in het zoekvenster
-in de site-kop.&lt;/p&gt;</description></item><item><title>9b Alleluia</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/alleluia/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/alleluia/</guid><description>&lt;h1 id="9b-alleluia"&gt;9b Alleluia&lt;/h1&gt;
+ &lt;span class="catalogus-zoek-tip catalogus-zoek-tip--help"&gt;
+ &lt;button
+ type="button"
+ class="catalogus-zoek-tip-trigger"
+ aria-expanded="false"
+ aria-label="Uitleg: waarop kun je zoeken"
+ &gt;?&lt;/button&gt;
+ &lt;span class="catalogus-zoek-tip-panel" hidden role="tooltip"&gt;
+ &lt;p&gt;&lt;strong&gt;Waarop zoeken?&lt;/strong&gt; Titel of korte naam van het stuk,
+ het &lt;strong&gt;catalogus-id&lt;/strong&gt; (bijv. &lt;code&gt;tropaar/…/hemelum&lt;/code&gt;),
+ of een stukje &lt;strong&gt;gezongen tekst&lt;/strong&gt; (als er een .vsa/.mvsa is).&lt;/p&gt;
+ &lt;p&gt;Spellingvarianten (alleluja/alleluia, Johannes/Joannes) en
+ omgewisselde woorden tellen mee. Zoeken loopt over de
+ &lt;strong&gt;uitvoeringsvormen&lt;/strong&gt; in de catalogus — ook bladen met
+ alleen een MuseScore-partituur (.mscz), dan vooral op titel en id.&lt;/p&gt;</description></item><item><title>9b Alleluia</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/alleluia/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/alleluia/</guid><description>&lt;h1 id="9b-alleluia"&gt;9b Alleluia&lt;/h1&gt;
 &lt;p&gt;Compositieblad: alle Kiev-alleluias toon 1–8 (uitvoeringsvorm Groningen).&lt;/p&gt;
 &lt;h2 id="toon-1"&gt;Toon 1&lt;/h2&gt;
 &lt;div class="score-bundle"&gt;
@@ -1949,7 +1942,36 @@ stemkeuze (dat blijft Coria via &lt;strong&gt;Oefenen&lt;/strong&gt;) en niet he
 &lt;/table&gt;
 &lt;p&gt;Meerdere bronnen in één bladermap mogen elk hun eigen mp3 hebben. De
 Beluisteren-knop toont dan een keuzelijst (meerstemmig &lt;code&gt;.mvsa&lt;/code&gt; eerst,
-daarna MuseScore, daarna eenstemmig &lt;code&gt;.vsa&lt;/code&gt;).&lt;/p&gt;</description></item><item><title>Kondak H. Moeder Gods (toon 6)</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/troparen-en-kondaken/kondak-moeder-gods-toon-6/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/troparen-en-kondaken/kondak-moeder-gods-toon-6/</guid><description>&lt;h1 id="kondak-h-moeder-gods-toon-6"&gt;Kondak H. Moeder Gods (toon 6)&lt;/h1&gt;
+daarna MuseScore, daarna eenstemmig &lt;code&gt;.vsa&lt;/code&gt;).&lt;/p&gt;</description></item><item><title>Zoeken in de catalogus</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/zoeken/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/zoeken/</guid><description>&lt;p&gt;Met &lt;strong&gt;Zoeken&lt;/strong&gt; vind je een uitvoeringsvorm in de catalogus: op titel, op
+catalogus-id, of op een stukje gezongen tekst. Je opent Zoeken via de knop
+in de site-kop, of via &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/zoeken/"&gt;Catalogus → Zoeken&lt;/a&gt;
+.&lt;/p&gt;
+&lt;p&gt;Deze pagina legt eerst uit wat een bezoeker mag verwachten. Daarna volgt
+de technische specificatie, zodat je kunt beoordelen of het zoeken nog
+past bij wat jullie nodig hebben.&lt;/p&gt;
+&lt;aside class="handleiding-cue"&gt;
+ &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
+ &lt;div class="handleiding-cue-body"&gt;
+ &lt;ul&gt;
+&lt;li&gt;Ingang voor koorleden: knop &lt;strong&gt;Zoeken&lt;/strong&gt; in de kop, of &lt;code&gt;/catalogus/zoeken/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Korte tip: klik op &lt;strong&gt;?&lt;/strong&gt; naast de knop Zoeken&lt;/li&gt;
+&lt;li&gt;Indexbestand: &lt;code&gt;static\zoek\index.json&lt;/code&gt; (bij Pages-deploy opnieuw gebouwd)&lt;/li&gt;
+&lt;li&gt;Synoniemen: &lt;a href="https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml"&gt;&lt;code&gt;data/zoek-synoniemen.yaml&lt;/code&gt;&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;Gezongen tekst: sibling &lt;code&gt;{stam}.vsa.lyrics.txt&lt;/code&gt; / &lt;code&gt;.mvsa.lyrics.txt&lt;/code&gt; — zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/lyrics-products/"&gt;lyrics-products&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+ &lt;/div&gt;
+&lt;/aside&gt;
+
+&lt;h2 id="hoofdlijnen"&gt;Hoofdlijnen&lt;/h2&gt;
+&lt;h3 id="wat-zit-er-in-de-zoekindex"&gt;Wat zit er in de zoekindex?&lt;/h3&gt;
+&lt;p&gt;Elke &lt;strong&gt;uitvoeringsvorm&lt;/strong&gt; in &lt;code&gt;content-source\catalogus\&lt;/code&gt; (bladermap met
+&lt;code&gt;index.md&lt;/code&gt;) kan in de index komen — ook als er alleen een &lt;code&gt;.mscz&lt;/code&gt; staat
+of nog geen bronbestand. Per treffer zie je onder meer de titel, de
+publicatiestatus, soms een stukje begrotekst (incipit uit &lt;code&gt;.vsa&lt;/code&gt;/&lt;code&gt;.mvsa&lt;/code&gt;),
+het catalogus-id, en soms een beluister-knop.&lt;/p&gt;</description></item><item><title>Kondak H. Moeder Gods (toon 6)</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/troparen-en-kondaken/kondak-moeder-gods-toon-6/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/troparen-en-kondaken/kondak-moeder-gods-toon-6/</guid><description>&lt;h1 id="kondak-h-moeder-gods-toon-6"&gt;Kondak H. Moeder Gods (toon 6)&lt;/h1&gt;
 &lt;div class="score-bundle"&gt;
 &lt;div class="score-actions oefenhoek-acties" data-pdf-src="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/kondak/moeder-gods-toon-6/hemelum/kondak-moeder-gods-toon-6-hemelum.vsa.pdf"&gt;
  &lt;div class="score-action-menu" data-score-role="oefenen"&gt;&lt;p class="score-action-help" role="tooltip"&gt;Speel mee in Coria: stemmen kiezen, tempo en meelezen op de partituur. Dit is bedoeld om echt te oefenen.&lt;/p&gt;&lt;a class="btn coria-play" href="https://coria.nl/play_from_url?back=coria.nl&amp;amp;url=https%3A%2F%2Fraw.githubusercontent.com%2Forthodox-ronl%2Fbibliotheek%2Fgh-pages%2Fpreview%2Fmxl%2Fc%2F27ad036da25f.musicxml" target="_blank" rel="noopener noreferrer"&gt;Oefenen&lt;/a&gt;&lt;/div&gt;
