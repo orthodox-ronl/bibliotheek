@@ -286,6 +286,19 @@
     });
   }
 
+  function toggleTip(root, tipTrigger) {
+    const tip = tipTrigger.closest(".catalogus-zoek-tip");
+    const panel = tip && tip.querySelector(".catalogus-zoek-tip-panel");
+    const open = tip && !tip.classList.contains("is-open");
+    closeAllTips(root);
+    closeAllRatePanels(root);
+    if (tip && open) {
+      tip.classList.add("is-open");
+      tipTrigger.setAttribute("aria-expanded", "true");
+      if (panel) panel.hidden = false;
+    }
+  }
+
   function feedbackSnippet(root, entry) {
     const email = root.getAttribute("data-feedback-email") || "";
     const github = root.getAttribute("data-github") || "";
@@ -682,16 +695,7 @@
       if (tipTrigger) {
         ev.preventDefault();
         ev.stopPropagation();
-        const tip = tipTrigger.closest(".catalogus-zoek-tip");
-        const panel = tip && tip.querySelector(".catalogus-zoek-tip-panel");
-        const open = tip && !tip.classList.contains("is-open");
-        closeAllTips(root);
-        closeAllRatePanels(root);
-        if (tip && open) {
-          tip.classList.add("is-open");
-          tipTrigger.setAttribute("aria-expanded", "true");
-          if (panel) panel.hidden = false;
-        }
+        toggleTip(root, tipTrigger);
         return;
       }
       if (ev.target.closest(".catalogus-zoek-tip-panel a")) {
@@ -709,6 +713,15 @@
         ev.preventDefault();
         copyText(biebShortcode(idBtn.dataset.id), idBtn);
       }
+    });
+
+    // Tip-knoppen naast Zoeken (formulier / site-kop) zitten buiten de trefferlijst.
+    root.addEventListener("click", function (ev) {
+      const tipTrigger = ev.target.closest(".catalogus-zoek-tip-trigger");
+      if (!tipTrigger || out.contains(tipTrigger)) return;
+      ev.preventDefault();
+      ev.stopPropagation();
+      toggleTip(root, tipTrigger);
     });
 
     document.addEventListener("click", function (ev) {

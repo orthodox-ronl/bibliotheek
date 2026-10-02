@@ -1,0 +1,25 @@
+{{- /*
+  Korte zoek-hulp als tip-popup (?), met link naar de handleiding.
+  Context: optioneel "docs" (pad zonder leading slash, default handleiding/start/zoeken/).
+*/ -}}
+{{- $docsPath := or .docs "handleiding/start/zoeken/" -}}
+{{- $docsUrl := $docsPath | relURL -}}
+<span class="catalogus-zoek-tip catalogus-zoek-tip--help">
+  <button
+    type="button"
+    class="catalogus-zoek-tip-trigger"
+    aria-expanded="false"
+    aria-label="Uitleg: waarop kun je zoeken"
+  >?</button>
+  <span class="catalogus-zoek-tip-panel" hidden role="tooltip">
+    <p><strong>Waarop zoeken?</strong> Titel of korte naam van het stuk,
+    het <strong>catalogus-id</strong> (bijv. <code>tropaar/…/hemelum</code>),
+    of een stukje <strong>gezongen tekst</strong> (als er een .vsa/.mvsa is).</p>
+    <p>Spellingvarianten (alleluja/alleluia, Johannes/Joannes) en
+    omgewisselde woorden tellen mee. Zoeken loopt over de
+    <strong>uitvoeringsvormen</strong> in de catalogus — ook bladen met
+    alleen een MuseScore-partituur (.mscz), dan vooral op titel en id.</p>
+    <p><a href="{{ $docsUrl }}">Uitgebreide uitleg in de handleiding</a>
+    (eerst hoofdlijnen, daarna de technische specificatie).</p>
+  </span>
+</span>

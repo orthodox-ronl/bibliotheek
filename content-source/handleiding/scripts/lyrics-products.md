@@ -50,5 +50,6 @@ scripts\lyrics-products.cmd --dry-run
 # SEE ALSO
 
 [all-products](../all-products/), [check](../check/),
+[Zoeken (handleiding)](/handleiding/start/zoeken/),
 [Publicatiecontrole](/handleiding/start/publicatiecontrole/),
 [Zangstuk-soorten](/handleiding/start/zangstuk-soorten/)
