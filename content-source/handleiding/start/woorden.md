@@ -69,7 +69,7 @@ lettergrepen synchroon met noten. MusicXML: `scripts\opkuisen.cmd`. Bij een
 | **Catalogus** (sectie) | Hugo-sectie onder `catalogus\`: alle oefenbestanden per uitvoeringsvorm; mag stukken bevatten zonder koormap |
 | **Catalogus-id** | Drie segmenten `[a-z0-9_-]+`, bijv. `trisagion/8a-nederlands/hemelum` (colofon in `.mscz`: regel `Bibliotheek-id:`) |
 | **Variant-id `default`** | Middelste laag als er maar één variant is (bijv. `eniggeboren-zoon/default/hemelum`) |
-| **Taal-suffix** | Op uitvoeringsvorm-id: geen = NL; `-ksl` = Kerkslavisch Cyrillisch; `-ksl-trlat` = getranslitereerd; `-nl-ksl` = mengvorm |
+| **Taal-suffix** | Op **uitvoeringsvorm-id** (leaf), alleen waar nodig: `-nl` / `-ksl` (voorkeur); geen suffix = alleen NL zonder sibling; `-nl-ksl` = mengvorm. Legacy: taal in variant (`8a-nederlands`). Zie [Catalogus en koormappen](catalogus-en-koormappen/#taalvarianten-op-de-uitvoeringsvorm) |
 | **Koormap** | Geordende view (navigatieboom) voor een gelegenheid; geen basispartituur-bestanden in de slotmappen |
 | **Koormap-sectie** | Map met `_index.md` in de koormap: liturgische plek / hoofdstuk (kindlijst of eigen TOC) |
 | **Slot-pagina** | Map met `index.md` in de koormap: markdown plus `bieb` (geen catalogus-include in de oefenhoek) |

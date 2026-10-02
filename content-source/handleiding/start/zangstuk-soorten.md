@@ -131,7 +131,10 @@ blijven geldig tot een bewuste hernoem-golf.
 
    Zo zeg je in gewone taal «de cherubijnenhymne», en bij de keuze
    tussen twee Kastorski’s zie je **welke** zonder te moeten afspelen.
-   Zelfde patroon voor trisagion-varianten (`8a-nederlands`, …).
+   Trisagion houdt taal nog in de variant (`8a-nederlands`, `8a-slav`) —
+   dat is **legacy**. Voor nieuw werk: taal als suffix op de
+   uitvoeringsvorm (`-nl` / `-ksl`); zie
+   [Taalvarianten](/handleiding/start/catalogus-en-koormappen/#taalvarianten-op-de-uitvoeringsvorm).
 
 5. **Geen collectie-padlaag** — Genre-emmers en liturgische families blijven
    een gewoon `zangstuk-id`. Geen tussenmap en geen vierde id-segment.
