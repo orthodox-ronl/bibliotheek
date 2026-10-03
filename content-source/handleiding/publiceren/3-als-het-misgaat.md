@@ -81,20 +81,31 @@ geen `github.io`-MusicXML, en geen page-bundle-`.mxl`.
 
 Draai `scripts\check.cmd` of `scripts\build.cmd` opnieuw zodat
 `fingerprint_coria_mxl.py` en Hugo meelopen.
-`check_hugo_links_and_assets.py` faalt op kapotte Coria-URL's.
-Na een push controleert de Pages-workflow met `check_coria_retrieve.py`
-of Coria het bestand echt ophaalt.
+`check` controleert ook dat Coria-`.mxl` geen verboden
+`source`+`encoding`-combinatie heeft (anders `translation failed`).
 
 Een nieuw zangstuk dat nog niet op branch `gh-pages` staat, opent in Coria
 pas na een `git push` (Coria kan de lokale Hugo-server niet bereiken).
 
 ## Coria: `translation failed` of check weigert de `.mxl`
 
-De `.mxl` in de catalogus moet uit `mscz-products` of `vsa-products`
-komen (of handmatig bij `artefacten_handmatig`), niet een ruwe Capella-`.mxl`.
-Maak basispartituur-producten opnieuw ná de laatste normalisatie, of draai
-`scripts\vsa-products.cmd` voor een catalogus-`.vsa`. `check` heeft een
-aparte Coria-controle; de melding wijst het bestand aan.
+Coria’s vertaler faalt als de MusicXML in `<identification>` zowel
+`<source>` als `<encoding>` heeft. De bibliotheek mag die combinatie niet
+meer schrijven: bronvermelding hoort in
+`miscellaneous-field name="bron"`.
+
+Als `check` (of `check_mxl_playback_contract`)
+`coria_source_encoding` meldt:
+
+```cmd
+python scripts\strip_coria_mxl_source.py
+scripts\fingerprint_coria_mxl.py
+```
+
+Of producten opnieuw: `scripts\products.cmd --kinds mscz,mvsa,vsa`
+(voor de betreffende stukken). De `.mxl` moet uit `mscz-products`,
+`mvsa-products` of `vsa-products` komen (of handmatig bij
+`artefacten_handmatig`), niet een ruwe Capella-`.mxl`.
 
 ## Rode banner: partituur- of VSA-afgeleiden niet in orde
 
