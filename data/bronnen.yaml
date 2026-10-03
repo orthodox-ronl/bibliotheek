@@ -1,17 +1,12 @@
-# Canonieke korte namen voor bronvermeldingen
-
-Gebruikt in VSA-/MVSA-frontmatter als `bron.uitgangspunt` (en in
-`@bron` bij `.mvsa`). De kolom **korte_naam** is wat je in het bestand
-schrijft; de overige velden leggen de uitgave vast.
-
-Vul ontbrekende druk/jaar/uitgeverij bij wanneer je het weet. Lege
-velden betekenen: nog niet vastgelegd — niet “onbekend voor altijd”.
-
-```yaml
+# Canonieke korte namen voor bronvermeldingen.
+# Gebruikt in VSA-/MVSA-frontmatter als bron.uitgangspunt (en in @bron bij .mvsa).
+# korte_naam = wat je in het bestand schrijft; overige velden leggen de uitgave vast.
+# Lege/null-velden: nog niet vastgelegd — niet “onbekend voor altijd”.
+# Zie ook: content-source/handleiding/start/uitgave-bronnen.md
+#
 # id: stabiele sleutel (alleen a-z, 0-9, -, _)
 # korte_naam: tekst zoals in bron.uitgangspunt (zonder pagina)
 # aliases: andere schrijfwijzen die dezelfde uitgave bedoelen
-```
 
 bronnen:
   - id: liturgikon

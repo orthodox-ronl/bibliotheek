@@ -1,21 +1,32 @@
 ---
-wat-te-doen: "toevoegen als `tropaar/johannes-van-shanghai-en-san-francisco/hemelum`."
+do: F4
+mode: major
+tempo: 120
 soort: tropaar
-korte_titel: h-johannes-aartsbisschop-van-shanghai-en-san-franc
-bronnen:
+toon: 4
+titel: Tropaar H. Johannes van Shanghai en San Francisco (toon 4)
+partituur:
+  title: Tropaar H. Johannes van Shanghai en San Francisco (toon 4)
+  composer: Traditioneel
+bron:
+  uitgangspunt: Hemelum (koorinstructie / liturgie)
+herkomst_vsa_demo:
+  soort: tropaar
+  korte_titel: h-johannes-aartsbisschop-van-shanghai-en-san-franc
+  bronnen:
   - bestand: tropaar-h-johannes-aartsbisschop-van-shanghai-en-san-franc-07-02-johannes-aartsbisschop-van-shanghai-en-san-francisco-n01.vsa
     bron_md: feesteigen/07-02-johannes-aartsbisschop-van-shanghai-en-san-francisco.md
     headers:
-      - TROPARION (Toon 4)
-    bron_md_frontmatter: |
-      title: "H. Johannes, Aartsbisschop van Shanghai en San Francisco"
+    - TROPARION (Toon 4)
+    bron_md_frontmatter: 'title: "H. Johannes, Aartsbisschop van Shanghai en San Francisco"
+
       feestdag: "2 juli (1966)"
+
       source: "Hemelum"
+
       layout: "feesteigen-pagina"
-extractie: stap2
-stap2_status: mogelijke-variant
-stap2_catalogus: tropaar/nikolaas-van-myra-toon-4/hemelum/tropaar-nikolaas-van-myra-toon-4-hemelum.vsa
-stap2_score: 0.922
+
+      '
 ---
 
 <!-- Tropaar Geboorte van H. Johannes, Aartsbisschop van Shanghai en San Francisco, Toon 4 (Hemelum) -->

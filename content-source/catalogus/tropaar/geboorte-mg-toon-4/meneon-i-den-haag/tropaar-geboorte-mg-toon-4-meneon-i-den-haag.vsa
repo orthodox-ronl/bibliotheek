@@ -4,41 +4,54 @@ herkomst_vsa_demo:
   korte_titel: geboorte-van-de-moeder-gods
   duplicaat_groep: dup-015
   bronnen:
-    - bestand: tropaar-geboorte-van-de-moeder-gods-09-08-geboorte-van-de-moeder-gods-n04.vsa
-      bron_md: feesteigen/09-08-geboorte-van-de-moeder-gods.md
-      extractie_rol: tropaar-uit-derde-antifoon
-      headers:
-        - Derde Antifoon
-        - Tropaar
-      bron_md_frontmatter: |
-        title: "Geboorte van de Moeder Gods"
-        feestdag: "8 sep"
-        source: "Liturgikon (p.274-275)"
-        layout: "feesteigen-pagina"
-    - bestand: tropaar-tropaar-v-h-feest-20260921-ma-liturgie-geboorte-moeder-gods-n05.vsa
-      bron_md: samenstellingen/20260921-ma-liturgie-geboorte-moeder-gods.md
-      headers:
-        - Geboorte Moeder Gods
-        - Tropaar v/h feest (Toon 4)
-      bron_md_frontmatter: |
-        title: "20260921 - Feest van de Geboorte van de Moeder Gods (Hemelum)"
-        source: "Koorinstructie ma 21 sept 2026 (Hemelum)"
-    - bestand: tropaar-20260921-feest-van-de-geboorte-van-de-moeder-gods-20260921-ma-liturgie-geboorte-moeder-gods-n04.vsa
-      bron_md: samenstellingen/20260921-ma-liturgie-geboorte-moeder-gods.md
-      extractie_rol: tropaar-uit-derde-antifoon
-      headers:
-        - Derde Antifoon (Geboorte Moeder Gods)
-        - Tropaar (Toon 4)
-      bron_md_frontmatter: |
-        title: "20260921 - Feest van de Geboorte van de Moeder Gods (Hemelum)"
-        source: "Koorinstructie ma 21 sept 2026 (Hemelum)"
-    - bestand: tropaar-tropaar-vh-feest-vd-geb-mgods-nls-en-ksl-nl-20260924-do-liturgie-nafeest-geboorte-mg-silouan-de-athoniet-n01.vsa
-      bron_md: samenstellingen/20260924-do-liturgie-nafeest-geboorte-mg-silouan-de-athoniet.md
-      headers:
-        - "Tropaar vh Feest vd Geb MGods (Toon 4) - ***Nls en Ksl***"
-      bron_md_frontmatter: |
-        title: "20260924 - Nafeest vd Geboorte vd MGods - H. Silouan de Athoniet (Hemelum)"
-        source: "Koorinstructie do 24 sept 2026 (Hemelum)"
+  - bestand: tropaar-geboorte-van-de-moeder-gods-09-08-geboorte-van-de-moeder-gods-n04.vsa
+    bron_md: feesteigen/09-08-geboorte-van-de-moeder-gods.md
+    extractie_rol: tropaar-uit-derde-antifoon
+    headers:
+    - Derde Antifoon
+    - Tropaar
+    bron_md_frontmatter: 'title: "Geboorte van de Moeder Gods"
+
+      feestdag: "8 sep"
+
+      source: "Liturgikon (p.274-275)"
+
+      layout: "feesteigen-pagina"
+
+      '
+  - bestand: tropaar-tropaar-v-h-feest-20260921-ma-liturgie-geboorte-moeder-gods-n05.vsa
+    bron_md: samenstellingen/20260921-ma-liturgie-geboorte-moeder-gods.md
+    headers:
+    - Geboorte Moeder Gods
+    - Tropaar v/h feest (Toon 4)
+    bron_md_frontmatter: 'title: "20260921 - Feest van de Geboorte van de Moeder Gods
+      (Hemelum)"
+
+      source: "Koorinstructie ma 21 sept 2026 (Hemelum)"
+
+      '
+  - bestand: tropaar-20260921-feest-van-de-geboorte-van-de-moeder-gods-20260921-ma-liturgie-geboorte-moeder-gods-n04.vsa
+    bron_md: samenstellingen/20260921-ma-liturgie-geboorte-moeder-gods.md
+    extractie_rol: tropaar-uit-derde-antifoon
+    headers:
+    - Derde Antifoon (Geboorte Moeder Gods)
+    - Tropaar (Toon 4)
+    bron_md_frontmatter: 'title: "20260921 - Feest van de Geboorte van de Moeder Gods
+      (Hemelum)"
+
+      source: "Koorinstructie ma 21 sept 2026 (Hemelum)"
+
+      '
+  - bestand: tropaar-tropaar-vh-feest-vd-geb-mgods-nls-en-ksl-nl-20260924-do-liturgie-nafeest-geboorte-mg-silouan-de-athoniet-n01.vsa
+    bron_md: samenstellingen/20260924-do-liturgie-nafeest-geboorte-mg-silouan-de-athoniet.md
+    headers:
+    - Tropaar vh Feest vd Geb MGods (Toon 4) - ***Nls en Ksl***
+    bron_md_frontmatter: 'title: "20260924 - Nafeest vd Geboorte vd MGods - H. Silouan
+      de Athoniet (Hemelum)"
+
+      source: "Koorinstructie do 24 sept 2026 (Hemelum)"'
+gebruikt-in:
+- derde-antifoon/geboorte-moeder-gods/liturgikon
 ---
 
 <!-- Tropaar Geboorte van de Moeder Gods, Toon 4 (Meneon I, p.12-13) -->

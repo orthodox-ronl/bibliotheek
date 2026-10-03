@@ -16,9 +16,10 @@ serve
 
 # DESCRIPTION
 
-Maakt Coria-fingerprints en start de Hugo-development server. Open daarna
-**http://127.0.0.1:18732/**. Niet poort **1313** (lokaal gereserveerd), niet
-**18731** (VSA-demo).
+Maakt Coria-fingerprints, schrijft de bouwtijd naar `data\build.yaml`
+(footer «Gegenereerd» op de homepage), en start de Hugo-development
+server. Open daarna **http://127.0.0.1:18732/**. Niet poort **1313**
+(lokaal gereserveerd), niet **18731** (VSA-demo).
 
 # EXAMPLES
 

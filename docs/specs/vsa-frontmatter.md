@@ -217,6 +217,25 @@ raden).
 
 **Voorbeelden:** `"T4-11"` · `"VOKN-25"`
 
+### `gebruikt-in` (lijst van catalogus-ids, optioneel)
+
+Waarvoor: dit zangstuk/deze uitvoeringsvorm komt **ook** voor als
+onderdeel van een ander catalogusstuk (typisch: een tropaar of kondak
+dat in een feest-antifoon meekomt). De losse leaf blijft de canonieke
+plaats; `gebruikt-in` wijst naar de samengestelde leaf(s).
+
+**Regel:** staat een tropaar (of kondak) in een antifoon, dan moet die
+ook als **zelfstandige** catalogus-leaf bestaan, mét `gebruikt-in` naar
+die antifoon.
+
+**Criterium:** elke entry is een volledig catalogus-id
+`zangstuk/variant/uitvoeringsvorm` dat bestaat of bewust wordt
+aangekondigd. Geen vrije tekst, geen bestandsnamen.
+
+**Voorbeelden:**
+`[ "derde-antifoon/geboorte-moeder-gods/liturgikon" ]` ·
+`[ "derde-antifoon/kruisverheffing/liturgikon" ]`
+
 ### `zoek` (mapping, optioneel)
 
 Waarvoor: alleen als pagina/zoekindex dit later uit VSA leest.
