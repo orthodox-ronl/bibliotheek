@@ -178,6 +178,9 @@ passende &lt;code&gt;*-products.cmd&lt;/code&gt;).&lt;/li&gt;
 &lt;p&gt;Namen: &lt;a href="publicatiecontrole/"&gt;Publicatiecontrole&lt;/a&gt;
 . Model:
 &lt;a href="catalogus-en-koormappen/"&gt;Catalogus en koormappen&lt;/a&gt;
+. Taalvarianten
+(NL / kerkslavisch): suffix &lt;code&gt;-nl&lt;/code&gt; / &lt;code&gt;-ksl&lt;/code&gt; op de uitvoeringsvorm —
+&lt;a href="catalogus-en-koormappen/#taalvarianten-op-de-uitvoeringsvorm"&gt;Taalvarianten&lt;/a&gt;
 .&lt;/p&gt;</description></item><item><title>Waar ligt wat</title><link>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/start/waar-ligt-wat/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/start/waar-ligt-wat/</guid><description>&lt;h1 id="waar-ligt-wat"&gt;Waar ligt wat&lt;/h1&gt;
 &lt;aside class="handleiding-cue"&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
@@ -376,4 +379,40 @@ lifecycle-fase zijn iets anders&lt;/li&gt;
 &lt;/aside&gt;
 
 &lt;p&gt;&lt;strong&gt;Wat je nu doet:&lt;/strong&gt; dezelfde namen gebruiken als de rest van de keten, zodat
-commando’s en mappen kloppen.&lt;/p&gt;</description></item></channel></rss>
+commando’s en mappen kloppen.&lt;/p&gt;</description></item><item><title>Uitgave-bronnen</title><link>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/start/uitgave-bronnen/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/start/uitgave-bronnen/</guid><description>&lt;h1 id="uitgave-bronnen-liturgikon-meneon-koormappen-"&gt;Uitgave-bronnen (Liturgikon, Meneon, koormappen, …)&lt;/h1&gt;
+&lt;p&gt;In een &lt;code&gt;.vsa&lt;/code&gt; of &lt;code&gt;.mvsa&lt;/code&gt; staat bij de herkomst vaak een &lt;strong&gt;korte naam&lt;/strong&gt;:
+&lt;code&gt;Liturgikon, p.58&lt;/code&gt;, &lt;code&gt;Meneon I, p.12-13&lt;/code&gt;, &lt;code&gt;Koormap Groningen&lt;/code&gt;. Die korte
+naam hoort in &lt;code&gt;bron.uitgangspunt&lt;/code&gt; (of bij meerstemmig werk in
+&lt;code&gt;@bron &amp;quot;…&amp;quot;&lt;/code&gt;). Deze pagina legt uit &lt;strong&gt;welke uitgave&lt;/strong&gt; zo’n korte naam
+bedoelt: titel, druk, jaar, uitgeverij — voor zover bekend.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Waartoe:&lt;/strong&gt; een lichte copyright-trace en duidelijkheid voor beheerders,
+zonder elke partituur vol te schrijven met ISBN’s.&lt;/p&gt;</description></item><item><title>Zoeken in de catalogus</title><link>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/start/zoeken/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/start/zoeken/</guid><description>&lt;p&gt;Met &lt;strong&gt;Zoeken&lt;/strong&gt; vind je een uitvoeringsvorm in de catalogus: op titel, op
+catalogus-id, of op een stukje gezongen tekst. Je opent Zoeken via de knop
+in de site-kop, of via &lt;a href="https://orthodox-ronl.github.io/bibliotheek/werkbank/catalogus/zoeken/"&gt;Catalogus → Zoeken&lt;/a&gt;
+.&lt;/p&gt;
+&lt;p&gt;Deze pagina legt eerst uit wat een bezoeker mag verwachten. Daarna volgt
+de technische specificatie, zodat je kunt beoordelen of het zoeken nog
+past bij wat jullie nodig hebben.&lt;/p&gt;
+&lt;aside class="handleiding-cue"&gt;
+ &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
+ &lt;div class="handleiding-cue-body"&gt;
+ &lt;ul&gt;
+&lt;li&gt;Ingang voor koorleden: knop &lt;strong&gt;Zoeken&lt;/strong&gt; in de kop, of &lt;code&gt;/catalogus/zoeken/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Korte tip: klik op &lt;strong&gt;?&lt;/strong&gt; naast de knop Zoeken&lt;/li&gt;
+&lt;li&gt;Indexbestand: &lt;code&gt;static\zoek\index.json&lt;/code&gt; (bij Pages-deploy opnieuw gebouwd)&lt;/li&gt;
+&lt;li&gt;Synoniemen: &lt;a href="https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml"&gt;&lt;code&gt;data/zoek-synoniemen.yaml&lt;/code&gt;&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;Gezongen tekst: sibling &lt;code&gt;{stam}.vsa.lyrics.txt&lt;/code&gt; / &lt;code&gt;.mvsa.lyrics.txt&lt;/code&gt; /
+&lt;code&gt;.mscz.lyrics.txt&lt;/code&gt; — zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/scripts/lyrics-products/"&gt;lyrics-products&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+ &lt;/div&gt;
+&lt;/aside&gt;
+
+&lt;h2 id="hoofdlijnen"&gt;Hoofdlijnen&lt;/h2&gt;
+&lt;h3 id="wat-zit-er-in-de-zoekindex"&gt;Wat zit er in de zoekindex?&lt;/h3&gt;
+&lt;p&gt;Elke &lt;strong&gt;uitvoeringsvorm&lt;/strong&gt; in &lt;code&gt;content-source\catalogus\&lt;/code&gt; (bladermap met
+&lt;code&gt;index.md&lt;/code&gt;) kan in de index komen. Per treffer zie je onder meer de titel,
+de publicatiestatus, soms een stukje begrotekst (incipit uit lyrics van
+&lt;code&gt;.vsa&lt;/code&gt; / &lt;code&gt;.mvsa&lt;/code&gt; / &lt;code&gt;.mscz&lt;/code&gt;), het catalogus-id, en soms een beluister-knop.&lt;/p&gt;</description></item></channel></rss>

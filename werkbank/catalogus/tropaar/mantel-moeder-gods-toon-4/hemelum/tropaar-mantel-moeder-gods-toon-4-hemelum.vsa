@@ -2,6 +2,33 @@
 do: F4
 mode: major
 tempo: 120
+herkomst_vsa_demo:
+  soort: tropaar
+  korte_titel: neerleggen-van-de-mantel-van-de-moeder-gods-blache
+  duplicaat_groep: dup-014
+  bronnen:
+    - bestand: tropaar-neerleggen-van-de-mantel-van-de-moeder-gods-blache-07-15-neerleggen-mantel-moeder-gods-blachernakerk-n01.vsa
+      bron_md: feesteigen/07-15-neerleggen-mantel-moeder-gods-blachernakerk.md
+      headers:
+        - Tropaar (Toon 4)
+      bron_md_frontmatter: |
+        title: "Neerleggen van de Mantel van de Moeder Gods (Blachernakerk)"
+        feestdag: "15 Juli"
+        source: "Hemelum"
+        layout: "feesteigen-pagina"
+    - bestand: tropaar-tropaar-van-de-mantel-van-de-moeder-gods-tropaar-mantel-moeder-gods-hemelum-n01.vsa
+      bron_md: hemelum-eigen/tropaar-mantel-moeder-gods-hemelum.md
+      headers:
+        - Tropaar van de Mantel van de Moeder Gods (Blachernakerk)
+      bron_md_frontmatter: |
+        zangstuk: Tropaar
+        gelegenheid: "Feest van de Mantel van de Moeder Gods (Blachernakerk)"
+        gelegenheidstype: vast-feest
+        gelegenheidsdatum: "15-07"
+        uitvoeringsvorm: Hemelum
+        toon: 4
+        bron: V. Jewsewy
+        titel: Tropaar
 ---
 
 <!-- Bronbestand: content-source/praktijk/hemelum-eigen/tropaar-mantel-moeder-gods-hemelum.md -->

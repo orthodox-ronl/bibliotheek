@@ -2,6 +2,20 @@
 do: F4
 mode: major
 tempo: 120
+herkomst_vsa_demo:
+  soort: kondak
+  korte_titel: troparen-en-kondaken-voor-de-weekdagen-hemelum
+  bronnen:
+    - bestand: kondak-troparen-en-kondaken-voor-de-weekdagen-hemelum-weekdagen-troparen-en-kondaken-hemelum-n09.vsa
+      bron_md: hemelum-eigen/weekdagen-troparen-en-kondaken-hemelum.md
+      headers:
+        - Donderdag (H. Apostelen)
+        - KONDAK (Toon 2)
+      bron_md_frontmatter: |
+        title: "Troparen en Kondaken voor de Weekdagen (Hemelum)"
+        sources: 
+          - "Hemelum (Heilig Kruis: woensdag en vrijdag)"
+          - Liturgikon
 ---
 
 <!-- Kondak - Donderdag - H. Apostelen - (Toon 2 - Liturgikon, 249) -->

@@ -2,9 +2,40 @@
 do: F4
 mode: major
 tempo: 120
+herkomst_vsa_demo:
+  soort: kondak
+  korte_titel: h-nikolaas-van-myra-6-december
+  duplicaat_groep: dup-027
+  bronnen:
+    - bestand: kondak-h-nikolaas-van-myra-6-december-12-06-nikolaas-van-myra-hemelum-n02.vsa
+      bron_md: feesteigen/12-06-nikolaas-van-myra-hemelum.md
+      headers:
+        - Kondak (Toon 3)
+      bron_md_frontmatter: |
+        title: "H. Nikolaas van Myra (6 December)"
+        feestdag: "6 dec"
+        source: "Hemelum"
+        layout: "feesteigen-pagina"
+    - bestand: kondak-h-nikolaas-van-myra-6-december-12-06-nikolaas-van-myra-liturgikon-n02.vsa
+      bron_md: feesteigen/12-06-nikolaas-van-myra-liturgikon.md
+      headers:
+        - Kondak (Toon 3)
+      bron_md_frontmatter: |
+        title: "H. Nikolaas van Myra (6 December)"
+        feestdag: "6 dec"
+        source: "Liturgikon"
+        layout: "feesteigen-pagina"
+    - bestand: kondak-h-nikolaas-van-myra-6-december-tropaar-kondak-nikolaas-van-myra-n02.vsa
+      bron_md: hemelum-eigen/tropaar-kondak-nikolaas-van-myra.md
+      headers:
+        - H. Nikolaas van Myra
+        - KONDAK (Toon 3)
+      bron_md_frontmatter: |
+        title: "H. Nikolaas van Myra (6 December)"
+        source: "Liturgikon"
 ---
 
-<!-- Tropaar H. Nikolaas van Myra, Toon 3 (Liturgikon, p283) -->
+<!-- Kondak H. Nikolaas van Myra, Toon 3 (Liturgikon, p283) -->
 <!-- Bronbestand: content-source/praktijk/hemelum-eigen/tropaar-kondak-nikolaas-van-myra.md -->
 <!-- Oefenhoek: geen catalogus-include / geen content-source/lokaal/ -->
 <!-- Uitvoeringsvorm: hemelum -->

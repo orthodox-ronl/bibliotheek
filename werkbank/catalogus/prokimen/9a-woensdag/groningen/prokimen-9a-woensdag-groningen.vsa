@@ -2,7 +2,32 @@
 do: F4
 mode: major
 tempo: 120
+herkomst_vsa_demo:
+  soort: prokimen
+  korte_titel: ontslaping-van-de-moeder-gods
+  duplicaat_groep: dup-019
+  bronnen:
+    - bestand: prokimen-ontslaping-van-de-moeder-gods-08-15-ontslaping-van-de-moeder-gods-n05.vsa
+      bron_md: feesteigen/08-15-ontslaping-van-de-moeder-gods.md
+      headers:
+        - Derde Antifoon
+        - Prokimen (Toon 3)
+      bron_md_frontmatter: |
+        title: "Ontslaping van de Moeder Gods"
+        alternatief: "Ontslapen van de Moeder Gods"
+        feestdag: "15 aug"
+        source: "Liturgikon, p.270-272"
+        layout: "feesteigen-pagina"
+    - bestand: prokimen-20260828-feest-van-de-ontslaping-van-de-moeder-god-nl-20260828-vr-liturgie-ontslapen-moeder-gods-n06.vsa
+      bron_md: samenstellingen/20260828-vr-liturgie-ontslapen-moeder-gods.md
+      headers:
+        - "Derde Antifoon (met Troparen - Lit:271) ***(Nls)***"
+        - Prokimen (Toon 3)
+      bron_md_frontmatter: |
+        title: "20260828 - Feest van de Ontslaping van de Moeder Gods, vrijdag 28 aug 2026 (Hemelum)"
+        source: "Koorinstructie vrijdag 28 augustus 2026 (Hemelum)"
 ---
+
 <!-- Prokimen weekdag — Kiev-melodie (9a) -->
 <!-- Gelegenheid: woensdag -->
 <!-- Toon: 3 -->

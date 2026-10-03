@@ -2,6 +2,28 @@
 do: F4
 mode: major
 tempo: 120
+herkomst_vsa_demo:
+  soort: kondak
+  korte_titel: troparen-en-kondaken-voor-de-weekdagen-hemelum
+  duplicaat_groep: dup-026
+  bronnen:
+    - bestand: kondak-troparen-en-kondaken-voor-de-weekdagen-hemelum-weekdagen-troparen-en-kondaken-hemelum-n04.vsa
+      bron_md: hemelum-eigen/weekdagen-troparen-en-kondaken-hemelum.md
+      headers:
+        - Dinsdag (H. Joannes de Doper)
+        - KONDAK (Toon 3)
+      bron_md_frontmatter: |
+        title: "Troparen en Kondaken voor de Weekdagen (Hemelum)"
+        sources: 
+          - "Hemelum (Heilig Kruis: woensdag en vrijdag)"
+          - Liturgikon
+    - bestand: kondak-kondak-h-johannes-de-doper-20260811-di-liturgie-n03.vsa
+      bron_md: samenstellingen/20260811-di-liturgie.md
+      headers:
+        - Kondak H. Johannes de Doper
+      bron_md_frontmatter: |
+        title: "20260811 - H. Liturgie, Dinsdag 11 aug 2026 (Hemelum)"
+        source: "Koorinstructie dinsdag 11 augustus 2026 (Hemelum)"
 ---
 
 <!-- Kondak - Dinsdag - H. Joannes de Doper - (Toon 3 - Liturgikon, p246) -->

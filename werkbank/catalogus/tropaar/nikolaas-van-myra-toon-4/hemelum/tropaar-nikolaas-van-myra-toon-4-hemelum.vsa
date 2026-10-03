@@ -7,15 +7,37 @@ genre: tropaar
 tone: 4
 template: tropaar-toon-4
 corpus_id: T4-11
+herkomst_vsa_demo:
+  soort: tropaar
+  korte_titel: h-nikolaas-van-myra-6-december
+  duplicaat_groep: dup-010
+  bronnen:
+    - bestand: tropaar-h-nikolaas-van-myra-6-december-12-06-nikolaas-van-myra-hemelum-n01.vsa
+      bron_md: feesteigen/12-06-nikolaas-van-myra-hemelum.md
+      headers:
+        - Tropaar (Toon 4)
+      bron_md_frontmatter: |
+        title: "H. Nikolaas van Myra (6 December)"
+        feestdag: "6 dec"
+        source: "Hemelum"
+        layout: "feesteigen-pagina"
+    - bestand: tropaar-h-nikolaas-van-myra-6-december-tropaar-kondak-nikolaas-van-myra-n01.vsa
+      bron_md: hemelum-eigen/tropaar-kondak-nikolaas-van-myra.md
+      headers:
+        - H. Nikolaas van Myra
+        - TROPAAR (Toon 4)
+      bron_md_frontmatter: |
+        title: "H. Nikolaas van Myra (6 December)"
+        source: "Liturgikon"
 ---
 
 <!-- Bron: feesteigen\12-dec\12-06-nicolaas-van-myra.md | type: chapter -->
 [//:] Als een {Re_}gel {/van} ge{\loof_} 
-{/en} een voor-beeld van zacht{moe__}dig{\heid_} 
-heeft de waar-heid van uw da-den u aan uw {kud_}{/de} ge{\toond_}. 
+{/en} een voorbeeld van zacht{moe__}dig{\heid_} 
+heeft de waarheid van uw daden u aan uw {kud_}{/de} ge{\toond_}. 
 {/Daar}om zijt gij door {ne_}derigheid {\groot_}, 
-en door ar-moe-de rijk ge{-&/wor_&_}{\den_}, 
-{/Va}der en Ho-ge-pries-ter {Ni__}co{\laas_}, 
+en door armoede rijk ge{-&/wor_&_}{\den_}, 
+{/Va}der en Hogepriester {Ni__}co{\laas_}, 
 // bid Chris-tus {God_}, on-ze zie-len te {-&/red_&_}{\den_}. [//:]
 
 <!-- Bibliotheek-id: tropaar/nikolaas-van-myra-toon-4/hemelum -->
