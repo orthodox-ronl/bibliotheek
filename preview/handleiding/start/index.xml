@@ -395,7 +395,8 @@ past bij wat jullie nodig hebben.&lt;/p&gt;
 &lt;li&gt;Indexbestand: &lt;code&gt;static\zoek\index.json&lt;/code&gt; (bij Pages-deploy opnieuw gebouwd)&lt;/li&gt;
 &lt;li&gt;Synoniemen: &lt;a href="https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml"&gt;&lt;code&gt;data/zoek-synoniemen.yaml&lt;/code&gt;&lt;/a&gt;
 &lt;/li&gt;
-&lt;li&gt;Gezongen tekst: sibling &lt;code&gt;{stam}.vsa.lyrics.txt&lt;/code&gt; / &lt;code&gt;.mvsa.lyrics.txt&lt;/code&gt; — zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/lyrics-products/"&gt;lyrics-products&lt;/a&gt;
+&lt;li&gt;Gezongen tekst: sibling &lt;code&gt;{stam}.vsa.lyrics.txt&lt;/code&gt; / &lt;code&gt;.mvsa.lyrics.txt&lt;/code&gt; /
+&lt;code&gt;.mscz.lyrics.txt&lt;/code&gt; — zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/lyrics-products/"&gt;lyrics-products&lt;/a&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -405,7 +406,6 @@ past bij wat jullie nodig hebben.&lt;/p&gt;
 &lt;h2 id="hoofdlijnen"&gt;Hoofdlijnen&lt;/h2&gt;
 &lt;h3 id="wat-zit-er-in-de-zoekindex"&gt;Wat zit er in de zoekindex?&lt;/h3&gt;
 &lt;p&gt;Elke &lt;strong&gt;uitvoeringsvorm&lt;/strong&gt; in &lt;code&gt;content-source\catalogus\&lt;/code&gt; (bladermap met
-&lt;code&gt;index.md&lt;/code&gt;) kan in de index komen — ook als er alleen een &lt;code&gt;.mscz&lt;/code&gt; staat
-of nog geen bronbestand. Per treffer zie je onder meer de titel, de
-publicatiestatus, soms een stukje begrotekst (incipit uit &lt;code&gt;.vsa&lt;/code&gt;/&lt;code&gt;.mvsa&lt;/code&gt;),
-het catalogus-id, en soms een beluister-knop.&lt;/p&gt;</description></item></channel></rss>
+&lt;code&gt;index.md&lt;/code&gt;) kan in de index komen. Per treffer zie je onder meer de titel,
+de publicatiestatus, soms een stukje begrotekst (incipit uit lyrics van
+&lt;code&gt;.vsa&lt;/code&gt; / &lt;code&gt;.mvsa&lt;/code&gt; / &lt;code&gt;.mscz&lt;/code&gt;), het catalogus-id, en soms een beluister-knop.&lt;/p&gt;</description></item></channel></rss>

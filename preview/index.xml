@@ -1546,7 +1546,20 @@ commando’s en mappen kloppen.&lt;/p&gt;</description></item><item><title>15d C
 &lt;div class="score-partituur"&gt;&lt;/div&gt;&lt;/div&gt;</description></item><item><title>15d Cherubijnenhymne (Kastorski)</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-zondag/cherubijnenhymne/15d-kastorski/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-zondag/cherubijnenhymne/15d-kastorski/</guid><description>&lt;h1 id="15d-cherubijnenhymne-kastorski"&gt;15d Cherubijnenhymne (Kastorski)&lt;/h1&gt;
 &lt;div class="score-bundle"&gt;
 
-&lt;div class="score-partituur"&gt;&lt;/div&gt;&lt;/div&gt;</description></item><item><title>Print-vel</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/print-vel/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/print-vel/</guid><description>&lt;h1 id="print-vel-legacy-naam"&gt;Print-vel (legacy-naam)&lt;/h1&gt;
+&lt;div class="score-partituur"&gt;&lt;/div&gt;&lt;/div&gt;</description></item><item><title>Handmatige artefacten</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/speciaal/handmatig/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/speciaal/handmatig/</guid><description>&lt;p&gt;Uitvoeringsvormen waarvan de catalogus-&lt;code&gt;index.md&lt;/code&gt;
+&lt;code&gt;artefacten_handmatig: true&lt;/code&gt; heeft. Productscripts
+(&lt;code&gt;mscz-products&lt;/code&gt;, &lt;code&gt;vsa-products&lt;/code&gt;, …) en publicatiecontrole slaan die
+mappen over: PDF en MusicXML houd je zelf bij.&lt;/p&gt;
+&lt;p&gt;Die leaves blijven wél vindbaar via &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/zoeken/"&gt;Zoeken&lt;/a&gt;
+ en
+zichtbaar in de catalogus. Deze lijst is voor beheerders die willen
+zien welke uitvoeringsvormen buiten de automatische productketen vallen.&lt;/p&gt;
+&lt;p&gt;Deze lijst wordt bij elke sitebuild opnieuw opgebouwd.&lt;/p&gt;
+&lt;ul class="page-list catalogus-special"&gt;&lt;li&gt;&lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/kleine-intocht/zo-wk-mg/groningen/"&gt;7a Kleine intocht (zondag / weekdagen / Moeder Gods)&lt;/a&gt;&lt;code class="catalogus-id"&gt;kleine-intocht/zo-wk-mg/groningen&lt;/code&gt;
+ &lt;/li&gt;&lt;li&gt;&lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/kleine-intocht/zo-wk-mg/hemelum/"&gt;7a Kleine intocht (zondag / weekdagen / Moeder Gods)&lt;/a&gt;&lt;code class="catalogus-id"&gt;kleine-intocht/zo-wk-mg/hemelum&lt;/code&gt;
+ &lt;/li&gt;&lt;li&gt;&lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/moeder-godslied/ontslapen-moeder-gods/hemelum/"&gt;Moeder Godslied (Ontslapen van de Moeder Gods)&lt;/a&gt;&lt;code class="catalogus-id"&gt;moeder-godslied/ontslapen-moeder-gods/hemelum&lt;/code&gt;
+ &lt;/li&gt;&lt;li&gt;&lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/tropaar/nikolaas-van-myra-toon-4/hemelum/"&gt;Hemelum&lt;/a&gt;&lt;code class="catalogus-id"&gt;tropaar/nikolaas-van-myra-toon-4/hemelum&lt;/code&gt;
+ &lt;/li&gt;&lt;/ul&gt;</description></item><item><title>Print-vel</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/print-vel/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/print-vel/</guid><description>&lt;h1 id="print-vel-legacy-naam"&gt;Print-vel (legacy-naam)&lt;/h1&gt;
 &lt;p&gt;Dit werktraject houdt een &lt;strong&gt;handmatig MuseScore-blad&lt;/strong&gt; en een &lt;strong&gt;handmatige
 PDF&lt;/strong&gt; bij buiten de basispartituur-keten.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Doelvorm&lt;/strong&gt; (zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/publicatiecontrole/"&gt;Publicatiecontrole&lt;/a&gt;
@@ -1958,7 +1971,8 @@ past bij wat jullie nodig hebben.&lt;/p&gt;
 &lt;li&gt;Indexbestand: &lt;code&gt;static\zoek\index.json&lt;/code&gt; (bij Pages-deploy opnieuw gebouwd)&lt;/li&gt;
 &lt;li&gt;Synoniemen: &lt;a href="https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml"&gt;&lt;code&gt;data/zoek-synoniemen.yaml&lt;/code&gt;&lt;/a&gt;
 &lt;/li&gt;
-&lt;li&gt;Gezongen tekst: sibling &lt;code&gt;{stam}.vsa.lyrics.txt&lt;/code&gt; / &lt;code&gt;.mvsa.lyrics.txt&lt;/code&gt; — zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/lyrics-products/"&gt;lyrics-products&lt;/a&gt;
+&lt;li&gt;Gezongen tekst: sibling &lt;code&gt;{stam}.vsa.lyrics.txt&lt;/code&gt; / &lt;code&gt;.mvsa.lyrics.txt&lt;/code&gt; /
+&lt;code&gt;.mscz.lyrics.txt&lt;/code&gt; — zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/lyrics-products/"&gt;lyrics-products&lt;/a&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -1968,10 +1982,9 @@ past bij wat jullie nodig hebben.&lt;/p&gt;
 &lt;h2 id="hoofdlijnen"&gt;Hoofdlijnen&lt;/h2&gt;
 &lt;h3 id="wat-zit-er-in-de-zoekindex"&gt;Wat zit er in de zoekindex?&lt;/h3&gt;
 &lt;p&gt;Elke &lt;strong&gt;uitvoeringsvorm&lt;/strong&gt; in &lt;code&gt;content-source\catalogus\&lt;/code&gt; (bladermap met
-&lt;code&gt;index.md&lt;/code&gt;) kan in de index komen — ook als er alleen een &lt;code&gt;.mscz&lt;/code&gt; staat
-of nog geen bronbestand. Per treffer zie je onder meer de titel, de
-publicatiestatus, soms een stukje begrotekst (incipit uit &lt;code&gt;.vsa&lt;/code&gt;/&lt;code&gt;.mvsa&lt;/code&gt;),
-het catalogus-id, en soms een beluister-knop.&lt;/p&gt;</description></item><item><title>Kondak H. Moeder Gods (toon 6)</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/troparen-en-kondaken/kondak-moeder-gods-toon-6/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/troparen-en-kondaken/kondak-moeder-gods-toon-6/</guid><description>&lt;h1 id="kondak-h-moeder-gods-toon-6"&gt;Kondak H. Moeder Gods (toon 6)&lt;/h1&gt;
+&lt;code&gt;index.md&lt;/code&gt;) kan in de index komen. Per treffer zie je onder meer de titel,
+de publicatiestatus, soms een stukje begrotekst (incipit uit lyrics van
+&lt;code&gt;.vsa&lt;/code&gt; / &lt;code&gt;.mvsa&lt;/code&gt; / &lt;code&gt;.mscz&lt;/code&gt;), het catalogus-id, en soms een beluister-knop.&lt;/p&gt;</description></item><item><title>Kondak H. Moeder Gods (toon 6)</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/troparen-en-kondaken/kondak-moeder-gods-toon-6/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/troparen-en-kondaken/kondak-moeder-gods-toon-6/</guid><description>&lt;h1 id="kondak-h-moeder-gods-toon-6"&gt;Kondak H. Moeder Gods (toon 6)&lt;/h1&gt;
 &lt;div class="score-bundle"&gt;
 &lt;div class="score-actions oefenhoek-acties" data-pdf-src="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/kondak/moeder-gods-toon-6/hemelum/kondak-moeder-gods-toon-6-hemelum.vsa.pdf"&gt;
  &lt;div class="score-action-menu" data-score-role="oefenen"&gt;&lt;p class="score-action-help" role="tooltip"&gt;Speel mee in Coria: stemmen kiezen, tempo en meelezen op de partituur. Dit is bedoeld om echt te oefenen.&lt;/p&gt;&lt;a class="btn coria-play" href="https://coria.nl/play_from_url?back=coria.nl&amp;amp;url=https%3A%2F%2Fraw.githubusercontent.com%2Forthodox-ronl%2Fbibliotheek%2Fgh-pages%2Fpreview%2Fmxl%2Fc%2F27ad036da25f.musicxml" target="_blank" rel="noopener noreferrer"&gt;Oefenen&lt;/a&gt;&lt;/div&gt;
