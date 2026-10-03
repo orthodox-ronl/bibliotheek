@@ -38,7 +38,8 @@ validate (tenzij `--skip-vsa-validate`). Default
 Ontbreken id of bestand, dan vraagt het script die interactief. Typ `?`
 voor uitleg, daarna opnieuw invullen. Zonder argumenten: beide vragen.
 
-Latere subcommando’s van `bieb` (voorzien): `zoek`, `hernoem`, …
+Andere subcommando’s van `bieb`: [hernoem](../bieb-hernoem/) (zangstuk-id
+wijzigen). Later voorzien: `zoek`.
 
 # OPTIONS
 

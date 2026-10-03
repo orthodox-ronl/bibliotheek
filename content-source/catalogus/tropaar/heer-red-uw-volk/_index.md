@@ -5,9 +5,4 @@ nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true
 weight: 210
-aliases:
-  - "/bibliotheek/110-tropaar/heer-red-uw-volk/"
-  - "/bibliotheek/210-heer-red-uw-volk-en-zegen-uw-erfdeel/"
-  - "/bibliotheek/210-heer-red-uw-volk-en-zegen-uw-erfdeel/default/"
-  - "/bibliotheek/tropaar/heer-red-uw-volk/"
 ---

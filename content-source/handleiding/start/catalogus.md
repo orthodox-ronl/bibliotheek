@@ -32,7 +32,9 @@ de bestaande productscripts en publicatiecontrole. Overzicht:
 | `koormappen\…\index.md` | View: verwijst met `bieb`, bevat geen partituurbestanden |
 
 Namen: [Publicatiecontrole](publicatiecontrole/). Model:
-[Catalogus en koormappen](catalogus-en-koormappen/).
+[Catalogus en koormappen](catalogus-en-koormappen/). Taalvarianten
+(NL / kerkslavisch): suffix `-nl` / `-ksl` op de uitvoeringsvorm —
+[Taalvarianten](catalogus-en-koormappen/#taalvarianten-op-de-uitvoeringsvorm).
 
 ## Wat je mag wijzigen vs. regenereren
 

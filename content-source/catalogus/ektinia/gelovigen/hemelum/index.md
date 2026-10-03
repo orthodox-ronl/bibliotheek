@@ -3,9 +3,6 @@ title: "Gelovigen-litanie"
 linkTitle: "Hemelum"
 publicatiestatus: voorzien
 automatische_inhoud: false
-aliases:
-  - "/bibliotheek/14-gelovigen-litanie/default/hemelum/"
-  - "/bibliotheek/ektinia/gelovigen/hemelum/"
 ---
 
 # Gelovigen-litanie

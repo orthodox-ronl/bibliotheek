@@ -3,9 +3,6 @@ title: "7d Dialoog met de diaken"
 linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
-aliases:
-  - "/bibliotheek/dialoog-met-diaken/default/hemelum/"
-  - "/bibliotheek/7d-dialoog-met-diaken/default/hemelum/"
 ---
 
 # 7d Dialoog met de diaken

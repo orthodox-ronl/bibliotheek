@@ -2,6 +2,8 @@
 setlocal EnableExtensions
 cd /d "%~dp0.."
 
+if /I "%~1"=="-h" goto usage
+if /I "%~1"=="--help" goto usage
 REM Bibliotheek-producten genereren (recursief onder een map).
 REM Voorbeelden:
 REM   scripts\products.cmd
@@ -14,4 +16,14 @@ call scripts\_ensure.cmd --vsa-tool
 if errorlevel 1 exit /b 1
 
 python scripts\products.py %*
+exit /b %ERRORLEVEL%
+
+:usage
+echo.
+echo Gebruik: scripts\products.cmd [args...]
+echo.
+echo   Korte hulp via Python ^(argparse^). Voorbeeldopties vaak: [pad] --dry-run --force
+echo.
+python scripts\products.py -h
+endlocal
 exit /b %ERRORLEVEL%

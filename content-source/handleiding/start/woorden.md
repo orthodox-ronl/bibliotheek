@@ -69,7 +69,7 @@ lettergrepen synchroon met noten. MusicXML: `scripts\opkuisen.cmd`. Bij een
 | **Catalogus** (sectie) | Hugo-sectie onder `catalogus\`: alle oefenbestanden per uitvoeringsvorm; mag stukken bevatten zonder koormap |
 | **Catalogus-id** | Drie segmenten `[a-z0-9_-]+`, bijv. `trisagion/8a-nederlands/hemelum` (colofon in `.mscz`: regel `Bibliotheek-id:`) |
 | **Variant-id `default`** | Middelste laag als er maar één variant is (bijv. `eniggeboren-zoon/default/hemelum`) |
-| **Taal-suffix** | Op uitvoeringsvorm-id: geen = NL; `-ksl` = Kerkslavisch Cyrillisch; `-ksl-trlat` = getranslitereerd; `-nl-ksl` = mengvorm |
+| **Taal-suffix** | Op **uitvoeringsvorm-id** (leaf), alleen waar nodig: `-nl` / `-ksl` (voorkeur); geen suffix = alleen NL zonder sibling; `-nl-ksl` = mengvorm. Legacy: taal in variant (`8a-nederlands`). Zie [Catalogus en koormappen](catalogus-en-koormappen/#taalvarianten-op-de-uitvoeringsvorm) |
 | **Koormap** | Geordende view (navigatieboom) voor een gelegenheid; geen basispartituur-bestanden in de slotmappen |
 | **Koormap-sectie** | Map met `_index.md` in de koormap: liturgische plek / hoofdstuk (kindlijst of eigen TOC) |
 | **Slot-pagina** | Map met `index.md` in de koormap: markdown plus `bieb` (geen catalogus-include in de oefenhoek) |
@@ -77,7 +77,7 @@ lettergrepen synchroon met noten. MusicXML: `scripts\opkuisen.cmd`. Bij een
 | **Alias-variant** | Variant zonder eigen uitvoeringsvorm-bestanden; op de variant-`_index.md` staat `alias_van: zangstuk/canonieke-variant` |
 | **Diversen** | (verouderd als zangstuk-id) Losse gezangen hebben nu een eigen zangstuk-id, bv. `tropaar/uw-heilig-kruis/hemelum` |
 | **Tropaar** / **kondak** | Nederlandse termen voor die gezangen (niet “troparion” / “kondakion”) |
-| **Special page** | Automatisch overzicht onder `catalogus\speciaal\` (werkbank, voorzien, ongerefereerd, oefenbaar) |
+| **Special page** | Automatisch overzicht onder `catalogus\speciaal\` (werkbank, voorzien, ongerefereerd, oefenbaar, handmatig) |
 | **Werkvoorraad** | Tabel in `input\werkvoorraad.md`: per *input* hoe ver de conversie is |
 | **Stap** (werkvoorraad) | Intern: `ontvangen`, `opkuisen`, `layout`, `gepubliceerd`, … — niet zichtbaar voor koorleden |
 | **Werkbank** | Lifecycle-fase pre-productie: reserveren, binnenhalen, opkuisen, proefdraaien — [Werkbank](/handleiding/start/werkbank/) |

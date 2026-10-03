@@ -5,7 +5,4 @@ nav_sort: weight
 weight: 206
 publicatiestatus: concept
 automatische_inhoud: true
-aliases:
-  - "/bibliotheek/120-kondak/zaterdag-heiligen-toon-8/"
-  - "/bibliotheek/kondak/zaterdag-heiligen-toon-8/"
 ---

@@ -29,3 +29,28 @@ def test_preferred_audio_prefers_mvsa(tmp_path: Path) -> None:
     url = preferred_audio_url(tmp_path, "ektinia/kleine/hemelum")
     assert url.endswith("/x.mvsa.mp3")
     assert url.startswith("/catalogus/ektinia/kleine/hemelum/")
+
+
+def test_build_entries_includes_mscz_only_cherubijnen() -> None:
+    """Route 1: leaves zonder .vsa/.mvsa (alleen .mscz) staan in de index."""
+    from build_zoek_index import DEFAULT_ROOT, build_entries
+
+    entries = build_entries(DEFAULT_ROOT)
+    by_id = {e["id"]: e for e in entries}
+    assert "cherubijnenhymne/15c-kastorski/hemelum" in by_id
+    assert "cherubijnenhymne/15e-bortnjanski/hemelum" in by_id
+    kastorski = by_id["cherubijnenhymne/15c-kastorski/hemelum"]
+    assert "kastorski" in kastorski["text"]
+    assert "cherubijnenhymne" in kastorski["text"]
+
+
+def test_build_entries_includes_artefacten_handmatig() -> None:
+    """artefacten_handmatig slaat producten over, niet de zoekindex."""
+    from build_zoek_index import DEFAULT_ROOT, build_entries
+
+    entries = build_entries(DEFAULT_ROOT)
+    by_id = {e["id"]: e for e in entries}
+    assert "moeder-godslied/ontslapen-moeder-gods/hemelum" in by_id
+    entry = by_id["moeder-godslied/ontslapen-moeder-gods/hemelum"]
+    assert "ontslapen" in entry["text"]
+    assert "engelen" in entry["text"]

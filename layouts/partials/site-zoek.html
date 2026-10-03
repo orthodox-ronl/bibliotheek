@@ -16,21 +16,24 @@
   data-feedback-email="{{ site.Params.feedback_email }}"
   data-github="{{ site.Params.linksGithub }}"
 >
-  <button
-    type="button"
-    class="site-zoek-toggle"
-    aria-expanded="false"
-    aria-controls="site-zoek-panel"
-    title="Zoeken in de catalogus"
-  >
-    <svg class="site-zoek-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path
-        fill="currentColor"
-        d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-      />
-    </svg>
-    <span class="site-zoek-toggle-label">Zoeken</span>
-  </button>
+  <div class="site-zoek-toggle-wrap">
+    <button
+      type="button"
+      class="site-zoek-toggle"
+      aria-expanded="false"
+      aria-controls="site-zoek-panel"
+      title="Zoeken in de catalogus"
+    >
+      <svg class="site-zoek-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path
+          fill="currentColor"
+          d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+        />
+      </svg>
+      <span class="site-zoek-toggle-label">Zoeken</span>
+    </button>
+    {{ partial "zoek-help-tip.html" (dict) }}
+  </div>
   <div id="site-zoek-panel" class="site-zoek-panel" hidden>
     <div class="site-zoek-backdrop" data-site-zoek-close tabindex="-1" aria-hidden="true"></div>
     <div
@@ -57,6 +60,7 @@
             placeholder="bijv. Johannes, ektinia, Juich voor God…"
           />
           <button type="submit">Zoeken</button>
+          {{ partial "zoek-help-tip.html" (dict) }}
         </div>
       </form>
       <p class="catalogus-zoek-meta" aria-live="polite"></p>

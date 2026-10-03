@@ -3,8 +3,6 @@ title: "Alleluia toon 7 (Kiev, Groningen)"
 linkTitle: "Groningen"
 publicatiestatus: reviewable
 automatische_inhoud: false
-aliases:
-  - "/bibliotheek/alleluia/9a-toon-7/groningen/"
 ---
 
 # Alleluia toon 7 (Kiev, Groningen)

@@ -3,8 +3,6 @@ title: "dialoog-met-diaken"
 linkTitle: "dialoog-met-diaken"
 publicatiestatus: reviewable
 automatische_inhoud: false
-aliases:
-  - "/koormappen/hemelum/liturgie-weekdagen/7d-dialoog-met-diaken/"
 ---
 
 # 7d Dialoog met de Diaken

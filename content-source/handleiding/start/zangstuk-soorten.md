@@ -131,7 +131,10 @@ blijven geldig tot een bewuste hernoem-golf.
 
    Zo zeg je in gewone taal «de cherubijnenhymne», en bij de keuze
    tussen twee Kastorski’s zie je **welke** zonder te moeten afspelen.
-   Zelfde patroon voor trisagion-varianten (`8a-nederlands`, …).
+   Trisagion houdt taal nog in de variant (`8a-nederlands`, `8a-slav`) —
+   dat is **legacy**. Voor nieuw werk: taal als suffix op de
+   uitvoeringsvorm (`-nl` / `-ksl`); zie
+   [Taalvarianten](/handleiding/start/catalogus-en-koormappen/#taalvarianten-op-de-uitvoeringsvorm).
 
 5. **Geen collectie-padlaag** — Genre-emmers en liturgische families blijven
    een gewoon `zangstuk-id`. Geen tussenmap en geen vierde id-segment.
@@ -195,8 +198,7 @@ houden). De Hugo-sectie heet **catalogus** (niet meer
   `kondak` 760, kruis-buurt 755/765, `prijslied` 3000).
 - Leesbare `title` / `linkTitle` op een aantal slug-achtige variantpagina’s.
 - Sitezoeken + lyrics-producten (zie [Zoeken](/catalogus/zoeken/)).
-- Eerste hernoem-golf: `110-tropaar` → `tropaar`, `120-kondak` → `kondak`
-  (oude URL’s via Hugo-`aliases`).
+- Eerste hernoem-golf: `110-tropaar` → `tropaar`, `120-kondak` → `kondak`.
 - Ektinia-golf: litanie-zangstukken geconsolideerd onder `ektinia`
   (varianten `vrede`, `kleine`, `dringend`, `ontslapenen`, `catechumenen`,
   `gelovigen`, `vragend`). `16` en `22` vragende → één variant; koormap-slots
@@ -225,12 +227,11 @@ houden). De Hugo-sectie heet **catalogus** (niet meer
 ## Volgende stappen
 
 1. Eventueel `speciaal` beoordelen (utility, geen zangstuk).
-2. Hernoem-tooling verder versterken (koormap-slots automatisch +
-   slotlink-check) — `bieb hernoem` bestaat; zie
-   [bieb hernoem](/handleiding/scripts/bieb-hernoem/).
 
-Hugo-`aliases` voor de genummerde paden van de laatste golf zijn bewust
-weggelaten: die URL’s werden niet gebruikt. Sectie-URL’s
-`/bibliotheek/…` → `/catalogus/…` hebben wél aliases.
+Nieuwe hernoemingen: werktraject
+[Zangstuk hernoemen](/handleiding/werktrajecten/zangstuk-hernoemen/)
+(`bieb hernoem` neemt 1:1-koormap-slots mee; `check` bevat de
+slotlink-controle). Hugo-`aliases` voor oude URL’s (`/bibliotheek/…`,
+genummerde paden) zijn bewust weggelaten: die paden werden niet gebruikt.
 
 {{< navbuttons "Catalogus en koormappen|/handleiding/start/catalogus-en-koormappen/" "Woorden|/handleiding/start/woorden/" >}}

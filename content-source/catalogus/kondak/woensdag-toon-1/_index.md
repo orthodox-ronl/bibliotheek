@@ -6,7 +6,4 @@ weight: 203
 publicatiestatus: concept
 automatische_inhoud: false
 alias_van: kondak/heilig-kruis-toon-1
-aliases:
-  - "/bibliotheek/120-kondak/woensdag-toon-1/"
-  - "/bibliotheek/kondak/woensdag-toon-1/"
 ---

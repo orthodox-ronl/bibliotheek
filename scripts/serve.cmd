@@ -1,6 +1,10 @@
 @echo off
 setlocal
 cd /d "%~dp0.."
+
+if /I "%~1"=="-h" goto usage
+if /I "%~1"=="--help" goto usage
+
 call scripts\_ensure.cmd --hugo --vsa-tool
 if errorlevel 1 exit /b 1
 python scripts\update_werkvoorraad.py
@@ -18,3 +22,15 @@ hugo server ^
   --port 18732 ^
   --config hugo.toml
 exit /b %ERRORLEVEL%
+
+:usage
+echo.
+echo Gebruik: scripts\serve.cmd
+echo.
+echo   Lokale Hugo-preview op http://127.0.0.1:18732/
+echo   ^(niet poort 1313, niet 18731^).
+echo.
+echo Handleiding: content-source\handleiding\scripts\serve.md
+echo.
+endlocal
+exit /b 0

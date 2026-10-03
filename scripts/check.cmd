@@ -95,6 +95,10 @@ if defined STRICT (
 )
 if errorlevel 1 exit /b 1
 
+REM Relatieve TOC-links moeten bestaan (anders Hugo-404 na hernoem).
+python scripts\check_koormap_slot_links.py --fail
+if errorlevel 1 exit /b 1
+
 python scripts\fingerprint_coria_mxl.py
 if errorlevel 1 exit /b 1
 

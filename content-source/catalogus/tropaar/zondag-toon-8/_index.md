@@ -5,7 +5,4 @@ nav_sort: weight
 weight: 108
 publicatiestatus: concept
 automatische_inhoud: true
-aliases:
-  - "/bibliotheek/110-tropaar/zondag-toon-8/"
-  - "/bibliotheek/tropaar/zondag-toon-8/"
 ---
