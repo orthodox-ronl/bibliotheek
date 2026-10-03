@@ -194,6 +194,7 @@ Automatisch bijgehouden (bij elke sitebuild):
 | [Voorzien](/catalogus/speciaal/voorzien/) | Zangstukken zonder oefenbare inhoud |
 | [Ongerefereerd](/catalogus/speciaal/ongerefereerd/) | In de catalogus, nog niet in een koormap |
 | [Oefenbaar](/catalogus/speciaal/oefenbaar/) | Platte lijst van linkbare uitvoeringsvormen + id |
+| [Handmatig](/catalogus/speciaal/handmatig/) | Uitvoeringsvormen met `artefacten_handmatig: true` |
 
 ## Taalvarianten op de uitvoeringsvorm
 

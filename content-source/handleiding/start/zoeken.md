@@ -18,7 +18,8 @@ past bij wat jullie nodig hebben.
 - Korte tip: klik op **?** naast de knop Zoeken
 - Indexbestand: `static\zoek\index.json` (bij Pages-deploy opnieuw gebouwd)
 - Synoniemen: [`data/zoek-synoniemen.yaml`](https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml)
-- Gezongen tekst: sibling `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` — zie [lyrics-products](/handleiding/scripts/lyrics-products/)
+- Gezongen tekst: sibling `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` /
+  `.mscz.lyrics.txt` — zie [lyrics-products](/handleiding/scripts/lyrics-products/)
 {{< /cue >}}
 
 ## Hoofdlijnen
@@ -26,10 +27,9 @@ past bij wat jullie nodig hebben.
 ### Wat zit er in de zoekindex?
 
 Elke **uitvoeringsvorm** in `content-source\catalogus\` (bladermap met
-`index.md`) kan in de index komen — ook als er alleen een `.mscz` staat
-of nog geen bronbestand. Per treffer zie je onder meer de titel, de
-publicatiestatus, soms een stukje begrotekst (incipit uit `.vsa`/`.mvsa`),
-het catalogus-id, en soms een beluister-knop.
+`index.md`) kan in de index komen. Per treffer zie je onder meer de titel,
+de publicatiestatus, soms een stukje begrotekst (incipit uit lyrics van
+`.vsa` / `.mvsa` / `.mscz`), het catalogus-id, en soms een beluister-knop.
 
 Zoeken is **client-side**: de browser laadt één JSON-bestand en filtert
 lokaal. Er is geen aparte zoekserver.
@@ -42,9 +42,9 @@ Je mag zoeken op:
    erboven.
 2. **Catalogus-id** in de vorm `zangstuk/variant/uitvoeringsvorm` (streepjes
    en schuine strepen worden als spaties behandeld).
-3. **Gezongen tekst** uit de lyrics-sibling van een `.vsa`/`.mvsa` (of, als
-   die nog ontbreekt, een verse tekst-export tijdens het bouwen van de
-   index). Bij alleen-`.mscz` ontbreekt die tekst nog (titel/id wel).
+3. **Gezongen tekst** uit de lyrics-sibling van een `.vsa` / `.mvsa` /
+   basis-`.mscz` (of, als die sibling nog ontbreekt, een verse tekst-export
+   tijdens het bouwen van de index).
 
 Daarnaast:
 
@@ -74,8 +74,6 @@ baseURL*.
 ### Wat zoeken niet doet (nu)
 
 - Geen full-text over koormappen of handleidingpagina’s.
-- Geen gezongen tekst uit alleen-`.mscz` (die entries staan wél in de
-  index op titel/id/status; lyrics uit MuseScore volgt via tooling).
 - Geen server-side ranking of typfout-correctie buiten de synoniemenlijst.
 
 ## Specificatie (detail)
@@ -87,9 +85,11 @@ Script: `python scripts\build_zoek_index.py` (ook via `lyrics-products`,
 
 Bronnen: elke uitvoeringsvorm-leaf
 `content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\index.md`
-(uitsluitingen: `input\`, `artefacten_handmatig: true`). Gezongen tekst
-wordt toegevoegd als er in die bladermap een canonieke `.vsa` of `.mvsa`
-is (lyrics-sibling of live `vsa text`).
+(uitsluiting: paden onder `input\`). Mappen met
+`artefacten_handmatig: true` doen **wél** mee in de zoekindex (alleen
+productscripts slaan die over). Gezongen tekst wordt toegevoegd als er in
+die bladermap een canonieke `.vsa`, `.mvsa` of basispartituur-`.mscz` is
+(lyrics-sibling of live `vsa text` / MusicXML).
 Uitvoer: `static\zoek\index.json` met o.a.:
 
 | Veld | Inhoud |

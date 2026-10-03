@@ -1,10 +1,9 @@
 """Bouw ``static/zoek/index.json`` voor client-side bibliotheekzoeken.
 
 Indexeert elke catalogus-uitvoeringsvorm (leaf ``index.md``) op titel, id en
-status. Gezongen tekst komt uit ``*.lyrics.txt`` / live ``vsa.text_export``
-wanneer er een ``.vsa`` of ``.mvsa`` is. Leaves met alleen ``.mscz`` (of nog
-zonder bron) blijven vindbaar op titel/id; lyrics uit ``.mscz`` volgt later
-via tooling.
+status — ook mappen met ``artefacten_handmatig: true``. Gezongen tekst komt
+uit ``*.lyrics.txt`` / live ``vsa.text_export`` wanneer er een ``.vsa``,
+``.mvsa`` of basis-``.mscz`` is.
 """
 
 from __future__ import annotations
@@ -26,7 +25,6 @@ from sync_lyrics_products import (
     lyrics_body,
     product_path_for_source,
 )
-from sync_vsa_products import folder_is_handmatig
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CATALOGUS_ROOT = REPO_ROOT / "content-source" / "catalogus"
@@ -123,14 +121,16 @@ def collect_leaf_index_mds(root: Path) -> list[Path]:
             continue
         if _catalogus_id_for_leaf_dir(path.parent) is None:
             continue
-        if folder_is_handmatig(path.parent):
-            continue
+        # artefacten_handmatig slaat auto-producten over, niet het zoeken:
+        # die leaves horen wél in de index (titel/id; lyrics uit .vsa e.d.).
         out.append(path)
     return out
 
 
 def _lyric_sources_in_dir(leaf_dir: Path) -> list[Path]:
-    """``.vsa`` / canonieke ``.mvsa`` in de bladermap (geen ``.mscz.mvsa``, geen ``.syl.vsa``)."""
+    """``.vsa`` / canonieke ``.mvsa`` / basis-``.mscz`` in de bladermap."""
+    from score_filenames import is_print_mscz
+
     out: list[Path] = []
     if not leaf_dir.is_dir():
         return out
@@ -138,17 +138,29 @@ def _lyric_sources_in_dir(leaf_dir: Path) -> list[Path]:
         if not path.is_file():
             continue
         suf = path.suffix.lower()
-        if suf not in {".vsa", ".mvsa"}:
+        if suf not in {".vsa", ".mvsa", ".mscz"}:
             continue
         name = path.name.lower()
         if name.endswith(".syl.vsa"):
             continue
         if name.endswith(".mscz.mvsa"):
             continue
+        if suf == ".mscz" and is_print_mscz(path):
+            continue
         if " " in path.name:
             raise SystemExit(f"bestandsnaam mag geen spaties hebben: {path.name}")
         out.append(path)
     return out
+
+
+def _plain_for_leaf(leaf_dir: Path) -> str:
+    """Langste bruikbare gezongen tekst uit vsa/mvsa/mscz in de bladermap."""
+    best = ""
+    for source in _lyric_sources_in_dir(leaf_dir):
+        plain = _plain_for_source(source)
+        if len(plain) > len(best):
+            best = plain
+    return best
 
 
 def _audio_rank(name: str) -> int:
@@ -183,6 +195,15 @@ def _plain_for_source(source: Path) -> str:
         if body:
             return body
     try:
+        from sync_lyrics_products import _extract_plain
+    except ImportError:
+        _extract_plain = None  # type: ignore
+    if _extract_plain is not None:
+        try:
+            return _extract_plain(source)
+        except Exception:  # noqa: BLE001
+            return ""
+    try:
         from vsa.text_export import plain_text_from_path
     except ImportError:
         return ""
@@ -190,16 +211,6 @@ def _plain_for_source(source: Path) -> str:
         return plain_text_from_path(source)
     except Exception:  # noqa: BLE001
         return ""
-
-
-def _plain_for_leaf(leaf_dir: Path) -> str:
-    """Langste bruikbare gezongen tekst uit vsa/mvsa in de bladermap."""
-    best = ""
-    for source in _lyric_sources_in_dir(leaf_dir):
-        plain = _plain_for_source(source)
-        if len(plain) > len(best):
-            best = plain
-    return best
 
 
 def _entry_for_leaf(leaf: Path, synonyms: dict[str, str]) -> dict | None:

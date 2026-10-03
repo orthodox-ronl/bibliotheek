@@ -42,3 +42,15 @@ def test_build_entries_includes_mscz_only_cherubijnen() -> None:
     kastorski = by_id["cherubijnenhymne/15c-kastorski/hemelum"]
     assert "kastorski" in kastorski["text"]
     assert "cherubijnenhymne" in kastorski["text"]
+
+
+def test_build_entries_includes_artefacten_handmatig() -> None:
+    """artefacten_handmatig slaat producten over, niet de zoekindex."""
+    from build_zoek_index import DEFAULT_ROOT, build_entries
+
+    entries = build_entries(DEFAULT_ROOT)
+    by_id = {e["id"]: e for e in entries}
+    assert "moeder-godslied/ontslapen-moeder-gods/hemelum" in by_id
+    entry = by_id["moeder-godslied/ontslapen-moeder-gods/hemelum"]
+    assert "ontslapen" in entry["text"]
+    assert "engelen" in entry["text"]

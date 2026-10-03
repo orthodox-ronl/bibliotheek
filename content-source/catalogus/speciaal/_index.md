@@ -17,5 +17,6 @@ special pages). Voor beheerders en wie de catalogus wil controleren.
 | [Voorzien](voorzien/) | Zangstukken zonder oefenbare inhoud |
 | [Ongerefereerd](ongerefereerd/) | In de catalogus, nog niet in een koormap |
 | [Oefenbaar](oefenbaar/) | Platte lijst oefenbare uitvoeringsvormen |
+| [Handmatig](handmatig/) | Uitvoeringsvormen met `artefacten_handmatig: true` |
 
 Lifecycle-uitleg: [Levenscyclus](/handleiding/start/levenscyclus/).
