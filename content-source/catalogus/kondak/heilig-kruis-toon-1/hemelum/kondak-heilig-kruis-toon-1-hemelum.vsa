@@ -2,6 +2,29 @@
 do: F4
 mode: major
 tempo: 120
+herkomst_vsa_demo:
+  soort: kondak
+  korte_titel: troparen-en-kondaken-voor-de-weekdagen-hemelum
+  duplicaat_groep: dup-013
+  bronnen:
+    - bestand: kondak-troparen-en-kondaken-voor-de-weekdagen-hemelum-weekdagen-troparen-en-kondaken-hemelum-n06.vsa
+      bron_md: hemelum-eigen/weekdagen-troparen-en-kondaken-hemelum.md
+      headers:
+        - "Woensdag, Vrijdag (het Heilig Kruis)"
+        - KONDAK (Toon 1)
+      bron_md_frontmatter: |
+        title: "Troparen en Kondaken voor de Weekdagen (Hemelum)"
+        sources: 
+          - "Hemelum (Heilig Kruis: woensdag en vrijdag)"
+          - Liturgikon
+    - bestand: kondak-kondak-h-kruis-nls-nl-20260814-vr-liturgie-kruisuitdraging-n04.vsa
+      bron_md: samenstellingen/20260814-vr-liturgie-kruisuitdraging.md
+      headers:
+        - Kleine intocht
+        - "Kondak H. Kruis (t.1) ***Nls***"
+      bron_md_frontmatter: |
+        title: "20260814 - Feest van de Kruisuitdraging en Kleine Waterwijding + processie, vrijdag 14 aug 2026 (Hemelum)"
+        source: "Koorinstructie vrijdag 14 augustus 2026 (Hemelum)"
 ---
 
 <!-- Kondak - Woensdag - H. Kruis - (Toon 1 - Liturgikon, p247) -->

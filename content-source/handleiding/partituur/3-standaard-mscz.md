@@ -77,9 +77,14 @@ inhoudelijke editslag.
 | Lyrics | Onder de bovenste balk |
 | Fonts | Source Sans 3 (lyrics 13 pt, staff-/systemtekst 12 pt, titel 18 pt, footer 8 pt) |
 
-### Titelvak en cues
+### Titelvak, bronvermelding en cues
 
 - Titelvak (VBox): alleen **title** (= workTitle) en **composer**.
+- **Bronvermelding:** MuseScore-meta `source` + colofonregel “Bron: …”.
+  Bij VSA komt die uit frontmatter `bron.uitgangspunt`. Bij layout:
+  `scripts\layout.cmd … --bron "Liturgikon, p.58"` (of automatisch uit
+  een sibling `.vsa` / `.mvsa` met dat veld). Korte namen:
+  [Uitgave-bronnen](../../start/uitgave-bronnen/).
 - Cues `P:` / `D:` / `K:` die per ongeluk in ondertitel of movementTitle
   stonden, worden Staff Text op de eerste maat.
 - Arial op staff-tekst wordt opgeschoond richting de standaardfont.

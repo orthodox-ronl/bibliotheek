@@ -2,7 +2,37 @@
 do: F4
 mode: major
 tempo: 120
+herkomst_vsa_demo:
+  soort: prokimen
+  korte_titel: onthoofing-van-h-johannes-de-doper
+  duplicaat_groep: dup-002
+  bronnen:
+    - bestand: prokimen-onthoofing-van-h-johannes-de-doper-08-31-onthoofding-johannes-de-doper-n03.vsa
+      bron_md: feesteigen/08-31-onthoofding-johannes-de-doper.md
+      headers:
+        - Prokimen (Toon 7)
+      bron_md_frontmatter: |
+        title: "Onthoofing van H. Johannes de Doper"
+        alternatief: "Onthoofing van H. Johannes de Voorloper"
+        feestdag: "31 aug"
+        source: "Liturgikon, p.245, koorinstructie 20260911 Hemelum"
+        layout: "feesteigen-pagina"
+    - bestand: prokimen-prokimen-t-7-dinsdag-20260811-di-liturgie-n04.vsa
+      bron_md: samenstellingen/20260811-di-liturgie.md
+      headers:
+        - Prokimen t.7 dinsdag
+      bron_md_frontmatter: |
+        title: "20260811 - H. Liturgie, Dinsdag 11 aug 2026 (Hemelum)"
+        source: "Koorinstructie dinsdag 11 augustus 2026 (Hemelum)"
+    - bestand: prokimen-prokimen-t-7-dinsdag-20260825-di-liturgie-n03.vsa
+      bron_md: samenstellingen/20260825-di-liturgie.md
+      headers:
+        - Prokimen t.7 dinsdag
+      bron_md_frontmatter: |
+        title: "20260825 - H. Liturgie, Dinsdag 25 aug 2026 (Hemelum) - Gregorius"
+        source: "Koorinstructie dinsdag 25 augustus 2026 (Hemelum)"
 ---
+
 <!-- Prokimen weekdag — Kiev-melodie (9a) -->
 <!-- Gelegenheid: dinsdag -->
 <!-- Toon: 7 -->

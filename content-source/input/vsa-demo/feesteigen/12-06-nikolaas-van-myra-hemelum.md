@@ -9,11 +9,11 @@ layout: "feesteigen-pagina"
 ::: vsa-notatie
 <!-- Tropaar H. Nikolaas van Myra, Toon 4 (Tekst: Hemelum, Muziek: Liturgikon, p.283) -->
 [//:] Als een {Re_}gel {/van} ge{\loof_} 
-{/en} een voor-beeld van zacht{moe__}dig{\heid_} 
-heeft de waar-heid van uw da-den u aan uw {kud_}{/de} ge{\toond_}. 
+{/en} een voorbeeld van zacht{moe__}dig{\heid_} 
+heeft de waarheid van uw daden u aan uw {kud_}{/de} ge{\toond_}. 
 {/Daar}om zijt gij door {ne_}derigheid {\groot_}, 
-en door ar-moe-de rijk ge{-&/wor_&_}{\den_}, 
-{/Va}der en Ho-ge-pries-ter {Ni__}co{\laas_}, 
+en door armoede rijk ge{-&/wor_&_}{\den_}, 
+{/Va}der en Hogepriester {Ni__}co{\laas_}, 
 // bid Chris-tus {God_}, on-ze zie-len te {-&/red_&_}{\den_}. [//:]
 :::
 

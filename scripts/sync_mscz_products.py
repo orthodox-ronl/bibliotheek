@@ -19,6 +19,7 @@ from product_meta import (
     partituur_sha256,
     read_mxl_stamp,
     read_pdf_stamp,
+    set_mxl_identification_source,
     stamp_mxl_partituur,
     stamp_pdf,
     stamp_sha_from_dict,
@@ -153,6 +154,11 @@ def sync_one(
             stamp_mxl_partituur(
                 root, partituur_hash=digest, generated_at=generated_at
             )
+            from vsa_bron import bron_uitgangspunt_near
+
+            bron = bron_uitgangspunt_near(mscz)
+            if bron:
+                set_mxl_identification_source(root, bron)
             write_mxl(mxl, root)
             _remove_legacy(mxl, legacy_mxl_for_mscz(mscz))
             partituur_mxl = mscz.with_suffix(".partituur.mxl")

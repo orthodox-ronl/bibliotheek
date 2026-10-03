@@ -2,6 +2,29 @@
 do: F4
 mode: major
 tempo: 120
+herkomst_vsa_demo:
+  soort: tropaar
+  korte_titel: tropaar-hh-martelaren
+  duplicaat_groep: dup-018
+  bronnen:
+    - bestand: tropaar-tropaar-hh-martelaren-tropaar-heilige-martelaren-hemelum-n01.vsa
+      bron_md: hemelum-eigen/tropaar-heilige-martelaren-hemelum.md
+      headers:
+        - Tropaar HH. Martelaren (Toon 4)
+      bron_md_frontmatter: |
+        zangstuk: Tropaar
+        uitvoeringsvorm: Hemelum
+        toon: 4
+        bron: V. Jewsewy
+        titel: Tropaar van de Heilige Martelaren
+    - bestand: tropaar-tropaar-hh-martelaren-t-4-nl-20260811-di-liturgie-n02.vsa
+      bron_md: samenstellingen/20260811-di-liturgie.md
+      headers:
+        - Kleine intocht
+        - "Tropaar HH. Martelaren T.4 ***(Nls en Ksl)***"
+      bron_md_frontmatter: |
+        title: "20260811 - H. Liturgie, Dinsdag 11 aug 2026 (Hemelum)"
+        source: "Koorinstructie dinsdag 11 augustus 2026 (Hemelum)"
 ---
 
 <!-- Tropaar HH. Martelaren, Toon 4 (melodie: tonenboek; tekst: Hemelum) -->

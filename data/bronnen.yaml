@@ -1,0 +1,77 @@
+# Canonieke korte namen voor bronvermeldingen
+
+Gebruikt in VSA-/MVSA-frontmatter als `bron.uitgangspunt` (en in
+`@bron` bij `.mvsa`). De kolom **korte_naam** is wat je in het bestand
+schrijft; de overige velden leggen de uitgave vast.
+
+Vul ontbrekende druk/jaar/uitgeverij bij wanneer je het weet. Lege
+velden betekenen: nog niet vastgelegd — niet “onbekend voor altijd”.
+
+```yaml
+# id: stabiele sleutel (alleen a-z, 0-9, -, _)
+# korte_naam: tekst zoals in bron.uitgangspunt (zonder pagina)
+# aliases: andere schrijfwijzen die dezelfde uitgave bedoelen
+```
+
+bronnen:
+  - id: liturgikon
+    korte_naam: Liturgikon
+    aliases:
+      - Liturgicon
+    volledige_titel: null  # nog in te vullen
+    druk: null
+    jaar: null
+    uitgeverij: null
+    opmerking: "Nederlandstalig liturgikon zoals in Hemelum/Groningen gebruikt; precieze druk nog vastleggen."
+
+  - id: meneon-1
+    korte_naam: Meneon I
+    aliases:
+      - Meneon 1
+      - Meneon I
+    volledige_titel: null
+    druk: null
+    jaar: null
+    uitgeverij: null
+    opmerking: "Eerste deel van het Meneon (september e.d.); pagina’s in VSA als „Meneon I, p.…“."
+
+  - id: koormap-groningen
+    korte_naam: Koormap Groningen
+    aliases:
+      - koormap Groningen
+      - Groningen
+    volledige_titel: null
+    druk: null
+    jaar: null
+    uitgeverij: null
+    opmerking: "Praktijk-/koormap van de parochie Groningen; geen handelsuitgave."
+
+  - id: hemelum
+    korte_naam: Hemelum
+    aliases:
+      - praktijk Hemelum
+    volledige_titel: null
+    druk: null
+    jaar: null
+    uitgeverij: null
+    opmerking: "Lokale praktijk / zetting Hemelum; vaak als bewerking of arrangeur, soms als uitgangspunt."
+
+  - id: vokn-25
+    korte_naam: VOKN-25
+    aliases:
+      - VOKN
+      - VOKN 25
+    volledige_titel: "Goddelijke Liturgie (Pasen 2000)"
+    druk: null
+    jaar: 2000
+    uitgeverij: "Vereniging van Orthodoxen „Nikolaas van Myra” (VOKN)"
+    opmerking: "Uitgave van de Goddelijke Liturgie zoals op Pasen 2000 uitgegeven door de Vereniging van Orthodoxen „Nikolaas van Myra”. In VSA vaak als melodiebron (bijv. communievers); lokale arrangeur kan apart in bron.bewerking."
+
+  - id: apostel
+    korte_naam: Apostel
+    aliases: []
+    volledige_titel: null
+    druk: null
+    jaar: null
+    uitgeverij: null
+    opmerking: "Apostelboek; pagina’s soms naast Liturgikon genoemd (bijv. communievers)."

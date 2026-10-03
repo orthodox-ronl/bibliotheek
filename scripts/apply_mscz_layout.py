@@ -39,14 +39,25 @@ def _mxl_to_mscz(src: Path, out: Path) -> None:
         raise SystemExit(proc.returncode or 1)
 
 
-def _apply_layout(mscz: Path, bibliotheek_id: str | None) -> None:
+def _apply_layout(
+    mscz: Path,
+    bibliotheek_id: str | None,
+    *,
+    bron: str | None = None,
+) -> None:
     from vsa.mscz_layout import MsczPartituurError, apply_mscz_layout_profile
+
+    if bron is None:
+        from vsa_bron import bron_uitgangspunt_near
+
+        bron = bron_uitgangspunt_near(mscz)
 
     try:
         apply_mscz_layout_profile(
             mscz,
             layout="partituur",
             bibliotheek_id=bibliotheek_id,
+            bron=bron,
         )
     except MsczPartituurError as exc:
         raise SystemExit(f"{mscz}: ERROR: {exc}") from exc
@@ -66,6 +77,12 @@ def main(argv: list[str] | None = None) -> int:
         "--id",
         default=None,
         help="Bibliotheek-id zangstuk/variant/uitvoeringsvorm",
+    )
+    p.add_argument(
+        "--bron",
+        default=None,
+        help="Bronvermelding → MuseScore meta source + colofon (default: "
+        "bron.uitgangspunt uit sibling .vsa/.mvsa indien aanwezig)",
     )
     args = p.parse_args(argv)
 
@@ -96,9 +113,10 @@ def main(argv: list[str] | None = None) -> int:
         out.parent.mkdir(parents=True, exist_ok=True)
         _mxl_to_mscz(src, out)
         bib = _resolve_id(args.id, out)
-        _apply_layout(out, bib)
+        _apply_layout(out, bib, bron=args.bron)
         id_note = f" bibliotheek-id={bib}" if bib else ""
-        print(f"ok {out.as_posix()}{id_note}")
+        bron_note = f" bron={args.bron!r}" if args.bron else ""
+        print(f"ok {out.as_posix()}{id_note}{bron_note}")
         return 0
 
     if suffix != ".mscz":
@@ -117,9 +135,10 @@ def main(argv: list[str] | None = None) -> int:
         target = src
 
     bib = _resolve_id(args.id, target)
-    _apply_layout(target, bib)
+    _apply_layout(target, bib, bron=args.bron)
     id_note = f" bibliotheek-id={bib}" if bib else ""
-    print(f"ok {target.as_posix()}{id_note}")
+    bron_note = f" bron={args.bron!r}" if args.bron else ""
+    print(f"ok {target.as_posix()}{id_note}{bron_note}")
     return 0
 
 

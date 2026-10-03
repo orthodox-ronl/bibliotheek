@@ -113,6 +113,29 @@ def _ensure_identification(root: ET.Element) -> ET.Element:
     return ident
 
 
+def set_mxl_identification_source(root: ET.Element, source: str) -> None:
+    """Zet MusicXML ``identification/source`` (bronvermelding).
+
+    Lege ``source`` laat een bestaand element ongemoeid. Niet-lege tekst
+    overschrijft of maakt ``<source>``.
+    """
+    text = (source or "").strip()
+    if not text:
+        return
+    ident = _ensure_identification(root)
+    source_el = _child(ident, "source")
+    if source_el is None:
+        # Na creators/rights, vóór encoding als die er al is.
+        insert_at = len(list(ident))
+        for i, c in enumerate(list(ident)):
+            if _local(c.tag) == "encoding":
+                insert_at = i
+                break
+        source_el = ET.Element("source")
+        ident.insert(insert_at, source_el)
+    source_el.text = text
+
+
 def _set_misc_field(ident: ET.Element, name: str, value: str) -> None:
     misc = _child(ident, "miscellaneous")
     if misc is None:

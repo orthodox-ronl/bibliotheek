@@ -33,7 +33,8 @@ Heb je je pc al eens klaargezet? Dan volstaat vaak alleen de
 5. [Catalogus](catalogus/) — canonieke bron, products, check
 6. [Catalogus en koormappen](catalogus-en-koormappen/) — catalogus vs view; secties en compositiebladen
 7. [Zangstuk-soorten](zangstuk-soorten/) — genre-emmer, liturgische familie, enkelvoudig werk
-8. [Woorden](woorden/)
-9. [Publicatiecontrole](publicatiecontrole/) — bron vs afgeleide, namen, wat CI controleert
+8. [Uitgave-bronnen](uitgave-bronnen/) — wat “Liturgikon”, “Meneon I”, “Koormap Groningen” betekenen
+9. [Woorden](woorden/)
+10. [Publicatiecontrole](publicatiecontrole/) — bron vs afgeleide, namen, wat CI controleert
 
 {{< navbuttons "Handleiding|/handleiding/" "Wat heb je nodig|/handleiding/start/wat-heb-je-nodig/" >}}
