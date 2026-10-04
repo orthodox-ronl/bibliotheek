@@ -71,7 +71,7 @@ al als `zangstuk-id`.
 | Soort | Voorbeeld-id | Betekenis |
 | --- | --- | --- |
 | Genre-emmer | `tropaar/zondag-toon-3/groningen` | Catalogus «Troparen»; elk werk = variant |
-| Liturgische familie | `ektinia/kleine/hemelum` | Familie «Ektinia»; soort ektinia = variant |
+| Liturgische familie | `ektinia/eerste-kleine/hemelum` | Familie «Ektinia»; soort ektinia = variant |
 | Familie + VO-code | `cherubijnenhymne/15c-kastorski/hemelum` | Setting/VO-label op variant |
 | Enkelvoudig werk | `eniggeboren-zoon/default/hemelum` | Eén stuk; `default` tot er een tweede setting is |
 
@@ -99,13 +99,14 @@ blijven geldig tot een bewuste hernoem-golf.
 
 1. **Ektinia’s** — Eén zangstuk-id `ektinia` (meervoud/familie).
    **Litanieën** is synoniem/alias in titels en zoeken, niet een tweede
-   canonieke id. Varianten = soort ektinia (`vrede`, `kleine`,
-   `vragend`, `dringend`, …).
+   canonieke id. Varianten = soort ektinia (`vrede`, `eerste-kleine`,
+   `tweede-kleine`, `vragend-16`, `vragend-22`, `dringend`, …).
 
 2. **Vragende ektinia** — `16-vragende-litanie` en `22-vragende-litanie`
-   zijn **hetzelfde werk**: één variant onder `ektinia` (bijv.
-   `ektinia/vragend/…`). De twee liturgische plekken zijn alleen
-   **koormap-slots** die naar datzelfde id wijzen.
+   zijn **twee varianten** onder `ektinia` (`vragend-16`, `vragend-22`):
+   dezelfde antwoorden, maar andere priester-`@tekst` en bij 16 wél een
+   slotamen. Per variant twee uitvoeringsvormen: `hemelum-nl` en
+   `hemelum-ksl`. Koormap-slots 16 en 22 wijzen naar hun eigen ids.
 
 3. **Kruis / «Heer, red Uw volk»** — `210-heer-red-uw-volk-en-zegen-uw-erfdeel`,
    tropaar-alias `heer-red-uw-volk` en `220-uw-heilig-kruis` horen bij de
@@ -200,9 +201,11 @@ houden). De Hugo-sectie heet **catalogus** (niet meer
 - Sitezoeken + lyrics-producten (zie [Zoeken](/catalogus/zoeken/)).
 - Eerste hernoem-golf: `110-tropaar` → `tropaar`, `120-kondak` → `kondak`.
 - Ektinia-golf: litanie-zangstukken geconsolideerd onder `ektinia`
-  (varianten `vrede`, `kleine`, `dringend`, `ontslapenen`, `catechumenen`,
-  `gelovigen`, `vragend`). `16` en `22` vragende → één variant; koormap-slots
-  blijven gescheiden. Script: `scripts/migrate_ektinia.py`.
+  (varianten o.a. `vrede`, `eerste-kleine`, `tweede-kleine`, `dringend`,
+  `ontslapenen`, `catechumenen`, `gelovigen`, `vragend-16`, `vragend-22`).
+  Vragende 16/22
+  zijn aparte varianten (andere priestertekst; 16 met slotamen); per
+  variant `hemelum-nl` + `hemelum-ksl`. Script: `scripts/migrate_ektinia.py`.
 - Cherubijnen-golf: `15-cherubijnenhymne` → `cherubijnenhymne`; variant-
   `linkTitle` met VO-label (bijv. «Kastorski (15c)»).
 - Trisagion-golf: `8-trisagion` → `trisagion`.

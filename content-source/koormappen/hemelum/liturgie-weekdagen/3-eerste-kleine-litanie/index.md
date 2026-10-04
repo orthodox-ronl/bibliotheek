@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # 3 Eerste Kleine Litanie / Ektinia
 
-{{< bieb id="ektinia/kleine/hemelum" >}}
+{{< bieb id="ektinia/eerste-kleine/hemelum" >}}

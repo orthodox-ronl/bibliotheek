@@ -1,13 +1,17 @@
----
-title: "12 Ontslapenen Litanie/Ektinia"
-linkTitle: "12 Ontslapenen Litanie/Ektinia"
+﻿---
+title: "12 Ontslapenen Litanie"
+linkTitle: "12 Ontslapenen Litanie"
 weight: 12
-publicatiestatus: voorzien
+publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 12 Ontslapenen Litanie/Ektinia (facultatief)
+# 12 Ontslapenen Litanie
 
-**Deze wordt alleen gezongen als het in de koorinstructie staat.**
+## Nederlands
 
-{{< bieb id="ektinia/ontslapenen/hemelum" >}}
+{{< bieb id="ektinia/ontslapenen/hemelum-nl" >}}
+
+## Kerkslavisch
+
+{{< bieb id="ektinia/ontslapenen/hemelum-ksl" >}}

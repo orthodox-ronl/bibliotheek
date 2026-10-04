@@ -19,6 +19,7 @@ Liturgiemap voor **zondag**. Weekdagen staan in
 |   2  | [Eerste Antifoon (zondag)](eerste-antifoon/) |
 |   3  | [Eerste Kleine Litanie / Ektinia](3-eerste-kleine-litanie/) |
 |   4  | [Tweede Antifoon (zondag)](tweede-antifoon/) |
+|  --  | [Tweede Kleine Litanie / Ektinia](4a-tweede-kleine-litanie/) |
 |   5  | [Eniggeboren Zoon...](eniggeboren-zoon/) |
 |   6  | [Derde Antifoon / Zaligsprekingen (zondag)](derde-antifoon/) |
 |   7  | [Kleine Intocht](kleine-intocht/) |
@@ -28,18 +29,18 @@ Liturgiemap voor **zondag**. Weekdagen staan in
 |  9a  | [Prokimen (zondag)](prokimen/) |
 |  9b  | [Alleluia](alleluia/) |
 |  10  | Evangelielezing *(voorzien)* |
-|  11  | Dringende Litanie/Ektinia *(voorzien)* |
-|  12  | Ontslapenen Litanie/Ektinia *(voorzien)* |
-|  13  | Catechumenen Litanie/Ektinia *(voorzien)* |
-|  14  | Gelovigen Litanie/Ektinia *(voorzien)* |
+|  11  | [Dringende Litanie](11-dringende-litanie/) |
+|  12  | [Ontslapenen Litanie](12-ontslapenen-litanie/) |
+|  13  | [Catechumenen Litanie](13-catechumenen-litanie/) |
+|  14  | [Gelovigen Litanie](14-gelovigen-litanie/) |
 |  15  | [Cherubijnenhymne](cherubijnenhymne/) |
-|  16  | Vragende Litanie/Ektinia *(voorzien)* |
+|  16  | [Vragende Litanie](16-vragende-litanie/) |
 |  17  | Vredeswens *(voorzien)* |
 |  18  | Geloofsbelijdenis *(voorzien)* |
 |  19  | [Eucharistische Canon (Feofan)](eucharistische-canon/) |
 |  20  | [Moeder Godslied](moeder-godslied/) |
 |  21  | En Allen *(voorzien)* |
-|  22  | Vragende Litanie/Ektinia *(voorzien)* |
+|  22  | [Vragende Litanie](22-vragende-litanie/) |
 |  23  | Onze Vader *(voorzien)* |
 |  24  | Een is Heilig *(voorzien)* |
 |  25  | [Communievers](communievers/) |

@@ -1,11 +1,17 @@
 ---
-title: "22 Vragende Litanie/Ektinia"
-linkTitle: "22 Vragende Litanie/Ektinia"
+title: "22 Vragende Litanie"
+linkTitle: "22 Vragende Litanie"
 weight: 22
-publicatiestatus: voorzien
+publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 22 Vragende Litanie/Ektinia
+# 22 Vragende Litanie
 
-{{< bieb id="ektinia/vragend/hemelum" >}}
+## Nederlands
+
+{{< bieb id="ektinia/vragend-22/hemelum-nl" >}}
+
+## Kerkslavisch
+
+{{< bieb id="ektinia/vragend-22/hemelum-ksl" >}}

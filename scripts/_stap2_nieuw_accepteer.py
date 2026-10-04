@@ -265,7 +265,7 @@ def clean_frontmatter(path: Path, ident: str) -> None:
     new: dict = {
         "do": "F4",
         "mode": "major",
-        "tempo": 120,
+        "tempo": 130,
         "soort": soort,
         "bron": {"uitgangspunt": uitgangspunt},
     }

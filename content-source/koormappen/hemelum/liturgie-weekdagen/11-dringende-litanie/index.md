@@ -1,11 +1,17 @@
----
-title: "11 Dringende Litanie/Ektinia"
-linkTitle: "11 Dringende Litanie/Ektinia"
+﻿---
+title: "11 Dringende Litanie"
+linkTitle: "11 Dringende Litanie"
 weight: 11
-publicatiestatus: voorzien
+publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 11 Dringende Litanie/Ektinia
+# 11 Dringende Litanie
 
-{{< bieb id="ektinia/dringend/hemelum" >}}
+## Nederlands
+
+{{< bieb id="ektinia/dringend/hemelum-nl" >}}
+
+## Kerkslavisch
+
+{{< bieb id="ektinia/dringend/hemelum-ksl" >}}

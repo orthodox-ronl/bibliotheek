@@ -9,7 +9,7 @@ weight: 10
 {{< cue >}}
 1. Kopieer een bestaand `.vsa` in de catalogus (bijvoorbeeld eerste antifoon weekdagen Hemelum).
 2. Zet het bestand in de catalogus-map; bestandsnaam zonder spaties (publicatiestam).
-3. Zet bovenaan YAML met minstens `do`, `mode` en `tempo: 120`.
+3. Zet bovenaan YAML met minstens `do`, `mode` en `tempo: 130`.
 4. `vsa validate pad\naar\bestand.vsa`
 5. Catalogus-`index.md` + slot-pagina (of compositieblad): shortcode `bieb` met de catalogus-id
 6. `scripts\check.cmd --strict` — maakt SVG (plaatje) én Coria-`.vsa.mxl`; commit `.vsa` + `.vsa.mxl` samen
@@ -76,7 +76,7 @@ zonder `--no-build`.
 ---
 do: F4
 mode: major
-tempo: 120
+tempo: 130
 ---
 ```
 

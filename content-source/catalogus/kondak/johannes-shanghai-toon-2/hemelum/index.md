@@ -1,10 +1,10 @@
 ---
-title: "Kondak Johannes Shanghai toon 2 (Hemelum)"
+title: "Kondak Johannes Shanghai en San Francisco (Hemelum)"
 linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Kondak Johannes Shanghai toon 2 (Hemelum)
+# Kondak Johannes Shanghai en San Francisco (Hemelum)
 
 {{< bieb id="kondak/johannes-shanghai-toon-2/hemelum" >}}

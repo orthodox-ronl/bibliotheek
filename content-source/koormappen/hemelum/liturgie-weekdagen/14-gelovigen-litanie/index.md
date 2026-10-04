@@ -1,14 +1,17 @@
----
-title: "14 Gelovigen Litanie/Ektinia"
-linkTitle: "14 Gelovigen Litanie/Ektinia"
+﻿---
+title: "14 Gelovigen Litanie"
+linkTitle: "14 Gelovigen Litanie"
 weight: 14
-publicatiestatus: voorzien
+publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 14 Gelovigen Litanie/Ektinia
+# 14 Gelovigen Litanie
 
-**Het eerste deel hiervan wordt alleen gedaan als er een of meer Diakens zijn.**
-**Het tweede deel doe we altijd (vanaf *Nogmaals ... bidden*)**
+## Nederlands
 
-{{< bieb id="ektinia/gelovigen/hemelum" >}}
+{{< bieb id="ektinia/gelovigen/hemelum-nl" >}}
+
+## Kerkslavisch
+
+{{< bieb id="ektinia/gelovigen/hemelum-ksl" >}}
