@@ -102,11 +102,12 @@ blijven geldig tot een bewuste hernoem-golf.
    canonieke id. Varianten = soort ektinia (`vrede`, `eerste-kleine`,
    `tweede-kleine`, `vragend-16`, `vragend-22`, `dringend`, …).
 
-2. **Vragende ektinia** — `16-vragende-litanie` en `22-vragende-litanie`
-   zijn **twee varianten** onder `ektinia` (`vragend-16`, `vragend-22`):
-   dezelfde antwoorden, maar andere priester-`@tekst` en bij 16 wél een
-   slotamen. Per variant twee uitvoeringsvormen: `hemelum-nl` en
-   `hemelum-ksl`. Koormap-slots 16 en 22 wijzen naar hun eigen ids.
+2. **Vragende ektinia** — koormap-slots `vragende-litanie-16` en
+   `vragende-litanie-22` zijn **twee varianten** onder `ektinia`
+   (`vragend-16`, `vragend-22`): dezelfde antwoorden, maar andere
+   priester-`@tekst` en bij 16 wél een slotamen. Per variant twee
+   uitvoeringsvormen: `hemelum-nl` en `hemelum-ksl`. De liturgienummers
+   16 en 22 staan in de `_index` van de liturgiemap.
 
 3. **Kruis / «Heer, red Uw volk»** — `210-heer-red-uw-volk-en-zegen-uw-erfdeel`,
    tropaar-alias `heer-red-uw-volk` en `220-uw-heilig-kruis` horen bij de
@@ -182,8 +183,10 @@ opmerkingen is alleen geschiedenis.
 
 Er staan geen genummerde top-level zangstuk-ids meer onder
 `content-source\catalogus\` (behalve variant-ids zoals `9a-…` /
-`15c-…` / `20d-…` en koormap-litanie-slots die bewust de pleknaam
-houden). De Hugo-sectie heet **catalogus** (niet meer
+`15c-…` / `20d-…`). Liturgienummers voor de volgorde staan in de
+`_index` van de liturgiemappen; de koormap-slotnamen zelf hebben
+geen voorvoegsel-cijfer meer (`vredeslitanie`, `vragende-litanie-16`,
+…). De Hugo-sectie heet **catalogus** (niet meer
 `content-source\bibliotheek\`).
 
 ### Geen zangstuk-taxonomie
