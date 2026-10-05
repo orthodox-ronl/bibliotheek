@@ -79,6 +79,13 @@
       "fix_cmd": "scripts\\audio-products.cmd",
       "issues": []
     },
+    "catalogus/communievers/looft-de-heer-in-de-hemelen/hemelum|communievers-looft-de-heer-in-de-hemelen-hemelum.mvsa.mp3": {
+      "source": "content-source/catalogus/communievers/looft-de-heer-in-de-hemelen/hemelum/communievers-looft-de-heer-in-de-hemelen-hemelum.mvsa",
+      "product": "content-source/catalogus/communievers/looft-de-heer-in-de-hemelen/hemelum/communievers-looft-de-heer-in-de-hemelen-hemelum.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\audio-products.cmd",
+      "issues": []
+    },
     "catalogus/communievers/moeder-gods-liturgikon/liturgikon|communievers-moeder-gods-liturgikon-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/communievers/moeder-gods-liturgikon/liturgikon/communievers-moeder-gods-liturgikon-liturgikon.vsa",
       "product": "content-source/catalogus/communievers/moeder-gods-liturgikon/liturgikon/communievers-moeder-gods-liturgikon-liturgikon.vsa.mp3",
@@ -110,67 +117,37 @@
     "catalogus/derde-antifoon/geboorte-moeder-gods/liturgikon|derde-antifoon-geboorte-moeder-gods-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/derde-antifoon/geboorte-moeder-gods/liturgikon/derde-antifoon-geboorte-moeder-gods-liturgikon.vsa",
       "product": "content-source/catalogus/derde-antifoon/geboorte-moeder-gods/liturgikon/derde-antifoon-geboorte-moeder-gods-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "unstamped_mp3",
-          "file": "content-source/catalogus/derde-antifoon/geboorte-moeder-gods/liturgikon/derde-antifoon-geboorte-moeder-gods-liturgikon.vsa.mp3",
-          "detail": "MP3 mist vsa-source-sha256 (opnieuw audio-products)"
-        }
-      ]
+      "issues": []
     },
     "catalogus/derde-antifoon/kruisverheffing/liturgikon|derde-antifoon-kruisverheffing-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/derde-antifoon/kruisverheffing/liturgikon/derde-antifoon-kruisverheffing-liturgikon.vsa",
       "product": "content-source/catalogus/derde-antifoon/kruisverheffing/liturgikon/derde-antifoon-kruisverheffing-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/derde-antifoon/kruisverheffing/liturgikon/derde-antifoon-kruisverheffing-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:05:27+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/derde-antifoon/ontslapen-moeder-gods/liturgikon|derde-antifoon-ontslapen-moeder-gods-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/derde-antifoon/ontslapen-moeder-gods/liturgikon/derde-antifoon-ontslapen-moeder-gods-liturgikon.vsa",
       "product": "content-source/catalogus/derde-antifoon/ontslapen-moeder-gods/liturgikon/derde-antifoon-ontslapen-moeder-gods-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/derde-antifoon/ontslapen-moeder-gods/liturgikon/derde-antifoon-ontslapen-moeder-gods-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:05:34+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/derde-antifoon/transfiguratie/liturgikon|derde-antifoon-transfiguratie-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/derde-antifoon/transfiguratie/liturgikon/derde-antifoon-transfiguratie-liturgikon.vsa",
       "product": "content-source/catalogus/derde-antifoon/transfiguratie/liturgikon/derde-antifoon-transfiguratie-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/derde-antifoon/transfiguratie/liturgikon/derde-antifoon-transfiguratie-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:05:41+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/derde-antifoon/weekdagen/hemelum|derde-antifoon-weekdagen-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/derde-antifoon/weekdagen/hemelum/derde-antifoon-weekdagen-hemelum.vsa",
       "product": "content-source/catalogus/derde-antifoon/weekdagen/hemelum/derde-antifoon-weekdagen-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/derde-antifoon/weekdagen/hemelum/derde-antifoon-weekdagen-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:05:48+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/derde-antifoon/zondag/hemelum|derde-antifoon-zondag-hemelum.mscz.mp3": {
       "source": "content-source/catalogus/derde-antifoon/zondag/hemelum/derde-antifoon-zondag-hemelum.mscz",
@@ -182,80 +159,44 @@
     "catalogus/eer-aan-de-vader/derde-antifoon/liturgikon|eer-aan-de-vader-derde-antifoon-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/eer-aan-de-vader/derde-antifoon/liturgikon/eer-aan-de-vader-derde-antifoon-liturgikon.vsa",
       "product": "content-source/catalogus/eer-aan-de-vader/derde-antifoon/liturgikon/eer-aan-de-vader-derde-antifoon-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/eer-aan-de-vader/derde-antifoon/liturgikon/eer-aan-de-vader-derde-antifoon-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:04:35+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/eer-aan-de-vader/eerste-antifoon/liturgikon|eer-aan-de-vader-eerste-antifoon-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/eer-aan-de-vader/eerste-antifoon/liturgikon/eer-aan-de-vader-eerste-antifoon-liturgikon.vsa",
       "product": "content-source/catalogus/eer-aan-de-vader/eerste-antifoon/liturgikon/eer-aan-de-vader-eerste-antifoon-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/eer-aan-de-vader/eerste-antifoon/liturgikon/eer-aan-de-vader-eerste-antifoon-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:04:40+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/eer-aan-de-vader/tweede-antifoon/liturgikon|eer-aan-de-vader-tweede-antifoon-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/eer-aan-de-vader/tweede-antifoon/liturgikon/eer-aan-de-vader-tweede-antifoon-liturgikon.vsa",
       "product": "content-source/catalogus/eer-aan-de-vader/tweede-antifoon/liturgikon/eer-aan-de-vader-tweede-antifoon-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/eer-aan-de-vader/tweede-antifoon/liturgikon/eer-aan-de-vader-tweede-antifoon-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:04:45+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/eerste-antifoon/geboorte-moeder-gods/liturgikon|eerste-antifoon-geboorte-moeder-gods-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/eerste-antifoon/geboorte-moeder-gods/liturgikon/eerste-antifoon-geboorte-moeder-gods-liturgikon.vsa",
       "product": "content-source/catalogus/eerste-antifoon/geboorte-moeder-gods/liturgikon/eerste-antifoon-geboorte-moeder-gods-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/eerste-antifoon/geboorte-moeder-gods/liturgikon/eerste-antifoon-geboorte-moeder-gods-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:05:55+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/eerste-antifoon/kruisverheffing/liturgikon|eerste-antifoon-kruisverheffing-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/eerste-antifoon/kruisverheffing/liturgikon/eerste-antifoon-kruisverheffing-liturgikon.vsa",
       "product": "content-source/catalogus/eerste-antifoon/kruisverheffing/liturgikon/eerste-antifoon-kruisverheffing-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/eerste-antifoon/kruisverheffing/liturgikon/eerste-antifoon-kruisverheffing-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:06:03+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/eerste-antifoon/transfiguratie/liturgikon|eerste-antifoon-transfiguratie-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/eerste-antifoon/transfiguratie/liturgikon/eerste-antifoon-transfiguratie-liturgikon.vsa",
       "product": "content-source/catalogus/eerste-antifoon/transfiguratie/liturgikon/eerste-antifoon-transfiguratie-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/eerste-antifoon/transfiguratie/liturgikon/eerste-antifoon-transfiguratie-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:06:12+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/eerste-antifoon/weekdagen/hemelum|eerste-antifoon-weekdagen.vsa.mp3": {
       "source": "content-source/catalogus/eerste-antifoon/weekdagen/hemelum/eerste-antifoon-weekdagen.vsa",
@@ -267,15 +208,9 @@
     "catalogus/eerste-antifoon/weekdagen/liturgikon|eerste-antifoon-weekdagen-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/eerste-antifoon/weekdagen/liturgikon/eerste-antifoon-weekdagen-liturgikon.vsa",
       "product": "content-source/catalogus/eerste-antifoon/weekdagen/liturgikon/eerste-antifoon-weekdagen-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/eerste-antifoon/weekdagen/liturgikon/eerste-antifoon-weekdagen-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-09-29T20:56:26+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/eerste-antifoon/zondag/hemelum|eerste-antifoon-zondag-hemelum.mscz.mp3": {
       "source": "content-source/catalogus/eerste-antifoon/zondag/hemelum/eerste-antifoon-zondag-hemelum.mscz",
@@ -350,15 +285,9 @@
     "catalogus/ektinia/tweede-kleine/hemelum|ektinia-tweede-kleine-hemelum.mvsa.mp3": {
       "source": "content-source/catalogus/ektinia/tweede-kleine/hemelum/ektinia-tweede-kleine-hemelum.mvsa",
       "product": "content-source/catalogus/ektinia/tweede-kleine/hemelum/ektinia-tweede-kleine-hemelum.mvsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/ektinia/tweede-kleine/hemelum/ektinia-tweede-kleine-hemelum.mvsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-04T21:24:43+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/ektinia/vragend-16/hemelum-ksl|ektinia-vragend-16-hemelum-ksl.mvsa.mp3": {
       "source": "content-source/catalogus/ektinia/vragend-16/hemelum-ksl/ektinia-vragend-16-hemelum-ksl.mvsa",
@@ -391,15 +320,16 @@
     "catalogus/ektinia/vrede/hemelum|ektinia-vrede-hemelum.mvsa.mp3": {
       "source": "content-source/catalogus/ektinia/vrede/hemelum/ektinia-vrede-hemelum.mvsa",
       "product": "content-source/catalogus/ektinia/vrede/hemelum/ektinia-vrede-hemelum.mvsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/ektinia/vrede/hemelum/ektinia-vrede-hemelum.mvsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-09-29T20:20:07+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
+    },
+    "catalogus/ektinia/vrede/hemelum-ksl|ektinia-vrede-hemelum-ksl.mvsa.mp3": {
+      "source": "content-source/catalogus/ektinia/vrede/hemelum-ksl/ektinia-vrede-hemelum-ksl.mvsa",
+      "product": "content-source/catalogus/ektinia/vrede/hemelum-ksl/ektinia-vrede-hemelum-ksl.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\audio-products.cmd",
+      "issues": []
     },
     "catalogus/eniggeboren-zoon/default/hemelum|eniggeboren-zoon-default-hemelum.mscz.mp3": {
       "source": "content-source/catalogus/eniggeboren-zoon/default/hemelum/eniggeboren-zoon-default-hemelum.mscz",
@@ -418,15 +348,9 @@
     "catalogus/kleine-intocht/kruisuitdraging/hemelum|kleine-intocht-kruisuitdraging-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/kleine-intocht/kruisuitdraging/hemelum/kleine-intocht-kruisuitdraging-hemelum.vsa",
       "product": "content-source/catalogus/kleine-intocht/kruisuitdraging/hemelum/kleine-intocht-kruisuitdraging-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kleine-intocht/kruisuitdraging/hemelum/kleine-intocht-kruisuitdraging-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:06:19+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kleine-intocht/moeder-gods/groningen|kleine-intocht-moeder-gods-groningen.mscz.mp3": {
       "source": "content-source/catalogus/kleine-intocht/moeder-gods/groningen/kleine-intocht-moeder-gods-groningen.mscz",
@@ -438,15 +362,9 @@
     "catalogus/kleine-intocht/transfiguratie/hemelum|kleine-intocht-transfiguratie-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/kleine-intocht/transfiguratie/hemelum/kleine-intocht-transfiguratie-hemelum.vsa",
       "product": "content-source/catalogus/kleine-intocht/transfiguratie/hemelum/kleine-intocht-transfiguratie-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kleine-intocht/transfiguratie/hemelum/kleine-intocht-transfiguratie-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:06:25+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kleine-intocht/weekdagen/hemelum|kleine-intocht-weekdagen-hemelum.mscz.mp3": {
       "source": "content-source/catalogus/kleine-intocht/weekdagen/hemelum/kleine-intocht-weekdagen-hemelum.mscz",
@@ -465,67 +383,37 @@
     "catalogus/kleine-intocht/zondag/hemelum|kleine-intocht-zondag-hemelum.mvsa.mp3": {
       "source": "content-source/catalogus/kleine-intocht/zondag/hemelum/kleine-intocht-zondag-hemelum.mvsa",
       "product": "content-source/catalogus/kleine-intocht/zondag/hemelum/kleine-intocht-zondag-hemelum.mvsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kleine-intocht/zondag/hemelum/kleine-intocht-zondag-hemelum.mvsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-09-29T14:33:25+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/apostel-andreas-toon-2/hemelum|kondak-apostel-andreas-toon-2-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/kondak/apostel-andreas-toon-2/hemelum/kondak-apostel-andreas-toon-2-hemelum.vsa",
       "product": "content-source/catalogus/kondak/apostel-andreas-toon-2/hemelum/kondak-apostel-andreas-toon-2-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/apostel-andreas-toon-2/hemelum/kondak-apostel-andreas-toon-2-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:06:33+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/apostel-thaddeos-toon-4/hemelum|kondak-apostel-thaddeos-toon-4-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/kondak/apostel-thaddeos-toon-4/hemelum/kondak-apostel-thaddeos-toon-4-hemelum.vsa",
       "product": "content-source/catalogus/kondak/apostel-thaddeos-toon-4/hemelum/kondak-apostel-thaddeos-toon-4-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/apostel-thaddeos-toon-4/hemelum/kondak-apostel-thaddeos-toon-4-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:06:41+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/dinsdag-toon-3/hemelum|kondak-dinsdag-toon-3-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/kondak/dinsdag-toon-3/hemelum/kondak-dinsdag-toon-3-hemelum.vsa",
       "product": "content-source/catalogus/kondak/dinsdag-toon-3/hemelum/kondak-dinsdag-toon-3-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/dinsdag-toon-3/hemelum/kondak-dinsdag-toon-3-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:06:48+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/donderdag-toon-2/hemelum|kondak-donderdag-toon-2-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/kondak/donderdag-toon-2/hemelum/kondak-donderdag-toon-2-hemelum.vsa",
       "product": "content-source/catalogus/kondak/donderdag-toon-2/hemelum/kondak-donderdag-toon-2-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/donderdag-toon-2/hemelum/kondak-donderdag-toon-2-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:06:55+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/geboorte-moeder-gods-toon-4/liturgikon|kondak-geboorte-moeder-gods-toon-4-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/kondak/geboorte-moeder-gods-toon-4/liturgikon/kondak-geboorte-moeder-gods-toon-4-liturgikon.vsa",
@@ -537,93 +425,51 @@
     "catalogus/kondak/heilig-kruis-toon-1/hemelum|kondak-heilig-kruis-toon-1-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/kondak/heilig-kruis-toon-1/hemelum/kondak-heilig-kruis-toon-1-hemelum.vsa",
       "product": "content-source/catalogus/kondak/heilig-kruis-toon-1/hemelum/kondak-heilig-kruis-toon-1-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/heilig-kruis-toon-1/hemelum/kondak-heilig-kruis-toon-1-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:07:10+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/icoon-moeder-gods-vladimir-toon-8/liturgikon|kondak-icoon-moeder-gods-vladimir-toon-8-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/kondak/icoon-moeder-gods-vladimir-toon-8/liturgikon/kondak-icoon-moeder-gods-vladimir-toon-8-liturgikon.vsa",
       "product": "content-source/catalogus/kondak/icoon-moeder-gods-vladimir-toon-8/liturgikon/kondak-icoon-moeder-gods-vladimir-toon-8-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/icoon-moeder-gods-vladimir-toon-8/liturgikon/kondak-icoon-moeder-gods-vladimir-toon-8-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:07:17+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/johannes-shanghai-toon-2/hemelum|kondak-johannes-shanghai-toon-2-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/kondak/johannes-shanghai-toon-2/hemelum/kondak-johannes-shanghai-toon-2-hemelum.vsa",
       "product": "content-source/catalogus/kondak/johannes-shanghai-toon-2/hemelum/kondak-johannes-shanghai-toon-2-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/johannes-shanghai-toon-2/hemelum/kondak-johannes-shanghai-toon-2-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:07:24+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/maandag-toon-2/hemelum|kondak-maandag-toon-2-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/kondak/maandag-toon-2/hemelum/kondak-maandag-toon-2-hemelum.vsa",
       "product": "content-source/catalogus/kondak/maandag-toon-2/hemelum/kondak-maandag-toon-2-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/maandag-toon-2/hemelum/kondak-maandag-toon-2-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:07:31+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/maria-magdalena-toon-3/liturgikon|kondak-maria-magdalena-toon-3-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/kondak/maria-magdalena-toon-3/liturgikon/kondak-maria-magdalena-toon-3-liturgikon.vsa",
       "product": "content-source/catalogus/kondak/maria-magdalena-toon-3/liturgikon/kondak-maria-magdalena-toon-3-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/maria-magdalena-toon-3/liturgikon/kondak-maria-magdalena-toon-3-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:07:38+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/maria-magdalena-toon-4/heiligenjaar|kondak-maria-magdalena-toon-4-heiligenjaar.vsa.mp3": {
       "source": "content-source/catalogus/kondak/maria-magdalena-toon-4/heiligenjaar/kondak-maria-magdalena-toon-4-heiligenjaar.vsa",
       "product": "content-source/catalogus/kondak/maria-magdalena-toon-4/heiligenjaar/kondak-maria-magdalena-toon-4-heiligenjaar.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/maria-magdalena-toon-4/heiligenjaar/kondak-maria-magdalena-toon-4-heiligenjaar.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:07:45+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/marina-grootmartelares-toon-3/hemelum|kondak-marina-grootmartelares-toon-3-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/kondak/marina-grootmartelares-toon-3/hemelum/kondak-marina-grootmartelares-toon-3-hemelum.vsa",
       "product": "content-source/catalogus/kondak/marina-grootmartelares-toon-3/hemelum/kondak-marina-grootmartelares-toon-3-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/marina-grootmartelares-toon-3/hemelum/kondak-marina-grootmartelares-toon-3-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:07:52+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/moeder-gods-toon-6/groningen|kondak-moeder-gods-toon-6-groningen.vsa.mp3": {
       "source": "content-source/catalogus/kondak/moeder-gods-toon-6/groningen/kondak-moeder-gods-toon-6-groningen.vsa",
@@ -635,145 +481,79 @@
     "catalogus/kondak/moeder-gods-toon-6/hemelum|kondak-moeder-gods-toon-6-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/kondak/moeder-gods-toon-6/hemelum/kondak-moeder-gods-toon-6-hemelum.vsa",
       "product": "content-source/catalogus/kondak/moeder-gods-toon-6/hemelum/kondak-moeder-gods-toon-6-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/moeder-gods-toon-6/hemelum/kondak-moeder-gods-toon-6-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-09-29T20:59:30+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/nikolaas-van-myra-toon-3/hemelum|kondak-nikolaas-van-myra-toon-3-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/kondak/nikolaas-van-myra-toon-3/hemelum/kondak-nikolaas-van-myra-toon-3-hemelum.vsa",
       "product": "content-source/catalogus/kondak/nikolaas-van-myra-toon-3/hemelum/kondak-nikolaas-van-myra-toon-3-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/nikolaas-van-myra-toon-3/hemelum/kondak-nikolaas-van-myra-toon-3-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:07:58+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/onthoofding-johannes-de-doper-toon-5/hemelum|kondak-onthoofding-johannes-de-doper-toon-5-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/kondak/onthoofding-johannes-de-doper-toon-5/hemelum/kondak-onthoofding-johannes-de-doper-toon-5-hemelum.vsa",
       "product": "content-source/catalogus/kondak/onthoofding-johannes-de-doper-toon-5/hemelum/kondak-onthoofding-johannes-de-doper-toon-5-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/onthoofding-johannes-de-doper-toon-5/hemelum/kondak-onthoofding-johannes-de-doper-toon-5-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:08:04+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/ontslapen-moeder-gods-toon-2/liturgikon|kondak-ontslapen-moeder-gods-toon-2-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/kondak/ontslapen-moeder-gods-toon-2/liturgikon/kondak-ontslapen-moeder-gods-toon-2-liturgikon.vsa",
       "product": "content-source/catalogus/kondak/ontslapen-moeder-gods-toon-2/liturgikon/kondak-ontslapen-moeder-gods-toon-2-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/ontslapen-moeder-gods-toon-2/liturgikon/kondak-ontslapen-moeder-gods-toon-2-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:08:10+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/profeet-elia-toon-2/liturgikon|kondak-profeet-elia-toon-2-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/kondak/profeet-elia-toon-2/liturgikon/kondak-profeet-elia-toon-2-liturgikon.vsa",
       "product": "content-source/catalogus/kondak/profeet-elia-toon-2/liturgikon/kondak-profeet-elia-toon-2-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/profeet-elia-toon-2/liturgikon/kondak-profeet-elia-toon-2-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:08:15+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/silouan-de-athoniet-toon-4/asten|kondak-silouan-de-athoniet-toon-4-asten.vsa.mp3": {
       "source": "content-source/catalogus/kondak/silouan-de-athoniet-toon-4/asten/kondak-silouan-de-athoniet-toon-4-asten.vsa",
       "product": "content-source/catalogus/kondak/silouan-de-athoniet-toon-4/asten/kondak-silouan-de-athoniet-toon-4-asten.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/silouan-de-athoniet-toon-4/asten/kondak-silouan-de-athoniet-toon-4-asten.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:08:21+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/tempelgang-moeder-gods-toon-4/hemelum|kondak-tempelgang-moeder-gods-toon-4-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/kondak/tempelgang-moeder-gods-toon-4/hemelum/kondak-tempelgang-moeder-gods-toon-4-hemelum.vsa",
       "product": "content-source/catalogus/kondak/tempelgang-moeder-gods-toon-4/hemelum/kondak-tempelgang-moeder-gods-toon-4-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/tempelgang-moeder-gods-toon-4/hemelum/kondak-tempelgang-moeder-gods-toon-4-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:08:27+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/transfiguratie-toon-7/liturgikon|kondak-transfiguratie-toon-7-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/kondak/transfiguratie-toon-7/liturgikon/kondak-transfiguratie-toon-7-liturgikon.vsa",
       "product": "content-source/catalogus/kondak/transfiguratie-toon-7/liturgikon/kondak-transfiguratie-toon-7-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/transfiguratie-toon-7/liturgikon/kondak-transfiguratie-toon-7-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:08:33+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/vera-nadjezjda-ljoebov/hemelum|kondak-vera-nadjezjda-ljoebov-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/kondak/vera-nadjezjda-ljoebov/hemelum/kondak-vera-nadjezjda-ljoebov-hemelum.vsa",
       "product": "content-source/catalogus/kondak/vera-nadjezjda-ljoebov/hemelum/kondak-vera-nadjezjda-ljoebov-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/vera-nadjezjda-ljoebov/hemelum/kondak-vera-nadjezjda-ljoebov-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:08:40+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/zaterdag-gestorvenen-toon-8/hemelum|kondak-zaterdag-gestorvenen-toon-8-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/kondak/zaterdag-gestorvenen-toon-8/hemelum/kondak-zaterdag-gestorvenen-toon-8-hemelum.vsa",
       "product": "content-source/catalogus/kondak/zaterdag-gestorvenen-toon-8/hemelum/kondak-zaterdag-gestorvenen-toon-8-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/zaterdag-gestorvenen-toon-8/hemelum/kondak-zaterdag-gestorvenen-toon-8-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:08:46+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/zaterdag-heiligen-toon-8/hemelum|kondak-zaterdag-heiligen-toon-8-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/kondak/zaterdag-heiligen-toon-8/hemelum/kondak-zaterdag-heiligen-toon-8-hemelum.vsa",
       "product": "content-source/catalogus/kondak/zaterdag-heiligen-toon-8/hemelum/kondak-zaterdag-heiligen-toon-8-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/kondak/zaterdag-heiligen-toon-8/hemelum/kondak-zaterdag-heiligen-toon-8-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:08:52+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/zondag-toon-1/groningen|kondak-zondag-toon-1-groningen.vsa.mp3": {
       "source": "content-source/catalogus/kondak/zondag-toon-1/groningen/kondak-zondag-toon-1-groningen.vsa",
@@ -848,171 +628,93 @@
     "catalogus/prijslied/geboorte-moeder-gods/meneon-1|prijslied-geboorte-moeder-gods-meneon-1.vsa.mp3": {
       "source": "content-source/catalogus/prijslied/geboorte-moeder-gods/meneon-1/prijslied-geboorte-moeder-gods-meneon-1.vsa",
       "product": "content-source/catalogus/prijslied/geboorte-moeder-gods/meneon-1/prijslied-geboorte-moeder-gods-meneon-1.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/prijslied/geboorte-moeder-gods/meneon-1/prijslied-geboorte-moeder-gods-meneon-1.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:09:04+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/prijslied/gregorios-van-utrecht/hemelum|prijslied-gregorios-van-utrecht-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/prijslied/gregorios-van-utrecht/hemelum/prijslied-gregorios-van-utrecht-hemelum.vsa",
       "product": "content-source/catalogus/prijslied/gregorios-van-utrecht/hemelum/prijslied-gregorios-van-utrecht-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/prijslied/gregorios-van-utrecht/hemelum/prijslied-gregorios-van-utrecht-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:09:10+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/prijslied/gregorios-van-utrecht/hemelum-ksl|prijslied-gregorios-van-utrecht-hemelum-ksl.vsa.mp3": {
       "source": "content-source/catalogus/prijslied/gregorios-van-utrecht/hemelum-ksl/prijslied-gregorios-van-utrecht-hemelum-ksl.vsa",
       "product": "content-source/catalogus/prijslied/gregorios-van-utrecht/hemelum-ksl/prijslied-gregorios-van-utrecht-hemelum-ksl.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/prijslied/gregorios-van-utrecht/hemelum-ksl/prijslied-gregorios-van-utrecht-hemelum-ksl.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:09:15+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/prijslied/icoon-moeder-gods-vladimir/hemelum|prijslied-icoon-moeder-gods-vladimir-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/prijslied/icoon-moeder-gods-vladimir/hemelum/prijslied-icoon-moeder-gods-vladimir-hemelum.vsa",
       "product": "content-source/catalogus/prijslied/icoon-moeder-gods-vladimir/hemelum/prijslied-icoon-moeder-gods-vladimir-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/prijslied/icoon-moeder-gods-vladimir/hemelum/prijslied-icoon-moeder-gods-vladimir-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:09:21+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/prijslied/icoon-moeder-gods-vladimir/meneon-1|prijslied-icoon-moeder-gods-vladimir-meneon-1.vsa.mp3": {
       "source": "content-source/catalogus/prijslied/icoon-moeder-gods-vladimir/meneon-1/prijslied-icoon-moeder-gods-vladimir-meneon-1.vsa",
       "product": "content-source/catalogus/prijslied/icoon-moeder-gods-vladimir/meneon-1/prijslied-icoon-moeder-gods-vladimir-meneon-1.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/prijslied/icoon-moeder-gods-vladimir/meneon-1/prijslied-icoon-moeder-gods-vladimir-meneon-1.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:09:27+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/prijslied/johannes-de-voorloper/hemelum|prijslied-johannes-de-voorloper-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/prijslied/johannes-de-voorloper/hemelum/prijslied-johannes-de-voorloper-hemelum.vsa",
       "product": "content-source/catalogus/prijslied/johannes-de-voorloper/hemelum/prijslied-johannes-de-voorloper-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/prijslied/johannes-de-voorloper/hemelum/prijslied-johannes-de-voorloper-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-09-29T20:57:44+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/prokimen/9a-dinsdag/groningen|prokimen-9a-dinsdag-groningen.vsa.mp3": {
       "source": "content-source/catalogus/prokimen/9a-dinsdag/groningen/prokimen-9a-dinsdag-groningen.vsa",
       "product": "content-source/catalogus/prokimen/9a-dinsdag/groningen/prokimen-9a-dinsdag-groningen.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/prokimen/9a-dinsdag/groningen/prokimen-9a-dinsdag-groningen.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:09:32+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/prokimen/9a-donderdag/groningen|prokimen-9a-donderdag-groningen.vsa.mp3": {
       "source": "content-source/catalogus/prokimen/9a-donderdag/groningen/prokimen-9a-donderdag-groningen.vsa",
       "product": "content-source/catalogus/prokimen/9a-donderdag/groningen/prokimen-9a-donderdag-groningen.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/prokimen/9a-donderdag/groningen/prokimen-9a-donderdag-groningen.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-09-30T21:46:34+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/prokimen/9a-maandag/groningen|prokimen-9a-maandag-groningen.vsa.mp3": {
       "source": "content-source/catalogus/prokimen/9a-maandag/groningen/prokimen-9a-maandag-groningen.vsa",
       "product": "content-source/catalogus/prokimen/9a-maandag/groningen/prokimen-9a-maandag-groningen.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/prokimen/9a-maandag/groningen/prokimen-9a-maandag-groningen.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-09-30T21:46:40+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/prokimen/9a-vrijdag/groningen|prokimen-9a-vrijdag-groningen.vsa.mp3": {
       "source": "content-source/catalogus/prokimen/9a-vrijdag/groningen/prokimen-9a-vrijdag-groningen.vsa",
       "product": "content-source/catalogus/prokimen/9a-vrijdag/groningen/prokimen-9a-vrijdag-groningen.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/prokimen/9a-vrijdag/groningen/prokimen-9a-vrijdag-groningen.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-09-30T21:46:46+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/prokimen/9a-woensdag/groningen|prokimen-9a-woensdag-groningen.vsa.mp3": {
       "source": "content-source/catalogus/prokimen/9a-woensdag/groningen/prokimen-9a-woensdag-groningen.vsa",
       "product": "content-source/catalogus/prokimen/9a-woensdag/groningen/prokimen-9a-woensdag-groningen.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/prokimen/9a-woensdag/groningen/prokimen-9a-woensdag-groningen.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:09:37+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/prokimen/9a-zaterdag/groningen|prokimen-9a-zaterdag-groningen.vsa.mp3": {
       "source": "content-source/catalogus/prokimen/9a-zaterdag/groningen/prokimen-9a-zaterdag-groningen.vsa",
       "product": "content-source/catalogus/prokimen/9a-zaterdag/groningen/prokimen-9a-zaterdag-groningen.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/prokimen/9a-zaterdag/groningen/prokimen-9a-zaterdag-groningen.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-09-30T21:46:58+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/prokimen/transfiguratie-toon-4/hemelum|prokimen-transfiguratie-toon-4-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/prokimen/transfiguratie-toon-4/hemelum/prokimen-transfiguratie-toon-4-hemelum.vsa",
       "product": "content-source/catalogus/prokimen/transfiguratie-toon-4/hemelum/prokimen-transfiguratie-toon-4-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/prokimen/transfiguratie-toon-4/hemelum/prokimen-transfiguratie-toon-4-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:09:42+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/trisagion/8a-nederlands/hemelum|trisagion-8a-nederlands-hemelum.mscz.mp3": {
       "source": "content-source/catalogus/trisagion/8a-nederlands/hemelum/trisagion-8a-nederlands-hemelum.mscz",
@@ -1038,67 +740,37 @@
     "catalogus/tropaar/apostel-andreas-toon-4/hemelum|tropaar-apostel-andreas-toon-4-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/apostel-andreas-toon-4/hemelum/tropaar-apostel-andreas-toon-4-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/apostel-andreas-toon-4/hemelum/tropaar-apostel-andreas-toon-4-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/apostel-andreas-toon-4/hemelum/tropaar-apostel-andreas-toon-4-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:09:48+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/besnijdenis-des-heren-toon-2/hemelum|tropaar-besnijdenis-des-heren-toon-2-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/besnijdenis-des-heren-toon-2/hemelum/tropaar-besnijdenis-des-heren-toon-2-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/besnijdenis-des-heren-toon-2/hemelum/tropaar-besnijdenis-des-heren-toon-2-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/besnijdenis-des-heren-toon-2/hemelum/tropaar-besnijdenis-des-heren-toon-2-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:09:55+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/dinsdag-toon-2/hemelum|tropaar-dinsdag-toon-2-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/dinsdag-toon-2/hemelum/tropaar-dinsdag-toon-2-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/dinsdag-toon-2/hemelum/tropaar-dinsdag-toon-2-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/dinsdag-toon-2/hemelum/tropaar-dinsdag-toon-2-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:10:03+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/donderdag-toon-3/hemelum|tropaar-donderdag-toon-3-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/donderdag-toon-3/hemelum/tropaar-donderdag-toon-3-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/donderdag-toon-3/hemelum/tropaar-donderdag-toon-3-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/donderdag-toon-3/hemelum/tropaar-donderdag-toon-3-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:10:10+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/geboorte-johannes-de-voorloper-toon-4/hemelum|tropaar-geboorte-johannes-de-voorloper-toon-4-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/geboorte-johannes-de-voorloper-toon-4/hemelum/tropaar-geboorte-johannes-de-voorloper-toon-4-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/geboorte-johannes-de-voorloper-toon-4/hemelum/tropaar-geboorte-johannes-de-voorloper-toon-4-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/geboorte-johannes-de-voorloper-toon-4/hemelum/tropaar-geboorte-johannes-de-voorloper-toon-4-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:10:17+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/geboorte-mg-toon-4/meneon-i-den-haag|tropaar-geboorte-mg-toon-4-meneon-i-den-haag.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/geboorte-mg-toon-4/meneon-i-den-haag/tropaar-geboorte-mg-toon-4-meneon-i-den-haag.vsa",
@@ -1110,28 +782,16 @@
     "catalogus/tropaar/gregorios-van-utrecht-toon-4/hemelum|tropaar-gregorios-van-utrecht-toon-4-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/gregorios-van-utrecht-toon-4/hemelum/tropaar-gregorios-van-utrecht-toon-4-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/gregorios-van-utrecht-toon-4/hemelum/tropaar-gregorios-van-utrecht-toon-4-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/gregorios-van-utrecht-toon-4/hemelum/tropaar-gregorios-van-utrecht-toon-4-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:10:31+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/heer-red-uw-volk/hemelum|tropaar-heer-red-uw-volk-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/heer-red-uw-volk/hemelum/tropaar-heer-red-uw-volk-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/heer-red-uw-volk/hemelum/tropaar-heer-red-uw-volk-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/heer-red-uw-volk/hemelum/tropaar-heer-red-uw-volk-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:10:37+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/heer-red-uw-volk/liturgikon|tropaar-heer-red-uw-volk-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/heer-red-uw-volk/liturgikon/tropaar-heer-red-uw-volk-liturgikon.vsa",
@@ -1150,197 +810,107 @@
     "catalogus/tropaar/heilig-kruis-toon-1/hemelum|tropaar-heilig-kruis-toon-1-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/heilig-kruis-toon-1/hemelum/tropaar-heilig-kruis-toon-1-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/heilig-kruis-toon-1/hemelum/tropaar-heilig-kruis-toon-1-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/heilig-kruis-toon-1/hemelum/tropaar-heilig-kruis-toon-1-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:10:49+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/heilige-martelaren-toon-4/hemelum|tropaar-heilige-martelaren-toon-4-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/heilige-martelaren-toon-4/hemelum/tropaar-heilige-martelaren-toon-4-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/heilige-martelaren-toon-4/hemelum/tropaar-heilige-martelaren-toon-4-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/heilige-martelaren-toon-4/hemelum/tropaar-heilige-martelaren-toon-4-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:10:55+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/icoon-moeder-gods-vladimir-toon-4/hemelum|tropaar-icoon-moeder-gods-vladimir-toon-4-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/icoon-moeder-gods-vladimir-toon-4/hemelum/tropaar-icoon-moeder-gods-vladimir-toon-4-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/icoon-moeder-gods-vladimir-toon-4/hemelum/tropaar-icoon-moeder-gods-vladimir-toon-4-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/icoon-moeder-gods-vladimir-toon-4/hemelum/tropaar-icoon-moeder-gods-vladimir-toon-4-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:11:02+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/johannes-van-shanghai-en-san-francisco/hemelum|tropaar-johannes-van-shanghai-en-san-francisco-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/johannes-van-shanghai-en-san-francisco/hemelum/tropaar-johannes-van-shanghai-en-san-francisco-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/johannes-van-shanghai-en-san-francisco/hemelum/tropaar-johannes-van-shanghai-en-san-francisco-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/johannes-van-shanghai-en-san-francisco/hemelum/tropaar-johannes-van-shanghai-en-san-francisco-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:11:08+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/maandag-toon-4/hemelum|tropaar-maandag-toon-4-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/maandag-toon-4/hemelum/tropaar-maandag-toon-4-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/maandag-toon-4/hemelum/tropaar-maandag-toon-4-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/maandag-toon-4/hemelum/tropaar-maandag-toon-4-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:11:15+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/mantel-moeder-gods-toon-4/hemelum|tropaar-mantel-moeder-gods-toon-4-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/mantel-moeder-gods-toon-4/hemelum/tropaar-mantel-moeder-gods-toon-4-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/mantel-moeder-gods-toon-4/hemelum/tropaar-mantel-moeder-gods-toon-4-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/mantel-moeder-gods-toon-4/hemelum/tropaar-mantel-moeder-gods-toon-4-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:11:21+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/maria-magdalena-toon-1/heiligenjaar|tropaar-maria-magdalena-toon-1-heiligenjaar.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/maria-magdalena-toon-1/heiligenjaar/tropaar-maria-magdalena-toon-1-heiligenjaar.vsa",
       "product": "content-source/catalogus/tropaar/maria-magdalena-toon-1/heiligenjaar/tropaar-maria-magdalena-toon-1-heiligenjaar.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/maria-magdalena-toon-1/heiligenjaar/tropaar-maria-magdalena-toon-1-heiligenjaar.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:11:27+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/maria-magdalena-toon-1/liturgikon|tropaar-maria-magdalena-toon-1-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/maria-magdalena-toon-1/liturgikon/tropaar-maria-magdalena-toon-1-liturgikon.vsa",
       "product": "content-source/catalogus/tropaar/maria-magdalena-toon-1/liturgikon/tropaar-maria-magdalena-toon-1-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/maria-magdalena-toon-1/liturgikon/tropaar-maria-magdalena-toon-1-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:11:34+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum|tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:11:40+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/nikolaas-van-myra/liturgikon|tropaar-nikolaas-van-myra-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/nikolaas-van-myra/liturgikon/tropaar-nikolaas-van-myra-liturgikon.vsa",
       "product": "content-source/catalogus/tropaar/nikolaas-van-myra/liturgikon/tropaar-nikolaas-van-myra-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/nikolaas-van-myra/liturgikon/tropaar-nikolaas-van-myra-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:11:47+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/ontslapen-moeder-gods-toon-1/hemelum|tropaar-ontslapen-moeder-gods-toon-1-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/ontslapen-moeder-gods-toon-1/hemelum/tropaar-ontslapen-moeder-gods-toon-1-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/ontslapen-moeder-gods-toon-1/hemelum/tropaar-ontslapen-moeder-gods-toon-1-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/ontslapen-moeder-gods-toon-1/hemelum/tropaar-ontslapen-moeder-gods-toon-1-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:11:53+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/profeet-elia-toon-4/liturgikon|tropaar-profeet-elia-toon-4-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/profeet-elia-toon-4/liturgikon/tropaar-profeet-elia-toon-4-liturgikon.vsa",
       "product": "content-source/catalogus/tropaar/profeet-elia-toon-4/liturgikon/tropaar-profeet-elia-toon-4-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/profeet-elia-toon-4/liturgikon/tropaar-profeet-elia-toon-4-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:11:59+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/silouan-de-athoniet-toon-4/asten|tropaar-silouan-de-athoniet-toon-4-asten.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/silouan-de-athoniet-toon-4/asten/tropaar-silouan-de-athoniet-toon-4-asten.vsa",
       "product": "content-source/catalogus/tropaar/silouan-de-athoniet-toon-4/asten/tropaar-silouan-de-athoniet-toon-4-asten.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/silouan-de-athoniet-toon-4/asten/tropaar-silouan-de-athoniet-toon-4-asten.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:12:04+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/tempelgang-moeder-gods-toon-4/hemelum|tropaar-tempelgang-moeder-gods-toon-4-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/tempelgang-moeder-gods-toon-4/hemelum/tropaar-tempelgang-moeder-gods-toon-4-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/tempelgang-moeder-gods-toon-4/hemelum/tropaar-tempelgang-moeder-gods-toon-4-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/tempelgang-moeder-gods-toon-4/hemelum/tropaar-tempelgang-moeder-gods-toon-4-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:12:10+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/transfiguratie-toon-7/hemelum|tropaar-transfiguratie-toon-7-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/transfiguratie-toon-7/hemelum/tropaar-transfiguratie-toon-7-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/transfiguratie-toon-7/hemelum/tropaar-transfiguratie-toon-7-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/transfiguratie-toon-7/hemelum/tropaar-transfiguratie-toon-7-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:12:16+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/uw-heilig-kruis/groningen|tropaar-uw-heilig-kruis-groningen.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/uw-heilig-kruis/groningen/tropaar-uw-heilig-kruis-groningen.vsa",
@@ -1359,15 +929,9 @@
     "catalogus/tropaar/uw-heilig-kruis/hemelum|tropaar-uw-heilig-kruis-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/uw-heilig-kruis/hemelum/tropaar-uw-heilig-kruis-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/uw-heilig-kruis/hemelum/tropaar-uw-heilig-kruis-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/uw-heilig-kruis/hemelum/tropaar-uw-heilig-kruis-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-01T10:44:18+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/uw-heilig-kruis/liturgikon|tropaar-uw-heilig-kruis-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/uw-heilig-kruis/liturgikon/tropaar-uw-heilig-kruis-liturgikon.vsa",
@@ -1386,28 +950,16 @@
     "catalogus/tropaar/zaterdag-gestorvenen-toon-2/hemelum|tropaar-zaterdag-gestorvenen-toon-2-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/zaterdag-gestorvenen-toon-2/hemelum/tropaar-zaterdag-gestorvenen-toon-2-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/zaterdag-gestorvenen-toon-2/hemelum/tropaar-zaterdag-gestorvenen-toon-2-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/zaterdag-gestorvenen-toon-2/hemelum/tropaar-zaterdag-gestorvenen-toon-2-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:12:38+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum|tropaar-zaterdag-heiligen-toon-2-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum/tropaar-zaterdag-heiligen-toon-2-hemelum.vsa",
       "product": "content-source/catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum/tropaar-zaterdag-heiligen-toon-2-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum/tropaar-zaterdag-heiligen-toon-2-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:12:44+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/zondag-toon-1/groningen|tropaar-zondag-toon-1-groningen.vsa.mp3": {
       "source": "content-source/catalogus/tropaar/zondag-toon-1/groningen/tropaar-zondag-toon-1-groningen.vsa",
@@ -1468,54 +1020,30 @@
     "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon|tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon/tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa",
       "product": "content-source/catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon/tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon/tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:12:51+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tweede-antifoon/kruisverheffing/liturgikon|tweede-antifoon-kruisverheffing-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/tweede-antifoon/kruisverheffing/liturgikon/tweede-antifoon-kruisverheffing-liturgikon.vsa",
       "product": "content-source/catalogus/tweede-antifoon/kruisverheffing/liturgikon/tweede-antifoon-kruisverheffing-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tweede-antifoon/kruisverheffing/liturgikon/tweede-antifoon-kruisverheffing-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:12:58+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tweede-antifoon/transfiguratie/liturgikon|tweede-antifoon-transfiguratie-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/tweede-antifoon/transfiguratie/liturgikon/tweede-antifoon-transfiguratie-liturgikon.vsa",
       "product": "content-source/catalogus/tweede-antifoon/transfiguratie/liturgikon/tweede-antifoon-transfiguratie-liturgikon.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tweede-antifoon/transfiguratie/liturgikon/tweede-antifoon-transfiguratie-liturgikon.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:13:05+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tweede-antifoon/weekdagen/hemelum|tweede-antifoon-weekdagen-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/tweede-antifoon/weekdagen/hemelum/tweede-antifoon-weekdagen-hemelum.vsa",
       "product": "content-source/catalogus/tweede-antifoon/weekdagen/hemelum/tweede-antifoon-weekdagen-hemelum.vsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/tweede-antifoon/weekdagen/hemelum/tweede-antifoon-weekdagen-hemelum.vsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-10-03T08:13:12+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tweede-antifoon/zondag/hemelum|tweede-antifoon-zondag-hemelum.mscz.mp3": {
       "source": "content-source/catalogus/tweede-antifoon/zondag/hemelum/tweede-antifoon-zondag-hemelum.mscz",

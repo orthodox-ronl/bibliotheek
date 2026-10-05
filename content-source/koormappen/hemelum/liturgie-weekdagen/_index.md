@@ -16,17 +16,17 @@ Liturgiemap voor **weekdagen**. Zondag staat in
 |  Nr  | Titel |
 | ---: | :---- |
 |   1  | [Vredeslitanie](vredeslitanie/) |
-|   2  | [Eerste Antifoon (weekdagen)](eerste-antifoon/) |
+|   2  | [Eerste Antifoon](eerste-antifoon/) |
 |   3  | [Eerste Kleine Litanie](eerste-kleine-litanie/) |
-|   4  | [Tweede Antifoon (weekdagen)](tweede-antifoon/) |
+|   4  | [Tweede Antifoon](tweede-antifoon/) |
 |  --  | [Tweede Kleine Litanie](tweede-kleine-litanie/) |
-|   5  | [Eniggeboren Zoon...](eniggeboren-zoon/) |
-|   6  | [Derde Antifoon (weekdagen)](derde-antifoon/) |
+|   5  | [Eniggeboren Zoon](eniggeboren-zoon/) |
+|   6  | [Derde Antifoon](derde-antifoon/) |
 |   7  | [Kleine Intocht](kleine-intocht/) |
 |  --  | [Troparen en Kondaken](troparen-en-kondaken/) |
 |  --  | [Dialoog met de Diaken](dialoog-met-diaken/) |
 |   8  | [Trisagion](trisagion/) |
-|  9a  | [Prokimen (weekdagen)](prokimen/) |
+|  9a  | [Prokimen](prokimen/) |
 |  9b  | [Alleluia](alleluia/) |
 |  10  | Evangelielezing *(voorzien)* |
 |  11  | [Dringende Litanie](dringende-litanie/) |
@@ -37,7 +37,7 @@ Liturgiemap voor **weekdagen**. Zondag staat in
 |  16  | [Vragende Litanie](vragende-litanie-16/) |
 |  17  | Vredeswens *(voorzien)* |
 |  18  | Geloofsbelijdenis *(voorzien)* |
-|  19  | [Eucharistische Canon (Feofan)](eucharistische-canon/) |
+|  19  | [Eucharistische Canon](eucharistische-canon/) |
 |  20  | [Moeder Godslied](moeder-godslied/) |
 |  21  | En Allen *(voorzien)* |
 |  22  | [Vragende Litanie](vragende-litanie-22/) |
