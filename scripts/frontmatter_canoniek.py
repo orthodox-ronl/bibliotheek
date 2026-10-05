@@ -33,6 +33,7 @@ ALLOWED_TOP = {
     "gelegenheden",
     "bron",
     "corpus_id",
+    "gebruikt-in",
     "zoek",
     # Tijdelijk plat tot tooling `afspelen` leest
     "do",

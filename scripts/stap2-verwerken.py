@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Stap2 afronden volgens afspraak:
+"""Stap2 afronden (historisch) volgens afspraak:
+
+De map ``content-source/input/vsa-demo/`` is na opname verwijderd.
+Verslag: ``docs/history/vsa-demo-opname.md``.
 
 1. Duplicaatgroepen -> 1 VSA met geintegreerde metadata
 2. al-in-bieb -> metadata in catalogus, daarna weg uit _stap2

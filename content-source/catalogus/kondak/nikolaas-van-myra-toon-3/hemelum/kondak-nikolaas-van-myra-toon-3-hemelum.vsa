@@ -2,46 +2,20 @@
 do: F4
 mode: major
 tempo: 130
-herkomst_vsa_demo:
-  soort: kondak
-  korte_titel: h-nikolaas-van-myra-6-december
-  duplicaat_groep: dup-027
-  bronnen:
-    - bestand: kondak-h-nikolaas-van-myra-6-december-12-06-nikolaas-van-myra-hemelum-n02.vsa
-      bron_md: feesteigen/12-06-nikolaas-van-myra-hemelum.md
-      headers:
-        - Kondak (Toon 3)
-      bron_md_frontmatter: |
-        title: "H. Nikolaas van Myra (6 December)"
-        feestdag: "6 dec"
-        source: "Hemelum"
-        layout: "feesteigen-pagina"
-    - bestand: kondak-h-nikolaas-van-myra-6-december-12-06-nikolaas-van-myra-liturgikon-n02.vsa
-      bron_md: feesteigen/12-06-nikolaas-van-myra-liturgikon.md
-      headers:
-        - Kondak (Toon 3)
-      bron_md_frontmatter: |
-        title: "H. Nikolaas van Myra (6 December)"
-        feestdag: "6 dec"
-        source: "Liturgikon"
-        layout: "feesteigen-pagina"
-    - bestand: kondak-h-nikolaas-van-myra-6-december-tropaar-kondak-nikolaas-van-myra-n02.vsa
-      bron_md: hemelum-eigen/tropaar-kondak-nikolaas-van-myra.md
-      headers:
-        - H. Nikolaas van Myra
-        - KONDAK (Toon 3)
-      bron_md_frontmatter: |
-        title: "H. Nikolaas van Myra (6 December)"
-        source: "Liturgikon"
+bron:
+  uitgangspunt: Liturgikon
+  bewerking: zetting/praktijk Hemelum
+soort: kondak
+toon: 3
+taal: nl
+partituur:
+  arranger: Hemelum
+gelegenheid: 6 dec — Nikolaas van Myra
 ---
 
 <!-- Kondak H. Nikolaas van Myra, Toon 3 (Liturgikon, p283) -->
-<!-- Bronbestand: content-source/praktijk/hemelum-eigen/tropaar-kondak-nikolaas-van-myra.md -->
 <!-- Oefenhoek: geen catalogus-include / geen content-source/lokaal/ -->
 <!-- Uitvoeringsvorm: hemelum -->
-<!-- Bibliotheek-id: kondak/nikolaas-van-myra-toon-3/hemelum -->
-<!-- Publicatiestam: kondak-nikolaas-van-myra-toon-3-hemelum -->
-
 [\\:] Hei-li{/ge} {/Ni}ko{\laas} {/van} {/&/My}{ra_}, 
 gij zijt wer-ke-lijk de Ho-ge-pries-ter van {\&\&\Chris_&~&~}{\tus_}. 
 Vol-gens het E{/van}{/ge}lie hebt gij uw {\le}{/ven} {/&/in}ge{zet_} 

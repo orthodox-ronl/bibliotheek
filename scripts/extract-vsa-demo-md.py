@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
-"""Stap 1: haal ::: vsa-notatie-blokken uit content-source/input/vsa-demo/*.md.
+"""Stap 1 (historisch): haal ::: vsa-notatie-blokken uit input/vsa-demo/*.md.
 
-Schrijft ruwe input-.vsa naar content-source/input/vsa-demo/_stap1/
+De map ``content-source/input/vsa-demo/`` is na opname verwijderd.
+Verslag: ``docs/history/vsa-demo-opname.md``.
+
+Schreef ruwe input-.vsa naar content-source/input/vsa-demo/_stap1/
 met herkomst-metadata. Geen gissing: onduidelijke gevallen -> rapport.
 """
 

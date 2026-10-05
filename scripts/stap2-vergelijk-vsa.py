@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Stap 2: normaliseer VSA uit _stap1 en vergelijk met catalogus + onderlinge duplicaten.
+"""Stap 2 (historisch): normaliseer VSA uit _stap1 en vergelijk met catalogus.
+
+De map ``content-source/input/vsa-demo/`` is na opname verwijderd.
+Verslag: ``docs/history/vsa-demo-opname.md``.
 
 - Metadata blijft behouden (stap1-frontmatter + stap2-status).
 - Normalisatie is veilig: regeleinden, trailing spaties, lege regels.

@@ -35,8 +35,12 @@ te gooien — **geen** notatie herschrijven.
 | Behouden | Gedocumenteerde sleutels met inhoud die aan het criterium voldoet |
 | Controleren | `corpus_id` (als aanwezig): moet overeenkomen met de afgesproken identifier van dit stuk |
 
-Tooling (lokaal): `scripts\frontmatter-canoniek.cmd`  
-(`--check` alleen melden; zonder vlag schrijven naar stdout of `--in-place`).
+Tooling (lokaal):
+
+1. Migreren: `scripts\migrate-vsa-frontmatter.cmd` (legacy +
+   `herkomst_vsa_demo` → canonieke sleutels; daarna strip)
+2. Alleen strippen: `scripts\frontmatter-canoniek.cmd`
+   (`--check` melden; zonder vlag stdout of `--in-place`)
 
 Koppeling aan `bieb accepteer`: nog te doen.
 

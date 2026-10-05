@@ -1,10 +1,10 @@
 ---
-title: "Liturgiemap Hemelum — zondag"
+title: "Liturgiemap Hemelum — Zondag"
 linkTitle: "Liturgie zondag"
 weight: 10
 hide_page_list: true
 hide_section_list: true
-publicatiestatus: concept
+publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
@@ -16,9 +16,9 @@ Liturgiemap voor **zondag**. Weekdagen staan in
 |  Nr  | Titel |
 | ---: | :---- |
 |   1  | [Vredeslitanie](vredeslitanie/) |
-|   2  | [Eerste Antifoon (zondag)](eerste-antifoon/) |
+|   2  | [Eerste Antifoon (Zegen mijn ziel...)](eerste-antifoon/) |
 |   3  | [Eerste Kleine Litanie](eerste-kleine-litanie/) |
-|   4  | [Tweede Antifoon (zondag)](tweede-antifoon/) |
+|   4  | [Tweede Antifoon](tweede-antifoon/) |
 |  --  | [Tweede Kleine Litanie](tweede-kleine-litanie/) |
 |   5  | [Eniggeboren Zoon...](eniggeboren-zoon/) |
 |   6  | [Derde Antifoon / Zaligsprekingen (zondag)](derde-antifoon/) |

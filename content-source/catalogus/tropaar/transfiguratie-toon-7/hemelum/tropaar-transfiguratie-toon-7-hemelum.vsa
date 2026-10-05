@@ -5,62 +5,14 @@ tempo: 130
 soort: tropaar
 bron:
   uitgangspunt: Liturgikon
-herkomst_vsa_demo:
-  soort: tropaar
-  korte_titel: verheerlijking-op-de-berg-thabor
-  duplicaat_groep: dup-024
-  bronnen:
-  - bestand: tropaar-verheerlijking-op-de-berg-thabor-08-06-verheerlijking-op-de-berg-thabor-n04.vsa
-    bron_md: feesteigen/08-06-verheerlijking-op-de-berg-thabor.md
-    extractie_rol: tropaar-uit-derde-antifoon
-    headers:
-    - Derde Antifoon (Ps.88)
-    - Tropaar (Toon 7)
-    bron_md_frontmatter: 'title: "Verheerlijking op de berg Thabor"
-
-      feestdag: "6 aug"
-
-      source: "Liturgikon"
-
-      layout: "feesteigen-pagina"
-
-      '
-  - bestand: tropaar-tropaar-transfiguratie-nls-en-ksl-nl-20260825-di-liturgie-n01.vsa
-    bron_md: samenstellingen/20260825-di-liturgie.md
-    headers:
-    - Kleine intocht
-    - Tropaar Transfiguratie (zie kliros) ***Nls en Ksl***
-    bron_md_frontmatter: 'title: "20260825 - H. Liturgie, Dinsdag 25 aug 2026 (Hemelum)
-      - Gregorius"
-
-      source: "Koorinstructie dinsdag 25 augustus 2026 (Hemelum)"
-
-      '
-  - bestand: tropaar-tropaar-van-het-feest-nls-en-ksl-nl-20260819-wo-liturgie-transfiguratie-n06.vsa
-    bron_md: samenstellingen/20260819-wo-liturgie-transfiguratie.md
-    headers:
-    - Kleine Intocht
-    - Tropaar van het Feest (Toon 7)  ***Nls en Ksl***
-    bron_md_frontmatter: 'title: "20260819 - Feest van de H. Transfiguratie vd Heer
-      - Преображение, woensdag 19 aug 2026 (Hemelum)"
-
-      source: "Koorinstructie woensdag 19 augustus 2026 (Hemelum)"
-
-      '
-  - bestand: tropaar-20260819-feest-van-de-h-transfiguratie-vd-heer-woe-20260819-wo-liturgie-transfiguratie-n04.vsa
-    bron_md: samenstellingen/20260819-wo-liturgie-transfiguratie.md
-    extractie_rol: tropaar-uit-derde-antifoon
-    headers:
-    - Derde Feestantifoon (Liturgikon p.268/9)
-    - Tropaar (Toon 7)
-    bron_md_frontmatter: 'title: "20260819 - Feest van de H. Transfiguratie vd Heer
-      - Преображение, woensdag 19 aug 2026 (Hemelum)"
-
-      source: "Koorinstructie woensdag 19 augustus 2026 (Hemelum)"
-
-      '
+  bewerking: zetting/praktijk Hemelum
 gebruikt-in:
 - derde-antifoon/transfiguratie/liturgikon
+toon: 7
+taal: nl
+partituur:
+  arranger: Hemelum
+gelegenheid: 6 aug — Verheerlijking op de berg Thabor
 ---
 
 <!-- Tropaar Verheerlijking op de berg Thabor, Toon 7 (Liturgikon, p.268) -->

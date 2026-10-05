@@ -1,4 +1,7 @@
-"""Batch: leeg _stap2/nieuw → catalogus (na beslisvragen).
+"""Batch (historisch): leeg _stap2/nieuw → catalogus (na beslisvragen).
+
+De map ``content-source/input/vsa-demo/`` is na opname verwijderd.
+Verslag: ``docs/history/vsa-demo-opname.md``.
 
 Near-dups: feesteigen houden, liturgie-kopieën wissen.
 """
