@@ -30,7 +30,12 @@ soort: tropaar
 soorten: null
 
 # Feesteigen: gelegenheid hoort in de VSA (niet alleen in de koormap).
-gelegenheid: "8 sep — Geboorte van de Moeder Gods"
+# naam is verplicht; type/datum/periode/bron optioneel.
+gelegenheid:
+  - naam: Geboorte van de Moeder Gods
+  type: feest
+  datum: 8 sep
+  bron: Meneon I
 gelegenheden: null
 
 bron:

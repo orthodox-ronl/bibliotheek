@@ -47,14 +47,17 @@ Of: `scripts\check.cmd` vanuit de repo-root.
     --fail`) — of relatieve links in koormap-markdown (inhoudsopgaven)
     naar bestaande mappen of pagina’s wijzen; vangt 404’s na een half
     uitgevoerde `bieb hernoem`
-11. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
-12. Bladermap-SVG (`oefenhoek-index --svg`) — plaatjes uit `.vsa`; geen
+11. Catalogus-leaf-titels (`check_catalogus_leaf_titles`) — of leaf-`title`
+    niet alleen het zangstuk-id is en `linkTitle` een leesbaar
+    uitvoeringsvorm-label is (waarschuwing; met `--strict` fout)
+12. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
+13. Bladermap-SVG (`oefenhoek-index --svg`) — plaatjes uit `.vsa`; geen
    stamp-publicatiecontrole
-13. Zoekindex (`python scripts\build_zoek_index.py` → `static\zoek\index.json`)
-14. Bouwtijd-stempel (`python scripts\write_build_stamp.py` →
+14. Zoekindex (`python scripts\build_zoek_index.py` → `static\zoek\index.json`)
+15. Bouwtijd-stempel (`python scripts\write_build_stamp.py` →
     `data\build.yaml`; footer «Gegenereerd» op de homepage; niet
     committen)
-15. Hugo-build naar `generated\site` (footer «Bijgewerkt» via
+16. Hugo-build naar `generated\site` (footer «Bijgewerkt» via
     Git-geschiedenis van het contentbestand)
 
 De Pages-deploy (productie, `/preview/`, branch-previews) bouwt de

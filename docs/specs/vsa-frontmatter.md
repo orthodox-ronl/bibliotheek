@@ -154,25 +154,67 @@ Waarvoor: zeldzame gevallen met meer dan één passende hoofdsoort.
 
 **Voorbeelden:** `[ tropaar, kleine-intocht ]` (hypothetisch) · weglaten
 
-### `gelegenheid` (string, optioneel)
+### `gelegenheid` (mapping of lijst van mappings, optioneel)
 
-Waarvoor: als het stuk **inhoudelijk** aan één feest/gebeurtenis hangt
-(feesteigen), zodat een download dat nog “weet”.
+Waarvoor: als het stuk **inhoudelijk** aan één of meer
+feesten/gebeurtenissen hangt (feesteigen), zodat titel, id of download
+dat nog “weet”. Zelfde schema mag in frontmatter van bijbehorende
+`.md`-bestanden staan als die dezelfde context vastleggen.
 
-**Criterium:** vaste, herhaalbare labelvorm (feestdag + korte naam, of
-canonieke feestdag-id). Geen koorinstructie-datum als enige inhoud.
+**Vorm:**
 
-**Voorbeelden:** `"8 sep — Geboorte van de Moeder Gods"` ·
-`"vereren van de relieken (Gregorios)"`
+| Vorm | Wanneer |
+| ---- | ------- |
+| Eén mapping | Het stuk hangt aan precies één gelegenheid |
+| Lijst van mappings | Meerdere gelegenheden (primair + secundair, of structureel bij meer dagen) |
+| Platte string (oud) | Nog toegestaan; voorkeur is mapping met `naam` |
 
-### `gelegenheden` (lijst, optioneel)
+**Regel:** staat `gelegenheid` in de frontmatter, dan is **`naam`
+verplicht** op elke mapping-entry. Die `naam` mag later in een titel of
+id worden gebruikt. Weekdagliederen die alleen via de koormap worden
+gepland: **geen** `gelegenheid` hier — dat is koormap.
 
-Waarvoor: feesteigen dat structureel bij meerdere dagen hoort, of
-expliciete secundaire context.
+| Deelveld | Verplicht? | Criterium | Voorbeelden |
+| -------- | ---------- | --------- | ----------- |
+| `naam` | **ja** (bij mapping) | Herkenbare aanduiding van de gelegenheid; bruikbaar in titel/id | `Kruisverheffing` · `Geboorte van de Moeder Gods` |
+| `type` | nee | Soort dag of viering; vrije maar herhaalbare term | `feest` · `heiligendag` · `zondag` · `dinsdag` · `doordeweekse dag` |
+| `datum` | nee | Kalenderdatum zonder jaartal; maand kort of lang; `oct` en `okt` beide ok | `26 sept` · `14 september` · `6 okt` · `6 oct` |
+| `periode` | nee | Liturgische periode i.p.v. (of naast) een vaste kalenderdatum | `Grote Vasten` · `Paastijd` |
+| `bron` | nee | Waar de gegevens over **deze gelegenheid** vandaan komen (niet hetzelfde als top-level `bron` van het zangstuk) | `Liturgikon` · `Meneon I` · `koortraditie Hemelum` |
 
-**Criterium:** elke entry voldoet aan het criterium van `gelegenheid`.
-Weekdagliederen die alleen via de koormap worden gepland: **geen**
-lijst hier — dat is koormap.
+**Voorbeelden:**
+
+```yaml
+gelegenheid:
+  - naam: Kruisverheffing
+  type: feest
+  datum: 14 sept
+  bron: Liturgikon
+```
+
+```yaml
+gelegenheid:
+  - naam: Verheerlijking op de berg Thabor
+    type: feest
+    datum: 6 aug
+    bron: Liturgikon
+  - naam: nafeest Transfiguratie
+    type: feest
+```
+
+```yaml
+# Oude platte vorm (nog ok):
+gelegenheid: "8 sep — Geboorte van de Moeder Gods"
+```
+
+### `gelegenheden` (lijst van strings, optioneel)
+
+Waarvoor: oudere/eenvoudige vorm voor meerdere platte labels.
+**Voorkeur:** meerdere entries onder `gelegenheid` (lijst van mappings
+met verplichte `naam`).
+
+**Criterium:** elke string is een vaste, herhaalbare labelvorm.
+Weekdagliederen alleen via koormap: niet hier.
 
 **Voorbeelden:**
 `[ "6 aug — Verheerlijking op de berg Thabor", "nafeest Transfiguratie" ]`

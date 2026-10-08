@@ -1,10 +1,10 @@
 ---
-title: "ektinia"
-linkTitle: "ektinia"
+title: "Ektinia Vrede (Hemelum (ksl))"
+linkTitle: "Hemelum (ksl)"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# ektinia
+# Ektinia Vrede (Hemelum (ksl))
 
 {{< bieb id="ektinia/vrede/hemelum-ksl" >}}

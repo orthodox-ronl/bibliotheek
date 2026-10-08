@@ -29,10 +29,15 @@ soorten:
   - moeder-godslied
   - prijslied
 
-gelegenheid: "6 aug — Verheerlijking op de berg Thabor"
-gelegenheden:
-  - "6 aug — Verheerlijking op de berg Thabor"
-  - "nafeest Transfiguratie (liturgie)"
+# Meerdere gelegenheden: lijst onder gelegenheid (naam verplicht).
+gelegenheid:
+  - naam: Verheerlijking op de berg Thabor
+    type: feest
+    datum: 6 aug
+    bron: Liturgikon
+  - naam: nafeest Transfiguratie
+    type: feest
+gelegenheden: null
 
 bron:
   uitgangspunt: "Liturgikon, p.270"

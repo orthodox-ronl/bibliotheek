@@ -1,14 +1,9 @@
 ---
-title: "Tropaar woensdag-toon-1 (= heilig-kruis-toon-1)"
+title: "Tropaar woensdag-toon-1 (= heer-red-uw-volk)"
 linkTitle: "woensdag-toon-1"
 nav_sort: weight
 weight: 203
 publicatiestatus: concept
 automatische_inhoud: false
-alias_van: tropaar/heilig-kruis-toon-1
+alias_van: tropaar/heer-red-uw-volk
 ---
-cd C:\Git\orthodox-ronl\bibliotheek
-git worktree add ..\bibliotheek-onderhoud zangstukken
-
-git push origin -u zangstukken
-git push origin --delete onderhoud/zangstukken

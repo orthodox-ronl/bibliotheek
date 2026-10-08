@@ -22,9 +22,10 @@ sleutels. Catalogus: eerst **migreren**, daarna **strippen**.
 ## Werkbank-voorbeelden (openen)
 
 1. [Tropaar Geboorte Moeder Gods](werkbank/voorbeeld-tropaar-geboorte-moeder-gods.vsa) —
-   feesteigen (`gelegenheid`), `soort` + `toon`, `bron.uitgangspunt` + bewerking.
+   feesteigen (`gelegenheid` met `naam` / `type` / `datum`), `soort` + `toon`,
+   `bron.uitgangspunt` + bewerking.
 2. [Moeder Godslied Transfiguratie](werkbank/voorbeeld-moeder-godslied-transfiguratie.vsa) —
-   `soorten`, `gelegenheden`, `bron.uitgangspunt` Liturgikon.
+   `soorten`, `gelegenheid` als lijst van twee entries, `bron.uitgangspunt` Liturgikon.
 
 `bron.uitgangspunt` gaat bij product-export naar MusicXML `<source>` en
 (via layout/`@bron`) naar MuseScore-meta `source`. Korte namen:

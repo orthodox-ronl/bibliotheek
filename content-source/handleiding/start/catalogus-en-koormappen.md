@@ -150,14 +150,18 @@ variant-`_index.md` mag `title` / `linkTitle` tijdelijk `default` blijven;
 de leaf draagt dan de echte liturgische titel. Zodra er een tweede variant
 komt, geef je `default` een echte naam of hernoem je de map.
 
-### Wat `check` (nog) niet doet
+### Wat `check` wel en niet doet aan titels
 
-`scripts\check.cmd` controleert **geen** frontmatter-schema (geen verplichte
-velden, geen capitalisatie van `linkTitle`). Wel verwacht de handleiding die
-velden op elke catalogus- en koormap-pagina. Mis je `publicatiestatus` op
-een **leaf**, dan ontbreekt de `?` naast de titel; de build faalt daar niet
-op. Op sectie-overzichten en hulppagina’s (zoals zoeken) zie je die tip
-niet, ook al staat het veld wel in de frontmatter.
+`scripts\check.cmd` (met `--strict`: hard) controleert leaf-`title` /
+`linkTitle` via `check_catalogus_leaf_titles`: de titel mag niet alleen het
+zangstuk-id zijn (dat maakt zoektreffers onbruikbaar), en `linkTitle` hoort
+het leesbare uitvoeringsvorm-label te zijn. `bieb accepteer` zet die
+defaults goed; bestaande kale bladen herstel je handmatig of door opnieuw
+te accepteren met `--force` / `--title`.
+
+Nog **niet** door `check`: een volledig frontmatter-schema of verplichte
+`publicatiestatus`. Mis je `publicatiestatus` op een **leaf**, dan ontbreekt
+de `?` naast de titel; de build faalt daar niet op.
 
 ## Soorten koormap (classificatie)
 

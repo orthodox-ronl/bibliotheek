@@ -14,6 +14,9 @@ from pathlib import Path
 
 import yaml
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from catalogus import uitvoeringsvorm_link_title  # noqa: E402
+
 REPO = Path(__file__).resolve().parents[1]
 NIEUW = REPO / "content-source/input/vsa-demo/_stap2/nieuw"
 FM = re.compile(r"\A---\r?\n(.*?)\r?\n---\r?\n?", re.DOTALL)
@@ -334,16 +337,7 @@ def fix_link_title(ident: str) -> None:
     if not index.is_file():
         return
     text = index.read_text(encoding="utf-8")
-    labels = {
-        "hemelum": "Hemelum",
-        "hemelum-ksl": "Hemelum (ksl)",
-        "liturgikon": "Liturgikon",
-        "heiligenjaar": "Heiligenjaar",
-        "meneon-1": "Meneon I",
-        "vokn-25": "VOKN-25",
-        "default": "Standaard",
-    }
-    label = labels.get(uv, uv)
+    label = uitvoeringsvorm_link_title(uv)
     text2 = re.sub(r"(?m)^linkTitle:\s*.*$", f'linkTitle: "{label}"', text, count=1)
     if text2 != text:
         index.write_text(text2, encoding="utf-8", newline="\n")
