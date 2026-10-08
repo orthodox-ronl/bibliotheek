@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # tropaar
 
-{{< bieb id="tropaar/johannes-theoloog-toon-2/liturgikon" >}}
+{{< bieb id="tropaar/johannes-de-theoloog-toon-2/liturgikon" >}}

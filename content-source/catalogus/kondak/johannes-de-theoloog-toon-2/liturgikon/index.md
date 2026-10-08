@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # kondak
 
-{{< bieb id="kondak/johannes-theoloog-toon-2/liturgikon" >}}
+{{< bieb id="kondak/johannes-de-theoloog-toon-2/liturgikon" >}}
