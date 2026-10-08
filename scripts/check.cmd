@@ -108,6 +108,9 @@ if errorlevel 1 exit /b 1
 python scripts\build_zoek_index.py
 if errorlevel 1 exit /b 1
 
+python scripts\write_build_stamp.py
+if errorlevel 1 exit /b 1
+
 if exist generated\site rmdir /s /q generated\site
 hugo ^
   --minify ^

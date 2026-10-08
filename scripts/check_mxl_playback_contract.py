@@ -16,7 +16,10 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
+import xml.etree.ElementTree as ET
+import zipfile
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
@@ -28,6 +31,10 @@ DEFAULT_ROOT = REPO_ROOT / "content-source" / "catalogus"
 STATUS_PATH = REPO_ROOT / "data" / "mxl-playback-contract-status.json"
 FIX_PAGE = "/handleiding/start/publicatiecontrole/"
 FIX_CMD = r"scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid"
+FIX_CMD_SOURCE = (
+    r"python scripts\strip_coria_mxl_source.py"
+    r"  (of products opnieuw; Coria faalt op source+encoding)"
+)
 
 
 @dataclass
@@ -35,6 +42,41 @@ class Issue:
     kind: str
     file: str
     detail: str
+
+
+def _local(tag: str) -> str:
+    return tag.split("}")[-1] if "}" in tag else tag
+
+
+def has_coria_source_encoding_clash(path: Path) -> bool:
+    """True als identification zowel ``source`` als ``encoding`` heeft.
+
+    Coria play_from_url geeft dan ``translation failed``. Lokale gate zodat
+    dit niet afhangt van een pin-bump van ``mxl validate``.
+    """
+    try:
+        if path.suffix.lower() == ".mxl":
+            with zipfile.ZipFile(path) as z:
+                names = [
+                    n
+                    for n in z.namelist()
+                    if n.endswith((".xml", ".musicxml")) and not n.startswith("META")
+                ]
+                if not names:
+                    return False
+                raw = z.read(names[0])
+        else:
+            raw = path.read_bytes()
+        root = ET.fromstring(re.sub(rb"<!DOCTYPE[\s\S]*?>", b"", raw, count=1))
+    except (OSError, ET.ParseError, zipfile.BadZipFile):
+        return False
+    for ident in root:
+        if _local(ident.tag) != "identification":
+            continue
+        tags = {_local(c.tag) for c in ident}
+        if "source" in tags and "encoding" in tags:
+            return True
+    return False
 
 
 @dataclass
@@ -81,6 +123,17 @@ def collect_coria_mxl(root: Path) -> list[tuple[Path, str]]:
 
 def check_one(path: Path, profile: str) -> FileStatus:
     issues: list[Issue] = []
+    fix_cmd = FIX_CMD
+    if has_coria_source_encoding_clash(path):
+        issues.append(
+            Issue(
+                "coria_source_encoding",
+                _rel(path),
+                "identification heeft <source> én <encoding> "
+                "(Coria: translation failed)",
+            )
+        )
+        fix_cmd = FIX_CMD_SOURCE
     result = mxl_contract_ok(path, profile=profile)
     if result is None:
         issues.append(
@@ -104,7 +157,7 @@ def check_one(path: Path, profile: str) -> FileStatus:
         profile=profile,
         ok=not issues,
         issues=issues,
-        fix_cmd=FIX_CMD,
+        fix_cmd=fix_cmd,
     )
 
 

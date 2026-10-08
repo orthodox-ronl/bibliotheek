@@ -1,0 +1,16 @@
+---
+description: Geen VSA-hoogtemarkers of scopes “repareren” zonder expliciete vraag
+globs: "**/*.{vsa,mvsa}"
+alwaysApply: true
+---
+
+# VSA: hoogtemarkers en scopes niet zelf “fixen”
+
+Bij validatiefouten over hoogtemarkers (`[:]`, `[/:]`, `[//:]`, …) of
+scopes: **niet** zelf aanpassen.
+
+- Alleen de beheerder beslist of de markering fout is of een of meer
+  scopes in de notatie.
+- Laat de fout staan, meld hem, en wacht op instructie.
+- Geldt ook bij `vsa-products` / PDF-falen door die errors: geen stille
+  notatie-herschrijving om producten groen te krijgen.

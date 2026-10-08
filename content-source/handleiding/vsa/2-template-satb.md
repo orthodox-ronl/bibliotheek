@@ -38,7 +38,7 @@ als resultaat.
 title: Nicolaas van Myra
 do: F4
 mode: major
-tempo: 120
+tempo: 130
 genre: tropaar
 tone: 4
 template: tropaar-toon-4

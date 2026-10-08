@@ -44,7 +44,7 @@ nieuwe naam.
 | Wel | Niet |
 | --- | --- |
 | Top-level zangstuk-id wijzigen | Alleen variant- of uitvoeringsvorm-map |
-| Ids die 1:1 koormap-slots hebben (`trisagion`, …) | Litanie-plekken die bewust `1-vredeslitanie` heten terwijl het id `ektinia` is |
+| Ids die 1:1 koormap-slots hebben (`trisagion`, …) | Litanie-plekken die bewust `vredeslitanie` heten terwijl het id `ektinia` is |
 | Na een taxonomie-PR / inventaris in Zangstuk-soorten | Cosmetische `title`/`linkTitle` — dat is frontmatter, geen hernoem |
 
 ## Volgorde

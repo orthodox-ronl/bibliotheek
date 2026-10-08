@@ -26,9 +26,9 @@ def test_normalize_without_synonyms_keeps_tokens() -> None:
 def test_preferred_audio_prefers_mvsa(tmp_path: Path) -> None:
     (tmp_path / "x.vsa.mp3").write_bytes(b"a")
     (tmp_path / "x.mvsa.mp3").write_bytes(b"b")
-    url = preferred_audio_url(tmp_path, "ektinia/kleine/hemelum")
+    url = preferred_audio_url(tmp_path, "ektinia/eerste-kleine/hemelum")
     assert url.endswith("/x.mvsa.mp3")
-    assert url.startswith("/catalogus/ektinia/kleine/hemelum/")
+    assert url.startswith("/catalogus/ektinia/eerste-kleine/hemelum/")
 
 
 def test_build_entries_includes_mscz_only_cherubijnen() -> None:

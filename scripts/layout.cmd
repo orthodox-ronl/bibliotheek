@@ -16,11 +16,13 @@ exit /b %ERRORLEVEL%
 
 :usage
 echo.
-echo Gebruik: scripts\layout.cmd ^<bestand.mscz^|.mxl^> [-o doel.mscz] [--id ID]
+echo Gebruik: scripts\layout.cmd ^<bestand.mscz^|.mxl^> [-o doel.mscz] [--id ID] [--bron "…"]
 echo.
 echo   Past de basispartituur-standaard toe (normaliseren / layouten).
 echo   .mxl: zet -o naar een .mscz zonder spaties (meestal input\_werk\STAM\).
 echo   .mscz: zonder -o in-place (opnieuw na editslag in MuseScore).
+echo   --bron: bronvermelding (MuseScore source + colofon); anders uit
+echo           bron.uitgangspunt van een sibling .vsa/.mvsa indien aanwezig.
 echo   Weigert *.print.mscz. MuseScore 4 nodig bij .mxl-invoer.
 echo.
 echo Handleiding: content-source\handleiding\scripts\layout.md

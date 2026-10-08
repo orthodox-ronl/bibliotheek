@@ -30,6 +30,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+        with:
+          # Volledige geschiedenis: Hugo enableGitInfo (footer «Bijgewerkt»).
+          fetch-depth: 0
 
       - name: Determine deploy target
         id: target
@@ -160,6 +163,9 @@ jobs:
         with:
           hugo-version: "0.160.1"
           extended: true
+
+      - name: Write build stamp
+        run: python scripts/write_build_stamp.py
 
       - name: Build Hugo site
         run: |

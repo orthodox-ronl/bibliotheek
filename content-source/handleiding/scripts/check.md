@@ -51,7 +51,11 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 12. Bladermap-SVG (`oefenhoek-index --svg`) — plaatjes uit `.vsa`; geen
    stamp-publicatiecontrole
 13. Zoekindex (`python scripts\build_zoek_index.py` → `static\zoek\index.json`)
-14. Hugo-build naar `generated\site`
+14. Bouwtijd-stempel (`python scripts\write_build_stamp.py` →
+    `data\build.yaml`; footer «Gegenereerd» op de homepage; niet
+    committen)
+15. Hugo-build naar `generated\site` (footer «Bijgewerkt» via
+    Git-geschiedenis van het contentbestand)
 
 De Pages-deploy (productie, `/preview/`, branch-previews) bouwt de
 zoekindex ook vóór Hugo, zodat zoeken niet afhangt van een verouderde

@@ -1,20 +1,19 @@
 ---
-identificatie:
-  title: Prijslied - Icoon Moeder Gods Vladimir
-  composer: Traditioneel
-  bron: Hemelum
-  language: nl
-muziek:
-  do: F4
-  mode: major
-  tempo: 120
+do: F4
+mode: major
+tempo: 130
+soort: prijslied
+bron:
+  uitgangspunt: Koorinstructie Hemelum
+taal: nl
+partituur:
+  arranger: Hemelum
+gelegenheid: Icoon Moeder Gods van Vladimir
 ---
 
-<!-- Prijslied (na de Polyleos), Meneon I, p.21 -->
-<!-- Muziek: Horologion. blz 111 -->
-[:] {-&/Wij} {/&\prij_&_}{+\zen_}, *
-{/&/wij} {/&\&\prij}{+\zen} {/u_} *
-al{+\hei_}lige {/Maagd_} *
-{\Wij} {/ver}{/e}ren uw {-&\\hei}{/li}{/ge} {/&\&\&+\ou}{/ders_}, *
-en loven {/uw} {/roem_}rij{/ke} Ge{\&\boor_&_}{\te__}.
-<!-- De hoogte-markering op het eind (`[/:]`) komt als de nieuwe `+\` semantiek operationeel is -->
+<!-- Wij verheerlijken U, ongerepte Moeder van Christus onze God - praktijk Hemelum -->
+[:] Wij {/ver}{/heer_}{\lij_}{+\ken_}, *
+{/wij} {/ver}{/&\heer}{\lij}{+\ken} {/u__} *
+ongerepte Moeder van Christus {+\on_}{ze_}{/God} *
+{\en} {/ver}{/e_}{ren_} {-&\\en} {/&/be}{/&\&\&+\zin}{/gen_}, *
+{//Uw} {/roem_}{rij_}{\ke_} {\i_}{\coon__}. [/:]

@@ -84,18 +84,19 @@ hier en in tooling tegelijk.
 
 | Koormap-pad | Bibliotheek-id | Opmerking |
 | --- | --- | --- |
-| `1-vredeslitanie/` | `ektinia/vrede/hemelum` | `.mvsa` (reviewable) |
-| `3-eerste-kleine-litanie/` | `ektinia/kleine/hemelum` | `.mvsa` (reviewable) |
+| `vredeslitanie/` | `ektinia/vrede/hemelum` | `.mvsa` (reviewable) |
+| `eerste-kleine-litanie/` | `ektinia/eerste-kleine/hemelum` | `.mvsa` (reviewable) |
+| `tweede-kleine-litanie/` | `ektinia/tweede-kleine/hemelum` | `.mvsa` (reviewable) |
 | `evangelielezing/` | `evangelielezing/default/hemelum` | |
-| `11-dringende-litanie/` | `ektinia/dringend/hemelum` | |
-| `12-ontslapenen-litanie/` | `ektinia/ontslapenen/hemelum` | |
-| `13-catechumenen-litanie/` | `ektinia/catechumenen/hemelum` | |
-| `14-gelovigen-litanie/` | `ektinia/gelovigen/hemelum` | |
-| `16-vragende-litanie/` | `ektinia/vragend/hemelum` | |
+| `dringende-litanie/` | `ektinia/dringend/hemelum-nl` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
+| `ontslapenen-litanie/` | `ektinia/ontslapenen/hemelum-nl` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
+| `catechumenen-litanie/` | `ektinia/catechumenen/hemelum-nl` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
+| `gelovigen-litanie/` | `ektinia/gelovigen/hemelum-nl` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
+| `vragende-litanie-16/` | `ektinia/vragend-16/hemelum-nl` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
 | `vredeswens/` | `vredeswens/default/hemelum` | |
 | `geloofsbelijdenis/` | `geloofsbelijdenis/default/hemelum` | |
 | `en-allen/` | `en-allen/default/hemelum` | |
-| `22-vragende-litanie/` | `ektinia/vragend/hemelum` | |
+| `vragende-litanie-22/` | `ektinia/vragend-22/hemelum-nl` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
 | `onze-vader/` | `onze-vader/default/hemelum` | |
 | `een-is-heilig/` | `een-is-heilig/default/hemelum` | |
 | `gezegend-hij-die-komt/` | `gezegend-hij-die-komt/default/hemelum` | |

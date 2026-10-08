@@ -1,12 +1,26 @@
 <footer class="site-footer">
   <div class="site-meta">
-    {{ with .Params.git_date }}
+    {{- $bijgewerkt := "" -}}
+    {{- with .Params.git_date -}}
+      {{- $bijgewerkt = . -}}
+    {{- end -}}
+    {{- if not $bijgewerkt -}}
+      {{- with .GitInfo -}}
+        {{- with .AuthorDate -}}
+          {{- $bijgewerkt = .Format "2006-01-02" -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if and (not $bijgewerkt) (not .Lastmod.IsZero) -}}
+      {{- $bijgewerkt = .Lastmod.Format "2006-01-02" -}}
+    {{- end -}}
+    {{- with $bijgewerkt }}
       <p class="page-git-date">Bijgewerkt: {{ . }}</p>
-    {{ end }}
-    {{ if .IsHome }}
-      {{ with hugo.Data.build.time }}
+    {{- end }}
+    {{- if .IsHome }}
+      {{- with hugo.Data.build.time }}
         <p class="build-time-stamp">Gegenereerd: {{ . }}</p>
-      {{ end }}
-    {{ end }}
+      {{- end }}
+    {{- end }}
   </div>
 </footer>
