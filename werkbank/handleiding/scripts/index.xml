@@ -227,12 +227,13 @@ site. Koormappen en publicatiecontroles eisen die sibling &lt;strong&gt;niet&lt;
 &lt;code&gt;.mvsa&lt;/code&gt;). Daarna schrijft het script herkomstcommentaren bovenaan het
 bestand (&lt;code&gt;vsa-partituur-sha256&lt;/code&gt;, &lt;code&gt;vsa-generated-at&lt;/code&gt;), zodat
 &lt;code&gt;check&lt;/code&gt; / CI kunnen zien of de import nog bij de huidige &lt;code&gt;.mscz&lt;/code&gt; past.&lt;/p&gt;</description></item><item><title>lyrics-products</title><link>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/scripts/lyrics-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/scripts/lyrics-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;scripts\lyrics-products.cmd&lt;/code&gt; — platte zoektekst naast &lt;code&gt;.vsa&lt;/code&gt; / &lt;code&gt;.mvsa&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;scripts\lyrics-products.cmd&lt;/code&gt; — platte zoektekst naast &lt;code&gt;.vsa&lt;/code&gt; / &lt;code&gt;.mvsa&lt;/code&gt; /
+&lt;code&gt;.mscz&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\lyrics-products.cmd [pad] [--force] [--dry-run]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Haalt de &lt;strong&gt;gezongen tekst&lt;/strong&gt; uit een catalogus-&lt;code&gt;.vsa&lt;/code&gt; of &lt;code&gt;.mvsa&lt;/code&gt; (via
-&lt;code&gt;vsa text&lt;/code&gt; in VSA-tooling) en schrijft die naast de bron als sibling:&lt;/p&gt;
+&lt;p&gt;Haalt de &lt;strong&gt;gezongen tekst&lt;/strong&gt; uit een catalogus-bron (via &lt;code&gt;vsa text&lt;/code&gt; /
+MusicXML-lyrics in VSA-tooling) en schrijft die naast de bron als sibling:&lt;/p&gt;
 &lt;table&gt;
  &lt;thead&gt;
  &lt;tr&gt;
@@ -249,14 +250,16 @@ bestand (&lt;code&gt;vsa-partituur-sha256&lt;/code&gt;, &lt;code&gt;vsa-generate
  &lt;td&gt;&lt;code&gt;{stam}.mvsa&lt;/code&gt;&lt;/td&gt;
  &lt;td&gt;&lt;code&gt;{stam}.mvsa.lyrics.txt&lt;/code&gt;&lt;/td&gt;
  &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;{stam}.mscz&lt;/code&gt; (basispartituur)&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;{stam}.mscz.lyrics.txt&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
  &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;Bovenaan het tekstbestand staan herkomstregels (&lt;code&gt;# vsa-source-sha256:&lt;/code&gt; …),
-zodat &lt;code&gt;check&lt;/code&gt; kan zien of de bron nieuwer is dan de lyrics. Na een
-geslaagde run vernieuwt dit script ook &lt;code&gt;static\zoek\index.json&lt;/code&gt; (zelfde
-stap als &lt;code&gt;products&lt;/code&gt; en &lt;code&gt;check&lt;/code&gt;). Op GitHub Pages (productie, preview én
-branch-previews) bouwt de deploy-workflow die index opnieuw vóór Hugo,
-zodat zoeken altijd bij de gecommitte catalogus past.&lt;/p&gt;</description></item><item><title>mvsa-products</title><link>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/scripts/mvsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/scripts/mvsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;Bij een basispartituur-&lt;code&gt;.mscz&lt;/code&gt; gebruikt het script bij voorkeur een &lt;strong&gt;verse&lt;/strong&gt;
+sibling &lt;code&gt;{stam}.mscz.mxl&lt;/code&gt; (geen MuseScore-aanroep). Ontbreekt die of is die
+ouder dan de &lt;code&gt;.mscz&lt;/code&gt;, dan exporteert tooling tijdelijk via MuseScore (geen
+&lt;code&gt;.mscz.mvsa&lt;/code&gt;).&lt;/p&gt;</description></item><item><title>mvsa-products</title><link>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/scripts/mvsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/scripts/mvsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\mvsa-products.cmd&lt;/code&gt; — Coria-&lt;code&gt;.mxl&lt;/code&gt; en A4-PDF maken bij een catalogus-&lt;code&gt;.mvsa&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mvsa-products.cmd [pad] [--force] [--dry-run]
@@ -326,7 +329,7 @@ opgegeven pad). Mappen met &lt;code&gt;artefacten_handmatig: true&lt;/code&gt; e
 &lt;li&gt;&lt;a href="../audio-products/"&gt;audio-products&lt;/a&gt;
  — &lt;code&gt;{stam}.mvsa.mp3&lt;/code&gt; / &lt;code&gt;.mscz.mp3&lt;/code&gt; / &lt;code&gt;.vsa.mp3&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="../lyrics-products/"&gt;lyrics-products&lt;/a&gt;
- — &lt;code&gt;{stam}.vsa.lyrics.txt&lt;/code&gt; / &lt;code&gt;.mvsa.lyrics.txt&lt;/code&gt;&lt;/li&gt;
+ — &lt;code&gt;{stam}.vsa.lyrics.txt&lt;/code&gt; / &lt;code&gt;.mvsa.lyrics.txt&lt;/code&gt; / &lt;code&gt;.mscz.lyrics.txt&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Daarna (tenzij &lt;code&gt;--dry-run&lt;/code&gt;): &lt;code&gt;static\zoek\index.json&lt;/code&gt; opnieuw bouwen,
 zodat zoeken lyrics, status en audio-paden volgt. Op GitHub Pages

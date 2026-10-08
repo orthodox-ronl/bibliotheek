@@ -2,26 +2,16 @@
 do: F4
 mode: major
 tempo: 130
-herkomst_vsa_demo:
-  soort: tropaar
-  korte_titel: troparen-en-kondaken-voor-de-weekdagen-hemelum
-  bronnen:
-    - bestand: tropaar-troparen-en-kondaken-voor-de-weekdagen-hemelum-weekdagen-troparen-en-kondaken-hemelum-n08.vsa
-      bron_md: hemelum-eigen/weekdagen-troparen-en-kondaken-hemelum.md
-      headers:
-        - Donderdag (H. Apostelen)
-        - TROPAAR (Toon 3)
-      bron_md_frontmatter: |
-        title: "Troparen en Kondaken voor de Weekdagen (Hemelum)"
-        sources: 
-          - "Hemelum (Heilig Kruis: woensdag en vrijdag)"
-          - Liturgikon
+soort: tropaar
+toon: 3
+taal: nl
+partituur:
+  arranger: Hemelum
+bron:
+  uitgangspunt: Hemelum
 ---
 
 <!-- Tropaar - Donderdag - H. Apostelen - (Toon 3 - Liturgikon, 248) -->
-<!-- Bibliotheek-id: tropaar/donderdag-toon-3/hemelum -->
-<!-- Publicatiestam: tropaar-donderdag-toon-3-hemelum -->
-<!-- Bronbestand: content-source/praktijk/hemelum-eigen/weekdagen-troparen-en-kondaken-hemelum.md -->
 <!-- Uitvoeringsvorm: hemelum -->
 
 [\\:] Hei{/li}{/ge} {\&/A}{/&/pos}te{len_}, * 
