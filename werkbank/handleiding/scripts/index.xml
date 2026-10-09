@@ -64,6 +64,9 @@ regel &lt;code&gt;Bibliotheek-id:&lt;/code&gt; heeft die bij het bladermap-pad p
 &lt;li&gt;Koormap-slotlinks (&lt;code&gt;python scripts\check_koormap_slot_links.py --fail&lt;/code&gt;) — of relatieve links in koormap-markdown (inhoudsopgaven)
 naar bestaande mappen of pagina’s wijzen; vangt 404’s na een half
 uitgevoerde &lt;code&gt;bieb hernoem&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Catalogus-leaf-titels (&lt;code&gt;check_catalogus_leaf_titles&lt;/code&gt;) — of leaf-&lt;code&gt;title&lt;/code&gt;
+niet alleen het zangstuk-id is en &lt;code&gt;linkTitle&lt;/code&gt; een leesbaar
+uitvoeringsvorm-label is (waarschuwing; met &lt;code&gt;--strict&lt;/code&gt; fout)&lt;/li&gt;
 &lt;li&gt;Coria-fingerprints (&lt;code&gt;python scripts\fingerprint_coria_mxl.py&lt;/code&gt;)&lt;/li&gt;
 &lt;li&gt;Bladermap-SVG (&lt;code&gt;oefenhoek-index --svg&lt;/code&gt;) — plaatjes uit &lt;code&gt;.vsa&lt;/code&gt;; geen
 stamp-publicatiecontrole&lt;/li&gt;
@@ -477,6 +480,7 @@ en geen Coria-&lt;code&gt;.mxl&lt;/code&gt;. Niet in &lt;code&gt;check&lt;/code&
 &lt;p&gt;&lt;code&gt;bieb accepteer&lt;/code&gt; — partituur of tekstblad opnemen in de catalogus&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd accepteer [id] [bestand...] [opties]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd accepteer [bestand] [opties]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Compat-shim: &lt;code&gt;scripts\bieb-accepteer.cmd&lt;/code&gt; (zelfde argumenten).&lt;/p&gt;
 &lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Neemt een klaar bestand op in de &lt;strong&gt;bibliotheek&lt;/strong&gt; (de catalogus onder

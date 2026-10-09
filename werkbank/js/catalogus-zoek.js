@@ -248,6 +248,35 @@
       .replace(/"/g, "&quot;");
   }
 
+  /** Leesbare treffertitel; vangnet als leaf-title alleen het zangstuk-id is. */
+  function displayTitle(entry) {
+    const title = String((entry && entry.title) || "").trim();
+    const id = String((entry && entry.id) || "");
+    const zId = id.split("/")[0] || "";
+    const zTitle = String((entry && entry.zangstukTitle) || "").trim();
+    const generic =
+      !title ||
+      title.toLowerCase() === zId.toLowerCase() ||
+      title.toLowerCase() === zId.replace(/-/g, " ").toLowerCase() ||
+      (zTitle && title.toLowerCase() === zTitle.toLowerCase() && zTitle.length < 24);
+    if (!generic) return title;
+    const parts = [];
+    if (zTitle) parts.push(zTitle);
+    else if (zId) parts.push(zId.replace(/-/g, " "));
+    const variant = String((entry && entry.variantTitle) || "").trim();
+    if (variant && variant.toLowerCase() !== (parts[0] || "").toLowerCase()) {
+      parts.push(variant);
+    }
+    const link = String((entry && entry.linkTitle) || "").trim();
+    const uv = id.split("/")[2] || "";
+    if (link && link.toLowerCase() !== uv.toLowerCase()) {
+      parts.push("(" + link + ")");
+    } else if (uv) {
+      parts.push("(" + uv + ")");
+    }
+    return parts.join(" ") || title || id;
+  }
+
   function escapeAttr(s) {
     return escapeHtml(s).replace(/'/g, "&#39;");
   }
@@ -564,7 +593,7 @@
           '<a class="catalogus-zoek-title" href="' +
           escapeAttr(resolveUrl(root, e.url)) +
           '"><strong>' +
-          escapeHtml(e.title) +
+          escapeHtml(displayTitle(e)) +
           "</strong></a>" +
           status +
           incipit +

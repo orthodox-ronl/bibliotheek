@@ -115,12 +115,14 @@ onder meerdere namen bekend is.</p><h2 id=titels-en-frontmatter-in-de-catalogus>
 label in de navigatie. Dat is bewust (alleluia’s, prokimens, troparen).</p><h3 id=variant-id-default>Variant-id <code>default</code></h3><p>Als er nog maar één variant is, heet de map vaak <code>default</code>. Op die
 variant-<code>_index.md</code> mag <code>title</code> / <code>linkTitle</code> tijdelijk <code>default</code> blijven;
 de leaf draagt dan de echte liturgische titel. Zodra er een tweede variant
-komt, geef je <code>default</code> een echte naam of hernoem je de map.</p><h3 id=wat-check-nog-niet-doet>Wat <code>check</code> (nog) niet doet</h3><p><code>scripts\check.cmd</code> controleert <strong>geen</strong> frontmatter-schema (geen verplichte
-velden, geen capitalisatie van <code>linkTitle</code>). Wel verwacht de handleiding die
-velden op elke catalogus- en koormap-pagina. Mis je <code>publicatiestatus</code> op
-een <strong>leaf</strong>, dan ontbreekt de <code>?</code> naast de titel; de build faalt daar niet
-op. Op sectie-overzichten en hulppagina’s (zoals zoeken) zie je die tip
-niet, ook al staat het veld wel in de frontmatter.</p><h2 id=soorten-koormap-classificatie>Soorten koormap (classificatie)</h2><p>Zelfde mechaniek, andere bedoeling — geen nieuwe id-laag:</p><div class=table-scroll><table><thead><tr><th>Type</th><th>Ordening</th><th>Voorbeeld</th></tr></thead><tbody><tr><td>Liturgisch</td><td>Volgorde in de dienst</td><td>Liturgiemap Hemelum</td></tr><tr><td>Feest / kalender</td><td>Orde van die dag of cyclus</td><td>Pasen, 15 augustus</td></tr><tr><td>Collectie</td><td>Thematisch</td><td>Alle cherubijnen, troparen toon 1–8</td></tr><tr><td>Parochiekeuze</td><td>Wat <em>dit</em> koor deze periode zingt</td><td>“Hemelum najaar”, “Zwolle-cherubijn”</td></tr></tbody></table></div><p>Optioneel later: frontmatter <code>type:</code> op de koormap-<code>_index</code> (<code>liturgie</code>,
+komt, geef je <code>default</code> een echte naam of hernoem je de map.</p><h3 id=wat-check-wel-en-niet-doet-aan-titels>Wat <code>check</code> wel en niet doet aan titels</h3><p><code>scripts\check.cmd</code> (met <code>--strict</code>: hard) controleert leaf-<code>title</code> /
+<code>linkTitle</code> via <code>check_catalogus_leaf_titles</code>: de titel mag niet alleen het
+zangstuk-id zijn (dat maakt zoektreffers onbruikbaar), en <code>linkTitle</code> hoort
+het leesbare uitvoeringsvorm-label te zijn. <code>bieb accepteer</code> zet die
+defaults goed; bestaande kale bladen herstel je handmatig of door opnieuw
+te accepteren met <code>--force</code> / <code>--title</code>.</p><p>Nog <strong>niet</strong> door <code>check</code>: een volledig frontmatter-schema of verplichte
+<code>publicatiestatus</code>. Mis je <code>publicatiestatus</code> op een <strong>leaf</strong>, dan ontbreekt
+de <code>?</code> naast de titel; de build faalt daar niet op.</p><h2 id=soorten-koormap-classificatie>Soorten koormap (classificatie)</h2><p>Zelfde mechaniek, andere bedoeling — geen nieuwe id-laag:</p><div class=table-scroll><table><thead><tr><th>Type</th><th>Ordening</th><th>Voorbeeld</th></tr></thead><tbody><tr><td>Liturgisch</td><td>Volgorde in de dienst</td><td>Liturgiemap Hemelum</td></tr><tr><td>Feest / kalender</td><td>Orde van die dag of cyclus</td><td>Pasen, 15 augustus</td></tr><tr><td>Collectie</td><td>Thematisch</td><td>Alle cherubijnen, troparen toon 1–8</td></tr><tr><td>Parochiekeuze</td><td>Wat <em>dit</em> koor deze periode zingt</td><td>“Hemelum najaar”, “Zwolle-cherubijn”</td></tr></tbody></table></div><p>Optioneel later: frontmatter <code>type:</code> op de koormap-<code>_index</code> (<code>liturgie</code>,
 <code>feest</code>, <code>collectie</code>, <code>parochie</code>).</p><p>«Collectie» hier is dus een <em>view</em> in de koormap, geen extra maplaag boven
 zangstukken in de catalogus. Zie besluit 5 in
 <a href=/bibliotheek/werkbank/handleiding/start/zangstuk-soorten/>Zangstuk-soorten</a>
@@ -191,4 +193,4 @@ uitvoeringsvormen met <code>-nl</code> / <code>-ksl</code> aanmaakt.</p><div cla
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-03</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-08</p></div></footer></body></html>
