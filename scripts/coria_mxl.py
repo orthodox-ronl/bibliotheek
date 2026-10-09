@@ -22,7 +22,8 @@ _MXL_CONTAINER = """\
 </container>
 """
 
-_NOTE_MARKUP = frozenset({"beam", "stem", "notations", "accidental"})
+# notehead: Coria play_from_url → translation failed bij o.a. notehead=none
+_NOTE_MARKUP = frozenset({"beam", "stem", "notations", "accidental", "notehead"})
 _LAYOUT_ATTR_PREFIXES = ("default-", "relative-")
 _LAYOUT_ATTRS = frozenset({"width", "print-object", "color"})
 _STEPS = "CDEFGAB"
@@ -85,6 +86,12 @@ def load_score_xml(path: Path) -> ET.Element:
 def write_mxl(path: Path, root: ET.Element) -> None:
     # Altijd: geen identification/source in Coria-MXL (ook na latere stamps).
     strip_identification_source(root)
+    # Stamp zet vaak miscellaneous vóór encoding; Coria eist encoding eerst.
+    from product_meta import ensure_encoding_before_miscellaneous
+
+    ident = child(root, "identification")
+    if ident is not None:
+        ensure_encoding_before_miscellaneous(ident)
     ET.indent(root, space="  ")
     body = ET.tostring(root, encoding="unicode")
     xml_text = '<?xml version="1.0" encoding="UTF-8"?>\n' + body

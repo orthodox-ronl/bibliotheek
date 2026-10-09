@@ -14,7 +14,13 @@ import subprocess
 import sys
 from pathlib import Path
 
-from coria_mxl import load_score_xml, require_no_spaces, write_mxl
+from coria_mxl import (
+    apply_playback_accidentals,
+    load_score_xml,
+    require_no_spaces,
+    sanitize_coria_importer,
+    write_mxl,
+)
 from product_meta import (
     partituur_sha256,
     read_mxl_stamp,
@@ -151,6 +157,9 @@ def sync_one(
             require_no_spaces(mxl)
             _run_mscz_mxl(mscz, mxl)
             root = load_score_xml(mxl)
+            # Zelfde Coria-sanitize als mvsa-products (o.a. notehead).
+            sanitize_coria_importer(root)
+            apply_playback_accidentals(root)
             stamp_mxl_partituur(
                 root, partituur_hash=digest, generated_at=generated_at
             )

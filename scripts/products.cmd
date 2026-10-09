@@ -16,6 +16,12 @@ call scripts\_ensure.cmd --vsa-tool
 if errorlevel 1 exit /b 1
 
 python scripts\products.py %*
+if errorlevel 1 exit /b 1
+
+REM Coria-Oefenen-knop: fingerprints bijwerken (niet bij --dry-run).
+echo.%*| findstr /I /C:"--dry-run" >nul
+if not errorlevel 1 exit /b 0
+python scripts\fingerprint_coria_mxl.py
 exit /b %ERRORLEVEL%
 
 :usage
@@ -23,6 +29,7 @@ echo.
 echo Gebruik: scripts\products.cmd [args...]
 echo.
 echo   Korte hulp via Python ^(argparse^). Voorbeeldopties vaak: [pad] --dry-run --force
+echo   Na succes ^(niet --dry-run^): Coria-fingerprints voor de Oefenen-knop.
 echo.
 python scripts\products.py -h
 endlocal
