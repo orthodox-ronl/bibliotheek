@@ -100,16 +100,24 @@ geen <code>github.io</code>-MusicXML, en geen page-bundle-<code>.mxl</code>.</p>
 <code>fingerprint_coria_mxl.py</code> en Hugo meelopen.
 <code>check</code> controleert ook dat Coria-<code>.mxl</code> geen verboden
 <code>source</code>+<code>encoding</code>-combinatie heeft (anders <code>translation failed</code>).</p><p>Een nieuw zangstuk dat nog niet op branch <code>gh-pages</code> staat, opent in Coria
-pas na een <code>git push</code> (Coria kan de lokale Hugo-server niet bereiken).</p><h2 id=coria-translation-failed-of-check-weigert-de-mxl>Coria: <code>translation failed</code> of check weigert de <code>.mxl</code></h2><p>Coria’s vertaler faalt als de MusicXML in <code>&lt;identification></code> zowel
-<code>&lt;source></code> als <code>&lt;encoding></code> heeft. De bibliotheek mag die combinatie niet
-meer schrijven: bronvermelding hoort in
-<code>miscellaneous-field name="bron"</code>.</p><p>Als <code>check</code> (of <code>check_mxl_playback_contract</code>)
+pas na een <code>git push</code> (Coria kan de lokale Hugo-server niet bereiken).</p><h2 id=coria-translation-failed-of-check-weigert-de-mxl>Coria: <code>translation failed</code> of check weigert de <code>.mxl</code></h2><p>Coria’s vertaler (<code>play_from_url</code>) kan op meer dan één MusicXML-vorm
+falen met dezelfde melding <code>translation failed</code>. In de bibliotheek zijn
+dit de bekende gevallen:</p><ol><li><code>&lt;identification></code> heeft zowel <code>&lt;source></code> als <code>&lt;encoding></code> —
+bronvermelding hoort in <code>miscellaneous-field name="bron"</code>.</li><li>In <code>&lt;identification></code> staat <code>&lt;miscellaneous></code> vóór <code>&lt;encoding></code> —
+Coria eist <code>encoding</code> eerst; <code>products</code> / stamp zetten die volgorde.</li><li>De score bevat <code>&lt;notehead></code> (bijvoorbeeld <code>none</code> uit MuseScore) —
+die tag hoort niet in Coria-<code>.mxl</code>; <code>mscz-products</code> / sanitize
+strippen die mee.</li></ol><p>Als <code>check</code> (of <code>check_mxl_playback_contract</code>)
 <code>coria_source_encoding</code> meldt:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>python scripts\strip_coria_mxl_source.py
-</span></span><span style=display:flex><span>scripts\fingerprint_coria_mxl.py
-</span></span></code></pre></div><p>Of producten opnieuw: <code>scripts\products.cmd --kinds mscz,mvsa,vsa</code>
+</span></span><span style=display:flex><span>check
+</span></span></code></pre></div><p>Als de check <code>coria_notehead</code> meldt, of na een MuseScore-export opnieuw
+<code>&lt;notehead></code> in de Coria-<code>.mxl</code> zit:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\products.cmd --kinds mscz --only-invalid
+</span></span></code></pre></div><p>(<code>products</code> vernieuwt daarna zelf de Coria-fingerprints voor de Oefenen-knop.)</p><p>Of producten opnieuw: <code>scripts\products.cmd --kinds mscz,mvsa,vsa</code>
 (voor de betreffende stukken). De <code>.mxl</code> moet uit <code>mscz-products</code>,
 <code>mvsa-products</code> of <code>vsa-products</code> komen (of handmatig bij
-<code>artefacten_handmatig</code>), niet een ruwe Capella-<code>.mxl</code>.</p><h2 id=rode-banner-partituur--of-vsa-afgeleiden-niet-in-orde>Rode banner: partituur- of VSA-afgeleiden niet in orde</h2><div class=table-scroll><table><thead><tr><th>Banner</th><th>Oorzaak</th><th>Actie</th></tr></thead><tbody><tr><td>Basispartituur-afgeleiden</td><td>PDF/MXL passen niet bij de basispartituur-<code>.mscz</code></td><td><a href=../../partituur/6-afgeleiden/>Afgeleiden</a>
+<code>artefacten_handmatig</code>), niet een ruwe Capella-<code>.mxl</code>.</p><p>Los daarvan: bijna alle catalogus-<code>.mvsa.mxl</code> in een mol-toonsoort
+(<code>fifths=-1</code>) falen nog in Coria terwijl <code>mxl validate</code> groen is. Dat
+hoort bij een fix in VSA-tooling (MVSA→MusicXML / Coria-normalize), niet
+alleen bij opnieuw producten draaien in deze repo.</p><h2 id=rode-banner-partituur--of-vsa-afgeleiden-niet-in-orde>Rode banner: partituur- of VSA-afgeleiden niet in orde</h2><div class=table-scroll><table><thead><tr><th>Banner</th><th>Oorzaak</th><th>Actie</th></tr></thead><tbody><tr><td>Basispartituur-afgeleiden</td><td>PDF/MXL passen niet bij de basispartituur-<code>.mscz</code></td><td><a href=../../partituur/6-afgeleiden/>Afgeleiden</a>
 — layout + <code>mscz-products</code></td></tr><tr><td>VSA-afgeleiden</td><td><code>{stam}.vsa.mxl</code> ontbreekt of is ouder dan de <code>.vsa</code></td><td><code>scripts\vsa-products.cmd</code>, commit beide</td></tr></tbody></table></div><p>Op <code>main</code> faalt de build bij dezelfde situaties.</p><h2 id=gele-banner-handmatige-artefacten>Gele banner: handmatige artefacten</h2><p>Geen fout: <code>artefacten_handmatig: true</code> staat op die cataloguspagina.
 PDF/MXL vernieuwen de scripts niet; doe dat zelf na elke bronwijziging.</p><h2 id=bieb-faalt-bij-build><code>bieb</code> faalt bij build</h2><p>De shortcode verwijst naar een catalogus-pagina die nog niet bestaat, of
 het id klopt niet (<code>zangstuk/variant/uitvoeringsvorm</code>). Maak eerst de
@@ -139,4 +147,4 @@ Capella, VOW of VSA gaat.</p><div class=nav-buttons><a class=btn href=/bibliothe
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-03</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-10</p></div></footer></body></html>
