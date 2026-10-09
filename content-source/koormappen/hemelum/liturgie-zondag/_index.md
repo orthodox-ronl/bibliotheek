@@ -44,7 +44,7 @@ Liturgiemap voor **zondag**. Weekdagen staan in
 |  23  | Onze Vader *(voorzien)* |
 |  24  | Een is Heilig *(voorzien)* |
 |  25  | [Communievers](communievers/) |
-|  26  | Gezegend Hij, Die komt ... *(voorzien)* |
+|  26  | [Gezegend Hij, Die komt ...](gezegend-hij-die-komt/) |
 |  27  | Communiezang *(voorzien)* |
 |  28  | [Wij hebben het Ware Licht aanschouwd](wij-hebben-het-ware-licht/) |
 |  29  | [De Naam des Heren zij gezegend](de-naam-des-heren-zij-gezegend/) |
