@@ -46,8 +46,8 @@ voor wie converteert.
 
 | Input | Doel-id | Koormap | Doelvorm | Stap | Volgende | Notitie |
 | --- | --- | --- | --- | --- | --- | --- |
+| `capella/15c - cherubijnenhymne - kastorski - ksl.mxl` |  |  | `.mscz` | ontvangen | doel-id |  |
 | `capella/15c - cherubijnenhymne - kastorski.mxl` | `cherubijnenhymne/15c-kastorski/hemelum` | `cherubijnenhymne/15c-kastorski` | `.mscz` | gepubliceerd | — | gepubliceerd |
-| `capella/15c - cherubijnenhymne - kastorskij - ksl.mxl` | `cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` |  | `.mscz` | ontvangen | opkuisen | Kerkslavisch getranslitereerd |
 | `capella/15e Cherubijnenhymne Bortnjanski no.5.mxl` | `cherubijnenhymne/15e-bortnjanski/hemelum` | `cherubijnenhymne/15e-bortnjanski` | `.mscz` | gepubliceerd | — | Capella 15e |
 | `capella/19a - eucharistische kanon - feofan.mxl` | `eucharistische-canon/19a-feofan/hemelum` | `19a-eucharistische-kanon` | `.mscz` | gepubliceerd | — | gepubliceerd |
 | `capella/2 - 1e antifoon.mxl` | `eerste-antifoon/zondag/hemelum` | `eerste-antifoon` | `.mscz` | gepubliceerd | — |  |

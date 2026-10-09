@@ -84,18 +84,19 @@ hier en in tooling tegelijk.
 
 | Koormap-pad | Bibliotheek-id | Opmerking |
 | --- | --- | --- |
-| `1-vredeslitanie/` | `ektinia/vrede/hemelum` | `.mvsa` (reviewable) |
-| `3-eerste-kleine-litanie/` | `ektinia/kleine/hemelum` | `.mvsa` (reviewable) |
+| `vredeslitanie/` | `ektinia/vrede/hemelum` | `.mvsa` (reviewable) |
+| `eerste-kleine-litanie/` | `ektinia/eerste-kleine/hemelum` | `.mvsa` (reviewable) |
+| `tweede-kleine-litanie/` | `ektinia/tweede-kleine/hemelum` | `.mvsa` (reviewable) |
 | `evangelielezing/` | `evangelielezing/default/hemelum` | |
-| `11-dringende-litanie/` | `ektinia/dringend/hemelum` | |
-| `12-ontslapenen-litanie/` | `ektinia/ontslapenen/hemelum` | |
-| `13-catechumenen-litanie/` | `ektinia/catechumenen/hemelum` | |
-| `14-gelovigen-litanie/` | `ektinia/gelovigen/hemelum` | |
-| `16-vragende-litanie/` | `ektinia/vragend/hemelum` | |
+| `dringende-litanie/` | `ektinia/dringend/hemelum-nl` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
+| `ontslapenen-litanie/` | `ektinia/ontslapenen/hemelum-nl` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
+| `catechumenen-litanie/` | `ektinia/catechumenen/hemelum-nl` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
+| `gelovigen-litanie/` | `ektinia/gelovigen/hemelum-nl` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
+| `vragende-litanie-16/` | `ektinia/vragend-16/hemelum-nl` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
 | `vredeswens/` | `vredeswens/default/hemelum` | |
 | `geloofsbelijdenis/` | `geloofsbelijdenis/default/hemelum` | |
 | `en-allen/` | `en-allen/default/hemelum` | |
-| `22-vragende-litanie/` | `ektinia/vragend/hemelum` | |
+| `vragende-litanie-22/` | `ektinia/vragend-22/hemelum-nl` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
 | `onze-vader/` | `onze-vader/default/hemelum` | |
 | `een-is-heilig/` | `een-is-heilig/default/hemelum` | |
 | `gezegend-hij-die-komt/` | `gezegend-hij-die-komt/default/hemelum` | |
@@ -136,26 +137,32 @@ uitvoeringsvorm-map).
 `default` als variant-id betekent: één uitvoeringsvorm in Hemelum, geen
 geneste varianten in de koormap.
 
-### Taal op de uitvoeringsvorm (nieuw werk)
+### Taal op de uitvoeringsvorm (voorkeursconventie)
 
-Standaard in deze repo is **Nederlands**; dat markeer je niet.
+Nederlands vs kerkslavisch = **aparte uitvoeringsvormen** via suffix op
+het derde segment. Handleiding (beheerder):
+[Taalvarianten (-nl / -ksl)](/handleiding/start/catalogus-en-koormappen/#taalvarianten-op-de-uitvoeringsvorm).
 
-| Suffix op uitvoeringsvorm-id | Betekenis |
-| --- | --- |
-| *(geen)* | Nederlands |
-| `-ksl` | Kerkslavisch, Cyrillisch schrift (default voor ksl) |
-| `-ksl-trlat` | Kerkslavisch, Latijns schrift (getranslitereerd) |
-| `-nl-ksl` | mengvorm Nederlands + Kerkslavisch |
+| Suffix op uitvoeringsvorm-id | Betekenis | Wanneer |
+| --- | --- | --- |
+| *(geen)* | Nederlands | Alleen NL; geen kerkslavisch-sibling |
+| `-nl` | Nederlands | Expliciet naast een `-ksl`-sibling |
+| `-ksl` | Kerkslavisch, Cyrillisch | KSL-uitvoeringsvorm |
+| `-nl-ksl` | Mengvorm NL + kerkslavisch | Zeldzaam; één partituur met beide |
 
 Voorbeelden (publicatiestam):
 
-- `cherubijnenhymne-15c-kastorski-hemelum` — NL
-- `cherubijnenhymne-15c-kastorski-hemelum-ksl` — KSL Cyrillisch
-- `cherubijnenhymne-15c-kastorski-hemelum-ksl-trlat` — KSL getranslitereerd
-- `cherubijnenhymne-15c-kastorski-hemelum-nl-ksl` — mengvorm
+- `cherubijnenhymne-15c-kastorski-hemelum` — NL zonder sibling (ongemerkt)
+- `prijslied-bisschop-gregorios-hemelum-nl` / `…-hemelum-ksl` — paar (schets)
+- `tropaar-uw-heilig-kruis-groningen-ksl` — KSL Cyrillisch
+- `cherubijnenhymne-15c-kastorski-hemelum-nl-ksl` — mengvorm (indien nodig)
+
+Getranslitereerde producten later; bestaande stub
+`hemelum-ksl-trlat` blijft staan tot die conventie vastligt.
 
 **Legacy:** `trisagion/8a-nederlands/…` en `trisagion/8a-slav/…` houden taal
-nog in de *variant*-laag; niet hernoemen tot een aparte migratie.
+nog in de *variant*-laag; niet hernoemen tot een aparte migratie. Voor
+**nieuw** werk: suffix op de uitvoeringsvorm, niet op de variant.
 
 ---
 
@@ -267,4 +274,4 @@ in de liturgiemap (dat is de migratie, geen verdwijning).
 - [x] Werkvoorraad: gepubliceerde rijen op catalogus-id; open inputs nog zonder doel-id
 - [x] Uitvoeringsvorm mét partituur → `reviewable` (koormap + catalogus)
 - [x] Term “input” (niet “dump”) in werkvoorraad/handleiding
-- [x] Taal-suffix op uitvoeringsvorm gedocumenteerd (`-ksl`, `-ksl-trlat`, `-nl-ksl`)
+- [x] Taal-suffix op uitvoeringsvorm gedocumenteerd (`-nl` / `-ksl`, alleen waar nodig; legacy variant-taal)

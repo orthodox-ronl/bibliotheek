@@ -1,6 +1,10 @@
 @echo off
 setlocal EnableExtensions
 cd /d "%~dp0.."
+
+if /I "%~1"=="-h" goto usage
+if /I "%~1"=="--help" goto usage
+
 call scripts\_ensure.cmd --vsa-tool
 if errorlevel 1 exit /b 1
 
@@ -34,4 +38,16 @@ if not errorlevel 1 (
 )
 
 echo OK: validate
+exit /b 0
+
+:usage
+echo.
+echo Gebruik: scripts\validate.cmd [map]
+echo.
+echo   Zonder map: content-source\catalogus
+echo   Draait vsa validate ^(en mvsa validate als er .mvsa staat^).
+echo.
+echo Handleiding: content-source\handleiding\scripts\validate.md
+echo.
+endlocal
 exit /b 0

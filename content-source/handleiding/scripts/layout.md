@@ -11,7 +11,7 @@ weight: 90
 # SYNOPSIS
 
 ```cmd
-scripts\layout.cmd <bestand.mscz|.mxl> [-o doel.mscz] [--id ID]
+scripts\layout.cmd <bestand.mscz|.mxl> [-o doel.mscz] [--id ID] [--bron "…"]
 ```
 
 # DESCRIPTION
@@ -31,6 +31,10 @@ contractterm is **normaliseren**.
   in MuseScore.
 - Bestanden die eindigen op `.print.mscz` worden geweigerd (printvel:
   [Print-.mscz](/handleiding/partituur/7-print-mscz/)).
+- **Bronvermelding:** met `--bron` (of automatisch uit
+  `bron.uitgangspunt` van een sibling `.vsa`/`.mvsa`) schrijft het
+  script MuseScore-meta `source` en de colofonregel “Bron: …”. Korte
+  namen: [Uitgave-bronnen](/handleiding/start/uitgave-bronnen/).
 
 Implementatie: `scripts\apply_mscz_layout.py` — dunne wrapper om
 `vsa.mscz_layout` (geen fork van layout-logica). Technische norm in
@@ -42,6 +46,7 @@ VSA-tooling: layoutprofiel `partituur` / mscz-leesbaarheid.
 | --- | --- |
 | `-o`, `--output` | Pad van de doel-`.mscz` |
 | `--id` | Catalogus-id `zangstuk/variant/uitvoeringsvorm` (anders afgeleid uit het pad onder `catalogus/`) |
+| `--bron` | Bronvermelding (MuseScore `source` + colofon). Zonder vlag: `bron.uitgangspunt` uit sibling `.vsa`/`.mvsa` indien aanwezig |
 
 # EXAMPLES
 
@@ -55,7 +60,7 @@ scripts\layout.cmd content-source\input\_werk\STAM\STAM.mxl -o content-source\in
 Opnieuw op een bestaande basispartituur na een editslag in MuseScore:
 
 ```cmd
-scripts\layout.cmd pad\naar\bestand.mscz
+scripts\layout.cmd pad\naar\bestand.mscz --bron "Liturgikon, p.58"
 ```
 
 Met expliciete catalogus-id:

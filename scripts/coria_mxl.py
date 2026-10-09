@@ -83,6 +83,8 @@ def load_score_xml(path: Path) -> ET.Element:
 
 
 def write_mxl(path: Path, root: ET.Element) -> None:
+    # Altijd: geen identification/source in Coria-MXL (ook na latere stamps).
+    strip_identification_source(root)
     ET.indent(root, space="  ")
     body = ET.tostring(root, encoding="unicode")
     xml_text = '<?xml version="1.0" encoding="UTF-8"?>\n' + body
@@ -95,6 +97,38 @@ def write_mxl(path: Path, root: ET.Element) -> None:
 
 def music_parts(root: ET.Element) -> list[ET.Element]:
     return [c for c in root if local(c.tag) == "part"]
+
+
+def _misc_bron(ident: ET.Element) -> ET.Element | None:
+    misc = child(ident, "miscellaneous")
+    if misc is None:
+        return None
+    for field in children(misc, "miscellaneous-field"):
+        if field.get("name") == "bron":
+            return field
+    return None
+
+
+def strip_identification_source(root: ET.Element) -> int:
+    """Verwijder ``identification/source`` (Coria: source+encoding → translation failed).
+
+    Bewaar de tekst in ``miscellaneous-field name="bron"`` als die nog leeg is.
+    """
+    ident = child(root, "identification")
+    if ident is None:
+        return 0
+    source_el = child(ident, "source")
+    if source_el is None:
+        return 0
+    src_text = text(source_el)
+    if src_text and not text(_misc_bron(ident)):
+        misc = child(ident, "miscellaneous")
+        if misc is None:
+            misc = ET.SubElement(ident, "miscellaneous")
+        field = ET.SubElement(misc, "miscellaneous-field", name="bron")
+        field.text = src_text
+    ident.remove(source_el)
+    return 1
 
 
 def sanitize_coria_importer(root: ET.Element) -> None:
@@ -110,6 +144,7 @@ def sanitize_coria_importer(root: ET.Element) -> None:
             for el in list(enc):
                 if local(el.tag) == "supports":
                     enc.remove(el)
+        strip_identification_source(root)
     for el in list(root.iter()):
         for attr in list(el.attrib):
             if attr.startswith(_LAYOUT_ATTR_PREFIXES) or attr in _LAYOUT_ATTRS:

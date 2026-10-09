@@ -52,6 +52,151 @@ def stem(value: str) -> str:
     return f"{zangstuk}-{variant}-{uitvoeringsvorm}"
 
 
+# Leesbare linkTitle voor bekende uitvoeringsvorm-ids (navigatie / broodkruimels).
+UITVOERINGSVORM_LINK_TITLES: dict[str, str] = {
+    "hemelum": "Hemelum",
+    "hemelum-ksl": "Hemelum (ksl)",
+    "hemelum-nl": "Hemelum (nl)",
+    "hemelum-ksl-trlat": "Hemelum (ksl/trlat)",
+    "liturgikon": "Liturgikon",
+    "liturgikon-ksl": "Liturgikon (ksl)",
+    "heiligenjaar": "Heiligenjaar",
+    "groningen": "Groningen",
+    "groningen-ksl": "Groningen (ksl)",
+    "meneon-1": "Meneon I",
+    "meneon-i-den-haag": "Meneon I Den Haag",
+    "vokn-25": "VOKN-25",
+    "default": "Standaard",
+    "asten": "Asten",
+    "rode-gebedenboek": "Rode gebedenboek",
+}
+
+_PUBLICATION_SUFFIXES = (
+    ".tekstblad.md",
+    ".print.mscz",
+    ".mscz.mvsa",
+    ".mscz",
+    ".mvsa",
+    ".vsa",
+    ".pdf",
+    ".mxl",
+    ".md",
+)
+
+
+def uitvoeringsvorm_link_title(uitvoeringsvorm: str) -> str:
+    """Korte navigatienaam voor een uitvoeringsvorm-id."""
+    known = UITVOERINGSVORM_LINK_TITLES.get(uitvoeringsvorm)
+    if known:
+        return known
+    parts = uitvoeringsvorm.split("-")
+    return "-".join(p[:1].upper() + p[1:] if p else p for p in parts)
+
+
+def publication_stem_from_filename(name: str) -> str:
+    """Bestandsnaam → publicatiestam (zonder score-/product-suffix)."""
+    lower = name.lower()
+    for suf in _PUBLICATION_SUFFIXES:
+        if lower.endswith(suf):
+            return name[: -len(suf)]
+    return Path(name).stem
+
+
+def _known_zangstuk_ids() -> list[str]:
+    if not CATALOGUS_ROOT.is_dir():
+        return []
+    return sorted(
+        (
+            p.name
+            for p in CATALOGUS_ROOT.iterdir()
+            if p.is_dir() and _ID_PART.fullmatch(p.name)
+        ),
+        key=len,
+        reverse=True,
+    )
+
+
+def _known_variant_ids(zangstuk: str) -> list[str]:
+    root = CATALOGUS_ROOT / zangstuk
+    if not root.is_dir():
+        return []
+    return sorted(
+        (
+            p.name
+            for p in root.iterdir()
+            if p.is_dir() and _ID_PART.fullmatch(p.name)
+        ),
+        key=len,
+        reverse=True,
+    )
+
+
+def id_from_publication_stem(stam: str) -> str | None:
+    """Leid ``zangstuk/variant/uitvoeringsvorm`` af uit publicatiestam.
+
+    Gebruikt bestaande catalogusmappen (langste match) zodat ids met streepjes
+    in meerdere lagen eenduidig blijven. Geen unieke match → ``None``.
+    """
+    stam = stam.strip().lower().strip("-")
+    if not stam or "/" in stam:
+        return None
+
+    for zangstuk in _known_zangstuk_ids():
+        prefix = f"{zangstuk}-"
+        if not stam.startswith(prefix):
+            continue
+        rest = stam[len(prefix) :]
+        if not rest:
+            continue
+        for variant in _known_variant_ids(zangstuk):
+            vprefix = f"{variant}-"
+            if not rest.startswith(vprefix):
+                continue
+            uv = rest[len(vprefix) :]
+            if uv and _ID_PART.fullmatch(uv):
+                return f"{zangstuk}/{variant}/{uv}"
+        # Nieuw variant-id: rest = ``{variant}-{uv}`` met bekende uv-suffix.
+        for uv in sorted(UITVOERINGSVORM_LINK_TITLES, key=len, reverse=True):
+            usuf = f"-{uv}"
+            if rest.endswith(usuf):
+                variant = rest[: -len(usuf)]
+                if variant and _ID_PART.fullmatch(variant):
+                    return f"{zangstuk}/{variant}/{uv}"
+
+    # Volledig nieuw zangstuk: probeer ``{zangstuk}-{variant}-{uv}`` via uv-suffix.
+    for uv in sorted(UITVOERINGSVORM_LINK_TITLES, key=len, reverse=True):
+        usuf = f"-{uv}"
+        if not stam.endswith(usuf):
+            continue
+        left = stam[: -len(usuf)]
+        for zangstuk in _known_zangstuk_ids():
+            prefix = f"{zangstuk}-"
+            if left.startswith(prefix):
+                variant = left[len(prefix) :]
+                if variant and _ID_PART.fullmatch(variant):
+                    return f"{zangstuk}/{variant}/{uv}"
+        # Geen bekend zangstuk: één streepje-splitsing (zangstuk-variant).
+        if "-" in left:
+            zangstuk, variant = left.split("-", 1)
+            if (
+                zangstuk
+                and variant
+                and _ID_PART.fullmatch(zangstuk)
+                and _ID_PART.fullmatch(variant)
+            ):
+                return f"{zangstuk}/{variant}/{uv}"
+    return None
+
+
+def is_generic_leaf_title(title: str, zangstuk: str) -> bool:
+    """True als leaf-title alleen het zangstuk-id nabootst (te kaal voor zoeken)."""
+    t = (title or "").strip().strip("\"'").lower()
+    if not t:
+        return True
+    z = zangstuk.strip().lower()
+    return t in {z, z.replace("-", " ")}
+
+
 def id_from_path(path: Path) -> str | None:
     try:
         rel = path.resolve().relative_to(CATALOGUS_ROOT.resolve())

@@ -3,8 +3,6 @@ title: "18 Geloofsbelijdenis"
 linkTitle: "18 Geloofsbelijdenis"
 publicatiestatus: voorzien
 automatische_inhoud: false
-aliases:
-  - "/bibliotheek/geloofsbelijdenis/default/hemelum/"
 ---
 
 # 18 Geloofsbelijdenis

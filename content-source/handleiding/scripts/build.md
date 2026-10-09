@@ -16,9 +16,10 @@ build
 
 # DESCRIPTION
 
-Maakt Coria-fingerprints en bouwt de site naar `generated\site`. Anders
-dan `check` draait `build` **geen** `vsa validate`. Commit `generated\`
-en `static\mxl\` niet (gitignore).
+Maakt Coria-fingerprints, schrijft de bouwtijd naar `data\build.yaml`
+(footer «Gegenereerd» op de homepage; niet committen), en bouwt de site
+naar `generated\site`. Anders dan `check` draait `build` **geen**
+`vsa validate`. Commit `generated\` en `static\mxl\` niet (gitignore).
 
 # WHEN
 

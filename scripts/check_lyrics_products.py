@@ -1,4 +1,4 @@
-"""Controleer bibliotheek-``.vsa``/``.mvsa`` vs sibling ``*.lyrics.txt``.
+"""Controleer bibliotheek-``.vsa``/``.mvsa``/``.mscz`` vs sibling ``*.lyrics.txt``.
 
 Schrijft ``data/lyrics-product-status.json``. Exit 1 bij problemen tenzij
 ``--warn-only`` (default zonder ``--fail``).
@@ -18,11 +18,11 @@ from product_meta import (
     FIELD_SOURCE_KIND,
     FIELD_SOURCE_SHA,
     read_mvsa_stamp,
-    source_sha256,
 )
 from sync_lyrics_products import (
     DEFAULT_ROOT,
     collect_lyric_sources,
+    digest_for_source,
     product_path_for_source,
     source_kind_for,
 )
@@ -63,7 +63,7 @@ def _bladermap_key(source: Path) -> str:
 def check_one(source: Path) -> FolderStatus:
     lyrics = product_path_for_source(source)
     issues: list[Issue] = []
-    src_hash = source_sha256(source)
+    src_hash = digest_for_source(source)
     expect_kind = source_kind_for(source)
     fix = r"scripts\lyrics-products.cmd"
     if not lyrics.is_file():
@@ -71,7 +71,7 @@ def check_one(source: Path) -> FolderStatus:
             Issue(
                 "missing_lyrics",
                 _rel(lyrics),
-                "lyrics.txt ontbreekt naast de bron (.vsa/.mvsa)",
+                "lyrics.txt ontbreekt naast de bron (.vsa/.mvsa/.mscz)",
             )
         )
     else:
@@ -114,7 +114,7 @@ def check_one(source: Path) -> FolderStatus:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Controleer .lyrics.txt-siblings bij .vsa/.mvsa."
+        description="Controleer .lyrics.txt-siblings bij .vsa/.mvsa/.mscz."
     )
     parser.add_argument(
         "root",

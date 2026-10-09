@@ -16,7 +16,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from coria_mxl import load_score_xml, require_no_spaces, write_mxl
+from coria_mxl import load_score_xml, process_existing_mxl, require_no_spaces, write_mxl
 from ensure_bibliotheek_id import id_from_catalogus_path
 from product_meta import (
     FIELD_SOURCE_KIND,
@@ -143,6 +143,8 @@ def sync_one(
             _run_mvsa_musicxml(mvsa, mxl)
             if not mxl.is_file():
                 raise RuntimeError(f"MXL ontbreekt na mvsa musicxml: {mxl}")
+            # Strip Coria-vijandige tags (o.a. identification/source) vóór stamp.
+            process_existing_mxl(mxl)
             root = load_score_xml(mxl)
             stamp_mxl_source(
                 root,

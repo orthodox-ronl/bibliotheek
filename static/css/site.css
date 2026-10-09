@@ -415,6 +415,12 @@ code.catalogus-id {
   flex: 0 0 auto;
 }
 
+.site-zoek-toggle-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
 .site-zoek-toggle {
   display: inline-flex;
   align-items: center;
@@ -1549,6 +1555,7 @@ body.score-audio-bar-open {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  align-items: center;
 }
 
 .catalogus-zoek-rij input[type="search"] {
@@ -1558,7 +1565,7 @@ body.score-audio-bar-open {
   padding: 0.4rem 0.55rem;
 }
 
-.catalogus-zoek-rij button {
+.catalogus-zoek-rij > button[type="submit"] {
   font: inherit;
   padding: 0.4rem 0.85rem;
   cursor: pointer;
@@ -1838,6 +1845,20 @@ body.score-audio-bar-open {
   bottom: calc(100% + 0.35rem);
   right: 0;
   left: auto;
+}
+
+.catalogus-zoek-tip--help .catalogus-zoek-tip-panel {
+  top: calc(100% + 0.35rem);
+  right: 0;
+  left: auto;
+  width: min(22rem, 92vw);
+}
+
+.site-zoek-toggle-wrap .catalogus-zoek-tip--help .catalogus-zoek-tip-panel {
+  top: calc(100% + 0.4rem);
+  right: 0;
+  left: auto;
+  z-index: 50;
 }
 
 .catalogus-zoek-tip.is-open .catalogus-zoek-tip-panel,

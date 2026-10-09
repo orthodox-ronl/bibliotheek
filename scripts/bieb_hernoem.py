@@ -1,4 +1,4 @@
-"""Hernoem een zangstuk-id (map + stam + verwijzingen + Hugo-aliases).
+"""Hernoem een zangstuk-id (map + stam + verwijzingen + koormap-slots).
 
 Gebruik::
 
@@ -7,7 +7,9 @@ Gebruik::
 Verplaatst ``content-source/catalogus/<oud>`` → ``<nieuw>``, hernoemt
 bestanden waarvan de naam met ``{oud}-`` begint, werkt tekstverwijzingen
 bij (``bieb id``, ``alias_van``, colofon, docs), verplaatst bladermap-SVG,
-en zet Hugo-``aliases`` op elke verhuisde pagina voor de oude URL.
+en hernoemt koormap-slotmappen die exact ``<oud>`` heten (zodat
+inhoudsopgave-links en mapnamen gelijk blijven). Hugo-``aliases`` voor
+oude URL’s worden niet gezet.
 """
 
 from __future__ import annotations
@@ -46,6 +48,7 @@ _SKIP_DIR_NAMES = frozenset(
         ".hugo_build.lock",
     }
 )
+KOORMAPPEN_ROOT = REPO_ROOT / "content-source" / "koormappen"
 
 
 def _rel(path: Path) -> str:
@@ -65,7 +68,7 @@ def _validate_zangstuk(name: str) -> str:
 
 
 def _insert_aliases(text: str, alias_paths: list[str]) -> str:
-    """Voeg aliases toe aan YAML-frontmatter (of maak frontmatter)."""
+    """Voeg aliases toe aan YAML-frontmatter (helper voor eenmalige migrate-scripts)."""
     aliases_block = "aliases:\n" + "".join(f'  - "{p}"\n' for p in alias_paths)
     if not text.startswith("---"):
         return f"---\n{aliases_block}---\n\n{text}"
@@ -159,28 +162,28 @@ def _rename_stem_files(root: Path, old: str, new: str, *, dry_run: bool) -> int:
     return n
 
 
-def _add_page_aliases(zangstuk_dir: Path, old: str, new: str, *, dry_run: bool) -> int:
-    """Zet Hugo-aliases voor oude URL’s op _index.md / index.md onder nieuw pad."""
+def _rename_koormap_slots(old: str, new: str, *, dry_run: bool) -> int:
+    """Hernoem koormap-mappen die exact ``old`` heten → ``new``.
+
+    Inhoudsopgave-links in koormap-``_index.md`` worden door tekstrewrite
+    ``{new}/``. Zonder maphernoem blijft de map ``{old}/`` → 404.
+    """
+    if not KOORMAPPEN_ROOT.is_dir():
+        return 0
+    # Diepste eerst, zodat geneste gelijknamige mappen (zeldzaam) veilig gaan.
+    slots = sorted(
+        (p for p in KOORMAPPEN_ROOT.rglob(old) if p.is_dir() and p.name == old),
+        key=lambda p: len(p.parts),
+        reverse=True,
+    )
     n = 0
-    indexes = list(zangstuk_dir.rglob("_index.md")) + list(zangstuk_dir.rglob("index.md"))
-    for index in indexes:
-        try:
-            rel = index.parent.resolve().relative_to(zangstuk_dir.resolve())
-        except ValueError:
-            continue
-        rel_s = "" if str(rel) in {".", ""} else rel.as_posix().rstrip("/")
-        old_url = (
-            f"/catalogus/{old}/"
-            if not rel_s
-            else f"/catalogus/{old}/{rel_s}/"
-        )
-        text = index.read_text(encoding="utf-8")
-        new_text = _insert_aliases(text, [old_url])
-        if new_text == text:
-            continue
-        print(f"  alias {_rel(index)} <- {old_url}", flush=True)
+    for src in slots:
+        dest = src.with_name(new)
+        print(f"  move {_rel(src)} -> {_rel(dest)}", flush=True)
+        if dest.exists():
+            raise SystemExit(f"koormap-doel bestaat al: {_rel(dest)}")
         if not dry_run:
-            index.write_text(new_text, encoding="utf-8", newline="\n")
+            shutil.move(str(src), str(dest))
         n += 1
     return n
 
@@ -209,7 +212,7 @@ def hernoem_zangstuk(old: str, new: str, *, dry_run: bool) -> int:
     else:
         zangstuk_dir = src  # dry-run: werk op bron voor listing
 
-    # Stam-bestanden (in bibliotheek-map)
+    # Stam-bestanden (in catalogus-map)
     n_stem = _rename_stem_files(zangstuk_dir if not dry_run else src, old, new, dry_run=dry_run)
     print(f"  stam-bestanden: {n_stem}", flush=True)
 
@@ -226,6 +229,10 @@ def hernoem_zangstuk(old: str, new: str, *, dry_run: bool) -> int:
             _rename_stem_files(svg_dest, old, new, dry_run=False)
         else:
             _rename_stem_files(svg_src, old, new, dry_run=True)
+
+    # Koormap-slotmappen met dezelfde mapnaam als het oude zangstuk-id
+    n_koor = _rename_koormap_slots(old, new, dry_run=dry_run)
+    print(f"  koormap-slots: {n_koor}", flush=True)
 
     # Tekstverwijzingen in de hele repo (na mapverplaatsing: nieuw pad)
     n_files = 0
@@ -248,13 +255,6 @@ def hernoem_zangstuk(old: str, new: str, *, dry_run: bool) -> int:
             path.write_text(updated, encoding="utf-8", newline="\n")
     print(f"  tekstbestanden bijgewerkt: {n_files} (~{n_hits} treffers)", flush=True)
 
-    # Hugo-aliases op verhuisde pagina's
-    alias_root = dest if not dry_run else src
-    # Na rewrite heten aliases-doelen al /catalogus/new/… — we willen OUDE urls.
-    # Dus aliases toevoegen met old-naam, onafhankelijk van rewrite.
-    n_alias = _add_page_aliases(alias_root, old, new, dry_run=dry_run)
-    print(f"  hugo-aliases: {n_alias}", flush=True)
-
     print("OK: hernoem klaar" + (" (dry-run, niets geschreven)" if dry_run else ""))
     if not dry_run:
         print(
@@ -267,7 +267,7 @@ def hernoem_zangstuk(old: str, new: str, *, dry_run: bool) -> int:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="bieb hernoem",
-        description="Hernoem een zangstuk-id (map, stam, refs, aliases).",
+        description="Hernoem een zangstuk-id (map, stam, refs, koormap-slots).",
     )
     parser.add_argument("oud", help="Huidig zangstuk-id (mapnaam)")
     parser.add_argument("nieuw", help="Nieuw zangstuk-id")

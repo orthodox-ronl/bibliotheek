@@ -29,6 +29,7 @@ from product_meta import (
     SOURCE_KIND_VSA,
     read_mxl_stamp,
     read_pdf_stamp,
+    set_mxl_identification_source,
     source_sha256,
     stamp_mxl_source,
     stamp_pdf,
@@ -266,6 +267,11 @@ def sync_one(
             generated_at=generated_at,
             generator=GENERATOR_VSA,
         )
+        from vsa_bron import bron_uitgangspunt_from_file
+
+        bron = bron_uitgangspunt_from_file(vsa)
+        if bron:
+            set_mxl_identification_source(root, bron)
         write_mxl(mxl, root)
         legacy = vsa.with_suffix(".mxl")
         if legacy.is_file() and legacy.resolve() != mxl.resolve():

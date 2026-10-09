@@ -27,19 +27,18 @@ from bieb_hernoem import (  # noqa: E402
 )
 
 # oud zangstuk-id -> (variant-id, weight, title, linkTitle)
-# 22 deelt variant ``vragend`` met 16 (alleen aliases + refs).
+# 16 en 22 zijn aparte varianten (andere priestertekst; 16 heeft slotamen).
 _MOVES: list[tuple[str, str, int, str, str]] = [
     ("1-vredeslitanie", "vrede", 100, "Vredeslitanie", "Vrede"),
-    ("3-eerste-kleine-litanie", "kleine", 300, "Kleine litanie", "Kleine"),
+    ("3-eerste-kleine-litanie", "eerste-kleine", 300, "Eerste kleine litanie", "Eerste kleine"),
+    ("4a-tweede-kleine-litanie", "tweede-kleine", 400, "Tweede kleine litanie", "Tweede kleine"),
     ("11-dringende-litanie", "dringend", 1100, "Dringende litanie", "Dringend"),
     ("12-ontslapenen-litanie", "ontslapenen", 1200, "Ontslapenen-litanie", "Ontslapenen"),
     ("13-catechumenen-litanie", "catechumenen", 1300, "Catechumenen-litanie", "Catechumenen"),
     ("14-gelovigen-litanie", "gelovigen", 1400, "Gelovigen-litanie", "Gelovigen"),
-    ("16-vragende-litanie", "vragend", 1600, "Vragende litanie", "Vragend"),
+    ("16-vragende-litanie", "vragend-16", 1600, "Vragende litanie (16)", "Vragend 16"),
+    ("22-vragende-litanie", "vragend-22", 2200, "Vragende litanie (22)", "Vragend 22"),
 ]
-
-_ALIAS_ONLY = ("22-vragende-litanie", "vragend")
-
 
 def _rewrite_paths(text: str) -> str:
     """Vervang bibliotheek-ids en publicatiestammen (niet koormap-slotnamen).
@@ -51,9 +50,6 @@ def _rewrite_paths(text: str) -> str:
     for old, variant, *_ in _MOVES:
         replacements.append((f"{old}/default/", f"ektinia/{variant}/"))
         replacements.append((f"{old}-default-", f"ektinia-{variant}-"))
-    old22, variant = _ALIAS_ONLY
-    replacements.append((f"{old22}/default/", f"ektinia/{variant}/"))
-    replacements.append((f"{old22}-default-", f"ektinia-{variant}-"))
     replacements.sort(key=lambda t: len(t[0]), reverse=True)
     for old, new in replacements:
         text = text.replace(old, new)
@@ -220,14 +216,6 @@ def migrate(*, dry_run: bool) -> int:
                 shutil.rmtree(src)
                 print(f"  remove tree {_rel(src)}", flush=True)
 
-    # 22: inhoud weg (zelfde werk als 16); aliases later op vragend
-    old22, variant22 = _ALIAS_ONLY
-    src22 = CATALOGUS_ROOT / old22
-    print(f"  drop duplicate {old22} (-> ektinia/{variant22})", flush=True)
-    if not dry_run and src22.is_dir():
-        shutil.rmtree(src22)
-        print(f"  remove tree {_rel(src22)}", flush=True)
-
     # Bladermap-SVG (indien aanwezig)
     svg_root = REPO_ROOT / "static" / "vsa" / "bladermap" / "catalogus"
     for old, variant, *_ in _MOVES:
@@ -280,9 +268,6 @@ def migrate(*, dry_run: bool) -> int:
             dest_variant = dest_root / variant
             if dest_variant.is_dir():
                 _add_aliases_to_tree(dest_variant, old, dry_run=False)
-        vragend = dest_root / variant22
-        if vragend.is_dir():
-            _add_aliases_to_tree(vragend, old22, dry_run=False)
 
     print("OK: ektinia-migratie klaar" + (" (dry-run)" if dry_run else ""))
     if not dry_run:

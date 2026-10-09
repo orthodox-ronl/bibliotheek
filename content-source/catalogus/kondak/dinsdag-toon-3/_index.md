@@ -5,7 +5,4 @@ nav_sort: weight
 weight: 202
 publicatiestatus: concept
 automatische_inhoud: true
-aliases:
-  - "/bibliotheek/120-kondak/dinsdag-toon-3/"
-  - "/bibliotheek/kondak/dinsdag-toon-3/"
 ---

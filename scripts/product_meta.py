@@ -22,6 +22,7 @@ FIELD_PARTITUUR_SHA = "vsa-partituur-sha256"
 FIELD_PARTITUUR_SHA_LEGACY = "vsa-hub-sha256"
 FIELD_GENERATED_AT = "vsa-generated-at"
 FIELD_GENERATOR = "vsa-generator"
+FIELD_BRON = "bron"
 GENERATOR_VSA = "vsa-musicxml"
 GENERATOR_VSA_PDF = "vsa-products"
 GENERATOR_MSCZ = "mscz-products"
@@ -111,6 +112,24 @@ def _ensure_identification(root: ET.Element) -> ET.Element:
                 insert_at = i + 1
         root.insert(insert_at, ident)
     return ident
+
+
+def set_mxl_identification_source(root: ET.Element, source: str) -> None:
+    """Zet bronvermelding voor Coria-MXL zonder ``identification/source``.
+
+    Coria faalt op ``<source>`` samen met ``<encoding>`` (``translation
+    failed``). De tekst komt in ``miscellaneous-field name="bron"``. Een
+    bestaand ``<source>``-element wordt verwijderd. Lege tekst doet niets
+    behalve een bestaand ``<source>`` strippen.
+    """
+    ident = _ensure_identification(root)
+    source_el = _child(ident, "source")
+    if source_el is not None:
+        ident.remove(source_el)
+    text = (source or "").strip()
+    if not text:
+        return
+    _set_misc_field(ident, FIELD_BRON, text)
 
 
 def _set_misc_field(ident: ET.Element, name: str, value: str) -> None:

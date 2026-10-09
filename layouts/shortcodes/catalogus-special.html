@@ -1,7 +1,7 @@
 {{- /*
   Special-page lijsten voor de catalogus (build-time, Wikipedia-achtig).
 
-  kind: voorzien | ongerefereerd | oefenbaar | werkbank
+  kind: voorzien | ongerefereerd | oefenbaar | werkbank | handmatig
 */ -}}
 {{- $kind := .Get "kind" | default "voorzien" -}}
 {{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}
@@ -11,7 +11,39 @@
 {{- end -}}
 {{- $prefix := "catalogus/" -}}
 
-{{- if eq $kind "werkbank" -}}
+{{- if eq $kind "handmatig" -}}
+  {{- $rows := slice -}}
+  {{- range $bib.RegularPagesRecursive -}}
+    {{- $dir := "" -}}
+    {{- with .File -}}{{- $dir = strings.TrimSuffix "/" (replace .Dir "\\" "/") -}}{{- end -}}
+    {{- if and $dir (not (strings.Contains $dir "/speciaal")) -}}
+      {{- $id := strings.TrimPrefix $prefix $dir -}}
+      {{- if and (ne $id $dir) (eq (len (split $id "/")) 3) -}}
+        {{- if .Params.artefacten_handmatig -}}
+          {{- $rows = $rows | append (dict "page" . "id" $id "title" (or .Params.linkTitle .Title)) -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $rows = sort $rows "id" -}}
+  {{- if $rows -}}
+<ul class="page-list catalogus-special">
+  {{- range $rows -}}
+  <li>
+    {{- if partial "oefenhoek-linkbaar.html" .page -}}
+    <a href="{{ .page.RelPermalink }}">{{ .title }}</a>
+    {{- else -}}
+    <span class="oefenhoek-voorzien">{{ .title }} <span class="oefenhoek-voorzien-tag">(voorzien)</span></span>
+    {{- end -}}
+    <code class="catalogus-id">{{ .id }}</code>
+  </li>
+  {{- end -}}
+</ul>
+  {{- else -}}
+<p>Geen uitvoeringsvormen met <code>artefacten_handmatig: true</code>.</p>
+  {{- end -}}
+
+{{- else if eq $kind "werkbank" -}}
   {{- $statusPath := "data/werkbank-status.json" -}}
   {{- if not (fileExists $statusPath) -}}
 <p>Nog geen werkbank-status. Draai
@@ -142,5 +174,5 @@
   {{- end -}}
 
 {{- else -}}
-  {{- errorf "%s: shortcode catalogus-special: onbekend kind %q. Oplossing: gebruik kind=\"voorzien\", \"ongerefereerd\", \"oefenbaar\" of \"werkbank\"." $loc $kind -}}
+  {{- errorf "%s: shortcode catalogus-special: onbekend kind %q. Oplossing: gebruik kind=\"voorzien\", \"ongerefereerd\", \"oefenbaar\", \"werkbank\" of \"handmatig\"." $loc $kind -}}
 {{- end -}}

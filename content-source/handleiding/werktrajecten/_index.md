@@ -21,6 +21,7 @@ mappen, woorden). Stapsgewijze MuseScore- of VSA-HOW’s staan onder
 {{< cue >}}
 - **Poort / lifecycle:** [Levenscyclus](../start/levenscyclus/) —
   Werkbank → Catalogus; [Opnemen](opnemen-in-catalogus/) — `bieb accepteer`
+- **Id wijzigen:** [Zangstuk hernoemen](zangstuk-hernoemen/) — `bieb hernoem`
 - **Namen / publicatiecontrole:** [Publicatiecontrole](../start/publicatiecontrole/) — bron vs afgeleide
 - **Publicatiesporen:** [Basispartituur](basispartituur/), [VSA](vsa/),
   [mvsa](mvsa/), [audio](audio/), [Print-vel](print-vel/) (legacy `.print.mscz`),
@@ -57,6 +58,7 @@ geen bibliotheek-producten.
 | Werktraject | Waartoe (kort) | Pagina |
 | --- | --- | --- |
 | Opnemen in de catalogus | Ruw bestand bewaren en later als klaar oefenbestand in de catalogus zetten | [Opnemen](opnemen-in-catalogus/) |
+| Zangstuk hernoemen | Zangstuk-id (topmap) wijzigen inclusief producten en 1:1-koormap-slots | [Hernoemen](zangstuk-hernoemen/) |
 | Basispartituur | MuseScore-basispartituur naar A4-PDF en Coria-`.mxl` | [Basispartituur](basispartituur/) |
 | VSA | Eenstemmige `.vsa` naar SVG, Coria-`.vsa.mxl` en A4-`.vsa.pdf` | [VSA](vsa/) |
 | mvsa | Meerstemmige `.mvsa` naar Coria-`.mvsa.mxl` en A4-`.mvsa.pdf` | [mvsa](mvsa/) |

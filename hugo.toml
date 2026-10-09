@@ -3,6 +3,9 @@ languageCode = "nl"
 title = "Bibliotheek"
 contentDir = "content-source"
 
+# Footer «Bijgewerkt» via .GitInfo (laatste commit die dit contentbestand raakte).
+enableGitInfo = true
+
 disableKinds = ["taxonomy", "term"]
 
 # Ruwe inputs + tekstblad-bronnen: geen Hugo-pagina's.

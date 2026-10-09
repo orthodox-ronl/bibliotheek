@@ -2,8 +2,6 @@
 title: "Catalogus en koormappen"
 linkTitle: "Catalogus en koormappen"
 weight: 25
-aliases:
-  - "/handleiding/start/bibliotheek-en-koormappen/"
 ---
 
 # Catalogus en koormappen
@@ -152,14 +150,18 @@ variant-`_index.md` mag `title` / `linkTitle` tijdelijk `default` blijven;
 de leaf draagt dan de echte liturgische titel. Zodra er een tweede variant
 komt, geef je `default` een echte naam of hernoem je de map.
 
-### Wat `check` (nog) niet doet
+### Wat `check` wel en niet doet aan titels
 
-`scripts\check.cmd` controleert **geen** frontmatter-schema (geen verplichte
-velden, geen capitalisatie van `linkTitle`). Wel verwacht de handleiding die
-velden op elke catalogus- en koormap-pagina. Mis je `publicatiestatus` op
-een **leaf**, dan ontbreekt de `?` naast de titel; de build faalt daar niet
-op. Op sectie-overzichten en hulppagina’s (zoals zoeken) zie je die tip
-niet, ook al staat het veld wel in de frontmatter.
+`scripts\check.cmd` (met `--strict`: hard) controleert leaf-`title` /
+`linkTitle` via `check_catalogus_leaf_titles`: de titel mag niet alleen het
+zangstuk-id zijn (dat maakt zoektreffers onbruikbaar), en `linkTitle` hoort
+het leesbare uitvoeringsvorm-label te zijn. `bieb accepteer` zet die
+defaults goed; bestaande kale bladen herstel je handmatig of door opnieuw
+te accepteren met `--force` / `--title`.
+
+Nog **niet** door `check`: een volledig frontmatter-schema of verplichte
+`publicatiestatus`. Mis je `publicatiestatus` op een **leaf**, dan ontbreekt
+de `?` naast de titel; de build faalt daar niet op.
 
 ## Soorten koormap (classificatie)
 
@@ -196,13 +198,91 @@ Automatisch bijgehouden (bij elke sitebuild):
 | [Voorzien](/catalogus/speciaal/voorzien/) | Zangstukken zonder oefenbare inhoud |
 | [Ongerefereerd](/catalogus/speciaal/ongerefereerd/) | In de catalogus, nog niet in een koormap |
 | [Oefenbaar](/catalogus/speciaal/oefenbaar/) | Platte lijst van linkbare uitvoeringsvormen + id |
+| [Handmatig](/catalogus/speciaal/handmatig/) | Uitvoeringsvormen met `artefacten_handmatig: true` |
 
-## Klaar als
+## Taalvarianten op de uitvoeringsvorm
 
-Je kunt uitleggen waarom een Zwolle-cherubijn eerst in de catalogus hoort;
-waarom de Hemelum-liturgiemap géén tweede opslag van PDF’s is; en wanneer je
-een **sectie** (boom) kiest versus een **compositieblad** (meerdere
-shortcodes op één pagina).
+Nederlands en kerkslavisch zijn **aparte uitvoeringsvormen**. De taal
+hoort in het derde padsegment (de leaf-map), niet in een vierde maplaag
+en niet als aparte map per bestandsformaat. Markeer de taal met suffix
+`-nl` of `-ksl` op de uitvoeringsvorm-id — alleen waar nodig.
+
+### Wanneer wel, wanneer niet
+
+| Situatie | Wat je doet |
+| --- | --- |
+| Alleen Nederlands voor die herkomst (geen kerkslavisch-sibling) | Geen taalsuffix: leaf `hemelum` |
+| Zelfde herkomst in **beide** talen | Twee leaves: `hemelum-nl` en `hemelum-ksl` |
+| Alleen kerkslavisch (Cyrillisch) | Suffix `-ksl` op de uitvoeringsvorm-id |
+| Mengvorm NL + kerkslavisch in één partituur | Suffix `-nl-ksl` (zeldzaam) |
+
+Gebruik `-nl` **alleen waar nodig**: als er een `-ksl`-sibling is (of komt),
+zodat beide leaves even duidelijk zijn. Zet geen `-nl` op elke
+Nederlandse leaf «voor de zekerheid».
+
+**Voorkeursconventie** voor nieuw werk: taal via suffix op de
+**uitvoeringsvorm-id** (`-nl` / `-ksl`). Zet de taal **niet** in de
+variant-id.
+
+**Legacy / alternatief:** sommige oudere stukken houden taal in de
+variant, bijvoorbeeld `trisagion/8a-nederlands/hemelum` naast
+`trisagion/8a-slav/hemelum`. Die maps niet hernoemen tot een aparte
+migratie; voor **nieuwe** ids volg je de suffix op de uitvoeringsvorm.
+
+Getranslitereerde producten (Latijns schrift naast Cyrillisch) horen
+later; die conventie staat nog niet vast in dit padmodel.
+
+### Pad, catalogus-id en bestandsstam
+
+| Begrip | Vorm | Voorbeeld (schets) |
+| --- | --- | --- |
+| Cataloguspad | `catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\` | `catalogus\prijslied\bisschop-gregorios\hemelum-nl\` |
+| Catalogus-id (`bieb`) | `zangstuk/variant/uitvoeringsvorm` | `prijslied/bisschop-gregorios/hemelum-nl` |
+| Publicatiestam | `{zangstuk}-{variant}-{uitvoeringsvorm}` | `prijslied-bisschop-gregorios-hemelum-nl` |
+
+Voorbeeld-paar (nog niet per se in de catalogus; richting voor nieuw werk):
+
+```text
+content-source\catalogus\prijslied\bisschop-gregorios\hemelum-nl\
+content-source\catalogus\prijslied\bisschop-gregorios\hemelum-ksl\
+```
+
+Catalogus-ids: `prijslied/bisschop-gregorios/hemelum-nl` en
+`prijslied/bisschop-gregorios/hemelum-ksl`. Bestandsstam van de
+Nederlandse leaf:
+`prijslied-bisschop-gregorios-hemelum-nl` (plus extensie van de bron).
+
+Precedent in het [Id-register](/catalogus/id-register/): o.a.
+`cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` (stub) en bestaande
+`-ksl`-leaves zoals `tropaar/uw-heilig-kruis/groningen-ksl`.
+
+### Canonieke bron vs afgeleiden
+
+In **elke** leaf-map liggen bron en afgeleiden naast elkaar (siblings):
+
+| Soort | Voorbeelden | Rol |
+| --- | --- | --- |
+| **Canonieke bron** | `{stam}.vsa`, `{stam}.mscz`, `{stam}.mvsa`, `{stam}.tekstblad.md` | Hier bewerk je |
+| **Afgeleiden** | `{stam}.vsa.mxl`, `{stam}.vsa.pdf`, `{stam}.mp3`, `{stam}.mscz.pdf`, … | Regenereren met productscripts |
+
+Formaat is **geen** id-laag: geen aparte map `pdf/` of `mxl/` onder de
+leaf. PDF, MusicXML en audio blijven siblings van de bron in dezelfde
+uitvoeringsvorm-map. Detail:
+[Publicatiecontrole](publicatiecontrole/).
+
+### Koormap: alleen `bieb`
+
+Koormap-slots bevatten **geen** kopie van de partituur. Ze verwijzen
+met shortcode `bieb` naar het catalogus-id, inclusief het taalsuffix
+wanneer dat in de leaf-naam zit:
+
+```markdown
+{{</* bieb id="prijslied/bisschop-gregorios/hemelum-nl" */>}}
+{{</* bieb id="prijslied/bisschop-gregorios/hemelum-ksl" */>}}
+```
+
+Korte woordenlijst: [Woorden](woorden/) (regel **Taal-suffix**). Concrete
+ids: [Id-register](/catalogus/id-register/).
 
 ## Naamgevingsbeleid (nieuwe ids)
 
@@ -213,11 +293,24 @@ shortcodes op één pagina).
    `mg` of `zo-wk-mg`.
 3. Genummerde top-level `zangstuk-id`s zijn hernoemd (zie
    [Zangstuk-soorten](/handleiding/start/zangstuk-soorten/)). Nieuwe
-   hernoemingen: [`bieb hernoem`](/handleiding/scripts/bieb-hernoem/).
+   hernoemingen: werktraject
+   [Zangstuk hernoemen](/handleiding/werktrajecten/zangstuk-hernoemen/)
+   ([`bieb hernoem`](/handleiding/scripts/bieb-hernoem/)).
 4. Echte naamsynoniemen van dezelfde variant: `alias_van`. Spelling- en
    woordvolgorde-varianten: zoekindex + [`data/zoek-synoniemen.yaml`](https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml).
+5. Taal (NL / kerkslavisch): suffix op de **uitvoeringsvorm** (`-nl` /
+   `-ksl`), alleen waar nodig — zie
+   [Taalvarianten](#taalvarianten-op-de-uitvoeringsvorm).
 
 Zie [Zangstuk-soorten](/handleiding/start/zangstuk-soorten/) voor de
 inventaristabel en resterende vervolgstappen.
+
+## Klaar als
+
+Je kunt uitleggen waarom een Zwolle-cherubijn eerst in de catalogus hoort;
+waarom de Hemelum-liturgiemap géén tweede opslag van PDF’s is; wanneer je
+een **sectie** (boom) kiest versus een **compositieblad** (meerdere
+shortcodes op één pagina); en hoe je een NL/kerkslavisch-paar als twee
+uitvoeringsvormen met `-nl` / `-ksl` aanmaakt.
 
 {{< navbuttons "Waar ligt wat|/handleiding/start/waar-ligt-wat/" "Zangstuk-soorten|/handleiding/start/zangstuk-soorten/" >}}

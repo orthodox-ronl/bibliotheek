@@ -5,6 +5,4 @@ nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true
 weight: 2300
-aliases:
-  - "/bibliotheek/onze-vader/"
 ---

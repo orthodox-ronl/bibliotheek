@@ -150,15 +150,60 @@ class PromptTests(unittest.TestCase):
             self.assertEqual(paths[0].resolve(), mscz.resolve())
 
     def test_main_interactive_stub_dry_run(self) -> None:
+        # Bestand eerst (stub), daarna id.
         answers = iter(
             [
-                "zz-test-accepteer/default/hemelum",
                 "stub",
+                "zz-test-accepteer/default/hemelum",
             ]
         )
         with patch("bieb_accepteer.prompt_line", side_effect=lambda _m: next(answers)):
             code = ba.main(["--dry-run"])
         self.assertEqual(code, 0)
+
+    def test_default_title_and_link(self) -> None:
+        ident = "kondak/johannes-de-theoloog-toon-2/liturgikon"
+        self.assertEqual(
+            ba.default_title(ident),
+            "Kondak Johannes De Theoloog Toon 2 (Liturgikon)",
+        )
+        self.assertEqual(ba.default_link_title(ident), "Liturgikon")
+
+    def test_id_from_stem_known(self) -> None:
+        from catalogus import id_from_publication_stem
+
+        self.assertEqual(
+            id_from_publication_stem(
+                "kondak-johannes-de-theoloog-toon-2-liturgikon"
+            ),
+            "kondak/johannes-de-theoloog-toon-2/liturgikon",
+        )
+
+    def test_stem_mismatch_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            vsa = Path(tmp) / "verkeerde-naam-hemelum.vsa"
+            vsa.write_text("---\nsoort: tropaar\n---\n[/:] a [:]\n", encoding="utf-8")
+            code = ba.accept(
+                "tropaar/johannes-de-theoloog-toon-2/liturgikon",
+                [vsa],
+                title=None,
+                status=None,
+                stub=False,
+                move=False,
+                force=False,
+                dry_run=True,
+                skip_vsa_validate=True,
+                artefacten_handmatig=False,
+            )
+            self.assertEqual(code, 1)
+
+    def test_cli_file_first_normalizes(self) -> None:
+        ident, files = ba._normalize_cli_positionals(
+            "kondak-x-liturgikon.vsa",
+            [],
+        )
+        self.assertIsNone(ident)
+        self.assertEqual(len(files), 1)
 
 
 if __name__ == "__main__":

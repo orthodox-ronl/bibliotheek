@@ -5,7 +5,4 @@ nav_sort: weight
 weight: 107
 publicatiestatus: concept
 automatische_inhoud: true
-aliases:
-  - "/bibliotheek/120-kondak/zondag-toon-7/"
-  - "/bibliotheek/kondak/zondag-toon-7/"
 ---

@@ -7,8 +7,6 @@ publicatiestatus: concept
 automatische_inhoud: false
 cascade:
   type: oefenhoek
-aliases:
-  - "/bibliotheek/"
 ---
 
 De catalogus bevat alles wat hier digitaal beschikbaar is:

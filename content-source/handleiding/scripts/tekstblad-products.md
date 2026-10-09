@@ -6,7 +6,7 @@ weight: 115
 
 # NAME
 
-`scripts\tekstblad-products.cmd` — A4-PDF maken bij een catalogus-`.tekstblad.md`
+`scripts\tekstblad-products.cmd` â€” A4-PDF maken bij een catalogus-`.tekstblad.md`
 
 # SYNOPSIS
 
@@ -23,7 +23,7 @@ Zoekt canonieke bronnen `{stam}.tekstblad.md` onder het opgegeven pad
 of de PDF nog bij de bron past.
 
 Bestanden in `input\` en mappen met `artefacten_handmatig: true` worden
-overgeslagen. CI genereert deze PDF’s niet; jij wel lokaal (Chrome of Edge
+overgeslagen. CI genereert deze PDFâ€™s niet; jij wel lokaal (Chrome of Edge
 nodig voor `vsa pdf`), daarna bron + PDF samen committen.
 
 # OPTIONS
@@ -37,7 +37,7 @@ nodig voor `vsa pdf`), daarna bron + PDF samen committen.
 
 ```cmd
 scripts\tekstblad-products.cmd
-scripts\tekstblad-products.cmd content-source\catalogus\7d-dialoog-met-diaken --force
+scripts\tekstblad-products.cmd content-source\catalogus\dialoog-met-diaken --force
 ```
 
 # WHEN
@@ -48,6 +48,6 @@ meldt dat de PDF ontbreekt, zonder stamp is, of verouderd.
 # SEE ALSO
 
 - [check](../check/)
-- [pdf](../pdf/) — generieke markdown ? PDF
+- [pdf](../pdf/) â€” generieke markdown ? PDF
 - Workflow: [Tekstblad](/handleiding/werktrajecten/tekstblad/)
 - [Publicatiecontrole](/handleiding/start/publicatiecontrole/)

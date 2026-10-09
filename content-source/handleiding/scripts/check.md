@@ -43,11 +43,22 @@ Of: `scripts\check.cmd` vanuit de repo-root.
    passende `{stam}.….lyrics.txt` heeft met `vsa-source-sha256`
 9. Catalogus-id — of elke basispartituur-`.mscz` in het colofon de
    regel `Bibliotheek-id:` heeft die bij het bladermap-pad past
-10. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
-11. Bladermap-SVG (`oefenhoek-index --svg`) — plaatjes uit `.vsa`; geen
+10. Koormap-slotlinks (`python scripts\check_koormap_slot_links.py
+    --fail`) — of relatieve links in koormap-markdown (inhoudsopgaven)
+    naar bestaande mappen of pagina’s wijzen; vangt 404’s na een half
+    uitgevoerde `bieb hernoem`
+11. Catalogus-leaf-titels (`check_catalogus_leaf_titles`) — of leaf-`title`
+    niet alleen het zangstuk-id is en `linkTitle` een leesbaar
+    uitvoeringsvorm-label is (waarschuwing; met `--strict` fout)
+12. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
+13. Bladermap-SVG (`oefenhoek-index --svg`) — plaatjes uit `.vsa`; geen
    stamp-publicatiecontrole
-12. Zoekindex (`python scripts\build_zoek_index.py` → `static\zoek\index.json`)
-13. Hugo-build naar `generated\site`
+14. Zoekindex (`python scripts\build_zoek_index.py` → `static\zoek\index.json`)
+15. Bouwtijd-stempel (`python scripts\write_build_stamp.py` →
+    `data\build.yaml`; footer «Gegenereerd» op de homepage; niet
+    committen)
+16. Hugo-build naar `generated\site` (footer «Bijgewerkt» via
+    Git-geschiedenis van het contentbestand)
 
 De Pages-deploy (productie, `/preview/`, branch-previews) bouwt de
 zoekindex ook vóór Hugo, zodat zoeken niet afhangt van een verouderde
@@ -96,8 +107,11 @@ genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole)
 - [oefenhoek-index](../oefenhoek-index/)
 - [layout](../layout/)
 - [ensure-bibliotheek-id](../ensure-bibliotheek-id/)
+- [bieb hernoem](../bieb-hernoem/)
+- [h](../h/)
 - [serve](../serve/)
 - [build](../build/)
+- [Zangstuk hernoemen](/handleiding/werktrajecten/zangstuk-hernoemen/)
 - [Wat heb je nodig](/handleiding/start/wat-heb-je-nodig/)
 - [Status en check](/handleiding/publiceren/2-status-en-check/)
 - [Publicatiecontrole](/handleiding/start/publicatiecontrole/)

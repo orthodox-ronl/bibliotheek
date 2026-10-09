@@ -2,8 +2,6 @@
 title: "Opnemen in de catalogus"
 linkTitle: "Opnemen"
 weight: 10
-aliases:
-  - "/handleiding/werktrajecten/opnemen-in-bibliotheek/"
 ---
 
 # Opnemen in de catalogus
@@ -99,9 +97,12 @@ scripts\update-werkvoorraad.cmd
 bieb accepteer
 ```
 
-   Het script vraagt catalogus-id en bestand na (of je geeft die op de
-   regel). Het maakt de mappen, zet `index.md` met shortcode `bieb`, en
-   kopieert het bestand naar de **publicatiestam**-naam.
+   Geef het bronbestand bij voorkeur al de publicatiestam-naam
+   (`zangstuk-variant-uitvoeringsvorm.ext`). Het script vraagt **eerst**
+   het bestand (en valideert `.vsa`/`.mvsa` meteen), leidt het id af, en
+   vraagt ter bevestiging. Het maakt de mappen, zet `index.md` met
+   shortcode `bieb` (leesbare `title` + `linkTitle`), en kopieert naar
+   de publicatiestam.
 8. Daarna: het juiste publicatiespoor (PDF/Coria of print-PDF), daarna
    eventueel een [koormap](../../publiceren/1-bladermap/)-slot, daarna
    [Site-build](../site-build/).

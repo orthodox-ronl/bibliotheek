@@ -248,6 +248,35 @@
       .replace(/"/g, "&quot;");
   }
 
+  /** Leesbare treffertitel; vangnet als leaf-title alleen het zangstuk-id is. */
+  function displayTitle(entry) {
+    const title = String((entry && entry.title) || "").trim();
+    const id = String((entry && entry.id) || "");
+    const zId = id.split("/")[0] || "";
+    const zTitle = String((entry && entry.zangstukTitle) || "").trim();
+    const generic =
+      !title ||
+      title.toLowerCase() === zId.toLowerCase() ||
+      title.toLowerCase() === zId.replace(/-/g, " ").toLowerCase() ||
+      (zTitle && title.toLowerCase() === zTitle.toLowerCase() && zTitle.length < 24);
+    if (!generic) return title;
+    const parts = [];
+    if (zTitle) parts.push(zTitle);
+    else if (zId) parts.push(zId.replace(/-/g, " "));
+    const variant = String((entry && entry.variantTitle) || "").trim();
+    if (variant && variant.toLowerCase() !== (parts[0] || "").toLowerCase()) {
+      parts.push(variant);
+    }
+    const link = String((entry && entry.linkTitle) || "").trim();
+    const uv = id.split("/")[2] || "";
+    if (link && link.toLowerCase() !== uv.toLowerCase()) {
+      parts.push("(" + link + ")");
+    } else if (uv) {
+      parts.push("(" + uv + ")");
+    }
+    return parts.join(" ") || title || id;
+  }
+
   function escapeAttr(s) {
     return escapeHtml(s).replace(/'/g, "&#39;");
   }
@@ -284,6 +313,19 @@
       if (btn) btn.setAttribute("aria-expanded", "false");
       if (panel) panel.hidden = true;
     });
+  }
+
+  function toggleTip(root, tipTrigger) {
+    const tip = tipTrigger.closest(".catalogus-zoek-tip");
+    const panel = tip && tip.querySelector(".catalogus-zoek-tip-panel");
+    const open = tip && !tip.classList.contains("is-open");
+    closeAllTips(root);
+    closeAllRatePanels(root);
+    if (tip && open) {
+      tip.classList.add("is-open");
+      tipTrigger.setAttribute("aria-expanded", "true");
+      if (panel) panel.hidden = false;
+    }
   }
 
   function feedbackSnippet(root, entry) {
@@ -551,7 +593,7 @@
           '<a class="catalogus-zoek-title" href="' +
           escapeAttr(resolveUrl(root, e.url)) +
           '"><strong>' +
-          escapeHtml(e.title) +
+          escapeHtml(displayTitle(e)) +
           "</strong></a>" +
           status +
           incipit +
@@ -682,16 +724,7 @@
       if (tipTrigger) {
         ev.preventDefault();
         ev.stopPropagation();
-        const tip = tipTrigger.closest(".catalogus-zoek-tip");
-        const panel = tip && tip.querySelector(".catalogus-zoek-tip-panel");
-        const open = tip && !tip.classList.contains("is-open");
-        closeAllTips(root);
-        closeAllRatePanels(root);
-        if (tip && open) {
-          tip.classList.add("is-open");
-          tipTrigger.setAttribute("aria-expanded", "true");
-          if (panel) panel.hidden = false;
-        }
+        toggleTip(root, tipTrigger);
         return;
       }
       if (ev.target.closest(".catalogus-zoek-tip-panel a")) {
@@ -709,6 +742,15 @@
         ev.preventDefault();
         copyText(biebShortcode(idBtn.dataset.id), idBtn);
       }
+    });
+
+    // Tip-knoppen naast Zoeken (formulier / site-kop) zitten buiten de trefferlijst.
+    root.addEventListener("click", function (ev) {
+      const tipTrigger = ev.target.closest(".catalogus-zoek-tip-trigger");
+      if (!tipTrigger || out.contains(tipTrigger)) return;
+      ev.preventDefault();
+      ev.stopPropagation();
+      toggleTip(root, tipTrigger);
     });
 
     document.addEventListener("click", function (ev) {

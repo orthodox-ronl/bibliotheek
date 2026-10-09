@@ -27,6 +27,10 @@ op de publieke site. Daarom geen `_index.md` hier.
 | `_werk/`     | lokaal, niet in git: tussenproducten (opgekuiste MXL, halve layout) |
 | `.archief/`  | oude kopieën; git negeert `.archief/` al globaal |
 
+De eenmalige map `vsa-demo/` (extract uit de VSA-demo-site) is **opgenomen
+in de catalogus en verwijderd**. Verslag:
+[docs/history/vsa-demo-opname.md](../../docs/history/vsa-demo-opname.md).
+
 **Inbox:** eerst hierheen (of `_inbox/`), pas committen naar `capella/` /
 `vow/` / … als dit dé input is die je wilt bewaren.
 
