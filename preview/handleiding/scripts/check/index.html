@@ -78,7 +78,9 @@ ontbrekende import-siblings zijn geen fout</li><li>MVSA-publicatiecontrole — o
 passende <code>{stam}.….lyrics.txt</code> heeft met <code>vsa-source-sha256</code></li><li>Catalogus-id — of elke basispartituur-<code>.mscz</code> in het colofon de
 regel <code>Bibliotheek-id:</code> heeft die bij het bladermap-pad past</li><li>Koormap-slotlinks (<code>python scripts\check_koormap_slot_links.py --fail</code>) — of relatieve links in koormap-markdown (inhoudsopgaven)
 naar bestaande mappen of pagina’s wijzen; vangt 404’s na een half
-uitgevoerde <code>bieb hernoem</code></li><li>Coria-fingerprints (<code>python scripts\fingerprint_coria_mxl.py</code>)</li><li>Bladermap-SVG (<code>oefenhoek-index --svg</code>) — plaatjes uit <code>.vsa</code>; geen
+uitgevoerde <code>bieb hernoem</code></li><li>Catalogus-leaf-titels (<code>check_catalogus_leaf_titles</code>) — of leaf-<code>title</code>
+niet alleen het zangstuk-id is en <code>linkTitle</code> een leesbaar
+uitvoeringsvorm-label is (waarschuwing; met <code>--strict</code> fout)</li><li>Coria-fingerprints (<code>python scripts\fingerprint_coria_mxl.py</code>)</li><li>Bladermap-SVG (<code>oefenhoek-index --svg</code>) — plaatjes uit <code>.vsa</code>; geen
 stamp-publicatiecontrole</li><li>Zoekindex (<code>python scripts\build_zoek_index.py</code> → <code>static\zoek\index.json</code>)</li><li>Bouwtijd-stempel (<code>python scripts\write_build_stamp.py</code> →
 <code>data\build.yaml</code>; footer «Gegenereerd» op de homepage; niet
 committen)</li><li>Hugo-build naar <code>generated\site</code> (footer «Bijgewerkt» via
@@ -123,4 +125,4 @@ genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole)
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-03</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-08</p></div></footer></body></html>

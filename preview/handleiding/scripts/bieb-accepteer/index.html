@@ -62,32 +62,45 @@ omgewisselde woorden tellen mee. Zoeken loopt over de
 <span class=site-jump-label>GitHub</span></a></nav></div></header></div><header class=oefenhoek-header><div class=oefenhoek-header-inner><nav class=oefenhoek-breadcrumb aria-label=Broodkruimels><a class=oefenhoek-breadcrumb-link href=/bibliotheek/preview/handleiding/>Handleiding</a>
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><a class=oefenhoek-breadcrumb-link href=/bibliotheek/preview/handleiding/scripts/>Scripts</a>
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><span class=oefenhoek-breadcrumb-current aria-current=page>bieb accepteer</span></nav></div></header><main class=page><h1 id=name>NAME</h1><p><code>bieb accepteer</code> — partituur of tekstblad opnemen in de catalogus</p><h1 id=synopsis>SYNOPSIS</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\bieb.cmd accepteer [id] [bestand...] [opties]
+</span></span><span style=display:flex><span>scripts\bieb.cmd accepteer [bestand] [opties]
 </span></span></code></pre></div><p>Compat-shim: <code>scripts\bieb-accepteer.cmd</code> (zelfde argumenten).</p><h1 id=description>DESCRIPTION</h1><p>Neemt een klaar bestand op in de <strong>bibliotheek</strong> (de catalogus onder
 <code>content-source\catalogus\</code>), onder een catalogus-id van drie lagen:
 <code>zangstuk/variant/uitvoeringsvorm</code>. Toegestaan: basispartituur-<code>.mscz</code>,
 <code>.vsa</code>, <code>.mvsa</code>, handmatig <code>.mscz</code> (met <code>--artefacten-handmatig</code> of legacy
 <code>.print.mscz</code>), of <code>.tekstblad.md</code> (optioneel sibling-<code>.pdf</code> / <code>.mxl</code>). Bij
 <code>.tekstblad.md</code> zet het script indien nodig frontmatter <code>build: render: never</code>
-zodat de bron geen Hugo-pagina wordt.</p><p>Het script maakt ontbrekende <code>_index.md</code> / <code>index.md</code> met shortcode <code>bieb</code>
-en hernoemt naar de publicatiestam. Sibling-PDF/MXL krijgen de doelvorm
-<code>{stam}.mscz.pdf</code> / <code>{stam}.mscz.mxl</code> (of <code>.vsa.mxl</code> / <code>.tekstblad.pdf</code>).
-Een kale ongekuiste <code>.mxl</code> wordt geweigerd — eerst
-<a href=../opkuisen/>opkuisen</a>
+zodat de bron geen Hugo-pagina wordt.</p><h2 id=bestand-eerst-id-uit-de-bestandsnaam>Bestand eerst, id uit de bestandsnaam</h2><p>Zonder argumenten vraagt het script <strong>eerst</strong> het bronbestand (of <code>stub</code>).
+Dat bestand wordt meteen gecontroleerd (formaat; bij <code>.vsa</code> / <code>.mvsa</code> ook
+validate). Pas daarna komt het catalogus-id — zo verspil je geen tijd aan
+een id als de bron nog niet klopt.</p><p>Geef het bronbestand bij voorkeur al de <strong>publicatiestam</strong>-naam:</p><p><code>zangstuk-variant-uitvoeringsvorm.ext</code></p><p>voorbeeld: <code>kondak-johannes-de-theoloog-toon-2-liturgikon.vsa</code>.</p><p>Daaruit leidt accepteer het id af en vraagt ter bevestiging. Als je zowel
+id als bestand doorgeeft, moet de bestandsstam bij het id passen; anders
+stopt het script (typo-vangnet; <code>--force</code> om toch door te gaan).</p><p>Je mag het bestand ook als <strong>eerste</strong> CLI-argument geven (zonder id); het
+script herkent een pad en leidt het id af.</p><h2 id=bladpagina-title-en-linktitle>Bladpagina: title en linkTitle</h2><p>Het script maakt ontbrekende <code>_index.md</code> / <code>index.md</code> met shortcode <code>bieb</code>
+en hernoemt naar de publicatiestam. Op de leaf-<code>index.md</code>:</p><div class=table-scroll><table><thead><tr><th>Veld</th><th>Default</th></tr></thead><tbody><tr><td><code>title</code></td><td>Uit VSA-frontmatter (<code>titel:</code> / <code>soort:</code>), anders <code>Zangstuk variant (Uitvoeringsvorm)</code></td></tr><tr><td><code>linkTitle</code></td><td>Leesbaar uitvoeringsvorm-label (<code>Liturgikon</code>, <code>Hemelum</code>, …) — <strong>niet</strong> alleen <code>kondak</code></td></tr></tbody></table></div><p>Een kale titel als alleen het zangstuk-id maakt zoektreffers onbruikbaar.
+Override met <code>--title</code>. <code>check --strict</code> controleert dit
+(<code>check_catalogus_leaf_titles</code>).</p><p>Sibling-PDF/MXL krijgen de doelvorm <code>{stam}.mscz.pdf</code> / <code>{stam}.mscz.mxl</code>
+(of <code>.vsa.mxl</code> / <code>.tekstblad.pdf</code>). Een kale ongekuiste <code>.mxl</code> wordt
+geweigerd — eerst <a href=../opkuisen/>opkuisen</a>
 / <a href=../layout/>layout</a>
-. Bij <code>.vsa</code> / <code>.mvsa</code> draait
-validate (tenzij <code>--skip-vsa-validate</code>). Default
-<code>publicatiestatus: reviewable</code> (<code>voorzien</code> bij <code>--stub</code>). Status
-<code>productie</code> alleen met <code>--force</code>.</p><p>Ontbreken id of bestand, dan vraagt het script die interactief. Typ <code>?</code>
-voor uitleg, daarna opnieuw invullen. Zonder argumenten: beide vragen.</p><p>Andere subcommando’s van <code>bieb</code>: <a href=../bieb-hernoem/>hernoem</a>
+. Default
+<code>publicatiestatus: reviewable</code> (<code>voorzien</code> bij <code>--stub</code>). Status <code>productie</code>
+alleen met <code>--force</code>.</p><p>Ontbreekt bestand of id, dan vraagt het script die interactief. Typ <code>?</code>
+voor uitleg.</p><p>Andere subcommando’s van <code>bieb</code>: <a href=../bieb-hernoem/>hernoem</a>
 (zangstuk-id
-wijzigen). Later voorzien: <code>zoek</code>.</p><h1 id=options>OPTIONS</h1><div class=table-scroll><table><thead><tr><th>Optie</th><th>Betekenis</th></tr></thead><tbody><tr><td><code>--title</code></td><td>Titel override</td></tr><tr><td><code>--status</code></td><td>Publicatiestatus</td></tr><tr><td><code>--stub</code></td><td>Lege leaf (<code>voorzien</code>)</td></tr><tr><td><code>--move</code></td><td>Bronbestand verplaatsen in plaats van kopiëren</td></tr><tr><td><code>--force</code></td><td>Overschrijven / <code>productie</code> toestaan</td></tr><tr><td><code>--dry-run</code></td><td>Alleen tonen</td></tr><tr><td><code>--skip-vsa-validate</code></td><td>Geen <code>vsa</code>/<code>mvsa validate</code></td></tr><tr><td><code>--artefacten-handmatig</code></td><td>Zet <code>artefacten_handmatig: true</code></td></tr></tbody></table></div><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\bieb.cmd accepteer
+wijzigen).</p><h1 id=options>OPTIONS</h1><div class=table-scroll><table><thead><tr><th>Optie</th><th>Betekenis</th></tr></thead><tbody><tr><td><code>--title</code></td><td>Paginatitel override</td></tr><tr><td><code>--status</code></td><td>Publicatiestatus</td></tr><tr><td><code>--stub</code></td><td>Lege leaf (<code>voorzien</code>)</td></tr><tr><td><code>--move</code></td><td>Bronbestanden verplaatsen (default: kopieer)</td></tr><tr><td><code>--force</code></td><td>Overschrijven / <code>productie</code> / stam-mismatch toestaan</td></tr><tr><td><code>--dry-run</code></td><td>Alleen tonen</td></tr><tr><td><code>--skip-vsa-validate</code></td><td>Geen <code>vsa</code>/<code>mvsa validate</code></td></tr><tr><td><code>--artefacten-handmatig</code></td><td>Zet <code>artefacten_handmatig: true</code></td></tr></tbody></table></div><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span><span style=color:#75715e>rem Interactief: eerst bestand, dan bevestig afgeleid id</span>
+</span></span><span style=display:flex><span>scripts\bieb.cmd accepteer
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>rem Bestand met publicatiestam-naam (id wordt afgeleid)</span>
+</span></span><span style=display:flex><span>scripts\bieb.cmd accepteer pad\naar\trisagion-8a-nederlands-hemelum.vsa --dry-run
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>rem Klassiek: id + bestand (stammen moeten kloppen)</span>
 </span></span><span style=display:flex><span>scripts\bieb.cmd accepteer trisagion/8a-nederlands/hemelum pad\naar\bestand.mscz --dry-run
 </span></span></code></pre></div><h1 id=when>WHEN</h1><p>Als de partituur klaar is om van de <strong>Werkbank</strong> naar de <strong>Catalogus</strong> te
 gaan (na opkuisen / normaliseren, of na een werkende <code>.vsa</code> / <code>.mvsa</code>).
 Overgangscriteria: <a href=/bibliotheek/preview/handleiding/start/werkbank/#overgangscriteria>Werkbank</a>
 .
 Daarna producten + <code>check --strict</code> — <a href=/bibliotheek/preview/handleiding/start/catalogus/>Catalogus</a>
-.</p><h1 id=see-also>SEE ALSO</h1><ul><li>Lifecycle: <a href=/bibliotheek/preview/handleiding/start/levenscyclus/>Levenscyclus</a></li><li>Workflow: <a href=/bibliotheek/preview/handleiding/werktrajecten/opnemen-in-catalogus/>Opnemen in de catalogus</a></li><li><a href=../werkbank-status/>werkbank-status</a></li><li><a href=../check/>check</a></li><li><a href=../update-werkvoorraad/>update-werkvoorraad</a></li><li><a href=/bibliotheek/preview/handleiding/start/publicatiecontrole/>Publicatiecontrole</a></li></ul></main><div id=score-audio-bar class=score-audio-bar hidden><div class=score-audio-bar-inner><p class=score-audio-bar-title id=score-audio-bar-title></p><div class=score-audio-bar-row><button type=button class="score-audio-bar-btn score-audio-bar-play" aria-label=Pauzeren aria-controls=score-audio-bar-element aria-pressed=true>
+.</p><h1 id=see-also>SEE ALSO</h1><ul><li>Lifecycle: <a href=/bibliotheek/preview/handleiding/start/levenscyclus/>Levenscyclus</a></li><li>Workflow: <a href=/bibliotheek/preview/handleiding/werktrajecten/opnemen-in-catalogus/>Opnemen in de catalogus</a></li><li>Titels: <a href=/bibliotheek/preview/handleiding/start/catalogus-en-koormappen/#titels-en-frontmatter-in-de-catalogus>Catalogus en koormappen</a></li><li><a href=../werkbank-status/>werkbank-status</a></li><li><a href=../check/>check</a></li><li><a href=../update-werkvoorraad/>update-werkvoorraad</a></li><li><a href=/bibliotheek/preview/handleiding/start/publicatiecontrole/>Publicatiecontrole</a></li></ul></main><div id=score-audio-bar class=score-audio-bar hidden><div class=score-audio-bar-inner><p class=score-audio-bar-title id=score-audio-bar-title></p><div class=score-audio-bar-row><button type=button class="score-audio-bar-btn score-audio-bar-play" aria-label=Pauzeren aria-controls=score-audio-bar-element aria-pressed=true>
 <span class="score-audio-bar-icon score-audio-bar-icon--pause" aria-hidden=true>❚❚</span>
 <span class="score-audio-bar-icon score-audio-bar-icon--play" aria-hidden=true>▶</span>
 </button>
@@ -97,4 +110,4 @@ Daarna producten + <code>check --strict</code> — <a href=/bibliotheek/preview/
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-02</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-08</p></div></footer></body></html>
