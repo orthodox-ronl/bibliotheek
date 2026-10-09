@@ -28,14 +28,14 @@ Liturgiemap voor **weekdagen**. Zondag staat in
 |   8  | [Trisagion](trisagion/) |
 |  9a  | [Prokimen](prokimen/) |
 |  9b  | [Alleluia](alleluia/) |
-|  10  | Evangelielezing *(voorzien)* |
+|  10  | [Evangelielezing](evangelielezing/) |
 |  11  | [Dringende Litanie](dringende-litanie/) |
 |  12  | [Ontslapenen Litanie](ontslapenen-litanie/) |
 |  13  | [Catechumenen Litanie](catechumenen-litanie/) |
 |  14  | [Gelovigen Litanie](gelovigen-litanie/) |
 |  15  | [Cherubijnenhymne](cherubijnenhymne/) |
 |  16  | [Vragende Litanie](vragende-litanie-16/) |
-|  17  | Vredeswens *(voorzien)* |
+|  17  | [Vredeswens](vredeswens/) |
 |  18  | Geloofsbelijdenis *(voorzien)* |
 |  19  | [Eucharistische Canon](eucharistische-canon/) |
 |  20  | [Moeder Godslied](moeder-godslied/) |

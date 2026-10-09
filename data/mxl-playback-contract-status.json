@@ -302,6 +302,18 @@
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
       "issues": []
     },
+    "content-source/catalogus/evangelielezing/default/hemelum/evangelielezing-default-hemelum.mvsa.mxl": {
+      "profile": "satb",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
+      "issues": []
+    },
+    "content-source/catalogus/evangelielezing/default/hemelum-ksl/evangelielezing-default-hemelum-ksl.mvsa.mxl": {
+      "profile": "satb",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
+      "issues": []
+    },
     "content-source/catalogus/kleine-intocht/kruisuitdraging/hemelum/kleine-intocht-kruisuitdraging-hemelum.vsa.mxl": {
       "profile": "mono",
       "ok": true,
@@ -380,13 +392,13 @@
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
       "issues": []
     },
-    "content-source/catalogus/kondak/johannes-shanghai-toon-2/hemelum/kondak-johannes-shanghai-toon-2-hemelum.vsa.mxl": {
+    "content-source/catalogus/kondak/johannes-de-theoloog-toon-2/liturgikon/kondak-johannes-de-theoloog-toon-2-liturgikon.vsa.mxl": {
       "profile": "mono",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
       "issues": []
     },
-    "content-source/catalogus/kondak/johannes-de-theoloog-toon-2/liturgikon/kondak-johannes-de-theoloog-toon-2-liturgikon.vsa.mxl": {
+    "content-source/catalogus/kondak/johannes-shanghai-toon-2/hemelum/kondak-johannes-shanghai-toon-2-hemelum.vsa.mxl": {
       "profile": "mono",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
@@ -710,12 +722,6 @@
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
       "issues": []
     },
-    "content-source/catalogus/tropaar/heilig-kruis-toon-1/hemelum/tropaar-heilig-kruis-toon-1-hemelum.vsa.mxl": {
-      "profile": "mono",
-      "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
-      "issues": []
-    },
     "content-source/catalogus/tropaar/heilige-martelaren-toon-4/hemelum/tropaar-heilige-martelaren-toon-4-hemelum.vsa.mxl": {
       "profile": "mono",
       "ok": true,
@@ -927,6 +933,12 @@
       "issues": []
     },
     "content-source/catalogus/tweede-antifoon/zondag/hemelum/tweede-antifoon-zondag-hemelum.mscz.mxl": {
+      "profile": "satb",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
+      "issues": []
+    },
+    "content-source/catalogus/vredeswens/default/hemelum/vredeswens-default-hemelum.mvsa.mxl": {
       "profile": "satb",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
