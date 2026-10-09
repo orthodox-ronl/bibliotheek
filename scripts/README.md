@@ -22,6 +22,7 @@ Korte hulp in het opdrachtvenster: `h` (lijst) of `h <naam>` (zelfde als
 | `products` / `all-products` | Product-kinds achter elkaar (`all-products` = `--kinds all`) |
 | `layout` | Past layoutprofiel `partituur` toe op `.mscz` / `.mxl` (via tooling) |
 | `ensure-bibliotheek-id` | Zet/controleert colofonregel `Bibliotheek-id:` op basispartituur-`.mscz` |
+| `bump-vsa-tooling-pin` | Zet `vsa-tooling.pin` op tip van VSA-tooling (`main` of andere ref) |
 | `opkuisen` | Herkomstanalyse + inhoudsopkuis (niet in `check`/CI) |
 | `bieb accepteer` | Opnemen in `content-source\catalogus` onder catalogus-id (Werkbank → Catalogus) |
 | `bieb hernoem` | Zangstuk-id hernoemen (map, stam, refs, 1:1-koormap-slots) |

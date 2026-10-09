@@ -66,8 +66,13 @@ Workflow Pages bepaalt de ref:
 ## Pin bumpen
 
 ```cmd
-gh api repos/orthodox-ronl/VSA-tooling/commits/main --jq .sha > vsa-tooling.pin
+cd /d C:\Git\orthodox-ronl\bibliotheek
+scripts\bump-vsa-tooling-pin.cmd
 ```
 
-Commit het pin-bestand op een PR naar `main` van bibliotheek nadat tooling
-op VSA-tooling/`main` stabiel genoeg is voor productie.
+Optioneel eerst `--dry-run`, of een andere ref: `bump-vsa-tooling-pin 0.2.0`.
+Het script schrijft alleen `vsa-tooling.pin`; commit daarna zelf en maak een
+PR naar `main` van bibliotheek wanneer tooling op VSA-tooling/`main` (of die
+tag) stabiel genoeg is voor productie.
+
+Handleiding: [bump-vsa-tooling-pin](../content-source/handleiding/scripts/bump-vsa-tooling-pin.md).

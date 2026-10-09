@@ -30,6 +30,7 @@ vanuit de repo-root.
 | `all-products` | Roept alle `*-products` (+ import-mvsa) achter elkaar aan voor ontbrekende/stale siblings. | [all-products](all-products/) |
 | `layout` | Past de basispartituur-standaard toe op `.mscz` of `.mxl` (tooling-layoutprofiel `partituur`). | [layout](layout/) |
 | `ensure-bibliotheek-id` | Zet of controleert de colofonregel `Bibliotheek-id:` op basispartituur-`.mscz`. | [ensure-bibliotheek-id](ensure-bibliotheek-id/) |
+| `bump-vsa-tooling-pin` | Zet `vsa-tooling.pin` op de tip van VSA-tooling (productie-pin); commit/PR zelf. | [bump-vsa-tooling-pin](bump-vsa-tooling-pin/) |
 | `opkuisen` | Herkomstanalyse + inhoudelijke opkuis (Capella/MusicXML/MuseScore); optioneel `--layout`. | [opkuisen](opkuisen/) |
 | `bieb accepteer` | Partituur/tekstblad opnemen onder een catalogus-id (Werkbank → Catalogus). | [bieb accepteer](bieb-accepteer/) |
 | `bieb hernoem` | Zangstuk-id hernoemen (map, stam, refs, koormap-slots). | [bieb hernoem](bieb-hernoem/) |
