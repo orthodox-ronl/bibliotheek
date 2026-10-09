@@ -399,7 +399,22 @@ layoutprofiel te draaien als &lt;a href="../layout/"&gt;layout&lt;/a&gt;
  (geen MuseScore-venster
 nodig). Met &lt;code&gt;--check-only&lt;/code&gt; (of in CI) alleen rapporteren, niet schrijven.
 Op &lt;code&gt;main&lt;/code&gt;, met &lt;code&gt;--fail&lt;/code&gt;, of met &lt;code&gt;BIBLIOTHEEK_ID_STRICT=1&lt;/code&gt; faalt de check
-als er nog problemen zijn.&lt;/p&gt;</description></item><item><title>update-werkvoorraad</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/update-werkvoorraad/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/update-werkvoorraad/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+als er nog problemen zijn.&lt;/p&gt;</description></item><item><title>bump-vsa-tooling-pin</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bump-vsa-tooling-pin/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bump-vsa-tooling-pin/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;scripts\bump-vsa-tooling-pin.cmd&lt;/code&gt; — productie-pin naar VSA-tooling bijwerken&lt;/p&gt;
+&lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bump-vsa-tooling-pin.cmd
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bump-vsa-tooling-pin.cmd --dry-run
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bump-vsa-tooling-pin.cmd 0.2.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bump-vsa-tooling-pin.cmd --ref main
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
+&lt;p&gt;Productie-CI op bibliotheek-&lt;code&gt;main&lt;/code&gt; installeert &lt;code&gt;vsa-tool&lt;/code&gt; vanaf de commit in
+&lt;a href="https://github.com/orthodox-ronl/bibliotheek/blob/main/vsa-tooling.pin"&gt;&lt;code&gt;vsa-tooling.pin&lt;/code&gt;&lt;/a&gt;
+.
+Dit script haalt via &lt;code&gt;gh&lt;/code&gt; de SHA van &lt;code&gt;orthodox-ronl/VSA-tooling&lt;/code&gt; op (standaard
+de tip van &lt;code&gt;main&lt;/code&gt;) en schrijft die naar het pin-bestand.&lt;/p&gt;
+&lt;p&gt;Het script &lt;strong&gt;commit niet&lt;/strong&gt;. Na een bump: commit + PR naar bibliotheek-&lt;code&gt;main&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Branch &lt;strong&gt;&lt;code&gt;development&lt;/code&gt;&lt;/strong&gt; floatt al op tooling-&lt;code&gt;main&lt;/code&gt;; daar hoef je de pin niet
+te zetten voor preview.&lt;/p&gt;</description></item><item><title>update-werkvoorraad</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/update-werkvoorraad/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/update-werkvoorraad/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\update-werkvoorraad.cmd&lt;/code&gt; — tabel «werkvoorraad» laten aansluiten op &lt;code&gt;input\&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\update-werkvoorraad.cmd
