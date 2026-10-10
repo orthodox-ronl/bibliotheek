@@ -1,6 +1,6 @@
 """Multi-command CLI ``bieb`` (zoals ``vsa`` / ``mvsa``).
 
-Subcommando's: ``accepteer``, ``hernoem``, ``verwijder``.
+Subcommando's: ``accepteer``, ``hernoem``, ``verwijder``, ``kopieer``.
 """
 
 from __future__ import annotations
@@ -14,6 +14,7 @@ if str(SCRIPT_DIR) not in sys.path:
 
 import bieb_accepteer  # noqa: E402
 import bieb_hernoem  # noqa: E402
+import bieb_kopieer  # noqa: E402
 import bieb_verwijder  # noqa: E402
 
 
@@ -26,11 +27,13 @@ def main(argv: list[str] | None = None) -> int:
             "  accepteer   partituur/tekstblad opnemen onder catalogus-id\n"
             "  hernoem     catalogus-id hernoemen (zangstuk/variant/uitvoeringsvorm)\n"
             "  verwijder   catalogus-id wissen (dangling refs rapporteren)\n"
+            "  kopieer     uitvoeringsvorm kopiëren naar nieuw id\n"
             "\n"
             "Voorbeelden:\n"
             "  bieb accepteer trisagion/8a-nederlands/hemelum pad\\x.mscz --dry-run\n"
             "  bieb hernoem ektinia/vredes ektinia/litanie --dry-run\n"
             "  bieb verwijder ektinia/vredes/hemelum --dry-run\n"
+            "  bieb kopieer ektinia/vredes/hemelum groningen --dry-run\n"
         )
         return 0 if argv else 2
     cmd = argv[0]
@@ -40,9 +43,11 @@ def main(argv: list[str] | None = None) -> int:
         return bieb_hernoem.main(argv[1:])
     if cmd == "verwijder":
         return bieb_verwijder.main(argv[1:])
+    if cmd == "kopieer":
+        return bieb_kopieer.main(argv[1:])
     print(
         f"Onbekend subcommando: {cmd!r} "
-        "(probeer: accepteer, hernoem, verwijder)",
+        "(probeer: accepteer, hernoem, verwijder, kopieer)",
         file=sys.stderr,
     )
     return 2
