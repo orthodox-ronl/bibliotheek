@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Gelovigen-litanie (Hemelum, NL)
 
-{{< bieb id="ektinia/gelovigen/hemelum-nl" >}}
+{{< bieb id="ektinia/gelovigen/hemelum" >}}

@@ -76,6 +76,10 @@ Je mag overgaan als **alle** punten kloppen:
 
 1. **Doel-id** is een geldig catalogus-id (drie lagen); zie
    [Id-register](/catalogus/id-register/) — niet verzinnen.
+   Taal in het derde segment: geen suffix = Nederlands; andere talen
+   als uitgang (`-ksl`, …) — zie
+   [Taalvarianten](catalogus-en-koormappen/#taalvarianten-op-de-uitvoeringsvorm).
+   Gebruik geen losse `-nl`.
 2. Er is een **bruikbaar bronbestand**: basispartituur-`.mscz`, `.vsa`,
    `.mvsa`, handmatig `.mscz` (later `artefacten_handmatig`), of
    `.tekstblad.md` — geen kale ongekuiste `.mxl` / `.capx`.

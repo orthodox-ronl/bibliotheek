@@ -90,6 +90,6 @@ scripts\_ensure.cmd --hugo --vsa-tool
 - Koormap-slots: markdown + `{{</* bieb id="zangstuk/variant/uitvoeringsvorm" */>}}`
 - `publicatiestatus` + `automatische_inhoud` op bladermap-pagina’s
 - Ruwe dumps in `content-source/input/` (gitignore `_inbox/` / `_werk/`)
-- Taal (NL / kerkslavisch): suffix op uitvoeringsvorm-id (`-nl` / `-ksl`),
-  alleen waar nodig — zie handleiding
-  [Taalvarianten](content-source/handleiding/start/catalogus-en-koormappen.md)
+- Taal: geen suffix op uitvoeringsvorm-id = Nederlands; andere talen
+ als suffix (`-ksl`, …) — zie handleiding
+ [Taalvarianten](content-source/handleiding/start/catalogus-en-koormappen.md)

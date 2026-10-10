@@ -224,8 +224,6 @@ def _arranger_from_uv(uv: str) -> str | None:
 def _taal_from_uv(uv: str) -> str | None:
     if uv.endswith("-ksl") or "-ksl-" in uv:
         return "ksl"
-    if uv.endswith("-nl") or "-nl-" in uv:
-        return "nl"
     return None
 
 

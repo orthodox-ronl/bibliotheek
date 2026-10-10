@@ -106,7 +106,7 @@ blijven geldig tot een bewuste hernoem-golf.
    `vragende-litanie-22` zijn **twee varianten** onder `ektinia`
    (`vragend-16`, `vragend-22`): dezelfde antwoorden, maar andere
    priester-`@tekst` en bij 16 wél een slotamen. Per variant twee
-   uitvoeringsvormen: `hemelum-nl` en `hemelum-ksl`. De liturgienummers
+   uitvoeringsvormen: `hemelum` en `hemelum-ksl`. De liturgienummers
    16 en 22 staan in de `_index` van de liturgiemap.
 
 3. **Kruis / «Heer, red Uw volk»** — `210-heer-red-uw-volk-en-zegen-uw-erfdeel`,
@@ -134,8 +134,8 @@ blijven geldig tot een bewuste hernoem-golf.
    Zo zeg je in gewone taal «de cherubijnenhymne», en bij de keuze
    tussen twee Kastorski’s zie je **welke** zonder te moeten afspelen.
    Trisagion houdt taal nog in de variant (`8a-nederlands`, `8a-slav`) —
-   dat is **legacy**. Voor nieuw werk: taal als suffix op de
-   uitvoeringsvorm (`-nl` / `-ksl`); zie
+   dat is **legacy**. Voor nieuw werk: geen suffix = Nederlands; andere
+   talen als suffix op de uitvoeringsvorm (`-ksl`, …); zie
    [Taalvarianten](/handleiding/start/catalogus-en-koormappen/#taalvarianten-op-de-uitvoeringsvorm).
 
 5. **Geen collectie-padlaag** — Genre-emmers en liturgische families blijven
@@ -208,7 +208,7 @@ geen voorvoegsel-cijfer meer (`vredeslitanie`, `vragende-litanie-16`,
   `ontslapenen`, `catechumenen`, `gelovigen`, `vragend-16`, `vragend-22`).
   Vragende 16/22
   zijn aparte varianten (andere priestertekst; 16 met slotamen); per
-  variant `hemelum-nl` + `hemelum-ksl`. Script: `scripts/migrate_ektinia.py`.
+  variant `hemelum` + `hemelum-ksl`. Script: `scripts/migrate_ektinia.py`.
 - Cherubijnen-golf: `15-cherubijnenhymne` → `cherubijnenhymne`; variant-
   `linkTitle` met VO-label (bijv. «Kastorski (15c)»).
 - Trisagion-golf: `8-trisagion` → `trisagion`.

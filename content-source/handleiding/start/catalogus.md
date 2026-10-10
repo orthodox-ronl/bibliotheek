@@ -33,7 +33,8 @@ de bestaande productscripts en publicatiecontrole. Overzicht:
 
 Namen: [Publicatiecontrole](publicatiecontrole/). Model:
 [Catalogus en koormappen](catalogus-en-koormappen/). Taalvarianten
-(NL / kerkslavisch): suffix `-nl` / `-ksl` op de uitvoeringsvorm —
+(NL / kerkslavisch): geen suffix = Nederlands; andere talen als suffix
+(`-ksl`, …) —
 [Taalvarianten](catalogus-en-koormappen/#taalvarianten-op-de-uitvoeringsvorm).
 
 ## Wat je mag wijzigen vs. regenereren

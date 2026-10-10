@@ -205,30 +205,29 @@ Automatisch bijgehouden (bij elke sitebuild):
 
 Nederlands en kerkslavisch zijn **aparte uitvoeringsvormen**. De taal
 hoort in het derde padsegment (de leaf-map), niet in een vierde maplaag
-en niet als aparte map per bestandsformaat. Markeer de taal met suffix
-`-nl` of `-ksl` op de uitvoeringsvorm-id — alleen waar nodig.
+en niet als aparte map per bestandsformaat.
+
+**Regel:** geen taalsuffix op de uitvoeringsvorm-id betekent Nederlands.
+Andere talen krijgen een suffix achter de leaf-naam (`-ksl`, later
+`-en`, `-fr`, …). Gebruik **geen** losse `-nl`-uitgang.
 
 ### Wanneer wel, wanneer niet
 
 | Situatie | Wat je doet |
 | --- | --- |
-| Alleen Nederlands voor die herkomst (geen kerkslavisch-sibling) | Geen taalsuffix: leaf `hemelum` |
-| Zelfde herkomst in **beide** talen | Twee leaves: `hemelum-nl` en `hemelum-ksl` |
+| Nederlands (alleen of naast een andere taal) | Geen taalsuffix: leaf `hemelum` |
+| Zelfde herkomst in **beide** talen | Twee leaves: `hemelum` en `hemelum-ksl` |
 | Alleen kerkslavisch (Cyrillisch) | Suffix `-ksl` op de uitvoeringsvorm-id |
 | Mengvorm NL + kerkslavisch in één partituur | Suffix `-nl-ksl` (zeldzaam) |
 
-Gebruik `-nl` **alleen waar nodig**: als er een `-ksl`-sibling is (of komt),
-zodat beide leaves even duidelijk zijn. Zet geen `-nl` op elke
-Nederlandse leaf «voor de zekerheid».
-
-**Voorkeursconventie** voor nieuw werk: taal via suffix op de
-**uitvoeringsvorm-id** (`-nl` / `-ksl`). Zet de taal **niet** in de
+**Voorkeursconventie** voor nieuw werk: Nederlands zonder suffix; andere
+talen via suffix op de **uitvoeringsvorm-id**. Zet de taal **niet** in de
 variant-id.
 
 **Legacy / alternatief:** sommige oudere stukken houden taal in de
 variant, bijvoorbeeld `trisagion/8a-nederlands/hemelum` naast
 `trisagion/8a-slav/hemelum`. Die maps niet hernoemen tot een aparte
-migratie; voor **nieuwe** ids volg je de suffix op de uitvoeringsvorm.
+migratie; voor **nieuwe** ids volg je de suffix-regel hierboven.
 
 Getranslitereerde producten (Latijns schrift naast Cyrillisch) horen
 later; die conventie staat nog niet vast in dit padmodel.
@@ -237,21 +236,21 @@ later; die conventie staat nog niet vast in dit padmodel.
 
 | Begrip | Vorm | Voorbeeld (schets) |
 | --- | --- | --- |
-| Cataloguspad | `catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\` | `catalogus\prijslied\bisschop-gregorios\hemelum-nl\` |
-| Catalogus-id (`bieb`) | `zangstuk/variant/uitvoeringsvorm` | `prijslied/bisschop-gregorios/hemelum-nl` |
-| Publicatiestam | `{zangstuk}-{variant}-{uitvoeringsvorm}` | `prijslied-bisschop-gregorios-hemelum-nl` |
+| Cataloguspad | `catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\` | `catalogus\prijslied\bisschop-gregorios\hemelum\` |
+| Catalogus-id (`bieb`) | `zangstuk/variant/uitvoeringsvorm` | `prijslied/bisschop-gregorios/hemelum` |
+| Publicatiestam | `{zangstuk}-{variant}-{uitvoeringsvorm}` | `prijslied-bisschop-gregorios-hemelum` |
 
 Voorbeeld-paar (nog niet per se in de catalogus; richting voor nieuw werk):
 
 ```text
-content-source\catalogus\prijslied\bisschop-gregorios\hemelum-nl\
+content-source\catalogus\prijslied\bisschop-gregorios\hemelum\
 content-source\catalogus\prijslied\bisschop-gregorios\hemelum-ksl\
 ```
 
-Catalogus-ids: `prijslied/bisschop-gregorios/hemelum-nl` en
+Catalogus-ids: `prijslied/bisschop-gregorios/hemelum` en
 `prijslied/bisschop-gregorios/hemelum-ksl`. Bestandsstam van de
 Nederlandse leaf:
-`prijslied-bisschop-gregorios-hemelum-nl` (plus extensie van de bron).
+`prijslied-bisschop-gregorios-hemelum` (plus extensie van de bron).
 
 Precedent in het [Id-register](/catalogus/id-register/): o.a.
 `cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` (stub) en bestaande
@@ -278,7 +277,7 @@ met shortcode `bieb` naar het catalogus-id, inclusief het taalsuffix
 wanneer dat in de leaf-naam zit:
 
 ```markdown
-{{</* bieb id="prijslied/bisschop-gregorios/hemelum-nl" */>}}
+{{</* bieb id="prijslied/bisschop-gregorios/hemelum" */>}}
 {{</* bieb id="prijslied/bisschop-gregorios/hemelum-ksl" */>}}
 ```
 
@@ -299,8 +298,8 @@ ids: [Id-register](/catalogus/id-register/).
    ([`bieb hernoem`](/handleiding/scripts/bieb-hernoem/)).
 4. Echte naamsynoniemen van dezelfde variant: `alias_van`. Spelling- en
    woordvolgorde-varianten: zoekindex + [`data/zoek-synoniemen.yaml`](https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml).
-5. Taal (NL / kerkslavisch): suffix op de **uitvoeringsvorm** (`-nl` /
-   `-ksl`), alleen waar nodig — zie
+5. Taal: geen suffix = Nederlands; andere talen als suffix op de
+   **uitvoeringsvorm** (`-ksl`, …) — zie
    [Taalvarianten](#taalvarianten-op-de-uitvoeringsvorm).
 
 Zie [Zangstuk-soorten](/handleiding/start/zangstuk-soorten/) voor de
@@ -312,6 +311,6 @@ Je kunt uitleggen waarom een Zwolle-cherubijn eerst in de catalogus hoort;
 waarom de Hemelum-liturgiemap géén tweede opslag van PDF’s is; wanneer je
 een **sectie** (boom) kiest versus een **compositieblad** (meerdere
 shortcodes op één pagina); en hoe je een NL/kerkslavisch-paar als twee
-uitvoeringsvormen met `-nl` / `-ksl` aanmaakt.
+uitvoeringsvormen aanmaakt (`hemelum` + `hemelum-ksl`).
 
 {{< navbuttons "Waar ligt wat|/handleiding/start/waar-ligt-wat/" "Zangstuk-soorten|/handleiding/start/zangstuk-soorten/" >}}
