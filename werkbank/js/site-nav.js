@@ -42,4 +42,34 @@
     });
     syncChromeHeight();
   });
+
+  function placeScoreActionHelp(menu) {
+    var help = menu.querySelector(":scope > .score-action-help");
+    if (!help) return;
+    help.classList.remove("score-action-help--below");
+    help.style.top = "";
+    // Standaard boven de knop; z-index 110 legt over sticky chrome heen.
+    // Alleen omklappen als de popover nog buiten het venster valt.
+    var rect = help.getBoundingClientRect();
+    if (!(rect.height > 0) || rect.top >= 4) return;
+    help.classList.add("score-action-help--below");
+    var panel = menu.querySelector(".score-action-menu-panel");
+    if (!panel) return;
+    var panelStyle = getComputedStyle(panel);
+    if (panelStyle.display === "none") return;
+    // Keuzelijst zit ook onder de knop: zet uitleg eronder, niet eroverheen.
+    var menuRect = menu.getBoundingClientRect();
+    var panelRect = panel.getBoundingClientRect();
+    help.style.top = panelRect.bottom - menuRect.top + 6 + "px";
+  }
+
+  document.querySelectorAll(".score-action-menu").forEach(function (menu) {
+    if (!menu.querySelector(":scope > .score-action-help")) return;
+    menu.addEventListener("mouseenter", function () {
+      placeScoreActionHelp(menu);
+    });
+    menu.addEventListener("focusin", function () {
+      placeScoreActionHelp(menu);
+    });
+  });
 })();
