@@ -74,7 +74,7 @@ Ontbreekt bestand of id, dan vraagt het script die interactief. Typ `?`
 voor uitleg.
 
 Andere subcommando’s van `bieb`: [hernoem](../bieb-hernoem/) (catalogus-id
-wijzigen).
+wijzigen), [verwijder](../bieb-verwijder/) (wissen + dangling refs).
 
 # OPTIONS
 
