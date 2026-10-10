@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Ontslapenen-litanie (Hemelum, NL)
 
-{{< bieb id="ektinia/ontslapenen/hemelum-nl" >}}
+{{< bieb id="ektinia/ontslapenen/hemelum" >}}

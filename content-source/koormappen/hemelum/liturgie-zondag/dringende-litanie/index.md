@@ -10,7 +10,7 @@ automatische_inhoud: false
 
 ## Nederlands
 
-{{< bieb id="ektinia/dringend/hemelum-nl" >}}
+{{< bieb id="ektinia/dringend/hemelum" >}}
 
 ## Kerkslavisch
 

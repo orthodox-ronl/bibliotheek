@@ -56,7 +56,6 @@ def stem(value: str) -> str:
 UITVOERINGSVORM_LINK_TITLES: dict[str, str] = {
     "hemelum": "Hemelum",
     "hemelum-ksl": "Hemelum (ksl)",
-    "hemelum-nl": "Hemelum (nl)",
     "hemelum-ksl-trlat": "Hemelum (ksl/trlat)",
     "liturgikon": "Liturgikon",
     "liturgikon-ksl": "Liturgikon (ksl)",

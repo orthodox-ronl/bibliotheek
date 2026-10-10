@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Dringende litanie (Hemelum, NL)
 
-{{< bieb id="ektinia/dringend/hemelum-nl" >}}
+{{< bieb id="ektinia/dringend/hemelum" >}}
