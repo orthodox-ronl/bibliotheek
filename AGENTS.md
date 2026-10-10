@@ -10,6 +10,7 @@ Publicatiecontrole / sibling-namen: [docs/publicatiecontrole.md](docs/publicatie
 (leesbaar: handleiding *Publicatiecontrole*).
 Lifecycle Werkbank/Catalogus: [docs/levenscyclus.md](docs/levenscyclus.md)
 (leesbaar: handleiding *Levenscyclus*).
+Catalogus-titels (afleiden bij bouw): [docs/catalogus-titels.md](docs/catalogus-titels.md).
 
 ---
 

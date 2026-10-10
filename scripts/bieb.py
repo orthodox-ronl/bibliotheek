@@ -23,11 +23,11 @@ def main(argv: list[str] | None = None) -> int:
             "Gebruik: bieb <subcommando> [args...]\n"
             "\n"
             "  accepteer   partituur/tekstblad opnemen onder catalogus-id\n"
-            "  hernoem     zangstuk-id hernoemen (map, stam, refs, koormap-slots)\n"
+            "  hernoem     catalogus-id hernoemen (zangstuk/variant/uitvoeringsvorm)\n"
             "\n"
             "Voorbeelden:\n"
             "  bieb accepteer trisagion/8a-nederlands/hemelum pad\\x.mscz --dry-run\n"
-            "  bieb hernoem oud-id nieuw-id --dry-run\n"
+            "  bieb hernoem ektinia/vredes ektinia/litanie --dry-run\n"
         )
         return 0 if argv else 2
     cmd = argv[0]

@@ -4,7 +4,7 @@
 {{- with .Params.alias_van -}}
   {{- $canonLabel := . -}}
   {{- with site.GetPage (printf "/catalogus/%s" .) -}}
-    {{- $canonLabel = or .Params.linkTitle .Title -}}
+    {{- $canonLabel = partial "display-link-title.html" . -}}
   {{- end -}}
  <span class="oefenhoek-alias-tag">(alias van {{ $canonLabel }})</span>
 {{- end -}}

@@ -16,7 +16,7 @@
 {{- if $items -}}
 <ul class="page-list catalogus-overzicht">
   {{- range $items -}}
-  <li><a href="{{ .RelPermalink }}">{{ or .Params.linkTitle .Title }}</a></li>
+  <li><a href="{{ .RelPermalink }}">{{ partial "display-link-title.html" . }}</a></li>
   {{- end -}}
 </ul>
 {{- else -}}

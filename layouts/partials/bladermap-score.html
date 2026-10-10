@@ -7,7 +7,7 @@
 {{- if .File -}}
   {{- $dir = strings.TrimSuffix "/" (replace .File.Dir "\\" "/") -}}
 {{- end -}}
-{{- $alt := .Title -}}
+{{- $alt := partial "display-title.html" . -}}
 {{- if and $files.vsas (not $files.hasMscz) -}}
   {{- range $files.vsas -}}
     {{- $rel := replaceRE "\\.vsa$" ".svg" (printf "%s/%s" $dir .) -}}

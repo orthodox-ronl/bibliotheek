@@ -99,7 +99,7 @@ REM Relatieve TOC-links moeten bestaan (anders Hugo-404 na hernoem).
 python scripts\check_koormap_slot_links.py --fail
 if errorlevel 1 exit /b 1
 
-REM Leaf-titels: niet alleen zangstuk-id (zoektreffers); linkTitle leesbaar.
+REM Catalogus-titels: UV-labels data synchroon met catalogus.py (Hugo/zoek).
 if defined STRICT (
   python scripts\check_catalogus_leaf_titles.py --fail
 ) else (

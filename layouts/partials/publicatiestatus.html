@@ -24,7 +24,7 @@
 {{- $meaning := index $meanings $key | default "" -}}
 {{- $email := site.Params.feedback_email -}}
 {{- $github := site.Params.linksGithub | default "https://github.com/orthodox-ronl/bibliotheek" -}}
-{{- $pageTitle := .Title -}}
+{{- $pageTitle := partial "display-title.html" . -}}
 {{- $pageURL := .Permalink -}}
 {{- $mailSubject := printf "Oefenhoek: %s (%s)" $pageTitle $label -}}
 {{- $mailBody := printf "Pagina: %s\nAdres: %s\n\nUw opmerking:\n" $pageTitle $pageURL -}}

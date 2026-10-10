@@ -20,7 +20,7 @@
       {{- $id := strings.TrimPrefix $prefix $dir -}}
       {{- if and (ne $id $dir) (eq (len (split $id "/")) 3) -}}
         {{- if .Params.artefacten_handmatig -}}
-          {{- $rows = $rows | append (dict "page" . "id" $id "title" (or .Params.linkTitle .Title)) -}}
+          {{- $rows = $rows | append (dict "page" . "id" $id "title" (partial "display-link-title.html" .)) -}}
         {{- end -}}
       {{- end -}}
     {{- end -}}
@@ -111,7 +111,7 @@
   {{- if $items -}}
 <ul class="page-list catalogus-special">
   {{- range $items -}}
-  <li><span class="oefenhoek-voorzien">{{ or .Params.linkTitle .Title }} <span class="oefenhoek-voorzien-tag">(voorzien)</span></span></li>
+  <li><span class="oefenhoek-voorzien">{{ partial "display-link-title.html" . }} <span class="oefenhoek-voorzien-tag">(voorzien)</span></span></li>
   {{- end -}}
 </ul>
   {{- else -}}
@@ -146,7 +146,7 @@
           {{- $include = not (index $refs $id) -}}
         {{- end -}}
         {{- if $include -}}
-          {{- $rows = $rows | append (dict "page" . "id" $id "title" (or .Params.linkTitle .Title)) -}}
+          {{- $rows = $rows | append (dict "page" . "id" $id "title" (partial "display-link-title.html" .)) -}}
         {{- end -}}
       {{- end -}}
     {{- end -}}

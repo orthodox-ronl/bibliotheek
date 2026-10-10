@@ -1,0 +1,17 @@
+{{- /*
+  Mapnaam → leesbare titel: johannes-de-theoloog → Johannes De Theoloog.
+  Input: string slug. Output: tekst (geen return-keyword; Hugo 0.160).
+*/ -}}
+{{- $slug := . -}}
+{{- if eq $slug "default" -}}
+Standaard
+{{- else -}}
+{{- $parts := split (replace $slug "-" " ") " " -}}
+{{- $out := slice -}}
+{{- range $parts -}}
+  {{- if . -}}
+    {{- $out = $out | append (printf "%s%s" (upper (substr . 0 1)) (substr . 1)) -}}
+  {{- end -}}
+{{- end -}}
+{{- delimit $out " " -}}
+{{- end -}}

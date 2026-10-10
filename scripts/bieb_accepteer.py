@@ -21,14 +21,15 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from catalogus import (  # noqa: E402
     CATALOGUS_ROOT,
     REPO_ROOT,
+    derived_leaf_link_title,
+    derived_leaf_title,
     folder,
     id_from_publication_stem,
-    is_generic_leaf_title,
     parse_id,
     publication_stem_from_filename,
+    section_title,
     stem,
     under_alias_variant,
-    uitvoeringsvorm_link_title,
 )
 from score_filenames import is_print_mscz, is_tekstblad_md  # noqa: E402
 
@@ -72,61 +73,15 @@ def _fm_value(text: str, key: str) -> str | None:
     return None
 
 
-def _words_title(slug: str) -> str:
-    """``johannes-de-theoloog`` → ``Johannes De Theoloog`` (leesbare default)."""
-    parts = []
-    for w in slug.replace("-", " ").split():
-        if not w:
-            continue
-        parts.append(w[:1].upper() + w[1:])
-    return " ".join(parts)
-
-
 def default_title(ident: str) -> str:
-    """Volledige leaf-titel uit id: ``Kondak Johannes … (Liturgikon)``."""
-    zangstuk, variant, uv = parse_id(ident)
-    return (
-        f"{_words_title(zangstuk)} {_words_title(variant)} "
-        f"({uitvoeringsvorm_link_title(uv)})"
-    )
+    """Leaf-titel uit id (compat); zie ``catalogus.derived_leaf_title_from_id``."""
+    from catalogus import derived_leaf_title_from_id
+
+    return derived_leaf_title_from_id(ident)
 
 
 def default_link_title(ident: str) -> str:
-    _z, _v, uv = parse_id(ident)
-    return uitvoeringsvorm_link_title(uv)
-
-
-def title_hint_from_source(path: Path) -> str | None:
-    """Optionele paginatitel uit VSA/mvsa-frontmatter (``titel:`` / ``soort:``)."""
-    if path.suffix.lower() not in {".vsa", ".mvsa"}:
-        return None
-    try:
-        text = path.read_text(encoding="utf-8")
-    except OSError:
-        return None
-    if not text.lstrip().startswith("---"):
-        return None
-    parts = text.split("---", 2)
-    if len(parts) < 3:
-        return None
-    fm = parts[1]
-    titel = None
-    soort = None
-    for line in fm.splitlines():
-        stripped = line.strip()
-        low = stripped.lower()
-        if low.startswith("titel:"):
-            titel = stripped.split(":", 1)[1].strip().strip("\"'")
-        elif low.startswith("soort:") and soort is None:
-            soort = stripped.split(":", 1)[1].strip().strip("\"'")
-    if not titel:
-        return None
-    if soort:
-        s = soort.replace("-", " ")
-        s = s[:1].upper() + s[1:] if s else s
-        if not titel.lower().startswith(s.lower()):
-            return f"{s} — {titel}"
-    return titel
+    return derived_leaf_link_title(ident)
 
 
 def classify_source(path: Path) -> str:
@@ -275,12 +230,12 @@ def ensure_sections(ident: str, *, dry_run: bool) -> None:
     zdir = CATALOGUS_ROOT / zangstuk
     zindex = zdir / "_index.md"
     if not zindex.is_file():
-        _write(zindex, section_index_text(zangstuk.replace("-", " ")), dry_run=dry_run)
+        _write(zindex, section_index_text(section_title(zangstuk)), dry_run=dry_run)
         print(f"  section {_rel(zindex)}", flush=True)
     vdir = zdir / variant
     vindex = vdir / "_index.md"
     if not vindex.is_file():
-        _write(vindex, section_index_text(variant.replace("-", " ")), dry_run=dry_run)
+        _write(vindex, section_index_text(section_title(variant)), dry_run=dry_run)
         print(f"  section {_rel(vindex)}", flush=True)
 
 
@@ -473,28 +428,14 @@ def accept(
             print(f"FAIL: {line}", flush=True)
         return 1
 
-    resolved_title = title
-    if not resolved_title:
-        for src, kind in classified:
-            if kind in {"vsa", "mvsa"}:
-                hint = title_hint_from_source(src)
-                if hint:
-                    _z, _v, uv = parse_id(ident)
-                    uv_label = uitvoeringsvorm_link_title(uv)
-                    if uv_label.lower() not in hint.lower():
-                        resolved_title = f"{hint} ({uv_label})"
-                    else:
-                        resolved_title = hint
-                    break
-    if not resolved_title:
-        resolved_title = default_title(ident)
-    resolved_link_title = default_link_title(ident)
-    if is_generic_leaf_title(resolved_title, parse_id(ident)[0]):
-        print(
-            f"WARN: leaf-titel {resolved_title!r} is te generiek voor zoeken; "
-            f"gebruik --title of verbeter de bron-frontmatter.",
-            flush=True,
-        )
+    # Afgeleide titel (contract docs/catalogus-titels.md). --title alleen
+    # overschrijven bij uitzondering; Hugo/zoek leiden verder zelf af.
+    source_paths = [src for src, kind in classified if kind in {"vsa", "mvsa"}]
+    if title:
+        resolved_title = title
+    else:
+        resolved_title = derived_leaf_title(ident, source_paths=source_paths)
+    resolved_link_title = derived_leaf_link_title(ident)
     if status is None:
         resolved_status = "voorzien" if stub else "reviewable"
     else:
@@ -941,8 +882,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument(
         "--title",
         help=(
-            "paginatitel (default: uit VSA-titel of "
-            "'Zangstuk variant (Uitvoeringsvorm)')"
+            "uitzondering: overschrijf afgeleide leaf-titel "
+            "(standaard: uit bron of id; zie docs/catalogus-titels.md)"
         ),
     )
     p.add_argument(

@@ -1,0 +1,25 @@
+{{- /*
+  Weergave-linkTitle: catalogus-id-pagina's afgeleid, anders .LinkTitle.
+*/ -}}
+{{- $reserved := slice "speciaal" "zoeken" -}}
+{{- $segs := false -}}
+{{- if and (eq .Section "catalogus") .File -}}
+  {{- $dir := strings.TrimSuffix "/" (replace .File.Dir "\\" "/") -}}
+  {{- if strings.HasPrefix $dir "catalogus/" -}}
+    {{- $rel := strings.TrimPrefix "catalogus/" $dir -}}
+    {{- if $rel -}}
+      {{- $try := split $rel "/" -}}
+      {{- $first := index $try 0 -}}
+      {{- if and (not (in $reserved $first)) (ge (len $try) 1) (le (len $try) 3) -}}
+        {{- $segs = $try -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $segs -}}
+{{- .LinkTitle -}}
+{{- else if eq (len $segs) 3 -}}
+{{- partial "catalogus-uv-link-title.html" (index $segs 2) -}}
+{{- else -}}
+{{- partial "catalogus-words-title.html" (index $segs (sub (len $segs) 1)) -}}
+{{- end -}}

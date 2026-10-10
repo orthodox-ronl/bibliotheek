@@ -18,11 +18,11 @@ echo.
 echo Gebruik: scripts\bieb.cmd ^<subcommando^> [args...]
 echo.
 echo   accepteer   partituur/tekstblad opnemen onder catalogus-id
-echo   hernoem     zangstuk-id hernoemen ^(map, stam, refs, koormap-slots^)
+echo   hernoem     catalogus-id hernoemen ^(zangstuk/variant/uitvoeringsvorm^)
 echo.
 echo Voorbeelden:
 echo   scripts\bieb.cmd accepteer trisagion/8a-nederlands/hemelum pad\naar\x.mscz --dry-run
-echo   scripts\bieb.cmd hernoem oud-id nieuw-id --dry-run
+echo   scripts\bieb.cmd hernoem ektinia/vredes ektinia/litanie --dry-run
 echo.
 echo Handleiding:
 echo   content-source\handleiding\scripts\bieb-accepteer.md

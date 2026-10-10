@@ -6,15 +6,17 @@ weight: 15
 
 # Zangstuk hernoemen
 
-Dit werktraject wijzigt één **zangstuk-id** (de bovenste map onder
-`content-source\catalogus\`) en houdt producten, tekstverwijzingen en
-passende koormap-slots in de pas. HOW-detail: [bieb hernoem](../scripts/bieb-hernoem/).
+Dit werktraject wijzigt een **catalogus-id** — meestal een zangstuk-id
+(de bovenste map onder `content-source\catalogus\`), maar hetzelfde
+commando kan ook een variant of uitvoeringsvorm hernoemen. Het houdt
+producten, id-verwijzingen en passende koormap-slots in de pas.
+HOW-detail: [bieb hernoem](../scripts/bieb-hernoem/).
 
 {{< cue >}}
-1. Bepaal oud en nieuw id (`[a-z0-9_-]+`, geen slash).
+1. Bepaal oud en nieuw id (slash- of stam-vorm; zie [bieb hernoem](../scripts/bieb-hernoem/)).
 2. Dry-run: `scripts\bieb.cmd hernoem <oud> <nieuw> --dry-run`
 3. Uitvoeren zonder `--dry-run`.
-4. Zoekindex: `python scripts\build_zoek_index.py`
+4. Products vernieuwen waar nodig; zoekindex: `python scripts\build_zoek_index.py`
 5. Controle: `scripts\check.cmd --strict`
 {{< /cue >}}
 
@@ -43,9 +45,9 @@ nieuwe naam.
 
 | Wel | Niet |
 | --- | --- |
-| Top-level zangstuk-id wijzigen | Alleen variant- of uitvoeringsvorm-map |
-| Ids die 1:1 koormap-slots hebben (`trisagion`, …) | Litanie-plekken die bewust `vredeslitanie` heten terwijl het id `ektinia` is |
-| Na een taxonomie-PR / inventaris in Zangstuk-soorten | Cosmetische `title`/`linkTitle` — dat is frontmatter, geen hernoem |
+| Zangstuk-, variant- of uitvoeringsvorm-id wijzigen | Litanie-plekken die bewust `vredeslitanie` heten terwijl het id `ektinia` is (mapnaam blijft; `bieb id=` wel) |
+| Ids die 1:1 koormap-slots hebben (`trisagion`, …) | Cosmetische namen alleen in de koormap — dat is geen catalogus-hernoem |
+| Na een taxonomie-PR / inventaris in Zangstuk-soorten | — |
 
 ## Volgorde
 

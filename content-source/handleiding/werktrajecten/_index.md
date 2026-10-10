@@ -58,7 +58,7 @@ geen bibliotheek-producten.
 | Werktraject | Waartoe (kort) | Pagina |
 | --- | --- | --- |
 | Opnemen in de catalogus | Ruw bestand bewaren en later als klaar oefenbestand in de catalogus zetten | [Opnemen](opnemen-in-catalogus/) |
-| Zangstuk hernoemen | Zangstuk-id (topmap) wijzigen inclusief producten en 1:1-koormap-slots | [Hernoemen](zangstuk-hernoemen/) |
+| Zangstuk hernoemen | Catalogus-id wijzigen (zangstuk/variant/uitvoeringsvorm) inclusief producten en koormap-slots | [Hernoemen](zangstuk-hernoemen/) |
 | Basispartituur | MuseScore-basispartituur naar A4-PDF en Coria-`.mxl` | [Basispartituur](basispartituur/) |
 | VSA | Eenstemmige `.vsa` naar SVG, Coria-`.vsa.mxl` en A4-`.vsa.pdf` | [VSA](vsa/) |
 | mvsa | Meerstemmige `.mvsa` naar Coria-`.mvsa.mxl` en A4-`.mvsa.pdf` | [mvsa](mvsa/) |

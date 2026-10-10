@@ -1,6 +1,6 @@
 {{ define "main" }}
 <div class="page-title-row">
-  <h1>{{ .Title }}</h1>
+  <h1>{{ partial "display-title.html" . }}</h1>
   {{ partial "publicatiestatus.html" . }}
 </div>
 {{ partial "catalogus-id-line.html" . }}

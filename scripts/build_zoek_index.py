@@ -26,6 +26,13 @@ from sync_lyrics_products import (
     product_path_for_source,
 )
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from catalogus import (  # noqa: E402
+    derived_leaf_link_title,
+    derived_leaf_title,
+    section_title,
+)
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CATALOGUS_ROOT = REPO_ROOT / "content-source" / "catalogus"
 OUT_PATH = REPO_ROOT / "static" / "zoek" / "index.json"
@@ -218,22 +225,20 @@ def _entry_for_leaf(leaf: Path, synonyms: dict[str, str]) -> dict | None:
     ident = _catalogus_id_for_leaf_dir(leaf_dir)
     if not ident:
         return None
-    zangstuk, variant, uitvoeringsvorm = ident.split("/")
-    var_idx = CATALOGUS_ROOT / zangstuk / variant / "_index.md"
-    zs_idx = CATALOGUS_ROOT / zangstuk / "_index.md"
+    zangstuk, variant, _uitvoeringsvorm = ident.split("/")
     leaf_fm = _fm(leaf)
-    var_fm = _fm(var_idx)
-    zs_fm = _fm(zs_idx)
     plain = _plain_for_leaf(leaf_dir)
-    title = leaf_fm.get("title") or var_fm.get("title") or ident
-    link = leaf_fm.get("linktitle") or leaf_fm.get("title") or uitvoeringsvorm
+    title = derived_leaf_title(ident, leaf_dir=leaf_dir)
+    link = derived_leaf_link_title(ident)
+    zs_title = section_title(zangstuk)
+    var_title = section_title(variant)
     norm = normalize_text(
         " ".join(
             [
                 title,
                 link,
-                zs_fm.get("title", ""),
-                var_fm.get("title", ""),
+                zs_title,
+                var_title,
                 ident.replace("/", " ").replace("-", " "),
                 plain,
             ]
@@ -245,8 +250,8 @@ def _entry_for_leaf(leaf: Path, synonyms: dict[str, str]) -> dict | None:
         "url": f"/catalogus/{ident}/",
         "title": title,
         "linkTitle": link,
-        "zangstukTitle": zs_fm.get("title") or zangstuk,
-        "variantTitle": var_fm.get("title") or variant,
+        "zangstukTitle": zs_title,
+        "variantTitle": var_title,
         "status": leaf_fm.get("publicatiestatus") or "",
         "text": norm,
         "tokens": token_sort_key(norm),

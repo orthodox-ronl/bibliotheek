@@ -88,7 +88,7 @@
   <div class="pdf-sheet-pages vsa-notation" role="img" aria-label="PDF"></div>
 </div>
 {{- else if and $vsas (not $hasMscz) $dir -}}
-  {{- $alt := $p.Title -}}
+  {{- $alt := partial "display-title.html" $p -}}
   {{- range $vsas -}}
     {{- $rel := replaceRE "\\.vsa$" ".svg" (printf "%s/%s" $dir .) -}}
     {{- $svgFile := printf "static/vsa/bladermap/%s" $rel -}}

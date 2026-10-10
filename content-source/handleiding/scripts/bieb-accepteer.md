@@ -50,16 +50,19 @@ script herkent een pad en leidt het id af.
 ## Bladpagina: title en linkTitle
 
 Het script maakt ontbrekende `_index.md` / `index.md` met shortcode `bieb`
-en hernoemt naar de publicatiestam. Op de leaf-`index.md`:
+en hernoemt naar de publicatiestam. Getoonde namen leidt Hugo/zoek af uit
+het id (en de bron); zie
+[Catalogus en koormappen](../../start/catalogus-en-koormappen/) (§ Titels).
+Op de leaf mag het script nog afgeleide `title` / `linkTitle` zetten:
 
-| Veld | Default |
+| Veld | Default (afgeleid) |
 | --- | --- |
-| `title` | Uit VSA-frontmatter (`titel:` / `soort:`), anders `Zangstuk variant (Uitvoeringsvorm)` |
-| `linkTitle` | Leesbaar uitvoeringsvorm-label (`Liturgikon`, `Hemelum`, …) — **niet** alleen `kondak` |
+| `title` | Uit VSA-frontmatter (`titel:` / `soort:`), anders uit id |
+| `linkTitle` | Uitvoeringsvorm-label (`Liturgikon`, `Hemelum`, …) |
 
-Een kale titel als alleen het zangstuk-id maakt zoektreffers onbruikbaar.
-Override met `--title`. `check --strict` controleert dit
-(`check_catalogus_leaf_titles`).
+`--title` alleen als uitzondering. `check --strict` controleert dat de
+UV-labels in `data/uitvoeringsvorm-link-titles.yaml` gelijk blijven aan
+Python (`check_catalogus_leaf_titles`).
 
 Sibling-PDF/MXL krijgen de doelvorm `{stam}.mscz.pdf` / `{stam}.mscz.mxl`
 (of `.vsa.mxl` / `.tekstblad.pdf`). Een kale ongekuiste `.mxl` wordt
@@ -70,14 +73,14 @@ alleen met `--force`.
 Ontbreekt bestand of id, dan vraagt het script die interactief. Typ `?`
 voor uitleg.
 
-Andere subcommando’s van `bieb`: [hernoem](../bieb-hernoem/) (zangstuk-id
+Andere subcommando’s van `bieb`: [hernoem](../bieb-hernoem/) (catalogus-id
 wijzigen).
 
 # OPTIONS
 
 | Optie | Betekenis |
 | --- | --- |
-| `--title` | Paginatitel override |
+| `--title` | Uitzondering: overschrijf afgeleide leaf-titel |
 | `--status` | Publicatiestatus |
 | `--stub` | Lege leaf (`voorzien`) |
 | `--move` | Bronbestanden verplaatsen (default: kopieer) |

@@ -120,44 +120,45 @@ onder meerdere namen bekend is.
 
 ## Titels en frontmatter in de catalogus
 
+Getoonde namen in de catalogus (paginatitel, navigatie, zoeken) worden
+**afgeleid bij de bouw** uit het pad/id, en bij een leaf optioneel uit de
+bron (VSA/mvsa-`titel:`). Handmatige redactionele titels horen in
+**koormappen**, niet in de catalogus. Agent-contract in de repo:
+`docs/catalogus-titels.md`.
+
 Elke catalogus-pagina (`_index.md` of leaf-`index.md`) heeft minstens:
 
 | Veld | Rol |
 | --- | --- |
-| `title` | Volledige, leesbare paginatitel (vaak de H1) |
-| `linkTitle` | Korte naam in navigatie, kindlijsten en broodkruimels |
 | `publicatiestatus` | Wat koorleden mogen verwachten (`voorzien` / `concept` / `reviewable` / `productie`) |
 | `automatische_inhoud` | Sectie: meestal `true` (kindlijst). Leaf: altijd `false` (score via `bieb`) |
 
-Ids komen uit het **pad** (`zangstuk/variant/uitvoeringsvorm`), niet uit
-`title` of `linkTitle`. Tooling en shortcode `bieb` gebruiken het pad.
+Ids komen uit het **pad** (`zangstuk/variant/uitvoeringsvorm`). Tooling en
+shortcode `bieb` gebruiken het pad. Frontmatter `title` / `linkTitle` zijn
+geen bron van waarheid (Hugo negeert ze op id-pagina’s); `bieb accepteer`
+mag ze nog als afgeleid artefact zetten.
 
-### Naamgeving per laag
+### Afleiding per laag
 
-| Laag | `title` | `linkTitle` |
+| Laag | Korte naam (navigatie) | Paginatitel / zoek |
 | --- | --- | --- |
-| **Zangstuk** | Liturgisch nummer + naam, bijv. `11 Dringende litanie` | Zelfde of iets korter voor de hoofdnavigatie |
-| **Variant** | Leesbare variantnaam, bijv. `Alleluia toon 1 (Kiev)` of `Kondak zondag toon 1` | Kort voor de kindlijst: `Toon 1`, of de folder-id zoals `zondag-toon-1` |
-| **Uitvoeringsvorm (leaf)** | Volledige titel mét herkomst, bijv. `Alleluia toon 1 (Kiev, Groningen)` | Label van de uitvoeringsvorm met hoofdletter: `Groningen`, `Hemelum`, `Liturgikon` — **niet** de mapnaam in kleine letters en **niet** alleen een slug |
-
-`title` en `linkTitle` mogen verschillen: lange titel op de pagina, korte
-label in de navigatie. Dat is bewust (alleluia’s, prokimens, troparen).
+| **Zangstuk** | Uit mapnaam (streepjes → spaties) | Zelfde |
+| **Variant** | Uit mapnaam (`default` → Standaard) | Zelfde |
+| **Uitvoeringsvorm (leaf)** | Label uit uitvoeringsvorm-id (`Hemelum`, `Groningen`, …) | Uit bron-titel als die er is, anders uit id: `Zangstuk Variant (Label)` |
 
 ### Variant-id `default`
 
-Als er nog maar één variant is, heet de map vaak `default`. Op die
-variant-`_index.md` mag `title` / `linkTitle` tijdelijk `default` blijven;
-de leaf draagt dan de echte liturgische titel. Zodra er een tweede variant
-komt, geef je `default` een echte naam of hernoem je de map.
+Als er nog maar één variant is, heet de map vaak `default`. De getoonde
+naam wordt dan **Standaard**. Zodra er een tweede variant komt, geef je
+de map een echte id (hernoemen).
 
 ### Wat `check` wel en niet doet aan titels
 
-`scripts\check.cmd` (met `--strict`: hard) controleert leaf-`title` /
-`linkTitle` via `check_catalogus_leaf_titles`: de titel mag niet alleen het
-zangstuk-id zijn (dat maakt zoektreffers onbruikbaar), en `linkTitle` hoort
-het leesbare uitvoeringsvorm-label te zijn. `bieb accepteer` zet die
-defaults goed; bestaande kale bladen herstel je handmatig of door opnieuw
-te accepteren met `--force` / `--title`.
+`scripts\check.cmd` (met `--strict`: hard) controleert via
+`check_catalogus_leaf_titles` dat
+`data/uitvoeringsvorm-link-titles.yaml` gelijk blijft aan de labels in
+`scripts/catalogus.py` (Hugo en Python dezelfde namen). Geen eis meer op
+handmatige leaf-`title`.
 
 Nog **niet** door `check`: een volledig frontmatter-schema of verplichte
 `publicatiestatus`. Mis je `publicatiestatus` op een **leaf**, dan ontbreekt

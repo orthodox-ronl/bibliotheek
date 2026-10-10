@@ -11,7 +11,7 @@
 {{- if not $canon -}}
   {{- errorf "%s: alias_van %q wijst niet naar een bestaande bibliotheek-variant. Oplossing: zet alias_van op zangstuk/canonieke-variant die wel bestaat (verwacht pad %s)." $loc $aliasVan $canonPath -}}
 {{- end -}}
-{{- $canonLabel := or $canon.Params.linkTitle $canon.Title -}}
+{{- $canonLabel := partial "display-link-title.html" $canon -}}
 <aside class="oefenhoek-alias-banner" role="note">
   <p class="oefenhoek-alias-banner-title">Alias-variant</p>
   <p>Deze variant is een andere naam voor

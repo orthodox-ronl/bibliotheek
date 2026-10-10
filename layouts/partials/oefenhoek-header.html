@@ -16,15 +16,15 @@
   <div class="oefenhoek-header-inner">
   <nav class="oefenhoek-breadcrumb" aria-label="Broodkruimels">
     {{- if .Eq $root -}}
-    <span class="oefenhoek-breadcrumb-current" aria-current="page">{{ .LinkTitle }}</span>
+    <span class="oefenhoek-breadcrumb-current" aria-current="page">{{ partial "display-link-title.html" . }}</span>
     {{- else -}}
       {{- range .Ancestors.Reverse -}}
         {{- if or (.Eq $root) (.IsDescendant $root) -}}
-    <a class="oefenhoek-breadcrumb-link" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+    <a class="oefenhoek-breadcrumb-link" href="{{ .RelPermalink }}">{{ partial "display-link-title.html" . }}</a>
     <span class="oefenhoek-breadcrumb-sep" aria-hidden="true">&rsaquo;</span>
         {{- end -}}
       {{- end -}}
-    <span class="oefenhoek-breadcrumb-current" aria-current="page">{{ .LinkTitle }}</span>
+    <span class="oefenhoek-breadcrumb-current" aria-current="page">{{ partial "display-link-title.html" . }}</span>
     {{- end -}}
   </nav>
   </div>

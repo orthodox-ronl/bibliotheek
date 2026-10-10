@@ -1,0 +1,66 @@
+{{- /*
+  Weergave-title: catalogus-id-pagina's afgeleid (leaf: bron of id), anders .Title.
+*/ -}}
+{{- $reserved := slice "speciaal" "zoeken" -}}
+{{- $segs := false -}}
+{{- if and (eq .Section "catalogus") .File -}}
+  {{- $dir := strings.TrimSuffix "/" (replace .File.Dir "\\" "/") -}}
+  {{- if strings.HasPrefix $dir "catalogus/" -}}
+    {{- $rel := strings.TrimPrefix "catalogus/" $dir -}}
+    {{- if $rel -}}
+      {{- $try := split $rel "/" -}}
+      {{- $first := index $try 0 -}}
+      {{- if and (not (in $reserved $first)) (ge (len $try) 1) (le (len $try) 3) -}}
+        {{- $segs = $try -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $segs -}}
+{{- .Title -}}
+{{- else if eq (len $segs) 1 -}}
+{{- partial "catalogus-words-title.html" (index $segs 0) -}}
+{{- else if eq (len $segs) 2 -}}
+{{- partial "catalogus-words-title.html" (index $segs 1) -}}
+{{- else -}}
+{{- $z := partial "catalogus-words-title.html" (index $segs 0) -}}
+{{- $v := partial "catalogus-words-title.html" (index $segs 1) -}}
+{{- $uvLabel := partial "catalogus-uv-link-title.html" (index $segs 2) -}}
+{{- $fromId := printf "%s %s (%s)" $z $v $uvLabel -}}
+{{- $hint := "" -}}
+{{- $sources := slice -}}
+{{- range .Resources.Match "*.vsa" -}}{{- $sources = $sources | append . -}}{{- end -}}
+{{- range .Resources.Match "*.mvsa" -}}{{- $sources = $sources | append . -}}{{- end -}}
+{{- with index $sources 0 -}}
+  {{- $body := .Content -}}
+  {{- with findRE `(?m)^titel:\s*["']?([^"'\r\n]+)` $body 1 -}}
+    {{- $m := index . 0 -}}
+    {{- $hint = strings.TrimSpace (replaceRE `(?m)^titel:\s*["']?` "" $m) -}}
+    {{- $hint = strings.TrimSuffix "'" (strings.TrimSuffix "\"" $hint) -}}
+  {{- end -}}
+  {{- if $hint -}}
+    {{- $soort := "" -}}
+    {{- with findRE `(?m)^soort:\s*["']?([^"'\r\n]+)` $body 1 -}}
+      {{- $sm := index . 0 -}}
+      {{- $soort = strings.TrimSpace (replaceRE `(?m)^soort:\s*["']?` "" $sm) -}}
+      {{- $soort = strings.TrimSuffix "'" (strings.TrimSuffix "\"" $soort) -}}
+      {{- $soort = replace $soort "-" " " -}}
+      {{- if $soort -}}
+        {{- $soort = printf "%s%s" (upper (substr $soort 0 1)) (substr $soort 1) -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if and $soort (not (strings.HasPrefix (lower $hint) (lower $soort))) -}}
+      {{- $hint = printf "%s — %s" $soort $hint -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if $hint -}}
+  {{- if strings.Contains (lower $hint) (lower $uvLabel) -}}
+{{- $hint -}}
+  {{- else -}}
+{{- printf "%s (%s)" $hint $uvLabel -}}
+  {{- end -}}
+{{- else -}}
+{{- $fromId -}}
+{{- end -}}
+{{- end -}}

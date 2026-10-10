@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ .Title }}</title>
+  <title>{{ partial "display-title.html" . }}</title>
   {{- $bladermap := or (eq .Section "catalogus") (eq .Section "koormappen") -}}
   {{- if and .IsSection $bladermap }}
     {{- $items := partial "oefenhoek-kind-items.html" . -}}

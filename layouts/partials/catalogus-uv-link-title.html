@@ -1,0 +1,10 @@
+{{- /*
+  Uitvoeringsvorm-id → linkTitle. Labels uit data/uitvoeringsvorm-link-titles.yaml.
+*/ -}}
+{{- $uv := . -}}
+{{- $labels := hugo.Data.uitvoeringsvorm_link_titles | default dict -}}
+{{- with index $labels $uv -}}
+{{- . -}}
+{{- else -}}
+{{- partial "catalogus-words-title.html" $uv -}}
+{{- end -}}

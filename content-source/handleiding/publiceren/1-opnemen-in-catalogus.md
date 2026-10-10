@@ -90,11 +90,10 @@ bieb accepteer eniggeboren-zoon/default/hemelum "C:\pad\naar\mijn-bestand.mscz"
 5. Voor een **VSA**-bestand hetzelfde patroon, met `.vsa` in plaats van
    `.mscz`. Voor een **print-vel**: bestandsnaam eindigend op `.print.mscz`
    (het script zet dan ook `artefacten_handmatig` aan).
-6. Optioneel: geef een leesbare titel mee:
-
-```cmd
-bieb accepteer eniggeboren-zoon/default/hemelum "C:\pad\naar\bestand.mscz" --title "Eniggeboren Zoon"
-```
+6. De paginatitel volgt uit het catalogus-id (en bij VSA uit de bron).
+   Geen aparte `--title` nodig — zie
+   [Catalogus en koormappen](/handleiding/start/catalogus-en-koormappen/)
+   (§ Titels).
 
 7. Draai de controle:
 
