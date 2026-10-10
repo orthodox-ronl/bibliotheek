@@ -89,6 +89,11 @@ scripts\products.cmd content-source\catalogus\trisagion --kinds mscz,audio
 | `--only-invalid`                  | Alleen als Coria-`.mxl` de checklist faalt (`mxl validate`)                                      |
 | `--reasons missing,stale,invalid` | Expliciete subset (niet met `--only-*`)                                                          |
 
+Na een geslaagde run (niet bij `--dry-run`) vernieuwt `products.cmd` ook
+de Coria-fingerprints voor de knop **Oefenen**. Losse
+`mscz-products.cmd` e.d. doen dat niet; gebruik daarna `check` of
+`products.cmd`, of `serve` / `build`.
+
 Alias: `scripts\all-products.cmd` = `products.cmd --kinds all …`.
 Losse `mscz-products.cmd` e.d. blijven werken (zelfde flags).
 

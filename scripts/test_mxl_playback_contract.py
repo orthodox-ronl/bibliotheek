@@ -8,6 +8,7 @@ from pathlib import Path
 
 from check_mxl_playback_contract import (
     collect_coria_mxl,
+    has_coria_notehead,
     has_coria_source_encoding_clash,
     profile_for_coria_mxl,
 )
@@ -68,6 +69,40 @@ def test_has_coria_source_encoding_clash(tmp_path: Path):
     )
     assert has_coria_source_encoding_clash(bad) is True
     assert has_coria_source_encoding_clash(good) is False
+
+
+def test_has_coria_notehead(tmp_path: Path):
+    bad = tmp_path / "bad.mscz.mxl"
+    bad.write_bytes(
+        _mxl_bytes(
+            """<?xml version="1.0"?>
+<score-partwise version="3.1">
+  <part-list><score-part id="P1"><part-name>V</part-name></score-part></part-list>
+  <part id="P1"><measure number="1">
+    <note><pitch><step>C</step><octave>4</octave></pitch>
+      <duration>1</duration><type>quarter</type>
+      <notehead>none</notehead></note>
+  </measure></part>
+</score-partwise>
+"""
+        )
+    )
+    good = tmp_path / "good.mscz.mxl"
+    good.write_bytes(
+        _mxl_bytes(
+            """<?xml version="1.0"?>
+<score-partwise version="3.1">
+  <part-list><score-part id="P1"><part-name>V</part-name></score-part></part-list>
+  <part id="P1"><measure number="1">
+    <note><pitch><step>C</step><octave>4</octave></pitch>
+      <duration>1</duration><type>quarter</type></note>
+  </measure></part>
+</score-partwise>
+"""
+        )
+    )
+    assert has_coria_notehead(bad) is True
+    assert has_coria_notehead(good) is False
 
 
 def test_collect_skips_input_and_handmatig(tmp_path: Path):

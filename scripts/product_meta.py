@@ -132,6 +132,19 @@ def set_mxl_identification_source(root: ET.Element, source: str) -> None:
     _set_misc_field(ident, FIELD_BRON, text)
 
 
+def ensure_encoding_before_miscellaneous(ident: ET.Element) -> None:
+    """Zet ``encoding`` vóór ``miscellaneous`` (Coria: anders translation failed)."""
+    enc = _child(ident, "encoding")
+    misc = _child(ident, "miscellaneous")
+    if enc is None or misc is None:
+        return
+    children = list(ident)
+    if children.index(enc) < children.index(misc):
+        return
+    ident.remove(enc)
+    ident.insert(list(ident).index(misc), enc)
+
+
 def _set_misc_field(ident: ET.Element, name: str, value: str) -> None:
     misc = _child(ident, "miscellaneous")
     if misc is None:
@@ -139,9 +152,11 @@ def _set_misc_field(ident: ET.Element, name: str, value: str) -> None:
     for field in _children(misc, "miscellaneous-field"):
         if field.get("name") == name:
             field.text = value
+            ensure_encoding_before_miscellaneous(ident)
             return
     field = ET.SubElement(misc, "miscellaneous-field", name=name)
     field.text = value
+    ensure_encoding_before_miscellaneous(ident)
 
 
 def stamp_mxl_source(
@@ -168,6 +183,7 @@ def stamp_mxl_source(
     _set_misc_field(ident, FIELD_SOURCE_KIND, source_kind)
     _set_misc_field(ident, FIELD_GENERATED_AT, generated_at)
     _set_misc_field(ident, FIELD_GENERATOR, generator)
+    ensure_encoding_before_miscellaneous(ident)
 
 
 def stamp_mxl_partituur(

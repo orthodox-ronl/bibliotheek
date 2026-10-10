@@ -35,6 +35,10 @@ FIX_CMD_SOURCE = (
     r"python scripts\strip_coria_mxl_source.py"
     r"  (of products opnieuw; Coria faalt op source+encoding)"
 )
+FIX_CMD_NOTEHEAD = (
+    r"scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid"
+    r"  (Coria faalt op <notehead>, o.a. none)"
+)
 
 
 @dataclass
@@ -48,12 +52,7 @@ def _local(tag: str) -> str:
     return tag.split("}")[-1] if "}" in tag else tag
 
 
-def has_coria_source_encoding_clash(path: Path) -> bool:
-    """True als identification zowel ``source`` als ``encoding`` heeft.
-
-    Coria play_from_url geeft dan ``translation failed``. Lokale gate zodat
-    dit niet afhangt van een pin-bump van ``mxl validate``.
-    """
+def _load_score_root(path: Path) -> ET.Element | None:
     try:
         if path.suffix.lower() == ".mxl":
             with zipfile.ZipFile(path) as z:
@@ -63,12 +62,23 @@ def has_coria_source_encoding_clash(path: Path) -> bool:
                     if n.endswith((".xml", ".musicxml")) and not n.startswith("META")
                 ]
                 if not names:
-                    return False
+                    return None
                 raw = z.read(names[0])
         else:
             raw = path.read_bytes()
-        root = ET.fromstring(re.sub(rb"<!DOCTYPE[\s\S]*?>", b"", raw, count=1))
+        return ET.fromstring(re.sub(rb"<!DOCTYPE[\s\S]*?>", b"", raw, count=1))
     except (OSError, ET.ParseError, zipfile.BadZipFile):
+        return None
+
+
+def has_coria_source_encoding_clash(path: Path) -> bool:
+    """True als identification zowel ``source`` als ``encoding`` heeft.
+
+    Coria play_from_url geeft dan ``translation failed``. Lokale gate zodat
+    dit niet afhangt van een pin-bump van ``mxl validate``.
+    """
+    root = _load_score_root(path)
+    if root is None:
         return False
     for ident in root:
         if _local(ident.tag) != "identification":
@@ -77,6 +87,14 @@ def has_coria_source_encoding_clash(path: Path) -> bool:
         if "source" in tags and "encoding" in tags:
             return True
     return False
+
+
+def has_coria_notehead(path: Path) -> bool:
+    """True als er ``<notehead>`` in de score zit (Coria: translation failed)."""
+    root = _load_score_root(path)
+    if root is None:
+        return False
+    return any(_local(el.tag) == "notehead" for el in root.iter())
 
 
 @dataclass
@@ -134,6 +152,15 @@ def check_one(path: Path, profile: str) -> FileStatus:
             )
         )
         fix_cmd = FIX_CMD_SOURCE
+    if has_coria_notehead(path):
+        issues.append(
+            Issue(
+                "coria_notehead",
+                _rel(path),
+                "score bevat <notehead> (Coria: translation failed)",
+            )
+        )
+        fix_cmd = FIX_CMD_NOTEHEAD
     result = mxl_contract_ok(path, profile=profile)
     if result is None:
         issues.append(

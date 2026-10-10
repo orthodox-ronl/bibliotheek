@@ -89,23 +89,44 @@ pas na een `git push` (Coria kan de lokale Hugo-server niet bereiken).
 
 ## Coria: `translation failed` of check weigert de `.mxl`
 
-Coria’s vertaler faalt als de MusicXML in `<identification>` zowel
-`<source>` als `<encoding>` heeft. De bibliotheek mag die combinatie niet
-meer schrijven: bronvermelding hoort in
-`miscellaneous-field name="bron"`.
+Coria’s vertaler (`play_from_url`) kan op meer dan één MusicXML-vorm
+falen met dezelfde melding `translation failed`. In de bibliotheek zijn
+dit de bekende gevallen:
+
+1. `<identification>` heeft zowel `<source>` als `<encoding>` —
+   bronvermelding hoort in `miscellaneous-field name="bron"`.
+2. In `<identification>` staat `<miscellaneous>` vóór `<encoding>` —
+   Coria eist `encoding` eerst; `products` / stamp zetten die volgorde.
+3. De score bevat `<notehead>` (bijvoorbeeld `none` uit MuseScore) —
+   die tag hoort niet in Coria-`.mxl`; `mscz-products` / sanitize
+   strippen die mee.
 
 Als `check` (of `check_mxl_playback_contract`)
 `coria_source_encoding` meldt:
 
 ```cmd
 python scripts\strip_coria_mxl_source.py
-scripts\fingerprint_coria_mxl.py
+check
 ```
+
+Als de check `coria_notehead` meldt, of na een MuseScore-export opnieuw
+`<notehead>` in de Coria-`.mxl` zit:
+
+```cmd
+scripts\products.cmd --kinds mscz --only-invalid
+```
+
+(`products` vernieuwt daarna zelf de Coria-fingerprints voor de Oefenen-knop.)
 
 Of producten opnieuw: `scripts\products.cmd --kinds mscz,mvsa,vsa`
 (voor de betreffende stukken). De `.mxl` moet uit `mscz-products`,
 `mvsa-products` of `vsa-products` komen (of handmatig bij
 `artefacten_handmatig`), niet een ruwe Capella-`.mxl`.
+
+Los daarvan: bijna alle catalogus-`.mvsa.mxl` in een mol-toonsoort
+(`fifths=-1`) falen nog in Coria terwijl `mxl validate` groen is. Dat
+hoort bij een fix in VSA-tooling (MVSA→MusicXML / Coria-normalize), niet
+alleen bij opnieuw producten draaien in deze repo.
 
 ## Rode banner: partituur- of VSA-afgeleiden niet in orde
 

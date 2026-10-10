@@ -63,5 +63,7 @@ Lokaal (niet in CI): [`scripts/products.cmd`](../scripts/products.cmd) —
 wrapper over alle `sync_*_products`. Default-condities: **missing ∪ stale ∪
 invalid** (`mxl validate` op Coria-siblings). Opties: `--kinds`, `--dry-run`,
 `--force`, `--only-missing` / `--only-stale` / `--only-invalid`, `--reasons`.
+Na een geslaagde run (niet `--dry-run`) vernieuwt `products.cmd` ook de
+Coria-fingerprints (`fingerprint_coria_mxl.py`) voor de Oefenen-knop.
 
 Leesbare HOW: [handleiding — Publicatiecontrole](../content-source/handleiding/start/publicatiecontrole.md#producten-opnieuw-genereren--productscmd).
