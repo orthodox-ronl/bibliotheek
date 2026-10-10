@@ -835,7 +835,9 @@ a.btn.coria-play:focus,
   left: 0;
   right: auto;
   bottom: calc(100% + 0.4rem);
-  z-index: 30;
+  /* Boven sticky site-chrome (100) + oefenhoek-header (90), anders
+     verdwijnen de eerste zinnen onder die balken bij knoppen bovenaan. */
+  z-index: 110;
   width: max(100%, 16rem);
   max-width: min(22rem, 90vw);
   margin: 0;
@@ -859,6 +861,20 @@ a.btn.coria-play:focus,
   border: 6px solid transparent;
   border-top-color: #fffef8;
   filter: drop-shadow(0 1px 0 var(--border-color));
+}
+
+/* Te weinig ruimte boven de knop (viewport / sticky chrome): onder openen. */
+.score-action-help.score-action-help--below {
+  bottom: auto;
+  top: calc(100% + 0.4rem);
+}
+
+.score-action-help.score-action-help--below::after {
+  top: auto;
+  bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: #fffef8;
+  filter: drop-shadow(0 -1px 0 var(--border-color));
 }
 
 .score-action-menu:hover > .score-action-help,
