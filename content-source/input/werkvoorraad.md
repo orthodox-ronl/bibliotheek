@@ -86,7 +86,7 @@ voor wie converteert.
 | `vow/dankzegging_toon_2_Kyiv.mscz` |  |  | `.mscz` | ontvangen | doel-id | zie ID-REGISTER OPEN 7 |
 | `vow/eind-liturgie.mscz` |  |  | `.mscz` | ontvangen | doel-id | zie ID-REGISTER OPEN 7 |
 | `vow/Eucharistische Canon-Rostov.mscz` | `eucharistische-canon/rostov/hemelum` |  | `.mscz` | ontvangen | layout | sibling van 19a-feofan |
-| `vow/Kleine_intocht-moedergods.mscz` | `kleine-intocht/moeder-gods/hemelum` | `kleine-intocht` | `.mscz` | ontvangen | migratie |  |
+| `vow/Kleine_intocht-moedergods.mscz` | `kleine-intocht/moeder-gods/hemelum` | `kleine-intocht` | `.mscz` | gepubliceerd | — |  |
 | `vow/Kleine_intocht-weekdagen.mscz` | `kleine-intocht/weekdagen/hemelum` | `kleine-intocht` | `.mscz` | gepubliceerd | — | tweede bron (VOW) |
 | `vow/Kleine_intocht-zondag.mscz` | `kleine-intocht/zondag/hemelum` | `kleine-intocht` | `.mscz` | gepubliceerd | — | tweede bron (VOW) |
 | `vow/Tropaar-opstanding-toon1.mscz` |  |  | `.mscz` | ontvangen | doel-id | voorlopig laten zitten |

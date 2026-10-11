@@ -1,5 +1,5 @@
 ---
-title: "Kleine intocht weekdagen"
+title: "Weekdagen"
 linkTitle: "Weekdagen"
 nav_sort: weight
 publicatiestatus: concept

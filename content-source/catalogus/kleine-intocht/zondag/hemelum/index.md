@@ -1,10 +1,10 @@
 ---
-title: "7a Kleine intocht (zondag)"
-linkTitle: "7a Kleine intocht (zondag)"
+title: "Kleine Intocht Zondag (Hemelum)"
+linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 7a Kleine intocht (zondag)
+# Kleine Intocht Zondag (Hemelum)
 
 {{< bieb id="kleine-intocht/zondag/hemelum" >}}
