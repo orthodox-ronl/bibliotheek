@@ -4,7 +4,7 @@ linkTitle: "Liturgie weekdagen"
 weight: 20
 hide_page_list: true
 hide_section_list: true
-publicatiestatus: concept
+publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
