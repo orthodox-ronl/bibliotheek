@@ -2,6 +2,7 @@
 title: "Weekdagen"
 linkTitle: "Weekdagen"
 nav_sort: weight
-publicatiestatus: concept
+weight: 30
+publicatiestatus: reviewable
 automatische_inhoud: true
 ---

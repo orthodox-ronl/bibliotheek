@@ -2,6 +2,7 @@
 title: "Zondag"
 linkTitle: "Zondag"
 nav_sort: weight
-publicatiestatus: concept
+weight: 20
+publicatiestatus: reviewable
 automatische_inhoud: true
 ---

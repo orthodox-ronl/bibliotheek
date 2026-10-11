@@ -2,6 +2,7 @@
 title: "Kleine intocht zondag, weekdagen en Moeder Gods"
 linkTitle: "Zondag / weekdagen / Moeder Gods"
 nav_sort: weight
-publicatiestatus: concept
+weight: 10
+publicatiestatus: reviewable
 automatische_inhoud: true
 ---
