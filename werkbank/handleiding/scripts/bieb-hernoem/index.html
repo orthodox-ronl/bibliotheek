@@ -63,10 +63,15 @@ omgewisselde woorden tellen mee. Zoeken loopt over de
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><a class=oefenhoek-breadcrumb-link href=/bibliotheek/werkbank/handleiding/scripts/>Scripts</a>
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><span class=oefenhoek-breadcrumb-current aria-current=page>bieb hernoem</span></nav></div></header><main class=page><h1 id=name>NAME</h1><p><code>bieb hernoem</code> — catalogus-id hernoemen (zangstuk, variant of
 uitvoeringsvorm: map, publicatiestam, id-verwijzingen, koormap-slots)</p><h1 id=synopsis>SYNOPSIS</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\bieb.cmd hernoem &lt;oud&gt; &lt;nieuw&gt; [--dry-run]
-</span></span></code></pre></div><p>Met <code>.\scripts</code> op PATH: <code>bieb hernoem …</code>. Korte hulp: <code>h bieb hernoem</code>
-of <code>bieb hernoem -h</code>. Typ <code>?</code> bij een vraag voor uitleg met voorbeelden.</p><h1 id=description>DESCRIPTION</h1><p>Hernoemt één catalogus-id. Je hoeft niet te kiezen welk “niveau” het is:
-de vorm van het id bepaalt dat.</p><div class=table-scroll><table><thead><tr><th>Vorm</th><th>Betekenis</th></tr></thead><tbody><tr><td><code>ektinia</code></td><td>zangstuk-id</td></tr><tr><td><code>ektinia/vredes</code> of <code>ektinia-vredes</code></td><td>variant</td></tr><tr><td><code>ektinia/vredes/hemelum</code> of <code>ektinia-vredes-hemelum</code></td><td>uitvoeringsvorm</td></tr></tbody></table></div><p>Als nieuw id mag je alleen het <strong>laatste segment</strong> geven (zelfde ouder):
-<code>bieb hernoem ektinia/vredes/hemelum groningen</code>.</p><p>Is de dash-vorm ambigu, dan vraagt het script om de slash-vorm.</p><p>Het script:</p><ol><li>Verplaatst de catalogusmap.</li><li>Hernoemt bestanden met de oude publicatiestam
+</span></span><span style=display:flex><span>scripts\bieb.cmd rename &lt;oud&gt; &lt;nieuw&gt; [--dry-run]
+</span></span></code></pre></div><p>Met <code>.\scripts</code> op PATH: <code>bieb hernoem …</code>. Engelse alias: <code>rename</code>.
+Korte hulp: <code>h bieb hernoem</code> of <code>bieb hernoem -h</code>. Typ <code>?</code> bij een vraag
+voor uitleg met voorbeelden.</p><h1 id=description>DESCRIPTION</h1><p>Hernoemt één catalogus-id. Je hoeft niet te kiezen welk “niveau” het is:
+de vorm van het id bepaalt dat. Oud en nieuw moeten <strong>hetzelfde niveau</strong>
+zijn (zangstuk, variant of uitvoeringsvorm). De doelmap mag nog niet
+bestaan.</p><h2 id=toegestane-id-vormen-oud-en-nieuw>Toegestane id-vormen (oud en nieuw)</h2><div class=table-scroll><table><thead><tr><th>Invoer</th><th>Betekenis</th></tr></thead><tbody><tr><td><code>ektinia</code></td><td>zangstuk-id</td></tr><tr><td><code>ektinia/vredes</code> of <code>ektinia-vredes</code></td><td>variant</td></tr><tr><td><code>ektinia/vredes/hemelum</code> of <code>ektinia-vredes-hemelum</code></td><td>uitvoeringsvorm</td></tr><tr><td><code>ektinia\vredes\hemelum</code></td><td>zelfde, met Windows-backslashes</td></tr><tr><td><code>content-source\catalogus\ektinia\vredes\hemelum</code></td><td>pad t.o.v. de repository-map</td></tr><tr><td><code>vredes/hemelum</code> of <code>vredes-hemelum</code></td><td>alleen als dat <strong>uniek</strong> is in de hele catalogus</td></tr><tr><td>alleen <code>hemelum</code></td><td>alleen als die uitvoeringsvorm-naam <strong>uniek</strong> is</td></tr></tbody></table></div><p>Nieuw id mag <strong>korter</strong> t.o.v. de bron (zelfde ouder):</p><div class=table-scroll><table><thead><tr><th>Nieuw (kort)</th><th>Voorbeeld</th><th>Wordt</th></tr></thead><tbody><tr><td>Alleen uitvoeringsvorm</td><td><code>groningen</code> of <code>hemelum-ksl</code></td><td><code>…/vredes/groningen</code></td></tr><tr><td><code>variant/uv</code> of <code>variant\uv</code></td><td><code>vredes\groningen</code></td><td><code>ektinia/vredes/groningen</code></td></tr><tr><td><code>variant-uv</code></td><td><code>vredes-groningen</code></td><td><code>ektinia/vredes/groningen</code></td></tr></tbody></table></div><h2 id=ambiguïteit>Ambiguïteit</h2><p>Past de invoer op meer dan één bestaand id, dan toont het script
+<strong>genummerde voorstellen</strong>. Enter kiest nummer 1; je mag ook een nummer
+of een eenduidige slash-vorm typen. <code>?</code> toont de hulptekst.</p><h2 id=wat-het-script-doet>Wat het script doet</h2><ol><li>Verplaatst de catalogusmap.</li><li>Hernoemt bestanden met de oude publicatiestam
 (<code>.vsa</code>, <code>.vsa.mxl</code>, <code>.lyrics.txt</code>, <code>.mp3</code>, …).</li><li>Verplaatst bladermap-SVG’s onder <code>static\vsa\bladermap\catalogus\</code>.</li><li>Hernoemt <strong>koormap-mappen</strong> waarvan de naam gelijk is aan het oude
 zangstuk-id (bij zangstuk-hernoem) of aan de oude stam (bij
 variant/uitvoeringsvorm), zodat TOC-links niet 404 geven.</li><li>Werkt id-verwijzingen bij (<code>bieb id=…</code>, <code>alias_van</code>, paden, stam in
@@ -80,18 +85,24 @@ litanie-map terwijl het catalogus-id <code>ektinia</code> is) worden niet hernoe
 op mapnaam — wel worden <code>bieb id=</code>-verwijzingen bijgewerkt.</p><h1 id=examples>EXAMPLES</h1><p>Eerst altijd dry-run:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\bieb.cmd hernoem ektinia litanie --dry-run
 </span></span><span style=display:flex><span>scripts\bieb.cmd hernoem ektinia/vredes ektinia/vredeslitanie --dry-run
 </span></span><span style=display:flex><span>scripts\bieb.cmd hernoem ektinia-vredes-hemelum groningen --dry-run
+</span></span><span style=display:flex><span>scripts\bieb.cmd hernoem ektinia\vredes\hemelum vredes\groningen --dry-run
+</span></span><span style=display:flex><span>scripts\bieb.cmd rename ektinia litanie --dry-run
 </span></span><span style=display:flex><span>scripts\bieb.cmd hernoem ektinia litanie
 </span></span><span style=display:flex><span>scripts\check.cmd --strict
 </span></span></code></pre></div><h1 id=when>WHEN</h1><p>Als je een catalogus-id wilt wijzigen en mappen, publicatiestam en
 id-verwijzingen (inclusief koormappen) mee moeten. Niet voor alleen
-cosmetische <code>title</code>/<code>linkTitle</code> — die komen uit het id.</p><p>Werktraject: <a href=/bibliotheek/werkbank/handleiding/werktrajecten/zangstuk-hernoemen/>Zangstuk hernoemen</a>
-(ook bruikbaar als denkkader voor variant/uitvoeringsvorm).</p><h1 id=see-also>SEE ALSO</h1><p><a href=../bieb-accepteer/>bieb accepteer</a>
+cosmetische <code>title</code>/<code>linkTitle</code> — die komen uit het id.</p><p>Werktraject: <a href=../../werktrajecten/zangstuk-hernoemen/>Catalogus-id hernoemen</a>
+.</p><h1 id=see-also>SEE ALSO</h1><p><a href=../bieb-accepteer/>bieb accepteer</a>
+,
+<a href=../bieb-verwijder/>bieb verwijder</a>
+,
+<a href=../bieb-kopieer/>bieb kopieer</a>
 ,
 <a href=../check/>check</a>
 ,
-<a href=/bibliotheek/werkbank/handleiding/werktrajecten/zangstuk-hernoemen/>Zangstuk hernoemen</a>
+<a href=../../werktrajecten/zangstuk-hernoemen/>Catalogus-id hernoemen</a>
 ,
-<a href=/bibliotheek/werkbank/handleiding/start/catalogus-en-koormappen/>Catalogus en koormappen</a>
+<a href=../../start/catalogus-en-koormappen/>Catalogus en koormappen</a>
 ,
 <a href=../h/>h</a></p></main><div id=score-audio-bar class=score-audio-bar hidden><div class=score-audio-bar-inner><p class=score-audio-bar-title id=score-audio-bar-title></p><div class=score-audio-bar-row><button type=button class="score-audio-bar-btn score-audio-bar-play" aria-label=Pauzeren aria-controls=score-audio-bar-element aria-pressed=true>
 <span class="score-audio-bar-icon score-audio-bar-icon--pause" aria-hidden=true>❚❚</span>
@@ -103,4 +114,4 @@ cosmetische <code>title</code>/<code>linkTitle</code> — die komen uit het id.<
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-10</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-12</p></div></footer></body></html>

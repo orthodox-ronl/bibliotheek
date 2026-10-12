@@ -62,15 +62,19 @@ omgewisselde woorden tellen mee. Zoeken loopt over de
 <span class=site-jump-label>GitHub</span></a></nav></div></header></div><header class=oefenhoek-header><div class=oefenhoek-header-inner><nav class=oefenhoek-breadcrumb aria-label=Broodkruimels><a class=oefenhoek-breadcrumb-link href=/bibliotheek/werkbank/handleiding/>Handleiding</a>
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><a class=oefenhoek-breadcrumb-link href=/bibliotheek/werkbank/handleiding/scripts/>Scripts</a>
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><span class=oefenhoek-breadcrumb-current aria-current=page>bieb kopieer</span></nav></div></header><main class=page><h1 id=name>NAME</h1><p><code>bieb kopieer</code> — uitvoeringsvorm kopiëren naar een nieuw catalogus-id</p><h1 id=synopsis>SYNOPSIS</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\bieb.cmd kopieer &lt;bron-id&gt; &lt;nieuw-id&gt; [--dry-run]
-</span></span></code></pre></div><p>Met <code>.\scripts</code> op PATH: <code>bieb kopieer …</code>. Korte hulp: <code>h bieb kopieer</code>
-of <code>bieb kopieer -h</code>. Typ <code>?</code> bij een vraag voor uitleg.</p><h1 id=description>DESCRIPTION</h1><p>Kopieert één <strong>uitvoeringsvorm</strong> (leaf) naar een nieuw id. Geen
-variant- of zangstuk-kopie (nog niet).</p><p>Bron en nieuw: slash- of stam-vorm, zoals bij
+</span></span><span style=display:flex><span>scripts\bieb.cmd copy &lt;bron-id&gt; &lt;nieuw-id&gt; [--dry-run]
+</span></span></code></pre></div><p>Met <code>.\scripts</code> op PATH: <code>bieb kopieer …</code>. Engelse alias: <code>copy</code>.
+Korte hulp: <code>h bieb kopieer</code> of <code>bieb kopieer -h</code>. Typ <code>?</code> bij een vraag
+voor uitleg.</p><h1 id=description>DESCRIPTION</h1><p>Kopieert één <strong>uitvoeringsvorm</strong> (leaf) naar een nieuw id. Geen
+variant- of zangstuk-kopie (nog niet).</p><p>Bron en nieuw gebruiken dezelfde id-vormen als
 <a href=../bieb-hernoem/>bieb hernoem</a>
-. Nieuw mag alleen het laatste segment
-zijn (zelfde ouder), bijvoorbeeld <code>groningen</code>.</p><p>Het script:</p><ol><li>Controleert dat bron een bestaande uitvoeringsvorm is.</li><li>Weigert als de <strong>doelmap al bestaat</strong>.</li><li>Maakt zo nodig zangstuk-/variant-<code>_index.md</code> aan.</li><li>Kopieert bestanden en hernoemt de publicatiestam.</li><li>Schrijft een nieuwe leaf-<code>index.md</code> met nieuw <code>bieb id</code> en afgeleide
+(slash, dash, backslash, repo-pad, unieke
+suffix). Nieuw mag <strong>korter</strong> t.o.v. de bron: alleen de uitvoeringsvorm
+(<code>groningen</code>), of <code>variant/uv</code> / <code>variant-uv</code> onder hetzelfde zangstuk.</p><p>Is de bron ambigu, dan genummerde voorstellen (Enter = 1).</p><p>Het script:</p><ol><li>Controleert dat bron een bestaande uitvoeringsvorm is.</li><li>Weigert als de <strong>doelmap al bestaat</strong>.</li><li>Maakt zo nodig zangstuk-/variant-<code>_index.md</code> aan.</li><li>Kopieert bestanden en hernoemt de publicatiestam.</li><li>Schrijft een nieuwe leaf-<code>index.md</code> met nieuw <code>bieb id</code> en afgeleide
 titels (bouw leidt titels verder af).</li><li>Kopieert bladermap-SVG’s onder het nieuwe pad (als die er zijn).</li><li>Maakt <strong>geen</strong> koormap-slot — dat blijft handwerk.</li></ol><p>Daarna: products vernieuwen, zoekindex, <code>scripts\check.cmd</code>. Eventueel
 koormap-slot met shortcode <code>bieb</code>.</p><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\bieb.cmd kopieer ektinia/vredes/hemelum ektinia/vredes/groningen --dry-run
 </span></span><span style=display:flex><span>scripts\bieb.cmd kopieer ektinia-vredes-hemelum groningen
+</span></span><span style=display:flex><span>scripts\bieb.cmd copy ektinia\vredes\hemelum vredes\groningen --dry-run
 </span></span><span style=display:flex><span>scripts\bieb.cmd kopieer tropaar/zondag-toon-1/groningen tropaar/zondag-toon-2/groningen
 </span></span></code></pre></div><h1 id=when>WHEN</h1><p>Als je dezelfde partituur onder een <strong>ander</strong> uitvoeringsvorm-id nodig
 hebt (andere plaats, taal-suffix, …) zonder de bron te verplaatsen. Voor
@@ -95,4 +99,4 @@ Voor id wijzigen zonder kopie: <a href=../bieb-hernoem/>bieb hernoem</a>
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-10</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-12</p></div></footer></body></html>

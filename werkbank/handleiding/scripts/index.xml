@@ -497,7 +497,9 @@ en geen Coria-&lt;code&gt;.mxl&lt;/code&gt;. Niet in &lt;code&gt;check&lt;/code&
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd accepteer [id] [bestand...] [opties]
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd accepteer [bestand] [opties]
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Compat-shim: &lt;code&gt;scripts\bieb-accepteer.cmd&lt;/code&gt; (zelfde argumenten).&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd accept [id] [bestand...] [opties]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Engelse alias: &lt;code&gt;accept&lt;/code&gt;. Compat-shim: &lt;code&gt;scripts\bieb-accepteer.cmd&lt;/code&gt;
+(zelfde argumenten).&lt;/p&gt;
 &lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Neemt een klaar bestand op in de &lt;strong&gt;bibliotheek&lt;/strong&gt; (de catalogus onder
 &lt;code&gt;content-source\catalogus\&lt;/code&gt;), onder een catalogus-id van drie lagen:
@@ -510,77 +512,40 @@ zodat de bron geen Hugo-pagina wordt.&lt;/p&gt;</description></item><item><title
 uitvoeringsvorm: map, publicatiestam, id-verwijzingen, koormap-slots)&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd hernoem &amp;lt;oud&amp;gt; &amp;lt;nieuw&amp;gt; [--dry-run]
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Met &lt;code&gt;.\scripts&lt;/code&gt; op PATH: &lt;code&gt;bieb hernoem …&lt;/code&gt;. Korte hulp: &lt;code&gt;h bieb hernoem&lt;/code&gt;
-of &lt;code&gt;bieb hernoem -h&lt;/code&gt;. Typ &lt;code&gt;?&lt;/code&gt; bij een vraag voor uitleg met voorbeelden.&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd rename &amp;lt;oud&amp;gt; &amp;lt;nieuw&amp;gt; [--dry-run]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Met &lt;code&gt;.\scripts&lt;/code&gt; op PATH: &lt;code&gt;bieb hernoem …&lt;/code&gt;. Engelse alias: &lt;code&gt;rename&lt;/code&gt;.
+Korte hulp: &lt;code&gt;h bieb hernoem&lt;/code&gt; of &lt;code&gt;bieb hernoem -h&lt;/code&gt;. Typ &lt;code&gt;?&lt;/code&gt; bij een vraag
+voor uitleg met voorbeelden.&lt;/p&gt;
 &lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Hernoemt één catalogus-id. Je hoeft niet te kiezen welk “niveau” het is:
-de vorm van het id bepaalt dat.&lt;/p&gt;
-&lt;table&gt;
- &lt;thead&gt;
- &lt;tr&gt;
- &lt;th&gt;Vorm&lt;/th&gt;
- &lt;th&gt;Betekenis&lt;/th&gt;
- &lt;/tr&gt;
- &lt;/thead&gt;
- &lt;tbody&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;code&gt;ektinia&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;zangstuk-id&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;code&gt;ektinia/vredes&lt;/code&gt; of &lt;code&gt;ektinia-vredes&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;variant&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;code&gt;ektinia/vredes/hemelum&lt;/code&gt; of &lt;code&gt;ektinia-vredes-hemelum&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;uitvoeringsvorm&lt;/td&gt;
- &lt;/tr&gt;
- &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;Als nieuw id mag je alleen het &lt;strong&gt;laatste segment&lt;/strong&gt; geven (zelfde ouder):
-&lt;code&gt;bieb hernoem ektinia/vredes/hemelum groningen&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>bieb verwijder</title><link>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/scripts/bieb-verwijder/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/scripts/bieb-verwijder/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+de vorm van het id bepaalt dat. Oud en nieuw moeten &lt;strong&gt;hetzelfde niveau&lt;/strong&gt;
+zijn (zangstuk, variant of uitvoeringsvorm). De doelmap mag nog niet
+bestaan.&lt;/p&gt;</description></item><item><title>bieb verwijder</title><link>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/scripts/bieb-verwijder/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/scripts/bieb-verwijder/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;bieb verwijder&lt;/code&gt; — catalogus-id wissen en dangling verwijzingen tonen&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd verwijder &amp;lt;id&amp;gt; [--dry-run] [--force]
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Met &lt;code&gt;.\scripts&lt;/code&gt; op PATH: &lt;code&gt;bieb verwijder …&lt;/code&gt;. Korte hulp: &lt;code&gt;h bieb verwijder&lt;/code&gt;
-of &lt;code&gt;bieb verwijder -h&lt;/code&gt;. Typ &lt;code&gt;?&lt;/code&gt; bij een vraag voor uitleg.&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd delete &amp;lt;id&amp;gt; [--dry-run] [--force]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Met &lt;code&gt;.\scripts&lt;/code&gt; op PATH: &lt;code&gt;bieb verwijder …&lt;/code&gt;. Engelse alias: &lt;code&gt;delete&lt;/code&gt;.
+Korte hulp: &lt;code&gt;h bieb verwijder&lt;/code&gt; of &lt;code&gt;bieb verwijder -h&lt;/code&gt;. Typ &lt;code&gt;?&lt;/code&gt; bij een
+vraag voor uitleg.&lt;/p&gt;
 &lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Verwijdert één catalogus-id (zangstuk, variant of uitvoeringsvorm). De
-vorm van het id bepaalt het niveau — zelfde taal als
-&lt;a href="../bieb-hernoem/"&gt;bieb hernoem&lt;/a&gt;
-.&lt;/p&gt;
-&lt;table&gt;
- &lt;thead&gt;
- &lt;tr&gt;
- &lt;th&gt;Vorm&lt;/th&gt;
- &lt;th&gt;Betekenis&lt;/th&gt;
- &lt;/tr&gt;
- &lt;/thead&gt;
- &lt;tbody&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;code&gt;ektinia&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;hele zangstuk-boom&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;code&gt;ektinia/vredes&lt;/code&gt; of &lt;code&gt;ektinia-vredes&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;variant (inclusief alle uitvoeringsvormen eronder)&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;code&gt;ektinia/vredes/hemelum&lt;/code&gt; of stam&lt;/td&gt;
- &lt;td&gt;één uitvoeringsvorm&lt;/td&gt;
- &lt;/tr&gt;
- &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;Het script:&lt;/p&gt;</description></item><item><title>bieb kopieer</title><link>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/scripts/bieb-kopieer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/scripts/bieb-kopieer/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+vorm van het id bepaalt het niveau — dezelfde id-vormen en
+ambiguïteitsregels als bij &lt;a href="../bieb-hernoem/"&gt;bieb hernoem&lt;/a&gt;
+ (slash, dash,
+backslash, repo-pad, unieke suffix).&lt;/p&gt;</description></item><item><title>bieb kopieer</title><link>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/scripts/bieb-kopieer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/scripts/bieb-kopieer/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;bieb kopieer&lt;/code&gt; — uitvoeringsvorm kopiëren naar een nieuw catalogus-id&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd kopieer &amp;lt;bron-id&amp;gt; &amp;lt;nieuw-id&amp;gt; [--dry-run]
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Met &lt;code&gt;.\scripts&lt;/code&gt; op PATH: &lt;code&gt;bieb kopieer …&lt;/code&gt;. Korte hulp: &lt;code&gt;h bieb kopieer&lt;/code&gt;
-of &lt;code&gt;bieb kopieer -h&lt;/code&gt;. Typ &lt;code&gt;?&lt;/code&gt; bij een vraag voor uitleg.&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd copy &amp;lt;bron-id&amp;gt; &amp;lt;nieuw-id&amp;gt; [--dry-run]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Met &lt;code&gt;.\scripts&lt;/code&gt; op PATH: &lt;code&gt;bieb kopieer …&lt;/code&gt;. Engelse alias: &lt;code&gt;copy&lt;/code&gt;.
+Korte hulp: &lt;code&gt;h bieb kopieer&lt;/code&gt; of &lt;code&gt;bieb kopieer -h&lt;/code&gt;. Typ &lt;code&gt;?&lt;/code&gt; bij een vraag
+voor uitleg.&lt;/p&gt;
 &lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Kopieert één &lt;strong&gt;uitvoeringsvorm&lt;/strong&gt; (leaf) naar een nieuw id. Geen
 variant- of zangstuk-kopie (nog niet).&lt;/p&gt;
-&lt;p&gt;Bron en nieuw: slash- of stam-vorm, zoals bij
+&lt;p&gt;Bron en nieuw gebruiken dezelfde id-vormen als
 &lt;a href="../bieb-hernoem/"&gt;bieb hernoem&lt;/a&gt;
-. Nieuw mag alleen het laatste segment
-zijn (zelfde ouder), bijvoorbeeld &lt;code&gt;groningen&lt;/code&gt;.&lt;/p&gt;</description></item></channel></rss>
+ (slash, dash, backslash, repo-pad, unieke
+suffix). Nieuw mag &lt;strong&gt;korter&lt;/strong&gt; t.o.v. de bron: alleen de uitvoeringsvorm
+(&lt;code&gt;groningen&lt;/code&gt;), of &lt;code&gt;variant/uv&lt;/code&gt; / &lt;code&gt;variant-uv&lt;/code&gt; onder hetzelfde zangstuk.&lt;/p&gt;</description></item></channel></rss>
