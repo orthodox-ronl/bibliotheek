@@ -62,16 +62,21 @@ omgewisselde woorden tellen mee. Zoeken loopt over de
 <span class=site-jump-label>GitHub</span></a></nav></div></header></div><header class=oefenhoek-header><div class=oefenhoek-header-inner><nav class=oefenhoek-breadcrumb aria-label=Broodkruimels><a class=oefenhoek-breadcrumb-link href=/bibliotheek/preview/handleiding/>Handleiding</a>
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><a class=oefenhoek-breadcrumb-link href=/bibliotheek/preview/handleiding/scripts/>Scripts</a>
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><span class=oefenhoek-breadcrumb-current aria-current=page>bieb verwijder</span></nav></div></header><main class=page><h1 id=name>NAME</h1><p><code>bieb verwijder</code> — catalogus-id wissen en dangling verwijzingen tonen</p><h1 id=synopsis>SYNOPSIS</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\bieb.cmd verwijder &lt;id&gt; [--dry-run] [--force]
-</span></span></code></pre></div><p>Met <code>.\scripts</code> op PATH: <code>bieb verwijder …</code>. Korte hulp: <code>h bieb verwijder</code>
-of <code>bieb verwijder -h</code>. Typ <code>?</code> bij een vraag voor uitleg.</p><h1 id=description>DESCRIPTION</h1><p>Verwijdert één catalogus-id (zangstuk, variant of uitvoeringsvorm). De
-vorm van het id bepaalt het niveau — zelfde taal als
-<a href=../bieb-hernoem/>bieb hernoem</a>
-.</p><div class=table-scroll><table><thead><tr><th>Vorm</th><th>Betekenis</th></tr></thead><tbody><tr><td><code>ektinia</code></td><td>hele zangstuk-boom</td></tr><tr><td><code>ektinia/vredes</code> of <code>ektinia-vredes</code></td><td>variant (inclusief alle uitvoeringsvormen eronder)</td></tr><tr><td><code>ektinia/vredes/hemelum</code> of stam</td><td>één uitvoeringsvorm</td></tr></tbody></table></div><p>Het script:</p><ol><li>Toont wat er uit <code>content-source\catalogus\</code> weggaat (en bladermap-SVG).</li><li>Zoekt <strong>dangling refs</strong> buiten die map: <code>bieb id=…</code>, <code>alias_van</code>, paden
+</span></span><span style=display:flex><span>scripts\bieb.cmd delete &lt;id&gt; [--dry-run] [--force]
+</span></span></code></pre></div><p>Met <code>.\scripts</code> op PATH: <code>bieb verwijder …</code>. Engelse alias: <code>delete</code>.
+Korte hulp: <code>h bieb verwijder</code> of <code>bieb verwijder -h</code>. Typ <code>?</code> bij een
+vraag voor uitleg.</p><h1 id=description>DESCRIPTION</h1><p>Verwijdert één catalogus-id (zangstuk, variant of uitvoeringsvorm). De
+vorm van het id bepaalt het niveau — dezelfde id-vormen en
+ambiguïteitsregels als bij <a href=../bieb-hernoem/>bieb hernoem</a>
+(slash, dash,
+backslash, repo-pad, unieke suffix).</p><div class=table-scroll><table><thead><tr><th>Vorm</th><th>Betekenis</th></tr></thead><tbody><tr><td><code>ektinia</code></td><td>hele zangstuk-boom</td></tr><tr><td><code>ektinia/vredes</code> of <code>ektinia-vredes</code></td><td>variant (inclusief alle uitvoeringsvormen eronder)</td></tr><tr><td><code>ektinia/vredes/hemelum</code> of stam</td><td>één uitvoeringsvorm</td></tr></tbody></table></div><p>Is de invoer ambigu, dan toont het script genummerde voorstellen
+(Enter = 1).</p><p>Het script:</p><ol><li>Toont wat er uit <code>content-source\catalogus\</code> weggaat (en bladermap-SVG).</li><li>Zoekt <strong>dangling refs</strong> buiten die map: <code>bieb id=…</code>, <code>alias_van</code>, paden
 of publicatiestam in <code>content-source\</code> en <code>docs\</code>.</li><li>Meldt koormap-<strong>mappen</strong> waarvan de naam gelijk is aan het id/stam —
 die wist het <strong>niet</strong> (elke koormap heeft een eigen beheerder).</li><li>Zonder <code>--force</code>: stopt als er dangling refs zijn (ook bij <code>--dry-run</code>
 met exitcode 1, zodat je ziet dat wissen nog niet veilig is).</li><li>Met <code>--force</code>: wist de catalogusmap (en SVG) toch; dangling refs en
 koormap-slots blijven voor handmatig herstel.</li></ol><p>Frontmatter-titels worden niet bijgewerkt (die leidt de bouw af).</p><p>Daarna: dangling/koormap zelf oplossen, dan
 <code>python scripts\build_zoek_index.py</code> en <code>scripts\check.cmd</code>.</p><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\bieb.cmd verwijder ektinia/vredes/hemelum --dry-run
+</span></span><span style=display:flex><span>scripts\bieb.cmd delete ektinia\vredes\hemelum --dry-run
 </span></span><span style=display:flex><span>scripts\bieb.cmd verwijder ektinia/vredes/hemelum
 </span></span><span style=display:flex><span>scripts\bieb.cmd verwijder ektinia/vredes/hemelum --force
 </span></span></code></pre></div><h1 id=when>WHEN</h1><p>Als een uitvoeringsvorm (of hogere map) uit de catalogus moet en je wilt
@@ -79,6 +84,8 @@ eerst zien wie er nog naar wijst. Niet om alleen een koormap-slot leeg
 te maken — pas daar de shortcode of slotpagina aan.</p><h1 id=see-also>SEE ALSO</h1><p><a href=../bieb-hernoem/>bieb hernoem</a>
 ,
 <a href=../bieb-accepteer/>bieb accepteer</a>
+,
+<a href=../bieb-kopieer/>bieb kopieer</a>
 ,
 <a href=../check/>check</a>
 ,

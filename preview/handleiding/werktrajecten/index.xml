@@ -46,8 +46,9 @@ passende koormap-slots in de pas. HOW-detail:
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;ol&gt;
-&lt;li&gt;Bepaal oud en nieuw id (slash-vorm of publicatiestam).&lt;/li&gt;
-&lt;li&gt;Dry-run: &lt;code&gt;scripts\bieb.cmd hernoem &amp;lt;oud&amp;gt; &amp;lt;nieuw&amp;gt; --dry-run&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Bepaal oud en nieuw id (slash, dash, pad, of korte nieuw-vorm — zie &lt;a href="../scripts/bieb-hernoem/"&gt;bieb hernoem&lt;/a&gt;
+).&lt;/li&gt;
+&lt;li&gt;Dry-run: &lt;code&gt;scripts\bieb.cmd hernoem &amp;lt;oud&amp;gt; &amp;lt;nieuw&amp;gt; --dry-run&lt;/code&gt; (alias: &lt;code&gt;rename&lt;/code&gt;)&lt;/li&gt;
 &lt;li&gt;Uitvoeren zonder &lt;code&gt;--dry-run&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;Zoekindex: &lt;code&gt;python scripts\build_zoek_index.py&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Controle: &lt;code&gt;scripts\check.cmd --strict&lt;/code&gt;&lt;/li&gt;
