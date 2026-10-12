@@ -30,6 +30,60 @@ def test_resolve_existing_leaf_stem() -> None:
     assert slash == "kondak/johannes-de-theoloog-toon-2/liturgikon"
 
 
+def test_normalize_backslash_and_repo_prefix() -> None:
+    assert (
+        cat.normalize_ref_input(
+            r"cherubijnenhymne\15c-kastorski\hemelum-ksl-trlat"
+        )
+        == "cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat"
+    )
+    assert (
+        cat.normalize_ref_input(
+            r"content-source\catalogus\cherubijnenhymne\15c-kastorski\hemelum-ksl-trlat"
+        )
+        == "cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat"
+    )
+
+
+def test_resolve_existing_backslash_path() -> None:
+    level, slash = cat.resolve_existing_ref(
+        r"cherubijnenhymne\15c-kastorski\hemelum-ksl-trlat"
+    )
+    assert level == "leaf"
+    assert slash == "cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat"
+
+
+def test_resolve_existing_repo_relative_path() -> None:
+    level, slash = cat.resolve_existing_ref(
+        r"content-source\catalogus\cherubijnenhymne\15c-kastorski\hemelum-ksl-trlat"
+    )
+    assert (level, slash) == (
+        "leaf",
+        "cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat",
+    )
+
+
+def test_resolve_existing_unique_variant_uv_suffix() -> None:
+    level, slash = cat.resolve_existing_ref(
+        r"15c-kastorski\hemelum-ksl-trlat"
+    )
+    assert level == "leaf"
+    assert slash == "cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat"
+    level2, slash2 = cat.resolve_existing_ref(
+        "15c-kastorski-hemelum-ksl-trlat"
+    )
+    assert (level2, slash2) == (level, slash)
+
+
+def test_resolve_existing_ambiguous_uv_only() -> None:
+    try:
+        cat.resolve_existing_ref("hemelum")
+    except cat.AmbiguousRefError as exc:
+        assert len(exc.options) > 1
+    else:
+        raise AssertionError("verwacht AmbiguousRefError voor hemelum")
+
+
 def test_complete_new_leaf_short() -> None:
     level, slash = cat.complete_new_ref(
         "leaf",
@@ -40,6 +94,48 @@ def test_complete_new_leaf_short() -> None:
     assert slash == "kondak/johannes-de-theoloog-toon-2/hemelum"
 
 
+def test_complete_new_leaf_short_with_dashes() -> None:
+    level, slash = cat.complete_new_ref(
+        "leaf",
+        "ektinia/vredes/hemelum",
+        "hemelum-ksl-trlat",
+    )
+    assert (level, slash) == ("leaf", "ektinia/vredes/hemelum-ksl-trlat")
+
+
+def test_complete_new_leaf_variant_uv_slash() -> None:
+    level, slash = cat.complete_new_ref(
+        "leaf",
+        "cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat",
+        r"15c-kastorski\groningen",
+    )
+    assert (level, slash) == (
+        "leaf",
+        "cherubijnenhymne/15c-kastorski/groningen",
+    )
+
+
+def test_complete_new_leaf_variant_uv_dash() -> None:
+    level, slash = cat.complete_new_ref(
+        "leaf",
+        "cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat",
+        "15c-kastorski-groningen",
+    )
+    assert (level, slash) == (
+        "leaf",
+        "cherubijnenhymne/15c-kastorski/groningen",
+    )
+
+
+def test_complete_new_leaf_repo_path() -> None:
+    level, slash = cat.complete_new_ref(
+        "leaf",
+        "ektinia/vredes/hemelum",
+        r"content-source\catalogus\ektinia\vredes\groningen",
+    )
+    assert (level, slash) == ("leaf", "ektinia/vredes/groningen")
+
+
 def test_complete_new_variant_short() -> None:
     level, slash = cat.complete_new_ref(
         "variant",
@@ -48,6 +144,30 @@ def test_complete_new_variant_short() -> None:
     )
     assert level == "variant"
     assert slash == "tropaar/zondag-toon-9"
+
+
+def test_interactive_disambiguate_enter_picks_first(monkeypatch) -> None:
+    exc = cat.AmbiguousRefError(
+        "hemelum",
+        [("leaf", "a/b/hemelum"), ("leaf", "c/d/hemelum")],
+    )
+    monkeypatch.setattr("builtins.input", lambda _prompt="": "")
+    assert cat.interactive_disambiguate(exc, help_text="help") == (
+        "leaf",
+        "a/b/hemelum",
+    )
+
+
+def test_interactive_disambiguate_number(monkeypatch) -> None:
+    exc = cat.AmbiguousRefError(
+        "hemelum",
+        [("leaf", "a/b/hemelum"), ("leaf", "c/d/hemelum")],
+    )
+    monkeypatch.setattr("builtins.input", lambda _prompt="": "2")
+    assert cat.interactive_disambiguate(exc, help_text="help") == (
+        "leaf",
+        "c/d/hemelum",
+    )
 
 
 def test_rewrite_skips_title_reports_doubt() -> None:

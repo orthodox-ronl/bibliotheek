@@ -12,22 +12,28 @@ weight: 166
 
 ```cmd
 scripts\bieb.cmd verwijder <id> [--dry-run] [--force]
+scripts\bieb.cmd delete <id> [--dry-run] [--force]
 ```
 
-Met `.\scripts` op PATH: `bieb verwijder …`. Korte hulp: `h bieb verwijder`
-of `bieb verwijder -h`. Typ `?` bij een vraag voor uitleg.
+Met `.\scripts` op PATH: `bieb verwijder …`. Engelse alias: `delete`.
+Korte hulp: `h bieb verwijder` of `bieb verwijder -h`. Typ `?` bij een
+vraag voor uitleg.
 
 # DESCRIPTION
 
 Verwijdert één catalogus-id (zangstuk, variant of uitvoeringsvorm). De
-vorm van het id bepaalt het niveau — zelfde taal als
-[bieb hernoem](../bieb-hernoem/).
+vorm van het id bepaalt het niveau — dezelfde id-vormen en
+ambiguïteitsregels als bij [bieb hernoem](../bieb-hernoem/) (slash, dash,
+backslash, repo-pad, unieke suffix).
 
 | Vorm | Betekenis |
 | --- | --- |
 | `ektinia` | hele zangstuk-boom |
 | `ektinia/vredes` of `ektinia-vredes` | variant (inclusief alle uitvoeringsvormen eronder) |
 | `ektinia/vredes/hemelum` of stam | één uitvoeringsvorm |
+
+Is de invoer ambigu, dan toont het script genummerde voorstellen
+(Enter = 1).
 
 Het script:
 
@@ -50,6 +56,7 @@ Daarna: dangling/koormap zelf oplossen, dan
 
 ```cmd
 scripts\bieb.cmd verwijder ektinia/vredes/hemelum --dry-run
+scripts\bieb.cmd delete ektinia\vredes\hemelum --dry-run
 scripts\bieb.cmd verwijder ektinia/vredes/hemelum
 scripts\bieb.cmd verwijder ektinia/vredes/hemelum --force
 ```
@@ -64,5 +71,6 @@ te maken — pas daar de shortcode of slotpagina aan.
 
 [bieb hernoem](../bieb-hernoem/),
 [bieb accepteer](../bieb-accepteer/),
+[bieb kopieer](../bieb-kopieer/),
 [check](../check/),
 [h](../h/)

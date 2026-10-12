@@ -28,6 +28,7 @@ from catalogus import (  # noqa: E402
     complete_new_ref,
     derived_leaf_link_title,
     derived_leaf_title,
+    interactive_disambiguate,
     parse_id,
     ref_folder,
     resolve_existing_ref,
@@ -42,8 +43,11 @@ Alleen leaf (zangstuk/variant/uitvoeringsvorm). Voorbeelden:
 
   bieb kopieer ektinia/vredes/hemelum ektinia/vredes/groningen --dry-run
   bieb kopieer ektinia-vredes-hemelum groningen
+  bieb kopieer ektinia\\vredes\\hemelum vredes\\groningen
   bieb kopieer tropaar/zondag-toon-1/groningen tropaar/zondag-toon-2/groningen
 
+Nieuw mag kort: alleen uv, variant/uv, variant-uv, of vol pad.
+Ambigu? Genummerde voorstellen; Enter = 1.
 Doelmap mag nog niet bestaan. Geen automatische koormap-slot.
 Na kopiëren: products vernieuwen + check.
 """
@@ -95,14 +99,16 @@ def _resolve_leaf(raw: str, *, label: str) -> str:
     try:
         level, slash = resolve_existing_ref(raw)
     except AmbiguousRefError as exc:
-        print(f"kopieer: {exc}", flush=True)
-        value = _prompt_until(
-            f"Slash-vorm van {label} (? voor uitleg): ",
-            HELP_KOPIEER,
+        chosen = interactive_disambiguate(
+            exc, help_text=HELP_KOPIEER, prefix="kopieer"
         )
-        if value is None:
+        if chosen is None:
             raise ValueError(f"gestopt: geen {label}") from exc
-        level, slash = resolve_existing_ref(value)
+        if isinstance(chosen, tuple) and chosen[0]:
+            level, slash = chosen
+        else:
+            text = chosen if isinstance(chosen, str) else chosen[1]
+            level, slash = resolve_existing_ref(text)
     if level != "leaf":
         raise ValueError(
             f"{label} moet een uitvoeringsvorm zijn "
@@ -116,14 +122,16 @@ def _resolve_new_leaf(bron_slash: str, raw: str) -> str:
     try:
         level, slash = complete_new_ref("leaf", bron_slash, raw)
     except AmbiguousRefError as exc:
-        print(f"kopieer: {exc}", flush=True)
-        value = _prompt_until(
-            "Slash-vorm van het nieuwe id (? voor uitleg): ",
-            HELP_KOPIEER,
+        chosen = interactive_disambiguate(
+            exc, help_text=HELP_KOPIEER, prefix="kopieer"
         )
-        if value is None:
+        if chosen is None:
             raise ValueError("gestopt: geen nieuw id") from exc
-        level, slash = complete_new_ref("leaf", bron_slash, value)
+        if isinstance(chosen, tuple) and chosen[0]:
+            level, slash = chosen
+        else:
+            text = chosen if isinstance(chosen, str) else chosen[1]
+            level, slash = complete_new_ref("leaf", bron_slash, text)
     if level != "leaf":
         raise ValueError(f"nieuw id is geen uitvoeringsvorm: {slash!r}")
     # complete_new_ref hoeft doel niet te laten bestaan; parse ter controle

@@ -24,10 +24,10 @@ Korte hulp in het opdrachtvenster: `h` (lijst) of `h <naam>` (zelfde als
 | `ensure-bibliotheek-id` | Zet/controleert colofonregel `Bibliotheek-id:` op basispartituur-`.mscz` |
 | `bump-vsa-tooling-pin` | Zet `vsa-tooling.pin` op tip van VSA-tooling (`main` of andere ref) |
 | `opkuisen` | Herkomstanalyse + inhoudsopkuis (niet in `check`/CI) |
-| `bieb accepteer` | Opnemen in `content-source\catalogus` onder catalogus-id (Werkbank → Catalogus) |
-| `bieb hernoem` | Catalogus-id hernoemen (zangstuk/variant/uitvoeringsvorm; map, stam, refs, koormap-slots) |
-| `bieb verwijder` | Catalogus-id wissen; dangling refs / koormap-slots rapporteren |
-| `bieb kopieer` | Uitvoeringsvorm kopiëren naar nieuw id |
+| `bieb accepteer` (`accept`) | Opnemen in `content-source\catalogus` onder catalogus-id (Werkbank → Catalogus) |
+| `bieb hernoem` (`rename`) | Catalogus-id hernoemen (zangstuk/variant/uitvoeringsvorm; map, stam, refs, koormap-slots; flexibele id-vormen) |
+| `bieb verwijder` (`delete`) | Catalogus-id wissen; dangling refs / koormap-slots rapporteren |
+| `bieb kopieer` (`copy`) | Uitvoeringsvorm kopiëren naar nieuw id |
 | `update-werkvoorraad` | Tabel `input\werkvoorraad.md` bijwerken (ook in check/build/serve) |
 | `werkbank-status` | Open werkbank-cases; `data\werkbank-status.json` (ook via update-werkvoorraad) |
 | `lifecycle-grenzen` | Grenzen werkbank ↔ catalogus (spaties / ruwe formats) |

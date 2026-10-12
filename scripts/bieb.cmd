@@ -2,7 +2,8 @@
 setlocal EnableExtensions
 cd /d "%~dp0.."
 
-REM Multi-command CLI: bieb accepteer | hernoem | verwijder | kopieer
+REM Multi-command CLI: bieb accepteer|hernoem|verwijder|kopieer
+REM Engelse aliassen: accept|rename|delete|copy
 
 if /I "%~1"=="-h" goto usage
 if /I "%~1"=="--help" goto usage
@@ -21,6 +22,8 @@ echo   accepteer   partituur/tekstblad opnemen onder catalogus-id
 echo   hernoem     catalogus-id hernoemen ^(zangstuk/variant/uitvoeringsvorm^)
 echo   verwijder   catalogus-id wissen ^(dangling refs rapporteren^)
 echo   kopieer     uitvoeringsvorm kopiëren naar nieuw id
+echo.
+echo Engelse aliassen: accept, rename, delete, copy.
 echo.
 echo Voorbeelden:
 echo   scripts\bieb.cmd accepteer trisagion/8a-nederlands/hemelum pad\naar\x.mscz --dry-run

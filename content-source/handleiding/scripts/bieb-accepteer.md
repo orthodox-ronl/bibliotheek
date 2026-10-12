@@ -13,9 +13,11 @@ weight: 160
 ```cmd
 scripts\bieb.cmd accepteer [id] [bestand...] [opties]
 scripts\bieb.cmd accepteer [bestand] [opties]
+scripts\bieb.cmd accept [id] [bestand...] [opties]
 ```
 
-Compat-shim: `scripts\bieb-accepteer.cmd` (zelfde argumenten).
+Engelse alias: `accept`. Compat-shim: `scripts\bieb-accepteer.cmd`
+(zelfde argumenten).
 
 # DESCRIPTION
 

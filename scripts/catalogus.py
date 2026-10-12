@@ -71,7 +71,7 @@ def ref_folder(slash_id: str) -> Path:
 
 
 class AmbiguousRefError(ValueError):
-    """Dash-vorm kan op meer dan één niveau slaan; vraag slash-vorm."""
+    """Invoer kan op meer dan één catalogus-id slaan; vraag eenduidige vorm."""
 
     def __init__(self, value: str, options: list[tuple[str, str]]) -> None:
         self.value = value
@@ -79,36 +79,217 @@ class AmbiguousRefError(ValueError):
         opts = ", ".join(f"{lvl} {sid}" for lvl, sid in options)
         super().__init__(
             f"id {value!r} is ambigu ({opts}). "
-            "Gebruik de slash-vorm, bijv. zangstuk/variant of "
-            "zangstuk/variant/uitvoeringsvorm."
+            "Kies een eenduidige vorm, bijv. zangstuk/variant of "
+            "zangstuk/variant/uitvoeringsvorm "
+            "(of content-source\\catalogus\\…)."
         )
+
+
+def interactive_disambiguate(
+    exc: AmbiguousRefError,
+    *,
+    help_text: str,
+    prefix: str = "",
+) -> tuple[str, str] | str | None:
+    """Genummerde voorstellen bij ambiguïteit.
+
+    Terugkeerwaarde:
+
+    - ``(niveau, slash-id)`` bij nummer of Enter (Enter = eerste voorstel)
+    - ``str`` bij zelf getypte eenduidige vorm (caller resolved opnieuw)
+    - ``None`` als de gebruiker stopt (twee keer leeg / EOF)
+
+    ``?`` toont ``help_text``.
+    """
+    label = f"{prefix}: " if prefix else ""
+    print(f"{label}{exc}", flush=True)
+    for i, (_lvl, sid) in enumerate(exc.options, 1):
+        print(f"  {i}. {sid}", flush=True)
+    print(
+        "Typ nummer of eenduidige vorm (Enter = 1, ? voor uitleg).",
+        flush=True,
+    )
+    prompt = "Keuze: "
+    while True:
+        try:
+            value = input(prompt).strip()
+        except EOFError:
+            return None
+        if value == "?":
+            print(flush=True)
+            print(help_text.rstrip(), flush=True)
+            print(flush=True)
+            continue
+        if not value:
+            return exc.options[0]
+        if value.isdigit():
+            idx = int(value)
+            if 1 <= idx <= len(exc.options):
+                return exc.options[idx - 1]
+            print(
+                f"Kies een nummer van 1 t/m {len(exc.options)}.",
+                flush=True,
+            )
+            continue
+        return value
+
+
+def normalize_ref_input(value: str) -> str:
+    """Normaliseer gebruikersinvoer naar relatieve catalogus-ref of stam.
+
+    - trim + quotes weg
+    - ``\\`` → ``/``
+    - strip repo-root en ``content-source/catalogus/``
+    - bestaande map onder catalogus → slash-id (1–3 segmenten)
+    """
+    s = value.strip().strip('"').strip("'")
+    if not s:
+        return ""
+    s = s.replace("\\", "/")
+
+    # Absoluut pad of bestaand pad t.o.v. repo → resolve waar mogelijk
+    candidate = Path(s)
+    resolved: Path | None = None
+    if candidate.is_absolute():
+        try:
+            resolved = candidate.resolve()
+        except OSError:
+            resolved = None
+    else:
+        under_repo = (REPO_ROOT / s).resolve()
+        if under_repo.exists():
+            resolved = under_repo
+        else:
+            under_cat = (CATALOGUS_ROOT / s).resolve()
+            if under_cat.exists():
+                resolved = under_cat
+
+    if resolved is not None:
+        try:
+            rel = resolved.relative_to(CATALOGUS_ROOT.resolve())
+        except ValueError:
+            rel = None
+        if rel is not None and rel.parts:
+            parts = list(rel.parts[:3])
+            if all(_ID_PART.fullmatch(p) for p in parts):
+                return "/".join(parts)
+
+    repo_posix = REPO_ROOT.resolve().as_posix().rstrip("/")
+    if s.lower().startswith(repo_posix.lower() + "/"):
+        s = s[len(repo_posix) + 1 :]
+
+    lower = s.lower()
+    for prefix in (
+        "content-source/catalogus/",
+        "./content-source/catalogus/",
+        "content-source/catalogus",
+    ):
+        if lower.startswith(prefix):
+            s = s[len(prefix) :].lstrip("/")
+            break
+
+    return s.strip().strip("/")
+
+
+def _dedupe_ref_candidates(
+    candidates: list[tuple[str, str]],
+) -> list[tuple[str, str]]:
+    by_slash: dict[str, str] = {}
+    for level, slash in candidates:
+        by_slash.setdefault(slash, level)
+    return [(lvl, sid) for sid, lvl in by_slash.items()]
+
+
+def _leaf_matches_variant_uv(variant: str, uv: str) -> list[tuple[str, str]]:
+    """Alle leaves ``*/{variant}/{uv}`` die bestaan."""
+    if not _ID_PART.fullmatch(variant) or not _ID_PART.fullmatch(uv):
+        return []
+    out: list[tuple[str, str]] = []
+    for zangstuk in _known_zangstuk_ids():
+        if (CATALOGUS_ROOT / zangstuk / variant / uv).is_dir():
+            out.append(("leaf", f"{zangstuk}/{variant}/{uv}"))
+    return out
+
+
+def _leaf_matches_uv_only(uv: str) -> list[tuple[str, str]]:
+    """Alle leaves ``*/*/{uv}`` die bestaan."""
+    if not _ID_PART.fullmatch(uv):
+        return []
+    out: list[tuple[str, str]] = []
+    for zangstuk in _known_zangstuk_ids():
+        for variant in _known_variant_ids(zangstuk):
+            if (CATALOGUS_ROOT / zangstuk / variant / uv).is_dir():
+                out.append(("leaf", f"{zangstuk}/{variant}/{uv}"))
+    return out
+
+
+def _leaf_matches_variant_uv_dash(raw: str) -> list[tuple[str, str]]:
+    """Dash-vorm ``{variant}-{uv}`` als unieke/suffix-match over zangstukken."""
+    if not _ID_PART.fullmatch(raw) or "-" not in raw:
+        return []
+    out: list[tuple[str, str]] = []
+    for zangstuk in _known_zangstuk_ids():
+        for variant in _known_variant_ids(zangstuk):
+            prefix = f"{variant}-"
+            if not raw.startswith(prefix):
+                continue
+            uv = raw[len(prefix) :]
+            if uv and _ID_PART.fullmatch(uv):
+                if (CATALOGUS_ROOT / zangstuk / variant / uv).is_dir():
+                    out.append(("leaf", f"{zangstuk}/{variant}/{uv}"))
+    return out
 
 
 def resolve_existing_ref(value: str) -> tuple[str, str]:
     """Bestaand catalogus-id → ``(niveau, slash-id)``.
 
     Niveau: ``zangstuk`` | ``variant`` | ``leaf``.
-    Accepteert slash-vorm of publicatiestam/dash-vorm.
+
+    Accepteert o.a.:
+
+    - slash-vorm ``zangstuk/variant/uv`` (ook met ``\\``)
+    - ``content-source/catalogus/…`` of pad t.o.v. repo-root
+    - publicatiestam ``zangstuk-variant-uv``
+    - unieke suffix ``variant/uv`` of ``variant-uv``
+    - unieke uitvoeringsvorm alleen (``uv``) als die nergens anders voorkomt
     """
-    raw = value.strip().strip("/")
+    raw = normalize_ref_input(value)
     if not raw:
         raise ValueError("leeg id")
+
     if "/" in raw:
         parts = raw.split("/")
         for part in parts:
             if not _ID_PART.fullmatch(part):
                 raise ValueError(f"ongeldig id-segment {part!r} in {raw!r}")
-        if len(parts) == 1:
-            level, slash = "zangstuk", parts[0]
-        elif len(parts) == 2:
-            level, slash = "variant", raw
-        elif len(parts) == 3:
-            level, slash = "leaf", raw
-        else:
+        if len(parts) > 3:
             raise ValueError(f"verwacht max 3 segmenten, kreeg {raw!r}")
-        if not ref_folder(slash).is_dir():
-            raise ValueError(f"catalogusmap ontbreekt: {ref_folder(slash)}")
-        return level, slash
+
+        if len(parts) == 3:
+            slash = "/".join(parts)
+            if not ref_folder(slash).is_dir():
+                raise ValueError(f"catalogusmap ontbreekt: {ref_folder(slash)}")
+            return "leaf", slash
+
+        if len(parts) == 2:
+            # Exact zangstuk/variant?
+            if ref_folder(raw).is_dir():
+                return "variant", raw
+            # Anders: unieke leaf-suffix variant/uv
+            matches = _dedupe_ref_candidates(
+                _leaf_matches_variant_uv(parts[0], parts[1])
+            )
+            if not matches:
+                raise ValueError(
+                    f"catalogusmap ontbreekt voor {raw!r} "
+                    "(geen zangstuk/variant en geen unieke variant/uv)"
+                )
+            if len(matches) > 1:
+                raise AmbiguousRefError(raw, matches)
+            return matches[0]
+
+        # Één segment via slash-normalisatie → zelfde als stam zonder streepjes
+        raw = parts[0]
 
     if not _ID_PART.fullmatch(raw):
         raise ValueError(f"ongeldig id {raw!r}")
@@ -132,84 +313,38 @@ def resolve_existing_ref(value: str) -> tuple[str, str]:
         if vdir.is_dir():
             candidates.append(("variant", f"{zangstuk}/{variant}"))
 
-    # Uniek per slash-id
-    by_slash: dict[str, str] = {}
-    for level, slash in candidates:
-        by_slash.setdefault(slash, level)
-    unique = [(lvl, sid) for sid, lvl in by_slash.items()]
-    # Preferentie als zangstuk-map én iets anders: zangstuk wint alleen
-    # als raw exact die map is (al zo). Bij meerdere slash-ids → ambigu.
+    unique = _dedupe_ref_candidates(candidates)
     if not unique:
+        # Geen zangstuk-/stam-treffer: probeer unieke suffix variant-uv
+        dash_hits = _dedupe_ref_candidates(_leaf_matches_variant_uv_dash(raw))
+        if len(dash_hits) == 1:
+            return dash_hits[0]
+        if len(dash_hits) > 1:
+            raise AmbiguousRefError(raw, dash_hits)
+        # Laatste kans: unieke uitvoeringsvorm-naam alleen
+        uv_hits = _dedupe_ref_candidates(_leaf_matches_uv_only(raw))
+        if len(uv_hits) == 1:
+            return uv_hits[0]
+        if len(uv_hits) > 1:
+            raise AmbiguousRefError(raw, uv_hits)
         raise ValueError(
             f"onbekend id {raw!r}. Gebruik slash-vorm "
             "(zangstuk, zangstuk/variant of "
-            "zangstuk/variant/uitvoeringsvorm)."
+            "zangstuk/variant/uitvoeringsvorm) of "
+            "content-source\\catalogus\\…."
         )
     if len(unique) > 1:
         raise AmbiguousRefError(raw, unique)
     return unique[0]
 
 
-def complete_new_ref(old_level: str, old_slash: str, new_raw: str) -> tuple[str, str]:
-    """Nieuw id op hetzelfde niveau als ``old`` (slash of kortere vorm).
-
-    Kortere vorm: alleen het laatste segment, bijv. oud
-    ``ektinia/vredes/hemelum`` + nieuw ``groningen`` →
-    ``ektinia/vredes/groningen``.
-    """
-    raw = new_raw.strip().strip("/")
-    if not raw:
-        raise ValueError("leeg nieuw id")
-    old_parts = old_slash.split("/")
-    if "/" in raw:
-        parts = raw.split("/")
-    else:
-        if not _ID_PART.fullmatch(raw):
-            raise ValueError(f"ongeldig id {raw!r}")
-        # Volledige dash-stam op hetzelfde niveau?
-        if old_level == "zangstuk":
-            parts = [raw]
-        elif old_level == "variant":
-            # ``z-v`` of alleen ``v``
-            if raw.count("-") >= 1:
-                try:
-                    level, slash = resolve_existing_ref(raw)
-                except (ValueError, AmbiguousRefError):
-                    level, slash = "", ""
-                if level == "variant":
-                    return level, slash
-                # Nieuw (bestaat nog niet): split zangstuk-prefix
-                for zangstuk in _known_zangstuk_ids():
-                    prefix = f"{zangstuk}-"
-                    if raw.startswith(prefix):
-                        variant = raw[len(prefix) :]
-                        if variant and _ID_PART.fullmatch(variant):
-                            return "variant", f"{zangstuk}/{variant}"
-                parts = old_parts[:-1] + [raw]
-            else:
-                parts = old_parts[:-1] + [raw]
-        else:  # leaf
-            leaf = id_from_publication_stem(raw)
-            if leaf:
-                return "leaf", leaf
-            for zangstuk in _known_zangstuk_ids():
-                prefix = f"{zangstuk}-"
-                if not raw.startswith(prefix):
-                    continue
-                rest = raw[len(prefix) :]
-                for variant in _known_variant_ids(zangstuk):
-                    vprefix = f"{variant}-"
-                    if rest.startswith(vprefix):
-                        uv = rest[len(vprefix) :]
-                        if uv and _ID_PART.fullmatch(uv):
-                            return "leaf", f"{zangstuk}/{variant}/{uv}"
-            if "-" in raw:
-                raise ValueError(
-                    f"kon dash-vorm {raw!r} niet splitsen; "
-                    "gebruik slash-vorm zangstuk/variant/uitvoeringsvorm"
-                )
-            parts = old_parts[:-1] + [raw]
-
+def _complete_from_parts(
+    old_level: str,
+    old_parts: list[str],
+    parts: list[str],
+    raw: str,
+) -> tuple[str, str]:
+    """Slash-segmenten → nieuw id op ``old_level`` (korter mag t.o.v. bron)."""
     for part in parts:
         if not _ID_PART.fullmatch(part):
             raise ValueError(f"ongeldig id-segment {part!r} in {raw!r}")
@@ -222,25 +357,97 @@ def complete_new_ref(old_level: str, old_slash: str, new_raw: str) -> tuple[str,
                 f"oud is zangstuk-id; nieuw moet één segment zijn, kreeg {raw!r}"
             )
         return "zangstuk", parts[0]
+
     if old_level == "variant":
         if len(parts) == 1:
-            parts = [old_parts[0], parts[0]]
-        if len(parts) != 2:
-            raise ValueError(
-                f"oud is variant; nieuw moet zangstuk/variant zijn, kreeg {raw!r}"
-            )
-        return "variant", "/".join(parts)
-    # leaf
-    if len(parts) == 1:
-        parts = [old_parts[0], old_parts[1], parts[0]]
-    if len(parts) == 2:
+            return "variant", f"{old_parts[0]}/{parts[0]}"
+        if len(parts) == 2:
+            return "variant", "/".join(parts)
         raise ValueError(
-            f"oud is uitvoeringsvorm; nieuw moet drie segmenten hebben "
-            f"(of alleen de nieuwe uitvoeringsvorm), kreeg {raw!r}"
+            f"oud is variant; nieuw moet zangstuk/variant zijn "
+            f"(of alleen de nieuwe variant), kreeg {raw!r}"
         )
-    if len(parts) != 3:
-        raise ValueError(f"ongeldig nieuw leaf-id {raw!r}")
-    return "leaf", "/".join(parts)
+
+    # leaf: 1 = alleen uv; 2 = variant/uv t.o.v. oud zangstuk; 3 = volledig
+    if len(parts) == 1:
+        return "leaf", f"{old_parts[0]}/{old_parts[1]}/{parts[0]}"
+    if len(parts) == 2:
+        return "leaf", f"{old_parts[0]}/{parts[0]}/{parts[1]}"
+    if len(parts) == 3:
+        return "leaf", "/".join(parts)
+    raise ValueError(f"ongeldig nieuw leaf-id {raw!r}")
+
+
+def complete_new_ref(old_level: str, old_slash: str, new_raw: str) -> tuple[str, str]:
+    """Nieuw id op hetzelfde niveau als ``old`` (slash, pad of kortere vorm).
+
+    Kortere vormen t.o.v. de bron:
+
+    - alleen ``{uv}`` (ook met streepjes, bijv. ``hemelum-ksl``)
+    - ``{variant}/{uv}`` of ``{variant}\\{uv}``
+    - ``{variant}-{uv}`` onder hetzelfde zangstuk (bestaande variant-prefix)
+    - volledig pad / publicatiestam (zelfde normalisatie als src)
+    """
+    raw = normalize_ref_input(new_raw)
+    if not raw:
+        raise ValueError("leeg nieuw id")
+    old_parts = old_slash.split("/")
+
+    if "/" in raw:
+        return _complete_from_parts(old_level, old_parts, raw.split("/"), raw)
+
+    if not _ID_PART.fullmatch(raw):
+        raise ValueError(f"ongeldig id {raw!r}")
+
+    if old_level == "zangstuk":
+        return "zangstuk", raw
+
+    if old_level == "variant":
+        for zangstuk in _known_zangstuk_ids():
+            prefix = f"{zangstuk}-"
+            if raw.startswith(prefix):
+                variant = raw[len(prefix) :]
+                if variant and _ID_PART.fullmatch(variant):
+                    return "variant", f"{zangstuk}/{variant}"
+        # Alleen nieuwe variant-naam (mag streepjes bevatten)
+        return "variant", f"{old_parts[0]}/{raw}"
+
+    # leaf — eerst relatief ``variant-uv`` onder het zangstuk van de bron
+    # (vóór stam-heuristiek, die anders bv. 15c-kastorski-groningen
+    # als nieuw zangstuk 15c/… kan lezen)
+    zangstuk = old_parts[0]
+    rel_hits: list[tuple[str, str]] = []
+    for variant in _known_variant_ids(zangstuk):
+        vprefix = f"{variant}-"
+        if not raw.startswith(vprefix):
+            continue
+        uv = raw[len(vprefix) :]
+        if uv and _ID_PART.fullmatch(uv):
+            rel_hits.append(("leaf", f"{zangstuk}/{variant}/{uv}"))
+    unique = _dedupe_ref_candidates(rel_hits)
+    if len(unique) == 1:
+        return unique[0]
+    if len(unique) > 1:
+        raise AmbiguousRefError(raw, unique)
+
+    # Volledige publicatiestam of bekend zangstuk-prefix
+    leaf = id_from_publication_stem(raw)
+    if leaf:
+        return "leaf", leaf
+    for zs in _known_zangstuk_ids():
+        prefix = f"{zs}-"
+        if not raw.startswith(prefix):
+            continue
+        rest = raw[len(prefix) :]
+        for variant in _known_variant_ids(zs):
+            vprefix = f"{variant}-"
+            if rest.startswith(vprefix):
+                uv = rest[len(vprefix) :]
+                if uv and _ID_PART.fullmatch(uv):
+                    return "leaf", f"{zs}/{variant}/{uv}"
+
+    # Korte vorm: hele string = nieuwe uitvoeringsvorm (ook met streepjes)
+    return "leaf", f"{old_parts[0]}/{old_parts[1]}/{raw}"
 
 
 # Leesbare linkTitle voor bekende uitvoeringsvorm-ids (navigatie / broodkruimels).

@@ -21,7 +21,7 @@ mappen, woorden). Stapsgewijze MuseScore- of VSA-HOW’s staan onder
 {{< cue >}}
 - **Poort / lifecycle:** [Levenscyclus](../start/levenscyclus/) —
   Werkbank → Catalogus; [Opnemen](opnemen-in-catalogus/) — `bieb accepteer`
-- **Id wijzigen:** [Zangstuk hernoemen](zangstuk-hernoemen/) — `bieb hernoem`
+- **Id wijzigen:** [Catalogus-id hernoemen](zangstuk-hernoemen/) — `bieb hernoem` (`rename`)
 - **Namen / publicatiecontrole:** [Publicatiecontrole](../start/publicatiecontrole/) — bron vs afgeleide
 - **Publicatiesporen:** [Basispartituur](basispartituur/), [VSA](vsa/),
   [mvsa](mvsa/), [audio](audio/), [Print-vel](print-vel/) (legacy `.print.mscz`),

@@ -27,6 +27,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from catalogus import (  # noqa: E402
     AmbiguousRefError,
     REPO_ROOT,
+    interactive_disambiguate,
     ref_folder,
     resolve_existing_ref,
     slash_to_stem,
@@ -107,14 +108,15 @@ def _resolve_id(raw: str) -> tuple[str, str]:
     try:
         return resolve_existing_ref(raw)
     except AmbiguousRefError as exc:
-        print(f"verwijder: {exc}", flush=True)
-        value = _prompt_until(
-            "Slash-vorm van het id (? voor uitleg): ",
-            HELP_VERWIJDER,
+        chosen = interactive_disambiguate(
+            exc, help_text=HELP_VERWIJDER, prefix="verwijder"
         )
-        if value is None:
+        if chosen is None:
             raise ValueError("gestopt: geen id") from exc
-        return resolve_existing_ref(value)
+        if isinstance(chosen, tuple) and chosen[0]:
+            return chosen
+        text = chosen if isinstance(chosen, str) else chosen[1]
+        return resolve_existing_ref(text)
 
 
 def _ids_covered(level: str, slash: str) -> list[str]:

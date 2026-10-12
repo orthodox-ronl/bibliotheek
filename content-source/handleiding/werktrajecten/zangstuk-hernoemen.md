@@ -12,8 +12,8 @@ passende koormap-slots in de pas. HOW-detail:
 [bieb hernoem](../scripts/bieb-hernoem/).
 
 {{< cue >}}
-1. Bepaal oud en nieuw id (slash-vorm of publicatiestam).
-2. Dry-run: `scripts\bieb.cmd hernoem <oud> <nieuw> --dry-run`
+1. Bepaal oud en nieuw id (slash, dash, pad, of korte nieuw-vorm — zie [bieb hernoem](../scripts/bieb-hernoem/)).
+2. Dry-run: `scripts\bieb.cmd hernoem <oud> <nieuw> --dry-run` (alias: `rename`)
 3. Uitvoeren zonder `--dry-run`.
 4. Zoekindex: `python scripts\build_zoek_index.py`
 5. Controle: `scripts\check.cmd --strict`
@@ -58,11 +58,13 @@ nieuwe naam.
 scripts\bieb.cmd hernoem oud-id nieuw-id --dry-run
 ```
 
-Voorbeelden:
+Voorbeelden (vol id, korte nieuw-vorm, Windows-pad):
 
 ```cmd
 scripts\bieb.cmd hernoem ektinia/vredes ektinia/litanie --dry-run
 scripts\bieb.cmd hernoem ektinia/vredes/hemelum groningen --dry-run
+scripts\bieb.cmd hernoem ektinia\vredes\hemelum vredes\groningen --dry-run
+scripts\bieb.cmd rename content-source\catalogus\ektinia\vredes ektinia\litanie --dry-run
 ```
 
 4. Als de lijst klopt:
