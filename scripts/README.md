@@ -25,7 +25,9 @@ Korte hulp in het opdrachtvenster: `h` (lijst) of `h <naam>` (zelfde als
 | `bump-vsa-tooling-pin` | Zet `vsa-tooling.pin` op tip van VSA-tooling (`main` of andere ref) |
 | `opkuisen` | Herkomstanalyse + inhoudsopkuis (niet in `check`/CI) |
 | `bieb accepteer` | Opnemen in `content-source\catalogus` onder catalogus-id (Werkbank → Catalogus) |
-| `bieb hernoem` | Zangstuk-id hernoemen (map, stam, refs, 1:1-koormap-slots) |
+| `bieb hernoem` | Catalogus-id hernoemen (zangstuk/variant/uitvoeringsvorm; map, stam, refs, koormap-slots) |
+| `bieb verwijder` | Catalogus-id wissen; dangling refs / koormap-slots rapporteren |
+| `bieb kopieer` | Uitvoeringsvorm kopiëren naar nieuw id |
 | `update-werkvoorraad` | Tabel `input\werkvoorraad.md` bijwerken (ook in check/build/serve) |
 | `werkbank-status` | Open werkbank-cases; `data\werkbank-status.json` (ook via update-werkvoorraad) |
 | `lifecycle-grenzen` | Grenzen werkbank ↔ catalogus (spaties / ruwe formats) |
@@ -44,7 +46,8 @@ Intern: `_ensure.cmd` (`--hugo`, `--vsa-tool`), `fingerprint_coria_mxl.py`,
 `check_audio_products.py`, `apply_mscz_layout.py`,
 `ensure_bibliotheek_id.py`, `opkuisen.py`, `cleanup_capella_mxl.py`,
 `mscz_content_cleanup.py`, `bieb.py`, `bieb_accepteer.py`,
-`bieb_hernoem.py`, `update_werkvoorraad.py`, `werkbank_status.py`,
+`bieb_hernoem.py`, `bieb_verwijder.py`, `bieb_kopieer.py`,
+`update_werkvoorraad.py`, `werkbank_status.py`,
 `lifecycle_grenzen.py`, `catalogus.py`, `product_meta.py`,
 `coria_mxl.py`.
 
