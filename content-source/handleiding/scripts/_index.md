@@ -32,10 +32,10 @@ vanuit de repo-root.
 | `ensure-bibliotheek-id` | Zet of controleert de colofonregel `Bibliotheek-id:` op basispartituur-`.mscz`. | [ensure-bibliotheek-id](ensure-bibliotheek-id/) |
 | `bump-vsa-tooling-pin` | Zet `vsa-tooling.pin` op de tip van VSA-tooling (productie-pin); commit/PR zelf. | [bump-vsa-tooling-pin](bump-vsa-tooling-pin/) |
 | `opkuisen` | Herkomstanalyse + inhoudelijke opkuis (Capella/MusicXML/MuseScore); optioneel `--layout`. | [opkuisen](opkuisen/) |
-| `bieb accepteer` | Partituur/tekstblad opnemen onder een catalogus-id (Werkbank → Catalogus). | [bieb accepteer](bieb-accepteer/) |
-| `bieb hernoem` | Catalogus-id hernoemen (zangstuk/variant/uitvoeringsvorm; map, stam, refs, koormap-slots). | [bieb hernoem](bieb-hernoem/) |
-| `bieb verwijder` | Catalogus-id wissen; dangling refs en koormap-slots rapporteren. | [bieb verwijder](bieb-verwijder/) |
-| `bieb kopieer` | Uitvoeringsvorm kopiëren naar nieuw id (geen koormap-slot). | [bieb kopieer](bieb-kopieer/) |
+| `bieb accepteer` (`accept`) | Partituur/tekstblad opnemen onder een catalogus-id (Werkbank → Catalogus). | [bieb accepteer](bieb-accepteer/) |
+| `bieb hernoem` (`rename`) | Catalogus-id hernoemen (zangstuk/variant/uitvoeringsvorm; map, stam, refs, koormap-slots). Id-vormen: slash, dash, pad, unieke suffix. | [bieb hernoem](bieb-hernoem/) |
+| `bieb verwijder` (`delete`) | Catalogus-id wissen; dangling refs en koormap-slots rapporteren. | [bieb verwijder](bieb-verwijder/) |
+| `bieb kopieer` (`copy`) | Uitvoeringsvorm kopiëren naar nieuw id (geen koormap-slot). | [bieb kopieer](bieb-kopieer/) |
 | `update-werkvoorraad` | Tabel in `input\werkvoorraad.md` laten aansluiten op bestanden in `input\`. | [update-werkvoorraad](update-werkvoorraad/) |
 | `werkbank-status` | Overzicht open werkbank-cases; schrijft `data\werkbank-status.json`. | [werkbank-status](werkbank-status/) |
 | `lifecycle-grenzen` | Spaties/ruwe formats in catalogusmappen melden (optioneel `--fail`). | [lifecycle-grenzen](lifecycle-grenzen/) |

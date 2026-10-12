@@ -29,6 +29,7 @@ from catalogus import (  # noqa: E402
     AmbiguousRefError,
     REPO_ROOT,
     complete_new_ref,
+    interactive_disambiguate,
     ref_folder,
     resolve_existing_ref,
     slash_to_stem,
@@ -71,15 +72,20 @@ Geef het oude en nieuwe id. Vorm (beide kanten):
   uitvoeringsvorm       ektinia/vredes/hemelum
                         of  ektinia-vredes-hemelum
 
-Alleen het laatste stuk mag ook als nieuw id (zelfde ouder):
-  bieb hernoem ektinia/vredes/hemelum groningen
+Nieuw id mag korter t.o.v. de bron (zelfde ouder):
+  alleen uitvoeringsvorm     groningen   of  hemelum-ksl
+  variant/uitvoeringsvorm    vredes/groningen
+  variant-uitvoeringsvorm    vredes-groningen
+  pad met \\ of content-source\\catalogus\\…
 
-Dash-vorm ambigu? Typ de slash-vorm. Doelmap mag nog niet bestaan.
+Ambigu? Genummerde voorstellen; Enter = 1, of typ slash-vorm.
+Doelmap mag nog niet bestaan.
 
 Voorbeelden:
   bieb hernoem ektinia litanie --dry-run
   bieb hernoem ektinia/vredes ektinia/vredeslitanie
-  bieb hernoem ektinia-vredes-hemelum ektinia-vredes-groningen
+  bieb hernoem ektinia-vredes-hemelum groningen
+  bieb hernoem ektinia\\vredes\\hemelum vredes\\groningen
 """
 
 
@@ -129,28 +135,29 @@ def _resolve_old(raw: str) -> tuple[str, str]:
     try:
         return resolve_existing_ref(raw)
     except AmbiguousRefError as exc:
-        print(f"hernoem: {exc}", flush=True)
-        value = _prompt_until(
-            "Slash-vorm van het oude id (? voor uitleg): ",
-            HELP_HERNOEM,
+        chosen = interactive_disambiguate(
+            exc, help_text=HELP_HERNOEM, prefix="hernoem"
         )
-        if value is None:
+        if chosen is None:
             raise ValueError("gestopt: geen oud id") from exc
-        return resolve_existing_ref(value)
+        if isinstance(chosen, tuple) and chosen[0]:
+            return chosen
+        return resolve_existing_ref(chosen if isinstance(chosen, str) else chosen[1])
 
 
 def _resolve_new(old_level: str, old_slash: str, raw: str) -> tuple[str, str]:
     try:
         return complete_new_ref(old_level, old_slash, raw)
     except AmbiguousRefError as exc:
-        print(f"hernoem: {exc}", flush=True)
-        value = _prompt_until(
-            "Slash-vorm van het nieuwe id (? voor uitleg): ",
-            HELP_HERNOEM,
+        chosen = interactive_disambiguate(
+            exc, help_text=HELP_HERNOEM, prefix="hernoem"
         )
-        if value is None:
+        if chosen is None:
             raise ValueError("gestopt: geen nieuw id") from exc
-        return complete_new_ref(old_level, old_slash, value)
+        if isinstance(chosen, tuple) and chosen[0]:
+            return chosen
+        text = chosen if isinstance(chosen, str) else chosen[1]
+        return complete_new_ref(old_level, old_slash, text)
 
 
 def _rewrite_text(

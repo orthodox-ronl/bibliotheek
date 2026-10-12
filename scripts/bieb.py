@@ -1,6 +1,7 @@
 """Multi-command CLI ``bieb`` (zoals ``vsa`` / ``mvsa``).
 
-Subcommando's: ``accepteer``, ``hernoem``, ``verwijder``, ``kopieer``.
+Subcommando's (NL canoniek): ``accepteer``, ``hernoem``, ``verwijder``,
+``kopieer``. Engelse aliassen: ``accept``, ``rename``, ``delete``, ``copy``.
 """
 
 from __future__ import annotations
@@ -17,6 +18,28 @@ import bieb_hernoem  # noqa: E402
 import bieb_kopieer  # noqa: E402
 import bieb_verwijder  # noqa: E402
 
+# Canonieke NL-naam → handler. Engelse aliassen staan in ``_ALIASES``.
+_COMMANDS: dict[str, object] = {
+    "accepteer": bieb_accepteer.main,
+    "hernoem": bieb_hernoem.main,
+    "verwijder": bieb_verwijder.main,
+    "kopieer": bieb_kopieer.main,
+}
+_ALIASES: dict[str, str] = {
+    "accept": "accepteer",
+    "rename": "hernoem",
+    "delete": "verwijder",
+    "copy": "kopieer",
+}
+
+
+def resolve_subcommand(name: str) -> str | None:
+    """NL-naam of Engelse alias → canonieke subcommando-naam, of ``None``."""
+    key = name.strip().lower()
+    if key in _COMMANDS:
+        return key
+    return _ALIASES.get(key)
+
 
 def main(argv: list[str] | None = None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
@@ -29,6 +52,8 @@ def main(argv: list[str] | None = None) -> int:
             "  verwijder   catalogus-id wissen (dangling refs rapporteren)\n"
             "  kopieer     uitvoeringsvorm kopiëren naar nieuw id\n"
             "\n"
+            "Engelse aliassen: accept, rename, delete, copy.\n"
+            "\n"
             "Voorbeelden:\n"
             "  bieb accepteer trisagion/8a-nederlands/hemelum pad\\x.mscz --dry-run\n"
             "  bieb hernoem ektinia/vredes ektinia/litanie --dry-run\n"
@@ -36,21 +61,17 @@ def main(argv: list[str] | None = None) -> int:
             "  bieb kopieer ektinia/vredes/hemelum groningen --dry-run\n"
         )
         return 0 if argv else 2
-    cmd = argv[0]
-    if cmd == "accepteer":
-        return bieb_accepteer.main(argv[1:])
-    if cmd == "hernoem":
-        return bieb_hernoem.main(argv[1:])
-    if cmd == "verwijder":
-        return bieb_verwijder.main(argv[1:])
-    if cmd == "kopieer":
-        return bieb_kopieer.main(argv[1:])
-    print(
-        f"Onbekend subcommando: {cmd!r} "
-        "(probeer: accepteer, hernoem, verwijder, kopieer)",
-        file=sys.stderr,
-    )
-    return 2
+    canonical = resolve_subcommand(argv[0])
+    if canonical is None:
+        print(
+            f"Onbekend subcommando: {argv[0]!r} "
+            "(probeer: accepteer, hernoem, verwijder, kopieer "
+            "of accept, rename, delete, copy)",
+            file=sys.stderr,
+        )
+        return 2
+    handler = _COMMANDS[canonical]
+    return int(handler(argv[1:]))  # type: ignore[operator]
 
 
 if __name__ == "__main__":

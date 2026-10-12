@@ -13,28 +13,47 @@ uitvoeringsvorm: map, publicatiestam, id-verwijzingen, koormap-slots)
 
 ```cmd
 scripts\bieb.cmd hernoem <oud> <nieuw> [--dry-run]
+scripts\bieb.cmd rename <oud> <nieuw> [--dry-run]
 ```
 
-Met `.\scripts` op PATH: `bieb hernoem …`. Korte hulp: `h bieb hernoem`
-of `bieb hernoem -h`. Typ `?` bij een vraag voor uitleg met voorbeelden.
+Met `.\scripts` op PATH: `bieb hernoem …`. Engelse alias: `rename`.
+Korte hulp: `h bieb hernoem` of `bieb hernoem -h`. Typ `?` bij een vraag
+voor uitleg met voorbeelden.
 
 # DESCRIPTION
 
 Hernoemt één catalogus-id. Je hoeft niet te kiezen welk “niveau” het is:
-de vorm van het id bepaalt dat.
+de vorm van het id bepaalt dat. Oud en nieuw moeten **hetzelfde niveau**
+zijn (zangstuk, variant of uitvoeringsvorm). De doelmap mag nog niet
+bestaan.
 
-| Vorm | Betekenis |
+## Toegestane id-vormen (oud en nieuw)
+
+| Invoer | Betekenis |
 | --- | --- |
 | `ektinia` | zangstuk-id |
 | `ektinia/vredes` of `ektinia-vredes` | variant |
 | `ektinia/vredes/hemelum` of `ektinia-vredes-hemelum` | uitvoeringsvorm |
+| `ektinia\vredes\hemelum` | zelfde, met Windows-backslashes |
+| `content-source\catalogus\ektinia\vredes\hemelum` | pad t.o.v. de repository-map |
+| `vredes/hemelum` of `vredes-hemelum` | alleen als dat **uniek** is in de hele catalogus |
+| alleen `hemelum` | alleen als die uitvoeringsvorm-naam **uniek** is |
 
-Als nieuw id mag je alleen het **laatste segment** geven (zelfde ouder):
-`bieb hernoem ektinia/vredes/hemelum groningen`.
+Nieuw id mag **korter** t.o.v. de bron (zelfde ouder):
 
-Is de dash-vorm ambigu, dan vraagt het script om de slash-vorm.
+| Nieuw (kort) | Voorbeeld | Wordt |
+| --- | --- | --- |
+| Alleen uitvoeringsvorm | `groningen` of `hemelum-ksl` | `…/vredes/groningen` |
+| `variant/uv` of `variant\uv` | `vredes\groningen` | `ektinia/vredes/groningen` |
+| `variant-uv` | `vredes-groningen` | `ektinia/vredes/groningen` |
 
-Het script:
+## Ambiguïteit
+
+Past de invoer op meer dan één bestaand id, dan toont het script
+**genummerde voorstellen**. Enter kiest nummer 1; je mag ook een nummer
+of een eenduidige slash-vorm typen. `?` toont de hulptekst.
+
+## Wat het script doet
 
 1. Verplaatst de catalogusmap.
 2. Hernoemt bestanden met de oude publicatiestam
@@ -68,6 +87,8 @@ Eerst altijd dry-run:
 scripts\bieb.cmd hernoem ektinia litanie --dry-run
 scripts\bieb.cmd hernoem ektinia/vredes ektinia/vredeslitanie --dry-run
 scripts\bieb.cmd hernoem ektinia-vredes-hemelum groningen --dry-run
+scripts\bieb.cmd hernoem ektinia\vredes\hemelum vredes\groningen --dry-run
+scripts\bieb.cmd rename ektinia litanie --dry-run
 scripts\bieb.cmd hernoem ektinia litanie
 scripts\check.cmd --strict
 ```
@@ -78,13 +99,14 @@ Als je een catalogus-id wilt wijzigen en mappen, publicatiestam en
 id-verwijzingen (inclusief koormappen) mee moeten. Niet voor alleen
 cosmetische `title`/`linkTitle` — die komen uit het id.
 
-Werktraject: [Zangstuk hernoemen](/handleiding/werktrajecten/zangstuk-hernoemen/)
-(ook bruikbaar als denkkader voor variant/uitvoeringsvorm).
+Werktraject: [Catalogus-id hernoemen](../../werktrajecten/zangstuk-hernoemen/).
 
 # SEE ALSO
 
 [bieb accepteer](../bieb-accepteer/),
+[bieb verwijder](../bieb-verwijder/),
+[bieb kopieer](../bieb-kopieer/),
 [check](../check/),
-[Zangstuk hernoemen](/handleiding/werktrajecten/zangstuk-hernoemen/),
-[Catalogus en koormappen](/handleiding/start/catalogus-en-koormappen/),
+[Catalogus-id hernoemen](../../werktrajecten/zangstuk-hernoemen/),
+[Catalogus en koormappen](../../start/catalogus-en-koormappen/),
 [h](../h/)

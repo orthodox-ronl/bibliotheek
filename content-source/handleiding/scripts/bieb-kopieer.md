@@ -12,19 +12,24 @@ weight: 167
 
 ```cmd
 scripts\bieb.cmd kopieer <bron-id> <nieuw-id> [--dry-run]
+scripts\bieb.cmd copy <bron-id> <nieuw-id> [--dry-run]
 ```
 
-Met `.\scripts` op PATH: `bieb kopieer …`. Korte hulp: `h bieb kopieer`
-of `bieb kopieer -h`. Typ `?` bij een vraag voor uitleg.
+Met `.\scripts` op PATH: `bieb kopieer …`. Engelse alias: `copy`.
+Korte hulp: `h bieb kopieer` of `bieb kopieer -h`. Typ `?` bij een vraag
+voor uitleg.
 
 # DESCRIPTION
 
 Kopieert één **uitvoeringsvorm** (leaf) naar een nieuw id. Geen
 variant- of zangstuk-kopie (nog niet).
 
-Bron en nieuw: slash- of stam-vorm, zoals bij
-[bieb hernoem](../bieb-hernoem/). Nieuw mag alleen het laatste segment
-zijn (zelfde ouder), bijvoorbeeld `groningen`.
+Bron en nieuw gebruiken dezelfde id-vormen als
+[bieb hernoem](../bieb-hernoem/) (slash, dash, backslash, repo-pad, unieke
+suffix). Nieuw mag **korter** t.o.v. de bron: alleen de uitvoeringsvorm
+(`groningen`), of `variant/uv` / `variant-uv` onder hetzelfde zangstuk.
+
+Is de bron ambigu, dan genummerde voorstellen (Enter = 1).
 
 Het script:
 
@@ -45,6 +50,7 @@ koormap-slot met shortcode `bieb`.
 ```cmd
 scripts\bieb.cmd kopieer ektinia/vredes/hemelum ektinia/vredes/groningen --dry-run
 scripts\bieb.cmd kopieer ektinia-vredes-hemelum groningen
+scripts\bieb.cmd copy ektinia\vredes\hemelum vredes\groningen --dry-run
 scripts\bieb.cmd kopieer tropaar/zondag-toon-1/groningen tropaar/zondag-toon-2/groningen
 ```
 

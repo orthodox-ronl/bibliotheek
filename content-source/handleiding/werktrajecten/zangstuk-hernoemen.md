@@ -1,40 +1,38 @@
 ---
-title: "Zangstuk hernoemen"
+title: "Catalogus-id hernoemen"
 linkTitle: "Hernoemen"
 weight: 15
 ---
 
-# Zangstuk hernoemen
+# Catalogus-id hernoemen
 
-Dit werktraject wijzigt een **catalogus-id** — meestal een zangstuk-id
-(de bovenste map onder `content-source\catalogus\`), maar hetzelfde
-commando kan ook een variant of uitvoeringsvorm hernoemen. Het houdt
-producten, id-verwijzingen en passende koormap-slots in de pas.
-HOW-detail: [bieb hernoem](../scripts/bieb-hernoem/).
+Dit werktraject wijzigt een **catalogus-id** op zangstuk-, variant- of
+uitvoeringsvorm-niveau en houdt producten, tekstverwijzingen en
+passende koormap-slots in de pas. HOW-detail:
+[bieb hernoem](../scripts/bieb-hernoem/).
 
 {{< cue >}}
-1. Bepaal oud en nieuw id (slash- of stam-vorm; zie [bieb hernoem](../scripts/bieb-hernoem/)).
-2. Dry-run: `scripts\bieb.cmd hernoem <oud> <nieuw> --dry-run`
+1. Bepaal oud en nieuw id (slash, dash, pad, of korte nieuw-vorm — zie [bieb hernoem](../scripts/bieb-hernoem/)).
+2. Dry-run: `scripts\bieb.cmd hernoem <oud> <nieuw> --dry-run` (alias: `rename`)
 3. Uitvoeren zonder `--dry-run`.
-4. Products vernieuwen waar nodig; zoekindex: `python scripts\build_zoek_index.py`
+4. Zoekindex: `python scripts\build_zoek_index.py`
 5. Controle: `scripts\check.cmd --strict`
 {{< /cue >}}
 
 ## Waartoe
 
-Na taxonomie-besluiten (bijvoorbeeld genummerde ids weg) moet de mapnaam
-op schijf gelijk zijn aan het canonieke id. Zonder dit traject blijven
-oude paden in docs, `bieb id=…`, of koormap-inhoudsopgaven staan — of
-ontstaat een 404 omdat de TOC al `{nieuw}/` zegt terwijl de map nog
-`{oud}/` heet.
+Na taxonomie-besluiten moet de mapnaam op schijf gelijk zijn aan het
+canonieke id. Zonder dit traject blijven oude paden in docs,
+`bieb id=…`, of koormap-inhoudsopgaven staan — of ontstaat een 404
+omdat de TOC al `{nieuw}/` zegt terwijl de map nog `{oud}/` heet.
 
 ## Eindresultaat en criteria
 
 | Op schijf | Rol |
 | --- | --- |
-| `catalogus\<nieuw>\…` | Verhuisde zangstuk-boom + hernoemde publicatiestam |
-| `static\vsa\bladermap\catalogus\<nieuw>\` | Bladermap-SVG’s mee verhuisd |
-| `koormappen\…\<nieuw>\` | Alleen slots die exact `{oud}` heetten |
+| `catalogus\…\<nieuw>\…` | Verhuisde boom + hernoemde publicatiestam |
+| `static\vsa\bladermap\catalogus\…` | Bladermap-SVG’s mee verhuisd |
+| `koormappen\…` | 1:1-slotmappen waarvan de mapnaam = oude id/stam |
 | Tekst in repo | `bieb id`, `alias_van`, docs, TOC-links bijgewerkt |
 
 **Klaar** als: dry-run klopte; `check --strict` groen is (inclusief
@@ -45,9 +43,9 @@ nieuwe naam.
 
 | Wel | Niet |
 | --- | --- |
-| Zangstuk-, variant- of uitvoeringsvorm-id wijzigen | Litanie-plekken die bewust `vredeslitanie` heten terwijl het id `ektinia` is (mapnaam blijft; `bieb id=` wel) |
-| Ids die 1:1 koormap-slots hebben (`trisagion`, …) | Cosmetische namen alleen in de koormap — dat is geen catalogus-hernoem |
-| Na een taxonomie-PR / inventaris in Zangstuk-soorten | — |
+| Zangstuk-, variant- of uitvoeringsvorm-id wijzigen | Alleen `title`/`linkTitle` — dat is frontmatter |
+| Ids met 1:1-koormap-slots | Litanie-plekken die bewust een andere mapnaam houden (`ektinia`) |
+| Na een taxonomie-PR / inventaris in Zangstuk-soorten | Cosmetische navigatietekst zonder mapwijziging |
 
 ## Volgorde
 
@@ -57,14 +55,22 @@ nieuwe naam.
 3. Dry-run (schrijft niets):
 
 ```cmd
-scripts\bieb.cmd hernoem oud-zangstuk nieuw-zangstuk --dry-run
+scripts\bieb.cmd hernoem oud-id nieuw-id --dry-run
 ```
 
-4. Als de lijst klopt (catalogusmap, stam-bestanden, eventuele
-   koormap-slots, tekstbestanden):
+Voorbeelden (vol id, korte nieuw-vorm, Windows-pad):
 
 ```cmd
-scripts\bieb.cmd hernoem oud-zangstuk nieuw-zangstuk
+scripts\bieb.cmd hernoem ektinia/vredes ektinia/litanie --dry-run
+scripts\bieb.cmd hernoem ektinia/vredes/hemelum groningen --dry-run
+scripts\bieb.cmd hernoem ektinia\vredes\hemelum vredes\groningen --dry-run
+scripts\bieb.cmd rename content-source\catalogus\ektinia\vredes ektinia\litanie --dry-run
+```
+
+4. Als de lijst klopt:
+
+```cmd
+scripts\bieb.cmd hernoem oud-id nieuw-id
 python scripts\build_zoek_index.py
 scripts\check.cmd --strict
 ```
@@ -80,6 +86,8 @@ opnieuw gegenereerd; die horen vóór de push al kloppend te zijn.
 ## Zie ook
 
 - [bieb hernoem](../scripts/bieb-hernoem/)
+- [bieb verwijder](../scripts/bieb-verwijder/)
+- [bieb kopieer](../scripts/bieb-kopieer/)
 - [check](../scripts/check/)
 - [Opnemen in de catalogus](opnemen-in-catalogus/)
 - [Catalogus en koormappen](../start/catalogus-en-koormappen/)
