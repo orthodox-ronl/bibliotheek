@@ -45,10 +45,10 @@ def product_path_for_source(source: Path) -> Path:
 
 
 def collect_lyric_sources(root: Path) -> list[Path]:
+    from product_regen import list_source_paths
+
     out: list[Path] = []
-    if not root.is_dir():
-        return out
-    for path in sorted(root.rglob("*")):
+    for path in list_source_paths(root, pattern="*"):
         if not path.is_file():
             continue
         suf = path.suffix.lower()

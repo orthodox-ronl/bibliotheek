@@ -2,6 +2,9 @@
 title: "Eer aan de Vader"
 linkTitle: "Eer aan de Vader"
 nav_sort: weight
-publicatiestatus: concept
+publicatiestatus: reviewable
 automatische_inhoud: true
 ---
+
+De "Eer aan de Vader ..." kan verschillen bij de eerste, tweede en derde Antifoon
+(en wellicht vinden we later nog andere plaatsen met andere varianten).

@@ -31,6 +31,7 @@ from product_meta import (
     stamp_sha_from_dict,
     utc_now_iso,
 )
+from product_regen import list_source_paths
 from sync_vsa_products import folder_is_handmatig
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -66,9 +67,9 @@ def is_print_mscz(path: Path) -> bool:
 
 def collect_mscz(root: Path) -> list[Path]:
     out: list[Path] = []
-    if not root.is_dir():
-        return out
-    for path in sorted(root.rglob("*.mscz")):
+    for path in list_source_paths(root, pattern="*.mscz"):
+        if path.suffix.lower() != ".mscz":
+            continue
         if is_print_mscz(path):
             continue
         if "input" in path.parts:
@@ -190,13 +191,24 @@ def main(argv: list[str] | None = None) -> int:
         nargs="?",
         type=Path,
         default=DEFAULT_ROOT,
-        help="Zoekroot (default: content-source/catalogus)",
+        help="Catalogusmap of één .mscz (default: content-source/catalogus)",
     )
     add_regen_arguments(parser)
     args = parser.parse_args(argv)
     policy = policy_from_args(args)
     root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
+    if not root.exists():
+        print(f"FAIL: pad bestaat niet: {root}", file=sys.stderr)
+        return 1
     msczs = collect_mscz(root)
+    if root.is_file() and not msczs:
+        print(
+            f"FAIL: geen verwerkbaar basispartituur-.mscz: {root}\n"
+            "Oplossing: geef een .mscz (geen .print.mscz / geen handmatige "
+            "artefacten-map), of een catalogusmap.",
+            file=sys.stderr,
+        )
+        return 1
     todo: list[tuple[Path, bool, bool]] = []
     for mscz in msczs:
         digest = partituur_sha256(mscz)

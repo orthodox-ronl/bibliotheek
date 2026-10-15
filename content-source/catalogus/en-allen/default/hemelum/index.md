@@ -1,7 +1,7 @@
 ---
 title: "21 En Allen"
 linkTitle: "21 En Allen"
-publicatiestatus: voorzien
+publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 

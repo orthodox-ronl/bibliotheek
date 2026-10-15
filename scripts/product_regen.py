@@ -186,6 +186,19 @@ def mxl_contract_ok(path: Path, *, profile: str) -> bool | None:
     return proc.returncode == 0
 
 
+def list_source_paths(root: Path, *, pattern: str = "*") -> list[Path]:
+    """Bestanden onder ``root``, of ``[root]`` als ``root`` zelf een bestand is.
+
+    Zo kun je ``mscz-products pad\\naar\\x.mscz`` én een catalogusmap doorgeven.
+    Ontbreekt ``root``, dan een lege lijst.
+    """
+    if root.is_file():
+        return [root]
+    if root.is_dir():
+        return sorted(p for p in root.rglob(pattern) if p.is_file())
+    return []
+
+
 KIND_ORDER = (
     "vsa",
     "mscz",

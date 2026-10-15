@@ -53,7 +53,7 @@ voor wie converteert.
 | `capella/2 - 1e antifoon.mxl` | `eerste-antifoon/zondag/hemelum` | `eerste-antifoon` | `.mscz` | gepubliceerd | — |  |
 | `capella/20d - in waarheid - moeder godslied.mxl` | `moeder-godslied/20d-in-waarheid/hemelum` | `20d-in-waarheid-moeder-godslied` | `.mscz` | gepubliceerd | — | gepubliceerd |
 | `capella/28a - wij hebben het ware licht aanschouwd.mxl` | `wij-hebben-het-ware-licht/default/hemelum` | `wij-hebben-het-ware-licht` | `.mscz` | gepubliceerd | — |  |
-| `capella/29 - de naam des heren zij gezegend.mxl` | `de-naam-des-heren-zij-gezegend/default/hemelum` | `de-naam-des-heren-zij-gezegend` | `.mscz` | gepubliceerd | — |  |
+| `capella/29 - de naam des heren zij gezegend.mxl` | `de-naam-des-heren-zij-gezegend/default/groningen` | `de-naam-des-heren-zij-gezegend` | `.mscz` | gepubliceerd | — |  |
 | `capella/4 - 2e antifoon.mxl` | `tweede-antifoon/zondag/hemelum` | `tweede-antifoon` | `.mscz` | gepubliceerd | — |  |
 | `capella/5a Eniggeboren Zoon.mxl` | `eniggeboren-zoon/default/hemelum` | `eniggeboren-zoon` | `.mscz` | gepubliceerd | — |  |
 | `capella/6b - zaligsprekingen.mxl` | `derde-antifoon/zondag/hemelum` | `derde-antifoon` | `.mscz` | gepubliceerd | — |  |
@@ -85,7 +85,7 @@ voor wie converteert.
 | `vow/Cherubijnenlied-Kastorskij.mscz` | `cherubijnenhymne/15c-kastorski/hemelum` | `cherubijnenhymne/15c-kastorski` | `.mscz` | gepubliceerd | — | tweede bron (VOW); Capella is canonieke basispartituur |
 | `vow/dankzegging_toon_2_Kyiv.mscz` |  |  | `.mscz` | ontvangen | doel-id | zie ID-REGISTER OPEN 7 |
 | `vow/eind-liturgie.mscz` |  |  | `.mscz` | ontvangen | doel-id | zie ID-REGISTER OPEN 7 |
-| `vow/Eucharistische Canon-Rostov.mscz` | `eucharistische-canon/rostov/hemelum` |  | `.mscz` | ontvangen | layout | sibling van 19a-feofan |
+| `vow/Eucharistische Canon-Rostov.mscz` | |  | `.mscz` | ontvangen | doel-id | sibling van 19a-feofan |
 | `vow/Kleine_intocht-moedergods.mscz` | `kleine-intocht/moeder-gods/hemelum` | `kleine-intocht` | `.mscz` | gepubliceerd | — |  |
 | `vow/Kleine_intocht-weekdagen.mscz` | `kleine-intocht/weekdagen/hemelum` | `kleine-intocht` | `.mscz` | gepubliceerd | — | tweede bron (VOW) |
 | `vow/Kleine_intocht-zondag.mscz` | `kleine-intocht/zondag/hemelum` | `kleine-intocht` | `.mscz` | gepubliceerd | — | tweede bron (VOW) |

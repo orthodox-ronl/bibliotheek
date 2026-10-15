@@ -594,6 +594,26 @@ def publication_stem_from_filename(name: str) -> str:
     return Path(name).stem
 
 
+def publication_stem_dest_name(name: str, old_stem: str, new_stem: str) -> str | None:
+    """Nieuwe bestandsnaam na publicatiestam-hernoem, of ``None``.
+
+    Herkent ``{stam}.…``, ``{stam}-…``, en MuseScore-backup ``.{stam}.…`` /
+    ``.{stam}-…``.
+    """
+    if not old_stem or old_stem == new_stem:
+        return None
+    replacements = (
+        (f"{old_stem}-", f"{new_stem}-"),
+        (f"{old_stem}.", f"{new_stem}."),
+        (f".{old_stem}-", f".{new_stem}-"),
+        (f".{old_stem}.", f".{new_stem}."),
+    )
+    for old_prefix, new_prefix in replacements:
+        if name.startswith(old_prefix):
+            return new_prefix + name[len(old_prefix) :]
+    return None
+
+
 def _known_zangstuk_ids() -> list[str]:
     if not CATALOGUS_ROOT.is_dir():
         return []

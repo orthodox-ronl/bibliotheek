@@ -76,10 +76,12 @@ def product_pdf_for_vsa(vsa: Path) -> Path:
 
 
 def collect_vsa(root: Path) -> list[Path]:
+    from product_regen import list_source_paths
+
     out: list[Path] = []
-    if not root.is_dir():
-        return out
-    for path in sorted(root.rglob("*.vsa")):
+    for path in list_source_paths(root, pattern="*.vsa"):
+        if path.suffix.lower() != ".vsa":
+            continue
         if path.name.lower().endswith(".syl.vsa"):
             continue
         if "input" in path.parts:

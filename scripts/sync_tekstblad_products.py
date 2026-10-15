@@ -39,10 +39,10 @@ def product_pdf_for_md(md: Path) -> Path:
 
 
 def collect_tekstblad(root: Path) -> list[Path]:
+    from product_regen import list_source_paths
+
     out: list[Path] = []
-    if not root.is_dir():
-        return out
-    for path in sorted(root.rglob("*")):
+    for path in list_source_paths(root, pattern="*"):
         if not path.is_file() or not is_tekstblad_md(path):
             continue
         if "input" in path.parts:

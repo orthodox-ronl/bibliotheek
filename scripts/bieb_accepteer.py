@@ -12,12 +12,12 @@ publiceren/1-opnemen-in-catalogus.
 from __future__ import annotations
 
 import argparse
-import shutil
 import subprocess
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import bieb_fs  # noqa: E402
 from catalogus import (  # noqa: E402
     CATALOGUS_ROOT,
     REPO_ROOT,
@@ -55,8 +55,8 @@ def _write(path: Path, text: str, *, dry_run: bool) -> None:
     if dry_run:
         print(f"  would write {_rel(path)}", flush=True)
         return
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text, encoding="utf-8", newline="\n")
+    bieb_fs.mkdir(path.parent)
+    bieb_fs.write_text(path, text)
 
 
 def _fm_value(text: str, key: str) -> str | None:
@@ -187,13 +187,16 @@ def write_tekstblad_source(
         print(f"  would write {_rel(dest)} (tekstblad + frontmatter)", flush=True)
         return
     if dest.exists() and not force:
-        print(f"FAIL: bestaat al: {_rel(dest)} (gebruik --force)", flush=True)
+        bieb_fs.print_fail(
+            f"bestaat al: {_rel(dest)}",
+            oplossing="gebruik --force om te overschrijven, of kies een ander id.",
+        )
         raise SystemExit(1)
-    dest.parent.mkdir(parents=True, exist_ok=True)
-    dest.write_text(text, encoding="utf-8", newline="\n")
+    bieb_fs.mkdir(dest.parent)
+    bieb_fs.write_text(dest, text)
     print(f"  wrote {_rel(dest)}", flush=True)
     if move and src.resolve() != dest.resolve():
-        src.unlink()
+        bieb_fs.unlink(src)
         print(f"  removed source {_rel(src)}", flush=True)
 
 
@@ -252,15 +255,19 @@ def validate_vsa(path: Path) -> list[str]:
         )
     except FileNotFoundError:
         return [
-            "vsa staat niet op PATH; installeer vsa-tool of draai scripts\\check.cmd "
-            "eerst (bootstrap)"
+            "vsa staat niet op PATH. "
+            "Oplossing: installeer vsa-tool of draai scripts\\check.cmd "
+            "(bootstrap) en probeer opnieuw."
         ]
     if proc.returncode == 0:
         return []
     out = (proc.stdout or "").strip()
     err = (proc.stderr or "").strip()
     detail = out or err or f"exit {proc.returncode}"
-    return [f"vsa validate faalde voor {path.name}: {detail}"]
+    return [
+        f"{_rel(path)}: vsa validate faalde:\n{detail}\n"
+        "Oplossing: herstel de VSA-fouten in dit bestand en probeer opnieuw."
+    ]
 
 
 def validate_mvsa(path: Path) -> list[str]:
@@ -276,15 +283,19 @@ def validate_mvsa(path: Path) -> list[str]:
         )
     except FileNotFoundError:
         return [
-            "mvsa staat niet op PATH; installeer vsa-tool of draai scripts\\check.cmd "
-            "eerst (bootstrap)"
+            "mvsa staat niet op PATH. "
+            "Oplossing: installeer vsa-tool of draai scripts\\check.cmd "
+            "(bootstrap) en probeer opnieuw."
         ]
     if proc.returncode == 0:
         return []
     out = (proc.stdout or "").strip()
     err = (proc.stderr or "").strip()
     detail = out or err or f"exit {proc.returncode}"
-    return [f"mvsa validate faalde voor {path.name}: {detail}"]
+    return [
+        f"{_rel(path)}: mvsa validate faalde:\n{detail}\n"
+        "Oplossing: herstel de MVSA-fouten in dit bestand en probeer opnieuw."
+    ]
 
 
 def place_file(
@@ -304,13 +315,13 @@ def place_file(
         action = "move" if move else "copy"
         print(f"  would {action} {_rel(src)} -> {_rel(dest)}", flush=True)
         return
-    dest.parent.mkdir(parents=True, exist_ok=True)
+    bieb_fs.mkdir(dest.parent)
     if move:
         if dest.exists():
-            dest.unlink()
-        shutil.move(str(src), str(dest))
+            bieb_fs.unlink(dest)
+        bieb_fs.move(src, dest)
     else:
-        shutil.copy2(src, dest)
+        bieb_fs.copy2(src, dest)
     print(f"  {'moved' if move else 'copied'} {_rel(dest)}", flush=True)
 
 
@@ -330,35 +341,36 @@ def accept(
     try:
         parse_id(ident)
     except ValueError as exc:
-        print(f"FAIL: ongeldig catalogus-id ({exc})", flush=True)
-        print(
-            "Oplossing: gebruik zangstuk/variant/uitvoeringsvorm "
-            "(alleen a-z, 0-9, -, _). Zie Id-register.",
-            flush=True,
+        bieb_fs.print_fail(
+            f"ongeldig catalogus-id ({exc})",
+            oplossing=(
+                "gebruik zangstuk/variant/uitvoeringsvorm "
+                "(alleen a-z, 0-9, -, _). Zie Id-register."
+            ),
         )
         return 1
 
     dest_dir = folder(ident)
     if under_alias_variant(dest_dir):
-        print(
-            f"FAIL: {ident} valt onder een alias-variant "
-            "(daar horen geen partituren)",
-            flush=True,
-        )
-        print(
-            "Oplossing: plaats op de canonieke variant, of maak alleen "
-            "alias_van op de variant-_index.",
-            flush=True,
+        bieb_fs.print_fail(
+            f"{ident} valt onder een alias-variant (daar horen geen partituren)",
+            oplossing=(
+                "plaats op de canonieke variant, of maak alleen "
+                "alias_van op de variant-_index."
+            ),
         )
         return 1
 
     if stub and sources:
-        print("FAIL: --stub samen met bestanden mag niet", flush=True)
+        bieb_fs.print_fail(
+            "--stub samen met bestanden mag niet",
+            oplossing="laat --stub weg, of geef geen bestanden (alleen een lege leaf).",
+        )
         return 1
     if not stub and not sources:
-        print(
-            "FAIL: geef minstens een bestand, of --stub voor een lege leaf",
-            flush=True,
+        bieb_fs.print_fail(
+            "geen bestand en geen --stub",
+            oplossing="geef minstens één bronbestand, of --stub voor een lege leaf.",
         )
         return 1
 
@@ -368,7 +380,12 @@ def accept(
         src = raw.expanduser().resolve()
         kind = classify_source(src)
         if kind.startswith("refuse:"):
-            errors.append(f"{src.name}: {kind.removeprefix('refuse:')}")
+            reason = kind.removeprefix("refuse:")
+            errors.append(
+                f"{_rel(src)}: {reason}. "
+                "Oplossing: kies een toegestaan formaat "
+                "(.mscz, .vsa, .mvsa, .tekstblad.md) of kuis eerst op."
+            )
             continue
         classified.append((src, kind))
 
@@ -376,8 +393,8 @@ def accept(
     if "mxl" in kinds and "partituur_mscz" not in kinds and "vsa" not in kinds and "mvsa" not in kinds:
         errors.append(
             "alleen een .mxl: dat is meestal een Capella- of productbestand. "
-            "Accepteer eerst een .mscz, .vsa of .mvsa, of leg de .mxl ernaast als "
-            "sibling. Ruwe Capella: zie handleiding opkuisen."
+            "Oplossing: accepteer eerst een .mscz, .vsa of .mvsa, of leg de "
+            ".mxl ernaast als sibling. Ruwe Capella: zie handleiding opkuisen."
         )
 
     has_score = (
@@ -388,7 +405,8 @@ def accept(
         errors.append(
             "geen basispartituur-.mscz, .print.mscz, .vsa, .mvsa of .tekstblad.md: "
             "de bibliotheek-leaf heeft dan niets oefenbaars. "
-            "Gebruik --stub voor een lege placeholder."
+            "Oplossing: geef zo'n bronbestand, of gebruik --stub voor een "
+            "lege placeholder."
         )
 
     if not skip_vsa_validate:
@@ -420,12 +438,18 @@ def accept(
             else:
                 errors.append(
                     msg
-                    + ". Hernoem het bestand, corrigeer het id, of gebruik --force."
+                    + ". Oplossing: hernoem het bestand, corrigeer het id, "
+                    "of gebruik --force."
                 )
 
     if errors:
         for line in errors:
             print(f"FAIL: {line}", flush=True)
+        if not any("Oplossing:" in line for line in errors):
+            print(
+                "Oplossing: herstel de FAIL-regels hierboven en probeer opnieuw.",
+                flush=True,
+            )
         return 1
 
     # Afgeleide titel (contract docs/catalogus-titels.md). --title alleen
@@ -441,21 +465,21 @@ def accept(
     else:
         resolved_status = status
     if resolved_status not in ALLOWED_STATUS:
-        print(
-            f"FAIL: onbekende publicatiestatus {resolved_status!r} "
-            f"(verwacht: {', '.join(sorted(ALLOWED_STATUS))})",
-            flush=True,
+        bieb_fs.print_fail(
+            f"onbekende publicatiestatus {resolved_status!r}",
+            oplossing=(
+                f"kies een van: {', '.join(sorted(ALLOWED_STATUS))} "
+                "(bijv. --status reviewable)."
+            ),
         )
         return 1
     if resolved_status == "productie" and not force:
-        print(
-            "FAIL: publicatiestatus productie niet automatisch zetten",
-            flush=True,
-        )
-        print(
-            "Oplossing: kies reviewable/concept/voorzien, of --force als "
-            "een beheerder productie bewust wil.",
-            flush=True,
+        bieb_fs.print_fail(
+            "publicatiestatus productie niet automatisch zetten",
+            oplossing=(
+                "kies reviewable/concept/voorzien, of --force als "
+                "een beheerder productie bewust wil."
+            ),
         )
         return 1
 
@@ -472,7 +496,7 @@ def accept(
     ensure_sections(ident, dry_run=dry_run)
 
     if not dry_run:
-        dest_dir.mkdir(parents=True, exist_ok=True)
+        bieb_fs.mkdir(dest_dir)
 
     for src, kind in classified:
         name = target_name(
@@ -483,7 +507,13 @@ def accept(
             with_tekstblad=with_tekstblad,
         )
         if " " in name:
-            print(f"FAIL: doelnaam mag geen spaties hebben: {name}", flush=True)
+            bieb_fs.print_fail(
+                f"doelnaam mag geen spaties hebben: {name}",
+                oplossing=(
+                    "hernoem de bron zodat de publicatiestam geen spaties heeft, "
+                    "en probeer opnieuw."
+                ),
+            )
             return 1
         dest = dest_dir / name
         if kind == "tekstblad":
@@ -497,29 +527,36 @@ def accept(
                     dry_run=dry_run,
                 )
             except SystemExit as exc:
+                if isinstance(exc.code, str):
+                    print(exc.code, file=sys.stderr)
+                    return 1
                 return int(exc.code) if isinstance(exc.code, int) else 1
             continue
-        place_file(
-            src,
-            dest,
-            move=move,
-            force=force,
-            dry_run=dry_run,
-        )
+        try:
+            place_file(
+                src,
+                dest,
+                move=move,
+                force=force,
+                dry_run=dry_run,
+            )
+        except SystemExit as exc:
+            if isinstance(exc.code, str):
+                print(exc.code, file=sys.stderr)
+                return 1
+            return int(exc.code) if isinstance(exc.code, int) else 1
 
     index_path = dest_dir / "index.md"
     if index_path.is_file() and not force and not dry_run:
         existing = index_path.read_text(encoding="utf-8")
         bieb_ok = f'bieb id="{ident}"' in existing or f"bieb id='{ident}'" in existing
         if not bieb_ok:
-            print(
-                f"FAIL: bestaande {_rel(index_path)} heeft geen matching bieb id",
-                flush=True,
-            )
-            print(
-                "Oplossing: corrigeer de shortcode, of --force om index.md "
-                "opnieuw te schrijven.",
-                flush=True,
+            bieb_fs.print_fail(
+                f"bestaande {_rel(index_path)} heeft geen matching bieb id",
+                oplossing=(
+                    "corrigeer de shortcode, of --force om index.md "
+                    "opnieuw te schrijven."
+                ),
             )
             return 1
         print(f"  kept {_rel(index_path)}", flush=True)
@@ -651,13 +688,19 @@ def early_validate_sources(
         src = raw.expanduser().resolve()
         kind = classify_source(src)
         if kind.startswith("refuse:"):
-            errors.append(f"{src.name}: {kind.removeprefix('refuse:')}")
+            reason = kind.removeprefix("refuse:")
+            errors.append(
+                f"{_rel(src)}: {reason}. "
+                "Oplossing: kies een toegestaan formaat "
+                "(.mscz, .vsa, .mvsa, .tekstblad.md) of kuis eerst op."
+            )
             continue
         classified.append((src, kind))
     kinds = {k for _, k in classified}
     if "mxl" in kinds and not (kinds & {"partituur_mscz", "vsa", "mvsa"}):
         errors.append(
-            "alleen een .mxl: accepteer eerst .mscz / .vsa / .mvsa, "
+            "alleen een .mxl: dat is meestal een Capella- of productbestand. "
+            "Oplossing: accepteer eerst .mscz / .vsa / .mvsa, "
             "of leg .mxl ernaast als sibling."
         )
     if not skip_vsa_validate:
@@ -959,7 +1002,11 @@ def main(argv: list[str] | None = None) -> int:
     # 1) Bestand (of stub) eerst — dan vroege validatie.
     resolved = resolve_bestanden_en_stub(file_args, stub=args.stub)
     if resolved is None:
-        print("Gestopt: geen bestand en geen stub.", flush=True)
+        print(
+            "Gestopt: geen bestand en geen stub.\n"
+            "Oplossing: geef een bronbestand, of --stub voor een lege leaf.",
+            flush=True,
+        )
         return 2
     bestanden, stub = resolved
 
@@ -970,11 +1017,12 @@ def main(argv: list[str] | None = None) -> int:
         if early:
             for line in early:
                 print(f"FAIL: {line}", flush=True)
-            print(
-                "Bron eerst herstellen; daarna opnieuw accepteer "
-                "(geen catalogus-id nodig tot de bron klopt).",
-                flush=True,
-            )
+            if not any("Oplossing:" in line for line in early):
+                print(
+                    "Oplossing: herstel de bronfouten hierboven; daarna opnieuw "
+                    "accepteer (geen catalogus-id nodig tot de bron klopt).",
+                    flush=True,
+                )
             return 1
 
     suggested: str | None = None
@@ -984,20 +1032,20 @@ def main(argv: list[str] | None = None) -> int:
         suggested = id_from_publication_stem(stam)
         if suggested is None:
             print(
-                f"Kon geen catalogus-id afleiden uit bestandsnaam {primary.name!r}.",
+                f"Kon geen catalogus-id afleiden uit bestandsnaam {primary.name!r}.\n"
+                "Oplossing: typ het id handmatig als zangstuk/variant/uitvoeringsvorm, "
+                "of hernoem het bestand naar de publicatiestam.",
                 flush=True,
             )
         elif ident_arg and _looks_like_catalogus_id(ident_arg):
             if stem(ident_arg) != stam:
-                print(
-                    f"FAIL: id {ident_arg} hoort bij stam {stem(ident_arg)!r}, "
-                    f"maar bestand heet {stam!r}.",
-                    flush=True,
-                )
-                print(
-                    "Oplossing: hernoem het bestand, corrigeer het id, "
-                    "of laat het id weg zodat accepteer het voorstelt.",
-                    flush=True,
+                bieb_fs.print_fail(
+                    f"id {ident_arg} hoort bij stam {stem(ident_arg)!r}, "
+                    f"maar bestand heet {stam!r}",
+                    oplossing=(
+                        "hernoem het bestand, corrigeer het id, "
+                        "of laat het id weg zodat accepteer het voorstelt."
+                    ),
                 )
                 return 1
 
@@ -1007,7 +1055,12 @@ def main(argv: list[str] | None = None) -> int:
         suggested=None if stub else suggested,
     )
     if ident is None:
-        print("Gestopt: geen catalogus-id.", flush=True)
+        print(
+            "Gestopt: geen catalogus-id.\n"
+            "Oplossing: geef zangstuk/variant/uitvoeringsvorm, of bevestig "
+            "het voorgestelde id met Enter.",
+            flush=True,
+        )
         return 2
 
     return accept(
@@ -1025,4 +1078,4 @@ def main(argv: list[str] | None = None) -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(bieb_fs.run_handler(main, sys.argv[1:], command="accepteer"))

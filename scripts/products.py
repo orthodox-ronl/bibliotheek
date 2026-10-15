@@ -60,7 +60,7 @@ def main(argv: list[str] | None = None) -> int:
         nargs="?",
         type=Path,
         default=DEFAULT_ROOT,
-        help="Zoekroot (default: content-source/catalogus)",
+        help="Catalogusmap of één bronbestand (default: content-source/catalogus)",
     )
     parser.add_argument(
         "--kinds",

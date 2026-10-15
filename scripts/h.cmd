@@ -8,6 +8,8 @@ REM   scripts\h.cmd check
 REM   scripts\h.cmd bieb hernoem
 REM
 REM Echo: alleen eenvoudige ASCII (cmd-codepage).
+REM Geen "call :row" met beschrijvingen die haakjes bevatten: dat breekt
+REM de cmd-parser en kan oneindige recursie geven (BATCH RECURSION).
 
 if /I "%~1"=="-h" goto usage_h
 if /I "%~1"=="--help" goto usage_h
@@ -45,39 +47,57 @@ echo === bibliotheek-commando's ===
 echo Meer hulp: h ^<naam^>   ^(zelfde als ^<naam^> -h^)
 echo Voorbeelden: h check   ^|   h bieb   ^|   h bieb hernoem
 echo.
-call :row "h" "overzicht of hulp per commando"
-call :row "validate" "vsa/mvsa validate op de catalogus"
-call :row "check" "preflight / CI-spiegel (validate, producten, Hugo)"
-call :row "build" "site bouwen naar generated\site"
-call :row "serve" "lokale preview http://127.0.0.1:18732/"
-call :row "products" "afgeleide producten (PDF/MXL/mp3/...) bouwen"
-call :row "all-products" "alias: products --kinds all"
-call :row "vsa-products" "Coria-.vsa.mxl + .vsa.pdf bij catalogus-.vsa"
-call :row "mscz-products" "PDF + Coria-.mxl bij basispartituur-.mscz"
-call :row "tekstblad-products" "PDF bij .tekstblad.md"
-call :row "mvsa-products" "Coria-.mvsa.mxl + .mvsa.pdf bij .mvsa"
-call :row "audio-products" "preview-.mp3 (Beluisteren)"
-call :row "lyrics-products" "lyrics.txt (.vsa/.mvsa/.mscz)"
-call :row "import-mvsa" "bewerkvorm .mscz.mvsa naast basis-.mscz"
-call :row "layout" "basispartituur-layout op .mscz/.mxl"
-call :row "ensure-bibliotheek-id" "colofon Bibliotheek-id: op .mscz"
-call :row "bump-vsa-tooling-pin" "productie-pin vsa-tooling.pin bijwerken"
-call :row "opkuisen" "herkomstanalyse + inhoudsopkuis"
-call :row "bieb" "multi-command: accepteer|hernoem|verwijder|kopieer (EN: accept|rename|delete|copy)"
-call :row "update-werkvoorraad" "tabel input\werkvoorraad.md bijwerken"
-call :row "werkbank-status" "open werkbank-cases"
-call :row "lifecycle-grenzen" "grenzen werkbank vs catalogus"
-call :row "oefenhoek-index" "bladermap-SVG uit .vsa"
+echo   h
+echo     overzicht of hulp per commando
+echo   validate
+echo     vsa/mvsa validate op de catalogus
+echo   check
+echo     preflight / CI-spiegel ^(validate, producten, Hugo^)
+echo   build
+echo     site bouwen naar generated\site
+echo   serve
+echo     lokale preview http://127.0.0.1:18732/
+echo   products
+echo     afgeleide producten ^(PDF/MXL/mp3/...^) bouwen
+echo   all-products
+echo     alias: products --kinds all
+echo   vsa-products
+echo     Coria-.vsa.mxl + .vsa.pdf bij catalogus-.vsa
+echo   mscz-products
+echo     PDF + Coria-.mxl bij basispartituur-.mscz
+echo   tekstblad-products
+echo     PDF bij .tekstblad.md
+echo   mvsa-products
+echo     Coria-.mvsa.mxl + .mvsa.pdf bij .mvsa
+echo   audio-products
+echo     preview-.mp3 ^(Beluisteren^)
+echo   lyrics-products
+echo     lyrics.txt ^(.vsa/.mvsa/.mscz^)
+echo   import-mvsa
+echo     bewerkvorm .mscz.mvsa naast basis-.mscz
+echo   layout
+echo     basispartituur-layout op .mscz/.mxl
+echo   ensure-bibliotheek-id
+echo     colofon Bibliotheek-id: op .mscz
+echo   bump-vsa-tooling-pin
+echo     productie-pin vsa-tooling.pin bijwerken
+echo   opkuisen
+echo     herkomstanalyse + inhoudsopkuis
+echo   bieb
+echo     multi-command: accepteer^|hernoem^|verwijder^|kopieer ^(EN: accept^|rename^|delete^|copy^)
+echo   update-werkvoorraad
+echo     tabel input\werkvoorraad.md bijwerken
+echo   werkbank-status
+echo     open werkbank-cases
+echo   lifecycle-grenzen
+echo     grenzen werkbank vs catalogus
+echo   oefenhoek-index
+echo     bladermap-SVG uit .vsa
 echo.
 echo Uitgebreide man-pages: content-source\handleiding\scripts\
 echo Repo-lijst: scripts\README.md
 echo.
 goto end_ok
-
-:row
-echo   %~1
-echo     %~2
-goto :eof
 
 :unknown
 echo Onbekend commando: %CMD%

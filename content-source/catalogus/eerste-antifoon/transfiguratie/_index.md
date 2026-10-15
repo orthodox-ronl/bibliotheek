@@ -2,6 +2,6 @@
 title: "transfiguratie"
 linkTitle: "transfiguratie"
 nav_sort: weight
-publicatiestatus: concept
+publicatiestatus: reviewable
 automatische_inhoud: true
 ---

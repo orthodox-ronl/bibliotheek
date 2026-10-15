@@ -53,11 +53,13 @@ def product_pdf_for_mvsa(mvsa: Path) -> Path:
 
 def collect_mvsa(root: Path) -> list[Path]:
     """Canonieke bibliotheek-``.mvsa`` (geen import-``.mscz.mvsa``)."""
+    from product_regen import list_source_paths
+
     out: list[Path] = []
-    if not root.is_dir():
-        return out
-    for path in sorted(root.rglob("*.mvsa")):
+    for path in list_source_paths(root, pattern="*.mvsa"):
         if not path.is_file():
+            continue
+        if path.suffix.lower() != ".mvsa":
             continue
         if is_import_mvsa(path):
             continue

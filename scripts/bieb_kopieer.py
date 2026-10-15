@@ -17,11 +17,11 @@ Geen koormap-slot (handmatig). Geen variant-/zangstuk-kopie.
 from __future__ import annotations
 
 import argparse
-import shutil
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import bieb_fs  # noqa: E402
 from catalogus import (  # noqa: E402
     AmbiguousRefError,
     REPO_ROOT,
@@ -30,11 +30,14 @@ from catalogus import (  # noqa: E402
     derived_leaf_title,
     interactive_disambiguate,
     parse_id,
+    publication_stem_dest_name,
     ref_folder,
     resolve_existing_ref,
     slash_to_stem,
 )
 from bieb_accepteer import ensure_sections  # noqa: E402
+
+_SKIP_COPY_DIR_NAMES = frozenset({".mscbackup", ".git", "__pycache__"})
 
 HELP_KOPIEER = """\
 bieb kopieer — uitvoeringsvorm kopiëren naar nieuw id
@@ -103,7 +106,10 @@ def _resolve_leaf(raw: str, *, label: str) -> str:
             exc, help_text=HELP_KOPIEER, prefix="kopieer"
         )
         if chosen is None:
-            raise ValueError(f"gestopt: geen {label}") from exc
+            raise ValueError(
+                f"gestopt: geen {label}.\n"
+                "Oplossing: typ een eenduidig id (slash-vorm) of kies uit de lijst."
+            ) from exc
         if isinstance(chosen, tuple) and chosen[0]:
             level, slash = chosen
         else:
@@ -112,8 +118,9 @@ def _resolve_leaf(raw: str, *, label: str) -> str:
     if level != "leaf":
         raise ValueError(
             f"{label} moet een uitvoeringsvorm zijn "
-            f"(zangstuk/variant/uitvoeringsvorm), kreeg {level} {slash!r}. "
-            "Variant-/zangstuk-kopie bestaat nog niet."
+            f"(zangstuk/variant/uitvoeringsvorm), kreeg {level} {slash!r}.\n"
+            "Oplossing: geef een volledig leaf-id; variant-/zangstuk-kopie "
+            "bestaat nog niet."
         )
     return slash
 
@@ -126,14 +133,21 @@ def _resolve_new_leaf(bron_slash: str, raw: str) -> str:
             exc, help_text=HELP_KOPIEER, prefix="kopieer"
         )
         if chosen is None:
-            raise ValueError("gestopt: geen nieuw id") from exc
+            raise ValueError(
+                "gestopt: geen nieuw id.\n"
+                "Oplossing: typ een eenduidig nieuw id of kies uit de lijst."
+            ) from exc
         if isinstance(chosen, tuple) and chosen[0]:
             level, slash = chosen
         else:
             text = chosen if isinstance(chosen, str) else chosen[1]
             level, slash = complete_new_ref("leaf", bron_slash, text)
     if level != "leaf":
-        raise ValueError(f"nieuw id is geen uitvoeringsvorm: {slash!r}")
+        raise ValueError(
+            f"nieuw id is geen uitvoeringsvorm: {slash!r}\n"
+            "Oplossing: geef zangstuk/variant/uitvoeringsvorm of alleen het "
+            "laatste segment (zelfde ouder)."
+        )
     # complete_new_ref hoeft doel niet te laten bestaan; parse ter controle
     parse_id(slash)
     return slash
@@ -174,11 +188,15 @@ def _leaf_index_text(
 
 
 def _dest_name(name: str, old_stem: str, new_stem: str) -> str:
-    if name.startswith(f"{old_stem}-"):
-        return f"{new_stem}-{name[len(old_stem) + 1 :]}"
-    if name.startswith(f"{old_stem}."):
-        return f"{new_stem}{name[len(old_stem) :]}"
-    return name
+    return publication_stem_dest_name(name, old_stem, new_stem) or name
+
+
+def _skip_copy_path(path: Path, *, root: Path) -> bool:
+    try:
+        parts = path.relative_to(root).parts
+    except ValueError:
+        parts = path.parts
+    return any(part in _SKIP_COPY_DIR_NAMES for part in parts)
 
 
 def _svg_root_for(slash_id: str) -> Path:
@@ -196,15 +214,19 @@ def _copy_tree_renaming(
     dry_run: bool,
 ) -> int:
     n = 0
-    files = sorted(p for p in src.rglob("*") if p.is_file())
+    files = sorted(
+        p
+        for p in src.rglob("*")
+        if p.is_file() and not _skip_copy_path(p, root=src)
+    )
     for path in files:
         rel = path.relative_to(src)
         parts = list(rel.parts[:-1]) + [_dest_name(rel.name, old_stem, new_stem)]
         out = dest.joinpath(*parts)
         print(f"  copy {_rel(path)} -> {_rel(out)}", flush=True)
         if not dry_run:
-            out.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(path, out)
+            bieb_fs.mkdir(out.parent)
+            bieb_fs.copy2(path, out)
         n += 1
     return n
 
@@ -213,16 +235,28 @@ def kopieer(bron_raw: str, nieuw_raw: str, *, dry_run: bool) -> int:
     bron = _resolve_leaf(bron_raw, label="bron")
     nieuw = _resolve_new_leaf(bron, nieuw_raw)
     if bron == nieuw:
-        print("bron en nieuw zijn gelijk", file=sys.stderr)
+        bieb_fs.print_fail(
+            "bron en nieuw id zijn gelijk",
+            oplossing="kies een ander nieuw id (andere uitvoeringsvorm).",
+            stream=sys.stderr,
+        )
         return 2
 
     src = ref_folder(bron)
     dest = ref_folder(nieuw)
     if not src.is_dir():
-        print(f"bronmap ontbreekt: {_rel(src)}", file=sys.stderr)
+        bieb_fs.print_fail(
+            f"bronmap ontbreekt: {_rel(src)}",
+            oplossing="controleer het bron-id en probeer opnieuw.",
+            stream=sys.stderr,
+        )
         return 1
     if dest.exists():
-        print(f"doelmap bestaat al: {_rel(dest)}", file=sys.stderr)
+        bieb_fs.print_fail(
+            f"doelmap bestaat al: {_rel(dest)}",
+            oplossing="kies een ander nieuw id, of ruim de bestaande map eerst op.",
+            stream=sys.stderr,
+        )
         return 1
 
     old_stem = slash_to_stem(bron)
@@ -258,7 +292,9 @@ def kopieer(bron_raw: str, nieuw_raw: str, *, dry_run: bool) -> int:
     ensure_sections(nieuw, dry_run=dry_run)
 
     n = 0
-    for path in sorted(p for p in src.rglob("*") if p.is_file()):
+    for path in sorted(
+        p for p in src.rglob("*") if p.is_file() and not _skip_copy_path(p, root=src)
+    ):
         rel = path.relative_to(src)
         if rel.name.lower() == "index.md" and len(rel.parts) == 1:
             out = dest / "index.md"
@@ -270,16 +306,16 @@ def kopieer(bron_raw: str, nieuw_raw: str, *, dry_run: bool) -> int:
             )
             print(f"  write {_rel(out)} (nieuw bieb id)", flush=True)
             if not dry_run:
-                out.parent.mkdir(parents=True, exist_ok=True)
-                out.write_text(text, encoding="utf-8", newline="\n")
+                bieb_fs.mkdir(out.parent)
+                bieb_fs.write_text(out, text)
             n += 1
             continue
         dest_name = _dest_name(rel.name, old_stem, new_stem)
         out = dest.joinpath(*rel.parts[:-1], dest_name)
         print(f"  copy {_rel(path)} -> {_rel(out)}", flush=True)
         if not dry_run:
-            out.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(path, out)
+            bieb_fs.mkdir(out.parent)
+            bieb_fs.copy2(path, out)
             # Tekstbestanden: stam/id in inhoud bijwerken (colofon, VSA-paden)
             if out.suffix.lower() in {".vsa", ".mvsa", ".md", ".txt"}:
                 try:
@@ -289,7 +325,7 @@ def kopieer(bron_raw: str, nieuw_raw: str, *, dry_run: bool) -> int:
                 if body and (bron in body or old_stem in body):
                     body = body.replace(bron, nieuw).replace(old_stem, new_stem)
                     # title/linkTitle in gekopieerde niet-index md niet forceren
-                    out.write_text(body, encoding="utf-8", newline="\n")
+                    bieb_fs.write_text(out, body)
         n += 1
 
     print(f"  catalogus-bestanden: {n}", flush=True)
@@ -298,7 +334,11 @@ def kopieer(bron_raw: str, nieuw_raw: str, *, dry_run: bool) -> int:
     svg_dest = _svg_root_for(nieuw)
     if svg_src.is_dir():
         if svg_dest.exists():
-            print(f"FAIL: SVG-doel bestaat al: {_rel(svg_dest)}", file=sys.stderr)
+            bieb_fs.print_fail(
+                f"SVG-doel bestaat al: {_rel(svg_dest)}",
+                oplossing="ruim die SVG-map op, of kies een ander nieuw id.",
+                stream=sys.stderr,
+            )
             return 1
         n_svg = _copy_tree_renaming(
             svg_src, svg_dest, old_stem=old_stem, new_stem=new_stem, dry_run=dry_run
@@ -358,4 +398,4 @@ def main(argv: list[str] | None = None) -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(bieb_fs.run_handler(main, sys.argv[1:], command="kopieer"))

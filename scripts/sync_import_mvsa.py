@@ -57,11 +57,14 @@ def is_import_mvsa(path: Path) -> bool:
 
 def collect_import_mvsa(root: Path) -> list[Path]:
     """Bestaande import-siblings onder ``root`` (geen eis dat elke .mscz er een heeft)."""
+    from product_regen import list_source_paths
+
     out: list[Path] = []
-    if not root.is_dir():
-        return out
-    for path in sorted(root.rglob("*.mscz.mvsa")):
+    for path in list_source_paths(root, pattern="*.mscz.mvsa"):
         if not path.is_file():
+            continue
+        name = path.name.lower()
+        if not name.endswith(".mscz.mvsa"):
             continue
         if "input" in path.parts:
             continue

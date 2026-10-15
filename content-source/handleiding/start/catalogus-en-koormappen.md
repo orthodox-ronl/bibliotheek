@@ -253,7 +253,7 @@ Nederlandse leaf:
 `prijslied-bisschop-gregorios-hemelum` (plus extensie van de bron).
 
 Precedent in het [Id-register](/catalogus/id-register/): o.a.
-`cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` (stub) en bestaande
+`cherubijnenhymne/15c-kastorski/hemelum-ksl` (stub) en bestaande
 `-ksl`-leaves zoals `tropaar/uw-heilig-kruis/groningen-ksl`.
 
 ### Canonieke bron vs afgeleiden

@@ -39,7 +39,7 @@ hier en in tooling tegelijk.
 | Koormap-pad (t.o.v. `liturgiemap-hemelum/`) | Bibliotheek-id | Publicatiestam (basispartituur) | Bestanden nu | Opmerking |
 | --- | --- | --- | --- | --- |
 | `cherubijnenhymne/15c-kastorski/` | `cherubijnenhymne/15c-kastorski/hemelum` | `cherubijnenhymne-15c-kastorski-hemelum` | mscz, mxl, pdf | reviewable; NL (ongemerkt) |
-| *(alleen catalogus voorlopig)* | `cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` | `cherubijnenhymne-15c-kastorski-hemelum-ksl-trlat` | — | Kerkslavisch getranslitereerd; stub |
+| *(alleen catalogus voorlopig)* | `cherubijnenhymne/15c-kastorski/hemelum-ksl` | `cherubijnenhymne-15c-kastorski-hemelum-ksl` | — | Kerkslavisch getranslitereerd; stub |
 | `cherubijnenhymne/15b-fatejev/` | `cherubijnenhymne/15b-fatejev/hemelum` | — | — | voorzien |
 | `cherubijnenhymne/15d-kastorski/` | `cherubijnenhymne/15d-kastorski/hemelum` | — | — | voorzien (andere Kastorski dan 15c) |
 | `cherubijnenhymne/15e-bortnjanski/` | `cherubijnenhymne/15e-bortnjanski/hemelum` | `cherubijnenhymne-15e-bortnjanski-hemelum` | — | voorzien; Capella-input aanwezig |
@@ -49,7 +49,6 @@ hier en in tooling tegelijk.
 | `trisagion/8a-trisagion/` | `trisagion/8a-nederlands/hemelum` | `trisagion-8a-nederlands-hemelum` | mscz, mxl, pdf | Canoniek; niet de legacy-map `8a-trisagion/` |
 | `trisagion/8a-trisagion-slav/` | `trisagion/8a-slav/hemelum` | `trisagion-8a-slav-hemelum` | mscz, mxl, pdf, mvsa | Idem legacy `8a-trisagion-slav/` |
 | `19a-eucharistische-kanon/` | `eucharistische-canon/19a-feofan/hemelum` | `eucharistische-canon-19a-feofan-hemelum` | mscz, mxl, pdf | |
-| *(alleen catalogus voorlopig)* | `eucharistische-canon/rostov/hemelum` | `eucharistische-canon-rostov-hemelum` | — | VOW-input; stub |
 | `moeder-godslied/20d-in-waarheid-moeder-godslied/` | `moeder-godslied/20d-in-waarheid/hemelum` | `moeder-godslied-20d-in-waarheid-hemelum` | mscz, mxl, pdf | |
 | `moeder-godslied/moeder-godslied-ontslapen-mgods/` | `moeder-godslied/ontslapen-moeder-gods/hemelum` | `moeder-godslied-ontslapen-moeder-gods-hemelum` | print.mscz, mxl, pdf, vsa | `artefacten_handmatig`; print-track |
 | `communievers/communievers-onthoofding-johannes-de-doper/` | `communievers/onthoofding-johannes-de-doper/hemelum` | `communievers-onthoofding-johannes-de-doper-hemelum` | vsa, vsa.mxl, pdf | Geen basispartituur-mscz; Coria via VSA-publicatiecontrole |
@@ -66,7 +65,7 @@ hier en in tooling tegelijk.
 | `kleine-intocht/weekdagen/` | `kleine-intocht/weekdagen/hemelum` | `kleine-intocht-weekdagen-hemelum` | mscz, mxl, pdf | |
 | `kleine-intocht/moeder-gods/` | `kleine-intocht/moeder-gods/hemelum` | `kleine-intocht-moeder-gods-hemelum` | mscz, mxl, pdf | |
 | `wij-hebben-het-ware-licht/` | `wij-hebben-het-ware-licht/default/hemelum` | `wij-hebben-het-ware-licht-default-hemelum` | mscz, mxl, pdf | |
-| `de-naam-des-heren-zij-gezegend/` | `de-naam-des-heren-zij-gezegend/default/hemelum` | `de-naam-des-heren-zij-gezegend-default-hemelum` | mscz, mxl, pdf | |
+| `de-naam-des-heren-zij-gezegend/` | `de-naam-des-heren-zij-gezegend/default/groningen` | `de-naam-des-heren-zij-gezegend-default-groningen` | mscz, mxl, pdf | |
 
 ---
 
@@ -225,9 +224,8 @@ Doel-id: `eniggeboren-zoon/default/hemelum`.
 
 | Input | Doel-id | Status |
 | --- | --- | --- |
-| `capella/…kastorskij - ksl.mxl` | `cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat` | stub; nog converteren |
+| `capella/…kastorskij - ksl.mxl` | `cherubijnenhymne/15c-kastorski/hemelum-ksl` | stub; nog converteren |
 | `capella/15e … Bortnjanski….mxl` | `cherubijnenhymne/15e-bortnjanski/hemelum` | stub; Capella zegt **15e** (niet 15c) |
-| `vow/Eucharistische Canon-Rostov.mscz` | `eucharistische-canon/rostov/hemelum` | stub naast Feofan |
 | `vow/Tropaar-opstanding-toon*.mscz` | *(leeg)* | voorlopig laten zitten |
 
 ### 7. Dankzegging / eind-liturgie — strategie (voorstel)

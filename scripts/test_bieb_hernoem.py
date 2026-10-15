@@ -176,7 +176,7 @@ def test_rewrite_skips_title_reports_doubt() -> None:
         'linkTitle: "Hemelum"\n---\n'
         '{{< bieb id="tropaar/zondag-toon-1/hemelum" >}}\n'
     )
-    updated, doubt = bh._rewrite_text(
+    updated, doubt, changes = bh._rewrite_text(
         text,
         "tropaar/zondag-toon-1/hemelum",
         "tropaar/zondag-toon-1/groningen",
@@ -184,7 +184,10 @@ def test_rewrite_skips_title_reports_doubt() -> None:
     )
     assert 'bieb id="tropaar/zondag-toon-1/groningen"' in updated
     assert 'title: "tropaar/zondag-toon-1/hemelum"' in updated
-    assert any("title:" in d for d in doubt)
+    assert any("title:" in snippet for _ln, _col, snippet in doubt)
+    assert doubt[0][0] == 2  # title-regel
+    assert doubt[0][1] is not None and doubt[0][1] >= 1
+    assert any(ln == 5 for ln, _col in changes)
 
 
 def test_hernoem_leaf_dry_run(tmp_path: Path, monkeypatch) -> None:
@@ -213,3 +216,60 @@ def test_hernoem_leaf_dry_run(tmp_path: Path, monkeypatch) -> None:
     assert code == 0
     assert leaf.is_dir()
     assert (leaf / "demo-var-hemelum.vsa").is_file()
+
+
+def test_publication_stem_dest_name_leading_dot() -> None:
+    assert (
+        cat.publication_stem_dest_name(
+            "demo-var-hemelum.vsa", "demo-var-hemelum", "demo-var-vokn"
+        )
+        == "demo-var-vokn.vsa"
+    )
+    assert (
+        cat.publication_stem_dest_name(
+            ".demo-var-hemelum.mscz~", "demo-var-hemelum", "demo-var-vokn"
+        )
+        == ".demo-var-vokn.mscz~"
+    )
+    assert (
+        cat.publication_stem_dest_name(
+            "anders.vsa", "demo-var-hemelum", "demo-var-vokn"
+        )
+        is None
+    )
+
+
+def test_hernoem_leaf_renames_stem_and_mscbackup(tmp_path: Path, monkeypatch) -> None:
+    root = tmp_path / "repo"
+    cat_root = root / "content-source" / "catalogus"
+    leaf = cat_root / "demo" / "var" / "hemelum"
+    leaf.mkdir(parents=True)
+    (cat_root / "demo" / "_index.md").write_text("---\ntitle: d\n---\n", encoding="utf-8")
+    (cat_root / "demo" / "var" / "_index.md").write_text(
+        "---\ntitle: v\n---\n", encoding="utf-8"
+    )
+    (leaf / "index.md").write_text(
+        '---\ntitle: "x"\nlinkTitle: "Hemelum"\n---\n'
+        '{{< bieb id="demo/var/hemelum" >}}\n',
+        encoding="utf-8",
+    )
+    (leaf / "demo-var-hemelum.vsa").write_text(
+        "---\ntitel: Test\n---\n[/:] a [:]\n", encoding="utf-8"
+    )
+    (leaf / "demo-var-hemelum.mvsa.pdf").write_bytes(b"%PDF")
+    backup = leaf / ".mscbackup"
+    backup.mkdir()
+    (backup / ".demo-var-hemelum.mscz~").write_bytes(b"bak")
+
+    monkeypatch.setattr(cat, "CATALOGUS_ROOT", cat_root)
+    monkeypatch.setattr(cat, "REPO_ROOT", root)
+    monkeypatch.setattr(bh, "REPO_ROOT", root)
+    monkeypatch.setattr(bh, "KOORMAPPEN_ROOT", root / "content-source" / "koormappen")
+
+    assert bh.hernoem("demo/var/hemelum", "vokn", dry_run=False) == 0
+    dest = cat_root / "demo" / "var" / "vokn"
+    assert (dest / "demo-var-vokn.vsa").is_file()
+    assert (dest / "demo-var-vokn.mvsa.pdf").is_file()
+    assert (dest / ".mscbackup" / ".demo-var-vokn.mscz~").is_file()
+    assert not (dest / "demo-var-hemelum.vsa").exists()
+    assert 'bieb id="demo/var/vokn"' in (dest / "index.md").read_text(encoding="utf-8")

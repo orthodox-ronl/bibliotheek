@@ -64,10 +64,10 @@ def _running_in_ci() -> bool:
 
 def collect_audio_jobs(root: Path) -> list[AudioJob]:
     """Alle bronnen die preview-audio mogen krijgen."""
+    from product_regen import list_source_paths
+
     jobs: list[AudioJob] = []
-    if not root.is_dir():
-        return jobs
-    for path in sorted(root.rglob("*")):
+    for path in list_source_paths(root, pattern="*"):
         if not path.is_file():
             continue
         if "input" in path.parts:
