@@ -120,28 +120,9 @@
   },
   {
     "dir": "catalogus/communievers/moeder-gods/pancakescrawlspace",
-    "source": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.import.mvsa",
-    "ok": false,
-    "issues": [
-      {
-        "kind": "missing_lyrics",
-        "file": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.import.mvsa.lyrics.txt",
-        "detail": "lyrics.txt ontbreekt naast de bron (.vsa/.mvsa/.mscz)"
-      }
-    ],
-    "fix_cmd": "scripts\\lyrics-products.cmd"
-  },
-  {
-    "dir": "catalogus/communievers/moeder-gods/pancakescrawlspace",
     "source": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.mscz",
-    "ok": false,
-    "issues": [
-      {
-        "kind": "missing_lyrics",
-        "file": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.mscz.lyrics.txt",
-        "detail": "lyrics.txt ontbreekt naast de bron (.vsa/.mvsa/.mscz)"
-      }
-    ],
+    "ok": true,
+    "issues": [],
     "fix_cmd": "scripts\\lyrics-products.cmd"
   },
   {
@@ -413,14 +394,8 @@
   {
     "dir": "catalogus/eucharistische-canon/19a-feofan/hemelum",
     "source": "content-source/catalogus/eucharistische-canon/19a-feofan/hemelum/eucharistische-canon-19a-feofan-hemelum.mscz",
-    "ok": false,
-    "issues": [
-      {
-        "kind": "stale_lyrics",
-        "file": "content-source/catalogus/eucharistische-canon/19a-feofan/hemelum/eucharistische-canon-19a-feofan-hemelum.mscz.lyrics.txt",
-        "detail": "lyrics ouder dan bron (stamp 2026-10-17T10:45:04+00:00)"
-      }
-    ],
+    "ok": true,
+    "issues": [],
     "fix_cmd": "scripts\\lyrics-products.cmd"
   },
   {
@@ -734,6 +709,20 @@
   {
     "dir": "catalogus/moeder-godslied/verhef-mijn-ziel-met-blijde-zang/liturgikon",
     "source": "content-source/catalogus/moeder-godslied/verhef-mijn-ziel-met-blijde-zang/liturgikon/moeder-godslied-verhef-mijn-ziel-met-blijde-zang-liturgikon.vsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\lyrics-products.cmd"
+  },
+  {
+    "dir": "catalogus/moeder-godslied/verhef-o-mijn-ziel-met-jubelzang/pancakescrawlspace",
+    "source": "content-source/catalogus/moeder-godslied/verhef-o-mijn-ziel-met-jubelzang/pancakescrawlspace/moeder-godslied-verhef-o-mijn-ziel-met-jubelzang-pancakescrawlspace.mscz",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\lyrics-products.cmd"
+  },
+  {
+    "dir": "catalogus/onder-uwe-hoede/default/groningen",
+    "source": "content-source/catalogus/onder-uwe-hoede/default/groningen/onder-uwe-hoede-default-groningen.mscz",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\lyrics-products.cmd"
@@ -1182,6 +1171,13 @@
   {
     "dir": "catalogus/vredeswens/default/hemelum",
     "source": "content-source/catalogus/vredeswens/default/hemelum/vredeswens-default-hemelum.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\lyrics-products.cmd"
+  },
+  {
+    "dir": "catalogus/vriendelijk-licht/default/groningen",
+    "source": "content-source/catalogus/vriendelijk-licht/default/groningen/vriendelijk-licht-default-groningen.mscz",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\lyrics-products.cmd"

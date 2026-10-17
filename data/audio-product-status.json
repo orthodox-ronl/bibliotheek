@@ -121,31 +121,12 @@
       "fix_cmd": "scripts\\audio-products.cmd",
       "issues": []
     },
-    "catalogus/communievers/moeder-gods/pancakescrawlspace|communievers-moeder-gods-pancakescrawlspace.import.mvsa.mp3": {
-      "source": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.import.mvsa",
-      "product": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.import.mvsa.mp3",
-      "ok": false,
-      "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "missing_mp3",
-          "file": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.import.mvsa.mp3",
-          "detail": "Preview-.mp3 ontbreekt naast de bron (Beluisteren)"
-        }
-      ]
-    },
     "catalogus/communievers/moeder-gods/pancakescrawlspace|communievers-moeder-gods-pancakescrawlspace.mscz.mp3": {
       "source": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.mscz",
       "product": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.mscz.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "missing_mp3",
-          "file": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.mscz.mp3",
-          "detail": "Preview-.mp3 ontbreekt naast de bron (Beluisteren)"
-        }
-      ]
+      "issues": []
     },
     "catalogus/communievers/onthoofding-johannes-de-doper/hemelum|communievers-onthoofding-johannes-de-doper-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/communievers/onthoofding-johannes-de-doper/hemelum/communievers-onthoofding-johannes-de-doper-hemelum.vsa",
@@ -416,15 +397,9 @@
     "catalogus/eucharistische-canon/19a-feofan/hemelum|eucharistische-canon-19a-feofan-hemelum.mscz.mp3": {
       "source": "content-source/catalogus/eucharistische-canon/19a-feofan/hemelum/eucharistische-canon-19a-feofan-hemelum.mscz",
       "product": "content-source/catalogus/eucharistische-canon/19a-feofan/hemelum/eucharistische-canon-19a-feofan-hemelum.mscz.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "content-source/catalogus/eucharistische-canon/19a-feofan/hemelum/eucharistische-canon-19a-feofan-hemelum.mscz.mp3",
-          "detail": "MP3-partituur-hash wijkt af (gegenereerd 2026-10-17T10:44:39+00:00); .mscz is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/evangelielezing/default/hemelum|evangelielezing-default-hemelum.mvsa.mp3": {
       "source": "content-source/catalogus/evangelielezing/default/hemelum/evangelielezing-default-hemelum.mvsa",
@@ -737,6 +712,20 @@
     "catalogus/moeder-godslied/verhef-mijn-ziel-met-blijde-zang/liturgikon|moeder-godslied-verhef-mijn-ziel-met-blijde-zang-liturgikon.vsa.mp3": {
       "source": "content-source/catalogus/moeder-godslied/verhef-mijn-ziel-met-blijde-zang/liturgikon/moeder-godslied-verhef-mijn-ziel-met-blijde-zang-liturgikon.vsa",
       "product": "content-source/catalogus/moeder-godslied/verhef-mijn-ziel-met-blijde-zang/liturgikon/moeder-godslied-verhef-mijn-ziel-met-blijde-zang-liturgikon.vsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\audio-products.cmd",
+      "issues": []
+    },
+    "catalogus/moeder-godslied/verhef-o-mijn-ziel-met-jubelzang/pancakescrawlspace|moeder-godslied-verhef-o-mijn-ziel-met-jubelzang-pancakescrawlspace.mscz.mp3": {
+      "source": "content-source/catalogus/moeder-godslied/verhef-o-mijn-ziel-met-jubelzang/pancakescrawlspace/moeder-godslied-verhef-o-mijn-ziel-met-jubelzang-pancakescrawlspace.mscz",
+      "product": "content-source/catalogus/moeder-godslied/verhef-o-mijn-ziel-met-jubelzang/pancakescrawlspace/moeder-godslied-verhef-o-mijn-ziel-met-jubelzang-pancakescrawlspace.mscz.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\audio-products.cmd",
+      "issues": []
+    },
+    "catalogus/onder-uwe-hoede/default/groningen|onder-uwe-hoede-default-groningen.mscz.mp3": {
+      "source": "content-source/catalogus/onder-uwe-hoede/default/groningen/onder-uwe-hoede-default-groningen.mscz",
+      "product": "content-source/catalogus/onder-uwe-hoede/default/groningen/onder-uwe-hoede-default-groningen.mscz.mp3",
       "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
       "issues": []
@@ -1185,6 +1174,13 @@
     "catalogus/vredeswens/default/hemelum|vredeswens-default-hemelum.mvsa.mp3": {
       "source": "content-source/catalogus/vredeswens/default/hemelum/vredeswens-default-hemelum.mvsa",
       "product": "content-source/catalogus/vredeswens/default/hemelum/vredeswens-default-hemelum.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\audio-products.cmd",
+      "issues": []
+    },
+    "catalogus/vriendelijk-licht/default/groningen|vriendelijk-licht-default-groningen.mscz.mp3": {
+      "source": "content-source/catalogus/vriendelijk-licht/default/groningen/vriendelijk-licht-default-groningen.mscz",
+      "product": "content-source/catalogus/vriendelijk-licht/default/groningen/vriendelijk-licht-default-groningen.mscz.mp3",
       "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
       "issues": []

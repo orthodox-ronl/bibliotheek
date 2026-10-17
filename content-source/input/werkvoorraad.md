@@ -82,10 +82,13 @@ voor wie converteert.
 | `musicxml/028-prokimen-alleluja-toon-8.musicxml` |  |  | `.mscz` | ontvangen | doel-id |  |
 | `musicxml/tonen (vers, stichier, tropaar).musicxml` |  |  | `.mscz` | ontvangen | doel-id |  |
 | `musicxml/tonen-vers-stichier-tropaar.mscz` |  |  | `.mscz` | ontvangen | doel-id |  |
+| `pdf/CH-Fatejev.pdf` |  |  | `.mscz` | ontvangen | doel-id |  |
+| `pdf/Cherubijnenlied-Fatejev-vrouwen.pdf` |  |  | `.mscz` | ontvangen | doel-id |  |
+| `pdf/Cherubijnenlied-Fatejev.pdf` |  |  | `.mscz` | ontvangen | doel-id |  |
 | `vow/Cherubijnenlied-Kastorskij.mscz` | `cherubijnenhymne/15c-kastorski/hemelum` | `cherubijnenhymne/15c-kastorski` | `.mscz` | gepubliceerd | — | tweede bron (VOW); Capella is canonieke basispartituur |
 | `vow/dankzegging_toon_2_Kyiv.mscz` |  |  | `.mscz` | ontvangen | doel-id | zie ID-REGISTER OPEN 7 |
 | `vow/eind-liturgie.mscz` |  |  | `.mscz` | ontvangen | doel-id | zie ID-REGISTER OPEN 7 |
-| `vow/Eucharistische Canon-Rostov.mscz` | |  | `.mscz` | ontvangen | doel-id | sibling van 19a-feofan |
+| `vow/Eucharistische Canon-Rostov.mscz` |  |  | `.mscz` | ontvangen | doel-id | sibling van 19a-feofan |
 | `vow/Kleine_intocht-moedergods.mscz` | `kleine-intocht/moeder-gods/hemelum` | `kleine-intocht` | `.mscz` | gepubliceerd | — |  |
 | `vow/Kleine_intocht-weekdagen.mscz` | `kleine-intocht/weekdagen/hemelum` | `kleine-intocht` | `.mscz` | gepubliceerd | — | tweede bron (VOW) |
 | `vow/Kleine_intocht-zondag.mscz` | `kleine-intocht/zondag/hemelum` | `kleine-intocht` | `.mscz` | gepubliceerd | — | tweede bron (VOW) |
