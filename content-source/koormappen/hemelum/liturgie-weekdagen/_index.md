@@ -39,10 +39,10 @@ Liturgiemap voor **weekdagen**. Zondag staat in
 |  18  | Geloofsbelijdenis *(voorzien)* |
 |  19  | [Eucharistische Canon](eucharistische-canon/) |
 |  20  | [Moeder Godslied](moeder-godslied/) |
-|  21  | En Allen *(voorzien)* |
+|  21  | [En Allen](en-allen/) |
 |  22  | [Vragende Litanie](vragende-litanie-22/) |
 |  23  | Onze Vader *(voorzien)* |
-|  24  | Een is Heilig *(voorzien)* |
+|  24  | [Een is Heilig](een-is-heilig) |
 |  25  | [Communievers](communievers/) |
 |  26  | [Gezegend Hij, Die komt ...](gezegend-hij-die-komt/) |
 |  27  | Communiezang *(voorzien)* |
