@@ -107,19 +107,45 @@
       "fix_cmd": "scripts\\audio-products.cmd",
       "issues": []
     },
-    "catalogus/communievers/moeder-gods-liturgikon/liturgikon|communievers-moeder-gods-liturgikon-liturgikon.vsa.mp3": {
-      "source": "content-source/catalogus/communievers/moeder-gods-liturgikon/liturgikon/communievers-moeder-gods-liturgikon-liturgikon.vsa",
-      "product": "content-source/catalogus/communievers/moeder-gods-liturgikon/liturgikon/communievers-moeder-gods-liturgikon-liturgikon.vsa.mp3",
+    "catalogus/communievers/moeder-gods/hemelum|communievers-moeder-gods-hemelum.vsa.mp3": {
+      "source": "content-source/catalogus/communievers/moeder-gods/hemelum/communievers-moeder-gods-hemelum.vsa",
+      "product": "content-source/catalogus/communievers/moeder-gods/hemelum/communievers-moeder-gods-hemelum.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
       "issues": []
     },
-    "catalogus/communievers/moeder-gods-vokn-25/hemelum|communievers-moeder-gods-vokn-25-hemelum.vsa.mp3": {
-      "source": "content-source/catalogus/communievers/moeder-gods-vokn-25/hemelum/communievers-moeder-gods-vokn-25-hemelum.vsa",
-      "product": "content-source/catalogus/communievers/moeder-gods-vokn-25/hemelum/communievers-moeder-gods-vokn-25-hemelum.vsa.mp3",
+    "catalogus/communievers/moeder-gods/liturgikon|communievers-moeder-gods-liturgikon.vsa.mp3": {
+      "source": "content-source/catalogus/communievers/moeder-gods/liturgikon/communievers-moeder-gods-liturgikon.vsa",
+      "product": "content-source/catalogus/communievers/moeder-gods/liturgikon/communievers-moeder-gods-liturgikon.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
       "issues": []
+    },
+    "catalogus/communievers/moeder-gods/pancakescrawlspace|communievers-moeder-gods-pancakescrawlspace.import.mvsa.mp3": {
+      "source": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.import.mvsa",
+      "product": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.import.mvsa.mp3",
+      "ok": false,
+      "fix_cmd": "scripts\\audio-products.cmd",
+      "issues": [
+        {
+          "kind": "missing_mp3",
+          "file": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.import.mvsa.mp3",
+          "detail": "Preview-.mp3 ontbreekt naast de bron (Beluisteren)"
+        }
+      ]
+    },
+    "catalogus/communievers/moeder-gods/pancakescrawlspace|communievers-moeder-gods-pancakescrawlspace.mscz.mp3": {
+      "source": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.mscz",
+      "product": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.mscz.mp3",
+      "ok": false,
+      "fix_cmd": "scripts\\audio-products.cmd",
+      "issues": [
+        {
+          "kind": "missing_mp3",
+          "file": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.mscz.mp3",
+          "detail": "Preview-.mp3 ontbreekt naast de bron (Beluisteren)"
+        }
+      ]
     },
     "catalogus/communievers/onthoofding-johannes-de-doper/hemelum|communievers-onthoofding-johannes-de-doper-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/communievers/onthoofding-johannes-de-doper/hemelum/communievers-onthoofding-johannes-de-doper-hemelum.vsa",
@@ -128,9 +154,9 @@
       "fix_cmd": "scripts\\audio-products.cmd",
       "issues": []
     },
-    "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum|de-naam-des-heren-zij-gezegend-default-hemelum.mscz.mp3": {
-      "source": "content-source/catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/de-naam-des-heren-zij-gezegend-default-hemelum.mscz",
-      "product": "content-source/catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/de-naam-des-heren-zij-gezegend-default-hemelum.mscz.mp3",
+    "catalogus/de-naam-des-heren-zij-gezegend/default/groningen|de-naam-des-heren-zij-gezegend-default-groningen.mvsa.mp3": {
+      "source": "content-source/catalogus/de-naam-des-heren-zij-gezegend/default/groningen/de-naam-des-heren-zij-gezegend-default-groningen.mvsa",
+      "product": "content-source/catalogus/de-naam-des-heren-zij-gezegend/default/groningen/de-naam-des-heren-zij-gezegend-default-groningen.mvsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
       "issues": []
@@ -177,9 +203,16 @@
       "fix_cmd": "scripts\\audio-products.cmd",
       "issues": []
     },
-    "catalogus/derde-antifoon/zondag/hemelum|derde-antifoon-zondag-hemelum.mscz.mp3": {
-      "source": "content-source/catalogus/derde-antifoon/zondag/hemelum/derde-antifoon-zondag-hemelum.mscz",
-      "product": "content-source/catalogus/derde-antifoon/zondag/hemelum/derde-antifoon-zondag-hemelum.mscz.mp3",
+    "catalogus/derde-antifoon/zondag/hemelum|derde-antifoon-zondag-hemelum.mvsa.mp3": {
+      "source": "content-source/catalogus/derde-antifoon/zondag/hemelum/derde-antifoon-zondag-hemelum.mvsa",
+      "product": "content-source/catalogus/derde-antifoon/zondag/hemelum/derde-antifoon-zondag-hemelum.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\audio-products.cmd",
+      "issues": []
+    },
+    "catalogus/een-is-heilig/default/hemelum|een-is-heilig-default-hemelum.mvsa.mp3": {
+      "source": "content-source/catalogus/een-is-heilig/default/hemelum/een-is-heilig-default-hemelum.mvsa",
+      "product": "content-source/catalogus/een-is-heilig/default/hemelum/een-is-heilig-default-hemelum.mvsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
       "issues": []
@@ -359,9 +392,23 @@
       "fix_cmd": "scripts\\audio-products.cmd",
       "issues": []
     },
-    "catalogus/eniggeboren-zoon/default/hemelum|eniggeboren-zoon-default-hemelum.mscz.mp3": {
-      "source": "content-source/catalogus/eniggeboren-zoon/default/hemelum/eniggeboren-zoon-default-hemelum.mscz",
-      "product": "content-source/catalogus/eniggeboren-zoon/default/hemelum/eniggeboren-zoon-default-hemelum.mscz.mp3",
+    "catalogus/en-allen/default/hemelum|en-allen-default-hemelum.mvsa.mp3": {
+      "source": "content-source/catalogus/en-allen/default/hemelum/en-allen-default-hemelum.mvsa",
+      "product": "content-source/catalogus/en-allen/default/hemelum/en-allen-default-hemelum.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\audio-products.cmd",
+      "issues": []
+    },
+    "catalogus/en-allen/default/hemelum-ksl|en-allen-default-hemelum-ksl.mvsa.mp3": {
+      "source": "content-source/catalogus/en-allen/default/hemelum-ksl/en-allen-default-hemelum-ksl.mvsa",
+      "product": "content-source/catalogus/en-allen/default/hemelum-ksl/en-allen-default-hemelum-ksl.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\audio-products.cmd",
+      "issues": []
+    },
+    "catalogus/eniggeboren-zoon/default/hemelum|eniggeboren-zoon-default-hemelum.mvsa.mp3": {
+      "source": "content-source/catalogus/eniggeboren-zoon/default/hemelum/eniggeboren-zoon-default-hemelum.mvsa",
+      "product": "content-source/catalogus/eniggeboren-zoon/default/hemelum/eniggeboren-zoon-default-hemelum.mvsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
       "issues": []
@@ -369,9 +416,15 @@
     "catalogus/eucharistische-canon/19a-feofan/hemelum|eucharistische-canon-19a-feofan-hemelum.mscz.mp3": {
       "source": "content-source/catalogus/eucharistische-canon/19a-feofan/hemelum/eucharistische-canon-19a-feofan-hemelum.mscz",
       "product": "content-source/catalogus/eucharistische-canon/19a-feofan/hemelum/eucharistische-canon-19a-feofan-hemelum.mscz.mp3",
-      "ok": true,
+      "ok": false,
       "fix_cmd": "scripts\\audio-products.cmd",
-      "issues": []
+      "issues": [
+        {
+          "kind": "stale_mp3",
+          "file": "content-source/catalogus/eucharistische-canon/19a-feofan/hemelum/eucharistische-canon-19a-feofan-hemelum.mscz.mp3",
+          "detail": "MP3-partituur-hash wijkt af (gegenereerd 2026-10-17T10:44:39+00:00); .mscz is gewijzigd"
+        }
+      ]
     },
     "catalogus/evangelielezing/default/hemelum|evangelielezing-default-hemelum.mvsa.mp3": {
       "source": "content-source/catalogus/evangelielezing/default/hemelum/evangelielezing-default-hemelum.mvsa",
@@ -495,6 +548,13 @@
     "catalogus/kondak/maandag-toon-2/hemelum|kondak-maandag-toon-2-hemelum.vsa.mp3": {
       "source": "content-source/catalogus/kondak/maandag-toon-2/hemelum/kondak-maandag-toon-2-hemelum.vsa",
       "product": "content-source/catalogus/kondak/maandag-toon-2/hemelum/kondak-maandag-toon-2-hemelum.vsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\audio-products.cmd",
+      "issues": []
+    },
+    "catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/hemelum|kondak-maria-hulp-der-christenen-pokrof-toon-3-hemelum.vsa.mp3": {
+      "source": "content-source/catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/hemelum/kondak-maria-hulp-der-christenen-pokrof-toon-3-hemelum.vsa",
+      "product": "content-source/catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/hemelum/kondak-maria-hulp-der-christenen-pokrof-toon-3-hemelum.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\audio-products.cmd",
       "issues": []

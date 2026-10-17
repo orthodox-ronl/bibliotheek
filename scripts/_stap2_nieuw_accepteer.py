@@ -79,11 +79,11 @@ MAP: dict[str, tuple[str, str]] = {
         "Communievers Kruisverheffing (Hemelum)",
     ),
     "communievers-communievers-moeder-gods-dup-007.vsa": (
-        "communievers/moeder-gods-liturgikon/liturgikon",
+        "communievers/moeder-gods/liturgikon",
         "Communievers Moeder Gods — Liturgikon-melodie",
     ),
     "communievers-communievers-moeder-gods-20260908-di-liturgie-icoon-mgods-vladimir-n03.vsa": (
-        "communievers/moeder-gods-vokn-25/hemelum",
+        "communievers/moeder-gods/hemelum",
         "Communievers Moeder Gods — VOKN-25 (Hemelum)",
     ),
     # eer aan de vader

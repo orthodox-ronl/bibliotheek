@@ -105,17 +105,43 @@
     "fix_cmd": "scripts\\lyrics-products.cmd"
   },
   {
-    "dir": "catalogus/communievers/moeder-gods-liturgikon/liturgikon",
-    "source": "content-source/catalogus/communievers/moeder-gods-liturgikon/liturgikon/communievers-moeder-gods-liturgikon-liturgikon.vsa",
+    "dir": "catalogus/communievers/moeder-gods/hemelum",
+    "source": "content-source/catalogus/communievers/moeder-gods/hemelum/communievers-moeder-gods-hemelum.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\lyrics-products.cmd"
   },
   {
-    "dir": "catalogus/communievers/moeder-gods-vokn-25/hemelum",
-    "source": "content-source/catalogus/communievers/moeder-gods-vokn-25/hemelum/communievers-moeder-gods-vokn-25-hemelum.vsa",
+    "dir": "catalogus/communievers/moeder-gods/liturgikon",
+    "source": "content-source/catalogus/communievers/moeder-gods/liturgikon/communievers-moeder-gods-liturgikon.vsa",
     "ok": true,
     "issues": [],
+    "fix_cmd": "scripts\\lyrics-products.cmd"
+  },
+  {
+    "dir": "catalogus/communievers/moeder-gods/pancakescrawlspace",
+    "source": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.import.mvsa",
+    "ok": false,
+    "issues": [
+      {
+        "kind": "missing_lyrics",
+        "file": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.import.mvsa.lyrics.txt",
+        "detail": "lyrics.txt ontbreekt naast de bron (.vsa/.mvsa/.mscz)"
+      }
+    ],
+    "fix_cmd": "scripts\\lyrics-products.cmd"
+  },
+  {
+    "dir": "catalogus/communievers/moeder-gods/pancakescrawlspace",
+    "source": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.mscz",
+    "ok": false,
+    "issues": [
+      {
+        "kind": "missing_lyrics",
+        "file": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.mscz.lyrics.txt",
+        "detail": "lyrics.txt ontbreekt naast de bron (.vsa/.mvsa/.mscz)"
+      }
+    ],
     "fix_cmd": "scripts\\lyrics-products.cmd"
   },
   {
@@ -126,8 +152,8 @@
     "fix_cmd": "scripts\\lyrics-products.cmd"
   },
   {
-    "dir": "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum",
-    "source": "content-source/catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/de-naam-des-heren-zij-gezegend-default-hemelum.mscz",
+    "dir": "catalogus/de-naam-des-heren-zij-gezegend/default/groningen",
+    "source": "content-source/catalogus/de-naam-des-heren-zij-gezegend/default/groningen/de-naam-des-heren-zij-gezegend-default-groningen.mvsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\lyrics-products.cmd"
@@ -176,7 +202,14 @@
   },
   {
     "dir": "catalogus/derde-antifoon/zondag/hemelum",
-    "source": "content-source/catalogus/derde-antifoon/zondag/hemelum/derde-antifoon-zondag-hemelum.mscz",
+    "source": "content-source/catalogus/derde-antifoon/zondag/hemelum/derde-antifoon-zondag-hemelum.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\lyrics-products.cmd"
+  },
+  {
+    "dir": "catalogus/een-is-heilig/default/hemelum",
+    "source": "content-source/catalogus/een-is-heilig/default/hemelum/een-is-heilig-default-hemelum.mvsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\lyrics-products.cmd"
@@ -357,8 +390,22 @@
     "fix_cmd": "scripts\\lyrics-products.cmd"
   },
   {
+    "dir": "catalogus/en-allen/default/hemelum",
+    "source": "content-source/catalogus/en-allen/default/hemelum/en-allen-default-hemelum.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\lyrics-products.cmd"
+  },
+  {
+    "dir": "catalogus/en-allen/default/hemelum-ksl",
+    "source": "content-source/catalogus/en-allen/default/hemelum-ksl/en-allen-default-hemelum-ksl.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\lyrics-products.cmd"
+  },
+  {
     "dir": "catalogus/eniggeboren-zoon/default/hemelum",
-    "source": "content-source/catalogus/eniggeboren-zoon/default/hemelum/eniggeboren-zoon-default-hemelum.mscz",
+    "source": "content-source/catalogus/eniggeboren-zoon/default/hemelum/eniggeboren-zoon-default-hemelum.mvsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\lyrics-products.cmd"
@@ -366,8 +413,14 @@
   {
     "dir": "catalogus/eucharistische-canon/19a-feofan/hemelum",
     "source": "content-source/catalogus/eucharistische-canon/19a-feofan/hemelum/eucharistische-canon-19a-feofan-hemelum.mscz",
-    "ok": true,
-    "issues": [],
+    "ok": false,
+    "issues": [
+      {
+        "kind": "stale_lyrics",
+        "file": "content-source/catalogus/eucharistische-canon/19a-feofan/hemelum/eucharistische-canon-19a-feofan-hemelum.mscz.lyrics.txt",
+        "detail": "lyrics ouder dan bron (stamp 2026-10-17T10:45:04+00:00)"
+      }
+    ],
     "fix_cmd": "scripts\\lyrics-products.cmd"
   },
   {
@@ -492,6 +545,13 @@
   {
     "dir": "catalogus/kondak/maandag-toon-2/hemelum",
     "source": "content-source/catalogus/kondak/maandag-toon-2/hemelum/kondak-maandag-toon-2-hemelum.vsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\lyrics-products.cmd"
+  },
+  {
+    "dir": "catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/hemelum",
+    "source": "content-source/catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/hemelum/kondak-maria-hulp-der-christenen-pokrof-toon-3-hemelum.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\lyrics-products.cmd"

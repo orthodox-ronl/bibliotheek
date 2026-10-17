@@ -92,14 +92,20 @@
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
       "issues": []
     },
-    "content-source/catalogus/communievers/moeder-gods-liturgikon/liturgikon/communievers-moeder-gods-liturgikon-liturgikon.vsa.mxl": {
+    "content-source/catalogus/communievers/moeder-gods/hemelum/communievers-moeder-gods-hemelum.vsa.mxl": {
       "profile": "mono",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
       "issues": []
     },
-    "content-source/catalogus/communievers/moeder-gods-vokn-25/hemelum/communievers-moeder-gods-vokn-25-hemelum.vsa.mxl": {
+    "content-source/catalogus/communievers/moeder-gods/liturgikon/communievers-moeder-gods-liturgikon.vsa.mxl": {
       "profile": "mono",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
+      "issues": []
+    },
+    "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.mscz.mxl": {
+      "profile": "satb",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
       "issues": []
@@ -110,7 +116,7 @@
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
       "issues": []
     },
-    "content-source/catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/de-naam-des-heren-zij-gezegend-default-hemelum.mscz.mxl": {
+    "content-source/catalogus/de-naam-des-heren-zij-gezegend/default/groningen/de-naam-des-heren-zij-gezegend-default-groningen.mvsa.mxl": {
       "profile": "satb",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
@@ -152,7 +158,13 @@
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
       "issues": []
     },
-    "content-source/catalogus/derde-antifoon/zondag/hemelum/derde-antifoon-zondag-hemelum.mscz.mxl": {
+    "content-source/catalogus/derde-antifoon/zondag/hemelum/derde-antifoon-zondag-hemelum.mvsa.mxl": {
+      "profile": "satb",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
+      "issues": []
+    },
+    "content-source/catalogus/een-is-heilig/default/hemelum/een-is-heilig-default-hemelum.mvsa.mxl": {
       "profile": "satb",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
@@ -308,7 +320,19 @@
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
       "issues": []
     },
-    "content-source/catalogus/eniggeboren-zoon/default/hemelum/eniggeboren-zoon-default-hemelum.mscz.mxl": {
+    "content-source/catalogus/en-allen/default/hemelum/en-allen-default-hemelum.mvsa.mxl": {
+      "profile": "satb",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
+      "issues": []
+    },
+    "content-source/catalogus/en-allen/default/hemelum-ksl/en-allen-default-hemelum-ksl.mvsa.mxl": {
+      "profile": "satb",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
+      "issues": []
+    },
+    "content-source/catalogus/eniggeboren-zoon/default/hemelum/eniggeboren-zoon-default-hemelum.mvsa.mxl": {
       "profile": "satb",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
@@ -423,6 +447,12 @@
       "issues": []
     },
     "content-source/catalogus/kondak/maandag-toon-2/hemelum/kondak-maandag-toon-2-hemelum.vsa.mxl": {
+      "profile": "mono",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
+      "issues": []
+    },
+    "content-source/catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/hemelum/kondak-maria-hulp-der-christenen-pokrof-toon-3-hemelum.vsa.mxl": {
       "profile": "mono",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
