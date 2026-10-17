@@ -350,6 +350,77 @@ body {
   margin: 0.35rem 0 0;
 }
 
+
+/* Homepagina: kruis + titel + korte feedbackregel */
+.home-banner {
+  margin: 0 0 1.5rem;
+  padding: 1rem 1.15rem;
+  border: 2px solid #2f5d8a;
+  background: linear-gradient(135deg, #eef5fb 0%, #f7fafc 55%, #fff 100%);
+  color: #12324d;
+}
+
+.home-banner-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.25rem;
+}
+
+.home-banner-cross {
+  display: block;
+  flex: 0 0 auto;
+  width: 4.5rem;
+  height: auto;
+  max-height: 6.25rem;
+  object-fit: contain;
+}
+
+.home-banner-text {
+  flex: 1 1 14rem;
+  min-width: 0;
+}
+
+.home-banner-title {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #003366;
+  letter-spacing: 0.01em;
+}
+
+.home-banner-feedback {
+  margin: 0.45rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: #23405a;
+}
+
+.home-banner-feedback p {
+  margin: 0;
+}
+
+.home-banner-feedback a {
+  color: #003366;
+  font-weight: 600;
+}
+
+@media (max-width: 520px) {
+  .home-banner {
+    padding: 0.85rem 0.95rem;
+  }
+
+  .home-banner-cross {
+    width: 3.5rem;
+    max-height: 4.75rem;
+  }
+
+  .home-banner-title {
+    font-size: 1.2rem;
+  }
+}
+
 code.catalogus-id {
   margin-left: 0.5rem;
   font-size: 0.85em;
@@ -835,7 +906,9 @@ a.btn.coria-play:focus,
   left: 0;
   right: auto;
   bottom: calc(100% + 0.4rem);
-  z-index: 30;
+  /* Boven sticky site-chrome (100) + oefenhoek-header (90), anders
+     verdwijnen de eerste zinnen onder die balken bij knoppen bovenaan. */
+  z-index: 110;
   width: max(100%, 16rem);
   max-width: min(22rem, 90vw);
   margin: 0;
@@ -859,6 +932,20 @@ a.btn.coria-play:focus,
   border: 6px solid transparent;
   border-top-color: #fffef8;
   filter: drop-shadow(0 1px 0 var(--border-color));
+}
+
+/* Te weinig ruimte boven de knop (viewport / sticky chrome): onder openen. */
+.score-action-help.score-action-help--below {
+  bottom: auto;
+  top: calc(100% + 0.4rem);
+}
+
+.score-action-help.score-action-help--below::after {
+  top: auto;
+  bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: #fffef8;
+  filter: drop-shadow(0 -1px 0 var(--border-color));
 }
 
 .score-action-menu:hover > .score-action-help,
