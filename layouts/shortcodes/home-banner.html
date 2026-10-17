@@ -1,0 +1,28 @@
+{{- /* Homepagina-kop: orthodox kruis + titel + korte feedbackregel. */ -}}
+{{- $title := .Get "title" | default "RONL Oefensite en Catalogus" -}}
+{{- $github := site.Params.linksGithub | default "https://github.com/orthodox-ronl/bibliotheek" -}}
+{{- $email := site.Params.feedback_email -}}
+{{- $issue := printf "%s/issues/new" $github -}}
+<aside class="home-banner">
+  <div class="home-banner-inner">
+    <img
+      class="home-banner-cross"
+      src="{{ "images/kruisje.png" | relURL }}"
+      width="80"
+      height="107"
+      alt=""
+      decoding="async"
+    >
+    <div class="home-banner-text">
+      <p class="home-banner-title">{{ $title }}</p>
+      <div class="home-banner-feedback">
+        <p>
+          Fouten, aanvullingen of verbeteringen zijn welkom
+          {{- if $email }} — <a href="mailto:{{ $email }}">e-mail</a>{{- end -}}
+          {{- if and $email $github }} ·{{- end -}}
+          {{- if $github }} <a href="{{ $issue }}">GitHub-issue</a>{{- end -}}.
+        </p>
+      </div>
+    </div>
+  </div>
+</aside>

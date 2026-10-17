@@ -3,20 +3,21 @@ title: "Bibliotheek"
 linkTitle: "Home"
 ---
 
+{{< home-banner title="RONL Oefensite en Catalogus" >}}
+
 Deze site is primair bedoeld om te voorzien in de behoefte aan oefenmateriaal voor hen die (willen) meezingen
-in het koor van het Russisch-Orthodoxe klooster van de Heilige St. Nicolaas de Wonderdoener in Hemelum, 
-en niet noodzakelijkerwijs van blad kunnen zingen. Het idee is dat zij thuis zangstukken kunnen oefenen,
-zodat de noodzaak om fysiek bijeen te komen voor repetities wordt gereduceerd - de meeste mensen komen immers
-van ver. En omdat we denken dat ook in parochies een dergelijke behoefte zou kunnen bestaan, is de site
-zo opgezet dat ook in die behoefte op vergelijkbare wijze voorzien zou kunnen worden.
+in het koor van het Russisch-Orthodoxe klooster van St. Nicolaas in Hemelum, en niet noodzakelijkerwijs van
+blad kunnen zingen. Het idee is dat zij thuis zangstukken kunnen oefenen, zodat de noodzaak om fysiek bijeen
+te komen voor repetities wordt gereduceerd - de meeste mensen komen immers van ver. En omdat we denken dat
+ook in parochies een dergelijke behoefte zou kunnen bestaan, is de site zo opgezet dat ook in die behoefte
+op vergelijkbare wijze voorzien zou kunnen worden.
 
 De site bevat:
 - een [Catalogus](/catalogus/) van (varianten van) zangstukken, en vooral die, welke in de Heilige Liturgie
-  worden gebruikt, zoals Ektinia's, Alleluia's, Cherubijnen hymnes, Troparen, Kondaken, enzovoorts.
-- [Koormappen](/koormappen/): een koormap is feitelijk een lijst van zangstukken die om een of andere reden
-  bij elkaar horen. Zo kan er een map zijn voor de zondagse of doordeweekse liturgie/. Maar het kan ook
-  een map zijn met de speciale gezangen voor de hoogfeesten. 
-- een [Handleiding](/handleiding/): deze bevat werkwijzen voor degenen die de bibliotheek bijhouden,
+  worden gebruikt, zoals Ektinia's, Alleluia's, Cherubijnen hymnes, de Eucharistische canon, Troparen, Kondaken, enzovoorts.
+- [Koormappen](/koormappen/): een koormap is feitelijk een lijst van zangstukken die bij een bepaalde gelegenheid
+  op een bepaalde plaats (bijv. een doordeweekse H. Liturgie in Hemelum), achtereenvolgens worden gezongen.
+- een [Handleiding](/handleiding/): deze bevat werkwijzen voor hen die de bibliotheek bijhouden,
   zoals het opnemen van nieuwe zangstukken, deze bijhouden/corrigeren, en beschikbaar maken zodat ze
   in koormappen kunnen worden opgenomen.
 
@@ -31,12 +32,10 @@ van de zangstukken zoals die op normale, doordeweekse dagen in de H. Liturgie wo
 kunnen worden gekozen uit een koormap of de catalogus.
 
 Zangstukken kunnen op verschillende manieren worden getoond:
-- als **bladmuziek (partituren)**. Let wel, het gaat hier om **oefenmateriaal**: 
-  meestal zijn ze wat vereenvoudigd (aangepast), en bevatten ze geen uitgebreide 
-  muzikale aanwijzingen, versieringen e.d.
-- in **VSA (Vereenvoudigde Slavische Accentnotatie)**-notatie, ook wel 'streepjesnotatie' genoemd.
-  Deze notatie wordt veel gebruikt in boeken (zoals het Liturgikon), wellicht omdat het leren lezen ervan
-  makkelijker is dan het leren lezen van partituren.
+- als **bladmuziek (partituren)**. Let wel, het gaat hier om **oefenmateriaal**: meestal zijn ze wat vereenvoudigd
+  (aangepast), en bevatten ze geen uitgebreide muzikale aanwijzingen, versieringen e.d.
+- in **VSA (Vereenvoudigde Slavische Accentnotatie)**-notatie, ook wel 'streepjesnotatie' genoemd. Deze notatie wordt
+  veel gebruikt in boeken (zoals het Liturgikon), en het leren lezen ervan is makkelijker dan het leren lezen van partituren.
 
 Als een zangstuk is gekozen wordt hij op een van deze manieren getoond. En er is ook een aantal knoppen waarmee
 je kunt selecteren wat je wilt doen:
@@ -67,4 +66,5 @@ De meestgebruikte bronnen voor dit werk zijn:
 - Map van de gezongen delen van de Goddelijke Liturgie, Vereniging van Orthodoxen "H. Nikolaas van Myra". 1e uitgave, Pasen 2000.
 - Bestanden die door de beheerster van de site [Vrienden van het Orthodoxe Woord](https://orthodoxekerkmuziek.nl/) voor dit doel beschikbaar zijn gesteld
 - Koormap voor de Goddelijke Liturgie van de parochie van de H. Transfiguratie, Groningen (zoals die in 2024 was).
-- Koormap voor de Goddelijke Liturgie van het klooster van de Heilige Nikolaas van Myra, Hemelum
+- Koormap voor de Goddelijke Liturgie van het klooster van de Heilige Nikolaas van Myra, Hemelum.
+- De [MuseScore experimenten](https://github.com/pancakescrawlspace/musescore4) van Groningen.
