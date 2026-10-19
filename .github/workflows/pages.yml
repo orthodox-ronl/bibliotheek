@@ -53,7 +53,8 @@ jobs:
             echo "destination_dir=" >> "$GITHUB_OUTPUT"
             echo "pages_url=https://orthodox-ronl.github.io/bibliotheek/" >> "$GITHUB_OUTPUT"
             echo "label=production" >> "$GITHUB_OUTPUT"
-            echo "keep_files=false" >> "$GITHUB_OUTPUT"
+            # true: behoud preview/ en branch-previews op gh-pages (false wist die weg).
+            echo "keep_files=true" >> "$GITHUB_OUTPUT"
             echo "tooling_mode=pin" >> "$GITHUB_OUTPUT"
             ref="$(tr -d '[:space:]' < vsa-tooling.pin | head -n1)"
             if [[ -z "$ref" ]]; then
@@ -196,7 +197,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./generated/site
-          keep_files: false
+          keep_files: ${{ steps.target.outputs.keep_files }}
 
       - name: Show site URL
         run: |
