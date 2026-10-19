@@ -100,6 +100,9 @@ dit de bekende gevallen:
 3. De score bevat `<notehead>` (bijvoorbeeld `none` uit MuseScore) —
    die tag hoort niet in Coria-`.mxl`; `mscz-products` / sanitize
    strippen die mee.
+4. Binnen `<note>` verkeerde kindvolgorde (M20): `<lyric>` vóór
+   `<staff>`, of `<dot>` ná `<accidental>` — `mxl validate` faalt;
+   opnieuw producten draaien met actuele tooling / `coria_mxl`.
 
 Als `check` (of `check_mxl_playback_contract`)
 `coria_source_encoding` meldt:
@@ -122,11 +125,6 @@ Of producten opnieuw: `scripts\products.cmd --kinds mscz,mvsa,vsa`
 (voor de betreffende stukken). De `.mxl` moet uit `mscz-products`,
 `mvsa-products` of `vsa-products` komen (of handmatig bij
 `artefacten_handmatig`), niet een ruwe Capella-`.mxl`.
-
-Los daarvan: bijna alle catalogus-`.mvsa.mxl` in een mol-toonsoort
-(`fifths=-1`) falen nog in Coria terwijl `mxl validate` groen is. Dat
-hoort bij een fix in VSA-tooling (MVSA→MusicXML / Coria-normalize), niet
-alleen bij opnieuw producten draaien in deze repo.
 
 ## Rode banner: partituur- of VSA-afgeleiden niet in orde
 
