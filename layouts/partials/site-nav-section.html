@@ -11,7 +11,28 @@
   {{- end }}
 {{- end }}
 {{- $current := or ($page.Eq $sec) ($page.IsDescendant $sec) }}
-{{- if $childSecs }}
+{{- /* Catalogus: geen dropdown van alle zangstukken — alleen startpagina. */ -}}
+{{- if eq $sec.Section "catalogus" -}}
+        <a href="{{ $sec.RelPermalink }}"{{ if $current }} aria-current="page"{{ end }}>{{ partial "display-link-title.html" $sec }}</a>
+{{- /* Overzichten: vaste referentie-ingangen (excl. vsa_nav_exclude-pagina’s zonder link). */ -}}
+{{- else if eq $sec.Section "overzichten" -}}
+  {{- $navPages := slice -}}
+  {{- with site.GetPage "/overzichten/zoeken" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
+  {{- with site.GetPage "/overzichten/alfabetisch" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
+  {{- with site.GetPage "/overzichten/herkomst" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
+  {{- with site.GetPage "/overzichten/speciaal" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
+  {{- with site.GetPage "/overzichten/id-register" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
+        <details class="site-nav-group{{ if $current }} is-current{{ end }}">
+          <summary>{{ partial "display-link-title.html" $sec }}</summary>
+          <div class="site-nav-menu">
+            <a href="{{ $sec.RelPermalink }}"{{ if $page.Eq $sec }} aria-current="page"{{ end }}>Overzicht</a>
+            {{- range $navPages }}
+              {{- $active := or ($page.Eq .) ($page.IsDescendant .) }}
+              <a href="{{ .RelPermalink }}"{{ if $active }} aria-current="page"{{ end }}>{{ partial "display-link-title.html" . }}</a>
+            {{- end }}
+          </div>
+        </details>
+{{- else if $childSecs }}
         <details class="site-nav-group{{ if $current }} is-current{{ end }}">
           <summary>{{ partial "display-link-title.html" $sec }}</summary>
           <div class="site-nav-menu">
