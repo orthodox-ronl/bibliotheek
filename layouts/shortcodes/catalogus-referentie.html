@@ -4,12 +4,12 @@
   kind: alfabetisch | herkomst | per-soort
 
   alfabetisch / per-soort: zangstuk → [variant] → blad
-  herkomst: uitvoeringsvorm-id → zangstuk → [variant] → blad
+  herkomst: herkomst-stam → zangstuk → [variant] → blad
+    (taalsuffix -ksl e.d. is géén aparte herkomst; NL + Ksl van dezelfde
+    variant staan als blaadjes onder elkaar, NL eerst)
 
-  Enige variant ``default``/``standaard``: variant-tak wordt overgeslagen;
-  bladtitel is ``Zangstuk (uitvoeringsvorm)`` zonder «Standaard».
-  Vastgelegd: handleiding Catalogus en koormappen + docs/catalogus-titels.md;
-  guard hieronder faalt bij default naast andere variant-ids.
+  Enige variant ``default``/``standaard``: variant-tak wordt overgeslagen.
+  Guard faalt bij default naast andere variant-ids.
 */ -}}
 {{- $kind := .Get "kind" | default "alfabetisch" -}}
 {{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}
@@ -40,21 +40,29 @@
       {{- $zLabel := partial "catalogus-words-title.html" $z -}}
       {{- $vLabel := partial "catalogus-words-title.html" $v -}}
       {{- $uLabel := partial "catalogus-uv-link-title.html" $u -}}
-      {{- /* Bladtitel: geen «Standaard» bij impliciete default-variant. */ -}}
+      {{- $hStam := printf "%s" (partial "catalogus-herkomst-stam.html" $u) -}}
+      {{- $taalOrd := int (printf "%s" (partial "catalogus-herkomst-taalord.html" $u)) -}}
+      {{- $hLabel := partial "catalogus-uv-link-title.html" $hStam -}}
       {{- $title := "" -}}
       {{- if or (eq $v "default") (eq $v "standaard") -}}
         {{- $title = printf "%s (%s)" $zLabel $uLabel -}}
       {{- else -}}
         {{- $title = partial "display-title.html" . -}}
       {{- end -}}
+      {{- $leafSort := printf "%02d-%s" $taalOrd (lower $title) -}}
       {{- $leaves = $leaves | append (dict
         "page" .
         "id" $id
         "title" $title
         "titleSort" (lower $title)
+        "leafSort" $leafSort
         "z" $z
         "v" $v
         "u" $u
+        "hStam" $hStam
+        "hLabel" $hLabel
+        "hSort" (lower $hLabel)
+        "taalOrd" $taalOrd
         "zLabel" $zLabel
         "vLabel" $vLabel
         "uLabel" $uLabel
@@ -78,17 +86,18 @@
 {{- end -}}
 {{- range $zAll -}}
   {{- $zKey := . -}}
-  {{- $zLeaves := where $leaves "z" $zKey -}}
   {{- $hasDefault := false -}}
   {{- $hasOther := false -}}
   {{- $otherList := slice -}}
-  {{- range $zLeaves -}}
-    {{- if or (eq .v "default") (eq .v "standaard") -}}
-      {{- $hasDefault = true -}}
-    {{- else -}}
-      {{- $hasOther = true -}}
-      {{- if not (in $otherList .v) -}}
-        {{- $otherList = $otherList | append .v -}}
+  {{- range $leaves -}}
+    {{- if eq .z $zKey -}}
+      {{- if or (eq .v "default") (eq .v "standaard") -}}
+        {{- $hasDefault = true -}}
+      {{- else -}}
+        {{- $hasOther = true -}}
+        {{- if not (in $otherList .v) -}}
+          {{- $otherList = $otherList | append .v -}}
+        {{- end -}}
       {{- end -}}
     {{- end -}}
   {{- end -}}
@@ -103,16 +112,21 @@
   {{- $roots := slice -}}
   {{- $seen := slice -}}
   {{- range $leaves -}}
-    {{- if not (in $seen .u) -}}
-      {{- $seen = $seen | append .u -}}
-      {{- $roots = $roots | append (dict "key" .u "label" .uLabel "sort" .uSort) -}}
+    {{- if not (in $seen .hStam) -}}
+      {{- $seen = $seen | append .hStam -}}
+      {{- $roots = $roots | append (dict "key" .hStam "label" .hLabel "sort" .hSort) -}}
     {{- end -}}
   {{- end -}}
   {{- $roots = sort $roots "sort" -}}
 <div class="catalogus-boom">
   {{- range $roots -}}
     {{- $rootKey := .key -}}
-    {{- $rootLeaves := where $leaves "u" $rootKey -}}
+    {{- $rootLeaves := slice -}}
+    {{- range $leaves -}}
+      {{- if eq .hStam $rootKey -}}
+        {{- $rootLeaves = $rootLeaves | append . -}}
+      {{- end -}}
+    {{- end -}}
     {{- $zSeen := slice -}}
     {{- $zNodes := slice -}}
     {{- range $rootLeaves -}}
@@ -127,7 +141,12 @@
   <div class="catalogus-boom-children">
     {{- range $zNodes -}}
       {{- $zKey := .key -}}
-      {{- $zLeaves := where $rootLeaves "z" $zKey -}}
+      {{- $zLeaves := slice -}}
+      {{- range $rootLeaves -}}
+        {{- if eq .z $zKey -}}
+          {{- $zLeaves = $zLeaves | append . -}}
+        {{- end -}}
+      {{- end -}}
 <details class="catalogus-boom-branch">
   <summary>{{ .label }} <span class="catalogus-referentie-count">({{ len $zLeaves }})</span></summary>
   <div class="catalogus-boom-children">
@@ -157,7 +176,12 @@
 <div class="catalogus-boom">
   {{- range $roots -}}
     {{- $rootKey := .key -}}
-    {{- $rootLeaves := where $leaves "z" $rootKey -}}
+    {{- $rootLeaves := slice -}}
+    {{- range $leaves -}}
+      {{- if eq .z $rootKey -}}
+        {{- $rootLeaves = $rootLeaves | append . -}}
+      {{- end -}}
+    {{- end -}}
 <details class="catalogus-boom-branch">
   <summary>{{ .label }} <span class="catalogus-referentie-count">({{ len $rootLeaves }})</span></summary>
   <div class="catalogus-boom-children">

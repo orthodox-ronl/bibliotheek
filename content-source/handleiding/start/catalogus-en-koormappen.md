@@ -33,7 +33,7 @@ van één liturgie. Via het menu **Catalogus** (startpagina
 
 - [Zoeken](/overzichten/zoeken/) — op titel, id of gezongen tekst
 - [Alfabetisch](/overzichten/alfabetisch/) — boom op zangstuk (A–Z)
-- [Per herkomst](/overzichten/herkomst/) — boom op herkomst (Hemelum, Groningen, …)
+- [Per herkomst](/overzichten/herkomst/) — boom op herkomst (Hemelum, Groningen, …); taalsuffix (`-ksl` e.d.) is géén aparte herkomst — NL en Ksl van dezelfde stam staan onder elkaar
 - [Per soort](/overzichten/per-soort/) — boom in liturgische volgorde (ektinia, tropaar, …)
 
 ## Kernregel
@@ -244,7 +244,7 @@ Andere talen krijgen een suffix achter de leaf-naam (`-ksl`, later
 | Situatie | Wat je doet |
 | --- | --- |
 | Nederlands (alleen of naast een andere taal) | Geen taalsuffix: leaf `hemelum` |
-| Zelfde herkomst in **beide** talen | Twee leaves: `hemelum` en `hemelum-ksl` |
+| Zelfde herkomst in **beide** talen | Twee leaves: `hemelum` en `hemelum-ksl` (in het overzicht *Per herkomst* onder dezelfde herkomst-tak, Nederlands eerst) |
 | Alleen kerkslavisch (Cyrillisch) | Suffix `-ksl` op de uitvoeringsvorm-id |
 | Mengvorm NL + kerkslavisch in één partituur | Suffix `-nl-ksl` (zeldzaam) |
 
