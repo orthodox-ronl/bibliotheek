@@ -8,6 +8,8 @@
 
   Enige variant ``default``/``standaard``: variant-tak wordt overgeslagen;
   bladtitel is ``Zangstuk (uitvoeringsvorm)`` zonder «Standaard».
+  Vastgelegd: handleiding Catalogus en koormappen + docs/catalogus-titels.md;
+  guard hieronder faalt bij default naast andere variant-ids.
 */ -}}
 {{- $kind := .Get "kind" | default "alfabetisch" -}}
 {{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}

@@ -93,3 +93,8 @@ scripts\_ensure.cmd --hugo --vsa-tool
 - Taal: geen suffix op uitvoeringsvorm-id = Nederlands; andere talen
  als suffix (`-ksl`, …) — zie handleiding
  [Taalvarianten](content-source/handleiding/start/catalogus-en-koormappen.md)
+- Variant-id `default` (enige variant): in overzichtsbomen **geen**
+  tussen-tak «Standaard»; bladtitel `Zangstuk (uitvoeringsvorm)`. Nooit
+  `default` naast andere variant-ids — zie
+  [Catalogus en koormappen](content-source/handleiding/start/catalogus-en-koormappen.md)
+  en [docs/catalogus-titels.md](docs/catalogus-titels.md)
