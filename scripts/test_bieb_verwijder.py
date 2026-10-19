@@ -76,7 +76,8 @@ def test_verwijder_auto_cleans_register_and_werkvoorraad(
     (root / "content-source" / "koormappen").mkdir(parents=True)
     (root / "docs").mkdir()
 
-    reg = cat_root / "ID-REGISTER.md"
+    reg = root / "content-source" / "overzichten" / "id-register.md"
+    reg.parent.mkdir(parents=True)
     reg.write_text(
         "# Id\n"
         "| a | `demo/var/hemelum` | x |\n"

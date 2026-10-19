@@ -46,7 +46,7 @@ jobs:
           echo "branch=$branch" >> "$GITHUB_OUTPUT"
 
           # Keep in sync with scripts/fingerprint_coria_mxl.py::_pages_subdir
-          reserved='^(preview|main|gh-pages|development|bibliotheek|catalogus|koormappen|handleiding|coria|css|images|js|mxl|vsa|input)$'
+          reserved='^(preview|main|gh-pages|development|bibliotheek|catalogus|overzichten|koormappen|handleiding|coria|css|images|js|mxl|vsa|input)$'
 
           if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
             echo "base_url=https://orthodox-ronl.github.io/bibliotheek/" >> "$GITHUB_OUTPUT"

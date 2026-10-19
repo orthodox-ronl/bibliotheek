@@ -1,10 +1,12 @@
 ---
 title: "Id-register Hemelum"
 linkTitle: "Id-register"
-weight: 9800
+weight: 30
 publicatiestatus: concept
 automatische_inhoud: false
 vsa_nav_exclude: true
+aliases:
+  - /catalogus/id-register/
 ---
 
 # Id-register — liturgiemap Hemelum → catalogus

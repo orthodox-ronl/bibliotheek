@@ -201,7 +201,7 @@ geen voorvoegsel-cijfer meer (`vredeslitanie`, `vragende-litanie-16`,
 - Overzicht-`weight` van genre-/familie-emmers rechtgezet (`tropaar` 750,
   `kondak` 760, kruis-buurt 755/765, `prijslied` 3000).
 - Leesbare `title` / `linkTitle` op een aantal slug-achtige variantpagina’s.
-- Sitezoeken + lyrics-producten (zie [Zoeken](/catalogus/zoeken/)).
+- Sitezoeken + lyrics-producten (zie [Zoeken](/overzichten/zoeken/)).
 - Eerste hernoem-golf: `110-tropaar` → `tropaar`, `120-kondak` → `kondak`.
 - Ektinia-golf: litanie-zangstukken geconsolideerd onder `ektinia`
   (varianten o.a. `vrede`, `eerste-kleine`, `tweede-kleine`, `dringend`,

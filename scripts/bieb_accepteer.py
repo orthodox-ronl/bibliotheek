@@ -609,7 +609,7 @@ Catalogus-id = drie delen met schuine streep, bijvoorbeeld:
   zangstuk / variant / uitvoeringsvorm
 
 Alleen kleine letters, cijfers, - en _. Geen spaties.
-Lijst: content-source\\catalogus\\ID-REGISTER.md
+Lijst: content-source\\overzichten\\id-register.md
   (op de site: Bibliotheek > Id-register)
 
 Geef je bronbestand bij voorkeur al de publicatiestam-naam

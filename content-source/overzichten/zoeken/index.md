@@ -6,6 +6,8 @@ nav_sort: weight
 publicatiestatus: productie
 automatische_inhoud: false
 vsa_nav_exclude: true
+aliases:
+  - /catalogus/zoeken/
 ---
 
 {{< zoek-formulier >}}

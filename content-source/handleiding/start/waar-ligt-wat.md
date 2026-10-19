@@ -13,7 +13,7 @@ weight: 20
 - Koormap: `content-source\koormappen\hemelum\liturgie-zondag\` of
   `liturgie-weekdagen\` — sectie-`_index.md` of slot-`index.md` + `bieb`
   (geen basispartituur-bestanden)
-- Register: `content-source\input\werkvoorraad.md` en [Id-register](/catalogus/id-register/)
+- Register: `content-source\input\werkvoorraad.md` en [Id-register](/overzichten/id-register/)
 - Lifecycle: [Levenscyclus](levenscyclus/) — Werkbank vs Catalogus
 {{< /cue >}}
 
@@ -70,7 +70,7 @@ cijfers, `-` en `_`. Voorbeeld: id `trisagion/8a-nederlands/hemelum` →
 | **Koormap** | Liturgie-pad (bijv. `trisagion/8a-trisagion`) |
 
 Weet je de catalogus-id niet? Laat **Doel-id** leeg en vraag na. Raad
-niet. Lijst: [Id-register](/catalogus/id-register/).
+niet. Lijst: [Id-register](/overzichten/id-register/).
 
 ## Klaar als
 

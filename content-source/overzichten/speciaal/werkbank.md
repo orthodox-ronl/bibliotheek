@@ -4,6 +4,8 @@ linkTitle: "Werkbank"
 weight: 5
 publicatiestatus: concept
 automatische_inhoud: false
+aliases:
+  - /catalogus/speciaal/werkbank/
 ---
 
 **Onder handen werk** voor beheerders: uitvoeringsvormen die nog in de

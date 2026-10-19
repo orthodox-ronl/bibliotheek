@@ -4,6 +4,8 @@ linkTitle: "Voorzien"
 weight: 10
 publicatiestatus: concept
 automatische_inhoud: false
+aliases:
+  - /catalogus/speciaal/voorzien/
 ---
 
 Zangstukken in de catalogus die (nog) **niet** oefenbaar zijn: geen

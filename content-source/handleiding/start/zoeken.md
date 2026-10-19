@@ -7,14 +7,14 @@ nav_sort: weight
 
 Met **Zoeken** vind je een uitvoeringsvorm in de catalogus: op titel, op
 catalogus-id, of op een stukje gezongen tekst. Je opent Zoeken via de knop
-in de site-kop, of via [Catalogus → Zoeken](/catalogus/zoeken/).
+in de site-kop, of via [Overzichten → Zoeken](/overzichten/zoeken/).
 
 Deze pagina legt eerst uit wat een bezoeker mag verwachten. Daarna volgt
 de technische specificatie, zodat je kunt beoordelen of het zoeken nog
 past bij wat jullie nodig hebben.
 
 {{< cue >}}
-- Ingang voor koorleden: knop **Zoeken** in de kop, of `/catalogus/zoeken/`
+- Ingang voor koorleden: knop **Zoeken** in de kop, of `/overzichten/zoeken/`
 - Korte tip: klik op **?** naast de knop Zoeken
 - Indexbestand: `static\zoek\index.json` (bij Pages-deploy opnieuw gebouwd)
 - Synoniemen: [`data/zoek-synoniemen.yaml`](https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml)

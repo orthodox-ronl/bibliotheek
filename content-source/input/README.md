@@ -42,10 +42,10 @@ catalogus: geen spaties, stam = publicatiestam uit de catalogus-id
 **Doel-id** (catalogus-id) en **Koormap** (liturgie-slot). De tabel wordt
 bij `check` / `build` / `serve` opnieuw gevuld. Handmatige **notitie** en
 **doel-id** in een bestaande rij blijven staan. Op de site: special page
-[Werkbank](/catalogus/speciaal/werkbank/) en uitklapbaar onderaan het
+[Werkbank](/overzichten/speciaal/werkbank/) en uitklapbaar onderaan het
 catalogus-overzicht.
 
-**Id-lijst:** [catalogus/ID-REGISTER.md](../catalogus/ID-REGISTER.md).
+**Id-lijst:** [overzichten/id-register.md](../overzichten/id-register.md).
 
 ## Workflow (kort)
 

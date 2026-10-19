@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Print-.mscz (koormap-vel)"
 linkTitle: "Print-.mscz"
 weight: 70
@@ -79,7 +79,7 @@ beheerdersmelding. Afspraak over bestandsnamen per spoor:
    ernaast zetten en bij elke bronwijziging meenemen.
 3. Catalogus-`index.md` met `artefacten_handmatig: true` (bieb accepteer
    zet dat automatisch bij `.print.mscz`) + koormap-slot met `bieb` (zie
-   [Id-register](/catalogus/id-register/)).
+   [Id-register](/overzichten/id-register/)).
 4. `scripts\check.cmd --strict` — partituur- en VSA-publicatiecontrole slaan deze map over.
 
 ## Klaar als
