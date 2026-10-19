@@ -48,7 +48,7 @@ van één liturgie. Via het menu <strong>Catalogus</strong> (startpagina
 ):</p><ul><li><a href=/bibliotheek/preview/overzichten/zoeken/>Zoeken</a>
 — op titel, id of gezongen tekst</li><li><a href=/bibliotheek/preview/overzichten/alfabetisch/>Alfabetisch</a>
 — boom op zangstuk (A–Z)</li><li><a href=/bibliotheek/preview/overzichten/herkomst/>Per herkomst</a>
-— boom op herkomst (Hemelum, Groningen, …)</li><li><a href=/bibliotheek/preview/overzichten/per-soort/>Per soort</a>
+— boom op herkomst (Hemelum, Groningen, …); taalsuffix (<code>-ksl</code> e.d.) is géén aparte herkomst — NL en Ksl van dezelfde stam staan onder elkaar</li><li><a href=/bibliotheek/preview/overzichten/per-soort/>Per soort</a>
 — boom in liturgische volgorde (ektinia, tropaar, …)</li></ul><h2 id=kernregel>Kernregel</h2><p>De bibliotheek is de <strong>bron van waarheid</strong>. Koormappen zijn <strong>views</strong>: ze
 bevatten geen tweede kopie van de basispartituur-bestanden, maar verwijzen met
 <code>bieb</code> naar <code>zangstuk/variant/uitvoeringsvorm</code>.</p><p>Een uitvoeringsvorm mag publiek in de catalogus staan terwijl <strong>geen
@@ -131,7 +131,7 @@ en het
 hoort in het derde padsegment (de leaf-map), niet in een vierde maplaag
 en niet als aparte map per bestandsformaat.</p><p><strong>Regel:</strong> geen taalsuffix op de uitvoeringsvorm-id betekent Nederlands.
 Andere talen krijgen een suffix achter de leaf-naam (<code>-ksl</code>, later
-<code>-en</code>, <code>-fr</code>, …). Gebruik <strong>geen</strong> losse <code>-nl</code>-uitgang.</p><h3 id=wanneer-wel-wanneer-niet>Wanneer wel, wanneer niet</h3><div class=table-scroll><table><thead><tr><th>Situatie</th><th>Wat je doet</th></tr></thead><tbody><tr><td>Nederlands (alleen of naast een andere taal)</td><td>Geen taalsuffix: leaf <code>hemelum</code></td></tr><tr><td>Zelfde herkomst in <strong>beide</strong> talen</td><td>Twee leaves: <code>hemelum</code> en <code>hemelum-ksl</code></td></tr><tr><td>Alleen kerkslavisch (Cyrillisch)</td><td>Suffix <code>-ksl</code> op de uitvoeringsvorm-id</td></tr><tr><td>Mengvorm NL + kerkslavisch in één partituur</td><td>Suffix <code>-nl-ksl</code> (zeldzaam)</td></tr></tbody></table></div><p><strong>Voorkeursconventie</strong> voor nieuw werk: Nederlands zonder suffix; andere
+<code>-en</code>, <code>-fr</code>, …). Gebruik <strong>geen</strong> losse <code>-nl</code>-uitgang.</p><h3 id=wanneer-wel-wanneer-niet>Wanneer wel, wanneer niet</h3><div class=table-scroll><table><thead><tr><th>Situatie</th><th>Wat je doet</th></tr></thead><tbody><tr><td>Nederlands (alleen of naast een andere taal)</td><td>Geen taalsuffix: leaf <code>hemelum</code></td></tr><tr><td>Zelfde herkomst in <strong>beide</strong> talen</td><td>Twee leaves: <code>hemelum</code> en <code>hemelum-ksl</code> (in het overzicht <em>Per herkomst</em> onder dezelfde herkomst-tak, Nederlands eerst)</td></tr><tr><td>Alleen kerkslavisch (Cyrillisch)</td><td>Suffix <code>-ksl</code> op de uitvoeringsvorm-id</td></tr><tr><td>Mengvorm NL + kerkslavisch in één partituur</td><td>Suffix <code>-nl-ksl</code> (zeldzaam)</td></tr></tbody></table></div><p><strong>Voorkeursconventie</strong> voor nieuw werk: Nederlands zonder suffix; andere
 talen via suffix op de <strong>uitvoeringsvorm-id</strong>. Zet de taal <strong>niet</strong> in de
 variant-id.</p><p><strong>Legacy / alternatief:</strong> sommige oudere stukken houden taal in de
 variant, bijvoorbeeld <code>trisagion/8a-nederlands/hemelum</code> naast
