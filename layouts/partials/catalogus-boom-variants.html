@@ -1,0 +1,42 @@
+{{- /*
+  Variant-laag onder een zangstuk (of sla over als enige variant default is).
+
+  Context: dict leaves (slice leaf-dicts met v/vLabel/vSort/titleSort).
+*/ -}}
+{{- $leaves := .leaves -}}
+{{- $vSeen := slice -}}
+{{- $vNodes := slice -}}
+{{- range $leaves -}}
+  {{- if not (in $vSeen .v) -}}
+    {{- $vSeen = $vSeen | append .v -}}
+    {{- $vNodes = $vNodes | append (dict "key" .v "label" .vLabel "sort" .vSort) -}}
+  {{- end -}}
+{{- end -}}
+{{- $vNodes = sort $vNodes "sort" -}}
+{{- $onlyDefault := false -}}
+{{- if eq (len $vNodes) 1 -}}
+  {{- $only := index $vNodes 0 -}}
+  {{- if or (eq $only.key "default") (eq $only.key "standaard") -}}
+    {{- $onlyDefault = true -}}
+  {{- end -}}
+{{- end -}}
+{{- if $onlyDefault -}}
+  {{- $sorted := sort $leaves "titleSort" -}}
+  {{- range $sorted -}}
+    {{- partial "catalogus-boom-leaf.html" . -}}
+  {{- end -}}
+{{- else -}}
+  {{- range $vNodes -}}
+    {{- $vKey := .key -}}
+    {{- $vLeaves := where $leaves "v" $vKey -}}
+    {{- $vLeaves = sort $vLeaves "titleSort" -}}
+<details class="catalogus-boom-branch">
+  <summary>{{ .label }} <span class="catalogus-referentie-count">({{ len $vLeaves }})</span></summary>
+  <div class="catalogus-boom-children">
+    {{- range $vLeaves -}}
+      {{- partial "catalogus-boom-leaf.html" . -}}
+    {{- end -}}
+  </div>
+</details>
+  {{- end -}}
+{{- end -}}
