@@ -26,6 +26,31 @@ _MXL_CONTAINER = """\
 _NOTE_MARKUP = frozenset({"beam", "stem", "notations", "accidental", "notehead"})
 _LAYOUT_ATTR_PREFIXES = ("default-", "relative-")
 _LAYOUT_ATTRS = frozenset({"width", "print-object", "color"})
+# Spiegel VSA-tooling M20: Coria faalt op lyric vóór staff / accidental vóór dot.
+_NOTE_CHILD_ORDER = (
+    "grace",
+    "cue",
+    "chord",
+    "pitch",
+    "rest",
+    "unpitched",
+    "duration",
+    "tie",
+    "instrument",
+    "voice",
+    "type",
+    "dot",
+    "accidental",
+    "time-modification",
+    "stem",
+    "notehead",
+    "staff",
+    "beam",
+    "notations",
+    "lyric",
+    "play",
+)
+_NOTE_CHILD_MULTI = frozenset({"dot", "beam", "notations", "lyric", "tie"})
 _STEPS = "CDEFGAB"
 _SHARP_ORDER = "FCGDAEB"
 _FLAT_ORDER = "BEADGCF"
@@ -138,6 +163,45 @@ def strip_identification_source(root: ET.Element) -> int:
     return 1
 
 
+def canonicalize_note_children(note: ET.Element) -> bool:
+    """Herschik ``<note>``-kinderen (M20 / Coria). Returns True bij wijziging."""
+    kids = list(note)
+    if not kids:
+        return False
+    buckets: dict[str, list[ET.Element]] = {tag: [] for tag in _NOTE_CHILD_ORDER}
+    unknown: list[ET.Element] = []
+    for item in kids:
+        tag = local(item.tag)
+        if tag in buckets:
+            if tag in _NOTE_CHILD_MULTI or not buckets[tag]:
+                buckets[tag].append(item)
+            else:
+                unknown.append(item)
+        else:
+            unknown.append(item)
+    new: list[ET.Element] = []
+    for tag in _NOTE_CHILD_ORDER:
+        new.extend(buckets[tag])
+    new.extend(unknown)
+    old_tags = tuple(local(c.tag) for c in kids)
+    new_tags = tuple(local(c.tag) for c in new)
+    if old_tags == new_tags:
+        return False
+    for item in kids:
+        note.remove(item)
+    for item in new:
+        note.append(item)
+    return True
+
+
+def canonicalize_all_notes(root: ET.Element) -> int:
+    n = 0
+    for el in root.iter():
+        if local(el.tag) == "note" and canonicalize_note_children(el):
+            n += 1
+    return n
+
+
 def sanitize_coria_importer(root: ET.Element) -> None:
     """Strip visuele MusicXML die Coria's vertaler laat crashen."""
     root.set("version", "3.1")
@@ -168,6 +232,7 @@ def sanitize_coria_importer(root: ET.Element) -> None:
             for grand in list(child_el):
                 if local(grand.tag) == "extend":
                     child_el.remove(grand)
+        canonicalize_note_children(el)
     plist = child(root, "part-list")
     if plist is not None:
         for el in list(plist):
@@ -200,11 +265,25 @@ def note_sounding_alter(note: ET.Element) -> int | None:
 
 
 def _insert_accidental(note: ET.Element, name: str) -> None:
+    """Insert ``<accidental>`` na ``<dot>``s (of na ``<type>``) — nooit ertussen."""
     acc = ET.Element("accidental")
     acc.text = name
-    type_el = child(note, "type")
-    if type_el is not None:
-        note.insert(list(note).index(type_el) + 1, acc)
+    kids = list(note)
+    last_dot: ET.Element | None = None
+    type_el: ET.Element | None = None
+    for item in kids:
+        tag = local(item.tag)
+        if tag == "dot":
+            last_dot = item
+        elif tag == "type":
+            type_el = item
+        elif tag == "accidental":
+            note.remove(item)
+    kids = list(note)
+    if last_dot is not None:
+        note.insert(kids.index(last_dot) + 1, acc)
+    elif type_el is not None:
+        note.insert(kids.index(type_el) + 1, acc)
     else:
         note.append(acc)
 
@@ -242,6 +321,7 @@ def apply_playback_accidentals(root: ET.Element) -> int:
                 _insert_accidental(note, name)
                 state[(step, octave)] = sounding
                 n += 1
+    canonicalize_all_notes(root)
     return n
 
 
