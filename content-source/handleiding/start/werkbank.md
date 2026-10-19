@@ -106,7 +106,7 @@ Werktraject: [Opnemen](../werktrajecten/opnemen-in-catalogus/).
 
 - Special page: [Werkbank](/overzichten/speciaal/werkbank/)
 - Uitklapbare tabel: werkvoorraad onderaan het
-  [catalogus-overzicht](/catalogus/)
+  [catalogus-overzicht](/overzichten/)
 
 ## Klaar als
 

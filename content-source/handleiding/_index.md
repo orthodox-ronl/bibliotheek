@@ -11,7 +11,7 @@ klaarzetten in deze bibliotheek. Het einddoel is een pagina waarop koorleden
 kunnen oefenen (of, bij een printvel, een PDF in de koormap).
 
 Koorleden die alleen willen zingen, gebruiken de
-[bibliotheek](/catalogus/) of een [koormap](/koormappen/), niet deze handleiding.
+[bibliotheek](/overzichten/) of een [koormap](/koormappen/), niet deze handleiding.
 
 Je hoeft geen programmeur te zijn. Om het werk uit te voeren heb je drie
 dingen nodig: het programma **MuseScore 4**; de repository-map
