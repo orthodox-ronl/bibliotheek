@@ -104,14 +104,15 @@ mag ze nog als afgeleid artefact zetten.</p><h3 id=afleiding-per-laag>Afleiding 
 <strong>variant-pagina</strong> in de catalogus is de getoonde naam dan <strong>Standaard</strong>.
 Zodra er een tweede variant komt, geef je de map een echte id (hernoemen);
 <code>default</code> mag <strong>niet</strong> naast andere variant-ids onder hetzelfde zangstuk
-blijven staan.</p><p><strong>Overzichtsbomen</strong> (Alfabetisch, Per herkomst, Per soort):</p><ol><li>Is <code>default</code> (of legacy <code>standaard</code>) de <strong>enige</strong> variant onder een
-zangstuk, dan verschijnt die variant-laag <strong>niet</strong> in de boom. Onder
-het zangstuk staan meteen de uitvoeringsvorm-blaadjes.</li><li>De bladtitel in de boom is dan <code>Zangstuk (uitvoeringsvorm)</code> — zonder
-het woord «Standaard» (het id <code>…/default/…</code> blijft in de code zichtbaar).</li><li>Zijn er wél meerdere (niet-default) varianten, dan blijft de
-variant-tak zichtbaar.</li></ol><p>Deze regels gelden voor <strong>alle</strong> huidige en toekomstige zangstukken met
-alleen een default-variant. De sitebuild (<code>catalogus-referentie</code>)
-<strong>faalt</strong> als iemand <code>default</code>/<code>standaard</code> combineert met een andere
-variant onder hetzelfde zangstuk.</p><h3 id=wat-check-wel-en-niet-doet-aan-titels>Wat <code>check</code> wel en niet doet aan titels</h3><p><code>scripts\check.cmd</code> (met <code>--strict</code>: hard) controleert via
+blijven staan.</p><p><strong>Overzichtsbomen</strong> (Alfabetisch, Per herkomst, Per soort) slaan
+<strong>enkelvoudige tussenlagen</strong> over: heeft een tak precies één kind (één
+sub-tak of één blad), dan zie je meteen de inhoud van dat kind — en dat
+herhaalt zich tot er meerdere kinderen zijn of je bij een blad bent.
+Daardoor verdwijnt de variant-laag bij <strong>elke</strong> enige variant (ook als
+die <code>uw-heilig-kruis</code> of <code>hemelum</code> heet, niet alleen bij <code>default</code>).</p><p>Extra bij (enige) <code>default</code>/<code>standaard</code>:</p><ol><li>De bladtitel in de boom is <code>Zangstuk (uitvoeringsvorm)</code> — zonder het
+woord «Standaard» (het id <code>…/default/…</code> blijft in de code zichtbaar).</li><li>De sitebuild (<code>catalogus-referentie</code>) <strong>faalt</strong> als iemand
+<code>default</code>/<code>standaard</code> combineert met een andere variant onder
+hetzelfde zangstuk.</li></ol><h3 id=wat-check-wel-en-niet-doet-aan-titels>Wat <code>check</code> wel en niet doet aan titels</h3><p><code>scripts\check.cmd</code> (met <code>--strict</code>: hard) controleert via
 <code>check_catalogus_leaf_titles</code> dat
 <code>data/uitvoeringsvorm-link-titles.yaml</code> gelijk blijft aan de labels in
 <code>scripts/catalogus.py</code> (Hugo en Python dezelfde namen). Geen eis meer op
