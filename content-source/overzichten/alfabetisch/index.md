@@ -10,11 +10,9 @@ aliases:
   - /catalogus/alfabetisch/
 ---
 
-Alle oefenbare uitvoeringsvormen in de catalogus, op titel van A naar Z.
-Handig als je de naam kent, of wilt bladeren zonder liturgische volgorde.
-
-De koormap blijft de plek voor “wat zingen we in welke volgorde”.
-Deze pagina is een **referentielijst** van wat er in huis is — ook stukken
-die nog in geen koormap staan.
+Oefenbare uitvoeringsvormen als **boom**: eerst zangstuk (A–Z), dan
+variant, dan uitvoeringsvorm. Klap een tak open om verder te bladeren;
+een blad toont een korte samenvatting (eerste tekstregel en/of beluisteren
+als die er zijn).
 
 {{< catalogus-referentie kind="alfabetisch" >}}

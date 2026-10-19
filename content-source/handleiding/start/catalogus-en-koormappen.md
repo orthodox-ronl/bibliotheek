@@ -32,9 +32,9 @@ van één liturgie. Via het menu **Catalogus** (startpagina
 [Catalogus](/overzichten/)):
 
 - [Zoeken](/overzichten/zoeken/) — op titel, id of gezongen tekst
-- [Alfabetisch](/overzichten/alfabetisch/) — alle oefenbare uitvoeringsvormen A–Z
-- [Per herkomst](/overzichten/herkomst/) — groepen zoals Hemelum, Groningen, Liturgikon
-- Op de startpagina: **Per soort** in liturgische volgorde (ektinia, tropaar, …)
+- [Alfabetisch](/overzichten/alfabetisch/) — boom op zangstuk (A–Z)
+- [Per herkomst](/overzichten/herkomst/) — boom op herkomst (Hemelum, Groningen, …)
+- [Per soort](/overzichten/per-soort/) — boom in liturgische volgorde (ektinia, tropaar, …)
 
 ## Kernregel
 
