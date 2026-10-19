@@ -18,9 +18,12 @@ on:
 permissions:
   contents: write
 
+# Eén groep: alle deploys schrijven naar dezelfde gh-pages-branch.
+# cancel-in-progress: false — anders kan een development/branch-push de
+# productie-deploy van main afbreken (gebeurd bij M20 Coria-MXL-merge).
 concurrency:
   group: pages-${{ github.repository }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
