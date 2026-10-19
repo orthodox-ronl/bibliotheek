@@ -449,6 +449,69 @@ code.catalogus-id {
   color: #555;
 }
 
+.catalogus-boom {
+  margin-top: 0.75rem;
+}
+
+.catalogus-boom-branch,
+.catalogus-boom-leaf {
+  margin: 0.2rem 0;
+  border-left: 2px solid #ddd;
+  padding-left: 0.55rem;
+}
+
+.catalogus-boom-branch > summary,
+.catalogus-boom-leaf > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.15rem 0;
+}
+
+.catalogus-boom-branch > summary::-webkit-details-marker,
+.catalogus-boom-leaf > summary::-webkit-details-marker {
+  display: none;
+}
+
+.catalogus-boom-branch > summary::before,
+.catalogus-boom-leaf > summary::before {
+  content: "▸ ";
+  color: #666;
+}
+
+.catalogus-boom-branch[open] > summary::before,
+.catalogus-boom-leaf[open] > summary::before {
+  content: "▾ ";
+}
+
+.catalogus-boom-children {
+  margin: 0.15rem 0 0.35rem 0.35rem;
+}
+
+.catalogus-boom-leaf-title {
+  font-weight: 600;
+}
+
+.catalogus-boom-leaf-body {
+  margin: 0.25rem 0 0.5rem 0.85rem;
+  font-size: 0.95rem;
+}
+
+.catalogus-boom-lyric {
+  font-style: italic;
+  color: #333;
+  margin: 0.35rem 0;
+}
+
+.catalogus-boom-leaf-empty {
+  color: #666;
+  margin: 0.35rem 0;
+}
+
+.catalogus-boom-leaf .catalogus-id {
+  margin-left: 0.35rem;
+  font-weight: normal;
+}
+
 .nav-buttons {
   display: flex;
   flex-wrap: wrap;
