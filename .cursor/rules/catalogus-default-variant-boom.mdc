@@ -1,0 +1,28 @@
+# Variant-id `default` in overzichtsbomen
+
+Bindend voor catalogus-overzichten (Alfabetisch, Per herkomst, Per soort)
+en nieuwe zangstukken met alleen een default-variant.
+
+## Regel
+
+1. **Enige** variant-id `default` (of legacy `standaard`) onder een
+   zangstuk → in de boom **geen** variant-laag tonen; blaadjes direct
+   onder het zangstuk (herkomst-boom: onder zangstuk binnen de
+   uitvoeringsvorm-tak).
+2. Bladtitel in die situatie: `ZangstukLabel (uitvoeringsvorm-label)` —
+   **zonder** «Standaard». Het pad mag wel `…/default/…` blijven.
+3. `default`/`standaard` **naast** een andere variant-id onder hetzelfde
+   zangstuk is **verboden**. De shortcode `catalogus-referentie` moet
+   de build laten falen; niet stil negeren.
+
+## Waar
+
+- Handleiding:
+  `content-source/handleiding/start/catalogus-en-koormappen.md`
+  (§ Variant-id `default`)
+- Contract: `docs/catalogus-titels.md` (§ Overzichtsbomen)
+- Code: `layouts/shortcodes/catalogus-referentie.html`,
+  `layouts/partials/catalogus-boom-variants.html`
+
+Niet wijzigen zonder expliciete beheerder-instructie én update van
+handleiding + `docs/catalogus-titels.md` in dezelfde wijziging.

@@ -38,6 +38,21 @@ Ids blijven uit het **pad**: `zangstuk/variant/uitvoeringsvorm`.
 | Variant (`_index`) | Idem (`default` → Standaard) | Zelfde |
 | Uitvoeringsvorm (leaf) | `uitvoeringsvorm_link_title` | **1)** bron (VSA/mvsa `titel:` / `soort:`); **2)** anders `derived_leaf_title_from_id` |
 
+### Overzichtsbomen (vast)
+
+Shortcode `catalogus-referentie` (Alfabetisch / Per herkomst / Per soort):
+
+- Variant-id `default` of legacy `standaard` als **enige** variant onder
+  een zangstuk: **geen** variant-tak in de boom; blaadjes direct onder
+  het zangstuk (of onder zangstuk binnen een herkomst-tak).
+- Bladtitel in die situatie: `ZangstukLabel (uitvoeringsvorm-label)` —
+  zonder «Standaard».
+- `default`/`standaard` **naast** een andere variant-id onder hetzelfde
+  zangstuk is verboden; de Hugo-build faalt (guard in de shortcode).
+- Leesbare handleiding:
+  [Catalogus en koormappen](../content-source/handleiding/start/catalogus-en-koormappen.md)
+  (§ Variant-id `default`).
+
 Implementatie: `scripts/catalogus.py` (`section_title`, `derived_leaf_*`,
 `title_hint_from_source`).
 
