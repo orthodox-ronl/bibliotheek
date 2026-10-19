@@ -160,13 +160,37 @@ def _lyric_sources_in_dir(leaf_dir: Path) -> list[Path]:
     return out
 
 
+def _plain_source_rank(path: Path) -> int:
+    """Lagere rank = voorkeur voor gezongen tekst (canonieke notatie vóór .mscz).
+
+    Partituur-``.mscz`` heeft vaak foute MusicXML-syllabic; canonieke ``.mvsa`` /
+    ``.vsa`` zijn dan betrouwbaarder voor zoeken. Alleen-``.mscz``-bladermappen
+    blijven via rank 2 bereikbaar.
+    """
+    suf = path.suffix.lower()
+    if suf == ".mvsa":
+        return 0
+    if suf == ".vsa":
+        return 1
+    if suf == ".mscz":
+        return 2
+    return 99
+
+
 def _plain_for_leaf(leaf_dir: Path) -> str:
-    """Langste bruikbare gezongen tekst uit vsa/mvsa/mscz in de bladermap."""
+    """Beste gezongen tekst: eerst canonieke .mvsa/.vsa, anders .mscz; daarbinnen de langste."""
     best = ""
+    best_rank = 99
     for source in _lyric_sources_in_dir(leaf_dir):
+        rank = _plain_source_rank(source)
+        if rank > best_rank:
+            continue
         plain = _plain_for_source(source)
-        if len(plain) > len(best):
+        if not plain:
+            continue
+        if rank < best_rank or len(plain) > len(best):
             best = plain
+            best_rank = rank
     return best
 
 

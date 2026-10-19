@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Tropaar Nikolaas van Myra (Liturgikon)
 
-{{< bieb id="tropaar/nikolaas-van-myra/liturgikon" >}}
+{{< bieb id="tropaar/nikolaas-van-myra-toon-4/liturgikon" >}}

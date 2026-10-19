@@ -44,7 +44,9 @@ Je mag zoeken op:
    en schuine strepen worden als spaties behandeld).
 3. **Gezongen tekst** uit de lyrics-sibling van een `.vsa` / `.mvsa` /
    basis-`.mscz` (of, als die sibling nog ontbreekt, een verse tekst-export
-   tijdens het bouwen van de index).
+   tijdens het bouwen van de index). Staat er naast een partituur ook een
+   canonieke `.vsa` of `.mvsa`, dan wint die notatie — niet de (vaak
+   langere) `.mscz`-lyrics met foute lettergreep-koppeling.
 
 Daarnaast:
 
@@ -89,7 +91,9 @@ Bronnen: elke uitvoeringsvorm-leaf
 `artefacten_handmatig: true` doen **wél** mee in de zoekindex (alleen
 productscripts slaan die over). Gezongen tekst wordt toegevoegd als er in
 die bladermap een canonieke `.vsa`, `.mvsa` of basispartituur-`.mscz` is
-(lyrics-sibling of live `vsa text` / MusicXML).
+(lyrics-sibling of live `vsa text` / MusicXML). Bij meerdere bronnen in
+dezelfde bladermap: eerst `.mvsa`, dan `.vsa`, dan `.mscz`; binnen die
+keuze de langste bruikbare tekst.
 Uitvoer: `static\zoek\index.json` met o.a.:
 
 | Veld | Inhoud |
