@@ -3,8 +3,11 @@
 
   kind: alfabetisch | herkomst | per-soort
 
-  alfabetisch / per-soort: zangstuk → variant → blad
-  herkomst: uitvoeringsvorm-id → zangstuk → variant → blad
+  alfabetisch / per-soort: zangstuk → [variant] → blad
+  herkomst: uitvoeringsvorm-id → zangstuk → [variant] → blad
+
+  Enige variant ``default``/``standaard``: variant-tak wordt overgeslagen;
+  bladtitel is ``Zangstuk (uitvoeringsvorm)`` zonder «Standaard».
 */ -}}
 {{- $kind := .Get "kind" | default "alfabetisch" -}}
 {{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}
@@ -32,10 +35,16 @@
       {{- with site.GetPage (printf "/catalogus/%s" $z) -}}
         {{- $zw = .Weight -}}
       {{- end -}}
-      {{- $title := partial "display-title.html" . -}}
       {{- $zLabel := partial "catalogus-words-title.html" $z -}}
       {{- $vLabel := partial "catalogus-words-title.html" $v -}}
       {{- $uLabel := partial "catalogus-uv-link-title.html" $u -}}
+      {{- /* Bladtitel: geen «Standaard» bij impliciete default-variant. */ -}}
+      {{- $title := "" -}}
+      {{- if or (eq $v "default") (eq $v "standaard") -}}
+        {{- $title = printf "%s (%s)" $zLabel $uLabel -}}
+      {{- else -}}
+        {{- $title = partial "display-title.html" . -}}
+      {{- end -}}
       {{- $leaves = $leaves | append (dict
         "page" .
         "id" $id
@@ -56,10 +65,39 @@
   {{- end -}}
 {{- end -}}
 
+{{- /* Guard: default/standaard mag niet naast andere varianten bestaan. */ -}}
+{{- $zAll := slice -}}
+{{- $zSeenGuard := slice -}}
+{{- range $leaves -}}
+  {{- if not (in $zSeenGuard .z) -}}
+    {{- $zSeenGuard = $zSeenGuard | append .z -}}
+    {{- $zAll = $zAll | append .z -}}
+  {{- end -}}
+{{- end -}}
+{{- range $zAll -}}
+  {{- $zKey := . -}}
+  {{- $zLeaves := where $leaves "z" $zKey -}}
+  {{- $hasDefault := false -}}
+  {{- $hasOther := false -}}
+  {{- $otherList := slice -}}
+  {{- range $zLeaves -}}
+    {{- if or (eq .v "default") (eq .v "standaard") -}}
+      {{- $hasDefault = true -}}
+    {{- else -}}
+      {{- $hasOther = true -}}
+      {{- if not (in $otherList .v) -}}
+        {{- $otherList = $otherList | append .v -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if and $hasDefault $hasOther -}}
+    {{- errorf "%s: zangstuk %q heeft variant default/standaard én andere varianten (%s). Dat mag niet; kies één model. Oplossing: hernoem of consolideer varianten in de catalogus." $loc $zKey (delimit $otherList ", ") -}}
+  {{- end -}}
+{{- end -}}
+
 {{- if not $leaves -}}
 <p>Nog geen oefenbare uitvoeringsvormen in de catalogus.</p>
 {{- else if eq $kind "herkomst" -}}
-  {{- /* Wortel = uitvoeringsvorm-id */ -}}
   {{- $roots := slice -}}
   {{- $seen := slice -}}
   {{- range $leaves -}}
@@ -88,31 +126,10 @@
     {{- range $zNodes -}}
       {{- $zKey := .key -}}
       {{- $zLeaves := where $rootLeaves "z" $zKey -}}
-      {{- $vSeen := slice -}}
-      {{- $vNodes := slice -}}
-      {{- range $zLeaves -}}
-        {{- if not (in $vSeen .v) -}}
-          {{- $vSeen = $vSeen | append .v -}}
-          {{- $vNodes = $vNodes | append (dict "key" .v "label" .vLabel "sort" .vSort) -}}
-        {{- end -}}
-      {{- end -}}
-      {{- $vNodes = sort $vNodes "sort" -}}
 <details class="catalogus-boom-branch">
   <summary>{{ .label }} <span class="catalogus-referentie-count">({{ len $zLeaves }})</span></summary>
   <div class="catalogus-boom-children">
-      {{- range $vNodes -}}
-        {{- $vKey := .key -}}
-        {{- $vLeaves := where $zLeaves "v" $vKey -}}
-        {{- $vLeaves = sort $vLeaves "titleSort" -}}
-<details class="catalogus-boom-branch">
-  <summary>{{ .label }} <span class="catalogus-referentie-count">({{ len $vLeaves }})</span></summary>
-  <div class="catalogus-boom-children">
-        {{- range $vLeaves -}}
-          {{- partial "catalogus-boom-leaf.html" . -}}
-        {{- end -}}
-  </div>
-</details>
-      {{- end -}}
+      {{- partial "catalogus-boom-variants.html" (dict "leaves" $zLeaves) -}}
   </div>
 </details>
     {{- end -}}
@@ -122,7 +139,6 @@
 </div>
 
 {{- else -}}
-  {{- /* Wortel = zangstuk (alfabetisch A–Z of per-soort op Weight) */ -}}
   {{- $roots := slice -}}
   {{- $seen := slice -}}
   {{- range $leaves -}}
@@ -140,31 +156,10 @@
   {{- range $roots -}}
     {{- $rootKey := .key -}}
     {{- $rootLeaves := where $leaves "z" $rootKey -}}
-    {{- $vSeen := slice -}}
-    {{- $vNodes := slice -}}
-    {{- range $rootLeaves -}}
-      {{- if not (in $vSeen .v) -}}
-        {{- $vSeen = $vSeen | append .v -}}
-        {{- $vNodes = $vNodes | append (dict "key" .v "label" .vLabel "sort" .vSort) -}}
-      {{- end -}}
-    {{- end -}}
-    {{- $vNodes = sort $vNodes "sort" -}}
 <details class="catalogus-boom-branch">
   <summary>{{ .label }} <span class="catalogus-referentie-count">({{ len $rootLeaves }})</span></summary>
   <div class="catalogus-boom-children">
-    {{- range $vNodes -}}
-      {{- $vKey := .key -}}
-      {{- $vLeaves := where $rootLeaves "v" $vKey -}}
-      {{- $vLeaves = sort $vLeaves "titleSort" -}}
-<details class="catalogus-boom-branch">
-  <summary>{{ .label }} <span class="catalogus-referentie-count">({{ len $vLeaves }})</span></summary>
-  <div class="catalogus-boom-children">
-      {{- range $vLeaves -}}
-        {{- partial "catalogus-boom-leaf.html" . -}}
-      {{- end -}}
-  </div>
-</details>
-    {{- end -}}
+    {{- partial "catalogus-boom-variants.html" (dict "leaves" $rootLeaves) -}}
   </div>
 </details>
   {{- end -}}
