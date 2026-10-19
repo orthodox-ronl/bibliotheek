@@ -42,11 +42,12 @@ Ids blijven uit het **pad**: `zangstuk/variant/uitvoeringsvorm`.
 
 Shortcode `catalogus-referentie` (Alfabetisch / Per herkomst / Per soort):
 
-- Variant-id `default` of legacy `standaard` als **enige** variant onder
-  een zangstuk: **geen** variant-tak in de boom; blaadjes direct onder
-  het zangstuk (of onder zangstuk binnen een herkomst-tak).
-- Bladtitel in die situatie: `ZangstukLabel (uitvoeringsvorm-label)` —
-  zonder «Standaard».
+- **Single-child:** een tak met precies één kind (sub-tak of blad) toont
+  meteen de inhoud van dat kind, recursief — geen tussen-
+  `<details class="catalogus-boom-branch">`. Daardoor verdwijnt o.a. de
+  variant-laag bij elke enige variant (niet alleen bij `default`).
+- Bladtitel bij (enige) variant-id `default`/`standaard`:
+  `ZangstukLabel (uitvoeringsvorm-label)` — zonder «Standaard».
 - `default`/`standaard` **naast** een andere variant-id onder hetzelfde
   zangstuk is verboden; de Hugo-build faalt (guard in de shortcode).
 - **Per herkomst:** taalsuffix op de uitvoeringsvorm-id (`-ksl`,
@@ -56,6 +57,7 @@ Shortcode `catalogus-referentie` (Alfabetisch / Per herkomst / Per soort):
 - Leesbare handleiding:
   [Catalogus en koormappen](../content-source/handleiding/start/catalogus-en-koormappen.md)
   (§ Variant-id `default`, § Taalvarianten).
+
 
 Implementatie: `scripts/catalogus.py` (`section_title`, `derived_leaf_*`,
 `title_hint_from_source`).

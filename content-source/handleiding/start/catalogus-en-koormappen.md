@@ -165,20 +165,21 @@ Zodra er een tweede variant komt, geef je de map een echte id (hernoemen);
 `default` mag **niet** naast andere variant-ids onder hetzelfde zangstuk
 blijven staan.
 
-**Overzichtsbomen** (Alfabetisch, Per herkomst, Per soort):
+**Overzichtsbomen** (Alfabetisch, Per herkomst, Per soort) slaan
+**enkelvoudige tussenlagen** over: heeft een tak precies één kind (één
+sub-tak of één blad), dan zie je meteen de inhoud van dat kind — en dat
+herhaalt zich tot er meerdere kinderen zijn of je bij een blad bent.
+Daardoor verdwijnt de variant-laag bij **elke** enige variant (ook als
+die `uw-heilig-kruis` of `hemelum` heet, niet alleen bij `default`).
 
-1. Is `default` (of legacy `standaard`) de **enige** variant onder een
-   zangstuk, dan verschijnt die variant-laag **niet** in de boom. Onder
-   het zangstuk staan meteen de uitvoeringsvorm-blaadjes.
-2. De bladtitel in de boom is dan `Zangstuk (uitvoeringsvorm)` — zonder
-   het woord «Standaard» (het id `…/default/…` blijft in de code zichtbaar).
-3. Zijn er wél meerdere (niet-default) varianten, dan blijft de
-   variant-tak zichtbaar.
+Extra bij (enige) `default`/`standaard`:
 
-Deze regels gelden voor **alle** huidige en toekomstige zangstukken met
-alleen een default-variant. De sitebuild (`catalogus-referentie`)
-**faalt** als iemand `default`/`standaard` combineert met een andere
-variant onder hetzelfde zangstuk.
+1. De bladtitel in de boom is `Zangstuk (uitvoeringsvorm)` — zonder het
+   woord «Standaard» (het id `…/default/…` blijft in de code zichtbaar).
+2. De sitebuild (`catalogus-referentie`) **faalt** als iemand
+   `default`/`standaard` combineert met een andere variant onder
+   hetzelfde zangstuk.
+
 
 ### Wat `check` wel en niet doet aan titels
 

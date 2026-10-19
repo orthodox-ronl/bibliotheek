@@ -8,8 +8,9 @@
     (taalsuffix -ksl e.d. is géén aparte herkomst; NL + Ksl van dezelfde
     variant staan als blaadjes onder elkaar, NL eerst)
 
-  Enige variant ``default``/``standaard``: variant-tak wordt overgeslagen.
-  Guard faalt bij default naast andere variant-ids.
+  Single-child: enige tussen-tak (elke variant-id) wordt overgeslagen;
+  zie catalogus-boom-nodes.html. Guard faalt bij default naast andere
+  variant-ids. Bladtitel zonder «Standaard» bij default-variant: hieronder.
 */ -}}
 {{- $kind := .Get "kind" | default "alfabetisch" -}}
 {{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}

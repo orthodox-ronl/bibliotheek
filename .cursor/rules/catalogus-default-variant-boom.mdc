@@ -1,16 +1,26 @@
-# Variant-id `default` in overzichtsbomen
+# Variant-id `default` en overzichtsbomen
 
 Bindend voor catalogus-overzichten (Alfabetisch, Per herkomst, Per soort)
 en nieuwe zangstukken met alleen een default-variant.
 
-## Regel
+## Boomstructuur (single-child)
 
-1. **Enige** variant-id `default` (of legacy `standaard`) onder een
-   zangstuk → in de boom **geen** variant-laag tonen; blaadjes direct
-   onder het zangstuk (herkomst-boom: onder zangstuk binnen de
-   uitvoeringsvorm-tak).
-2. Bladtitel in die situatie: `ZangstukLabel (uitvoeringsvorm-label)` —
-   **zonder** «Standaard». Het pad mag wel `…/default/…` blijven.
+Overzichtsbomen slaan **enkelvoudige tussenlagen** over: een tak met
+precies één kind (sub-tak of blad) toont meteen de inhoud van dat kind,
+recursief. Daardoor verdwijnt o.a. de variant-laag als er maar één
+variant is — **ongeacht** of die `default` heet of een echte id
+(`uw-heilig-kruis`, …).
+
+Implementatie: `layouts/partials/catalogus-boom-nodes.html`
+(aangeroepen via `catalogus-boom-variants.html`).
+
+## Wat wél specifiek bij `default` blijft
+
+1. Mapnaam mag `default` zijn; op de **variant-pagina** is de titel
+   **Standaard**.
+2. Bladtitel in de boom bij (enige) default-variant:
+   `ZangstukLabel (uitvoeringsvorm-label)` — **zonder** «Standaard».
+   Het pad mag `…/default/…` blijven.
 3. `default`/`standaard` **naast** een andere variant-id onder hetzelfde
    zangstuk is **verboden**. De shortcode `catalogus-referentie` moet
    de build laten falen; niet stil negeren.
@@ -19,9 +29,10 @@ en nieuwe zangstukken met alleen een default-variant.
 
 - Handleiding:
   `content-source/handleiding/start/catalogus-en-koormappen.md`
-  (§ Variant-id `default`)
+  (§ Variant-id `default`, overzichtsbomen)
 - Contract: `docs/catalogus-titels.md` (§ Overzichtsbomen)
 - Code: `layouts/shortcodes/catalogus-referentie.html`,
+  `layouts/partials/catalogus-boom-nodes.html`,
   `layouts/partials/catalogus-boom-variants.html`
 
 Niet wijzigen zonder expliciete beheerder-instructie én update van
