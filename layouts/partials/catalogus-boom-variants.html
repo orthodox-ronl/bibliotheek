@@ -1,9 +1,9 @@
 {{- /*
-  Variant-laag onder een zangstuk (of sla over als enige variant default is).
+  Variant-laag onder een zangstuk → nodes voor catalogus-boom-nodes.
 
-  Afspraak (vast): enige variant-id ``default``/``standaard`` → geen
-  tussen-tak in de boom. Zie handleiding Catalogus en koormappen
-  (§ Variant-id default) en docs/catalogus-titels.md.
+  Enige variant (elke id, dus ook default) wordt door single-child
+  inklappen weggelaten; zie catalogus-boom-nodes.html.
+  Guard default+andere blijft in catalogus-referentie.
 
   Context: dict leaves (slice leaf-dicts met v/vLabel/vSort/leafSort).
 */ -}}
@@ -17,36 +17,25 @@
   {{- end -}}
 {{- end -}}
 {{- $vNodes = sort $vNodes "sort" -}}
-{{- $onlyDefault := false -}}
-{{- if eq (len $vNodes) 1 -}}
-  {{- $only := index $vNodes 0 -}}
-  {{- if or (eq $only.key "default") (eq $only.key "standaard") -}}
-    {{- $onlyDefault = true -}}
-  {{- end -}}
-{{- end -}}
-{{- /* Bladeren: Nederlands (taalOrd 0) vóór Ksl e.d., daarna titel. */ -}}
-{{- if $onlyDefault -}}
-  {{- $sorted := sort $leaves "leafSort" -}}
-  {{- range $sorted -}}
-    {{- partial "catalogus-boom-leaf.html" . -}}
-  {{- end -}}
-{{- else -}}
-  {{- range $vNodes -}}
-    {{- $vKey := .key -}}
-    {{- $vLeaves := slice -}}
-    {{- range $leaves -}}
-      {{- if eq .v $vKey -}}
-        {{- $vLeaves = $vLeaves | append . -}}
-      {{- end -}}
+{{- $nodes := slice -}}
+{{- range $vNodes -}}
+  {{- $vKey := .key -}}
+  {{- $vLeaves := slice -}}
+  {{- range $leaves -}}
+    {{- if eq .v $vKey -}}
+      {{- $vLeaves = $vLeaves | append . -}}
     {{- end -}}
-    {{- $vLeaves = sort $vLeaves "leafSort" -}}
-<details class="catalogus-boom-branch">
-  <summary>{{ .label }} <span class="catalogus-referentie-count">({{ len $vLeaves }})</span></summary>
-  <div class="catalogus-boom-children">
-    {{- range $vLeaves -}}
-      {{- partial "catalogus-boom-leaf.html" . -}}
-    {{- end -}}
-  </div>
-</details>
   {{- end -}}
+  {{- $vLeaves = sort $vLeaves "leafSort" -}}
+  {{- $children := slice -}}
+  {{- range $vLeaves -}}
+    {{- $children = $children | append (dict "kind" "leaf" "leaf" .) -}}
+  {{- end -}}
+  {{- $nodes = $nodes | append (dict
+    "kind" "branch"
+    "label" .label
+    "children" $children
+    "leafCount" (len $vLeaves)
+  ) -}}
 {{- end -}}
+{{- partial "catalogus-boom-nodes.html" (dict "nodes" $nodes) -}}
