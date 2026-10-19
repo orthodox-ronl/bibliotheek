@@ -438,8 +438,15 @@ code.catalogus-id {
 }
 
 .catalogus-overzicht,
-.catalogus-special {
+.catalogus-special,
+.catalogus-referentie {
   margin-top: 0.75rem;
+}
+
+.catalogus-referentie-count {
+  font-weight: normal;
+  font-size: 0.9em;
+  color: #555;
 }
 
 .nav-buttons {

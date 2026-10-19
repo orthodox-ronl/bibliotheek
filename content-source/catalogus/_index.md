@@ -9,14 +9,24 @@ cascade:
   type: oefenhoek
 ---
 
-De catalogus bevat alles wat hier digitaal beschikbaar is:
-zangstukken → varianten → uitvoeringsvormen.
+De catalogus is het **repertorium**: alles wat hier digitaal beschikbaar is
+(zangstuk → variant → uitvoeringsvorm). Een stuk mag hier staan zonder
+koormap; de koormap is de geordende view voor een dienst of thema.
 
-[Zoeken](/overzichten/zoeken/) — op titel, id of gezongen tekst.
+{{< navbuttons
+  "Zoeken|/overzichten/zoeken/"
+  "Alfabetisch|/overzichten/alfabetisch/"
+  "Per herkomst|/overzichten/herkomst/"
+>}}
 
-Deze pagina is gericht op wie pagina's of koormappen maakt.
-Voorbeeld: de [liturgiemap Hemelum — zondag](/koormappen/hemelum/liturgie-zondag/)
-(of [weekdagen](/koormappen/hemelum/liturgie-weekdagen/)).
+Voor de volgorde in de liturgie: zie de koormappen, bijvoorbeeld
+[liturgiemap Hemelum — zondag](/koormappen/hemelum/liturgie-zondag/)
+of [weekdagen](/koormappen/hemelum/liturgie-weekdagen/).
+
+## Per soort (liturgische volgorde)
+
+Onderstaande soorten staan in de volgorde van de liturgie (via `weight`).
+Klik door naar varianten en uitvoeringsvormen.
 
 {{< catalogus-overzicht >}}
 
@@ -27,5 +37,6 @@ Voorbeeld: de [liturgiemap Hemelum — zondag](/koormappen/hemelum/liturgie-zond
 - [Ongerefereerd](/overzichten/speciaal/ongerefereerd/) — in de catalogus, nog niet in een koormap
 - [Alle oefenbare uitvoeringsvormen](/overzichten/speciaal/oefenbaar/) — platte lijst met id
 - [Id-register](/overzichten/id-register/) — id’s voor beheerders (niet voor koorleden)
-- Overzichten: [Speciaal](/overzichten/speciaal/)
-- Handleiding: [Levenscyclus](/handleiding/start/levenscyclus/)
+- Overzichten: [Speciaal](/overzichten/speciaal/), [Alfabetisch](/overzichten/alfabetisch/), [Per herkomst](/overzichten/herkomst/)
+- Handleiding: [Catalogus en koormappen](/handleiding/start/catalogus-en-koormappen/),
+  [Levenscyclus](/handleiding/start/levenscyclus/)

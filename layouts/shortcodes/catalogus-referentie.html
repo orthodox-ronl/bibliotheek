@@ -1,0 +1,84 @@
+{{- /*
+  Referentie-overzichten over de catalogus (build-time).
+
+  kind: alfabetisch | herkomst
+*/ -}}
+{{- $kind := .Get "kind" | default "alfabetisch" -}}
+{{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}
+{{- $bib := site.GetPage "/catalogus" -}}
+{{- if not $bib -}}
+  {{- errorf "%s: shortcode catalogus-referentie: sectie catalogus ontbreekt. Oplossing: controleer of content-source/catalogus bestaat." $loc -}}
+{{- end -}}
+{{- $prefix := "catalogus/" -}}
+
+{{- $rows := slice -}}
+{{- range $bib.RegularPagesRecursive -}}
+  {{- $dir := "" -}}
+  {{- with .File -}}{{- $dir = strings.TrimSuffix "/" (replace .Dir "\\" "/") -}}{{- end -}}
+  {{- if $dir -}}
+    {{- $id := strings.TrimPrefix $prefix $dir -}}
+    {{- if and (ne $id $dir) (eq (len (split $id "/")) 3) -}}
+      {{- if partial "oefenhoek-linkbaar.html" . -}}
+        {{- $title := partial "display-title.html" . -}}
+        {{- $uv := index (split $id "/") 2 -}}
+        {{- $rows = $rows | append (dict "page" . "id" $id "title" $title "sort" (lower $title) "uv" $uv) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if eq $kind "alfabetisch" -}}
+  {{- $rows = sort $rows "sort" -}}
+  {{- if $rows -}}
+<ul class="page-list catalogus-referentie">
+  {{- range $rows -}}
+  <li>
+    <a href="{{ .page.RelPermalink }}">{{ .title }}</a>
+    <code class="catalogus-id">{{ .id }}</code>
+  </li>
+  {{- end -}}
+</ul>
+  {{- else -}}
+<p>Nog geen oefenbare uitvoeringsvormen in de catalogus.</p>
+  {{- end -}}
+
+{{- else if eq $kind "herkomst" -}}
+  {{- $uvKeys := slice -}}
+  {{- range $rows -}}
+    {{- if not (in $uvKeys .uv) -}}
+      {{- $uvKeys = $uvKeys | append .uv -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $groups := slice -}}
+  {{- range $uvKeys -}}
+    {{- $label := partial "catalogus-uv-link-title.html" . -}}
+    {{- $groups = $groups | append (dict "uv" . "label" $label "sort" (lower $label)) -}}
+  {{- end -}}
+  {{- $groups = sort $groups "sort" -}}
+  {{- if $groups -}}
+    {{- range $groups -}}
+      {{- $uv := .uv -}}
+      {{- $items := slice -}}
+      {{- range $rows -}}
+        {{- if eq .uv $uv -}}
+          {{- $items = $items | append . -}}
+        {{- end -}}
+      {{- end -}}
+      {{- $items = sort $items "sort" -}}
+<h2>{{ .label }} <span class="catalogus-referentie-count">({{ len $items }})</span></h2>
+<ul class="page-list catalogus-referentie">
+      {{- range $items -}}
+  <li>
+    <a href="{{ .page.RelPermalink }}">{{ .title }}</a>
+    <code class="catalogus-id">{{ .id }}</code>
+  </li>
+      {{- end -}}
+</ul>
+    {{- end -}}
+  {{- else -}}
+<p>Nog geen oefenbare uitvoeringsvormen in de catalogus.</p>
+  {{- end -}}
+
+{{- else -}}
+  {{- errorf "%s: shortcode catalogus-referentie: onbekend kind %q. Oplossing: gebruik kind=\"alfabetisch\" of \"herkomst\"." $loc $kind -}}
+{{- end -}}

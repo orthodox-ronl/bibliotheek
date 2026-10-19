@@ -21,9 +21,20 @@ publicatie, ids en navigatie niet door elkaar lopen.
 
 | Wie | Vraag | Ingang |
 | --- | --- | --- |
-| Beheerder | Wat hebben we? Welk id gebruik ik? | [Bibliotheek](/catalogus/), [Id-register](/overzichten/id-register/), special pages |
+| Beheerder | Wat hebben we? Welk id gebruik ik? | [Catalogus](/catalogus/), [Id-register](/overzichten/id-register/), [Overzichten](/overzichten/) |
 | Koor (in situ) | Wat zingen we in welke volgorde? | Koormap, nu vooral [liturgie zondag](/koormappen/hemelum/liturgie-zondag/) / [weekdagen](/koormappen/hemelum/liturgie-weekdagen/) |
-| Individueel koorlid | Wat moet / wil ik oefenen? | Koormap *of* bibliotheek (ook stukken die nog in geen map zitten) |
+| Individueel koorlid | Wat moet / wil ik oefenen? | Koormap *of* catalogus (ook stukken die nog in geen map zitten) |
+
+### Catalogus bladeren (referentie)
+
+De catalogus is bedoeld als **repertorium**, niet alleen als inhoudsopgave
+van één liturgie. Via [Overzichten](/overzichten/) (of de knoppen op de
+[catalogus-startpagina](/catalogus/)):
+
+- [Zoeken](/overzichten/zoeken/) — op titel, id of gezongen tekst
+- [Alfabetisch](/overzichten/alfabetisch/) — alle oefenbare uitvoeringsvormen A–Z
+- [Per herkomst](/overzichten/herkomst/) — groepen zoals Hemelum, Groningen, Liturgikon
+- Op de catalogus-startpagina: **Per soort** in liturgische volgorde (ektinia, tropaar, …)
 
 ## Kernregel
 

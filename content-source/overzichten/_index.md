@@ -13,6 +13,8 @@ bevat alleen zangstukken → varianten → uitvoeringsvormen.
 | Pagina | Inhoud |
 | --- | --- |
 | [Zoeken](zoeken/) | Op titel, id of gezongen tekst |
+| [Alfabetisch](alfabetisch/) | Alle oefenbare uitvoeringsvormen A–Z |
+| [Per herkomst](herkomst/) | Gegroepeerd op herkomst (Hemelum, Groningen, …) |
 | [Speciaal](speciaal/) | Werkbank, voorzien, ongerefereerd, oefenbaar, handmatig |
 | [Id-register](id-register/) | Id’s voor beheerders (niet voor koorleden) |
 
