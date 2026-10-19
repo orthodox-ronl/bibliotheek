@@ -7,12 +7,15 @@ en nieuwe zangstukken met alleen een default-variant.
 
 Overzichtsbomen slaan **enkelvoudige tussenlagen** over: een tak met
 precies één kind (sub-tak of blad) toont meteen de inhoud van dat kind,
-recursief. Daardoor verdwijnt o.a. de variant-laag als er maar één
-variant is — **ongeacht** of die `default` heet of een echte id
-(`uw-heilig-kruis`, …).
+recursief. Daardoor verdwijnen o.a. enige zangstuk-takken onder een
+herkomst-stam en de variant-laag bij één variant — **ongeacht** of die
+`default` heet of een echte id.
+
+**Uitzondering:** het topniveau van het overzicht (herkomst-stam of
+zangstuk-root) blijft altijd een uitklap-tak.
 
 Implementatie: `layouts/partials/catalogus-boom-nodes.html`
-(aangeroepen via `catalogus-boom-variants.html`).
+(+ `catalogus-boom-build-variants.html` / shortcode `catalogus-referentie`).
 
 ## Wat wél specifiek bij `default` blijft
 

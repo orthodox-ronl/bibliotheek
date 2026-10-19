@@ -8,9 +8,11 @@
     (taalsuffix -ksl e.d. is géén aparte herkomst; NL + Ksl van dezelfde
     variant staan als blaadjes onder elkaar, NL eerst)
 
-  Single-child: enige tussen-tak (elke variant-id) wordt overgeslagen;
-  zie catalogus-boom-nodes.html. Guard faalt bij default naast andere
-  variant-ids. Bladtitel zonder «Standaard» bij default-variant: hieronder.
+  Single-child: enige tussen-tak wordt overgeslagen (recursief), behalve
+  het topniveau van het overzicht (herkomst-stam / zangstuk) — die blijft
+  altijd zichtbaar. Zie catalogus-boom-nodes.html.
+  Guard faalt bij default naast andere variant-ids. Bladtitel zonder
+  «Standaard» bij default-variant: hieronder.
 */ -}}
 {{- $kind := .Get "kind" | default "alfabetisch" -}}
 {{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}
@@ -137,9 +139,7 @@
       {{- end -}}
     {{- end -}}
     {{- $zNodes = sort $zNodes "sort" -}}
-<details class="catalogus-boom-branch">
-  <summary>{{ .label }} <span class="catalogus-referentie-count">({{ len $rootLeaves }})</span></summary>
-  <div class="catalogus-boom-children">
+    {{- $childNodes := slice -}}
     {{- range $zNodes -}}
       {{- $zKey := .key -}}
       {{- $zLeaves := slice -}}
@@ -148,13 +148,18 @@
           {{- $zLeaves = $zLeaves | append . -}}
         {{- end -}}
       {{- end -}}
-<details class="catalogus-boom-branch">
-  <summary>{{ .label }} <span class="catalogus-referentie-count">({{ len $zLeaves }})</span></summary>
-  <div class="catalogus-boom-children">
-      {{- partial "catalogus-boom-variants.html" (dict "leaves" $zLeaves) -}}
-  </div>
-</details>
+      {{- $vChildren := partial "catalogus-boom-build-variants.html" $zLeaves -}}
+      {{- $childNodes = $childNodes | append (dict
+        "kind" "branch"
+        "label" .label
+        "children" $vChildren
+        "leafCount" (len $zLeaves)
+      ) -}}
     {{- end -}}
+<details class="catalogus-boom-branch">
+  <summary>{{ .label }} <span class="catalogus-referentie-count">({{ len $rootLeaves }})</span></summary>
+  <div class="catalogus-boom-children">
+    {{- partial "catalogus-boom-nodes.html" (dict "nodes" $childNodes) -}}
   </div>
 </details>
   {{- end -}}

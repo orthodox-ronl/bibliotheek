@@ -44,8 +44,10 @@ Shortcode `catalogus-referentie` (Alfabetisch / Per herkomst / Per soort):
 
 - **Single-child:** een tak met precies één kind (sub-tak of blad) toont
   meteen de inhoud van dat kind, recursief — geen tussen-
-  `<details class="catalogus-boom-branch">`. Daardoor verdwijnt o.a. de
-  variant-laag bij elke enige variant (niet alleen bij `default`).
+  `<details class="catalogus-boom-branch">`. Uitgezonderd: het
+  **topniveau** van het overzicht (herkomst-stam of zangstuk) blijft
+  altijd zichtbaar. Daaronder verdwijnen o.a. enige zangstuk-takken
+  onder een herkomst en elke enige variant-laag.
 - Bladtitel bij (enige) variant-id `default`/`standaard`:
   `ZangstukLabel (uitvoeringsvorm-label)` — zonder «Standaard».
 - `default`/`standaard` **naast** een andere variant-id onder hetzelfde

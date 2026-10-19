@@ -169,8 +169,14 @@ blijven staan.
 **enkelvoudige tussenlagen** over: heeft een tak precies één kind (één
 sub-tak of één blad), dan zie je meteen de inhoud van dat kind — en dat
 herhaalt zich tot er meerdere kinderen zijn of je bij een blad bent.
-Daardoor verdwijnt de variant-laag bij **elke** enige variant (ook als
-die `uw-heilig-kruis` of `hemelum` heet, niet alleen bij `default`).
+Het **bovenste niveau** van het overzicht blijft wél altijd staan
+(herkomst-stam zoals Groningen, of het zangstuk op Alfabetisch /
+Per soort). Voorbeeld: onder Rode Gebedenboek met alleen één tropaar
+zie je `Rode Gebedenboek` → blad, niet eerst nog een tak «Tropaar».
+Onder Groningen verdwijnen zangstuk-takken met maar één blad (zoals
+soms Communievers); het blad staat dan direct onder Groningen.
+Ook de variant-laag verdwijnt bij **elke** enige variant (niet alleen
+bij `default`).
 
 Extra bij (enige) `default`/`standaard`:
 
