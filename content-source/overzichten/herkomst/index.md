@@ -10,8 +10,9 @@ aliases:
   - /catalogus/herkomst/
 ---
 
-Uitvoeringsvormen gegroepeerd op herkomst (bijvoorbeeld Hemelum, Groningen,
-Liturgikon). Zo zie je in één oogopslag wat er van een bepaalde bron in de
-catalogus staat — ook als het nog niet in een koormap zit.
+Oefenbare uitvoeringsvormen als **boom op herkomst**: eerst uitvoeringsvorm
+(Asten, Groningen, Hemelum, …), dan zangstuk, dan variant, dan blad.
+Klap een tak open om verder te bladeren; een blad toont een korte
+samenvatting (eerste tekstregel en/of beluisteren als die er zijn).
 
 {{< catalogus-referentie kind="herkomst" >}}

@@ -19,12 +19,13 @@
   {{- with site.GetPage "/overzichten/zoeken" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
   {{- with site.GetPage "/overzichten/alfabetisch" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
   {{- with site.GetPage "/overzichten/herkomst" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
+  {{- with site.GetPage "/overzichten/per-soort" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
   {{- with site.GetPage "/overzichten/speciaal" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
   {{- with site.GetPage "/overzichten/id-register" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
         <details class="site-nav-group{{ if $current }} is-current{{ end }}">
           <summary>{{ partial "display-link-title.html" $sec }}</summary>
           <div class="site-nav-menu">
-            <a href="{{ $sec.RelPermalink }}"{{ if $page.Eq $sec }} aria-current="page"{{ end }}>Per soort</a>
+            <a href="{{ $sec.RelPermalink }}"{{ if $page.Eq $sec }} aria-current="page"{{ end }}>Overzicht</a>
             {{- range $navPages }}
               {{- $active := or ($page.Eq .) ($page.IsDescendant .) }}
               <a href="{{ .RelPermalink }}"{{ if $active }} aria-current="page"{{ end }}>{{ partial "display-link-title.html" . }}</a>

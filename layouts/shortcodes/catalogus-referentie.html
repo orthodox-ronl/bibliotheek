@@ -1,7 +1,10 @@
 {{- /*
-  Referentie-overzichten over de catalogus (build-time).
+  Boom-overzichten over de catalogus (build-time).
 
-  kind: alfabetisch | herkomst
+  kind: alfabetisch | herkomst | per-soort
+
+  alfabetisch / per-soort: zangstuk → variant → blad
+  herkomst: uitvoeringsvorm-id → zangstuk → variant → blad
 */ -}}
 {{- $kind := .Get "kind" | default "alfabetisch" -}}
 {{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}
@@ -9,76 +12,161 @@
 {{- if not $bib -}}
   {{- errorf "%s: shortcode catalogus-referentie: sectie catalogus ontbreekt. Oplossing: controleer of content-source/catalogus bestaat." $loc -}}
 {{- end -}}
+{{- if and (ne $kind "alfabetisch") (ne $kind "herkomst") (ne $kind "per-soort") -}}
+  {{- errorf "%s: shortcode catalogus-referentie: onbekend kind %q. Oplossing: gebruik kind=\"alfabetisch\", \"herkomst\" of \"per-soort\"." $loc $kind -}}
+{{- end -}}
 {{- $prefix := "catalogus/" -}}
 
-{{- $rows := slice -}}
+{{- $leaves := slice -}}
 {{- range $bib.RegularPagesRecursive -}}
   {{- $dir := "" -}}
   {{- with .File -}}{{- $dir = strings.TrimSuffix "/" (replace .Dir "\\" "/") -}}{{- end -}}
   {{- if $dir -}}
     {{- $id := strings.TrimPrefix $prefix $dir -}}
-    {{- if and (ne $id $dir) (eq (len (split $id "/")) 3) -}}
-      {{- if partial "oefenhoek-linkbaar.html" . -}}
-        {{- $title := partial "display-title.html" . -}}
-        {{- $uv := index (split $id "/") 2 -}}
-        {{- $rows = $rows | append (dict "page" . "id" $id "title" $title "sort" (lower $title) "uv" $uv) -}}
+    {{- $parts := split $id "/" -}}
+    {{- if and (ne $id $dir) (eq (len $parts) 3) (partial "oefenhoek-linkbaar.html" .) -}}
+      {{- $z := index $parts 0 -}}
+      {{- $v := index $parts 1 -}}
+      {{- $u := index $parts 2 -}}
+      {{- $zw := 9999 -}}
+      {{- with site.GetPage (printf "/catalogus/%s" $z) -}}
+        {{- $zw = .Weight -}}
       {{- end -}}
+      {{- $title := partial "display-title.html" . -}}
+      {{- $zLabel := partial "catalogus-words-title.html" $z -}}
+      {{- $vLabel := partial "catalogus-words-title.html" $v -}}
+      {{- $uLabel := partial "catalogus-uv-link-title.html" $u -}}
+      {{- $leaves = $leaves | append (dict
+        "page" .
+        "id" $id
+        "title" $title
+        "titleSort" (lower $title)
+        "z" $z
+        "v" $v
+        "u" $u
+        "zLabel" $zLabel
+        "vLabel" $vLabel
+        "uLabel" $uLabel
+        "zSort" (lower $zLabel)
+        "vSort" (lower $vLabel)
+        "uSort" (lower $uLabel)
+        "zWeight" $zw
+      ) -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
 
-{{- if eq $kind "alfabetisch" -}}
-  {{- $rows = sort $rows "sort" -}}
-  {{- if $rows -}}
-<ul class="page-list catalogus-referentie">
-  {{- range $rows -}}
-  <li>
-    <a href="{{ .page.RelPermalink }}">{{ .title }}</a>
-    <code class="catalogus-id">{{ .id }}</code>
-  </li>
-  {{- end -}}
-</ul>
-  {{- else -}}
+{{- if not $leaves -}}
 <p>Nog geen oefenbare uitvoeringsvormen in de catalogus.</p>
-  {{- end -}}
-
 {{- else if eq $kind "herkomst" -}}
-  {{- $uvKeys := slice -}}
-  {{- range $rows -}}
-    {{- if not (in $uvKeys .uv) -}}
-      {{- $uvKeys = $uvKeys | append .uv -}}
+  {{- /* Wortel = uitvoeringsvorm-id */ -}}
+  {{- $roots := slice -}}
+  {{- $seen := slice -}}
+  {{- range $leaves -}}
+    {{- if not (in $seen .u) -}}
+      {{- $seen = $seen | append .u -}}
+      {{- $roots = $roots | append (dict "key" .u "label" .uLabel "sort" .uSort) -}}
     {{- end -}}
   {{- end -}}
-  {{- $groups := slice -}}
-  {{- range $uvKeys -}}
-    {{- $label := partial "catalogus-uv-link-title.html" . -}}
-    {{- $groups = $groups | append (dict "uv" . "label" $label "sort" (lower $label)) -}}
-  {{- end -}}
-  {{- $groups = sort $groups "sort" -}}
-  {{- if $groups -}}
-    {{- range $groups -}}
-      {{- $uv := .uv -}}
-      {{- $items := slice -}}
-      {{- range $rows -}}
-        {{- if eq .uv $uv -}}
-          {{- $items = $items | append . -}}
+  {{- $roots = sort $roots "sort" -}}
+<div class="catalogus-boom">
+  {{- range $roots -}}
+    {{- $rootKey := .key -}}
+    {{- $rootLeaves := where $leaves "u" $rootKey -}}
+    {{- $zSeen := slice -}}
+    {{- $zNodes := slice -}}
+    {{- range $rootLeaves -}}
+      {{- if not (in $zSeen .z) -}}
+        {{- $zSeen = $zSeen | append .z -}}
+        {{- $zNodes = $zNodes | append (dict "key" .z "label" .zLabel "sort" .zSort) -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $zNodes = sort $zNodes "sort" -}}
+<details class="catalogus-boom-branch">
+  <summary>{{ .label }} <span class="catalogus-referentie-count">({{ len $rootLeaves }})</span></summary>
+  <div class="catalogus-boom-children">
+    {{- range $zNodes -}}
+      {{- $zKey := .key -}}
+      {{- $zLeaves := where $rootLeaves "z" $zKey -}}
+      {{- $vSeen := slice -}}
+      {{- $vNodes := slice -}}
+      {{- range $zLeaves -}}
+        {{- if not (in $vSeen .v) -}}
+          {{- $vSeen = $vSeen | append .v -}}
+          {{- $vNodes = $vNodes | append (dict "key" .v "label" .vLabel "sort" .vSort) -}}
         {{- end -}}
       {{- end -}}
-      {{- $items = sort $items "sort" -}}
-<h2>{{ .label }} <span class="catalogus-referentie-count">({{ len $items }})</span></h2>
-<ul class="page-list catalogus-referentie">
-      {{- range $items -}}
-  <li>
-    <a href="{{ .page.RelPermalink }}">{{ .title }}</a>
-    <code class="catalogus-id">{{ .id }}</code>
-  </li>
+      {{- $vNodes = sort $vNodes "sort" -}}
+<details class="catalogus-boom-branch">
+  <summary>{{ .label }} <span class="catalogus-referentie-count">({{ len $zLeaves }})</span></summary>
+  <div class="catalogus-boom-children">
+      {{- range $vNodes -}}
+        {{- $vKey := .key -}}
+        {{- $vLeaves := where $zLeaves "v" $vKey -}}
+        {{- $vLeaves = sort $vLeaves "titleSort" -}}
+<details class="catalogus-boom-branch">
+  <summary>{{ .label }} <span class="catalogus-referentie-count">({{ len $vLeaves }})</span></summary>
+  <div class="catalogus-boom-children">
+        {{- range $vLeaves -}}
+          {{- partial "catalogus-boom-leaf.html" . -}}
+        {{- end -}}
+  </div>
+</details>
       {{- end -}}
-</ul>
+  </div>
+</details>
     {{- end -}}
-  {{- else -}}
-<p>Nog geen oefenbare uitvoeringsvormen in de catalogus.</p>
+  </div>
+</details>
   {{- end -}}
+</div>
 
 {{- else -}}
-  {{- errorf "%s: shortcode catalogus-referentie: onbekend kind %q. Oplossing: gebruik kind=\"alfabetisch\" of \"herkomst\"." $loc $kind -}}
+  {{- /* Wortel = zangstuk (alfabetisch A–Z of per-soort op Weight) */ -}}
+  {{- $roots := slice -}}
+  {{- $seen := slice -}}
+  {{- range $leaves -}}
+    {{- if not (in $seen .z) -}}
+      {{- $seen = $seen | append .z -}}
+      {{- $roots = $roots | append (dict "key" .z "label" .zLabel "sort" .zSort "weight" .zWeight) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if eq $kind "per-soort" -}}
+    {{- $roots = sort $roots "weight" -}}
+  {{- else -}}
+    {{- $roots = sort $roots "sort" -}}
+  {{- end -}}
+<div class="catalogus-boom">
+  {{- range $roots -}}
+    {{- $rootKey := .key -}}
+    {{- $rootLeaves := where $leaves "z" $rootKey -}}
+    {{- $vSeen := slice -}}
+    {{- $vNodes := slice -}}
+    {{- range $rootLeaves -}}
+      {{- if not (in $vSeen .v) -}}
+        {{- $vSeen = $vSeen | append .v -}}
+        {{- $vNodes = $vNodes | append (dict "key" .v "label" .vLabel "sort" .vSort) -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $vNodes = sort $vNodes "sort" -}}
+<details class="catalogus-boom-branch">
+  <summary>{{ .label }} <span class="catalogus-referentie-count">({{ len $rootLeaves }})</span></summary>
+  <div class="catalogus-boom-children">
+    {{- range $vNodes -}}
+      {{- $vKey := .key -}}
+      {{- $vLeaves := where $rootLeaves "v" $vKey -}}
+      {{- $vLeaves = sort $vLeaves "titleSort" -}}
+<details class="catalogus-boom-branch">
+  <summary>{{ .label }} <span class="catalogus-referentie-count">({{ len $vLeaves }})</span></summary>
+  <div class="catalogus-boom-children">
+      {{- range $vLeaves -}}
+        {{- partial "catalogus-boom-leaf.html" . -}}
+      {{- end -}}
+  </div>
+</details>
+    {{- end -}}
+  </div>
+</details>
+  {{- end -}}
+</div>
 {{- end -}}

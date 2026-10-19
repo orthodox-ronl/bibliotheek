@@ -11,7 +11,7 @@ cascade:
 ---
 
 De startpagina van de catalogus staat onder
-[Catalogus](/overzichten/) (zoeken, alfabetisch, per herkomst, per soort).
+[Catalogus](/overzichten/) (zoeken en overzichten).
 
 Zangstukken → varianten → uitvoeringsvormen blijven bereikbaar via hun
-eigen catalogus-URL’s, bijvoorbeeld via die startpagina.
+eigen URL’s onder `/catalogus/…`.

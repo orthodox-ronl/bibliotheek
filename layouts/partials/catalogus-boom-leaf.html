@@ -1,0 +1,46 @@
+{{- /*
+  Uitklapbaar blad in een catalogus-boom.
+
+  Context: dict met page, id, title (weergavenaam).
+*/ -}}
+{{- $p := .page -}}
+{{- $id := .id -}}
+{{- $title := .title -}}
+{{- $lyricLine := "" -}}
+{{- range $p.Resources.Match "*.lyrics.txt" -}}
+  {{- if not $lyricLine -}}
+    {{- range split .Content "\n" -}}
+      {{- $line := strings.TrimSpace . -}}
+      {{- if and $line (not $lyricLine) (not (strings.HasPrefix $line "#")) -}}
+        {{- $lyricLine = $line -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $audio := false -}}
+{{- range $p.Resources.Match "*.mp3" -}}
+  {{- if not $audio -}}
+    {{- $audio = . -}}
+  {{- end -}}
+{{- end -}}
+<details class="catalogus-boom-leaf">
+  <summary>
+    <span class="catalogus-boom-leaf-title">{{ $title }}</span>
+    <code class="catalogus-id">{{ $id }}</code>
+  </summary>
+  <div class="catalogus-boom-leaf-body">
+    <p><a href="{{ $p.RelPermalink }}">Open uitvoeringsvorm</a></p>
+    {{- if $lyricLine -}}
+    <p class="catalogus-boom-lyric">{{ $lyricLine }}</p>
+    {{- end -}}
+    {{- with $audio -}}
+    <p>
+      <a class="btn score-audio-play" href="{{ .RelPermalink }}"
+        data-audio-title="{{ $title }}">Beluisteren</a>
+    </p>
+    {{- end -}}
+    {{- if and (not $lyricLine) (not $audio) -}}
+    <p class="catalogus-boom-leaf-empty">Geen lyrics- of audiovoorbeeld in deze bladermap.</p>
+    {{- end -}}
+  </div>
+</details>
