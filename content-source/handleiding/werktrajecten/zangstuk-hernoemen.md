@@ -50,7 +50,7 @@ nieuwe naam.
 ## Volgorde
 
 1. Lees [Zangstuk-soorten](../start/zangstuk-soorten/) en het
-   [Id-register](/catalogus/id-register/) — nieuw id mag niet botsen.
+   [Id-register](/overzichten/id-register/) — nieuw id mag niet botsen.
 2. Open het Windows-opdrachtvenster in de repository-map `bibliotheek`.
 3. Dry-run (schrijft niets):
 

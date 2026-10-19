@@ -146,7 +146,7 @@ scripts\opkuisen.cmd "content-source\input\capella\NAAM.mxl" --analyze
 1. Ken het **catalogus-id** (drie lagen), bijvoorbeeld
    `trisagion/8a-nederlands/hemelum`. Nog geen id? Ga terug naar
    [binnenhalen](../1-binnenhalen/) en het
-   [Id-register](/catalogus/id-register/).
+   [Id-register](/overzichten/id-register/).
 2. Bepaal de **publicatiestam** (de drie id-lagen met `-` ertussen, zonder
    spaties): `trisagion-8a-nederlands-hemelum`.
 3. Maak de map

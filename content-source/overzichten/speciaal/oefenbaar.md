@@ -4,6 +4,8 @@ linkTitle: "Oefenbaar"
 weight: 30
 publicatiestatus: concept
 automatische_inhoud: false
+aliases:
+  - /catalogus/speciaal/oefenbaar/
 ---
 
 Platte catalogus van linkbare uitvoeringsvormen, met **catalogus-id**.

@@ -5,10 +5,8 @@
 {{- $items := slice -}}
 {{- with $root -}}
   {{- range .Sections -}}
-    {{- if ne .File.ContentBaseName "speciaal" -}}
-      {{- if partial "oefenhoek-linkbaar.html" . -}}
-        {{- $items = $items | append . -}}
-      {{- end -}}
+    {{- if partial "oefenhoek-linkbaar.html" . -}}
+      {{- $items = $items | append . -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}

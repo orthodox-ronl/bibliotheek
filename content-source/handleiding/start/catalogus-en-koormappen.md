@@ -21,7 +21,7 @@ publicatie, ids en navigatie niet door elkaar lopen.
 
 | Wie | Vraag | Ingang |
 | --- | --- | --- |
-| Beheerder | Wat hebben we? Welk id gebruik ik? | [Bibliotheek](/catalogus/), [Id-register](/catalogus/id-register/), special pages |
+| Beheerder | Wat hebben we? Welk id gebruik ik? | [Bibliotheek](/catalogus/), [Id-register](/overzichten/id-register/), special pages |
 | Koor (in situ) | Wat zingen we in welke volgorde? | Koormap, nu vooral [liturgie zondag](/koormappen/hemelum/liturgie-zondag/) / [weekdagen](/koormappen/hemelum/liturgie-weekdagen/) |
 | Individueel koorlid | Wat moet / wil ik oefenen? | Koormap *of* bibliotheek (ook stukken die nog in geen map zitten) |
 
@@ -187,8 +187,8 @@ zangstukken in de catalogus. Zie besluit 5 in
 De root van de catalogus is **geen** sitemap van alle stubs. Koorleden zien
 daar vooral **oefenbare** zangstukken (nette titel, liturgienummer-volgorde).
 Voorzien-items en technische registers staan onder
-[Speciaal](/catalogus/speciaal/) en het
-[Id-register](/catalogus/id-register/).
+[Speciaal](/overzichten/speciaal/) en het
+[Id-register](/overzichten/id-register/).
 
 ## Special pages
 
@@ -196,10 +196,10 @@ Automatisch bijgehouden (bij elke sitebuild):
 
 | Pagina | Inhoud |
 | --- | --- |
-| [Voorzien](/catalogus/speciaal/voorzien/) | Zangstukken zonder oefenbare inhoud |
-| [Ongerefereerd](/catalogus/speciaal/ongerefereerd/) | In de catalogus, nog niet in een koormap |
-| [Oefenbaar](/catalogus/speciaal/oefenbaar/) | Platte lijst van linkbare uitvoeringsvormen + id |
-| [Handmatig](/catalogus/speciaal/handmatig/) | Uitvoeringsvormen met `artefacten_handmatig: true` |
+| [Voorzien](/overzichten/speciaal/voorzien/) | Zangstukken zonder oefenbare inhoud |
+| [Ongerefereerd](/overzichten/speciaal/ongerefereerd/) | In de catalogus, nog niet in een koormap |
+| [Oefenbaar](/overzichten/speciaal/oefenbaar/) | Platte lijst van linkbare uitvoeringsvormen + id |
+| [Handmatig](/overzichten/speciaal/handmatig/) | Uitvoeringsvormen met `artefacten_handmatig: true` |
 
 ## Taalvarianten op de uitvoeringsvorm
 
@@ -252,7 +252,7 @@ Catalogus-ids: `prijslied/bisschop-gregorios/hemelum` en
 Nederlandse leaf:
 `prijslied-bisschop-gregorios-hemelum` (plus extensie van de bron).
 
-Precedent in het [Id-register](/catalogus/id-register/): o.a.
+Precedent in het [Id-register](/overzichten/id-register/): o.a.
 `cherubijnenhymne/15c-kastorski/hemelum-ksl` (stub) en bestaande
 `-ksl`-leaves zoals `tropaar/uw-heilig-kruis/groningen-ksl`.
 
@@ -282,7 +282,7 @@ wanneer dat in de leaf-naam zit:
 ```
 
 Korte woordenlijst: [Woorden](woorden/) (regel **Taal-suffix**). Concrete
-ids: [Id-register](/catalogus/id-register/).
+ids: [Id-register](/overzichten/id-register/).
 
 ## Naamgevingsbeleid (nieuwe ids)
 

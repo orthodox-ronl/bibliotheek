@@ -48,6 +48,7 @@ RESERVED_SLUGS = frozenset(
         "development",
         "bibliotheek",
         "catalogus",
+        "overzichten",
         "koormappen",
         "handleiding",
         "coria",

@@ -16,7 +16,7 @@
   {{- range $bib.RegularPagesRecursive -}}
     {{- $dir := "" -}}
     {{- with .File -}}{{- $dir = strings.TrimSuffix "/" (replace .Dir "\\" "/") -}}{{- end -}}
-    {{- if and $dir (not (strings.Contains $dir "/speciaal")) -}}
+    {{- if $dir -}}
       {{- $id := strings.TrimPrefix $prefix $dir -}}
       {{- if and (ne $id $dir) (eq (len (split $id "/")) 3) -}}
         {{- if .Params.artefacten_handmatig -}}
@@ -101,10 +101,8 @@
 {{- else if eq $kind "voorzien" -}}
   {{- $items := slice -}}
   {{- range $bib.Sections -}}
-    {{- if ne .File.ContentBaseName "speciaal" -}}
-      {{- if not (partial "oefenhoek-linkbaar.html" .) -}}
-        {{- $items = $items | append . -}}
-      {{- end -}}
+    {{- if not (partial "oefenhoek-linkbaar.html" .) -}}
+      {{- $items = $items | append . -}}
     {{- end -}}
   {{- end -}}
   {{- $items = sort $items "Weight" -}}
@@ -136,7 +134,7 @@
   {{- range $bib.RegularPagesRecursive -}}
     {{- $dir := "" -}}
     {{- with .File -}}{{- $dir = strings.TrimSuffix "/" (replace .Dir "\\" "/") -}}{{- end -}}
-    {{- if and $dir (not (strings.Contains $dir "/speciaal")) -}}
+    {{- if $dir -}}
       {{- $id := strings.TrimPrefix $prefix $dir -}}
       {{- if and (ne $id $dir) (eq (len (split $id "/")) 3) -}}
         {{- $include := false -}}

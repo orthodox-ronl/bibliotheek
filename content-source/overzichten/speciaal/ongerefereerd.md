@@ -4,6 +4,8 @@ linkTitle: "Ongerefereerd"
 weight: 20
 publicatiestatus: concept
 automatische_inhoud: false
+aliases:
+  - /catalogus/speciaal/ongerefereerd/
 ---
 
 Uitvoeringsvormen die **wel** in de catalogus staan, maar waar **geen

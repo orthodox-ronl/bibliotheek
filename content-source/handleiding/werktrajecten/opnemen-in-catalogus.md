@@ -19,7 +19,7 @@ genoeg is om op te nemen.
    `content-source\input\werkvoorraad.md` bij
    (`update-werkvoorraad` of `check`).
 3. Vul het **doel-id** in — niet raden; zie het
-   [Id-register](/catalogus/id-register/).
+   [Id-register](/overzichten/id-register/).
 4. Als het bestand klaar is (basispartituur-`.mscz`, `.vsa`, `.mvsa`,
    handmatig `.mscz`, of `.tekstblad.md`): `bieb accepteer`.
 5. Controleer met `scripts\check.cmd --strict`.
@@ -132,7 +132,7 @@ productbestanden moet jij lokaal maken en **meecommitten**.
 - HOW: [Ruw materiaal binnenhalen (Partituur)](../../partituur/1-binnenhalen/)
   (doorverwijzing; canonieke plek is deze werktrajectpagina)
 - HOW: [Opnemen (Publiceren)](../../publiceren/1-opnemen-in-catalogus/)
-- [Id-register](/catalogus/id-register/)
+- [Id-register](/overzichten/id-register/)
 - Namen/publicatiecontrole: [Publicatiecontrole](/handleiding/start/publicatiecontrole/)
 
 {{< navbuttons "Werktrajecten|/handleiding/werktrajecten/" "Basispartituur|/handleiding/werktrajecten/basispartituur/" >}}

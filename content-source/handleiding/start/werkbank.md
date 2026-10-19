@@ -75,7 +75,7 @@ blijven herkomst.
 Je mag overgaan als **alle** punten kloppen:
 
 1. **Doel-id** is een geldig catalogus-id (drie lagen); zie
-   [Id-register](/catalogus/id-register/) — niet verzinnen.
+   [Id-register](/overzichten/id-register/) — niet verzinnen.
    Taal in het derde segment: geen suffix = Nederlands; andere talen
    als uitgang (`-ksl`, …) — zie
    [Taalvarianten](catalogus-en-koormappen/#taalvarianten-op-de-uitvoeringsvorm).
@@ -104,7 +104,7 @@ Werktraject: [Opnemen](../werktrajecten/opnemen-in-catalogus/).
 
 ## Overzicht op de site
 
-- Special page: [Werkbank](/catalogus/speciaal/werkbank/)
+- Special page: [Werkbank](/overzichten/speciaal/werkbank/)
 - Uitklapbare tabel: werkvoorraad onderaan het
   [catalogus-overzicht](/catalogus/)
 

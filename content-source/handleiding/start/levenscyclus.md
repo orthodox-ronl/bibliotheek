@@ -24,7 +24,7 @@ lifecycle is voor beheerders die het materiaal maken.
 - Overgang Werkbank → Catalogus: `bieb accepteer` als de
   [overgangscriteria](werkbank/#overgangscriteria) kloppen.
 - Overzicht open werk: `scripts\werkbank-status.cmd` en special page
-  [Werkbank](/catalogus/speciaal/werkbank/).
+  [Werkbank](/overzichten/speciaal/werkbank/).
 {{< /cue >}}
 
 ## Twee fases (nu)
@@ -76,15 +76,15 @@ Productsporen: [Werktrajecten](../werktrajecten/). Mappen:
 
 ## Special pages
 
-Automatische overzichten onder [Bibliotheek → Speciaal](/catalogus/speciaal/):
+Automatische overzichten onder [Overzichten → Speciaal](/overzichten/speciaal/):
 
 | Pagina | Rol t.o.v. lifecycle |
 | --- | --- |
-| [Werkbank](/catalogus/speciaal/werkbank/) | Onder handen: open werkvoorraad + stubs |
-| [Voorzien](/catalogus/speciaal/voorzien/) | Zangstukken zonder oefenbare inhoud (`publicatiestatus`) |
-| [Ongerefereerd](/catalogus/speciaal/ongerefereerd/) | In catalogus, nog geen koormap-`bieb` |
-| [Oefenbaar](/catalogus/speciaal/oefenbaar/) | Platte lijst oefenbare uitvoeringsvormen |
-| [Handmatig](/catalogus/speciaal/handmatig/) | Uitvoeringsvormen met `artefacten_handmatig: true` |
+| [Werkbank](/overzichten/speciaal/werkbank/) | Onder handen: open werkvoorraad + stubs |
+| [Voorzien](/overzichten/speciaal/voorzien/) | Zangstukken zonder oefenbare inhoud (`publicatiestatus`) |
+| [Ongerefereerd](/overzichten/speciaal/ongerefereerd/) | In catalogus, nog geen koormap-`bieb` |
+| [Oefenbaar](/overzichten/speciaal/oefenbaar/) | Platte lijst oefenbare uitvoeringsvormen |
+| [Handmatig](/overzichten/speciaal/handmatig/) | Uitvoeringsvormen met `artefacten_handmatig: true` |
 
 ## Klaar als
 
