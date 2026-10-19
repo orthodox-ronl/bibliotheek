@@ -76,7 +76,7 @@ Productsporen: [Werktrajecten](../werktrajecten/). Mappen:
 
 ## Special pages
 
-Automatische overzichten onder [Overzichten → Speciaal](/overzichten/speciaal/):
+Automatische overzichten onder [Catalogus → Speciaal](/overzichten/speciaal/):
 
 | Pagina | Rol t.o.v. lifecycle |
 | --- | --- |

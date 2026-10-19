@@ -13,7 +13,7 @@ ook in parochies een dergelijke behoefte zou kunnen bestaan, is de site zo opgez
 op vergelijkbare wijze voorzien zou kunnen worden.
 
 De site bevat:
-- een [Catalogus](/catalogus/) van (varianten van) zangstukken, en vooral die, welke in de Heilige Liturgie
+- een [Catalogus](/overzichten/) van (varianten van) zangstukken, en vooral die, welke in de Heilige Liturgie
   worden gebruikt, zoals Ektinia's, Alleluia's, Cherubijnen hymnes, de Eucharistische canon, Troparen, Kondaken, enzovoorts.
 - [Koormappen](/koormappen/): een koormap is feitelijk een lijst van zangstukken die bij een bepaalde gelegenheid
   op een bepaalde plaats (bijv. een doordeweekse H. Liturgie in Hemelum), achtereenvolgens worden gezongen.

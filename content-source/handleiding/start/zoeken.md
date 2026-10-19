@@ -7,7 +7,7 @@ nav_sort: weight
 
 Met **Zoeken** vind je een uitvoeringsvorm in de catalogus: op titel, op
 catalogus-id, of op een stukje gezongen tekst. Je opent Zoeken via de knop
-in de site-kop, of via [Overzichten → Zoeken](/overzichten/zoeken/).
+in de site-kop, of via [Catalogus → Zoeken](/overzichten/zoeken/).
 
 Deze pagina legt eerst uit wat een bezoeker mag verwachten. Daarna volgt
 de technische specificatie, zodat je kunt beoordelen of het zoeken nog
