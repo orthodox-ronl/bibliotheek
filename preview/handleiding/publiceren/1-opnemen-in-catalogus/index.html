@@ -27,10 +27,10 @@
 <a href=/bibliotheek/preview/catalogus/wij-hebben-het-ware-licht/>Wij Hebben Het Ware Licht</a>
 <a href=/bibliotheek/preview/catalogus/de-naam-des-heren-zij-gezegend/>De Naam Des Heren Zij Gezegend</a>
 <a href=/bibliotheek/preview/catalogus/prijslied/>Prijslied</a>
-<a href=/bibliotheek/preview/catalogus/speciaal/>Speciaal</a>
 <a href=/bibliotheek/preview/catalogus/eer-aan-de-vader/>Eer Aan De Vader</a>
 <a href=/bibliotheek/preview/catalogus/onder-uwe-hoede/>Onder Uwe Hoede</a>
-<a href=/bibliotheek/preview/catalogus/vriendelijk-licht/>Vriendelijk Licht</a></div></details><details class=site-nav-group><summary>Koormappen</summary><div class=site-nav-menu><a href=/bibliotheek/preview/koormappen/>Overzicht</a>
+<a href=/bibliotheek/preview/catalogus/vriendelijk-licht/>Vriendelijk Licht</a></div></details><details class=site-nav-group><summary>Overzichten</summary><div class=site-nav-menu><a href=/bibliotheek/preview/overzichten/>Overzicht</a>
+<a href=/bibliotheek/preview/overzichten/speciaal/>Speciaal</a></div></details><details class=site-nav-group><summary>Koormappen</summary><div class=site-nav-menu><a href=/bibliotheek/preview/koormappen/>Overzicht</a>
 <a href=/bibliotheek/preview/koormappen/hemelum/>Hemelum</a></div></details><details class="site-nav-group is-current"><summary>Handleiding</summary><div class=site-nav-menu><a href=/bibliotheek/preview/handleiding/>Overzicht</a>
 <a href=/bibliotheek/preview/handleiding/start/>Start</a>
 <a href=/bibliotheek/preview/handleiding/werktrajecten/>Werktrajecten</a>
@@ -83,7 +83,7 @@ Laat het bestand in <code>input\</code> staan; zie
 .</p><p><strong>Catalogus-id</strong> = drie namen, gescheiden door <code>/</code>, bijvoorbeeld
 <code>eniggeboren-zoon/default/hemelum</code>. Elke naam mag alleen kleine letters,
 cijfers, <code>-</code> en <code>_</code> bevatten. Lijst:
-<a href=/bibliotheek/preview/catalogus/id-register/>Id-register</a>
+<a href=/bibliotheek/preview/overzichten/id-register/>Id-register</a>
 . Ken je het id
 niet? <strong>Niet verzinnen</strong> — vraag na.</p><h2 id=wat-het-script-voor-je-doet>Wat het script voor je doet</h2><p>Het commando <code>bieb accepteer</code>:</p><ul><li>maakt de mappen
 <code>content-source\catalogus\&lt;zangstuk>\&lt;variant>\&lt;uitvoeringsvorm>\</code>
@@ -113,7 +113,7 @@ slot-pagina met <code>bieb</code> — zie
 <a href=../1-bladermap/>Catalogus en koormap</a>
 . De partituur blijft in de
 catalogus; de koormap is alleen de route voor koorleden.</li></ol><h2 id=welke-bestanden-mag-je-aanleveren>Welke bestanden mag je aanleveren?</h2><div class=table-scroll><table><thead><tr><th>Bestand</th><th>Mag met bieb accepteer?</th><th>Opmerking</th></tr></thead><tbody><tr><td>Basispartituur-<code>.mscz</code> (MuseScore, genormaliseerd)</td><td>Ja</td><td>Daarna vaak nog PDF/Coria maken</td></tr><tr><td><code>.vsa</code></td><td>Ja</td><td>Script runt <code>vsa validate</code></td></tr><tr><td><code>naam.print.mscz</code></td><td>Ja</td><td>Print-vel; PDF meestal handmatig</td></tr><tr><td><code>.pdf</code> of <code>.mxl</code> <strong>naast</strong> basispartituur of VSA</td><td>Ja</td><td>Meenemen in dezelfde opdracht</td></tr><tr><td>Alleen een <code>.mxl</code> (Capella/ CapToMusic)</td><td>Nee</td><td>Eerst <a href=../../partituur/2-opkuisen/>opkuisen</a></td></tr><tr><td><code>.cap</code> / <code>.capx</code> / <code>.musicxml</code></td><td>Nee</td><td>Eerst omzetten via de partituurstraat</td></tr></tbody></table></div><h2 id=lege-plek-reserveren-stub>Lege plek reserveren (stub)</h2><p>Wil je het id en de pagina alvast, maar nog geen partituur?</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>bieb accepteer ektinia/vrede/hemelum --stub
-</span></span></code></pre></div><p>Dan wordt <code>publicatiestatus</code> standaard <code>voorzien</code>.</p><h2 id=als-het-misgaat>Als het misgaat</h2><div class=table-scroll><table><thead><tr><th>Melding (kort)</th><th>Wat je doet</th></tr></thead><tbody><tr><td>ongeldig catalogus-id</td><td>Id nakijken in het <a href=/bibliotheek/preview/catalogus/id-register/>Id-register</a>
+</span></span></code></pre></div><p>Dan wordt <code>publicatiestatus</code> standaard <code>voorzien</code>.</p><h2 id=als-het-misgaat>Als het misgaat</h2><div class=table-scroll><table><thead><tr><th>Melding (kort)</th><th>Wat je doet</th></tr></thead><tbody><tr><td>ongeldig catalogus-id</td><td>Id nakijken in het <a href=/bibliotheek/preview/overzichten/id-register/>Id-register</a>
 ; drie lagen, kleine letters</td></tr><tr><td>doel bestaat al</td><td>Bewust overschrijven: zelfde opdracht met <code>--force</code>, of ander id</td></tr><tr><td>vsa validate faalde</td><td><code>.vsa</code> eerst herstellen; pas daarna opnieuw accepteren</td></tr><tr><td>formaat weigert / alleen .mxl</td><td>Terug naar <a href=../../partituur/>partituur</a>
 ; niet forceren in de catalogus</td></tr><tr><td>alias-variant</td><td>Partituur hoort bij de canonieke variant; zie <a href=../../start/catalogus-en-koormappen/>Catalogus en koormappen</a></td></tr></tbody></table></div><p>Meer storingen: <a href=../3-als-het-misgaat/>Als het misgaat</a>
 .</p><h2 id=klaar-als>Klaar als</h2><ul><li>Onder <code>catalogus\&lt;zangstuk>\&lt;variant>\&lt;uitvoeringsvorm>\</code> staat je
@@ -127,4 +127,4 @@ bestand met de publicatiestam-naam.</li><li>Er staat een <code>index.md</code> m
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-10</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-19</p></div></footer></body></html>
