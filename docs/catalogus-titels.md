@@ -49,9 +49,13 @@ Shortcode `catalogus-referentie` (Alfabetisch / Per herkomst / Per soort):
   zonder «Standaard».
 - `default`/`standaard` **naast** een andere variant-id onder hetzelfde
   zangstuk is verboden; de Hugo-build faalt (guard in de shortcode).
+- **Per herkomst:** taalsuffix op de uitvoeringsvorm-id (`-ksl`,
+  `-nl-ksl`, `-ksl-trlat`) is géén aparte herkomst. NL en Ksl van
+  dezelfde stam (bijv. `groningen` + `groningen-ksl`) staan als
+  blaadjes onder dezelfde herkomst-tak, Nederlands eerst.
 - Leesbare handleiding:
   [Catalogus en koormappen](../content-source/handleiding/start/catalogus-en-koormappen.md)
-  (§ Variant-id `default`).
+  (§ Variant-id `default`, § Taalvarianten).
 
 Implementatie: `scripts/catalogus.py` (`section_title`, `derived_leaf_*`,
 `title_hint_from_source`).
