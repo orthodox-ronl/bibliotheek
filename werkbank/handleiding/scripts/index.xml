@@ -411,7 +411,7 @@ commando vult de tabel in het bestand &lt;code&gt;werkvoorraad.md&lt;/code&gt; i
 hand van wat er op schijf ligt. Doel-id, koormap en notitie in &lt;strong&gt;bestaande&lt;/strong&gt;
 rijen blijven staan; nieuwe bestanden krijgen een nieuwe rij.&lt;/p&gt;
 &lt;p&gt;Het vernieuwt ook &lt;code&gt;data\werkbank-status.json&lt;/code&gt; (special page
-&lt;a href="https://orthodox-ronl.github.io/bibliotheek/werkbank/catalogus/speciaal/werkbank/"&gt;Werkbank&lt;/a&gt;
+&lt;a href="https://orthodox-ronl.github.io/bibliotheek/werkbank/overzichten/speciaal/werkbank/"&gt;Werkbank&lt;/a&gt;
 ).&lt;/p&gt;
 &lt;p&gt;Het verwijdert ook &lt;code&gt;generated\content\...\input&lt;/code&gt;, zodat die
 inputs geen Hugo-pagina’s op de site worden.&lt;/p&gt;</description></item><item><title>werkbank-status</title><link>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/scripts/werkbank-status/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/scripts/werkbank-status/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
@@ -429,7 +429,7 @@ inputs geen Hugo-pagina’s op de site worden.&lt;/p&gt;</description></item><it
 &lt;li&gt;lokale mappen onder &lt;code&gt;content-source\input\_werk\&lt;/code&gt; (alleen op jouw pc).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Schrijft &lt;code&gt;data\werkbank-status.json&lt;/code&gt; voor de special page
-&lt;a href="https://orthodox-ronl.github.io/bibliotheek/werkbank/catalogus/speciaal/werkbank/"&gt;Werkbank&lt;/a&gt;
+&lt;a href="https://orthodox-ronl.github.io/bibliotheek/werkbank/overzichten/speciaal/werkbank/"&gt;Werkbank&lt;/a&gt;
 . Met &lt;code&gt;--quiet&lt;/code&gt; alleen die
 JSON (zoals vanuit &lt;code&gt;update-werkvoorraad&lt;/code&gt; / &lt;code&gt;check&lt;/code&gt; / &lt;code&gt;build&lt;/code&gt; / &lt;code&gt;serve&lt;/code&gt;).&lt;/p&gt;</description></item><item><title>lifecycle-grenzen</title><link>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/scripts/lifecycle-grenzen/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/scripts/lifecycle-grenzen/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\lifecycle-grenzen.cmd&lt;/code&gt; — controleer grenzen Werkbank ↔ Catalogus&lt;/p&gt;
