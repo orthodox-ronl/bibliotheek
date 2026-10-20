@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # 18 Geloofsbelijdenis
 
-{{< bieb id="geloofsbelijdenis/default/hemelum" >}}
+{{< bieb id="geloofsbelijdenis/default/groningen" >}}
