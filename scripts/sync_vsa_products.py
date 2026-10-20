@@ -13,14 +13,21 @@ alleen ``check_vsa_products``; vernieuw lokaal met ``scripts\\vsa-products.cmd``
 
 from __future__ import annotations
 
-import argparse
 import subprocess
 import sys
 import tempfile
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Sequence
 
 from coria_mxl import load_score_xml, process_existing_mxl, require_no_spaces, write_mxl
+from product_kind import (
+    DEFAULT_ROOT,
+    REPO_ROOT,
+    ProductSlot,
+    catalog_eligible,
+    main_for_kind,
+)
 from product_meta import (
     FIELD_SOURCE_KIND,
     FIELD_SOURCE_SHA,
@@ -35,9 +42,7 @@ from product_meta import (
     stamp_pdf,
     utc_now_iso,
 )
-
-REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_ROOT = REPO_ROOT / "content-source" / "catalogus"
+from product_regen import RegenPolicy, mxl_contract_ok
 
 
 def _fm_bool(text: str, key: str) -> bool:
@@ -84,9 +89,7 @@ def collect_vsa(root: Path) -> list[Path]:
             continue
         if path.name.lower().endswith(".syl.vsa"):
             continue
-        if "input" in path.parts:
-            continue
-        if folder_is_handmatig(path.parent):
+        if not catalog_eligible(path, folder_is_handmatig=folder_is_handmatig):
             continue
         require_no_spaces(path)
         out.append(path)
@@ -293,75 +296,64 @@ def sync_one(
         )
 
 
-def main(argv: list[str] | None = None) -> int:
-    from product_regen import (
-        add_regen_arguments,
-        mxl_contract_ok,
-        need_regen,
-        policy_from_args,
-    )
+class VsaKind:
+    id = "vsa"
+    label = "VSA-producten"
+    source_noun = " .vsa"
+    fix_cmd = r"scripts\vsa-products.cmd"
 
-    parser = argparse.ArgumentParser(
-        description="Exporteer stale Coria-.mxl en A4-.vsa.pdf vanuit bibliotheek-.vsa."
-    )
-    parser.add_argument(
-        "root",
-        nargs="?",
-        type=Path,
-        default=DEFAULT_ROOT,
-        help="Zoekroot (default: content-source/catalogus)",
-    )
-    add_regen_arguments(parser)
-    args = parser.parse_args(argv)
-    policy = policy_from_args(args)
-    root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
-    vsas = collect_vsa(root)
-    todo: list[tuple[Path, bool, bool]] = []
-    for vsa in vsas:
-        digest = source_sha256(vsa)
-        mxl = product_path_for_vsa(vsa)
-        pdf = product_pdf_for_vsa(vsa)
+    def collect(self, root: Path) -> list[Path]:
+        return collect_vsa(root)
+
+    def slots_for(self, source: Path, policy: RegenPolicy) -> list[ProductSlot]:
+        digest = source_sha256(source)
+        mxl = product_path_for_vsa(source)
+        pdf = product_pdf_for_vsa(source)
         mxl_exists = mxl.is_file()
         contract = (
             mxl_contract_ok(mxl, profile="mono")
             if policy.invalid and mxl_exists
             else None
         )
-        need_mxl = need_regen(
-            policy,
-            exists=mxl_exists,
-            stamp_ok=_stamp_ok_mxl(mxl, digest),
-            contract_ok=contract,
-        )
-        need_pdf = need_regen(
-            policy,
-            exists=pdf.is_file(),
-            stamp_ok=_stamp_ok_pdf(pdf, digest),
-            contract_ok=None,
-        )
+        return [
+            ProductSlot(
+                path=mxl,
+                exists=mxl_exists,
+                stamp_ok=_stamp_ok_mxl(mxl, digest),
+                contract_ok=contract,
+                needs_musescore=False,
+            ),
+            ProductSlot(
+                path=pdf,
+                exists=pdf.is_file(),
+                stamp_ok=_stamp_ok_pdf(pdf, digest),
+                contract_ok=None,
+                needs_musescore=False,
+            ),
+        ]
+
+    def sync(self, source: Path, *, need: Sequence[bool], dry_run: bool) -> None:
+        need_mxl = bool(need[0]) if len(need) > 0 else False
+        need_pdf = bool(need[1]) if len(need) > 1 else False
         if need_mxl or need_pdf:
-            todo.append((vsa, need_mxl, need_pdf))
-    if not todo:
-        print(f"VSA-producten up-to-date ({len(vsas)} .vsa)", flush=True)
-        return 0
-    print(f"VSA-producten bijwerken: {len(todo)} van {len(vsas)}", flush=True)
-    failed = 0
-    for vsa, need_mxl, need_pdf in todo:
-        print(f"== {vsa.relative_to(REPO_ROOT)}", flush=True)
-        try:
             sync_one(
-                vsa,
-                dry_run=args.dry_run,
+                source,
+                dry_run=dry_run,
                 do_mxl=need_mxl,
                 do_pdf=need_pdf,
             )
-        except Exception as exc:  # noqa: BLE001
-            print(f"  FAILED {exc}", flush=True)
-            failed += 1
-    if failed:
-        print(f"{failed} mislukt van {len(todo)}", flush=True)
-        return 1
-    return 0
+
+
+KIND = VsaKind()
+
+
+def main(argv: list[str] | None = None) -> int:
+    return main_for_kind(
+        KIND,
+        argv,
+        description="Exporteer stale Coria-.mxl en A4-.vsa.pdf vanuit bibliotheek-.vsa.",
+        default_root=DEFAULT_ROOT,
+    )
 
 
 if __name__ == "__main__":

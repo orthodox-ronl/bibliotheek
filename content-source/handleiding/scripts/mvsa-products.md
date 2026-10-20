@@ -25,7 +25,9 @@ producten.
 Het zoekt `.mvsa` onder het opgegeven pad (of, zonder pad, onder
 `content-source\catalogus`). Import-siblings die eindigen op
 `.mscz.mvsa`, bestanden in `input\`, en mappen met
-`artefacten_handmatig: true` worden overgeslagen.
+`artefacten_handmatig: true` worden overgeslagen. Geen passende `.mvsa`
+op het pad = overslaan (geen fout; zelfde schil als
+[products](../all-products/)).
 
 Onder de motorkap: tooling-CLI `mvsa musicxml` voor Coria; `mvsa pdf` met
 layoutprofiel `partituur` en catalogus-id uit het bladermap-pad voor de

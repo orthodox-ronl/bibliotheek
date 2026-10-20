@@ -9,10 +9,17 @@ temp-``.mxl`` via tooling.
 
 from __future__ import annotations
 
-import argparse
-import sys
 from pathlib import Path
+from typing import Sequence
 
+from product_kind import (
+    DEFAULT_ROOT,
+    REPO_ROOT,
+    ProductSlot,
+    catalog_eligible,
+    main_for_kind,
+    require_no_spaces_name,
+)
 from product_meta import (
     FIELD_GENERATED_AT,
     FIELD_GENERATOR,
@@ -29,12 +36,10 @@ from product_meta import (
     stamp_sha_from_dict,
     utc_now_iso,
 )
+from product_regen import RegenPolicy, list_source_paths
 from score_filenames import is_print_mscz
 from sync_mscz_products import legacy_mxl_for_mscz, product_mxl_for_mscz
 from sync_vsa_products import folder_is_handmatig
-
-REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_ROOT = REPO_ROOT / "content-source" / "catalogus"
 
 _STAMP_PREFIX = "# vsa-"
 
@@ -45,8 +50,6 @@ def product_path_for_source(source: Path) -> Path:
 
 
 def collect_lyric_sources(root: Path) -> list[Path]:
-    from product_regen import list_source_paths
-
     out: list[Path] = []
     for path in list_source_paths(root, pattern="*"):
         if not path.is_file():
@@ -61,12 +64,9 @@ def collect_lyric_sources(root: Path) -> list[Path]:
             continue
         if suf == ".mscz" and is_print_mscz(path):
             continue
-        if "input" in path.parts:
+        if not catalog_eligible(path, folder_is_handmatig=folder_is_handmatig):
             continue
-        if folder_is_handmatig(path.parent):
-            continue
-        if " " in path.name:
-            raise SystemExit(f"bestandsnaam mag geen spaties hebben: {path.name}")
+        require_no_spaces_name(path)
         out.append(path)
     return out
 
@@ -162,49 +162,45 @@ def sync_one(source: Path, *, dry_run: bool) -> None:
     lyrics.write_text(header + body, encoding="utf-8", newline="\n")
 
 
-def main(argv: list[str] | None = None) -> int:
-    from product_regen import add_regen_arguments, need_regen, policy_from_args
+class LyricsKind:
+    id = "lyrics"
+    label = "Lyrics-producten"
+    source_noun = " bronnen"
+    fix_cmd = r"scripts\lyrics-products.cmd"
 
-    parser = argparse.ArgumentParser(
-        description="Genereer stale .lyrics.txt naast bibliotheek-.vsa/.mvsa/.mscz."
-    )
-    parser.add_argument(
-        "root",
-        nargs="?",
-        type=Path,
-        default=DEFAULT_ROOT,
-        help="Map onder content-source/catalogus (default: hele bibliotheek).",
-    )
-    add_regen_arguments(parser)
-    args = parser.parse_args(argv)
-    policy = policy_from_args(args)
-    root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
-    if not root.exists():
-        print(f"Pad niet gevonden: {root}", file=sys.stderr)
-        return 1
+    def collect(self, root: Path) -> list[Path]:
+        return collect_lyric_sources(root)
 
-    sources = collect_lyric_sources(root)
-    if not sources:
-        print(f"Geen .vsa/.mvsa/.mscz onder {root}")
-        return 0
-
-    n = 0
-    for source in sources:
+    def slots_for(self, source: Path, policy: RegenPolicy) -> list[ProductSlot]:
+        del policy
         lyrics = product_path_for_source(source)
         exists = lyrics.is_file()
         stamp_ok = (not is_stale(source, lyrics)) if exists else False
-        if not need_regen(
-            policy,
-            exists=exists,
-            stamp_ok=stamp_ok,
-            contract_ok=None,
-        ):
-            continue
-        sync_one(source, dry_run=args.dry_run)
-        n += 1
+        return [
+            ProductSlot(
+                path=lyrics,
+                exists=exists,
+                stamp_ok=stamp_ok,
+                contract_ok=None,
+                needs_musescore=False,
+            )
+        ]
 
-    print(f"lyrics-products: {n} bestand(en) {'(dry-run) ' if args.dry_run else ''}bijgewerkt")
-    return 0
+    def sync(self, source: Path, *, need: Sequence[bool], dry_run: bool) -> None:
+        if need and need[0]:
+            sync_one(source, dry_run=dry_run)
+
+
+KIND = LyricsKind()
+
+
+def main(argv: list[str] | None = None) -> int:
+    return main_for_kind(
+        KIND,
+        argv,
+        description="Genereer stale .lyrics.txt naast bibliotheek-.vsa/.mvsa/.mscz.",
+        default_root=DEFAULT_ROOT,
+    )
 
 
 if __name__ == "__main__":

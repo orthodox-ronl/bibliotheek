@@ -141,6 +141,9 @@ jobs:
       - name: Check audio product freshness
         run: python scripts/check_audio_products.py --fail
 
+      - name: Check lyrics product freshness
+        run: python scripts/check_lyrics_products.py --fail
+
       - name: Check Coria MXL playback contract
         run: python scripts/check_mxl_playback_contract.py --fail
 

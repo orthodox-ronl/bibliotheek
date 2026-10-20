@@ -13,16 +13,20 @@ Slaat ``input/``, ``artefacten_handmatig``, import-``.mscz.mvsa`` en
 
 from __future__ import annotations
 
-import argparse
-import os
 import subprocess
-import sys
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Sequence
 
 from coria_mxl import require_no_spaces
+from product_kind import (
+    DEFAULT_ROOT,
+    REPO_ROOT,
+    ProductSlot,
+    catalog_eligible,
+    main_for_kind,
+)
 from product_meta import (
-    FIELD_PARTITUUR_SHA,
     FIELD_SOURCE_KIND,
     FIELD_SOURCE_SHA,
     GENERATOR_AUDIO,
@@ -36,12 +40,10 @@ from product_meta import (
     stamp_sha_from_dict,
     utc_now_iso,
 )
+from product_regen import RegenPolicy, list_source_paths
 from sync_import_mvsa import is_import_mvsa
 from sync_mscz_products import is_print_mscz
 from sync_vsa_products import folder_is_handmatig, playback_vsa_for_export
-
-REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_ROOT = REPO_ROOT / "content-source" / "catalogus"
 
 
 @dataclass(frozen=True)
@@ -58,21 +60,13 @@ class AudioJob:
         return self.source.with_suffix(".vsa.mp3")
 
 
-def _running_in_ci() -> bool:
-    return os.environ.get("CI", "").strip().lower() in {"1", "true", "yes"}
-
-
 def collect_audio_jobs(root: Path) -> list[AudioJob]:
     """Alle bronnen die preview-audio mogen krijgen."""
-    from product_regen import list_source_paths
-
     jobs: list[AudioJob] = []
     for path in list_source_paths(root, pattern="*"):
         if not path.is_file():
             continue
-        if "input" in path.parts:
-            continue
-        if folder_is_handmatig(path.parent):
+        if not catalog_eligible(path, folder_is_handmatig=folder_is_handmatig):
             continue
         suffix = path.suffix.lower()
         name = path.name.lower()
@@ -92,6 +86,15 @@ def collect_audio_jobs(root: Path) -> list[AudioJob]:
             require_no_spaces(path)
             jobs.append(AudioJob(path, SOURCE_KIND_VSA))
     return jobs
+
+
+def _job_for(source: Path) -> AudioJob:
+    suf = source.suffix.lower()
+    if suf == ".mvsa":
+        return AudioJob(source, SOURCE_KIND_MVSA)
+    if suf == ".mscz":
+        return AudioJob(source, SOURCE_KIND_PARTITUUR)
+    return AudioJob(source, SOURCE_KIND_VSA)
 
 
 def _digest_for(job: AudioJob) -> str:
@@ -160,67 +163,45 @@ def sync_one(job: AudioJob, *, dry_run: bool) -> None:
         )
 
 
-def main(argv: list[str] | None = None) -> int:
-    from product_regen import add_regen_arguments, need_regen, policy_from_args
+class AudioKind:
+    id = "audio"
+    label = "Audio-producten"
+    source_noun = " bronnen"
+    fix_cmd = r"scripts\audio-products.cmd"
 
-    parser = argparse.ArgumentParser(
-        description="Exporteer stale preview-.mp3 vanuit bibliotheek-bronnen."
-    )
-    parser.add_argument(
-        "root",
-        nargs="?",
-        type=Path,
-        default=DEFAULT_ROOT,
-        help="Zoekroot (default: content-source/catalogus)",
-    )
-    add_regen_arguments(parser)
-    args = parser.parse_args(argv)
-    policy = policy_from_args(args)
-    root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
-    jobs = collect_audio_jobs(root)
-    todo: list[AudioJob] = []
-    for job in jobs:
+    def collect(self, root: Path) -> list[Path]:
+        return [job.source for job in collect_audio_jobs(root)]
+
+    def slots_for(self, source: Path, policy: RegenPolicy) -> list[ProductSlot]:
+        del policy
+        job = _job_for(source)
         exists = job.product.is_file()
         stamp_ok = _stamp_ok(job) if exists else False
-        if need_regen(
-            policy,
-            exists=exists,
-            stamp_ok=stamp_ok,
-            contract_ok=None,
-        ):
-            todo.append(job)
-    if not todo:
-        print(f"Audio-producten up-to-date ({len(jobs)} bronnen)", flush=True)
-        return 0
+        return [
+            ProductSlot(
+                path=job.product,
+                exists=exists,
+                stamp_ok=stamp_ok,
+                contract_ok=None,
+                needs_musescore=True,
+            )
+        ]
 
-    from vsa.musescore_cli import find_musescore
+    def sync(self, source: Path, *, need: Sequence[bool], dry_run: bool) -> None:
+        if need and need[0]:
+            sync_one(_job_for(source), dry_run=dry_run)
 
-    if find_musescore() is None:
-        print(
-            f"{len(todo)} stale .mp3; MuseScore ontbreekt.",
-            flush=True,
-        )
-        if _running_in_ci():
-            print("CI: sla audio-export over (check only).", flush=True)
-            return 0
-        print(r"Installeer MuseScore 4 of: scripts\audio-products.cmd", flush=True)
-        for job in todo:
-            print(f"  - {job.source.name} -> {job.product.name}", flush=True)
-        return 1
 
-    print(f"Audio-producten bijwerken: {len(todo)} van {len(jobs)}", flush=True)
-    failed = 0
-    for job in todo:
-        print(f"== {job.source.relative_to(REPO_ROOT)}", flush=True)
-        try:
-            sync_one(job, dry_run=args.dry_run)
-        except Exception as exc:  # noqa: BLE001
-            print(f"  FAILED {exc}", flush=True)
-            failed += 1
-    if failed:
-        print(f"{failed} mislukt van {len(todo)}", flush=True)
-        return 1
-    return 0
+KIND = AudioKind()
+
+
+def main(argv: list[str] | None = None) -> int:
+    return main_for_kind(
+        KIND,
+        argv,
+        description="Exporteer stale preview-.mp3 vanuit bibliotheek-bronnen.",
+        default_root=DEFAULT_ROOT,
+    )
 
 
 if __name__ == "__main__":

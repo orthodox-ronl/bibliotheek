@@ -60,10 +60,20 @@ Oude bestandsnaam: `docs/productgates.md` (stub blijft als doorverwijzing).
 ## Genereren (`products.cmd`)
 
 Lokaal (niet in CI): [`scripts/products.cmd`](../scripts/products.cmd) —
-wrapper over alle `sync_*_products`. Default-condities: **missing ∪ stale ∪
-invalid** (`mxl validate` op Coria-siblings). Opties: `--kinds`, `--dry-run`,
-`--force`, `--only-missing` / `--only-stale` / `--only-invalid`, `--reasons`.
-Na een geslaagde run (niet `--dry-run`) vernieuwt `products.cmd` ook de
-Coria-fingerprints (`fingerprint_coria_mxl.py`) voor de Oefenen-knop.
+wrapper over alle product-sporen (vsa, mscz, tekstblad, mvsa, import, audio,
+lyrics). Default-condities: **missing ∪ stale ∪ invalid** (`mxl validate` op
+Coria-siblings). Ontbreekt het brontype voor een spoor, dan skip (geen fout).
+`--kinds` is focus/uitsluiting, geen “vertel welke bronnen bestaan”. Opties:
+`--dry-run`, `--force`, `--only-missing` / `--only-stale` / `--only-invalid`,
+`--reasons`. Na een geslaagde run (niet `--dry-run`) vernieuwt `products.cmd`
+ook de Coria-fingerprints (`fingerprint_coria_mxl.py`) voor de Oefenen-knop.
+
+### Architectuur (orthogonaal)
+
+Alle sporen delen één schil in [`scripts/product_kind.py`](../scripts/product_kind.py)
+(`run_kind`: collect → `need_regen` → MuseScore-gate → sync). Per kind blijft
+alleen bron-selectie en generatie in `sync_*_products` / `sync_import_mvsa`.
+Losse `*-products.cmd` zijn dunne wrappers met dezelfde flags. `check_*`
+blijft apart (status-JSON) maar hergebruikt `collect` en productpaden.
 
 Leesbare HOW: [handleiding — Publicatiecontrole](../content-source/handleiding/start/publicatiecontrole.md#producten-opnieuw-genereren--productscmd).
