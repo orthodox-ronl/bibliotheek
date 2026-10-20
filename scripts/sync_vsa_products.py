@@ -199,6 +199,29 @@ def _title_for_vsa(vsa: Path) -> str:
     return vsa.stem.replace("-", " ")
 
 
+def _point_pdf_errors_at_source(text: str, *, tmp_path: Path, source: Path) -> str:
+    """Vervang temp-Markdown-paden in tool-output door het echte ``.vsa``-pad.
+
+    ``vsa pdf`` valideert een tijdelijk blad; foutregels noemen anders
+    ``AppData\\Local\\Temp\\vsa-pdf-….md`` i.p.v. de catalogusbron.
+    """
+    try:
+        shown = str(source.relative_to(REPO_ROOT))
+    except ValueError:
+        shown = str(source)
+    aliases = {
+        str(tmp_path),
+        str(tmp_path.resolve()),
+        tmp_path.as_posix(),
+        Path(tmp_path).resolve().as_posix(),
+    }
+    out = text
+    for alias in aliases:
+        if alias:
+            out = out.replace(alias, shown)
+    return out
+
+
 def _run_vsa_pdf(vsa: Path, pdf: Path) -> None:
     """A4-PDF via tijdelijke Markdown + ``vsa pdf`` (site-SVG-look, printbaar).
 
@@ -229,9 +252,25 @@ def _run_vsa_pdf(vsa: Path, pdf: Path) -> None:
             "--content-root",
             str(REPO_ROOT / "content-source"),
         ]
-        proc = subprocess.run(cmd, cwd=str(REPO_ROOT), check=False)
+        proc = subprocess.run(
+            cmd,
+            cwd=str(REPO_ROOT),
+            check=False,
+            capture_output=True,
+            text=True,
+        )
         if proc.returncode != 0:
-            raise RuntimeError(f"vsa pdf faalde (exit {proc.returncode})")
+            combined = (proc.stderr or "") + (proc.stdout or "")
+            rewritten = _point_pdf_errors_at_source(
+                combined, tmp_path=tmp_path, source=vsa
+            )
+            if rewritten.strip():
+                print(rewritten.rstrip(), file=sys.stderr, flush=True)
+            try:
+                rel = vsa.relative_to(REPO_ROOT)
+            except ValueError:
+                rel = vsa
+            raise RuntimeError(f"vsa pdf faalde (exit {proc.returncode}) voor {rel}")
     finally:
         tmp_path.unlink(missing_ok=True)
     if not pdf.is_file():
