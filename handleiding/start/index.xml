@@ -35,7 +35,7 @@ producten via &lt;code&gt;*-products&lt;/code&gt;; &lt;code&gt;check --strict&lt
 &lt;a href="werkbank/#overgangscriteria"&gt;overgangscriteria&lt;/a&gt;
  kloppen.&lt;/li&gt;
 &lt;li&gt;Overzicht open werk: &lt;code&gt;scripts\werkbank-status.cmd&lt;/code&gt; en special page
-&lt;a href="https://orthodox-ronl.github.io/bibliotheek/catalogus/speciaal/werkbank/"&gt;Werkbank&lt;/a&gt;
+&lt;a href="https://orthodox-ronl.github.io/bibliotheek/overzichten/speciaal/werkbank/"&gt;Werkbank&lt;/a&gt;
 .&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -193,7 +193,7 @@ passende &lt;code&gt;*-products.cmd&lt;/code&gt;).&lt;/li&gt;
 &lt;li&gt;Koormap: &lt;code&gt;content-source\koormappen\hemelum\liturgie-zondag\&lt;/code&gt; of
 &lt;code&gt;liturgie-weekdagen\&lt;/code&gt; — sectie-&lt;code&gt;_index.md&lt;/code&gt; of slot-&lt;code&gt;index.md&lt;/code&gt; + &lt;code&gt;bieb&lt;/code&gt;
 (geen basispartituur-bestanden)&lt;/li&gt;
-&lt;li&gt;Register: &lt;code&gt;content-source\input\werkvoorraad.md&lt;/code&gt; en &lt;a href="https://orthodox-ronl.github.io/bibliotheek/catalogus/id-register/"&gt;Id-register&lt;/a&gt;
+&lt;li&gt;Register: &lt;code&gt;content-source\input\werkvoorraad.md&lt;/code&gt; en &lt;a href="https://orthodox-ronl.github.io/bibliotheek/overzichten/id-register/"&gt;Id-register&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;Lifecycle: &lt;a href="levenscyclus/"&gt;Levenscyclus&lt;/a&gt;
  — Werkbank vs Catalogus&lt;/li&gt;
@@ -389,7 +389,7 @@ bedoelt: titel, druk, jaar, uitgeverij — voor zover bekend.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Waartoe:&lt;/strong&gt; een lichte copyright-trace en duidelijkheid voor beheerders,
 zonder elke partituur vol te schrijven met ISBN’s.&lt;/p&gt;</description></item><item><title>Zoeken in de catalogus</title><link>https://orthodox-ronl.github.io/bibliotheek/handleiding/start/zoeken/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/handleiding/start/zoeken/</guid><description>&lt;p&gt;Met &lt;strong&gt;Zoeken&lt;/strong&gt; vind je een uitvoeringsvorm in de catalogus: op titel, op
 catalogus-id, of op een stukje gezongen tekst. Je opent Zoeken via de knop
-in de site-kop, of via &lt;a href="https://orthodox-ronl.github.io/bibliotheek/catalogus/zoeken/"&gt;Catalogus → Zoeken&lt;/a&gt;
+in de site-kop, of via &lt;a href="https://orthodox-ronl.github.io/bibliotheek/overzichten/zoeken/"&gt;Catalogus → Zoeken&lt;/a&gt;
 .&lt;/p&gt;
 &lt;p&gt;Deze pagina legt eerst uit wat een bezoeker mag verwachten. Daarna volgt
 de technische specificatie, zodat je kunt beoordelen of het zoeken nog
@@ -398,7 +398,7 @@ past bij wat jullie nodig hebben.&lt;/p&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;ul&gt;
-&lt;li&gt;Ingang voor koorleden: knop &lt;strong&gt;Zoeken&lt;/strong&gt; in de kop, of &lt;code&gt;/catalogus/zoeken/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Ingang voor koorleden: knop &lt;strong&gt;Zoeken&lt;/strong&gt; in de kop, of &lt;code&gt;/overzichten/zoeken/&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Korte tip: klik op &lt;strong&gt;?&lt;/strong&gt; naast de knop Zoeken&lt;/li&gt;
 &lt;li&gt;Indexbestand: &lt;code&gt;static\zoek\index.json&lt;/code&gt; (bij Pages-deploy opnieuw gebouwd)&lt;/li&gt;
 &lt;li&gt;Synoniemen: &lt;a href="https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml"&gt;&lt;code&gt;data/zoek-synoniemen.yaml&lt;/code&gt;&lt;/a&gt;
