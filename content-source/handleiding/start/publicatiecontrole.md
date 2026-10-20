@@ -57,9 +57,13 @@ MuseScore- of MusicXML-producten opnieuw.
 
 ## Producten (opnieuw) genereren — `products.cmd`
 
-Eén wrapper voor alle product-sporen. Zoekt **recursief** onder een map
-naar bronbestanden (`.vsa`, `.mscz`, `.mvsa`, …) en runt de bijbehorende
-pijplijnen.
+Eén wrapper voor **alle** product-sporen (inclusief audio en lyrics). Zoekt
+**recursief** onder een map naar bronbestanden (`.vsa`, `.mscz`, `.mvsa`, …)
+of werkt één opgegeven bronbestand af, en runt de bijbehorende pijplijnen.
+
+Past het brontype niet bij een spoor (bijvoorbeeld een `.mvsa` bij het
+mscz-spoor), dan wordt dat spoor **overgeslagen**. Dat is geen fout: je hoeft
+`--kinds` niet te zetten om te zeggen dat andere bronnen ontbreken.
 
 **Default-condities** (alle drie tegelijk): het product **ontbreekt**, is
 **verouderd** (herkomststempel past niet bij de bron), of is **ongeldig**
@@ -75,13 +79,16 @@ scripts\products.cmd
 REM Eerst kijken zonder te schrijven
 scripts\products.cmd --dry-run
 
-REM Alleen één bladermap, alleen partituur + audio
+REM Eén .mvsa: mvsa + audio + lyrics e.d.; mscz/import slaan over
+scripts\products.cmd content-source\catalogus\alleluia\9a-toon-1\groningen\alleluia-9a-toon-1-groningen.mvsa
+
+REM Alleen één bladermap, alleen partituur + audio (focus)
 scripts\products.cmd content-source\catalogus\trisagion --kinds mscz,audio
 ```
 
 | Optie                             | Betekenis                                                                                        |
 | --------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `--kinds LIST`                    | Komma-lijst: `vsa`, `mscz`, `tekstblad`, `mvsa`, `import`, `audio`, `lyrics`, of `all` (default) |
+| `--kinds LIST`                    | Focus: alleen deze kinds (`vsa`, `mscz`, `tekstblad`, `mvsa`, `import`, `audio`, `lyrics`, of `all`). Default `all`. Niet nodig om “ontbrekende” brontypen uit te sluiten — die sporen slaan vanzelf over. |
 | `--dry-run`                       | Toon wat zou gebeuren, schrijf niet                                                              |
 | `--force`                         | Alles onder de root opnieuw (negeert condities)                                                  |
 | `--only-missing`                  | Alleen als het productbestand ontbreekt                                                          |
@@ -95,7 +102,9 @@ de Coria-fingerprints voor de knop **Oefenen**. Losse
 `products.cmd`, of `serve` / `build`.
 
 Alias: `scripts\all-products.cmd` = `products.cmd --kinds all …`.
-Losse `mscz-products.cmd` e.d. blijven werken (zelfde flags).
+Losse `mscz-products.cmd` e.d. blijven werken (zelfde flags). Ze delen
+dezelfde schil als `products`: geen passende bron = overslaan (geen fout);
+audio en lyrics zijn gewone kinds, geen uitzondering.
 
 Contract-ongeldigheid geldt voor **`.mscz.mxl` / `.mvsa.mxl` / `.vsa.mxl`**
 (profiel satb of mono). PDF, mp3, lyrics en tekstblad kennen geen aparte

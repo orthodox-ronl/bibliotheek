@@ -38,17 +38,25 @@ def _parse_kinds(raw: str) -> list[str]:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Genereer bibliotheek-afgeleiden onder een map (recursief). "
-            "Default: ontbrekend, verouderd (stamp) of contract-ongeldig."
+            "Genereer bibliotheek-afgeleiden onder een map (recursief) of "
+            "voor één bronbestand. Default: ontbrekend, verouderd (stamp) of "
+            "contract-ongeldig. Ontbreekt het brontype voor een kind "
+            "(bijv. geen .mscz bij een .mvsa-pad), dan wordt dat kind "
+            "overgeslagen — dat is geen fout."
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=(
-            "kinds:\n"
+            "kinds (default: all — inclusief audio en lyrics):\n"
             + "\n".join(f"  {k:10} {KIND_HELP[k]}" for k in KIND_ORDER)
-            + "\n  all         alle kinds (default)\n"
+            + "\n  all         alle kinds\n"
+            "\n"
+            "--kinds beperkt welke sporen draaien (focus / uitsluiten).\n"
+            "Het vertelt niet dat andere brontypen 'ontbreken': die\n"
+            "sporen slaan vanzelf over als er geen passende bron is.\n"
             "\n"
             "voorbeelden:\n"
             "  python scripts/products.py\n"
+            "  python scripts/products.py pad/naar/lied.mvsa\n"
             "  python scripts/products.py content-source/catalogus/trisagion "
             "--kinds mscz,audio\n"
             "  python scripts/products.py --kinds all --dry-run\n"
@@ -66,7 +74,11 @@ def main(argv: list[str] | None = None) -> int:
         "--kinds",
         default="all",
         metavar="LIST",
-        help="Komma-lijst van kinds of 'all' (default: all).",
+        help=(
+            "Focus: alleen deze kinds (komma-lijst) of 'all' (default). "
+            "Gebruik om werk uit te sluiten, niet omdat andere bronnen "
+            "ontbreken."
+        ),
     )
     add_regen_arguments(parser)
     args = parser.parse_args(argv)
@@ -107,33 +119,23 @@ def main(argv: list[str] | None = None) -> int:
         flush=True,
     )
 
+    # Dunne mains blijven (CLI-compat); elk delegeert naar product_kind.run_kind.
     runners = {
-        "vsa": ("sync_vsa_products", "main"),
-        "mscz": ("sync_mscz_products", "main"),
-        "tekstblad": ("sync_tekstblad_products", "main"),
-        "mvsa": ("sync_mvsa_products", "main"),
-        "import": ("sync_import_mvsa", "main"),
-        "audio": ("sync_audio_products", "main"),
-        "lyrics": ("sync_lyrics_products", "main"),
+        "vsa": "sync_vsa_products",
+        "mscz": "sync_mscz_products",
+        "tekstblad": "sync_tekstblad_products",
+        "mvsa": "sync_mvsa_products",
+        "import": "sync_import_mvsa",
+        "audio": "sync_audio_products",
+        "lyrics": "sync_lyrics_products",
     }
 
     failed = 0
     for kind in kinds:
-        mod_name, fn_name = runners[kind]
+        mod_name = runners[kind]
         print(f"\n--- {kind} ({KIND_HELP[kind]}) ---", flush=True)
         mod = __import__(mod_name)
-        fn = getattr(mod, fn_name)
-        # sync_* main() accepteert argv=None of list; sommige alleen geen argv
-        try:
-            code = fn(forward)
-        except TypeError:
-            # oud signature main() zonder argv — zet sys.argv tijdelijk
-            old = sys.argv
-            try:
-                sys.argv = [mod_name, *forward]
-                code = fn()
-            finally:
-                sys.argv = old
+        code = mod.main(forward)
         if code not in (0, None):
             failed += 1
             print(f"FAILED kind={kind} exit={code}", flush=True)

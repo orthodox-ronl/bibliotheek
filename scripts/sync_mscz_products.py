@@ -8,11 +8,9 @@ over. CI genereert niet — alleen ``check_mscz_products``; vernieuw lokaal met
 
 from __future__ import annotations
 
-import argparse
-import os
 import subprocess
-import sys
 from pathlib import Path
+from typing import Sequence
 
 from coria_mxl import (
     apply_playback_accidentals,
@@ -20,6 +18,13 @@ from coria_mxl import (
     require_no_spaces,
     sanitize_coria_importer,
     write_mxl,
+)
+from product_kind import (
+    DEFAULT_ROOT,
+    REPO_ROOT,
+    ProductSlot,
+    catalog_eligible,
+    main_for_kind,
 )
 from product_meta import (
     partituur_sha256,
@@ -31,15 +36,8 @@ from product_meta import (
     stamp_sha_from_dict,
     utc_now_iso,
 )
-from product_regen import list_source_paths
+from product_regen import RegenPolicy, list_source_paths, mxl_contract_ok
 from sync_vsa_products import folder_is_handmatig
-
-REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_ROOT = REPO_ROOT / "content-source" / "catalogus"
-
-
-def _running_in_ci() -> bool:
-    return os.environ.get("CI", "").strip().lower() in {"1", "true", "yes"}
 
 
 def product_pdf_for_mscz(mscz: Path) -> Path:
@@ -72,9 +70,7 @@ def collect_mscz(root: Path) -> list[Path]:
             continue
         if is_print_mscz(path):
             continue
-        if "input" in path.parts:
-            continue
-        if folder_is_handmatig(path.parent):
+        if not catalog_eligible(path, folder_is_handmatig=folder_is_handmatig):
             continue
         require_no_spaces(path)
         out.append(path)
@@ -175,113 +171,67 @@ def sync_one(
             _remove_legacy(mxl, partituur_mxl)
 
 
-def main(argv: list[str] | None = None) -> int:
-    from product_regen import (
-        add_regen_arguments,
-        mxl_contract_ok,
-        need_regen,
-        policy_from_args,
-    )
+class MsczKind:
+    id = "mscz"
+    label = "MSCZ-producten"
+    source_noun = " .mscz"
+    fix_cmd = r"scripts\mscz-products.cmd"
 
-    parser = argparse.ArgumentParser(
-        description="Exporteer stale PDF/Coria-.mxl vanuit basispartituur-.mscz."
-    )
-    parser.add_argument(
-        "root",
-        nargs="?",
-        type=Path,
-        default=DEFAULT_ROOT,
-        help="Catalogusmap of één .mscz (default: content-source/catalogus)",
-    )
-    add_regen_arguments(parser)
-    args = parser.parse_args(argv)
-    policy = policy_from_args(args)
-    root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
-    if not root.exists():
-        print(f"FAIL: pad bestaat niet: {root}", file=sys.stderr)
-        return 1
-    msczs = collect_mscz(root)
-    if root.is_file() and not msczs:
-        print(
-            f"FAIL: geen verwerkbaar basispartituur-.mscz: {root}\n"
-            "Oplossing: geef een .mscz (geen .print.mscz / geen handmatige "
-            "artefacten-map), of een catalogusmap.",
-            file=sys.stderr,
-        )
-        return 1
-    todo: list[tuple[Path, bool, bool]] = []
-    for mscz in msczs:
-        digest = partituur_sha256(mscz)
-        pdf = product_pdf_for_mscz(mscz)
-        mxl = product_mxl_for_mscz(mscz)
+    def collect(self, root: Path) -> list[Path]:
+        return collect_mscz(root)
 
-        pdf_exists = pdf.is_file() or legacy_pdf_for_mscz(mscz).is_file()
+    def slots_for(self, source: Path, policy: RegenPolicy) -> list[ProductSlot]:
+        digest = partituur_sha256(source)
+        pdf = product_pdf_for_mscz(source)
+        mxl = product_mxl_for_mscz(source)
+        pdf_exists = pdf.is_file() or legacy_pdf_for_mscz(source).is_file()
         pdf_stamp_ok = _stamp_ok_pdf(pdf, digest) or _stamp_ok_pdf(
-            legacy_pdf_for_mscz(mscz), digest
+            legacy_pdf_for_mscz(source), digest
         )
-        need_pdf = need_regen(
-            policy,
-            exists=pdf_exists,
-            stamp_ok=pdf_stamp_ok,
-            contract_ok=None,
-        )
-
-        mxl_exists = mxl.is_file() or legacy_mxl_for_mscz(mscz).is_file()
+        mxl_exists = mxl.is_file() or legacy_mxl_for_mscz(source).is_file()
         mxl_stamp_ok = _stamp_ok_mxl(mxl, digest) or _stamp_ok_mxl(
-            legacy_mxl_for_mscz(mscz), digest
+            legacy_mxl_for_mscz(source), digest
         )
-        mxl_path = mxl if mxl.is_file() else legacy_mxl_for_mscz(mscz)
+        mxl_path = mxl if mxl.is_file() else legacy_mxl_for_mscz(source)
         contract = None
         if policy.invalid and mxl_path.is_file():
             contract = mxl_contract_ok(mxl_path, profile="satb")
-        need_mxl = need_regen(
-            policy,
-            exists=mxl_exists,
-            stamp_ok=mxl_stamp_ok,
-            contract_ok=contract,
-        )
+        return [
+            ProductSlot(
+                path=pdf,
+                exists=pdf_exists,
+                stamp_ok=pdf_stamp_ok,
+                contract_ok=None,
+                needs_musescore=True,
+            ),
+            ProductSlot(
+                path=mxl,
+                exists=mxl_exists,
+                stamp_ok=mxl_stamp_ok,
+                contract_ok=contract,
+                needs_musescore=True,
+            ),
+        ]
+
+    def sync(self, source: Path, *, need: Sequence[bool], dry_run: bool) -> None:
+        need_pdf = bool(need[0]) if len(need) > 0 else False
+        need_mxl = bool(need[1]) if len(need) > 1 else False
         if need_pdf or need_mxl:
-            todo.append((mscz, need_pdf, need_mxl))
-    if not todo:
-        print(f"MSCZ-producten up-to-date ({len(msczs)} .mscz)", flush=True)
-        return 0
-
-    # MuseScore / mscz CLI nodig
-    from vsa.musescore_cli import find_musescore
-
-    if find_musescore() is None:
-        print(
-            f"{len(todo)} stale PDF/MXL t.o.v. .mscz, MuseScore ontbreekt.",
-            flush=True,
-        )
-        if _running_in_ci():
-            print("CI: sla lokale MuseScore-export over.", flush=True)
-            return 0
-        print(r"Installeer MuseScore 4 of: scripts\mscz-products.cmd", flush=True)
-        for mscz, need_pdf, need_mxl in todo:
-            bits = [mscz.name]
-            if need_pdf:
-                bits.append(product_pdf_for_mscz(mscz).name)
-            if need_mxl:
-                bits.append(product_mxl_for_mscz(mscz).name)
-            print(f"  - {' / '.join(bits)}", flush=True)
-        return 1
-
-    print(f"MSCZ-producten bijwerken: {len(todo)} van {len(msczs)}", flush=True)
-    failed = 0
-    for mscz, need_pdf, need_mxl in todo:
-        print(f"== {mscz.relative_to(REPO_ROOT)}", flush=True)
-        try:
             sync_one(
-                mscz, need_pdf=need_pdf, need_mxl=need_mxl, dry_run=args.dry_run
+                source, need_pdf=need_pdf, need_mxl=need_mxl, dry_run=dry_run
             )
-        except Exception as exc:  # noqa: BLE001
-            print(f"  FAILED {exc}", flush=True)
-            failed += 1
-    if failed:
-        print(f"{failed} mislukt van {len(todo)}", flush=True)
-        return 1
-    return 0
+
+
+KIND = MsczKind()
+
+
+def main(argv: list[str] | None = None) -> int:
+    return main_for_kind(
+        KIND,
+        argv,
+        description="Exporteer stale PDF/Coria-.mxl vanuit basispartituur-.mscz.",
+        default_root=DEFAULT_ROOT,
+    )
 
 
 if __name__ == "__main__":

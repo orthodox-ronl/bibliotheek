@@ -10,14 +10,19 @@ over. CI genereert niet — alleen ``check_mvsa_products``; vernieuw lokaal met
 
 from __future__ import annotations
 
-import argparse
-import os
 import subprocess
-import sys
 from pathlib import Path
+from typing import Sequence
 
 from coria_mxl import load_score_xml, process_existing_mxl, require_no_spaces, write_mxl
 from ensure_bibliotheek_id import id_from_catalogus_path
+from product_kind import (
+    DEFAULT_ROOT,
+    REPO_ROOT,
+    ProductSlot,
+    catalog_eligible,
+    main_for_kind,
+)
 from product_meta import (
     FIELD_SOURCE_KIND,
     FIELD_SOURCE_SHA,
@@ -30,15 +35,9 @@ from product_meta import (
     stamp_pdf,
     utc_now_iso,
 )
+from product_regen import RegenPolicy, list_source_paths, mxl_contract_ok
 from sync_import_mvsa import is_import_mvsa
 from sync_vsa_products import folder_is_handmatig
-
-REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_ROOT = REPO_ROOT / "content-source" / "catalogus"
-
-
-def _running_in_ci() -> bool:
-    return os.environ.get("CI", "").strip().lower() in {"1", "true", "yes"}
 
 
 def product_mxl_for_mvsa(mvsa: Path) -> Path:
@@ -53,8 +52,6 @@ def product_pdf_for_mvsa(mvsa: Path) -> Path:
 
 def collect_mvsa(root: Path) -> list[Path]:
     """Canonieke bibliotheek-``.mvsa`` (geen import-``.mscz.mvsa``)."""
-    from product_regen import list_source_paths
-
     out: list[Path] = []
     for path in list_source_paths(root, pattern="*.mvsa"):
         if not path.is_file():
@@ -63,9 +60,7 @@ def collect_mvsa(root: Path) -> list[Path]:
             continue
         if is_import_mvsa(path):
             continue
-        if "input" in path.parts:
-            continue
-        if folder_is_handmatig(path.parent):
+        if not catalog_eligible(path, folder_is_handmatig=folder_is_handmatig):
             continue
         require_no_spaces(path)
         out.append(path)
@@ -173,102 +168,61 @@ def sync_one(
             )
 
 
-def main(argv: list[str] | None = None) -> int:
-    from product_regen import (
-        add_regen_arguments,
-        mxl_contract_ok,
-        need_regen,
-        policy_from_args,
-    )
+class MvsaKind:
+    id = "mvsa"
+    label = "MVSA-producten"
+    source_noun = " .mvsa"
+    fix_cmd = r"scripts\mvsa-products.cmd"
 
-    parser = argparse.ArgumentParser(
-        description="Exporteer stale Coria-.mxl + PDF vanuit bibliotheek-.mvsa."
-    )
-    parser.add_argument(
-        "root",
-        nargs="?",
-        type=Path,
-        default=DEFAULT_ROOT,
-        help="Zoekroot (default: content-source/catalogus)",
-    )
-    add_regen_arguments(parser)
-    args = parser.parse_args(argv)
-    policy = policy_from_args(args)
-    root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
-    sources = collect_mvsa(root)
-    todo: list[tuple[Path, bool, bool]] = []
-    for mvsa in sources:
-        digest = source_sha256(mvsa)
-        mxl = product_mxl_for_mvsa(mvsa)
-        pdf = product_pdf_for_mvsa(mvsa)
+    def collect(self, root: Path) -> list[Path]:
+        return collect_mvsa(root)
+
+    def slots_for(self, source: Path, policy: RegenPolicy) -> list[ProductSlot]:
+        digest = source_sha256(source)
+        mxl = product_mxl_for_mvsa(source)
+        pdf = product_pdf_for_mvsa(source)
         mxl_exists = mxl.is_file()
-        mxl_stamp_ok = _stamp_ok_mxl(mxl, digest)
         contract = (
             mxl_contract_ok(mxl, profile="satb")
             if policy.invalid and mxl_exists
             else None
         )
-        need_mxl = need_regen(
-            policy,
-            exists=mxl_exists,
-            stamp_ok=mxl_stamp_ok,
-            contract_ok=contract,
-        )
-        need_pdf = need_regen(
-            policy,
-            exists=pdf.is_file(),
-            stamp_ok=_stamp_ok_pdf(pdf, digest),
-            contract_ok=None,
-        )
+        return [
+            ProductSlot(
+                path=mxl,
+                exists=mxl_exists,
+                stamp_ok=_stamp_ok_mxl(mxl, digest),
+                contract_ok=contract,
+                needs_musescore=False,
+            ),
+            ProductSlot(
+                path=pdf,
+                exists=pdf.is_file(),
+                stamp_ok=_stamp_ok_pdf(pdf, digest),
+                contract_ok=None,
+                needs_musescore=True,
+            ),
+        ]
+
+    def sync(self, source: Path, *, need: Sequence[bool], dry_run: bool) -> None:
+        need_mxl = bool(need[0]) if len(need) > 0 else False
+        need_pdf = bool(need[1]) if len(need) > 1 else False
         if need_mxl or need_pdf:
-            todo.append((mvsa, need_mxl, need_pdf))
-    if not todo:
-        print(f"MVSA-producten up-to-date ({len(sources)} .mvsa)", flush=True)
-        return 0
-
-    need_any_pdf = any(need_pdf for _, _, need_pdf in todo)
-    if need_any_pdf:
-        from vsa.musescore_cli import find_musescore
-
-        if find_musescore() is None:
-            # Probeer MXL-only verder; PDF later lokaal.
-            mxl_only = [(m, nm, False) for m, nm, np in todo if nm]
-            pdf_pending = [(m, np) for m, nm, np in todo if np]
-            if pdf_pending:
-                print(
-                    f"{len(pdf_pending)} stale .mvsa.pdf; MuseScore ontbreekt.",
-                    flush=True,
-                )
-                if _running_in_ci():
-                    print("CI: sla MuseScore-PDF over; MXL wel bijwerken.", flush=True)
-                else:
-                    print(r"Installeer MuseScore 4 of: scripts\mvsa-products.cmd", flush=True)
-                    for mscz_path, _ in pdf_pending:
-                        print(
-                            f"  - {mscz_path.name} -> {product_pdf_for_mvsa(mscz_path).name}",
-                            flush=True,
-                        )
-                    if not mxl_only:
-                        return 1
-            todo = mxl_only if mxl_only else []
-            if not todo:
-                return 0 if _running_in_ci() else 1
-
-    print(f"MVSA-producten bijwerken: {len(todo)} van {len(sources)}", flush=True)
-    failed = 0
-    for mvsa, need_mxl, need_pdf in todo:
-        print(f"== {mvsa.relative_to(REPO_ROOT)}", flush=True)
-        try:
             sync_one(
-                mvsa, need_mxl=need_mxl, need_pdf=need_pdf, dry_run=args.dry_run
+                source, need_mxl=need_mxl, need_pdf=need_pdf, dry_run=dry_run
             )
-        except Exception as exc:  # noqa: BLE001
-            print(f"  FAILED {exc}", flush=True)
-            failed += 1
-    if failed:
-        print(f"{failed} mislukt van {len(todo)}", flush=True)
-        return 1
-    return 0
+
+
+KIND = MvsaKind()
+
+
+def main(argv: list[str] | None = None) -> int:
+    return main_for_kind(
+        KIND,
+        argv,
+        description="Exporteer stale Coria-.mxl + PDF vanuit bibliotheek-.mvsa.",
+        default_root=DEFAULT_ROOT,
+    )
 
 
 if __name__ == "__main__":

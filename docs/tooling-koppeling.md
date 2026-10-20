@@ -43,9 +43,10 @@ Override: omgevingvariabele `VSA_TOOLING_REF` (wint van pin/float).
 De Pages-workflow installeert `vsa-tool` (pin/float), runt
 `vsa validate content-source/catalogus`, daarna versheidscontroles
 (`check_vsa_products`, `check_mscz_products`, `check_tekstblad_products`,
-`check_import_mvsa`, `check_mvsa_products`, `check_audio_products` — allemaal
-met `--fail`), daarna `check_mxl_playback_contract.py --fail` (bestaande
-Coria-`.mxl` via `mxl validate`: M2/M8, importer-tags, meta),
+`check_import_mvsa`, `check_mvsa_products`, `check_audio_products`,
+`check_lyrics_products` — allemaal met `--fail`), daarna
+`check_mxl_playback_contract.py --fail` (bestaande Coria-`.mxl` via
+`mxl validate`: M2/M8, importer-tags, meta),
 `ensure_bibliotheek_id.py --check-only --fail` (colofon `Bibliotheek-id:`),
 daarna Coria-fingerprints en Hugo. CI genereert geen producten — vernieuw
 lokaal met `scripts\products.cmd` (of de losse `*-products.cmd`) en commit

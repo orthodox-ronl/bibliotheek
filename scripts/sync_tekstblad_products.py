@@ -8,11 +8,19 @@ alleen ``check_tekstblad_products``; vernieuw lokaal met
 
 from __future__ import annotations
 
-import argparse
 import subprocess
 import sys
 from pathlib import Path
+from typing import Sequence
 
+from product_kind import (
+    DEFAULT_ROOT,
+    REPO_ROOT,
+    ProductSlot,
+    catalog_eligible,
+    main_for_kind,
+    require_no_spaces_name,
+)
 from product_meta import (
     FIELD_SOURCE_KIND,
     FIELD_SOURCE_SHA,
@@ -23,10 +31,8 @@ from product_meta import (
     stamp_pdf,
     utc_now_iso,
 )
+from product_regen import RegenPolicy, list_source_paths
 from sync_vsa_products import folder_is_handmatig
-
-REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_ROOT = REPO_ROOT / "content-source" / "catalogus"
 
 
 def is_tekstblad_md(path: Path) -> bool:
@@ -39,18 +45,13 @@ def product_pdf_for_md(md: Path) -> Path:
 
 
 def collect_tekstblad(root: Path) -> list[Path]:
-    from product_regen import list_source_paths
-
     out: list[Path] = []
     for path in list_source_paths(root, pattern="*"):
         if not path.is_file() or not is_tekstblad_md(path):
             continue
-        if "input" in path.parts:
+        if not catalog_eligible(path, folder_is_handmatig=folder_is_handmatig):
             continue
-        if folder_is_handmatig(path.parent):
-            continue
-        if " " in path.name:
-            raise SystemExit(f"bestandsnaam mag geen spaties hebben: {path.name}")
+        require_no_spaces_name(path)
         out.append(path)
     return out
 
@@ -97,55 +98,45 @@ def sync_one(md: Path, *, dry_run: bool) -> None:
     )
 
 
-def main(argv: list[str] | None = None) -> int:
-    from product_regen import add_regen_arguments, need_regen, policy_from_args
+class TekstbladKind:
+    id = "tekstblad"
+    label = "Tekstblad-producten"
+    source_noun = " .tekstblad.md"
+    fix_cmd = r"scripts\tekstblad-products.cmd"
 
-    parser = argparse.ArgumentParser(
-        description="Exporteer stale tekstblad-PDF vanuit .tekstblad.md."
-    )
-    parser.add_argument(
-        "root",
-        nargs="?",
-        type=Path,
-        default=DEFAULT_ROOT,
-        help="Zoekroot (default: content-source/catalogus)",
-    )
-    add_regen_arguments(parser)
-    args = parser.parse_args(argv)
-    policy = policy_from_args(args)
-    root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
-    sources = collect_tekstblad(root)
-    todo: list[Path] = []
-    for md in sources:
-        pdf = product_pdf_for_md(md)
+    def collect(self, root: Path) -> list[Path]:
+        return collect_tekstblad(root)
+
+    def slots_for(self, source: Path, policy: RegenPolicy) -> list[ProductSlot]:
+        del policy
+        pdf = product_pdf_for_md(source)
         exists = pdf.is_file()
-        stamp_ok = (not is_stale(md, pdf)) if exists else False
-        if need_regen(
-            policy,
-            exists=exists,
-            stamp_ok=stamp_ok,
-            contract_ok=None,
-        ):
-            todo.append(md)
-    if not todo:
-        print(f"Tekstblad-producten up-to-date ({len(sources)} .tekstblad.md)", flush=True)
-        return 0
-    print(
-        f"Tekstblad-producten bijwerken: {len(todo)} van {len(sources)}",
-        flush=True,
+        stamp_ok = (not is_stale(source, pdf)) if exists else False
+        return [
+            ProductSlot(
+                path=pdf,
+                exists=exists,
+                stamp_ok=stamp_ok,
+                contract_ok=None,
+                needs_musescore=False,
+            )
+        ]
+
+    def sync(self, source: Path, *, need: Sequence[bool], dry_run: bool) -> None:
+        if need and need[0]:
+            sync_one(source, dry_run=dry_run)
+
+
+KIND = TekstbladKind()
+
+
+def main(argv: list[str] | None = None) -> int:
+    return main_for_kind(
+        KIND,
+        argv,
+        description="Exporteer stale tekstblad-PDF vanuit .tekstblad.md.",
+        default_root=DEFAULT_ROOT,
     )
-    failed = 0
-    for md in todo:
-        print(f"== {md.relative_to(REPO_ROOT)}", flush=True)
-        try:
-            sync_one(md, dry_run=args.dry_run)
-        except Exception as exc:  # noqa: BLE001
-            print(f"  FAILED {exc}", flush=True)
-            failed += 1
-    if failed:
-        print(f"{failed} mislukt van {len(todo)}", flush=True)
-        return 1
-    return 0
 
 
 if __name__ == "__main__":

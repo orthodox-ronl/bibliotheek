@@ -17,10 +17,12 @@ scripts\all-products.cmd [pad] [--force] [--dry-run]
 
 # DESCRIPTION
 
-Roept achter elkaar de product-scripts aan die siblings maken naast
-bibliotheek-bronnen onder `content-source\catalogus` (of onder een
-opgegeven pad). Mappen met `artefacten_handmatig: true` en bestanden in
-`input\` worden door die scripts overgeslagen.
+Roept achter elkaar **alle** product-sporen aan (zelfde als
+`products.cmd --kinds all`) die siblings maken naast bibliotheek-bronnen
+onder `content-source\catalogus` (of onder een opgegeven pad). Audio en
+lyrics horen daar gewoon bij; ze zijn geen aparte uitzondering. Mappen met
+`artefacten_handmatig: true` en bestanden in `input\` worden overgeslagen.
+Past het brontype niet bij een spoor, dan skip (geen fout).
 
 Volgorde:
 

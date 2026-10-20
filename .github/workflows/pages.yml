@@ -18,9 +18,12 @@ on:
 permissions:
   contents: write
 
+# Eén groep: alle deploys schrijven naar dezelfde gh-pages-branch.
+# cancel-in-progress: false — anders kan een development/branch-push de
+# productie-deploy van main afbreken (gebeurd bij M20 Coria-MXL-merge).
 concurrency:
   group: pages-${{ github.repository }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
@@ -43,14 +46,15 @@ jobs:
           echo "branch=$branch" >> "$GITHUB_OUTPUT"
 
           # Keep in sync with scripts/fingerprint_coria_mxl.py::_pages_subdir
-          reserved='^(preview|main|gh-pages|development|bibliotheek|catalogus|koormappen|handleiding|coria|css|images|js|mxl|vsa|input)$'
+          reserved='^(preview|main|gh-pages|development|bibliotheek|catalogus|overzichten|koormappen|handleiding|coria|css|images|js|mxl|vsa|input)$'
 
           if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
             echo "base_url=https://orthodox-ronl.github.io/bibliotheek/" >> "$GITHUB_OUTPUT"
             echo "destination_dir=" >> "$GITHUB_OUTPUT"
             echo "pages_url=https://orthodox-ronl.github.io/bibliotheek/" >> "$GITHUB_OUTPUT"
             echo "label=production" >> "$GITHUB_OUTPUT"
-            echo "keep_files=false" >> "$GITHUB_OUTPUT"
+            # true: behoud preview/ en branch-previews op gh-pages (false wist die weg).
+            echo "keep_files=true" >> "$GITHUB_OUTPUT"
             echo "tooling_mode=pin" >> "$GITHUB_OUTPUT"
             ref="$(tr -d '[:space:]' < vsa-tooling.pin | head -n1)"
             if [[ -z "$ref" ]]; then
@@ -137,6 +141,9 @@ jobs:
       - name: Check audio product freshness
         run: python scripts/check_audio_products.py --fail
 
+      - name: Check lyrics product freshness
+        run: python scripts/check_lyrics_products.py --fail
+
       - name: Check Coria MXL playback contract
         run: python scripts/check_mxl_playback_contract.py --fail
 
@@ -193,7 +200,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./generated/site
-          keep_files: false
+          keep_files: ${{ steps.target.outputs.keep_files }}
 
       - name: Show site URL
         run: |

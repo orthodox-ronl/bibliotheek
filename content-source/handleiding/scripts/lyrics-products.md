@@ -7,7 +7,7 @@ weight: 106
 # NAME
 
 `scripts\lyrics-products.cmd` — platte zoektekst naast `.vsa` / `.mvsa` /
-`.mscz`
+`.mscz` (gewoon product-spoor; ook via `products` / `all-products`)
 
 # SYNOPSIS
 

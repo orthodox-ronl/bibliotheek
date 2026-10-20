@@ -7,6 +7,7 @@ weight: 107
 # NAME
 
 `scripts\audio-products.cmd` — preview-`.mp3` maken bij een bibliotheek-bron
+(gewoon product-spoor; ook via `products` / `all-products`)
 
 # SYNOPSIS
 

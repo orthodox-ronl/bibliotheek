@@ -25,7 +25,9 @@ producten.
 Het zoekt basispartituur-`.mscz` onder het opgegeven pad (of, zonder pad,
 onder `content-source\catalogus`). Bestanden in `input\`, namen die
 eindigen op `.print.mscz`, en mappen met `artefacten_handmatig: true`
-worden overgeslagen.
+worden overgeslagen. Geef je een ander brontype (bijvoorbeeld een `.mvsa`),
+dan slaat dit spoor over — dat is geen fout (zelfde gedrag als bij
+[products](../all-products/)).
 
 Onder de motorkap: MuseScore 4 voor de PDF; de tooling-CLI `mscz mxl` voor
 Coria (vier parts). Geen fork van VSA-tooling-logica.
