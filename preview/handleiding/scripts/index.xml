@@ -213,9 +213,10 @@ producten.&lt;/p&gt;
 &lt;p&gt;Het zoekt basispartituur-&lt;code&gt;.mscz&lt;/code&gt; onder het opgegeven pad (of, zonder pad,
 onder &lt;code&gt;content-source\catalogus&lt;/code&gt;). Bestanden in &lt;code&gt;input\&lt;/code&gt;, namen die
 eindigen op &lt;code&gt;.print.mscz&lt;/code&gt;, en mappen met &lt;code&gt;artefacten_handmatig: true&lt;/code&gt;
-worden overgeslagen.&lt;/p&gt;
-&lt;p&gt;Onder de motorkap: MuseScore 4 voor de PDF; de tooling-CLI &lt;code&gt;mscz mxl&lt;/code&gt; voor
-Coria (vier parts). Geen fork van VSA-tooling-logica.&lt;/p&gt;</description></item><item><title>import-mvsa</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/import-mvsa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/import-mvsa/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+worden overgeslagen. Geef je een ander brontype (bijvoorbeeld een &lt;code&gt;.mvsa&lt;/code&gt;),
+dan slaat dit spoor over — dat is geen fout (zelfde gedrag als bij
+&lt;a href="../all-products/"&gt;products&lt;/a&gt;
+).&lt;/p&gt;</description></item><item><title>import-mvsa</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/import-mvsa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/import-mvsa/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\import-mvsa.cmd&lt;/code&gt; — bewerkvorm &lt;code&gt;{stam}.mscz.mvsa&lt;/code&gt; maken naast een
 basispartituur-&lt;code&gt;.mscz&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
@@ -231,7 +232,7 @@ site. Koormappen en publicatiecontroles eisen die sibling &lt;strong&gt;niet&lt;
 bestand (&lt;code&gt;vsa-partituur-sha256&lt;/code&gt;, &lt;code&gt;vsa-generated-at&lt;/code&gt;), zodat
 &lt;code&gt;check&lt;/code&gt; / CI kunnen zien of de import nog bij de huidige &lt;code&gt;.mscz&lt;/code&gt; past.&lt;/p&gt;</description></item><item><title>lyrics-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/lyrics-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/lyrics-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\lyrics-products.cmd&lt;/code&gt; — platte zoektekst naast &lt;code&gt;.vsa&lt;/code&gt; / &lt;code&gt;.mvsa&lt;/code&gt; /
-&lt;code&gt;.mscz&lt;/code&gt;&lt;/p&gt;
+&lt;code&gt;.mscz&lt;/code&gt; (gewoon product-spoor; ook via &lt;code&gt;products&lt;/code&gt; / &lt;code&gt;all-products&lt;/code&gt;)&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\lyrics-products.cmd [pad] [--force] [--dry-run]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
@@ -275,8 +276,12 @@ producten.&lt;/p&gt;
 &lt;p&gt;Het zoekt &lt;code&gt;.mvsa&lt;/code&gt; onder het opgegeven pad (of, zonder pad, onder
 &lt;code&gt;content-source\catalogus&lt;/code&gt;). Import-siblings die eindigen op
 &lt;code&gt;.mscz.mvsa&lt;/code&gt;, bestanden in &lt;code&gt;input\&lt;/code&gt;, en mappen met
-&lt;code&gt;artefacten_handmatig: true&lt;/code&gt; worden overgeslagen.&lt;/p&gt;</description></item><item><title>audio-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/audio-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/audio-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;scripts\audio-products.cmd&lt;/code&gt; — preview-&lt;code&gt;.mp3&lt;/code&gt; maken bij een bibliotheek-bron&lt;/p&gt;
+&lt;code&gt;artefacten_handmatig: true&lt;/code&gt; worden overgeslagen. Geen passende &lt;code&gt;.mvsa&lt;/code&gt;
+op het pad = overslaan (geen fout; zelfde schil als
+&lt;a href="../all-products/"&gt;products&lt;/a&gt;
+).&lt;/p&gt;</description></item><item><title>audio-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/audio-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/audio-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;scripts\audio-products.cmd&lt;/code&gt; — preview-&lt;code&gt;.mp3&lt;/code&gt; maken bij een bibliotheek-bron
+(gewoon product-spoor; ook via &lt;code&gt;products&lt;/code&gt; / &lt;code&gt;all-products&lt;/code&gt;)&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\audio-products.cmd [pad] [--force] [--dry-run]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
@@ -313,32 +318,12 @@ in één keer bijwerken&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\all-products.cmd [pad] [--force] [--dry-run]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Roept achter elkaar de product-scripts aan die siblings maken naast
-bibliotheek-bronnen onder &lt;code&gt;content-source\catalogus&lt;/code&gt; (of onder een
-opgegeven pad). Mappen met &lt;code&gt;artefacten_handmatig: true&lt;/code&gt; en bestanden in
-&lt;code&gt;input\&lt;/code&gt; worden door die scripts overgeslagen.&lt;/p&gt;
-&lt;p&gt;Volgorde:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;a href="../vsa-products/"&gt;vsa-products&lt;/a&gt;
- — &lt;code&gt;{stam}.vsa.mxl&lt;/code&gt; + &lt;code&gt;{stam}.vsa.pdf&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="../mscz-products/"&gt;mscz-products&lt;/a&gt;
- — &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt; + &lt;code&gt;{stam}.mscz.mxl&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="../tekstblad-products/"&gt;tekstblad-products&lt;/a&gt;
- — &lt;code&gt;{stam}.tekstblad.pdf&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="../mvsa-products/"&gt;mvsa-products&lt;/a&gt;
- — &lt;code&gt;{stam}.mvsa.mxl&lt;/code&gt; + &lt;code&gt;{stam}.mvsa.pdf&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="../import-mvsa/"&gt;import-mvsa&lt;/a&gt;
- — alleen &lt;strong&gt;bestaande&lt;/strong&gt; &lt;code&gt;{stam}.mscz.mvsa&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="../audio-products/"&gt;audio-products&lt;/a&gt;
- — &lt;code&gt;{stam}.mvsa.mp3&lt;/code&gt; / &lt;code&gt;.mscz.mp3&lt;/code&gt; / &lt;code&gt;.vsa.mp3&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="../lyrics-products/"&gt;lyrics-products&lt;/a&gt;
- — &lt;code&gt;{stam}.vsa.lyrics.txt&lt;/code&gt; / &lt;code&gt;.mvsa.lyrics.txt&lt;/code&gt; / &lt;code&gt;.mscz.lyrics.txt&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Daarna (tenzij &lt;code&gt;--dry-run&lt;/code&gt;): Coria-fingerprints voor de Oefenen-knop
-(&lt;code&gt;fingerprint_coria_mxl.py&lt;/code&gt;, via &lt;code&gt;products.cmd&lt;/code&gt;), en
-&lt;code&gt;static\zoek\index.json&lt;/code&gt; opnieuw bouwen zodat zoeken lyrics, status en
-audio-paden volgt. Op GitHub Pages gebeurt die indexstap opnieuw in de
-deploy (ook voor &lt;code&gt;/preview/&lt;/code&gt; en branch-previews).&lt;/p&gt;</description></item><item><title>vsa-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;Roept achter elkaar &lt;strong&gt;alle&lt;/strong&gt; product-sporen aan (zelfde als
+&lt;code&gt;products.cmd --kinds all&lt;/code&gt;) die siblings maken naast bibliotheek-bronnen
+onder &lt;code&gt;content-source\catalogus&lt;/code&gt; (of onder een opgegeven pad). Audio en
+lyrics horen daar gewoon bij; ze zijn geen aparte uitzondering. Mappen met
+&lt;code&gt;artefacten_handmatig: true&lt;/code&gt; en bestanden in &lt;code&gt;input\&lt;/code&gt; worden overgeslagen.
+Past het brontype niet bij een spoor, dan skip (geen fout).&lt;/p&gt;</description></item><item><title>vsa-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\vsa-products.cmd&lt;/code&gt; — Coria-&lt;code&gt;.vsa.mxl&lt;/code&gt; en A4-&lt;code&gt;.vsa.pdf&lt;/code&gt; maken bij een
 catalogus-&lt;code&gt;.vsa&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;

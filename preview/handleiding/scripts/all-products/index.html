@@ -40,10 +40,12 @@ omgewisselde woorden tellen mee. Zoeken loopt over de
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><a class=oefenhoek-breadcrumb-link href=/bibliotheek/preview/handleiding/scripts/>Scripts</a>
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><span class=oefenhoek-breadcrumb-current aria-current=page>all-products</span></nav></div></header><main class=page><h1 id=name>NAME</h1><p><code>scripts\all-products.cmd</code> — alle ontbrekende of verouderde bibliotheek-producten
 in één keer bijwerken</p><h1 id=synopsis>SYNOPSIS</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\all-products.cmd [pad] [--force] [--dry-run]
-</span></span></code></pre></div><h1 id=description>DESCRIPTION</h1><p>Roept achter elkaar de product-scripts aan die siblings maken naast
-bibliotheek-bronnen onder <code>content-source\catalogus</code> (of onder een
-opgegeven pad). Mappen met <code>artefacten_handmatig: true</code> en bestanden in
-<code>input\</code> worden door die scripts overgeslagen.</p><p>Volgorde:</p><ol><li><a href=../vsa-products/>vsa-products</a>
+</span></span></code></pre></div><h1 id=description>DESCRIPTION</h1><p>Roept achter elkaar <strong>alle</strong> product-sporen aan (zelfde als
+<code>products.cmd --kinds all</code>) die siblings maken naast bibliotheek-bronnen
+onder <code>content-source\catalogus</code> (of onder een opgegeven pad). Audio en
+lyrics horen daar gewoon bij; ze zijn geen aparte uitzondering. Mappen met
+<code>artefacten_handmatig: true</code> en bestanden in <code>input\</code> worden overgeslagen.
+Past het brontype niet bij een spoor, dan skip (geen fout).</p><p>Volgorde:</p><ol><li><a href=../vsa-products/>vsa-products</a>
 — <code>{stam}.vsa.mxl</code> + <code>{stam}.vsa.pdf</code></li><li><a href=../mscz-products/>mscz-products</a>
 — <code>{stam}.mscz.pdf</code> + <code>{stam}.mscz.mxl</code></li><li><a href=../tekstblad-products/>tekstblad-products</a>
 — <code>{stam}.tekstblad.pdf</code></li><li><a href=../mvsa-products/>mvsa-products</a>
@@ -74,4 +76,4 @@ specifieke <code>*-products.cmd</code>.</p><h1 id=see-also>SEE ALSO</h1><ul><li>
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-10</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-20</p></div></footer></body></html>
