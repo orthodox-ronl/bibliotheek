@@ -1,10 +1,10 @@
 ---
-title: "23 Onze Vader"
-linkTitle: "23 Onze Vader"
-publicatiestatus: voorzien
+title: "Onze Vader Standaard (Hemelum)"
+linkTitle: "Hemelum"
+publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 23 Onze Vader
+# Onze Vader Standaard (Hemelum)
 
 {{< bieb id="onze-vader/default/hemelum" >}}

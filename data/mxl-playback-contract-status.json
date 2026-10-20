@@ -50,12 +50,6 @@
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
       "issues": []
     },
-    "content-source/catalogus/cherubijnenhymne/15c-kastorski/hemelum/cherubijnenhymne-15c-kastorski-hemelum.mscz.mxl": {
-      "profile": "satb",
-      "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
-      "issues": []
-    },
     "content-source/catalogus/cherubijnenhymne/15c-kastorski/hemelum/cherubijnenhymne-15c-kastorski-hemelum.mvsa.mxl": {
       "profile": "satb",
       "ok": true,
@@ -129,6 +123,12 @@
       "issues": []
     },
     "content-source/catalogus/derde-antifoon/geboorte-moeder-gods/liturgikon/derde-antifoon-geboorte-moeder-gods-liturgikon.vsa.mxl": {
+      "profile": "mono",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
+      "issues": []
+    },
+    "content-source/catalogus/derde-antifoon/kruisverheffing/hemelum/derde-antifoon-kruisverheffing-hemelum.vsa.mxl": {
       "profile": "mono",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
@@ -356,6 +356,18 @@
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
       "issues": []
     },
+    "content-source/catalogus/geloofsbelijdenis/default/groningen/geloofsbelijdenis-default-groningen.mvsa.mxl": {
+      "profile": "satb",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
+      "issues": []
+    },
+    "content-source/catalogus/geloofsbelijdenis/default/groningen/geloofsbelijdenis-default-groningen.vsa.mxl": {
+      "profile": "mono",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
+      "issues": []
+    },
     "content-source/catalogus/gezegend-hij-die-komt/default/hemelum/gezegend-hij-die-komt-default-hemelum.mvsa.mxl": {
       "profile": "satb",
       "ok": true,
@@ -536,6 +548,12 @@
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
       "issues": []
     },
+    "content-source/catalogus/kondak/vera-dadjezjda-ljoebov-toon-1/hemelum/kondak-vera-dadjezjda-ljoebov-toon-1-hemelum.vsa.mxl": {
+      "profile": "mono",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
+      "issues": []
+    },
     "content-source/catalogus/kondak/vera-nadjezjda-ljoebov/hemelum/kondak-vera-nadjezjda-ljoebov-hemelum.vsa.mxl": {
       "profile": "mono",
       "ok": true,
@@ -626,6 +644,12 @@
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
       "issues": []
     },
+    "content-source/catalogus/onze-vader/default/hemelum/onze-vader-default-hemelum.mvsa.mxl": {
+      "profile": "satb",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
+      "issues": []
+    },
     "content-source/catalogus/prijslied/geboorte-moeder-gods/meneon-1/prijslied-geboorte-moeder-gods-meneon-1.vsa.mxl": {
       "profile": "mono",
       "ok": true,
@@ -704,13 +728,7 @@
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
       "issues": []
     },
-    "content-source/catalogus/trisagion/8a-nederlands/hemelum/trisagion-8a-nederlands-hemelum.mscz.mxl": {
-      "profile": "satb",
-      "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
-      "issues": []
-    },
-    "content-source/catalogus/trisagion/8a-slav/hemelum/trisagion-8a-slav-hemelum.mscz.mxl": {
+    "content-source/catalogus/trisagion/8a-nederlands/hemelum/trisagion-8a-nederlands-hemelum.mvsa.mxl": {
       "profile": "satb",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
@@ -843,6 +861,12 @@
       "issues": []
     },
     "content-source/catalogus/tropaar/nikolaas-van-myra/liturgikon/tropaar-nikolaas-van-myra-liturgikon.vsa.mxl": {
+      "profile": "mono",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
+      "issues": []
+    },
+    "content-source/catalogus/tropaar/nikolaas-van-myra-toon-4/liturgikon/tropaar-nikolaas-van-myra-toon-4-liturgikon.vsa.mxl": {
       "profile": "mono",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",

@@ -57,13 +57,6 @@
   },
   {
     "dir": "catalogus/cherubijnenhymne/15c-kastorski/hemelum",
-    "source": "content-source/catalogus/cherubijnenhymne/15c-kastorski/hemelum/cherubijnenhymne-15c-kastorski-hemelum.mscz",
-    "ok": true,
-    "issues": [],
-    "fix_cmd": "scripts\\lyrics-products.cmd"
-  },
-  {
-    "dir": "catalogus/cherubijnenhymne/15c-kastorski/hemelum",
     "source": "content-source/catalogus/cherubijnenhymne/15c-kastorski/hemelum/cherubijnenhymne-15c-kastorski-hemelum.mvsa",
     "ok": true,
     "issues": [],
@@ -149,6 +142,13 @@
   {
     "dir": "catalogus/derde-antifoon/geboorte-moeder-gods/liturgikon",
     "source": "content-source/catalogus/derde-antifoon/geboorte-moeder-gods/liturgikon/derde-antifoon-geboorte-moeder-gods-liturgikon.vsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\lyrics-products.cmd"
+  },
+  {
+    "dir": "catalogus/derde-antifoon/kruisverheffing/hemelum",
+    "source": "content-source/catalogus/derde-antifoon/kruisverheffing/hemelum/derde-antifoon-kruisverheffing-hemelum.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\lyrics-products.cmd"
@@ -413,6 +413,20 @@
     "fix_cmd": "scripts\\lyrics-products.cmd"
   },
   {
+    "dir": "catalogus/geloofsbelijdenis/default/groningen",
+    "source": "content-source/catalogus/geloofsbelijdenis/default/groningen/geloofsbelijdenis-default-groningen.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\lyrics-products.cmd"
+  },
+  {
+    "dir": "catalogus/geloofsbelijdenis/default/groningen",
+    "source": "content-source/catalogus/geloofsbelijdenis/default/groningen/geloofsbelijdenis-default-groningen.vsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\lyrics-products.cmd"
+  },
+  {
     "dir": "catalogus/gezegend-hij-die-komt/default/hemelum",
     "source": "content-source/catalogus/gezegend-hij-die-komt/default/hemelum/gezegend-hij-die-komt-default-hemelum.mvsa",
     "ok": true,
@@ -623,6 +637,13 @@
     "fix_cmd": "scripts\\lyrics-products.cmd"
   },
   {
+    "dir": "catalogus/kondak/vera-dadjezjda-ljoebov-toon-1/hemelum",
+    "source": "content-source/catalogus/kondak/vera-dadjezjda-ljoebov-toon-1/hemelum/kondak-vera-dadjezjda-ljoebov-toon-1-hemelum.vsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\lyrics-products.cmd"
+  },
+  {
     "dir": "catalogus/kondak/vera-nadjezjda-ljoebov/hemelum",
     "source": "content-source/catalogus/kondak/vera-nadjezjda-ljoebov/hemelum/kondak-vera-nadjezjda-ljoebov-hemelum.vsa",
     "ok": true,
@@ -728,6 +749,13 @@
     "fix_cmd": "scripts\\lyrics-products.cmd"
   },
   {
+    "dir": "catalogus/onze-vader/default/hemelum",
+    "source": "content-source/catalogus/onze-vader/default/hemelum/onze-vader-default-hemelum.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\lyrics-products.cmd"
+  },
+  {
     "dir": "catalogus/prijslied/geboorte-moeder-gods/meneon-1",
     "source": "content-source/catalogus/prijslied/geboorte-moeder-gods/meneon-1/prijslied-geboorte-moeder-gods-meneon-1.vsa",
     "ok": true,
@@ -820,14 +848,7 @@
   },
   {
     "dir": "catalogus/trisagion/8a-nederlands/hemelum",
-    "source": "content-source/catalogus/trisagion/8a-nederlands/hemelum/trisagion-8a-nederlands-hemelum.mscz",
-    "ok": true,
-    "issues": [],
-    "fix_cmd": "scripts\\lyrics-products.cmd"
-  },
-  {
-    "dir": "catalogus/trisagion/8a-slav/hemelum",
-    "source": "content-source/catalogus/trisagion/8a-slav/hemelum/trisagion-8a-slav-hemelum.mscz",
+    "source": "content-source/catalogus/trisagion/8a-nederlands/hemelum/trisagion-8a-nederlands-hemelum.mvsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\lyrics-products.cmd"
@@ -982,6 +1003,13 @@
   {
     "dir": "catalogus/tropaar/nikolaas-van-myra/liturgikon",
     "source": "content-source/catalogus/tropaar/nikolaas-van-myra/liturgikon/tropaar-nikolaas-van-myra-liturgikon.vsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\lyrics-products.cmd"
+  },
+  {
+    "dir": "catalogus/tropaar/nikolaas-van-myra-toon-4/liturgikon",
+    "source": "content-source/catalogus/tropaar/nikolaas-van-myra-toon-4/liturgikon/tropaar-nikolaas-van-myra-toon-4-liturgikon.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\lyrics-products.cmd"
