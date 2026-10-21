@@ -6,6 +6,22 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Vredeslitanie
-
 {{< bieb id="ektinia/vrede/hemelum" >}}
+
+# (1) {{< titel >}}
+
+{{< muziek >}}
+
+{{< /bieb >}}
+
+{{< pdf-pagina >}}
+
+{{< bieb id="ektinia/vrede/hemelum-ksl" >}}
+
+# (1) {{< bieb title />}}
+
+{{< bieb bron />}}
+
+{{< bieb muziek />}}
+
+{{< /bieb >}}

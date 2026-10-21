@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # En Allen (Hemelum (ksl))
 
-{{< bieb id="en-allen/default/hemelum-ksl" >}}
+{{< bieb id="en-allen/default/hemelum-ksl" />}}

@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Tropaar maandag toon 4 (Heilige Engelen)
 
-{{< bieb id="tropaar/maandag-toon-4/hemelum" >}}
+{{< bieb id="tropaar/maandag-toon-4/hemelum" />}}

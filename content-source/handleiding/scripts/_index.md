@@ -40,6 +40,7 @@ vanuit de repo-root.
 | `werkbank-status` | Overzicht open werkbank-cases; schrijft `data\werkbank-status.json`. | [werkbank-status](werkbank-status/) |
 | `lifecycle-grenzen` | Spaties/ruwe formats in catalogusmappen melden (optioneel `--fail`). | [lifecycle-grenzen](lifecycle-grenzen/) |
 | `oefenhoek-index` | SVG-plaatjes uit catalogus-`.vsa` naar `static\vsa\bladermap\` (geen stamp); optioneel legacy-strip. | [oefenhoek-index](oefenhoek-index/) |
+| `pagina-pdf` | Plakt catalogus-product-PDF’s tot `index.pagina.pdf` voor Download van een bladermap-pagina. | [pagina-pdf](pagina-pdf/) |
 
 Intern (geen apart gebruikerscommando): `python scripts\fingerprint_coria_mxl.py`
 maakt `/mxl/c/<hash>.musicxml` en `data/coria-fp.json` voor de Oefenen-knop.

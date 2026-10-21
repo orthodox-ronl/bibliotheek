@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Heer, red Uw volk (Hemelum)
 
-{{< bieb id="tropaar/heer-red-uw-volk/hemelum" >}}
+{{< bieb id="tropaar/heer-red-uw-volk/hemelum" />}}

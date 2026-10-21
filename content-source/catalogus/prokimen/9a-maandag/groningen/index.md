@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Prokimen Maandag (Kiev, Groningen)
 
-{{< bieb id="prokimen/9a-maandag/groningen" >}}
+{{< bieb id="prokimen/9a-maandag/groningen" />}}

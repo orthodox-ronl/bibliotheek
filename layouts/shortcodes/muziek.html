@@ -1,0 +1,11 @@
+{{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}
+{{- $id := partial "bieb-context-id.html" . -}}
+{{- if not $id -}}
+  {{- errorf "%s: shortcode muziek vereist een ouder-bieb-blok (of gebruik {{</* bieb id=\"…\" muziek */>}})." $loc -}}
+{{- end -}}
+{{- $id = partial "catalogus-canonical-id.html" $id -}}
+{{- $p := partial "bieb-resolve-page.html" $id -}}
+{{- if not $p -}}
+  {{- errorf "%s: shortcode muziek: geen bibliotheek-pagina voor id %q." $loc $id -}}
+{{- end -}}
+{{- partial "bieb-onderdeel.html" (dict "score" $p "onderdeel" "muziek" "viewer" .Page "position" .Position) -}}

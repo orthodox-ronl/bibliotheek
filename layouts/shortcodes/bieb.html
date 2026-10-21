@@ -1,23 +1,59 @@
 {{- /*
-  Toon actieknoppen + PDF-blad en/of VSA-SVG van een bibliotheek-uitvoeringsvorm
-  (id = zangstuk/variant/uitvoeringsvorm). Knoppen staan vóór de plaatjes, zodat
-  meerdere {{< bieb >}} op één pagina elk hun eigen knoppenrij hebben.
+  Catalogusinhoud op een bladermap-pagina.
 
-  PDF/MXL: Hugo page-bundle (generated/content). .vsa: content-source +
-  SVG onder static/vsa/bladermap/.
+  Vormen:
+  - {{< bieb id="z/v/u" />}}                     → muziek
+  - {{< bieb id="z/v/u" muziek />}} / titel / … → genoemd onderdeel
+  - {{< bieb id="z/v/u" veld "pad" />}}
+  - {{< bieb titel />}} e.d. binnen paired blok  → onderdeel van ouder-id
+  - {{< bieb id="z/v/u" >}} … {{< /bieb >}}      → context voor geneste onderdelen
 
-  Alias-variant: id met een alias-variant wordt herschreven naar de canonieke
-    uitvoeringsvorm (frontmatter alias_van op de variant-_index).
+  Geneste korte bieb met eigen id wijzigt de ouder-context niet (.Parent).
+  Self-closing vorm vereist /> (Hugo), omdat dezelfde shortcode ook paired is.
 */ -}}
-{{- $id := .Get "id" -}}
 {{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}
-{{- if not $id -}}
-  {{- errorf "%s: shortcode bieb mist parameter id. Oplossing: voeg id=\"zangstuk/variant/uitvoeringsvorm\" toe aan de shortcode bieb." $loc -}}
+{{- $known := slice "titel" "title" "muziek" "bron" "copyright" "veld" -}}
+{{- $onderdeel := "" -}}
+{{- $veldPad := "" -}}
+{{- with .Get 0 -}}
+  {{- $p0 := lower (strings.TrimSpace .) -}}
+  {{- if in $known $p0 -}}
+    {{- $onderdeel = $p0 -}}
+  {{- end -}}
 {{- end -}}
-{{- $id = partial "catalogus-canonical-id.html" $id -}}
-{{- $path := printf "/catalogus/%s" $id -}}
-{{- $p := site.GetPage $path -}}
-{{- if not $p -}}
-  {{- errorf "%s: shortcode bieb: geen bibliotheek-pagina voor id %q. Oplossing: controleer of die uitvoeringsvorm bestaat onder catalogus/ (pad %s), of verbeter het id." $loc $id $path -}}
+{{- if eq $onderdeel "veld" -}}
+  {{- $veldPad = strings.TrimSpace (.Get 1 | default "") -}}
 {{- end -}}
-{{ partial "bieb-score.html" (dict "score" $p "viewer" .Page "position" .Position) }}
+{{- $paired := false -}}
+{{- with .Inner -}}
+  {{- $paired = true -}}
+{{- end -}}
+{{- if $paired -}}
+  {{- $id := .Get "id" -}}
+  {{- if not $id -}}
+    {{- errorf "%s: shortcode bieb (blok) mist parameter id. Oplossing: {{</* bieb id=\"zangstuk/variant/uitvoeringsvorm\" */>}} … {{</* /bieb */>}}." $loc -}}
+  {{- end -}}
+  {{- $id = partial "catalogus-canonical-id.html" $id -}}
+  {{- $p := partial "bieb-resolve-page.html" $id -}}
+  {{- if not $p -}}
+    {{- errorf "%s: shortcode bieb: geen bibliotheek-pagina voor id %q. Oplossing: controleer catalogus/ of verbeter het id." $loc $id -}}
+  {{- end -}}
+{{ .Inner | markdownify }}
+{{- else -}}
+  {{- $id := .Get "id" -}}
+  {{- if not $id -}}
+    {{- $id = partial "bieb-context-id.html" . -}}
+  {{- end -}}
+  {{- if not $id -}}
+    {{- errorf "%s: shortcode bieb mist parameter id (of een ouder-bieb-blok). Oplossing: geef id=\"zangstuk/variant/uitvoeringsvorm\" of zet dit binnen {{</* bieb id=\"…\" */>}}…{{</* /bieb */>}}." $loc -}}
+  {{- end -}}
+  {{- if not $onderdeel -}}
+    {{- $onderdeel = "muziek" -}}
+  {{- end -}}
+  {{- $id = partial "catalogus-canonical-id.html" $id -}}
+  {{- $p := partial "bieb-resolve-page.html" $id -}}
+  {{- if not $p -}}
+    {{- errorf "%s: shortcode bieb: geen bibliotheek-pagina voor id %q. Oplossing: controleer catalogus/ of verbeter het id." $loc $id -}}
+  {{- end -}}
+{{- partial "bieb-onderdeel.html" (dict "score" $p "onderdeel" $onderdeel "veld" $veldPad "viewer" .Page "position" .Position) -}}
+{{- end -}}

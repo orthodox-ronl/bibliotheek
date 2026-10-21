@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Derde antifoon Ontslapen Moeder Gods (Liturgikon)
 
-{{< bieb id="derde-antifoon/ontslapen-moeder-gods/liturgikon" >}}
+{{< bieb id="derde-antifoon/ontslapen-moeder-gods/liturgikon" />}}

@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Tropaar Tempelgang Moeder Gods toon 4 (Hemelum)
 
-{{< bieb id="tropaar/tempelgang-moeder-gods-toon-4/hemelum" >}}
+{{< bieb id="tropaar/tempelgang-moeder-gods-toon-4/hemelum" />}}

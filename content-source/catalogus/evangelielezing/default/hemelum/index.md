@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Evangelielezing (10, Hemelum)
 
-{{< bieb id="evangelielezing/default/hemelum" >}}
+{{< bieb id="evangelielezing/default/hemelum" />}}

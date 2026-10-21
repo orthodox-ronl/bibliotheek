@@ -1,0 +1,38 @@
+{{- /*
+  Render één bieb-onderdeel voor een catalogus-uitvoeringsvorm.
+
+  Context: dict
+    "score" Page
+    "onderdeel" titel|title|muziek|bron|copyright|veld
+    "veld" optioneel pad voor veld
+    "viewer" Page
+    "position" optional
+*/ -}}
+{{- $score := .score -}}
+{{- $onderdeel := lower (strings.TrimSpace (printf "%s" .onderdeel)) -}}
+{{- $viewer := or .viewer $score -}}
+{{- $loc := partial "diag-location.html" (dict "position" .position "page" $viewer) -}}
+{{- if not $score -}}
+  {{- errorf "%s: bieb-onderdeel: cataloguspagina ontbreekt." $loc -}}
+{{- end -}}
+{{- if or (eq $onderdeel "titel") (eq $onderdeel "title") -}}
+{{- partial "display-title.html" $score -}}
+{{- else if eq $onderdeel "muziek" -}}
+{{ partial "bieb-score.html" (dict "score" $score "viewer" $viewer "position" .position) }}
+{{- else if eq $onderdeel "bron" -}}
+{{- $v := partial "bieb-veld-waarde.html" (dict "score" $score "pad" "bron") -}}
+{{- if not $v -}}
+  {{- $v = partial "bieb-veld-waarde.html" (dict "score" $score "pad" "bron.uitgangspunt") -}}
+{{- end -}}
+{{- $v -}}
+{{- else if eq $onderdeel "copyright" -}}
+{{- partial "bieb-veld-waarde.html" (dict "score" $score "pad" "copyright") -}}
+{{- else if eq $onderdeel "veld" -}}
+{{- $pad := strings.TrimSpace (printf "%s" .veld) -}}
+{{- if not $pad -}}
+  {{- errorf "%s: bieb veld mist het pad (bijv. veld \"bron.uitgangspunt\"). Oplossing: geef het frontmatter-pad op." $loc -}}
+{{- end -}}
+{{- partial "bieb-veld-waarde.html" (dict "score" $score "pad" $pad) -}}
+{{- else -}}
+  {{- errorf "%s: onbekend bieb-onderdeel %q. Oplossing: gebruik titel, muziek, bron, copyright of veld." $loc $onderdeel -}}
+{{- end -}}

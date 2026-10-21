@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # 7b Kleine intocht (weekdagen)
 
-{{< bieb id="kleine-intocht/weekdagen/hemelum" >}}
+{{< bieb id="kleine-intocht/weekdagen/hemelum" />}}

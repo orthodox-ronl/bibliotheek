@@ -1,0 +1,2 @@
+{{- /* Op het web: gewoon blok. In print: break-inside avoid (zie site.css). */ -}}
+<div class="pdf-bijelkaar keep-together">{{ .Page.RenderString (printf "\n%s" .Inner) }}</div>

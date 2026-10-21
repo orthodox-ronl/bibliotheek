@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # 110 tropaar
 
-{{< bieb id="tropaar/geboorte-mg-toon-4/meneon-i-den-haag" >}}
+{{< bieb id="tropaar/geboorte-mg-toon-4/meneon-i-den-haag" />}}

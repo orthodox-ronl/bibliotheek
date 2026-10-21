@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Catechumenen-litanie (Hemelum, KSL)
 
-{{< bieb id="ektinia/catechumenen/hemelum-ksl" >}}
+{{< bieb id="ektinia/catechumenen/hemelum-ksl" />}}

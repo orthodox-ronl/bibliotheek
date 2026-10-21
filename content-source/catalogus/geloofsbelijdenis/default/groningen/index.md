@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Geloofsbelijdenis Standaard (Groningen)
 
-{{< bieb id="geloofsbelijdenis/default/groningen" >}}
+{{< bieb id="geloofsbelijdenis/default/groningen" />}}

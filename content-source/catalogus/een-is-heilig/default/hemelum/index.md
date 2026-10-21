@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # 24 Een is Heilig
 
-{{< bieb id="een-is-heilig/default/hemelum" >}}
+{{< bieb id="een-is-heilig/default/hemelum" />}}

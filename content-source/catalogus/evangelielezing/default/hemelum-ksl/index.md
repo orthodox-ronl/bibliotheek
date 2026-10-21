@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Evangelielezing (Hemelum (ksl))
 
-{{< bieb id="evangelielezing/default/hemelum-ksl" >}}
+{{< bieb id="evangelielezing/default/hemelum-ksl" />}}

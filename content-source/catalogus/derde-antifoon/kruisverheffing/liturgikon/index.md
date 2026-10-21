@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Derde antifoon Kruisverheffing (Liturgikon)
 
-{{< bieb id="derde-antifoon/kruisverheffing/liturgikon" >}}
+{{< bieb id="derde-antifoon/kruisverheffing/liturgikon" />}}

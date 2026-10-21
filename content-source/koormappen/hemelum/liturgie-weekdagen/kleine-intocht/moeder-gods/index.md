@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # 7c Kleine intocht (Moeder Gods)
 
-{{< bieb id="kleine-intocht/moeder-gods/hemelum" >}}
+{{< bieb id="kleine-intocht/moeder-gods/hemelum" />}}

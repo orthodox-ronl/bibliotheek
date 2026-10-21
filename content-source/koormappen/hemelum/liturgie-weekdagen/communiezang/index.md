@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # 27 Communiezang
 
-{{< bieb id="communiezang/default/hemelum" >}}
+{{< bieb id="communiezang/default/hemelum" />}}

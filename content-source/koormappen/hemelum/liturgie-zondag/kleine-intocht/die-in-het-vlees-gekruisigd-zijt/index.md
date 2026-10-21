@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # 7 Kleine intocht (die in het vlees gekruisigd zijt)
 
-{{< bieb id="kleine-intocht/die-in-het-vlees-gekruisigd-zijt/hemelum" >}}
+{{< bieb id="kleine-intocht/die-in-het-vlees-gekruisigd-zijt/hemelum" />}}

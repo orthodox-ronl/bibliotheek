@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Tweede antifoon Geboorte Moeder Gods (Liturgikon)
 
-{{< bieb id="tweede-antifoon/geboorte-moeder-gods/liturgikon" >}}
+{{< bieb id="tweede-antifoon/geboorte-moeder-gods/liturgikon" />}}

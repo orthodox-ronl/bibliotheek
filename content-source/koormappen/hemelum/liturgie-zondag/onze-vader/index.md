@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # 23 Onze Vader
 
-{{< bieb id="onze-vader/default/hemelum" >}}
+{{< bieb id="onze-vader/default/hemelum" />}}

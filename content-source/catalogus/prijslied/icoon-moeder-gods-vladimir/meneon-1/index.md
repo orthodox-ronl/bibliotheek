@@ -10,4 +10,4 @@ aliases:
 
 # Prijslied Icoon Moeder Gods Vladimir (Meneon I)
 
-{{< bieb id="prijslied/icoon-moeder-gods-vladimir/meneon-1" >}}
+{{< bieb id="prijslied/icoon-moeder-gods-vladimir/meneon-1" />}}

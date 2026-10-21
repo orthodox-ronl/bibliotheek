@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Eer aan de Vader — derde antifoon (Liturgikon)
 
-{{< bieb id="eer-aan-de-vader/derde-antifoon/liturgikon" >}}
+{{< bieb id="eer-aan-de-vader/derde-antifoon/liturgikon" />}}

@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # 17 Vredeswens
 
-{{< bieb id="vredeswens/default/hemelum" >}}
+{{< bieb id="vredeswens/default/hemelum" />}}

@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Vredeslitanie
 
-{{< bieb id="ektinia/vrede/hemelum" >}}
+{{< bieb id="ektinia/vrede/hemelum" />}}

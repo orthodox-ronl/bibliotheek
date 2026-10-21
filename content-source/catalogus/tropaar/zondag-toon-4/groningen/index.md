@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Tropaar zondag toon 4 (Groningen)
 
-{{< bieb id="tropaar/zondag-toon-4/groningen" >}}
+{{< bieb id="tropaar/zondag-toon-4/groningen" />}}

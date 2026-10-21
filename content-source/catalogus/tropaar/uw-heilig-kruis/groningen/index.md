@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Uw Heilig Kruis (Groningen)
 
-{{< bieb id="tropaar/uw-heilig-kruis/groningen" >}}
+{{< bieb id="tropaar/uw-heilig-kruis/groningen" />}}

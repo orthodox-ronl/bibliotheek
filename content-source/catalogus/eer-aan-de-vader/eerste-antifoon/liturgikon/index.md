@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Eer aan de Vader — eerste antifoon (Liturgikon)
 
-{{< bieb id="eer-aan-de-vader/eerste-antifoon/liturgikon" >}}
+{{< bieb id="eer-aan-de-vader/eerste-antifoon/liturgikon" />}}

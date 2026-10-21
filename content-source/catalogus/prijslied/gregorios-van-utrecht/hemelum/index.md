@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Prijslied Gregorios van Utrecht (Hemelum)
 
-{{< bieb id="prijslied/gregorios-van-utrecht/hemelum" >}}
+{{< bieb id="prijslied/gregorios-van-utrecht/hemelum" />}}

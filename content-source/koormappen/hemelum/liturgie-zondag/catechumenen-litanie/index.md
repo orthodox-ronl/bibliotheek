@@ -10,8 +10,8 @@ automatische_inhoud: false
 
 ## Nederlands
 
-{{< bieb id="ektinia/catechumenen/hemelum" >}}
+{{< bieb id="ektinia/catechumenen/hemelum" />}}
 
 ## Kerkslavisch
 
-{{< bieb id="ektinia/catechumenen/hemelum-ksl" >}}
+{{< bieb id="ektinia/catechumenen/hemelum-ksl" />}}

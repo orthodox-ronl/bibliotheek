@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Kleine Intocht Weekdagen (Hemelum)
 
-{{< bieb id="kleine-intocht/weekdagen/hemelum" >}}
+{{< bieb id="kleine-intocht/weekdagen/hemelum" />}}

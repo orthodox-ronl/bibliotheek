@@ -10,8 +10,8 @@ automatische_inhoud: false
 
 ## Nederlands
 
-{{< bieb id="ektinia/gelovigen/hemelum" >}}
+{{< bieb id="ektinia/gelovigen/hemelum" />}}
 
 ## Kerkslavisch
 
-{{< bieb id="ektinia/gelovigen/hemelum-ksl" >}}
+{{< bieb id="ektinia/gelovigen/hemelum-ksl" />}}

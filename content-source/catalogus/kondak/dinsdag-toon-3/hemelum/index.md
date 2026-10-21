@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Kondak dinsdag toon 3 (Joannes de Doper)
 
-{{< bieb id="kondak/dinsdag-toon-3/hemelum" >}}
+{{< bieb id="kondak/dinsdag-toon-3/hemelum" />}}

@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # 2 Eerste antifoon (weekdagen, Hemelum)
 
-{{< bieb id="eerste-antifoon/weekdagen/hemelum" >}}
+{{< bieb id="eerste-antifoon/weekdagen/hemelum" />}}

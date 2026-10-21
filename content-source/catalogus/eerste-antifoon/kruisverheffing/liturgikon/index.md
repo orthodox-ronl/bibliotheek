@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Eerste antifoon Kruisverheffing (Liturgikon)
 
-{{< bieb id="eerste-antifoon/kruisverheffing/liturgikon" >}}
+{{< bieb id="eerste-antifoon/kruisverheffing/liturgikon" />}}

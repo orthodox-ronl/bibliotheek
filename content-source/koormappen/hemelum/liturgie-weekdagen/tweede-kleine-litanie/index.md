@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # Tweede Kleine Litanie
 
-{{< bieb id="ektinia/tweede-kleine/hemelum" >}}
+{{< bieb id="ektinia/tweede-kleine/hemelum" />}}

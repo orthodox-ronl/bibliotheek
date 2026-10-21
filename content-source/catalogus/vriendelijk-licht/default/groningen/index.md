@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Vriendelijk Licht Standaard (Groningen)
 
-{{< bieb id="vriendelijk-licht/default/groningen" >}}
+{{< bieb id="vriendelijk-licht/default/groningen" />}}

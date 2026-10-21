@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # Communievers — Looft de Heer in de Hemelen
 
-{{< bieb id="communievers/looft-de-heer-in-de-hemelen/hemelum" >}}
+{{< bieb id="communievers/looft-de-heer-in-de-hemelen/hemelum" />}}

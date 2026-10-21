@@ -14,8 +14,8 @@ De **alleluia** staat in de bibliotheek (`.mvsa`). De **prokimen** volgt wanneer
 
 ## Prokimen
 
-{{< bieb id="prokimen/9a-zondag-toon-4/groningen" >}}
+{{< bieb id="prokimen/9a-zondag-toon-4/groningen" />}}
 
 ## Alleluia
 
-{{< bieb id="alleluia/9a-toon-4/groningen" >}}
+{{< bieb id="alleluia/9a-toon-4/groningen" />}}

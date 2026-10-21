@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Tropaar Heilige Martelaren toon 4 (Hemelum)
 
-{{< bieb id="tropaar/heilige-martelaren-toon-4/hemelum" >}}
+{{< bieb id="tropaar/heilige-martelaren-toon-4/hemelum" />}}

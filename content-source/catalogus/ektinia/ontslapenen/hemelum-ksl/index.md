@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Ontslapenen-litanie (Hemelum, KSL)
 
-{{< bieb id="ektinia/ontslapenen/hemelum-ksl" >}}
+{{< bieb id="ektinia/ontslapenen/hemelum-ksl" />}}

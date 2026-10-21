@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # 4 Tweede antifoon (weekdagen)
 
-{{< bieb id="tweede-antifoon/weekdagen/hemelum" >}}
+{{< bieb id="tweede-antifoon/weekdagen/hemelum" />}}

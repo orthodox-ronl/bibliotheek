@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Tweede kleine litanie
 
-{{< bieb id="ektinia/tweede-kleine/hemelum" >}}
+{{< bieb id="ektinia/tweede-kleine/hemelum" />}}

@@ -8,4 +8,4 @@ artefacten_handmatig: true
 
 # Moeder Godslied (Ontslapen van de Moeder Gods)
 
-{{< bieb id="moeder-godslied/ontslapen-moeder-gods/hemelum" >}}
+{{< bieb id="moeder-godslied/ontslapen-moeder-gods/hemelum" />}}

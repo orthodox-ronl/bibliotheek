@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Ektinia Vrede (Hemelum (ksl))
 
-{{< bieb id="ektinia/vrede/hemelum-ksl" >}}
+{{< bieb id="ektinia/vrede/hemelum-ksl" />}}

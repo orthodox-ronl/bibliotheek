@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # 29 De Naam des Heren zij gezegend
 
-{{< bieb id="de-naam-des-heren-zij-gezegend/default/groningen" >}}
+{{< bieb id="de-naam-des-heren-zij-gezegend/default/groningen" />}}

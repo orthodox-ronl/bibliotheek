@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Kondak Vera, Nadjezjda, Ljoebov (Hemelum)
 
-{{< bieb id="kondak/vera-dadjezjda-ljoebov-toon-1/hemelum" >}}
+{{< bieb id="kondak/vera-dadjezjda-ljoebov-toon-1/hemelum" />}}

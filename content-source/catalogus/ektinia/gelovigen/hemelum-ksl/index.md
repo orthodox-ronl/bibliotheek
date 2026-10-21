@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Gelovigen-litanie (Hemelum, KSL)
 
-{{< bieb id="ektinia/gelovigen/hemelum-ksl" >}}
+{{< bieb id="ektinia/gelovigen/hemelum-ksl" />}}

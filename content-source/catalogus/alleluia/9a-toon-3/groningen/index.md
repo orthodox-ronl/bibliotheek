@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Alleluia toon 3 (Kiev, Groningen)
 
-{{< bieb id="alleluia/9a-toon-3/groningen" >}}
+{{< bieb id="alleluia/9a-toon-3/groningen" />}}

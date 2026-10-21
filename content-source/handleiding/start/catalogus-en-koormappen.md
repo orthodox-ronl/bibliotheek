@@ -68,13 +68,15 @@ inhoudsopgave van dat hoofdstuk schrijft (zoals de root van een liturgiemap).
 Gebruik in sectie-`_index.md` geen `#`-titel in de body; die titel komt uit
 de layout.
 
-**Slot-pagina** (`index.md`): gewone markdown. Daartussen kun je één of
-meer shortcodes `bieb` zetten. Elke shortcode zet eerst de knoppen
-**Oefenen** / **Beluisteren** / **Downloaden** / **Printen** voor die
-uitvoeringsvorm, en
-daarna de PDF of VSA-SVG. De partituur blijft in de catalogus; de
-slot-pagina is alleen de view. Navigatie naar Bibliotheek of Koormap loopt
-via de sticky broodkruimelregel bovenaan de pagina.
+**Slot-pagina** (`index.md`): gewone markdown plus shortcodes. Titels en
+uitleg zet je zelf; `bieb` haalt muziek (en desgewenst titel/bron) uit de
+catalogus. Bovenaan de pagina: **Print** (browser) en **Download** (PDF van
+deze pagina, als `index.pagina.pdf` bestaat). Bij elk muziekblok blijven
+oefenknoppen voor **dat stuk**. Bladindeling in de download: `pdf-pagina`
+(nieuw A4-blad) en `pdf-bijelkaar` (streven naar één blad). Pagina-PDF
+bouwen: [pagina-pdf](/handleiding/scripts/pagina-pdf/). Taal en voorbeelden:
+[koormap-paginataal](https://github.com/orthodox-ronl/bibliotheek/blob/development/docs/specs/koormap-paginataal.md)
+in de repository.
 
 ### Boom of compositieblad?
 

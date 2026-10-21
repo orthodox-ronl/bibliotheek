@@ -8,6 +8,6 @@ automatische_inhoud: false
 
 # 10 Evangelielezing
 
-{{< bieb id="evangelielezing/default/hemelum" >}}
+{{< bieb id="evangelielezing/default/hemelum" />}}
 
-{{< bieb id="evangelielezing/default/hemelum-ksl" >}}
+{{< bieb id="evangelielezing/default/hemelum-ksl" />}}

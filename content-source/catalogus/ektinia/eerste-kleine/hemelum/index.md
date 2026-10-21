@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Eerste kleine litanie
 
-{{< bieb id="ektinia/eerste-kleine/hemelum" >}}
+{{< bieb id="ektinia/eerste-kleine/hemelum" />}}

@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # 5 Eniggeboren Zoon
 
-{{< bieb id="eniggeboren-zoon/default/hemelum" >}}
+{{< bieb id="eniggeboren-zoon/default/hemelum" />}}

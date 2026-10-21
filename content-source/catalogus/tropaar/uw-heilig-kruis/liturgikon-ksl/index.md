@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Uw Heilig Kruis (Liturgikon, Kerkslavisch)
 
-{{< bieb id="tropaar/uw-heilig-kruis/liturgikon-ksl" >}}
+{{< bieb id="tropaar/uw-heilig-kruis/liturgikon-ksl" />}}

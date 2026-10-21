@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Kondak zondag toon 5 (Groningen)
 
-{{< bieb id="kondak/zondag-toon-5/groningen" >}}
+{{< bieb id="kondak/zondag-toon-5/groningen" />}}

@@ -72,4 +72,10 @@
       placeScoreActionHelp(menu);
     });
   });
+
+  document.querySelectorAll("[data-pagina-print]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      window.print();
+    });
+  });
 })();

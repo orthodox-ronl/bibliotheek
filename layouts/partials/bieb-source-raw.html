@@ -1,0 +1,46 @@
+{{- /*
+  Ruwe tekst van het eerste .mvsa/.vsa-bronbestand van een catalogus-leaf.
+
+  Context: Page (score).
+*/ -}}
+{{- $text := "" -}}
+{{- $dir := "" -}}
+{{- with .File -}}
+  {{- $dir = strings.TrimSuffix "/" (replace .Dir "\\" "/") -}}
+{{- end -}}
+{{- $candidates := slice -}}
+{{- range .Resources.Match "*.mvsa" -}}
+  {{- if not (strings.HasSuffix (lower .Name) ".mscz.mvsa") -}}
+    {{- $candidates = $candidates | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- range .Resources.Match "*.vsa" -}}
+  {{- $candidates = $candidates | append . -}}
+{{- end -}}
+{{- with index $candidates 0 -}}
+  {{- if $dir -}}
+    {{- $srcPath := printf "content-source/%s/%s" $dir .Name -}}
+    {{- if fileExists $srcPath -}}
+      {{- $text = readFile $srcPath -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if not $text -}}
+    {{- with .Content -}}{{- $text = . -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if and (not $text) $dir -}}
+  {{- $srcDir := printf "content-source/%s" $dir -}}
+  {{- if fileExists $srcDir -}}
+    {{- range os.ReadDir $srcDir -}}
+      {{- if and (not .IsDir) (not $text) -}}
+        {{- $n := lower .Name -}}
+        {{- if or (strings.HasSuffix $n ".mvsa") (strings.HasSuffix $n ".vsa") -}}
+          {{- if not (strings.HasSuffix $n ".mscz.mvsa") -}}
+            {{- $text = readFile (printf "%s/%s" $srcDir .Name) -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $text -}}

@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Kondak H. Silouan de Athoniet (Asten)
 
-{{< bieb id="kondak/silouan-de-athoniet-toon-4/asten" >}}
+{{< bieb id="kondak/silouan-de-athoniet-toon-4/asten" />}}

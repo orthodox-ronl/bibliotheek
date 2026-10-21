@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Communievers Kruisverheffing (Hemelum)
 
-{{< bieb id="communievers/kruisverheffing/hemelum" >}}
+{{< bieb id="communievers/kruisverheffing/hemelum" />}}

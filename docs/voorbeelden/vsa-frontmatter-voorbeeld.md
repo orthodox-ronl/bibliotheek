@@ -63,7 +63,7 @@ title: "Tropaar Geboorte MG (t.4)"
 linkTitle: "Geboorte MG"
 ---
 
-{{< bieb id="tropaar/geboorte-mg-toon-4/meneon-i-den-haag" >}}
+{{< bieb id="tropaar/geboorte-mg-toon-4/meneon-i-den-haag" />}}
 ```
 
 ---

@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # 7a Kleine intocht (Transfiguratie)
 
-{{< bieb id="kleine-intocht/transfiguratie/hemelum" >}}
+{{< bieb id="kleine-intocht/transfiguratie/hemelum" />}}

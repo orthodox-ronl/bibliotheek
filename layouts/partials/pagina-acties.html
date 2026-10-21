@@ -1,0 +1,19 @@
+{{- /*
+  Download / Print van de getoonde bladermap-pagina (catalogus- of koormap-leaf).
+
+  Print = browser-afdruk (print-CSS). Download = pagina-PDF als die bestaat
+  (*.pagina.pdf); anders knop verborgen tot die productpijplijn er is.
+*/ -}}
+{{- $bladermap := in (slice "catalogus" "koormappen") .Section -}}
+{{- if and $bladermap (not .IsSection) .File -}}
+  {{- $paginaPdf := "" -}}
+  {{- range .Resources.Match "*.pagina.pdf" -}}
+    {{- $paginaPdf = .RelPermalink -}}
+  {{- end -}}
+  <div class="pagina-acties" role="group" aria-label="Deze pagina">
+    {{- if $paginaPdf -}}
+    <a class="btn pagina-acties-btn" href="{{ $paginaPdf }}" download title="PDF van deze pagina opslaan">Download</a>
+    {{- end -}}
+    <button type="button" class="btn pagina-acties-btn" data-pagina-print title="Deze pagina afdrukken">Print</button>
+  </div>
+{{- end -}}

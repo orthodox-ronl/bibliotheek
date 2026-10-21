@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Tropaar Apostel Andreas toon 4 (Hemelum)
 
-{{< bieb id="tropaar/apostel-andreas-toon-4/hemelum" >}}
+{{< bieb id="tropaar/apostel-andreas-toon-4/hemelum" />}}

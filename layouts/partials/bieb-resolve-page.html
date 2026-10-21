@@ -1,0 +1,9 @@
+{{- /*
+  Catalogus-page bij uitvoeringsvorm-id.
+
+  In: string id (zangstuk/variant/uitvoeringsvorm)
+  Uit: Page of leeg
+*/ -}}
+{{- $id := partial "catalogus-canonical-id.html" . -}}
+{{- $path := printf "/catalogus/%s" $id -}}
+{{- return (site.GetPage $path) -}}

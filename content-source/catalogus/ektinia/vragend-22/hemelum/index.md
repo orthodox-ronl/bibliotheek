@@ -7,4 +7,4 @@ automatische_inhoud: false
 
 # Vragende litanie 22 (Hemelum, NL)
 
-{{< bieb id="ektinia/vragend-22/hemelum" >}}
+{{< bieb id="ektinia/vragend-22/hemelum" />}}

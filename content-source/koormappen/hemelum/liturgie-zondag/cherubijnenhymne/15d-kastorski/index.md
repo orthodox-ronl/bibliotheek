@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # 15d Cherubijnenhymne (Kastorski)
 
-{{< bieb id="cherubijnenhymne/15d-kastorski/hemelum" >}}
+{{< bieb id="cherubijnenhymne/15d-kastorski/hemelum" />}}

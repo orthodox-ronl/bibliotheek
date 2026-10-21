@@ -8,6 +8,6 @@ automatische_inhoud: false
 
 # 21 En Allen
 
-{{< bieb id="en-allen/default/hemelum" >}}
+{{< bieb id="en-allen/default/hemelum" />}}
 
-{{< bieb id="en-allen/default/hemelum-ksl" >}}
+{{< bieb id="en-allen/default/hemelum-ksl" />}}

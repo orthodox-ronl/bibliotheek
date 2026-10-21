@@ -1,0 +1,13 @@
+{{- /*
+  Uitvoeringsvorm-id uit de dichtstbijzijnde ouder-shortcode bieb.
+
+  In: shortcode context (.).
+  Uit: id-string of leeg.
+*/ -}}
+{{- $id := "" -}}
+{{- with .Parent -}}
+  {{- with .Get "id" -}}
+    {{- $id = . -}}
+  {{- end -}}
+{{- end -}}
+{{- return $id -}}

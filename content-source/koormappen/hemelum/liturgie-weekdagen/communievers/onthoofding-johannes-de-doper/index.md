@@ -8,4 +8,4 @@ automatische_inhoud: false
 
 # Communievers — Onthoofding Johannes de Doper
 
-{{< bieb id="communievers/onthoofding-johannes-de-doper/hemelum" >}}
+{{< bieb id="communievers/onthoofding-johannes-de-doper/hemelum" />}}
