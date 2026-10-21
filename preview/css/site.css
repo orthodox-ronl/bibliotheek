@@ -57,6 +57,11 @@ body {
 }
 
 .oefenhoek-header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
   width: 100%;
   max-width: var(--page-max-width);
   margin: 0 auto;
@@ -65,6 +70,32 @@ body {
     max(var(--page-padding), env(safe-area-inset-right))
     0.5rem
     max(var(--page-padding), env(safe-area-inset-left));
+}
+
+.pagina-acties {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: auto;
+}
+
+.pagina-acties-btn {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.65rem;
+  line-height: 1.3;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid var(--border-color, #ccc);
+  background: #f7f7f7;
+  color: #003366;
+  border-radius: 3px;
+}
+
+.pagina-acties-btn:hover,
+.pagina-acties-btn:focus {
+  background: #eef3f8;
+  text-decoration: none;
 }
 
 .oefenhoek-breadcrumb {
@@ -1478,6 +1509,20 @@ body.score-audio-bar-open {
   }
 }
 
+/* Koormap: meerdere score-bundels dichter op elkaar */
+.oefenhoek-page .score-bundle {
+  margin: 0.75rem 0 1rem;
+}
+
+.oefenhoek-page .score-bundle + .score-bundle {
+  margin-top: 0.5rem;
+}
+
+/* pdf-pagina: op het scherm geen gat; wel print-bladscheiding */
+.pdf-pagina {
+  display: none;
+}
+
 /* Print / A4 */
 @media print {
   @page {
@@ -1485,8 +1530,15 @@ body.score-audio-bar-open {
     margin: 2cm;
   }
 
-  .pagebreak {
+  .pagebreak,
+  .pdf-pagina {
+    display: block;
     page-break-before: always;
+    break-before: page;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
   }
 
   .site-header,
@@ -1508,20 +1560,23 @@ body.score-audio-bar-open {
 
   .web-only { display: none; }
 
-  .keep-together {
+  .keep-together,
+  .pdf-bijelkaar {
     break-inside: avoid;
     page-break-inside: avoid;
   }
 
   /* Lege alinea's uit markdown mogen geen extra ruimte in de afdruk geven. */
   .keep-together > p:empty,
+  .pdf-bijelkaar > p:empty,
   .print-only > p:empty {
     display: none;
     margin: 0;
     padding: 0;
   }
 
-  .keep-together .vsa-notation {
+  .keep-together .vsa-notation,
+  .pdf-bijelkaar .vsa-notation {
     width: var(--vsa-scale, auto);
   }
 }

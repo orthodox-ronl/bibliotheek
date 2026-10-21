@@ -129,7 +129,19 @@ bestand).&lt;/p&gt;
 &lt;p&gt;Gebruik &lt;code&gt;pdf&lt;/code&gt; voor &lt;strong&gt;willekeurige&lt;/strong&gt; bronbestanden. Voor het vaste demoblad van
 de Tooling Demo bestaat een apart commando met vaste paden:
 &lt;a href="../demo-pdf/"&gt;demo-pdf&lt;/a&gt;
-.&lt;/p&gt;</description></item><item><title>demo-pdf</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/demo-pdf/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/demo-pdf/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+.&lt;/p&gt;</description></item><item><title>pagina-pdf</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/pagina-pdf/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/pagina-pdf/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;scripts\pagina-pdf.cmd&lt;/code&gt; — PDF van een koormap- of cataloguspagina
+samenstellen uit catalogus-product-PDF’s&lt;/p&gt;
+&lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\pagina-pdf.cmd &amp;lt;pad\naar\index.md&amp;gt; [--force]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\pagina-pdf.cmd --all-koormappen [--force]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
+&lt;p&gt;Leest de Markdown van een bladermap-pagina (&lt;code&gt;bieb&lt;/code&gt; / &lt;code&gt;muziek&lt;/code&gt;). Voor elke
+partituur op die pagina zoekt het script de product-PDF in de catalogus
+(&lt;code&gt;.mvsa.pdf&lt;/code&gt;, anders &lt;code&gt;.mscz.pdf&lt;/code&gt; / &lt;code&gt;.vsa.pdf&lt;/code&gt;) en plakt die achter elkaar.
+Het resultaat komt naast de Markdown als &lt;code&gt;index.pagina.pdf&lt;/code&gt;. Die file is
+een Hugo page resource: de knop &lt;strong&gt;Download&lt;/strong&gt; bovenaan de pagina wijst
+ernaar.&lt;/p&gt;</description></item><item><title>demo-pdf</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/demo-pdf/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/demo-pdf/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\demo-pdf.cmd&lt;/code&gt; — demoblad-PDF voor de Tooling Demo vernieuwen&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\demo-pdf.cmd

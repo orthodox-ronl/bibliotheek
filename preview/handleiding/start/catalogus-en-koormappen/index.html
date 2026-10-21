@@ -64,13 +64,16 @@ kindpagina’s mag tonen (voorbeeld:
 <code>koormappen/hemelum/liturgie-zondag\eerste-antifoon\</code>). Zet <code>false</code> als je zelf de
 inhoudsopgave van dat hoofdstuk schrijft (zoals de root van een liturgiemap).
 Gebruik in sectie-<code>_index.md</code> geen <code>#</code>-titel in de body; die titel komt uit
-de layout.</p><p><strong>Slot-pagina</strong> (<code>index.md</code>): gewone markdown. Daartussen kun je één of
-meer shortcodes <code>bieb</code> zetten. Elke shortcode zet eerst de knoppen
-<strong>Oefenen</strong> / <strong>Beluisteren</strong> / <strong>Downloaden</strong> / <strong>Printen</strong> voor die
-uitvoeringsvorm, en
-daarna de PDF of VSA-SVG. De partituur blijft in de catalogus; de
-slot-pagina is alleen de view. Navigatie naar Bibliotheek of Koormap loopt
-via de sticky broodkruimelregel bovenaan de pagina.</p><h3 id=boom-of-compositieblad>Boom of compositieblad?</h3><p>Twee manieren om meerdere uitvoeringsvormen op <strong>één liturgische plek</strong> te
+de layout.</p><p><strong>Slot-pagina</strong> (<code>index.md</code>): gewone markdown plus shortcodes. Titels en
+uitleg zet je zelf; <code>bieb</code> haalt muziek (en desgewenst titel/bron) uit de
+catalogus. Bovenaan de pagina: <strong>Print</strong> (browser) en <strong>Download</strong> (PDF van
+deze pagina, als <code>index.pagina.pdf</code> bestaat). Bij elk muziekblok blijven
+oefenknoppen voor <strong>dat stuk</strong>. Bladindeling in de download: <code>pdf-pagina</code>
+(nieuw A4-blad) en <code>pdf-bijelkaar</code> (streven naar één blad). Pagina-PDF
+bouwen: <a href=/bibliotheek/preview/handleiding/scripts/pagina-pdf/>pagina-pdf</a>
+. Taal en voorbeelden:
+<a href=https://github.com/orthodox-ronl/bibliotheek/blob/development/docs/specs/koormap-paginataal.md>koormap-paginataal</a>
+in de repository.</p><h3 id=boom-of-compositieblad>Boom of compositieblad?</h3><p>Twee manieren om meerdere uitvoeringsvormen op <strong>één liturgische plek</strong> te
 tonen —zelfde mechaniek, andere leeservaring:</p><div class=table-scroll><table><thead><tr><th>Patroon</th><th>Wanneer</th><th>Voorbeeld</th></tr></thead><tbody><tr><td><strong>Boom</strong></td><td>De zanger kiest één variant (of bladert per kind)</td><td>Cherubijnenhymne: sectie → 15b, 15c, …; antifoon: weekdagen / zondag</td></tr><tr><td><strong>Compositieblad</strong></td><td>Eén pagina bundelt een set (proza + scores)</td><td>Prokimens voor de hele week op één <code>index.md</code>, met shortcode per weekdag</td></tr></tbody></table></div><p>Voorbeeld compositieblad (schets):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-markdown data-lang=markdown><span style=display:flex><span># Prokimen weekdagen (Kiev, Groningen)
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>## Maandag
@@ -194,4 +197,4 @@ uitvoeringsvormen aanmaakt (<code>hemelum</code> + <code>hemelum-ksl</code>).</p
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-19</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-21</p></div></footer></body></html>
