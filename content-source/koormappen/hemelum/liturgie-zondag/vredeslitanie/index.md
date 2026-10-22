@@ -6,22 +6,12 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-{{< bieb id="ektinia/vrede/hemelum" >}}
+{{< kop >}}(1a) Vredeslitanie{{< /kop >}}
 
-# (1) {{< titel >}}
+{{< bieb id="ektinia/vrede/hemelum" />}}
 
-{{< muziek >}}
+{{< witruimte groot >}}
 
-{{< /bieb >}}
+{{< kop >}}Великая ектения (1a){{< /kop >}}
 
-{{< pdf-pagina >}}
-
-{{< bieb id="ektinia/vrede/hemelum-ksl" >}}
-
-# (1) {{< bieb title />}}
-
-{{< bieb bron />}}
-
-{{< bieb muziek />}}
-
-{{< /bieb >}}
+{{< bieb id="ektinia/vrede/hemelum-ksl" />}}

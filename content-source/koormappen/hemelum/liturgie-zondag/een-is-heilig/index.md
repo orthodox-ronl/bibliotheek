@@ -6,6 +6,5 @@ publicatiestatus: voorzien
 automatische_inhoud: false
 ---
 
-# 24 Een is Heilig
-
+{{< kop >}}24 Een is Heilig{{< /kop >}}
 {{< bieb id="een-is-heilig/default/hemelum" />}}

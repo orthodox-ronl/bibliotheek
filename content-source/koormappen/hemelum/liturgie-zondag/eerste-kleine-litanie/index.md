@@ -6,23 +6,12 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-{{< pdf-bijelkaar >}}
+{{< kop >}}1e Kleine Ektinia{{< /kop >}}
 
-{{< bieb id="ektinia/eerste-kleine/hemelum" >}}
+{{< bieb id="ektinia/eerste-kleine/hemelum" />}}
 
-# {{< titel >}}
+{{< witruimte groot >}}
 
-{{< muziek >}}
+{{< kop >}}Малая ектения{{< /kop >}}
 
-{{< /bieb >}}
-
-{{< bieb id="ektinia/tweede-kleine/hemelum" >}}
-
-# {{< title >}}
-<!-- stand-in tot eerste-kleine/hemelum-ksl bestaat -->
-
-{{< muziek >}}
-
-{{< /bieb >}}
-
-{{< /pdf-bijelkaar >}}
+{{< bieb id="ektinia/eerste-kleine/hemelum-ksl" />}}

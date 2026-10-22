@@ -48,12 +48,16 @@ juiste Pages-URL bijgewerkt.
 content-source (bronnen + product-siblings)
     |
     +-- fingerprint_coria_mxl  ->  static/mxl/c + data/coria-fp.json
-    +-- oefenhoek-index --svg  ->  static/vsa/bladermap (plaatjes; geen stamp)
+    +-- oefenhoek-index --svg  ->  static/vsa/bladermap (legacy fallback)
     +-- Hugo  ->  generated/site
 ```
 
 Productpipelines (`vsa-products`, `mscz-products`, `mvsa-products`, …)
 draai je lokaal; CI controleert versheid maar schrijft die producten niet.
+Het schermplaatje is de sibling `{stam}.vsa.svg` of `{stam}.mvsa.svg`.
+De bladermap-SVG is alleen de fallback zolang `{stam}.vsa.svg` ontbreekt.
+Het koormap-blad `index.pagina.pdf` maak je met `pagina-pdf`, ook lokaal;
+de site-build controleert dat bestand niet.
 
 ## See also
 

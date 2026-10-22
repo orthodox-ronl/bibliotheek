@@ -41,8 +41,8 @@ Namen: [Publicatiecontrole](publicatiecontrole/). Model:
 
 | Wel met de hand | Via regeneratie / script |
 | --- | --- |
-| Canonieke bron (`.mscz`, `.vsa`, `.mvsa`, `.tekstblad.md`) | `{stam}.….pdf` / `.mxl` / `.mp3` / `.lyrics.txt` |
-| Frontmatter `publicatiestatus`, titel, `artefacten_handmatig` | SVG-plaatjes (`oefenhoek-index --svg`, via check/build) |
+| Canonieke bron (`.mscz`, `.vsa`, `.mvsa`, `.tekstblad.md`) | `{stam}.….pdf` / `.mxl` / `.svg` / `.mp3` / `.lyrics.txt` via `products` |
+| Frontmatter `publicatiestatus`, titel, `artefacten_handmatig` | Legacy bladermap-SVG (`oefenhoek-index --svg`, alleen fallback) |
 | Koormap-markdown en `bieb`-id | Coria-fingerprints (gegenereerd, niet committen) |
 
 Bij `artefacten_handmatig: true` houd je PDF/MXL zelf bij; de

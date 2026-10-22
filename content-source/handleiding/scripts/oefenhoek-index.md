@@ -17,17 +17,20 @@ scripts\oefenhoek-index.cmd [--dry-run] [--svg] [--verbose]
 
 # DESCRIPTION
 
-Met **`--svg`** schrijft dit commando SVG-plaatjes van canonieke
-catalogus-`.vsa`-bestanden naar `static\vsa\bladermap\…`. Shortcode
-`bieb` toont die plaatjes wanneer er **geen** basispartituur-`.mscz` in
-dezelfde bladermap staat (een `.print.mscz` mag wel). Sidecar-bestanden
-`*.syl.vsa` worden overgeslagen.
+Met **`--svg`** schrijft dit commando een **legacy** plaatje van een
+canonieke catalogus-`.vsa` naar `static\vsa\bladermap\…`. Het scherm
+gebruikt dat plaatje alleen als er nog geen sibling `{stam}.vsa.svg`
+naast de bron staat. Die sibling maak je met
+[vsa-products](../vsa-products/); `check` eist daar een herkomststempel
+voor. Hetzelfde geldt voor `.mvsa`: het webplaatje is `{stam}.mvsa.svg`
+via [mvsa-products](../mvsa-products/), niet dit commando.
 
-Dit is **geen** publicatiecontrole: er is geen herkomststempel en CI faalt
-niet op “stale SVG”. De SVG is een site-plaatje. `check` / `build` /
-`serve` / Pages-CI vernieuwen de plaatjes vóór Hugo, zodat ze bij de
-huidige `.vsa` passen. Je mag de SVG’s ook committen (handig voor diff);
-verplicht is dat niet voor de build.
+`check`, `build`, `serve` en de Pages-build draaien `--svg` nog vóór
+Hugo, zodat de fallback bij de huidige `.vsa` past zolang de sibling
+ontbreekt. Er is geen stempel en CI faalt niet op een verouderd
+legacy-plaatje. Sidecar-bestanden `*.syl.vsa` worden overgeslagen. Een
+basispartituur-`.mscz` in dezelfde map onderdrukt dit plaatje (een
+`.print.mscz` niet).
 
 Zonder flags haalt het script legacy auto-includes / score-shortcodes uit
 bladermap-`index.md`. Pagina’s met shortcode `bieb` of met
@@ -38,7 +41,7 @@ bladermap-`index.md`. Pagina’s met shortcode `bieb` of met
 | Optie | Betekenis |
 | --- | --- |
 | `--dry-run` | Toon wat de strip zou wijzigen, zonder te schrijven |
-| `--svg` | Schrijf SVG uit `.vsa` |
+| `--svg` | Legacy plaatje uit `.vsa` naar `static\vsa\bladermap\` |
 | `--verbose` | Detail per bestand |
 
 # EXAMPLES
@@ -50,12 +53,13 @@ scripts\oefenhoek-index.cmd --dry-run
 
 # WHEN
 
-Automatisch in `check` / `build` / `serve` / Pages-CI (alleen `--svg`).
-Handmatig na een `.vsa`-edit als je geen volle check wilt draaien.
+Automatisch in `check` / `build` / `serve` / Pages-CI (alleen `--svg`),
+als fallback. Na een wijziging aan een `.vsa` die op het scherm moet:
+eerst `vsa-products`, niet alleen dit commando.
 
 # SEE ALSO
 
 - [check](../check/)
-- [vsa-products](../vsa-products/) (Coria-`.vsa.mxl` — wél publicatiecontrole)
+- [vsa-products](../vsa-products/) — `{stam}.vsa.svg` voor het scherm, mét stempel
 - [Publicatiecontrole](/handleiding/start/publicatiecontrole/)
 - Workflow: [VSA → SVG en Coria](/handleiding/werktrajecten/vsa/)

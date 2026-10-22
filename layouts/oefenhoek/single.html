@@ -1,11 +1,14 @@
 {{ define "main" }}
+{{- /* Koormap-slot: geen H1 uit frontmatter — titel hoort in Markdown (bieb/titel).
+     Publicatiestatus-? staat achter de broodkruimels (oefenhoek-header). */ -}}
+{{- if ne .Section "koormappen" -}}
 <div class="page-title-row">
   <h1>{{ partial "display-title.html" . }}</h1>
-  {{ partial "publicatiestatus.html" . }}
 </div>
 {{ partial "catalogus-id-line.html" . }}
 {{ partial "artefacten-handmatig-banner.html" . }}
 {{ partial "partituur-product-banner.html" . }}
 {{ partial "vsa-product-banner.html" . }}
+{{- end -}}
 <div class="oefenhoek-body">{{ .Content }}</div>
 {{ end }}

@@ -16,10 +16,13 @@ serve
 
 # DESCRIPTION
 
-Maakt Coria-fingerprints, schrijft de bouwtijd naar `data\build.yaml`
-(footer «Gegenereerd» op de homepage), en start de Hugo-development
-server. Open daarna **http://127.0.0.1:18732/**. Niet poort **1313**
-(lokaal gereserveerd), niet **18731** (VSA-demo).
+Maakt Coria-fingerprints, ververst het legacy bladermap-plaatje uit
+`.vsa`, schrijft de bouwtijd naar `data\build.yaml` (footer
+«Gegenereerd» op de homepage), en start de Hugo-development server.
+Open daarna **http://127.0.0.1:18732/**. Niet poort **1313** (lokaal
+gereserveerd), niet **18731** (VSA-demo). `serve` maakt geen
+catalogus-siblings en geen `index.pagina.pdf`, en controleert die
+bestanden niet.
 
 # EXAMPLES
 

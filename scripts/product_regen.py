@@ -210,10 +210,10 @@ KIND_ORDER = (
 )
 
 KIND_HELP = {
-    "vsa": "Coria-.vsa.mxl + .vsa.pdf",
+    "vsa": "Coria-.vsa.mxl + .vsa.pdf + .vsa.svg",
     "mscz": ".mscz.pdf + .mscz.mxl",
     "tekstblad": ".tekstblad.pdf",
-    "mvsa": ".mvsa.mxl + .mvsa.pdf",
+    "mvsa": ".mvsa.mxl + .mvsa.pdf + .mvsa.svg",
     "import": "bestaande .mscz.mvsa-siblings",
     "audio": "preview-.mp3",
     "lyrics": ".lyrics.txt zoektekst",

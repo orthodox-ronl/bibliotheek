@@ -6,8 +6,12 @@ publicatiestatus: voorzien
 automatische_inhoud: false
 ---
 
-# 10 Evangelielezing
+{{< kop >}}Evangelielezing (10){{< /kop >}}
 
 {{< bieb id="evangelielezing/default/hemelum" />}}
+
+{{< witruimte groot >}}
+
+{{< kop >}}Евангелие (10){{< /kop >}}
 
 {{< bieb id="evangelielezing/default/hemelum-ksl" />}}

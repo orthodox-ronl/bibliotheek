@@ -6,12 +6,12 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Gelovigen Litanie
-
-## Nederlands
+{{< kop >}}Gelovigenlitanie (14){{< /kop >}}
 
 {{< bieb id="ektinia/gelovigen/hemelum" />}}
 
-## Kerkslavisch
+{{< witruimte groot >}}
+
+{{< kop >}}Ектения о верных (14){{< /kop >}}
 
 {{< bieb id="ektinia/gelovigen/hemelum-ksl" />}}

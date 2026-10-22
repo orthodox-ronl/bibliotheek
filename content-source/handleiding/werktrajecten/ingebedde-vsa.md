@@ -6,77 +6,20 @@ weight: 70
 
 # Ingebedde VSA
 
-Dit werktraject betreft **VSA buiten** de catalogus: notatie
-in gewone content-pagina’s (demo’s, feesteigen, samenstellingen,
-handleidingen). De site-build maakt daar SVG (en optioneel MusicXML)
-onder `static\vsa\`.
+`check`, `build`, `serve` en de Pages-build draaien geen
+`vsa build-markdown` en maken geen embed-MusicXML onder `static\vsa\mxl\`.
+Notatie op de bibliotheek-site komt uit een catalogusbron.
 
-{{< cue >}}
-Zet `::: vsa-notatie` … `:::` of een `.vsa`-include in een markdownpagina
-onder `content-source`. Draai daarna `scripts\check.cmd` of
-`scripts\build.cmd` — de pipeline doet `vsa build-markdown` en
-`vsa musicxml`. Dit is **geen** catalogus-`{stam}.vsa.mxl`.
-{{< /cue >}}
-
-## Waartoe
-
-Je wilt VSA tonen op een pagina die geen bladermap onder
-`catalogus\` is — bijvoorbeeld een samenstelling of de
-Tooling Demo — zonder `bieb` en zonder catalogus-id.
-
-## Eindresultaat en criteria
-
-| Output | Rol |
-| --- | --- |
-| SVG onder `static\vsa\` | Plaatje op de Hugo-pagina |
-| Optioneel MXL onder `static\vsa\mxl\` | Embed-Coria voor die content-keten |
-
-**Klaar** als: de pagina de SVG toont na build; `vsa validate` /
-`validate_content` stil is voor die bronnen.
-
-Dit vervangt **niet** sibling `{stam}.vsa.mxl` in de catalogus (dat is
-[VSA](../vsa/)).
-
-## Wanneer wel / wanneer niet
-
-| Wel | Niet |
-| --- | --- |
-| Demo, feesteigen, samenstelling, handleiding | catalogus-uitvoeringsvorm → [VSA](../vsa/) + `bieb` |
-| Inline `::: vsa-notatie` of include van een `.vsa` | Alleen een A4-PDF uit markdown → [Markdown naar PDF](../markdown-naar-pdf/) |
-
-## Volgorde (bestanden)
-
-1. Schrijf markdown onder `content-source` (buiten
-   `catalogus\…` als bladermap), met VSA-blokken of includes.
-2. Bouw de site (of laat `check` de generate-stap doen):
-
-```cmd
-scripts\check.cmd --strict
-```
-
-   Intern: `vsa build-markdown` → `generated\content` + `static\vsa`;
-   daarna `vsa musicxml content-source static\vsa\mxl` (embed-keten);
-   sanitize/check op die MXL-map.
-3. Preview: [Site-build](../site-build/).
-
-## Automatisch (CI)
-
-Onderdeel van elke PR-/push-build: `vsa build-markdown`,
-`sync_oefenhoek_index.py --svg` (bibliotheek-SVG’s), `vsa musicxml`.
-Geen apart “embed-product”-script; geen `vsa-products` voor deze pagina’s.
-
-## Handmatig
-
-| Situatie | Commando | Man-page |
+| Bron in de catalogus | Plaatje op het scherm | Commando |
 | --- | --- | --- |
-| Volledige keten | `scripts\check.cmd` of `scripts\build.cmd` | [check](../../scripts/check/), [build](../../scripts/build/) |
-| Alleen bibliotheek-SVG | `scripts\oefenhoek-index.cmd --svg` | [oefenhoek-index](../../scripts/oefenhoek-index/) |
+| `{stam}.vsa` | `{stam}.vsa.svg` ernaast | [vsa-products](../../scripts/vsa-products/) |
+| `{stam}.mvsa` | `{stam}.mvsa.svg` ernaast | [mvsa-products](../../scripts/mvsa-products/) |
 
-## Zie ook
+Zolang `{stam}.vsa.svg` ontbreekt, vult `oefenhoek-index --svg` nog een
+legacy-plaatje onder `static\vsa\bladermap\`. Dat is een fallback, geen
+apart werktraject voor demo- of handleidingpagina’s.
 
-- [VSA (bibliotheek)](../vsa/)
-- [Site-build](../site-build/)
-- Voorbeeldpagina’s onder `content-source\praktijk\demo\` en
-  `content-source\praktijk\samenstellingen\`
+Een koormap toont die catalogusnotatie met shortcode `bieb`. Zie
+[VSA](../vsa/) en [mvsa](../mvsa/).
 
-{{< navbuttons "Markdown naar PDF|/handleiding/werktrajecten/markdown-naar-pdf/" "mvsa|/handleiding/werktrajecten/mvsa/" >}}
+{{< navbuttons "VSA|/handleiding/werktrajecten/vsa/" "mvsa|/handleiding/werktrajecten/mvsa/" >}}

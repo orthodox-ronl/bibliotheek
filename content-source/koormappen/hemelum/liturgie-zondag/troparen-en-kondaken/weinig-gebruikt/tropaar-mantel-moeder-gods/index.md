@@ -6,6 +6,5 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Tropaar Mantel Moeder Gods toon 4
-
+{{< kop >}}Tropaar Mantel Moeder Gods toon 4{{< /kop >}}
 {{< bieb id="tropaar/mantel-moeder-gods-toon-4/hemelum" />}}

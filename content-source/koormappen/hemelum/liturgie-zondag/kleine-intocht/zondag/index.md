@@ -6,6 +6,5 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 7a Kleine intocht (zondag)
-
+{{< kop >}}7a Kleine intocht (zondag){{< /kop >}}
 {{< bieb id="kleine-intocht/zondag/hemelum" />}}

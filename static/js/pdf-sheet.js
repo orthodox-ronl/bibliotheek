@@ -78,9 +78,6 @@ async function initSheet(root) {
   if (!src || !host) {
     return;
   }
-  root.querySelectorAll(".pdf-sheet-print").forEach((link) => {
-    wirePrint(link, link.getAttribute("href") || src);
-  });
   try {
     const pdfjs = await import(PDFJS_SRC);
     pdfjs.GlobalWorkerOptions.workerSrc = PDFJS_WORKER;
@@ -106,6 +103,7 @@ async function initSheet(root) {
 }
 
 document.querySelectorAll(".pdf-sheet").forEach(initSheet);
-document.querySelectorAll(".score-actions .pdf-sheet-print").forEach((link) => {
+/* Catalogusblad, score-menu én koormap «Print pagina» (pagina.pdf). */
+document.querySelectorAll("a.pdf-sheet-print").forEach((link) => {
   wirePrint(link, link.getAttribute("href") || "");
 });

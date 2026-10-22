@@ -183,7 +183,7 @@ def _leaf_index_text(
         f"{handmatig}"
         "automatische_inhoud: false\n---\n\n"
         f"# {title}\n\n"
-        f"{{{{< bieb id=\"{ident}\" >}}}}\n"
+        f"{{{{< bieb id=\"{ident}\" />}}}}\n"
     )
 
 

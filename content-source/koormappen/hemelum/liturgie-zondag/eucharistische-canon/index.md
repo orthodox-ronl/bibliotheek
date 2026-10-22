@@ -6,6 +6,5 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 19a Eucharistische Kanon
-
+{{< kop >}}19a Eucharistische Kanon{{< /kop >}}
 {{< bieb id="eucharistische-canon/19a-feofan/hemelum" />}}

@@ -1,4 +1,4 @@
-"""Controleer bibliotheek-``.mvsa`` vs sibling ``.mvsa.mxl`` / ``.mvsa.pdf``.
+"""Controleer bibliotheek-``.mvsa`` vs ``.mvsa.mxl`` / ``.pdf`` / ``.svg``.
 
 Slaat import-siblings ``*.mscz.mvsa`` over. Schrijft
 ``data/mvsa-product-status.json``. Exit 1 bij problemen tenzij ``--warn-only``.
@@ -20,6 +20,7 @@ from product_meta import (
     SOURCE_KIND_MVSA,
     read_mxl_stamp,
     read_pdf_stamp,
+    read_svg_stamp,
     source_sha256,
 )
 from sync_mvsa_products import (
@@ -27,6 +28,7 @@ from sync_mvsa_products import (
     collect_mvsa,
     product_mxl_for_mvsa,
     product_pdf_for_mvsa,
+    product_svg_for_mvsa,
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -142,6 +144,45 @@ def check_one(mvsa: Path) -> FolderStatus:
                     "stale_pdf",
                     _rel(pdf),
                     f"PDF-source-hash wijkt af (gegenereerd {when}); .mvsa is gewijzigd",
+                )
+            )
+
+    svg = product_svg_for_mvsa(mvsa)
+    if not svg.is_file():
+        issues.append(
+            Issue(
+                "missing_svg",
+                _rel(svg),
+                "Koormap-SVG ontbreekt naast de .mvsa",
+            )
+        )
+    else:
+        stamp = read_svg_stamp(svg)
+        kind = stamp.get(FIELD_SOURCE_KIND, "")
+        got = stamp.get(FIELD_SOURCE_SHA, "")
+        if not got:
+            issues.append(
+                Issue(
+                    "unstamped_svg",
+                    _rel(svg),
+                    "SVG mist vsa-source-sha256 (opnieuw mvsa-products)",
+                )
+            )
+        elif kind and kind != SOURCE_KIND_MVSA:
+            issues.append(
+                Issue(
+                    "wrong_kind",
+                    _rel(svg),
+                    f"SVG source-kind is {kind!r}, verwacht {SOURCE_KIND_MVSA!r}",
+                )
+            )
+        elif got != digest:
+            when = stamp.get(FIELD_GENERATED_AT, "?")
+            issues.append(
+                Issue(
+                    "stale_svg",
+                    _rel(svg),
+                    f"SVG-source-hash wijkt af (gegenereerd {when}); .mvsa is gewijzigd",
                 )
             )
 

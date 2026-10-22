@@ -14,7 +14,7 @@ def _make_leaf(cat_root: Path, slash: str) -> Path:
     leaf.mkdir(parents=True)
     (leaf / "index.md").write_text(
         f'---\npublicatiestatus: reviewable\n---\n'
-        f'{{{{< bieb id="{slash}" >}}}}\n',
+        f'{{{{< bieb id="{slash}" />}}}}\n',
         encoding="utf-8",
     )
     stem = slash.replace("/", "-")
@@ -50,7 +50,7 @@ def test_verwijder_koormap_dangling_stops(tmp_path: Path, monkeypatch) -> None:
     koor = root / "content-source" / "koormappen" / "parochie" / "slot"
     koor.mkdir(parents=True)
     (koor / "index.md").write_text(
-        f'{{{{< bieb id="{slash}" >}}}}\n', encoding="utf-8"
+        f'{{{{< bieb id="{slash}" />}}}}\n', encoding="utf-8"
     )
     (root / "docs").mkdir()
 

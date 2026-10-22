@@ -7,8 +7,8 @@ weight: 80
 # mvsa
 
 **mvsa** (meerstemmige VSA) is een **actief** publicatiespoor: canonieke
-bron `{stam}.mvsa`, afgeleiden `{stam}.mvsa.mxl` (Coria) en
-`{stam}.mvsa.pdf` (A4 voor zangers).
+bron `{stam}.mvsa`, afgeleiden `{stam}.mvsa.mxl` (Coria),
+`{stam}.mvsa.pdf` (A4 voor zangers) en `{stam}.mvsa.svg` (koormap-web).
 
 ## Waartoe
 
@@ -23,6 +23,7 @@ soort siblings als bij [VSA](../vsa/) (Coria) en
 | Canonieke bron | `{stam}.mvsa` |
 | Coria | `{stam}.mvsa.mxl` + `vsa-source-sha256` |
 | Print-PDF | `{stam}.mvsa.pdf` + `vsa-source-sha256` |
+| Koormap-SVG | `{stam}.mvsa.svg` + `vsa-source-sha256` (muziek-only; shortcode `muziek`) |
 
 In één bladermap mag ook een basispartituur-`.mscz` staan; elk spoor houdt
 eigen siblings bij. Import-siblings `{stam}.mscz.mvsa` horen bij

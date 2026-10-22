@@ -29,18 +29,15 @@
     <code class="catalogus-id">{{ $id }}</code>
   </summary>
   <div class="catalogus-boom-leaf-body">
-    <p><a href="{{ $p.RelPermalink }}">Open uitvoeringsvorm</a></p>
-    {{- if $lyricLine -}}
-    <p class="catalogus-boom-lyric">{{ $lyricLine }}</p>
-    {{- end -}}
-    {{- with $audio -}}
-    <p>
+    <div class="catalogus-boom-actions">
+      <a class="btn" href="{{ $p.RelPermalink }}">Naar catalogus</a>
+      {{- with $audio -}}
       <a class="btn score-audio-play" href="{{ .RelPermalink }}"
         data-audio-title="{{ $title }}">Beluisteren</a>
-    </p>
-    {{- end -}}
-    {{- if and (not $lyricLine) (not $audio) -}}
-    <p class="catalogus-boom-leaf-empty">Geen lyrics- of audiovoorbeeld in deze bladermap.</p>
+      {{- end -}}
+    </div>
+    {{- if $lyricLine -}}
+    <p class="catalogus-boom-lyric">{{ $lyricLine }}</p>
     {{- end -}}
   </div>
 </details>

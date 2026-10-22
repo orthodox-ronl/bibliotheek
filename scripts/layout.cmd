@@ -16,9 +16,11 @@ exit /b %ERRORLEVEL%
 
 :usage
 echo.
-echo Gebruik: scripts\layout.cmd ^<bestand.mscz^|.mxl^> [-o doel.mscz] [--id ID] [--bron "…"]
+echo Gebruik: scripts\layout.cmd ^<bestand-of-map^> [-o doel.mscz] [--id ID] [--bron "…"]
 echo.
 echo   Past de basispartituur-standaard toe (normaliseren / layouten).
+echo   Pad: één .mscz/.mxl of een map (recursief .mscz/.mxl).
+echo   -o/--id alleen bij precies één bronbestand.
 echo   .mxl: zet -o naar een .mscz zonder spaties (meestal input\_werk\STAM\).
 echo   .mscz: zonder -o in-place (opnieuw na editslag in MuseScore).
 echo   --bron: bronvermelding (MuseScore source + colofon); anders uit

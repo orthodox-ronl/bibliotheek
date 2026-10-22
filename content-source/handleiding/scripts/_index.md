@@ -11,20 +11,25 @@ Deze sectie beschrijft Windows-commando's (`.cmd`) in de repository-map
 `bibliotheek`. Zet `.\scripts` op PATH, of roep `scripts\<naam>.cmd` aan
 vanuit de repo-root.
 
+**Bestand of map:** commando’s die op bronbestanden werken, nemen meestal
+óf één bestand óf een map (recursief passende bestanden). Zie
+[Invoer: bestand of map](invoer-bestand-of-map/).
+
 ## Nu beschikbaar in deze repo
 
 | Commando | Wat het doet | Man-page |
 | --- | --- | --- |
+| *(conventie)* | Pad = één bronbestand of een map (recursief). | [Bestand of map](invoer-bestand-of-map/) |
 | `h` | Overzicht van commando’s; `h <naam>` = `<naam> -h`. | [h](h/) |
 | `validate` | Controleert catalogus-`.vsa` (en eventueel `.mvsa`) via de `vsa`-CLI. | [validate](validate/) |
-| `check` | Preflight: validate + VSA-/MSCZ-publicatiecontrole + Coria-fingerprints + Hugo-build. | [check](check/) |
+| `check` | Preflight: validate + publicatiecontroles + Coria-fingerprints + Hugo-build. Maakt geen catalogusproducten en geen blad-PDF. | [check](check/) |
 | `build` | Bouwt de site naar `generated\site`. | [build](build/) |
 | `serve` | Lokale preview op http://127.0.0.1:18732/ (niet 1313, niet 18731). | [serve](serve/) |
-| `vsa-products` | Maakt/vernieuwt `{stam}.vsa.mxl` (Coria) + `{stam}.vsa.pdf` (A4) bij een catalogus-`.vsa`. | [vsa-products](vsa-products/) |
+| `vsa-products` | Maakt/vernieuwt `{stam}.vsa.mxl` + `{stam}.vsa.pdf` + `{stam}.vsa.svg` bij een catalogus-`.vsa`. | [vsa-products](vsa-products/) |
 | `mscz-products` | Maakt/vernieuwt `{stam}.mscz.pdf` + `{stam}.mscz.mxl` bij een basispartituur-`.mscz`. | [mscz-products](mscz-products/) |
 | `tekstblad-products` | Maakt/vernieuwt `{stam}.tekstblad.pdf` bij een catalogus-`.tekstblad.md`. | [tekstblad-products](tekstblad-products/) |
 | `import-mvsa` | Maakt/vernieuwt bewerkvorm `{stam}.mscz.mvsa` naast een basispartituur-`.mscz` (alleen bestaande siblings, tenzij pad/`--create`). | [import-mvsa](import-mvsa/) |
-| `mvsa-products` | Maakt/vernieuwt `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf` bij een catalogus-`.mvsa`. | [mvsa-products](mvsa-products/) |
+| `mvsa-products` | Maakt/vernieuwt `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf` + `{stam}.mvsa.svg` bij een catalogus-`.mvsa`. | [mvsa-products](mvsa-products/) |
 | `audio-products` | Maakt/vernieuwt preview-`{stam}.{bron}.mp3` bij `.mvsa` / `.mscz` / `.vsa` (Beluisteren). | [audio-products](audio-products/) |
 | `lyrics-products` | Maakt/vernieuwt `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` / `.mscz.lyrics.txt` (zoektekst). | [lyrics-products](lyrics-products/) |
 | `all-products` | Roept alle `*-products` (+ import-mvsa) achter elkaar aan voor ontbrekende/stale siblings. | [all-products](all-products/) |
@@ -39,8 +44,8 @@ vanuit de repo-root.
 | `update-werkvoorraad` | Tabel in `input\werkvoorraad.md` laten aansluiten op bestanden in `input\`. | [update-werkvoorraad](update-werkvoorraad/) |
 | `werkbank-status` | Overzicht open werkbank-cases; schrijft `data\werkbank-status.json`. | [werkbank-status](werkbank-status/) |
 | `lifecycle-grenzen` | Spaties/ruwe formats in catalogusmappen melden (optioneel `--fail`). | [lifecycle-grenzen](lifecycle-grenzen/) |
-| `oefenhoek-index` | SVG-plaatjes uit catalogus-`.vsa` naar `static\vsa\bladermap\` (geen stamp); optioneel legacy-strip. | [oefenhoek-index](oefenhoek-index/) |
-| `pagina-pdf` | Plakt catalogus-product-PDF’s tot `index.pagina.pdf` voor Download van een bladermap-pagina. | [pagina-pdf](pagina-pdf/) |
+| `oefenhoek-index` | Legacy SVG uit `.vsa` naar `static\vsa\bladermap\` (geen stamp). Het scherm gebruikt `{stam}.vsa.svg` zodra `vsa-products` die heeft gemaakt. | [oefenhoek-index](oefenhoek-index/) |
+| `pagina-pdf` | Maakt `index.pagina.pdf` voor Download/Print pagina uit kale blad-SVG’s + Markdown-koppen (`pdf-bijelkaar` → compact). | [pagina-pdf](pagina-pdf/) |
 
 Intern (geen apart gebruikerscommando): `python scripts\fingerprint_coria_mxl.py`
 maakt `/mxl/c/<hash>.musicxml` en `data/coria-fp.json` voor de Oefenen-knop.
@@ -55,14 +60,17 @@ status-JSON (versheid / importcontrole).
 Detail: [scripts/README.md](https://github.com/orthodox-ronl/bibliotheek/blob/development/scripts/README.md)
 in de repo.
 
-## Nog niet in deze repo (komt later)
+## Nog niet in deze repo
 
 | Commando (later) | Rol |
 | --- | --- |
 | `bieb zoek` | Zoeken van catalogus-ids op de commandoregel |
 
-Man-pages (ter voorbereiding / andere repo):
-[capella-mxl-to-mscz](capella-mxl-to-mscz/), [pdf](pdf/),
-[demo-pdf](demo-pdf/), [sync-bron-zondagen](sync-bron-zondagen/).
+Een los Markdownblad naar PDF (`pdf` / `demo-pdf`), Capella-batch
+(`capella-mxl-to-mscz`) en een zondag-sync uit `bron` zijn geen
+commando’s van deze repository. Een koormap-blad is
+[pagina-pdf](pagina-pdf/). Een catalogus-tekstblad is
+[tekstblad-products](tekstblad-products/). Een generieke `vsa pdf` hoort
+in VSA-tooling.
 
 {{< navbuttons "Werktrajecten|/handleiding/werktrajecten/" "Check|/handleiding/scripts/check/" >}}

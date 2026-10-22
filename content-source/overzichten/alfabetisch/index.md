@@ -11,8 +11,9 @@ aliases:
 ---
 
 Oefenbare uitvoeringsvormen als **boom**: eerst zangstuk (A–Z), dan
-variant, dan uitvoeringsvorm. Klap een tak open om verder te bladeren;
-een blad toont een korte samenvatting (eerste tekstregel en/of beluisteren
-als die er zijn).
+variant, dan uitvoeringsvorm. Klap een blad open voor twee kleine knoppen:
+**Naar catalogus** opent de pagina van die uitvoeringsvorm, **Beluisteren**
+speelt het geluid af (alleen als dat er is). Daaronder staat de eerste
+tekstregel, als die er is.
 
 {{< catalogus-referentie kind="alfabetisch" >}}

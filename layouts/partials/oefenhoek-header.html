@@ -2,7 +2,7 @@
   Sticky broodkruimels vanaf sectieroots catalogus / koormappen / handleiding.
   Sectie via .Section (niet RelPermalink): op Pages zit /catalogus/ in de
   baseURL (/preview/), waardoor string-match op RelPermalink vals positief is.
-  Publicatiestatus hoort NIET hier (die staat in main, niet sticky).
+  Publicatiestatus-? volgt direct op de broodkruimels (bladermap-leaves).
 */ -}}
 {{- $root := false -}}
 {{- $sec := .Section -}}
@@ -27,7 +27,7 @@
     <span class="oefenhoek-breadcrumb-current" aria-current="page">{{ partial "display-link-title.html" . }}</span>
     {{- end -}}
   </nav>
-  {{ partial "pagina-acties.html" . }}
+  {{- partial "publicatiestatus.html" . -}}
   </div>
 </header>
 {{- end -}}

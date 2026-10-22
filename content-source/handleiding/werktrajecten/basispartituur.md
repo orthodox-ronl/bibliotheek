@@ -33,9 +33,9 @@ basispartituur.
 | `{stam}.mscz.pdf` (doel) of legacy `{stam}.pdf` / `{stam}.partituur.pdf` | A4-afdruk |
 | `{stam}.mscz.mxl` (doel) of legacy `{stam}.mxl` / `{stam}.partituur.mxl` | MusicXML voor Coria |
 
-**Klaar** als: de PDF/MXL de stamp `partituur-sha256` van de huidige
+**Klaar** als: de PDF/MXL de stamp `vsa-partituur-sha256` van de huidige
 `.mscz` dragen; de colofonregel **Bibliotheek-id:** klopt met het pad;
-`check_partituur_products` (onderdeel van `check --strict`) is groen.
+`check_mscz_products` (onderdeel van `check --strict`) is groen.
 Meerdere producten van hetzelfde type in één map → expliciete
 doelvorm (zie [Publicatiecontrole](/handleiding/start/publicatiecontrole/)).
 
@@ -83,18 +83,17 @@ Voorbeeldbladermap:
 
 ## Automatisch (CI)
 
-Op GitHub Actions (workflows `validate.yml` / `pages.yml`):
+Op GitHub Actions (workflow `pages.yml`):
 
-- **Wel:** `check_partituur_products.py` en `check_bibliotheek_id.py`
+- **Wel:** `check_mscz_products.py` en `ensure_bibliotheek_id.py --check-only`
   controleren of PDF/MXL bij de `.mscz` passen en of het catalogus-id
   klopt.
 - **Niet:** MuseScore-export (`mscz-products`). CI heeft geen MuseScore 4.
   Verouderde of ontbrekende producten laten de build **falen** — jij
-  vernieuwt ze lokaal en commit PDF/MXL mee.
+  vernieuwt ze lokaal met `mscz-products` en commit PDF/MXL mee.
 
-Lokaal vernieuwt `scripts\check.cmd` (via `_pipeline.cmd`) stale
-basispartituur-producten wél met `sync_mscz_products.py`, en zet
-ontbrekende catalogus-ids met `ensure_bibliotheek_id.py`.
+`check` schrijft die producten niet. Ontbrekende catalogus-ids zet je
+met `ensure-bibliotheek-id`; `check` meldt ze alleen.
 
 ## Handmatig
 

@@ -62,13 +62,13 @@ echo     afgeleide producten ^(PDF/MXL/mp3/...^) bouwen
 echo   all-products
 echo     alias: products --kinds all
 echo   vsa-products
-echo     Coria-.vsa.mxl + .vsa.pdf bij catalogus-.vsa
+echo     Coria-.vsa.mxl + .vsa.pdf + .vsa.svg bij catalogus-.vsa
 echo   mscz-products
 echo     PDF + Coria-.mxl bij basispartituur-.mscz
 echo   tekstblad-products
 echo     PDF bij .tekstblad.md
 echo   mvsa-products
-echo     Coria-.mvsa.mxl + .mvsa.pdf bij .mvsa
+echo     Coria-.mvsa.mxl + .mvsa.pdf + .mvsa.svg bij .mvsa
 echo   audio-products
 echo     preview-.mp3 ^(Beluisteren^)
 echo   lyrics-products
@@ -92,7 +92,9 @@ echo     open werkbank-cases
 echo   lifecycle-grenzen
 echo     grenzen werkbank vs catalogus
 echo   oefenhoek-index
-echo     bladermap-SVG uit .vsa
+echo     legacy bladermap-SVG uit .vsa ^(fallback^)
+echo   pagina-pdf
+echo     PDF van een koormap- of catalogusblad ^(index.pagina.pdf^)
 echo.
 echo Uitgebreide man-pages: content-source\handleiding\scripts\
 echo Repo-lijst: scripts\README.md

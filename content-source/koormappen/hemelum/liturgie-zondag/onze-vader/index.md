@@ -6,6 +6,5 @@ publicatiestatus: voorzien
 automatische_inhoud: false
 ---
 
-# 23 Onze Vader
-
+{{< kop >}}23 Onze Vader{{< /kop >}}
 {{< bieb id="onze-vader/default/hemelum" />}}

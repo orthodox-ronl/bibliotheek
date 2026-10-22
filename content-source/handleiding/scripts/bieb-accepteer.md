@@ -12,7 +12,7 @@ weight: 160
 
 ```cmd
 scripts\bieb.cmd accepteer [id] [bestand...] [opties]
-scripts\bieb.cmd accepteer [bestand] [opties]
+scripts\bieb.cmd accepteer [bestand|map] [opties]
 scripts\bieb.cmd accept [id] [bestand...] [opties]
 ```
 
@@ -28,6 +28,13 @@ Neemt een klaar bestand op in de **bibliotheek** (de catalogus onder
 `.print.mscz`), of `.tekstblad.md` (optioneel sibling-`.pdf` / `.mxl`). Bij
 `.tekstblad.md` zet het script indien nodig frontmatter `build: render: never`
 zodat de bron geen Hugo-pagina wordt.
+
+Invoer volgt [bestand of map](../invoer-bestand-of-map/): één bronbestand,
+of een **map** (recursief `.mscz` / `.vsa` / `.mvsa` / `.tekstblad.md`). Bij
+een map wordt elk primair bestand apart opgenomen; het catalogus-id komt
+uit de publicatiestam (geen interactieve id-vragen, geen `--title` of los
+id). Preflight toont aantal + geschatte duur; bevestiging of `-y`. Eerst
+`--dry-run` aanbevolen. `--move` blijft expliciet (verplaatst bronnen).
 
 ## Bestand eerst, id uit de bestandsnaam
 
@@ -89,6 +96,7 @@ wijzigen), [verwijder](../bieb-verwijder/) (wissen + dangling refs),
 | `--move` | Bronbestanden verplaatsen (default: kopieer) |
 | `--force` | Overschrijven / `productie` / stam-mismatch toestaan |
 | `--dry-run` | Alleen tonen |
+| `-y`, `--yes` | Batch zonder bevestigingsvraag |
 | `--skip-vsa-validate` | Geen `vsa`/`mvsa validate` |
 | `--artefacten-handmatig` | Zet `artefacten_handmatig: true` |
 

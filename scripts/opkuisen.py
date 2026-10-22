@@ -52,26 +52,21 @@ EXIT_REFUSED = 2
 
 
 def expand_opkuis_paths(paths: list[Path]) -> list[Path]:
-    """Recursief bestanden met ondersteunde extensies.
+    """Bestand-of-map: recursief bestanden met ondersteunde extensies.
 
     Bij een mapscan: sla ``*.print.mscz`` over. Als de scan-root zelf geen
     ``input``-segment is, sla paden onder ``input\\`` over (ruwe dumps niet
     per ongeluk meenemen vanuit content-source). Een expliciet bestandspad
     blijft altijd in de lijst.
     """
+    from input_paths import collect_input_files
+
+    scan_suffixes = sorted(set(SUPPORTED_SUFFIXES) | set(REFUSED_SUFFIXES))
     out: list[Path] = []
     for path in paths:
         if path.is_dir():
-            found: list[Path] = []
-            for p in sorted(path.rglob("*")):
-                if not p.is_file():
-                    continue
-                suf = p.suffix.lower()
-                if suf not in SUPPORTED_SUFFIXES and suf not in REFUSED_SUFFIXES:
-                    continue
-                if is_print_mscz(p):
-                    continue
-                found.append(p)
+            found = collect_input_files(path, suffixes=scan_suffixes)
+            found = [p for p in found if not is_print_mscz(p)]
             if path.name != "input" and "input" not in path.parts:
                 found = [p for p in found if "input" not in p.parts]
             out.extend(found)
@@ -447,10 +442,15 @@ def build_parser() -> argparse.ArgumentParser:
         default="",
         help="Bibliotheek-id voor layout-diepte (optioneel)",
     )
+    from batch_guard import add_yes_argument
+
+    add_yes_argument(p)
     return p
 
 
 def main(argv: list[str] | None = None) -> int:
+    from batch_guard import SKIP, confirm_batch, run_timed_batch
+
     args = build_parser().parse_args(argv)
     files = expand_opkuis_paths(args.paths)
     if not files:
@@ -473,18 +473,42 @@ def main(argv: list[str] | None = None) -> int:
                 )
                 return EXIT_ERROR
 
+    kind = "opkuisen"
+    modus = []
+    if args.analyze:
+        modus.append("alleen analyseren (geen schrijven)")
+    else:
+        modus.append("inhoud opkuisen")
+    if args.layout:
+        modus.append("+ layout")
+    if args.in_place:
+        modus.append("in-place")
+    if not confirm_batch(
+        kind,
+        n=len(files),
+        headline=f"{len(files)} scorebestand(en)",
+        details=[
+            f"Actie: {'; '.join(modus)}",
+            f"Pad(en): {', '.join(str(p) for p in args.paths[:3])}"
+            + ("…" if len(args.paths) > 3 else ""),
+        ],
+        yes=bool(args.yes),
+    ):
+        return EXIT_REFUSED
+
     worst = EXIT_OK
-    n_ok = n_err = n_ref = 0
-    for path in files:
+    failed_paths: list[str] = []
+
+    def _one(path: Path) -> int:
+        nonlocal worst
         suf = path.suffix.lower()
         if suf in REFUSED_SUFFIXES and not args.analyze:
             print(f"== {path}")
             print(
                 f"  WEIGERING: {suf} - eerst CapToMusic naar .mxl, daarna opkuisen."
             )
-            n_ref += 1
             worst = max(worst, EXIT_REFUSED)
-            continue
+            return SKIP
         code = process_one(
             path,
             analyze=bool(args.analyze),
@@ -498,16 +522,27 @@ def main(argv: list[str] | None = None) -> int:
             bibliotheek_id=args.bibliotheek_id or "",
         )
         if code == EXIT_OK:
-            n_ok += 1
-        elif code == EXIT_REFUSED:
-            n_ref += 1
+            return 0
+        if code == EXIT_REFUSED:
             worst = max(worst, EXIT_REFUSED)
-        else:
-            n_err += 1
-            worst = max(worst, EXIT_ERROR)
+            return SKIP
+        failed_paths.append(str(path))
+        worst = max(worst, EXIT_ERROR)
+        return 1
 
+    n_ok, n_err, n_skip = run_timed_batch(
+        kind,
+        files,
+        _one,
+        label=lambda p: str(p),
+    )
+    if failed_paths:
+        print("Mislukt:", flush=True)
+        for line in failed_paths:
+            print(f"  - {line}", flush=True)
     print(
-        f"-- samenvatting: ok={n_ok} geweigerd={n_ref} fout={n_err} totaal={len(files)}"
+        f"-- samenvatting: ok={n_ok} overgeslagen/geweigerd={n_skip} "
+        f"fout={n_err} totaal={len(files)}"
     )
     return worst
 

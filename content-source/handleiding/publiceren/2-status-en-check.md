@@ -13,7 +13,7 @@ Deze pagina is de HOW voor publicatiestatus en lokale controle.
 {{< cue >}}
 1. Zet `publicatiestatus` op catalogus-`index.md` **en** koormap-`index.md`.
 2. `scripts\check.cmd --strict` moet groen zijn.
-3. `scripts\serve.cmd --no-build` → http://127.0.0.1:18732/ — klik zelf als koorlid (koormap-slot).
+3. `scripts\serve.cmd` → http://127.0.0.1:18732/ — klik zelf als koorlid (koormap-slot).
 4. Live: pas na groen, via git naar `main` (of vragen). `productie` niet raden.
 {{< /cue >}}
 
@@ -58,25 +58,26 @@ links op de site kloppen. Rood = niet naar live; eerst
 [Catalogus en koormappen](../../start/catalogus-en-koormappen/)
 (sectie *Titels en frontmatter*).
 
-Lokaal vernieuwt `check` ook stale basispartituur-PDF/MXL (MuseScore) en stale
-`.vsa.mxl`. Commit gewijzigde producten mee. Op branch `main` faalt de
-build als die producten ontbreken of verouderd zijn.
+`check` schrijft geen PDF, Coria-`.mxl` of SVG. Die maak je lokaal met
+`products` (of het passende `*-products`-commando) en commit je mee.
+Op branch `main` faalt de build als die producten ontbreken of verouderd
+zijn.
 
 ## Preview
 
-Als check groen is en je niet opnieuw wilt genereren:
+Als `check` groen is:
 
 ```cmd
-scripts\serve.cmd --no-build
+scripts\serve.cmd
 ```
 
-Browser: **http://127.0.0.1:18732/** — nooit poort 1313. Open jouw
-**koormap-slot** in de liturgiemap. Klik **Oefenen**, **Downloaden**,
-blader de PDF. Alsof je koorlid bent. Rode banner over partituur- of VSA-afgeleiden?
-Terug naar [Afgeleiden](../../partituur/6-afgeleiden/). Gele banner
-“Handmatige artefacten”? Verwacht — jij houdt PDF/MXL zelf bij.
-
-Alles opnieuw opbouwen (langer): `scripts\serve.cmd` zonder `--no-build`.
+`serve` start de preview op **http://127.0.0.1:18732/** (nooit poort
+1313). Catalogusproducten maakt dat commando niet; die horen al in de
+map te staan. Open jouw **koormap-slot** in de liturgiemap. Klik
+**Oefenen**, **Downloaden**, blader de PDF. Alsof je koorlid bent.
+Rode banner over partituur- of VSA-afgeleiden? Terug naar
+[Afgeleiden](../../partituur/6-afgeleiden/). Gele banner “Handmatige
+artefacten”? Verwacht — jij houdt PDF/MXL zelf bij.
 
 ## Op internet
 

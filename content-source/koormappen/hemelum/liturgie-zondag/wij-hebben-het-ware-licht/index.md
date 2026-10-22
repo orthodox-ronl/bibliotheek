@@ -6,6 +6,5 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 28 Wij hebben het Ware Licht
-
+{{< kop >}}28 Wij hebben het Ware Licht{{< /kop >}}
 {{< bieb id="wij-hebben-het-ware-licht/default/hemelum" />}}

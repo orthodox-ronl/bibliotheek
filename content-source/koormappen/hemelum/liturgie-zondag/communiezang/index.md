@@ -6,6 +6,5 @@ publicatiestatus: voorzien
 automatische_inhoud: false
 ---
 
-# 27 Communiezang
-
+{{< kop >}}27 Communiezang{{< /kop >}}
 {{< bieb id="communiezang/default/hemelum" />}}

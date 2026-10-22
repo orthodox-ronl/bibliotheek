@@ -1,2 +1,0 @@
-{{- $scale := .Get "scale" -}}
-<div class="keep-together"{{ if $scale }} style="width: {{ $scale }}"{{ end }}>{{ .Page.RenderString (printf "\n%s" .Inner) }}</div>

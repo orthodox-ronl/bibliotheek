@@ -40,7 +40,7 @@ Ids blijven uit het **pad**: `zangstuk/variant/uitvoeringsvorm`.
 
 ### Overzichtsbomen (vast)
 
-Shortcode `catalogus-referentie` (Alfabetisch / Per herkomst / Per soort):
+Shortcode `catalogus-referentie` (Alfabetisch / Per herkomst; `kind=per-soort` blijft in de shortcode maar staat niet meer in het Catalogus-menu):
 
 - **Single-child:** een tak met precies één kind (sub-tak of blad) toont
   meteen de inhoud van dat kind, recursief — geen tussen-

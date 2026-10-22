@@ -6,12 +6,11 @@ nav_sort: weight
 ---
 
 **VSA** is de notatie voor tekst-plus-melodie in een gewoon tekstbestand
-(extensie `.vsa`). De sitebuild maakt daarvan een **plaatje (SVG)** via
-`scripts\oefenhoek-index.cmd --svg` (onderdeel van `check` /
-`build` / `serve`). Bij een catalogus-`.vsa` maakt de lokale `check` ook
-een Coria-bestand `{stam}.vsa.mxl`, zodat koorleden de knop **Oefenen**
-krijgen. Dat zijn twee aparte stappen — zie
-[.vsa schrijven](1-vsa-schrijven/).
+(extensie `.vsa`). `scripts\vsa-products.cmd` maakt daar drie siblings
+van: `{stam}.vsa.svg` (het plaatje op het scherm), `{stam}.vsa.pdf`
+(download en print) en `{stam}.vsa.mxl` (knop **Oefenen**). `check`
+controleert of die siblings bij de bron passen; `check` schrijft ze
+niet. Zie [.vsa schrijven](1-vsa-schrijven/).
 
 Pijplijn (waartoe, CI, commando’s): werktraject
 [VSA → SVG en Coria](../werktrajecten/vsa/).

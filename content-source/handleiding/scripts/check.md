@@ -24,8 +24,8 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 1. `validate` — `vsa validate` op `content-source\catalogus` (en
    `mvsa validate` als daar `.mvsa`-bestanden staan)
 2. VSA-publicatiecontrole — of elke catalogus-`.vsa` (behalve
-   `artefacten_handmatig`) een passende sibling `{stam}.vsa.mxl` heeft
-   met `vsa-source-sha256`
+   `artefacten_handmatig`) passende siblings `{stam}.vsa.mxl`,
+   `{stam}.vsa.pdf` en `{stam}.vsa.svg` heeft met `vsa-source-sha256`
 3. MSCZ-publicatiecontrole — of elke basispartituur-`.mscz` (behalve
    handmatig/print) passende siblings `{stam}.mscz.pdf` en
    `{stam}.mscz.mxl` heeft met `vsa-partituur-sha256`
@@ -35,12 +35,13 @@ Of: `scripts\check.cmd` vanuit de repo-root.
    bijbehorende basispartituur-`.mscz` past (`vsa-partituur-sha256`);
    ontbrekende import-siblings zijn geen fout
 6. MVSA-publicatiecontrole — of elke canonieke catalogus-`.mvsa`
-   (geen `.mscz.mvsa`) passende siblings `{stam}.mvsa.mxl` en
-   `{stam}.mvsa.pdf` heeft met `vsa-source-sha256`
+   (geen `.mscz.mvsa`) passende siblings `{stam}.mvsa.mxl`,
+   `{stam}.mvsa.pdf` en `{stam}.mvsa.svg` heeft met `vsa-source-sha256`
 7. Audio-publicatiecontrole — of elke canonieke `.mvsa` / basis-`.mscz` /
    `.vsa` een passende preview-`.mp3` heeft met herkomststempel
-8. Lyrics-publicatiecontrole — of elke catalogus-`.vsa` / `.mvsa` een
-   passende `{stam}.….lyrics.txt` heeft met `vsa-source-sha256`
+8. Lyrics-publicatiecontrole — of elke catalogus-`.vsa` / `.mvsa` /
+   basis-`.mscz` een passende `{stam}.….lyrics.txt` heeft met
+   `vsa-source-sha256`
 9. Catalogus-id — of elke basispartituur-`.mscz` in het colofon de
    regel `Bibliotheek-id:` heeft die bij het bladermap-pad past
 10. Koormap-slotlinks (`python scripts\check_koormap_slot_links.py
@@ -51,8 +52,10 @@ Of: `scripts\check.cmd` vanuit de repo-root.
     niet alleen het zangstuk-id is en `linkTitle` een leesbaar
     uitvoeringsvorm-label is (waarschuwing; met `--strict` fout)
 12. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
-13. Bladermap-SVG (`oefenhoek-index --svg`) — plaatjes uit `.vsa`; geen
-   stamp-publicatiecontrole
+13. Legacy bladermap-SVG (`oefenhoek-index --svg`) — plaatje onder
+   `static\vsa\bladermap\` uit `.vsa`, zonder stempel. Het scherm
+   gebruikt sibling `{stam}.vsa.svg` (stap 2) zodra die er is; dit
+   plaatje is alleen de fallback
 14. Zoekindex (`python scripts\build_zoek_index.py` → `static\zoek\index.json`)
 15. Bouwtijd-stempel (`python scripts\write_build_stamp.py` →
     `data\build.yaml`; footer «Gegenereerd» op de homepage; niet
@@ -78,8 +81,14 @@ of met [vsa-products](../vsa-products/),
 [lyrics-products](../lyrics-products/); vernieuw
 import-siblings met [import-mvsa](../import-mvsa/); herstel id’s met
 [ensure-bibliotheek-id](../ensure-bibliotheek-id/) of
-[layout](../layout/). CI genereert geen MuseScore-/PDF-/audio-/lyrics-producten;
-wel de zoekindex bij elke site-deploy.
+[layout](../layout/). CI genereert geen MuseScore-/PDF-/audio-/lyrics-producten en geen
+sibling-SVG (`.vsa.svg` / `.mvsa.svg`); wel de zoekindex en de legacy
+bladermap-SVG bij elke site-deploy.
+
+`pagina-pdf` zit niet in `check` of in CI. Het koormap-blad
+`index.pagina.pdf` maak je lokaal, ná de catalogusproducten. Ontbreekt
+dat bestand, dan tonen Download pagina en Print pagina niet; `check`
+meldt dat niet.
 
 # EXAMPLES
 
@@ -105,6 +114,7 @@ genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole)
 - [audio-products](../audio-products/)
 - [all-products](../all-products/)
 - [oefenhoek-index](../oefenhoek-index/)
+- [pagina-pdf](../pagina-pdf/)
 - [layout](../layout/)
 - [ensure-bibliotheek-id](../ensure-bibliotheek-id/)
 - [bieb hernoem](../bieb-hernoem/)

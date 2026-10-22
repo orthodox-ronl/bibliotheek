@@ -6,6 +6,5 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 8a Trisagion (met Slavisch)
-
+{{< kop >}}8a Trisagion (met Slavisch){{< /kop >}}
 {{< bieb id="trisagion/8a-slav/hemelum" />}}

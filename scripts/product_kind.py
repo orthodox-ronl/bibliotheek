@@ -79,6 +79,8 @@ def parse_product_args(
     default_root: Path = DEFAULT_ROOT,
     add_extra: Callable[[argparse.ArgumentParser], None] | None = None,
 ) -> argparse.Namespace:
+    from batch_guard import add_yes_argument
+
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument(
         "root",
@@ -88,6 +90,7 @@ def parse_product_args(
         help="Catalogusmap of één bronbestand (default: content-source/catalogus)",
     )
     add_regen_arguments(parser)
+    add_yes_argument(parser)
     if add_extra is not None:
         add_extra(parser)
     return parser.parse_args(argv)
@@ -99,6 +102,7 @@ def run_kind(
     policy: RegenPolicy,
     *,
     dry_run: bool = False,
+    yes: bool = False,
     repo_root: Path = REPO_ROOT,
     find_musescore: Callable[[], Path | None] | None = None,
 ) -> int:
@@ -190,8 +194,27 @@ def run_kind(
         f"{kind.label} bijwerken: {len(todo)} van {len(sources)}",
         flush=True,
     )
-    failed = 0
-    for source, need_flags, _slots in todo:
+    from batch_guard import confirm_batch, run_timed_batch
+
+    timing_kind = f"product_{kind.id}"
+    actie = "dry-run (geen schrijven)" if dry_run else "producten schrijven/vernieuwen"
+    if not confirm_batch(
+        timing_kind,
+        n=len(todo),
+        headline=f"{kind.label}: {len(todo)} van {len(sources)}{kind.source_noun}",
+        details=[
+            f"Root: {root}",
+            f"Actie: {actie}",
+            f"Condities: {', '.join(policy.active_reasons())}",
+        ],
+        yes=yes,
+    ):
+        return 2
+
+    failed_paths: list[str] = []
+
+    def _one(item: tuple[Path, list[bool], list[ProductSlot]]) -> int:
+        source, need_flags, _slots = item
         try:
             rel = source.relative_to(repo_root)
         except ValueError:
@@ -201,7 +224,20 @@ def run_kind(
             kind.sync(source, need=need_flags, dry_run=dry_run)
         except Exception as exc:  # noqa: BLE001
             print(f"  FAILED {exc}", flush=True)
-            failed += 1
+            failed_paths.append(str(rel))
+            return 1
+        return 0
+
+    _ok, failed, _skipped = run_timed_batch(
+        timing_kind,
+        todo,
+        _one,
+        label=lambda it: str(it[0]),
+    )
+    if failed_paths:
+        print("Mislukt:", flush=True)
+        for line in failed_paths:
+            print(f"  - {line}", flush=True)
     if failed:
         print(f"{failed} mislukt van {len(todo)}", flush=True)
         return 1
@@ -234,5 +270,6 @@ def main_for_kind(
         root,
         policy,
         dry_run=bool(args.dry_run),
+        yes=bool(getattr(args, "yes", False)),
         repo_root=repo_root,
     )

@@ -1,0 +1,45 @@
+{{- /*
+  Bladtitel / rubriek op koormap (en later catalogus-blad).
+  Spec: docs/specs/koormap-paginataal.md §6.
+
+  Defaults: midden + groot.
+  Knoppen (hoogstens één per set, volgorde vrij):
+    uitlijning: links | midden | rechts
+    grootte:    groot | middel | klein
+
+  Geneste shortcodes (bijv. titel) draaien eerst; hun HTML zit in .Inner.
+  Geen markdownify/RenderString: die wrappen platte tekst in <p> (ongeldig
+  in h1–h3) of breken de bieb-Parent-keten. Inline Markdown later desgewenst.
+*/ -}}
+
+{{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}
+{{- $align := "midden" -}}
+{{- $grootte := "groot" -}}
+{{- $hasAlign := false -}}
+{{- $hasGrootte := false -}}
+{{- range $idx := (slice 0 1 2 3 4 5) -}}
+  {{- $w := strings.TrimSpace ($.Get $idx | default "") -}}
+  {{- if $w -}}
+    {{- if in (slice "links" "midden" "rechts") $w -}}
+      {{- if $hasAlign -}}
+        {{- errorf "%s: shortcode kop: hoogstens één uitlijning (links, midden of rechts). Oplossing: kies één woord." $loc -}}
+      {{- end -}}
+      {{- $align = $w -}}
+      {{- $hasAlign = true -}}
+    {{- else if in (slice "groot" "middel" "klein") $w -}}
+      {{- if $hasGrootte -}}
+        {{- errorf "%s: shortcode kop: hoogstens één grootte (groot, middel of klein). Oplossing: kies één woord." $loc -}}
+      {{- end -}}
+      {{- $grootte = $w -}}
+      {{- $hasGrootte = true -}}
+    {{- else -}}
+      {{- errorf "%s: shortcode kop: onbekende knop %q. Toegestaan: links, midden, rechts, groot, middel, klein." $loc $w -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $tag := "h1" -}}
+{{- if eq $grootte "middel" -}}{{- $tag = "h2" -}}{{- end -}}
+{{- if eq $grootte "klein" -}}{{- $tag = "h3" -}}{{- end -}}
+{{- printf `<%s class="koormap-kop koormap-kop--%s koormap-kop--%s">` $tag $align $grootte | safeHTML -}}
+{{- .Inner -}}
+{{- printf `</%s>` $tag | safeHTML -}}

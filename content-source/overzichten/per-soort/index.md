@@ -8,11 +8,10 @@ automatische_inhoud: false
 vsa_nav_exclude: true
 ---
 
-Oefenbare uitvoeringsvormen in **liturgische volgorde** (via `weight` op
-het zangstuk): eerst de soort (ektinia, tropaar, …), daarna variant en
-uitvoeringsvorm. Klap een tak open om verder te bladeren.
+Deze indeling hoort niet meer bij het Catalogus-menu. Liturgische volgorde
+hoort bij een **koormap** (welke liturgie of welk getijde), niet bij één
+overzicht van alle soorten.
 
-De koormap blijft de plek voor “wat zingen we in welke volgorde” in een
-concrete dienst.
-
-{{< catalogus-referentie kind="per-soort" >}}
+Bladeren: [Alfabetisch](../alfabetisch/) of [Per herkomst](../herkomst/).
+Voor de volgorde in een dienst: bijvoorbeeld
+[liturgiemap Hemelum — zondag](/koormappen/hemelum/liturgie-zondag/).

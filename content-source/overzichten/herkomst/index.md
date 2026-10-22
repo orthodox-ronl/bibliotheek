@@ -12,7 +12,8 @@ aliases:
 
 Oefenbare uitvoeringsvormen als **boom op herkomst**: eerst uitvoeringsvorm
 (Asten, Groningen, Hemelum, …), dan zangstuk, dan variant, dan blad.
-Klap een tak open om verder te bladeren; een blad toont een korte
-samenvatting (eerste tekstregel en/of beluisteren als die er zijn).
+Klap een blad open voor twee kleine knoppen: **Naar catalogus** opent de
+pagina van die uitvoeringsvorm, **Beluisteren** speelt het geluid af
+(alleen als dat er is). Daaronder staat de eerste tekstregel, als die er is.
 
 {{< catalogus-referentie kind="herkomst" >}}

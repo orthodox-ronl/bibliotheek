@@ -1,8 +1,13 @@
 {{- /*
-  Download / Print van de getoonde bladermap-pagina (catalogus- of koormap-leaf).
+  Download / Print van de getoonde bladermap-pagina — in de site-header (nav).
 
-  Print = browser-afdruk (print-CSS). Download = pagina-PDF als die bestaat
-  (*.pagina.pdf); anders knop verborgen tot die productpijplijn er is.
+  Beide knoppen gebruiken *.pagina.pdf (page resource). Geen browser-HTML-afdruk:
+  dat is hetzelfde als Ctrl+P en overbodig. Zonder pagina-PDF: geen knoppen.
+
+  Voorgestelde downloadnaam (HTML download=…; bestand op schijf blijft *.pagina.pdf):
+  1. frontmatter pdf_bestandsnaam
+  2. anders frontmatter title
+  3. anders mapnaam van de pagina
 */ -}}
 {{- $bladermap := in (slice "catalogus" "koormappen") .Section -}}
 {{- if and $bladermap (not .IsSection) .File -}}
@@ -10,10 +15,23 @@
   {{- range .Resources.Match "*.pagina.pdf" -}}
     {{- $paginaPdf = .RelPermalink -}}
   {{- end -}}
-  <div class="pagina-acties" role="group" aria-label="Deze pagina">
-    {{- if $paginaPdf -}}
-    <a class="btn pagina-acties-btn" href="{{ $paginaPdf }}" download title="PDF van deze pagina opslaan">Download</a>
-    {{- end -}}
-    <button type="button" class="btn pagina-acties-btn" data-pagina-print title="Deze pagina afdrukken">Print</button>
+  {{- if $paginaPdf -}}
+  {{- $dlBase := "" -}}
+  {{- with .Params.pdf_bestandsnaam -}}
+    {{- $dlBase = . -}}
+  {{- else with .Params.title -}}
+    {{- $dlBase = . -}}
+  {{- else -}}
+    {{- $dlBase = path.Base (strings.TrimSuffix "/" .File.Dir) -}}
+  {{- end -}}
+  {{- $dlBase = $dlBase | replaceRE `[\\/:*?"<>|]+` "-" | replaceRE `(?i)\.pdf$` "" | strings.TrimSpace -}}
+  {{- if eq $dlBase "" -}}
+    {{- $dlBase = path.Base (strings.TrimSuffix "/" .File.Dir) -}}
+  {{- end -}}
+  {{- $dlName := printf "%s.pdf" $dlBase -}}
+  <div class="pagina-acties" role="group" aria-label="Deze pagina downloaden of printen">
+    <a class="btn pagina-acties-btn" href="{{ $paginaPdf }}" download="{{ $dlName }}" title="PDF van deze hele pagina opslaan">Download pagina</a>
+    <a class="btn pagina-acties-btn pdf-sheet-print" href="{{ $paginaPdf }}" title="PDF van deze hele pagina afdrukken">Print pagina</a>
   </div>
+  {{- end -}}
 {{- end -}}

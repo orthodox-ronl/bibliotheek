@@ -6,6 +6,5 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 29 De Naam des Heren zij gezegend
-
+{{< kop >}}29 De Naam des Heren zij gezegend{{< /kop >}}
 {{< bieb id="de-naam-des-heren-zij-gezegend/default/groningen" />}}

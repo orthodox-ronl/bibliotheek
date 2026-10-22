@@ -163,11 +163,11 @@ mogen; elk spoor houdt eigen siblings bij.
 
 | Spoor (brontype)          | Canonieke bron                                   | Verwachte afgeleiden (doelvorm)                 | Stamp in afgeleide                    | Lokaal maken                                                | Publicatiecontrole                                                |
 | ------------------------- | ------------------------------------------------ | ----------------------------------------------- | ------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------------- |
-| **vsa**                   | `{stam}.vsa`                                     | `{stam}.vsa.mxl` (Coria), `{stam}.vsa.pdf` (A4) | `vsa-source-sha256` van de `.vsa`     | `scripts\vsa-products.cmd`                                  | **Actief:** `check_vsa_products`                                  |
+| **vsa**                   | `{stam}.vsa`                                     | `{stam}.vsa.mxl` (Coria), `{stam}.vsa.pdf` (A4), `{stam}.vsa.svg` (scherm) | `vsa-source-sha256` van de `.vsa`     | `scripts\vsa-products.cmd`                                  | **Actief:** `check_vsa_products`                                  |
 | **lyrics** (zoektekst)    | `{stam}.vsa` / `.mvsa` / `.mscz`                 | `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` / `.mscz.lyrics.txt` | `vsa-source-sha256` van de bron (`kind` = `vsa` / `mvsa` / `partituur`) | `scripts\lyrics-products.cmd`                               | **Actief:** `check_lyrics_products`                               |
 | **mscz** (basispartituur) | `{stam}.mscz`                                    | `{stam}.mscz.pdf`, `{stam}.mscz.mxl`            | `vsa-partituur-sha256` van de `.mscz` | `scripts\mscz-products.cmd`                                 | **Actief:** `check_mscz_products`                                 |
 | **import** (bewerkvorm)   | `{stam}.mscz`                                    | `{stam}.mscz.mvsa` (optioneel)                  | `vsa-partituur-sha256` in commentaren | `scripts\import-mvsa.cmd`                                   | **Actief:** `check_import_mvsa` (alleen bestaande siblings)       |
-| **mvsa**                  | `{stam}.mvsa`                                    | `{stam}.mvsa.mxl`, `{stam}.mvsa.pdf`            | `vsa-source-sha256` van de `.mvsa`    | `scripts\mvsa-products.cmd`                                 | **Actief:** `check_mvsa_products`                                 |
+| **mvsa**                  | `{stam}.mvsa`                                    | `{stam}.mvsa.mxl`, `{stam}.mvsa.pdf`, `{stam}.mvsa.svg` | `vsa-source-sha256` van de `.mvsa`    | `scripts\mvsa-products.cmd`                                 | **Actief:** `check_mvsa_products`                                 |
 | **audio** (preview)       | `{stam}.mvsa` / `.mscz` / `.vsa`                 | `{stam}.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3`    | hash van die bron in het mp3          | `scripts\audio-products.cmd` (of `products`)                | **Actief:** `check_audio_products` (zelfde bronnen als Coria-MXL) |
 | **tekstblad**             | `{stam}.tekstblad.md`                            | `{stam}.tekstblad.pdf`                          | `vsa-source-sha256` van de `.md`      | `scripts\tekstblad-products.cmd`                            | **Actief:** `check_tekstblad_products`                            |
 | **Coria-contract**        | bestaande `.vsa.mxl` / `.mscz.mxl` / `.mvsa.mxl` | (geen nieuw bestand; checklist op de sibling)   | —                                     | `scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid` | **Actief:** `check_mxl_playback_contract`                         |
@@ -220,20 +220,29 @@ of **stale**. Ontbreekt het sibling-bestand → **missing**.
 | Stap                                                       | Lokaal `check`                       | Pages-CI                     |
 | ---------------------------------------------------------- | ------------------------------------ | ---------------------------- |
 | Geldigheidscontrole (`vsa validate`) op bibliotheek        | ja                                   | ja                           |
-| Publicatiecontrole VSA (`.vsa` ↔ `.vsa.mxl`)               | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
+| Publicatiecontrole VSA (`.vsa` ↔ MXL/PDF/SVG)               | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
 | Publicatiecontrole partituur (`.mscz` ↔ PDF/MXL)           | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
 | Publicatiecontrole tekstblad (`.tekstblad.md` ↔ PDF)       | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
 | Importcontrole (bestaande `.mscz.mvsa` ↔ `.mscz`)          | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
-| Publicatiecontrole mvsa (`.mvsa` ↔ MXL/PDF)                | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
+| Publicatiecontrole mvsa (`.mvsa` ↔ MXL/PDF/SVG)             | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
 | Publicatiecontrole audio (`.mvsa`/`.mscz`/`.vsa` ↔ `.mp3`) | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
-| Bladermap-SVG uit `.vsa`                                   | vernieuwen (`oefenhoek-index --svg`) | vernieuwen (geen stamp-fail) |
+| Legacy bladermap-SVG uit `.vsa`                            | vernieuwen (`oefenhoek-index --svg`) | vernieuwen (geen stamp-fail) |
+| Koormap-blad `index.pagina.pdf`                            | niet (lokaal `pagina-pdf`)           | niet                         |
 | Coria-fingerprints + Hugo                                  | ja                                   | ja                           |
 
-CI **genereert geen** MuseScore-/PDF-/audio-producten. Vernieuw die lokaal
-(`all-products`, of apart `vsa-products`, `mscz-products`,
-`tekstblad-products`, `mvsa-products`, `audio-products`, eventueel
-`import-mvsa`) en commit siblings mee. SVG-plaatjes worden wél in
-check/CI vernieuwd (geen herkomststempel).
+CI **genereert geen** MuseScore-/PDF-/audio-producten en geen sibling-SVG
+(`.vsa.svg` / `.mvsa.svg`). Vernieuw die lokaal (`all-products`, of apart
+`vsa-products`, `mscz-products`, `tekstblad-products`, `mvsa-products`,
+`audio-products`, eventueel `import-mvsa`) en commit siblings mee. Het
+scherm toont `{stam}.vsa.svg` of `{stam}.mvsa.svg`. Zolang de `.vsa.svg`
+ontbreekt, vult `oefenhoek-index --svg` een legacy-plaatje onder
+`static\vsa\bladermap\` (geen stempel, geen “stale”-fout).
+
+Het koormap-blad `index.pagina.pdf` is geen catalogus-sibling. `products`
+en `check` slaan het over. Na de catalogusproducten:
+`scripts\pagina-pdf.cmd`. Bij `pdf-bijelkaar` maakt dat commando een
+tijdelijke compacte SVG; `{stam}.mvsa.svg` blijft het gewone webplaatje.
+Commit de blad-PDF mee, anders tonen Download pagina en Print pagina niet.
 
 Op bibliotheek-bladermappen: knop **Beluisteren** bij elke bron met
 Coria-`.mxl` (passende `.mp3`); knop **Bronnen** (alleen in de
@@ -268,6 +277,8 @@ Alleen `.vsa` (actieve publicatiecontrole):
 content-source\catalogus\tropaar\zondag-toon-1\groningen\
   tropaar-zondag-toon-1-groningen.vsa
   tropaar-zondag-toon-1-groningen.vsa.mxl
+  tropaar-zondag-toon-1-groningen.vsa.pdf
+  tropaar-zondag-toon-1-groningen.vsa.svg
   index.md
 ```
 

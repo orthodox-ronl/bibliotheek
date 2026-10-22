@@ -6,8 +6,12 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 21 En Allen
+{{< kop >}}En allen (21){{< /kop >}}
 
 {{< bieb id="en-allen/default/hemelum" />}}
+
+{{< witruimte groot >}}
+
+{{< kop >}}И всех, и вся (21){{< /kop >}}
 
 {{< bieb id="en-allen/default/hemelum-ksl" />}}

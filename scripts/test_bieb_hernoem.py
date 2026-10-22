@@ -174,7 +174,7 @@ def test_rewrite_skips_title_reports_doubt() -> None:
     text = (
         '---\ntitle: "tropaar/zondag-toon-1/hemelum"\n'
         'linkTitle: "Hemelum"\n---\n'
-        '{{< bieb id="tropaar/zondag-toon-1/hemelum" >}}\n'
+        '{{< bieb id="tropaar/zondag-toon-1/hemelum" />}}\n'
     )
     updated, doubt, changes = bh._rewrite_text(
         text,
@@ -197,7 +197,7 @@ def test_hernoem_leaf_dry_run(tmp_path: Path, monkeypatch) -> None:
     leaf.mkdir(parents=True)
     (leaf / "index.md").write_text(
         '---\ntitle: "x"\nlinkTitle: "Hemelum"\n---\n'
-        '{{< bieb id="demo/var/hemelum" >}}\n',
+        '{{< bieb id="demo/var/hemelum" />}}\n',
         encoding="utf-8",
     )
     (leaf / "demo-var-hemelum.vsa").write_text(
@@ -250,7 +250,7 @@ def test_hernoem_leaf_renames_stem_and_mscbackup(tmp_path: Path, monkeypatch) ->
     )
     (leaf / "index.md").write_text(
         '---\ntitle: "x"\nlinkTitle: "Hemelum"\n---\n'
-        '{{< bieb id="demo/var/hemelum" >}}\n',
+        '{{< bieb id="demo/var/hemelum" />}}\n',
         encoding="utf-8",
     )
     (leaf / "demo-var-hemelum.vsa").write_text(

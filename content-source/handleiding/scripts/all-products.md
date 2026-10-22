@@ -12,24 +12,28 @@ in één keer bijwerken
 # SYNOPSIS
 
 ```cmd
-scripts\all-products.cmd [pad] [--force] [--dry-run]
+scripts\all-products.cmd [pad] [--force] [--dry-run] [-y]
 ```
 
 # DESCRIPTION
 
 Roept achter elkaar **alle** product-sporen aan (zelfde als
 `products.cmd --kinds all`) die siblings maken naast bibliotheek-bronnen
-onder `content-source\catalogus` (of onder een opgegeven pad). Audio en
-lyrics horen daar gewoon bij; ze zijn geen aparte uitzondering. Mappen met
-`artefacten_handmatig: true` en bestanden in `input\` worden overgeslagen.
-Past het brontype niet bij een spoor, dan skip (geen fout).
+onder `content-source\catalogus` (of onder een opgegeven pad). Het pad is
+één bronbestand of een map — zie
+[Invoer: bestand of map](../invoer-bestand-of-map/). Bij een map of
+meerdere kinds: preflight met bevestiging (of `-y`); per kind volgt een
+eigen duur-schatting. Audio en lyrics horen daar gewoon bij; ze zijn geen
+aparte uitzondering. Mappen met `artefacten_handmatig: true` en bestanden
+in `input\` worden overgeslagen. Past het brontype niet bij een spoor, dan
+skip (geen fout).
 
 Volgorde:
 
-1. [vsa-products](../vsa-products/) — `{stam}.vsa.mxl` + `{stam}.vsa.pdf`
+1. [vsa-products](../vsa-products/) — `{stam}.vsa.mxl` + `{stam}.vsa.pdf` + `{stam}.vsa.svg`
 2. [mscz-products](../mscz-products/) — `{stam}.mscz.pdf` + `{stam}.mscz.mxl`
 3. [tekstblad-products](../tekstblad-products/) — `{stam}.tekstblad.pdf`
-4. [mvsa-products](../mvsa-products/) — `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf`
+4. [mvsa-products](../mvsa-products/) — `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf` + `{stam}.mvsa.svg`
 5. [import-mvsa](../import-mvsa/) — alleen **bestaande** `{stam}.mscz.mvsa`
 6. [audio-products](../audio-products/) — `{stam}.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3`
 7. [lyrics-products](../lyrics-products/) — `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` / `.mscz.lyrics.txt`
@@ -43,12 +47,18 @@ deploy (ook voor `/preview/` en branch-previews).
 Elk spoor vernieuwt alleen wat ontbreekt of waarvan de herkomststempel
 niet meer bij de bron past (tenzij `--force`).
 
+Dit commando maakt **geen** koormap-blad. Het bestand `index.pagina.pdf`
+(knoppen Download pagina en Print pagina) bouw je daarna met
+[pagina-pdf](../pagina-pdf/), als de catalogus-PDF’s al vers zijn.
+`pdf-bijelkaar` exporteert dan een tijdelijke compacte SVG; die
+overschrijft `{stam}.mvsa.svg` niet.
+
 **MuseScore 4** is nodig voor PDF en audio. Zonder MuseScore stoppen die
 stappen met een foutmelding. CI draait dit script **niet**; jij wel
 lokaal, daarna committen. Audio voor de hele bibliotheek kan tientallen
 minuten duren.
 
-Opties (`--force`, `--dry-run`, pad) gaan door naar elk onderliggend
+Opties (`--force`, `--dry-run`, `-y`, pad) gaan door naar elk onderliggend
 script.
 
 # EXAMPLES
@@ -68,5 +78,6 @@ specifieke `*-products.cmd`.
 # SEE ALSO
 
 - [check](../check/)
+- [pagina-pdf](../pagina-pdf/)
 - [audio-products](../audio-products/)
 - [Publicatiecontrole](/handleiding/start/publicatiecontrole/)

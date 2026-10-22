@@ -16,7 +16,6 @@ zangstukken → varianten → uitvoeringsvormen (eigen URL’s onder
 | [Zoeken](zoeken/) | Op titel, id of gezongen tekst |
 | [Alfabetisch](alfabetisch/) | Boom op zangstuk → variant → uitvoeringsvorm (A–Z) |
 | [Per herkomst](herkomst/) | Boom op herkomst (uitvoeringsvorm) → zangstuk → … |
-| [Per soort](per-soort/) | Boom in liturgische volgorde (ektinia, tropaar, …) |
 | [Speciaal](speciaal/) | Werkbank, voorzien, ongerefereerd, oefenbaar, handmatig |
 | [Id-register](id-register/) | Id’s voor beheerders (niet voor koorleden) |
 

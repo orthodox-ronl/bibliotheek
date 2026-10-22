@@ -6,6 +6,5 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 7a Kleine intocht (zondag / weekdagen / Moeder Gods)
-
+{{< kop >}}7a Kleine intocht (zondag / weekdagen / Moeder Gods){{< /kop >}}
 {{< bieb id="kleine-intocht/zo-wk-mg/hemelum" />}}

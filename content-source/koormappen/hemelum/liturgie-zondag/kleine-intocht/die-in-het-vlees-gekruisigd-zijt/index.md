@@ -6,6 +6,5 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 7 Kleine intocht (die in het vlees gekruisigd zijt)
-
+{{< kop >}}7 Kleine intocht (die in het vlees gekruisigd zijt){{< /kop >}}
 {{< bieb id="kleine-intocht/die-in-het-vlees-gekruisigd-zijt/hemelum" />}}

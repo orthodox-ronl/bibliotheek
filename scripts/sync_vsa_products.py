@@ -1,11 +1,13 @@
-"""Maak Coria-``.vsa.mxl`` + A4-``.vsa.pdf`` bij bibliotheek-``.vsa``.
+"""Maak Coria-``.vsa.mxl`` + A4-``.vsa.pdf`` + muziek-``.vsa.svg`` bij ``.vsa``.
 
-Siblings: ``{stam}.vsa.mxl`` (Coria / Oefenen) en ``{stam}.vsa.pdf``
-(Downloaden / Printen). MXL: ``vsa musicxml --musicxml-profile playback``
-na tijdelijke syllabify. PDF: tijdelijke Markdown met alleen de
-VSA-notatie (YAML-frontmatter van de ``.vsa`` eraf) in ``::: vsa-notatie``
-via ``vsa pdf`` (Chrome/Edge); titel uit bladermap-``index.md``.
-Beide krijgen ``vsa-source-sha256``.
+Siblings: ``{stam}.vsa.mxl`` (Coria / Oefenen), ``{stam}.vsa.pdf``
+(Downloaden / Printen; mag titel), ``{stam}.vsa.svg`` (scherm; alleen
+notatie — zelfde rol als ``.mvsa.svg``). MXL: ``vsa musicxml
+--musicxml-profile playback`` na tijdelijke syllabify. PDF: tijdelijke
+Markdown met alleen de VSA-notatie (YAML-frontmatter van de ``.vsa`` eraf)
+in ``::: vsa-notatie`` via ``vsa pdf`` (Chrome/Edge); titel uit
+bladermap-``index.md``. SVG: ``vsa svg`` (native renderer). Alle drie
+krijgen ``vsa-source-sha256``.
 
 Slaat mappen met ``artefacten_handmatig: true`` over. CI genereert niet —
 alleen ``check_vsa_products``; vernieuw lokaal met ``scripts\\vsa-products.cmd``.
@@ -36,10 +38,12 @@ from product_meta import (
     SOURCE_KIND_VSA,
     read_mxl_stamp,
     read_pdf_stamp,
+    read_svg_stamp,
     set_mxl_identification_source,
     source_sha256,
     stamp_mxl_source,
     stamp_pdf,
+    stamp_svg,
     utc_now_iso,
 )
 from product_regen import RegenPolicy, mxl_contract_ok
@@ -78,6 +82,11 @@ def product_path_for_vsa(vsa: Path) -> Path:
 def product_pdf_for_vsa(vsa: Path) -> Path:
     """``naam.vsa`` -> ``naam.vsa.pdf``."""
     return vsa.with_suffix(".vsa.pdf")
+
+
+def product_svg_for_vsa(vsa: Path) -> Path:
+    """``naam.vsa`` → ``naam.vsa.svg``."""
+    return vsa.with_suffix(".vsa.svg")
 
 
 def collect_vsa(root: Path) -> list[Path]:
@@ -147,17 +156,30 @@ def _stamp_ok_pdf(pdf: Path, source_hash: str) -> bool:
     return stamp.get(FIELD_SOURCE_SHA, "") == source_hash
 
 
+def _stamp_ok_svg(svg: Path, source_hash: str) -> bool:
+    if not svg.is_file():
+        return False
+    stamp = read_svg_stamp(svg)
+    if stamp.get(FIELD_SOURCE_KIND, SOURCE_KIND_VSA) not in {
+        "",
+        SOURCE_KIND_VSA,
+    }:
+        return False
+    return stamp.get(FIELD_SOURCE_SHA, "") == source_hash
+
+
 def is_stale(vsa: Path, mxl: Path) -> bool:
     """True als MXL ontbreekt of verouderd is (compat voor callers)."""
     return not _stamp_ok_mxl(mxl, source_sha256(vsa))
 
 
-def is_stale_pair(vsa: Path) -> tuple[bool, bool]:
-    """``(need_mxl, need_pdf)``."""
+def is_stale_pair(vsa: Path) -> tuple[bool, bool, bool]:
+    """``(need_mxl, need_pdf, need_svg)``."""
     digest = source_sha256(vsa)
     return (
         not _stamp_ok_mxl(product_path_for_vsa(vsa), digest),
         not _stamp_ok_pdf(product_pdf_for_vsa(vsa), digest),
+        not _stamp_ok_svg(product_svg_for_vsa(vsa), digest),
     )
 
 
@@ -222,6 +244,22 @@ def _point_pdf_errors_at_source(text: str, *, tmp_path: Path, source: Path) -> s
     return out
 
 
+def _run_vsa_svg(vsa: Path, svg: Path) -> None:
+    """Muziek-only sibling-SVG via ``vsa svg`` (native renderer)."""
+    cmd = [
+        sys.executable,
+        "-m",
+        "vsa.cli",
+        "svg",
+        str(vsa),
+        "-o",
+        str(svg),
+    ]
+    subprocess.check_call(cmd, cwd=str(REPO_ROOT))
+    if not svg.is_file():
+        raise RuntimeError(f"SVG ontbreekt na vsa svg: {svg}")
+
+
 def _run_vsa_pdf(vsa: Path, pdf: Path) -> None:
     """A4-PDF via tijdelijke Markdown + ``vsa pdf`` (site-SVG-look, printbaar).
 
@@ -283,16 +321,20 @@ def sync_one(
     dry_run: bool,
     do_mxl: bool = True,
     do_pdf: bool = True,
+    do_svg: bool = True,
 ) -> None:
     rel = vsa.relative_to(REPO_ROOT)
     source_hash = source_sha256(vsa)
     generated_at = utc_now_iso()
     mxl = product_path_for_vsa(vsa)
     pdf = product_pdf_for_vsa(vsa)
+    svg = product_svg_for_vsa(vsa)
     if do_mxl:
         print(f"  MXL  {rel} -> {mxl.name}", flush=True)
     if do_pdf:
         print(f"  PDF  {rel} -> {pdf.name}", flush=True)
+    if do_svg:
+        print(f"  SVG  {rel} -> {svg.name}", flush=True)
     if dry_run:
         return
     if do_mxl:
@@ -333,6 +375,16 @@ def sync_one(
             generated_at=generated_at,
             generator=GENERATOR_VSA_PDF,
         )
+    if do_svg:
+        require_no_spaces(svg)
+        _run_vsa_svg(vsa, svg)
+        stamp_svg(
+            svg,
+            source_hash=source_hash,
+            source_kind=SOURCE_KIND_VSA,
+            generated_at=generated_at,
+            generator=GENERATOR_VSA_PDF,
+        )
 
 
 class VsaKind:
@@ -348,6 +400,7 @@ class VsaKind:
         digest = source_sha256(source)
         mxl = product_path_for_vsa(source)
         pdf = product_pdf_for_vsa(source)
+        svg = product_svg_for_vsa(source)
         mxl_exists = mxl.is_file()
         contract = (
             mxl_contract_ok(mxl, profile="mono")
@@ -369,17 +422,26 @@ class VsaKind:
                 contract_ok=None,
                 needs_musescore=False,
             ),
+            ProductSlot(
+                path=svg,
+                exists=svg.is_file(),
+                stamp_ok=_stamp_ok_svg(svg, digest),
+                contract_ok=None,
+                needs_musescore=False,
+            ),
         ]
 
     def sync(self, source: Path, *, need: Sequence[bool], dry_run: bool) -> None:
         need_mxl = bool(need[0]) if len(need) > 0 else False
         need_pdf = bool(need[1]) if len(need) > 1 else False
-        if need_mxl or need_pdf:
+        need_svg = bool(need[2]) if len(need) > 2 else False
+        if need_mxl or need_pdf or need_svg:
             sync_one(
                 source,
                 dry_run=dry_run,
                 do_mxl=need_mxl,
                 do_pdf=need_pdf,
+                do_svg=need_svg,
             )
 
 
@@ -390,7 +452,10 @@ def main(argv: list[str] | None = None) -> int:
     return main_for_kind(
         KIND,
         argv,
-        description="Exporteer stale Coria-.mxl en A4-.vsa.pdf vanuit bibliotheek-.vsa.",
+        description=(
+            "Exporteer stale Coria-.mxl, A4-.vsa.pdf en muziek-.vsa.svg "
+            "vanuit bibliotheek-.vsa."
+        ),
         default_root=DEFAULT_ROOT,
     )
 

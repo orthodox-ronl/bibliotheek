@@ -46,7 +46,7 @@ Voorbeeld:
 | --- | --- |
 | Ustav, dialoog, liturgische proza met korte VSA-regels | Vierstemmig MuseScore → [Basispartituur](../basispartituur/) |
 | Tekst die je als A4-blad wilt downloaden/printen | Alleen schermtekst op een gewone `index.md` (geen product) |
-| | Demo/generieke markdown buiten de bibliotheek → [Markdown naar PDF](../markdown-naar-pdf/) / `pdf.cmd` |
+| | Een koormap-blad met meerdere stukken → [pagina-pdf](../../scripts/pagina-pdf/) |
 
 ## Volgorde (bestanden)
 
@@ -67,17 +67,14 @@ scripts\tekstblad-products.cmd content-source\catalogus\dialoog-met-diaken
 - **Wel:** `check_tekstblad_products.py` controleert of de PDF bij de
   `.tekstblad.md` past (source-sha).
 - **Niet:** PDF opnieuw genereren op GitHub Actions. Maak de PDF **lokaal**
-  en commit bron + PDF samen.
-
-Lokaal vernieuwt `_pipeline.cmd` stale tekstblad-PDF’s via
-`sync_tekstblad_products.py` (Chrome/Edge nodig, zoals `pdf.cmd`).
+  met `tekstblad-products` (Chrome of Edge nodig) en commit bron + PDF samen.
 
 ## Handmatig
 
 | Situatie | Commando | Man-page |
 | --- | --- | --- |
 | PDF bij tekstblad | `scripts\tekstblad-products.cmd` `[map]` | [tekstblad-products](../../scripts/tekstblad-products/) |
-| Willekeurig markdownblad (niet bibliotheek) | `scripts\pdf.cmd` | [pdf](../../scripts/pdf/) |
+| Koormap-blad (meerdere stukken op één pagina) | `scripts\pagina-pdf.cmd` | [pagina-pdf](../../scripts/pagina-pdf/) |
 | Opnemen | `bieb accepteer` | [bieb accepteer](../../scripts/bieb-accepteer/) |
 | Alles vóór commit | `scripts\check.cmd --strict` | [check](../../scripts/check/) |
 

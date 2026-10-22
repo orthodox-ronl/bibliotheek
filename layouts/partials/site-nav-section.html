@@ -19,7 +19,6 @@
   {{- with site.GetPage "/overzichten/zoeken" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
   {{- with site.GetPage "/overzichten/alfabetisch" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
   {{- with site.GetPage "/overzichten/herkomst" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
-  {{- with site.GetPage "/overzichten/per-soort" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
   {{- with site.GetPage "/overzichten/speciaal" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
   {{- with site.GetPage "/overzichten/id-register" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
         <details class="site-nav-group{{ if $current }} is-current{{ end }}">

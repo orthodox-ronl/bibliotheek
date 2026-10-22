@@ -1,13 +1,24 @@
 {{- /*
   Uitvoeringsvorm-id uit de dichtstbijzijnde ouder-shortcode bieb.
 
+  Loopt de Parent-keten af (o.a. titel binnen kop binnen bieb).
   In: shortcode context (.).
   Uit: id-string of leeg.
 */ -}}
 {{- $id := "" -}}
-{{- with .Parent -}}
-  {{- with .Get "id" -}}
-    {{- $id = . -}}
+{{- $cur := .Parent -}}
+{{- range seq 1 12 -}}
+  {{- if not $cur -}}
+    {{- break -}}
   {{- end -}}
+  {{- if eq $cur.Name "bieb" -}}
+    {{- with $cur.Get "id" -}}
+      {{- $id = . -}}
+    {{- end -}}
+    {{- if $id -}}
+      {{- break -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $cur = $cur.Parent -}}
 {{- end -}}
 {{- return $id -}}

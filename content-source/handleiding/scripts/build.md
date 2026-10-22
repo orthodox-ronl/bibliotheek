@@ -16,10 +16,13 @@ build
 
 # DESCRIPTION
 
-Maakt Coria-fingerprints, schrijft de bouwtijd naar `data\build.yaml`
-(footer «Gegenereerd» op de homepage; niet committen), en bouwt de site
-naar `generated\site`. Anders dan `check` draait `build` **geen**
-`vsa validate`. Commit `generated\` en `static\mxl\` niet (gitignore).
+Maakt Coria-fingerprints, ververst het legacy bladermap-plaatje uit
+`.vsa` (`oefenhoek-index --svg`), schrijft de bouwtijd naar
+`data\build.yaml` (footer «Gegenereerd» op de homepage; niet committen),
+en bouwt de site naar `generated\site`. Anders dan `check` draait
+`build` geen `vsa validate` en geen publicatiecontrole. `build` maakt
+geen catalogus-siblings en geen `index.pagina.pdf`. Commit `generated\`
+en `static\mxl\` niet (gitignore).
 
 # WHEN
 

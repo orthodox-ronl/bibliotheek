@@ -69,8 +69,11 @@ stap met `--layout` in dezelfde run start. Zie [layout](../layout/) en
 
 ## Directory-gedrag
 
-Je mag één bestand **of** een map opgeven (zoals bij `vsa validate` op een
-boom). Een map wordt **recursief** doorzocht op ondersteunde extensies.
+Je mag één bestand **of** een map opgeven — zie
+[Invoer: bestand of map](../invoer-bestand-of-map/) (zelfde conventie als
+andere bibliotheek-scripts). Een map wordt **recursief** doorzocht op
+ondersteunde extensies. Bij meerdere bestanden: preflight met geschatte
+duur en bevestiging (of `-y`).
 
 - `*.print.mscz` in een mapscan worden overgeslagen.
 - Als de scan-root zelf geen mapsegment `input` heeft, worden paden onder
@@ -204,6 +207,7 @@ Aan het eind volgt een regel `samenvatting: ok=… geweigerd=… fout=…`.
 | `--in-place` | Bron overschrijven / ruwe input toestaan |
 | `--ext EXT` | Doel-extensie |
 | `--id ID` | Catalogus-id voor layout-diepte (optioneel) |
+| `-y`, `--yes` | Batch zonder bevestigingsvraag |
 | `-h`, `--help` | Korte usage in `opkuisen.cmd` |
 
 # EXAMPLES

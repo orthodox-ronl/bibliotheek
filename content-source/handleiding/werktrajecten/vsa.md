@@ -7,8 +7,8 @@ weight: 30
 # VSA → SVG en Coria
 
 Dit werktraject maakt uit een canonieke **`.vsa`** in de catalogus
-een SVG-plaatje op de site en een Coria-bestand `{stam}.vsa.mxl`.
-Representatie-id: `vsa`.
+drie siblings: een scherm-SVG, een A4-PDF en een Coria-bestand
+`{stam}.vsa.mxl`. Representatie-id: `vsa`.
 
 {{< cue >}}
 Na een werkende `{stam}.vsa` in de bladermap:
@@ -28,12 +28,13 @@ afspeelbaar zijn — zonder een volledige MuseScore-basispartituur.
 | Output | Rol |
 | --- | --- |
 | `{stam}.vsa` in de bladermap | Canonieke bron (YAML: `do`, `mode`, `tempo`) |
-| `static\vsa\bladermap\…\*.svg` | Plaatje voor de site als er (nog) geen PDF is; **geen** publicatiecontrole (vernieuwd door `oefenhoek-index --svg`) |
-| `{stam}.vsa.mxl` naast de `.vsa` | Coria; stamp `vsa-source-sha256` van de canonieke `.vsa` |
-| `{stam}.vsa.pdf` naast de `.vsa` | A4 voor **Downloaden** / **Printen**; zelfde stamp |
+| `{stam}.vsa.svg` naast de `.vsa` | Alleen notatie op het scherm; stamp `vsa-source-sha256` |
+| `{stam}.vsa.mxl` naast de `.vsa` | Coria; dezelfde stamp |
+| `{stam}.vsa.pdf` naast de `.vsa` | A4 voor **Downloaden** / **Printen**; dezelfde stamp |
+| `static\vsa\bladermap\…\*.svg` | Legacy fallback, alleen zolang `{stam}.vsa.svg` ontbreekt (`oefenhoek-index --svg`; geen stamp) |
 
-**Klaar** als: `vsa validate` stil is; SVG of PDF zichtbaar via shortcode `bieb`;
-`check_vsa_products` (onder `check --strict`) is groen voor MXL én PDF.
+**Klaar** als: `vsa validate` stil is; de sibling-SVG zichtbaar is via shortcode `bieb`;
+`check_vsa_products` (onder `check --strict`) is groen voor MXL, PDF én SVG.
 
 **Waarom geen lettergreepstreepjes in de canonieke `.vsa`?** Orthografische
 `-` (Pyphen) helpt Coria én preview-audio (één kwartnoot per lettergreep),
@@ -58,7 +59,7 @@ die tekst niet terug naar `{stam}.vsa`. Een experimentele sidecar
    [.vsa schrijven](../../vsa/1-vsa-schrijven/).
 2. Neem op in de catalogus indien nodig:
    [Opnemen](../opnemen-in-catalogus/) (`bieb accepteer`).
-3. Coria-`.vsa.mxl` en A4-`.vsa.pdf`:
+3. Coria-`.vsa.mxl`, A4-`.vsa.pdf` en scherm-`.vsa.svg`:
 
 ```cmd
 scripts\vsa-products.cmd content-source\catalogus\eniggeboren-zoon
@@ -67,26 +68,26 @@ scripts\vsa-products.cmd content-source\catalogus\eniggeboren-zoon
 4. Controleer: `check --strict` (validate + publicatiecontrole + Hugo).
 5. Site bekijken: `serve` → http://127.0.0.1:18732/
 
-Bibliotheek-**Oefenen** gebruikt `{stam}.vsa.mxl`; **Downloaden** /
-**Printen** gebruiken `{stam}.vsa.pdf`.
+Bibliotheek-**Oefenen** gebruikt `{stam}.vsa.mxl`. Het scherm toont
+`{stam}.vsa.svg`. **Downloaden** en **Printen** gebruiken `{stam}.vsa.pdf`.
 
 ## Automatisch (CI)
 
-- **Wel:** `check_vsa_products.py` controleert of `{stam}.vsa.mxl` en
-  `{stam}.vsa.pdf` bij de canonieke `.vsa` passen (sha-stamp). Pages-CI
-  faalt bij missing/stale.
-- **Wel:** `oefenhoek-index --svg` vernieuwt bladermap-SVG vóór Hugo
-  (geen stamp; geen “stale SVG”-fout; op de pagina zie je de PDF als die
-  er is, anders de SVG).
+- **Wel:** `check_vsa_products.py` controleert of `{stam}.vsa.mxl`,
+  `{stam}.vsa.pdf` en `{stam}.vsa.svg` bij de canonieke `.vsa` passen
+  (sha-stamp). Pages-CI faalt bij missing/stale.
+- **Wel:** `oefenhoek-index --svg` vernieuwt het legacy-plaatje vóór
+  Hugo (geen stamp). Dat plaatje telt alleen als de sibling-SVG er
+  nog niet is.
 - **Niet:** stilzwijgend verouderde producten herschrijven zonder commit.
-  Vernieuw lokaal met `vsa-products` en commit `.vsa.mxl` + `.vsa.pdf`
-  mee. CI heeft geen MuseScore/Chrome-PDF-run voor producten.
+  Vernieuw lokaal met `vsa-products` en commit `.vsa.mxl`, `.vsa.pdf`
+  en `.vsa.svg` mee. `check` maakt die bestanden niet.
 
 ## Handmatig
 
 | Situatie | Commando | Man-page |
 | --- | --- | --- |
-| Coria-`.vsa.mxl` + A4-`.vsa.pdf` | `scripts\vsa-products.cmd` `[map]` | [vsa-products](../../scripts/vsa-products/) |
+| Coria-`.vsa.mxl` + A4-`.vsa.pdf` + `.vsa.svg` | `scripts\vsa-products.cmd` `[map]` | [vsa-products](../../scripts/vsa-products/) |
 | Alles vóór commit | `scripts\check.cmd --strict` | [check](../../scripts/check/) |
 
 ## Zie ook

@@ -6,6 +6,5 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 17 Vredeswens
-
+{{< kop >}}17 Vredeswens{{< /kop >}}
 {{< bieb id="vredeswens/default/hemelum" />}}

@@ -17,7 +17,7 @@ Heb je je pc al eens klaargezet? Dan volstaat vaak alleen de
 
 {{< cue >}}
 - Werkmap op schijf: `C:\Git\orthodox-ronl\bibliotheek`
-- Lokale preview: `scripts\serve.cmd --no-build` → http://127.0.0.1:18732/ (niet poort 1313)
+- Lokale preview: `scripts\serve.cmd` → http://127.0.0.1:18732/ (niet poort 1313)
 - Controle vóór publicatie: `scripts\check.cmd --strict`
 - Ruwe inputs: `content-source\input\` — nooit rechtstreeks in bibliotheek of koormap
 - Lifecycle: [Levenscyclus](levenscyclus/) (Werkbank → Catalogus)
@@ -32,10 +32,11 @@ Heb je je pc al eens klaargezet? Dan volstaat vaak alleen de
 4. [Werkbank](werkbank/) — pre-productie: input, `_werk`, opkuisen, overgang
 5. [Catalogus](catalogus/) — canonieke bron, products, check
 6. [Catalogus en koormappen](catalogus-en-koormappen/) — catalogus vs view; secties en compositiebladen
-7. [Zangstuk-soorten](zangstuk-soorten/) — genre-emmer, liturgische familie, enkelvoudig werk
-8. [Uitgave-bronnen](uitgave-bronnen/) — wat “Liturgikon”, “Meneon I”, “Koormap Groningen” betekenen
-9. [Zoeken](zoeken/) — cataloguszoeken: hoofdlijnen en specificatie
-10. [Woorden](woorden/)
-11. [Publicatiecontrole](publicatiecontrole/) — bron vs afgeleide, namen, wat CI controleert
+7. [Koormap-blad](koormap-blad/) — spiekbriefje: `bieb`, `kop`, `pdf-…`
+8. [Zangstuk-soorten](zangstuk-soorten/) — genre-emmer, liturgische familie, enkelvoudig werk
+9. [Uitgave-bronnen](uitgave-bronnen/) — wat “Liturgikon”, “Meneon I”, “Koormap Groningen” betekenen
+10. [Zoeken](zoeken/) — cataloguszoeken: hoofdlijnen en specificatie
+11. [Woorden](woorden/)
+12. [Publicatiecontrole](publicatiecontrole/) — bron vs afgeleide, namen, wat CI controleert
 
 {{< navbuttons "Handleiding|/handleiding/" "Wat heb je nodig|/handleiding/start/wat-heb-je-nodig/" >}}

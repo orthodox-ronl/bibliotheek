@@ -6,6 +6,5 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Tweede Kleine Litanie
-
+{{< kop >}}Tweede Kleine Litanie{{< /kop >}}
 {{< bieb id="ektinia/tweede-kleine/hemelum" />}}

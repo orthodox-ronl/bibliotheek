@@ -1,4 +1,4 @@
-"""Controleer bibliotheek-``.vsa`` vs siblings ``{stam}.vsa.mxl`` + ``.vsa.pdf``.
+"""Controleer ``.vsa`` vs siblings ``.vsa.mxl`` + ``.vsa.pdf`` + ``.vsa.svg``.
 
 Schrijft ``data/vsa-product-status.json`` voor eventuele Hugo-banners.
 Slaat ``artefacten_handmatig`` over. Exit 1 bij problemen tenzij ``--warn-only``.
@@ -20,6 +20,7 @@ from product_meta import (
     SOURCE_KIND_VSA,
     read_mxl_stamp,
     read_pdf_stamp,
+    read_svg_stamp,
     source_sha256,
 )
 from sync_vsa_products import (
@@ -27,6 +28,7 @@ from sync_vsa_products import (
     collect_vsa,
     product_path_for_vsa,
     product_pdf_for_vsa,
+    product_svg_for_vsa,
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -141,6 +143,45 @@ def check_one(vsa: Path) -> FolderStatus:
                     "stale_pdf",
                     _rel(pdf),
                     f"PDF-source-hash wijkt af (gegenereerd {when}); .vsa is gewijzigd",
+                )
+            )
+
+    svg = product_svg_for_vsa(vsa)
+    if not svg.is_file():
+        issues.append(
+            Issue(
+                "missing_svg",
+                _rel(svg),
+                "Muziek-.vsa.svg ontbreekt naast de bibliotheek-.vsa (scherm)",
+            )
+        )
+    else:
+        stamp = read_svg_stamp(svg)
+        kind = stamp.get(FIELD_SOURCE_KIND, "")
+        got = stamp.get(FIELD_SOURCE_SHA, "")
+        if not got:
+            issues.append(
+                Issue(
+                    "unstamped_svg",
+                    _rel(svg),
+                    "SVG mist vsa-source-sha256 (opnieuw vsa-products)",
+                )
+            )
+        elif kind and kind != SOURCE_KIND_VSA:
+            issues.append(
+                Issue(
+                    "wrong_kind_svg",
+                    _rel(svg),
+                    f"SVG source-kind is {kind!r}, verwacht {SOURCE_KIND_VSA!r}",
+                )
+            )
+        elif got != src_hash:
+            when = stamp.get(FIELD_GENERATED_AT, "?")
+            issues.append(
+                Issue(
+                    "stale_svg",
+                    _rel(svg),
+                    f"SVG-source-hash wijkt af (gegenereerd {when}); .vsa is gewijzigd",
                 )
             )
     return FolderStatus(

@@ -205,6 +205,20 @@ class PromptTests(unittest.TestCase):
         self.assertIsNone(ident)
         self.assertEqual(len(files), 1)
 
+    def test_expand_source_jobs_directory(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            a = root / "a-default-hemelum.vsa"
+            b = root / "sub" / "b-default-hemelum.mvsa"
+            b.parent.mkdir()
+            a.write_text("t\n", encoding="utf-8")
+            b.write_text("t\n", encoding="utf-8")
+            (root / "readme.md").write_text("# x\n", encoding="utf-8")
+            jobs = ba.expand_source_jobs([root])
+            self.assertEqual(len(jobs), 2)
+            flat = {p.name for job in jobs for p in job}
+            self.assertEqual(flat, {a.name, b.name})
+
 
 if __name__ == "__main__":
     unittest.main()

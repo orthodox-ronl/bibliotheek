@@ -1,8 +1,11 @@
 {{- /*
-  Oefenen / Downloaden / Printen voor één score-pagina (catalogus-uitvoeringsvorm).
+  Acties voor één catalogus-uitvoeringsvorm.
   Context: dict "score" (Page met PDF/MXL), optioneel "viewer" (pagina waar de
-  shortcode staat — bepaalt knopkleur catalogus vs koormap), optioneel "position".
+  shortcode staat — bepaalt knopset en knopkleur), optioneel "position".
 
+  Catalogus: Oefenen / Beluisteren / Downloaden / Printen / Bronnen (grote knoppen).
+  Koormap: alleen Oefenen / Beluisteren, in een compact ♪-menu (zoals het ?-icoon);
+  pagina-download/print zit in de nav.
   Geen Catalogus/Koormap-knop: navigatie zit in oefenhoek-header.
 */ -}}
 {{- $score := .score -}}
@@ -206,9 +209,10 @@
   {{- $primaryPdf = (index $downloadMenu 0).href -}}
 {{- end -}}
 {{- $hasOefenen := gt (len $oefenMenu) 0 -}}
-{{- $hasPdf := gt (len $downloadMenu) 0 -}}
+{{- /* Download/Print van het catalogusblad: alleen op catalogus. Op koormap: «Download/Print pagina» in de nav. */ -}}
+{{- $hasPdf := and $inCatalogus (gt (len $downloadMenu) 0) -}}
 {{- $hasAudio := gt (len $audioMenu) 0 -}}
-{{- $hasBron := gt (len $bronMenu) 0 -}}
+{{- $hasBron := and $inCatalogus (gt (len $bronMenu) 0) -}}
 {{- if or $hasOefenen $hasPdf $hasAudio $hasBron -}}
 {{- $wrapClass := "score-actions oefenhoek-acties" -}}
 {{- if $inCatalogus -}}
@@ -216,8 +220,8 @@
 {{- end -}}
 {{- $oefenHelp := "Speel mee in Coria: stemmen kiezen, tempo en meelezen op de partituur. Dit is bedoeld om echt te oefenen." -}}
 {{- $audioHelp := "Geeft een idee van hoe het lied klinkt, maar er kunnen fouten in zitten. Gebruik 'Oefenen' om te oefenen." -}}
-{{- $downloadHelp := "PDF van dit stuk (deze uitvoeringsvorm), niet de hele koormap- of cataloguspagina. Voor de hele pagina: knop Download bovenaan." -}}
-{{- $printHelp := "Print of open de PDF van dit stuk. Voor de hele pagina: knop Print bovenaan." -}}
+{{- $downloadHelp := "Download de catalogus-PDF van deze uitvoeringsvorm (los blad). De hele koormap-pagina: «Download pagina» in de navigatiebalk (als index.pagina.pdf bestaat)." -}}
+{{- $printHelp := "Print de catalogus-PDF van deze uitvoeringsvorm. De hele koormap-pagina: «Print pagina» in de navigatiebalk (print index.pagina.pdf)." -}}
 {{- $bronHelp := "Meer voor beheerders dan voor zangers: toont de feitelijke tekst van een .vsa- of .mvsa-bronbestand (niet de gerenderde partituur). Downloaden en Printen gelden dan voor die brontekst. Terug naar de partituur: opnieuw op Bronnen / Partituur." -}}
 {{- $bronDownloadHelp := "Download het getoonde .vsa- of .mvsa-bronbestand." -}}
 {{- $bronPrintHelp := "Print de getoonde brontekst." -}}
@@ -227,7 +231,7 @@
 {{- end -}}
 {{- $pdfHint := "" -}}
 {{- if gt (len $downloadMenu) 1 -}}
-  {{- $pdfHint = "Kies welk product van dit stuk je wilt downloaden of printen." -}}
+  {{- $pdfHint = "Kies welk catalogusblad je wilt downloaden of printen." -}}
 {{- end -}}
 {{- $audioHint := "" -}}
 {{- if gt (len $audioMenu) 1 -}}
@@ -237,11 +241,14 @@
 {{- if gt (len $bronMenu) 1 -}}
   {{- $bronHint = "Kies welk bronbestand je wilt bekijken als tekst." -}}
 {{- end -}}
-<div class="{{ $wrapClass }}"{{ with $primaryPdf }} data-pdf-src="{{ . }}"{{ end }}>
+{{- if $inCatalogus -}}
+<div class="{{ $wrapClass }}"{{ if $hasPdf }}{{ with $primaryPdf }} data-pdf-src="{{ . }}"{{ end }}{{ end }}>
   {{ partial "score-action-menu.html" (dict "title" "Oefenen" "items" $oefenMenu "btnClass" "btn" "hint" $oefenHint "help" $oefenHelp "role" "oefenen") }}
   {{ partial "score-action-menu.html" (dict "title" "Beluisteren" "items" $audioMenu "btnClass" "btn" "hint" $audioHint "help" $audioHelp "role" "beluisteren") }}
-  {{ partial "score-action-menu.html" (dict "title" "Dit stuk" "items" $downloadMenu "btnClass" "btn" "hint" $pdfHint "help" $downloadHelp "role" "download") }}
-  {{ partial "score-action-menu.html" (dict "title" "Print stuk" "items" $printMenu "btnClass" "btn" "hint" $pdfHint "help" $printHelp "role" "print") }}
+  {{- if $hasPdf -}}
+  {{ partial "score-action-menu.html" (dict "title" "Downloaden" "items" $downloadMenu "btnClass" "btn" "hint" $pdfHint "help" $downloadHelp "role" "download") }}
+  {{ partial "score-action-menu.html" (dict "title" "Printen" "items" $printMenu "btnClass" "btn" "hint" $pdfHint "help" $printHelp "role" "print") }}
+  {{- end -}}
   {{- if $hasBron -}}
   <div class="score-action-menu score-action-menu--bron-mode" data-score-role="bron-download" hidden>
     <p class="score-action-help" role="tooltip">{{ $bronDownloadHelp }}</p>
@@ -251,8 +258,13 @@
     <p class="score-action-help" role="tooltip">{{ $bronPrintHelp }}</p>
     <button type="button" class="btn" data-bron-print>Printen</button>
   </div>
+  {{ partial "score-action-menu.html" (dict "title" "Bronnen" "items" $bronMenu "btnClass" "btn" "hint" $bronHint "help" $bronHelp "role" "bronnen") }}
   {{- end -}}
-  {{ if $inCatalogus }}{{ partial "score-action-menu.html" (dict "title" "Bronnen" "items" $bronMenu "btnClass" "btn" "hint" $bronHint "help" $bronHelp "role" "bronnen") }}{{ end }}
 </div>
+{{- else -}}
+{{- /* Geen indentatie/newlines: bieb-Inner gaat door markdownify; 4 spaties → codeblok.
+     Native details: open/dicht zonder JS (voorkomt dubbele handlers bij livereload). */ -}}
+<details class="score-oefen-tip"><summary class="score-oefen-tip-trigger" aria-label="Oefenen en beluisteren" title="Oefenen en beluisteren">♪</summary><div class="score-oefen-tip-panel"><div class="{{ $wrapClass }} score-actions--in-tip">{{ partial "score-action-menu.html" (dict "title" "Oefenen" "items" $oefenMenu "btnClass" "btn" "hint" $oefenHint "role" "oefenen") }}{{ partial "score-action-menu.html" (dict "title" "Beluisteren" "items" $audioMenu "btnClass" "btn" "hint" $audioHint "role" "beluisteren") }}</div></div></details>
+{{- end -}}
 {{- end -}}
 {{- end -}}

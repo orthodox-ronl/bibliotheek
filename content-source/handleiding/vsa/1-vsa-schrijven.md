@@ -12,7 +12,7 @@ weight: 10
 3. Zet bovenaan YAML met minstens `do`, `mode` en `tempo: 130`.
 4. `vsa validate pad\naar\bestand.vsa`
 5. Catalogus-`index.md` + slot-pagina (of compositieblad): shortcode `bieb` met de catalogus-id
-6. `scripts\check.cmd --strict` — maakt SVG (plaatje) én Coria-`.vsa.mxl`; commit `.vsa` + `.vsa.mxl` samen
+6. `scripts\vsa-products.cmd` op die map, daarna `scripts\check.cmd --strict`. Commit `.vsa`, `.vsa.svg`, `.vsa.pdf` en `.vsa.mxl` samen.
 {{< /cue >}}
 
 **Wat je nu doet:** de gezongen tekst in VSA-notatie zetten en via de
@@ -31,8 +31,9 @@ doet de build twee aparte dingen met hetzelfde `.vsa`-bestand:
 
 | Afgeleide | Rol op de pagina | Hoe maak je die |
 | --- | --- | --- |
-| SVG onder `static\vsa\bladermap\…` | Het **plaatje** dat shortcode `bieb` toont | Pipeline-stap `scripts\oefenhoek-index.cmd --svg` (zit in `check` / `build` / `serve` **zonder** `--no-build`) |
-| `{stam}.vsa.mxl` naast de `.vsa` | Knop **Oefenen** (Coria) | `scripts\vsa-products.cmd` (of dezelfde `check`-keten); export syllabificeert woorden tijdelijk voor Coria, zonder je `.vsa` te wijzigen |
+| `{stam}.vsa.svg` naast de `.vsa` | Het **plaatje** dat shortcode `bieb` toont | `scripts\vsa-products.cmd` (samen met PDF en Coria-`.mxl`) |
+| `{stam}.vsa.pdf` naast de `.vsa` | **Downloaden** / **Printen** | Zelfde commando |
+| `{stam}.vsa.mxl` naast de `.vsa` | Knop **Oefenen** (Coria) | Zelfde commando; export syllabificeert woorden tijdelijk, zonder je `.vsa` te wijzigen |
 
 `scripts\opkuisen.cmd` past **geen** Capella-/MusicXML-heuristieken toe op een
 `.vsa`. Met `--analyze` of `--dry-run` kan `opkuisen` wél `vsa validate`
@@ -43,20 +44,20 @@ Volledig overzicht van de pijplijnen: [Werktrajecten](/handleiding/werktrajecten
 (VSA-werktraject: [VSA → SVG en Coria](/handleiding/werktrajecten/vsa/)).
 HOW op deze pagina; de werktrajectpagina beschrijft waartoe, CI en commando’s.
 
-`*.print.mscz` in dezelfde map blokkeert de SVG **niet** (dat is een
-printvel, geen basispartituur). Een basispartituur-`.mscz` wél: dan toont de pagina de PDF uit
-de basispartituur-spoor, geen VSA-SVG.
+Een basispartituur-`.mscz` in dezelfde map toont de PDF van dat spoor
+op het scherm, niet de VSA-SVG. Een oud `.print.mscz` blokkeert de
+VSA-SVG niet.
 
-Los alleen SVG vernieuwen (na `vsa build-markdown`, of als `static\vsa`
-al bestaat):
+Het plaatje vernieuwen:
 
 ```cmd
-scripts\oefenhoek-index.cmd --svg
+scripts\vsa-products.cmd content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>
 ```
 
-`serve --no-build` slaat generate + `--svg` over. Zie je Hugo-waarschuwing
-“SVG ontbreekt”, draai dan eerst die regel of een volle `check` / `serve`
-zonder `--no-build`.
+Zolang `{stam}.vsa.svg` ontbreekt, zoekt de site nog een legacy-plaatje
+onder `static\vsa\bladermap\`. Dat vult `oefenhoek-index --svg` (ook in
+`check` / `build` / `serve`). Dat is de fallback, niet het product dat
+je commit.
 
 ## Stap voor stap
 
@@ -110,14 +111,13 @@ automatische_inhoud: false
    compositieblad — zie
    [Catalogus en koormappen](../../start/catalogus-en-koormappen/).
 
-7. Draai `scripts\check.cmd --strict`. Die keten:
-   - schrijft de SVG voor het plaatje (`scripts\oefenhoek-index.cmd --svg`);
-   - maakt of vernieuwt `{stam}.vsa.mxl` naast de `.vsa`
-     (`scripts\vsa-products.cmd` doet dat ook los).
+7. Draai `scripts\vsa-products.cmd` op de catalogusmap, daarna
+   `scripts\check.cmd --strict`. `vsa-products` schrijft
+   `{stam}.vsa.svg`, `{stam}.vsa.pdf` en `{stam}.vsa.mxl`. `check`
+   controleert die siblings en bouwt de site; `check` maakt ze niet.
 
-   Commit **`.vsa` en `.vsa.mxl` samen**. De SVG onder `static\vsa\` hoort
-   bij de build-output (niet handmatig committen). Op de preview verschijnt
-   het plaatje én de knop **Oefenen**.
+   Commit **`.vsa`, `.vsa.svg`, `.vsa.pdf` en `.vsa.mxl` samen**. Op de
+   preview verschijnt het plaatje én de knop **Oefenen**.
 
 Catalogus-includes horen **niet** in de oefenhoek (geen verwijzing naar
 `content-source/lokaal/`). Kondaken en troparen: catalogus-leaf + `bieb`.
@@ -130,42 +130,42 @@ waar het `.vsa`-bestand hoort en hoe het op de catalogus-site komt.
 ### Handmatige artefacten
 
 Zet je op de catalogus-`index.md` `artefacten_handmatig: true`, dan
-vernieuwt `vsa-products` de Coria-`.mxl` **niet**. Dat hoort bij print-velden
-of template-exports die jij zelf bijhoudt — zie
-[Print-.mscz](../../partituur/7-print-mscz/) en de gele banner op die
-cataloguspagina. Afspraak over namen en sporen:
+slaat `vsa-products` die map over: geen `.vsa.svg`, geen `.vsa.pdf` en
+geen `.vsa.mxl`. Dat hoort bij een MuseScore-blad dat je zelf bijhoudt
+— zie [Print-vel](../../werktrajecten/print-vel/) en de gele banner op
+die cataloguspagina. Afspraak over namen en sporen:
 [Publicatiecontrole](/handleiding/start/publicatiecontrole/).
 
-Ligt er wél een `.vsa` naast een `{stam}.print.mscz`, dan mag de build
-nog steeds de **SVG** van die `.vsa` maken (notatie naast de handmatige
-PDF). Alleen basispartituur-`.mscz` onderdrukt die SVG-route.
+Een basispartituur-`.mscz` in dezelfde map toont op het scherm de PDF
+van dat spoor, niet de VSA-SVG.
 
 ### Banner of check over `.vsa.mxl`
 
 Rode banner “VSA-afgeleiden niet in orde”, of `check` rood op `main`: de
-`.vsa.mxl` ontbreekt, is ouder dan de `.vsa`, of mist de provenance-stamp.
-Oplossing: `scripts\vsa-products.cmd`, daarna opnieuw `check`, en beide
-bestanden committen. Zie ook [Als het misgaat](../../publiceren/3-als-het-misgaat/).
+`.vsa.mxl`, `.vsa.pdf` of `.vsa.svg` ontbreekt, is ouder dan de `.vsa`,
+of mist de herkomststempel. Oplossing: `scripts\vsa-products.cmd`,
+daarna opnieuw `check`, en bron plus siblings committen. Zie ook
+[Als het misgaat](../../publiceren/3-als-het-misgaat/).
 
 ### Hugo-waarschuwing “SVG ontbreekt”
 
-Shortcode `bieb` zoekt
-`static\vsa\bladermap\catalogus\<…>\<naam>.svg`.
-Ontbreekt dat bestand:
+Shortcode `bieb` verwacht `{stam}.vsa.svg` naast de `.vsa`. Ontbreekt
+die sibling, dan meldt Hugo ook het legacy-pad
+`static\vsa\bladermap\…`. Oplossing:
 
 ```cmd
-scripts\oefenhoek-index.cmd --svg
+scripts\vsa-products.cmd content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>
 ```
 
-of `scripts\check.cmd --strict`. Daarna opnieuw previewen. Met
-`serve --no-build` gebeurt die SVG-stap niet.
+Daarna opnieuw previewen. `check` alleen vult de sibling niet aan.
 
 ## Klaar als
 
 `vsa validate` is stil, catalogus en koormap verwijzen met hetzelfde id,
-na `check` zie je het plaatje op de lokale preview, en er ligt een verse
-`{stam}.vsa.mxl` naast de `.vsa` (knop **Oefenen**), tenzij
+na `vsa-products` en `check` zie je het plaatje op de lokale preview,
+en er liggen verse `{stam}.vsa.svg`, `{stam}.vsa.pdf` en `{stam}.vsa.mxl`
+naast de `.vsa` (scherm, download en **Oefenen**), tenzij
 `artefacten_handmatig: true` op die cataloguspagina staat (dan houd jij
-de Coria-`.mxl` zelf bij; de SVG mag de pipeline nog steeds schrijven).
+de afgeleiden zelf bij).
 
 {{< navbuttons "Volgende: template SATB|/handleiding/vsa/2-template-satb/" >}}

@@ -6,6 +6,5 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Moeder Godslied (Ontslapen van de Moeder Gods)
-
+{{< kop >}}Moeder Godslied (Ontslapen van de Moeder Gods){{< /kop >}}
 {{< bieb id="moeder-godslied/ontslapen-moeder-gods/hemelum" />}}

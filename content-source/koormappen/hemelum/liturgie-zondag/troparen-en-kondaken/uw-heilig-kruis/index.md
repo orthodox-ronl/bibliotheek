@@ -6,6 +6,5 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Uw Heilig Kruis
-
+{{< kop >}}Uw Heilig Kruis{{< /kop >}}
 {{< bieb id="tropaar/uw-heilig-kruis/hemelum" />}}

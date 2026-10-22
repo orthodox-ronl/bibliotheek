@@ -131,7 +131,7 @@ Of producten opnieuw: `scripts\products.cmd --kinds mscz,mvsa,vsa`
 | Banner | Oorzaak | Actie |
 | --- | --- | --- |
 | Basispartituur-afgeleiden | PDF/MXL passen niet bij de basispartituur-`.mscz` | [Afgeleiden](../../partituur/6-afgeleiden/) — layout + `mscz-products` |
-| VSA-afgeleiden | `{stam}.vsa.mxl` ontbreekt of is ouder dan de `.vsa` | `scripts\vsa-products.cmd`, commit beide |
+| VSA-afgeleiden | `{stam}.vsa.mxl`, `.vsa.pdf` of `.vsa.svg` ontbreekt of past niet bij de `.vsa` | `scripts\vsa-products.cmd`, commit bron en siblings |
 
 Op `main` faalt de build bij dezelfde situaties.
 
@@ -148,15 +148,16 @@ catalogus-map + `index.md`, of corrigeer het id in het koormap-slot.
 
 ## Hugo-waarschuwing: SVG ontbreekt
 
-Shortcode `bieb` toont het VSA-plaatje uit
-`static\vsa\bladermap\…`. Ontbreekt die SVG:
+Shortcode `bieb` toont `{stam}.vsa.svg` of `{stam}.mvsa.svg` naast de
+bron. Ontbreekt die sibling, dan noemt de waarschuwing ook het
+legacy-pad `static\vsa\bladermap\…`.
 
 ```cmd
-scripts\oefenhoek-index.cmd --svg
+scripts\vsa-products.cmd content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>
 ```
 
-of `scripts\check.cmd --strict`. `serve --no-build` slaat die stap over.
-Uitleg: [.vsa schrijven](../../vsa/1-vsa-schrijven/).
+Bij een `.mvsa`: `scripts\mvsa-products.cmd` op die map. `check` vult
+de sibling niet aan. Uitleg: [.vsa schrijven](../../vsa/1-vsa-schrijven/).
 
 ## `vsa validate` klaagt
 

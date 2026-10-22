@@ -4,6 +4,8 @@ VSA-Coria-``.vsa.mxl``: ``vsa-source-sha256`` + ``vsa-source-kind=vsa``.
 Basispartituur-PDF/MXL: ``vsa-partituur-sha256`` (+ legacy ``vsa-hub-sha256``).
 Import-``.mscz.mvsa``: comment-regels ``# vsa-partituur-sha256: …``.
 Preview-audio-``.mp3``: ID3v2 TXXX-frames met dezelfde veldnamen.
+MVSA-koormap-``.mvsa.svg`` en VSA-scherm-``.vsa.svg``: XML-commentaren
+``<!-- vsa-source-sha256: … -->``.
 """
 
 from __future__ import annotations
@@ -57,6 +59,20 @@ _MVSA_STAMP_KEYS = frozenset(
         FIELD_GENERATED_AT,
         FIELD_GENERATOR,
     }
+)
+_SVG_STAMP_KEYS = frozenset(
+    {
+        FIELD_SOURCE_SHA,
+        FIELD_SOURCE_KIND,
+        FIELD_GENERATED_AT,
+        FIELD_GENERATOR,
+    }
+)
+_SVG_STAMP_COMMENT = re.compile(
+    r"<!--\s*(vsa-(?:source-sha256|source-kind|generated-at|generator))\s*:\s*(.+?)\s*-->"
+)
+_SVG_STAMP_STRIP = re.compile(
+    r"<!--\s*vsa-(?:source-sha256|source-kind|generated-at|generator)\s*:[^>]*-->\s*"
 )
 PDF_KEY_PARTITUUR = "/VSAPartituurSHA256"
 PDF_KEY_PARTITUUR_LEGACY = "/VSAHubSHA256"
@@ -307,6 +323,54 @@ def read_pdf_stamp(path: Path) -> dict[str, str]:
     for key, field in mapping.items():
         if key in raw and raw[key].strip():
             out[field] = raw[key].strip()
+    return out
+
+
+def stamp_svg(
+    path: Path,
+    *,
+    generated_at: str,
+    source_hash: str,
+    source_kind: str = SOURCE_KIND_MVSA,
+    generator: str = GENERATOR_MVSA,
+) -> None:
+    """Schrijf herkomst als XML-commentaren bovenaan een ``.mvsa.svg`` / ``.vsa.svg``."""
+    if not source_hash:
+        raise ValueError("source_hash verplicht")
+    raw = path.read_text(encoding="utf-8")
+    body = _SVG_STAMP_STRIP.sub("", raw).lstrip("\n")
+    block = "\n".join(
+        [
+            f"<!-- {FIELD_SOURCE_SHA}: {source_hash} -->",
+            f"<!-- {FIELD_SOURCE_KIND}: {source_kind} -->",
+            f"<!-- {FIELD_GENERATED_AT}: {generated_at} -->",
+            f"<!-- {FIELD_GENERATOR}: {generator} -->",
+            "",
+        ]
+    )
+    if body.startswith("<?xml"):
+        nl = body.find("\n")
+        if nl >= 0:
+            path.write_text(
+                body[: nl + 1] + block + body[nl + 1 :].lstrip("\n"),
+                encoding="utf-8",
+                newline="\n",
+            )
+            return
+    path.write_text(block + body, encoding="utf-8", newline="\n")
+
+
+def read_svg_stamp(path: Path) -> dict[str, str]:
+    """Lees ``<!-- vsa-…: -->``-stamps uit een SVG."""
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError:
+        return {}
+    out: dict[str, str] = {}
+    for m in _SVG_STAMP_COMMENT.finditer(text):
+        key, value = m.group(1), m.group(2).strip()
+        if key in _SVG_STAMP_KEYS and value:
+            out[key] = value
     return out
 
 

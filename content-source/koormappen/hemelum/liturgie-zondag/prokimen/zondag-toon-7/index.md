@@ -6,16 +6,13 @@ publicatiestatus: voorzien
 automatische_inhoud: false
 ---
 
-# Zondag — toon 7
-
+{{< kop >}}Zondag — toon 7{{< /kop >}}
 Compositieblad: prokimen en alleluia voor zondag in toon 7 (Kiev, Groningen).
 
 De **alleluia** staat in de bibliotheek (`.mvsa`). De **prokimen** volgt wanneer die bron in de bibliotheek staat.
 
-## Prokimen
-
+{{< kop links middel >}}Prokimen{{< /kop >}}
 {{< bieb id="prokimen/9a-zondag-toon-7/groningen" />}}
 
-## Alleluia
-
+{{< kop links middel >}}Alleluia{{< /kop >}}
 {{< bieb id="alleluia/9a-toon-7/groningen" />}}

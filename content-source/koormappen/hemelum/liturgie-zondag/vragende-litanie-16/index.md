@@ -6,12 +6,12 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Vragende Litanie
-
-## Nederlands
+{{< kop >}}Vragende Litanie (16){{< /kop >}}
 
 {{< bieb id="ektinia/vragend-16/hemelum" />}}
 
-## Kerkslavisch
+{{< witruimte groot >}}
+
+{{< kop >}}Просительная ектения (16){{< /kop >}}
 
 {{< bieb id="ektinia/vragend-16/hemelum-ksl" />}}

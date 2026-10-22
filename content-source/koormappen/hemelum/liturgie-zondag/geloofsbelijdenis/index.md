@@ -6,6 +6,5 @@ publicatiestatus: voorzien
 automatische_inhoud: false
 ---
 
-# 18 Geloofsbelijdenis
-
+{{< kop >}}18 Geloofsbelijdenis{{< /kop >}}
 {{< bieb id="geloofsbelijdenis/default/groningen" />}}

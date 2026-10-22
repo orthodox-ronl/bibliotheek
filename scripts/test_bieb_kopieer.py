@@ -25,7 +25,7 @@ def _make_leaf(cat_root: Path, slash: str) -> Path:
         f'---\ntitle: "T"\nlinkTitle: "Hemelum"\n'
         f"publicatiestatus: reviewable\n"
         f"automatische_inhoud: false\n---\n\n"
-        f'{{{{< bieb id="{slash}" >}}}}\n',
+        f'{{{{< bieb id="{slash}" />}}}}\n',
         encoding="utf-8",
     )
     (leaf / f"{stem}.vsa").write_text(

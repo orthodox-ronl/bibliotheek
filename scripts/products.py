@@ -81,6 +81,9 @@ def main(argv: list[str] | None = None) -> int:
         ),
     )
     add_regen_arguments(parser)
+    from batch_guard import add_yes_argument, confirm_batch
+
+    add_yes_argument(parser)
     args = parser.parse_args(argv)
 
     try:
@@ -111,6 +114,24 @@ def main(argv: list[str] | None = None) -> int:
         forward.append("--only-invalid")
     if args.reasons:
         forward.extend(["--reasons", args.reasons])
+    # Kind-mains niet opnieuw laten vragen: orchestrator bevestigt één keer.
+    forward.append("-y")
+
+    # Bevestiging bij map of meerdere kinds (één bestand + één kind: stil).
+    confirm_n = 2 if (root.is_dir() or len(kinds) > 1) else 1
+    actie = "dry-run" if args.dry_run else "schrijven"
+    if not confirm_batch(
+        "products",
+        n=confirm_n,
+        headline=f"kinds={','.join(kinds)} · root={root}",
+        details=[
+            f"Actie: {actie}; condities={','.join(policy.active_reasons())}",
+            "Per kind volgt een eigen duur-schatting (op basis van eerdere runs)",
+            "Kind-sporen vragen niet opnieuw om bevestiging (-y)",
+        ],
+        yes=args.yes,
+    ):
+        return 2
 
     print(
         f"=== products: kinds={','.join(kinds)} "

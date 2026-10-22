@@ -6,38 +6,44 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 9b Alleluia
+{{< kop groot>}}(9b) Alleluia{{< /kop >}}
 
-Compositieblad: alle Kiev-alleluias toon 1–8 (uitvoeringsvorm Groningen).
+{{< pdf-bijelkaar >}}
 
-## Toon 1
+{{< kop links middel >}}Toon 1{{< /kop >}}
 
 {{< bieb id="alleluia/9a-toon-1/groningen" />}}
 
-## Toon 2
+{{< kop links middel >}}Toon 2{{< /kop >}}
 
 {{< bieb id="alleluia/9a-toon-2/groningen" />}}
 
-## Toon 3
+{{< kop links middel >}}Toon 3{{< /kop >}}
 
 {{< bieb id="alleluia/9a-toon-3/groningen" />}}
 
-## Toon 4
+{{< kop links middel >}}Toon 4{{< /kop >}}
 
 {{< bieb id="alleluia/9a-toon-4/groningen" />}}
 
-## Toon 5
+{{< /pdf-bijelkaar >}}
+
+{{< pdf-bijelkaar >}}
+
+{{< kop links middel >}}Toon 5{{< /kop >}}
 
 {{< bieb id="alleluia/9a-toon-5/groningen" />}}
 
-## Toon 6
+{{< kop links middel >}}Toon 6{{< /kop >}}
 
 {{< bieb id="alleluia/9a-toon-6/groningen" />}}
 
-## Toon 7
+{{< kop links middel >}}Toon 7{{< /kop >}}
 
 {{< bieb id="alleluia/9a-toon-7/groningen" />}}
 
-## Toon 8
+{{< kop links middel >}}Toon 8{{< /kop >}}
 
 {{< bieb id="alleluia/9a-toon-8/groningen" />}}
+
+{{< /pdf-bijelkaar >}}

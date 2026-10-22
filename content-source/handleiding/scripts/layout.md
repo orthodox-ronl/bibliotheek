@@ -11,7 +11,7 @@ weight: 90
 # SYNOPSIS
 
 ```cmd
-scripts\layout.cmd <bestand.mscz|.mxl> [-o doel.mscz] [--id ID] [--bron "…"]
+scripts\layout.cmd <bestand-of-map> [-o doel.mscz] [--id ID] [--bron "…"]
 ```
 
 # DESCRIPTION
@@ -21,6 +21,11 @@ VSA-tooling-layoutprofiel `partituur`: A4-papier, fonts, leesbaarheid,
 copyright/colofon, en (indien bekend) de colofonregel met catalogus-id.
 In het dagelijks taalgebruik heet deze stap vaak **layouten**; de
 contractterm is **normaliseren**.
+
+Invoer volgt [bestand of map](../invoer-bestand-of-map/): één `.mscz`/`.mxl`
+of een map (recursief die extensies). `-o` en `--id` alleen bij precies
+één bronbestand. Bij een map: preflight met geschatte duur, bevestiging
+(of `-y`), eindrapport ok/mislukt; `*.print.mscz` wordt overgeslagen.
 
 - Invoer is een opgekuiste `.mxl` (na [opkuisen](../opkuisen/)): het script
   roept `mxl mscz` aan (MuseScore 4) en past daarna het layoutprofiel toe.
@@ -44,9 +49,10 @@ VSA-tooling: layoutprofiel `partituur` / mscz-leesbaarheid.
 
 | Optie | Betekenis |
 | --- | --- |
-| `-o`, `--output` | Pad van de doel-`.mscz` |
-| `--id` | Catalogus-id `zangstuk/variant/uitvoeringsvorm` (anders afgeleid uit het pad onder `catalogus/`) |
+| `-o`, `--output` | Pad van de doel-`.mscz` (alleen bij precies één bron; verplicht bij `.mxl`) |
+| `--id` | Catalogus-id `zangstuk/variant/uitvoeringsvorm` (alleen bij één bron; anders afgeleid uit het pad onder `catalogus/`) |
 | `--bron` | Bronvermelding (MuseScore `source` + colofon). Zonder vlag: `bron.uitgangspunt` uit sibling `.vsa`/`.mvsa` indien aanwezig |
+| `-y`, `--yes` | Batch zonder bevestigingsvraag |
 
 # EXAMPLES
 

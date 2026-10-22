@@ -34,7 +34,6 @@ van één liturgie. Via het menu **Catalogus** (startpagina
 - [Zoeken](/overzichten/zoeken/) — op titel, id of gezongen tekst
 - [Alfabetisch](/overzichten/alfabetisch/) — boom op zangstuk (A–Z)
 - [Per herkomst](/overzichten/herkomst/) — boom op herkomst (Hemelum, Groningen, …); taalsuffix (`-ksl` e.d.) is géén aparte herkomst — NL en Ksl van dezelfde stam staan onder elkaar
-- [Per soort](/overzichten/per-soort/) — boom in liturgische volgorde (ektinia, tropaar, …)
 
 ## Kernregel
 
@@ -70,13 +69,17 @@ de layout.
 
 **Slot-pagina** (`index.md`): gewone markdown plus shortcodes. Titels en
 uitleg zet je zelf; `bieb` haalt muziek (en desgewenst titel/bron) uit de
-catalogus. Bovenaan de pagina: **Print** (browser) en **Download** (PDF van
-deze pagina, als `index.pagina.pdf` bestaat). Bij elk muziekblok blijven
-oefenknoppen voor **dat stuk**. Bladindeling in de download: `pdf-pagina`
-(nieuw A4-blad) en `pdf-bijelkaar` (streven naar één blad). Pagina-PDF
-bouwen: [pagina-pdf](/handleiding/scripts/pagina-pdf/). Taal en voorbeelden:
-[koormap-paginataal](https://github.com/orthodox-ronl/bibliotheek/blob/development/docs/specs/koormap-paginataal.md)
-in de repository.
+catalogus; bladtitels met `kop`; bladindeling in de download met
+`pdf-pagina` / `pdf-bijelkaar`. Bovenaan de pagina: **Download pagina** en
+**Print pagina** als `index.pagina.pdf` bestaat — beide gebruiken die PDF
+(niet de browserafdruk van de HTML). De voorgestelde bestandsnaam bij
+downloaden komt uit frontmatter `pdf_bestandsnaam`, anders uit `title`,
+anders uit de mapnaam. Bij elk muziekblok blijven oefenknoppen voor **dat
+stuk**. Pagina-PDF bouwen: [pagina-pdf](../scripts/pagina-pdf/).
+
+**Spiekbriefje voor beheerders:** [Koormap-blad schrijven](koormap-blad/).
+Normatieve specificatie in de repository:
+[koormap-paginataal](https://github.com/orthodox-ronl/bibliotheek/blob/development/docs/specs/koormap-paginataal.md).
 
 ### Boom of compositieblad?
 
@@ -167,13 +170,12 @@ Zodra er een tweede variant komt, geef je de map een echte id (hernoemen);
 `default` mag **niet** naast andere variant-ids onder hetzelfde zangstuk
 blijven staan.
 
-**Overzichtsbomen** (Alfabetisch, Per herkomst, Per soort) slaan
+**Overzichtsbomen** (Alfabetisch en Per herkomst) slaan
 **enkelvoudige tussenlagen** over: heeft een tak precies één kind (één
 sub-tak of één blad), dan zie je meteen de inhoud van dat kind — en dat
 herhaalt zich tot er meerdere kinderen zijn of je bij een blad bent.
 Het **bovenste niveau** van het overzicht blijft wél altijd staan
-(herkomst-stam zoals Groningen, of het zangstuk op Alfabetisch /
-Per soort). Voorbeeld: onder Rode Gebedenboek met alleen één tropaar
+(herkomst-stam zoals Groningen, of het zangstuk op Alfabetisch). Voorbeeld: onder Rode Gebedenboek met alleen één tropaar
 zie je `Rode Gebedenboek` → blad, niet eerst nog een tak «Tropaar».
 Onder Groningen verdwijnen zangstuk-takken met maar één blad (zoals
 soms Communievers); het blad staat dan direct onder Groningen.

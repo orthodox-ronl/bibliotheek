@@ -1,7 +1,8 @@
-"""Maak sibling ``{stam}.mvsa.mxl`` + ``{stam}.mvsa.pdf`` bij bibliotheek-``.mvsa``.
+"""Maak sibling ``{stam}.mvsa.mxl`` + ``.mvsa.pdf`` + ``.mvsa.svg`` bij ``.mvsa``.
 
-Roept tooling aan: ``mvsa musicxml`` (Coria) en ``mvsa pdf`` (MuseScore +
-layoutprofiel ``partituur``). Zet ``vsa-source-sha256`` + ``vsa-source-kind=mvsa``.
+Roept tooling aan: ``mvsa musicxml`` (Coria), ``mvsa pdf`` (MuseScore +
+layoutprofiel ``partituur``), ``mvsa svg`` (MuseScore + layout ``muziek``,
+trim). Zet ``vsa-source-sha256`` + ``vsa-source-kind=mvsa``.
 
 Slaat ``input/``, ``artefacten_handmatig`` en import-siblings ``*.mscz.mvsa``
 over. CI genereert niet — alleen ``check_mvsa_products``; vernieuw lokaal met
@@ -30,9 +31,11 @@ from product_meta import (
     SOURCE_KIND_MVSA,
     read_mxl_stamp,
     read_pdf_stamp,
+    read_svg_stamp,
     source_sha256,
     stamp_mxl_source,
     stamp_pdf,
+    stamp_svg,
     utc_now_iso,
 )
 from product_regen import RegenPolicy, list_source_paths, mxl_contract_ok
@@ -48,6 +51,11 @@ def product_mxl_for_mvsa(mvsa: Path) -> Path:
 def product_pdf_for_mvsa(mvsa: Path) -> Path:
     """``naam.mvsa`` → ``naam.mvsa.pdf``."""
     return mvsa.with_suffix(".mvsa.pdf")
+
+
+def product_svg_for_mvsa(mvsa: Path) -> Path:
+    """``naam.mvsa`` → ``naam.mvsa.svg``."""
+    return mvsa.with_suffix(".mvsa.svg")
 
 
 def collect_mvsa(root: Path) -> list[Path]:
@@ -91,12 +99,25 @@ def _stamp_ok_pdf(pdf: Path, source_hash: str) -> bool:
     return stamp.get(FIELD_SOURCE_SHA, "") == source_hash
 
 
-def is_stale(mvsa: Path) -> tuple[bool, bool]:
-    """Return (need_mxl, need_pdf)."""
+def _stamp_ok_svg(svg: Path, source_hash: str) -> bool:
+    if not svg.is_file():
+        return False
+    stamp = read_svg_stamp(svg)
+    if stamp.get(FIELD_SOURCE_KIND, SOURCE_KIND_MVSA) not in {
+        "",
+        SOURCE_KIND_MVSA,
+    }:
+        return False
+    return stamp.get(FIELD_SOURCE_SHA, "") == source_hash
+
+
+def is_stale(mvsa: Path) -> tuple[bool, bool, bool]:
+    """Return (need_mxl, need_pdf, need_svg)."""
     digest = source_sha256(mvsa)
     need_mxl = not _stamp_ok_mxl(product_mxl_for_mvsa(mvsa), digest)
     need_pdf = not _stamp_ok_pdf(product_pdf_for_mvsa(mvsa), digest)
-    return need_mxl, need_pdf
+    need_svg = not _stamp_ok_svg(product_svg_for_mvsa(mvsa), digest)
+    return need_mxl, need_pdf, need_svg
 
 
 def _run_mvsa_musicxml(mvsa: Path, mxl: Path) -> None:
@@ -119,11 +140,17 @@ def _run_mvsa_pdf(mvsa: Path, pdf: Path, *, bibliotheek_id: str | None) -> None:
     subprocess.check_call(cmd, cwd=str(REPO_ROOT))
 
 
+def _run_mvsa_svg(mvsa: Path, svg: Path) -> None:
+    cmd = ["mvsa", "svg", str(mvsa), "-o", str(svg)]
+    subprocess.check_call(cmd, cwd=str(REPO_ROOT))
+
+
 def sync_one(
     mvsa: Path,
     *,
     need_mxl: bool,
     need_pdf: bool,
+    need_svg: bool,
     dry_run: bool,
 ) -> None:
     rel = mvsa.relative_to(REPO_ROOT)
@@ -131,6 +158,7 @@ def sync_one(
     generated_at = utc_now_iso()
     mxl = product_mxl_for_mvsa(mvsa)
     pdf = product_pdf_for_mvsa(mvsa)
+    svg = product_svg_for_mvsa(mvsa)
     bib = id_from_catalogus_path(mvsa)
 
     if need_mxl:
@@ -167,6 +195,21 @@ def sync_one(
                 generator=GENERATOR_MVSA,
             )
 
+    if need_svg:
+        print(f"  SVG  {rel} -> {svg.name}", flush=True)
+        if not dry_run:
+            require_no_spaces(svg)
+            _run_mvsa_svg(mvsa, svg)
+            if not svg.is_file():
+                raise RuntimeError(f"SVG ontbreekt na mvsa svg: {svg}")
+            stamp_svg(
+                svg,
+                source_hash=digest,
+                source_kind=SOURCE_KIND_MVSA,
+                generated_at=generated_at,
+                generator=GENERATOR_MVSA,
+            )
+
 
 class MvsaKind:
     id = "mvsa"
@@ -181,6 +224,7 @@ class MvsaKind:
         digest = source_sha256(source)
         mxl = product_mxl_for_mvsa(source)
         pdf = product_pdf_for_mvsa(source)
+        svg = product_svg_for_mvsa(source)
         mxl_exists = mxl.is_file()
         contract = (
             mxl_contract_ok(mxl, profile="satb")
@@ -202,14 +246,26 @@ class MvsaKind:
                 contract_ok=None,
                 needs_musescore=True,
             ),
+            ProductSlot(
+                path=svg,
+                exists=svg.is_file(),
+                stamp_ok=_stamp_ok_svg(svg, digest),
+                contract_ok=None,
+                needs_musescore=True,
+            ),
         ]
 
     def sync(self, source: Path, *, need: Sequence[bool], dry_run: bool) -> None:
         need_mxl = bool(need[0]) if len(need) > 0 else False
         need_pdf = bool(need[1]) if len(need) > 1 else False
-        if need_mxl or need_pdf:
+        need_svg = bool(need[2]) if len(need) > 2 else False
+        if need_mxl or need_pdf or need_svg:
             sync_one(
-                source, need_mxl=need_mxl, need_pdf=need_pdf, dry_run=dry_run
+                source,
+                need_mxl=need_mxl,
+                need_pdf=need_pdf,
+                need_svg=need_svg,
+                dry_run=dry_run,
             )
 
 
@@ -220,7 +276,9 @@ def main(argv: list[str] | None = None) -> int:
     return main_for_kind(
         KIND,
         argv,
-        description="Exporteer stale Coria-.mxl + PDF vanuit bibliotheek-.mvsa.",
+        description=(
+            "Exporteer stale Coria-.mxl + PDF + koormap-SVG vanuit bibliotheek-.mvsa."
+        ),
         default_root=DEFAULT_ROOT,
     )
 

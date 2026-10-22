@@ -1,0 +1,27 @@
+{{- /*
+  Verticale witruimte tussen onderdelen (web + pagina-PDF).
+  Spec: docs/specs/koormap-paginataal.md §7.
+
+  Lege Markdown-regels tussen shortcodes geven géén zichtbare ruimte;
+  gebruik deze shortcode expliciet.
+
+  Defaults: middel.
+  Knop (hoogstens één): klein | middel | groot
+*/ -}}
+{{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}
+{{- $grootte := "middel" -}}
+{{- $has := false -}}
+{{- range $idx := (slice 0 1 2) -}}
+  {{- $w := strings.TrimSpace ($.Get $idx | default "") -}}
+  {{- if $w -}}
+    {{- if not (in (slice "klein" "middel" "groot") $w) -}}
+      {{- errorf "%s: shortcode witruimte: onbekende knop %q. Toegestaan: klein, middel, groot." $loc $w -}}
+    {{- end -}}
+    {{- if $has -}}
+      {{- errorf "%s: shortcode witruimte: hoogstens één grootte (klein, middel of groot)." $loc -}}
+    {{- end -}}
+    {{- $grootte = $w -}}
+    {{- $has = true -}}
+  {{- end -}}
+{{- end -}}
+<div class="koormap-witruimte koormap-witruimte--{{ $grootte }}" aria-hidden="true"></div>

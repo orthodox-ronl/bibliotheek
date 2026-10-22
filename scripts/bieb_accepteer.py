@@ -224,7 +224,7 @@ def leaf_index_text(
         f"{handmatig}"
         "automatische_inhoud: false\n---\n\n"
         f"# {title}\n\n"
-        f"{{{{< bieb id=\"{ident}\" >}}}}\n"
+        f"{{{{< bieb id=\"{ident}\" />}}}}\n"
     )
 
 
@@ -654,6 +654,17 @@ _PUBLICATION_PATH_HINTS = (
     ".mxl",
 )
 
+# Primair scorebestand bij map-scan (bestand-of-map-conventie).
+_ACCEPT_PRIMARY_SUFFIXES = (
+    ".mscz",
+    ".vsa",
+    ".mvsa",
+    ".tekstblad.md",
+)
+_ACCEPT_PRIMARY_KINDS = frozenset(
+    {"partituur_mscz", "print_mscz", "vsa", "mvsa", "tekstblad"}
+)
+
 
 def _looks_like_catalogus_id(value: str) -> bool:
     try:
@@ -664,16 +675,50 @@ def _looks_like_catalogus_id(value: str) -> bool:
 
 
 def _looks_like_source_path(value: str) -> bool:
-    """True als CLI-token eerder een bestandspad is dan een catalogus-id."""
+    """True als CLI-token eerder een bestandspad/map is dan een catalogus-id."""
     if not value or value in {"?", "stub"}:
         return False
     if _looks_like_catalogus_id(value):
         return False
     path = Path(value).expanduser()
-    if path.is_file():
+    if path.is_file() or path.is_dir():
         return True
     name = path.name.lower()
     return any(name.endswith(suf) for suf in _PUBLICATION_PATH_HINTS)
+
+
+def expand_source_jobs(paths: list[Path]) -> list[list[Path]]:
+    """Zet CLI-paden om in accept-jobs (één job = één ``accept``-aanroep).
+
+    Een **map** → recursief primaire bronnen; elke primaire = eigen job.
+    Losse **bestanden** blijven één gedeelde job (huidige semantiek: siblings
+    bij hetzelfde id).
+    """
+    from input_paths import InputPathError, collect_cli_sources
+
+    jobs: list[list[Path]] = []
+    loose: list[Path] = []
+    for raw in paths:
+        p = Path(raw).expanduser()
+        if p.is_dir():
+            try:
+                found = collect_cli_sources(p, suffixes=_ACCEPT_PRIMARY_SUFFIXES)
+            except InputPathError as exc:
+                raise SystemExit(f"FAIL: {exc}") from None
+            for src in found:
+                kind = classify_source(src)
+                if kind in _ACCEPT_PRIMARY_KINDS:
+                    jobs.append([src])
+                else:
+                    print(
+                        f"OVERGESLAGEN (geen primaire bron): {_rel(src)} ({kind})",
+                        flush=True,
+                    )
+        else:
+            loose.append(p)
+    if loose:
+        jobs.append(loose)
+    return jobs
 
 
 def early_validate_sources(
@@ -894,8 +939,10 @@ def resolve_bestanden_en_stub(
         if value.lower() == "stub":
             return [], True
         path = Path(value).expanduser()
+        if path.is_dir():
+            return [path], False
         if not path.is_file():
-            print(f"Bestand niet gevonden: {path}", flush=True)
+            print(f"Bestand of map niet gevonden: {path}", flush=True)
             print("Typ ? voor uitleg, of een ander pad.", flush=True)
             continue
         return _collect_extra_paths(path), False
@@ -906,6 +953,7 @@ def build_parser() -> argparse.ArgumentParser:
         description=(
             "Neem .mscz / .vsa / .mvsa / .tekstblad.md (en optioneel PDF/MXL) op in "
             "content-source/catalogus onder een catalogus-id. "
+            "Pad: één bestand óf een map (recursief primaire bronnen → batch). "
             "Zonder argumenten: eerst bestand (validatie + id uit stam), daarna id. "
             "Typ ? voor uitleg."
         )
@@ -914,13 +962,13 @@ def build_parser() -> argparse.ArgumentParser:
         "ident",
         nargs="?",
         default=None,
-        help="catalogus-id óf bronbestand (bestand mag als eerste argument)",
+        help="catalogus-id óf bronbestand/map (pad mag als eerste argument)",
     )
     p.add_argument(
         "bestanden",
         nargs="*",
         type=Path,
-        help="bronbestanden (of catalogus-id als tweede als het eerste een bestand is)",
+        help="bronbestanden/mappen (of catalogus-id als tweede als het eerste een pad is)",
     )
     p.add_argument(
         "--title",
@@ -964,6 +1012,9 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="zet artefacten_handmatig: true (ook auto bij .print.mscz)",
     )
+    from batch_guard import add_yes_argument
+
+    add_yes_argument(p)
     return p
 
 
@@ -993,22 +1044,160 @@ def _normalize_cli_positionals(
     return ident, files
 
 
+def _accept_one_job(
+    ident: str,
+    bestanden: list[Path],
+    *,
+    title: str | None,
+    status: str | None,
+    stub: bool,
+    move: bool,
+    force: bool,
+    dry_run: bool,
+    skip_vsa_validate: bool,
+    artefacten_handmatig: bool,
+) -> int:
+    return accept(
+        ident,
+        bestanden,
+        title=title,
+        status=status,
+        stub=stub,
+        move=move,
+        force=force,
+        dry_run=dry_run,
+        skip_vsa_validate=skip_vsa_validate,
+        artefacten_handmatig=artefacten_handmatig,
+    )
+
+
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     ident_arg, file_args = _normalize_cli_positionals(
         args.ident, list(args.bestanden)
     )
 
-    # 1) Bestand (of stub) eerst — dan vroege validatie.
+    # 1) Bestand/map (of stub) eerst — dan vroege validatie.
     resolved = resolve_bestanden_en_stub(file_args, stub=args.stub)
     if resolved is None:
         print(
             "Gestopt: geen bestand en geen stub.\n"
-            "Oplossing: geef een bronbestand, of --stub voor een lege leaf.",
+            "Oplossing: geef een bronbestand of map, of --stub voor een lege leaf.",
             flush=True,
         )
         return 2
     bestanden, stub = resolved
+
+    if stub:
+        jobs: list[list[Path]] = [[]]
+    else:
+        try:
+            jobs = expand_source_jobs(bestanden)
+        except SystemExit as exc:
+            code = exc.code
+            return int(code) if isinstance(code, int) else 1
+        if not jobs:
+            bieb_fs.print_fail(
+                "geen primaire bronbestanden gevonden",
+                oplossing=(
+                    "geef .mscz / .vsa / .mvsa / .tekstblad.md, "
+                    "of een map die die bestanden bevat."
+                ),
+            )
+            return 1
+
+    # Batch (meerdere jobs uit map-scan): geen interactie, id uit bestandsnaam.
+    if len(jobs) > 1:
+        if ident_arg and _looks_like_catalogus_id(ident_arg):
+            bieb_fs.print_fail(
+                "catalogus-id mag niet bij een map/batch (meerdere bronnen)",
+                oplossing=(
+                    "laat het id weg (wordt per bestand uit de publicatiestam "
+                    "afgeleid), of accepteer één bestand tegelijk."
+                ),
+            )
+            return 1
+        if args.title:
+            bieb_fs.print_fail(
+                "--title mag niet bij een map/batch",
+                oplossing="accepteer één bestand tegelijk als je --title nodig hebt.",
+            )
+            return 1
+        from batch_guard import confirm_batch, run_timed_batch
+
+        kind = "bieb_accepteer"
+        actie = "verplaatsen (--move)" if args.move else "kopiëren"
+        if args.dry_run:
+            actie = f"dry-run (zou {actie})"
+        if not confirm_batch(
+            kind,
+            n=len(jobs),
+            headline=f"{len(jobs)} primaire bronnen → catalogus",
+            details=[
+                f"Actie: per bestand id uit publicatiestam; bronnen {actie}",
+                "Geen interactieve vragen; mislukte items komen in de eindlijst",
+            ],
+            yes=args.yes,
+        ):
+            return 2
+
+        failed_paths: list[str] = []
+
+        def _one(group: list[Path]) -> int:
+            early = early_validate_sources(
+                group, skip_vsa_validate=args.skip_vsa_validate
+            )
+            if early:
+                for line in early:
+                    print(f"FAIL: {line}", flush=True)
+                failed_paths.append(str(group[0]) if group else "?")
+                return 1
+            primary = primary_score_source(group)
+            if primary is None:
+                print(f"FAIL: geen primaire bron in job {group!r}", flush=True)
+                failed_paths.append("?")
+                return 1
+            stam = publication_stem_from_filename(primary.name)
+            suggested = id_from_publication_stem(stam)
+            if suggested is None:
+                print(
+                    f"FAIL: kon geen catalogus-id afleiden uit {primary.name!r}. "
+                    "Oplossing: hernoem naar publicatiestam of accepteer los.",
+                    flush=True,
+                )
+                failed_paths.append(_rel(primary))
+                return 1
+            print(f"=== {_rel(primary)} → {suggested}", flush=True)
+            code = _accept_one_job(
+                suggested,
+                group,
+                title=None,
+                status=args.status,
+                stub=False,
+                move=args.move,
+                force=args.force,
+                dry_run=args.dry_run,
+                skip_vsa_validate=args.skip_vsa_validate,
+                artefacten_handmatig=args.artefacten_handmatig,
+            )
+            if code != 0:
+                failed_paths.append(_rel(primary))
+            return code
+
+        ok, failed, _skipped = run_timed_batch(
+            kind,
+            jobs,
+            _one,
+            label=lambda g: _rel(g[0]) if g else "?",
+        )
+        if failed_paths:
+            print("Mislukt:", flush=True)
+            for p in failed_paths:
+                print(f"  - {p}", flush=True)
+        print(f"Klaar: {ok} ok, {failed} mislukt.", flush=True)
+        return 1 if failed else 0
+
+    bestanden = jobs[0]
 
     if bestanden and not stub:
         early = early_validate_sources(
@@ -1063,7 +1252,7 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 2
 
-    return accept(
+    return _accept_one_job(
         ident,
         bestanden,
         title=args.title,

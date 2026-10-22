@@ -12,14 +12,15 @@ Korte hulp in het opdrachtvenster: `h` (lijst) of `h <naam>` (zelfde als
 | -------- | ---- |
 | `h` | Overzicht van commando’s; `h <naam>` = `<naam> -h` |
 | `validate` | `vsa validate` op `content-source\catalogus` (plus `mvsa validate` als er `.mvsa` staat) |
-| `vsa-products` | Maakt/vernieuwt `{stam}.vsa.mxl` + `{stam}.vsa.pdf` via `vsa musicxml` / `vsa pdf` + stamp |
+| `vsa-products` | Maakt/vernieuwt `{stam}.vsa.mxl` + `{stam}.vsa.pdf` + `{stam}.vsa.svg` via `vsa musicxml` / `vsa pdf` / `vsa svg` + stamp |
 | `mscz-products` | Maakt/vernieuwt `{stam}.mscz.pdf` + `{stam}.mscz.mxl` via MuseScore / `mscz mxl` + stamp |
 | `tekstblad-products` | Maakt/vernieuwt `{stam}.tekstblad.pdf` via `vsa pdf` + stamp |
 | `import-mvsa` | Maakt/vernieuwt bewerkvorm `{stam}.mscz.mvsa` via `mscz import` + stamp (standaard alleen bestaande siblings) |
-| `mvsa-products` | Maakt/vernieuwt `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf` via `mvsa musicxml` / `mvsa pdf` + stamp |
+| `mvsa-products` | Maakt/vernieuwt `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf` + `{stam}.mvsa.svg` via `mvsa musicxml` / `mvsa pdf` / `mvsa svg` + stamp |
 | `audio-products` | Maakt/vernieuwt preview-`{stam}.{bron}.mp3` via `vsa audio` + ID3-stamp (Beluisteren) |
 | `lyrics-products` | Maakt/vernieuwt `{stam}.….lyrics.txt` (zoektekst) |
-| `products` / `all-products` | Product-kinds achter elkaar (`all-products` = `--kinds all`); daarna Coria-fingerprints (niet bij `--dry-run`) |
+| `products` / `all-products` | Product-kinds achter elkaar (`all-products` = `--kinds all`); daarna Coria-fingerprints (niet bij `--dry-run`). Geen `pagina-pdf`. |
+| `pagina-pdf` | `index.pagina.pdf` naast een koormap- of catalogus-`index.md` (lokaal; niet in `products` / `check` / CI) |
 | `layout` | Past layoutprofiel `partituur` toe op `.mscz` / `.mxl` (via tooling) |
 | `ensure-bibliotheek-id` | Zet/controleert colofonregel `Bibliotheek-id:` op basispartituur-`.mscz` |
 | `bump-vsa-tooling-pin` | Zet `vsa-tooling.pin` op tip van VSA-tooling (`main` of andere ref) |
@@ -31,7 +32,7 @@ Korte hulp in het opdrachtvenster: `h` (lijst) of `h <naam>` (zelfde als
 | `update-werkvoorraad` | Tabel `input\werkvoorraad.md` bijwerken (ook in check/build/serve) |
 | `werkbank-status` | Open werkbank-cases; `data\werkbank-status.json` (ook via update-werkvoorraad) |
 | `lifecycle-grenzen` | Grenzen werkbank ↔ catalogus (spaties / ruwe formats) |
-| `oefenhoek-index` | SVG uit catalogus-`.vsa` → `static\vsa\bladermap\` (check/build/serve/CI; geen stamp) |
+| `oefenhoek-index` | Legacy SVG uit catalogus-`.vsa` → `static\vsa\bladermap\` (check/build/serve/CI; geen stamp). Scherm gebruikt sibling `{stam}.vsa.svg` zodra die er is. |
 | `serve` | Hugo-preview op http://127.0.0.1:18732/ (niet 1313, niet 18731) |
 | `build` | Site in `generated\site` |
 | `check` | CI-spiegel / preflight (validate + publicatie-/importcontroles + bibliotheek-id + koormap-slotlinks + Coria + Hugo) |

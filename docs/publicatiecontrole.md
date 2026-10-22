@@ -38,18 +38,23 @@ Geen nieuwe `.print.mscz`: handmatige MuseScore-bladen = `{stam}.mscz` +
 
 | Spoor                 | Bron                                             | Sibling                                             | Status in deze repo                                                                  |
 | --------------------- | ------------------------------------------------ | --------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| VSA                   | `.vsa`                                           | `.vsa.mxl` + `.vsa.pdf` + `vsa-source-sha256`       | **Actief** (`vsa-products` / `check_vsa_products`)                                   |
+| VSA                   | `.vsa`                                           | `.vsa.mxl` + `.vsa.pdf` + `.vsa.svg` + `vsa-source-sha256` | **Actief** (`vsa-products` / `check_vsa_products`)                                   |
 | Lyrics (zoektekst)    | `.vsa` / `.mvsa` / `.mscz`                       | `.vsa.lyrics.txt` / `.mvsa.lyrics.txt` / `.mscz.lyrics.txt` + source-sha | **Actief** (`lyrics-products` / `check_lyrics_products`)                             |
 | Partituur (mscz)      | `.mscz`                                          | `.mscz.pdf` + `.mscz.mxl` + partituur-sha           | **Actief** (`mscz-products` / `check_mscz_products`)                                 |
 | Tekstblad             | `.tekstblad.md`                                  | `.tekstblad.pdf`                                    | **Actief** (`tekstblad-products` / `check_tekstblad_products`)                       |
 | Import (bewerkvorm)   | `.mscz`                                          | `.mscz.mvsa` + partituur-sha (optioneel)            | **Actief** (`import-mvsa` / `check_import_mvsa`; alleen bestaande paren)             |
-| mvsa (canonieke bron) | `.mvsa`                                          | `.mvsa.mxl` + `.mvsa.pdf` + source-sha              | **Actief** (`mvsa-products` / `check_mvsa_products`)                                 |
+| mvsa (canonieke bron) | `.mvsa`                                          | `.mvsa.mxl` + `.mvsa.pdf` + `.mvsa.svg` + source-sha | **Actief** (`mvsa-products` / `check_mvsa_products`)                                 |
 | Audio (preview)       | `.mvsa` / `.mscz` / `.vsa`                       | `.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3` + stamp      | **Actief** (`audio-products` / `check_audio_products`; zelfde bronnen als Coria-MXL) |
 | Coria-contract        | bestaande `.vsa.mxl` / `.mscz.mxl` / `.mvsa.mxl` | `mxl validate` (mono / satb)                        | **Actief** (`check_mxl_playback_contract`)                                           |
-| VSA-SVG (plaatje)     | `.vsa`                                           | `static/vsa/bladermap/….svg`                        | **Geen** versheidscontrole; `oefenhoek-index --svg` in check/build/CI                |
+| VSA-SVG (legacy pad)  | `.vsa`                                           | `static/vsa/bladermap/….svg`                        | **Legacy**; scherm gebruikt sibling `.vsa.svg` (zie VSA hierboven). Optioneel nog `oefenhoek-index --svg` |
 
-CI genereert geen MuseScore-/PDF-/audio-producten; wel bladermap-SVG uit `.vsa`
-vóór Hugo. Importcontrole eist **geen** `.mscz.mvsa` bij elke partituur —
+CI genereert geen MuseScore-/PDF-/audio-producten en geen sibling-SVG
+(`.vsa.svg` / `.mvsa.svg`). Wel, vóór Hugo, een legacy bladermap-plaatje
+uit `.vsa` (`oefenhoek-index --svg`) voor het geval de sibling-SVG nog
+ontbreekt. Het scherm gebruikt de sibling. Koormap-blad
+`index.pagina.pdf` hoort niet bij `products.cmd`: lokaal
+`scripts/pagina-pdf.cmd`, geen versheidscontrole in CI. Importcontrole
+eist **geen** `.mscz.mvsa` bij elke partituur —
 alleen dat bestaande siblings vers zijn. Audio eist wél een `.mp3` bij elke
 canonieke `.mvsa` / basis-`.mscz` / `.vsa` (buiten handmatige mappen).
 Contractcontrole faalt als een bestaande Coria-`.mxl` de checklist niet haalt;
