@@ -119,9 +119,8 @@ jobs:
       - name: Validate VSA content
         run: |
           vsa validate content-source/catalogus
-          # Canonieke .mvsa alleen; import-*.mscz.mvsa is bewerkvorm (zie validate_mvsa_catalogus.py).
-          if find content-source/catalogus -name '*.mvsa' ! -name '*.mscz.mvsa' -print -quit | grep -q .; then
-            python scripts/validate_mvsa_catalogus.py content-source/catalogus
+          if find content-source/catalogus -name '*.mvsa' -print -quit | grep -q .; then
+            mvsa validate content-source/catalogus
           fi
 
       - name: Check VSA product freshness
