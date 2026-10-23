@@ -7,6 +7,7 @@ cascade:
   type: oefenhoek
 ---
 
-| Korte naam | Lange naam |
-| ---------- | ---------- |
-| [Hemelum](/koormappen/hemelum/) | Klooster van de Heilige Nikolaas de Wonderdoener, Hemelum  |
+| Korte naam          | Lange naam |
+| ------------------- | ---------- |
+| [Hemelum](hemelum/) | Klooster van de Heilige Nikolaas de Wonderdoener (Hemelum) |
+| [Zwolle](zwolle/)   | Parochie van de Heilige Aartsengel Michael (Zwolle) |
