@@ -1,5 +1,5 @@
 ---
-title: "Dialoog-met-diaken"
+title: "(7d) Dialoog met Diaken"
 sources:
   - "H. Liturgie - koormap - Groningen"
 build:

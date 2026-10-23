@@ -5,6 +5,4 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 6 Derde antifoon (weekdagen, Hemelum)
-
 {{< bieb id="derde-antifoon/weekdagen/hemelum" />}}

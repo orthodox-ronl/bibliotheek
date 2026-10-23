@@ -5,6 +5,4 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Eerste antifoon Transfiguratie (Liturgikon)
-
 {{< bieb id="eerste-antifoon/transfiguratie/liturgikon" />}}

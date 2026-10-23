@@ -5,6 +5,4 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 19a Eucharistische Kanon
-
 {{< bieb id="eucharistische-canon/19a-feofan/hemelum" />}}

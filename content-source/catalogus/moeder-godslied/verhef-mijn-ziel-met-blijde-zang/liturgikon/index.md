@@ -5,6 +5,4 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 20 moeder godslied
-
 {{< bieb id="moeder-godslied/verhef-mijn-ziel-met-blijde-zang/liturgikon" />}}

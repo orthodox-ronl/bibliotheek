@@ -61,10 +61,12 @@ Naamgeving van bronnen en afgeleiden, en welke publicatiecontroles er (gaan) zij
 ``.mvsa.score-ir.json``) via ``mvsa-products`` (tooling
 ``mvsa score-ir … --musicxml``). Shortcode `muziek` / partial `bieb-score`
 tekent die MusicXML met OSMD als die sibling er is (ook via koormap-`bieb`);
-anders blijft de MuseScore-SVG- of PDF-fallback. `check` eist ``.mvsa.svg``
-**niet** wanneer from-ir met geldige herkomststempel aanwezig is. Na nieuwe
-from-ir-siblings lokaal: koormap-pagina’s even herbouwen (serve herstarten
-of de betreffende `index.md` aanraken) als je nog PDF ziet.
+anders blijft de MuseScore-SVG- of PDF-fallback. Lookafspraken (cues,
+titels, keten): [schermpartituur.md](specs/schermpartituur.md).
+`check` eist ``.mvsa.svg`` **niet** wanneer from-ir met geldige
+herkomststempel aanwezig is. Na nieuwe from-ir-siblings lokaal:
+koormap-pagina’s even herbouwen (serve herstarten of de betreffende
+`index.md` aanraken) als je nog PDF ziet.
 
 Workflow Pages bepaalt de ref:
 

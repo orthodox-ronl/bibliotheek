@@ -5,6 +5,4 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Ontslapenen-litanie (Hemelum, NL)
-
 {{< bieb id="ektinia/ontslapenen/hemelum" />}}

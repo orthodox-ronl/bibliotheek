@@ -4,6 +4,9 @@ A4-compositie uit shortcode ``kop`` (en legacy ``#`` / HTML-titels) + kale
 muziek-SVG's (geen catalogus-product-PDF's plakken). Binnen ``pdf-bijelkaar``
 exporteert de pijplijn opnieuw met tooling ``--compact``. Meerdere
 MuseScore-pagina's → bladreeks ``stem-N.svg`` (VSA-tooling fase 1).
+
+Catalogus-leaves zonder Markdown-titel: afgeleide leaf-titel injecteren
+(zelfde algoritme als Hugo; zie ``ensure_catalogus_derived_titles``).
 """
 
 from __future__ import annotations
@@ -18,6 +21,10 @@ import tempfile
 from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
+
+_SCRIPTS = Path(__file__).resolve().parent
+if str(_SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(_SCRIPTS))
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT / "content-source"
@@ -325,6 +332,47 @@ def music_ids_from_markdown(text: str) -> list[str]:
     return ids
 
 
+def catalogus_leaf_id(md_path: Path) -> str | None:
+    """``zangstuk/variant/uv`` als ``md_path`` een catalogus-leaf-``index.md`` is."""
+    try:
+        rel = md_path.resolve().relative_to(CATALOGUS.resolve())
+    except ValueError:
+        return None
+    if md_path.name != "index.md" or len(rel.parts) != 4:
+        return None
+    return "/".join(rel.parts[:3])
+
+
+def _flow_has_prominent_title(flow: PageFlow) -> bool:
+    return any(
+        isinstance(item, TitleItem) and item.prominent for item in flow.items
+    )
+
+
+def ensure_catalogus_derived_titles(
+    flows: list[PageFlow], md_path: Path
+) -> list[PageFlow]:
+    """Op catalogus-leaves: ontbrekende prominente titel → afgeleide leaf-titel.
+
+    Koormap-slots (buiten ``content-source/catalogus``) blijven ongewijzigd:
+    daar komen titels uit ``kop`` / ``#``. Zie
+    ``docs/plans/catalogus-pagina-pdf.md`` §2.
+    """
+    leaf_id = catalogus_leaf_id(md_path)
+    if not leaf_id:
+        return flows
+
+    from catalogus import derived_leaf_title
+
+    leaf_dir = CATALOGUS.joinpath(*leaf_id.split("/"))
+    title = derived_leaf_title(leaf_id, leaf_dir=leaf_dir)
+    for flow in flows:
+        if not flow.music_ids or _flow_has_prominent_title(flow):
+            continue
+        flow.items = [TitleItem(title, prominent=True), *flow.items]
+    return flows
+
+
 def find_mvsa(uv_id: str) -> Path:
     leaf = CATALOGUS.joinpath(*uv_id.split("/"))
     if not leaf.is_dir():
@@ -339,8 +387,11 @@ def find_mvsa(uv_id: str) -> Path:
     return mvsas[0]
 
 
-def find_notation_source(uv_id: str) -> Path:
-    """Bron voor kale SVG: ``.mvsa``, anders ``.vsa``, anders ``.mscz``."""
+def try_find_notation_source(uv_id: str) -> Path | None:
+    """``.mvsa`` / ``.vsa`` / ``.mscz`` in de catalogusmap, of ``None``.
+
+    Ontbrekende map → ``FileNotFoundError``.
+    """
     leaf = CATALOGUS.joinpath(*uv_id.split("/"))
     if not leaf.is_dir():
         raise FileNotFoundError(f"catalogusmap ontbreekt: {leaf}")
@@ -357,8 +408,336 @@ def find_notation_source(uv_id: str) -> Path:
     msczs = sorted(leaf.glob("*.mscz"))
     if msczs:
         return msczs[0]
-    raise FileNotFoundError(
-        f"geen .mvsa/.vsa/.mscz in {leaf} (pagina-pdf plakt geen catalogus-PDF)"
+    return None
+
+
+def find_notation_source(uv_id: str) -> Path:
+    """Bron voor kale SVG: ``.mvsa``, anders ``.vsa``, anders ``.mscz``."""
+    found = try_find_notation_source(uv_id)
+    if found is None:
+        leaf = CATALOGUS.joinpath(*uv_id.split("/"))
+        raise FileNotFoundError(
+            f"geen .mvsa/.vsa/.mscz in {leaf} (pagina-pdf plakt geen catalogus-PDF)"
+        )
+    return found
+
+
+def leaf_has_tekstblad(uv_id: str) -> bool:
+    leaf = CATALOGUS.joinpath(*uv_id.split("/"))
+    if not leaf.is_dir():
+        return False
+    return any(
+        p.is_file()
+        and "tekstblad" in p.name.lower()
+        and p.suffix.lower() == ".md"
+        for p in leaf.iterdir()
+    )
+
+
+def find_tekstblad_pdf(uv_id: str) -> Path | None:
+    leaf = CATALOGUS.joinpath(*uv_id.split("/"))
+    if not leaf.is_dir():
+        return None
+    pdfs = sorted(
+        p
+        for p in leaf.iterdir()
+        if p.is_file()
+        and p.suffix.lower() == ".pdf"
+        and ".tekstblad." in p.name.lower()
+    )
+    return pdfs[0] if pdfs else None
+
+
+def find_tekstblad_md(uv_id: str) -> Path | None:
+    leaf = CATALOGUS.joinpath(*uv_id.split("/"))
+    if not leaf.is_dir():
+        return None
+    mds = sorted(
+        p
+        for p in leaf.iterdir()
+        if p.is_file()
+        and p.suffix.lower() == ".md"
+        and ".tekstblad." in p.name.lower()
+    )
+    return mds[0] if mds else None
+
+
+def _frontmatter_title(path: Path) -> str | None:
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError:
+        return None
+    if not text.lstrip().startswith("---"):
+        return None
+    parts = text.split("---", 2)
+    if len(parts) < 3:
+        return None
+    for line in parts[1].splitlines():
+        stripped = line.strip()
+        if stripped.lower().startswith("title:"):
+            return stripped.split(":", 1)[1].strip().strip("\"'")
+    return None
+
+
+def prose_notes_from_catalogus_md(text: str) -> list[str]:
+    """Gewone alinea’s in de leaf-body (geen shortcodes, geen ``#``-titels)."""
+    body = text
+    if body.lstrip().startswith("---"):
+        parts = body.split("---", 2)
+        if len(parts) >= 3:
+            body = parts[2]
+    notes: list[str] = []
+    for raw in body.splitlines():
+        line = raw.strip()
+        if not line or line.startswith("{{") or line.startswith("#"):
+            continue
+        notes.append(line)
+    return notes
+
+
+def _pagina_pdf_out_path(md_path: Path) -> Path:
+    if md_path.name == "index.md":
+        return md_path.with_name("index.pagina.pdf")
+    return md_path.with_name(md_path.stem + ".pagina.pdf")
+
+
+def _pdf_page_content_clip(page: object, *, pad: float = 6.0) -> object:
+    """Inhoudsrechthoek van een PDF-pagina (zonder onderste witruimte)."""
+    import pymupdf
+
+    bbox: object | None = None
+    for block in page.get_text("blocks"):
+        if len(block) < 5:
+            continue
+        if isinstance(block[4], str) and not block[4].strip():
+            continue
+        rect = pymupdf.Rect(block[:4])
+        bbox = rect if bbox is None else (bbox | rect)
+    for drawing in page.get_drawings():
+        rect = drawing.get("rect")
+        if rect is None:
+            continue
+        r = pymupdf.Rect(rect)
+        if r.is_empty or r.is_infinite:
+            continue
+        bbox = r if bbox is None else (bbox | r)
+    if bbox is None:
+        return page.rect
+    clip = pymupdf.Rect(bbox)
+    clip.x0 = max(0.0, clip.x0 - pad)
+    clip.y0 = max(0.0, clip.y0 - pad)
+    clip.x1 = min(page.rect.width, clip.x1 + pad)
+    clip.y1 = min(page.rect.height, clip.y1 + pad)
+    return clip
+
+
+def compose_tekstblad_pagina_pdf(
+    dest: Path,
+    *,
+    title: str,
+    notes: list[str],
+    tekstblad_pdf: Path,
+) -> None:
+    """A4: gecentreerde titel + toelichting + getrimde tekstblad-PDF-inhoud."""
+    try:
+        import pymupdf
+    except ImportError as exc:
+        raise RuntimeError(
+            "pymupdf ontbreekt; installeer met: python -m pip install pymupdf"
+        ) from exc
+
+    if not tekstblad_pdf.is_file():
+        raise FileNotFoundError(f"tekstblad-PDF ontbreekt: {tekstblad_pdf}")
+
+    font_reg, _font_bold = _title_font_files()
+    src = pymupdf.open(tekstblad_pdf)
+    try:
+        doc = pymupdf.open()
+        page = doc.new_page(width=_A4_W, height=_A4_H)
+        y = _MARGIN
+        content_w = _A4_W - 2 * _MARGIN
+
+        title_h = max(28.0, 13.0 * 1.85)
+        title_rect = pymupdf.Rect(_MARGIN, y, _A4_W - _MARGIN, y + title_h)
+        rc = page.insert_textbox(
+            title_rect,
+            title,
+            fontsize=13.0,
+            fontname="koormap-kop",
+            fontfile=str(font_reg),
+            align=pymupdf.TEXT_ALIGN_CENTER,
+        )
+        if rc < 0:
+            raise RuntimeError(f"pagina-titel past niet: {title!r}")
+        y += title_h + 10.0
+
+        for note in notes:
+            note_h = max(36.0, 11.0 * 2.4)
+            note_rect = pymupdf.Rect(_MARGIN, y, _A4_W - _MARGIN, y + note_h)
+            rc = page.insert_textbox(
+                note_rect,
+                note,
+                fontsize=11.0,
+                fontname="koormap-note",
+                fontfile=str(font_reg),
+                align=pymupdf.TEXT_ALIGN_CENTER,
+            )
+            if rc < 0:
+                # Meer regels: hoger vak
+                note_h = 72.0
+                note_rect = pymupdf.Rect(_MARGIN, y, _A4_W - _MARGIN, y + note_h)
+                rc = page.insert_textbox(
+                    note_rect,
+                    note,
+                    fontsize=11.0,
+                    fontname="koormap-note",
+                    fontfile=str(font_reg),
+                    align=pymupdf.TEXT_ALIGN_CENTER,
+                )
+                if rc < 0:
+                    raise RuntimeError(f"toelichting past niet: {note!r}")
+            y += note_h + 8.0
+
+        y += 4.0
+        avail_h = _A4_H - _MARGIN - y
+        if avail_h < 40.0:
+            raise RuntimeError("geen ruimte meer voor tekstblad-inhoud op A4")
+
+        # Eén blad: inhoud van alle bronpagina’s onder elkaar, getrimd.
+        clips: list[tuple[object, object]] = []
+        total_h = 0.0
+        max_w = 0.0
+        for i in range(len(src)):
+            sp = src[i]
+            clip = _pdf_page_content_clip(sp)
+            clips.append((sp, clip))
+            total_h += float(clip.height)
+            max_w = max(max_w, float(clip.width))
+        if total_h <= 0 or max_w <= 0:
+            raise RuntimeError(f"lege tekstblad-PDF: {tekstblad_pdf}")
+
+        gap = 6.0
+        gaps = gap * max(0, len(clips) - 1)
+        scale = min(content_w / max_w, (avail_h - gaps) / total_h, 1.0)
+        scale = max(0.15, scale)
+
+        for i, (sp, clip) in enumerate(clips):
+            draw_w = float(clip.width) * scale
+            draw_h = float(clip.height) * scale
+            if y + draw_h > _A4_H - _MARGIN + 0.5:
+                # Past niet meer: schaal opnieuw strakker (zeldzaam)
+                raise RuntimeError(
+                    f"tekstblad-inhoud past niet op één A4 na trim "
+                    f"(schaal={scale:.3f}, nodig={draw_h:.1f}pt)"
+                )
+            x0 = _MARGIN + max(0.0, (content_w - draw_w) / 2)
+            dest_rect = pymupdf.Rect(x0, y, x0 + draw_w, y + draw_h)
+            page.show_pdf_page(dest_rect, src, sp.number, clip=clip)
+            y += draw_h
+            if i < len(clips) - 1:
+                y += gap
+
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        tmp = dest.with_suffix(dest.suffix + ".tmp")
+        doc.save(tmp)
+        doc.close()
+        tmp.replace(dest)
+    finally:
+        src.close()
+
+
+def compose_voorzien_pdf(dest: Path, *, title: str) -> None:
+    """A4-placeholder: afgeleide titel + korte «voorzien»-tekst (geen notatie)."""
+    try:
+        import pymupdf
+    except ImportError as exc:
+        raise RuntimeError(
+            "pymupdf ontbreekt; installeer met: python -m pip install pymupdf"
+        ) from exc
+
+    font_reg, _font_bold = _title_font_files()
+    doc = pymupdf.open()
+    page = doc.new_page(width=_A4_W, height=_A4_H)
+    y = _MARGIN
+    title_h = max(28.0, 13.0 * 1.85)
+    rect = pymupdf.Rect(_MARGIN, y, _A4_W - _MARGIN, y + title_h)
+    page.insert_textbox(
+        rect,
+        title,
+        fontsize=13.0,
+        fontname="koormap-kop",
+        fontfile=str(font_reg),
+        align=pymupdf.TEXT_ALIGN_CENTER,
+    )
+    y += title_h + 24.0
+    body = (
+        "Voorzien\n\n"
+        "Er is nog geen partituur voor dit blad. "
+        "Het catalogus-id is gereserveerd."
+    )
+    body_rect = pymupdf.Rect(_MARGIN, y, _A4_W - _MARGIN, _A4_H - _MARGIN)
+    page.insert_textbox(
+        body_rect,
+        body,
+        fontsize=12.0,
+        fontname="koormap-voorzien",
+        fontfile=str(font_reg),
+        align=pymupdf.TEXT_ALIGN_CENTER,
+    )
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    tmp = dest.with_suffix(dest.suffix + ".tmp")
+    doc.save(tmp)
+    doc.close()
+    tmp.replace(dest)
+
+
+def _catalogus_voorzien_title(md_path: Path, leaf_id: str) -> str:
+    from catalogus import derived_leaf_title
+
+    leaf_dir = CATALOGUS.joinpath(*leaf_id.split("/"))
+    return derived_leaf_title(leaf_id, leaf_dir=leaf_dir)
+
+
+def catalogus_needs_voorzien_pdf(md_path: Path) -> str | None:
+    """Als deze catalogus-leaf een voorzien-placeholder mag: leaf-id, anders None.
+
+    Geen notatie (``.vsa``/``.mvsa``/``.mscz``) en geen tekstblad-bron.
+    """
+    leaf_id = catalogus_leaf_id(md_path)
+    if not leaf_id:
+        return None
+    if leaf_has_tekstblad(leaf_id) or find_tekstblad_pdf(leaf_id):
+        return None
+    if try_find_notation_source(leaf_id) is not None:
+        return None
+    return leaf_id
+
+
+def catalogus_tekstblad_pagina_job(
+    md_path: Path,
+) -> tuple[str, Path] | None:
+    """Leaf-id + ``*.tekstblad.pdf`` als deze leaf een tekstblad-pagina.pdf krijgt."""
+    leaf_id = catalogus_leaf_id(md_path)
+    if not leaf_id:
+        return None
+    if try_find_notation_source(leaf_id) is not None:
+        return None
+    pdf = find_tekstblad_pdf(leaf_id)
+    if pdf is None:
+        return None
+    return leaf_id, pdf
+
+
+def _catalogus_tekstblad_pagina_title(leaf_id: str) -> str:
+    md = find_tekstblad_md(leaf_id)
+    if md is not None:
+        hint = _frontmatter_title(md)
+        if hint:
+            return hint
+    from catalogus import derived_leaf_title
+
+    return derived_leaf_title(
+        leaf_id, leaf_dir=CATALOGUS.joinpath(*leaf_id.split("/"))
     )
 
 
@@ -539,7 +918,9 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
             default=content_w,
         )
 
-        # Uniforme schaal: alles op één blad als het kan (referentie: 4 tonen/A4).
+        # Schaal: binnen pdf-bijelkaar (--compact) streven naar één A4
+        # (min breedte/hoogte). Zonder bijelkaar: leesbare breedte-schaal;
+        # bladreeks mag over meerdere A4 (catalogus lange mvsa e.d.).
         # Tussenkop-vak ≥ 24 pt hoog (anders weigert pymupdf insert_textbox).
         lyric_k = 13.0 * 1.15
         fixed = (
@@ -550,10 +931,14 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
         )
         s_h = ((avail - fixed) / sum_sh) if sum_sh > 1e-6 else 1.0
         s_w = content_w / max_sw if max_sw > 0 else 1.0
-        scale = max(0.12, min(s_w, s_h))
+        if flow.any_compact:
+            scale = max(0.12, min(s_w, s_h))
+        else:
+            scale = max(0.12, min(s_w, 1.0))
         print(
             f"  compose-schaal {scale:.3f} "
-            f"(breedte-max {s_w:.3f}, hoogte-fit {s_h:.3f})",
+            f"(breedte-max {s_w:.3f}, hoogte-fit {s_h:.3f}"
+            f"{', bijelkaar' if flow.any_compact else ', meerbladig-ok'})",
             flush=True,
         )
 
@@ -632,23 +1017,50 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
 
 def build_one(md_path: Path, *, force: bool = False) -> Path | None:
     md_path = md_path.resolve()
+    out = _pagina_pdf_out_path(md_path)
     text = md_path.read_text(encoding="utf-8")
+
+    voorzien_id = catalogus_needs_voorzien_pdf(md_path)
+    if voorzien_id is not None:
+        if out.is_file() and not force:
+            if out.stat().st_mtime >= md_path.stat().st_mtime:
+                return out
+        title = _catalogus_voorzien_title(md_path, voorzien_id)
+        print(f"  voorzien-placeholder {voorzien_id}", flush=True)
+        compose_voorzien_pdf(out, title=title)
+        return out
+
+    tekstblad_job = catalogus_tekstblad_pagina_job(md_path)
+    if tekstblad_job is not None:
+        leaf_id, tb_pdf = tekstblad_job
+        deps = [md_path, tb_pdf]
+        tb_md = find_tekstblad_md(leaf_id)
+        if tb_md is not None:
+            deps.append(tb_md)
+        if out.is_file() and not force:
+            newest = max(p.stat().st_mtime for p in deps if p.is_file())
+            if out.stat().st_mtime >= newest:
+                return out
+        title = _catalogus_tekstblad_pagina_title(leaf_id)
+        notes = prose_notes_from_catalogus_md(text)
+        print(f"  tekstblad-pagina {leaf_id}", flush=True)
+        compose_tekstblad_pagina_pdf(
+            out, title=title, notes=notes, tekstblad_pdf=tb_pdf
+        )
+        return out
+
     if "bieb" not in text and "muziek" not in text:
         return None
     try:
         flows = parse_page_flows(text)
     except ValueError as exc:
         raise ValueError(f"{md_path}: {exc}") from exc
+    flows = ensure_catalogus_derived_titles(flows, md_path)
     if not flows:
         return None
 
-    if md_path.name == "index.md":
-        out = md_path.with_name("index.pagina.pdf")
-    else:
-        out = md_path.with_name(md_path.stem + ".pagina.pdf")
-
     # Bronnen voor mtime-check (notatiebestanden, geen catalogus-PDF)
-    deps: list[Path] = [md_path]
+    deps = [md_path]
     for flow in flows:
         for mid in flow.music_ids:
             deps.append(find_notation_source(mid))
@@ -773,8 +1185,16 @@ def main(argv: list[str] | None = None) -> int:
             return SKIP
         try:
             out = build_one(md, force=args.force)
+        except FileNotFoundError as exc:
+            msg = str(exc)
+            # Leaf zonder notatiebron (voorzien / tekstblad): geen harde fout
+            if "geen .mvsa/.vsa/.mscz" in msg or "plakt geen catalogus-PDF" in msg:
+                print(f"OVERGESLAGEN: {exc}", file=sys.stderr)
+                return SKIP
+            print(f"FOUT: {exc}", file=sys.stderr)
+            failed_paths.append(str(md))
+            return 1
         except (
-            FileNotFoundError,
             ValueError,
             RuntimeError,
             subprocess.CalledProcessError,

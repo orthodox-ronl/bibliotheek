@@ -6,6 +6,4 @@ automatische_inhoud: false
 artefacten_handmatig: true
 ---
 
-# Tropaar Nikolaas van Myra toon 4 (Hemelum)
-
 {{< bieb id="tropaar/nikolaas-van-myra-toon-4/hemelum" />}}

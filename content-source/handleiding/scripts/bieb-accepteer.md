@@ -92,7 +92,7 @@ wijzigen), [verwijder](../bieb-verwijder/) (wissen + dangling refs),
 | --- | --- |
 | `--title` | Uitzondering: overschrijf afgeleide leaf-titel |
 | `--status` | Publicatiestatus |
-| `--stub` | Lege leaf (`voorzien`) |
+| `--stub` | Lege leaf (`voorzien`); schrijft meteen `index.pagina.pdf` (tekst «Voorzien», geen partituur) |
 | `--move` | Bronbestanden verplaatsen (default: kopieer) |
 | `--force` | Overschrijven / `productie` / stam-mismatch toestaan |
 | `--dry-run` | Alleen tonen |

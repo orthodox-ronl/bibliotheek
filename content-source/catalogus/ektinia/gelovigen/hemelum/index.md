@@ -5,6 +5,4 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Gelovigen-litanie (Hemelum, NL)
-
 {{< bieb id="ektinia/gelovigen/hemelum" />}}

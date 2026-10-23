@@ -69,6 +69,9 @@ Implementatie: `scripts/catalogus.py` (`section_title`, `derived_leaf_*`,
 - `publicatiestatus`, `automatische_inhoud`, `alias_van`,
   build-/productflags, shortcode `bieb` op de leaf.
 - Geen redactionele H1-tekst die losstaat van id/bron.
+- Op een uitvoeringsvorm-leaf: **geen** Markdown-`#` / `<h1>` die de
+  template-H1 herhaalt; body bij voorkeur alleen `bieb` (zie
+  [plans/catalogus-pagina-pdf.md](plans/catalogus-pagina-pdf.md)).
 
 ## Implementatiestatus
 
@@ -87,3 +90,6 @@ Implementatie: `scripts/catalogus.py` (`section_title`, `derived_leaf_*`,
 2. Bij nieuwe uitvoeringsvorm-labels: Python-dict én
    `data/uitvoeringsvorm-link-titles.yaml` bijwerken.
 3. Geen hernoem-uitbreiding die op frontmatter-titels leunt.
+4. Geen nieuwe catalogus-leaf met dubbele hoofdtitel (Markdown-`#` naast
+   template-H1); pagina-PDF-titel komt uit afgeleide titel + compositor
+   (plan catalogus-pagina-pdf), niet uit een tweede H1 in de body.

@@ -5,6 +5,4 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 21 En Allen
-
 {{< bieb id="en-allen/default/hemelum" />}}

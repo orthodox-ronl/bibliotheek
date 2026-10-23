@@ -5,6 +5,4 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Kondak zaterdag heiligen toon 8
-
 {{< bieb id="kondak/zaterdag-heiligen-toon-8/hemelum" />}}

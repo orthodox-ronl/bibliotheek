@@ -5,6 +5,4 @@ publicatiestatus: voorzien
 automatische_inhoud: false
 ---
 
-# Prokimen zondag toon 3 (Kiev, Groningen)
-
 Nog geen `.vsa` — bron Groningen voorzien.

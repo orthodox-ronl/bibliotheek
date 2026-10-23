@@ -5,6 +5,4 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Tropaar Nikolaas van Myra (Liturgikon)
-
 {{< bieb id="tropaar/nikolaas-van-myra-toon-4/liturgikon" />}}

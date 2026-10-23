@@ -5,6 +5,4 @@ publicatiestatus: voorzien
 automatische_inhoud: false
 ---
 
-# 15c Cherubijnenhymne (Kastorski, Kerkslavisch transliteratie)
-
 {{< bieb id="cherubijnenhymne/15c-kastorski/hemelum-ksl" />}}

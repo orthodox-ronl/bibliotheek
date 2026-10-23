@@ -5,6 +5,4 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# 2 Eerste antifoon (zondag)
-
 {{< bieb id="eerste-antifoon/zondag/hemelum" />}}

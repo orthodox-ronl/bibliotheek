@@ -173,7 +173,7 @@ Twee schrijfwijzen zijn **gelijkwaardig** wanneer er een openstaande
 | Onderdeel | Aliassen | Betekenis |
 | --- | --- | --- |
 | `titel` | `title` | Catalogustitel van de uitvoeringsvorm, als platte tekst (geschikt in een Markdown-kop of binnen `kop`). |
-| `muziek` | — | Partituurweergave (+ oefenacties bij dat blok). Geen paginatitel forceren. **Scherm (voorkeur):** sibling ``.mvsa.from-ir.musicxml`` (uit Score-IR) via OSMD — geen MuseScore-paginamodel. **Fallback:** muziek-SVG (``.mvsa.svg`` / ``.vsa.svg``, of legacy `static/vsa/bladermap/….svg` bij `.vsa`). Catalogus-PDF (`.mvsa.pdf` / `.vsa.pdf`) is voor Downloaden/Printen (mag titel, id, e.d.) en op het scherm alleen als er geen OSMD-MusicXML én geen SVG is. Zelfde SVG-regel voor `.vsa` en `.mvsa`. Artifact: `vsa mvsa score-ir … --musicxml` in VSA-tooling. |
+| `muziek` | — | Partituurweergave (+ oefenacties bij dat blok). Geen paginatitel forceren. **Schermketen en look:** [schermpartituur.md](schermpartituur.md) (normatief). Kort: voorkeur ``.mvsa.from-ir.musicxml`` → OSMD; anders SVG (``.mvsa.svg`` / ``.vsa.svg`` / legacy bladermap); catalogus-PDF alleen op scherm zonder OSMD én zonder SVG. Download/Print blijft de A4-product-PDF. Artifact Score-IR: `vsa mvsa score-ir … --musicxml` in VSA-tooling. |
 | `bron` | — | Korte bronvermelding van de uitvoeringsvorm. |
 | `copyright` | — | Copyright-/licentieregel(s), alleen als de beheerder dit zet. |
 | `veld` | — | Generieke frontmatter; zie §5.4. |
@@ -308,15 +308,22 @@ blad mogen staan (bijv. NL en KSL elk een eigen blad).
 
 ---
 
-## 8a. Relatie tot kale muziek-SVG en Score-IR (afspraak)
+## 8a. Relatie tot kale muziek-SVG en Score-IR
 
-Org-afspraak (niet normatief hier; tooling-plan): kale blad-SVG voor print;
+**Schermlook (normatief in deze repo):** [schermpartituur.md](schermpartituur.md)
+— keten OSMD → SVG → PDF-fallback, titels, OSMD-cues/centreren, en wat
+SVG/mscz/tekstblad wél en nog niet eisen.
+
+Org-/tooling-richting (print vs scherm): kale blad-SVG voor print;
 `pagina-pdf` bouwt `index.pagina.pdf` uit blad-SVG’s + Markdown (geen
-catalogus-PDF-plak). **Schermrichting:** Score-IR → MusicXML-sibling
-(``.from-ir.musicxml``) → OSMD (shortcode `muziek` / `bieb-score`). MuseScore
-blijft print/blad. Zie
+catalogus-PDF-plak). MuseScore blijft print/blad. Zie
 [VSA-tooling — kale-muziek-svg-en-uitgaven](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/kale-muziek-svg-en-uitgaven.md)
 §4 en [partituur-ir §7](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/partituur-ir.md).
+
+**Catalogus-leaves** (één uitvoeringsvorm per `index.md`): body zonder
+dubbele Markdown-H1; PDF-titel uit afgeleide catalogustitel wanneer de
+Markdown geen `kop`/`#` meer heeft — plan
+[catalogus-pagina-pdf.md](../plans/catalogus-pagina-pdf.md).
 
 ---
 
@@ -539,7 +546,7 @@ Niet in deze authoring-taal (bewust):
 | Shortcode `witruimte` (`klein` / `middel` / `groot`) | **Afgesproken + web/PDF** |
 | Shortcode-implementatie (web) + print-CSS (`bieb` / `pdf-…`) | **Gedaan (M1)** — self-closing `bieb` schrijven met `/>` (Hugo) |
 | Nav Download/Print | **Gedaan (M2)** |
-| Pagina-PDF-pijplijn | **Gedaan (M3)** — `scripts\pagina-pdf.cmd` |
+| Pagina-PDF-pijplijn | **Gedaan (M3)** — `scripts\pagina-pdf.cmd` (koormap); catalogus-dekking + titel zonder `#`: [catalogus-pagina-pdf.md](../plans/catalogus-pagina-pdf.md) |
 | Proefslots + docs (`bieb` / `pdf-…`) | **Gedaan (M4)** — o.a. vredeslitanie, eerste-kleine-litanie; `proef-ektinias` verwijderd |
 | Shortcode `kop` + CSS; proefslots HTML → `kop` | **Gedaan (M5)** — vredeslitanie, eerste-kleine-litanie, alleluia |
 | Handleiding + spiekbriefje voor beheerders | **Gedaan (M6)** — `handleiding/start/koormap-blad.md` |

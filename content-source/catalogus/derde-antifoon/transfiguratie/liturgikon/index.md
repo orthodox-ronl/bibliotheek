@@ -5,6 +5,4 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Derde antifoon Transfiguratie (Liturgikon)
-
 {{< bieb id="derde-antifoon/transfiguratie/liturgikon" />}}

@@ -5,6 +5,4 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Catechumenen-litanie (Hemelum, NL)
-
 {{< bieb id="ektinia/catechumenen/hemelum" />}}

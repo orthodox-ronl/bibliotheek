@@ -5,6 +5,4 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Ontslapenen-litanie (Hemelum, KSL)
-
 {{< bieb id="ektinia/ontslapenen/hemelum-ksl" />}}

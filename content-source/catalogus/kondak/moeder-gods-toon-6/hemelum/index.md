@@ -5,6 +5,4 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Kondak Moeder Gods toon 6 (Hemelum)
-
 {{< bieb id="kondak/moeder-gods-toon-6/hemelum" />}}

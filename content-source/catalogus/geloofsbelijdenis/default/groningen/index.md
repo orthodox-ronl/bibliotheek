@@ -5,6 +5,4 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Geloofsbelijdenis Standaard (Groningen)
-
 {{< bieb id="geloofsbelijdenis/default/groningen" />}}

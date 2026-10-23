@@ -5,6 +5,4 @@ publicatiestatus: voorzien
 automatische_inhoud: false
 ---
 
-# 15b Cherubijnenhymne (Fatejev)
-
 {{< bieb id="cherubijnenhymne/15b-fatejev/hemelum" />}}
