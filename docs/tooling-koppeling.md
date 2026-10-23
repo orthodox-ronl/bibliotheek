@@ -58,10 +58,11 @@ Naamgeving van bronnen en afgeleiden, en welke publicatiecontroles er (gaan) zij
 [publicatiecontrole.md](publicatiecontrole.md).
 
 **Scherm (Score-IR / OSMD):** sibling ``.mvsa.from-ir.musicxml`` (plus
-``.mvsa.score-ir.json``) via ``vsa mvsa score-ir … --musicxml``. Shortcode
-`muziek` / partial `bieb-score` tekent die MusicXML met OSMD als die sibling
-er is; anders blijft de MuseScore-SVG-fallback. Nog niet in
-`mvsa-products`/`check` — optioneel tot die spoor is uitgebreid.
+``.mvsa.score-ir.json``) via ``mvsa-products`` (tooling
+``mvsa score-ir … --musicxml``). Shortcode `muziek` / partial `bieb-score`
+tekent die MusicXML met OSMD als die sibling er is; anders blijft de
+MuseScore-SVG-fallback. `check` controleert herkomststempels net als bij
+MXL/PDF/SVG.
 
 Workflow Pages bepaalt de ref:
 

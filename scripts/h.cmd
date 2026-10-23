@@ -68,7 +68,7 @@ echo     PDF + Coria-.mxl bij basispartituur-.mscz
 echo   tekstblad-products
 echo     PDF bij .tekstblad.md
 echo   mvsa-products
-echo     Coria-.mvsa.mxl + .mvsa.pdf + .mvsa.svg bij .mvsa
+echo     Coria-.mxl + PDF + SVG + Score-IR + from-ir MusicXML bij .mvsa
 echo   audio-products
 echo     preview-.mp3 ^(Beluisteren^)
 echo   lyrics-products

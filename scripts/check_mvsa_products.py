@@ -1,4 +1,4 @@
-"""Controleer bibliotheek-``.mvsa`` vs ``.mvsa.mxl`` / ``.pdf`` / ``.svg``.
+"""Controleer bibliotheek-``.mvsa`` vs MXL/PDF/SVG/Score-IR/from-ir.
 
 Slaat import-siblings ``*.mscz.mvsa`` over. Schrijft
 ``data/mvsa-product-status.json``. Exit 1 bij problemen tenzij ``--warn-only``.
@@ -9,7 +9,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import sys
+from collections.abc import Callable
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
@@ -18,16 +18,20 @@ from product_meta import (
     FIELD_SOURCE_KIND,
     FIELD_SOURCE_SHA,
     SOURCE_KIND_MVSA,
+    read_from_ir_musicxml_stamp,
     read_mxl_stamp,
     read_pdf_stamp,
+    read_score_ir_stamp,
     read_svg_stamp,
     source_sha256,
 )
 from sync_mvsa_products import (
     DEFAULT_ROOT,
     collect_mvsa,
+    product_from_ir_musicxml_for_mvsa,
     product_mxl_for_mvsa,
     product_pdf_for_mvsa,
+    product_score_ir_for_mvsa,
     product_svg_for_mvsa,
 )
 
@@ -64,127 +68,111 @@ def _bladermap_key(path: Path) -> str:
     return rel.as_posix()
 
 
+def _check_stamped_product(
+    issues: list[Issue],
+    *,
+    path: Path,
+    digest: str,
+    missing_kind: str,
+    missing_detail: str,
+    unstamped_kind: str,
+    stale_kind: str,
+    label: str,
+    read_stamp: Callable[[Path], dict[str, str]],
+) -> None:
+    if not path.is_file():
+        issues.append(Issue(missing_kind, _rel(path), missing_detail))
+        return
+    stamp = read_stamp(path)
+    kind = stamp.get(FIELD_SOURCE_KIND, "")
+    got = stamp.get(FIELD_SOURCE_SHA, "")
+    if not got:
+        issues.append(
+            Issue(
+                unstamped_kind,
+                _rel(path),
+                f"{label} mist vsa-source-sha256 (opnieuw mvsa-products)",
+            )
+        )
+    elif kind and kind != SOURCE_KIND_MVSA:
+        issues.append(
+            Issue(
+                "wrong_kind",
+                _rel(path),
+                f"{label} source-kind is {kind!r}, verwacht {SOURCE_KIND_MVSA!r}",
+            )
+        )
+    elif got != digest:
+        when = stamp.get(FIELD_GENERATED_AT, "?")
+        issues.append(
+            Issue(
+                stale_kind,
+                _rel(path),
+                f"{label}-source-hash wijkt af (gegenereerd {when}); .mvsa is gewijzigd",
+            )
+        )
+
+
 def check_one(mvsa: Path) -> FolderStatus:
     issues: list[Issue] = []
     digest = source_sha256(mvsa)
     fix = r"scripts\mvsa-products.cmd"
 
-    mxl = product_mxl_for_mvsa(mvsa)
-    if not mxl.is_file():
-        issues.append(
-            Issue(
-                "missing_mxl",
-                _rel(mxl),
-                "Coria-.mvsa.mxl ontbreekt naast de .mvsa",
-            )
-        )
-    else:
-        stamp = read_mxl_stamp(mxl)
-        kind = stamp.get(FIELD_SOURCE_KIND, "")
-        got = stamp.get(FIELD_SOURCE_SHA, "")
-        if not got:
-            issues.append(
-                Issue(
-                    "unstamped_mxl",
-                    _rel(mxl),
-                    "MXL mist vsa-source-sha256 (opnieuw mvsa-products)",
-                )
-            )
-        elif kind and kind != SOURCE_KIND_MVSA:
-            issues.append(
-                Issue(
-                    "wrong_kind",
-                    _rel(mxl),
-                    f"MXL source-kind is {kind!r}, verwacht {SOURCE_KIND_MVSA!r}",
-                )
-            )
-        elif got != digest:
-            when = stamp.get(FIELD_GENERATED_AT, "?")
-            issues.append(
-                Issue(
-                    "stale_mxl",
-                    _rel(mxl),
-                    f"MXL-source-hash wijkt af (gegenereerd {when}); .mvsa is gewijzigd",
-                )
-            )
-
-    pdf = product_pdf_for_mvsa(mvsa)
-    if not pdf.is_file():
-        issues.append(
-            Issue(
-                "missing_pdf",
-                _rel(pdf),
-                "PDF ontbreekt naast de .mvsa",
-            )
-        )
-    else:
-        stamp = read_pdf_stamp(pdf)
-        kind = stamp.get(FIELD_SOURCE_KIND, "")
-        got = stamp.get(FIELD_SOURCE_SHA, "")
-        if not got:
-            issues.append(
-                Issue(
-                    "unstamped_pdf",
-                    _rel(pdf),
-                    "PDF mist vsa-source-sha256 (opnieuw mvsa-products)",
-                )
-            )
-        elif kind and kind != SOURCE_KIND_MVSA:
-            issues.append(
-                Issue(
-                    "wrong_kind",
-                    _rel(pdf),
-                    f"PDF source-kind is {kind!r}, verwacht {SOURCE_KIND_MVSA!r}",
-                )
-            )
-        elif got != digest:
-            when = stamp.get(FIELD_GENERATED_AT, "?")
-            issues.append(
-                Issue(
-                    "stale_pdf",
-                    _rel(pdf),
-                    f"PDF-source-hash wijkt af (gegenereerd {when}); .mvsa is gewijzigd",
-                )
-            )
-
-    svg = product_svg_for_mvsa(mvsa)
-    if not svg.is_file():
-        issues.append(
-            Issue(
-                "missing_svg",
-                _rel(svg),
-                "Koormap-SVG ontbreekt naast de .mvsa",
-            )
-        )
-    else:
-        stamp = read_svg_stamp(svg)
-        kind = stamp.get(FIELD_SOURCE_KIND, "")
-        got = stamp.get(FIELD_SOURCE_SHA, "")
-        if not got:
-            issues.append(
-                Issue(
-                    "unstamped_svg",
-                    _rel(svg),
-                    "SVG mist vsa-source-sha256 (opnieuw mvsa-products)",
-                )
-            )
-        elif kind and kind != SOURCE_KIND_MVSA:
-            issues.append(
-                Issue(
-                    "wrong_kind",
-                    _rel(svg),
-                    f"SVG source-kind is {kind!r}, verwacht {SOURCE_KIND_MVSA!r}",
-                )
-            )
-        elif got != digest:
-            when = stamp.get(FIELD_GENERATED_AT, "?")
-            issues.append(
-                Issue(
-                    "stale_svg",
-                    _rel(svg),
-                    f"SVG-source-hash wijkt af (gegenereerd {when}); .mvsa is gewijzigd",
-                )
-            )
+    _check_stamped_product(
+        issues,
+        path=product_mxl_for_mvsa(mvsa),
+        digest=digest,
+        missing_kind="missing_mxl",
+        missing_detail="Coria-.mvsa.mxl ontbreekt naast de .mvsa",
+        unstamped_kind="unstamped_mxl",
+        stale_kind="stale_mxl",
+        label="MXL",
+        read_stamp=read_mxl_stamp,
+    )
+    _check_stamped_product(
+        issues,
+        path=product_pdf_for_mvsa(mvsa),
+        digest=digest,
+        missing_kind="missing_pdf",
+        missing_detail="PDF ontbreekt naast de .mvsa",
+        unstamped_kind="unstamped_pdf",
+        stale_kind="stale_pdf",
+        label="PDF",
+        read_stamp=read_pdf_stamp,
+    )
+    _check_stamped_product(
+        issues,
+        path=product_svg_for_mvsa(mvsa),
+        digest=digest,
+        missing_kind="missing_svg",
+        missing_detail="Koormap-SVG ontbreekt naast de .mvsa",
+        unstamped_kind="unstamped_svg",
+        stale_kind="stale_svg",
+        label="SVG",
+        read_stamp=read_svg_stamp,
+    )
+    _check_stamped_product(
+        issues,
+        path=product_score_ir_for_mvsa(mvsa),
+        digest=digest,
+        missing_kind="missing_score_ir",
+        missing_detail="Score-IR (.mvsa.score-ir.json) ontbreekt naast de .mvsa",
+        unstamped_kind="unstamped_score_ir",
+        stale_kind="stale_score_ir",
+        label="Score-IR",
+        read_stamp=read_score_ir_stamp,
+    )
+    _check_stamped_product(
+        issues,
+        path=product_from_ir_musicxml_for_mvsa(mvsa),
+        digest=digest,
+        missing_kind="missing_from_ir",
+        missing_detail="OSMD-MusicXML (.mvsa.from-ir.musicxml) ontbreekt naast de .mvsa",
+        unstamped_kind="unstamped_from_ir",
+        stale_kind="stale_from_ir",
+        label="from-ir MusicXML",
+        read_stamp=read_from_ir_musicxml_stamp,
+    )
 
     return FolderStatus(
         dir=_bladermap_key(mvsa),

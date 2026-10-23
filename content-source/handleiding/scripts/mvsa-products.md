@@ -6,8 +6,8 @@ weight: 106
 
 # NAME
 
-`scripts\mvsa-products.cmd` — Coria-`.mxl`, A4-PDF en koormap-SVG maken bij
-een catalogus-`.mvsa`
+`scripts\mvsa-products.cmd` — Coria-`.mxl`, A4-PDF, koormap-SVG en
+Score-IR/OSMD-MusicXML maken bij een catalogus-`.mvsa`
 
 # SYNOPSIS
 
@@ -18,10 +18,16 @@ scripts\mvsa-products.cmd [pad] [--force] [--dry-run]
 # DESCRIPTION
 
 Exporteert naast een **canonieke catalogus-`.mvsa`** de siblings die
-koorleden gebruiken: een **Coria-`.mxl`** (`{stam}.mvsa.mxl`), een
-A4-**PDF** (`{stam}.mvsa.pdf`) voor download/print, en een
-**muziek-only SVG** (`{stam}.mvsa.svg`) voor de webweergave van shortcode
-`muziek` / `bieb` (partituur zonder titel/colofon, bijgesneden hoogte).
+koorleden en de site gebruiken:
+
+| Product | Bestand | Waartoe |
+| --- | --- | --- |
+| Coria-MXL | `{stam}.mvsa.mxl` | Afspelen / Coria-contract |
+| A4-PDF | `{stam}.mvsa.pdf` | Downloaden en printen |
+| Koormap-SVG | `{stam}.mvsa.svg` | Scherm-fallback zonder OSMD |
+| Score-IR | `{stam}.mvsa.score-ir.json` | Brug naar scherm/CoriB |
+| OSMD-MusicXML | `{stam}.mvsa.from-ir.musicxml` | Schermpartituur via OSMD |
+
 Het script schrijft herkomstinformatie (`vsa-source-sha256`,
 `vsa-source-kind=mvsa`, `vsa-generated-at`) in die producten.
 
@@ -34,20 +40,21 @@ op het pad = overslaan (geen fout; zelfde schil als
 
 Onder de motorkap: tooling-CLI `mvsa musicxml` voor Coria; `mvsa pdf` met
 layoutprofiel `partituur` en catalogus-id uit het bladermap-pad voor de
-PDF; `mvsa svg` voor de koormap-SVG (MuseScore 4, layout `muziek`). Geen
-fork van VSA-tooling-logica. Een `.mvsa` die meer dan één SVG-pagina zou
-geven, faalt bij `mvsa svg` — verkort het stuk of gebruik `--section` in
-de tooling (niet in dit script).
+PDF; `mvsa svg` voor de koormap-SVG (MuseScore 4, layout `muziek`);
+`mvsa score-ir --musicxml` voor Score-IR plus OSMD-MusicXML (geen
+MuseScore). Geen fork van VSA-tooling-logica. Een `.mvsa` die meer dan één
+SVG-pagina zou geven, faalt bij `mvsa svg` — verkort het stuk of gebruik
+`--section` in de tooling (niet in dit script).
 
 CI genereert deze producten niet; jij wel lokaal, daarna committen. Zonder
-MuseScore kan het script alleen de `.mxl` vernieuwen en meldt het ontbrekende
-PDF’s en SVG’s.
+MuseScore kan het script de `.mxl` en Score-IR/MusicXML vernieuwen en meldt
+het ontbrekende PDF’s en SVG’s.
 
 # OPTIONS
 
 | Optie | Betekenis |
 | --- | --- |
-| `--force` | Bestaande MXL/PDF/SVG overschrijven |
+| `--force` | Bestaande producten overschrijven |
 | `--dry-run` | Alleen tonen wat er zou gebeuren |
 
 # EXAMPLES
@@ -59,9 +66,10 @@ scripts\mvsa-products.cmd content-source\catalogus\ektinia\vrede\hemelum --force
 
 # WHEN
 
-Als een catalogus-`.mvsa` klaar is voor Coria, print-PDF en koormap-weergave,
-of als `check --strict` meldt dat `.mvsa.mxl` / `.mvsa.pdf` / `.mvsa.svg`
-ontbreekt of verouderd is.
+Als een catalogus-`.mvsa` klaar is voor Coria, print-PDF, koormap-SVG en
+schermpartituur (OSMD), of als `check --strict` meldt dat
+`.mvsa.mxl` / `.mvsa.pdf` / `.mvsa.svg` / `.score-ir.json` /
+`.from-ir.musicxml` ontbreekt of verouderd is.
 
 # SEE ALSO
 

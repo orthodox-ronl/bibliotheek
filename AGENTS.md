@@ -72,12 +72,12 @@ serve
 Preview: **http://127.0.0.1:18732/** — nooit poort **1313**, niet **18731** (VSA-demo).
 
 `check` = validate + publicatiecontrole (VSA inclusief `.vsa.svg`, MSCZ,
-tekstblad, mvsa, audio, lyrics, import) + bibliotheek-id-colofon
-(`Bibliotheek-id:`) + Coria-fingerprints + legacy bladermap-SVG + Hugo.
-`check` schrijft geen catalogusproducten. Vernieuwen:
-`scripts\products.cmd` (of los `vsa-products` / `mscz-products` /
-`mvsa-products` / `tekstblad-products` / `audio-products` /
-`lyrics-products`). Koormap-blad `index.pagina.pdf`:
+tekstblad, mvsa inclusief Score-IR/from-ir MusicXML, audio, lyrics,
+import) + bibliotheek-id-colofon (`Bibliotheek-id:`) + Coria-fingerprints
++ legacy bladermap-SVG + Hugo. `check` schrijft geen catalogusproducten.
+Vernieuwen: `scripts\products.cmd` (of los `vsa-products` /
+`mscz-products` / `mvsa-products` / `tekstblad-products` /
+`audio-products` / `lyrics-products`). Koormap-blad `index.pagina.pdf`:
 `scripts\pagina-pdf.cmd` (niet in `products` of `check`). Optioneel
 tooling klaarzetten:
 

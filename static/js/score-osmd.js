@@ -4,7 +4,7 @@
  *
  * Cues op eerste noot, gedeelde hoogte per systeem. Maatbreedte: maten met
  * cues krijgen ruimte van maten zonder cue (wit rechts), zodat cues binnen
- * de maatstrepen blijven — zonder systeembraken te forceren. Daarna noten
+ * de maatstrepen blijven — zonder systeemovergangen te forceren. Daarna noten
  * + lyrics centreren in die (vaak verbrede) maten; cues blijven staan.
  */
 (function () {

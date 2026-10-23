@@ -29,7 +29,7 @@ vanuit de repo-root.
 | `mscz-products` | Maakt/vernieuwt `{stam}.mscz.pdf` + `{stam}.mscz.mxl` bij een basispartituur-`.mscz`. | [mscz-products](mscz-products/) |
 | `tekstblad-products` | Maakt/vernieuwt `{stam}.tekstblad.pdf` bij een catalogus-`.tekstblad.md`. | [tekstblad-products](tekstblad-products/) |
 | `import-mvsa` | Maakt/vernieuwt bewerkvorm `{stam}.mscz.mvsa` naast een basispartituur-`.mscz` (alleen bestaande siblings, tenzij pad/`--create`). | [import-mvsa](import-mvsa/) |
-| `mvsa-products` | Maakt/vernieuwt `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf` + `{stam}.mvsa.svg` bij een catalogus-`.mvsa`. | [mvsa-products](mvsa-products/) |
+| `mvsa-products` | Maakt/vernieuwt MXL, PDF, SVG, Score-IR en from-ir MusicXML bij een catalogus-`.mvsa`. | [mvsa-products](mvsa-products/) |
 | `audio-products` | Maakt/vernieuwt preview-`{stam}.{bron}.mp3` bij `.mvsa` / `.mscz` / `.vsa` (Beluisteren). | [audio-products](audio-products/) |
 | `lyrics-products` | Maakt/vernieuwt `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` / `.mscz.lyrics.txt` (zoektekst). | [lyrics-products](lyrics-products/) |
 | `all-products` | Roept alle `*-products` (+ import-mvsa) achter elkaar aan voor ontbrekende/stale siblings. | [all-products](all-products/) |

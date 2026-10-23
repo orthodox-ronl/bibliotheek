@@ -42,7 +42,7 @@ Opnemen in de catalogus  (bieb accepteer → Catalogus)
     |
     +-- Basispartituur  ->  PDF + Coria-.mxl + .mscz.mp3
     +-- VSA             ->  .vsa.svg + Coria-.vsa.mxl + .vsa.pdf + .vsa.mp3
-    +-- mvsa            ->  Coria-.mvsa.mxl + .mvsa.pdf + .mvsa.svg + .mvsa.mp3
+    +-- mvsa            ->  Coria-.mxl + PDF + SVG + Score-IR + from-ir + .mp3
     +-- Print-vel       ->  handmatige PDF
     +-- Tekstblad       ->  .tekstblad.md -> .tekstblad.pdf
     |
@@ -68,7 +68,7 @@ komt uit de catalogus-siblings hierboven.
 | Catalogus-id hernoemen | Zangstuk-/variant-/uitvoeringsvorm-id wijzigen inclusief producten en 1:1-koormap-slots | [Hernoemen](zangstuk-hernoemen/) |
 | Basispartituur | MuseScore-basispartituur naar A4-PDF en Coria-`.mxl` | [Basispartituur](basispartituur/) |
 | VSA | Eenstemmige `.vsa` naar `.vsa.svg`, Coria-`.vsa.mxl` en A4-`.vsa.pdf` | [VSA](vsa/) |
-| mvsa | Meerstemmige `.mvsa` naar Coria-`.mvsa.mxl`, A4-`.mvsa.pdf` en koormap-`.mvsa.svg` | [mvsa](mvsa/) |
+| mvsa | Meerstemmige `.mvsa` naar Coria-MXL, A4-PDF, koormap-SVG, Score-IR en OSMD-MusicXML | [mvsa](mvsa/) |
 | audio | Preview-`.mp3` voor Beluisteren (zelfde bronnen als Coria-MXL) | [audio](audio/) |
 | Print-vel | Print-`.mscz` met handmatige PDF, buiten de basispartituur-keten | [Print-vel](print-vel/) |
 | Tekstblad | Liturgische tekst/dialoog: `.tekstblad.md` naar A4-PDF | [Tekstblad](tekstblad/) |

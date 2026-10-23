@@ -1,8 +1,9 @@
-"""Maak sibling ``{stam}.mvsa.mxl`` + ``.mvsa.pdf`` + ``.mvsa.svg`` bij ``.mvsa``.
+"""Maak siblings bij catalogus-``.mvsa``.
 
 Roept tooling aan: ``mvsa musicxml`` (Coria), ``mvsa pdf`` (MuseScore +
 layoutprofiel ``partituur``), ``mvsa svg`` (MuseScore + layout ``muziek``,
-trim). Zet ``vsa-source-sha256`` + ``vsa-source-kind=mvsa``.
+trim), ``mvsa score-ir --musicxml`` (Score-IR JSON + OSMD-MusicXML).
+Zet ``vsa-source-sha256`` + ``vsa-source-kind=mvsa``.
 
 Slaat ``input/``, ``artefacten_handmatig`` en import-siblings ``*.mscz.mvsa``
 over. CI genereert niet — alleen ``check_mvsa_products``; vernieuw lokaal met
@@ -29,12 +30,16 @@ from product_meta import (
     FIELD_SOURCE_SHA,
     GENERATOR_MVSA,
     SOURCE_KIND_MVSA,
+    read_from_ir_musicxml_stamp,
     read_mxl_stamp,
     read_pdf_stamp,
+    read_score_ir_stamp,
     read_svg_stamp,
     source_sha256,
+    stamp_from_ir_musicxml,
     stamp_mxl_source,
     stamp_pdf,
+    stamp_score_ir_json,
     stamp_svg,
     utc_now_iso,
 )
@@ -56,6 +61,16 @@ def product_pdf_for_mvsa(mvsa: Path) -> Path:
 def product_svg_for_mvsa(mvsa: Path) -> Path:
     """``naam.mvsa`` → ``naam.mvsa.svg``."""
     return mvsa.with_suffix(".mvsa.svg")
+
+
+def product_score_ir_for_mvsa(mvsa: Path) -> Path:
+    """``naam.mvsa`` → ``naam.mvsa.score-ir.json``."""
+    return mvsa.with_suffix(".mvsa.score-ir.json")
+
+
+def product_from_ir_musicxml_for_mvsa(mvsa: Path) -> Path:
+    """``naam.mvsa`` → ``naam.mvsa.from-ir.musicxml``."""
+    return mvsa.with_suffix(".mvsa.from-ir.musicxml")
 
 
 def collect_mvsa(root: Path) -> list[Path]:
@@ -111,13 +126,41 @@ def _stamp_ok_svg(svg: Path, source_hash: str) -> bool:
     return stamp.get(FIELD_SOURCE_SHA, "") == source_hash
 
 
-def is_stale(mvsa: Path) -> tuple[bool, bool, bool]:
-    """Return (need_mxl, need_pdf, need_svg)."""
+def _stamp_ok_score_ir(path: Path, source_hash: str) -> bool:
+    if not path.is_file():
+        return False
+    stamp = read_score_ir_stamp(path)
+    if stamp.get(FIELD_SOURCE_KIND, SOURCE_KIND_MVSA) not in {
+        "",
+        SOURCE_KIND_MVSA,
+    }:
+        return False
+    return stamp.get(FIELD_SOURCE_SHA, "") == source_hash
+
+
+def _stamp_ok_from_ir(path: Path, source_hash: str) -> bool:
+    if not path.is_file():
+        return False
+    stamp = read_from_ir_musicxml_stamp(path)
+    if stamp.get(FIELD_SOURCE_KIND, SOURCE_KIND_MVSA) not in {
+        "",
+        SOURCE_KIND_MVSA,
+    }:
+        return False
+    return stamp.get(FIELD_SOURCE_SHA, "") == source_hash
+
+
+def is_stale(mvsa: Path) -> tuple[bool, bool, bool, bool, bool]:
+    """Return (need_mxl, need_pdf, need_svg, need_score_ir, need_from_ir)."""
     digest = source_sha256(mvsa)
     need_mxl = not _stamp_ok_mxl(product_mxl_for_mvsa(mvsa), digest)
     need_pdf = not _stamp_ok_pdf(product_pdf_for_mvsa(mvsa), digest)
     need_svg = not _stamp_ok_svg(product_svg_for_mvsa(mvsa), digest)
-    return need_mxl, need_pdf, need_svg
+    need_score_ir = not _stamp_ok_score_ir(product_score_ir_for_mvsa(mvsa), digest)
+    need_from_ir = not _stamp_ok_from_ir(
+        product_from_ir_musicxml_for_mvsa(mvsa), digest
+    )
+    return need_mxl, need_pdf, need_svg, need_score_ir, need_from_ir
 
 
 def _run_mvsa_musicxml(mvsa: Path, mxl: Path) -> None:
@@ -145,12 +188,27 @@ def _run_mvsa_svg(mvsa: Path, svg: Path) -> None:
     subprocess.check_call(cmd, cwd=str(REPO_ROOT))
 
 
+def _run_mvsa_score_ir(mvsa: Path, score_ir: Path, from_ir: Path) -> None:
+    cmd = [
+        "mvsa",
+        "score-ir",
+        str(mvsa),
+        "-o",
+        str(score_ir),
+        "--musicxml",
+        str(from_ir),
+    ]
+    subprocess.check_call(cmd, cwd=str(REPO_ROOT))
+
+
 def sync_one(
     mvsa: Path,
     *,
     need_mxl: bool,
     need_pdf: bool,
     need_svg: bool,
+    need_score_ir: bool,
+    need_from_ir: bool,
     dry_run: bool,
 ) -> None:
     rel = mvsa.relative_to(REPO_ROOT)
@@ -159,7 +217,40 @@ def sync_one(
     mxl = product_mxl_for_mvsa(mvsa)
     pdf = product_pdf_for_mvsa(mvsa)
     svg = product_svg_for_mvsa(mvsa)
+    score_ir = product_score_ir_for_mvsa(mvsa)
+    from_ir = product_from_ir_musicxml_for_mvsa(mvsa)
     bib = id_from_catalogus_path(mvsa)
+
+    # Score-IR eerst (geen MuseScore): blijft slagen als SVG multipagina faalt.
+    if need_score_ir or need_from_ir:
+        print(
+            f"  IR   {rel} -> {score_ir.name} + {from_ir.name}",
+            flush=True,
+        )
+        if not dry_run:
+            require_no_spaces(score_ir)
+            require_no_spaces(from_ir)
+            _run_mvsa_score_ir(mvsa, score_ir, from_ir)
+            if not score_ir.is_file():
+                raise RuntimeError(f"Score-IR ontbreekt na mvsa score-ir: {score_ir}")
+            if not from_ir.is_file():
+                raise RuntimeError(
+                    f"from-ir MusicXML ontbreekt na mvsa score-ir: {from_ir}"
+                )
+            stamp_score_ir_json(
+                score_ir,
+                source_hash=digest,
+                source_kind=SOURCE_KIND_MVSA,
+                generated_at=generated_at,
+                generator=GENERATOR_MVSA,
+            )
+            stamp_from_ir_musicxml(
+                from_ir,
+                source_hash=digest,
+                source_kind=SOURCE_KIND_MVSA,
+                generated_at=generated_at,
+                generator=GENERATOR_MVSA,
+            )
 
     if need_mxl:
         print(f"  MXL  {rel} -> {mxl.name}", flush=True)
@@ -225,6 +316,8 @@ class MvsaKind:
         mxl = product_mxl_for_mvsa(source)
         pdf = product_pdf_for_mvsa(source)
         svg = product_svg_for_mvsa(source)
+        score_ir = product_score_ir_for_mvsa(source)
+        from_ir = product_from_ir_musicxml_for_mvsa(source)
         mxl_exists = mxl.is_file()
         contract = (
             mxl_contract_ok(mxl, profile="satb")
@@ -253,18 +346,36 @@ class MvsaKind:
                 contract_ok=None,
                 needs_musescore=True,
             ),
+            ProductSlot(
+                path=score_ir,
+                exists=score_ir.is_file(),
+                stamp_ok=_stamp_ok_score_ir(score_ir, digest),
+                contract_ok=None,
+                needs_musescore=False,
+            ),
+            ProductSlot(
+                path=from_ir,
+                exists=from_ir.is_file(),
+                stamp_ok=_stamp_ok_from_ir(from_ir, digest),
+                contract_ok=None,
+                needs_musescore=False,
+            ),
         ]
 
     def sync(self, source: Path, *, need: Sequence[bool], dry_run: bool) -> None:
         need_mxl = bool(need[0]) if len(need) > 0 else False
         need_pdf = bool(need[1]) if len(need) > 1 else False
         need_svg = bool(need[2]) if len(need) > 2 else False
-        if need_mxl or need_pdf or need_svg:
+        need_score_ir = bool(need[3]) if len(need) > 3 else False
+        need_from_ir = bool(need[4]) if len(need) > 4 else False
+        if need_mxl or need_pdf or need_svg or need_score_ir or need_from_ir:
             sync_one(
                 source,
                 need_mxl=need_mxl,
                 need_pdf=need_pdf,
                 need_svg=need_svg,
+                need_score_ir=need_score_ir,
+                need_from_ir=need_from_ir,
                 dry_run=dry_run,
             )
 
@@ -277,7 +388,8 @@ def main(argv: list[str] | None = None) -> int:
         KIND,
         argv,
         description=(
-            "Exporteer stale Coria-.mxl + PDF + koormap-SVG vanuit bibliotheek-.mvsa."
+            "Exporteer stale Coria-.mxl + PDF + koormap-SVG + Score-IR "
+            "(+ from-ir MusicXML) vanuit bibliotheek-.mvsa."
         ),
         default_root=DEFAULT_ROOT,
     )

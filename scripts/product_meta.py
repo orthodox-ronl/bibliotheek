@@ -6,11 +6,14 @@ Import-``.mscz.mvsa``: comment-regels ``# vsa-partituur-sha256: …``.
 Preview-audio-``.mp3``: ID3v2 TXXX-frames met dezelfde veldnamen.
 MVSA-koormap-``.mvsa.svg`` en VSA-scherm-``.vsa.svg``: XML-commentaren
 ``<!-- vsa-source-sha256: … -->``.
+Score-IR-``.score-ir.json``: top-level ``vsa-source-sha256`` e.d.
+``.from-ir.musicxml``: dezelfde XML-commentaren als SVG.
 """
 
 from __future__ import annotations
 
 import hashlib
+import json
 import re
 import struct
 import zipfile
@@ -371,6 +374,73 @@ def read_svg_stamp(path: Path) -> dict[str, str]:
         key, value = m.group(1), m.group(2).strip()
         if key in _SVG_STAMP_KEYS and value:
             out[key] = value
+    return out
+
+
+def stamp_from_ir_musicxml(
+    path: Path,
+    *,
+    generated_at: str,
+    source_hash: str,
+    source_kind: str = SOURCE_KIND_MVSA,
+    generator: str = GENERATOR_MVSA,
+) -> None:
+    """Herkomst in ``.from-ir.musicxml`` (zelfde XML-commentaren als SVG)."""
+    stamp_svg(
+        path,
+        generated_at=generated_at,
+        source_hash=source_hash,
+        source_kind=source_kind,
+        generator=generator,
+    )
+
+
+def read_from_ir_musicxml_stamp(path: Path) -> dict[str, str]:
+    """Lees XML-commentaar-stamps uit ``.from-ir.musicxml``."""
+    return read_svg_stamp(path)
+
+
+def stamp_score_ir_json(
+    path: Path,
+    *,
+    generated_at: str,
+    source_hash: str,
+    source_kind: str = SOURCE_KIND_MVSA,
+    generator: str = GENERATOR_MVSA,
+) -> None:
+    """Schrijf herkomst als top-level velden in ``.score-ir.json``."""
+    if not source_hash:
+        raise ValueError("source_hash verplicht")
+    raw = path.read_text(encoding="utf-8")
+    doc = json.loads(raw)
+    if not isinstance(doc, dict):
+        raise ValueError(f"Score-IR is geen object: {path}")
+    for key in _SVG_STAMP_KEYS:
+        doc.pop(key, None)
+    doc[FIELD_SOURCE_SHA] = source_hash
+    doc[FIELD_SOURCE_KIND] = source_kind
+    doc[FIELD_GENERATED_AT] = generated_at
+    doc[FIELD_GENERATOR] = generator
+    path.write_text(
+        json.dumps(doc, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+
+
+def read_score_ir_stamp(path: Path) -> dict[str, str]:
+    """Lees top-level ``vsa-…``-stamps uit Score-IR JSON."""
+    try:
+        doc = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    if not isinstance(doc, dict):
+        return {}
+    out: dict[str, str] = {}
+    for key in _SVG_STAMP_KEYS:
+        val = doc.get(key)
+        if isinstance(val, str) and val.strip():
+            out[key] = val.strip()
     return out
 
 

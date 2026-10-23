@@ -33,7 +33,7 @@ Volgorde:
 1. [vsa-products](../vsa-products/) — `{stam}.vsa.mxl` + `{stam}.vsa.pdf` + `{stam}.vsa.svg`
 2. [mscz-products](../mscz-products/) — `{stam}.mscz.pdf` + `{stam}.mscz.mxl`
 3. [tekstblad-products](../tekstblad-products/) — `{stam}.tekstblad.pdf`
-4. [mvsa-products](../mvsa-products/) — `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf` + `{stam}.mvsa.svg`
+4. [mvsa-products](../mvsa-products/) — `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf` + `{stam}.mvsa.svg` + Score-IR + from-ir MusicXML
 5. [import-mvsa](../import-mvsa/) — alleen **bestaande** `{stam}.mscz.mvsa`
 6. [audio-products](../audio-products/) — `{stam}.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3`
 7. [lyrics-products](../lyrics-products/) — `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` / `.mscz.lyrics.txt`

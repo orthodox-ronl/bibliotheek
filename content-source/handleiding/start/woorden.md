@@ -46,7 +46,7 @@ commando’s en mappen kloppen.
 | `.pdf` / `.mscz.pdf` | A4-blad (afgeleide of handmatige export) | Downloaden of printen |
 | `.mp3` / `.mvsa.mp3` e.d. | Preview-audio (afgeleide) | Beluisteren op de site; maken met `audio-products` |
 | `.vsa` | VSA-notatie | Schrijven in een editor; `vsa-products` maakt `.vsa.svg` (scherm), `.vsa.pdf` en `.vsa.mxl`; `check` controleert die siblings — zie [.vsa schrijven](/handleiding/vsa/1-vsa-schrijven/) |
-| `.mvsa` | Meerstemmige tekstbron | Schrijven/valideren met `mvsa`; producten via `mvsa-products` (Coria-`.mvsa.mxl` + A4-`.mvsa.pdf` + koormap-`.mvsa.svg`) — zie [mvsa](/handleiding/werktrajecten/mvsa/) |
+| `.mvsa` | Meerstemmige tekstbron | Schrijven/valideren met `mvsa`; producten via `mvsa-products` (Coria-`.mxl`, A4-PDF, koormap-SVG, Score-IR + OSMD-MusicXML) — zie [mvsa](/handleiding/werktrajecten/mvsa/) |
 
 **Namen en publicatiecontrole:** [Publicatiecontrole](publicatiecontrole/) (bron vs afgeleide,
 sha-stamps, wat CI controleert). Repo-kort: `docs/publicatiecontrole.md`.

@@ -16,7 +16,7 @@ Korte hulp in het opdrachtvenster: `h` (lijst) of `h <naam>` (zelfde als
 | `mscz-products` | Maakt/vernieuwt `{stam}.mscz.pdf` + `{stam}.mscz.mxl` via MuseScore / `mscz mxl` + stamp |
 | `tekstblad-products` | Maakt/vernieuwt `{stam}.tekstblad.pdf` via `vsa pdf` + stamp |
 | `import-mvsa` | Maakt/vernieuwt bewerkvorm `{stam}.mscz.mvsa` via `mscz import` + stamp (standaard alleen bestaande siblings) |
-| `mvsa-products` | Maakt/vernieuwt `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf` + `{stam}.mvsa.svg` via `mvsa musicxml` / `mvsa pdf` / `mvsa svg` + stamp |
+| `mvsa-products` | Maakt/vernieuwt `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf` + `{stam}.mvsa.svg` + `{stam}.mvsa.score-ir.json` + `{stam}.mvsa.from-ir.musicxml` via `mvsa musicxml` / `pdf` / `svg` / `score-ir --musicxml` + stamp |
 | `audio-products` | Maakt/vernieuwt preview-`{stam}.{bron}.mp3` via `vsa audio` + ID3-stamp (Beluisteren) |
 | `lyrics-products` | Maakt/vernieuwt `{stam}.….lyrics.txt` (zoektekst) |
 | `products` / `all-products` | Product-kinds achter elkaar (`all-products` = `--kinds all`); daarna Coria-fingerprints (niet bij `--dry-run`). Geen `pagina-pdf`. |
