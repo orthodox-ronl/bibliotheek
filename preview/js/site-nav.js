@@ -1,4 +1,9 @@
 (function () {
+  /* Livereload kan dit script opnieuw injecteren; voorkom dubbele click-handlers
+     (anders opent ♪ en sluit meteen weer). */
+  if (window.__bibliotheekSiteNavBound) return;
+  window.__bibliotheekSiteNavBound = true;
+
   function syncChromeHeight() {
     var chrome = document.querySelector(".site-chrome");
     var oefHeader = document.querySelector(".oefenhoek-header");
@@ -40,6 +45,9 @@
     document.querySelectorAll("details.publicatiestatus-tip[open]").forEach(function (tip) {
       if (!tip.contains(event.target)) tip.open = false;
     });
+    document.querySelectorAll("details.score-oefen-tip[open], details.score-bron-tip[open]").forEach(function (tip) {
+      if (!tip.contains(event.target)) tip.open = false;
+    });
     syncChromeHeight();
   });
 
@@ -73,9 +81,4 @@
     });
   });
 
-  document.querySelectorAll("[data-pagina-print]").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      window.print();
-    });
-  });
 })();

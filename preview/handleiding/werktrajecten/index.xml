@@ -16,7 +16,9 @@ genoeg is om op te nemen.&lt;/p&gt;
 &lt;li&gt;Werk de tabel
 &lt;code&gt;content-source\input\werkvoorraad.md&lt;/code&gt; bij
 (&lt;code&gt;update-werkvoorraad&lt;/code&gt; of &lt;code&gt;check&lt;/code&gt;).&lt;/li&gt;
-&lt;li&gt;Vul het &lt;strong&gt;doel-id&lt;/strong&gt; in — niet raden; zie het
+&lt;li&gt;Vul het &lt;strong&gt;doel-id&lt;/strong&gt; in — niet raden. Bestaand id:
+&lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/overzichten/zoeken/"&gt;Zoeken&lt;/a&gt;
+ of de catalogus; Hemelum-naslag:
 &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/overzichten/id-register/"&gt;Id-register&lt;/a&gt;
 .&lt;/li&gt;
 &lt;li&gt;Als het bestand klaar is (basispartituur-&lt;code&gt;.mscz&lt;/code&gt;, &lt;code&gt;.vsa&lt;/code&gt;, &lt;code&gt;.mvsa&lt;/code&gt;,
@@ -81,8 +83,8 @@ A4-PDF leesbaar zijn en via de knop &lt;strong&gt;Oefenen&lt;/strong&gt; in Cori
 traject houdt PDF en Coria-&lt;code&gt;.mxl&lt;/code&gt; synchroon met de canonieke
 basispartituur.&lt;/p&gt;</description></item><item><title>VSA → SVG en Coria</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/vsa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/vsa/</guid><description>&lt;h1 id="vsa--svg-en-coria"&gt;VSA → SVG en Coria&lt;/h1&gt;
 &lt;p&gt;Dit werktraject maakt uit een canonieke &lt;strong&gt;&lt;code&gt;.vsa&lt;/code&gt;&lt;/strong&gt; in de catalogus
-een SVG-plaatje op de site en een Coria-bestand &lt;code&gt;{stam}.vsa.mxl&lt;/code&gt;.
-Representatie-id: &lt;code&gt;vsa&lt;/code&gt;.&lt;/p&gt;
+drie siblings: een scherm-SVG, een A4-PDF en een Coria-bestand
+&lt;code&gt;{stam}.vsa.mxl&lt;/code&gt;. Representatie-id: &lt;code&gt;vsa&lt;/code&gt;.&lt;/p&gt;
 &lt;aside class="handleiding-cue"&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
@@ -157,49 +159,75 @@ producten niet. Lifecycle van een uitvoeringsvorm:
 &lt;strong&gt;bibliotheek&lt;/strong&gt;, net als een basispartituur of een &lt;code&gt;.vsa&lt;/code&gt;. Koorleden zien
 en downloaden/printen de PDF via shortcode &lt;code&gt;bieb&lt;/code&gt; — niet een tweede kopie
 van de tekst in de koormap.&lt;/p&gt;</description></item><item><title>Markdown naar PDF</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/markdown-naar-pdf/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/markdown-naar-pdf/</guid><description>&lt;h1 id="markdown-naar-pdf"&gt;Markdown naar PDF&lt;/h1&gt;
-&lt;p&gt;Dit werktraject maakt van één Markdownbestand (tekst, VSA-blokken,
-includes, paginascheidingen) een &lt;strong&gt;A4-PDF&lt;/strong&gt;. Gebruik dit voor demo’s en
-losse bladen &lt;strong&gt;buiten&lt;/strong&gt; de catalogus. Voor liturgische tekst
-&lt;strong&gt;in&lt;/strong&gt; de bibliotheek: werktraject
-&lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/tekstblad/"&gt;Tekstblad&lt;/a&gt;
-
-(&lt;code&gt;{stam}.tekstblad.md&lt;/code&gt; → &lt;code&gt;{stam}.tekstblad.pdf&lt;/code&gt;).&lt;/p&gt;
-&lt;aside class="handleiding-cue"&gt;
- &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
- &lt;div class="handleiding-cue-body"&gt;
- &lt;p&gt;Willekeurig blad:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\pdf.cmd pad\naar\blad.md -o pad\naar\uit.pdf --content-root content-source
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Vaste demo (Tooling Demo «Markdown naar PDF»):&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\demo-pdf.cmd
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
- &lt;/div&gt;
-&lt;/aside&gt;
-
-&lt;h2 id="waartoe"&gt;Waartoe&lt;/h2&gt;
-&lt;p&gt;Je wilt een printbaar blad (bijvoorbeeld een demo of een liturgisch
-leesblad) dat markdown en &lt;code&gt;::: vsa-notatie&lt;/code&gt; combineert, zonder een
-basispartituur-&lt;code&gt;.mscz&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Ingebedde VSA</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/ingebedde-vsa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/ingebedde-vsa/</guid><description>&lt;h1 id="ingebedde-vsa"&gt;Ingebedde VSA&lt;/h1&gt;
-&lt;p&gt;Dit werktraject betreft &lt;strong&gt;VSA buiten&lt;/strong&gt; de catalogus: notatie
-in gewone content-pagina’s (demo’s, feesteigen, samenstellingen,
-handleidingen). De site-build maakt daar SVG (en optioneel MusicXML)
-onder &lt;code&gt;static\vsa\&lt;/code&gt;.&lt;/p&gt;
-&lt;aside class="handleiding-cue"&gt;
- &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
- &lt;div class="handleiding-cue-body"&gt;
- Zet &lt;code&gt;::: vsa-notatie&lt;/code&gt; … &lt;code&gt;:::&lt;/code&gt; of een &lt;code&gt;.vsa&lt;/code&gt;-include in een markdownpagina
-onder &lt;code&gt;content-source&lt;/code&gt;. Draai daarna &lt;code&gt;scripts\check.cmd&lt;/code&gt; of
-&lt;code&gt;scripts\build.cmd&lt;/code&gt; — de pipeline doet &lt;code&gt;vsa build-markdown&lt;/code&gt; en
-&lt;code&gt;vsa musicxml&lt;/code&gt;. Dit is &lt;strong&gt;geen&lt;/strong&gt; catalogus-&lt;code&gt;{stam}.vsa.mxl&lt;/code&gt;.
- &lt;/div&gt;
-&lt;/aside&gt;
-
-&lt;h2 id="waartoe"&gt;Waartoe&lt;/h2&gt;
-&lt;p&gt;Je wilt VSA tonen op een pagina die geen bladermap onder
-&lt;code&gt;catalogus\&lt;/code&gt; is — bijvoorbeeld een samenstelling of de
-Tooling Demo — zonder &lt;code&gt;bieb&lt;/code&gt; en zonder catalogus-id.&lt;/p&gt;</description></item><item><title>mvsa</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/mvsa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/mvsa/</guid><description>&lt;h1 id="mvsa"&gt;mvsa&lt;/h1&gt;
+&lt;p&gt;Deze repository heeft geen commando &lt;code&gt;pdf&lt;/code&gt; of &lt;code&gt;demo-pdf&lt;/code&gt;. Een los
+Markdownblad met &lt;code&gt;::: vsa-notatie&lt;/code&gt; zet je niet om via een script in
+&lt;code&gt;scripts\&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Wat wél in de bibliotheek staat:&lt;/p&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Wat je wilt&lt;/th&gt;
+ &lt;th&gt;Commando&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Liturgische tekst in de catalogus (&lt;code&gt;{stam}.tekstblad.md&lt;/code&gt; → &lt;code&gt;{stam}.tekstblad.pdf&lt;/code&gt;)&lt;/td&gt;
+ &lt;td&gt;&lt;a href="../../scripts/tekstblad-products/"&gt;tekstblad-products&lt;/a&gt;
+&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;PDF van een koormap- of cataloguspagina (&lt;code&gt;index.pagina.pdf&lt;/code&gt;)&lt;/td&gt;
+ &lt;td&gt;&lt;a href="../../scripts/pagina-pdf/"&gt;pagina-pdf&lt;/a&gt;
+&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;A4-blad bij een &lt;code&gt;.vsa&lt;/code&gt; of &lt;code&gt;.mvsa&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;a href="../../scripts/vsa-products/"&gt;vsa-products&lt;/a&gt;
+ / &lt;a href="../../scripts/mvsa-products/"&gt;mvsa-products&lt;/a&gt;
+&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Een generieke export &lt;code&gt;vsa pdf&lt;/code&gt; hoort in VSA-tooling, niet in deze
+commandolijst. &lt;code&gt;check&lt;/code&gt; en de Pages-build controleren geen demo-PDF en
+draaien geen &lt;code&gt;check_demo_pdf_fresh&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Ingebedde VSA</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/ingebedde-vsa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/ingebedde-vsa/</guid><description>&lt;h1 id="ingebedde-vsa"&gt;Ingebedde VSA&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;check&lt;/code&gt;, &lt;code&gt;build&lt;/code&gt;, &lt;code&gt;serve&lt;/code&gt; en de Pages-build draaien geen
+&lt;code&gt;vsa build-markdown&lt;/code&gt; en maken geen embed-MusicXML onder &lt;code&gt;static\vsa\mxl\&lt;/code&gt;.
+Notatie op de bibliotheek-site komt uit een catalogusbron.&lt;/p&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Bron in de catalogus&lt;/th&gt;
+ &lt;th&gt;Plaatje op het scherm&lt;/th&gt;
+ &lt;th&gt;Commando&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;{stam}.vsa&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;{stam}.vsa.svg&lt;/code&gt; ernaast&lt;/td&gt;
+ &lt;td&gt;&lt;a href="../../scripts/vsa-products/"&gt;vsa-products&lt;/a&gt;
+&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;{stam}.mvsa&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;{stam}.mvsa.svg&lt;/code&gt; ernaast&lt;/td&gt;
+ &lt;td&gt;&lt;a href="../../scripts/mvsa-products/"&gt;mvsa-products&lt;/a&gt;
+&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Zolang &lt;code&gt;{stam}.vsa.svg&lt;/code&gt; ontbreekt, vult &lt;code&gt;oefenhoek-index --svg&lt;/code&gt; nog een
+legacy-plaatje onder &lt;code&gt;static\vsa\bladermap\&lt;/code&gt;. Dat is een fallback, geen
+apart werktraject voor demo- of handleidingpagina’s.&lt;/p&gt;
+&lt;p&gt;Een koormap toont die catalogusnotatie met shortcode &lt;code&gt;bieb&lt;/code&gt;. Zie
+&lt;a href="../vsa/"&gt;VSA&lt;/a&gt;
+ en &lt;a href="../mvsa/"&gt;mvsa&lt;/a&gt;
+.&lt;/p&gt;</description></item><item><title>mvsa</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/mvsa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/mvsa/</guid><description>&lt;h1 id="mvsa"&gt;mvsa&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;mvsa&lt;/strong&gt; (meerstemmige VSA) is een &lt;strong&gt;actief&lt;/strong&gt; publicatiespoor: canonieke
-bron &lt;code&gt;{stam}.mvsa&lt;/code&gt;, afgeleiden &lt;code&gt;{stam}.mvsa.mxl&lt;/code&gt; (Coria) en
-&lt;code&gt;{stam}.mvsa.pdf&lt;/code&gt; (A4 voor zangers).&lt;/p&gt;
+bron &lt;code&gt;{stam}.mvsa&lt;/code&gt;, afgeleiden &lt;code&gt;{stam}.mvsa.mxl&lt;/code&gt; (Coria),
+&lt;code&gt;{stam}.mvsa.pdf&lt;/code&gt; (A4 voor zangers) en &lt;code&gt;{stam}.mvsa.svg&lt;/code&gt; (koormap-web).&lt;/p&gt;
 &lt;h2 id="waartoe"&gt;Waartoe&lt;/h2&gt;
 &lt;p&gt;Meerstemmige notatie in tekstvorm bewerken en publiceren, met dezelfde
 soort siblings als bij &lt;a href="../vsa/"&gt;VSA&lt;/a&gt;
@@ -226,6 +254,10 @@ soort siblings als bij &lt;a href="../vsa/"&gt;VSA&lt;/a&gt;
  &lt;tr&gt;
  &lt;td&gt;Print-PDF&lt;/td&gt;
  &lt;td&gt;&lt;code&gt;{stam}.mvsa.pdf&lt;/code&gt; + &lt;code&gt;vsa-source-sha256&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Koormap-SVG&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;{stam}.mvsa.svg&lt;/code&gt; + &lt;code&gt;vsa-source-sha256&lt;/code&gt; (muziek-only; shortcode &lt;code&gt;muziek&lt;/code&gt;)&lt;/td&gt;
  &lt;/tr&gt;
  &lt;/tbody&gt;
 &lt;/table&gt;
