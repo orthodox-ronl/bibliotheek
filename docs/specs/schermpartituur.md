@@ -8,7 +8,9 @@ Doel: beheerders en bouwers toetsen dezelfde checklist; QA vóór
 **Eén pakket voor beide schermgeneratoren:** OSMD (Score-IR → from-ir
 MusicXML) én SVG-fallback (MuseScore/`mvsa svg`, VSA-SVG, mscz-SVG).
 Semantiek + deze lookregels zijn bindend; pixel-perfecte gelijkheid tussen
-de ketens is dat niet (besluit 2).
+de ketens is dat niet (besluit 2). Tijdelijk: enkele cue-/centreer-regels
+zijn alleen voor OSMD bindend zolang scherm-SVG via MuseScore loopt
+(§4.2–4.3); daarna weer voor beide.
 
 Beheerder-taal en shortcodes: [koormap-paginataal.md](koormap-paginataal.md).
 Productketens: [publicatiecontrole.md](../publicatiecontrole.md),
@@ -53,7 +55,9 @@ Gevolgen:
 - Coria (`.mxl` / Oefenen) en audio horen **niet** bij de schermlook van de partituur; die knoppen blijven apart.
 
 Beide ketens (1 en 2) volgen hetzelfde lookpakket in §4. Verschil is alleen
-*hoe* de tekening tot stand komt, niet *wat* er wel/niet op mag staan.
+*hoe* de tekening tot stand komt, niet *wat* er wel/niet op mag staan — met
+één **tijdelijke** uitzondering: een paar cue-/centreer-regels zijn nu
+alleen bindend voor OSMD (§4.2–4.3), zolang scherm-SVG via MuseScore loopt.
 
 ---
 
@@ -88,28 +92,43 @@ stille versoepeling van deze regels in de site.
 
 ### 4.2 Cues (liturgische aanwijzingen boven de noten)
 
-Zelfde wrap-/centreer-regels op SVG en OSMD (besluit 6).
+Doel blijft besluit 6: dezelfde wrap-/centreer-look op beide ketens. **Nu**
+zijn enkele regels alleen bindend voor OSMD; MuseScore-SVG (`mvsa svg` /
+layout `muziek`) is daar best-effort — zie de tijdelijke uitzondering
+onderaan deze paragraaf.
 
-| Eis | Toelichting |
-| --- | --- |
-| Juiste maat | Cue hoort bij de maat van de eerste noot van die aanwijzing. |
-| Niet over maatstrepen | Cue-tekst blijft binnen de maat; bij noodzaak wrap naar twee regels (`t1` / `… t2`-achtig). |
-| Breedte | Eerst ruimte voor twee regels; inklappen naar **één** regel alleen als die ene regel nog past. |
-| Inklappen | Bij inklappen: onderste regel houden; één-regelcues op die onderste hoogte. |
-| Na centreren | Cues **niet** meeschuiven met de noten; ze blijven op de (oude) eerste-noot-positie. |
+| Eis | Keten | Toelichting |
+| --- | --- | --- |
+| Juiste maat | Beide | Cue hoort bij de maat van de eerste noot van die aanwijzing. |
+| Niet over maatstrepen / wrap | Beide | Cue-tekst blijft binnen de maat; bij noodzaak wrap naar twee regels (`t1` / `… t2`-achtig; MuseScore-SVG: wrap op `...`). |
+| Breedte / inklappen naar één regel | **OSMD-only** (nu) | Eerst ruimte voor twee regels; inklappen naar **één** regel alleen als die ene regel nog past (`score-osmd.js`). MuseScore-SVG doet dat inklappen niet. |
+| Inklappen: onderste hoogte | **OSMD-only** (nu) | Bij inklappen: onderste regel houden; één-regelcues op die onderste hoogte. |
+| Na centreren: cues niet meeschuiven | **OSMD-only** (nu) | Cues blijven op de (oude) eerste-noot-positie; niet meeschuiven met de noten. Op MuseScore-SVG geen gelijk mechanisme. |
+
+**Tijdelijke uitzondering (MuseScore-SVG):** zolang scherm-SVG via
+**MuseScore** (`mvsa svg` / layout `muziek`) wordt gegenereerd, zijn de
+rijen hierboven gemarkeerd **OSMD-only** een bewuste keten-uitzondering —
+niet geschrapt uit de norm. **Zodra** MuseScore niet meer de
+SVG-generator voor het scherm is, gelden die regels weer **voor beide**
+ketens (zelfde informatiedichtheid én dezelfde cue-/centreer-look), tenzij
+een nieuw productbesluit anders zegt. Versoepel ze niet stilzwijgend als
+«voor altijd open».
 
 ### 4.3 Noten, lyrics, afstand
 
-| Eis | Toelichting |
-| --- | --- |
-| Centreren | Noten (en bijbehorende lyrics/dashes) centreren in de beschikbare maatbreedte wanneer er genoeg wit links én rechts is. |
-| Korte stukken | Geen nutteloos uitgerekte lege maten; cues en tekst blijven leesbaar. |
-| Lange stukken | Systeemovergangen blijven kloppen (ook KSL); horizontale scroll alleen als de viewport echt te smal is. OSMD: partituur schaalt mee (`autoResize`). |
-| Wit | Tussen systemen en notenbalken genoeg ruimte zodat lyrics en cues niet in elkaar lopen. |
+| Eis | Keten | Toelichting |
+| --- | --- | --- |
+| Centreren in maatbreedte | **OSMD-only** (nu) | Noten (en bijbehorende lyrics/dashes) centreren in de beschikbare maatbreedte wanneer er genoeg wit links én rechts is. MuseScore-SVG: alleen `measureSpacing`, geen OSMD-centreer. |
+| Korte stukken | Beide | Geen nutteloos uitgerekte lege maten; cues en tekst blijven leesbaar. |
+| Lange stukken | Beide | Systeemovergangen blijven kloppen (ook KSL); horizontale scroll alleen als de viewport echt te smal is. OSMD: partituur schaalt mee (`autoResize`). |
+| Wit | Beide | Tussen systemen en notenbalken genoeg ruimte zodat lyrics en cues niet in elkaar lopen. |
 
 Zelfde **informatiedichtheid** op beide ketens: noten, lyrics, cues,
 speelplan-navigatie; geen chrome-ruis (besluit 7). Geen eis tot
-pixel-/engraving-gelijkheid buiten deze regels (besluit 2).
+pixel-/engraving-gelijkheid buiten deze regels (besluit 2). De
+OSMD-only-rijen in §4.2–4.3 vallen onder dezelfde tijdelijke uitzondering
+als in §4.2 (weer beide ketens zodra scherm-SVG niet meer via MuseScore
+loopt).
 
 ### 4.4 Speelplan-bladvorm (navigatie op het blad)
 
@@ -161,12 +180,21 @@ Repro-voorbeeld volta: catalogus
 | --- | --- |
 | Bron | Sibling `{stam}.mvsa.svg` of `{stam}.vsa.svg` (preferred); legacy bladermap-SVG alleen zolang de sibling ontbreekt. |
 | Rol | Primair schermpad voor **VSA** (nog geen Score-IR/OSMD). Voor **mvsa** alleen als from-ir ontbreekt. |
-| Look | Zelfde pakket als §4 (titel/chrome uit, Source Sans 3, maatnummers, cues, speelplan-nav). Export: VSA-tooling layout `muziek` / MuseScore 4. |
+| Look | Zelfde pakket als §4 (titel/chrome uit, Source Sans 3, maatnummers, cues, speelplan-nav). Export: VSA-tooling layout `muziek` / MuseScore 4. Cue-inklappen / cues-niet-meeschuiven / noten-centreren: nu **best-effort** t.o.v. OSMD (§4.2–4.3); weer verplicht voor beide zodra scherm-SVG niet meer via MuseScore loopt. |
 | Kolom | Breedte volgt de contentkolom; geen horizontale overflow buiten de kolom op oefenhoek-pagina’s (`overflow-x` begrensd). |
 | Site-titel | Het onderdeel `muziek` zet geen extra HTML-titel. |
 
-Als MuseScore een §4-regel nog niet haalt: documenteer de gap of open een
-VSA-tooling-ticket — versoepel de eis hier niet stilzwijgend.
+**Steekproef (chrome OK):** catalogus
+`alleluia/9a-toon-1/groningen` — `.mvsa.svg` zonder zichtbare
+partituurtitel/componist, zonder valse 4/4 (`TimeSig`); wel maatnummers +
+volta. Enige `<title>mvsa-…</title>` is SVG-meta, geen bladkop. Technische
+gap-audit: VSA-tooling
+[`docs/plans/schermeisen-vereniging.md`](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/schermeisen-vereniging.md).
+
+Als MuseScore een §4-regel die **wel** voor beide ketens bindend is nog
+niet haalt: documenteer de gap of open een VSA-tooling-ticket — versoepel
+de eis hier niet stilzwijgend. De tijdelijke OSMD-only-rijen (§4.2–4.3)
+zijn géén vrijbrief om besluit 6 voor altijd af te zwakken.
 
 ---
 
@@ -202,7 +230,7 @@ Per geopende catalogus- of koormap-URL:
 1. Juiste keten (§2): zie je OSMD waar from-ir bestaat, anders SVG, anders tekstblad-md / PDF?
 2. Titels (§3): geen dubbele hoofdtitel; geen titel/credits **in** de partituurtekening?
 3. Chrome gedeeld (§4.1): geen partijnamen, metronoom, maatsoort; Source Sans 3; maatnummers (minstens één per systeem, bij voorkeur begin systeem) — **op OSMD én SVG**?
-4. Cues / centreren / wit (§4.2–4.3): leesbaar, niet afgekapt, niet over maatstrepen?
+4. Cues / centreren / wit (§4.2–4.3): leesbaar, niet afgekapt, niet over maatstrepen? Op OSMD: inklappen / cues niet meeschuiven / noten centreren. Op MuseScore-SVG: wrap + juiste maat volstaan nu; centreer/inklappen is best-effort tot scherm-SVG niet meer via MuseScore loopt.
 5. Speelplan (§4.4): bij bron met `@speelplan` — zichtbare herhaal/volta/D.S./… (niet alleen in het MusicXML-bestand)? Steekproef minstens `alleluia/9a-toon-1/groningen`.
 6. Kolom / fallback (§5–7): SVG/mscz/tekstblad zichtbaar in de kolom; geen extra site-titel door `muziek`?
 7. Download/Print: nav-pagina-PDF; knoppen doen wat ze zeggen?
@@ -220,10 +248,16 @@ ook een multi-`bieb`-pagina NL+KSL).
 - Pixel-perfecte gelijkheid tussen SVG-fallback en OSMD (bewust niet verplicht)
 - From-ir / speelplan-MusicXML-generatie (VSA-tooling)
 
-**Niet meer «SVG open»:** Source Sans 3, cue-wrap/centreer, chrome uit
-(titel/partijnamen/metronoom/maatsoort), maatnummers — dat is §4 voor beide
-ketens. Open implementatiegaps horen in VSA-tooling, niet als stille
-site-uitzondering.
+**Niet meer «SVG open» (beide ketens):** Source Sans 3, cue-wrap op `...` /
+juiste maat, chrome uit (titel/partijnamen/metronoom/maatsoort),
+maatnummers — dat blijft §4 voor OSMD én MuseScore-SVG.
+
+**Tijdelijk OSMD-only (niet «voor altijd open»):** cue-inklappen naar één
+regel, cues niet meeschuiven na centreren, noten+lyrics centreren in de
+maatbreedte — zie §4.2–4.3. Die regels blijven in de norm; MuseScore-SVG
+mag ze nu missen. Zodra scherm-SVG niet meer via MuseScore loopt, gelden
+ze weer voor beide ketens. Overige gaps: ticket/PR in VSA-tooling, geen
+stille site-uitzondering.
 
 Wijzigingen aan lookregels: PR op dit bestand; OSMD-gedrag in
 `score-osmd.js` synchroon houden.
