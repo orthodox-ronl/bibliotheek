@@ -60,25 +60,21 @@
 {{- $musicSvgs := slice -}}
 {{- $vsas := slice -}}
 {{- $hasMscz := false -}}
-{{- range $p.Resources.Match "*.from-ir.musicxml" -}}
-  {{- $fromIrMxl = $fromIrMxl | append .RelPermalink -}}
-{{- end -}}
-{{- range $p.Resources.Match "*.mvsa.svg" -}}
-  {{- $musicSvgs = $musicSvgs | append .RelPermalink -}}
-{{- end -}}
-{{- range $p.Resources.Match "*.vsa.svg" -}}
-  {{- $musicSvgs = $musicSvgs | append .RelPermalink -}}
-{{- end -}}
-{{- range $p.Resources.Match "*.pdf" -}}
-  {{- $pdf = .RelPermalink -}}
-{{- end -}}
-{{- range $p.Resources.Match "*.mscz" -}}
-  {{- if not (strings.HasSuffix (lower .Name) ".print.mscz") -}}
+{{- /* Alle page resources (glob op *.from-ir.musicxml faalt soms bij
+     meervoudige punten in de bestandsnaam). */ -}}
+{{- range $p.Resources -}}
+  {{- $n := lower .Name -}}
+  {{- if strings.HasSuffix $n ".from-ir.musicxml" -}}
+    {{- $fromIrMxl = $fromIrMxl | append .RelPermalink -}}
+  {{- else if or (strings.HasSuffix $n ".mvsa.svg") (strings.HasSuffix $n ".vsa.svg") -}}
+    {{- $musicSvgs = $musicSvgs | append .RelPermalink -}}
+  {{- else if strings.HasSuffix $n ".pdf" -}}
+    {{- $pdf = .RelPermalink -}}
+  {{- else if and (strings.HasSuffix $n ".mscz") (not (strings.HasSuffix $n ".print.mscz")) -}}
     {{- $hasMscz = true -}}
+  {{- else if strings.HasSuffix $n ".vsa" -}}
+    {{- $vsas = $vsas | append .Name -}}
   {{- end -}}
-{{- end -}}
-{{- range $p.Resources.Match "*.vsa" -}}
-  {{- $vsas = $vsas | append .Name -}}
 {{- end -}}
 {{- $dir := "" -}}
 {{- with $p.File -}}
@@ -91,17 +87,22 @@
       {{- if not .IsDir -}}
         {{- $nameLower := lower .Name -}}
         {{- if strings.HasSuffix $nameLower ".from-ir.musicxml" -}}
+          {{- /* GetMatch kan ontbreken; URL uit bladermap-permalink + naam. */ -}}
+          {{- $url := printf "%s%s" $p.RelPermalink .Name -}}
           {{- with $p.Resources.GetMatch .Name -}}
-            {{- if not (in $fromIrMxl .RelPermalink) -}}
-              {{- $fromIrMxl = $fromIrMxl | append .RelPermalink -}}
-            {{- end -}}
+            {{- $url = .RelPermalink -}}
+          {{- end -}}
+          {{- if not (in $fromIrMxl $url) -}}
+            {{- $fromIrMxl = $fromIrMxl | append $url -}}
           {{- end -}}
         {{- end -}}
         {{- if or (strings.HasSuffix $nameLower ".mvsa.svg") (strings.HasSuffix $nameLower ".vsa.svg") -}}
+          {{- $url := printf "%s%s" $p.RelPermalink .Name -}}
           {{- with $p.Resources.GetMatch .Name -}}
-            {{- if not (in $musicSvgs .RelPermalink) -}}
-              {{- $musicSvgs = $musicSvgs | append .RelPermalink -}}
-            {{- end -}}
+            {{- $url = .RelPermalink -}}
+          {{- end -}}
+          {{- if not (in $musicSvgs $url) -}}
+            {{- $musicSvgs = $musicSvgs | append $url -}}
           {{- end -}}
         {{- end -}}
         {{- $ext := strings.ToLower (path.Ext .Name) -}}

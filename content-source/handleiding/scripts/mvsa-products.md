@@ -24,7 +24,7 @@ koorleden en de site gebruiken:
 | --- | --- | --- |
 | Coria-MXL | `{stam}.mvsa.mxl` | Afspelen / Coria-contract |
 | A4-PDF | `{stam}.mvsa.pdf` | Downloaden en printen |
-| Koormap-SVG | `{stam}.mvsa.svg` | Scherm-fallback zonder OSMD |
+| Koormap-SVG | `{stam}.mvsa.svg` | Scherm-fallback zonder OSMD; `check` eist dit niet als from-ir er is |
 | Score-IR | `{stam}.mvsa.score-ir.json` | Brug naar scherm/CoriB |
 | OSMD-MusicXML | `{stam}.mvsa.from-ir.musicxml` | Schermpartituur via OSMD |
 
@@ -66,10 +66,11 @@ scripts\mvsa-products.cmd content-source\catalogus\ektinia\vrede\hemelum --force
 
 # WHEN
 
-Als een catalogus-`.mvsa` klaar is voor Coria, print-PDF, koormap-SVG en
-schermpartituur (OSMD), of als `check --strict` meldt dat
-`.mvsa.mxl` / `.mvsa.pdf` / `.mvsa.svg` / `.score-ir.json` /
-`.from-ir.musicxml` ontbreekt of verouderd is.
+Als een catalogus-`.mvsa` klaar is voor Coria, print-PDF, schermpartituur
+(OSMD) en eventueel koormap-SVG, of als `check --strict` meldt dat
+`.mvsa.mxl` / `.mvsa.pdf` / `.score-ir.json` / `.from-ir.musicxml`
+ontbreekt of verouderd is. Ontbrekende `.mvsa.svg` is geen fout zolang
+from-ir geldig is.
 
 # SEE ALSO
 

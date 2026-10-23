@@ -86,6 +86,32 @@ class StampOkTests(unittest.TestCase):
             self.assertTrue(sync._stamp_ok_svg(svg, "abc123"))
             self.assertFalse(sync._stamp_ok_svg(svg, "other"))
 
+    def test_svg_not_needed_when_from_ir_ok(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            mvsa = Path(tmp) / "x.mvsa"
+            mvsa.write_text("L: a\n", encoding="utf-8")
+            digest = pm.source_sha256(mvsa)
+            from_ir = sync.product_from_ir_musicxml_for_mvsa(mvsa)
+            from_ir.write_text(
+                '<?xml version="1.0"?>\n<score-partwise/>\n',
+                encoding="utf-8",
+            )
+            pm.stamp_from_ir_musicxml(
+                from_ir,
+                source_hash=digest,
+                source_kind=pm.SOURCE_KIND_MVSA,
+                generated_at="2026-01-01T00:00:00+00:00",
+                generator=pm.GENERATOR_MVSA,
+            )
+            with mock.patch.object(sync, "_stamp_ok_mxl", return_value=True), mock.patch.object(
+                sync, "_stamp_ok_pdf", return_value=True
+            ), mock.patch.object(sync, "_stamp_ok_score_ir", return_value=True):
+                _need_mxl, _need_pdf, need_svg, _need_ir, need_from = sync.is_stale(
+                    mvsa
+                )
+            self.assertFalse(need_svg)
+            self.assertFalse(need_from)
+
     def test_score_ir_and_from_ir_stamp_roundtrip(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             ir = Path(tmp) / "x.mvsa.score-ir.json"

@@ -73,89 +73,79 @@
       "fix_cmd": "scripts\\mvsa-products.cmd",
       "issues": []
     },
-    "catalogus/cherubijnenhymne/15c-kastorski/hemelum": {
-      "source": "content-source/catalogus/cherubijnenhymne/15c-kastorski/hemelum/cherubijnenhymne-15c-kastorski-hemelum.mvsa",
+    "catalogus/alleluia/9b-toon-5/vokn": {
+      "source": "content-source/catalogus/alleluia/9b-toon-5/vokn/alleluia-9b-toon-5-vokn.mvsa",
       "ok": false,
       "fix_cmd": "scripts\\mvsa-products.cmd",
       "issues": [
         {
+          "kind": "missing_mxl",
+          "file": "content-source/catalogus/alleluia/9b-toon-5/vokn/alleluia-9b-toon-5-vokn.mvsa.mxl",
+          "detail": "Coria-.mvsa.mxl ontbreekt naast de .mvsa"
+        },
+        {
+          "kind": "missing_pdf",
+          "file": "content-source/catalogus/alleluia/9b-toon-5/vokn/alleluia-9b-toon-5-vokn.mvsa.pdf",
+          "detail": "PDF ontbreekt naast de .mvsa"
+        },
+        {
+          "kind": "missing_score_ir",
+          "file": "content-source/catalogus/alleluia/9b-toon-5/vokn/alleluia-9b-toon-5-vokn.mvsa.score-ir.json",
+          "detail": "Score-IR (.mvsa.score-ir.json) ontbreekt naast de .mvsa"
+        },
+        {
+          "kind": "missing_from_ir",
+          "file": "content-source/catalogus/alleluia/9b-toon-5/vokn/alleluia-9b-toon-5-vokn.mvsa.from-ir.musicxml",
+          "detail": "OSMD-MusicXML (.mvsa.from-ir.musicxml) ontbreekt naast de .mvsa"
+        },
+        {
           "kind": "missing_svg",
-          "file": "content-source/catalogus/cherubijnenhymne/15c-kastorski/hemelum/cherubijnenhymne-15c-kastorski-hemelum.mvsa.svg",
-          "detail": "Koormap-SVG ontbreekt naast de .mvsa"
+          "file": "content-source/catalogus/alleluia/9b-toon-5/vokn/alleluia-9b-toon-5-vokn.mvsa.svg",
+          "detail": "Koormap-SVG ontbreekt naast de .mvsa (en geen bruikbare .from-ir.musicxml voor OSMD)"
         }
       ]
+    },
+    "catalogus/cherubijnenhymne/15c-kastorski/hemelum": {
+      "source": "content-source/catalogus/cherubijnenhymne/15c-kastorski/hemelum/cherubijnenhymne-15c-kastorski-hemelum.mvsa",
+      "ok": true,
+      "fix_cmd": "scripts\\mvsa-products.cmd",
+      "issues": []
     },
     "catalogus/cherubijnenhymne/15e-bortnjanski/hemelum": {
       "source": "content-source/catalogus/cherubijnenhymne/15e-bortnjanski/hemelum/cherubijnenhymne-15e-bortnjanski-hemelum.mvsa",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\mvsa-products.cmd",
-      "issues": [
-        {
-          "kind": "missing_svg",
-          "file": "content-source/catalogus/cherubijnenhymne/15e-bortnjanski/hemelum/cherubijnenhymne-15e-bortnjanski-hemelum.mvsa.svg",
-          "detail": "Koormap-SVG ontbreekt naast de .mvsa"
-        }
-      ]
+      "issues": []
     },
     "catalogus/communievers/looft-de-heer-in-de-hemelen/groningen": {
       "source": "content-source/catalogus/communievers/looft-de-heer-in-de-hemelen/groningen/communievers-looft-de-heer-in-de-hemelen-groningen.mvsa",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\mvsa-products.cmd",
-      "issues": [
-        {
-          "kind": "missing_svg",
-          "file": "content-source/catalogus/communievers/looft-de-heer-in-de-hemelen/groningen/communievers-looft-de-heer-in-de-hemelen-groningen.mvsa.svg",
-          "detail": "Koormap-SVG ontbreekt naast de .mvsa"
-        }
-      ]
+      "issues": []
     },
     "catalogus/communievers/looft-de-heer-in-de-hemelen/hemelum": {
       "source": "content-source/catalogus/communievers/looft-de-heer-in-de-hemelen/hemelum/communievers-looft-de-heer-in-de-hemelen-hemelum.mvsa",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\mvsa-products.cmd",
-      "issues": [
-        {
-          "kind": "missing_svg",
-          "file": "content-source/catalogus/communievers/looft-de-heer-in-de-hemelen/hemelum/communievers-looft-de-heer-in-de-hemelen-hemelum.mvsa.svg",
-          "detail": "Koormap-SVG ontbreekt naast de .mvsa"
-        }
-      ]
+      "issues": []
     },
     "catalogus/de-naam-des-heren-zij-gezegend/default/groningen": {
       "source": "content-source/catalogus/de-naam-des-heren-zij-gezegend/default/groningen/de-naam-des-heren-zij-gezegend-default-groningen.mvsa",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\mvsa-products.cmd",
-      "issues": [
-        {
-          "kind": "missing_svg",
-          "file": "content-source/catalogus/de-naam-des-heren-zij-gezegend/default/groningen/de-naam-des-heren-zij-gezegend-default-groningen.mvsa.svg",
-          "detail": "Koormap-SVG ontbreekt naast de .mvsa"
-        }
-      ]
+      "issues": []
     },
     "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum": {
       "source": "content-source/catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/de-naam-des-heren-zij-gezegend-default-hemelum.mvsa",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\mvsa-products.cmd",
-      "issues": [
-        {
-          "kind": "missing_svg",
-          "file": "content-source/catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/de-naam-des-heren-zij-gezegend-default-hemelum.mvsa.svg",
-          "detail": "Koormap-SVG ontbreekt naast de .mvsa"
-        }
-      ]
+      "issues": []
     },
     "catalogus/derde-antifoon/zondag/hemelum": {
       "source": "content-source/catalogus/derde-antifoon/zondag/hemelum/derde-antifoon-zondag-hemelum.mvsa",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\mvsa-products.cmd",
-      "issues": [
-        {
-          "kind": "missing_svg",
-          "file": "content-source/catalogus/derde-antifoon/zondag/hemelum/derde-antifoon-zondag-hemelum.mvsa.svg",
-          "detail": "Koormap-SVG ontbreekt naast de .mvsa"
-        }
-      ]
+      "issues": []
     },
     "catalogus/een-is-heilig/default/hemelum": {
       "source": "content-source/catalogus/een-is-heilig/default/hemelum/een-is-heilig-default-hemelum.mvsa",
@@ -279,15 +269,9 @@
     },
     "catalogus/eniggeboren-zoon/default/hemelum": {
       "source": "content-source/catalogus/eniggeboren-zoon/default/hemelum/eniggeboren-zoon-default-hemelum.mvsa",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\mvsa-products.cmd",
-      "issues": [
-        {
-          "kind": "missing_svg",
-          "file": "content-source/catalogus/eniggeboren-zoon/default/hemelum/eniggeboren-zoon-default-hemelum.mvsa.svg",
-          "detail": "Koormap-SVG ontbreekt naast de .mvsa"
-        }
-      ]
+      "issues": []
     },
     "catalogus/evangelielezing/default/hemelum": {
       "source": "content-source/catalogus/evangelielezing/default/hemelum/evangelielezing-default-hemelum.mvsa",
@@ -303,15 +287,9 @@
     },
     "catalogus/geloofsbelijdenis/default/groningen": {
       "source": "content-source/catalogus/geloofsbelijdenis/default/groningen/geloofsbelijdenis-default-groningen.mvsa",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\mvsa-products.cmd",
-      "issues": [
-        {
-          "kind": "missing_svg",
-          "file": "content-source/catalogus/geloofsbelijdenis/default/groningen/geloofsbelijdenis-default-groningen.mvsa.svg",
-          "detail": "Koormap-SVG ontbreekt naast de .mvsa"
-        }
-      ]
+      "issues": []
     },
     "catalogus/gezegend-hij-die-komt/default/hemelum": {
       "source": "content-source/catalogus/gezegend-hij-die-komt/default/hemelum/gezegend-hij-die-komt-default-hemelum.mvsa",
@@ -351,15 +329,9 @@
     },
     "catalogus/onze-vader/default/hemelum": {
       "source": "content-source/catalogus/onze-vader/default/hemelum/onze-vader-default-hemelum.mvsa",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\mvsa-products.cmd",
-      "issues": [
-        {
-          "kind": "missing_svg",
-          "file": "content-source/catalogus/onze-vader/default/hemelum/onze-vader-default-hemelum.mvsa.svg",
-          "detail": "Koormap-SVG ontbreekt naast de .mvsa"
-        }
-      ]
+      "issues": []
     },
     "catalogus/trisagion/8a-nederlands/hemelum": {
       "source": "content-source/catalogus/trisagion/8a-nederlands/hemelum/trisagion-8a-nederlands-hemelum.mvsa",
@@ -369,27 +341,15 @@
     },
     "catalogus/trisagion/8a-slav/hemelum": {
       "source": "content-source/catalogus/trisagion/8a-slav/hemelum/trisagion-8a-slav-hemelum.mvsa",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\mvsa-products.cmd",
-      "issues": [
-        {
-          "kind": "missing_svg",
-          "file": "content-source/catalogus/trisagion/8a-slav/hemelum/trisagion-8a-slav-hemelum.mvsa.svg",
-          "detail": "Koormap-SVG ontbreekt naast de .mvsa"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tweede-antifoon/zondag/hemelum": {
       "source": "content-source/catalogus/tweede-antifoon/zondag/hemelum/tweede-antifoon-zondag-hemelum.mvsa",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\mvsa-products.cmd",
-      "issues": [
-        {
-          "kind": "missing_svg",
-          "file": "content-source/catalogus/tweede-antifoon/zondag/hemelum/tweede-antifoon-zondag-hemelum.mvsa.svg",
-          "detail": "Koormap-SVG ontbreekt naast de .mvsa"
-        }
-      ]
+      "issues": []
     },
     "catalogus/vredeswens/default/hemelum": {
       "source": "content-source/catalogus/vredeswens/default/hemelum/vredeswens-default-hemelum.mvsa",
@@ -399,15 +359,9 @@
     },
     "catalogus/wij-hebben-het-ware-licht/default/hemelum": {
       "source": "content-source/catalogus/wij-hebben-het-ware-licht/default/hemelum/wij-hebben-het-ware-licht-default-hemelum.mvsa",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\mvsa-products.cmd",
-      "issues": [
-        {
-          "kind": "missing_svg",
-          "file": "content-source/catalogus/wij-hebben-het-ware-licht/default/hemelum/wij-hebben-het-ware-licht-default-hemelum.mvsa.svg",
-          "detail": "Koormap-SVG ontbreekt naast de .mvsa"
-        }
-      ]
+      "issues": []
     }
   }
 }

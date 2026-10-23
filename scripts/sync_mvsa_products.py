@@ -155,10 +155,13 @@ def is_stale(mvsa: Path) -> tuple[bool, bool, bool, bool, bool]:
     digest = source_sha256(mvsa)
     need_mxl = not _stamp_ok_mxl(product_mxl_for_mvsa(mvsa), digest)
     need_pdf = not _stamp_ok_pdf(product_pdf_for_mvsa(mvsa), digest)
-    need_svg = not _stamp_ok_svg(product_svg_for_mvsa(mvsa), digest)
     need_score_ir = not _stamp_ok_score_ir(product_score_ir_for_mvsa(mvsa), digest)
     need_from_ir = not _stamp_ok_from_ir(
         product_from_ir_musicxml_for_mvsa(mvsa), digest
+    )
+    # SVG optioneel als from-ir scherm dekt (geen MuseScore-SVG forceren).
+    need_svg = (not _stamp_ok_svg(product_svg_for_mvsa(mvsa), digest)) and (
+        not _stamp_ok_from_ir(product_from_ir_musicxml_for_mvsa(mvsa), digest)
     )
     return need_mxl, need_pdf, need_svg, need_score_ir, need_from_ir
 
@@ -324,6 +327,13 @@ class MvsaKind:
             if policy.invalid and mxl_exists
             else None
         )
+        from_ir_ok = _stamp_ok_from_ir(from_ir, digest)
+        svg_exists = svg.is_file()
+        # Ontbrekende SVG mag als from-ir scherm dekt (OSMD); anders verplicht.
+        svg_covered = svg_exists or from_ir_ok
+        svg_stamp_ok = (
+            _stamp_ok_svg(svg, digest) if svg_exists else from_ir_ok
+        )
         return [
             ProductSlot(
                 path=mxl,
@@ -341,8 +351,8 @@ class MvsaKind:
             ),
             ProductSlot(
                 path=svg,
-                exists=svg.is_file(),
-                stamp_ok=_stamp_ok_svg(svg, digest),
+                exists=svg_covered,
+                stamp_ok=svg_stamp_ok,
                 contract_ok=None,
                 needs_musescore=True,
             ),
@@ -356,7 +366,7 @@ class MvsaKind:
             ProductSlot(
                 path=from_ir,
                 exists=from_ir.is_file(),
-                stamp_ok=_stamp_ok_from_ir(from_ir, digest),
+                stamp_ok=from_ir_ok,
                 contract_ok=None,
                 needs_musescore=False,
             ),

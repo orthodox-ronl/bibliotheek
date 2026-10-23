@@ -27,6 +27,7 @@ from product_meta import (
 )
 from sync_mvsa_products import (
     DEFAULT_ROOT,
+    _stamp_ok_from_ir,
     collect_mvsa,
     product_from_ir_musicxml_for_mvsa,
     product_mxl_for_mvsa,
@@ -142,17 +143,6 @@ def check_one(mvsa: Path) -> FolderStatus:
     )
     _check_stamped_product(
         issues,
-        path=product_svg_for_mvsa(mvsa),
-        digest=digest,
-        missing_kind="missing_svg",
-        missing_detail="Koormap-SVG ontbreekt naast de .mvsa",
-        unstamped_kind="unstamped_svg",
-        stale_kind="stale_svg",
-        label="SVG",
-        read_stamp=read_svg_stamp,
-    )
-    _check_stamped_product(
-        issues,
         path=product_score_ir_for_mvsa(mvsa),
         digest=digest,
         missing_kind="missing_score_ir",
@@ -162,9 +152,10 @@ def check_one(mvsa: Path) -> FolderStatus:
         label="Score-IR",
         read_stamp=read_score_ir_stamp,
     )
+    from_ir = product_from_ir_musicxml_for_mvsa(mvsa)
     _check_stamped_product(
         issues,
-        path=product_from_ir_musicxml_for_mvsa(mvsa),
+        path=from_ir,
         digest=digest,
         missing_kind="missing_from_ir",
         missing_detail="OSMD-MusicXML (.mvsa.from-ir.musicxml) ontbreekt naast de .mvsa",
@@ -173,6 +164,37 @@ def check_one(mvsa: Path) -> FolderStatus:
         label="from-ir MusicXML",
         read_stamp=read_from_ir_musicxml_stamp,
     )
+    # Scherm: OSMD via from-ir. .mvsa.svg is fallback — niet verplicht als
+    # from-ir met geldige herkomststempel aanwezig is (o.a. multipagina-stukken).
+    svg = product_svg_for_mvsa(mvsa)
+    if _stamp_ok_from_ir(from_ir, digest):
+        if svg.is_file():
+            _check_stamped_product(
+                issues,
+                path=svg,
+                digest=digest,
+                missing_kind="missing_svg",
+                missing_detail="Koormap-SVG ontbreekt naast de .mvsa",
+                unstamped_kind="unstamped_svg",
+                stale_kind="stale_svg",
+                label="SVG",
+                read_stamp=read_svg_stamp,
+            )
+    else:
+        _check_stamped_product(
+            issues,
+            path=svg,
+            digest=digest,
+            missing_kind="missing_svg",
+            missing_detail=(
+                "Koormap-SVG ontbreekt naast de .mvsa "
+                "(en geen bruikbare .from-ir.musicxml voor OSMD)"
+            ),
+            unstamped_kind="unstamped_svg",
+            stale_kind="stale_svg",
+            label="SVG",
+            read_stamp=read_svg_stamp,
+        )
 
     return FolderStatus(
         dir=_bladermap_key(mvsa),
