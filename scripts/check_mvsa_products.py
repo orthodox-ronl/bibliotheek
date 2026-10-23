@@ -1,7 +1,8 @@
-"""Controleer bibliotheek-``.mvsa`` vs MXL/PDF/SVG/Score-IR/from-ir.
+"""Controleer bibliotheek-``.mvsa`` vs MXL/SVG/Score-IR/from-ir.
 
-Slaat import-siblings ``*.mscz.mvsa`` over. Schrijft
-``data/mvsa-product-status.json``. Exit 1 bij problemen tenzij ``--warn-only``.
+Product-``.mvsa.pdf`` niet meer verplicht. Slaat import-siblings
+``*.mscz.mvsa`` over. Schrijft ``data/mvsa-product-status.json``.
+Exit 1 bij problemen tenzij ``--warn-only``.
 """
 
 from __future__ import annotations
@@ -20,7 +21,6 @@ from product_meta import (
     SOURCE_KIND_MVSA,
     read_from_ir_musicxml_stamp,
     read_mxl_stamp,
-    read_pdf_stamp,
     read_score_ir_stamp,
     read_svg_stamp,
     source_sha256,
@@ -31,7 +31,6 @@ from sync_mvsa_products import (
     collect_mvsa,
     product_from_ir_musicxml_for_mvsa,
     product_mxl_for_mvsa,
-    product_pdf_for_mvsa,
     product_score_ir_for_mvsa,
     product_svg_for_mvsa,
 )
@@ -130,17 +129,7 @@ def check_one(mvsa: Path) -> FolderStatus:
         label="MXL",
         read_stamp=read_mxl_stamp,
     )
-    _check_stamped_product(
-        issues,
-        path=product_pdf_for_mvsa(mvsa),
-        digest=digest,
-        missing_kind="missing_pdf",
-        missing_detail="PDF ontbreekt naast de .mvsa",
-        unstamped_kind="unstamped_pdf",
-        stale_kind="stale_pdf",
-        label="PDF",
-        read_stamp=read_pdf_stamp,
-    )
+    # Product-.mvsa.pdf niet meer verplicht (product-pdf-afbouw stap 3).
     _check_stamped_product(
         issues,
         path=product_score_ir_for_mvsa(mvsa),

@@ -48,8 +48,9 @@ zetten; dat is geen redactionele inhoud.)
 - Muziek via `bieb`: keten uit schermpartituur (OSMD → SVG → PDF-fallback).
 - Nav **Download pagina** / **Print pagina** zodra `index.pagina.pdf`
   bestaat (page resource).
-- Score-Download/Print naar product-PDF: blijft toegestaan tot apart
-  afbouwbesluit (geen scope van dit plan).
+- Score-Download/Print naar product-PDF: buiten scope van *dit* plan;
+  afbouwbesluit en volgorde staan in
+  [product-pdf-afbouw.md](product-pdf-afbouw.md).
 
 ### 1.3 `index.pagina.pdf`
 
@@ -166,7 +167,8 @@ Dry-run/bulk pas in mijlpaal 4, na groene steekproef.
 | **4** | Gedaan: 192× `#` weg; 181× pagina-pdf (~14 min); skip zonder notatiebron |
 | **5** | Gedaan: zie §8 hieronder |
 
-Geen Coria/audio; geen stille afschaffing product-PDF in `check`.
+Geen Coria/audio. Product-PDF-afbouw: niet stil in dit traject —
+  zie [product-pdf-afbouw.md](product-pdf-afbouw.md).
 
 ---
 
@@ -184,6 +186,7 @@ Norm: [schermpartituur.md](../specs/schermpartituur.md) §8 +
 | `/catalogus/dialoog-met-diaken/default/hemelum/` | 1× | tekstblad-PDF | nee (geen `index.pagina.pdf`) | n.v.t. tot §4 |
 
 Dekking: 195 leaves, **0** Markdown-`#`, **181** `index.pagina.pdf`.
-Score-product-PDF-knoppen blijven (bewust niet afgebouwd).
+Score-product-PDF: zie afbouwbesluit
+[product-pdf-afbouw.md](product-pdf-afbouw.md) (eerst inventaris).
 
 Open: tekstblad → pagina.pdf (§4); 14 leaves zonder notatiebron.

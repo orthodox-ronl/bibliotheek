@@ -82,10 +82,10 @@ uitvoeringsvorm-map. Zet `alias_van` op de variant-`_index.md`; zie
 ### Meerdere shortcodes op één slot-pagina
 
 Op een compositieblad mag je **meerdere** `bieb`-shortcodes
-zetten (elk met een eigen catalogus-id). Elke shortcode zet eerst de
-knoppen **Oefenen** / **Downloaden** / **Printen** voor die uitvoeringsvorm,
-en daarna de PDF of VSA-SVG. Zo heeft elke score op dezelfde pagina een
-eigen knoppenrij.
+zetten (elk met een eigen catalogus-id). Elke shortcode zet oefenacties
+(**Oefenen** / **Beluisteren**) bij dat blok en daarna de partituur
+(SVG/OSMD). Print en download van het hele blad: **Download pagina** /
+**Print pagina** in de navigatie.
 
 ## Oude migratie (alleen historisch)
 
@@ -96,8 +96,8 @@ al gedaan. Nieuwe stukken gaan via
 
 ## Klaar als
 
-Na `check --strict` toont de preview de slot-pagina met PDF/**Oefenen**/VSA
-via `bieb`. De catalogus heeft de bestanden; de
+Na `check --strict` toont de preview de slot-pagina met partituur en
+**Oefenen** via `bieb`. De catalogus heeft de bestanden; de
 koormap-map heeft geen basispartituur meer. Je weet wanneer je een sectie (boom)
 gebruikt en wanneer een compositieblad.
 

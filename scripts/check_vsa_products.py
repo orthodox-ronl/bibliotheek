@@ -1,7 +1,8 @@
-"""Controleer ``.vsa`` vs siblings ``.vsa.mxl`` + ``.vsa.pdf`` + ``.vsa.svg``.
+"""Controleer ``.vsa`` vs siblings ``.vsa.mxl`` + ``.vsa.svg``.
 
-Schrijft ``data/vsa-product-status.json`` voor eventuele Hugo-banners.
-Slaat ``artefacten_handmatig`` over. Exit 1 bij problemen tenzij ``--warn-only``.
+Product-``.vsa.pdf`` niet meer verplicht. Schrijft
+``data/vsa-product-status.json``. Slaat ``artefacten_handmatig`` over.
+Exit 1 bij problemen tenzij ``--warn-only``.
 """
 
 from __future__ import annotations
@@ -19,7 +20,6 @@ from product_meta import (
     FIELD_SOURCE_SHA,
     SOURCE_KIND_VSA,
     read_mxl_stamp,
-    read_pdf_stamp,
     read_svg_stamp,
     source_sha256,
 )
@@ -27,7 +27,6 @@ from sync_vsa_products import (
     DEFAULT_ROOT,
     collect_vsa,
     product_path_for_vsa,
-    product_pdf_for_vsa,
     product_svg_for_vsa,
 )
 
@@ -107,44 +106,7 @@ def check_one(vsa: Path) -> FolderStatus:
                 )
             )
 
-    pdf = product_pdf_for_vsa(vsa)
-    if not pdf.is_file():
-        issues.append(
-            Issue(
-                "missing_pdf",
-                _rel(pdf),
-                "A4-.vsa.pdf ontbreekt naast de bibliotheek-.vsa (Downloaden/Printen)",
-            )
-        )
-    else:
-        stamp = read_pdf_stamp(pdf)
-        kind = stamp.get(FIELD_SOURCE_KIND, "")
-        got = stamp.get(FIELD_SOURCE_SHA, "")
-        if not got:
-            issues.append(
-                Issue(
-                    "unstamped_pdf",
-                    _rel(pdf),
-                    "PDF heeft geen vsa-source-sha256 (opnieuw genereren)",
-                )
-            )
-        elif kind and kind != SOURCE_KIND_VSA:
-            issues.append(
-                Issue(
-                    "wrong_kind_pdf",
-                    _rel(pdf),
-                    f"PDF source-kind is {kind!r}, verwacht {SOURCE_KIND_VSA!r}",
-                )
-            )
-        elif got != src_hash:
-            when = stamp.get(FIELD_GENERATED_AT, "?")
-            issues.append(
-                Issue(
-                    "stale_pdf",
-                    _rel(pdf),
-                    f"PDF-source-hash wijkt af (gegenereerd {when}); .vsa is gewijzigd",
-                )
-            )
+    # Product-.vsa.pdf niet meer verplicht (product-pdf-afbouw stap 3).
 
     svg = product_svg_for_vsa(vsa)
     if not svg.is_file():

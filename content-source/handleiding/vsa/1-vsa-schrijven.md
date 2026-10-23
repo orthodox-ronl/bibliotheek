@@ -32,7 +32,7 @@ doet de build twee aparte dingen met hetzelfde `.vsa`-bestand:
 | Afgeleide | Rol op de pagina | Hoe maak je die |
 | --- | --- | --- |
 | `{stam}.vsa.svg` naast de `.vsa` | Het **plaatje** dat shortcode `bieb` toont | `scripts\vsa-products.cmd` (samen met PDF en Coria-`.mxl`) |
-| `{stam}.vsa.pdf` naast de `.vsa` | **Downloaden** / **Printen** | Zelfde commando |
+| `{stam}.vsa.pdf` naast de `.vsa` | (nog productketen; print/download blad = **Download/Print pagina**) | Zelfde commando |
 | `{stam}.vsa.mxl` naast de `.vsa` | Knop **Oefenen** (Coria) | Zelfde commando; export syllabificeert woorden tijdelijk, zonder je `.vsa` te wijzigen |
 
 `scripts\opkuisen.cmd` past **geen** Capella-/MusicXML-heuristieken toe op een

@@ -12,11 +12,11 @@ Korte hulp in het opdrachtvenster: `h` (lijst) of `h <naam>` (zelfde als
 | -------- | ---- |
 | `h` | Overzicht van commando’s; `h <naam>` = `<naam> -h` |
 | `validate` | `vsa validate` op `content-source\catalogus` (plus `mvsa validate` als er `.mvsa` staat) |
-| `vsa-products` | Maakt/vernieuwt `{stam}.vsa.mxl` + `{stam}.vsa.pdf` + `{stam}.vsa.svg` via `vsa musicxml` / `vsa pdf` / `vsa svg` + stamp |
-| `mscz-products` | Maakt/vernieuwt `{stam}.mscz.pdf` + `{stam}.mscz.mxl` via MuseScore / `mscz mxl` + stamp |
-| `tekstblad-products` | Maakt/vernieuwt `{stam}.tekstblad.pdf` via `vsa pdf` + stamp |
+| `vsa-products` | Maakt/vernieuwt `{stam}.vsa.mxl` + `{stam}.vsa.svg` via `vsa musicxml` / `vsa svg` + stamp (geen verplichte `.vsa.pdf`) |
+| `mscz-products` | Maakt/vernieuwt `{stam}.mscz.mxl` + `{stam}.mscz.svg` (scherm) via `mscz mxl` / `mvsa svg` + stamp (geen verplichte `.mscz.pdf`) |
+| `tekstblad-products` | Geen verplichte product-PDF meer; blad via `pagina-pdf` uit `.tekstblad.md` |
 | `import-mvsa` | Maakt/vernieuwt bewerkvorm `{stam}.mscz.mvsa` via `mscz import` + stamp (standaard alleen bestaande siblings) |
-| `mvsa-products` | Maakt/vernieuwt `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf` + `{stam}.mvsa.svg` + `{stam}.mvsa.score-ir.json` + `{stam}.mvsa.from-ir.musicxml` via `mvsa musicxml` / `pdf` / `svg` / `score-ir --musicxml` + stamp |
+| `mvsa-products` | Maakt/vernieuwt `{stam}.mvsa.mxl` + `{stam}.mvsa.svg` (optioneel) + `{stam}.mvsa.score-ir.json` + `{stam}.mvsa.from-ir.musicxml` via `mvsa musicxml` / `svg` / `score-ir --musicxml` + stamp (geen verplichte `.mvsa.pdf`) |
 | `audio-products` | Maakt/vernieuwt preview-`{stam}.{bron}.mp3` via `vsa audio` + ID3-stamp (Beluisteren) |
 | `lyrics-products` | Maakt/vernieuwt `{stam}.….lyrics.txt` (zoektekst) |
 | `products` / `all-products` | Product-kinds achter elkaar (`all-products` = `--kinds all`); daarna Coria-fingerprints (niet bij `--dry-run`). Geen `pagina-pdf`. |

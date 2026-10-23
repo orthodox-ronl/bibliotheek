@@ -1,9 +1,13 @@
-"""Maak sibling ``{stam}.tekstblad.pdf`` bij bibliotheek-``.tekstblad.md``.
+"""Tekstblad-producten (historisch: sibling ``{stam}.tekstblad.pdf``).
 
-Roept ``vsa pdf`` aan; zet ``vsa-source-sha256`` + ``vsa-source-kind=tekstblad``.
-Slaat ``input/`` en ``artefacten_handmatig`` over. CI genereert niet —
-alleen ``check_tekstblad_products``; vernieuw lokaal met
-``scripts\\tekstblad-products.cmd``.
+Sinds product-pdf-afbouw + pagina-pdf uit ``.tekstblad.md`` is de
+product-PDF **niet meer verplicht**. Blad print/download:
+``index.pagina.pdf`` via ``scripts\\pagina-pdf.cmd``. Scherm: body van de
+``.tekstblad.md`` in ``bieb``.
+
+Dit script blijft als no-op / optioneel herstelpad: ``sync_one`` kan nog
+een PDF schrijven als je het handmatig aanroept; ``TekstbladKind`` heeft
+geen sync-slots meer, dus ``tekstblad-products`` doet standaard niets.
 """
 
 from __future__ import annotations
@@ -68,6 +72,7 @@ def is_stale(md: Path, pdf: Path) -> bool:
 
 
 def sync_one(md: Path, *, dry_run: bool) -> None:
+    """Optioneel: schrijf sibling product-PDF (niet meer via products-slots)."""
     pdf = product_pdf_for_md(md)
     rel = md.relative_to(REPO_ROOT)
     print(f"  PDF  {rel} -> {pdf.name}", flush=True)
@@ -102,29 +107,18 @@ class TekstbladKind:
     id = "tekstblad"
     label = "Tekstblad-producten"
     source_noun = " .tekstblad.md"
-    fix_cmd = r"scripts\tekstblad-products.cmd"
+    fix_cmd = r"scripts\pagina-pdf.cmd"
 
     def collect(self, root: Path) -> list[Path]:
         return collect_tekstblad(root)
 
     def slots_for(self, source: Path, policy: RegenPolicy) -> list[ProductSlot]:
-        del policy
-        pdf = product_pdf_for_md(source)
-        exists = pdf.is_file()
-        stamp_ok = (not is_stale(source, pdf)) if exists else False
-        return [
-            ProductSlot(
-                path=pdf,
-                exists=exists,
-                stamp_ok=stamp_ok,
-                contract_ok=None,
-                needs_musescore=False,
-            )
-        ]
+        del source, policy
+        # Geen verplichte product-PDF meer (pagina-pdf rendert uit .md).
+        return []
 
     def sync(self, source: Path, *, need: Sequence[bool], dry_run: bool) -> None:
-        if need and need[0]:
-            sync_one(source, dry_run=dry_run)
+        del source, need, dry_run
 
 
 KIND = TekstbladKind()
@@ -134,7 +128,10 @@ def main(argv: list[str] | None = None) -> int:
     return main_for_kind(
         KIND,
         argv,
-        description="Exporteer stale tekstblad-PDF vanuit .tekstblad.md.",
+        description=(
+            "Tekstblad: geen verplichte product-PDF meer. "
+            "Pagina: scripts\\pagina-pdf.cmd op de catalogus-leaf."
+        ),
         default_root=DEFAULT_ROOT,
     )
 

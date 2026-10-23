@@ -1,7 +1,8 @@
-"""Controleer basispartituur-``.mscz`` vs sibling PDF/MXL (partituur-sha256).
+"""Controleer basispartituur-``.mscz`` vs sibling MXL/SVG (partituur-sha).
 
-Doelvorm: ``{stam}.mscz.pdf`` / ``{stam}.mscz.mxl``. Legacy ``{stam}.pdf`` /
-``{stam}.mxl`` (en ``.partituur.*``) nog toegestaan tot migratie.
+Doelvorm: ``{stam}.mscz.mxl`` / ``{stam}.mscz.svg``. Legacy ``{stam}.mxl``
+(en ``.partituur.mxl``) nog toegestaan tot migratie. Product-``.mscz.pdf``
+niet meer verplicht (blad = ``index.pagina.pdf``).
 
 Schrijft ``data/mscz-product-status.json``. Exit 1 bij problemen tenzij
 ``--warn-only``.
@@ -18,18 +19,19 @@ from pathlib import Path
 
 from product_meta import (
     FIELD_GENERATED_AT,
+    FIELD_SOURCE_SHA,
     partituur_sha256,
     read_mxl_stamp,
-    read_pdf_stamp,
+    read_svg_stamp,
     stamp_sha_from_dict,
 )
 from sync_mscz_products import (
     DEFAULT_ROOT,
     collect_mscz,
     legacy_mxl_for_mscz,
-    legacy_pdf_for_mscz,
+    mscz_svg_outputs,
     product_mxl_for_mscz,
-    product_pdf_for_mscz,
+    product_svg_for_mscz,
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -79,41 +81,7 @@ def check_one(mscz: Path) -> FolderStatus:
     digest = partituur_sha256(mscz)
     fix = r"scripts\mscz-products.cmd"
 
-    pdf_canon = product_pdf_for_mscz(mscz)
-    pdf = _resolve_product(
-        pdf_canon,
-        legacy_pdf_for_mscz(mscz),
-        mscz.with_suffix(".partituur.pdf"),
-    )
-    if pdf is None:
-        issues.append(
-            Issue(
-                "missing_pdf",
-                _rel(pdf_canon),
-                "PDF ontbreekt naast de basispartituur-.mscz",
-            )
-        )
-    else:
-        stamp = read_pdf_stamp(pdf)
-        got = stamp_sha_from_dict(stamp)
-        if not got:
-            issues.append(
-                Issue(
-                    "unstamped_pdf",
-                    _rel(pdf),
-                    "PDF heeft geen VSAPartituurSHA256-metadata (opnieuw genereren)",
-                )
-            )
-        elif got != digest:
-            when = stamp.get(FIELD_GENERATED_AT, "?")
-            issues.append(
-                Issue(
-                    "stale_pdf",
-                    _rel(pdf),
-                    f"PDF-partituur-hash wijkt af (gegenereerd {when}); "
-                    f"basispartituur is gewijzigd",
-                )
-            )
+    # Product-.mscz.pdf niet meer verplicht (product-pdf-afbouw stap 3).
 
     mxl_canon = product_mxl_for_mscz(mscz)
     mxl = _resolve_product(
@@ -150,6 +118,39 @@ def check_one(mscz: Path) -> FolderStatus:
                     f"basispartituur is gewijzigd",
                 )
             )
+
+    svg_canon = product_svg_for_mscz(mscz)
+    svg_outs = mscz_svg_outputs(mscz)
+    if not svg_outs:
+        issues.append(
+            Issue(
+                "missing_svg",
+                _rel(svg_canon),
+                "Scherm-.mscz.svg ontbreekt naast de basispartituur-.mscz",
+            )
+        )
+    else:
+        for svg in svg_outs:
+            stamp = read_svg_stamp(svg)
+            got = stamp.get(FIELD_SOURCE_SHA) or stamp_sha_from_dict(stamp)
+            if not got:
+                issues.append(
+                    Issue(
+                        "unstamped_svg",
+                        _rel(svg),
+                        "SVG heeft geen vsa-source-sha256 (opnieuw genereren)",
+                    )
+                )
+            elif got != digest:
+                when = stamp.get(FIELD_GENERATED_AT, "?")
+                issues.append(
+                    Issue(
+                        "stale_svg",
+                        _rel(svg),
+                        f"SVG-partituur-hash wijkt af (gegenereerd {when}); "
+                        f"basispartituur is gewijzigd",
+                    )
+                )
 
     return FolderStatus(
         dir=_bladermap_key(mscz),

@@ -24,9 +24,8 @@ class StampOkTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             vsa = Path(tmp) / "x.vsa"
             vsa.write_text("[:] Amen. [:]\n", encoding="utf-8")
-            need_mxl, need_pdf, need_svg = sync.is_stale_pair(vsa)
+            need_mxl, need_svg = sync.is_stale_pair(vsa)
             self.assertTrue(need_mxl)
-            self.assertTrue(need_pdf)
             self.assertTrue(need_svg)
 
     def test_ok_with_stamps(self) -> None:
@@ -34,11 +33,10 @@ class StampOkTests(unittest.TestCase):
             vsa = Path(tmp) / "x.vsa"
             vsa.write_text("[:] Amen. [:]\n", encoding="utf-8")
             with mock.patch.object(sync, "_stamp_ok_mxl", return_value=True), mock.patch.object(
-                sync, "_stamp_ok_pdf", return_value=True
-            ), mock.patch.object(sync, "_stamp_ok_svg", return_value=True):
-                need_mxl, need_pdf, need_svg = sync.is_stale_pair(vsa)
+                sync, "_stamp_ok_svg", return_value=True
+            ):
+                need_mxl, need_svg = sync.is_stale_pair(vsa)
             self.assertFalse(need_mxl)
-            self.assertFalse(need_pdf)
             self.assertFalse(need_svg)
 
     def test_svg_stamp_roundtrip(self) -> None:

@@ -173,7 +173,7 @@ Twee schrijfwijzen zijn **gelijkwaardig** wanneer er een openstaande
 | Onderdeel | Aliassen | Betekenis |
 | --- | --- | --- |
 | `titel` | `title` | Catalogustitel van de uitvoeringsvorm, als platte tekst (geschikt in een Markdown-kop of binnen `kop`). |
-| `muziek` | — | Partituurweergave (+ oefenacties bij dat blok). Geen paginatitel forceren. **Schermketen en look:** [schermpartituur.md](schermpartituur.md) (normatief). Kort: voorkeur ``.mvsa.from-ir.musicxml`` → OSMD; anders SVG (``.mvsa.svg`` / ``.vsa.svg`` / legacy bladermap); catalogus-PDF alleen op scherm zonder OSMD én zonder SVG. Download/Print blijft de A4-product-PDF. Artifact Score-IR: `vsa mvsa score-ir … --musicxml` in VSA-tooling. |
+| `muziek` | — | Partituurweergave (+ oefenacties bij dat blok). Geen paginatitel forceren. **Schermketen en look:** [schermpartituur.md](schermpartituur.md) (normatief). Kort: voorkeur ``.mvsa.from-ir.musicxml`` → OSMD; anders SVG (``.mvsa.svg`` / ``.vsa.svg`` / ``.mscz.svg`` / legacy bladermap); tekstblad-md of PDF alleen als nood-fallback. Blad download/print: nav **Download/Print pagina** (`index.pagina.pdf`), geen score-knop naar product-PDF. Artifact Score-IR: `vsa mvsa score-ir … --musicxml` in VSA-tooling. |
 | `bron` | — | Korte bronvermelding van de uitvoeringsvorm. |
 | `copyright` | — | Copyright-/licentieregel(s), alleen als de beheerder dit zet. |
 | `veld` | — | Generieke frontmatter; zie §5.4. |

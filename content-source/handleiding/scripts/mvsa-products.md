@@ -23,7 +23,7 @@ koorleden en de site gebruiken:
 | Product | Bestand | Waartoe |
 | --- | --- | --- |
 | Coria-MXL | `{stam}.mvsa.mxl` | Afspelen / Coria-contract |
-| A4-PDF | `{stam}.mvsa.pdf` | Downloaden en printen |
+| A4-PDF | `{stam}.mvsa.pdf` | Nog productketen; blad printen = **Download/Print pagina** |
 | Koormap-SVG | `{stam}.mvsa.svg` | Scherm-fallback zonder OSMD; `check` eist dit niet als from-ir er is |
 | Score-IR | `{stam}.mvsa.score-ir.json` | Brug naar scherm/CoriB |
 | OSMD-MusicXML | `{stam}.mvsa.from-ir.musicxml` | Schermpartituur via OSMD |

@@ -1,9 +1,11 @@
 """Maak/vernieuw sibling ``{stam}.mscz.mvsa`` bij een basispartituur-``.mscz``.
 
-Roept tooling aan: ``mscz import`` (via MuseScore → temp-``.mxl`` → ``.mvsa``).
-Zet comment-stamps ``vsa-partituur-sha256``. Dit is een **bewerk-/importvorm**,
-geen site-product: standaard alleen bestaande siblings vernieuwen; nieuwe
-aanmaken met een expliciet ``.mscz``-pad of ``--create``.
+Roept tooling aan: ``mscz mvsa`` (via MuseScore → temp-``.mxl`` → ``.mvsa``).
+Tooling zet bij ``*.mscz.mvsa`` al ``vsa-partituur-sha256``; dit script
+herstempelt daarna met generator ``import-mvsa``. Dit is een
+**bewerk-/importvorm**, geen site-product: standaard alleen bestaande
+siblings vernieuwen; nieuwe aanmaken met een expliciet ``.mscz``-pad of
+``--create``.
 
 CI genereert niet — alleen ``check_import_mvsa`` op bestaande paren; vernieuw
 lokaal met ``scripts\\import-mvsa.cmd``.
@@ -92,10 +94,10 @@ def is_stale(mscz: Path, mvsa: Path | None = None) -> bool:
     return not _stamp_ok(target, partituur_sha256(mscz))
 
 
-def _run_mscz_import(mscz: Path, mvsa: Path, *, pitch: str) -> None:
+def _run_mscz_mvsa(mscz: Path, mvsa: Path, *, pitch: str) -> None:
     cmd = [
         "mscz",
-        "import",
+        "mvsa",
         str(mscz),
         "--pitch",
         pitch,
@@ -112,9 +114,9 @@ def sync_one(mscz: Path, *, pitch: str, dry_run: bool) -> None:
     if dry_run:
         return
     require_no_spaces_name(mvsa)
-    _run_mscz_import(mscz, mvsa, pitch=pitch)
+    _run_mscz_mvsa(mscz, mvsa, pitch=pitch)
     if not mvsa.is_file():
-        raise RuntimeError(f".mvsa ontbreekt na mscz import: {mvsa}")
+        raise RuntimeError(f".mvsa ontbreekt na mscz mvsa: {mvsa}")
     stamp_mvsa_partituur(
         mvsa,
         partituur_hash=partituur_sha256(mscz),
@@ -201,7 +203,7 @@ def main(argv: list[str] | None = None) -> int:
             "--pitch",
             choices=["doremi", "a-g", "abc", "vsa"],
             default=DEFAULT_PITCH,
-            help=f"Spelling voor mscz import (default: {DEFAULT_PITCH})",
+            help=f"Spelling voor mscz mvsa (default: {DEFAULT_PITCH})",
         )
 
     def after_parse(args: argparse.Namespace) -> None:
@@ -213,7 +215,7 @@ def main(argv: list[str] | None = None) -> int:
         argv,
         description=(
             "Importeer basispartituur-.mscz naar sibling .mscz.mvsa "
-            "(bewerkvorm; standaard alleen bestaande siblings)."
+            "(bewerkvorm via mscz mvsa; standaard alleen bestaande siblings)."
         ),
         default_root=DEFAULT_ROOT,
         add_extra=add_extra,

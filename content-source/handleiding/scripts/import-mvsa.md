@@ -22,11 +22,12 @@ tekstbron die je uit de basispartituur-`.mscz` haalt om verder te bewerken
 in VSA/mvsa. Dit is een **import-/bewerkvorm**, geen PDF of Coria voor de
 site. Koormappen en publicatiecontroles eisen die sibling **niet**.
 
-Onder de motorkap roept het script de tooling-CLI `mscz import` aan
+Onder de motorkap roept het script de tooling-CLI `mscz mvsa` aan
 (MuseScore 4 zet de partituur eerst om naar MusicXML; daarna volgt
-`.mvsa`). Daarna schrijft het script herkomstcommentaren bovenaan het
-bestand (`vsa-partituur-sha256`, `vsa-generated-at`), zodat
-`check` / CI kunnen zien of de import nog bij de huidige `.mscz` past.
+`.mvsa`). Bij output `*.mscz.mvsa` zet de tooling al herkomstcommentaren;
+dit script herstempel daarna met generator `import-mvsa`
+(`vsa-partituur-sha256`, `vsa-generated-at`), zodat `check` / CI kunnen
+zien of de import nog bij de huidige `.mscz` past.
 
 **Standaard (map of hele bibliotheek):** alleen **bestaande**
 `.mscz.mvsa`-siblings vernieuwen die verouderd of zonder stamp zijn.

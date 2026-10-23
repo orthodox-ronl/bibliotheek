@@ -35,7 +35,9 @@ van de tekst in de koormap.
 
 **Klaar** als: de bron frontmatter `build: render: never` (en `list: never`)
 heeft; de PDF bij de bron past (`check_tekstblad_products`); `bieb` toont
-de PDF met Downloaden/Printen. Geen Coria uit dit spoor.
+het blad met **Download pagina** / **Print pagina** (`index.pagina.pdf`
+uit de `.tekstblad.md` via `pagina-pdf`). Geen verplichte product-PDF
+meer; geen Coria uit dit spoor.
 
 Voorbeeld:
 `content-source\catalogus\dialoog-met-diaken\default\hemelum\`.

@@ -40,10 +40,10 @@ commando’s en mappen kloppen.
 
 | Extensie | In het kort | Wat jij ermee doet |
 | --- | --- | --- |
-| basispartituur-`.mscz` | MuseScore 4-bestand; bron voor PDF en Coria | Openen, nakijken, opslaan; daarna `scripts\layout.cmd`; afgeleiden `{stam}.mscz.pdf` / `{stam}.mscz.mxl` |
+| basispartituur-`.mscz` | MuseScore 4-bestand; bron voor PDF, Coria en scherm-SVG | Openen, nakijken, opslaan; daarna `scripts\layout.cmd`; afgeleiden `{stam}.mscz.pdf` / `{stam}.mscz.mxl` / `{stam}.mscz.svg` |
 | handmatig `.mscz` | Zelfde soort MuseScore-bestand, map met `artefacten_handmatig: true` | Alleen in MuseScore bewerken; PDF handmatig; geen automatische publicatiecontrole — zie [Publicatiecontrole](publicatiecontrole/) |
 | `.mxl` / `.vsa.mxl` / `.mscz.mxl` | Samengeperste MusicXML (**afgeleide**) | Naar Coria; of (na opkuisen) als start voor een nieuwe basispartituur. Nooit roundtrip: `.mscz` → `.mxl` → weer `.mscz` gooit de layout weg. |
-| `.pdf` / `.mscz.pdf` | A4-blad (afgeleide of handmatige export) | Downloaden of printen |
+| `.pdf` / `.mscz.pdf` | A4-product (nog in productketen; stap 3-afbouw) | Blad: **Download/Print pagina**; niet meer via score-knoppen |
 | `.mp3` / `.mvsa.mp3` e.d. | Preview-audio (afgeleide) | Beluisteren op de site; maken met `audio-products` |
 | `.vsa` | VSA-notatie | Schrijven in een editor; `vsa-products` maakt `.vsa.svg` (scherm), `.vsa.pdf` en `.vsa.mxl`; `check` controleert die siblings — zie [.vsa schrijven](/handleiding/vsa/1-vsa-schrijven/) |
 | `.mvsa` | Meerstemmige tekstbron | Schrijven/valideren met `mvsa`; producten via `mvsa-products` (Coria-`.mxl`, A4-PDF, koormap-SVG, Score-IR + OSMD-MusicXML) — zie [mvsa](/handleiding/werktrajecten/mvsa/) |

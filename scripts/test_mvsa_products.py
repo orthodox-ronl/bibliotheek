@@ -41,9 +41,8 @@ class StampOkTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             mvsa = Path(tmp) / "x.mvsa"
             mvsa.write_text("L: a\n", encoding="utf-8")
-            need_mxl, need_pdf, need_svg, need_ir, need_from = sync.is_stale(mvsa)
+            need_mxl, need_svg, need_ir, need_from = sync.is_stale(mvsa)
             self.assertTrue(need_mxl)
-            self.assertTrue(need_pdf)
             self.assertTrue(need_svg)
             self.assertTrue(need_ir)
             self.assertTrue(need_from)
@@ -54,13 +53,12 @@ class StampOkTests(unittest.TestCase):
             mvsa.write_text("L: a\n", encoding="utf-8")
             digest = pm.source_sha256(mvsa)
             with mock.patch.object(sync, "_stamp_ok_mxl", return_value=True), mock.patch.object(
-                sync, "_stamp_ok_pdf", return_value=True
-            ), mock.patch.object(sync, "_stamp_ok_svg", return_value=True), mock.patch.object(
-                sync, "_stamp_ok_score_ir", return_value=True
-            ), mock.patch.object(sync, "_stamp_ok_from_ir", return_value=True):
-                need_mxl, need_pdf, need_svg, need_ir, need_from = sync.is_stale(mvsa)
+                sync, "_stamp_ok_svg", return_value=True
+            ), mock.patch.object(sync, "_stamp_ok_score_ir", return_value=True), mock.patch.object(
+                sync, "_stamp_ok_from_ir", return_value=True
+            ):
+                need_mxl, need_svg, need_ir, need_from = sync.is_stale(mvsa)
             self.assertFalse(need_mxl)
-            self.assertFalse(need_pdf)
             self.assertFalse(need_svg)
             self.assertFalse(need_ir)
             self.assertFalse(need_from)
@@ -104,11 +102,9 @@ class StampOkTests(unittest.TestCase):
                 generator=pm.GENERATOR_MVSA,
             )
             with mock.patch.object(sync, "_stamp_ok_mxl", return_value=True), mock.patch.object(
-                sync, "_stamp_ok_pdf", return_value=True
-            ), mock.patch.object(sync, "_stamp_ok_score_ir", return_value=True):
-                _need_mxl, _need_pdf, need_svg, _need_ir, need_from = sync.is_stale(
-                    mvsa
-                )
+                sync, "_stamp_ok_score_ir", return_value=True
+            ):
+                _need_mxl, need_svg, _need_ir, need_from = sync.is_stale(mvsa)
             self.assertFalse(need_svg)
             self.assertFalse(need_from)
 

@@ -313,13 +313,13 @@ def test_compose_tekstblad_pagina_pdf_trims_and_titles(tmp_path: Path) -> None:
     src.close()
 
     dest = tmp_path / "index.pagina.pdf"
-    pp.compose_tekstblad_pagina_pdf(
+    pp.compose_tekstblad_pagina_pdf_from_body(
         dest,
         title="(7d) Dialoog met Diaken",
         notes=[
             "Dit is alleen van toepassing in een Liturgie waarin ook een Diaken deelneemt."
         ],
-        tekstblad_pdf=src_path,
+        body_pdf=src_path,
     )
     doc = pymupdf.open(dest)
     try:

@@ -140,12 +140,9 @@ bibliotheek is die vorm **normatief voor nieuwe en vernieuwde producten**.
 
 Liturgische tekst/dialoog is Markdown, maar een kale `.md` is te breed
 (Hugo-pagina’s zijn ook `.md`). Daarom blijft het inhoudstype in de naam:
-
-| Bron                  | Afgeleide              |
-| --------------------- | ---------------------- |
-| `{stam}.tekstblad.md` | `{stam}.tekstblad.pdf` |
-
-Geen Coria uit dit spoor.
+`{stam}.tekstblad.md`. Blad voor **Download/Print pagina**:
+`index.pagina.pdf` via `pagina-pdf` (rechtstreeks uit die bron). Geen
+verplichte product-`.tekstblad.pdf` meer; geen Coria uit dit spoor.
 
 ### Wat geen bron is
 
@@ -163,13 +160,13 @@ mogen; elk spoor houdt eigen siblings bij.
 
 | Spoor (brontype)          | Canonieke bron                                   | Verwachte afgeleiden (doelvorm)                 | Stamp in afgeleide                    | Lokaal maken                                                | Publicatiecontrole                                                |
 | ------------------------- | ------------------------------------------------ | ----------------------------------------------- | ------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------------- |
-| **vsa**                   | `{stam}.vsa`                                     | `{stam}.vsa.mxl` (Coria), `{stam}.vsa.pdf` (A4), `{stam}.vsa.svg` (scherm) | `vsa-source-sha256` van de `.vsa`     | `scripts\vsa-products.cmd`                                  | **Actief:** `check_vsa_products`                                  |
+| **vsa**                   | `{stam}.vsa`                                     | `{stam}.vsa.mxl` (Coria), `{stam}.vsa.svg` (scherm; geen verplichte `.vsa.pdf`) | `vsa-source-sha256` van de `.vsa`     | `scripts\vsa-products.cmd`                                  | **Actief:** `check_vsa_products`                                  |
 | **lyrics** (zoektekst)    | `{stam}.vsa` / `.mvsa` / `.mscz`                 | `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` / `.mscz.lyrics.txt` | `vsa-source-sha256` van de bron (`kind` = `vsa` / `mvsa` / `partituur`) | `scripts\lyrics-products.cmd`                               | **Actief:** `check_lyrics_products`                               |
-| **mscz** (basispartituur) | `{stam}.mscz`                                    | `{stam}.mscz.pdf`, `{stam}.mscz.mxl`            | `vsa-partituur-sha256` van de `.mscz` | `scripts\mscz-products.cmd`                                 | **Actief:** `check_mscz_products`                                 |
+| **mscz** (basispartituur) | `{stam}.mscz`                                    | `{stam}.mscz.mxl`, `{stam}.mscz.svg` (scherm; geen verplichte `.mscz.pdf`) | `vsa-partituur-sha256` van de `.mscz` | `scripts\mscz-products.cmd`                                 | **Actief:** `check_mscz_products`                                 |
 | **import** (bewerkvorm)   | `{stam}.mscz`                                    | `{stam}.mscz.mvsa` (optioneel)                  | `vsa-partituur-sha256` in commentaren | `scripts\import-mvsa.cmd`                                   | **Actief:** `check_import_mvsa` (alleen bestaande siblings)       |
-| **mvsa**                  | `{stam}.mvsa`                                    | `{stam}.mvsa.mxl`, `{stam}.mvsa.pdf`, `{stam}.mvsa.score-ir.json`, `{stam}.mvsa.from-ir.musicxml`; `{stam}.mvsa.svg` optioneel bij geldige from-ir | `vsa-source-sha256` van de `.mvsa`    | `scripts\mvsa-products.cmd`                                 | **Actief:** `check_mvsa_products`                                 |
+| **mvsa**                  | `{stam}.mvsa`                                    | `{stam}.mvsa.mxl`, `{stam}.mvsa.score-ir.json`, `{stam}.mvsa.from-ir.musicxml`; `{stam}.mvsa.svg` optioneel bij geldige from-ir (geen verplichte `.mvsa.pdf`) | `vsa-source-sha256` van de `.mvsa`    | `scripts\mvsa-products.cmd`                                 | **Actief:** `check_mvsa_products`                                 |
 | **audio** (preview)       | `{stam}.mvsa` / `.mscz` / `.vsa`                 | `{stam}.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3`    | hash van die bron in het mp3          | `scripts\audio-products.cmd` (of `products`)                | **Actief:** `check_audio_products` (zelfde bronnen als Coria-MXL) |
-| **tekstblad**             | `{stam}.tekstblad.md`                            | `{stam}.tekstblad.pdf`                          | `vsa-source-sha256` van de `.md`      | `scripts\tekstblad-products.cmd`                            | **Actief:** `check_tekstblad_products`                            |
+| **tekstblad**             | `{stam}.tekstblad.md`                            | geen verplichte product-PDF; blad = `index.pagina.pdf` | —                                     | `scripts\pagina-pdf.cmd`                                    | **Actief:** `check_tekstblad_products` (bron)                     |
 | **Coria-contract**        | bestaande `.vsa.mxl` / `.mscz.mxl` / `.mvsa.mxl` | (geen nieuw bestand; checklist op de sibling)   | —                                     | `scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid` | **Actief:** `check_mxl_playback_contract`                         |
 
 **Catalogus-id** (`zangstuk/variant/uitvoeringsvorm`) hoort op elk
@@ -244,12 +241,14 @@ en `check` slaan het over. Na de catalogusproducten:
 tijdelijke compacte SVG; `{stam}.mvsa.svg` blijft het gewone webplaatje.
 Commit de blad-PDF mee, anders tonen Download pagina en Print pagina niet.
 
-Op bibliotheek-bladermappen: knop **Beluisteren** bij elke bron met
-Coria-`.mxl` (passende `.mp3`); knop **Bronnen** (alleen in de
-bibliotheek, en alleen als er een `.vsa` of `.mvsa` is) toont de
-feitelijke brontekst in plaats van de gerenderde partituur. **Downloaden**
-en **Printen** gelden dan voor dat bronbestand. Bij alleen een `.mscz`
-(geen VSA-tekst) ontbreekt de knop **Bronnen**.
+Op bibliotheek-bladermappen: icoon **♪** (linksboven op de partituur)
+opent **Oefenen** en **Beluisteren** (Beluisteren bij elke bron met
+passende `.mp3`). Alleen in de catalogus: icoon **{}** (rechtsboven)
+opent **Bronnen** als er een `.vsa` of `.mvsa` is; dat toont de
+feitelijke brontekst in plaats van de gerenderde partituur.
+**Downloaden** en **Printen** in dat menu gelden dan voor dat
+bronbestand. Bij alleen een `.mscz` (geen VSA-tekst) ontbreekt het
+icoon **Bronnen**.
 
 ## Legacy-namen (nog toegestaan tot migratie)
 

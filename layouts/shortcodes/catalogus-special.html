@@ -1,7 +1,7 @@
 {{- /*
   Special-page lijsten voor de catalogus (build-time, Wikipedia-achtig).
 
-  kind: voorzien | ongerefereerd | oefenbaar | werkbank | handmatig
+  kind: voorzien | ongerefereerd | oefenbaar | werkbank | handmatig | mscz-bron
 */ -}}
 {{- $kind := .Get "kind" | default "voorzien" -}}
 {{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}
@@ -11,7 +11,59 @@
 {{- end -}}
 {{- $prefix := "catalogus/" -}}
 
-{{- if eq $kind "handmatig" -}}
+{{- if eq $kind "mscz-bron" -}}
+  {{- /* Basispartituur-.mscz in de leaf (niet alleen *.print.mscz). */ -}}
+  {{- $rows := slice -}}
+  {{- range $bib.RegularPagesRecursive -}}
+    {{- $dir := "" -}}
+    {{- with .File -}}{{- $dir = strings.TrimSuffix "/" (replace .Dir "\\" "/") -}}{{- end -}}
+    {{- if $dir -}}
+      {{- $id := strings.TrimPrefix $prefix $dir -}}
+      {{- if and (ne $id $dir) (eq (len (split $id "/")) 3) -}}
+        {{- $hasBasis := false -}}
+        {{- range .Resources.Match "*.mscz" -}}
+          {{- if not (strings.HasSuffix (lower .Name) ".print.mscz") -}}
+            {{- $hasBasis = true -}}
+          {{- end -}}
+        {{- end -}}
+        {{- if not $hasBasis -}}
+          {{- $srcDir := printf "content-source/%s" $dir -}}
+          {{- if fileExists $srcDir -}}
+            {{- range os.ReadDir $srcDir -}}
+              {{- if not .IsDir -}}
+                {{- $n := lower .Name -}}
+                {{- if and (strings.HasSuffix $n ".mscz") (not (strings.HasSuffix $n ".print.mscz")) -}}
+                  {{- $hasBasis = true -}}
+                {{- end -}}
+              {{- end -}}
+            {{- end -}}
+          {{- end -}}
+        {{- end -}}
+        {{- if $hasBasis -}}
+          {{- $rows = $rows | append (dict "page" . "id" $id "title" (partial "display-link-title.html" .)) -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $rows = sort $rows "id" -}}
+  {{- if $rows -}}
+<ul class="page-list catalogus-special">
+  {{- range $rows -}}
+  <li>
+    {{- if partial "oefenhoek-linkbaar.html" .page -}}
+    <a href="{{ .page.RelPermalink }}">{{ .title }}</a>
+    {{- else -}}
+    <span class="oefenhoek-voorzien">{{ .title }} <span class="oefenhoek-voorzien-tag">(voorzien)</span></span>
+    {{- end -}}
+    <code class="catalogus-id">{{ .id }}</code>
+  </li>
+  {{- end -}}
+</ul>
+  {{- else -}}
+<p>Geen uitvoeringsvormen met een basispartituur-<code>.mscz</code> in de catalogusmap.</p>
+  {{- end -}}
+
+{{- else if eq $kind "handmatig" -}}
   {{- $rows := slice -}}
   {{- range $bib.RegularPagesRecursive -}}
     {{- $dir := "" -}}
@@ -172,5 +224,5 @@
   {{- end -}}
 
 {{- else -}}
-  {{- errorf "%s: shortcode catalogus-special: onbekend kind %q. Oplossing: gebruik kind=\"voorzien\", \"ongerefereerd\", \"oefenbaar\", \"werkbank\" of \"handmatig\"." $loc $kind -}}
+  {{- errorf "%s: shortcode catalogus-special: onbekend kind %q. Oplossing: gebruik kind=\"voorzien\", \"ongerefereerd\", \"oefenbaar\", \"werkbank\", \"handmatig\" of \"mscz-bron\"." $loc $kind -}}
 {{- end -}}

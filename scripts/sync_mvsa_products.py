@@ -1,8 +1,9 @@
 """Maak siblings bij catalogus-``.mvsa``.
 
-Roept tooling aan: ``mvsa musicxml`` (Coria), ``mvsa pdf`` (MuseScore +
-layoutprofiel ``partituur``), ``mvsa svg`` (MuseScore + layout ``muziek``,
-trim), ``mvsa score-ir --musicxml`` (Score-IR JSON + OSMD-MusicXML).
+Roept tooling aan: ``mvsa musicxml`` (Coria), ``mvsa svg`` (scherm-fallback),
+``mvsa score-ir --musicxml`` (Score-IR JSON + OSMD-MusicXML). A4-``.mvsa.pdf``
+is geen verplicht product meer (blad = ``index.pagina.pdf``); PDF-export in
+``sync_one`` blijft voor optioneel herstel.
 Zet ``vsa-source-sha256`` + ``vsa-source-kind=mvsa``.
 
 Slaat ``input/``, ``artefacten_handmatig`` en import-siblings ``*.mscz.mvsa``
@@ -150,11 +151,13 @@ def _stamp_ok_from_ir(path: Path, source_hash: str) -> bool:
     return stamp.get(FIELD_SOURCE_SHA, "") == source_hash
 
 
-def is_stale(mvsa: Path) -> tuple[bool, bool, bool, bool, bool]:
-    """Return (need_mxl, need_pdf, need_svg, need_score_ir, need_from_ir)."""
+def is_stale(mvsa: Path) -> tuple[bool, bool, bool, bool]:
+    """Return (need_mxl, need_svg, need_score_ir, need_from_ir).
+
+    Product-PDF is geen sync-slot meer.
+    """
     digest = source_sha256(mvsa)
     need_mxl = not _stamp_ok_mxl(product_mxl_for_mvsa(mvsa), digest)
-    need_pdf = not _stamp_ok_pdf(product_pdf_for_mvsa(mvsa), digest)
     need_score_ir = not _stamp_ok_score_ir(product_score_ir_for_mvsa(mvsa), digest)
     need_from_ir = not _stamp_ok_from_ir(
         product_from_ir_musicxml_for_mvsa(mvsa), digest
@@ -163,7 +166,7 @@ def is_stale(mvsa: Path) -> tuple[bool, bool, bool, bool, bool]:
     need_svg = (not _stamp_ok_svg(product_svg_for_mvsa(mvsa), digest)) and (
         not _stamp_ok_from_ir(product_from_ir_musicxml_for_mvsa(mvsa), digest)
     )
-    return need_mxl, need_pdf, need_svg, need_score_ir, need_from_ir
+    return need_mxl, need_svg, need_score_ir, need_from_ir
 
 
 def _run_mvsa_musicxml(mvsa: Path, mxl: Path) -> None:
@@ -317,7 +320,6 @@ class MvsaKind:
     def slots_for(self, source: Path, policy: RegenPolicy) -> list[ProductSlot]:
         digest = source_sha256(source)
         mxl = product_mxl_for_mvsa(source)
-        pdf = product_pdf_for_mvsa(source)
         svg = product_svg_for_mvsa(source)
         score_ir = product_score_ir_for_mvsa(source)
         from_ir = product_from_ir_musicxml_for_mvsa(source)
@@ -341,13 +343,6 @@ class MvsaKind:
                 stamp_ok=_stamp_ok_mxl(mxl, digest),
                 contract_ok=contract,
                 needs_musescore=False,
-            ),
-            ProductSlot(
-                path=pdf,
-                exists=pdf.is_file(),
-                stamp_ok=_stamp_ok_pdf(pdf, digest),
-                contract_ok=None,
-                needs_musescore=True,
             ),
             ProductSlot(
                 path=svg,
@@ -374,15 +369,14 @@ class MvsaKind:
 
     def sync(self, source: Path, *, need: Sequence[bool], dry_run: bool) -> None:
         need_mxl = bool(need[0]) if len(need) > 0 else False
-        need_pdf = bool(need[1]) if len(need) > 1 else False
-        need_svg = bool(need[2]) if len(need) > 2 else False
-        need_score_ir = bool(need[3]) if len(need) > 3 else False
-        need_from_ir = bool(need[4]) if len(need) > 4 else False
-        if need_mxl or need_pdf or need_svg or need_score_ir or need_from_ir:
+        need_svg = bool(need[1]) if len(need) > 1 else False
+        need_score_ir = bool(need[2]) if len(need) > 2 else False
+        need_from_ir = bool(need[3]) if len(need) > 3 else False
+        if need_mxl or need_svg or need_score_ir or need_from_ir:
             sync_one(
                 source,
                 need_mxl=need_mxl,
-                need_pdf=need_pdf,
+                need_pdf=False,
                 need_svg=need_svg,
                 need_score_ir=need_score_ir,
                 need_from_ir=need_from_ir,
@@ -398,8 +392,9 @@ def main(argv: list[str] | None = None) -> int:
         KIND,
         argv,
         description=(
-            "Exporteer stale Coria-.mxl + PDF + koormap-SVG + Score-IR "
-            "(+ from-ir MusicXML) vanuit bibliotheek-.mvsa."
+            "Exporteer stale Coria-.mxl + koormap-SVG + Score-IR "
+            "(+ from-ir MusicXML) vanuit bibliotheek-.mvsa "
+            "(geen A4-product-PDF; blad = index.pagina.pdf)."
         ),
         default_root=DEFAULT_ROOT,
     )

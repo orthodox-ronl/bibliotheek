@@ -1,13 +1,10 @@
-"""Maak Coria-``.vsa.mxl`` + A4-``.vsa.pdf`` + muziek-``.vsa.svg`` bij ``.vsa``.
+"""Maak Coria-``.vsa.mxl`` + muziek-``.vsa.svg`` bij ``.vsa``.
 
-Siblings: ``{stam}.vsa.mxl`` (Coria / Oefenen), ``{stam}.vsa.pdf``
-(Downloaden / Printen; mag titel), ``{stam}.vsa.svg`` (scherm; alleen
-notatie — zelfde rol als ``.mvsa.svg``). MXL: ``vsa musicxml
---musicxml-profile playback`` na tijdelijke syllabify. PDF: tijdelijke
-Markdown met alleen de VSA-notatie (YAML-frontmatter van de ``.vsa`` eraf)
-in ``::: vsa-notatie`` via ``vsa pdf`` (Chrome/Edge); titel uit
-bladermap-``index.md``. SVG: ``vsa svg`` (native renderer). Alle drie
-krijgen ``vsa-source-sha256``.
+Siblings: ``{stam}.vsa.mxl`` (Coria / Oefenen), ``{stam}.vsa.svg`` (scherm).
+A4-``.vsa.pdf`` is geen verplicht product meer (blad = ``index.pagina.pdf``);
+``product_pdf_for_vsa`` / PDF-export in ``sync_one`` blijven voor optioneel
+herstel. MXL: ``vsa musicxml --musicxml-profile playback`` na tijdelijke
+syllabify. SVG: ``vsa svg``. Beide krijgen ``vsa-source-sha256``.
 
 Slaat mappen met ``artefacten_handmatig: true`` over. CI genereert niet —
 alleen ``check_vsa_products``; vernieuw lokaal met ``scripts\\vsa-products.cmd``.
@@ -173,12 +170,11 @@ def is_stale(vsa: Path, mxl: Path) -> bool:
     return not _stamp_ok_mxl(mxl, source_sha256(vsa))
 
 
-def is_stale_pair(vsa: Path) -> tuple[bool, bool, bool]:
-    """``(need_mxl, need_pdf, need_svg)``."""
+def is_stale_pair(vsa: Path) -> tuple[bool, bool]:
+    """``(need_mxl, need_svg)`` — product-PDF is geen sync-slot meer."""
     digest = source_sha256(vsa)
     return (
         not _stamp_ok_mxl(product_path_for_vsa(vsa), digest),
-        not _stamp_ok_pdf(product_pdf_for_vsa(vsa), digest),
         not _stamp_ok_svg(product_svg_for_vsa(vsa), digest),
     )
 
@@ -399,7 +395,6 @@ class VsaKind:
     def slots_for(self, source: Path, policy: RegenPolicy) -> list[ProductSlot]:
         digest = source_sha256(source)
         mxl = product_path_for_vsa(source)
-        pdf = product_pdf_for_vsa(source)
         svg = product_svg_for_vsa(source)
         mxl_exists = mxl.is_file()
         contract = (
@@ -416,13 +411,6 @@ class VsaKind:
                 needs_musescore=False,
             ),
             ProductSlot(
-                path=pdf,
-                exists=pdf.is_file(),
-                stamp_ok=_stamp_ok_pdf(pdf, digest),
-                contract_ok=None,
-                needs_musescore=False,
-            ),
-            ProductSlot(
                 path=svg,
                 exists=svg.is_file(),
                 stamp_ok=_stamp_ok_svg(svg, digest),
@@ -433,14 +421,13 @@ class VsaKind:
 
     def sync(self, source: Path, *, need: Sequence[bool], dry_run: bool) -> None:
         need_mxl = bool(need[0]) if len(need) > 0 else False
-        need_pdf = bool(need[1]) if len(need) > 1 else False
-        need_svg = bool(need[2]) if len(need) > 2 else False
-        if need_mxl or need_pdf or need_svg:
+        need_svg = bool(need[1]) if len(need) > 1 else False
+        if need_mxl or need_svg:
             sync_one(
                 source,
                 dry_run=dry_run,
                 do_mxl=need_mxl,
-                do_pdf=need_pdf,
+                do_pdf=False,
                 do_svg=need_svg,
             )
 
@@ -453,8 +440,8 @@ def main(argv: list[str] | None = None) -> int:
         KIND,
         argv,
         description=(
-            "Exporteer stale Coria-.mxl, A4-.vsa.pdf en muziek-.vsa.svg "
-            "vanuit bibliotheek-.vsa."
+            "Exporteer stale Coria-.mxl en muziek-.vsa.svg vanuit bibliotheek-.vsa "
+            "(geen A4-product-PDF; blad = index.pagina.pdf)."
         ),
         default_root=DEFAULT_ROOT,
     )

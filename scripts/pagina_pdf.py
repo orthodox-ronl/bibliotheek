@@ -531,14 +531,52 @@ def _pdf_page_content_clip(page: object, *, pad: float = 6.0) -> object:
     return clip
 
 
+def export_tekstblad_md_pdf(md: Path, dest: Path) -> None:
+    """Render ``.tekstblad.md`` naar PDF via ``vsa pdf`` (HTML + ``::: vsa-notatie``)."""
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    cmd = [
+        sys.executable,
+        "-m",
+        "vsa.cli",
+        "pdf",
+        str(md),
+        "-o",
+        str(dest),
+        "--content-root",
+        str(CONTENT),
+    ]
+    print(f"  tekstblad-body {md.name}", flush=True)
+    subprocess.check_call(cmd, cwd=str(ROOT))
+    if not dest.is_file():
+        raise RuntimeError(f"tekstblad-body-PDF ontbreekt na vsa pdf: {dest}")
+
+
 def compose_tekstblad_pagina_pdf(
     dest: Path,
     *,
     title: str,
     notes: list[str],
-    tekstblad_pdf: Path,
+    tekstblad_md: Path,
 ) -> None:
-    """A4: gecentreerde titel + toelichting + getrimde tekstblad-PDF-inhoud."""
+    """A4: titel + toelichting + body uit ``.tekstblad.md`` (geen product-PDF)."""
+    if not tekstblad_md.is_file():
+        raise FileNotFoundError(f"tekstblad-md ontbreekt: {tekstblad_md}")
+    with tempfile.TemporaryDirectory(prefix="pagina-tekstblad-") as tmp:
+        body = Path(tmp) / "body.pdf"
+        export_tekstblad_md_pdf(tekstblad_md, body)
+        compose_tekstblad_pagina_pdf_from_body(
+            dest, title=title, notes=notes, body_pdf=body
+        )
+
+
+def compose_tekstblad_pagina_pdf_from_body(
+    dest: Path,
+    *,
+    title: str,
+    notes: list[str],
+    body_pdf: Path,
+) -> None:
+    """A4: gecentreerde titel + toelichting + getrimde body-PDF-inhoud."""
     try:
         import pymupdf
     except ImportError as exc:
@@ -546,11 +584,11 @@ def compose_tekstblad_pagina_pdf(
             "pymupdf ontbreekt; installeer met: python -m pip install pymupdf"
         ) from exc
 
-    if not tekstblad_pdf.is_file():
-        raise FileNotFoundError(f"tekstblad-PDF ontbreekt: {tekstblad_pdf}")
+    if not body_pdf.is_file():
+        raise FileNotFoundError(f"tekstblad-body-PDF ontbreekt: {body_pdf}")
 
     font_reg, _font_bold = _title_font_files()
-    src = pymupdf.open(tekstblad_pdf)
+    src = pymupdf.open(body_pdf)
     try:
         doc = pymupdf.open()
         page = doc.new_page(width=_A4_W, height=_A4_H)
@@ -614,7 +652,7 @@ def compose_tekstblad_pagina_pdf(
             total_h += float(clip.height)
             max_w = max(max_w, float(clip.width))
         if total_h <= 0 or max_w <= 0:
-            raise RuntimeError(f"lege tekstblad-PDF: {tekstblad_pdf}")
+            raise RuntimeError(f"lege tekstblad-body-PDF: {body_pdf}")
 
         gap = 6.0
         gaps = gap * max(0, len(clips) - 1)
@@ -625,7 +663,6 @@ def compose_tekstblad_pagina_pdf(
             draw_w = float(clip.width) * scale
             draw_h = float(clip.height) * scale
             if y + draw_h > _A4_H - _MARGIN + 0.5:
-                # Past niet meer: schaal opnieuw strakker (zeldzaam)
                 raise RuntimeError(
                     f"tekstblad-inhoud past niet op één A4 na trim "
                     f"(schaal={scale:.3f}, nodig={draw_h:.1f}pt)"
@@ -706,7 +743,7 @@ def catalogus_needs_voorzien_pdf(md_path: Path) -> str | None:
     leaf_id = catalogus_leaf_id(md_path)
     if not leaf_id:
         return None
-    if leaf_has_tekstblad(leaf_id) or find_tekstblad_pdf(leaf_id):
+    if leaf_has_tekstblad(leaf_id) or find_tekstblad_md(leaf_id):
         return None
     if try_find_notation_source(leaf_id) is not None:
         return None
@@ -716,16 +753,16 @@ def catalogus_needs_voorzien_pdf(md_path: Path) -> str | None:
 def catalogus_tekstblad_pagina_job(
     md_path: Path,
 ) -> tuple[str, Path] | None:
-    """Leaf-id + ``*.tekstblad.pdf`` als deze leaf een tekstblad-pagina.pdf krijgt."""
+    """Leaf-id + ``*.tekstblad.md`` als deze leaf een tekstblad-pagina.pdf krijgt."""
     leaf_id = catalogus_leaf_id(md_path)
     if not leaf_id:
         return None
     if try_find_notation_source(leaf_id) is not None:
         return None
-    pdf = find_tekstblad_pdf(leaf_id)
-    if pdf is None:
+    tb_md = find_tekstblad_md(leaf_id)
+    if tb_md is None:
         return None
-    return leaf_id, pdf
+    return leaf_id, tb_md
 
 
 def _catalogus_tekstblad_pagina_title(leaf_id: str) -> str:
@@ -1032,11 +1069,8 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
 
     tekstblad_job = catalogus_tekstblad_pagina_job(md_path)
     if tekstblad_job is not None:
-        leaf_id, tb_pdf = tekstblad_job
-        deps = [md_path, tb_pdf]
-        tb_md = find_tekstblad_md(leaf_id)
-        if tb_md is not None:
-            deps.append(tb_md)
+        leaf_id, tb_md = tekstblad_job
+        deps = [md_path, tb_md]
         if out.is_file() and not force:
             newest = max(p.stat().st_mtime for p in deps if p.is_file())
             if out.stat().st_mtime >= newest:
@@ -1045,7 +1079,7 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
         notes = prose_notes_from_catalogus_md(text)
         print(f"  tekstblad-pagina {leaf_id}", flush=True)
         compose_tekstblad_pagina_pdf(
-            out, title=title, notes=notes, tekstblad_pdf=tb_pdf
+            out, title=title, notes=notes, tekstblad_md=tb_md
         )
         return out
 

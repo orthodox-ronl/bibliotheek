@@ -11,7 +11,9 @@ met `pdf-…`. Titels op het blad zet je met `kop` — geen HTML.
 
 Lees eerst het model catalogus versus koormap in
 [Catalogus en koormappen](catalogus-en-koormappen/). Normatieve details:
-`docs\specs\koormap-paginataal.md` in de repository. Pagina-PDF bouwen:
+`docs\specs\koormap-paginataal.md` in de repository (shortcodes en
+paginacontract). Hoe de **partituur op het scherm** eruit moet zien
+(OSMD, SVG, titels): `docs\specs\schermpartituur.md`. Pagina-PDF bouwen:
 [pagina-pdf](../scripts/pagina-pdf/).
 
 ## Spiekbriefje
