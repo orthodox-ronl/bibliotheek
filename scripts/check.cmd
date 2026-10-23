@@ -110,6 +110,10 @@ if errorlevel 1 exit /b 1
 python scripts\fingerprint_coria_mxl.py
 if errorlevel 1 exit /b 1
 
+REM Speelplan: OSMD moet navigatie tekenen, niet alleen in from-ir XML.
+call scripts\check_osmd_nav_zichtbaar.cmd
+if errorlevel 1 exit /b 1
+
 python scripts\sync_oefenhoek_index.py --svg
 if errorlevel 1 exit /b 1
 

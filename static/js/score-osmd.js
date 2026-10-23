@@ -701,8 +701,73 @@
     }
   }
 
+  /**
+   * MusicXML ``<ending number="1,2">`` → label per maatnummer.
+   * OSMD 1.9 leest komma-lijsten als alleen het eerste cijfer (volta «1»
+   * i.p.v. «1,2»); corrigeer de getekende labels na render.
+   */
+  function endingLabelByMeasureNumber(xmlText) {
+    var doc = new DOMParser().parseFromString(xmlText, "application/xml");
+    var part = doc.querySelector("part");
+    var map = {};
+    if (!part) {
+      return map;
+    }
+    Array.prototype.forEach.call(
+      part.querySelectorAll(":scope > measure"),
+      function (m) {
+        var num = m.getAttribute("number");
+        if (!num) {
+          return;
+        }
+        var start = m.querySelector('barline[location="left"] ending');
+        var stop = m.querySelector('barline[location="right"] ending');
+        var ending = start || stop;
+        if (!ending) {
+          return;
+        }
+        var label = ending.getAttribute("number");
+        if (label) {
+          map[String(num)] = String(label).trim();
+        }
+      }
+    );
+    return map;
+  }
+
+  function fixVoltaLabels(mount, xmlText) {
+    var byNum = endingLabelByMeasureNumber(xmlText);
+    var ids = Object.keys(byNum);
+    if (!ids.length) {
+      return;
+    }
+    Array.prototype.forEach.call(
+      mount.querySelectorAll("g.vf-measure"),
+      function (g) {
+        var id = g.getAttribute("id");
+        if (!id || !byNum[id]) {
+          return;
+        }
+        var label = byNum[id];
+        var first = label.split(",")[0].trim();
+        Array.prototype.forEach.call(g.children, function (child) {
+          var tag = child.tagName && String(child.tagName).toLowerCase();
+          if (tag !== "text") {
+            return;
+          }
+          var cur = String(child.textContent || "").trim();
+          // Alleen bijknippen herstellen: OSMD toonde «1» i.p.v. «1,2».
+          if (cur === first && cur !== label) {
+            child.textContent = label;
+          }
+        });
+      }
+    );
+  }
+
   function renderAndLayout(osmd, mount, xmlText) {
     osmd.render();
+    fixVoltaLabels(mount, xmlText);
     layoutCues(mount, xmlText);
   }
 
@@ -729,7 +794,8 @@
         drawPartNames: false,
         drawPartAbbreviations: false,
         drawMeasureNumbers: true,
-        drawMeasureNumbersOnlyAtSystemStart: false,
+        // schermpartituur §4.1 / besluit 3: voorkeur begin van elk systeem
+        drawMeasureNumbersOnlyAtSystemStart: true,
         drawMetronomeMarks: false,
         drawTimeSignatures: false,
         drawCredits: false,

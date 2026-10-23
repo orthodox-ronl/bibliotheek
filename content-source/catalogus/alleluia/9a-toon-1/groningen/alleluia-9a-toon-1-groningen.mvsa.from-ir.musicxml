@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- vsa-source-sha256: 5244408ecdab5e9200f2558312de55737fa26440b3d4357437fab00f593a76d0 -->
+<!-- vsa-source-sha256: 3cdfa87a70448a2e2a0b3c926399854bf188b0b0295396c08cf8a8b2be6db359 -->
 <!-- vsa-source-kind: mvsa -->
-<!-- vsa-generated-at: 2026-10-23T09:11:06+00:00 -->
+<!-- vsa-generated-at: 2026-10-23T18:30:56+00:00 -->
 <!-- vsa-generator: mvsa-products -->
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 3.1 Partwise//EN"
   "http://www.musicxml.org/dtds/partwise.dtd">
@@ -183,6 +183,7 @@
 <type>half</type>
 <stem>down</stem>
 </note>
+<barline location="left"><bar-style>heavy-light</bar-style><repeat direction="forward"/></barline>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
 <measure number="2">
@@ -333,7 +334,8 @@
 <type>half</type>
 <stem>down</stem>
 </note>
-<barline location="right"><bar-style>regular</bar-style></barline>
+<barline location="left"><ending number="1,2" type="start"/></barline>
+<barline location="right"><bar-style>light-heavy</bar-style><repeat direction="backward"/><ending number="1,2" type="stop"/></barline>
 </measure>
 <measure number="3">
 <note>
@@ -513,7 +515,8 @@
 <type>half</type>
 <stem>down</stem>
 </note>
-<barline location="right"><bar-style>light-heavy</bar-style></barline>
+<barline location="left"><ending number="3" type="start"/></barline>
+<barline location="right"><bar-style>light-heavy</bar-style><ending number="3" type="stop"/></barline>
 </measure>
 </part>
 <part id="P2">
@@ -681,6 +684,7 @@
 <type>half</type>
 <stem>down</stem>
 </note>
+<barline location="left"><bar-style>heavy-light</bar-style><repeat direction="forward"/></barline>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
 <measure number="2">
@@ -858,7 +862,7 @@
 <type>half</type>
 <stem>down</stem>
 </note>
-<barline location="right"><bar-style>regular</bar-style></barline>
+<barline location="right"><bar-style>light-heavy</bar-style><repeat direction="backward"/></barline>
 </measure>
 <measure number="3">
 <note>

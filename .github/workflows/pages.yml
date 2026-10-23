@@ -147,6 +147,21 @@ jobs:
       - name: Check Coria MXL playback contract
         run: python scripts/check_mxl_playback_contract.py --fail
 
+      - name: Setup Node (OSMD-navigatie-steekproef)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: scripts/osmd-nav-check/package-lock.json
+
+      - name: Check OSMD speelplan-navigatie zichtbaar
+        run: |
+          set -euo pipefail
+          cd scripts/osmd-nav-check
+          npm ci
+          npx playwright install --with-deps chromium
+          node check.mjs
+
       - name: Check bibliotheek-id in MSCZ colofon
         run: python scripts/ensure_bibliotheek_id.py --check-only --fail
 
