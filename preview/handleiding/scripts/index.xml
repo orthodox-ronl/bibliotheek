@@ -46,9 +46,8 @@ het script de map &lt;code&gt;content-source\catalogus&lt;/code&gt;.&lt;/p&gt;
 daarna de gepubliceerde CLI aan:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;code&gt;vsa validate&lt;/code&gt; op het gekozen pad (standaard de hele catalogus-map)&lt;/li&gt;
-&lt;li&gt;Als er onder dat pad minstens één canonieke &lt;code&gt;.mvsa&lt;/code&gt; staat: ook
-&lt;code&gt;mvsa validate&lt;/code&gt; daarop (import-siblings &lt;code&gt;*.mscz.mvsa&lt;/code&gt; worden
-overgeslagen — bewerkvorm naast &lt;code&gt;.mscz&lt;/code&gt;, geen catalogusbron)&lt;/li&gt;
+&lt;li&gt;Als er onder dat pad minstens één &lt;code&gt;.mvsa&lt;/code&gt; staat: ook &lt;code&gt;mvsa validate&lt;/code&gt;
+(inclusief import-siblings &lt;code&gt;*.mscz.mvsa&lt;/code&gt;)&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Het script kopieert geen validatielogica uit VSA-tooling; het geeft alleen
 het pad door. Ruwe dumps onder &lt;code&gt;content-source\input&lt;/code&gt; horen niet bij deze

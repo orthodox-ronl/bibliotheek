@@ -43,9 +43,8 @@ omgewisselde woorden tellen mee. Zoeken loopt over de
 </span></span><span style=display:flex><span>validate content-source\catalogus\tropaar
 </span></span></code></pre></div><p>Of: <code>scripts\validate.cmd</code> vanuit de repo-root. Zonder argument valideert
 het script de map <code>content-source\catalogus</code>.</p><h1 id=description>DESCRIPTION</h1><p>Zet eerst <code>vsa-tool</code> klaar (<code>scripts\_ensure.cmd --vsa-tool</code>) en roept
-daarna de gepubliceerde CLI aan:</p><ol><li><code>vsa validate</code> op het gekozen pad (standaard de hele catalogus-map)</li><li>Als er onder dat pad minstens één canonieke <code>.mvsa</code> staat: ook
-<code>mvsa validate</code> daarop (import-siblings <code>*.mscz.mvsa</code> worden
-overgeslagen — bewerkvorm naast <code>.mscz</code>, geen catalogusbron)</li></ol><p>Het script kopieert geen validatielogica uit VSA-tooling; het geeft alleen
+daarna de gepubliceerde CLI aan:</p><ol><li><code>vsa validate</code> op het gekozen pad (standaard de hele catalogus-map)</li><li>Als er onder dat pad minstens één <code>.mvsa</code> staat: ook <code>mvsa validate</code>
+(inclusief import-siblings <code>*.mscz.mvsa</code>)</li></ol><p>Het script kopieert geen validatielogica uit VSA-tooling; het geeft alleen
 het pad door. Ruwe dumps onder <code>content-source\input</code> horen niet bij deze
 preflight — die map is geen publicatiebron.</p><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span><span style=color:#66d9ef>cd</span> /d C:\Git\orthodox-ronl\bibliotheek
 </span></span><span style=display:flex><span>validate
