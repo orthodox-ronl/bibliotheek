@@ -45,7 +45,7 @@
     document.querySelectorAll("details.publicatiestatus-tip[open]").forEach(function (tip) {
       if (!tip.contains(event.target)) tip.open = false;
     });
-    document.querySelectorAll("details.score-oefen-tip[open]").forEach(function (tip) {
+    document.querySelectorAll("details.score-oefen-tip[open], details.score-bron-tip[open]").forEach(function (tip) {
       if (!tip.contains(event.target)) tip.open = false;
     });
     syncChromeHeight();
