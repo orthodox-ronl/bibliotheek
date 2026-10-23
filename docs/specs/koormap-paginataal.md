@@ -173,7 +173,7 @@ Twee schrijfwijzen zijn **gelijkwaardig** wanneer er een openstaande
 | Onderdeel | Aliassen | Betekenis |
 | --- | --- | --- |
 | `titel` | `title` | Catalogustitel van de uitvoeringsvorm, als platte tekst (geschikt in een Markdown-kop of binnen `kop`). |
-| `muziek` | — | Partituurweergave (+ oefenacties bij dat blok). Geen paginatitel forceren. Scherm toont alleen het muziekdeel als SVG (`.mvsa.svg` / `.vsa.svg` sibling, of legacy `static/vsa/bladermap/….svg` bij `.vsa`). Catalogus-PDF (`.mvsa.pdf` / `.vsa.pdf`) is voor Downloaden/Printen (mag titel, id, e.d.) en op het scherm alleen als er geen SVG is. Zelfde regel voor `.vsa` en `.mvsa`. |
+| `muziek` | — | Partituurweergave (+ oefenacties bij dat blok). Geen paginatitel forceren. **Scherm (voorkeur):** sibling ``.mvsa.from-ir.musicxml`` (uit Score-IR) via OSMD — geen MuseScore-paginamodel. **Fallback:** muziek-SVG (``.mvsa.svg`` / ``.vsa.svg``, of legacy `static/vsa/bladermap/….svg` bij `.vsa`). Catalogus-PDF (`.mvsa.pdf` / `.vsa.pdf`) is voor Downloaden/Printen (mag titel, id, e.d.) en op het scherm alleen als er geen OSMD-MusicXML én geen SVG is. Zelfde SVG-regel voor `.vsa` en `.mvsa`. Artifact: `vsa mvsa score-ir … --musicxml` in VSA-tooling. |
 | `bron` | — | Korte bronvermelding van de uitvoeringsvorm. |
 | `copyright` | — | Copyright-/licentieregel(s), alleen als de beheerder dit zet. |
 | `veld` | — | Generieke frontmatter; zie §5.4. |
@@ -308,12 +308,15 @@ blad mogen staan (bijv. NL en KSL elk een eigen blad).
 
 ---
 
-## 8a. Relatie tot kale muziek-SVG (afspraak)
+## 8a. Relatie tot kale muziek-SVG en Score-IR (afspraak)
 
-Org-afspraak (niet normatief hier; tooling-plan): kale scherm-/blad-SVG;
+Org-afspraak (niet normatief hier; tooling-plan): kale blad-SVG voor print;
 `pagina-pdf` bouwt `index.pagina.pdf` uit blad-SVG’s + Markdown (geen
-catalogus-PDF-plak). Open: tall scherm-SVG of Score-IR. Zie
-[VSA-tooling — kale-muziek-svg-en-uitgaven](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/kale-muziek-svg-en-uitgaven.md).
+catalogus-PDF-plak). **Schermrichting:** Score-IR → MusicXML-sibling
+(``.from-ir.musicxml``) → OSMD (shortcode `muziek` / `bieb-score`). MuseScore
+blijft print/blad. Zie
+[VSA-tooling — kale-muziek-svg-en-uitgaven](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/kale-muziek-svg-en-uitgaven.md)
+§4 en [partituur-ir §7](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/partituur-ir.md).
 
 ---
 

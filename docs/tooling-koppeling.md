@@ -57,6 +57,12 @@ Lokaal: `scripts\validate.cmd` of `check` / `check --strict`.
 Naamgeving van bronnen en afgeleiden, en welke publicatiecontroles er (gaan) zijn:
 [publicatiecontrole.md](publicatiecontrole.md).
 
+**Scherm (Score-IR / OSMD):** sibling ``.mvsa.from-ir.musicxml`` (plus
+``.mvsa.score-ir.json``) via ``vsa mvsa score-ir … --musicxml``. Shortcode
+`muziek` / partial `bieb-score` tekent die MusicXML met OSMD als die sibling
+er is; anders blijft de MuseScore-SVG-fallback. Nog niet in
+`mvsa-products`/`check` — optioneel tot die spoor is uitgebreid.
+
 Workflow Pages bepaalt de ref:
 
 | Trigger-branch | Mode | Ref |

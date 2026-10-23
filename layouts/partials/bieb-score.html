@@ -49,16 +49,20 @@
 <div class="score-bundle">
 {{ partial "oefenhoek-score-acties.html" (dict "score" $p "viewer" $viewer "position" .position) }}
 {{- /*
-  Scherm: alleen muziek-SVG (.mvsa.svg / .vsa.svg sibling, of static bladermap
-  voor .vsa). PDF in de bladermap is voor Downloaden/Printen (mag titel/id);
-  op het scherm alleen als fallback als er geen SVG is. Zelfde regel voor
-  .vsa en .mvsa.
+  Scherm (voorkeur): Score-IR → MusicXML-sibling → OSMD
+  (``.mvsa.from-ir.musicxml``). Anders: muziek-SVG (``.mvsa.svg`` /
+  ``.vsa.svg``, of legacy static bladermap). PDF alleen als scherm-fallback
+  zonder SVG/OSMD. Print/blad blijft MuseScore-SVG via pagina-pdf.
 */ -}}
 <div class="score-partituur">
 {{- $pdf := "" -}}
+{{- $fromIrMxl := slice -}}
 {{- $musicSvgs := slice -}}
 {{- $vsas := slice -}}
 {{- $hasMscz := false -}}
+{{- range $p.Resources.Match "*.from-ir.musicxml" -}}
+  {{- $fromIrMxl = $fromIrMxl | append .RelPermalink -}}
+{{- end -}}
 {{- range $p.Resources.Match "*.mvsa.svg" -}}
   {{- $musicSvgs = $musicSvgs | append .RelPermalink -}}
 {{- end -}}
@@ -86,6 +90,13 @@
     {{- range os.ReadDir $srcDir -}}
       {{- if not .IsDir -}}
         {{- $nameLower := lower .Name -}}
+        {{- if strings.HasSuffix $nameLower ".from-ir.musicxml" -}}
+          {{- with $p.Resources.GetMatch .Name -}}
+            {{- if not (in $fromIrMxl .RelPermalink) -}}
+              {{- $fromIrMxl = $fromIrMxl | append .RelPermalink -}}
+            {{- end -}}
+          {{- end -}}
+        {{- end -}}
         {{- if or (strings.HasSuffix $nameLower ".mvsa.svg") (strings.HasSuffix $nameLower ".vsa.svg") -}}
           {{- with $p.Resources.GetMatch .Name -}}
             {{- if not (in $musicSvgs .RelPermalink) -}}
@@ -112,13 +123,19 @@
     {{- $svgFile := printf "static/vsa/bladermap/%s" $rel -}}
     {{- if fileExists $svgFile -}}
       {{- $staticSvgs = $staticSvgs | append (printf "vsa/bladermap/%s" $rel) -}}
-    {{- else if not $musicSvgs -}}
+    {{- else if and (not $musicSvgs) (not $fromIrMxl) -}}
       {{- warnf "%s: SVG ontbreekt voor %s. Verwacht sibling .vsa.svg naast de .vsa (scripts\\vsa-products.cmd). Zolang die sibling er niet is, zoekt de site ook %s (legacy: scripts\\oefenhoek-index.cmd --svg). Zie /handleiding/vsa/1-vsa-schrijven/." $loc $p.RelPermalink $svgFile -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
 {{- $alt := partial "display-title.html" $p -}}
-{{- if $musicSvgs -}}
+{{- if $fromIrMxl -}}
+  {{- range $fromIrMxl -}}
+<div class="vsa-container osmd-container" data-osmd-src="{{ . }}" role="img" aria-label="{{ $alt }}">
+  <p class="osmd-status">Partituur laden…</p>
+</div>
+  {{- end -}}
+{{- else if $musicSvgs -}}
   {{- range $musicSvgs -}}
 <div class="vsa-container"><img class="vsa-notation" src="{{ . }}" alt="{{ $alt }}" loading="lazy"></div>
   {{- end -}}
