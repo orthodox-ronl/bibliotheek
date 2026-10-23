@@ -28,8 +28,8 @@ where mvsa >nul 2>&1
 if not errorlevel 1 (
   dir /s /b "%TARGET%\*.mvsa" >nul 2>&1
   if not errorlevel 1 (
-    echo === bibliotheek validate: mvsa validate %TARGET% ===
-    mvsa validate "%TARGET%"
+    echo === bibliotheek validate: mvsa ^(canonieke; geen *.mscz.mvsa^) ===
+    python scripts\validate_mvsa_catalogus.py "%TARGET%"
     if errorlevel 1 (
       echo ERROR: mvsa validate failed
       exit /b 1

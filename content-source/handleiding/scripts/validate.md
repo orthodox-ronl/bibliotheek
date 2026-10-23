@@ -25,7 +25,9 @@ Zet eerst `vsa-tool` klaar (`scripts\_ensure.cmd --vsa-tool`) en roept
 daarna de gepubliceerde CLI aan:
 
 1. `vsa validate` op het gekozen pad (standaard de hele catalogus-map)
-2. Als er onder dat pad minstens één `.mvsa` staat: ook `mvsa validate`
+2. Als er onder dat pad minstens één canonieke `.mvsa` staat: ook
+   `mvsa validate` daarop (import-siblings `*.mscz.mvsa` worden
+   overgeslagen — bewerkvorm naast `.mscz`, geen catalogusbron)
 
 Het script kopieert geen validatielogica uit VSA-tooling; het geeft alleen
 het pad door. Ruwe dumps onder `content-source\input` horen niet bij deze
