@@ -6,6 +6,12 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Eerste Kleine Litanie
+{{< kop >}}1e Kleine Ektinia{{< /kop >}}
 
 {{< bieb id="ektinia/eerste-kleine/hemelum" />}}
+
+{{< witruimte groot >}}
+
+{{< kop >}}Малая ектения{{< /kop >}}
+
+{{< bieb id="ektinia/eerste-kleine/hemelum-ksl" />}}

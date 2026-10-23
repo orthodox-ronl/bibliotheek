@@ -6,6 +6,12 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-# Vredeslitanie
+{{< kop >}}(1a) Vredeslitanie{{< /kop >}}
 
 {{< bieb id="ektinia/vrede/hemelum" />}}
+
+{{< witruimte groot >}}
+
+{{< kop >}}Великая ектения (1a){{< /kop >}}
+
+{{< bieb id="ektinia/vrede/hemelum-ksl" />}}

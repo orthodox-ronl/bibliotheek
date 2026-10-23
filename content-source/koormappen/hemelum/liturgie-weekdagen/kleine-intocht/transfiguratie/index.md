@@ -2,10 +2,8 @@
 title: "7a Kleine intocht (Transfiguratie)"
 linkTitle: "7a Kleine intocht (Transfiguratie)"
 weight: 40
-publicatiestatus: reviewable
+publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-
-# 7a Kleine intocht (Transfiguratie)
-
+{{< kop >}}7a Kleine intocht (Transfiguratie){{< /kop >}}
 {{< bieb id="kleine-intocht/transfiguratie/hemelum" />}}

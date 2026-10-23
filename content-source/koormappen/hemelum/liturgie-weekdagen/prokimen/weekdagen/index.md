@@ -2,42 +2,41 @@
 title: "Prokimen weekdagen (Kiev, Groningen)"
 linkTitle: "Weekdagen"
 weight: 1
-publicatiestatus: reviewable
+publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
+{{< kop >}}Prokimen weekdagen (Kiev, Groningen){{< /kop >}}
 
-# Prokimen weekdagen (Kiev, Groningen)
-
-## Maandag (Ps. 103, toon 4)
+{{< kop links middel >}}Maandag (Ps. 103, toon 4){{< /kop >}}
 
 {{< bieb id="prokimen/9a-maandag/groningen" />}}
 
 ---
 
-## Dinsdag (Ps. 63, toon 7)
+{{< kop links middel >}}Dinsdag (Ps. 63, toon 7){{< /kop >}}
 
 {{< bieb id="prokimen/9a-dinsdag/groningen" />}}
 
 ---
 
-## Woensdag (Lk. 1:46-48, toon 3)
+{{< kop links middel >}}Woensdag (Lk. 1:46-48, toon 3){{< /kop >}}
 
 {{< bieb id="prokimen/9a-woensdag/groningen" />}}
 
 ---
 
-## Donderdag (Ps. 18, toon 8)
+{{< kop links middel >}}Donderdag (Ps. 18, toon 8){{< /kop >}}
 
 {{< bieb id="prokimen/9a-donderdag/groningen" />}}
 
 ---
 
-## Vrijdag (Ps. 98, toon 7)
+{{< kop links middel >}}Vrijdag (Ps. 98, toon 7){{< /kop >}}
 
 {{< bieb id="prokimen/9a-vrijdag/groningen" />}}
 
 ---
 
-## Zaterdag (Ps. 31, toon 8)
+{{< kop links middel >}}Zaterdag (Ps. 31, toon 8){{< /kop >}}
 
 {{< bieb id="prokimen/9a-zaterdag/groningen" />}}

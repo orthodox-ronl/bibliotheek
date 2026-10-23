@@ -2,16 +2,15 @@
 title: "Catechumenen Litanie"
 linkTitle: "Catechumenen Litanie"
 weight: 13
-publicatiestatus: reviewable
+publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-
-# Catechumenen Litanie
-
-## Nederlands
+{{< kop >}}Katechumenenlitanie (13){{< /kop >}}
 
 {{< bieb id="ektinia/catechumenen/hemelum" />}}
 
-## Kerkslavisch
+{{< witruimte groot >}}
+
+{{< kop >}}Ектения об оглашенных (13){{< /kop >}}
 
 {{< bieb id="ektinia/catechumenen/hemelum-ksl" />}}

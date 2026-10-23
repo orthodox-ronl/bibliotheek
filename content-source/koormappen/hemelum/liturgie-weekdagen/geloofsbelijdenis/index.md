@@ -2,10 +2,8 @@
 title: "18 Geloofsbelijdenis"
 linkTitle: "18 Geloofsbelijdenis"
 weight: 18
-publicatiestatus: voorzien
+publicatiestatus: "voorzien"
 automatische_inhoud: false
 ---
-
-# 18 Geloofsbelijdenis
-
+{{< kop >}}18 Geloofsbelijdenis{{< /kop >}}
 {{< bieb id="geloofsbelijdenis/default/groningen" />}}

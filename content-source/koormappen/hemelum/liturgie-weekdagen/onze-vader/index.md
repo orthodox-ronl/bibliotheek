@@ -2,10 +2,8 @@
 title: "23 Onze Vader"
 linkTitle: "23 Onze Vader"
 weight: 23
-publicatiestatus: voorzien
+publicatiestatus: "voorzien"
 automatische_inhoud: false
 ---
-
-# 23 Onze Vader
-
+{{< kop >}}23 Onze Vader{{< /kop >}}
 {{< bieb id="onze-vader/default/hemelum" />}}

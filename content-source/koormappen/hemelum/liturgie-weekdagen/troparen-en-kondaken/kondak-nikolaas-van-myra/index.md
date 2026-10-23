@@ -2,10 +2,8 @@
 title: "Kondak H. Nikolaas van Myra (toon 3)"
 linkTitle: "Kondak Nikolaas"
 weight: 30
-publicatiestatus: reviewable
+publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-
-# Kondak H. Nikolaas van Myra (toon 3)
-
+{{< kop >}}Kondak H. Nikolaas van Myra (toon 3){{< /kop >}}
 {{< bieb id="kondak/nikolaas-van-myra-toon-3/hemelum" />}}

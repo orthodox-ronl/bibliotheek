@@ -2,16 +2,15 @@
 title: "Vragende Litanie"
 linkTitle: "Vragende Litanie"
 weight: 22
-publicatiestatus: reviewable
+publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-
-# Vragende Litanie
-
-## Nederlands
+{{< kop >}}Vragende Litanie (22){{< /kop >}}
 
 {{< bieb id="ektinia/vragend-22/hemelum" />}}
 
-## Kerkslavisch
+{{< witruimte groot >}}
+
+{{< kop >}}Просительная ектения (22){{< /kop >}}
 
 {{< bieb id="ektinia/vragend-22/hemelum-ksl" />}}

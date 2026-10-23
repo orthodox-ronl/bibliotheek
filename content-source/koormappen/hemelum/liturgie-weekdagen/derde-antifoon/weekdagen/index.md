@@ -2,10 +2,8 @@
 title: "6 Derde antifoon (weekdagen)"
 linkTitle: "Weekdagen"
 weight: 1
-publicatiestatus: reviewable
+publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-
-# 6 Derde antifoon (weekdagen)
-
+{{< kop >}}6 Derde antifoon (weekdagen){{< /kop >}}
 {{< bieb id="derde-antifoon/weekdagen/hemelum" />}}

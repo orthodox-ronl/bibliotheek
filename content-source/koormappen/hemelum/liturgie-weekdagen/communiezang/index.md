@@ -2,10 +2,8 @@
 title: "27 Communiezang"
 linkTitle: "27 Communiezang"
 weight: 27
-publicatiestatus: voorzien
+publicatiestatus: "voorzien"
 automatische_inhoud: false
 ---
-
-# 27 Communiezang
-
+{{< kop >}}27 Communiezang{{< /kop >}}
 {{< bieb id="communiezang/default/hemelum" />}}

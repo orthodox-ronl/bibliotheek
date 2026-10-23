@@ -2,16 +2,15 @@
 title: "Ontslapenen Litanie"
 linkTitle: "Ontslapenen Litanie"
 weight: 12
-publicatiestatus: reviewable
+publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-
-# Ontslapenen Litanie
-
-## Nederlands
+{{< kop >}}Ontslapenenlitanie (12a){{< /kop >}}
 
 {{< bieb id="ektinia/ontslapenen/hemelum" />}}
 
-## Kerkslavisch
+{{< witruimte groot >}}
+
+{{< kop >}}Ектения об усопших (12a){{< /kop >}}
 
 {{< bieb id="ektinia/ontslapenen/hemelum-ksl" />}}

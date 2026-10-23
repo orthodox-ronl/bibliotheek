@@ -2,16 +2,15 @@
 title: "Dringende Litanie"
 linkTitle: "Dringende Litanie"
 weight: 11
-publicatiestatus: reviewable
+publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-
-# Dringende Litanie
-
-## Nederlands
+{{< kop >}}Dringende Litanie (11){{< /kop >}}
 
 {{< bieb id="ektinia/dringend/hemelum" />}}
 
-## Kerkslavisch
+{{< witruimte groot >}}
+
+{{< kop >}}Сугубая ектения (11){{< /kop >}}
 
 {{< bieb id="ektinia/dringend/hemelum-ksl" />}}

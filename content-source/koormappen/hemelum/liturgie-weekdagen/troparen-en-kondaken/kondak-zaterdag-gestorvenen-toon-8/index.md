@@ -2,10 +2,9 @@
 title: "Kondak zaterdag gestorvenen toon 8"
 linkTitle: "Kondak zaterdag gestorvenen toon 8"
 weight: 100
-publicatiestatus: reviewable
+publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-
-# Kondak zaterdag gestorvenen toon 8
+{{< kop >}}Kondak zaterdag gestorvenen toon 8{{< /kop >}}
 
 {{< bieb id="kondak/zaterdag-gestorvenen-toon-8/hemelum" />}}

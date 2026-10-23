@@ -2,10 +2,8 @@
 title: "8a Trisagion (met Slavisch)"
 linkTitle: "8a Trisagion (met Slavisch)"
 weight: 2
-publicatiestatus: reviewable
+publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-
-# 8a Trisagion (met Slavisch)
-
+{{< kop >}}8a Trisagion (met Slavisch){{< /kop >}}
 {{< bieb id="trisagion/8a-slav/hemelum" />}}

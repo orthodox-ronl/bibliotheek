@@ -2,10 +2,8 @@
 title: "2 Eerste antifoon (weekdagen)"
 linkTitle: "Weekdagen"
 weight: 2
-publicatiestatus: reviewable
+publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-
-# 2 Eerste antifoon (weekdagen)
-
+{{< kop >}}2 Eerste antifoon (weekdagen){{< /kop >}}
 {{< bieb id="eerste-antifoon/weekdagen/hemelum" />}}
