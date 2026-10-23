@@ -24,7 +24,8 @@ uitvoeringsvorm-map. Zet `alias_van` op de variant-`_index.md`; zie
 Koormap-sectie (hoofdstuk): map met `_index.md` — kindlijst of eigen TOC;
 zie [Catalogus en koormappen](../../start/catalogus-en-koormappen/).
 
-Id-lijst: [Id-register](/overzichten/id-register/).
+Bestaand id: [Zoeken](/overzichten/zoeken/). Hemelum-naslag:
+[Id-register](/overzichten/id-register/).
 {{< /cue >}}
 
 **Wat je nu doet:** na het opnemen van bestanden in de **catalogus** de

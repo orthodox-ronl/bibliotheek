@@ -21,7 +21,7 @@ publicatie, ids en navigatie niet door elkaar lopen.
 
 | Wie | Vraag | Ingang |
 | --- | --- | --- |
-| Beheerder | Wat hebben we? Welk id gebruik ik? | [Catalogus](/overzichten/), [Id-register](/overzichten/id-register/) |
+| Beheerder | Wat hebben we? Welk id gebruik ik? | Bestaand: [Catalogus](/overzichten/) / [Zoeken](/overzichten/zoeken/). Hemelum-naslag of reservering: [Id-register](/overzichten/id-register/) |
 | Koor (in situ) | Wat zingen we in welke volgorde? | Koormap, nu vooral [liturgie zondag](/koormappen/hemelum/liturgie-zondag/) / [weekdagen](/koormappen/hemelum/liturgie-weekdagen/) |
 | Individueel koorlid | Wat moet / wil ik oefenen? | Koormap *of* catalogus (ook stukken die nog in geen map zitten) |
 
@@ -154,6 +154,13 @@ shortcode `bieb` gebruiken het pad. Frontmatter `title` / `linkTitle` zijn
 geen bron van waarheid (Hugo negeert ze op id-pagina’s); `bieb accepteer`
 mag ze nog als afgeleid artefact zetten.
 
+Op een **uitvoeringsvorm-blad** zet je in de Markdown geen tweede
+hoofdtitel (`# …`): de site toont al één titel boven de partituur. De body
+is meestal alleen de regel met `bieb`. De PDF achter **Download pagina** /
+**Print pagina** (`index.pagina.pdf`) volgt dezelfde bladintentie; zie het
+plan `docs/plans/catalogus-pagina-pdf.md` en het script
+[pagina-pdf](../scripts/pagina-pdf/).
+
 ### Afleiding per laag
 
 | Laag | Korte naam (navigatie) | Paginatitel / zoek |
@@ -225,9 +232,10 @@ zangstukken in de catalogus. Zie besluit 5 in
 
 De root van de catalogus is **geen** sitemap van alle stubs. Koorleden zien
 daar vooral **oefenbare** zangstukken (nette titel, liturgienummer-volgorde).
-Voorzien-items en technische registers staan onder
-[Speciaal](/overzichten/speciaal/) en het
-[Id-register](/overzichten/id-register/).
+Voorzien-items en technische overzichten staan onder
+[Speciaal](/overzichten/speciaal/). Hemelum-id-naslag en
+reserveringen: [Id-register](/overzichten/id-register/)
+(niet de bron van waarheid voor wat er bestaat).
 
 ## Special pages
 
@@ -320,8 +328,9 @@ wanneer dat in de leaf-naam zit:
 {{</* bieb id="prijslied/bisschop-gregorios/hemelum-ksl" */>}}
 ```
 
-Korte woordenlijst: [Woorden](woorden/) (regel **Taal-suffix**). Concrete
-ids: [Id-register](/overzichten/id-register/).
+Korte woordenlijst: [Woorden](woorden/) (regel **Taal-suffix**).
+Bestaande ids: [Zoeken](/overzichten/zoeken/) of de catalogus.
+Hemelum-reserveringen: [Id-register](/overzichten/id-register/).
 
 ## Naamgevingsbeleid (nieuwe ids)
 

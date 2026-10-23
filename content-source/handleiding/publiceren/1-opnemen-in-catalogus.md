@@ -36,9 +36,11 @@ Laat het bestand in `input\` staan; zie
 
 **Catalogus-id** = drie namen, gescheiden door `/`, bijvoorbeeld
 `eniggeboren-zoon/default/hemelum`. Elke naam mag alleen kleine letters,
-cijfers, `-` en `_` bevatten. Lijst:
-[Id-register](/overzichten/id-register/). Ken je het id
-niet? **Niet verzinnen** — vraag na.
+cijfers, `-` en `_` bevatten. Bestaand id opzoeken:
+[Zoeken](/overzichten/zoeken/) of de catalogus. Hemelum-naslag of
+nog niet gepubliceerde reservering:
+[Id-register](/overzichten/id-register/). Ken je het id niet?
+**Niet verzinnen** — vraag na.
 
 ## Wat het script voor je doet
 
@@ -131,7 +133,7 @@ Dan wordt `publicatiestatus` standaard `voorzien`.
 
 | Melding (kort) | Wat je doet |
 | --- | --- |
-| ongeldig catalogus-id | Id nakijken in het [Id-register](/overzichten/id-register/); drie lagen, kleine letters |
+| ongeldig catalogus-id | Drie lagen, kleine letters; bestaand id via [Zoeken](/overzichten/zoeken/), Hemelum-naslag via [Id-register](/overzichten/id-register/) |
 | doel bestaat al | Bewust overschrijven: zelfde opdracht met `--force`, of ander id |
 | vsa validate faalde | `.vsa` eerst herstellen; pas daarna opnieuw accepteren |
 | formaat weigert / alleen .mxl | Terug naar [partituur](../../partituur/); niet forceren in de catalogus |

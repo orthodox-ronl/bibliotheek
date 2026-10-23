@@ -35,6 +35,6 @@ route (nu vooral de Hemelum-liturgiemap) met slots die via `bieb`
 verwijzen. Model: [Catalogus en koormappen](start/catalogus-en-koormappen/).
 Lifecycle: [Levenscyclus](start/levenscyclus/) (Werkbank → Catalogus).
 
-Id-lijst: [Id-register](/overzichten/id-register/).
+Bestaand id: [Zoeken](/overzichten/zoeken/). Hemelum-naslag: [Id-register](/overzichten/id-register/).
 
 {{< navbuttons "Start|/handleiding/start/" "Levenscyclus|/handleiding/start/levenscyclus/" >}}

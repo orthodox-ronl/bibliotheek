@@ -30,7 +30,8 @@ uitvoer altijd met `-o` naar een schone naam.
 
 Niet verzinnen. Zet in de werkvoorraad-rij een notitie “welk catalogus-id?”
 en vraag het na. Twee inputs naar dezelfde uitvoeringsvorm mag (Capella én VOW);
-noteer dat in de notitie. Id-lijst:
+noteer dat in de notitie. Bestaand id:
+[Zoeken](/overzichten/zoeken/); Hemelum-naslag:
 [Id-register](/overzichten/id-register/).
 
 ## bieb accepteer weigert het bestand

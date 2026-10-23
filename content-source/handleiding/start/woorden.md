@@ -93,7 +93,8 @@ lettergrepen synchroon met noten. MusicXML: `scripts\opkuisen.cmd`. Bij een
 
 Org-brede termen: [glossary in bron](https://github.com/orthodox-ronl/bron/blob/main/docs/specs/terminologie.md).
 
-Id-lijst Hemelum: [Id-register](/overzichten/id-register/).
+Bestaand id: [Zoeken](/overzichten/zoeken/) of de catalogus.
+Hemelum-naslag/reserveringen: [Id-register](/overzichten/id-register/).
 Model: [Catalogus en koormappen](/handleiding/start/catalogus-en-koormappen/).
 Pijplijnen: [Werktrajecten](/handleiding/werktrajecten/).
 

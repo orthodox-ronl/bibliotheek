@@ -18,7 +18,8 @@ genoeg is om op te nemen.
 2. Werk de tabel
    `content-source\input\werkvoorraad.md` bij
    (`update-werkvoorraad` of `check`).
-3. Vul het **doel-id** in — niet raden; zie het
+3. Vul het **doel-id** in — niet raden. Bestaand id:
+   [Zoeken](/overzichten/zoeken/) of de catalogus; Hemelum-naslag:
    [Id-register](/overzichten/id-register/).
 4. Als het bestand klaar is (basispartituur-`.mscz`, `.vsa`, `.mvsa`,
    handmatig `.mscz`, of `.tekstblad.md`): `bieb accepteer`.
@@ -132,7 +133,7 @@ productbestanden moet jij lokaal maken en **meecommitten**.
 - HOW: [Ruw materiaal binnenhalen (Partituur)](../../partituur/1-binnenhalen/)
   (doorverwijzing; canonieke plek is deze werktrajectpagina)
 - HOW: [Opnemen (Publiceren)](../../publiceren/1-opnemen-in-catalogus/)
-- [Id-register](/overzichten/id-register/)
+- [Zoeken](/overzichten/zoeken/) (bestaand id); [Id-register](/overzichten/id-register/) (Hemelum-naslag)
 - Namen/publicatiecontrole: [Publicatiecontrole](/handleiding/start/publicatiecontrole/)
 
 {{< navbuttons "Werktrajecten|/handleiding/werktrajecten/" "Basispartituur|/handleiding/werktrajecten/basispartituur/" >}}

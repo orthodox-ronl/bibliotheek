@@ -45,7 +45,8 @@ bij `check` / `build` / `serve` opnieuw gevuld. Handmatige **notitie** en
 [Werkbank](/overzichten/speciaal/werkbank/) en uitklapbaar onderaan het
 catalogus-overzicht.
 
-**Id-lijst:** [overzichten/id-register.md](../overzichten/id-register.md).
+**Bestaand id:** catalogus of Zoeken op de site.
+**Hemelum-naslag:** [overzichten/id-register.md](../overzichten/id-register.md).
 
 ## Workflow (kort)
 

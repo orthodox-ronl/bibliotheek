@@ -78,7 +78,8 @@ beheerdersmelding. Afspraak over bestandsnamen per spoor:
    Eventuele Coria-`.mxl` eveneens handmatig (of uit de template-render)
    ernaast zetten en bij elke bronwijziging meenemen.
 3. Catalogus-`index.md` met `artefacten_handmatig: true` (bieb accepteer
-   zet dat automatisch bij `.print.mscz`) + koormap-slot met `bieb` (zie
+   zet dat automatisch bij `.print.mscz`) + koormap-slot met `bieb`
+   (bestaand id: [Zoeken](/overzichten/zoeken/); Hemelum-naslag:
    [Id-register](/overzichten/id-register/)).
 4. `scripts\check.cmd --strict` — partituur- en VSA-publicatiecontrole slaan deze map over.
 

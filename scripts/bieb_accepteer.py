@@ -218,12 +218,12 @@ def leaf_index_text(
 ) -> str:
     handmatig = "artefacten_handmatig: true\n" if artefacten_handmatig else ""
     link = link_title or default_link_title(ident)
+    # Geen Markdown-``#``: catalogus toont al template-H1 (catalogus-titels).
     return (
         f"---\ntitle: \"{title}\"\nlinkTitle: \"{link}\"\n"
         f"publicatiestatus: {status}\n"
         f"{handmatig}"
         "automatische_inhoud: false\n---\n\n"
-        f"# {title}\n\n"
         f"{{{{< bieb id=\"{ident}\" />}}}}\n"
     )
 
@@ -345,7 +345,8 @@ def accept(
             f"ongeldig catalogus-id ({exc})",
             oplossing=(
                 "gebruik zangstuk/variant/uitvoeringsvorm "
-                "(alleen a-z, 0-9, -, _). Zie Id-register."
+                "(alleen a-z, 0-9, -, _). Bestaand id: Zoeken/"
+                "catalogus; Hemelum-naslag: Id-register."
             ),
         )
         return 1
@@ -574,6 +575,18 @@ def accept(
         )
         print(f"  index {_rel(index_path)} ({resolved_status})", flush=True)
 
+    if stub and not dry_run:
+        import pagina_pdf as pp
+
+        pdf = pp.build_one(index_path, force=True)
+        if pdf is None:
+            bieb_fs.print_fail(
+                "stub-leaf zonder index.pagina.pdf",
+                oplossing="controleer scripts\\pagina_pdf.py (voorzien-placeholder).",
+            )
+            return 1
+        print(f"  pagina-pdf {_rel(pdf)} (voorzien)", flush=True)
+
     print("OK: opgenomen in de catalogus", flush=True)
     if dry_run:
         print("(dry-run: herhaal zonder --dry-run om echt te schrijven)", flush=True)
@@ -609,7 +622,9 @@ Catalogus-id = drie delen met schuine streep, bijvoorbeeld:
   zangstuk / variant / uitvoeringsvorm
 
 Alleen kleine letters, cijfers, - en _. Geen spaties.
-Lijst: content-source\\overzichten\\id-register.md
+Bestaand id: Zoeken of de catalogus op de site.
+Hemelum-naslag/reserveringen:
+  content-source\\overzichten\\id-register.md
   (op de site: Bibliotheek > Id-register)
 
 Geef je bronbestand bij voorkeur al de publicatiestam-naam

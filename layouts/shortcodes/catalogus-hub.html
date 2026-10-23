@@ -1,0 +1,49 @@
+{{- /* Gedeelde starttekst voor /catalogus/ en /overzichten/ (één bron). */ -}}
+<p>
+  Zoeken en overzichten bij de catalogus. De catalogus zelf bevat
+  zangstukken → varianten → uitvoeringsvormen (eigen URL’s onder
+  <code>/catalogus/…</code>).
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pagina</th>
+      <th>Inhoud</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="{{ "overzichten/zoeken/" | relURL }}">Zoeken</a></td>
+      <td>Op titel, id of gezongen tekst</td>
+    </tr>
+    <tr>
+      <td><a href="{{ "overzichten/alfabetisch/" | relURL }}">Alfabetisch</a></td>
+      <td>Boom op zangstuk → variant → uitvoeringsvorm (A–Z)</td>
+    </tr>
+    <tr>
+      <td><a href="{{ "overzichten/herkomst/" | relURL }}">Per herkomst</a></td>
+      <td>Boom op herkomst (uitvoeringsvorm) → zangstuk → …</td>
+    </tr>
+    <tr>
+      <td><a href="{{ "overzichten/speciaal/" | relURL }}">Speciaal</a></td>
+      <td>Werkbank, voorzien, ongerefereerd, oefenbaar, handmatig</td>
+    </tr>
+    <tr>
+      <td><a href="{{ "overzichten/id-register/" | relURL }}">Id-register</a></td>
+      <td>Hemelum: id-naslag en reserveringen (niet bron van waarheid)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  Voor de volgorde in een dienst: zie de koormappen, bijvoorbeeld
+  <a href="{{ "koormappen/hemelum/liturgie-zondag/" | relURL }}">liturgiemap Hemelum — zondag</a>
+  of
+  <a href="{{ "koormappen/hemelum/liturgie-weekdagen/" | relURL }}">weekdagen</a>.
+</p>
+
+<p>
+  Lifecycle:
+  <a href="{{ "handleiding/start/levenscyclus/" | relURL }}">Levenscyclus</a>.
+</p>

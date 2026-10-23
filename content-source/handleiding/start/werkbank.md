@@ -74,7 +74,8 @@ blijven herkomst.
 
 Je mag overgaan als **alle** punten kloppen:
 
-1. **Doel-id** is een geldig catalogus-id (drie lagen); zie
+1. **Doel-id** is een geldig catalogus-id (drie lagen). Bestaand id:
+   [Zoeken](/overzichten/zoeken/) of de catalogus; Hemelum-naslag:
    [Id-register](/overzichten/id-register/) — niet verzinnen.
    Taal in het derde segment: geen suffix = Nederlands; andere talen
    als uitgang (`-ksl`, …) — zie

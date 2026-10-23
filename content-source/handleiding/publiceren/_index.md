@@ -18,7 +18,7 @@ Pijplijn-overzicht (opnemen, productsporen, site-build):
 - Catalogus: `index.md` + basispartituur/PDF/Coria/VSA of print (publicatiestam zonder spaties; eventueel `artefacten_handmatig: true`)
 - Slot-pagina: `index.md` + shortcode `bieb` met parameter `id` (drie lagen); optioneel meerdere shortcodes
 - Koormap-sectie: `_index.md` met kindlijst of eigen TOC
-- Id-lijst: [Id-register](/overzichten/id-register/)
+- Bestaand id: [Zoeken](/overzichten/zoeken/) of catalogus; Hemelum-naslag: [Id-register](/overzichten/id-register/)
 - Special: [werkbank / voorzien / ongerefereerd / oefenbaar / handmatig](/overzichten/speciaal/)
 
 1. [Opnemen in de catalogus](1-opnemen-in-catalogus/) — HOW `bieb accepteer` (werktraject: [Opnemen](../werktrajecten/opnemen-in-catalogus/))

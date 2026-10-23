@@ -49,7 +49,9 @@ nieuwe naam.
 
 ## Volgorde
 
-1. Lees [Zangstuk-soorten](../start/zangstuk-soorten/) en het
+1. Lees [Zangstuk-soorten](../start/zangstuk-soorten/). Controleer via
+   [Zoeken](/overzichten/zoeken/) of de catalogus of het nieuwe id al
+   bestaat; Hemelum-reserveringen in het
    [Id-register](/overzichten/id-register/) — nieuw id mag niet botsen.
 2. Open het Windows-opdrachtvenster in de repository-map `bibliotheek`.
 3. Dry-run (schrijft niets):

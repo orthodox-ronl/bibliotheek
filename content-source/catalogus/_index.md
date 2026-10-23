@@ -10,8 +10,4 @@ cascade:
   type: oefenhoek
 ---
 
-De startpagina van de catalogus staat onder
-[Catalogus](/overzichten/) (zoeken en overzichten).
-
-Zangstukken → varianten → uitvoeringsvormen blijven bereikbaar via hun
-eigen URL’s onder `/catalogus/…`.
+{{< catalogus-hub >}}
