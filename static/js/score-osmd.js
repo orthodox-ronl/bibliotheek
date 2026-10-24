@@ -749,12 +749,19 @@
     return map;
   }
 
+  function noteheadKindFromXmlNote(noteEl) {
+    var nh = noteEl.querySelector("notehead");
+    if (!nh) {
+      return "normal";
+    }
+    return textContentTrim(nh).toLowerCase();
+  }
+
   /**
-   * Print-spacer (MusicXML ``<notehead>none</notehead>``): OSMD tekent toch
-   * kop+stok; MuseScore verbergt die. Per part/maat: timeline v1,v2,v1,v2…
-   * (MusicXML = stem 1-blok dan backup stem 2; OSMD = x-groep, boven=v1).
+   * S8 per part/maat: één slot per metrische positie (v1 + v2), volgorde =
+   * chronologische MusicXML-slots (niet DOM-volgorde van OSMD).
    */
-  function noteheadNoneFlagsByPartMeasure(xmlText) {
+  function s8PrintSlotsByPartMeasure(xmlText) {
     var doc = new DOMParser().parseFromString(xmlText, "application/xml");
     var parts = Array.prototype.slice.call(doc.querySelectorAll("part"));
     return parts.map(function (part) {
@@ -786,24 +793,36 @@
           if (v !== 1 && v !== 2) {
             v = 1;
           }
-          var nh = ch.querySelector("notehead");
-          byVoice[v].push(
-            nh ? textContentTrim(nh).toLowerCase() === "none" : false
-          );
+          byVoice[v].push(noteheadKindFromXmlNote(ch));
         });
-        var interleaved = [];
+        var slots = [];
         var n = Math.max(byVoice[1].length, byVoice[2].length);
-        for (var i = 0; i < n; i += 1) {
-          if (i < byVoice[1].length) {
-            interleaved.push(byVoice[1][i]);
-          }
-          if (i < byVoice[2].length) {
-            interleaved.push(byVoice[2][i]);
-          }
+        var i;
+        for (i = 0; i < n; i += 1) {
+          var h1 = i < byVoice[1].length ? byVoice[1][i] : "normal";
+          var h2 = i < byVoice[2].length ? byVoice[2][i] : "normal";
+          var spacer = h1 === "none" || h2 === "none";
+          slots.push({
+            spacer: spacer,
+            breve: !spacer && (h1 === "breve" || h2 === "breve"),
+          });
         }
-        byNum[String(num)] = interleaved;
+        byNum[String(num)] = slots;
       });
       return byNum;
+    });
+  }
+
+  /** @deprecated alleen diagnose-compat */
+  function noteheadNoneFlagsByPartMeasure(xmlText) {
+    return s8PrintSlotsByPartMeasure(xmlText).map(function (byNum) {
+      var out = {};
+      Object.keys(byNum).forEach(function (k) {
+        out[k] = byNum[k].map(function (s) {
+          return s.spacer;
+        });
+      });
+      return out;
     });
   }
 
@@ -814,15 +833,17 @@
     el.style.display = "none";
   }
 
+  function svgElIsVisible(el) {
+    var s = window.getComputedStyle(el);
+    return s.display !== "none" && s.visibility !== "hidden";
+  }
+
   function staveNoteHasVisibleNotehead(staveNoteEl) {
-    var note = staveNoteEl.querySelector(".vf-note");
-    if (!note) {
-      return false;
-    }
-    var paths = note.querySelectorAll("path");
-    for (var i = 0; i < paths.length; i += 1) {
-      var s = window.getComputedStyle(paths[i]);
-      if (s.display !== "none" && s.visibility !== "hidden") {
+    var shapes = staveNoteEl.querySelectorAll(
+      ".vf-note path, .vf-note circle, .vf-note ellipse, .vf-note rect, .vf-note use, .vf-notehead, path.vf-notehead, .vf-stavenote > path"
+    );
+    for (var i = 0; i < shapes.length; i += 1) {
+      if (svgElIsVisible(shapes[i])) {
         return true;
       }
     }
@@ -831,6 +852,10 @@
 
   function hideStaveNoteheadGraphics(staveNoteEl) {
     staveNoteEl.setAttribute("data-osmd-spacer", "1");
+    Array.prototype.forEach.call(
+      staveNoteEl.querySelectorAll(".vf-stem, .vf-flag, .vf-beam"),
+      osmdHideSvgEl
+    );
     var note = staveNoteEl.querySelector(".vf-note");
     if (note) {
       // OSMD/VexFlow: kop vaak als path.vf-notehead naast g.vf-notehead — alles
@@ -839,13 +864,118 @@
       Array.prototype.forEach.call(note.querySelectorAll("*"), osmdHideSvgEl);
     }
     Array.prototype.forEach.call(
-      staveNoteEl.querySelectorAll(".vf-beam, .vf-modifiers"),
+      staveNoteEl.querySelectorAll(
+        ".vf-beam, .vf-modifiers, .vf-notehead, path.vf-notehead"
+      ),
       osmdHideSvgEl
+    );
+    Array.prototype.forEach.call(
+      staveNoteEl.querySelectorAll("path, circle, ellipse, rect, use, polygon"),
+      function (el) {
+        if (el.closest && el.closest("text")) {
+          return;
+        }
+        osmdHideSvgEl(el);
+      }
     );
   }
 
+  var S8_CLUSTER_X_TOL = 6;
+
+  function clusterStaveNotesBySvgX(staveNoteEls, xTol) {
+    var items = [];
+    for (var i = 0; i < staveNoteEls.length; i += 1) {
+      var bb = staveNoteEls[i].getBBox();
+      if (bb.width <= 0.5 && bb.height <= 0.5) {
+        continue;
+      }
+      items.push({ el: staveNoteEls[i], x: bb.x + bb.width / 2 });
+    }
+    items.sort(function (a, b) {
+      return a.x - b.x;
+    });
+    var clusters = [];
+    for (var j = 0; j < items.length; j += 1) {
+      var it = items[j];
+      var last = clusters[clusters.length - 1];
+      if (!last || Math.abs(it.x - last.x) > xTol) {
+        clusters.push({ x: it.x, notes: [it.el] });
+      } else {
+        last.notes.push(it.el);
+        last.x = (last.x + it.x) / 2;
+      }
+    }
+    return clusters;
+  }
+
+  function alignClustersToSlotCount(clusters, slotCount) {
+    if (!clusters.length || !slotCount) {
+      return clusters;
+    }
+    if (clusters.length === slotCount) {
+      return clusters;
+    }
+    if (clusters.length > slotCount) {
+      return clusters.slice(0, slotCount);
+    }
+    return clusters;
+  }
+
+  function hideLedgersNearX(measureEl, xCenter, xTol) {
+    var tol = xTol + 10;
+    Array.prototype.forEach.call(
+      measureEl.querySelectorAll(".vf-ledgers, .vf-ledger"),
+      function (el) {
+        var bb;
+        try {
+          bb = el.getBBox();
+        } catch (e) {
+          return;
+        }
+        var cx = bb.x + bb.width / 2;
+        if (Math.abs(cx - xCenter) <= tol) {
+          osmdHideSvgEl(el);
+        }
+      }
+    );
+  }
+
+  function markBreveStaveNotes(notes) {
+    for (var i = 0; i < notes.length; i += 1) {
+      notes[i].setAttribute("data-osmd-breve", "1");
+      Array.prototype.forEach.call(
+        notes[i].querySelectorAll(".vf-stem, .vf-flag"),
+        osmdHideSvgEl
+      );
+    }
+  }
+
+  function hideS8SlotsInMeasure(measureEl, slots, staveNoteEls) {
+    if (!slots || !slots.length) {
+      return;
+    }
+    var clusters = alignClustersToSlotCount(
+      clusterStaveNotesBySvgX(staveNoteEls, S8_CLUSTER_X_TOL),
+      slots.length
+    );
+    var s;
+    for (s = 0; s < slots.length && s < clusters.length; s += 1) {
+      var slot = slots[s];
+      var col = clusters[s].notes;
+      var ni;
+      if (slot.spacer) {
+        for (ni = 0; ni < col.length; ni += 1) {
+          hideStaveNoteheadGraphics(col[ni]);
+        }
+        hideLedgersNearX(measureEl, clusters[s].x, S8_CLUSTER_X_TOL);
+      } else if (slot.breve) {
+        markBreveStaveNotes(col);
+      }
+    }
+  }
+
   function hideNoteheadNoneGraphics(mount, xmlText) {
-    var byPart = noteheadNoneFlagsByPartMeasure(xmlText);
+    var byPart = s8PrintSlotsByPartMeasure(xmlText);
     if (!byPart.length) {
       return;
     }
@@ -895,34 +1025,46 @@
           if (!measureNum) {
             continue;
           }
-          var flags = byPart[pi][String(measureNum)];
-          if (!flags || !flags.length) {
+          var slots = byPart[pi][String(measureNum)];
+          if (!slots || !slots.length) {
             continue;
           }
-          // OSMD/VexFlow: DOM-volgorde = interleaved MusicXML-timeline; niet x-sorteren
-          // (spacer-koppen hebben getBBox/getBoundingClientRect 0 of gelijk).
           var notes = Array.prototype.slice.call(
             col[pi].el.querySelectorAll(".vf-stavenote")
           );
-          // OSMD kan dubbele stavenotes voor notehead none (x≈0 + echte positie):
-          // per none-vlag de volgende nog zichtbare kop in DOM-volgorde verbergen.
-          var cursor = 0;
-          for (var fi = 0; fi < flags.length; fi += 1) {
-            if (!flags[fi]) {
-              continue;
-            }
-            while (cursor < notes.length) {
-              var candidate = notes[cursor];
-              cursor += 1;
-              if (!staveNoteHasVisibleNotehead(candidate)) {
-                continue;
-              }
-              hideStaveNoteheadGraphics(candidate);
-              break;
-            }
-          }
+          hideS8SlotsInMeasure(col[pi].el, slots, notes);
         }
       }
+    }
+    if (xmlText.indexOf("<notehead>none</notehead>") !== -1) {
+      Array.prototype.forEach.call(
+        mount.querySelectorAll(
+          "g.vf-text.dash, g.vf-text.lyrics line, g.vf-text.lyrics path"
+        ),
+        osmdHideSvgEl
+      );
+      Array.prototype.forEach.call(mount.querySelectorAll("text"), function (t) {
+        if (String(t.textContent || "").trim() !== "-") {
+          return;
+        }
+        osmdHideSvgEl(t);
+        if (t.parentElement) {
+          osmdHideSvgEl(t.parentElement);
+        }
+      });
+      Array.prototype.forEach.call(
+        mount.querySelectorAll(".vf-ledgers"),
+        function (g) {
+          if (g.getAttribute("data-osmd-spacer-ledger") === "1") {
+            return;
+          }
+          var bb = g.getBBox();
+          if (bb.width > 80 && bb.height < 8) {
+            osmdHideSvgEl(g);
+            g.setAttribute("data-osmd-spacer-ledger", "1");
+          }
+        }
+      );
     }
   }
 
@@ -965,6 +1107,7 @@
   function finalizeOsmdPrint(mount, xmlText) {
     hideNoteheadNoneGraphics(mount, xmlText);
   }
+  window.__vsaScoreOsmdFinalizePrint = finalizeOsmdPrint;
 
   async function renderHost(host) {
     var src = host.getAttribute("data-osmd-src");
@@ -1039,9 +1182,12 @@
         }
         // Maatbreedtes staan vast → inklappen naar 1 regel alleen als het past.
         collapseWrappedCuesIfTheyFit(mount, xmlText);
-        // Daarna noten+lyrics centreren; cues niet opnieuw verplaatsen.
+        // Eerst centreren (lyrics + noten); daarna S8-spacers op finale x-posities.
         centerMeasureContents(mount);
         finalizeOsmdPrint(mount, xmlText);
+        requestAnimationFrame(function () {
+          finalizeOsmdPrint(mount, xmlText);
+        });
         lastLayoutWidth = layoutWidth();
       }
 
@@ -1094,4 +1240,217 @@
   } else {
     init();
   }
+  window.__VSA_SCORE_OSMD_BUILD = "20261024-s8-slot9";
+
+  function diagnoseStaff(measures, byPart, mi, label) {
+    var out = { label: label };
+    if (!measures[mi] || !byPart[mi]) {
+      out.missing = true;
+      return out;
+    }
+    var id = measures[mi].getAttribute("id") || "1";
+    var slots = byPart[mi][String(id)];
+    if (!slots || !slots.length) {
+      out.noFlags = true;
+      return out;
+    }
+    var notes = measures[mi].querySelectorAll(".vf-stavenote");
+    var clusters = alignClustersToSlotCount(
+      clusterStaveNotesBySvgX(notes, S8_CLUSTER_X_TOL),
+      slots.length
+    );
+    var keepVisible = 0;
+    var spacerVisible = 0;
+    var cadenceVisible = 0;
+    var breveMarked = 0;
+    var si;
+    for (si = 0; si < slots.length && si < clusters.length; si += 1) {
+      var col = clusters[si].notes;
+      var ci;
+      for (ci = 0; ci < col.length; ci += 1) {
+        if (!staveNoteHasVisibleNotehead(col[ci])) {
+          continue;
+        }
+        if (slots[si].spacer) {
+          spacerVisible += 1;
+        } else if (slots[si].breve) {
+          keepVisible += 1;
+          if (col[ci].getAttribute("data-osmd-breve") === "1") {
+            breveMarked += 1;
+          }
+        } else if (si < slots.length) {
+          var firstSpacer = -1;
+          var k;
+          for (k = 0; k < slots.length; k += 1) {
+            if (slots[k].spacer) {
+              firstSpacer = k;
+              break;
+            }
+          }
+          if (firstSpacer < 0 || si < firstSpacer) {
+            keepVisible += 1;
+          } else {
+            cadenceVisible += 1;
+          }
+        }
+      }
+    }
+    var hideCols = 0;
+    for (si = 0; si < slots.length; si += 1) {
+      if (slots[si].spacer) {
+        hideCols += 1;
+      }
+    }
+    out.slotCount = slots.length;
+    out.hideCols = hideCols;
+    out.clusterCount = clusters.length;
+    out.keepVisibleHeads = keepVisible;
+    out.spacerVisibleHeads = spacerVisible;
+    out.cadenceVisibleHeads = cadenceVisible;
+    out.breveMarked = breveMarked;
+    out.warnings = [];
+    out.hints = [];
+    if (spacerVisible > 0) {
+      out.warnings.push(
+        label +
+          ": recite-bolletjes in midden: " +
+          spacerVisible +
+          " (moet 0 zijn)"
+      );
+    }
+    if (mi === 0 && keepVisible < 2) {
+      out.warnings.push(
+        label +
+          ": bij begin (Al/breve) te weinig noten zichtbaar: " +
+          keepVisible +
+          " (minstens 2)"
+      );
+    }
+    if (mi === 0 && breveMarked < 1) {
+      out.warnings.push(
+        label + ": breve «le» niet gemarkeerd (data-osmd-breve)"
+      );
+    }
+    if (clusters.length < slots.length) {
+      out.hints.push(
+        label +
+          ": minder x-kolommen (" +
+          clusters.length +
+          ") dan MusicXML-slots (" +
+          slots.length +
+          ")"
+      );
+    }
+    return out;
+  }
+
+  /**
+   * Diagnose S8/OSMD op de getoonde partituur (zelfde grid-logica als hide).
+   * @returns {{ ok: boolean, build: string, script: string, staven: object, warnings: string[] }}
+   */
+  window.__vsaScoreOsmdDiagnoseReport = function (mount, xmlText) {
+    var scriptSrc = "";
+    Array.prototype.forEach.call(
+      document.querySelectorAll('script[src*="score-osmd.js"]'),
+      function (s) {
+        if (!scriptSrc) {
+          scriptSrc = s.src || "";
+        }
+      }
+    );
+    var byPart = s8PrintSlotsByPartMeasure(xmlText);
+    var measures = Array.prototype.slice
+      .call(mount.querySelectorAll(".vf-measure"))
+      .sort(function (a, b) {
+        return a.getBBox().y - b.getBBox().y;
+      });
+    var boven = diagnoseStaff(measures, byPart, 0, "boven");
+    var bas = diagnoseStaff(measures, byPart, 1, "bas");
+    var warnings = []
+      .concat(boven.warnings || [])
+      .concat(bas.warnings || []);
+    var hints = [].concat(boven.hints || []).concat(bas.hints || []);
+    var ok =
+      warnings.length === 0 &&
+      (boven.spacerVisibleHeads || 0) === 0 &&
+      (bas.spacerVisibleHeads || 0) === 0 &&
+      (boven.keepVisibleHeads || 0) >= 2;
+    return {
+      ok: ok,
+      build: window.__VSA_SCORE_OSMD_BUILD,
+      script: scriptSrc,
+      page: window.location.pathname,
+      lyricTextGroups: mount.querySelectorAll("g.vf-text.lyrics").length,
+      lyricDashGroups: mount.querySelectorAll("g.vf-text.dash").length,
+      staven: { boven: boven, bas: bas },
+      warnings: warnings,
+      hints: hints,
+    };
+  };
+
+  window.__vsaScoreOsmdPlainText = function (report) {
+    var b = report.staven.boven || {};
+    var s = report.staven.bas || {};
+    var lines = [];
+    lines.push("VSA-partituur check (plak dit in Cursor-chat)");
+    lines.push("Pagina: " + (report.page || "?"));
+    lines.push("Versie: " + (report.build || "?"));
+    lines.push(
+      "Automatisch: " +
+        (report.ok ? "GOED" : "PROBLEEM") +
+        " (alleen verborgen spacer-koppen in XML; echte noten tellen niet mee)"
+    );
+    lines.push(
+      "Referentie: sibling .mvsa.svg op dezelfde pagina (Bronnen) — zelfde stuk, MuseScore/SVG."
+    );
+    lines.push(
+      "Bovenstem — recite-bolletjes: " +
+        (b.spacerVisibleHeads != null ? b.spacerVisibleHeads : "?") +
+        " (0=goed); noten bij Al/breve: " +
+        (b.keepVisibleHeads != null ? b.keepVisibleHeads : "?") +
+        " (minstens 2=goed)"
+    );
+    lines.push(
+      "Onderstem — recite-bolletjes: " +
+        (s.spacerVisibleHeads != null ? s.spacerVisibleHeads : "?") +
+        " (0=goed); noten cadens rechts: " +
+        (s.cadenceVisibleHeads != null ? s.cadenceVisibleHeads : "?")
+    );
+    if (report.warnings && report.warnings.length) {
+      lines.push("Probleem volgens meting: " + report.warnings.join(" | "));
+    }
+    if (report.hints && report.hints.length) {
+      lines.push("Optioneel: " + report.hints.join(" | "));
+    }
+    lines.push("");
+    lines.push(
+      "Mijn ogen (typ hier 1 korte zin, bv. eerste Al ja/nee, bolletjesrij ja/nee, tekst scheef ja/nee):"
+    );
+    return lines.join("\n");
+  };
+
+  window.__vsaCountVisibleReciteHeads = function (mount, xmlText) {
+    if (!xmlText) {
+      return { boven: "?", bas: "?", hint: "fetch MusicXML meegeven" };
+    }
+    var byPart = s8PrintSlotsByPartMeasure(xmlText);
+    var measures = Array.prototype.slice
+      .call(mount.querySelectorAll(".vf-measure"))
+      .sort(function (a, b) {
+        return a.getBBox().y - b.getBBox().y;
+      });
+    function staff(mi) {
+      if (!measures[mi] || !byPart[mi]) {
+        return 0;
+      }
+      var id = measures[mi].getAttribute("id") || "1";
+      var flags = byPart[mi][String(id)];
+      if (!flags) {
+        return 0;
+      }
+      var notes = measures[mi].querySelectorAll(".vf-stavenote");
+      return countVisibleSpacerZoneHeads(notes, flags);
+    }
+    return { boven: staff(0), bas: staff(1) };
+  };
 })();

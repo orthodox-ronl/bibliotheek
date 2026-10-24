@@ -16,6 +16,8 @@ Beheerder-taal en shortcodes: [koormap-paginataal.md](koormap-paginataal.md).
 Productketens: [publicatiecontrole.md](../publicatiecontrole.md),
 [tooling-koppeling.md](../tooling-koppeling.md).
 Implementatie OSMD: `static/js/score-osmd.js` (moet dit document volgen).
+Console-check (klembord → chat, geen jargon):
+[OSMD diagnose](../guides/schermpartituur-osmd-diagnose.md).
 SVG-export (titel uit, Source Sans 3, cues, …): VSA-tooling-stap
 `mvsa svg` / layout `muziek` — niet in deze repo.
 
@@ -41,7 +43,10 @@ horen bij de Hugo-pagina (catalogus-H1) of bij koormap-`kop` / Markdown.
 
 De site kiest in deze volgorde ([`bieb-score.html`](../../layouts/partials/bieb-score.html)):
 
-1. **OSMD** — sibling `{stam}.mvsa.from-ir.musicxml` (Score-IR → MusicXML)
+1. **OSMD** — sibling `{stam}.mvsa.from-ir.musicxml` (Score-IR → MusicXML),
+   **behalve** S8-recite met spacer-noten (`<notehead>none</notehead>` in
+   from-ir): dan **`.mvsa.svg`** op het scherm zolang OSMD die printlaag niet
+   betrouwbaar tekent (§5.1).
 2. **Muziek-SVG** — sibling `{stam}.mvsa.svg`, `{stam}.vsa.svg` of `{stam}.mscz.svg` (anders legacy `static/vsa/bladermap/….svg` bij `.vsa`)
 3. **Tekstblad** — body van sibling `{stam}.tekstblad.md` (HTML; geen product-PDF als viewer)
 4. **PDF op scherm** — alleen als 1–3 ontbreken
@@ -175,6 +180,7 @@ Repro-voorbeeld volta: catalogus
 | --- | --- |
 | Bron | Sibling `{stam}.mvsa.from-ir.musicxml`. |
 | Gedrag | Volgt §4; bron van waarheid voor clientgedrag: `static/js/score-osmd.js`. |
+| S8-recite | From-ir met `<notehead>none</notehead>`: site toont **`{stam}.mvsa.svg`** als sibling (MuseScore `mvsa svg`), geen OSMD — spacer/breve/recite-tekst is print-MuseScore-semantiek, geen VexFlow-pariteit. From-ir blijft product (o.a. nav-CI). |
 | Systemen | Volgens MusicXML (`newSystemFromXML`); cues niet afkappen. |
 
 ### 5.2 SVG-fallback
