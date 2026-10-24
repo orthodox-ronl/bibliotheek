@@ -85,10 +85,12 @@ import-siblings met [import-mvsa](../import-mvsa/); herstel id’s met
 sibling-SVG (`.vsa.svg` / `.mvsa.svg`); wel de zoekindex en de legacy
 bladermap-SVG bij elke site-deploy.
 
-`pagina-pdf` zit niet in `check` of in CI. Het koormap-blad
-`index.pagina.pdf` maak je lokaal, ná de catalogusproducten. Ontbreekt
-dat bestand, dan tonen Download pagina en Print pagina niet; `check`
-meldt dat niet.
+`pagina-pdf` genereert CI niet. Het blad `index.pagina.pdf` maak je
+lokaal (ná de catalogusproducten) en commit je mee. `check` controleert
+of die PDF er is en niet ouder is dan de Markdown of notatiebron
+(`check_pagina_pdf.py`). Ontbreekt of verouderd: waarschuwing lokaal;
+fout met `--strict`, in CI, of op `main`. Zonder die PDF tonen
+Download pagina en Print pagina niet.
 
 # EXAMPLES
 

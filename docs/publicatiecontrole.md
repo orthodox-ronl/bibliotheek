@@ -54,8 +54,10 @@ CI genereert geen MuseScore-/PDF-/audio-producten en geen sibling-SVG
 uit `.vsa` (`oefenhoek-index --svg`) voor het geval de sibling-SVG nog
 ontbreekt. Het scherm gebruikt de sibling. Koormap-blad
 `index.pagina.pdf` hoort niet bij `products.cmd`: lokaal
-`scripts/pagina-pdf.cmd`, geen versheidscontrole in CI. Importcontrole
-eist **geen** `.mscz.mvsa` bij elke partituur —
+`scripts/pagina-pdf.cmd`, daarna committen. Wel in `check`
+(`check_pagina_pdf.py`): ontbrekend of ouder dan Markdown/notatiebron
+is een waarschuwing lokaal, een fout met `--strict` / in CI / op `main`.
+Importcontrole eist **geen** `.mscz.mvsa` bij elke partituur —
 alleen dat bestaande siblings vers zijn. Audio eist wél een `.mp3` bij elke
 canonieke `.mvsa` / basis-`.mscz` / `.vsa` (buiten handmatige mappen).
 Contractcontrole faalt als een bestaande Coria-`.mxl` de checklist niet haalt;

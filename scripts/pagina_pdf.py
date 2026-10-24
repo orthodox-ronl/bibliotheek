@@ -501,6 +501,64 @@ def _pagina_pdf_out_path(md_path: Path) -> Path:
     return md_path.with_name(md_path.stem + ".pagina.pdf")
 
 
+@dataclass(frozen=True)
+class PaginaPdfJob:
+    """Wat ``pagina-pdf`` zou moeten bouwen (zonder te exporteren)."""
+
+    md_path: Path
+    out_path: Path
+    deps: tuple[Path, ...]
+
+
+def pagina_pdf_job(md_path: Path) -> PaginaPdfJob | None:
+    """Zelfde selectie als ``build_one`` / batch-OVERGESLAGEN, zonder schrijven.
+
+    ``None`` = geen pagina-PDF verwacht (geen ``bieb``/``muziek``, lege flow,
+    of notatiebron ontbreekt zoals bij SKIP in de batch).
+    ``ValueError`` = kapotte shortcodes (zelfde als ``parse_page_flows``).
+    """
+    md_path = md_path.resolve()
+    out = _pagina_pdf_out_path(md_path)
+    text = md_path.read_text(encoding="utf-8")
+
+    if catalogus_needs_voorzien_pdf(md_path) is not None:
+        return PaginaPdfJob(md_path, out, (md_path,))
+
+    tekstblad_job = catalogus_tekstblad_pagina_job(md_path)
+    if tekstblad_job is not None:
+        _leaf_id, tb_md = tekstblad_job
+        return PaginaPdfJob(md_path, out, (md_path, tb_md))
+
+    if "bieb" not in text and "muziek" not in text:
+        return None
+    flows = parse_page_flows(text)
+    flows = ensure_catalogus_derived_titles(flows, md_path)
+    if not flows:
+        return None
+
+    deps: list[Path] = [md_path]
+    try:
+        for flow in flows:
+            for mid in flow.music_ids:
+                deps.append(find_notation_source(mid))
+    except FileNotFoundError:
+        return None
+    return PaginaPdfJob(md_path, out, tuple(deps))
+
+
+def iter_bladermap_index_md() -> list[Path]:
+    """``index.md`` onder koormappen + catalogus (geen ``_dirvolgorde``)."""
+    out: list[Path] = []
+    for base in (CONTENT / "koormappen", CONTENT / "catalogus"):
+        if not base.is_dir():
+            continue
+        for md in sorted(base.rglob("index.md")):
+            if "_dirvolgorde" in md.as_posix():
+                continue
+            out.append(md.resolve())
+    return out
+
+
 def _pdf_page_content_clip(page: object, *, pad: float = 6.0) -> object:
     """Inhoudsrechthoek van een PDF-pagina (zonder onderste witruimte)."""
     import pymupdf
@@ -817,17 +875,16 @@ def _vsa_exe() -> str:
 
 
 def _mvsa_cli() -> list[str]:
-    sibling_vsa = (
-        ROOT.parent / "VSA-tooling" / ".venv" / "Scripts" / "vsa.exe"
+    # ``mvsa`` is een apart CLI-entry (mvsa.exe), geen subcommando van ``vsa``.
+    sibling_mvsa = (
+        ROOT.parent / "VSA-tooling" / ".venv" / "Scripts" / "mvsa.exe"
     )
-    if sibling_vsa.is_file():
-        return [str(sibling_vsa), "mvsa"]
+    if sibling_mvsa.is_file():
+        return [str(sibling_mvsa)]
     if shutil.which("mvsa"):
         return ["mvsa"]
-    if shutil.which("vsa"):
-        return ["vsa", "mvsa"]
     raise RuntimeError(
-        "mvsa/vsa niet op PATH. Oplossing: scripts\\_ensure.cmd --vsa-tool "
+        "mvsa niet op PATH. Oplossing: scripts\\_ensure.cmd --vsa-tool "
         "(sibling ..\\VSA-tooling of pin)."
     )
 

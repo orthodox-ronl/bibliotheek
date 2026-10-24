@@ -224,7 +224,7 @@ of **stale**. Ontbreekt het sibling-bestand → **missing**.
 | Publicatiecontrole mvsa (`.mvsa` ↔ MXL/PDF/SVG)             | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
 | Publicatiecontrole audio (`.mvsa`/`.mscz`/`.vsa` ↔ `.mp3`) | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
 | Legacy bladermap-SVG uit `.vsa`                            | vernieuwen (`oefenhoek-index --svg`) | vernieuwen (geen stamp-fail) |
-| Koormap-blad `index.pagina.pdf`                            | niet (lokaal `pagina-pdf`)           | niet                         |
+| Koormap-/catalogus-blad `index.pagina.pdf`                 | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
 | Coria-fingerprints + Hugo                                  | ja                                   | ja                           |
 
 CI **genereert geen** MuseScore-/PDF-/audio-producten en geen sibling-SVG
@@ -235,11 +235,14 @@ scherm toont `{stam}.vsa.svg` of `{stam}.mvsa.svg`. Zolang de `.vsa.svg`
 ontbreekt, vult `oefenhoek-index --svg` een legacy-plaatje onder
 `static\vsa\bladermap\` (geen stempel, geen “stale”-fout).
 
-Het koormap-blad `index.pagina.pdf` is geen catalogus-sibling. `products`
-en `check` slaan het over. Na de catalogusproducten:
-`scripts\pagina-pdf.cmd`. Bij `pdf-bijelkaar` maakt dat commando een
-tijdelijke compacte SVG; `{stam}.mvsa.svg` blijft het gewone webplaatje.
-Commit de blad-PDF mee, anders tonen Download pagina en Print pagina niet.
+Het blad `index.pagina.pdf` is geen catalogus-sibling. `products` maakt
+het niet; na de catalogusproducten: `scripts\pagina-pdf.cmd`. `check`
+controleert of die PDF er is en niet ouder is dan de Markdown of
+notatiebron (zelfde regels als bij andere publicatiecontroles). Bij
+`pdf-bijelkaar` maakt `pagina-pdf` een tijdelijke compacte SVG;
+`{stam}.mvsa.svg` blijft het gewone webplaatje. Commit de blad-PDF mee,
+anders tonen Download pagina en Print pagina niet en faalt `check
+--strict`.
 
 Op bibliotheek-bladermappen: icoon **♪** (linksboven op de partituur)
 opent **Oefenen** en **Beluisteren** (Beluisteren bij elke bron met

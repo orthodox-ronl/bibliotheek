@@ -104,7 +104,9 @@ scripts\pagina-pdf.cmd content-source\koormappen\hemelum\liturgie-zondag
 # WHEN
 
 Je hebt de shortcodes op een slot-pagina gezet of gewijzigd en wilt de
-knoppen Download/Print pagina een actuele pagina-PDF geven.
+knoppen Download/Print pagina een actuele pagina-PDF geven. Ook vóór
+push/PR: `check` (en CI) eist die PDF bij bladen met `bieb`/`muziek`
+waar een notatiebron bestaat — zie [check](../check/).
 
 # SEE ALSO
 
