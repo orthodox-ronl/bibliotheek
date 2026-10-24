@@ -1160,6 +1160,39 @@
             10.0
           );
         }
+        // Lettergrepen over de maatstreep: geen «wordtte-» (schermpartituur §4.3).
+        // OSMD mag standaard ~3.4 eenheden overlappen in de volgende maat.
+        if (typeof rules.LyricOverlapAllowedIntoNextMeasure === "number") {
+          rules.LyricOverlapAllowedIntoNextMeasure = 0.4;
+        }
+        if (typeof rules.BetweenSyllableMinimumDistance === "number") {
+          rules.BetweenSyllableMinimumDistance = Math.max(
+            rules.BetweenSyllableMinimumDistance || 0,
+            1.0
+          );
+        }
+        if (typeof rules.HorizontalBetweenLyricsDistance === "number") {
+          rules.HorizontalBetweenLyricsDistance = Math.max(
+            rules.HorizontalBetweenLyricsDistance || 0,
+            0.45
+          );
+        }
+        if (typeof rules.LyricsUseXPaddingForLongLyrics === "boolean") {
+          rules.LyricsUseXPaddingForLongLyrics = true;
+        }
+        if (typeof rules.LyricsXPaddingFactorForLongLyrics === "number") {
+          rules.LyricsXPaddingFactorForLongLyrics = Math.max(
+            rules.LyricsXPaddingFactorForLongLyrics || 0,
+            1.2
+          );
+        }
+        if (
+          typeof rules.LyricsXPaddingReductionForLastNoteInMeasureCrossMeasureMidWord ===
+          "number"
+        ) {
+          // Lager = meer ruimte vóór de maatstreep bij woordovergang.
+          rules.LyricsXPaddingReductionForLastNoteInMeasureCrossMeasureMidWord = 0.4;
+        }
       }
       await osmd.load(src);
       var xmlText = await fetchXml(src);
@@ -1240,7 +1273,7 @@
   } else {
     init();
   }
-  window.__VSA_SCORE_OSMD_BUILD = "20261024-s8-slot9";
+  window.__VSA_SCORE_OSMD_BUILD = "20261024-lyric-gap";
 
   function diagnoseStaff(measures, byPart, mi, label) {
     var out = { label: label };

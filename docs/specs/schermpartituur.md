@@ -29,9 +29,9 @@ Bladvorm op scherm: §4.4 hieronder.
 
 ## 1. Scherm versus print/download
 
-| Kanaal | Bedoeling |
-| --- | --- |
-| **Scherm** | Doorlopende partituur om mee te lezen/oefenen in de browser. Geen A4-bladkaders als primaire look. |
+| Kanaal                        | Bedoeling                                                                                                                                                                             |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Scherm**                    | Doorlopende partituur om mee te lezen/oefenen in de browser. Geen A4-bladkaders als primaire look.                                                                                    |
 | **Download / Print (pagina)** | `index.pagina.pdf` van het getoonde blad (koormap of catalogus-leaf) via nav **Download pagina** / **Print pagina**. Catalogus heeft geen aparte score-knoppen meer naar product-PDF. |
 
 Op het scherm forceert het onderdeel `muziek` **geen** paginatitel. Titels
@@ -68,12 +68,12 @@ alleen bindend voor OSMD (§4.2–4.3), zolang scherm-SVG via MuseScore loopt.
 
 ## 3. Titels en pagina-chrome (site)
 
-| Context | Eis |
-| --- | --- |
-| Catalogusblad | Precies **één** zichtbare hoofdtitel (template-H1 uit afgeleide catalogustitel). Geen tweede dezelfde titel via `bieb titel` of een Markdown-`#` met dezelfde tekst. |
-| Koormap-slot | **Geen** template-H1. Bladtitel en rubrieken via `kop` (of afgesproken Markdown). Geen dubbele titel naast `bieb titel`. |
+| Context                 | Eis                                                                                                                                                                                          |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Catalogusblad           | Precies **één** zichtbare hoofdtitel (template-H1 uit afgeleide catalogustitel). Geen tweede dezelfde titel via `bieb titel` of een Markdown-`#` met dezelfde tekst.                         |
+| Koormap-slot            | **Geen** template-H1. Bladtitel en rubrieken via `kop` (of afgesproken Markdown). Geen dubbele titel naast `bieb titel`.                                                                     |
 | In de partituurtekening | Geen titel/ondertitel/componist/lyricist/credits — alleen muziek (**OSMD én SVG**, besluit 1). Catalogus-PDF-op-scherm mag wel een titel in het PDF-blad hebben (nood-fallback = printlook). |
-| Download/Print | Alleen pagina-knoppen in de **nav** (`index.pagina.pdf`). Per muziekblok: ♪-menu oefenen/beluisteren (catalogus: ook {}-menu bronnen); geen score-Download/Print naar product-PDF. |
+| Download/Print          | Alleen pagina-knoppen in de **nav** (`index.pagina.pdf`). Per muziekblok: ♪-menu oefenen/beluisteren (catalogus: ook {}-menu bronnen); geen score-Download/Print naar product-PDF.           |
 
 ---
 
@@ -86,14 +86,14 @@ stille versoepeling van deze regels in de site.
 
 ### 4.1 Chrome in de partituurtekening
 
-| Onderdeel | Op het scherm |
-| --- | --- |
-| Partituurtitel / ondertitel / componist / lyricist / credits | Uit (besluit 1) |
-| Partijnamen en partijafkortingen | Uit (besluit 4) |
-| Metronoomtekens | Uit (besluit 4) |
-| Maatsoort (o.a. vaste 4/4) | Uit — senza misura; geen valse 4/4 (besluit 4) |
-| Maatnummers | Aan op **beide** ketens. Voorkeur: begin van elk systeem. Minimaal: minstens één maatnummer per systeem (besluit 3) |
-| Lettertype (tekst/cues/lyrics-stijl) | Source Sans 3 op **beide** ketens (besluit 5) |
+| Onderdeel                                                    | Op het scherm                                                                                                       |
+| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| Partituurtitel / ondertitel / componist / lyricist / credits | Uit (besluit 1)                                                                                                     |
+| Partijnamen en partijafkortingen                             | Uit (besluit 4)                                                                                                     |
+| Metronoomtekens                                              | Uit (besluit 4)                                                                                                     |
+| Maatsoort (o.a. vaste 4/4)                                   | Uit — senza misura; geen valse 4/4 (besluit 4)                                                                      |
+| Maatnummers                                                  | Aan op **beide** ketens. Voorkeur: begin van elk systeem. Minimaal: minstens één maatnummer per systeem (besluit 3) |
+| Lettertype (tekst/cues/lyrics-stijl)                         | Source Sans 3 op **beide** ketens (besluit 5)                                                                       |
 
 ### 4.2 Cues (liturgische aanwijzingen boven de noten)
 
@@ -102,13 +102,13 @@ zijn enkele regels alleen bindend voor OSMD; MuseScore-SVG (`mvsa svg` /
 layout `muziek`) is daar best-effort — zie de tijdelijke uitzondering
 onderaan deze paragraaf.
 
-| Eis | Keten | Toelichting |
-| --- | --- | --- |
-| Juiste maat | Beide | Cue hoort bij de maat van de eerste noot van die aanwijzing. |
-| Niet over maatstrepen / wrap | Beide | Cue-tekst blijft binnen de maat; bij noodzaak wrap naar twee regels (`t1` / `… t2`-achtig; MuseScore-SVG: wrap op `...`). |
-| Breedte / inklappen naar één regel | **OSMD-only** (nu) | Eerst ruimte voor twee regels; inklappen naar **één** regel alleen als die ene regel nog past (`score-osmd.js`). MuseScore-SVG doet dat inklappen niet. |
-| Inklappen: onderste hoogte | **OSMD-only** (nu) | Bij inklappen: onderste regel houden; één-regelcues op die onderste hoogte. |
-| Na centreren: cues niet meeschuiven | **OSMD-only** (nu) | Cues blijven op de (oude) eerste-noot-positie; niet meeschuiven met de noten. Op MuseScore-SVG geen gelijk mechanisme. |
+| Eis                                 | Keten              | Toelichting                                                                                                                                             |
+| ----------------------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Juiste maat                         | Beide              | Cue hoort bij de maat van de eerste noot van die aanwijzing.                                                                                            |
+| Niet over maatstrepen / wrap        | Beide              | Cue-tekst blijft binnen de maat; bij noodzaak wrap naar twee regels (`t1` / `… t2`-achtig; MuseScore-SVG: wrap op `...`).                               |
+| Breedte / inklappen naar één regel  | **OSMD-only** (nu) | Eerst ruimte voor twee regels; inklappen naar **één** regel alleen als die ene regel nog past (`score-osmd.js`). MuseScore-SVG doet dat inklappen niet. |
+| Inklappen: onderste hoogte          | **OSMD-only** (nu) | Bij inklappen: onderste regel houden; één-regelcues op die onderste hoogte.                                                                             |
+| Na centreren: cues niet meeschuiven | **OSMD-only** (nu) | Cues blijven op de (oude) eerste-noot-positie; niet meeschuiven met de noten. Op MuseScore-SVG geen gelijk mechanisme.                                  |
 
 **Tijdelijke uitzondering (MuseScore-SVG):** zolang scherm-SVG via
 **MuseScore** (`mvsa svg` / layout `muziek`) wordt gegenereerd, zijn de
@@ -121,12 +121,13 @@ een nieuw productbesluit anders zegt. Versoepel ze niet stilzwijgend als
 
 ### 4.3 Noten, lyrics, afstand
 
-| Eis | Keten | Toelichting |
-| --- | --- | --- |
-| Centreren in maatbreedte | **OSMD-only** (nu) | Noten (en bijbehorende lyrics/dashes) centreren in de beschikbare maatbreedte wanneer er genoeg wit links én rechts is. MuseScore-SVG: alleen `measureSpacing`, geen OSMD-centreer. |
-| Korte stukken | Beide | Geen nutteloos uitgerekte lege maten; cues en tekst blijven leesbaar. |
-| Lange stukken | Beide | Systeemovergangen blijven kloppen (ook KSL); horizontale scroll alleen als de viewport echt te smal is. OSMD: past mee bij echte breedtewijziging (eigen resize-handler; geen OSMD-`autoResize`, anders knippert centreren weg). |
-| Wit | Beide | Tussen systemen en notenbalken genoeg ruimte zodat lyrics en cues niet in elkaar lopen. |
+| Eis                          | Keten              | Toelichting                                                                                                                                                                                                                      |
+| ---------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Centreren in maatbreedte     | **OSMD-only** (nu) | Noten (en bijbehorende lyrics/dashes) centreren in de beschikbare maatbreedte wanneer er genoeg wit links én rechts is. MuseScore-SVG: alleen `measureSpacing`, geen OSMD-centreer.                                              |
+| Korte stukken                | Beide              | Geen nutteloos uitgerekte lege maten; cues en tekst blijven leesbaar.                                                                                                                                                            |
+| Lange stukken                | Beide              | Systeemovergangen blijven kloppen (ook KSL); horizontale scroll alleen als de viewport echt te smal is. OSMD: past mee bij echte breedtewijziging (eigen resize-handler; geen OSMD-`autoResize`, anders knippert centreren weg). |
+| Wit                          | Beide              | Tussen systemen en notenbalken genoeg ruimte zodat lyrics en cues niet in elkaar lopen.                                                                                                                                          |
+| Lettergrepen over maatstreep | **OSMD-only** (nu) | Laatste lettergreep vóór een maatstreep en eerste erna blijven visueel gescheiden (geen «wordtte-»). OSMD: `LyricOverlapAllowedIntoNextMeasure` laag + lyric-x-padding in `score-osmd.js`.                                       |
 
 Zelfde **informatiedichtheid** op beide ketens: noten, lyrics, cues,
 speelplan-navigatie; geen chrome-ruis (besluit 7). Lange recite en
@@ -149,14 +150,14 @@ blok-id-labels boven maten als navigatie genoeg is.
 
 Kort overzicht (details en patronen blijven in speelplan.md):
 
-| Prio | Patroon (voorbeeld) | Bladtekens |
-| --- | --- | --- |
-| 1 | plan = blokvolgorde | niets extra |
-| 2 | `(a,b)×n+(a,c)` | herhaal + volta |
-| 3 | `prefix + X×n + suffix` | `\|: … :\|` (+ times) |
-| 4 | D.S./D.C. al Fine | Segno + Fine + sprong |
-| 5 | D.S./D.C. al Coda | Segno / To Coda / Coda + sprong |
-| 6 | rest | expand (uitgeschreven op blad) |
+| Prio | Patroon (voorbeeld)     | Bladtekens                      |
+| ---- | ----------------------- | ------------------------------- |
+| 1    | plan = blokvolgorde     | niets extra                     |
+| 2    | `(a,b)×n+(a,c)`         | herhaal + volta                 |
+| 3    | `prefix + X×n + suffix` | `\|: … :\|` (+ times)           |
+| 4    | D.S./D.C. al Fine       | Segno + Fine + sprong           |
+| 5    | D.S./D.C. al Coda       | Segno / To Coda / Coda + sprong |
+| 6    | rest                    | expand (uitgeschreven op blad)  |
 
 **Acceptatie:**
 
@@ -176,22 +177,22 @@ Repro-voorbeeld volta: catalogus
 
 ### 5.1 OSMD
 
-| Eis | Toelichting |
-| --- | --- |
-| Bron | Sibling `{stam}.mvsa.from-ir.musicxml`. |
-| Gedrag | Volgt §4; bron van waarheid voor clientgedrag: `static/js/score-osmd.js`. |
+| Eis       | Toelichting                                                                                                                                                                                                                                    |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bron      | Sibling `{stam}.mvsa.from-ir.musicxml`.                                                                                                                                                                                                        |
+| Gedrag    | Volgt §4; bron van waarheid voor clientgedrag: `static/js/score-osmd.js`.                                                                                                                                                                      |
 | S8-recite | From-ir met `<notehead>none</notehead>`: site toont **`{stam}.mvsa.svg`** als sibling (MuseScore `mvsa svg`), geen OSMD — spacer/breve/recite-tekst is print-MuseScore-semantiek, geen VexFlow-pariteit. From-ir blijft product (o.a. nav-CI). |
-| Systemen | Volgens MusicXML (`newSystemFromXML`); cues niet afkappen. |
+| Systemen  | Volgens MusicXML (`newSystemFromXML`); cues niet afkappen.                                                                                                                                                                                     |
 
 ### 5.2 SVG-fallback
 
-| Eis | Toelichting |
-| --- | --- |
-| Bron | Sibling `{stam}.mvsa.svg` of `{stam}.vsa.svg` (preferred); legacy bladermap-SVG alleen zolang de sibling ontbreekt. |
-| Rol | Primair schermpad voor **VSA** (nog geen Score-IR/OSMD). Voor **mvsa** alleen als from-ir ontbreekt. |
-| Look | Zelfde pakket als §4 (titel/chrome uit, Source Sans 3, maatnummers, cues, speelplan-nav). Export: VSA-tooling layout `muziek` / MuseScore 4. Cue-inklappen / cues-niet-meeschuiven / noten-centreren: nu **best-effort** t.o.v. OSMD (§4.2–4.3); weer verplicht voor beide zodra scherm-SVG niet meer via MuseScore loopt. |
-| Kolom | Breedte volgt de contentkolom; geen horizontale overflow buiten de kolom op oefenhoek-pagina’s (`overflow-x` begrensd). |
-| Site-titel | Het onderdeel `muziek` zet geen extra HTML-titel. |
+| Eis        | Toelichting                                                                                                                                                                                                                                                                                                                |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bron       | Sibling `{stam}.mvsa.svg` of `{stam}.vsa.svg` (preferred); legacy bladermap-SVG alleen zolang de sibling ontbreekt.                                                                                                                                                                                                        |
+| Rol        | Primair schermpad voor **VSA** (nog geen Score-IR/OSMD). Voor **mvsa** alleen als from-ir ontbreekt.                                                                                                                                                                                                                       |
+| Look       | Zelfde pakket als §4 (titel/chrome uit, Source Sans 3, maatnummers, cues, speelplan-nav). Export: VSA-tooling layout `muziek` / MuseScore 4. Cue-inklappen / cues-niet-meeschuiven / noten-centreren: nu **best-effort** t.o.v. OSMD (§4.2–4.3); weer verplicht voor beide zodra scherm-SVG niet meer via MuseScore loopt. |
+| Kolom      | Breedte volgt de contentkolom; geen horizontale overflow buiten de kolom op oefenhoek-pagina’s (`overflow-x` begrensd).                                                                                                                                                                                                    |
+| Site-titel | Het onderdeel `muziek` zet geen extra HTML-titel.                                                                                                                                                                                                                                                                          |
 
 **Steekproef (chrome OK):** catalogus
 `alleluia/9a-toon-1/groningen` — `.mvsa.svg` zonder zichtbare
@@ -209,11 +210,11 @@ zijn géén vrijbrief om besluit 6 voor altijd af te zwakken.
 
 ## 6. Basispartituur-`.mscz` op het scherm
 
-| Eis | Toelichting |
-| --- | --- |
-| Voorkeur keten | Zelfde volgorde als §2: als er een canonieke `.mvsa` + from-ir is, wint OSMD; anders SVG; anders PDF van het mscz-spoor. |
-| Alleen `.mscz` (+ PDF) | Scherm toont vaak de catalogus-PDF als blad — dat is **nood-fallback**, niet de eindlook. |
-| Titel | Geen tweede Hugo-titel; PDF mag wel eigen bladkop hebben. SVG van dit spoor volgt §4 zodra die export er is. |
+| Eis                    | Toelichting                                                                                                              |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Voorkeur keten         | Zelfde volgorde als §2: als er een canonieke `.mvsa` + from-ir is, wint OSMD; anders SVG; anders PDF van het mscz-spoor. |
+| Alleen `.mscz` (+ PDF) | Scherm toont vaak de catalogus-PDF als blad — dat is **nood-fallback**, niet de eindlook.                                |
+| Titel                  | Geen tweede Hugo-titel; PDF mag wel eigen bladkop hebben. SVG van dit spoor volgt §4 zodra die export er is.             |
 
 **Nog niet normatief:** wanneer elke mscz-UV Score-IR/OSMD móet hebben vóór
 publicatie. Publicatiecontrole eist nu from-ir voor canonieke `.mvsa`, niet
@@ -223,12 +224,12 @@ voor elke losse `.mscz`.
 
 ## 7. Tekstblad (`.tekstblad.md`)
 
-| Eis | Toelichting |
-| --- | --- |
+| Eis    | Toelichting                                                                                |
+| ------ | ------------------------------------------------------------------------------------------ |
 | Scherm | Body van sibling `{stam}.tekstblad.md` (HTML via `bieb-score`). Er is geen OSMD/SVG-keten. |
-| Inhoud | Leesbare liturgische tekst/dialoog. |
-| Titel | Zelfde paginaregels als §3. |
-| Print | Blad = `index.pagina.pdf` (nav); product-`.tekstblad.pdf` is geen schermviewer. |
+| Inhoud | Leesbare liturgische tekst/dialoog.                                                        |
+| Titel  | Zelfde paginaregels als §3.                                                                |
+| Print  | Blad = `index.pagina.pdf` (nav); product-`.tekstblad.pdf` is geen schermviewer.            |
 
 ---
 
