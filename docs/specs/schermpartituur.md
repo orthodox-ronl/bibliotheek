@@ -120,13 +120,16 @@ een nieuw productbesluit anders zegt. Versoepel ze niet stilzwijgend als
 | --- | --- | --- |
 | Centreren in maatbreedte | **OSMD-only** (nu) | Noten (en bijbehorende lyrics/dashes) centreren in de beschikbare maatbreedte wanneer er genoeg wit links én rechts is. MuseScore-SVG: alleen `measureSpacing`, geen OSMD-centreer. |
 | Korte stukken | Beide | Geen nutteloos uitgerekte lege maten; cues en tekst blijven leesbaar. |
-| Lange stukken | Beide | Systeemovergangen blijven kloppen (ook KSL); horizontale scroll alleen als de viewport echt te smal is. OSMD: partituur schaalt mee (`autoResize`). |
+| Lange stukken | Beide | Systeemovergangen blijven kloppen (ook KSL); horizontale scroll alleen als de viewport echt te smal is. OSMD: past mee bij echte breedtewijziging (eigen resize-handler; geen OSMD-`autoResize`, anders knippert centreren weg). |
 | Wit | Beide | Tussen systemen en notenbalken genoeg ruimte zodat lyrics en cues niet in elkaar lopen. |
 
 Zelfde **informatiedichtheid** op beide ketens: noten, lyrics, cues,
-speelplan-navigatie; geen chrome-ruis (besluit 7). Geen eis tot
-pixel-/engraving-gelijkheid buiten deze regels (besluit 2). De
-OSMD-only-rijen in §4.2–4.3 vallen onder dezelfde tijdelijke uitzondering
+speelplan-navigatie; geen chrome-ruis (besluit 7). Lange recite en
+same-pitch melisma volgen de print-eindvorm (S8/S13) in from-ir MusicXML
+zodat OSMD niet “één noot per lettergreep” meer toont waar het blad
+collapse heeft — zie VSA-tooling [partituur-ir](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/partituur-ir.md).
+Geen eis tot pixel-/engraving-gelijkheid buiten deze regels (besluit 2).
+De OSMD-only-rijen in §4.2–4.3 vallen onder dezelfde tijdelijke uitzondering
 als in §4.2 (weer beide ketens zodra scherm-SVG niet meer via MuseScore
 loopt).
 

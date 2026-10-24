@@ -116,11 +116,25 @@
   }
 
   async function fetchXml(src) {
-    var r = await fetch(src);
+    var url = src;
+    if (url.indexOf("?") < 0) {
+      url = url + "?v=1";
+    }
+    var r = await fetch(url, { cache: "no-store" });
     if (!r.ok) {
       throw new Error("MusicXML HTTP " + r.status);
     }
     return r.text();
+  }
+
+  function xmlLocalTag(el) {
+    if (!el) {
+      return "";
+    }
+    if (el.localName) {
+      return String(el.localName).toLowerCase();
+    }
+    return String(el.tagName || "").replace(/^[^:]+:/, "").toLowerCase();
   }
 
   function textContentTrim(el) {
@@ -735,6 +749,183 @@
     return map;
   }
 
+  /**
+   * Print-spacer (MusicXML ``<notehead>none</notehead>``): OSMD tekent toch
+   * kop+stok; MuseScore verbergt die. Per part/maat: timeline v1,v2,v1,v2…
+   * (MusicXML = stem 1-blok dan backup stem 2; OSMD = x-groep, boven=v1).
+   */
+  function noteheadNoneFlagsByPartMeasure(xmlText) {
+    var doc = new DOMParser().parseFromString(xmlText, "application/xml");
+    var parts = Array.prototype.slice.call(doc.querySelectorAll("part"));
+    return parts.map(function (part) {
+      var byNum = {};
+      var measures = [];
+      Array.prototype.forEach.call(part.children, function (ch) {
+        if (xmlLocalTag(ch) === "measure") {
+          measures.push(ch);
+        }
+      });
+      Array.prototype.forEach.call(measures, function (measure, mi) {
+        var num = measure.getAttribute("number");
+        if (!num) {
+          num = String(mi + 1);
+        }
+        var byVoice = { 1: [], 2: [] };
+        Array.prototype.forEach.call(measure.children, function (ch) {
+          if (xmlLocalTag(ch) !== "note") {
+            return;
+          }
+          if (ch.querySelector("rest")) {
+            return;
+          }
+          if (ch.querySelector("chord")) {
+            return;
+          }
+          var vEl = ch.querySelector("voice");
+          var v = vEl ? parseInt(textContentTrim(vEl), 10) : 1;
+          if (v !== 1 && v !== 2) {
+            v = 1;
+          }
+          var nh = ch.querySelector("notehead");
+          byVoice[v].push(
+            nh ? textContentTrim(nh).toLowerCase() === "none" : false
+          );
+        });
+        var interleaved = [];
+        var n = Math.max(byVoice[1].length, byVoice[2].length);
+        for (var i = 0; i < n; i += 1) {
+          if (i < byVoice[1].length) {
+            interleaved.push(byVoice[1][i]);
+          }
+          if (i < byVoice[2].length) {
+            interleaved.push(byVoice[2][i]);
+          }
+        }
+        byNum[String(num)] = interleaved;
+      });
+      return byNum;
+    });
+  }
+
+  function osmdHideSvgEl(el) {
+    el.setAttribute("visibility", "hidden");
+    el.setAttribute("display", "none");
+    el.style.visibility = "hidden";
+    el.style.display = "none";
+  }
+
+  function staveNoteHasVisibleNotehead(staveNoteEl) {
+    var note = staveNoteEl.querySelector(".vf-note");
+    if (!note) {
+      return false;
+    }
+    var paths = note.querySelectorAll("path");
+    for (var i = 0; i < paths.length; i += 1) {
+      var s = window.getComputedStyle(paths[i]);
+      if (s.display !== "none" && s.visibility !== "hidden") {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function hideStaveNoteheadGraphics(staveNoteEl) {
+    staveNoteEl.setAttribute("data-osmd-spacer", "1");
+    var note = staveNoteEl.querySelector(".vf-note");
+    if (note) {
+      // OSMD/VexFlow: kop vaak als path.vf-notehead naast g.vf-notehead — alles
+      // onder .vf-note weg; stavenote zelf blijft voor lyric-anker / spacing.
+      osmdHideSvgEl(note);
+      Array.prototype.forEach.call(note.querySelectorAll("*"), osmdHideSvgEl);
+    }
+    Array.prototype.forEach.call(
+      staveNoteEl.querySelectorAll(".vf-beam, .vf-modifiers"),
+      osmdHideSvgEl
+    );
+  }
+
+  function hideNoteheadNoneGraphics(mount, xmlText) {
+    var byPart = noteheadNoneFlagsByPartMeasure(xmlText);
+    if (!byPart.length) {
+      return;
+    }
+    var raw = Array.prototype.map.call(
+      mount.querySelectorAll(".vf-measure"),
+      function (m) {
+        var b = m.getBBox();
+        return {
+          el: m,
+          id: m.getAttribute("id"),
+          x: b.x,
+          y: b.y,
+        };
+      }
+    );
+    raw.sort(function (a, b) {
+      return a.y - b.y || a.x - b.x;
+    });
+    var systems = [];
+    for (var i = 0; i < raw.length; i += 1) {
+      var mm = raw[i];
+      var sys = systems[systems.length - 1];
+      if (!sys || mm.y - sys.lastY > 150) {
+        systems.push({ lastY: mm.y, ms: [mm] });
+      } else {
+        sys.ms.push(mm);
+        sys.lastY = mm.y;
+      }
+    }
+    for (var si = 0; si < systems.length; si += 1) {
+      var ms = systems[si].ms.slice();
+      ms.sort(function (a, b) {
+        return a.x - b.x || a.y - b.y;
+      });
+      var colStart = 0;
+      for (var j = 1; j <= ms.length; j += 1) {
+        if (j < ms.length && Math.abs(ms[j].x - ms[colStart].x) < 8) {
+          continue;
+        }
+        var col = ms.slice(colStart, j);
+        colStart = j;
+        col.sort(function (a, b) {
+          return a.y - b.y;
+        });
+        for (var pi = 0; pi < col.length && pi < byPart.length; pi += 1) {
+          var measureNum = col[pi].id;
+          if (!measureNum) {
+            continue;
+          }
+          var flags = byPart[pi][String(measureNum)];
+          if (!flags || !flags.length) {
+            continue;
+          }
+          // OSMD/VexFlow: DOM-volgorde = interleaved MusicXML-timeline; niet x-sorteren
+          // (spacer-koppen hebben getBBox/getBoundingClientRect 0 of gelijk).
+          var notes = Array.prototype.slice.call(
+            col[pi].el.querySelectorAll(".vf-stavenote")
+          );
+          // OSMD kan dubbele stavenotes voor notehead none (x≈0 + echte positie):
+          // per none-vlag de volgende nog zichtbare kop in DOM-volgorde verbergen.
+          var cursor = 0;
+          for (var fi = 0; fi < flags.length; fi += 1) {
+            if (!flags[fi]) {
+              continue;
+            }
+            while (cursor < notes.length) {
+              var candidate = notes[cursor];
+              cursor += 1;
+              if (!staveNoteHasVisibleNotehead(candidate)) {
+                continue;
+              }
+              hideStaveNoteheadGraphics(candidate);
+              break;
+            }
+          }
+        }
+      }
+    }
+  }
+
   function fixVoltaLabels(mount, xmlText) {
     var byNum = endingLabelByMeasureNumber(xmlText);
     var ids = Object.keys(byNum);
@@ -771,6 +962,10 @@
     layoutCues(mount, xmlText);
   }
 
+  function finalizeOsmdPrint(mount, xmlText) {
+    hideNoteheadNoneGraphics(mount, xmlText);
+  }
+
   async function renderHost(host) {
     var src = host.getAttribute("data-osmd-src");
     if (!src) {
@@ -785,7 +980,10 @@
       await loadScript(OSMD_SRC);
       var OSMD = window.opensheetmusicdisplay.OpenSheetMusicDisplay;
       var osmd = new OSMD(mount, {
-        autoResize: true,
+        // Geen OSMD-autoResize: die hertekent zonder centreren en vecht
+        // met onze handler → knipperen (links ↔ gecentreerd), vooral op
+        // tablet bij adresbalk show/hide. Schalen: eigen resize hieronder.
+        autoResize: false,
         backend: "svg",
         drawTitle: false,
         drawSubtitle: false,
@@ -822,38 +1020,56 @@
       }
       await osmd.load(src);
       var xmlText = await fetchXml(src);
-      applyInitialWidthFactors(osmd, xmlText);
-      renderAndLayout(osmd, mount, xmlText);
-      for (var pass = 0; pass < 3; pass += 1) {
-        if (!redistributeForOverflow(osmd, mount, xmlText)) {
-          break;
-        }
-        renderAndLayout(osmd, mount, xmlText);
+      var lastLayoutWidth = 0;
+      var WIDTH_EPS = 16;
+
+      function layoutWidth() {
+        return host.clientWidth || mount.clientWidth || 0;
       }
-      // Maatbreedtes staan vast → inklappen naar 1 regel alleen als het past.
-      collapseWrappedCuesIfTheyFit(mount, xmlText);
-      // Daarna noten+lyrics centreren; cues niet opnieuw verplaatsen.
-      centerMeasureContents(mount);
+
+      function fullLayout(allowRedistributePasses) {
+        applyInitialWidthFactors(osmd, xmlText);
+        renderAndLayout(osmd, mount, xmlText);
+        var maxPass = allowRedistributePasses ? 3 : 1;
+        for (var pass = 0; pass < maxPass; pass += 1) {
+          if (!redistributeForOverflow(osmd, mount, xmlText)) {
+            break;
+          }
+          renderAndLayout(osmd, mount, xmlText);
+        }
+        // Maatbreedtes staan vast → inklappen naar 1 regel alleen als het past.
+        collapseWrappedCuesIfTheyFit(mount, xmlText);
+        // Daarna noten+lyrics centreren; cues niet opnieuw verplaatsen.
+        centerMeasureContents(mount);
+        finalizeOsmdPrint(mount, xmlText);
+        lastLayoutWidth = layoutWidth();
+      }
+
+      fullLayout(true);
       if (status) {
         status.remove();
       }
       var resizeTimer = null;
-      window.addEventListener("resize", function () {
+      function onViewportChange() {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(function () {
+          // Alleen bij echte breedtewijziging. Hoogte-only (tablet-
+          // adresbalk) opnieuw tekenen → zichtbaar knipperen links/centrum.
+          var w = layoutWidth();
+          if (Math.abs(w - lastLayoutWidth) < WIDTH_EPS) {
+            return;
+          }
           try {
-            applyInitialWidthFactors(osmd, xmlText);
-            renderAndLayout(osmd, mount, xmlText);
-            if (redistributeForOverflow(osmd, mount, xmlText)) {
-              renderAndLayout(osmd, mount, xmlText);
-            }
-            collapseWrappedCuesIfTheyFit(mount, xmlText);
-            centerMeasureContents(mount);
+            fullLayout(false);
           } catch (e) {
             console.warn("score-osmd: resize", e);
           }
         }, 200);
-      });
+      }
+      window.addEventListener("resize", onViewportChange);
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener("resize", onViewportChange);
+      }
     } catch (err) {
       console.error("score-osmd:", src, err);
       setStatus(
