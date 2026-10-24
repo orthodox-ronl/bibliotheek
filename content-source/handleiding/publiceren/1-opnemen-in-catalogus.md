@@ -49,7 +49,7 @@ Het commando `bieb accepteer`:
 - maakt de mappen
   `content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\`
   als die nog ontbreken;
-- zet daar een `index.md` met de knoppen via shortcode `bieb`;
+- zet daar een `index.md` met shortcode `bieb` (partituur + tip-iconen);
 - kopieert je bestand en geeft het de **publicatiestam** als naam (zonder
   spaties), afgeleid van het id;
 - weigert bestanden die niet in de catalogus horen (bijvoorbeeld Capella

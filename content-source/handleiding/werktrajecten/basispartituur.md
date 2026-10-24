@@ -21,7 +21,7 @@ Daarna `scripts\check.cmd --strict`. Geen `*.print.mscz` in deze keten.
 ## Waartoe
 
 Een vierstemmig (of meer) blad in de catalogus moet op de site als
-A4-PDF leesbaar zijn en via de knop **Oefenen** in Coria afspeelbaar. Dit
+A4-PDF leesbaar zijn en via **Oefenen** (tip-icoon **♪**) in Coria afspeelbaar. Dit
 traject houdt PDF en Coria-`.mxl` synchroon met de canonieke
 basispartituur.
 

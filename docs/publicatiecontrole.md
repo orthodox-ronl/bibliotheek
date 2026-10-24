@@ -72,7 +72,7 @@ Coria-siblings). Ontbreekt het brontype voor een spoor, dan skip (geen fout).
 `--kinds` is focus/uitsluiting, geen “vertel welke bronnen bestaan”. Opties:
 `--dry-run`, `--force`, `--only-missing` / `--only-stale` / `--only-invalid`,
 `--reasons`. Na een geslaagde run (niet `--dry-run`) vernieuwt `products.cmd`
-ook de Coria-fingerprints (`fingerprint_coria_mxl.py`) voor de Oefenen-knop.
+ook de Coria-fingerprints (`fingerprint_coria_mxl.py`) voor **Oefenen** (tip-icoon **♪**).
 
 ### Architectuur (orthogonaal)
 

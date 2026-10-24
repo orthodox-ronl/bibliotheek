@@ -74,8 +74,9 @@ catalogus; bladtitels met `kop`; bladindeling in de download met
 **Print pagina** als `index.pagina.pdf` bestaat — beide gebruiken die PDF
 (niet de browserafdruk van de HTML). De voorgestelde bestandsnaam bij
 downloaden komt uit frontmatter `pdf_bestandsnaam`, anders uit `title`,
-anders uit de mapnaam. Bij elk muziekblok blijven oefenknoppen voor **dat
-stuk**. Pagina-PDF bouwen: [pagina-pdf](../scripts/pagina-pdf/).
+anders uit de mapnaam. Bij elk muziekblok: tip-icoon **♪** voor
+**Oefenen** / **Beluisteren** van **dat** stuk. Pagina-PDF bouwen:
+[pagina-pdf](../scripts/pagina-pdf/).
 
 **Spiekbriefje voor beheerders:** [Koormap-blad schrijven](koormap-blad/).
 Normatieve specificatie in de repository:
@@ -103,9 +104,9 @@ Voorbeeld compositieblad (schets):
 {{</* bieb id="prokimen/9a-dinsdag/groningen" */>}}
 ```
 
-**Let op:** elke `bieb` op dezelfde pagina heeft een **eigen** knoppenrij
-direct boven de partituur van die uitvoeringsvorm. Je hoeft geen aparte
-kindpagina’s te maken alleen om knoppen te scheiden.
+**Let op:** elke `bieb` op dezelfde pagina heeft een **eigen** tip-icoon
+**♪** bij de partituur van die uitvoeringsvorm. Je hoeft geen aparte
+kindpagina’s te maken alleen om oefenacties te scheiden.
 
 ### Alias-varianten
 

@@ -97,7 +97,7 @@ scripts\products.cmd content-source\catalogus\trisagion --kinds mscz,audio
 | `--reasons missing,stale,invalid` | Expliciete subset (niet met `--only-*`)                                                          |
 
 Na een geslaagde run (niet bij `--dry-run`) vernieuwt `products.cmd` ook
-de Coria-fingerprints voor de knop **Oefenen**. Losse
+de Coria-fingerprints voor **Oefenen** (tip-icoon **♪**). Losse
 `mscz-products.cmd` e.d. doen dat niet; gebruik daarna `check` of
 `products.cmd`, of `serve` / `build`.
 

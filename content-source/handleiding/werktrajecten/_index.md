@@ -50,7 +50,7 @@ Opnemen in de catalogus  (bieb accepteer → Catalogus)
 Site-build  (check / build / serve, of CI)  ->  generated/site + GitHub Pages
 ```
 
-Een koormap-blad (`index.pagina.pdf`, knoppen Download pagina en Print
+Een koormap-blad (`index.pagina.pdf`, nav Download pagina en Print
 pagina) komt ná die catalogusproducten, met
 `scripts\pagina-pdf.cmd`. Dat bestand zit niet in `products` en niet in
 de site-build. Zie [pagina-pdf](../scripts/pagina-pdf/) en

@@ -48,7 +48,7 @@ vanuit de repo-root.
 | `pagina-pdf` | Maakt `index.pagina.pdf` voor Download/Print pagina uit kale blad-SVG’s + Markdown-koppen (`pdf-bijelkaar` → compact). | [pagina-pdf](pagina-pdf/) |
 
 Intern (geen apart gebruikerscommando): `python scripts\fingerprint_coria_mxl.py`
-maakt `/mxl/c/<hash>.musicxml` en `data/coria-fp.json` voor de Oefenen-knop.
+maakt `/mxl/c/<hash>.musicxml` en `data/coria-fp.json` voor **Oefenen** (♪).
 Wordt al door `check` / `build` / `serve` aangeroepen.
 `check_koormap_slot_links.py` controleert relatieve links in koormappen
 (onderdeel van `check` / CI). `check_vsa_products.py`,

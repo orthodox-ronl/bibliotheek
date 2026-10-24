@@ -33,7 +33,7 @@ doet de build twee aparte dingen met hetzelfde `.vsa`-bestand:
 | --- | --- | --- |
 | `{stam}.vsa.svg` naast de `.vsa` | Het **plaatje** dat shortcode `bieb` toont | `scripts\vsa-products.cmd` (samen met PDF en Coria-`.mxl`) |
 | `{stam}.vsa.pdf` naast de `.vsa` | (nog productketen; print/download blad = **Download/Print pagina**) | Zelfde commando |
-| `{stam}.vsa.mxl` naast de `.vsa` | Knop **Oefenen** (Coria) | Zelfde commando; export syllabificeert woorden tijdelijk, zonder je `.vsa` te wijzigen |
+| `{stam}.vsa.mxl` naast de `.vsa` | **Oefenen** via tip-icoon **♪** (Coria) | Zelfde commando; export syllabificeert woorden tijdelijk, zonder je `.vsa` te wijzigen |
 
 `scripts\opkuisen.cmd` past **geen** Capella-/MusicXML-heuristieken toe op een
 `.vsa`. Met `--analyze` of `--dry-run` kan `opkuisen` wél `vsa validate`
@@ -117,7 +117,7 @@ automatische_inhoud: false
    controleert die siblings en bouwt de site; `check` maakt ze niet.
 
    Commit **`.vsa`, `.vsa.svg`, `.vsa.pdf` en `.vsa.mxl` samen**. Op de
-   preview verschijnt het plaatje én de knop **Oefenen**.
+   preview verschijnt het plaatje én tip-icoon **♪** met **Oefenen**.
 
 Catalogus-includes horen **niet** in de oefenhoek (geen verwijzing naar
 `content-source/lokaal/`). Kondaken en troparen: catalogus-leaf + `bieb`.

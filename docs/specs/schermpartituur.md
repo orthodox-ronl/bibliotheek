@@ -52,7 +52,7 @@ Gevolgen:
 - SVG is **fallback** of het schermpad voor bronnen zonder Score-IR (`.vsa`, basispartituur-`.mscz`).
 - Tekstblad toont de Markdown/HTML-bron op scherm; product-PDF is geen viewer meer.
 - PDF-op-scherm blijft alleen nood-fallback als SVG/OSMD/tekstblad-md ontbreken.
-- Coria (`.mxl` / Oefenen) en audio horen **niet** bij de schermlook van de partituur; die knoppen blijven apart.
+- Coria (`.mxl` / Oefenen) en audio horen **niet** bij de schermlook van de partituur; die acties zitten in tip-icoon **♪**.
 
 Beide ketens (1 en 2) volgen hetzelfde lookpakket in §4. Verschil is alleen
 *hoe* de tekening tot stand komt, niet *wat* er wel/niet op mag staan — met
@@ -233,7 +233,7 @@ Per geopende catalogus- of koormap-URL:
 4. Cues / centreren / wit (§4.2–4.3): leesbaar, niet afgekapt, niet over maatstrepen? Op OSMD: inklappen / cues niet meeschuiven / noten centreren. Op MuseScore-SVG: wrap + juiste maat volstaan nu; centreer/inklappen is best-effort tot scherm-SVG niet meer via MuseScore loopt.
 5. Speelplan (§4.4): bij bron met `@speelplan` — zichtbare herhaal/volta/D.S./… (niet alleen in het MusicXML-bestand)? Steekproef minstens `alleluia/9a-toon-1/groningen`.
 6. Kolom / fallback (§5–7): SVG/mscz/tekstblad zichtbaar in de kolom; geen extra site-titel door `muziek`?
-7. Download/Print: nav-pagina-PDF; knoppen doen wat ze zeggen?
+7. Download/Print: nav-pagina-PDF; tip-icoon **♪** (en op catalogus **{}**) werken?
 
 Neem in een steekproef **korte én lange** stukken mee (en bij mvsa bij voorkeur
 ook een multi-`bieb`-pagina NL+KSL).
@@ -242,7 +242,7 @@ ook een multi-`bieb`-pagina NL+KSL).
 
 ## 9. Wat dit document niet regelt
 
-- CoriB (latere oefen-UI); Coria-knop blijft externe `coria.nl`
+- CoriB (latere oefen-UI); **Oefenen** (♪) blijft externe `coria.nl`
 - Inhoud/validiteit van VSA/MVSA-bronnen (validate / tooling)
 - Layoutprofielen van MuseScore-print (`layout.cmd`, A4-PDF)
 - Pixel-perfecte gelijkheid tussen SVG-fallback en OSMD (bewust niet verplicht)

@@ -26,33 +26,30 @@ redelijk overweg kunnen met een computer, tablet of telefoon (met een internet v
 
 ## Hoe de site te gebruiken
 
-Het begint met het kiezen van een te oefenen zangstuk; deze vind je mogelijk het handigst in een van de
-koormappen. Klik bijvoorbeeld op `Koormappen` -> `Hemelum` -> `Liturgie weekdagen`. Dan krijg je een lijst
+Het begint met het kiezen van een te oefenen zangstuk; die vind je meestal het handigst in een van de
+koormappen. Klik bijvoorbeeld op Koormappen → Hemelum → Liturgie weekdagen. Dan krijg je een lijst
 van de zangstukken zoals die op normale, doordeweekse dagen in de H. Liturgie worden gezongen.
-kunnen worden gekozen uit een koormap of de catalogus.
+Zangstukken kun je ook via de catalogus zoeken.
 
 Zangstukken kunnen op verschillende manieren worden getoond:
+
 - als **bladmuziek (partituren)**. Let wel, het gaat hier om **oefenmateriaal**: meestal zijn ze wat vereenvoudigd
   (aangepast), en bevatten ze geen uitgebreide muzikale aanwijzingen, versieringen e.d.
-- in **VSA (Vereenvoudigde Slavische Accentnotatie)**-notatie, ook wel 'streepjesnotatie' genoemd. Deze notatie wordt
+- in **VSA (Vereenvoudigde Slavische Accentnotatie)**-notatie, ook wel streepjesnotatie genoemd. Deze notatie wordt
   veel gebruikt in boeken (zoals het Liturgikon), en het leren lezen ervan is makkelijker dan het leren lezen van partituren.
 
-Als een zangstuk is gekozen wordt hij op een van deze manieren getoond. En er is ook een aantal knoppen waarmee
-je kunt selecteren wat je wilt doen:
-- **Oefenen**: Door op de knop 'Oefenen' de klikken word je naar de [coria-site](http://coria.nl) geleid.
-  Daar kan eenieder de eigen stem oefenen.
-- **Beluisteren**: Door op de knop 'Beluisteren' te klikken krijg je een *indruk* van hoe het klinkt.
-  In 'het echt' zal dat toch anders klinken, omdat de audio-speler eigenlijk wat te eenvoudig is.
-  Zo worden in partituren hele stukken tekst die op dezelfde hoogte en met dezelfde noot-lengte worden gezongen,
-  genoteerd met een `breve` (een noot die lijkt op `||O||`). De audio-speler ziet dat als een enkele noot.
-  Het gaat ook niet altijd goed met herhalingen, en refreinen (in antifonen bijvoorbeeld).
-- **Downloaden**: Hiermee kan de partituur of VSA-notatie (als pdf) worden gedownload, voor je eigen gebruik.
-  Je hebt hem dan ook als je even geen internet hebt, en je kunt hem ook afdrukken.
-- **Printen**: hiermee druk je de partituur of VSA-notatie van het zangstuk af.
+Bij de partituur staan geen grote groene actieknoppen meer, maar kleine tip-iconen:
 
-De knop **Bronnen** die in de catalogus-context zichtbaar is, is bedoeld voor beheerders.
-Zij kunnen daarmee het bestand downloaden dat aan de basis van de catalogus-representaties ligt.
-Meestal is dat een .vsa, een .mvsa of een .mscz bestand. We gaan daar hier niet verder op in.
+- **♪** (linksboven bij de muziek): opent een menu met **Oefenen** en **Beluisteren**.
+  - **Oefenen** brengt je naar [coria.nl](https://coria.nl), waar je je eigen stem kunt meezingen.
+  - **Beluisteren** geeft een *indruk* van hoe het klinkt. In het echt klinkt het vaak anders: de
+    audio-speler is eenvoudig (bijvoorbeeld bij `breve`-noten, herhalingen en refreinen in antifonen).
+- **{}** (rechtsboven, alleen in de **catalogus**): voor beheerders — bronbestand als tekst
+  (meestal `.vsa`, `.mvsa` of `.mscz`). Op een koormap-blad zie je dit icoon niet.
+
+Hele blad meenemen of afdrukken: bovenaan in de navigatie **Download pagina** en **Print pagina**
+(als er een pagina-PDF bij dat blad staat). Dat is de PDF van wat je op die pagina ziet, niet een
+los catalogus-productbestand.
 
 ## Onze bronnen
 

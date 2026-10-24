@@ -73,8 +73,9 @@ scripts\serve.cmd
 
 `serve` start de preview op **http://127.0.0.1:18732/** (nooit poort
 1313). Catalogusproducten maakt dat commando niet; die horen al in de
-map te staan. Open jouw **koormap-slot** in de liturgiemap. Klik
-**Oefenen**, **Download pagina** / **Print pagina**, blader de partituur. Alsof je koorlid bent.
+map te staan. Open jouw **koormap-slot** in de liturgiemap. Open tip-icoon
+**♪** (**Oefenen** / **Beluisteren**), probeer **Download pagina** /
+**Print pagina**, blader de partituur — alsof je koorlid bent.
 Rode banner over partituur- of VSA-afgeleiden? Terug naar
 [Afgeleiden](../../partituur/6-afgeleiden/). Gele banner “Handmatige
 artefacten”? Verwacht — jij houdt PDF/MXL zelf bij.

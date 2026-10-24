@@ -90,8 +90,8 @@ scripts\mscz-products.cmd content-source
 4. Open de PDF even in een PDF-viewer: pagina A4, titel, colofon, tekst
    leesbaar.
 5. Coria test je ná `scripts\check.cmd --strict` op het **koormap-slot**
-   (knop **Oefenen** komt uit de catalogus-acties op die pagina — niet uit
-   een `.mxl` onder `input\`).
+   (**Oefenen** via tip-icoon **♪** op die pagina — niet uit een `.mxl`
+   onder `input\`).
 
 ### Vernieuwen of forceren
 

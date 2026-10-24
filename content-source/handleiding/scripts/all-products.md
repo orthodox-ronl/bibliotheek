@@ -38,7 +38,7 @@ Volgorde:
 6. [audio-products](../audio-products/) — `{stam}.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3`
 7. [lyrics-products](../lyrics-products/) — `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` / `.mscz.lyrics.txt`
 
-Daarna (tenzij `--dry-run`): Coria-fingerprints voor de Oefenen-knop
+Daarna (tenzij `--dry-run`): Coria-fingerprints voor **Oefenen** (♪)
 (`fingerprint_coria_mxl.py`, via `products.cmd`), en
 `static\zoek\index.json` opnieuw bouwen zodat zoeken lyrics, status en
 audio-paden volgt. Op GitHub Pages gebeurt die indexstap opnieuw in de

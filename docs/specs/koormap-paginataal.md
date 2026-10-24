@@ -38,12 +38,11 @@ volgorde, bladindeling).
 | --- | --- |
 | Download / print | Altijd de **getoonde pagina** (koormap-slot of catalogus-blad). |
 | Inhoud | Een koormap-pagina mag **meerdere** zangstukken, varianten en/of uitvoeringsvormen bevatten. Daar legt het systeem geen limiet op. |
-| Catalogus-blad | Bevat per definitie **één** uitvoeringsvorm; dezelfde knoppenidee: download/print = die pagina. |
+| Catalogus-blad | Bevat per definitie **één** uitvoeringsvorm; download/print van het blad = die pagina (`index.pagina.pdf`). |
 | Layout | Bladtitels en rubrieken tussen partituren: shortcode `kop` (§6). Uitleg en gewone structuur: Markdown. Catalogusmuziek: `bieb`. Geen HTML voor uitlijning of kopgrootte. |
-| Navbalk | **Download** en **Print** horen bij de pagina (niet per `bieb`-blok). Bij elk muziekblok mogen **oefenacties** (Coria, audio, …) blijven staan. |
+| Navbalk | **Download pagina** en **Print pagina** horen bij de pagina (niet per `bieb`-blok). Bij elk muziekblok: tip-icoon **♪** voor oefenen/beluisteren. |
 
-Plaatsing van Download/Print in de navigatie is onderdeel van dit contract;
-de exacte UI volgt in het bouwplan.
+Plaatsing van Download/Print in de navigatie is onderdeel van dit contract.
 
 ---
 
@@ -173,7 +172,7 @@ Twee schrijfwijzen zijn **gelijkwaardig** wanneer er een openstaande
 | Onderdeel | Aliassen | Betekenis |
 | --- | --- | --- |
 | `titel` | `title` | Catalogustitel van de uitvoeringsvorm, als platte tekst (geschikt in een Markdown-kop of binnen `kop`). |
-| `muziek` | — | Partituurweergave (+ oefenacties bij dat blok). Geen paginatitel forceren. **Schermketen en look:** [schermpartituur.md](schermpartituur.md) (normatief). Kort: voorkeur ``.mvsa.from-ir.musicxml`` → OSMD; anders SVG (``.mvsa.svg`` / ``.vsa.svg`` / ``.mscz.svg`` / legacy bladermap); tekstblad-md of PDF alleen als nood-fallback. Blad download/print: nav **Download/Print pagina** (`index.pagina.pdf`), geen score-knop naar product-PDF. Artifact Score-IR: `vsa mvsa score-ir … --musicxml` in VSA-tooling. |
+| `muziek` | — | Partituurweergave (+ tip-icoon **♪** bij dat blok). Geen paginatitel forceren. **Schermketen en look:** [schermpartituur.md](schermpartituur.md) (normatief). Kort: voorkeur ``.mvsa.from-ir.musicxml`` → OSMD; anders SVG (``.mvsa.svg`` / ``.vsa.svg`` / ``.mscz.svg`` / legacy bladermap); tekstblad-md of PDF alleen als nood-fallback. Blad download/print: nav **Download/Print pagina** (`index.pagina.pdf`), geen score-knop naar product-PDF. Artifact Score-IR: `vsa mvsa score-ir … --musicxml` in VSA-tooling. |
 | `bron` | — | Korte bronvermelding van de uitvoeringsvorm. |
 | `copyright` | — | Copyright-/licentieregel(s), alleen als de beheerder dit zet. |
 | `veld` | — | Generieke frontmatter; zie §5.4. |

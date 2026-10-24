@@ -70,8 +70,9 @@ scripts\layout.cmd pad\naar\bestand.mscz
 
 ## Coria: `failed to retrieve file`
 
-Coria haalt het muziekbestand zelf vanaf internet op. De Oefenen-knop
-moet daarom naar een **volledig** adres op `raw.githubusercontent.com`
+Coria haalt het muziekbestand zelf vanaf internet op. **Oefenen** (via
+tip-icoon **♪**) moet daarom naar een **volledig** adres op
+`raw.githubusercontent.com`
 wijzen, bijvoorbeeld
 `https://raw.githubusercontent.com/orthodox-ronl/bibliotheek/gh-pages/preview/mxl/c/<hash>.musicxml`
 (fingerprint op branch `gh-pages`). De website voor mensen blijft
@@ -120,7 +121,7 @@ Als de check `coria_notehead` meldt, of na een MuseScore-export opnieuw
 scripts\products.cmd --kinds mscz --only-invalid
 ```
 
-(`products` vernieuwt daarna zelf de Coria-fingerprints voor de Oefenen-knop.)
+(`products` vernieuwt daarna zelf de Coria-fingerprints voor **Oefenen**.)
 
 Of producten opnieuw: `scripts\products.cmd --kinds mscz,mvsa,vsa`
 (voor de betreffende stukken). De `.mxl` moet uit `mscz-products`,
