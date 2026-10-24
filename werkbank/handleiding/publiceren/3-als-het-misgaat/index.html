@@ -1,12 +1,12 @@
-<!doctype html><html lang=nl><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Als het misgaat</title><link rel=icon href=/bibliotheek/werkbank/images/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/bibliotheek/werkbank/images/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/bibliotheek/werkbank/images/favicon-32x32.png><link rel=apple-touch-icon sizes=180x180 href=/bibliotheek/werkbank/images/apple-touch-icon.png><link rel=manifest href=/bibliotheek/werkbank/images/site.webmanifest><link rel=stylesheet href=/bibliotheek/werkbank/css/site.css><script src=/bibliotheek/werkbank/js/site-nav.js defer></script><script src=/bibliotheek/werkbank/js/score-audio.js defer></script><script src=/bibliotheek/werkbank/js/score-bron.js defer></script><script src=/bibliotheek/werkbank/js/catalogus-zoek.js defer></script><script type=module src=/bibliotheek/werkbank/js/pdf-sheet.js></script></head><body><div class=site-chrome><header class=site-header><div class=site-header-inner><div class=site-header-start><a class=site-logo href=/bibliotheek/werkbank/><img src=/bibliotheek/werkbank/images/favicon-32x32.png width=26 height=26 alt>
+<!doctype html><html lang=nl><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Als het misgaat</title><link rel=icon href=/bibliotheek/werkbank/images/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/bibliotheek/werkbank/images/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/bibliotheek/werkbank/images/favicon-32x32.png><link rel=apple-touch-icon sizes=180x180 href=/bibliotheek/werkbank/images/apple-touch-icon.png><link rel=manifest href=/bibliotheek/werkbank/images/site.webmanifest><link rel=stylesheet href=/bibliotheek/werkbank/css/site.css><script src=/bibliotheek/werkbank/js/site-nav.js defer></script><script src=/bibliotheek/werkbank/js/score-audio.js defer></script><script src=/bibliotheek/werkbank/js/score-bron.js defer></script><script src="/bibliotheek/werkbank/js/score-osmd.js?v=20261023-center" defer></script><script src=/bibliotheek/werkbank/js/catalogus-zoek.js defer></script><script type=module src=/bibliotheek/werkbank/js/pdf-sheet.js></script></head><body><div class=site-chrome><header class=site-header><div class=site-header-inner><div class=site-header-start><a class=site-logo href=/bibliotheek/werkbank/><img src=/bibliotheek/werkbank/images/favicon-32x32.png width=26 height=26 alt>
 <span class=site-logo-text>Bibliotheek</span></a><nav class=site-nav aria-label=Hoofdnavigatie><details class=site-nav-group><summary>Catalogus</summary><div class=site-nav-menu><a href=/bibliotheek/werkbank/overzichten/>Overzicht</a>
 <a href=/bibliotheek/werkbank/overzichten/zoeken/>Zoeken</a>
 <a href=/bibliotheek/werkbank/overzichten/alfabetisch/>Alfabetisch</a>
 <a href=/bibliotheek/werkbank/overzichten/herkomst/>Per herkomst</a>
-<a href=/bibliotheek/werkbank/overzichten/per-soort/>Per soort</a>
 <a href=/bibliotheek/werkbank/overzichten/speciaal/>Speciaal</a>
 <a href=/bibliotheek/werkbank/overzichten/id-register/>Id-register</a></div></details><details class=site-nav-group><summary>Koormappen</summary><div class=site-nav-menu><a href=/bibliotheek/werkbank/koormappen/>Overzicht</a>
-<a href=/bibliotheek/werkbank/koormappen/hemelum/>Hemelum</a></div></details><details class="site-nav-group is-current"><summary>Handleiding</summary><div class=site-nav-menu><a href=/bibliotheek/werkbank/handleiding/>Overzicht</a>
+<a href=/bibliotheek/werkbank/koormappen/hemelum/>Hemelum</a>
+<a href=/bibliotheek/werkbank/koormappen/zwolle/>Zwolle</a></div></details><details class="site-nav-group is-current"><summary>Handleiding</summary><div class=site-nav-menu><a href=/bibliotheek/werkbank/handleiding/>Overzicht</a>
 <a href=/bibliotheek/werkbank/handleiding/start/>Start</a>
 <a href=/bibliotheek/werkbank/handleiding/werktrajecten/>Werktrajecten</a>
 <a href=/bibliotheek/werkbank/handleiding/partituur/>Partituur</a>
@@ -48,7 +48,9 @@ tegelijk.</p><h2 id=spaties-of-rare-tekens-in-de-naam>Spaties of rare tekens in 
 alleen <code>a-z0-9_-</code>. Ruwe inputs in <code>input\</code> mogen hun oude naam houden. Schrijf
 uitvoer altijd met <code>-o</code> naar een schone naam.</p><h2 id=doel-id-leeg-of-twijfel>Doel-id leeg of twijfel</h2><p>Niet verzinnen. Zet in de werkvoorraad-rij een notitie “welk catalogus-id?”
 en vraag het na. Twee inputs naar dezelfde uitvoeringsvorm mag (Capella én VOW);
-noteer dat in de notitie. Id-lijst:
+noteer dat in de notitie. Bestaand id:
+<a href=/bibliotheek/werkbank/overzichten/zoeken/>Zoeken</a>
+; Hemelum-naslag:
 <a href=/bibliotheek/werkbank/overzichten/id-register/>Id-register</a>
 .</p><h2 id=bieb-accepteer-weigert-het-bestand>bieb accepteer weigert het bestand</h2><p><strong>Symptoom:</strong> <code>bieb accepteer</code> eindigt met <code>FAIL:</code>.</p><p>Lees de regel <code>Oplossing:</code> in het opdrachtvenster. Veelvoorkomend: verkeerd
 id, bestand bestaat al (dan <code>--force</code> alleen als je bewust overschrijft),
@@ -65,8 +67,9 @@ MuseScore 4; gebruik niet MuseScore 3. Open het opdrachtvenster opnieuw
 na installatie. (Voor alleen <code>.vsa</code> → Coria is MuseScore niet nodig:
 <code>vsa-products</code>.)</p><h2 id=de-pagina-is-lelijk-of-de-stijl-is-weg>De pagina is lelijk of de stijl is weg</h2><p>Meestal: geëxporteerd naar MusicXML en weer geopend. Ga terug naar de
 basispartituur-<code>.mscz</code> (of opnieuw vanaf opgekuiste <code>.mxl</code> plus normaliseren). Daarna:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\layout.cmd pad\naar\bestand.mscz
-</span></span></code></pre></div><h2 id=coria-failed-to-retrieve-file>Coria: <code>failed to retrieve file</code></h2><p>Coria haalt het muziekbestand zelf vanaf internet op. De Oefenen-knop
-moet daarom naar een <strong>volledig</strong> adres op <code>raw.githubusercontent.com</code>
+</span></span></code></pre></div><h2 id=coria-failed-to-retrieve-file>Coria: <code>failed to retrieve file</code></h2><p>Coria haalt het muziekbestand zelf vanaf internet op. <strong>Oefenen</strong> (via
+tip-icoon <strong>♪</strong>) moet daarom naar een <strong>volledig</strong> adres op
+<code>raw.githubusercontent.com</code>
 wijzen, bijvoorbeeld
 <code>https://raw.githubusercontent.com/orthodox-ronl/bibliotheek/gh-pages/preview/mxl/c/&lt;hash>.musicxml</code>
 (fingerprint op branch <code>gh-pages</code>). De website voor mensen blijft
@@ -90,17 +93,18 @@ opnieuw producten draaien met actuele tooling / <code>coria_mxl</code>.</li></ol
 </span></span><span style=display:flex><span>check
 </span></span></code></pre></div><p>Als de check <code>coria_notehead</code> meldt, of na een MuseScore-export opnieuw
 <code>&lt;notehead></code> in de Coria-<code>.mxl</code> zit:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\products.cmd --kinds mscz --only-invalid
-</span></span></code></pre></div><p>(<code>products</code> vernieuwt daarna zelf de Coria-fingerprints voor de Oefenen-knop.)</p><p>Of producten opnieuw: <code>scripts\products.cmd --kinds mscz,mvsa,vsa</code>
+</span></span></code></pre></div><p>(<code>products</code> vernieuwt daarna zelf de Coria-fingerprints voor <strong>Oefenen</strong>.)</p><p>Of producten opnieuw: <code>scripts\products.cmd --kinds mscz,mvsa,vsa</code>
 (voor de betreffende stukken). De <code>.mxl</code> moet uit <code>mscz-products</code>,
 <code>mvsa-products</code> of <code>vsa-products</code> komen (of handmatig bij
 <code>artefacten_handmatig</code>), niet een ruwe Capella-<code>.mxl</code>.</p><h2 id=rode-banner-partituur--of-vsa-afgeleiden-niet-in-orde>Rode banner: partituur- of VSA-afgeleiden niet in orde</h2><div class=table-scroll><table><thead><tr><th>Banner</th><th>Oorzaak</th><th>Actie</th></tr></thead><tbody><tr><td>Basispartituur-afgeleiden</td><td>PDF/MXL passen niet bij de basispartituur-<code>.mscz</code></td><td><a href=../../partituur/6-afgeleiden/>Afgeleiden</a>
-— layout + <code>mscz-products</code></td></tr><tr><td>VSA-afgeleiden</td><td><code>{stam}.vsa.mxl</code> ontbreekt of is ouder dan de <code>.vsa</code></td><td><code>scripts\vsa-products.cmd</code>, commit beide</td></tr></tbody></table></div><p>Op <code>main</code> faalt de build bij dezelfde situaties.</p><h2 id=gele-banner-handmatige-artefacten>Gele banner: handmatige artefacten</h2><p>Geen fout: <code>artefacten_handmatig: true</code> staat op die cataloguspagina.
+— layout + <code>mscz-products</code></td></tr><tr><td>VSA-afgeleiden</td><td><code>{stam}.vsa.mxl</code>, <code>.vsa.pdf</code> of <code>.vsa.svg</code> ontbreekt of past niet bij de <code>.vsa</code></td><td><code>scripts\vsa-products.cmd</code>, commit bron en siblings</td></tr></tbody></table></div><p>Op <code>main</code> faalt de build bij dezelfde situaties.</p><h2 id=gele-banner-handmatige-artefacten>Gele banner: handmatige artefacten</h2><p>Geen fout: <code>artefacten_handmatig: true</code> staat op die cataloguspagina.
 PDF/MXL vernieuwen de scripts niet; doe dat zelf na elke bronwijziging.</p><h2 id=bieb-faalt-bij-build><code>bieb</code> faalt bij build</h2><p>De shortcode verwijst naar een catalogus-pagina die nog niet bestaat, of
 het id klopt niet (<code>zangstuk/variant/uitvoeringsvorm</code>). Maak eerst de
-catalogus-map + <code>index.md</code>, of corrigeer het id in het koormap-slot.</p><h2 id=hugo-waarschuwing-svg-ontbreekt>Hugo-waarschuwing: SVG ontbreekt</h2><p>Shortcode <code>bieb</code> toont het VSA-plaatje uit
-<code>static\vsa\bladermap\…</code>. Ontbreekt die SVG:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\oefenhoek-index.cmd --svg
-</span></span></code></pre></div><p>of <code>scripts\check.cmd --strict</code>. <code>serve --no-build</code> slaat die stap over.
-Uitleg: <a href=../../vsa/1-vsa-schrijven/>.vsa schrijven</a>
+catalogus-map + <code>index.md</code>, of corrigeer het id in het koormap-slot.</p><h2 id=hugo-waarschuwing-svg-ontbreekt>Hugo-waarschuwing: SVG ontbreekt</h2><p>Shortcode <code>bieb</code> toont <code>{stam}.vsa.svg</code> of <code>{stam}.mvsa.svg</code> naast de
+bron. Ontbreekt die sibling, dan noemt de waarschuwing ook het
+legacy-pad <code>static\vsa\bladermap\…</code>.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\vsa-products.cmd content-source\catalogus\&lt;zangstuk&gt;\&lt;variant&gt;\&lt;uitvoeringsvorm&gt;
+</span></span></code></pre></div><p>Bij een <code>.mvsa</code>: <code>scripts\mvsa-products.cmd</code> op die map. <code>check</code> vult
+de sibling niet aan. Uitleg: <a href=../../vsa/1-vsa-schrijven/>.vsa schrijven</a>
 .</p><h2 id=vsa-validate-klaagt><code>vsa validate</code> klaagt</h2><p>De markering zit in de gezongen regel. Vergelijk met een werkend <code>.vsa</code>
 ernaast. Haal niet “even de rare tekens weg” om groen te worden.</p><h2 id=template-satb-templateinstanceerror>Template SATB: <code>TemplateInstanceError</code></h2><p>De sopraan in de VSA volgt de tropaar-toon-4-formule niet (toon of
 verplicht slot). Lees de hint in het venster; pas de VSA aan, of (met
@@ -123,4 +127,4 @@ Capella, VOW of VSA gaat.</p><div class=nav-buttons><a class=btn href=/bibliothe
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-19</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-24</p></div></footer></body></html>

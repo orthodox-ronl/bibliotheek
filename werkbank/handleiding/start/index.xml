@@ -193,7 +193,8 @@ passende &lt;code&gt;*-products.cmd&lt;/code&gt;).&lt;/li&gt;
 &lt;li&gt;Koormap: &lt;code&gt;content-source\koormappen\hemelum\liturgie-zondag\&lt;/code&gt; of
 &lt;code&gt;liturgie-weekdagen\&lt;/code&gt; — sectie-&lt;code&gt;_index.md&lt;/code&gt; of slot-&lt;code&gt;index.md&lt;/code&gt; + &lt;code&gt;bieb&lt;/code&gt;
 (geen basispartituur-bestanden)&lt;/li&gt;
-&lt;li&gt;Register: &lt;code&gt;content-source\input\werkvoorraad.md&lt;/code&gt; en &lt;a href="https://orthodox-ronl.github.io/bibliotheek/werkbank/overzichten/id-register/"&gt;Id-register&lt;/a&gt;
+&lt;li&gt;Register: &lt;code&gt;content-source\input\werkvoorraad.md&lt;/code&gt;; bestaand id via catalogus/&lt;a href="https://orthodox-ronl.github.io/bibliotheek/werkbank/overzichten/zoeken/"&gt;Zoeken&lt;/a&gt;
+; Hemelum-naslag: &lt;a href="https://orthodox-ronl.github.io/bibliotheek/werkbank/overzichten/id-register/"&gt;Id-register&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;Lifecycle: &lt;a href="levenscyclus/"&gt;Levenscyclus&lt;/a&gt;
  — Werkbank vs Catalogus&lt;/li&gt;
@@ -285,7 +286,18 @@ oude &lt;code&gt;.print.mscz&lt;/code&gt;-spoor)&lt;/li&gt;
  &lt;/tr&gt;
  &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;Een &lt;strong&gt;publicatiecontrole&lt;/strong&gt; in &lt;code&gt;check&lt;/code&gt; / GitHub Actions doet dit:&lt;/p&gt;</description></item><item><title>Zangstuk-soorten</title><link>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/start/zangstuk-soorten/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/start/zangstuk-soorten/</guid><description>&lt;h1 id="zangstuk-soorten"&gt;Zangstuk-soorten&lt;/h1&gt;
+&lt;p&gt;Een &lt;strong&gt;publicatiecontrole&lt;/strong&gt; in &lt;code&gt;check&lt;/code&gt; / GitHub Actions doet dit:&lt;/p&gt;</description></item><item><title>Koormap-blad schrijven</title><link>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/start/koormap-blad/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/start/koormap-blad/</guid><description>&lt;p&gt;Op een &lt;strong&gt;slot-pagina&lt;/strong&gt; (&lt;code&gt;index.md&lt;/code&gt; onder &lt;code&gt;koormappen\…&lt;/code&gt;) zet je zelf de
+volgorde, de titels en de uitleg. Muziek haal je uit de catalogus met
+&lt;code&gt;bieb&lt;/code&gt;. Bladindeling voor &lt;strong&gt;Download pagina&lt;/strong&gt; / &lt;strong&gt;Print pagina&lt;/strong&gt; regel je
+met &lt;code&gt;pdf-…&lt;/code&gt;. Titels op het blad zet je met &lt;code&gt;kop&lt;/code&gt; — geen HTML.&lt;/p&gt;
+&lt;p&gt;Lees eerst het model catalogus versus koormap in
+&lt;a href="catalogus-en-koormappen/"&gt;Catalogus en koormappen&lt;/a&gt;
+. Normatieve details:
+&lt;code&gt;docs\specs\koormap-paginataal.md&lt;/code&gt; in de repository (shortcodes en
+paginacontract). Hoe de &lt;strong&gt;partituur op het scherm&lt;/strong&gt; eruit moet zien
+(OSMD, SVG, titels): &lt;code&gt;docs\specs\schermpartituur.md&lt;/code&gt;. Pagina-PDF bouwen:
+&lt;a href="../scripts/pagina-pdf/"&gt;pagina-pdf&lt;/a&gt;
+.&lt;/p&gt;</description></item><item><title>Zangstuk-soorten</title><link>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/start/zangstuk-soorten/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/start/zangstuk-soorten/</guid><description>&lt;h1 id="zangstuk-soorten"&gt;Zangstuk-soorten&lt;/h1&gt;
 &lt;p&gt;De bibliotheek gebruikt overal dezelfde drie lagen:
 &lt;code&gt;zangstuk&lt;/code&gt; → &lt;code&gt;variant&lt;/code&gt; → &lt;code&gt;uitvoeringsvorm&lt;/code&gt;. Niet elk zangstuk betekent
 hetzelfde. Dit blad legt drie soorten uit, zodat ids, titels en later
@@ -364,7 +376,7 @@ de Heilige Engelen). Dat is geen vierde soort zangstuk.&lt;/p&gt;</description><
 &lt;li&gt;&lt;strong&gt;opkuisen&lt;/strong&gt; = inhoud opschonen (stemmen/balken, lettergreep↔noot); script of handmatig in MuseScore&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;normaliseren&lt;/strong&gt; / &lt;strong&gt;layouten&lt;/strong&gt; = basispartituur-standaard met &lt;code&gt;scripts\layout.cmd&lt;/code&gt; (zelfde scriptstap; “layouten” is de gewone naam)&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;catalogus-id&lt;/strong&gt; = &lt;code&gt;zangstuk/variant/uitvoeringsvorm&lt;/code&gt; (drie lagen); zichtbaar op bibliotheek-leaves en in het colofon van basispartituur-&lt;code&gt;.mscz&lt;/code&gt;/PDF&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;bieb&lt;/code&gt;&lt;/strong&gt; (shortcode) = knoppen + partituur van een catalogus-id; &lt;strong&gt;&lt;code&gt;bieb&lt;/code&gt;&lt;/strong&gt; (CLI, later) = beheercommando’s (&lt;code&gt;accepteer&lt;/code&gt;, &lt;code&gt;zoek&lt;/code&gt;, …)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;bieb&lt;/code&gt;&lt;/strong&gt; (shortcode) = tip-iconen (♪ / op catalogus ook {}) + partituur van een catalogus-id; &lt;strong&gt;&lt;code&gt;bieb&lt;/code&gt;&lt;/strong&gt; (CLI) = &lt;code&gt;accepteer&lt;/code&gt;, &lt;code&gt;hernoem&lt;/code&gt;, &lt;code&gt;verwijder&lt;/code&gt;, &lt;code&gt;kopieer&lt;/code&gt; (&lt;code&gt;bieb zoek&lt;/code&gt; komt later)&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;bieb accepteer&lt;/code&gt;&lt;/strong&gt; = overgang Werkbank → Catalogus (bestand opnemen); zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/werktrajecten/opnemen-in-catalogus/"&gt;Opnemen&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Werkbank&lt;/strong&gt; = lifecycle pre-productie (&lt;code&gt;input\&lt;/code&gt;, &lt;code&gt;_werk\&lt;/code&gt;); zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/werkbank/handleiding/start/werkbank/"&gt;Werkbank&lt;/a&gt;
