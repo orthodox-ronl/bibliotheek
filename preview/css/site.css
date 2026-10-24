@@ -933,9 +933,17 @@ svg:not(.site-jump-icon),
 .osmd-container .osmd-mount .vf-stavenote[data-osmd-spacer="1"] .vf-note,
 .osmd-container .osmd-mount .vf-stavenote[data-osmd-spacer="1"] .vf-note *,
 .osmd-container .osmd-mount .vf-stavenote[data-osmd-spacer="1"] .vf-beam,
-.osmd-container .osmd-mount .vf-stavenote[data-osmd-spacer="1"] .vf-modifiers {
+.osmd-container .osmd-mount .vf-stavenote[data-osmd-spacer="1"] .vf-modifiers,
+.osmd-container .osmd-mount .vf-stavenote[data-osmd-spacer="1"] .vf-stem {
   visibility: hidden !important;
   display: none !important;
+}
+
+/* S8 recite: breve «le» (OSMD tekent vaak als ronde kwart). */
+.osmd-container .osmd-mount .vf-stavenote[data-osmd-breve="1"] .vf-notehead,
+.osmd-container .osmd-mount .vf-stavenote[data-osmd-breve="1"] path.vf-notehead {
+  transform: scaleX(1.85);
+  transform-origin: center center;
 }
 
 .pdf-sheet-pages {
