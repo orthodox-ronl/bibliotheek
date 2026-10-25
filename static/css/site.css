@@ -1609,32 +1609,34 @@ body.score-audio-bar-open {
 .score-bron-tip-trigger {
   list-style: none;
   box-sizing: border-box;
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
-  min-height: 44px;
+  /* Was 44px; ~⅔ zodat ze minder over de partituur heen liggen. */
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  min-height: 30px;
   padding: 0;
-  border: 2px solid #003366;
+  border: 1.5px solid #003366;
   border-radius: 50%;
   background: #003366;
   color: #fff;
-  font-size: 1.45rem;
+  font-size: 0.97rem;
   font-weight: 600;
   line-height: 1;
   cursor: pointer;
   font-family: inherit;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
 }
 
 .score-bron-tip-trigger {
   width: auto;
-  min-width: 44px;
-  padding: 0 0.55rem;
+  min-width: 30px;
+  padding: 0 0.37rem;
   border-radius: 999px;
-  font-size: 1.05rem;
+  font-size: 0.7rem;
   font-family: Consolas, "Courier New", monospace;
   letter-spacing: -0.04em;
 }
@@ -1652,11 +1654,21 @@ body.score-audio-bar-open {
 }
 
 .score-oefen-tip-trigger::before,
-.score-oefen-tip-trigger::after,
-.score-bron-tip-trigger::before,
-.score-bron-tip-trigger::after {
+.score-bron-tip-trigger::before {
   content: none !important;
   display: none !important;
+}
+
+/* Telefoon/tablet: tikvlak ~44px, icoon blijft 30px. */
+@media (hover: none), (pointer: coarse) {
+  .score-oefen-tip-trigger::after,
+  .score-bron-tip-trigger::after {
+    content: "" !important;
+    display: block !important;
+    position: absolute;
+    inset: -7px;
+    border-radius: inherit;
+  }
 }
 
 .score-oefen-tip-trigger:hover,
@@ -1674,7 +1686,7 @@ body.score-audio-bar-open {
   background: #00264d;
   border-color: #00264d;
   color: #fff;
-  box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.35);
+  box-shadow: 0 0 0 2px rgba(0, 51, 102, 0.35);
 }
 
 .score-oefen-tip-panel,
