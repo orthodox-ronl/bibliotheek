@@ -25,14 +25,15 @@ vanuit de repo-root.
 | `check` | Preflight: validate + publicatiecontroles + Coria-fingerprints + Hugo-build. Maakt geen catalogusproducten en geen blad-PDF. | [check](check/) |
 | `build` | Bouwt de site naar `generated\site`. | [build](build/) |
 | `serve` | Lokale preview op http://127.0.0.1:18732/ (niet 1313, niet 18731). | [serve](serve/) |
-| `vsa-products` | Maakt/vernieuwt `{stam}.vsa.mxl` + `{stam}.vsa.pdf` + `{stam}.vsa.svg` bij een catalogus-`.vsa`. | [vsa-products](vsa-products/) |
-| `mscz-products` | Maakt/vernieuwt `{stam}.mscz.pdf` + `{stam}.mscz.mxl` bij een basispartituur-`.mscz`. | [mscz-products](mscz-products/) |
-| `tekstblad-products` | Maakt/vernieuwt `{stam}.tekstblad.pdf` bij een catalogus-`.tekstblad.md`. | [tekstblad-products](tekstblad-products/) |
+| `products` | Catalogus-afgeleiden bouwen (`--kinds vsa,mvsa,mscz,audio,lyrics,…` of `all`). | [products](products/) |
+| `products --kinds vsa` | `{stam}.vsa.mxl` + `{stam}.vsa.svg` bij catalogus-`.vsa`. | [products (vsa)](vsa-products/) |
+| `products --kinds mscz` | `{stam}.mscz.mxl` + `{stam}.mscz.svg` bij basispartituur-`.mscz`. | [products (mscz)](mscz-products/) |
+| `products --kinds tekstblad` | Tekstblad-kind (blad-PDF via [pdf](pdf/)). | [products (tekstblad)](tekstblad-products/) |
 | `import-mvsa` | Maakt/vernieuwt bewerkvorm `{stam}.mscz.mvsa` naast een basispartituur-`.mscz` (alleen bestaande siblings, tenzij pad/`--create`). | [import-mvsa](import-mvsa/) |
-| `mvsa-products` | Maakt/vernieuwt MXL, PDF, SVG, Score-IR en from-ir MusicXML bij een catalogus-`.mvsa`. | [mvsa-products](mvsa-products/) |
-| `audio-products` | Maakt/vernieuwt preview-`{stam}.{bron}.mp3` bij `.mvsa` / `.mscz` / `.vsa` (Beluisteren). | [audio-products](audio-products/) |
-| `lyrics-products` | Maakt/vernieuwt `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` / `.mscz.lyrics.txt` (zoektekst). | [lyrics-products](lyrics-products/) |
-| `all-products` | Roept alle `*-products` (+ import-mvsa) achter elkaar aan voor ontbrekende/stale siblings. | [all-products](all-products/) |
+| `products --kinds mvsa` | MXL, Score-IR, from-ir (+ optioneel SVG) bij catalogus-`.mvsa`. | [products (mvsa)](mvsa-products/) |
+| `products --kinds audio` | Preview-`{stam}.{bron}.mp3` (Beluisteren). | [products (audio)](audio-products/) |
+| `products --kinds lyrics` | `{stam}.….lyrics.txt` (zoektekst). | [products (lyrics)](lyrics-products/) |
+| `all-products` | Alias voor `products --kinds all` (inclusief import-mvsa). | [all-products](all-products/) |
 | `layout` | Past de basispartituur-standaard toe op `.mscz` of `.mxl` (tooling-layoutprofiel `partituur`). | [layout](layout/) |
 | `ensure-bibliotheek-id` | Zet of controleert de colofonregel `Bibliotheek-id:` op basispartituur-`.mscz`. | [ensure-bibliotheek-id](ensure-bibliotheek-id/) |
 | `bump-vsa-tooling-pin` | Zet `vsa-tooling.pin` op de tip van VSA-tooling (productie-pin); commit/PR zelf. | [bump-vsa-tooling-pin](bump-vsa-tooling-pin/) |
@@ -44,8 +45,8 @@ vanuit de repo-root.
 | `update-werkvoorraad` | Tabel in `input\werkvoorraad.md` laten aansluiten op bestanden in `input\`. | [update-werkvoorraad](update-werkvoorraad/) |
 | `werkbank-status` | Overzicht open werkbank-cases; schrijft `data\werkbank-status.json`. | [werkbank-status](werkbank-status/) |
 | `lifecycle-grenzen` | Spaties/ruwe formats in catalogusmappen melden (optioneel `--fail`). | [lifecycle-grenzen](lifecycle-grenzen/) |
-| `oefenhoek-index` | Legacy SVG uit `.vsa` naar `static\vsa\bladermap\` (geen stamp). Het scherm gebruikt `{stam}.vsa.svg` zodra `vsa-products` die heeft gemaakt. | [oefenhoek-index](oefenhoek-index/) |
-| `pagina-pdf` | Maakt `index.pagina.pdf` voor Download/Print pagina uit kale blad-SVG’s + Markdown-koppen (`pdf-bijelkaar` → compact). | [pagina-pdf](pagina-pdf/) |
+| `oefenhoek-index` | Legacy SVG uit `.vsa` naar `static\vsa\bladermap\` (geen stamp). Het scherm gebruikt `{stam}.vsa.svg` zodra `products --kinds vsa` die heeft gemaakt. | [oefenhoek-index](oefenhoek-index/) |
+| `pdf.cmd` | Maakt `index.md.pdf` voor Download/Print pagina uit kale blad-SVG’s + Markdown-koppen (`pdf-bijelkaar` → compact). | [pdf](pdf/) |
 
 Intern (geen apart gebruikerscommando): `python scripts\fingerprint_coria_mxl.py`
 maakt `/mxl/c/<hash>.musicxml` en `data/coria-fp.json` voor **Oefenen** (♪).
@@ -69,8 +70,8 @@ in de repo.
 Een los Markdownblad naar PDF (`pdf` / `demo-pdf`), Capella-batch
 (`capella-mxl-to-mscz`) en een zondag-sync uit `bron` zijn geen
 commando’s van deze repository. Een koormap-blad is
-[pagina-pdf](pagina-pdf/). Een catalogus-tekstblad is
-[tekstblad-products](tekstblad-products/). Een generieke `vsa pdf` hoort
+[pdf](pdf/). Een catalogus-tekstblad is
+[products (tekstblad)](tekstblad-products/). Een generieke `vsa pdf` hoort
 in VSA-tooling.
 
 {{< navbuttons "Werktrajecten|/handleiding/werktrajecten/" "Check|/handleiding/scripts/check/" >}}

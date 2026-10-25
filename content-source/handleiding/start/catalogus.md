@@ -16,8 +16,8 @@ de bestaande productscripts en publicatiecontrole. Overzicht:
 {{< cue >}}
 1. Canonieke bron bewerken in de catalogusmap (niet opnieuw vanuit
    een ruwe dump “ernaast”).
-2. Producten: `scripts\all-products.cmd` met pad naar die map (of het
-   passende `*-products.cmd`).
+2. Producten: `scripts\all-products.cmd` met pad naar die map (of
+   `scripts\products.cmd --kinds …`).
 3. `scripts\check.cmd --strict` groen vóór commit/push.
 4. Optioneel: koormap-slot met shortcode `bieb` naar hetzelfde id.
 {{< /cue >}}
@@ -42,10 +42,10 @@ Namen: [Publicatiecontrole](publicatiecontrole/). Model:
 | Wel met de hand | Via regeneratie / script |
 | --- | --- |
 | Canonieke bron (`.mscz`, `.vsa`, `.mvsa`, `.tekstblad.md`) | `{stam}.….pdf` / `.mxl` / `.svg` / `.mp3` / `.lyrics.txt` via `products` |
-| Frontmatter `publicatiestatus`, titel, `artefacten_handmatig` | Legacy bladermap-SVG (`oefenhoek-index --svg`, alleen fallback) |
+| Frontmatter `publicatiestatus`, titel, `manueel` / `manual` | Legacy bladermap-SVG (`oefenhoek-index --svg`, alleen fallback) |
 | Koormap-markdown en `bieb`-id | Coria-fingerprints (gegenereerd, niet committen) |
 
-Bij `artefacten_handmatig: true` houd je PDF/MXL zelf bij; de
+Bij `manueel: true` houd je PDF/MXL zelf bij; de
 automatische productcontrole slaat die map over. Zie
 [Print-vel](../werktrajecten/print-vel/).
 
@@ -54,7 +54,7 @@ automatische productcontrole slaat die map over. Zie
 | Stap | Commando | Wat het hier doet |
 | --- | --- | --- |
 | Producten (één map) | `scripts\all-products.cmd content-source\catalogus\…` | Alle ontbrekende/stale siblings voor die boom |
-| Eén spoor | `vsa-products` / `mscz-products` / `mvsa-products` / `audio-products` / … | Alleen dat producttype |
+| Eén spoor | `products --kinds vsa` / `products --kinds mscz` / `products --kinds mvsa` / `products --kinds audio` / … | Alleen dat producttype |
 | Validate | `scripts\validate.cmd` | Geldigheid `.vsa` / `.mvsa` in de catalogus |
 | Preflight | `scripts\check.cmd --strict` | Publicatiecontrole + Hugo + … |
 | Grenzen | `scripts\lifecycle-grenzen.cmd` | Geen ruwe formats / spaties in catalogusmappen |

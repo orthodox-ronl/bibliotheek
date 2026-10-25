@@ -1,10 +1,10 @@
 {{- /*
   Download / Print van de getoonde bladermap-pagina — in de site-header (nav).
 
-  Beide knoppen gebruiken *.pagina.pdf (page resource). Geen browser-HTML-afdruk:
-  dat is hetzelfde als Ctrl+P en overbodig. Zonder pagina-PDF: geen knoppen.
+  Beide knoppen gebruiken index.md.pdf (page resource). Geen browser-HTML-afdruk:
+  dat is hetzelfde als Ctrl+P en overbodig. Zonder blad-PDF: geen knoppen.
 
-  Voorgestelde downloadnaam (HTML download=…; bestand op schijf blijft *.pagina.pdf):
+  Voorgestelde downloadnaam (HTML download=…; bestand op schijf blijft index.md.pdf):
   1. frontmatter pdf_bestandsnaam
   2. anders frontmatter title
   3. anders mapnaam van de pagina
@@ -12,7 +12,7 @@
 {{- $bladermap := in (slice "catalogus" "koormappen") .Section -}}
 {{- if and $bladermap (not .IsSection) .File -}}
   {{- $paginaPdf := "" -}}
-  {{- range .Resources.Match "*.pagina.pdf" -}}
+  {{- range .Resources.Match "index.md.pdf" -}}
     {{- $paginaPdf = .RelPermalink -}}
   {{- end -}}
   {{- if $paginaPdf -}}

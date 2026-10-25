@@ -55,7 +55,7 @@ def running_in_ci() -> bool:
 
 
 def catalog_eligible(path: Path, *, folder_is_handmatig: Callable[[Path], bool]) -> bool:
-    """Gemeenschappelijke uitsluitingen: ``input/`` en ``artefacten_handmatig``."""
+    """Gemeenschappelijke uitsluitingen: ``input/`` en ``manueel/manual``."""
     if "input" in path.parts:
         return False
     if folder_is_handmatig(path.parent):

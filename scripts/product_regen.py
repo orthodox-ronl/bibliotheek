@@ -212,7 +212,7 @@ KIND_ORDER = (
 KIND_HELP = {
     "vsa": "Coria-.vsa.mxl + .vsa.svg",
     "mscz": ".mscz.mxl + .mscz.svg",
-    "tekstblad": "geen product-PDF (pagina-pdf uit .md)",
+    "tekstblad": "geen product-PDF (blad = index.md.pdf via pdf.cmd)",
     "mvsa": ".mvsa.mxl + .mvsa.svg + score-ir/from-ir",
     "import": "bestaande .mscz.mvsa-siblings",
     "audio": "preview-.mp3",

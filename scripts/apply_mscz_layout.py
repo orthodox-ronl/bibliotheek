@@ -6,7 +6,7 @@ aan met een expliciete bibliotheek-id. Bij ``.mxl``-invoer eerst
 
 Invoer: één ``.mscz``/``.mxl`` **of** een map (recursief die extensies).
 ``-o`` alleen bij precies één bronbestand. Weigert ``*.print.mscz``.
-Geen PDF/Coria — dat is ``mscz-products``.
+Geen PDF/Coria — dat is ``products --kinds mscz``.
 """
 
 from __future__ import annotations

@@ -12,7 +12,7 @@ weight: 10
 3. Zet bovenaan YAML met minstens `do`, `mode` en `tempo: 130`.
 4. `vsa validate pad\naar\bestand.vsa`
 5. Catalogus-`index.md` + slot-pagina (of compositieblad): shortcode `bieb` met de catalogus-id
-6. `scripts\vsa-products.cmd` op die map, daarna `scripts\check.cmd --strict`. Commit `.vsa`, `.vsa.svg`, `.vsa.pdf` en `.vsa.mxl` samen.
+6. `scripts\products.cmd --kinds vsa` op die map, daarna `scripts\check.cmd --strict`. Commit `.vsa`, `.vsa.svg`, `.vsa.pdf` en `.vsa.mxl` samen.
 {{< /cue >}}
 
 **Wat je nu doet:** de gezongen tekst in VSA-notatie zetten en via de
@@ -31,7 +31,7 @@ doet de build twee aparte dingen met hetzelfde `.vsa`-bestand:
 
 | Afgeleide | Rol op de pagina | Hoe maak je die |
 | --- | --- | --- |
-| `{stam}.vsa.svg` naast de `.vsa` | Het **plaatje** dat shortcode `bieb` toont | `scripts\vsa-products.cmd` (samen met PDF en Coria-`.mxl`) |
+| `{stam}.vsa.svg` naast de `.vsa` | Het **plaatje** dat shortcode `bieb` toont | `scripts\products.cmd --kinds vsa` (samen met PDF en Coria-`.mxl`) |
 | `{stam}.vsa.pdf` naast de `.vsa` | (nog productketen; print/download blad = **Download/Print pagina**) | Zelfde commando |
 | `{stam}.vsa.mxl` naast de `.vsa` | **Oefenen** via tip-icoon **♪** (Coria) | Zelfde commando; export syllabificeert woorden tijdelijk, zonder je `.vsa` te wijzigen |
 
@@ -51,7 +51,7 @@ VSA-SVG niet.
 Het plaatje vernieuwen:
 
 ```cmd
-scripts\vsa-products.cmd content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>
+scripts\products.cmd --kinds vsa content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>
 ```
 
 Zolang `{stam}.vsa.svg` ontbreekt, zoekt de site nog een legacy-plaatje
@@ -111,8 +111,8 @@ automatische_inhoud: false
    compositieblad — zie
    [Catalogus en koormappen](../../start/catalogus-en-koormappen/).
 
-7. Draai `scripts\vsa-products.cmd` op de catalogusmap, daarna
-   `scripts\check.cmd --strict`. `vsa-products` schrijft
+7. Draai `scripts\products.cmd --kinds vsa` op de catalogusmap, daarna
+   `scripts\check.cmd --strict`. `products --kinds vsa` schrijft
    `{stam}.vsa.svg`, `{stam}.vsa.pdf` en `{stam}.vsa.mxl`. `check`
    controleert die siblings en bouwt de site; `check` maakt ze niet.
 
@@ -129,8 +129,8 @@ waar het `.vsa`-bestand hoort en hoe het op de catalogus-site komt.
 
 ### Handmatige artefacten
 
-Zet je op de catalogus-`index.md` `artefacten_handmatig: true`, dan
-slaat `vsa-products` die map over: geen `.vsa.svg`, geen `.vsa.pdf` en
+Zet je op de catalogus-`index.md` `manueel: true`, dan
+slaat `products --kinds vsa` die map over: geen `.vsa.svg`, geen `.vsa.pdf` en
 geen `.vsa.mxl`. Dat hoort bij een MuseScore-blad dat je zelf bijhoudt
 — zie [Print-vel](../../werktrajecten/print-vel/) en de gele banner op
 die cataloguspagina. Afspraak over namen en sporen:
@@ -143,7 +143,7 @@ van dat spoor, niet de VSA-SVG.
 
 Rode banner “VSA-afgeleiden niet in orde”, of `check` rood op `main`: de
 `.vsa.mxl`, `.vsa.pdf` of `.vsa.svg` ontbreekt, is ouder dan de `.vsa`,
-of mist de herkomststempel. Oplossing: `scripts\vsa-products.cmd`,
+of mist de herkomststempel. Oplossing: `scripts\products.cmd --kinds vsa`,
 daarna opnieuw `check`, en bron plus siblings committen. Zie ook
 [Als het misgaat](../../publiceren/3-als-het-misgaat/).
 
@@ -154,7 +154,7 @@ die sibling, dan meldt Hugo ook het legacy-pad
 `static\vsa\bladermap\…`. Oplossing:
 
 ```cmd
-scripts\vsa-products.cmd content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>
+scripts\products.cmd --kinds vsa content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>
 ```
 
 Daarna opnieuw previewen. `check` alleen vult de sibling niet aan.
@@ -162,10 +162,10 @@ Daarna opnieuw previewen. `check` alleen vult de sibling niet aan.
 ## Klaar als
 
 `vsa validate` is stil, catalogus en koormap verwijzen met hetzelfde id,
-na `vsa-products` en `check` zie je het plaatje op de lokale preview,
+na `products --kinds vsa` en `check` zie je het plaatje op de lokale preview,
 en er liggen verse `{stam}.vsa.svg`, `{stam}.vsa.pdf` en `{stam}.vsa.mxl`
 naast de `.vsa` (scherm, download en **Oefenen**), tenzij
-`artefacten_handmatig: true` op die cataloguspagina staat (dan houd jij
+`manueel: true` op die cataloguspagina staat (dan houd jij
 de afgeleiden zelf bij).
 
 {{< navbuttons "Volgende: template SATB|/handleiding/vsa/2-template-satb/" >}}

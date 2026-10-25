@@ -19,7 +19,7 @@ special pages). Voor beheerders en wie de catalogus wil controleren.
 | [Voorzien](voorzien/) | Zangstukken zonder oefenbare inhoud |
 | [Ongerefereerd](ongerefereerd/) | In de catalogus, nog niet in een koormap |
 | [Oefenbaar](oefenbaar/) | Platte lijst oefenbare uitvoeringsvormen |
-| [Handmatig](handmatig/) | Uitvoeringsvormen met `artefacten_handmatig: true` |
+| [Handmatig](handmatig/) | Uitvoeringsvormen met `manueel: true` |
 | [MuseScore (.mscz)](mscz-bron/) | Basispartituur-`.mscz` in de catalogus (kandidaat voor latere `.mvsa`; koninklijke route = `.mvsa`) |
 
 Lifecycle-uitleg: [Levenscyclus](/handleiding/start/levenscyclus/).

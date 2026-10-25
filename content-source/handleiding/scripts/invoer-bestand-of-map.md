@@ -20,7 +20,7 @@ afspraak als in VSA-tooling: het pad-argument is
 Lege map (geen treffers) → duidelijke fout. Een enkelvoudig uitvoerpad
 (`-o` / `--output`) mag alleen bij precies **één** bronbestand.
 
-Dit geldt onder meer voor [layout](../layout/), [pagina-pdf](../pagina-pdf/),
+Dit geldt onder meer voor [layout](../layout/), [pdf](../pdf/),
 [bieb accepteer](../bieb-accepteer/), [opkuisen](../opkuisen/) en
 [products](../products/) / `*-products` (die dit al deden via
 `list_source_paths`).
@@ -30,7 +30,7 @@ Dit geldt onder meer voor [layout](../layout/), [pagina-pdf](../pagina-pdf/),
 
 ## Batch: preflight, duur-schatting, bevestiging
 
-Bij meerdere bestanden (vanaf 2) tonen o.a. `layout`, `pagina-pdf`,
+Bij meerdere bestanden (vanaf 2) tonen o.a. `layout`, `pdf.cmd`,
 `bieb accepteer`, `opkuisen` en de `*-products` / `products` eerst een
 **preflight**: hoeveel items, wat er gebeurt, en een **geschatte duur**.
 Die schatting komt uit een running gemiddelde van de laatste metingen op
@@ -59,7 +59,7 @@ Technische helpers: `scripts\input_paths.py`, `scripts\batch_guard.py`.
 ```cmd
 scripts\layout.cmd content-source\catalogus\ektinia\vrede\hemelum\lied.mscz
 scripts\layout.cmd content-source\catalogus\ektinia\vrede
-scripts\pagina-pdf.cmd content-source\koormappen\hemelum\liturgie-zondag
+scripts\pdf.cmd content-source\koormappen\hemelum\liturgie-zondag
 scripts\bieb.cmd accepteer input\_werk\batch --dry-run
 ```
 

@@ -130,7 +130,7 @@ def target_name(
     if kind == "partituur_mscz":
         return f"{stam}.mscz"
     if kind == "print_mscz":
-        # Legacy; nieuwe bladen: {stam}.mscz + artefacten_handmatig.
+        # Legacy; nieuwe bladen: {stam}.mscz + manueel/manual.
         return f"{stam}.print.mscz"
     if kind == "vsa":
         return f"{stam}.vsa"
@@ -213,10 +213,11 @@ def leaf_index_text(
     title: str,
     status: str,
     *,
-    artefacten_handmatig: bool,
+    manueel: bool,
     link_title: str | None = None,
 ) -> str:
-    handmatig = "artefacten_handmatig: true\n" if artefacten_handmatig else ""
+    # Canonieke schrijfvorm: manueel (lees ook manual).
+    handmatig = "manueel: true\n" if manueel else ""
     link = link_title or default_link_title(ident)
     # Geen Markdown-``#``: catalogus toont al template-H1 (catalogus-titels).
     return (
@@ -336,7 +337,7 @@ def accept(
     force: bool,
     dry_run: bool,
     skip_vsa_validate: bool,
-    artefacten_handmatig: bool,
+    manueel: bool,
 ) -> int:
     try:
         parse_id(ident)
@@ -487,7 +488,7 @@ def accept(
     with_vsa = "vsa" in kinds
     with_mscz = "partituur_mscz" in kinds or "print_mscz" in kinds
     with_tekstblad = "tekstblad" in kinds
-    handmatig = artefacten_handmatig or ("print_mscz" in kinds)
+    handmatig = manueel or ("print_mscz" in kinds)
 
     print(f"Catalogus-id: {ident}", flush=True)
     print(f"Doelmap: {_rel(dest_dir)}", flush=True)
@@ -568,7 +569,7 @@ def accept(
                 ident,
                 resolved_title,
                 resolved_status,
-                artefacten_handmatig=handmatig,
+                manueel=handmatig,
                 link_title=resolved_link_title,
             ),
             dry_run=dry_run,
@@ -581,11 +582,11 @@ def accept(
         pdf = pp.build_one(index_path, force=True)
         if pdf is None:
             bieb_fs.print_fail(
-                "stub-leaf zonder index.pagina.pdf",
+                "stub-leaf zonder index.md.pdf",
                 oplossing="controleer scripts\\index_md_pdf.py (voorzien-placeholder).",
             )
             return 1
-        print(f"  pagina-pdf {_rel(pdf)} (voorzien)", flush=True)
+        print(f"  pdf {_rel(pdf)} (voorzien)", flush=True)
 
     print("OK: opgenomen in de catalogus", flush=True)
     if dry_run:
@@ -593,18 +594,18 @@ def accept(
     if not stub and "partituur_mscz" in kinds:
         print(
             "Volgende (basispartituur): normaliseren/layouten indien nog niet gedaan, "
-            "daarna scripts\\mscz-products.cmd",
+            "daarna scripts\\products.cmd --kinds mscz",
             flush=True,
         )
     if "vsa" in kinds:
         print(
-            "Volgende (VSA): scripts\\vsa-products.cmd of check "
+            "Volgende (VSA): scripts\\products.cmd --kinds vsa of check "
             "(Coria-.vsa.mxl)",
             flush=True,
         )
     if "tekstblad" in kinds:
         print(
-            "Volgende (tekstblad): scripts\\tekstblad-products.cmd "
+            "Volgende (tekstblad): scripts\\products.cmd --kinds tekstblad "
             "({stam}.tekstblad.pdf), daarna commit bron + PDF",
             flush=True,
         )
@@ -648,7 +649,7 @@ een id typt voor een ongeldige bron.
 Toegestaan:
   - basispartituur-.mscz (MuseScore, genormaliseerd)
   - .vsa / .mvsa
-  - bestandsnaam eindigend op .print.mscz (legacy; liever --artefacten-handmatig)
+  - bestandsnaam eindigend op .print.mscz (legacy; liever --manueel)
   - bestandsnaam eindigend op .tekstblad.md (liturgische tekst / dialoog)
   - optioneel daarna nog .pdf of .mxl in een volgende vraag
 
@@ -1023,9 +1024,15 @@ def build_parser() -> argparse.ArgumentParser:
         help="sla vsa validate over (niet aanbevolen)",
     )
     p.add_argument(
-        "--artefacten-handmatig",
+        "--manueel",
         action="store_true",
-        help="zet artefacten_handmatig: true (ook auto bij .print.mscz)",
+        help="zet manueel: true (ook --manual; auto bij .print.mscz)",
+    )
+    p.add_argument(
+        "--manual",
+        action="store_true",
+        dest="manueel",
+        help="alias voor --manueel",
     )
     from batch_guard import add_yes_argument
 
@@ -1070,7 +1077,7 @@ def _accept_one_job(
     force: bool,
     dry_run: bool,
     skip_vsa_validate: bool,
-    artefacten_handmatig: bool,
+    manueel: bool,
 ) -> int:
     return accept(
         ident,
@@ -1082,7 +1089,7 @@ def _accept_one_job(
         force=force,
         dry_run=dry_run,
         skip_vsa_validate=skip_vsa_validate,
-        artefacten_handmatig=artefacten_handmatig,
+        manueel=manueel,
     )
 
 
@@ -1193,7 +1200,7 @@ def main(argv: list[str] | None = None) -> int:
                 force=args.force,
                 dry_run=args.dry_run,
                 skip_vsa_validate=args.skip_vsa_validate,
-                artefacten_handmatig=args.artefacten_handmatig,
+                manueel=args.manueel,
             )
             if code != 0:
                 failed_paths.append(_rel(primary))
@@ -1277,7 +1284,7 @@ def main(argv: list[str] | None = None) -> int:
         force=args.force,
         dry_run=args.dry_run,
         skip_vsa_validate=args.skip_vsa_validate,
-        artefacten_handmatig=args.artefacten_handmatig,
+        manueel=args.manueel,
     )
 
 

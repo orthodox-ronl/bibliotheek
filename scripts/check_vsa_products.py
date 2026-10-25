@@ -1,7 +1,7 @@
 """Controleer ``.vsa`` vs siblings ``.vsa.mxl`` + ``.vsa.svg``.
 
 Product-``.vsa.pdf`` niet meer verplicht. Schrijft
-``data/vsa-product-status.json``. Slaat ``artefacten_handmatig`` over.
+``data/vsa-product-status.json``. Slaat ``manueel/manual`` over.
 Exit 1 bij problemen tenzij ``--warn-only``.
 """
 
@@ -23,6 +23,7 @@ from product_meta import (
     read_svg_stamp,
     source_sha256,
 )
+from street_meta import issues_from_meta_or
 from sync_vsa_products import (
     DEFAULT_ROOT,
     collect_vsa,
@@ -63,11 +64,9 @@ def _bladermap_key(vsa: Path) -> str:
     return rel.as_posix()
 
 
-def check_one(vsa: Path) -> FolderStatus:
+def _stamp_issues(vsa: Path, src_hash: str) -> list[Issue]:
     mxl = product_path_for_vsa(vsa)
     issues: list[Issue] = []
-    src_hash = source_sha256(vsa)
-    fix = r"scripts\vsa-products.cmd"
     if not mxl.is_file():
         issues.append(
             Issue(
@@ -106,8 +105,6 @@ def check_one(vsa: Path) -> FolderStatus:
                 )
             )
 
-    # Product-.vsa.pdf niet meer verplicht (product-pdf-afbouw stap 3).
-
     svg = product_svg_for_vsa(vsa)
     if not svg.is_file():
         issues.append(
@@ -126,7 +123,7 @@ def check_one(vsa: Path) -> FolderStatus:
                 Issue(
                     "unstamped_svg",
                     _rel(svg),
-                    "SVG mist vsa-source-sha256 (opnieuw vsa-products)",
+                    "SVG mist vsa-source-sha256 (opnieuw products --kinds vsa)",
                 )
             )
         elif kind and kind != SOURCE_KIND_VSA:
@@ -146,6 +143,19 @@ def check_one(vsa: Path) -> FolderStatus:
                     f"SVG-source-hash wijkt af (gegenereerd {when}); .vsa is gewijzigd",
                 )
             )
+    return issues
+
+
+def check_one(vsa: Path) -> FolderStatus:
+    src_hash = source_sha256(vsa)
+    fix = r"scripts\products.cmd --kinds vsa"
+    issues = issues_from_meta_or(
+        vsa,
+        required_keys={"mxl", "svg"},
+        rel=_rel,
+        stamp_issues=lambda: _stamp_issues(vsa, src_hash),
+        issue_cls=Issue,
+    )
     return FolderStatus(
         dir=_bladermap_key(vsa),
         vsa=_rel(vsa),

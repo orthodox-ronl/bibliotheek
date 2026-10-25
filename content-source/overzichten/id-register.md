@@ -166,9 +166,9 @@ of Speciaal.
 | `trisagion/8a-trisagion-slav/` | `trisagion/8a-slav/hemelum` | `trisagion-8a-slav-hemelum` | mscz, mxl, pdf, mvsa | Idem legacy `8a-trisagion-slav/` |
 | `19a-eucharistische-kanon/` | `eucharistische-canon/19a-feofan/hemelum` | `eucharistische-canon-19a-feofan-hemelum` | mscz, mxl, pdf | |
 | `moeder-godslied/20d-in-waarheid-moeder-godslied/` | `moeder-godslied/20d-in-waarheid/hemelum` | `moeder-godslied-20d-in-waarheid-hemelum` | mscz, mxl, pdf | |
-| `moeder-godslied/moeder-godslied-ontslapen-mgods/` | `moeder-godslied/ontslapen-moeder-gods/hemelum` | `moeder-godslied-ontslapen-moeder-gods-hemelum` | print.mscz, mxl, pdf, vsa | `artefacten_handmatig`; print-track |
+| `moeder-godslied/moeder-godslied-ontslapen-mgods/` | `moeder-godslied/ontslapen-moeder-gods/hemelum` | `moeder-godslied-ontslapen-moeder-gods-hemelum` | print.mscz, mxl, pdf, vsa | `manueel` / `manual`; print-track |
 | `communievers/communievers-onthoofding-johannes-de-doper/` | `communievers/onthoofding-johannes-de-doper/hemelum` | `communievers-onthoofding-johannes-de-doper-hemelum` | vsa, vsa.mxl, pdf | Geen basispartituur-mscz; Coria via VSA-publicatiecontrole |
-| `troparen-en-kondaken/tropaar-nikolaas-van-myra/` | `tropaar/nikolaas-van-myra-toon-4/hemelum` | `tropaar-nikolaas-van-myra-toon-4-hemelum` | print.mscz, mxl, pdf, vsa | `artefacten_handmatig`; onder zangstuk `tropaar/` |
+| `troparen-en-kondaken/tropaar-nikolaas-van-myra/` | `tropaar/nikolaas-van-myra-toon-4/hemelum` | `tropaar-nikolaas-van-myra-toon-4-hemelum` | print.mscz, mxl, pdf, vsa | `manueel` / `manual`; onder zangstuk `tropaar/` |
 | `eerste-antifoon/weekdagen/` | `eerste-antifoon/weekdagen/hemelum` | `eerste-antifoon-weekdagen` | vsa, vsa.mxl | Koormap = Hemelum; bestandsstam zonder `-hemelum` |
 | *(alleen catalogus)* | `eerste-antifoon/weekdagen/liturgikon` | `eerste-antifoon-weekdagen-liturgikon` | vsa, vsa.mxl | Uitvoeringsvorm `liturgikon`; niet in Hemelum-koormap |
 | `eerste-antifoon/zondag/` | `eerste-antifoon/zondag/hemelum` | `eerste-antifoon-zondag-hemelum` | mscz, mxl, pdf | stub-achtig in koormap |
@@ -187,7 +187,7 @@ of Speciaal.
 
 | Koormap-pad | Bibliotheek-id | Bestanden nu | Opmerking |
 | --- | --- | --- | --- |
-| `kleine-intocht/zo-wk-mg/` | `kleine-intocht/zo-wk-mg/hemelum` | `*.print.mscz`, pdf | Print-vel; bij voorkeur `artefacten_handmatig: true` |
+| `kleine-intocht/zo-wk-mg/` | `kleine-intocht/zo-wk-mg/hemelum` | `*.print.mscz`, pdf | Print-vel; bij voorkeur `manueel: true` |
 | `troparen-en-kondaken/tropaar-nikolaas-van-myra/` | `tropaar/nikolaas-van-myra-toon-4/hemelum` | print.mscz, mxl, pdf, vsa | Handmatige artefacten |
 | `moeder-godslied/…` | `moeder-godslied/ontslapen-moeder-gods/hemelum` | print.mscz, mxl, pdf, vsa | Handmatige artefacten |
 

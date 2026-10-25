@@ -30,7 +30,7 @@ daarna PDF en Coria-`.mxl` ([PDF en Coria](5-pdf-en-coria/),
 
 Naast dit partituur-spoor bestaat een **print-`.mscz`** (`*.print.mscz`): een
 koormap-vel dat de pipeline niet normaliseert; PDF (en eventuele Coria)
-houd je handmatig bij met `artefacten_handmatig: true` — zie
+houd je handmatig bij met `manueel: true` — zie
 [Print-.mscz](7-print-mscz/). Eenstemmige VSA hoort onder [VSA](../vsa/),
 niet in deze partituurstraat.
 
@@ -39,8 +39,8 @@ niet op deze site): [Publicatiecontrole](/handleiding/start/publicatiecontrole/)
 `scripts\mscz-partituur-contract.md`, `scripts\mscz-product-transforms.md`.
 
 {{< cue >}}
-Capella: opkuisen (`scripts\opkuisen.cmd`) → normaliseren (`scripts\layout.cmd`) → MuseScore (inhoud) → opnieuw normaliseren → `scripts\mscz-products.cmd`
+Capella: opkuisen (`scripts\opkuisen.cmd`) → normaliseren (`scripts\layout.cmd`) → MuseScore (inhoud) → opnieuw normaliseren → `scripts\products.cmd --kinds mscz`
 VOW / ruwe `.mscz`: Capella-script overslaan; controleer wel stemmen en lettergrepen (opkuisen), daarna normaliseren.
-Print-vel: `naam.print.mscz` + handmatige PDF (+ `artefacten_handmatig: true`) — geen layout-script, geen `mscz-products`.
+Print-vel: `naam.print.mscz` + handmatige PDF (+ `manueel: true`) — geen layout-script, geen `products --kinds mscz`.
 Tussenproducten (basispartituur): `input\_werk\<doel-id>\`. Origineel blijft in `input\capella\` of `input\vow\`.
 {{< /cue >}}

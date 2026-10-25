@@ -24,7 +24,7 @@ Engelse alias: `accept`. Compat-shim: `scripts\bieb-accepteer.cmd`
 Neemt een klaar bestand op in de **bibliotheek** (de catalogus onder
 `content-source\catalogus\`), onder een catalogus-id van drie lagen:
 `zangstuk/variant/uitvoeringsvorm`. Toegestaan: basispartituur-`.mscz`,
-`.vsa`, `.mvsa`, handmatig `.mscz` (met `--artefacten-handmatig` of legacy
+`.vsa`, `.mvsa`, handmatig `.mscz` (met `--manueel` of legacy
 `.print.mscz`), of `.tekstblad.md` (optioneel sibling-`.pdf` / `.mxl`). Bij
 `.tekstblad.md` zet het script indien nodig frontmatter `build: render: never`
 zodat de bron geen Hugo-pagina wordt.
@@ -92,13 +92,13 @@ wijzigen), [verwijder](../bieb-verwijder/) (wissen + dangling refs),
 | --- | --- |
 | `--title` | Uitzondering: overschrijf afgeleide leaf-titel |
 | `--status` | Publicatiestatus |
-| `--stub` | Lege leaf (`voorzien`); schrijft meteen `index.pagina.pdf` (tekst «Voorzien», geen partituur) |
+| `--stub` | Lege leaf (`voorzien`); schrijft meteen `index.md.pdf` (tekst «Voorzien», geen partituur) |
 | `--move` | Bronbestanden verplaatsen (default: kopieer) |
 | `--force` | Overschrijven / `productie` / stam-mismatch toestaan |
 | `--dry-run` | Alleen tonen |
 | `-y`, `--yes` | Batch zonder bevestigingsvraag |
 | `--skip-vsa-validate` | Geen `vsa`/`mvsa validate` |
-| `--artefacten-handmatig` | Zet `artefacten_handmatig: true` |
+| `--manueel` | Zet `manueel: true` |
 
 # EXAMPLES
 

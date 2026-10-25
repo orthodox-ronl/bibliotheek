@@ -53,7 +53,7 @@
   (``.mvsa.from-ir.musicxml``). Anders: muziek-SVG (``.mvsa.svg`` /
   ``.vsa.svg`` / ``.mscz.svg``, of legacy static bladermap). Tekstblad:
   body van ``.tekstblad.md``. PDF alleen als laatste scherm-fallback.
-  Print/blad: ``index.pagina.pdf`` (nav), niet deze product-PDF.
+  Print/blad: ``index.md.pdf`` (nav), niet deze product-PDF.
 */ -}}
 <div class="score-partituur">
 {{- $pdf := "" -}}
@@ -70,7 +70,7 @@
     {{- $fromIrMxl = $fromIrMxl | append .RelPermalink -}}
   {{- else if or (strings.HasSuffix $n ".mvsa.svg") (strings.HasSuffix $n ".vsa.svg") (strings.HasSuffix $n ".mscz.svg") (findRE `\.mscz-\d+\.svg$` $n) -}}
     {{- $musicSvgs = $musicSvgs | append .RelPermalink -}}
-  {{- else if and (strings.HasSuffix $n ".pdf") (ne $n "index.pagina.pdf") -}}
+  {{- else if and (strings.HasSuffix $n ".pdf") (ne $n "index.md.pdf") -}}
     {{- $pdf = .RelPermalink -}}
   {{- else if and (strings.HasSuffix $n ".mscz") (not (strings.HasSuffix $n ".print.mscz")) -}}
     {{- $hasMscz = true -}}
@@ -135,51 +135,20 @@
     {{- if fileExists $svgFile -}}
       {{- $staticSvgs = $staticSvgs | append (printf "vsa/bladermap/%s" $rel) -}}
     {{- else if and (not $musicSvgs) (not $fromIrMxl) -}}
-      {{- warnf "%s: SVG ontbreekt voor %s. Verwacht sibling .vsa.svg naast de .vsa (scripts\\vsa-products.cmd). Zolang die sibling er niet is, zoekt de site ook %s (legacy: scripts\\oefenhoek-index.cmd --svg). Zie /handleiding/vsa/1-vsa-schrijven/." $loc $p.RelPermalink $svgFile -}}
+      {{- warnf "%s: SVG ontbreekt voor %s. Verwacht sibling .vsa.svg naast de .vsa (scripts\\products.cmd --kinds vsa). Zolang die sibling er niet is, zoekt de site ook %s (legacy: scripts\\oefenhoek-index.cmd --svg). Zie /handleiding/vsa/1-vsa-schrijven/." $loc $p.RelPermalink $svgFile -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
 {{- /*
-  S8 recite (notehead none in from-ir): OSMD/VexFlow tekent geen MuseScore-
-  spacerblad. Zolang dat zo is: scherm = sibling .mvsa.svg als die er is;
-  from-ir blijft product (nav-check, toekomst). Zie schermpartituur §2.
+  Schermvoorkeur: from-ir → OSMD (ook S8: A1-adapter in score-osmd.js).
+  Geen SVG-bypass meer bij notehead none — zie schermpartituur §2 / §5.1.
 */ -}}
-{{- $mvsaSvgScherm := "" -}}
-{{- $osmdS8GebruikSvg := false -}}
-{{- if and $fromIrMxl $dir -}}
-  {{- range $musicSvgs -}}
-    {{- if strings.HasSuffix (lower .) ".mvsa.svg" -}}
-      {{- $mvsaSvgScherm = . -}}
-    {{- end -}}
-  {{- end -}}
-  {{- if $mvsaSvgScherm -}}
-    {{- range os.ReadDir (printf "content-source/%s" $dir) -}}
-      {{- if and (not .IsDir) (strings.HasSuffix (lower .Name) ".from-ir.musicxml") -}}
-        {{- $irPath := printf "content-source/%s/%s" $dir .Name -}}
-        {{- if fileExists $irPath -}}
-          {{- $irText := readFile $irPath -}}
-          {{- if strings.Contains $irText "<notehead>none</notehead>" -}}
-            {{- $osmdS8GebruikSvg = true -}}
-          {{- end -}}
-        {{- end -}}
-      {{- end -}}
-    {{- end -}}
-  {{- end -}}
-{{- end -}}
 {{- $alt := partial "display-title.html" $p -}}
-{{- if and $fromIrMxl (not $osmdS8GebruikSvg) -}}
+{{- if $fromIrMxl -}}
   {{- range $fromIrMxl -}}
 <div class="vsa-container osmd-container" data-osmd-src="{{ . }}" role="img" aria-label="{{ $alt }}">
   <p class="osmd-status">Partituur laden…</p>
 </div>
-  {{- end -}}
-{{- else if or $osmdS8GebruikSvg (and (not $fromIrMxl) $musicSvgs) -}}
-  {{- if $osmdS8GebruikSvg -}}
-<div class="vsa-container"><img class="vsa-notation" src="{{ $mvsaSvgScherm }}" alt="{{ $alt }}" loading="lazy"></div>
-  {{- else -}}
-  {{- range $musicSvgs -}}
-<div class="vsa-container"><img class="vsa-notation" src="{{ . }}" alt="{{ $alt }}" loading="lazy"></div>
-  {{- end -}}
   {{- end -}}
 {{- else if $musicSvgs -}}
   {{- range $musicSvgs -}}

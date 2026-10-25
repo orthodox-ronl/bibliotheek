@@ -2,7 +2,7 @@
 
 Doelvorm: ``{stam}.mscz.mxl`` / ``{stam}.mscz.svg``. Legacy ``{stam}.mxl``
 (en ``.partituur.mxl``) nog toegestaan tot migratie. Product-``.mscz.pdf``
-niet meer verplicht (blad = ``index.pagina.pdf``).
+niet meer verplicht (blad = ``index.md.pdf``).
 
 Schrijft ``data/mscz-product-status.json``. Exit 1 bij problemen tenzij
 ``--warn-only``.
@@ -25,6 +25,7 @@ from product_meta import (
     read_svg_stamp,
     stamp_sha_from_dict,
 )
+from street_meta import meta_has_svg_product, meta_status
 from sync_mscz_products import (
     DEFAULT_ROOT,
     collect_mscz,
@@ -76,13 +77,8 @@ def _resolve_product(canonical: Path, *legacy: Path) -> Path | None:
     return None
 
 
-def check_one(mscz: Path) -> FolderStatus:
+def _stamp_issues(mscz: Path, digest: str) -> list[Issue]:
     issues: list[Issue] = []
-    digest = partituur_sha256(mscz)
-    fix = r"scripts\mscz-products.cmd"
-
-    # Product-.mscz.pdf niet meer verplicht (product-pdf-afbouw stap 3).
-
     mxl_canon = product_mxl_for_mscz(mscz)
     mxl = _resolve_product(
         mxl_canon,
@@ -151,7 +147,25 @@ def check_one(mscz: Path) -> FolderStatus:
                         f"basispartituur is gewijzigd",
                     )
                 )
+    return issues
 
+
+def check_one(mscz: Path) -> FolderStatus:
+    digest = partituur_sha256(mscz)
+    fix = r"scripts\products.cmd --kinds mscz"
+    status, detail = meta_status(mscz)
+    if status == "ok" and meta_has_svg_product(mscz):
+        from vsa.products_meta import load_meta
+
+        products = (load_meta(mscz) or {}).get("products") or {}
+        issues = [] if "mxl" in products else _stamp_issues(mscz, digest)
+    elif status == "no_meta":
+        issues = _stamp_issues(mscz, digest)
+    else:
+        from vsa.products_meta import meta_path_for
+
+        kind = "meta_missing" if status == "missing" else "meta_stale"
+        issues = [Issue(kind, _rel(meta_path_for(mscz)), detail)]
     return FolderStatus(
         dir=_bladermap_key(mscz),
         mscz=_rel(mscz),

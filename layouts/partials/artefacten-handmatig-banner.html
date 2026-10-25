@@ -1,5 +1,5 @@
 {{/*
-  Beheerdersmelding als artefacten_handmatig: true op deze bibliotheekpagina
+  Beheerdersmelding als manueel: true of manual: true op deze bibliotheekpagina
   (of op het bieb-doel vanaf een koormap-slot).
 */}}
 {{- $bladermap := or (eq .Section "catalogus") (eq .Section "koormappen") -}}
@@ -14,19 +14,17 @@
   {{- end -}}
 {{- end -}}
 {{- $handmatig := false -}}
-{{- with $page.Params.artefacten_handmatig -}}
-  {{- if or (eq . true) (eq . "true") -}}
-    {{- $handmatig = true -}}
-  {{- end -}}
+{{- if or (eq $page.Params.manueel true) (eq $page.Params.manueel "true") (eq $page.Params.manual true) (eq $page.Params.manual "true") -}}
+  {{- $handmatig = true -}}
 {{- end -}}
 {{- if and $handmatig (eq $.Section "catalogus") -}}
 <aside class="artefacten-handmatig-banner" role="status">
-  <p class="artefacten-handmatig-banner-title">Handmatige artefacten</p>
+  <p class="artefacten-handmatig-banner-title">Manuele artefacten</p>
   <p>PDF, Coria-<code>.mxl</code> en andere afgeleiden in deze map worden
     <strong>niet</strong> automatisch bijgewerkt door de product-pipeline.
-    Bij wijziging van de bron (print-<code>.mscz</code>, <code>.vsa</code>, …)
-    moet de beheerder de afgeleiden zelf meenemen. Zie
-    <code>scripts/oefenhoek-product-contract.md</code>.</p>
+    Bij wijziging van de bron (<code>.mscz</code>, <code>.vsa</code>, …)
+    moet de beheerder de afgeleiden zelf meenemen. Frontmatter:
+    <code>manueel: true</code> of <code>manual: true</code>.</p>
 </aside>
 {{- end -}}
 {{- end -}}

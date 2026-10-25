@@ -15,6 +15,9 @@ zijn alleen voor OSMD bindend zolang scherm-SVG via MuseScore loopt
 Beheerder-taal en shortcodes: [koormap-paginataal.md](koormap-paginataal.md).
 Productketens: [publicatiecontrole.md](../publicatiecontrole.md),
 [tooling-koppeling.md](../tooling-koppeling.md).
+Print-/export-contracten (S8, melisma, layout): VSA-tooling
+[contract-index](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/contract-index.md)
+— hier geen parallelle checklist.
 Implementatie OSMD: `static/js/score-osmd.js` (moet dit document volgen).
 Console-check (klembord → chat, geen jargon):
 [OSMD diagnose](../guides/schermpartituur-osmd-diagnose.md).
@@ -32,7 +35,7 @@ Bladvorm op scherm: §4.4 hieronder.
 | Kanaal                        | Bedoeling                                                                                                                                                                             |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Scherm**                    | Doorlopende partituur om mee te lezen/oefenen in de browser. Geen A4-bladkaders als primaire look.                                                                                    |
-| **Download / Print (pagina)** | `index.pagina.pdf` van het getoonde blad (koormap of catalogus-leaf) via nav **Download pagina** / **Print pagina**. Catalogus heeft geen aparte score-knoppen meer naar product-PDF. |
+| **Download / Print (pagina)** | `index.md.pdf` van het getoonde blad (koormap of catalogus-leaf) via nav **Download pagina** / **Print pagina**. Catalogus heeft geen aparte score-knoppen meer naar product-PDF. |
 
 Op het scherm forceert het onderdeel `muziek` **geen** paginatitel. Titels
 horen bij de Hugo-pagina (catalogus-H1) of bij koormap-`kop` / Markdown.
@@ -44,16 +47,15 @@ horen bij de Hugo-pagina (catalogus-H1) of bij koormap-`kop` / Markdown.
 De site kiest in deze volgorde ([`bieb-score.html`](../../layouts/partials/bieb-score.html)):
 
 1. **OSMD** — sibling `{stam}.mvsa.from-ir.musicxml` (Score-IR → MusicXML),
-   **behalve** S8-recite met spacer-noten (`<notehead>none</notehead>` in
-   from-ir): dan **`.mvsa.svg`** op het scherm zolang OSMD die printlaag niet
-   betrouwbaar tekent (§5.1).
+   inclusief S8-recite (§5.1 A1-adapter).
 2. **Muziek-SVG** — sibling `{stam}.mvsa.svg`, `{stam}.vsa.svg` of `{stam}.mscz.svg` (anders legacy `static/vsa/bladermap/….svg` bij `.vsa`)
 3. **Tekstblad** — body van sibling `{stam}.tekstblad.md` (HTML; geen product-PDF als viewer)
 4. **PDF op scherm** — alleen als 1–3 ontbreken
 
 Gevolgen:
 
-- Waar OSMD beschikbaar is, is dat de **gewenste** schermlook (geen MuseScore-paginamodel).
+- Waar from-ir beschikbaar is, wint **OSMD** (geen MuseScore-paginamodel; geen
+  tijdelijke `.mvsa.svg`-bypass meer bij S8).
 - SVG is **fallback** of het schermpad voor bronnen zonder Score-IR (`.vsa`, basispartituur-`.mscz`).
 - Tekstblad toont de Markdown/HTML-bron op scherm; product-PDF is geen viewer meer.
 - PDF-op-scherm blijft alleen nood-fallback als SVG/OSMD/tekstblad-md ontbreken.
@@ -73,7 +75,7 @@ alleen bindend voor OSMD (§4.2–4.3), zolang scherm-SVG via MuseScore loopt.
 | Catalogusblad           | Precies **één** zichtbare hoofdtitel (template-H1 uit afgeleide catalogustitel). Geen tweede dezelfde titel via `bieb titel` of een Markdown-`#` met dezelfde tekst.                         |
 | Koormap-slot            | **Geen** template-H1. Bladtitel en rubrieken via `kop` (of afgesproken Markdown). Geen dubbele titel naast `bieb titel`.                                                                     |
 | In de partituurtekening | Geen titel/ondertitel/componist/lyricist/credits — alleen muziek (**OSMD én SVG**, besluit 1). Catalogus-PDF-op-scherm mag wel een titel in het PDF-blad hebben (nood-fallback = printlook). |
-| Download/Print          | Alleen pagina-knoppen in de **nav** (`index.pagina.pdf`). Per muziekblok: ♪-menu oefenen/beluisteren (catalogus: ook {}-menu bronnen); geen score-Download/Print naar product-PDF.           |
+| Download/Print          | Alleen pagina-knoppen in de **nav** (`index.md.pdf`). Per muziekblok: ♪-menu oefenen/beluisteren (catalogus: ook {}-menu bronnen); geen score-Download/Print naar product-PDF.           |
 
 ---
 
@@ -166,7 +168,8 @@ Kort overzicht (details en patronen blijven in speelplan.md):
 2. **Bibliotheek** — steekproef/`scripts\check_osmd_nav_zichtbaar.cmd` (ook in
    `check` en Pages-CI): OSMD moet die tekens **zichtbaar tekenen** (VexFlow-
    modifiers / SVG), niet alleen dat ze in `.from-ir.musicxml` staan
-   (besluit 9).
+   (besluit 9); én S8 A1-adapter op `alleluia/9a-toon-8/groningen`
+   (`s8-alleluia-hide-check.mjs`).
 
 Repro-voorbeeld volta: catalogus
 `alleluia/9a-toon-1/groningen` (`@speelplan 1, 2, 1, 2, 1, 3`).
@@ -177,12 +180,12 @@ Repro-voorbeeld volta: catalogus
 
 ### 5.1 OSMD
 
-| Eis       | Toelichting                                                                                                                                                                                                                                    |
-| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Bron      | Sibling `{stam}.mvsa.from-ir.musicxml`.                                                                                                                                                                                                        |
-| Gedrag    | Volgt §4; bron van waarheid voor clientgedrag: `static/js/score-osmd.js`.                                                                                                                                                                      |
-| S8-recite | From-ir met `<notehead>none</notehead>`: site toont **`{stam}.mvsa.svg`** als sibling (MuseScore `mvsa svg`), geen OSMD — spacer/breve/recite-tekst is print-MuseScore-semantiek, geen VexFlow-pariteit. From-ir blijft product (o.a. nav-CI). |
-| Systemen  | Volgens MusicXML (`newSystemFromXML`); cues niet afkappen.                                                                                                                                                                                     |
+| Eis       | Toelichting                                                                                                                                                                                                                                                                                                                                                          |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bron      | Sibling `{stam}.mvsa.from-ir.musicxml`.                                                                                                                                                                                                                                                                                                                              |
+| Gedrag    | Volgt §4; bron van waarheid voor clientgedrag: `static/js/score-osmd.js`.                                                                                                                                                                                                                                                                                            |
+| S8-recite | **A1-contract:** from-ir markeert spacers met `<notehead>none</notehead>` (+ `stem none`; lyrics op de noot). OSMD/VexFlow tekent die koppen niet vanzelf weg; `score-osmd.js` is de **product-adapter** (spacer-koppen/ledgers/streepjes verbergen na render). Geen scherm-fallback naar `.mvsa.svg` om S8. Tooling: [osmd-s8-recite](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/osmd-s8-recite.md). CI: `scripts/osmd-nav-check/s8-alleluia-hide-check.mjs` (via `check_osmd_nav_zichtbaar`). |
+| Systemen  | Volgens MusicXML (`newSystemFromXML`); cues niet afkappen.                                                                                                                                                                                                                                                                                                           |
 
 ### 5.2 SVG-fallback
 
@@ -200,6 +203,11 @@ partituurtitel/componist, zonder valse 4/4 (`TimeSig`); wel maatnummers +
 volta. Enige `<title>mvsa-…</title>` is SVG-meta, geen bladkop. Technische
 gap-audit: VSA-tooling
 [`docs/plans/schermeisen-vereniging.md`](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/schermeisen-vereniging.md).
+
+**Steekproef (S8 / A1-adapter):** catalogus
+`alleluia/9a-toon-8/groningen` — scherm via from-ir + OSMD (niet `.mvsa.svg`
+om S8); na adapter: kwart → breve → midden alleen tekst → kwart → cadens.
+CI: `s8-alleluia-hide-check.mjs`.
 
 Als MuseScore een §4-regel die **wel** voor beide ketens bindend is nog
 niet haalt: documenteer de gap of open een VSA-tooling-ticket — versoepel
@@ -229,7 +237,7 @@ voor elke losse `.mscz`.
 | Scherm | Body van sibling `{stam}.tekstblad.md` (HTML via `bieb-score`). Er is geen OSMD/SVG-keten. |
 | Inhoud | Leesbare liturgische tekst/dialoog.                                                        |
 | Titel  | Zelfde paginaregels als §3.                                                                |
-| Print  | Blad = `index.pagina.pdf` (nav); product-`.tekstblad.pdf` is geen schermviewer.            |
+| Print  | Blad = `index.md.pdf` (nav); product-`.tekstblad.pdf` is geen schermviewer.            |
 
 ---
 

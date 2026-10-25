@@ -37,13 +37,13 @@ alleen MuseScore → [Basispartituur](../basispartituur/).
 
 ## Bestanden en scripts
 
-- Lokaal producten: [mvsa-products](/handleiding/scripts/mvsa-products/)
+- Lokaal producten: [products (mvsa)](/handleiding/scripts/mvsa-products/)
 - Controle: [check](/handleiding/scripts/check/) / CI
 - Namen: [Publicatiecontrole](/handleiding/start/publicatiecontrole/)
 
 ## CI / handmatig
 
-CI genereert geen MuseScore-PDF. Vernieuw lokaal met `mvsa-products`,
+CI genereert geen MuseScore-PDF. Vernieuw lokaal met `products --kinds mvsa`,
 commit bron én siblings. Syntax: VSA-tooling
 (`docs/specification-mvsa/`).
 

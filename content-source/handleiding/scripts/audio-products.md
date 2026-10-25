@@ -1,18 +1,18 @@
 ---
-title: "audio-products"
-linkTitle: "audio-products"
+title: "products — audio"
+linkTitle: "products (audio)"
 weight: 107
 ---
 
 # NAME
 
-`scripts\audio-products.cmd` — preview-`.mp3` maken bij een bibliotheek-bron
+`scripts\products.cmd --kinds audio` — preview-`.mp3` maken bij een bibliotheek-bron
 (gewoon product-spoor; ook via `products` / `all-products`)
 
 # SYNOPSIS
 
 ```cmd
-scripts\audio-products.cmd [pad] [--force] [--dry-run]
+scripts\products.cmd --kinds audio [pad] [--force] [--dry-run]
 ```
 
 # DESCRIPTION
@@ -33,12 +33,12 @@ velden als bij PDF/MXL: hash van de bron, wanneer gemaakt). Zo ziet
 
 Zoekt onder het opgegeven pad (of, zonder pad, onder
 `content-source\catalogus`). Overgeslagen: `input\`, mappen met
-`artefacten_handmatig: true`, import-siblings `*.mscz.mvsa`, en
+`manueel: true`, import-siblings `*.mscz.mvsa`, en
 `.print.mscz`.
 
 Onder de motorkap: tooling-CLI `vsa audio` (MuseScore 4). Bij `.vsa`
 syllabificeert het script eerst in een **tijdelijk** bestand (zelfde als
-`vsa-products` voor Coria), zodat Beluisteren dezelfde lettergreep-noten
+`products --kinds vsa` voor Coria), zodat Beluisteren dezelfde lettergreep-noten
 heeft als Oefenen; de canonieke `.vsa` blijft ongewijzigd. CI genereert
 **geen** audio; jij wel lokaal, daarna committen.
 
@@ -58,8 +58,8 @@ als de Coria-`.mxl`. Ontbreekt of veroudert die, dan faalt
 # EXAMPLES
 
 ```cmd
-scripts\audio-products.cmd content-source\catalogus\alleluia\9a-toon-1\groningen
-scripts\audio-products.cmd content-source\catalogus\tropaar\maandag-toon-4\hemelum --force
+scripts\products.cmd --kinds audio content-source\catalogus\alleluia\9a-toon-1\groningen
+scripts\products.cmd --kinds audio content-source\catalogus\tropaar\maandag-toon-4\hemelum --force
 ```
 
 # WHEN

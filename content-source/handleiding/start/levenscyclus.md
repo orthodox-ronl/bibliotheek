@@ -84,7 +84,7 @@ Automatische overzichten onder [Catalogus → Speciaal](/overzichten/speciaal/):
 | [Voorzien](/overzichten/speciaal/voorzien/) | Zangstukken zonder oefenbare inhoud (`publicatiestatus`) |
 | [Ongerefereerd](/overzichten/speciaal/ongerefereerd/) | In catalogus, nog geen koormap-`bieb` |
 | [Oefenbaar](/overzichten/speciaal/oefenbaar/) | Platte lijst oefenbare uitvoeringsvormen |
-| [Handmatig](/overzichten/speciaal/handmatig/) | Uitvoeringsvormen met `artefacten_handmatig: true` |
+| [Handmatig](/overzichten/speciaal/handmatig/) | Uitvoeringsvormen met `manueel: true` |
 
 ## Klaar als
 

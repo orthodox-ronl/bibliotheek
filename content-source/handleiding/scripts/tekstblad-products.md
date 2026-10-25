@@ -1,17 +1,17 @@
 ---
-title: "tekstblad-products"
-linkTitle: "tekstblad-products"
+title: "products — tekstblad"
+linkTitle: "products (tekstblad)"
 weight: 115
 ---
 
 # NAME
 
-`scripts\tekstblad-products.cmd` — A4-PDF maken bij een catalogus-`.tekstblad.md`
+`scripts\products.cmd --kinds tekstblad` — A4-PDF maken bij een catalogus-`.tekstblad.md`
 
 # SYNOPSIS
 
 ```cmd
-scripts\tekstblad-products.cmd [pad] [--force] [--dry-run]
+scripts\products.cmd --kinds tekstblad [pad] [--force] [--dry-run]
 ```
 
 # DESCRIPTION
@@ -22,7 +22,7 @@ Zoekt canonieke bronnen `{stam}.tekstblad.md` onder het opgegeven pad
 (`vsa-source-sha256`, `vsa-source-kind=tekstblad`) zodat `check` kan zien
 of de PDF nog bij de bron past.
 
-Bestanden in `input\` en mappen met `artefacten_handmatig: true` worden
+Bestanden in `input\` en mappen met `manueel: true` worden
 overgeslagen. CI genereert deze PDF’s niet; jij wel lokaal (Chrome of Edge
 nodig voor `vsa pdf`), daarna bron + PDF samen committen.
 
@@ -36,8 +36,8 @@ nodig voor `vsa pdf`), daarna bron + PDF samen committen.
 # EXAMPLES
 
 ```cmd
-scripts\tekstblad-products.cmd
-scripts\tekstblad-products.cmd content-source\catalogus\dialoog-met-diaken --force
+scripts\products.cmd --kinds tekstblad
+scripts\products.cmd --kinds tekstblad content-source\catalogus\dialoog-met-diaken --force
 ```
 
 # WHEN

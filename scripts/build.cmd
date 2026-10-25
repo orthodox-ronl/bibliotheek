@@ -29,7 +29,7 @@ echo Gebruik: scripts\build.cmd
 echo.
 echo   Bouwt de site naar generated\site ^(Hugo^).
 echo   Roept eerst werkvoorraad, Coria-fingerprints en een legacy bladermap-SVG bij.
-echo   Catalogusproducten en pagina-pdf maakt build niet.
+echo   Catalogusproducten en index.md.pdf maakt build niet.
 echo.
 echo Handleiding: content-source\handleiding\scripts\build.md
 echo.

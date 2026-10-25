@@ -2,6 +2,10 @@
  * Schermpartituur via OpenSheetMusicDisplay.
  * Bron: sibling ``*.from-ir.musicxml`` (Score-IR → MusicXML).
  *
+ * S8-recite (A1): ``<notehead>none</notehead>`` in from-ir is een marker,
+ * geen OSMD-native hide. Na render verbergt deze adapter spacer-koppen /
+ * ledgers / lyric-streepjes (productgedrag; zie schermpartituur §5.1).
+ *
  * Cues op eerste noot, gedeelde hoogte per systeem. Maatbreedte: maten met
  * cues krijgen ruimte van maten zonder cue (wit rechts), zodat cues binnen
  * de maatstrepen blijven — zonder systeemovergangen te forceren. Daarna noten

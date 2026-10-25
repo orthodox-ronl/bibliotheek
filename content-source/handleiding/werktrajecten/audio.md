@@ -31,23 +31,23 @@ daarna MuseScore, daarna eenstemmig `.vsa`).
 ## Wanneer wel / wanneer niet
 
 **Wel:** bij dezelfde bronnen als de Coria-`.mxl` (canonieke `.mvsa`,
-basis-`.mscz`, `.vsa`), behalve mappen met `artefacten_handmatig: true`.
+basis-`.mscz`, `.vsa`), behalve mappen met `manueel: true`.
 Ontbrekende of verouderde audio faalt `check --strict` / CI.
 
-Bij `.vsa` syllabificeert `audio-products` in een **tijdelijk** bestand
-vóór `vsa audio` — dezelfde stap als `vsa-products` voor Coria-`.vsa.mxl`.
+Bij `.vsa` syllabificeert `products --kinds audio` in een **tijdelijk** bestand
+vóór `vsa audio` — dezelfde stap als `products --kinds vsa` voor Coria-`.vsa.mxl`.
 De canonieke `.vsa` (en het SVG) blijven zonder orthografische `-`.
 
 ## Bestanden en scripts
 
-- Lokaal maken: [audio-products](/handleiding/scripts/audio-products/)
+- Lokaal maken: [products (audio)](/handleiding/scripts/audio-products/)
 - Alles tegelijk: [all-products](/handleiding/scripts/all-products/)
 - Controle: [check](/handleiding/scripts/check/)
 - Namen: [Publicatiecontrole](/handleiding/start/publicatiecontrole/)
 
 ## CI / handmatig
 
-CI genereert geen MuseScore-audio. Vernieuw lokaal met `audio-products`
+CI genereert geen MuseScore-audio. Vernieuw lokaal met `products --kinds audio`
 of `all-products`, commit bron én `.mp3`.
 
 {{< navbuttons "mvsa|/handleiding/werktrajecten/mvsa/" "Werktrajecten|/handleiding/werktrajecten/" >}}

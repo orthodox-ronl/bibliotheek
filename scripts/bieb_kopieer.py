@@ -171,12 +171,12 @@ def _leaf_index_text(
     ident: str,
     *,
     status: str,
-    artefacten_handmatig: bool,
+    manueel: bool,
     source_paths: list[Path],
 ) -> str:
     title = derived_leaf_title(ident, source_paths=source_paths)
     link = derived_leaf_link_title(ident)
-    handmatig = "artefacten_handmatig: true\n" if artefacten_handmatig else ""
+    handmatig = "manueel: true\n" if manueel else ""
     return (
         f"---\ntitle: \"{title}\"\nlinkTitle: \"{link}\"\n"
         f"publicatiestatus: {status}\n"
@@ -271,11 +271,10 @@ def kopieer(bron_raw: str, nieuw_raw: str, *, dry_run: bool) -> int:
         except OSError:
             raw_idx = ""
         status = _fm_value(raw_idx, "publicatiestatus") or status
-        handmatig = (_fm_value(raw_idx, "artefacten_handmatig") or "").lower() in {
-            "true",
-            "yes",
-            "1",
-        }
+        _truthy = {"true", "yes", "1"}
+        handmatig = (_fm_value(raw_idx, "manueel") or "").lower() in _truthy or (
+            _fm_value(raw_idx, "manual") or ""
+        ).lower() in _truthy
 
     source_for_title = [
         p
@@ -301,7 +300,7 @@ def kopieer(bron_raw: str, nieuw_raw: str, *, dry_run: bool) -> int:
             text = _leaf_index_text(
                 nieuw,
                 status=status,
-                artefacten_handmatig=handmatig,
+                manueel=handmatig,
                 source_paths=source_for_title,
             )
             print(f"  write {_rel(out)} (nieuw bieb id)", flush=True)

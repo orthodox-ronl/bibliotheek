@@ -75,10 +75,10 @@ Preview: **http://127.0.0.1:18732/** — nooit poort **1313**, niet **18731** (V
 tekstblad, mvsa inclusief Score-IR/from-ir MusicXML, audio, lyrics,
 import) + bibliotheek-id-colofon (`Bibliotheek-id:`) + Coria-fingerprints
 + legacy bladermap-SVG + Hugo. `check` schrijft geen catalogusproducten.
-Vernieuwen: `scripts\products.cmd` (of los `vsa-products` /
-`mscz-products` / `mvsa-products` / `tekstblad-products` /
-`audio-products` / `lyrics-products`). Koormap-blad `index.pagina.pdf`:
-`scripts\pagina-pdf.cmd` (niet in `products` of `check`). Optioneel
+Vernieuwen: `scripts\products.cmd` (of los `products --kinds vsa` /
+`products --kinds mscz` / `products --kinds mvsa` / `products --kinds tekstblad` /
+`products --kinds audio` / `products --kinds lyrics`). Koormap-blad `index.md.pdf`:
+`scripts\pdf.cmd` (niet in `products` of `check`). Optioneel
 tooling klaarzetten:
 
 ```cmd

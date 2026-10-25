@@ -36,7 +36,7 @@ Catalogus mét basispartituur, VSA of print-PDF: meestal `reviewable`. Lege stub
 `voorzien`. Intern *Stap* in de werkvoorraad (`opkuisen`, `layout`, …) is
 iets anders — dat zien koorleden niet.
 
-Optioneel op catalogus-`index.md`: `artefacten_handmatig: true` als PDF
+Optioneel op catalogus-`index.md`: `manueel: true` als PDF
 en Coria-`.mxl` in die map niet via de product-pipeline mogen lopen (print /
 template). Zie [Print-.mscz](../../partituur/7-print-mscz/).
 

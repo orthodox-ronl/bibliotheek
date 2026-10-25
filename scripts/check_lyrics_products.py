@@ -65,7 +65,7 @@ def check_one(source: Path) -> FolderStatus:
     issues: list[Issue] = []
     src_hash = digest_for_source(source)
     expect_kind = source_kind_for(source)
-    fix = r"scripts\lyrics-products.cmd"
+    fix = r"scripts\products.cmd --kinds lyrics"
     if not lyrics.is_file():
         issues.append(
             Issue(
@@ -83,7 +83,7 @@ def check_one(source: Path) -> FolderStatus:
                 Issue(
                     "unstamped_lyrics",
                     _rel(lyrics),
-                    "lyrics.txt mist vsa-source-sha256 (opnieuw lyrics-products)",
+                    "lyrics.txt mist vsa-source-sha256 (opnieuw products --kinds lyrics)",
                 )
             )
         elif kind and kind != expect_kind:
@@ -153,7 +153,7 @@ def main() -> int:
     )
 
     if bad:
-        print(f"lyrics-products: {len(bad)} probleem(en); zie {FIX_PAGE}")
+        print(f"lyrics products: {len(bad)} probleem(en); zie {FIX_PAGE}")
         for s in bad[:20]:
             for issue in s.issues:
                 print(f"  [{issue.kind}] {issue.file}: {issue.detail}")
@@ -165,7 +165,7 @@ def main() -> int:
         print("(waarschuwing — zonder --fail geen exit 1)")
         return 0
 
-    print(f"lyrics-products: OK ({len(statuses)} bronnen)")
+    print(f"lyrics products: OK ({len(statuses)} bronnen)")
     return 0
 
 

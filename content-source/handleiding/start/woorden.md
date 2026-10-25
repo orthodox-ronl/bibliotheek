@@ -8,12 +8,12 @@ weight: 30
 
 {{< cue >}}
 - **basispartituur** / basispartituur-`.mscz` = canonieke MuseScore-partituur (hier bewerk je; daarna normaliseren). Bronextensie `.mscz`; afgeleiden `{stam}.mscz.pdf` / `{stam}.mscz.mxl`
-- **handmatig MuseScore-blad** = gewone `{stam}.mscz` in een map met `artefacten_handmatig: true` (vervangt het oude `.print.mscz`)
+- **handmatig MuseScore-blad** = gewone `{stam}.mscz` in een map met `manueel: true` (vervangt het oude `.print.mscz`)
 - **versheidscontrole** = sibling bestaat + herkomststempel past bij bron; meet/meldt alleen
 - **publicatiecontrole** = versheidscontrole op site-producten; zie [Publicatiecontrole](publicatiecontrole/)
 - **importcontrole** = versheidscontrole op bewerk-/importvorm (bijv. `.mscz.mvsa`); zie [import-mvsa](/handleiding/scripts/import-mvsa/)
 - **geldigheidscontrole** = `vsa validate` / `mvsa validate` / …
-- **artefacten_handmatig** = frontmatter op catalogus-`index.md`: PDF/MXL niet auto-bijwerken
+- **manueel** / **manual** = frontmatter op catalogus-`index.md` (`manueel: true` of `manual: true`): PDF/MXL niet auto-bijwerken
 - `.mxl` / `.vsa.mxl` / `.mscz.mxl` = MusicXML voor Coria (**afgeleide**; niet terug importeren om te layouten)
 - `.pdf` / `.mscz.pdf` = A4-afgeleide om te lezen of te printen
 - `.mp3` / `.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3` = preview-audio voor **Beluisteren** (zelfde bronnen als Coria-`.mxl`; zie [audio](/handleiding/werktrajecten/audio/))
@@ -41,12 +41,12 @@ commando’s en mappen kloppen.
 | Extensie | In het kort | Wat jij ermee doet |
 | --- | --- | --- |
 | basispartituur-`.mscz` | MuseScore 4-bestand; bron voor PDF, Coria en scherm-SVG | Openen, nakijken, opslaan; daarna `scripts\layout.cmd`; afgeleiden `{stam}.mscz.pdf` / `{stam}.mscz.mxl` / `{stam}.mscz.svg` |
-| handmatig `.mscz` | Zelfde soort MuseScore-bestand, map met `artefacten_handmatig: true` | Alleen in MuseScore bewerken; PDF handmatig; geen automatische publicatiecontrole — zie [Publicatiecontrole](publicatiecontrole/) |
+| handmatig `.mscz` | Zelfde soort MuseScore-bestand, map met `manueel: true` | Alleen in MuseScore bewerken; PDF handmatig; geen automatische publicatiecontrole — zie [Publicatiecontrole](publicatiecontrole/) |
 | `.mxl` / `.vsa.mxl` / `.mscz.mxl` | Samengeperste MusicXML (**afgeleide**) | Naar Coria; of (na opkuisen) als start voor een nieuwe basispartituur. Nooit roundtrip: `.mscz` → `.mxl` → weer `.mscz` gooit de layout weg. |
 | `.pdf` / `.mscz.pdf` | A4-product (nog in productketen; stap 3-afbouw) | Blad: **Download/Print pagina** in de nav; niet meer via score-acties |
-| `.mp3` / `.mvsa.mp3` e.d. | Preview-audio (afgeleide) | Beluisteren op de site; maken met `audio-products` |
-| `.vsa` | VSA-notatie | Schrijven in een editor; `vsa-products` maakt `.vsa.svg` (scherm), `.vsa.pdf` en `.vsa.mxl`; `check` controleert die siblings — zie [.vsa schrijven](/handleiding/vsa/1-vsa-schrijven/) |
-| `.mvsa` | Meerstemmige tekstbron | Schrijven/valideren met `mvsa`; producten via `mvsa-products` (Coria-`.mxl`, A4-PDF, koormap-SVG, Score-IR + OSMD-MusicXML) — zie [mvsa](/handleiding/werktrajecten/mvsa/) |
+| `.mp3` / `.mvsa.mp3` e.d. | Preview-audio (afgeleide) | Beluisteren op de site; maken met `products --kinds audio` |
+| `.vsa` | VSA-notatie | Schrijven in een editor; `products --kinds vsa` maakt `.vsa.svg` (scherm), `.vsa.pdf` en `.vsa.mxl`; `check` controleert die siblings — zie [.vsa schrijven](/handleiding/vsa/1-vsa-schrijven/) |
+| `.mvsa` | Meerstemmige tekstbron | Schrijven/valideren met `mvsa`; producten via `products --kinds mvsa` (Coria-`.mxl`, A4-PDF, koormap-SVG, Score-IR + OSMD-MusicXML) — zie [mvsa](/handleiding/werktrajecten/mvsa/) |
 
 **Namen en publicatiecontrole:** [Publicatiecontrole](publicatiecontrole/) (bron vs afgeleide,
 sha-stamps, wat CI controleert). Repo-kort: `docs/publicatiecontrole.md`.
@@ -84,7 +84,7 @@ lettergrepen synchroon met noten. MusicXML: `scripts\opkuisen.cmd`. Bij een
 | **Catalogus** (lifecycle) | Lifecycle-fase: canonieke bron + producten in `catalogus\…` — [Catalogus](/handleiding/start/catalogus/) |
 | **Levenscyclus** | Case per uitvoeringsvorm door fases; los van `publicatiestatus` — [Levenscyclus](/handleiding/start/levenscyclus/) |
 | **Publicatiestatus** | Op leaf-`index.md` in catalogus én koormap: `voorzien`, `reviewable`, `concept`, `productie` (`?` naast de titel; niet raden) |
-| **artefacten_handmatig** | Frontmatter: afgeleiden in die catalogusmap niet auto; gele banner voor beheerders |
+| **manueel** / **manual** | Frontmatter (`manueel:` of `manual:`): afgeleiden in die catalogusmap niet auto; gele banner voor beheerders |
 | **SATB** | Sopraan, alt, tenor, bas — de vier stemmen op één partituur |
 | **Coria** | Online oefenen; via tip-icoon **♪** → **Oefenen** bij shortcode `bieb`; heeft een schone `.mxl` nodig |
 | **Uitvoeringsvorm** | Een concrete manier om een zangstuk uit te voeren (schrijf het woord uit; gebruik niet de afkorting “uv”) |
@@ -104,8 +104,8 @@ Je kunt een mail “hier is de Capella” vertalen naar: input in
 `input\capella\`, later een basispartituur-`.mscz` in de catalogus, plus
 `{stam}.mscz.pdf` en `{stam}.mscz.mxl` — slot-pagina met `bieb`. Voor een
 handmatig MuseScore-blad: `{stam}.mscz` + handmatige PDF (+
-`artefacten_handmatig: true`) in de catalogus, slot-pagina in de koormap.
-Voor een eenstemmige VSA: `.vsa` plus `.vsa.svg`, `.vsa.pdf` en `.vsa.mxl` via `vsa-products` (daarna `check`).
+`manueel: true`) in de catalogus, slot-pagina in de koormap.
+Voor een eenstemmige VSA: `.vsa` plus `.vsa.svg`, `.vsa.pdf` en `.vsa.mxl` via `products --kinds vsa` (daarna `check`).
 Namen en publicatiecontrole: [Publicatiecontrole](/handleiding/start/publicatiecontrole/). Model van
 secties en compositiebladen:
 [Catalogus en koormappen](/handleiding/start/catalogus-en-koormappen/).

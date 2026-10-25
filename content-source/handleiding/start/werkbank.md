@@ -54,7 +54,7 @@ bewuste stub. Zie [Waar ligt wat](waar-ligt-wat/).
 | Layout | `scripts\layout.cmd` | Basispartituur-standaard → `_werk\<stam>\…mscz` |
 | Review | MuseScore + [Reviewen](../partituur/4-reviewen/) | Menselijke check |
 | VSA schrijven | [VSA](../vsa/) | Mag in `_werk` of klaar bestand klaarzetten voor acceptatie |
-| Proefproducten | Optioneel `mscz-products` / `vsa-products` op een **proefpad** | Alleen om te kijken; catalogus-producten horen ná acceptatie |
+| Proefproducten | Optioneel `products --kinds mscz` / `products --kinds vsa` op een **proefpad** | Alleen om te kijken; catalogus-producten horen ná acceptatie |
 
 ### Zelfde naam, andere zwaarte: `opkuisen`
 
@@ -82,7 +82,7 @@ Je mag overgaan als **alle** punten kloppen:
    [Taalvarianten](catalogus-en-koormappen/#taalvarianten-op-de-uitvoeringsvorm).
    Gebruik geen losse `-nl`.
 2. Er is een **bruikbaar bronbestand**: basispartituur-`.mscz`, `.vsa`,
-   `.mvsa`, handmatig `.mscz` (later `artefacten_handmatig`), of
+   `.mvsa`, handmatig `.mscz` (later `manueel` / `manual`), of
    `.tekstblad.md` — geen kale ongekuiste `.mxl` / `.capx`.
 3. Bestandsnaam voor publicatie: **geen spaties**; stam = publicatiestam
    uit het id (of je laat `bieb accepteer` hernoemen).

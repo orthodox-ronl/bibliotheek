@@ -44,8 +44,8 @@ def test_build_entries_includes_mscz_only_cherubijnen() -> None:
     assert "cherubijnenhymne" in kastorski["text"]
 
 
-def test_build_entries_includes_artefacten_handmatig() -> None:
-    """artefacten_handmatig slaat producten over, niet de zoekindex."""
+def test_build_entries_includes_manueel/manual() -> None:
+    """manueel/manual slaat producten over, niet de zoekindex."""
     from build_zoek_index import DEFAULT_ROOT, build_entries
 
     entries = build_entries(DEFAULT_ROOT)

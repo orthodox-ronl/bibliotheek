@@ -43,21 +43,21 @@ id, bestand bestaat al (dan `--force` alleen als je bewust overschrijft),
 `.vsa` die `vsa validate` niet haalt, of een Capella-`.mxl` zonder basispartituur.
 Stappen: [Opnemen in de catalogus](../1-opnemen-in-catalogus/).
 
-## Layout of `mscz-products` “herstelt” je speciale partituur
+## Layout of `products --kinds mscz` “herstelt” je speciale partituur
 
 Eindigt de bestandsnaam op `.print.mscz`? Dan hoort die **niet** door
-`scripts\layout.cmd` of `mscz-products`. Zie
+`scripts\layout.cmd` of `products --kinds mscz`. Zie
 [Print-.mscz](/handleiding/partituur/7-print-mscz/). Per ongeluk
 als gewone `.mscz` gezet? Hernoem terug naar `.print.mscz` vóór de
-volgende `check`. Zet `artefacten_handmatig: true` op de catalogus-`index.md`
+volgende `check`. Zet `manueel: true` op de catalogus-`index.md`
 als PDF/MXL handmatig blijven.
 
 ## MuseScore start niet / “niet gevonden”
 
-Layout en `mscz-products` hebben MuseScore **4** nodig. Installeer
+Layout en `products --kinds mscz` hebben MuseScore **4** nodig. Installeer
 MuseScore 4; gebruik niet MuseScore 3. Open het opdrachtvenster opnieuw
 na installatie. (Voor alleen `.vsa` → Coria is MuseScore niet nodig:
-`vsa-products`.)
+`products --kinds vsa`.)
 
 ## De pagina is lelijk of de stijl is weg
 
@@ -100,7 +100,7 @@ dit de bekende gevallen:
 2. In `<identification>` staat `<miscellaneous>` vóór `<encoding>` —
    Coria eist `encoding` eerst; `products` / stamp zetten die volgorde.
 3. De score bevat `<notehead>` (bijvoorbeeld `none` uit MuseScore) —
-   die tag hoort niet in Coria-`.mxl`; `mscz-products` / sanitize
+   die tag hoort niet in Coria-`.mxl`; `products --kinds mscz` / sanitize
    strippen die mee.
 4. Binnen `<note>` verkeerde kindvolgorde (M20): `<lyric>` vóór
    `<staff>`, of `<dot>` ná `<accidental>` — `mxl validate` faalt;
@@ -124,22 +124,22 @@ scripts\products.cmd --kinds mscz --only-invalid
 (`products` vernieuwt daarna zelf de Coria-fingerprints voor **Oefenen**.)
 
 Of producten opnieuw: `scripts\products.cmd --kinds mscz,mvsa,vsa`
-(voor de betreffende stukken). De `.mxl` moet uit `mscz-products`,
-`mvsa-products` of `vsa-products` komen (of handmatig bij
-`artefacten_handmatig`), niet een ruwe Capella-`.mxl`.
+(voor de betreffende stukken). De `.mxl` moet uit `products --kinds mscz`,
+`products --kinds mvsa` of `products --kinds vsa` komen (of handmatig bij
+`manueel` / `manual`), niet een ruwe Capella-`.mxl`.
 
 ## Rode banner: partituur- of VSA-afgeleiden niet in orde
 
 | Banner | Oorzaak | Actie |
 | --- | --- | --- |
-| Basispartituur-afgeleiden | PDF/MXL passen niet bij de basispartituur-`.mscz` | [Afgeleiden](../../partituur/6-afgeleiden/) — layout + `mscz-products` |
-| VSA-afgeleiden | `{stam}.vsa.mxl`, `.vsa.pdf` of `.vsa.svg` ontbreekt of past niet bij de `.vsa` | `scripts\vsa-products.cmd`, commit bron en siblings |
+| Basispartituur-afgeleiden | PDF/MXL passen niet bij de basispartituur-`.mscz` | [Afgeleiden](../../partituur/6-afgeleiden/) — layout + `products --kinds mscz` |
+| VSA-afgeleiden | `{stam}.vsa.mxl`, `.vsa.pdf` of `.vsa.svg` ontbreekt of past niet bij de `.vsa` | `scripts\products.cmd --kinds vsa`, commit bron en siblings |
 
 Op `main` faalt de build bij dezelfde situaties.
 
 ## Gele banner: handmatige artefacten
 
-Geen fout: `artefacten_handmatig: true` staat op die cataloguspagina.
+Geen fout: `manueel: true` staat op die cataloguspagina.
 PDF/MXL vernieuwen de scripts niet; doe dat zelf na elke bronwijziging.
 
 ## `bieb` faalt bij build
@@ -155,10 +155,10 @@ bron. Ontbreekt die sibling, dan noemt de waarschuwing ook het
 legacy-pad `static\vsa\bladermap\…`.
 
 ```cmd
-scripts\vsa-products.cmd content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>
+scripts\products.cmd --kinds vsa content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>
 ```
 
-Bij een `.mvsa`: `scripts\mvsa-products.cmd` op die map. `check` vult
+Bij een `.mvsa`: `scripts\products.cmd --kinds mvsa` op die map. `check` vult
 de sibling niet aan. Uitleg: [.vsa schrijven](../../vsa/1-vsa-schrijven/).
 
 ## `vsa validate` klaagt

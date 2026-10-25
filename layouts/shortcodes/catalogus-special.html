@@ -71,7 +71,8 @@
     {{- if $dir -}}
       {{- $id := strings.TrimPrefix $prefix $dir -}}
       {{- if and (ne $id $dir) (eq (len (split $id "/")) 3) -}}
-        {{- if .Params.artefacten_handmatig -}}
+        {{- $manueel := or .Params.manueel .Params.manual -}}
+        {{- if or (eq $manueel true) (eq $manueel "true") -}}
           {{- $rows = $rows | append (dict "page" . "id" $id "title" (partial "display-link-title.html" .)) -}}
         {{- end -}}
       {{- end -}}
@@ -92,7 +93,7 @@
   {{- end -}}
 </ul>
   {{- else -}}
-<p>Geen uitvoeringsvormen met <code>artefacten_handmatig: true</code>.</p>
+<p>Geen uitvoeringsvormen met <code>manueel: true</code> / <code>manual: true</code>.</p>
   {{- end -}}
 
 {{- else if eq $kind "werkbank" -}}

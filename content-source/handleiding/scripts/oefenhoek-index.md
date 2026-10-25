@@ -21,9 +21,9 @@ Met **`--svg`** schrijft dit commando een **legacy** plaatje van een
 canonieke catalogus-`.vsa` naar `static\vsa\bladermap\…`. Het scherm
 gebruikt dat plaatje alleen als er nog geen sibling `{stam}.vsa.svg`
 naast de bron staat. Die sibling maak je met
-[vsa-products](../vsa-products/); `check` eist daar een herkomststempel
+[products (vsa)](../vsa-products/); `check` eist daar een herkomststempel
 voor. Hetzelfde geldt voor `.mvsa`: het webplaatje is `{stam}.mvsa.svg`
-via [mvsa-products](../mvsa-products/), niet dit commando.
+via [products (mvsa)](../mvsa-products/), niet dit commando.
 
 `check`, `build`, `serve` en de Pages-build draaien `--svg` nog vóór
 Hugo, zodat de fallback bij de huidige `.vsa` past zolang de sibling
@@ -55,11 +55,11 @@ scripts\oefenhoek-index.cmd --dry-run
 
 Automatisch in `check` / `build` / `serve` / Pages-CI (alleen `--svg`),
 als fallback. Na een wijziging aan een `.vsa` die op het scherm moet:
-eerst `vsa-products`, niet alleen dit commando.
+eerst `products --kinds vsa`, niet alleen dit commando.
 
 # SEE ALSO
 
 - [check](../check/)
-- [vsa-products](../vsa-products/) — `{stam}.vsa.svg` voor het scherm, mét stempel
+- [products (vsa)](../vsa-products/) — `{stam}.vsa.svg` voor het scherm, mét stempel
 - [Publicatiecontrole](/handleiding/start/publicatiecontrole/)
 - Workflow: [VSA → SVG en Coria](/handleiding/werktrajecten/vsa/)

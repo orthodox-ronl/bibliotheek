@@ -24,9 +24,9 @@ Preview: http://127.0.0.1:18732/
 | `serve` | lokale Hugo-preview |
 | `build` | productie-achtige build in `generated\site` |
 | `validate` | `vsa validate` op bibliotheek-content |
-| `vsa-products` | Coria-sibling `{stam}.vsa.mxl` bij `.vsa` |
-| `mscz-products` | PDF + Coria `{stam}.mscz.pdf` / `.mscz.mxl` bij `.mscz` |
-| `tekstblad-products` | A4-PDF `{stam}.tekstblad.pdf` bij `.tekstblad.md` |
+| `products --kinds vsa` | Coria-sibling `{stam}.vsa.mxl` bij `.vsa` |
+| `products --kinds mscz` | PDF + Coria `{stam}.mscz.pdf` / `.mscz.mxl` bij `.mscz` |
+| `products --kinds tekstblad` | A4-PDF `{stam}.tekstblad.pdf` bij `.tekstblad.md` |
 | `check` | preflight (validate + publicatiecontrole + Coria + Hugo) |
 
 ## Structuur

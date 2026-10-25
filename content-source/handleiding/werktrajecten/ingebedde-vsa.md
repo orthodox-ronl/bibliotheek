@@ -12,8 +12,8 @@ Notatie op de bibliotheek-site komt uit een catalogusbron.
 
 | Bron in de catalogus | Plaatje op het scherm | Commando |
 | --- | --- | --- |
-| `{stam}.vsa` | `{stam}.vsa.svg` ernaast | [vsa-products](../../scripts/vsa-products/) |
-| `{stam}.mvsa` | `{stam}.mvsa.svg` ernaast | [mvsa-products](../../scripts/mvsa-products/) |
+| `{stam}.vsa` | `{stam}.vsa.svg` ernaast | [products (vsa)](../../scripts/vsa-products/) |
+| `{stam}.mvsa` | `{stam}.mvsa.svg` ernaast | [products (mvsa)](../../scripts/mvsa-products/) |
 
 Zolang `{stam}.vsa.svg` ontbreekt, vult `oefenhoek-index --svg` nog een
 legacy-plaatje onder `static\vsa\bladermap\`. Dat is een fallback, geen

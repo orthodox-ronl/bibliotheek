@@ -130,7 +130,7 @@ feathered noot later tot één kwart per lettergreep.
 | --- | --- |
 | Capella-lagen 1–3 (verborgen reciteerkwarten zichtbaar maken, Capella-titelrommel, …) | [Opkuisen](../2-opkuisen/) / `scripts\opkuisen.cmd` |
 | Verkeerde stem op de verkeerde balk herschikken | Jij in MuseScore (opkuisen) |
-| PDF of Coria-`.mxl` maken | [PDF en Coria](../5-pdf-en-coria/) / `scripts\mscz-products.cmd` |
+| PDF of Coria-`.mxl` maken | [PDF en Coria](../5-pdf-en-coria/) / `scripts\products.cmd --kinds mscz` |
 | Print-vel normaliseren | Bewust geweigerd — [Print-.mscz](../7-print-mscz/) |
 | MusicXML-roundtrip “repareren” | Nooit doen; blijf op de `.mscz` |
 

@@ -21,7 +21,7 @@ Maakt Coria-fingerprints, ververst het legacy bladermap-plaatje uit
 `data\build.yaml` (footer «Gegenereerd» op de homepage; niet committen),
 en bouwt de site naar `generated\site`. Anders dan `check` draait
 `build` geen `vsa validate` en geen publicatiecontrole. `build` maakt
-geen catalogus-siblings en geen `index.pagina.pdf`. Commit `generated\`
+geen catalogus-siblings en geen `index.md.pdf`. Commit `generated\`
 en `static\mxl\` niet (gitignore).
 
 # WHEN

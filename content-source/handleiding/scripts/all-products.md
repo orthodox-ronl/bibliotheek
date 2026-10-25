@@ -24,19 +24,19 @@ onder `content-source\catalogus` (of onder een opgegeven pad). Het pad is
 [Invoer: bestand of map](../invoer-bestand-of-map/). Bij een map of
 meerdere kinds: preflight met bevestiging (of `-y`); per kind volgt een
 eigen duur-schatting. Audio en lyrics horen daar gewoon bij; ze zijn geen
-aparte uitzondering. Mappen met `artefacten_handmatig: true` en bestanden
+aparte uitzondering. Mappen met `manueel: true` en bestanden
 in `input\` worden overgeslagen. Past het brontype niet bij een spoor, dan
 skip (geen fout).
 
 Volgorde:
 
-1. [vsa-products](../vsa-products/) — `{stam}.vsa.mxl` + `{stam}.vsa.pdf` + `{stam}.vsa.svg`
-2. [mscz-products](../mscz-products/) — `{stam}.mscz.pdf` + `{stam}.mscz.mxl`
-3. [tekstblad-products](../tekstblad-products/) — `{stam}.tekstblad.pdf`
-4. [mvsa-products](../mvsa-products/) — `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf` + `{stam}.mvsa.svg` + Score-IR + from-ir MusicXML
+1. [products (vsa)](../vsa-products/) — `{stam}.vsa.mxl` + `{stam}.vsa.pdf` + `{stam}.vsa.svg`
+2. [products (mscz)](../mscz-products/) — `{stam}.mscz.pdf` + `{stam}.mscz.mxl`
+3. [products (tekstblad)](../tekstblad-products/) — `{stam}.tekstblad.pdf`
+4. [products (mvsa)](../mvsa-products/) — `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf` + `{stam}.mvsa.svg` + Score-IR + from-ir MusicXML
 5. [import-mvsa](../import-mvsa/) — alleen **bestaande** `{stam}.mscz.mvsa`
-6. [audio-products](../audio-products/) — `{stam}.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3`
-7. [lyrics-products](../lyrics-products/) — `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` / `.mscz.lyrics.txt`
+6. [products (audio)](../audio-products/) — `{stam}.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3`
+7. [products (lyrics)](../lyrics-products/) — `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` / `.mscz.lyrics.txt`
 
 Daarna (tenzij `--dry-run`): Coria-fingerprints voor **Oefenen** (♪)
 (`fingerprint_coria_mxl.py`, via `products.cmd`), en
@@ -47,9 +47,9 @@ deploy (ook voor `/preview/` en branch-previews).
 Elk spoor vernieuwt alleen wat ontbreekt of waarvan de herkomststempel
 niet meer bij de bron past (tenzij `--force`).
 
-Dit commando maakt **geen** koormap-blad. Het bestand `index.pagina.pdf`
+Dit commando maakt **geen** koormap-blad. Het bestand `index.md.pdf`
 (knoppen Download pagina en Print pagina) bouw je daarna met
-[pagina-pdf](../pagina-pdf/), als de catalogus-PDF’s al vers zijn.
+[pdf](../pdf/), als de catalogus-PDF’s al vers zijn.
 `pdf-bijelkaar` exporteert dan een tijdelijke compacte SVG; die
 overschrijft `{stam}.mvsa.svg` niet.
 
@@ -72,12 +72,13 @@ scripts\all-products.cmd --dry-run
 # WHEN
 
 Na het toevoegen of wijzigen van bronnen, of als `check --strict` meerdere
-productsporen tegelijk als missing/stale meldt. Voor één spoor: het
-specifieke `*-products.cmd`.
+productsporen tegelijk als missing/stale meldt. Voor één spoor:
+`scripts\products.cmd --kinds …` — zie [products](../products/).
 
 # SEE ALSO
 
+- [products](../products/)
 - [check](../check/)
-- [pagina-pdf](../pagina-pdf/)
-- [audio-products](../audio-products/)
+- [pdf](../pdf/)
+- [products (audio)](../audio-products/)
 - [Publicatiecontrole](/handleiding/start/publicatiecontrole/)

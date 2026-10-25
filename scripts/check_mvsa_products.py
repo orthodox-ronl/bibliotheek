@@ -25,8 +25,10 @@ from product_meta import (
     read_svg_stamp,
     source_sha256,
 )
+from street_meta import issues_from_meta_or
 from sync_mvsa_products import (
     DEFAULT_ROOT,
+    _MVSA_META_KEYS,
     _stamp_ok_from_ir,
     collect_mvsa,
     product_from_ir_musicxml_for_mvsa,
@@ -91,7 +93,7 @@ def _check_stamped_product(
             Issue(
                 unstamped_kind,
                 _rel(path),
-                f"{label} mist vsa-source-sha256 (opnieuw mvsa-products)",
+                f"{label} mist vsa-source-sha256 (opnieuw products --kinds mvsa)",
             )
         )
     elif kind and kind != SOURCE_KIND_MVSA:
@@ -113,11 +115,8 @@ def _check_stamped_product(
         )
 
 
-def check_one(mvsa: Path) -> FolderStatus:
+def _stamp_issues(mvsa: Path, digest: str) -> list[Issue]:
     issues: list[Issue] = []
-    digest = source_sha256(mvsa)
-    fix = r"scripts\mvsa-products.cmd"
-
     _check_stamped_product(
         issues,
         path=product_mxl_for_mvsa(mvsa),
@@ -129,7 +128,6 @@ def check_one(mvsa: Path) -> FolderStatus:
         label="MXL",
         read_stamp=read_mxl_stamp,
     )
-    # Product-.mvsa.pdf niet meer verplicht (product-pdf-afbouw stap 3).
     _check_stamped_product(
         issues,
         path=product_score_ir_for_mvsa(mvsa),
@@ -184,7 +182,19 @@ def check_one(mvsa: Path) -> FolderStatus:
             label="SVG",
             read_stamp=read_svg_stamp,
         )
+    return issues
 
+
+def check_one(mvsa: Path) -> FolderStatus:
+    digest = source_sha256(mvsa)
+    fix = r"scripts\products.cmd --kinds mvsa"
+    issues = issues_from_meta_or(
+        mvsa,
+        required_keys=set(_MVSA_META_KEYS),
+        rel=_rel,
+        stamp_issues=lambda: _stamp_issues(mvsa, digest),
+        issue_cls=Issue,
+    )
     return FolderStatus(
         dir=_bladermap_key(mvsa),
         source=_rel(mvsa),

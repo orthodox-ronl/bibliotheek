@@ -27,7 +27,7 @@ mappen, woorden). Stapsgewijze MuseScore- of VSA-HOW’s staan onder
   [mvsa](mvsa/), [audio](audio/), [Print-vel](print-vel/) (legacy `.print.mscz`),
   [Tekstblad](tekstblad/)
 - **Site zichtbaar maken:** [Site-build](site-build/)
-- **Koormap-blad:** [pagina-pdf](../scripts/pagina-pdf/) na de catalogusproducten
+- **Koormap-blad:** [pdf](../scripts/pdf/) na de catalogusproducten
 - **Geen commando in deze repo:** [Markdown naar PDF](markdown-naar-pdf/),
   [Ingebedde VSA](ingebedde-vsa/)
 {{< /cue >}}
@@ -50,10 +50,10 @@ Opnemen in de catalogus  (bieb accepteer → Catalogus)
 Site-build  (check / build / serve, of CI)  ->  generated/site + GitHub Pages
 ```
 
-Een koormap-blad (`index.pagina.pdf`, nav Download pagina en Print
+Een koormap-blad (`index.md.pdf`, nav Download pagina en Print
 pagina) komt ná die catalogusproducten, met
-`scripts\pagina-pdf.cmd`. Dat bestand zit niet in `products` en niet in
-de site-build. Zie [pagina-pdf](../scripts/pagina-pdf/) en
+`scripts\pdf.cmd`. Dat bestand zit niet in `products` en niet in
+de site-build. Zie [pdf](../scripts/pdf/) en
 [Koormap-blad](../start/koormap-blad/).
 
 [Markdown naar PDF](markdown-naar-pdf/) beschrijft geen commando van deze
@@ -73,7 +73,7 @@ komt uit de catalogus-siblings hierboven.
 | Print-vel | Print-`.mscz` met handmatige PDF, buiten de basispartituur-keten | [Print-vel](print-vel/) |
 | Tekstblad | Liturgische tekst/dialoog: `.tekstblad.md` naar A4-PDF | [Tekstblad](tekstblad/) |
 | Site-build | `content-source` naar lokale site of GitHub Pages | [Site-build](site-build/) |
-| Koormap-blad | Slotpagina naar `index.pagina.pdf` (ná de catalogusproducten) | [pagina-pdf](../scripts/pagina-pdf/) |
+| Koormap-blad | Slotpagina naar `index.md.pdf` (ná de catalogusproducten) | [pdf](../scripts/pdf/) |
 | Markdown naar PDF | Geen bibliotheek-commando; zie de pagina voor tekstblad en koormap-blad | [Markdown naar PDF](markdown-naar-pdf/) |
 | Ingebedde VSA | Geen aparte build-stap in deze repo | [Ingebedde VSA](ingebedde-vsa/) |
 

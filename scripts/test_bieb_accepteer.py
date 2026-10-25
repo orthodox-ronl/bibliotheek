@@ -78,7 +78,7 @@ class AcceptDryRunTests(unittest.TestCase):
             force=False,
             dry_run=True,
             skip_vsa_validate=True,
-            artefacten_handmatig=False,
+            manueel=False,
         )
         self.assertEqual(code, 0)
         leaf = CATALOGUS_ROOT / "zz-test-accepteer" / "default" / "hemelum"
@@ -98,7 +98,7 @@ class AcceptDryRunTests(unittest.TestCase):
                 force=False,
                 dry_run=True,
                 skip_vsa_validate=True,
-                artefacten_handmatig=False,
+                manueel=False,
             )
             self.assertEqual(code, 1)
 
@@ -193,7 +193,7 @@ class PromptTests(unittest.TestCase):
                 force=False,
                 dry_run=True,
                 skip_vsa_validate=True,
-                artefacten_handmatig=False,
+                manueel=False,
             )
             self.assertEqual(code, 1)
 

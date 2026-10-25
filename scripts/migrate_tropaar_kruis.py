@@ -295,7 +295,7 @@ def migrate(*, dry_run: bool) -> int:
     if not dry_run:
         print(
             "Vervolg: python scripts\\build_zoek_index.py ; "
-            "scripts\\vsa-products.cmd / audio / lyrics indien nodig."
+            "scripts\\products.cmd --kinds vsa / audio / lyrics indien nodig."
         )
     return 0
 

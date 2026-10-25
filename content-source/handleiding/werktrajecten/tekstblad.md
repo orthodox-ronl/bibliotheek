@@ -13,7 +13,7 @@ Dit werktraject maakt uit een bibliotheek-bron **`{stam}.tekstblad.md`**
 {{< cue >}}
 Na een `{stam}.tekstblad.md` in de bladermap:
 ```cmd
-scripts\tekstblad-products.cmd content-source\catalogus\<zangstuk>
+scripts\products.cmd --kinds tekstblad content-source\catalogus\<zangstuk>
 scripts\check.cmd --strict
 ```
 Commit de `.tekstblad.md` en de `.tekstblad.pdf` samen.
@@ -35,8 +35,8 @@ van de tekst in de koormap.
 
 **Klaar** als: de bron frontmatter `build: render: never` (en `list: never`)
 heeft; de PDF bij de bron past (`check_tekstblad_products`); `bieb` toont
-het blad met **Download pagina** / **Print pagina** (`index.pagina.pdf`
-uit de `.tekstblad.md` via `pagina-pdf`). Geen verplichte product-PDF
+het blad met **Download pagina** / **Print pagina** (`index.md.pdf`
+uit de `.tekstblad.md` via `pdf.cmd`). Geen verplichte product-PDF
 meer; geen Coria uit dit spoor.
 
 Voorbeeld:
@@ -48,7 +48,7 @@ Voorbeeld:
 | --- | --- |
 | Ustav, dialoog, liturgische proza met korte VSA-regels | Vierstemmig MuseScore → [Basispartituur](../basispartituur/) |
 | Tekst die je als A4-blad wilt downloaden/printen | Alleen schermtekst op een gewone `index.md` (geen product) |
-| | Een koormap-blad met meerdere stukken → [pagina-pdf](../../scripts/pagina-pdf/) |
+| | Een koormap-blad met meerdere stukken → [pdf](../../scripts/pdf/) |
 
 ## Volgorde (bestanden)
 
@@ -58,7 +58,7 @@ Voorbeeld:
 3. Bouw de PDF:
 
 ```cmd
-scripts\tekstblad-products.cmd content-source\catalogus\dialoog-met-diaken
+scripts\products.cmd --kinds tekstblad content-source\catalogus\dialoog-met-diaken
 ```
 
 4. Koormap-slot: alleen intro + `bieb` (geen tweede kopie van de tekst).
@@ -69,14 +69,14 @@ scripts\tekstblad-products.cmd content-source\catalogus\dialoog-met-diaken
 - **Wel:** `check_tekstblad_products.py` controleert of de PDF bij de
   `.tekstblad.md` past (source-sha).
 - **Niet:** PDF opnieuw genereren op GitHub Actions. Maak de PDF **lokaal**
-  met `tekstblad-products` (Chrome of Edge nodig) en commit bron + PDF samen.
+  met `products --kinds tekstblad` (Chrome of Edge nodig) en commit bron + PDF samen.
 
 ## Handmatig
 
 | Situatie | Commando | Man-page |
 | --- | --- | --- |
-| PDF bij tekstblad | `scripts\tekstblad-products.cmd` `[map]` | [tekstblad-products](../../scripts/tekstblad-products/) |
-| Koormap-blad (meerdere stukken op één pagina) | `scripts\pagina-pdf.cmd` | [pagina-pdf](../../scripts/pagina-pdf/) |
+| PDF bij tekstblad | `scripts\products.cmd --kinds tekstblad` `[map]` | [products (tekstblad)](../../scripts/tekstblad-products/) |
+| Koormap-blad (meerdere stukken op één pagina) | `scripts\pdf.cmd` | [pdf](../../scripts/pdf/) |
 | Opnemen | `bieb accepteer` | [bieb accepteer](../../scripts/bieb-accepteer/) |
 | Alles vóór commit | `scripts\check.cmd --strict` | [check](../../scripts/check/) |
 

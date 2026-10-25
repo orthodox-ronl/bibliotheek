@@ -1,13 +1,14 @@
 """Tekstblad-producten (historisch: sibling ``{stam}.tekstblad.pdf``).
 
-Sinds product-pdf-afbouw + pagina-pdf uit ``.tekstblad.md`` is de
+Sinds product-pdf-afbouw + blad-PDF uit ``.tekstblad.md`` is de
 product-PDF **niet meer verplicht**. Blad print/download:
-``index.pagina.pdf`` via ``scripts\\pagina-pdf.cmd``. Scherm: body van de
+``index.md.pdf`` via ``scripts\\pdf.cmd``. Scherm: body van de
 ``.tekstblad.md`` in ``bieb``.
 
 Dit script blijft als no-op / optioneel herstelpad: ``sync_one`` kan nog
 een PDF schrijven als je het handmatig aanroept; ``TekstbladKind`` heeft
-geen sync-slots meer, dus ``tekstblad-products`` doet standaard niets.
+geen sync-slots meer, dus ``products --kinds tekstblad`` doet standaard
+niets.
 """
 
 from __future__ import annotations
@@ -107,14 +108,14 @@ class TekstbladKind:
     id = "tekstblad"
     label = "Tekstblad-producten"
     source_noun = " .tekstblad.md"
-    fix_cmd = r"scripts\pagina-pdf.cmd"
+    fix_cmd = r"scripts\pdf.cmd"
 
     def collect(self, root: Path) -> list[Path]:
         return collect_tekstblad(root)
 
     def slots_for(self, source: Path, policy: RegenPolicy) -> list[ProductSlot]:
         del source, policy
-        # Geen verplichte product-PDF meer (pagina-pdf rendert uit .md).
+        # Geen verplichte product-PDF meer (blad = index.md.pdf via pdf.cmd).
         return []
 
     def sync(self, source: Path, *, need: Sequence[bool], dry_run: bool) -> None:
@@ -130,7 +131,7 @@ def main(argv: list[str] | None = None) -> int:
         argv,
         description=(
             "Tekstblad: geen verplichte product-PDF meer. "
-            "Pagina: scripts\\pagina-pdf.cmd op de catalogus-leaf."
+            "Pagina: scripts\\pdf.cmd op de catalogus-leaf."
         ),
         default_root=DEFAULT_ROOT,
     )

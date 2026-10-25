@@ -1,5 +1,7 @@
 /**
- * Regressie: S8 recite-hide op alleluia-9a-toon-8-groningen from-ir (zelfde logica als score-osmd.js).
+ * A1-contract: S8-adapter op alleluia-9a-toon-8-groningen from-ir
+ * (zelfde finalize als score-osmd.js). Spacer-koppen moeten weg; lyrics blijven.
+ * Zie docs/specs/schermpartituur.md §5.1.
  */
 import { readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
@@ -57,11 +59,11 @@ async function main() {
   await browser.close();
 
   if (!result.ok) {
-    console.error("S8 alleluia hide check FAILED");
+    console.error("S8 A1 adapter check FAILED");
     console.error(JSON.stringify(result, null, 2));
     process.exit(1);
   }
-  console.log("S8 alleluia hide check OK");
+  console.log("S8 A1 adapter check OK");
   console.log(
     "boven keepVisible=" +
       result.staven.boven.keepVisibleHeads +

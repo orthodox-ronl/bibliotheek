@@ -13,7 +13,7 @@ bestanden die koorleden downloaden en in Coria oefenen. Representatie-id:
 {{< cue >}}
 Na normaliseren en review in MuseScore 4:
 ```cmd
-scripts\mscz-products.cmd content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>
+scripts\products.cmd --kinds mscz content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>
 ```
 Daarna `scripts\check.cmd --strict`. Geen `*.print.mscz` in deze keten.
 {{< /cue >}}
@@ -71,7 +71,7 @@ scripts\ensure-bibliotheek-id.cmd
 6. PDF en Coria-`.mxl` exporteren:
 
 ```cmd
-scripts\mscz-products.cmd content-source\catalogus\trisagion\8a-nederlands\hemelum
+scripts\products.cmd --kinds mscz content-source\catalogus\trisagion\8a-nederlands\hemelum
 ```
 
    Of heel `content-source`. `--force` als producten ouder zijn dan de
@@ -88,9 +88,9 @@ Op GitHub Actions (workflow `pages.yml`):
 - **Wel:** `check_mscz_products.py` en `ensure_bibliotheek_id.py --check-only`
   controleren of PDF/MXL bij de `.mscz` passen en of het catalogus-id
   klopt.
-- **Niet:** MuseScore-export (`mscz-products`). CI heeft geen MuseScore 4.
+- **Niet:** MuseScore-export (`products --kinds mscz`). CI heeft geen MuseScore 4.
   Verouderde of ontbrekende producten laten de build **falen** — jij
-  vernieuwt ze lokaal met `mscz-products` en commit PDF/MXL mee.
+  vernieuwt ze lokaal met `products --kinds mscz` en commit PDF/MXL mee.
 
 `check` schrijft die producten niet. Ontbrekende catalogus-ids zet je
 met `ensure-bibliotheek-id`; `check` meldt ze alleen.
@@ -100,7 +100,7 @@ met `ensure-bibliotheek-id`; `check` meldt ze alleen.
 | Situatie | Commando | Man-page |
 | --- | --- | --- |
 | Layout / normaliseren | `scripts\layout.cmd` `<pad>` | [layout](../../scripts/layout/) |
-| PDF + Coria | `scripts\mscz-products.cmd` `[map]` | [mscz-products](../../scripts/mscz-products/) |
+| PDF + Coria | `scripts\products.cmd --kinds mscz` `[map]` | [products (mscz)](../../scripts/mscz-products/) |
 | Catalogus-id in `.mscz` | `scripts\ensure-bibliotheek-id.cmd` | [ensure-bibliotheek-id](../../scripts/ensure-bibliotheek-id/) |
 | Alles vóór commit | `scripts\check.cmd --strict` | [check](../../scripts/check/) |
 

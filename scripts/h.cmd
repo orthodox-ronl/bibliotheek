@@ -58,21 +58,9 @@ echo     site bouwen naar generated\site
 echo   serve
 echo     lokale preview http://127.0.0.1:18732/
 echo   products
-echo     afgeleide producten ^(PDF/MXL/mp3/...^) bouwen
+echo     afgeleide producten ^(MXL/SVG/mp3/...^); --kinds vsa^|mvsa^|mscz^|audio^|lyrics^|...
 echo   all-products
 echo     alias: products --kinds all
-echo   vsa-products
-echo     Coria-.vsa.mxl + .vsa.pdf + .vsa.svg bij catalogus-.vsa
-echo   mscz-products
-echo     PDF + Coria-.mxl bij basispartituur-.mscz
-echo   tekstblad-products
-echo     PDF bij .tekstblad.md
-echo   mvsa-products
-echo     Coria-.mxl + PDF + SVG + Score-IR + from-ir MusicXML bij .mvsa
-echo   audio-products
-echo     preview-.mp3 ^(Beluisteren^)
-echo   lyrics-products
-echo     lyrics.txt ^(.vsa/.mvsa/.mscz^)
 echo   import-mvsa
 echo     bewerkvorm .mscz.mvsa naast basis-.mscz
 echo   layout
@@ -93,8 +81,8 @@ echo   lifecycle-grenzen
 echo     grenzen werkbank vs catalogus
 echo   oefenhoek-index
 echo     legacy bladermap-SVG uit .vsa ^(fallback^)
-echo   pagina-pdf
-echo     PDF van een koormap- of catalogusblad ^(index.pagina.pdf^)
+echo   pdf
+echo     PDF van een koormap- of catalogusblad ^(index.md.pdf^)
 echo.
 echo Uitgebreide man-pages: content-source\handleiding\scripts\
 echo Repo-lijst: scripts\README.md

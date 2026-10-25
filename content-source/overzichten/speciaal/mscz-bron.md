@@ -10,11 +10,11 @@ aliases:
 
 Uitvoeringsvormen waarvan de catalogusmap een **basispartituur-`.mscz`**
 bevat (geen print-vel `*.print.mscz` alleen). Op het scherm horen die
-bij `{stam}.mscz.svg` (via `scripts\mscz-products.cmd`), niet bij de
+bij `{stam}.mscz.svg` (via `scripts\products.cmd --kinds mscz`), niet bij de
 product-PDF. Geen verplichte omzetting naar `.mvsa`.
 
 **Koninklijke route:** nieuwe of blijvende catalogusbron bij voorkeur als
-**`.mvsa`** (meerstemmige tekstbron → SVG / OSMD via `mvsa-products`). Dat
+**`.mvsa`** (meerstemmige tekstbron → SVG / OSMD via `products --kinds mvsa`). Dat
 is één keten met de rest van de catalogus. Omzetten van een bestaande
 `.mscz` naar `.mvsa` mag wanneer het in de praktijk nuttig is — niet als
 eis vóór publicatie.

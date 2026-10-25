@@ -2,7 +2,7 @@
 
 Platte gezongen tekst via ``vsa.text_export`` (``.vsa`` / ``.mvsa`` / MusicXML /
 ``.mscz``). Stamp-regels bovenaan (``# vsa-source-sha256:`` …). Slaat ``input/``,
-``artefacten_handmatig`` en ``*.print.mscz`` over. Bij basispartituur-``.mscz``
+``manueel/manual`` en ``*.print.mscz`` over. Bij basispartituur-``.mscz``
 bij voorkeur verse sibling-``.mscz.mxl`` (geen MuseScore); anders ``mscz`` →
 temp-``.mxl`` via tooling.
 """
@@ -166,7 +166,7 @@ class LyricsKind:
     id = "lyrics"
     label = "Lyrics-producten"
     source_noun = " bronnen"
-    fix_cmd = r"scripts\lyrics-products.cmd"
+    fix_cmd = r"scripts\products.cmd --kinds lyrics"
 
     def collect(self, root: Path) -> list[Path]:
         return collect_lyric_sources(root)

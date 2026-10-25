@@ -12,10 +12,10 @@ Deze pagina is de HOW.
 
 {{< cue >}}
 Bestandsnaam eindigt op **`.print.mscz`**. Geen `scripts\layout.cmd`, geen
-`mscz-products`, geen Coria-eis uit dit MuseScore-bestand. PDF maak je zelf in
+`products --kinds mscz`, geen Coria-eis uit dit MuseScore-bestand. PDF maak je zelf in
 MuseScore 4 (Bestand → Exporteren → PDF) en commit je naast het print-bestand
 **in de catalogus**. Zet op de catalogus-`index.md`
-`artefacten_handmatig: true` (gele beheerdersbanner).
+`manueel: true` (gele beheerdersbanner).
 {{< /cue >}}
 
 **Wat je nu doet:** een MuseScore-bestand in de **catalogus** zetten dat de
@@ -43,15 +43,15 @@ Voorbeelden in de catalogus:
 | --- | --- |
 | `{stam}.print.mscz` | MuseScore-bron voor een printvel; scripts laten dit met rust |
 | `{stam}.pdf` | Handmatige A4-export |
-| Optioneel: Coria-`.mxl` | Alleen als jij die zelf neerzet en bijhoudt (geen `mscz-products`) |
-| Optioneel: `.vsa` | Notatie naast het printvel; `vsa-products` slaat de map over bij `artefacten_handmatig: true` |
+| Optioneel: Coria-`.mxl` | Alleen als jij die zelf neerzet en bijhoudt (geen `products --kinds mscz`) |
+| Optioneel: `.vsa` | Notatie naast het printvel; `products --kinds vsa` slaat de map over bij `manueel: true` |
 
 Catalogus-id voorbeeld: `kleine-intocht/zo-wk-mg/hemelum`.
 
 Frontmatter op catalogus-`index.md`:
 
 ```yaml
-artefacten_handmatig: true
+manueel: true
 ```
 
 Die regel betekent: PDF, Coria-`.mxl` en andere afgeleiden in **deze** map
@@ -62,10 +62,10 @@ beheerdersmelding. Afspraak over bestandsnamen per spoor:
 ## Wat je niet doet
 
 - Geen `scripts\layout.cmd` op `.print.mscz`.
-- Geen `mscz-products.cmd` voor dit bestand.
+- Geen `products.cmd --kinds mscz` voor dit bestand.
 - Geen hernoemen naar gewone `.mscz` “even snel” — dan eist `check` basispartituur-producten.
-- Geen verwachting dat `vsa-products` de Coria-`.mxl` vernieuwt zolang
-  `artefacten_handmatig: true` staat.
+- Geen verwachting dat `products --kinds vsa` de Coria-`.mxl` vernieuwt zolang
+  `manueel: true` staat.
 
 ## Stap voor stap
 
@@ -77,7 +77,7 @@ beheerdersmelding. Afspraak over bestandsnamen per spoor:
 2. Exporteer PDF handmatig naar `{stam}.pdf` in dezelfde catalogus-map.
    Eventuele Coria-`.mxl` eveneens handmatig (of uit de template-render)
    ernaast zetten en bij elke bronwijziging meenemen.
-3. Catalogus-`index.md` met `artefacten_handmatig: true` (bieb accepteer
+3. Catalogus-`index.md` met `manueel: true` (bieb accepteer
    zet dat automatisch bij `.print.mscz`) + koormap-slot met `bieb`
    (bestaand id: [Zoeken](/overzichten/zoeken/); Hemelum-naslag:
    [Id-register](/overzichten/id-register/)).
@@ -86,7 +86,7 @@ beheerdersmelding. Afspraak over bestandsnamen per spoor:
 ## Klaar als
 
 De catalogusmap bevat `*.print.mscz` en PDF (plus eventueel handmatige `.mxl` /
-`.vsa`); `artefacten_handmatig: true` staat op de `index.md`; koormap-slot
+`.vsa`); `manueel: true` staat op de `index.md`; koormap-slot
 verwijst ernaar; check klaagt niet over ontbrekende automatische Coria voor
 dit printvel.
 

@@ -78,11 +78,11 @@ scripts\layout.cmd pad\naar\bestand.mscz --id trisagion/8a-nederlands/hemelum
 # WHEN
 
 Na opkuisen, of meteen als de inhoud van een ruwe `.mscz` al klopt. Opnieuw
-na elke inhoudelijke editslag, vóór [mscz-products](../mscz-products/).
+na elke inhoudelijke editslag, vóór [products (mscz)](../mscz-products/).
 
 # SEE ALSO
 
 - [opkuisen](../opkuisen/)
-- [mscz-products](../mscz-products/)
+- [products (mscz)](../mscz-products/)
 - [ensure-bibliotheek-id](../ensure-bibliotheek-id/)
 - Workflow: [Standaard-.mscz](/handleiding/partituur/3-standaard-mscz/)

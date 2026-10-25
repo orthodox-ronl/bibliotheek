@@ -119,7 +119,7 @@ def collect_existing_mp3(root: Path) -> list[Path]:
 def check_one(job: AudioJob) -> FolderStatus:
     issues: list[Issue] = []
     mp3 = job.product
-    fix = r"scripts\audio-products.cmd"
+    fix = r"scripts\products.cmd --kinds audio"
     digest = (
         partituur_sha256(job.source)
         if job.kind == SOURCE_KIND_PARTITUUR
@@ -152,7 +152,7 @@ def check_one(job: AudioJob) -> FolderStatus:
                 Issue(
                     "unstamped_mp3",
                     _rel(mp3),
-                    "MP3 mist vsa-partituur-sha256 (opnieuw audio-products)",
+                    "MP3 mist vsa-partituur-sha256 (opnieuw products --kinds audio)",
                 )
             )
         elif kind and kind != SOURCE_KIND_PARTITUUR:
@@ -179,7 +179,7 @@ def check_one(job: AudioJob) -> FolderStatus:
                 Issue(
                     "unstamped_mp3",
                     _rel(mp3),
-                    "MP3 mist vsa-source-sha256 (opnieuw audio-products)",
+                    "MP3 mist vsa-source-sha256 (opnieuw products --kinds audio)",
                 )
             )
         elif kind and kind != job.kind:
@@ -223,7 +223,7 @@ def check_orphan(mp3: Path) -> FolderStatus:
                 "MP3 zonder passende bron (.mvsa / .mscz / .vsa); verwijder of herstel bron",
             )
         ],
-        fix_cmd=r"scripts\audio-products.cmd",
+        fix_cmd=r"scripts\products.cmd --kinds audio",
     )
 
 

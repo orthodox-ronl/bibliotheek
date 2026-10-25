@@ -116,7 +116,7 @@ def test_collect_skips_input_and_handmatig(tmp_path: Path):
     manual = root / "hand"
     manual.mkdir(parents=True)
     (manual / "index.md").write_text(
-        "---\nartefacten_handmatig: true\n---\n", encoding="utf-8"
+        "---\nmanueel: true\n---\n", encoding="utf-8"
     )
     (manual / "oud.vsa.mxl").write_bytes(b"PK")
 

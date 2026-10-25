@@ -6,7 +6,7 @@ nav_sort: weight
 ---
 
 **VSA** is de notatie voor tekst-plus-melodie in een gewoon tekstbestand
-(extensie `.vsa`). `scripts\vsa-products.cmd` maakt daar drie siblings
+(extensie `.vsa`). `scripts\products.cmd --kinds vsa` maakt daar drie siblings
 van: `{stam}.vsa.svg` (het plaatje op het scherm), `{stam}.vsa.pdf`
 (download en print) en `{stam}.vsa.mxl` (**Oefenen** via ♪). `check`
 controleert of die siblings bij de bron passen; `check` schrijft ze

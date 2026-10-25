@@ -76,9 +76,9 @@ python scripts\render_tropaar_toon4_corpus.py --id T4-11 --pdf
 
    - laat het MuseScore-bestand `{stam}.mscz` heten (geen `.print.` in de naam);
    - houd PDF en Coria-`.mxl` zelf bij;
-   - zet op catalogus-`index.md` `artefacten_handmatig: true`
-     (gele beheerdersbanner; `vsa-products` en de partituur-publicatiecontrole slaan de hele map over, ook een `.vsa` in diezelfde map);
-   - wil je de eenstemmige notatie wél automatisch op het scherm, zet die `.vsa` dan niet in een map met `artefacten_handmatig` — zie [.vsa schrijven](../1-vsa-schrijven/).
+   - zet op catalogus-`index.md` `manueel: true`
+     (gele beheerdersbanner; `products --kinds vsa` en de partituur-publicatiecontrole slaan de hele map over, ook een `.vsa` in diezelfde map);
+   - wil je de eenstemmige notatie wél automatisch op het scherm, zet die `.vsa` dan niet in een map met `manueel` / `manual` — zie [.vsa schrijven](../1-vsa-schrijven/).
 
    Daarna koormap-slot via
    [Catalogus en koormap](../../publiceren/1-bladermap/). Print-details:
@@ -95,7 +95,7 @@ niet even tussendoor. Dat is een andere taak, in VSA-tooling.
 ## Klaar als
 
 In de catalogus liggen `{stam}.mscz`, handmatige PDF/MXL en eventueel de
-`.vsa`, met `artefacten_handmatig: true` op de `index.md`. MuseScore toont
+`.vsa`, met `manueel: true` op de `index.md`. MuseScore toont
 SATB; de preview (koormap-slot) heeft PDF plus **Oefenen** / **Downloaden**
 waar je die bestanden hebt neergezet.
 

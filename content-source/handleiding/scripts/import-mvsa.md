@@ -37,7 +37,7 @@ Er wordt geen nieuwe `.mscz.mvsa` aangemaakt voor elke partituur.
 `--create` op een map om ontbrekende siblings te maken.
 
 Bestanden in `input\`, namen die eindigen op `.print.mscz`, en mappen met
-`artefacten_handmatig: true` worden overgeslagen. CI genereert deze
+`manueel: true` worden overgeslagen. CI genereert deze
 bestanden niet; jij wel lokaal (MuseScore 4 nodig), daarna committen als
 je de bewerkvorm wilt bijhouden.
 
@@ -71,6 +71,6 @@ meldt dat een bestaande `.mscz.mvsa` verouderd of zonder stamp is.
 # SEE ALSO
 
 - [check](../check/)
-- [mscz-products](../mscz-products/) (site-PDF/Coria; ander spoor)
+- [products (mscz)](../mscz-products/) (site-PDF/Coria; ander spoor)
 - [Publicatiecontrole](/handleiding/start/publicatiecontrole/) (importcontrole)
 - Tooling: [`mscz import`](https://orthodox-ronl.github.io/VSA-tooling/reference/cli/mscz/)

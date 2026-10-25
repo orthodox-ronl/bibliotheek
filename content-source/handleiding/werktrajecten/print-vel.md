@@ -11,14 +11,14 @@ PDF** bij buiten de basispartituur-keten.
 
 **Doelvorm** (zie [Publicatiecontrole](/handleiding/start/publicatiecontrole/)): het
 bestand heet `{stam}.mscz` (geen `.print.` in de naam) en de bladermap heeft
-`artefacten_handmatig: true`. Afgeleide PDF: `{stam}.mscz.pdf`.
+`manueel: true`. Afgeleide PDF: `{stam}.mscz.pdf`.
 
 **Legacy:** bestandsnaam eindigend op `.print.mscz` blijft herkend tot
 migratie.
 
 {{< cue >}}
-Zet op de catalogus-`index.md` `artefacten_handmatig: true`. Geen
-`scripts\layout.cmd`, geen `mscz-products`. Exporteer de PDF zelf in
+Zet op de catalogus-`index.md` `manueel: true`. Geen
+`scripts\layout.cmd`, geen `products --kinds mscz`. Exporteer de PDF zelf in
 MuseScore 4. Nieuwe bladen: `{stam}.mscz` + `{stam}.mscz.pdf`. Oude bladen
 mogen nog `*.print.mscz` heten.
 {{< /cue >}}
@@ -27,7 +27,7 @@ mogen nog `*.print.mscz` heten.
 
 Soms heb je één A4-vel voor de koormap met layout of tekstregels die de
 basispartituur-normalisatie zou vernielen, of een template-SATB-blad dat
-jij zelf bijhoudt. Dat hoort **niet** door `layout` / `mscz-products` te
+jij zelf bijhoudt. Dat hoort **niet** door `layout` / `products --kinds mscz` te
 lopen.
 
 ## Eindresultaat en criteria
@@ -38,7 +38,7 @@ lopen.
 | `{stam}.print.pdf` of korte `{stam}.pdf` | Handmatige A4-export |
 | Optioneel: Coria-`.mxl` / `.vsa` | Alleen als jij die zelf neerzet en bijhoudt |
 
-**Klaar** als: `artefacten_handmatig: true` op de catalogus-`index.md`;
+**Klaar** als: `manueel: true` op de catalogus-`index.md`;
 PDF staat naast het print-bestand; shortcode `bieb` toont de PDF; gele
 beheerdersbanner op de cataloguspagina.
 
@@ -65,7 +65,7 @@ Voorbeelden in de catalogus:
 4. Zet frontmatter op `index.md`:
 
 ```yaml
-artefacten_handmatig: true
+manueel: true
 ```
 
 5. Eventueel koormap-slot met `bieb`. HOW:
@@ -76,14 +76,14 @@ artefacten_handmatig: true
 
 Geen automatische PDF/Coria uit `.print.mscz`. CI en `check` eisen geen
 `partituur-sha256`-keten voor dit spoor. Maps met
-`artefacten_handmatig: true` worden door `mscz-products` /
-`vsa-products` overgeslagen.
+`manueel: true` worden door `products --kinds mscz` /
+`products --kinds vsa` overgeslagen.
 
 ## Handmatig
 
 | Situatie | Actie |
 | --- | --- |
-| Layout / PDF / Coria | MuseScore 4 met de hand — **geen** `layout` / `mscz-products` |
+| Layout / PDF / Coria | MuseScore 4 met de hand — **geen** `layout` / `products --kinds mscz` |
 | Opnemen | `bieb accepteer` — [bieb accepteer](../../scripts/bieb-accepteer/) |
 | Controle | `scripts\check.cmd --strict` — [check](../../scripts/check/) |
 

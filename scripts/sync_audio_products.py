@@ -2,13 +2,13 @@
 
 Per brontype een eigen product: ``{stam}.mvsa.mp3``, ``{stam}.mscz.mp3``,
 ``{stam}.vsa.mp3``. Roept ``vsa audio`` aan (MuseScore). Bij ``.vsa`` eerst
-tijdelijk syllabifyen (zelfde als ``vsa-products`` / Coria-``.vsa.mxl``),
+tijdelijk syllabifyen (zelfde als ``products --kinds vsa`` / Coria-``.vsa.mxl``),
 zodat preview-audio dezelfde lettergreep-notatie krijgt. Zet herkomststempel
 in ID3 (``vsa-source-sha256`` of ``vsa-partituur-sha256``).
 
-Slaat ``input/``, ``artefacten_handmatig``, import-``.mscz.mvsa`` en
+Slaat ``input/``, ``manueel/manual``, import-``.mscz.mvsa`` en
 ``.print.mscz`` over. CI genereert niet — alleen ``check_audio_products``
-(bestaande siblings); vernieuw lokaal met ``scripts\\audio-products.cmd``.
+(bestaande siblings); vernieuw lokaal met ``scripts\\products.cmd --kinds audio``.
 """
 
 from __future__ import annotations
@@ -167,7 +167,7 @@ class AudioKind:
     id = "audio"
     label = "Audio-producten"
     source_noun = " bronnen"
-    fix_cmd = r"scripts\audio-products.cmd"
+    fix_cmd = r"scripts\products.cmd --kinds audio"
 
     def collect(self, root: Path) -> list[Path]:
         return [job.source for job in collect_audio_jobs(root)]

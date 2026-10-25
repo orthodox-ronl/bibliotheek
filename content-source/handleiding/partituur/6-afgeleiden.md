@@ -10,14 +10,14 @@ weight: 60
 Na basispartituur-edit in de catalogus:
 ```cmd
 scripts\layout.cmd content-source\catalogus\DOEL\STAM.mscz
-scripts\mscz-products.cmd content-source\catalogus\DOEL
+scripts\products.cmd --kinds mscz content-source\catalogus\DOEL
 scripts\check.cmd --strict
 ```
-Of producten voor alles: `scripts\mscz-products.cmd content-source`.
-`--force` op `mscz-products` als de basispartituur nieuwer is maar dat niet in de
+Of producten voor alles: `scripts\products.cmd --kinds mscz content-source`.
+`--force` op `products --kinds mscz` als de basispartituur nieuwer is maar dat niet in de
 bestandsdatum zichtbaar is.
 
-Na `.vsa`-edit: `scripts\vsa-products.cmd` (of alleen `check` lokaal) en
+Na `.vsa`-edit: `scripts\products.cmd --kinds vsa` (of alleen `check` lokaal) en
 commit `.vsa` + `.vsa.mxl` samen.
 {{< /cue >}}
 
@@ -39,7 +39,7 @@ catalogus-`.vsa` die al gepubliceerd wordt, vóór je opnieuw
 
 1. Basispartituur in MuseScore 4 bewerken → Opslaan.
 2. **Opnieuw normaliseren** (`scripts\layout.cmd` op diezelfde basispartituur).
-3. **Producten** (`mscz-products.cmd` op de catalogus-map).
+3. **Producten** (`products.cmd --kinds mscz` op de catalogus-map).
 4. **`check --strict`**.
 5. Preview: koormap-slot openen; PDF-download en **Oefenen** testen.
 
@@ -59,7 +59,7 @@ scripts\layout.cmd content-source\catalogus\trisagion\8a-nederlands\hemelum\tris
 3. Maak PDF en Coria-`.mxl` opnieuw:
 
 ```cmd
-scripts\mscz-products.cmd content-source\catalogus\trisagion\8a-nederlands\hemelum
+scripts\products.cmd --kinds mscz content-source\catalogus\trisagion\8a-nederlands\hemelum
 ```
 
 4. Controleer:
@@ -73,7 +73,7 @@ scripts\check.cmd --strict
 
 ## VSA: Coria-`.vsa.mxl`
 
-`vsa-products` syllabificeert ongescoopte tekst **alleen tijdens export**
+`products --kinds vsa` syllabificeert ongescoopte tekst **alleen tijdens export**
 (Pyphen, temp-bestand). De canonieke `.vsa` blijft geschikt voor SVG op de
 site. Zie [Werktrajecten](/handleiding/werktrajecten/)
 (basispartituur: [Basispartituur](/handleiding/werktrajecten/basispartituur/)).
@@ -81,17 +81,17 @@ site. Zie [Werktrajecten](/handleiding/werktrajecten/)
 Na een wijziging in de catalogus-`.vsa`:
 
 ```cmd
-scripts\vsa-products.cmd
+scripts\products.cmd --kinds vsa
 scripts\check.cmd --strict
 ```
 
 Lokale `check` vernieuwt stale `.vsa.mxl` ook zelf. Commit bron en product
 samen. Banner “VSA-afgeleiden niet in orde”: zelfde commando’s. Mappen met
-`artefacten_handmatig: true` doen **niet** mee — daar houd jij PDF/MXL zelf bij.
+`manueel: true` doen **niet** mee — daar houd jij PDF/MXL zelf bij.
 
 ## Print-`.mscz`
 
-Een bestand dat op `.print.mscz` eindigt, wordt door `mscz-products`
+Een bestand dat op `.print.mscz` eindigt, wordt door `products --kinds mscz`
 overslagen. PDF (en eventuele Coria-`.mxl`) maak je handmatig — zie
 [Print-.mscz](../7-print-mscz/).
 
@@ -100,9 +100,9 @@ overslagen. PDF (en eventuele Coria-`.mxl`) maak je handmatig — zie
 | Symptoom | Meest waarschijnlijke oorzaak | Actie |
 | --- | --- | --- |
 | Preview-banner: basispartituur-afgeleiden niet in orde | PDF/MXL niet vernieuwd na basispartituur-edit | Basispartituur-stappen 2–4 opnieuw |
-| Preview-banner: VSA-afgeleiden niet in orde | `.vsa.mxl` ontbreekt of ouder dan `.vsa` | `vsa-products` + commit |
-| `check` weigert Coria-`.mxl` | Verkeerde `.mxl` (bijv. uit `input\`) of verouderd product | Alleen bibliotheek-producten uit `mscz-products` / `vsa-products` |
-| Producten lijken niet te vernieuwen | Tijdstempels kloppen niet | `mscz-products … --force` of `vsa-products … --force` |
+| Preview-banner: VSA-afgeleiden niet in orde | `.vsa.mxl` ontbreekt of ouder dan `.vsa` | `products --kinds vsa` + commit |
+| `check` weigert Coria-`.mxl` | Verkeerde `.mxl` (bijv. uit `input\`) of verouderd product | Alleen bibliotheek-producten uit `products --kinds mscz` / `products --kinds vsa` |
+| Producten lijken niet te vernieuwen | Tijdstempels kloppen niet | `products.cmd --kinds mscz … --force` of `products.cmd --kinds vsa … --force` |
 
 Meer storingen: [Als het misgaat](../../publiceren/3-als-het-misgaat/).
 

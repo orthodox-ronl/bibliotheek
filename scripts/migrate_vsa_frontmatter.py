@@ -480,7 +480,7 @@ def collect_targets(root: Path) -> list[Path]:
     for p in sorted(root.rglob("*")):
         if p.suffix.lower() not in {".vsa", ".mvsa"}:
             continue
-        if "artefacten_handmatig" in p.parts:
+        if "manueel/manual" in p.parts:
             continue
         if "input" in p.parts:
             continue

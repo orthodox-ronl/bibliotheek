@@ -14,12 +14,12 @@ Wat wél in de bibliotheek staat:
 
 | Wat je wilt | Commando |
 | --- | --- |
-| Liturgische tekst in de catalogus (`{stam}.tekstblad.md` → `{stam}.tekstblad.pdf`) | [tekstblad-products](../../scripts/tekstblad-products/) |
-| PDF van een koormap- of cataloguspagina (`index.pagina.pdf`) | [pagina-pdf](../../scripts/pagina-pdf/) |
-| A4-blad bij een `.vsa` of `.mvsa` | [vsa-products](../../scripts/vsa-products/) / [mvsa-products](../../scripts/mvsa-products/) |
+| Liturgische tekst in de catalogus (`{stam}.tekstblad.md` → `{stam}.tekstblad.pdf`) | [products (tekstblad)](../../scripts/tekstblad-products/) |
+| PDF van een koormap- of cataloguspagina (`index.md.pdf`) | [pdf](../../scripts/pdf/) |
+| A4-blad bij een `.vsa` of `.mvsa` | [products (vsa)](../../scripts/vsa-products/) / [products (mvsa)](../../scripts/mvsa-products/) |
 
 Een generieke export `vsa pdf` hoort in VSA-tooling, niet in deze
 commandolijst. `check` en de Pages-build controleren geen demo-PDF en
 draaien geen `check_demo_pdf_fresh`.
 
-{{< navbuttons "Tekstblad|/handleiding/werktrajecten/tekstblad/" "pagina-pdf|/handleiding/scripts/pagina-pdf/" >}}
+{{< navbuttons "Tekstblad|/handleiding/werktrajecten/tekstblad/" "pdf|/handleiding/scripts/pdf/" >}}

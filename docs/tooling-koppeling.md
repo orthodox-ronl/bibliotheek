@@ -2,6 +2,15 @@
 
 Normatief voor deze repo. Zie ook [AGENTS.md](../AGENTS.md).
 
+**Print-/export-contracten** (checklists, layoutprofielen, Score-IR/OSMD)
+wonen in VSA-tooling — start bij
+[contract-index](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/contract-index.md).
+Bibliotheek-specs (o.a. schermpartituur) **linken** daarnaar; geen parallelle
+checklist hier. Straat-CLIs / products-meta in tooling:
+[straat-clis](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/straat-clis.md).
+Bibliotheek orchestreert met `scripts\products.cmd` en blad-PDF
+`scripts\pdf.cmd` → `index.md.pdf`.
+
 ## Afspraken
 
 1. **Geen tool-forks.** Er mogen geen Python-tools in `bibliotheek` komen die
@@ -49,8 +58,10 @@ De Pages-workflow installeert `vsa-tool` (pin/float), runt
 `mxl validate`: M2/M8, importer-tags, meta),
 `ensure_bibliotheek_id.py --check-only --fail` (colofon `Bibliotheek-id:`),
 daarna Coria-fingerprints en Hugo. CI genereert geen producten — vernieuw
-lokaal met `scripts\products.cmd` (of de losse `*-products.cmd`) en commit
-de siblings.
+lokaal met `scripts\products.cmd` en commit de siblings. Na generatie
+schrijven vsa/mvsa/mscz ook `{bron}.products-meta.json` (zelfde schema als
+tooling); `check_*` leest die meta voor snelle versheid, met stamp-fallback
+zolang meta nog ontbreekt.
 
 Lokaal: `scripts\validate.cmd` of `check` / `check --strict`.
 
@@ -58,7 +69,7 @@ Naamgeving van bronnen en afgeleiden, en welke publicatiecontroles er (gaan) zij
 [publicatiecontrole.md](publicatiecontrole.md).
 
 **Scherm (Score-IR / OSMD):** sibling ``.mvsa.from-ir.musicxml`` (plus
-``.mvsa.score-ir.json``) via ``mvsa-products`` (tooling
+``.mvsa.score-ir.json``) via ``products --kinds mvsa`` (tooling
 ``mvsa score-ir … --musicxml``). Shortcode `muziek` / partial `bieb-score`
 tekent die MusicXML met OSMD als die sibling er is (ook via koormap-`bieb`);
 anders blijft de MuseScore-SVG- of PDF-fallback. Lookafspraken (cues,

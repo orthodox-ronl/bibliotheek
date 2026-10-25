@@ -19,7 +19,7 @@ past bij wat jullie nodig hebben.
 - Indexbestand: `static\zoek\index.json` (bij Pages-deploy opnieuw gebouwd)
 - Synoniemen: [`data/zoek-synoniemen.yaml`](https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml)
 - Gezongen tekst: sibling `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` /
-  `.mscz.lyrics.txt` — zie [lyrics-products](/handleiding/scripts/lyrics-products/)
+  `.mscz.lyrics.txt` — zie [products (lyrics)](/handleiding/scripts/lyrics-products/)
 {{< /cue >}}
 
 ## Hoofdlijnen
@@ -82,13 +82,13 @@ baseURL*.
 
 ### Bouwen van de index
 
-Script: `python scripts\build_zoek_index.py` (ook via `lyrics-products`,
+Script: `python scripts\build_zoek_index.py` (ook via `products --kinds lyrics`,
 `products` / `all-products`, en bij elke Pages-deploy vóór Hugo).
 
 Bronnen: elke uitvoeringsvorm-leaf
 `content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\index.md`
 (uitsluiting: paden onder `input\`). Mappen met
-`artefacten_handmatig: true` doen **wél** mee in de zoekindex (alleen
+`manueel: true` doen **wél** mee in de zoekindex (alleen
 productscripts slaan die over). Gezongen tekst wordt toegevoegd als er in
 die bladermap een canonieke `.vsa`, `.mvsa` of basispartituur-`.mscz` is
 (lyrics-sibling of live `vsa text` / MusicXML). Bij meerdere bronnen in
@@ -161,14 +161,14 @@ op `/`), zodat links onder preview/branch kloppen.
 ### Beheer: synoniemen en lyrics bijwerken
 
 1. Pas `data\zoek-synoniemen.yaml` aan (lowercase sleutels).
-2. Vernieuw lyrics waar nodig: `scripts\lyrics-products.cmd`.
+2. Vernieuw lyrics waar nodig: `scripts\products.cmd --kinds lyrics`.
 3. Of alleen de index: `python scripts\build_zoek_index.py`.
 4. Commit `static\zoek\index.json` als je lokaal wilt spiegelen; op Pages
    wordt de index sowieso opnieuw gebouwd.
 
 ## Zie ook
 
-- [lyrics-products](/handleiding/scripts/lyrics-products/) — gezongen tekst als sibling
+- [products (lyrics)](/handleiding/scripts/lyrics-products/) — gezongen tekst als sibling
 - [Catalogus en koormappen](/handleiding/start/catalogus-en-koormappen/) — model en `bieb`
 - [Publicatiestatus](/handleiding/publiceren/2-status-en-check/) — betekenis van statuslabels
 - [Zangstuk-soorten](/handleiding/start/zangstuk-soorten/) — o.a. synoniem litanie/ektinia

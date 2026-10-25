@@ -8,12 +8,12 @@ weight: 50
 
 **Werktraject** (waartoe, criteria, CI):
 [Basispartituur](/handleiding/werktrajecten/basispartituur/).
-Deze pagina is de HOW voor `mscz-products`.
+Deze pagina is de HOW voor `products --kinds mscz`.
 
 {{< cue >}}
 Basispartituur-`.mscz` staat in het **bibliotheek** (niet alleen in `_werk`). Daarna:
 ```cmd
-scripts\mscz-products.cmd content-source\catalogus\trisagion\8a-nederlands\hemelum
+scripts\products.cmd --kinds mscz content-source\catalogus\trisagion\8a-nederlands\hemelum
 ```
 Of heel `content-source`. `--force` als producten ouder zijn dan de basispartituur of
 de bestandsdatum niet klopt. Lokale `check`/`build`/`serve` vernieuwen
@@ -74,13 +74,13 @@ content-source\catalogus\trisagion\8a-nederlands\hemelum\
 2. Open het opdrachtvenster in `bibliotheek` en maak de producten:
 
 ```cmd
-scripts\mscz-products.cmd content-source\catalogus\trisagion\8a-nederlands\hemelum
+scripts\products.cmd --kinds mscz content-source\catalogus\trisagion\8a-nederlands\hemelum
 ```
 
    Of alles onder content-source:
 
 ```cmd
-scripts\mscz-products.cmd content-source
+scripts\products.cmd --kinds mscz content-source
 ```
 
 3. In die catalogus-map horen naast de `.mscz` ook
@@ -97,7 +97,7 @@ scripts\mscz-products.cmd content-source
 
 | Situatie | Actie |
 | --- | --- |
-| PDF/MXL ouder dan de basispartituur-`.mscz` | Gewoon opnieuw `mscz-products` — of `check` lokaal (pipeline vernieuwt stale) |
+| PDF/MXL ouder dan de basispartituur-`.mscz` | Gewoon opnieuw `products --kinds mscz` — of `check` lokaal (pipeline vernieuwt stale) |
 | Basispartituur inhoudelijk gewijzigd maar bestandsdatum klopt niet | Zet `--force` achter het commando |
 | Preview toont een banner dat basispartituur-afgeleiden niet kloppen | Zie [Afgeleiden](../6-afgeleiden/); opnieuw producten ná laatste normalisatie |
 
@@ -107,7 +107,7 @@ scripts\mscz-products.cmd content-source
   MuseScore gebruiken als publicatiebestand.
 - Geen producten maken van een basispartituur die je daarna nog gaat editen zonder
   opnieuw te normaliseren én producten te vernieuwen.
-- Geen `mscz-products` verwachten voor `*.print.mscz`.
+- Geen `products --kinds mscz` verwachten voor `*.print.mscz`.
 
 ## Klaar als
 

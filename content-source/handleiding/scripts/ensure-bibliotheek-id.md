@@ -27,8 +27,8 @@ Op `main`, met `--fail`, of met `BIBLIOTHEEK_ID_STRICT=1` faalt de check
 als er nog problemen zijn.
 
 Zonder `root` zoekt het script onder `content-source\catalogus`.
-Mappen met `artefacten_handmatig: true` en bestanden `*.print.mscz` worden
-overgeslagen. Na een herstel: opnieuw [mscz-products](../mscz-products/)
+Mappen met `manueel: true` en bestanden `*.print.mscz` worden
+overgeslagen. Na een herstel: opnieuw [products (mscz)](../mscz-products/)
 voor verse PDF’s met het juiste colofon.
 
 # OPTIONS
@@ -47,5 +47,5 @@ een id-mismatch meldt.
 # SEE ALSO
 
 - [layout](../layout/)
-- [mscz-products](../mscz-products/)
+- [products (mscz)](../mscz-products/)
 - [Publicatiecontrole](/handleiding/start/publicatiecontrole/)

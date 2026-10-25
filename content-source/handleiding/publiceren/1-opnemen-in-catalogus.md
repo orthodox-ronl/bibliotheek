@@ -91,7 +91,7 @@ bieb accepteer eniggeboren-zoon/default/hemelum "C:\pad\naar\mijn-bestand.mscz"
 
 5. Voor een **VSA**-bestand hetzelfde patroon, met `.vsa` in plaats van
    `.mscz`. Voor een **print-vel**: bestandsnaam eindigend op `.print.mscz`
-   (het script zet dan ook `artefacten_handmatig` aan).
+   (het script zet dan ook `manueel` / `manual` aan).
 6. De paginatitel volgt uit het catalogus-id (en bij VSA uit de bron).
    Geen aparte `--title` nodig — zie
    [Catalogus en koormappen](/handleiding/start/catalogus-en-koormappen/)

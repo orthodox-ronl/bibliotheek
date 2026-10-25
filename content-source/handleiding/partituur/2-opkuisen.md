@@ -52,7 +52,7 @@ repository-map `bibliotheek` (niet als pagina op deze site).
 | --- | --- |
 | Stemmen op de juiste notenbalken | A4, marges, lettertypes (`scripts\layout.cmd`) |
 | Lettergreep ↔ noot synchroon | Reciteertoon-collaps naar feathered `\|\|O\|\|` (normalisatie) |
-| Geen plakkerige multi-klinker op één noot zonder split | PDF en Coria-`.mxl` (`mscz-products`) |
+| Geen plakkerige multi-klinker op één noot zonder split | PDF en Coria-`.mxl` (`products --kinds mscz`) |
 | Capella: verborgen reciteerkwarten, lege maten, titelrommel | Print-vel buiten de basispartituur (`*.print.mscz`) |
 
 **Normaliseren** (gangbaar: **layouten**) is de volgende scriptstap:
@@ -206,7 +206,7 @@ Twijfel over de catalogus-id? Niet raden — vraag na en noteer in
 
 ## Wat je niet doet bij opkuisen
 
-- Geen PDF of Coria-`.mxl` maken (dat is `mscz-products`, later).
+- Geen PDF of Coria-`.mxl` maken (dat is `products --kinds mscz`, later).
 - Geen MusicXML-roundtrip: basispartituur-`.mscz` exporteren naar `.mxl` en weer
   openen gooit de MuseScore-stijl weg.
 - Geen `scripts\layout.cmd` op `*.print.mscz` (printvel staat buiten deze

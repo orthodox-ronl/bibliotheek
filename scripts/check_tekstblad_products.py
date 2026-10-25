@@ -1,6 +1,6 @@
 """Controleer bibliotheek-``.tekstblad.md`` (geen verplichte product-PDF).
 
-Product-``.tekstblad.pdf`` is afgebouwd: scherm en ``index.pagina.pdf``
+Product-``.tekstblad.pdf`` is afgebouwd: scherm en ``index.md.pdf``
 komen uit de ``.tekstblad.md``. Schrijft
 ``data/tekstblad-product-status.json`` (altijd ok zolang de bron bestaat).
 Exit 1 bij problemen tenzij ``--warn-only``. ``--fail`` is voor
@@ -57,7 +57,7 @@ def check_one(md: Path) -> FolderStatus:
         source=_rel(md),
         ok=True,
         issues=[],
-        fix_cmd=r"scripts\pagina-pdf.cmd",
+        fix_cmd=r"scripts\pdf.cmd",
     )
 
 

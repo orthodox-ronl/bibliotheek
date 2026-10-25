@@ -5,7 +5,7 @@ Roept ``mxl validate`` aan (VSA-tooling):
 - ``*.vsa.mxl`` → ``--profile mono``
 - ``*.mscz.mxl`` / ``*.mvsa.mxl`` → ``--profile satb``
 
-Slaat ``input/`` en ``artefacten_handmatig`` over. Meet alleen bestanden die
+Slaat ``input/`` en ``manueel/manual`` over. Meet alleen bestanden die
 er al zijn (ontbrekend = versheidscontrole). Schrijft
 ``data/mxl-playback-contract-status.json``. Exit 1 bij problemen tenzij
 ``--warn-only``.

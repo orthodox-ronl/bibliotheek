@@ -29,7 +29,7 @@ toe die bij die hoek horen.
 De **default-diepte** is **content**: alleen inhoudsfixes, geen
 A4-pagina-layout. Met `--layout` volgt daarna normaliseren via
 [layout](../layout/). PDF en
-Coria-`.mxl` blijven bij [mscz-products](../mscz-products/).
+Coria-`.mxl` blijven bij [products (mscz)](../mscz-products/).
 
 Dit commando zit **niet** in `check` / `build` / `serve`. Workflow-checklist
 (menselijk werk, stemmen controleren): 
@@ -45,7 +45,7 @@ canonieke bron — niet opnieuw de ruwe dump als waarheid.
 | Wel | Niet |
 | --- | --- |
 | Herkomst bepalen (Capella, generiek MusicXML, MuseScore, VSA) | Stil Capella-heuristieken op elk willekeurig bestand toepassen |
-| Inhoudsfixes die bij die hoek horen (zie manieren hieronder) | PDF of Coria-export (`mscz-products` / `vsa-products`) |
+| Inhoudsfixes die bij die hoek horen (zie manieren hieronder) | PDF of Coria-export (`products --kinds mscz` / `products --kinds vsa`) |
 | Optioneel `--layout` naar basispartituur-`.mscz` | Print-vel `*.print.mscz` bewerken |
 | Rapport zonder schrijven (`--analyze` / `--dry-run`) | Stemmen SAT/B voor jou herschikken als die structureel verkeerd staan |
 | | SVG uit `.vsa` bouwen of `{stam}.vsa.mxl` maken |
@@ -93,7 +93,7 @@ duur en bevestiging (of `-y`).
 
 `--analyze` en `--dry-run` zijn **synoniemen**: beide zetten dezelfde
 optie. Wie “analyse” zoekt gebruikt `--analyze`; wie `--dry-run` kent van
-andere scripts (bijvoorbeeld `mscz-products`) gebruikt die vorm. Het
+andere scripts (bijvoorbeeld `products --kinds mscz`) gebruikt die vorm. Het
 effect is identiek: herkomst, voorgestelde manieren, eventueel
 `vsa validate` bij `.vsa`, **geen** schrijfactie. Combineer je
 `--analyze`/`--dry-run` met `--layout`, dan rapporteert het script alleen
@@ -267,7 +267,7 @@ scripts\opkuisen.cmd pad\naar\stuk.vsa --analyze
 # SEE ALSO
 
 - [layout](../layout/)
-- [mscz-products](../mscz-products/)
+- [products (mscz)](../mscz-products/)
 - Workflow: [Opkuisen](/handleiding/partituur/2-opkuisen/)
 - VSA: [.vsa schrijven](/handleiding/vsa/1-vsa-schrijven/)
 - Implementatie: `scripts\opkuisen.py`, `scripts\opkuis_detect.py`,

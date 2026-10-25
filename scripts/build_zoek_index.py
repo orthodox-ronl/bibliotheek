@@ -1,7 +1,7 @@
 """Bouw ``static/zoek/index.json`` voor client-side bibliotheekzoeken.
 
 Indexeert elke catalogus-uitvoeringsvorm (leaf ``index.md``) op titel, id en
-status — ook mappen met ``artefacten_handmatig: true``. Gezongen tekst komt
+status — ook mappen met ``manueel: true`` / ``manual: true``. Gezongen tekst komt
 uit ``*.lyrics.txt`` / live ``vsa.text_export`` wanneer er een ``.vsa``,
 ``.mvsa`` of basis-``.mscz`` is.
 """
@@ -128,7 +128,7 @@ def collect_leaf_index_mds(root: Path) -> list[Path]:
             continue
         if _catalogus_id_for_leaf_dir(path.parent) is None:
             continue
-        # artefacten_handmatig slaat auto-producten over, niet het zoeken:
+        # manueel/manual slaat auto-producten over, niet het zoeken:
         # die leaves horen wél in de index (titel/id; lyrics uit .vsa e.d.).
         out.append(path)
     return out

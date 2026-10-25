@@ -14,7 +14,7 @@ Lees eerst het model catalogus versus koormap in
 `docs\specs\koormap-paginataal.md` in de repository (shortcodes en
 paginacontract). Hoe de **partituur op het scherm** eruit moet zien
 (OSMD, SVG, titels): `docs\specs\schermpartituur.md`. Pagina-PDF bouwen:
-[pagina-pdf](../scripts/pagina-pdf/).
+[pdf](../scripts/pdf/).
 
 ## Spiekbriefje
 
@@ -30,7 +30,7 @@ paginacontract). Hoe de **partituur op het scherm** eruit moet zien
 
 Op het web zie je geen bladscheiding door `pdf-pagina`; alles staat onder
 elkaar. Alleen de knoppen **Download pagina** en **Print pagina** gebruiken
-die bladindeling, via het bestand `index.pagina.pdf` naast de Markdown.
+die bladindeling, via het bestand `index.md.pdf` naast de Markdown.
 
 ### Muziek uit de catalogus
 
@@ -140,7 +140,7 @@ Compositie met rubrieken (zoals alleluia-tonen):
 ```
 
 Na wijzigingen aan shortcodes of volgorde: draai
-[pagina-pdf](../scripts/pagina-pdf/) opnieuw voor die slot-pagina, anders
+[pdf](../scripts/pdf/) opnieuw voor die slot-pagina, anders
 blijft de oude download staan.
 
 ### Niet gebruiken op een koormap-blad
@@ -159,4 +159,4 @@ Proefslots die deze taal al gebruiken:
 - [Eerste kleine litanie (zondag)](/koormappen/hemelum/liturgie-zondag/eerste-kleine-litanie/)
 - [Alleluia (zondag)](/koormappen/hemelum/liturgie-zondag/alleluia/)
 
-{{< navbuttons "Catalogus en koormappen|/handleiding/start/catalogus-en-koormappen/" "pagina-pdf|/handleiding/scripts/pagina-pdf/" >}}
+{{< navbuttons "Catalogus en koormappen|/handleiding/start/catalogus-en-koormappen/" "pdf|/handleiding/scripts/pdf/" >}}

@@ -9,8 +9,8 @@ aliases:
 ---
 
 Uitvoeringsvormen waarvan de catalogus-`index.md`
-`artefacten_handmatig: true` heeft. Productscripts
-(`mscz-products`, `vsa-products`, …) en publicatiecontrole slaan die
+`manueel: true` heeft. Productscripts
+(`products --kinds mscz`, `products --kinds vsa`, …) en publicatiecontrole slaan die
 mappen over: PDF en MusicXML houd je zelf bij.
 
 Die leaves blijven wél vindbaar via [Zoeken](/overzichten/zoeken/) en

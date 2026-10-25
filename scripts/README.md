@@ -12,15 +12,9 @@ Korte hulp in het opdrachtvenster: `h` (lijst) of `h <naam>` (zelfde als
 | -------- | ---- |
 | `h` | Overzicht van commando’s; `h <naam>` = `<naam> -h` |
 | `validate` | `vsa validate` op `content-source\catalogus` (plus `mvsa validate` als er `.mvsa` staat) |
-| `vsa-products` | Maakt/vernieuwt `{stam}.vsa.mxl` + `{stam}.vsa.svg` via `vsa musicxml` / `vsa svg` + stamp (geen verplichte `.vsa.pdf`) |
-| `mscz-products` | Maakt/vernieuwt `{stam}.mscz.mxl` + `{stam}.mscz.svg` (scherm) via `mscz mxl` / `mvsa svg` + stamp (geen verplichte `.mscz.pdf`) |
-| `tekstblad-products` | Geen verplichte product-PDF meer; blad via `pagina-pdf` uit `.tekstblad.md` |
+| `products` / `all-products` | Afgeleiden bouwen (`--kinds vsa,mvsa,mscz,audio,lyrics,…` of `all`); daarna Coria-fingerprints (niet bij `--dry-run`). Geen `pdf.cmd`. |
 | `import-mvsa` | Maakt/vernieuwt bewerkvorm `{stam}.mscz.mvsa` via `mscz import` + stamp (standaard alleen bestaande siblings) |
-| `mvsa-products` | Maakt/vernieuwt `{stam}.mvsa.mxl` + `{stam}.mvsa.svg` (optioneel) + `{stam}.mvsa.score-ir.json` + `{stam}.mvsa.from-ir.musicxml` via `mvsa musicxml` / `svg` / `score-ir --musicxml` + stamp (geen verplichte `.mvsa.pdf`) |
-| `audio-products` | Maakt/vernieuwt preview-`{stam}.{bron}.mp3` via `vsa audio` + ID3-stamp (Beluisteren) |
-| `lyrics-products` | Maakt/vernieuwt `{stam}.….lyrics.txt` (zoektekst) |
-| `products` / `all-products` | Product-kinds achter elkaar (`all-products` = `--kinds all`); daarna Coria-fingerprints (niet bij `--dry-run`). Geen `pagina-pdf`. |
-| `pagina-pdf` | `index.pagina.pdf` naast een koormap- of catalogus-`index.md` (lokaal; niet in `products` / `check` / CI) |
+| `pdf.cmd` | `index.md.pdf` naast een koormap- of catalogus-`index.md` (lokaal; niet in `products` / `check` / CI) |
 | `layout` | Past layoutprofiel `partituur` toe op `.mscz` / `.mxl` (via tooling) |
 | `ensure-bibliotheek-id` | Zet/controleert colofonregel `Bibliotheek-id:` op basispartituur-`.mscz` |
 | `bump-vsa-tooling-pin` | Zet `vsa-tooling.pin` op tip van VSA-tooling (`main` of andere ref) |
@@ -58,6 +52,6 @@ pin op `main` via `vsa-tooling.pin`).
 
 ```cmd
 scripts\_ensure.cmd --hugo --vsa-tool
-scripts\vsa-products.cmd
+scripts\products.cmd --kinds vsa
 check --strict
 ```
