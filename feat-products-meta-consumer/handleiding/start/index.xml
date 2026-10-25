@@ -3,18 +3,20 @@
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;ol&gt;
-&lt;li&gt;Installeer MuseScore &lt;strong&gt;4&lt;/strong&gt; (niet MuseScore 3) als je partituren bewerkt.&lt;/li&gt;
+&lt;li&gt;Installeer de programma’s uit de tabel hieronder (minstens: Git, Python 3.14, Hugo Extended, MuseScore 4, ffmpeg).&lt;/li&gt;
+&lt;li&gt;Zet de mappen uit &lt;a href="#path"&gt;PATH&lt;/a&gt;
+ op je gebruikers-PATH; controleer met &lt;code&gt;where&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;Zorg dat de map &lt;code&gt;bibliotheek&lt;/code&gt; staat onder &lt;code&gt;C:\Git\orthodox-ronl\&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;Open Verkenner, ga naar &lt;code&gt;C:\Git\orthodox-ronl\bibliotheek&lt;/code&gt;, typ &lt;code&gt;cmd&lt;/code&gt; in de adresbalk, druk Enter.&lt;/li&gt;
-&lt;li&gt;Zet &lt;code&gt;.\scripts&lt;/code&gt; op je PATH (org-conventie), of roep &lt;code&gt;scripts\….cmd&lt;/code&gt; aan vanuit de repo-root.&lt;/li&gt;
-&lt;li&gt;Lokale preview: &lt;code&gt;serve&lt;/code&gt; en open http://127.0.0.1:18732/ in de browser.&lt;/li&gt;
+&lt;li&gt;Controletest: &lt;code&gt;check&lt;/code&gt; (moet zonder “not found on PATH” eindigen). Lokale preview: &lt;code&gt;serve&lt;/code&gt; → http://127.0.0.1:18732/&lt;/li&gt;
 &lt;/ol&gt;
 
  &lt;/div&gt;
 &lt;/aside&gt;
 
 &lt;p&gt;&lt;strong&gt;Wat je nu doet:&lt;/strong&gt; je pc zo inrichten dat de rest van deze handleiding
-neerkomt op copy-paste, zonder zoeken naar paden.&lt;/p&gt;</description></item><item><title>Levenscyclus van een uitvoeringsvorm</title><link>https://orthodox-ronl.github.io/bibliotheek/feat-products-meta-consumer/handleiding/start/levenscyclus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/feat-products-meta-consumer/handleiding/start/levenscyclus/</guid><description>&lt;h1 id="levenscyclus-van-een-uitvoeringsvorm"&gt;Levenscyclus van een uitvoeringsvorm&lt;/h1&gt;
+neerkomt op copy-paste in het Windows-opdrachtvenster, zonder zoeken naar
+paden.&lt;/p&gt;</description></item><item><title>Levenscyclus van een uitvoeringsvorm</title><link>https://orthodox-ronl.github.io/bibliotheek/feat-products-meta-consumer/handleiding/start/levenscyclus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/feat-products-meta-consumer/handleiding/start/levenscyclus/</guid><description>&lt;h1 id="levenscyclus-van-een-uitvoeringsvorm"&gt;Levenscyclus van een uitvoeringsvorm&lt;/h1&gt;
 &lt;p&gt;Elke &lt;strong&gt;uitvoeringsvorm&lt;/strong&gt; (catalogus-id
 &lt;code&gt;zangstuk/variant/uitvoeringsvorm&lt;/code&gt;) is een &lt;em&gt;case&lt;/em&gt;: je weet in welke
 &lt;strong&gt;lifecycle-fase&lt;/strong&gt; die zit, welke scripts en bestanden bij die fase

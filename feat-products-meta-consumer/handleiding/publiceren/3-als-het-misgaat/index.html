@@ -65,7 +65,12 @@ volgende <code>check</code>. Zet <code>manueel: true</code> op de catalogus-<cod
 als PDF/MXL handmatig blijven.</p><h2 id=musescore-start-niet--niet-gevonden>MuseScore start niet / “niet gevonden”</h2><p>Layout en <code>products --kinds mscz</code> hebben MuseScore <strong>4</strong> nodig. Installeer
 MuseScore 4; gebruik niet MuseScore 3. Open het opdrachtvenster opnieuw
 na installatie. (Voor alleen <code>.vsa</code> → Coria is MuseScore niet nodig:
-<code>products --kinds vsa</code>.)</p><h2 id=de-pagina-is-lelijk-of-de-stijl-is-weg>De pagina is lelijk of de stijl is weg</h2><p>Meestal: geëxporteerd naar MusicXML en weer geopend. Ga terug naar de
+<code>products --kinds vsa</code>.)</p><h2 id=ffmpeg-niet-gevonden--audio-export-faalt>ffmpeg niet gevonden / audio-export faalt</h2><p><strong>Symptoom:</strong> <code>products --kinds audio</code> of <code>vsa audio</code> stopt met een melding
+over ontbrekende <strong>ffmpeg</strong>.</p><p>Preview-<code>.mp3</code> vereist MuseScore <strong>én</strong> ffmpeg (stilte aan het eind
+wegknippen). Installeer ffmpeg, zet de map met <code>ffmpeg.exe</code> op PATH, open
+een nieuw <code>cmd</code>-venster, controleer met <code>where ffmpeg</code>. Stappen:
+<a href=/bibliotheek/feat-products-meta-consumer/handleiding/start/wat-heb-je-nodig/>Wat heb je nodig</a>
+.</p><h2 id=de-pagina-is-lelijk-of-de-stijl-is-weg>De pagina is lelijk of de stijl is weg</h2><p>Meestal: geëxporteerd naar MusicXML en weer geopend. Ga terug naar de
 basispartituur-<code>.mscz</code> (of opnieuw vanaf opgekuiste <code>.mxl</code> plus normaliseren). Daarna:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\layout.cmd pad\naar\bestand.mscz
 </span></span></code></pre></div><h2 id=coria-failed-to-retrieve-file>Coria: <code>failed to retrieve file</code></h2><p>Coria haalt het muziekbestand zelf vanaf internet op. <strong>Oefenen</strong> (via
 tip-icoon <strong>♪</strong>) moet daarom naar een <strong>volledig</strong> adres op

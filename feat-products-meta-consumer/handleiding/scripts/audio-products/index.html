@@ -47,7 +47,11 @@ velden als bij PDF/MXL: hash van de bron, wanneer gemaakt). Zo ziet
 <code>check</code> later of de bron is gewijzigd terwijl het mp3 nog oud is.</p><p>Zoekt onder het opgegeven pad (of, zonder pad, onder
 <code>content-source\catalogus</code>). Overgeslagen: <code>input\</code>, mappen met
 <code>manueel: true</code>, import-siblings <code>*.mscz.mvsa</code>, en
-<code>.print.mscz</code>.</p><p>Onder de motorkap: tooling-CLI <code>vsa audio</code> (MuseScore 4). Bij <code>.vsa</code>
+<code>.print.mscz</code>.</p><p>Onder de motorkap: tooling-CLI <code>vsa audio</code> (MuseScore 4 + <strong>ffmpeg</strong> op
+PATH). MuseScore rendert het geluid; ffmpeg knipt sleepstilte aan het eind
+van het <code>.mp3</code> weg. Beide horen geïnstalleerd te zijn — zie
+<a href=/bibliotheek/feat-products-meta-consumer/handleiding/start/wat-heb-je-nodig/>Wat heb je nodig</a>
+. Bij <code>.vsa</code>
 syllabificeert het script eerst in een <strong>tijdelijk</strong> bestand (zelfde als
 <code>products --kinds vsa</code> voor Coria), zodat Beluisteren dezelfde lettergreep-noten
 heeft als Oefenen; de canonieke <code>.vsa</code> blijft ongewijzigd. CI genereert
