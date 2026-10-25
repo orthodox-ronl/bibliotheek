@@ -172,15 +172,14 @@ jobs:
           cache: npm
           cache-dependency-path: scripts/osmd-nav-check/package-lock.json
 
-      - name: Check OSMD speelplan-navigatie zichtbaar
+      - name: Check OSMD speelplan-navigatie + S8 A1-adapter
         run: |
           set -euo pipefail
           cd scripts/osmd-nav-check
           npm ci
           npx playwright install --with-deps chromium
           node check.mjs
-          # S8 A1-adapter (s8-alleluia-hide-check.mjs): nog niet — pas als
-          # die groen is én SVG-bypass in bieb-score weg is.
+          node s8-alleluia-hide-check.mjs
 
       - name: Check bibliotheek-id in MSCZ colofon
         run: python scripts/ensure_bibliotheek_id.py --check-only --fail

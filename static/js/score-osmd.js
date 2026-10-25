@@ -886,14 +886,35 @@
 
   var S8_CLUSTER_X_TOL = 6;
 
+  /**
+   * OSMD tekent per part meestal eerst alle voice-1-noten, daarna voice 2
+   * (zelfde volgorde als MusicXML-slots). Chunks van ``slotCount`` = één stem.
+   * Betrouwbaarder dan x-clustering ná hide (spacer-bbox → 0 → kolommen schuiven).
+   */
+  function voiceNoteRowsFromDom(staveNoteEls, slotCount) {
+    var notes = Array.prototype.slice.call(staveNoteEls);
+    if (!notes.length || !slotCount) {
+      return [];
+    }
+    if (notes.length <= slotCount) {
+      return [notes];
+    }
+    var rows = [];
+    var offset = 0;
+    while (offset < notes.length) {
+      rows.push(notes.slice(offset, offset + slotCount));
+      offset += slotCount;
+    }
+    return rows;
+  }
+
   function clusterStaveNotesBySvgX(staveNoteEls, xTol) {
     var items = [];
     for (var i = 0; i < staveNoteEls.length; i += 1) {
       var bb = staveNoteEls[i].getBBox();
-      if (bb.width <= 0.5 && bb.height <= 0.5) {
-        continue;
-      }
-      items.push({ el: staveNoteEls[i], x: bb.x + bb.width / 2 });
+      // Inclusief verborgen spacers (w≈0): anders schuift de kolom-index na hide.
+      var x = bb.width > 0.5 ? bb.x + bb.width / 2 : bb.x;
+      items.push({ el: staveNoteEls[i], x: x });
     }
     items.sort(function (a, b) {
       return a.x - b.x;
@@ -958,11 +979,50 @@
     if (!slots || !slots.length) {
       return;
     }
+    var rows = voiceNoteRowsFromDom(staveNoteEls, slots.length);
+    var usedDomRows = false;
+    var ri;
+    var s;
+    if (rows.length && rows[0].length === slots.length) {
+      usedDomRows = true;
+      for (ri = 0; ri < rows.length; ri += 1) {
+        var row = rows[ri];
+        for (s = 0; s < slots.length && s < row.length; s += 1) {
+          if (slots[s].spacer) {
+            hideStaveNoteheadGraphics(row[s]);
+          } else if (slots[s].breve) {
+            markBreveStaveNotes([row[s]]);
+          }
+        }
+      }
+      for (s = 0; s < slots.length; s += 1) {
+        if (!slots[s].spacer) {
+          continue;
+        }
+        var sample = rows[0][s];
+        if (!sample) {
+          continue;
+        }
+        try {
+          var bb = sample.getBBox();
+          hideLedgersNearX(
+            measureEl,
+            bb.x + bb.width / 2,
+            S8_CLUSTER_X_TOL
+          );
+        } catch (e) {
+          /* ignore */
+        }
+      }
+    }
+    if (usedDomRows) {
+      return;
+    }
+    // Fallback: x-clustering (zeldzaam als DOM-volgorde ≠ slotCount).
     var clusters = alignClustersToSlotCount(
       clusterStaveNotesBySvgX(staveNoteEls, S8_CLUSTER_X_TOL),
       slots.length
     );
-    var s;
     for (s = 0; s < slots.length && s < clusters.length; s += 1) {
       var slot = slots[s];
       var col = clusters[s].notes;
@@ -1277,7 +1337,7 @@
   } else {
     init();
   }
-  window.__VSA_SCORE_OSMD_BUILD = "20261024-lyric-gap";
+  window.__VSA_SCORE_OSMD_BUILD = "20261025-s8-a1-domrows";
 
   function diagnoseStaff(measures, byPart, mi, label) {
     var out = { label: label };
@@ -1292,43 +1352,42 @@
       return out;
     }
     var notes = measures[mi].querySelectorAll(".vf-stavenote");
-    var clusters = alignClustersToSlotCount(
-      clusterStaveNotesBySvgX(notes, S8_CLUSTER_X_TOL),
-      slots.length
-    );
+    var rows = voiceNoteRowsFromDom(notes, slots.length);
     var keepVisible = 0;
     var spacerVisible = 0;
     var cadenceVisible = 0;
     var breveMarked = 0;
+    var firstSpacer = -1;
+    var k;
+    for (k = 0; k < slots.length; k += 1) {
+      if (slots[k].spacer) {
+        firstSpacer = k;
+        break;
+      }
+    }
+    var ri;
     var si;
-    for (si = 0; si < slots.length && si < clusters.length; si += 1) {
-      var col = clusters[si].notes;
-      var ci;
-      for (ci = 0; ci < col.length; ci += 1) {
-        if (!staveNoteHasVisibleNotehead(col[ci])) {
+    for (ri = 0; ri < rows.length; ri += 1) {
+      var row = rows[ri];
+      for (si = 0; si < slots.length && si < row.length; si += 1) {
+        if (!staveNoteHasVisibleNotehead(row[si])) {
+          // Spacer mag onzichtbaar zijn; meet geen false keep.
+          if (slots[si].spacer) {
+            continue;
+          }
           continue;
         }
         if (slots[si].spacer) {
           spacerVisible += 1;
         } else if (slots[si].breve) {
           keepVisible += 1;
-          if (col[ci].getAttribute("data-osmd-breve") === "1") {
+          if (row[si].getAttribute("data-osmd-breve") === "1") {
             breveMarked += 1;
           }
-        } else if (si < slots.length) {
-          var firstSpacer = -1;
-          var k;
-          for (k = 0; k < slots.length; k += 1) {
-            if (slots[k].spacer) {
-              firstSpacer = k;
-              break;
-            }
-          }
-          if (firstSpacer < 0 || si < firstSpacer) {
-            keepVisible += 1;
-          } else {
-            cadenceVisible += 1;
-          }
+        } else if (firstSpacer < 0 || si < firstSpacer) {
+          keepVisible += 1;
+        } else {
+          cadenceVisible += 1;
         }
       }
     }
@@ -1340,7 +1399,8 @@
     }
     out.slotCount = slots.length;
     out.hideCols = hideCols;
-    out.clusterCount = clusters.length;
+    out.voiceRows = rows.length;
+    out.noteCount = notes.length;
     out.keepVisibleHeads = keepVisible;
     out.spacerVisibleHeads = spacerVisible;
     out.cadenceVisibleHeads = cadenceVisible;
@@ -1368,11 +1428,11 @@
         label + ": breve «le» niet gemarkeerd (data-osmd-breve)"
       );
     }
-    if (clusters.length < slots.length) {
+    if (rows.length && rows[0].length < slots.length) {
       out.hints.push(
         label +
-          ": minder x-kolommen (" +
-          clusters.length +
+          ": DOM-stemrij korter (" +
+          rows[0].length +
           ") dan MusicXML-slots (" +
           slots.length +
           ")"

@@ -47,20 +47,16 @@ horen bij de Hugo-pagina (catalogus-H1) of bij koormap-`kop` / Markdown.
 De site kiest in deze volgorde ([`bieb-score.html`](../../layouts/partials/bieb-score.html)):
 
 1. **OSMD** — sibling `{stam}.mvsa.from-ir.musicxml` (Score-IR → MusicXML),
-   **behalve** S8-recite met spacer-noten (`<notehead>none</notehead>` in
-   from-ir): dan **`.mvsa.svg`** op het scherm zolang OSMD die printlaag niet
-   betrouwbaar tekent (§5.1).
+   inclusief S8-recite (§5.1 A1-adapter).
 2. **Muziek-SVG** — sibling `{stam}.mvsa.svg`, `{stam}.vsa.svg` of `{stam}.mscz.svg` (anders legacy `static/vsa/bladermap/….svg` bij `.vsa`)
 3. **Tekstblad** — body van sibling `{stam}.tekstblad.md` (HTML; geen product-PDF als viewer)
 4. **PDF op scherm** — alleen als 1–3 ontbreken
 
 Gevolgen:
 
-- Waar OSMD beschikbaar is (geen S8-bypass), is dat de **gewenste** schermlook.
-- **S8 (nu):** from-ir met `<notehead>none</notehead>` + sibling `.mvsa.svg` →
-  SVG op het scherm (`bieb-score.html`). OSMD+A1-adapter blijft experiment
-  op branch `feat/products-meta-consumer`.
-- SVG is ook **fallback** voor bronnen zonder Score-IR (`.vsa`, basispartituur-`.mscz`).
+- Waar from-ir beschikbaar is, wint **OSMD** (geen MuseScore-paginamodel; geen
+  `.mvsa.svg`-bypass meer bij S8).
+- SVG is **fallback** of het schermpad voor bronnen zonder Score-IR (`.vsa`, basispartituur-`.mscz`).
 - Tekstblad toont de Markdown/HTML-bron op scherm; product-PDF is geen viewer meer.
 - PDF-op-scherm blijft alleen nood-fallback als SVG/OSMD/tekstblad-md ontbreken.
 - Coria (`.mxl` / Oefenen) en audio horen **niet** bij de schermlook van de partituur; die acties zitten in tip-icoon **♪**.
@@ -172,7 +168,8 @@ Kort overzicht (details en patronen blijven in speelplan.md):
 2. **Bibliotheek** — steekproef/`scripts\check_osmd_nav_zichtbaar.cmd` (ook in
    `check` en Pages-CI): OSMD moet die tekens **zichtbaar tekenen** (VexFlow-
    modifiers / SVG), niet alleen dat ze in `.from-ir.musicxml` staan
-   (besluit 9). S8 A1-adapter-check volgt op de S8-experimentbranch.
+   (besluit 9); én S8 A1-adapter op `alleluia/9a-toon-8/groningen`
+   (`s8-alleluia-hide-check.mjs`).
 
 Repro-voorbeeld volta: catalogus
 `alleluia/9a-toon-1/groningen` (`@speelplan 1, 2, 1, 2, 1, 3`).
@@ -187,7 +184,7 @@ Repro-voorbeeld volta: catalogus
 | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Bron      | Sibling `{stam}.mvsa.from-ir.musicxml`.                                                                                                                                                                                                                                                                                                                              |
 | Gedrag    | Volgt §4; bron van waarheid voor clientgedrag: `static/js/score-osmd.js`.                                                                                                                                                                                                                                                                                            |
-| S8-recite | From-ir met `<notehead>none</notehead>`: site toont **`{stam}.mvsa.svg`** als sibling (MuseScore `mvsa svg`), geen OSMD — spacer/breve/recite-tekst is print-MuseScore-semantiek, geen VexFlow-pariteit. From-ir blijft product (o.a. nav-CI). Experiment OSMD+A1: branch `feat/products-meta-consumer`. Tooling: [osmd-s8-recite](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/osmd-s8-recite.md). |
+| S8-recite | **A1-contract (norm):** from-ir-marker `<notehead>none</notehead>` (+ `stem none`; lyrics op de noot). OSMD eert die tag niet; `score-osmd.js` is de product-adapter (DOM-volgorde per stem → spacer-koppen/ledgers/streepjes verbergen). Geen `.mvsa.svg`-bypass om S8. Plan afgerond: [osmd-s8-recite](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/osmd-s8-recite.md). CI: `s8-alleluia-hide-check.mjs` via `check_osmd_nav_zichtbaar`. |
 | Systemen  | Volgens MusicXML (`newSystemFromXML`); cues niet afkappen.                                                                                                                                                                                                                                                                                                           |
 
 ### 5.2 SVG-fallback
@@ -207,9 +204,10 @@ volta. Enige `<title>mvsa-…</title>` is SVG-meta, geen bladkop. Technische
 gap-audit: VSA-tooling
 [`docs/plans/schermeisen-vereniging.md`](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/schermeisen-vereniging.md).
 
-**Steekproef (S8):** catalogus `alleluia/9a-toon-8/groningen` — scherm via
-sibling `.mvsa.svg` (bypass). OSMD+adapter-doelbeeld blijft op de
-S8-experimentbranch peilbaar met `s8-alleluia-hide-check.mjs`.
+**Steekproef (S8 / A1-adapter):** catalogus
+`alleluia/9a-toon-8/groningen` — scherm via from-ir + OSMD; na adapter:
+kwart → breve → midden alleen tekst → kwart → cadens. CI:
+`s8-alleluia-hide-check.mjs`.
 
 Als MuseScore een §4-regel die **wel** voor beide ketens bindend is nog
 niet haalt: documenteer de gap of open een VSA-tooling-ticket — versoepel
