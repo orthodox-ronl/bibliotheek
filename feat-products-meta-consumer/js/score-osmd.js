@@ -918,9 +918,9 @@
   }
 
   function hideLedgersNearX(measureEl, xCenter, xTol) {
-    var tol = xTol + 10;
+    var tol = xTol + 12;
     Array.prototype.forEach.call(
-      measureEl.querySelectorAll(".vf-ledgers, .vf-ledger"),
+      measureEl.querySelectorAll(".vf-ledgers, .vf-ledger, .vf-ledgers path"),
       function (el) {
         var bb;
         try {
@@ -928,7 +928,7 @@
         } catch (e) {
           return;
         }
-        var cx = bb.x + bb.width / 2;
+        var cx = bb.width > 0.5 ? bb.x + bb.width / 2 : bb.x;
         if (Math.abs(cx - xCenter) <= tol) {
           osmdHideSvgEl(el);
         }
@@ -936,14 +936,77 @@
     );
   }
 
-  function markBreveStaveNotes(notes) {
-    for (var i = 0; i < notes.length; i += 1) {
-      notes[i].setAttribute("data-osmd-breve", "1");
-      Array.prototype.forEach.call(
-        notes[i].querySelectorAll(".vf-stem, .vf-flag"),
-        osmdHideSvgEl
-      );
+  function staveNoteCenterX(staveNoteEl) {
+    try {
+      var bb = staveNoteEl.getBBox();
+      return bb.width > 0.5 ? bb.x + bb.width / 2 : bb.x;
+    } catch (e) {
+      return null;
     }
+  }
+
+  /**
+   * OSMD eert MusicXML ``notehead breve`` niet als ||O|| — tekent een gewone
+   * oval. Vervang de kop door een stokloze breve-achtige glyph.
+   */
+  function paintBreveHead(staveNoteEl) {
+    staveNoteEl.setAttribute("data-osmd-breve", "1");
+    Array.prototype.forEach.call(
+      staveNoteEl.querySelectorAll(".vf-stem, .vf-flag"),
+      osmdHideSvgEl
+    );
+    var headGroup =
+      staveNoteEl.querySelector("g.vf-notehead") ||
+      staveNoteEl.querySelector("g.vf-note");
+    if (!headGroup) {
+      return;
+    }
+    var ref =
+      headGroup.querySelector("path, ellipse, circle") || headGroup;
+    var bb;
+    try {
+      bb = ref.getBBox();
+    } catch (e) {
+      return;
+    }
+    if (bb.width < 0.5 || bb.height < 0.5) {
+      return;
+    }
+    Array.prototype.forEach.call(
+      headGroup.querySelectorAll("path, ellipse, circle, rect, use"),
+      osmdHideSvgEl
+    );
+    var cx = bb.x + bb.width / 2;
+    var cy = bb.y + bb.height / 2;
+    // Ruimer dan OSMD-oval, zodat ||O|| herkenbaar is t.o.v. een hele noot.
+    var rx = Math.max(bb.width * 0.85, 9);
+    var ry = Math.max(bb.height * 0.55, 5.5);
+    var NS = "http://www.w3.org/2000/svg";
+    var g = document.createElementNS(NS, "g");
+    g.setAttribute("class", "vsa-osmd-breve");
+    g.setAttribute("data-osmd-breve-paint", "1");
+    var oval = document.createElementNS(NS, "ellipse");
+    oval.setAttribute("cx", String(cx));
+    oval.setAttribute("cy", String(cy));
+    oval.setAttribute("rx", String(rx));
+    oval.setAttribute("ry", String(ry));
+    oval.setAttribute("fill", "none");
+    oval.setAttribute("stroke", "#000000");
+    oval.setAttribute("stroke-width", "1.6");
+    g.appendChild(oval);
+    var barDx = rx + 2.2;
+    var barH = ry + 3.5;
+    [-1, 1].forEach(function (side) {
+      var bar = document.createElementNS(NS, "line");
+      bar.setAttribute("x1", String(cx + side * barDx));
+      bar.setAttribute("x2", String(cx + side * barDx));
+      bar.setAttribute("y1", String(cy - barH));
+      bar.setAttribute("y2", String(cy + barH));
+      bar.setAttribute("stroke", "#000000");
+      bar.setAttribute("stroke-width", "2");
+      g.appendChild(bar);
+    });
+    headGroup.appendChild(g);
   }
 
   function hideS8SlotsInMeasure(measureEl, flags, staveNoteEls) {
@@ -953,22 +1016,20 @@
     var notes = Array.prototype.slice.call(staveNoteEls);
     var n = Math.min(flags.length, notes.length);
     var i;
+    var spacerXs = [];
     for (i = 0; i < n; i += 1) {
       if (flags[i].spacer) {
-        hideStaveNoteheadGraphics(notes[i]);
-        try {
-          var bb = notes[i].getBBox();
-          hideLedgersNearX(
-            measureEl,
-            bb.x + bb.width / 2,
-            S8_CLUSTER_X_TOL
-          );
-        } catch (e) {
-          /* ignore */
+        var sx = staveNoteCenterX(notes[i]);
+        if (sx != null) {
+          spacerXs.push(sx);
         }
+        hideStaveNoteheadGraphics(notes[i]);
       } else if (flags[i].breve) {
-        markBreveStaveNotes([notes[i]]);
+        paintBreveHead(notes[i]);
       }
+    }
+    for (i = 0; i < spacerXs.length; i += 1) {
+      hideLedgersNearX(measureEl, spacerXs[i], S8_CLUSTER_X_TOL);
     }
   }
 
@@ -1035,6 +1096,7 @@
       }
     }
     if (xmlText.indexOf("<notehead>none</notehead>") !== -1) {
+      // Syllabische streepjes horen niet bij S8-midden (alleen tekst).
       Array.prototype.forEach.call(
         mount.querySelectorAll(
           "g.vf-text.dash, g.vf-text.lyrics line, g.vf-text.lyrics path"
@@ -1042,7 +1104,8 @@
         osmdHideSvgEl
       );
       Array.prototype.forEach.call(mount.querySelectorAll("text"), function (t) {
-        if (String(t.textContent || "").trim() !== "-") {
+        var s = String(t.textContent || "").trim();
+        if (s !== "-" && s !== "–" && s !== "—") {
           return;
         }
         osmdHideSvgEl(t);
@@ -1050,13 +1113,19 @@
           osmdHideSvgEl(t.parentElement);
         }
       });
+      // Brede dunne ledgers (restanten van spacer-rijen op de balk).
       Array.prototype.forEach.call(
-        mount.querySelectorAll(".vf-ledgers"),
+        mount.querySelectorAll(".vf-ledgers, .vf-ledger"),
         function (g) {
           if (g.getAttribute("data-osmd-spacer-ledger") === "1") {
             return;
           }
-          var bb = g.getBBox();
+          var bb;
+          try {
+            bb = g.getBBox();
+          } catch (e) {
+            return;
+          }
           if (bb.width > 80 && bb.height < 8) {
             osmdHideSvgEl(g);
             g.setAttribute("data-osmd-spacer-ledger", "1");
@@ -1272,7 +1341,7 @@
   } else {
     init();
   }
-  window.__VSA_SCORE_OSMD_BUILD = "20261025-s8-a1-zip1";
+  window.__VSA_SCORE_OSMD_BUILD = "20261025-s8-a1-breve";
 
   function diagnoseStaff(measures, byPart, mi, label) {
     var out = { label: label };
