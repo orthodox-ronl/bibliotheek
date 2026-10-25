@@ -79,6 +79,27 @@ def test_hard_limit_rejects_yes_without_tty(
     assert "dubbele bevestiging" in out or "HEEL zeker" in out or "grote batch" in out
 
 
+def test_already_confirmed_skips_hard_limit(
+    tmp_path: Path, monkeypatch, capsys
+) -> None:
+    monkeypatch.setattr(bg, "STORE_PATH", tmp_path / "t.json")
+    monkeypatch.setattr(bg.sys.stdin, "isatty", lambda: True)
+
+    def _boom(_p: str) -> str:
+        raise AssertionError("geen input bij already_confirmed")
+
+    monkeypatch.setattr(bg, "_read_answer", _boom)
+    assert bg.confirm_batch(
+        "product_vsa",
+        n=bg.HARD_LIMIT + 1,
+        headline="rebuild",
+        yes=True,
+        already_confirmed=True,
+    )
+    out = capsys.readouterr().out
+    assert "aanroepende batch" in out
+
+
 def test_hard_limit_double_confirm(tmp_path: Path, monkeypatch, capsys) -> None:
     monkeypatch.setattr(bg, "STORE_PATH", tmp_path / "t.json")
     monkeypatch.setattr(bg.sys.stdin, "isatty", lambda: True)

@@ -79,7 +79,7 @@ def parse_product_args(
     default_root: Path = DEFAULT_ROOT,
     add_extra: Callable[[argparse.ArgumentParser], None] | None = None,
 ) -> argparse.Namespace:
-    from batch_guard import add_yes_argument
+    from batch_guard import add_already_confirmed_argument, add_yes_argument
 
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument(
@@ -91,6 +91,7 @@ def parse_product_args(
     )
     add_regen_arguments(parser)
     add_yes_argument(parser)
+    add_already_confirmed_argument(parser)
     if add_extra is not None:
         add_extra(parser)
     return parser.parse_args(argv)
@@ -103,6 +104,7 @@ def run_kind(
     *,
     dry_run: bool = False,
     yes: bool = False,
+    already_confirmed: bool = False,
     repo_root: Path = REPO_ROOT,
     find_musescore: Callable[[], Path | None] | None = None,
 ) -> int:
@@ -208,6 +210,7 @@ def run_kind(
             f"Condities: {', '.join(policy.active_reasons())}",
         ],
         yes=yes,
+        already_confirmed=already_confirmed,
     ):
         return 2
 
@@ -271,5 +274,6 @@ def main_for_kind(
         policy,
         dry_run=bool(args.dry_run),
         yes=bool(getattr(args, "yes", False)),
+        already_confirmed=bool(getattr(args, "already_confirmed", False)),
         repo_root=repo_root,
     )
