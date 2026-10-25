@@ -21,11 +21,11 @@ Maakt naast een bibliotheek-bron een **afspeelbaar mp3-bestand** zodat
 koorleden op de site op **Beluisteren** kunnen klikken. Per brontype een
 eigen sibling:
 
-| Bron | Audio-product |
-| --- | --- |
-| `{stam}.mvsa` | `{stam}.mvsa.mp3` |
+| Bron                           | Audio-product     |
+| ------------------------------ | ----------------- |
+| `{stam}.mvsa`                  | `{stam}.mvsa.mp3` |
 | `{stam}.mscz` (basispartituur) | `{stam}.mscz.mp3` |
-| `{stam}.vsa` | `{stam}.vsa.mp3` |
+| `{stam}.vsa`                   | `{stam}.vsa.mp3`  |
 
 Het script schrijft een **herkomststempel** in het mp3-bestand (zelfde
 velden als bij PDF/MXL: hash van de bron, wanneer gemaakt). Zo ziet
@@ -36,7 +36,10 @@ Zoekt onder het opgegeven pad (of, zonder pad, onder
 `manueel: true`, import-siblings `*.mscz.mvsa`, en
 `.print.mscz`.
 
-Onder de motorkap: tooling-CLI `vsa audio` (MuseScore 4). Bij `.vsa`
+Onder de motorkap: tooling-CLI `vsa audio` (MuseScore 4 + **ffmpeg** op
+PATH). MuseScore rendert het geluid; ffmpeg knipt sleepstilte aan het eind
+van het `.mp3` weg. Beide horen geïnstalleerd te zijn — zie
+[Wat heb je nodig](/handleiding/start/wat-heb-je-nodig/). Bij `.vsa`
 syllabificeert het script eerst in een **tijdelijk** bestand (zelfde als
 `products --kinds vsa` voor Coria), zodat Beluisteren dezelfde lettergreep-noten
 heeft als Oefenen; de canonieke `.vsa` blijft ongewijzigd. CI genereert
@@ -50,9 +53,9 @@ als de Coria-`.mxl`. Ontbreekt of veroudert die, dan faalt
 
 # OPTIONS
 
-| Optie | Betekenis |
-| --- | --- |
-| `--force` | Bestaande mp3’s overschrijven |
+| Optie       | Betekenis                        |
+| ----------- | -------------------------------- |
+| `--force`   | Bestaande mp3’s overschrijven    |
 | `--dry-run` | Alleen tonen wat er zou gebeuren |
 
 # EXAMPLES

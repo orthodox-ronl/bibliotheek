@@ -59,6 +59,16 @@ MuseScore 4; gebruik niet MuseScore 3. Open het opdrachtvenster opnieuw
 na installatie. (Voor alleen `.vsa` → Coria is MuseScore niet nodig:
 `products --kinds vsa`.)
 
+## ffmpeg niet gevonden / audio-export faalt
+
+**Symptoom:** `products --kinds audio` of `vsa audio` stopt met een melding
+over ontbrekende **ffmpeg**.
+
+Preview-`.mp3` vereist MuseScore **én** ffmpeg (stilte aan het eind
+wegknippen). Installeer ffmpeg, zet de map met `ffmpeg.exe` op PATH, open
+een nieuw `cmd`-venster, controleer met `where ffmpeg`. Stappen:
+[Wat heb je nodig](/handleiding/start/wat-heb-je-nodig/).
+
 ## De pagina is lelijk of de stijl is weg
 
 Meestal: geëxporteerd naar MusicXML en weer geopend. Ga terug naar de

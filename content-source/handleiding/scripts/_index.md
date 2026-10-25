@@ -8,8 +8,9 @@ hide_page_list: true
 # Script-referentie (man-pages)
 
 Deze sectie beschrijft Windows-commando's (`.cmd`) in de repository-map
-`bibliotheek`. Zet `.\scripts` op PATH, of roep `scripts\<naam>.cmd` aan
-vanuit de repo-root.
+`bibliotheek`. Zet `.\scripts` (en de overige tools) op PATH — zie
+[Wat heb je nodig](/handleiding/start/wat-heb-je-nodig/) — of roep
+`scripts\<naam>.cmd` aan vanuit de repo-root.
 
 **Bestand of map:** commando’s die op bronbestanden werken, nemen meestal
 óf één bestand óf een map (recursief passende bestanden). Zie

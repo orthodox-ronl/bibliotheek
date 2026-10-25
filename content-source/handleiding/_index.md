@@ -13,10 +13,10 @@ kunnen oefenen (of, bij een printvel, een PDF in de koormap).
 Koorleden die alleen willen zingen, gebruiken de
 [bibliotheek](/overzichten/) of een [koormap](/koormappen/), niet deze handleiding.
 
-Je hoeft geen programmeur te zijn. Om het werk uit te voeren heb je drie
-dingen nodig: het programma **MuseScore 4**; de repository-map
-**`bibliotheek`** op je pc; en het **Windows-opdrachtvenster** (`cmd`).
-Detail: [Wat heb je nodig](start/wat-heb-je-nodig/).
+Je hoeft geen programmeur te zijn. Wel een eenmalige pc-setup: Git, Python
+3.14, Hugo Extended, MuseScore 4, ffmpeg, de juiste **PATH**-mappen, de
+repository-map **`bibliotheek`**, en het **Windows-opdrachtvenster** (`cmd`).
+Stappen en controletabel: [Wat heb je nodig](start/wat-heb-je-nodig/).
 
 ## Wat vind je waar
 
