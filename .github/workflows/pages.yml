@@ -68,8 +68,14 @@ jobs:
             echo "pages_url=https://orthodox-ronl.github.io/bibliotheek/preview/" >> "$GITHUB_OUTPUT"
             echo "label=development-preview" >> "$GITHUB_OUTPUT"
             echo "keep_files=true" >> "$GITHUB_OUTPUT"
-            echo "tooling_mode=float" >> "$GITHUB_OUTPUT"
-            echo "tooling_ref=main" >> "$GITHUB_OUTPUT"
+            # products-meta nog niet op tooling main (PR VSA-tooling#58): pin.
+            echo "tooling_mode=pin" >> "$GITHUB_OUTPUT"
+            ref="$(tr -d '[:space:]' < vsa-tooling.pin | head -n1)"
+            if [[ -z "$ref" ]]; then
+              echo "::error::vsa-tooling.pin is empty"
+              exit 1
+            fi
+            echo "tooling_ref=$ref" >> "$GITHUB_OUTPUT"
           else
             slug="$(printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9_-]+/-/g; s/-+/-/g; s/^-+//; s/-+$//')"
             if [[ -z "$slug" ]]; then
