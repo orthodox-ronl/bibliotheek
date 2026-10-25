@@ -140,46 +140,15 @@
   {{- end -}}
 {{- end -}}
 {{- /*
-  S8 recite (notehead none in from-ir): OSMD/VexFlow tekent geen MuseScore-
-  spacerblad. Zolang dat zo is: scherm = sibling .mvsa.svg als die er is;
-  from-ir blijft product (nav-check, toekomst). Zie schermpartituur §2.
+  S8-experimentbranch: from-ir → OSMD (+ A1-adapter in score-osmd.js).
+  Geen SVG-bypass; development houdt .mvsa.svg bij notehead none.
 */ -}}
-{{- $mvsaSvgScherm := "" -}}
-{{- $osmdS8GebruikSvg := false -}}
-{{- if and $fromIrMxl $dir -}}
-  {{- range $musicSvgs -}}
-    {{- if strings.HasSuffix (lower .) ".mvsa.svg" -}}
-      {{- $mvsaSvgScherm = . -}}
-    {{- end -}}
-  {{- end -}}
-  {{- if $mvsaSvgScherm -}}
-    {{- range os.ReadDir (printf "content-source/%s" $dir) -}}
-      {{- if and (not .IsDir) (strings.HasSuffix (lower .Name) ".from-ir.musicxml") -}}
-        {{- $irPath := printf "content-source/%s/%s" $dir .Name -}}
-        {{- if fileExists $irPath -}}
-          {{- $irText := readFile $irPath -}}
-          {{- if strings.Contains $irText "<notehead>none</notehead>" -}}
-            {{- $osmdS8GebruikSvg = true -}}
-          {{- end -}}
-        {{- end -}}
-      {{- end -}}
-    {{- end -}}
-  {{- end -}}
-{{- end -}}
 {{- $alt := partial "display-title.html" $p -}}
-{{- if and $fromIrMxl (not $osmdS8GebruikSvg) -}}
+{{- if $fromIrMxl -}}
   {{- range $fromIrMxl -}}
 <div class="vsa-container osmd-container" data-osmd-src="{{ . }}" role="img" aria-label="{{ $alt }}">
   <p class="osmd-status">Partituur laden…</p>
 </div>
-  {{- end -}}
-{{- else if or $osmdS8GebruikSvg (and (not $fromIrMxl) $musicSvgs) -}}
-  {{- if $osmdS8GebruikSvg -}}
-<div class="vsa-container"><img class="vsa-notation" src="{{ $mvsaSvgScherm }}" alt="{{ $alt }}" loading="lazy"></div>
-  {{- else -}}
-  {{- range $musicSvgs -}}
-<div class="vsa-container"><img class="vsa-notation" src="{{ . }}" alt="{{ $alt }}" loading="lazy"></div>
-  {{- end -}}
   {{- end -}}
 {{- else if $musicSvgs -}}
   {{- range $musicSvgs -}}
