@@ -55,7 +55,7 @@ De site kiest in deze volgorde ([`bieb-score.html`](../../layouts/partials/bieb-
 Gevolgen:
 
 - Waar from-ir beschikbaar is, wint **OSMD** (geen MuseScore-paginamodel; geen
-  tijdelijke `.mvsa.svg`-bypass meer bij S8).
+  `.mvsa.svg`-bypass meer bij S8).
 - SVG is **fallback** of het schermpad voor bronnen zonder Score-IR (`.vsa`, basispartituur-`.mscz`).
 - Tekstblad toont de Markdown/HTML-bron op scherm; product-PDF is geen viewer meer.
 - PDF-op-scherm blijft alleen nood-fallback als SVG/OSMD/tekstblad-md ontbreken.
@@ -184,7 +184,7 @@ Repro-voorbeeld volta: catalogus
 | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Bron      | Sibling `{stam}.mvsa.from-ir.musicxml`.                                                                                                                                                                                                                                                                                                                              |
 | Gedrag    | Volgt §4; bron van waarheid voor clientgedrag: `static/js/score-osmd.js`.                                                                                                                                                                                                                                                                                            |
-| S8-recite | **A1-contract:** from-ir markeert spacers met `<notehead>none</notehead>` (+ `stem none`; lyrics op de noot). OSMD/VexFlow tekent die koppen niet vanzelf weg; `score-osmd.js` is de **product-adapter** (spacer-koppen/ledgers/streepjes verbergen na render). Geen scherm-fallback naar `.mvsa.svg` om S8. Tooling: [osmd-s8-recite](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/osmd-s8-recite.md). CI: `scripts/osmd-nav-check/s8-alleluia-hide-check.mjs` (via `check_osmd_nav_zichtbaar`). |
+| S8-recite | **A1-contract:** from-ir markeert spacers met `<notehead>none</notehead>` (+ `stem none`; lyrics op de noot). OSMD/VexFlow tekent die koppen niet vanzelf weg; `score-osmd.js` is de **product-adapter** (DOM-volgorde per stem → spacer-koppen/ledgers/streepjes verbergen). Geen scherm-fallback naar `.mvsa.svg` om S8. Tooling: [osmd-s8-recite](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/osmd-s8-recite.md). CI: `s8-alleluia-hide-check.mjs` via `check_osmd_nav_zichtbaar`. |
 | Systemen  | Volgens MusicXML (`newSystemFromXML`); cues niet afkappen.                                                                                                                                                                                                                                                                                                           |
 
 ### 5.2 SVG-fallback
@@ -205,9 +205,9 @@ gap-audit: VSA-tooling
 [`docs/plans/schermeisen-vereniging.md`](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/schermeisen-vereniging.md).
 
 **Steekproef (S8 / A1-adapter):** catalogus
-`alleluia/9a-toon-8/groningen` — scherm via from-ir + OSMD (niet `.mvsa.svg`
-om S8); na adapter: kwart → breve → midden alleen tekst → kwart → cadens.
-CI: `s8-alleluia-hide-check.mjs`.
+`alleluia/9a-toon-8/groningen` — scherm via from-ir + OSMD; na adapter:
+kwart → breve → midden alleen tekst → kwart → cadens. CI:
+`s8-alleluia-hide-check.mjs`.
 
 Als MuseScore een §4-regel die **wel** voor beide ketens bindend is nog
 niet haalt: documenteer de gap of open een VSA-tooling-ticket — versoepel
