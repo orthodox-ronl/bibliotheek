@@ -2368,9 +2368,11 @@ lyrics, …) opnieuw maken onder een map of voor één bronbestand&lt;/p&gt;
 &lt;p&gt;Bouwt de bestanden die de site en Coria nodig hebben naast de bron in de
 catalogus. Bij een map of meerdere kinds vraagt het &lt;strong&gt;één keer&lt;/strong&gt; om
 bevestiging (of &lt;code&gt;-y&lt;/code&gt;); de kind-sporen vragen daarna niet opnieuw. Na een
-geslaagde run (niet &lt;code&gt;--dry-run&lt;/code&gt;) schrijft het voor vsa/mvsa/mscz ook
-&lt;code&gt;{bron}.products-meta.json&lt;/code&gt; (snelle versheid) en vernieuwt het de
-zoekindex en Coria-fingerprints.&lt;/p&gt;</description></item><item><title>products — mscz</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+geslaagde run (niet &lt;code&gt;--dry-run&lt;/code&gt;) schrijft de tooling voor vsa/mvsa/mscz
+&lt;code&gt;{bron}.products-meta.json&lt;/code&gt; (snelle versheid; bladreeks-SVG als &lt;code&gt;svg-1&lt;/code&gt;…).
+Bibliotheek herschrijft die meta niet meer uit siblings; bij mscz wordt
+alleen de MXL-hash gemerged als de Coria-bron-id de MXL wijzigt. Daarna
+vernieuwt het de zoekindex en Coria-fingerprints.&lt;/p&gt;</description></item><item><title>products — mscz</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\products.cmd --kinds mscz&lt;/code&gt; — PDF en Coria-&lt;code&gt;.mxl&lt;/code&gt; maken bij een basispartituur-&lt;code&gt;.mscz&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\products.cmd --kinds mscz [pad] [--force] [--dry-run]

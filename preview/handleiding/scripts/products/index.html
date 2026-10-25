@@ -46,9 +46,11 @@ lyrics, …) opnieuw maken onder een map of voor één bronbestand</p><h1 id=syn
 (default). Alias <code>all-products</code> = <code>--kinds all</code>.</p><p>Kinds: <code>vsa</code>, <code>mscz</code>, <code>tekstblad</code>, <code>import</code>, <code>mvsa</code>, <code>audio</code>, <code>lyrics</code>.</p><h1 id=description>DESCRIPTION</h1><p>Bouwt de bestanden die de site en Coria nodig hebben naast de bron in de
 catalogus. Bij een map of meerdere kinds vraagt het <strong>één keer</strong> om
 bevestiging (of <code>-y</code>); de kind-sporen vragen daarna niet opnieuw. Na een
-geslaagde run (niet <code>--dry-run</code>) schrijft het voor vsa/mvsa/mscz ook
-<code>{bron}.products-meta.json</code> (snelle versheid) en vernieuwt het de
-zoekindex en Coria-fingerprints.</p><p>Dit is het <strong>enige</strong> gebruikerscommando voor die producten. Er zijn geen
+geslaagde run (niet <code>--dry-run</code>) schrijft de tooling voor vsa/mvsa/mscz
+<code>{bron}.products-meta.json</code> (snelle versheid; bladreeks-SVG als <code>svg-1</code>…).
+Bibliotheek herschrijft die meta niet meer uit siblings; bij mscz wordt
+alleen de MXL-hash gemerged als de Coria-bron-id de MXL wijzigt. Daarna
+vernieuwt het de zoekindex en Coria-fingerprints.</p><p>Dit is het <strong>enige</strong> gebruikerscommando voor die producten. Er zijn geen
 aparte <code>vsa-products.cmd</code>-wrappers meer. Per kind staat detail op de
 man-page van dat kind (zelfde map):</p><ul><li><a href=../vsa-products/>products (vsa)</a></li><li><a href=../mvsa-products/>products (mvsa)</a></li><li><a href=../mscz-products/>products (mscz)</a></li><li><a href=../audio-products/>products (audio)</a></li><li><a href=../lyrics-products/>products (lyrics)</a></li><li><a href=../tekstblad-products/>products (tekstblad)</a></li></ul><p>Koormap-/catalogusblad <code>index.md.pdf</code> hoort hier <strong>niet</strong> bij — dat is
 <a href=../pdf/>pdf</a>
