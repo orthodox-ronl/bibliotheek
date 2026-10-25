@@ -71,12 +71,12 @@ de layout.
 uitleg zet je zelf; `bieb` haalt muziek (en desgewenst titel/bron) uit de
 catalogus; bladtitels met `kop`; bladindeling in de download met
 `pdf-pagina` / `pdf-bijelkaar`. Bovenaan de pagina: **Download pagina** en
-**Print pagina** als `index.pagina.pdf` bestaat — beide gebruiken die PDF
+**Print pagina** als `index.md.pdf` bestaat — beide gebruiken die PDF
 (niet de browserafdruk van de HTML). De voorgestelde bestandsnaam bij
 downloaden komt uit frontmatter `pdf_bestandsnaam`, anders uit `title`,
 anders uit de mapnaam. Bij elk muziekblok: tip-icoon **♪** voor
 **Oefenen** / **Beluisteren** van **dat** stuk. Pagina-PDF bouwen:
-[pagina-pdf](../scripts/pagina-pdf/).
+[pdf](../scripts/pdf/).
 
 **Spiekbriefje voor beheerders:** [Koormap-blad schrijven](koormap-blad/).
 Normatieve specificatie in de repository:
@@ -128,7 +128,7 @@ Dan:
 Shortcode `bieb` krijgt een uitvoeringsvorm-id (drie lagen). Wie de
 alias-variant in dat id zet, bijvoorbeeld
 `tropaar/heilige-engelen-toon-4/hemelum`, wordt herschreven naar de canonieke
-uitvoeringsvorm. Product-tools (`vsa-products`, basispartituur-producten) slaan
+uitvoeringsvorm. Product-tools (`products --kinds vsa`, basispartituur-producten) slaan
 alias-varianten over: daar is niets te genereren.
 
 `check` weigert een alias-variant die toch een uitvoeringsvorm-map of
@@ -158,9 +158,9 @@ mag ze nog als afgeleid artefact zetten.
 Op een **uitvoeringsvorm-blad** zet je in de Markdown geen tweede
 hoofdtitel (`# …`): de site toont al één titel boven de partituur. De body
 is meestal alleen de regel met `bieb`. De PDF achter **Download pagina** /
-**Print pagina** (`index.pagina.pdf`) volgt dezelfde bladintentie; zie het
-plan `docs/plans/catalogus-pagina-pdf.md` en het script
-[pagina-pdf](../scripts/pagina-pdf/).
+**Print pagina** (`index.md.pdf`) volgt dezelfde bladintentie; zie het
+plan `docs/plans/catalogus-index-md-pdf.md` en het script
+[pdf](../scripts/pdf/).
 
 ### Afleiding per laag
 
@@ -247,7 +247,7 @@ Automatisch bijgehouden (bij elke sitebuild):
 | [Voorzien](/overzichten/speciaal/voorzien/) | Zangstukken zonder oefenbare inhoud |
 | [Ongerefereerd](/overzichten/speciaal/ongerefereerd/) | In de catalogus, nog niet in een koormap |
 | [Oefenbaar](/overzichten/speciaal/oefenbaar/) | Platte lijst van linkbare uitvoeringsvormen + id |
-| [Handmatig](/overzichten/speciaal/handmatig/) | Uitvoeringsvormen met `artefacten_handmatig: true` |
+| [Handmatig](/overzichten/speciaal/handmatig/) | Uitvoeringsvormen met `manueel: true` |
 
 ## Taalvarianten op de uitvoeringsvorm
 

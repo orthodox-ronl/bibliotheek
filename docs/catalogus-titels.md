@@ -71,7 +71,7 @@ Implementatie: `scripts/catalogus.py` (`section_title`, `derived_leaf_*`,
 - Geen redactionele H1-tekst die losstaat van id/bron.
 - Op een uitvoeringsvorm-leaf: **geen** Markdown-`#` / `<h1>` die de
   template-H1 herhaalt; body bij voorkeur alleen `bieb` (zie
-  [plans/catalogus-pagina-pdf.md](plans/catalogus-pagina-pdf.md)).
+  [plans/catalogus-index-md-pdf.md](plans/catalogus-index-md-pdf.md)).
 
 ## Implementatiestatus
 
@@ -92,4 +92,4 @@ Implementatie: `scripts/catalogus.py` (`section_title`, `derived_leaf_*`,
 3. Geen hernoem-uitbreiding die op frontmatter-titels leunt.
 4. Geen nieuwe catalogus-leaf met dubbele hoofdtitel (Markdown-`#` naast
    template-H1); pagina-PDF-titel komt uit afgeleide titel + compositor
-   (plan catalogus-pagina-pdf), niet uit een tweede H1 in de body.
+   (plan catalogus-index-md-pdf), niet uit een tweede H1 in de body.

@@ -1,6 +1,6 @@
-# Plan: catalogusblad + `index.pagina.pdf`
+# Plan: catalogusblad + `index.md.pdf`
 
-Status: **pagina.pdf-traject + voorzien-placeholders** — 181 muziek-PDF’s;
+Status: **index.md.pdf-traject + voorzien-placeholders** — 181 muziek-PDF’s;
 stub/voorzien zonder notatie → A4 «Voorzien» (`compose_voorzien_pdf`);
 `bieb accepteer --stub` schrijft die mee. Dialoog/tekstblad (§4) nog open.
 
@@ -10,7 +10,7 @@ Normatieve scherm-/print-eisen blijven in:
 - [koormap-paginataal.md](../specs/koormap-paginataal.md) §8a / §9
 - [catalogus-titels.md](../catalogus-titels.md)
 
-Doel van dit plan: **één bladintentie** op scherm en in `index.pagina.pdf`
+Doel van dit plan: **één bladintentie** op scherm en in `index.md.pdf`
 voor elke catalogus-uitvoeringsvorm-pagina, zonder catalogus-product-PDF’s
 (`.vsa.pdf` / `.mscz.pdf` / `.mvsa.pdf` / `.tekstblad.pdf`) te plakken.
 
@@ -24,7 +24,7 @@ voor elke catalogus-uitvoeringsvorm-pagina, zonder catalogus-product-PDF’s
 | --- | --- |
 | Self-closing `{{</* bieb id="zangstuk/variant/uv" */>}}` | Markdown-`#` / `<h1>` met dezelfde (of andere) hoofdtitel als de template-H1 |
 | Korte toelichting in gewone alinea’s (zeldzaam; bijv. dialoog) | Shortcode `kop` als tweede hoofdtitel naast de template-H1 |
-| Frontmatter: `publicatiestatus`, `automatische_inhoud: false`, optioneel `pdf_bestandsnaam`, product-/buildflags, `artefacten_handmatig` | Redactionele `title` / `linkTitle` als bron van waarheid (blijft: afleiden bij bouw) |
+| Frontmatter: `publicatiestatus`, `automatische_inhoud: false`, optioneel `pdf_bestandsnaam`, product-/buildflags, `manueel` / `manual` | Redactionele `title` / `linkTitle` als bron van waarheid (blijft: afleiden bij bouw) |
 | | `pdf-bijelkaar` op een leaf met **één** stuk — geen winst; compact is koormap-keuze |
 
 Canonieke minimale leaf:
@@ -46,18 +46,18 @@ zetten; dat is geen redactionele inhoud.)
 - Precies **één** hoofdtitel: template-H1 via afgeleide catalogustitel
   (`display-title`).
 - Muziek via `bieb`: keten uit schermpartituur (OSMD → SVG → PDF-fallback).
-- Nav **Download pagina** / **Print pagina** zodra `index.pagina.pdf`
+- Nav **Download pagina** / **Print pagina** zodra `index.md.pdf`
   bestaat (page resource).
 - Score-Download/Print naar product-PDF: buiten scope van *dit* plan;
   afbouwbesluit en volgorde staan in
   [product-pdf-afbouw.md](product-pdf-afbouw.md).
 
-### 1.3 `index.pagina.pdf`
+### 1.3 `index.md.pdf`
 
 - Zelfde inhoudelijke intentie: **afgeleide bladtitel + muziek** (geen
   metadata-dubbeling uit product-PDF-plak).
 - Bouw: kale blad-SVG’s uit `.mvsa` / `.vsa` / `.mscz` + titel in de
-  compositor (`scripts\pagina_pdf.py`) — zie §2.
+  compositor (`scripts\index_md_pdf.py`) — zie §2.
 - Leesbaar A4; lange stukken als bladreeks (bestaand gedrag), niet door
   stille `--compact` buiten `pdf-bijelkaar`.
 
@@ -65,8 +65,8 @@ zetten; dat is geen redactionele inhoud.)
 
 | Situatie | Gedrag |
 | --- | --- |
-| `publicatiestatus: voorzien` en nog geen `.vsa`/`.mvsa`/`.mscz`/tekstblad-bron | Geen `index.pagina.pdf`; knoppen blijven weg |
-| Leaf zonder `bieb` (alleen “nog geen bron”-tekst) | `pagina-pdf` skip (huidig: geen flows) |
+| `publicatiestatus: voorzien` en nog geen `.vsa`/`.mvsa`/`.mscz`/tekstblad-bron | Geen `index.md.pdf`; knoppen blijven weg |
+| Leaf zonder `bieb` (alleen “nog geen bron”-tekst) | `pdf.cmd` skip (huidig: geen flows) |
 | Tekstblad-only | Apart pad (§4); niet via product-`.tekstblad.pdf`-plak |
 
 ---
@@ -132,8 +132,8 @@ Enige huidige tekstblad-only leaf:
 
 | Plaats | Afspraak |
 | --- | --- |
-| `content-source/handleiding/scripts/pagina-pdf.md` | NAME/DESCRIPTION = blad-SVG’s, geen product-PDF-plak |
-| `scripts/pagina-pdf.cmd -h` | Idem |
+| `content-source/handleiding/scripts/pdf.md` | NAME/DESCRIPTION = blad-SVG’s, geen product-PDF-plak |
+| `scripts/pdf.cmd -h` | Idem |
 | Dit plan | Groep- en titelkeuze tot de handleiding § Titels een korte zin over “geen `#` op catalogus-leaf” heeft |
 
 Product-PDF-knoppen op het catalogusblad afschaffen: **niet** in dit
@@ -150,7 +150,7 @@ traject.
 | Lang mvsa | `content-source/catalogus/cherubijnenhymne/15e-bortnjanski/hemelum/` |
 | Tekstblad | `content-source/catalogus/dialoog-met-diaken/default/hemelum/` (pas na §4) |
 
-Per steekproef: body zonder `#` → `scripts\pagina-pdf.cmd … --force` →
+Per steekproef: body zonder `#` → `scripts\pdf.cmd … --force` →
 controleren op http://127.0.0.1:18732/ (één H1, muziekketen, nav-knoppen)
 én de PDF (titel + muziek, geen product-plak).
 
@@ -183,9 +183,9 @@ Norm: [schermpartituur.md](../specs/schermpartituur.md) §8 +
 | `/catalogus/kondak/zondag-toon-1/groningen/` | 1× | SVG | ja | 1 A4 OK |
 | `/catalogus/cherubijnenhymne/15e-bortnjanski/hemelum/` | 1× | OSMD (from-ir) | ja | 3 A4 OK |
 | `/catalogus/ektinia/vrede/hemelum/` | 1× | OSMD (from-ir) | ja | 1 A4 OK |
-| `/catalogus/dialoog-met-diaken/default/hemelum/` | 1× | tekstblad-PDF | nee (geen `index.pagina.pdf`) | n.v.t. tot §4 |
+| `/catalogus/dialoog-met-diaken/default/hemelum/` | 1× | tekstblad-PDF | nee (geen `index.md.pdf`) | n.v.t. tot §4 |
 
-Dekking: 195 leaves, **0** Markdown-`#`, **181** `index.pagina.pdf`.
+Dekking: 195 leaves, **0** Markdown-`#`, **181** `index.md.pdf`.
 Score-product-PDF: zie afbouwbesluit
 [product-pdf-afbouw.md](product-pdf-afbouw.md) (eerst inventaris).
 

@@ -1,10 +1,10 @@
-"""Unit tests voor pagina_pdf parsing (geen MuseScore)."""
+"""Unit tests voor index_md_pdf parsing (geen MuseScore)."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-import pagina_pdf as pp
+import index_md_pdf as pp
 
 
 def test_parse_vredeslitanie_bijelkaar() -> None:
@@ -275,7 +275,7 @@ def test_ensure_catalogus_derived_titles_skips_koormap(
 def test_compose_voorzien_pdf_contains_marker(tmp_path: Path) -> None:
     import pymupdf
 
-    dest = tmp_path / "index.pagina.pdf"
+    dest = tmp_path / "index.md.pdf"
     pp.compose_voorzien_pdf(dest, title="Prokimen Test (Groningen)")
     doc = pymupdf.open(dest)
     try:
@@ -312,7 +312,7 @@ def test_compose_tekstblad_pagina_pdf_trims_and_titles(tmp_path: Path) -> None:
     src.save(src_path)
     src.close()
 
-    dest = tmp_path / "index.pagina.pdf"
+    dest = tmp_path / "index.md.pdf"
     pp.compose_tekstblad_pagina_pdf_from_body(
         dest,
         title="(7d) Dialoog met Diaken",
@@ -346,7 +346,7 @@ def test_build_one_voorzien_without_bieb(tmp_path, monkeypatch) -> None:
     monkeypatch.setattr(pp, "ROOT", tmp_path)
     out = pp.build_one(md, force=True)
     assert out is not None
-    assert out.name == "index.pagina.pdf"
+    assert out.name == "index.md.pdf"
     import pymupdf
 
     assert "Voorzien" in pymupdf.open(out)[0].get_text()

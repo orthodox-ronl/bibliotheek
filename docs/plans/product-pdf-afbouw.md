@@ -1,11 +1,11 @@
 # Besluit: catalogus-product-PDF afbouwen
 
 Status: **afbouw rond** — VSA/mvsa/mscz/tekstblad: product-PDF niet meer
-verplicht. Tekstblad-`pagina-pdf` uit `.md` via `vsa pdf` (tijdelijke
+verplicht. Tekstblad-`pdf.cmd` uit `.md` via `vsa pdf` (tijdelijke
 body). Geen bulk-delete van bestaande product-PDF’s.
 
 Gerelateerd printpad (pagina, niet product):
-[catalogus-pagina-pdf.md](catalogus-pagina-pdf.md).
+[catalogus-index-md-pdf.md](catalogus-index-md-pdf.md).
 Norm scherm vs print: [schermpartituur.md](../specs/schermpartituur.md) §1.
 Publicatieproducten nu: [publicatiecontrole.md](../publicatiecontrole.md).
 
@@ -15,10 +15,10 @@ Publicatieproducten nu: [publicatiecontrole.md](../publicatiecontrole.md).
 
 **Catalogus-product-PDF’s** (`.vsa.pdf`, `.mscz.pdf`, `.mvsa.pdf`,
 `.tekstblad.pdf` als A4-uitgave van één uitvoeringsvorm) vervullen geen
-goede eigen rol meer naast `index.pagina.pdf`.
+goede eigen rol meer naast `index.md.pdf`.
 
 - **Print en download van “wat je op het blad ziet”** hoort bij
-  **Download pagina / Print pagina** (`index.pagina.pdf`).
+  **Download pagina / Print pagina** (`index.md.pdf`).
 - **Score-Download / Score-Print** naar de product-PDF op het catalogusblad
   is overlapping / erfenis en wordt **afgebouwd**.
 - Afbouw gebeurt **niet stil** en **niet in één keer**: eerst inventaris,
@@ -28,7 +28,7 @@ goede eigen rol meer naast `index.pagina.pdf`.
 
 | Onderdeel | Waarom |
 | --- | --- |
-| `index.pagina.pdf` | Canonieke print van koormap- of catalogusblad |
+| `index.md.pdf` | Canonieke print van koormap- of catalogusblad |
 | Handmatige print-PDF naast `*.print.mscz` | Ander publicatiespoor (MuseScore → zelf exporteren) |
 | Coria-`.mxl`, audio, SVG, Score-IR / from-ir MusicXML | Oefenen / scherm; geen A4-product-PDF |
 | Optionele “archief-PDF met colofon” later | Alleen als apart, bewust opt-in — niet als default product |
@@ -54,7 +54,7 @@ Vragen (afgevinkt in §3.1):
 1. **Scherm-fallback** — `bieb` toont product-PDF omdat OSMD (from-ir)
    én sibling-muziek-SVG (`.mvsa.svg` / `.vsa.svg`) ontbreken?
    (Legacy `static/vsa/bladermap/….svg` telt wél als scherm-SVG.)
-2. **Geen `index.pagina.pdf`** terwijl print wél nodig is?
+2. **Geen `index.md.pdf`** terwijl print wél nodig is?
 3. **Andere noodzaak** die pagina-PDF niet dekt?
 4. **Niet meenemen** — handmatige print-PDF; `voorzien` zonder notatiebron.
 
@@ -69,12 +69,12 @@ van deze inventaris. Methode: sibling-bestanden + keten zoals
 | `.mvsa` + from-ir → OSMD | 59 | OSMD | Nee | Alleen download-knop erfenis |
 | `.vsa` + sibling `.vsa.svg` | 112 | SVG | Nee | Idem |
 | `.vsa` zonder sibling-SVG, wél legacy static SVG | 2 | Legacy SVG | Nee | Idem; PDF heet hier `{stam}.pdf` (niet `.vsa.pdf`) |
-| Basispartituur-`.mscz` (scherm was product-PDF) | 7 | Was PDF; nu **`.mscz.svg`** | Nee (na schermfix) | Alle catalogus-`.mscz` (9) hebben SVG via `mscz-products` |
-| Tekstblad (alleen `.tekstblad.md` + `.tekstblad.pdf`) | 1 | Was PDF; nu **`.tekstblad.md`-body** | Nee (na schermfix) | Print blijft `index.pagina.pdf` |
+| Basispartituur-`.mscz` (scherm was product-PDF) | 7 | Was PDF; nu **`.mscz.svg`** | Nee (na schermfix) | Alle catalogus-`.mscz` (9) hebben SVG via `products --kinds mscz` |
+| Tekstblad (alleen `.tekstblad.md` + `.tekstblad.pdf`) | 1 | Was PDF; nu **`.tekstblad.md`-body** | Nee (na schermfix) | Print blijft `index.md.pdf` |
 | Alleen `*.print.mscz` + handmatige PDF | 1 | Handmatige PDF | Buiten besluit | Blijft print-spoor |
-| `voorzien` zonder notatiebron | 13 | Geen partituur | Nee (geen product-PDF) | Stub-`index.pagina.pdf` voldoende |
+| `voorzien` zonder notatiebron | 13 | Geen partituur | Nee (geen product-PDF) | Stub-`index.md.pdf` voldoende |
 
-**Pagina-PDF:** alle 195 leaves hebben `index.pagina.pdf` (inclusief
+**Pagina-PDF:** alle 195 leaves hebben `index.md.pdf` (inclusief
 voorzien-stubs). Geen gat “print nodig maar geen pagina-PDF”.
 
 **Andere noodzaak (archief/extern):** in de repo geen apart spoor
@@ -99,7 +99,7 @@ scherm = `.mscz.pdf`:
 
 **Tekstblad (1):**
 `catalogus/dialoog-met-diaken/default/hemelum`
-(`.tekstblad.pdf` op scherm; heeft wél `index.pagina.pdf`).
+(`.tekstblad.pdf` op scherm; heeft wél `index.md.pdf`).
 
 **Print-spoor (1, niet afbouwen als product-PDF-keten):**
 `catalogus/kleine-intocht/zo-wk-mg/hemelum`
@@ -127,8 +127,8 @@ vóór scherm zonder product-PDF.
 
 | Groep | Schermvervanger | Catalogusbron |
 | --- | --- | --- |
-| 7× basispartituur-`.mscz` | Sibling `{stam}.mscz.svg` via `mvsa svg` in `mscz-products` (check eist stamp) | `.mscz` mag blijven |
-| 1× tekstblad | Scherm: body van `.tekstblad.md` in `bieb-score` (HTML); print = `index.pagina.pdf` | `.tekstblad.md` blijft |
+| 7× basispartituur-`.mscz` | Sibling `{stam}.mscz.svg` via `mvsa svg` in `products --kinds mscz` (check eist stamp) | `.mscz` mag blijven |
+| 1× tekstblad | Scherm: body van `.tekstblad.md` in `bieb-score` (HTML); print = `index.md.pdf` | `.tekstblad.md` blijft |
 
 **Koninklijke route:** nieuwe of blijvende bron bij voorkeur **`.mvsa`**
 (één keten met SVG/OSMD). Omzetten van bestaande MuseScore-bronnen mag
@@ -148,7 +148,7 @@ strategisch netjes, te zwaar als enige voorwaarde voor product-PDF-afbouw.
 | Soort | Product-PDF in `check`/`products` | Toelichting |
 | --- | --- | --- |
 | `.vsa` / `.mvsa` / basis-`.mscz` | **Uit** | Bestaande `*.….pdf` mogen in git blijven; scripts vernieuwen ze niet meer |
-| `.tekstblad.md` | **Uit** | `pagina-pdf` rendert body uit `.md` (`vsa pdf` tijdelijk); scherm = `.md` |
+| `.tekstblad.md` | **Uit** | `pdf.cmd` rendert body uit `.md` (`vsa pdf` tijdelijk); scherm = `.md` |
 | `*.print.mscz` + handmatige PDF | Buiten besluit | Ongewijzigd |
 
 Optioneel later: oude catalogus-product-PDF’s opruimen (geen eis).

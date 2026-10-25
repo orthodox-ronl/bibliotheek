@@ -1,7 +1,7 @@
-"""Controleer bladermap-``index.pagina.pdf`` (Download/Print pagina).
+"""Controleer bladermap-``index.md.pdf`` (Download/Print pagina).
 
-Geen catalogus-sibling: zelfde selectie als ``pagina-pdf`` (``pagina_pdf_job``).
-Schrijft ``data/pagina-pdf-status.json``. Exit 1 bij problemen tenzij
+Geen catalogus-sibling: zelfde selectie als ``pdf.cmd`` (``pagina_pdf_job``).
+Schrijft ``data/pdf-status.json``. Exit 1 bij problemen tenzij
 ``--warn-only``. ``--fail`` is voor CI / ``check --strict``.
 """
 
@@ -14,7 +14,7 @@ import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-from pagina_pdf import (
+from index_md_pdf import (
     ROOT,
     PaginaPdfJob,
     iter_bladermap_index_md,
@@ -22,8 +22,8 @@ from pagina_pdf import (
 )
 
 REPO_ROOT = ROOT
-STATUS_PATH = REPO_ROOT / "data" / "pagina-pdf-status.json"
-FIX_PAGE = "/handleiding/scripts/pagina-pdf/"
+STATUS_PATH = REPO_ROOT / "data" / "pdf-status.json"
+FIX_PAGE = "/handleiding/scripts/pdf/"
 
 
 @dataclass
@@ -62,7 +62,7 @@ def _fix_cmd(md: Path) -> str:
         rel = md.relative_to(REPO_ROOT)
     except ValueError:
         rel = md
-    return rf"scripts\pagina-pdf.cmd {rel.as_posix().replace('/', '\\')}"
+    return rf"scripts\pdf.cmd {rel.as_posix().replace('/', '\\')}"
 
 
 def check_job(job: PaginaPdfJob) -> FolderStatus:
@@ -73,7 +73,7 @@ def check_job(job: PaginaPdfJob) -> FolderStatus:
             Issue(
                 "missing_pdf",
                 _rel(out),
-                "index.pagina.pdf ontbreekt (Download/Print pagina)",
+                "index.md.pdf ontbreekt (Download/Print pagina)",
             )
         )
     else:
@@ -85,7 +85,7 @@ def check_job(job: PaginaPdfJob) -> FolderStatus:
                 Issue(
                     "stale_pdf",
                     _rel(out),
-                    "index.pagina.pdf is ouder dan Markdown of notatiebron",
+                    "index.md.pdf is ouder dan Markdown of notatiebron",
                 )
             )
     return FolderStatus(
@@ -106,7 +106,7 @@ def check_parse_error(md: Path, detail: str) -> FolderStatus:
             Issue(
                 "parse_error",
                 _rel(md),
-                f"pagina-pdf kan de Markdown niet lezen: {detail}",
+                f"pdf.cmd kan de Markdown niet lezen: {detail}",
             )
         ],
         fix_cmd=_fix_cmd(md),
@@ -149,8 +149,8 @@ def write_status_json(statuses: list[FolderStatus], path: Path = STATUS_PATH) ->
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Controleer index.pagina.pdf bij koormap-/catalogusbladen "
-            "(zelfde selectie als pagina-pdf)."
+            "Controleer index.md.pdf bij koormap-/catalogusbladen "
+            "(zelfde selectie als pdf.cmd)."
         )
     )
     parser.add_argument(
@@ -169,7 +169,7 @@ def main(argv: list[str] | None = None) -> int:
     bad = [s for s in statuses if not s.ok]
     n_ok = len(statuses) - len(bad)
     print(
-        f"Pagina-PDF: {n_ok} ok, {len(bad)} probleem "
+        f"Blad-PDF: {n_ok} ok, {len(bad)} probleem "
         f"({STATUS_PATH.relative_to(REPO_ROOT).as_posix()})",
         flush=True,
     )
@@ -207,3 +207,4 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

@@ -1,11 +1,11 @@
-"""Unit tests voor check_pagina_pdf / pagina_pdf_job (geen MuseScore)."""
+"""Unit tests voor check_index_md_pdf / pagina_pdf_job (geen MuseScore)."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-import check_pagina_pdf as cp
-import pagina_pdf as pp
+import check_index_md_pdf as cp
+import index_md_pdf as pp
 
 
 def test_pagina_pdf_job_none_without_bieb(tmp_path: Path, monkeypatch) -> None:
@@ -34,7 +34,7 @@ def test_pagina_pdf_job_requires_notation(
     )
     job = pp.pagina_pdf_job(md)
     assert job is not None
-    assert job.out_path == md.with_name("index.pagina.pdf")
+    assert job.out_path == md.with_name("index.md.pdf")
     assert job.md_path == md.resolve()
     assert leaf / "lied.vsa" in job.deps
 
@@ -59,7 +59,7 @@ def test_pagina_pdf_job_skips_missing_notation(
 def test_check_job_missing_and_stale(tmp_path: Path) -> None:
     md = tmp_path / "index.md"
     md.write_text("x", encoding="utf-8")
-    pdf = tmp_path / "index.pagina.pdf"
+    pdf = tmp_path / "index.md.pdf"
     src = tmp_path / "bron.vsa"
     src.write_text("L: a\n", encoding="utf-8")
     job = pp.PaginaPdfJob(md, pdf, (md, src))

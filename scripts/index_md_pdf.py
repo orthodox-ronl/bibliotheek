@@ -1,4 +1,4 @@
-"""Bouw pagina-PDF's voor bladermap-index.md (koormap/catalogus).
+"""Bouw index.md.pdf voor bladermap-index.md (koormap/catalogus).
 
 A4-compositie uit shortcode ``kop`` (en legacy ``#`` / HTML-titels) + kale
 muziek-SVG's (geen catalogus-product-PDF's plakken). Binnen ``pdf-bijelkaar``
@@ -356,7 +356,7 @@ def ensure_catalogus_derived_titles(
 
     Koormap-slots (buiten ``content-source/catalogus``) blijven ongewijzigd:
     daar komen titels uit ``kop`` / ``#``. Zie
-    ``docs/plans/catalogus-pagina-pdf.md`` §2.
+    ``docs/plans/catalogus-index-md-pdf.md`` §2.
     """
     leaf_id = catalogus_leaf_id(md_path)
     if not leaf_id:
@@ -417,7 +417,7 @@ def find_notation_source(uv_id: str) -> Path:
     if found is None:
         leaf = CATALOGUS.joinpath(*uv_id.split("/"))
         raise FileNotFoundError(
-            f"geen .mvsa/.vsa/.mscz in {leaf} (pagina-pdf plakt geen catalogus-PDF)"
+            f"geen .mvsa/.vsa/.mscz in {leaf} (pdf.cmd plakt geen catalogus-PDF)"
         )
     return found
 
@@ -496,14 +496,13 @@ def prose_notes_from_catalogus_md(text: str) -> list[str]:
 
 
 def _pagina_pdf_out_path(md_path: Path) -> Path:
-    if md_path.name == "index.md":
-        return md_path.with_name("index.pagina.pdf")
-    return md_path.with_name(md_path.stem + ".pagina.pdf")
+    """Sibling PDF: ``index.md`` → ``index.md.pdf`` (zelfde conventie als tooling)."""
+    return md_path.with_name(md_path.name + ".pdf")
 
 
 @dataclass(frozen=True)
 class PaginaPdfJob:
-    """Wat ``pagina-pdf`` zou moeten bouwen (zonder te exporteren)."""
+    """Wat ``pdf.cmd`` zou moeten bouwen (zonder te exporteren)."""
 
     md_path: Path
     out_path: Path
@@ -1223,7 +1222,7 @@ def iter_targets(explicit: list[Path], all_koormappen: bool) -> list[Path]:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(
         description=(
-            "Bouw index.pagina.pdf uit kale blad-SVG's + Markdown-koppen "
+            "Bouw index.md.pdf uit kale blad-SVG's + Markdown-koppen "
             "(pdf-bijelkaar → --compact). Pad = één .md of een map "
             "(recursief index.md)."
         )
@@ -1261,7 +1260,7 @@ def main(argv: list[str] | None = None) -> int:
         n=len(targets),
         headline=f"{len(targets)}× index.md → pagina-PDF",
         details=[
-            "Actie: bouw/vernieuw index.pagina.pdf (MuseScore bij pdf-bijelkaar)",
+            "Actie: bouw/vernieuw index.md.pdf (MuseScore bij pdf-bijelkaar)",
             f"--force={'ja' if args.force else 'nee (sla over als PDF nieuwer lijkt)'}",
         ],
         yes=args.yes,

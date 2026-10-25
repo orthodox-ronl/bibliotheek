@@ -576,13 +576,13 @@ def accept(
         print(f"  index {_rel(index_path)} ({resolved_status})", flush=True)
 
     if stub and not dry_run:
-        import pagina_pdf as pp
+        import index_md_pdf as pp
 
         pdf = pp.build_one(index_path, force=True)
         if pdf is None:
             bieb_fs.print_fail(
                 "stub-leaf zonder index.pagina.pdf",
-                oplossing="controleer scripts\\pagina_pdf.py (voorzien-placeholder).",
+                oplossing="controleer scripts\\index_md_pdf.py (voorzien-placeholder).",
             )
             return 1
         print(f"  pagina-pdf {_rel(pdf)} (voorzien)", flush=True)

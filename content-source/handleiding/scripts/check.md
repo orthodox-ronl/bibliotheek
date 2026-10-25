@@ -24,7 +24,7 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 1. `validate` — `vsa validate` op `content-source\catalogus` (en
    `mvsa validate` als daar `.mvsa`-bestanden staan)
 2. VSA-publicatiecontrole — of elke catalogus-`.vsa` (behalve
-   `artefacten_handmatig`) passende siblings `{stam}.vsa.mxl`,
+   `manueel` / `manual`) passende siblings `{stam}.vsa.mxl`,
    `{stam}.vsa.pdf` en `{stam}.vsa.svg` heeft met `vsa-source-sha256`
 3. MSCZ-publicatiecontrole — of elke basispartituur-`.mscz` (behalve
    handmatig/print) passende siblings `{stam}.mscz.pdf` en
@@ -73,22 +73,22 @@ lokaal maar falen niet (behalve op `main` of met
 `--strict`, en altijd in CI, is een stale of missing product, een
 verouderde import-sibling, of een id-mismatch een fout. Vernieuw
 producten lokaal met [all-products](../all-products/) (alles tegelijk)
-of met [vsa-products](../vsa-products/),
-[mscz-products](../mscz-products/),
-[tekstblad-products](../tekstblad-products/),
-[mvsa-products](../mvsa-products/),
-[audio-products](../audio-products/) of
-[lyrics-products](../lyrics-products/); vernieuw
+of met [products (vsa)](../vsa-products/),
+[products (mscz)](../mscz-products/),
+[products (tekstblad)](../tekstblad-products/),
+[products (mvsa)](../mvsa-products/),
+[products (audio)](../audio-products/) of
+[products (lyrics)](../lyrics-products/); vernieuw
 import-siblings met [import-mvsa](../import-mvsa/); herstel id’s met
 [ensure-bibliotheek-id](../ensure-bibliotheek-id/) of
 [layout](../layout/). CI genereert geen MuseScore-/PDF-/audio-/lyrics-producten en geen
 sibling-SVG (`.vsa.svg` / `.mvsa.svg`); wel de zoekindex en de legacy
 bladermap-SVG bij elke site-deploy.
 
-`pagina-pdf` genereert CI niet. Het blad `index.pagina.pdf` maak je
+`pdf.cmd` genereert CI niet. Het blad `index.md.pdf` maak je
 lokaal (ná de catalogusproducten) en commit je mee. `check` controleert
 of die PDF er is en niet ouder is dan de Markdown of notatiebron
-(`check_pagina_pdf.py`). Ontbreekt of verouderd: waarschuwing lokaal;
+(`check_index_md_pdf.py`). Ontbreekt of verouderd: waarschuwing lokaal;
 fout met `--strict`, in CI, of op `main`. Zonder die PDF tonen
 Download pagina en Print pagina niet.
 
@@ -108,15 +108,15 @@ genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole)
 # SEE ALSO
 
 - [validate](../validate/)
-- [vsa-products](../vsa-products/)
-- [mscz-products](../mscz-products/)
-- [tekstblad-products](../tekstblad-products/)
+- [products (vsa)](../vsa-products/)
+- [products (mscz)](../mscz-products/)
+- [products (tekstblad)](../tekstblad-products/)
 - [import-mvsa](../import-mvsa/)
-- [mvsa-products](../mvsa-products/)
-- [audio-products](../audio-products/)
+- [products (mvsa)](../mvsa-products/)
+- [products (audio)](../audio-products/)
 - [all-products](../all-products/)
 - [oefenhoek-index](../oefenhoek-index/)
-- [pagina-pdf](../pagina-pdf/)
+- [pdf](../pdf/)
 - [layout](../layout/)
 - [ensure-bibliotheek-id](../ensure-bibliotheek-id/)
 - [bieb hernoem](../bieb-hernoem/)

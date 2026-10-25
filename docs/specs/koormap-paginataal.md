@@ -38,7 +38,7 @@ volgorde, bladindeling).
 | --- | --- |
 | Download / print | Altijd de **getoonde pagina** (koormap-slot of catalogus-blad). |
 | Inhoud | Een koormap-pagina mag **meerdere** zangstukken, varianten en/of uitvoeringsvormen bevatten. Daar legt het systeem geen limiet op. |
-| Catalogus-blad | Bevat per definitie **één** uitvoeringsvorm; download/print van het blad = die pagina (`index.pagina.pdf`). |
+| Catalogus-blad | Bevat per definitie **één** uitvoeringsvorm; download/print van het blad = die pagina (`index.md.pdf`). |
 | Layout | Bladtitels en rubrieken tussen partituren: shortcode `kop` (§6). Uitleg en gewone structuur: Markdown. Catalogusmuziek: `bieb`. Geen HTML voor uitlijning of kopgrootte. |
 | Navbalk | **Download pagina** en **Print pagina** horen bij de pagina (niet per `bieb`-blok). Bij elk muziekblok: tip-icoon **♪** voor oefenen/beluisteren. |
 
@@ -56,7 +56,7 @@ Plaatsing van Download/Print in de navigatie is onderdeel van dit contract.
 
 ### Voorgestelde naam bij «Download pagina»
 
-Het bestand naast de Markdown blijft `index.pagina.pdf` (Hugo page
+Het bestand naast de Markdown blijft `index.md.pdf` (Hugo page
 resource). Bij **Download pagina** stelt de site een bestandsnaam voor
 volgens deze volgorde:
 
@@ -172,7 +172,7 @@ Twee schrijfwijzen zijn **gelijkwaardig** wanneer er een openstaande
 | Onderdeel | Aliassen | Betekenis |
 | --- | --- | --- |
 | `titel` | `title` | Catalogustitel van de uitvoeringsvorm, als platte tekst (geschikt in een Markdown-kop of binnen `kop`). |
-| `muziek` | — | Partituurweergave (+ tip-icoon **♪** bij dat blok). Geen paginatitel forceren. **Schermketen en look:** [schermpartituur.md](schermpartituur.md) (normatief). Kort: voorkeur ``.mvsa.from-ir.musicxml`` → OSMD; anders SVG (``.mvsa.svg`` / ``.vsa.svg`` / ``.mscz.svg`` / legacy bladermap); tekstblad-md of PDF alleen als nood-fallback. Blad download/print: nav **Download/Print pagina** (`index.pagina.pdf`), geen score-knop naar product-PDF. Artifact Score-IR: `vsa mvsa score-ir … --musicxml` in VSA-tooling. |
+| `muziek` | — | Partituurweergave (+ tip-icoon **♪** bij dat blok). Geen paginatitel forceren. **Schermketen en look:** [schermpartituur.md](schermpartituur.md) (normatief). Kort: voorkeur ``.mvsa.from-ir.musicxml`` → OSMD; anders SVG (``.mvsa.svg`` / ``.vsa.svg`` / ``.mscz.svg`` / legacy bladermap); tekstblad-md of PDF alleen als nood-fallback. Blad download/print: nav **Download/Print pagina** (`index.md.pdf`), geen score-knop naar product-PDF. Artifact Score-IR: `vsa mvsa score-ir … --musicxml` in VSA-tooling. |
 | `bron` | — | Korte bronvermelding van de uitvoeringsvorm. |
 | `copyright` | — | Copyright-/licentieregel(s), alleen als de beheerder dit zet. |
 | `veld` | — | Generieke frontmatter; zie §5.4. |
@@ -259,7 +259,7 @@ Typische rubriek tussen partituren (zoals “Toon 1”): `links` + `middel`.
 | Shortcodes `pagebreak`, `pagina`, `keep-together`, `print-only`, `web-only` | Verwijderd; gebruik `pdf-pagina` / `pdf-bijelkaar` |
 
 Markdown-`#` blijft toegestaan voor uitleg; voor bladlook: `kop`.
-`pagina-pdf` leest nog legacy HTML-`h1` en `#` als fallback.
+`pdf.cmd` leest nog legacy HTML-`h1` en `#` als fallback.
 
 ---
 
@@ -314,7 +314,7 @@ blad mogen staan (bijv. NL en KSL elk een eigen blad).
 SVG/mscz/tekstblad wél en nog niet eisen.
 
 Org-/tooling-richting (print vs scherm): kale blad-SVG voor print;
-`pagina-pdf` bouwt `index.pagina.pdf` uit blad-SVG’s + Markdown (geen
+`pdf.cmd` bouwt `index.md.pdf` uit blad-SVG’s + Markdown (geen
 catalogus-PDF-plak). MuseScore blijft print/blad. Zie
 [VSA-tooling — kale-muziek-svg-en-uitgaven](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/kale-muziek-svg-en-uitgaven.md)
 §4 en [partituur-ir §7](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/partituur-ir.md).
@@ -322,7 +322,7 @@ catalogus-PDF-plak). MuseScore blijft print/blad. Zie
 **Catalogus-leaves** (één uitvoeringsvorm per `index.md`): body zonder
 dubbele Markdown-H1; PDF-titel uit afgeleide catalogustitel wanneer de
 Markdown geen `kop`/`#` meer heeft — plan
-[catalogus-pagina-pdf.md](../plans/catalogus-pagina-pdf.md).
+[catalogus-index-md-pdf.md](../plans/catalogus-index-md-pdf.md).
 
 ---
 
@@ -337,7 +337,7 @@ Markdown geen `kop`/`#` meer heeft — plan
 | Weergave | Gedrag |
 | --- | --- |
 | Web | Geen speciale bladwerking; inhoud compact onder elkaar. |
-| PDF van deze pagina (`pagina-pdf`) | Streef ernaar alles binnen het blok op **één** A4 te houden. |
+| PDF van deze pagina (`pdf.cmd`) | Streef ernaar alles binnen het blok op **één** A4 te houden. |
 
 Dit is een **koormap-keuze**, geen cataloguswijziging. De canonieke
 catalogus-producten (`.mvsa.pdf` / `.mvsa.svg` zonder compact) blijven het
@@ -346,7 +346,7 @@ export voor die download) mag dichter gezet worden.
 
 ### Koppeling met VSA-tooling (`--compact`)
 
-Wanneer `pagina-pdf` muziek binnen `pdf-bijelkaar` opnieuw exporteert of
+Wanneer `pdf.cmd` muziek binnen `pdf-bijelkaar` opnieuw exporteert of
 compositieert voor één A4, gebruikt die pijplijn de tooling-vlag
 **`--compact`** op `vsa mvsa svg` / `vsa mvsa pdf` (dichte Style-baseline:
 kleinere systeemafstand en paginamarges). Zie VSA-tooling CLI
@@ -410,7 +410,7 @@ automatische_inhoud: false
 ```
 
 Web: beide rubrieken onder elkaar. PDF: streven naar **één** A4
-(`pdf-bijelkaar` → tooling `--compact` in `pagina-pdf`). Geen `pdf-pagina`
+(`pdf-bijelkaar` → tooling `--compact` in `pdf.cmd`). Geen `pdf-pagina`
 binnen dit blok.
 
 Wil je NL en KSL elk op een **eigen** blad: laat `pdf-bijelkaar` weg en zet
@@ -545,7 +545,7 @@ Niet in deze authoring-taal (bewust):
 | Shortcode `witruimte` (`klein` / `middel` / `groot`) | **Afgesproken + web/PDF** |
 | Shortcode-implementatie (web) + print-CSS (`bieb` / `pdf-…`) | **Gedaan (M1)** — self-closing `bieb` schrijven met `/>` (Hugo) |
 | Nav Download/Print | **Gedaan (M2)** |
-| Pagina-PDF-pijplijn | **Gedaan (M3)** — `scripts\pagina-pdf.cmd` (koormap); catalogus-dekking + titel zonder `#`: [catalogus-pagina-pdf.md](../plans/catalogus-pagina-pdf.md) |
+| Pagina-PDF-pijplijn | **Gedaan (M3)** — `scripts\pdf.cmd` (koormap); catalogus-dekking + titel zonder `#`: [catalogus-index-md-pdf.md](../plans/catalogus-index-md-pdf.md) |
 | Proefslots + docs (`bieb` / `pdf-…`) | **Gedaan (M4)** — o.a. vredeslitanie, eerste-kleine-litanie; `proef-ektinias` verwijderd |
 | Shortcode `kop` + CSS; proefslots HTML → `kop` | **Gedaan (M5)** — vredeslitanie, eerste-kleine-litanie, alleluia |
 | Handleiding + spiekbriefje voor beheerders | **Gedaan (M6)** — `handleiding/start/koormap-blad.md` |

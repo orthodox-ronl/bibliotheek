@@ -82,9 +82,9 @@ if defined STRICT (
 if errorlevel 1 exit /b 1
 
 if defined STRICT (
-  python scripts\check_pagina_pdf.py --fail
+  python scripts\check_index_md_pdf.py --fail
 ) else (
-  python scripts\check_pagina_pdf.py
+  python scripts\check_index_md_pdf.py
 )
 if errorlevel 1 exit /b 1
 
