@@ -190,9 +190,11 @@ lyrics, …) opnieuw maken onder een map of voor één bronbestand&lt;/p&gt;
 &lt;p&gt;Kinds: &lt;code&gt;vsa&lt;/code&gt;, &lt;code&gt;mscz&lt;/code&gt;, &lt;code&gt;tekstblad&lt;/code&gt;, &lt;code&gt;import&lt;/code&gt;, &lt;code&gt;mvsa&lt;/code&gt;, &lt;code&gt;audio&lt;/code&gt;, &lt;code&gt;lyrics&lt;/code&gt;.&lt;/p&gt;
 &lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Bouwt de bestanden die de site en Coria nodig hebben naast de bron in de
-catalogus. Na een geslaagde run (niet &lt;code&gt;--dry-run&lt;/code&gt;) schrijft het voor
-vsa/mvsa/mscz ook &lt;code&gt;{bron}.products-meta.json&lt;/code&gt; (snelle versheid) en
-vernieuwt het de zoekindex en Coria-fingerprints.&lt;/p&gt;</description></item><item><title>products — mscz</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+catalogus. Bij een map of meerdere kinds vraagt het &lt;strong&gt;één keer&lt;/strong&gt; om
+bevestiging (of &lt;code&gt;-y&lt;/code&gt;); de kind-sporen vragen daarna niet opnieuw. Na een
+geslaagde run (niet &lt;code&gt;--dry-run&lt;/code&gt;) schrijft het voor vsa/mvsa/mscz ook
+&lt;code&gt;{bron}.products-meta.json&lt;/code&gt; (snelle versheid) en vernieuwt het de
+zoekindex en Coria-fingerprints.&lt;/p&gt;</description></item><item><title>products — mscz</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\products.cmd --kinds mscz&lt;/code&gt; — PDF en Coria-&lt;code&gt;.mxl&lt;/code&gt; maken bij een basispartituur-&lt;code&gt;.mscz&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\products.cmd --kinds mscz [pad] [--force] [--dry-run]
@@ -346,11 +348,12 @@ onder &lt;code&gt;content-source\catalogus&lt;/code&gt; (of onder een opgegeven 
 één bronbestand of een map — zie
 &lt;a href="../invoer-bestand-of-map/"&gt;Invoer: bestand of map&lt;/a&gt;
 . Bij een map of
-meerdere kinds: preflight met bevestiging (of &lt;code&gt;-y&lt;/code&gt;); per kind volgt een
-eigen duur-schatting. Audio en lyrics horen daar gewoon bij; ze zijn geen
-aparte uitzondering. Mappen met &lt;code&gt;manueel: true&lt;/code&gt; en bestanden
-in &lt;code&gt;input\&lt;/code&gt; worden overgeslagen. Past het brontype niet bij een spoor, dan
-skip (geen fout).&lt;/p&gt;</description></item><item><title>products — vsa</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+meerdere kinds: één preflight met bevestiging (of &lt;code&gt;-y&lt;/code&gt;) aan het begin;
+daarna geen nieuwe &lt;code&gt;j&lt;/code&gt;/&lt;code&gt;ja&lt;/code&gt;-vragen per kind (ook niet bij grote
+batches). Per kind volgt wel een eigen duur-schatting. Audio en lyrics
+horen daar gewoon bij; ze zijn geen aparte uitzondering. Mappen met
+&lt;code&gt;manueel: true&lt;/code&gt; en bestanden in &lt;code&gt;input\&lt;/code&gt; worden overgeslagen. Past het
+brontype niet bij een spoor, dan skip (geen fout).&lt;/p&gt;</description></item><item><title>products — vsa</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\products.cmd --kinds vsa&lt;/code&gt; — Coria-&lt;code&gt;.vsa.mxl&lt;/code&gt;, A4-&lt;code&gt;.vsa.pdf&lt;/code&gt; en muziek-&lt;code&gt;.vsa.svg&lt;/code&gt;
 maken bij een catalogus-&lt;code&gt;.vsa&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
