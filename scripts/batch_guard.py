@@ -14,6 +14,7 @@ op basis van eerdere runs op deze machine.
 
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 import time
@@ -129,6 +130,15 @@ def add_yes_argument(parser) -> None:
     )
 
 
+def add_already_confirmed_argument(parser) -> None:
+    """Intern: parent-batch heeft al bevestigd (ook harde limiet overslaan)."""
+    parser.add_argument(
+        "--already-confirmed",
+        action="store_true",
+        help=argparse.SUPPRESS,
+    )
+
+
 def _read_answer(prompt: str) -> str:
     try:
         return input(prompt).strip().lower()
@@ -175,6 +185,7 @@ def confirm_batch(
     headline: str,
     details: Sequence[str] = (),
     yes: bool = False,
+    already_confirmed: bool = False,
     confirm_from: int = CONFIRM_FROM,
     hard_limit: int = HARD_LIMIT,
 ) -> bool:
@@ -183,6 +194,10 @@ def confirm_batch(
     Bij ``n >= hard_limit``: altijd dubbele zekerheidsvraag; ``-y`` helpt
     daar niet (bewust: na tooling-wijziging alles opnieuw maken zonder
     switch-naam te onthouden, wél met twee bewuste antwoorden).
+
+    ``already_confirmed=True`` (alleen via parent zoals ``products``):
+    geen enkele vraag meer, ook niet boven de harde limiet — de
+    orchestrator heeft al bevestigd voor de hele run.
 
     Returns
     -------
@@ -195,6 +210,11 @@ def confirm_batch(
         print(f"  {line}", flush=True)
     print(f"  Aantal items: {n}", flush=True)
     print(f"  {estimate_line(kind, n)}", flush=True)
+
+    if already_confirmed:
+        print("  Bevestiging: al gedaan (aanroepende batch).", flush=True)
+        print(flush=True)
+        return True
 
     if n < confirm_from:
         print(flush=True)

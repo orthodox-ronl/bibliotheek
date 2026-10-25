@@ -114,8 +114,10 @@ def main(argv: list[str] | None = None) -> int:
         forward.append("--only-invalid")
     if args.reasons:
         forward.extend(["--reasons", args.reasons])
-    # Kind-mains niet opnieuw laten vragen: orchestrator bevestigt één keer.
+    # Kind-mains niet opnieuw laten vragen: orchestrator bevestigt één keer
+    # (ook de harde limiet per kind — anders opnieuw j/ja per spoor).
     forward.append("-y")
+    forward.append("--already-confirmed")
 
     # Bevestiging bij map of meerdere kinds (één bestand + één kind: stil).
     confirm_n = 2 if (root.is_dir() or len(kinds) > 1) else 1
@@ -127,7 +129,7 @@ def main(argv: list[str] | None = None) -> int:
         details=[
             f"Actie: {actie}; condities={','.join(policy.active_reasons())}",
             "Per kind volgt een eigen duur-schatting (op basis van eerdere runs)",
-            "Kind-sporen vragen niet opnieuw om bevestiging (-y)",
+            "Kind-sporen vragen niet opnieuw om bevestiging",
         ],
         yes=args.yes,
     ):
