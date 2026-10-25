@@ -8,7 +8,7 @@
 &lt;li&gt;Zet bovenaan YAML met minstens &lt;code&gt;do&lt;/code&gt;, &lt;code&gt;mode&lt;/code&gt; en &lt;code&gt;tempo: 130&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;vsa validate pad\naar\bestand.vsa&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Catalogus-&lt;code&gt;index.md&lt;/code&gt; + slot-pagina (of compositieblad): shortcode &lt;code&gt;bieb&lt;/code&gt; met de catalogus-id&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;scripts\vsa-products.cmd&lt;/code&gt; op die map, daarna &lt;code&gt;scripts\check.cmd --strict&lt;/code&gt;. Commit &lt;code&gt;.vsa&lt;/code&gt;, &lt;code&gt;.vsa.svg&lt;/code&gt;, &lt;code&gt;.vsa.pdf&lt;/code&gt; en &lt;code&gt;.vsa.mxl&lt;/code&gt; samen.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;scripts\products.cmd --kinds vsa&lt;/code&gt; op die map, daarna &lt;code&gt;scripts\check.cmd --strict&lt;/code&gt;. Commit &lt;code&gt;.vsa&lt;/code&gt;, &lt;code&gt;.vsa.svg&lt;/code&gt;, &lt;code&gt;.vsa.pdf&lt;/code&gt; en &lt;code&gt;.vsa.mxl&lt;/code&gt; samen.&lt;/li&gt;
 &lt;/ol&gt;
 
  &lt;/div&gt;

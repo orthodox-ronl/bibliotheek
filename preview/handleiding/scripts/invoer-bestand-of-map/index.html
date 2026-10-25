@@ -42,7 +42,7 @@ omgewisselde woorden tellen mee. Zoeken loopt over de
 afspraak als in VSA-tooling: het pad-argument is</p><ol><li><strong>één bronbestand</strong> met de juiste extensie, of</li><li><strong>een map</strong>, waarvan (standaard recursief) alle passende bestanden
 worden meegenomen.</li></ol><p>Lege map (geen treffers) → duidelijke fout. Een enkelvoudig uitvoerpad
 (<code>-o</code> / <code>--output</code>) mag alleen bij precies <strong>één</strong> bronbestand.</p><p>Dit geldt onder meer voor <a href=../layout/>layout</a>
-, <a href=../pagina-pdf/>pagina-pdf</a>
+, <a href=../pdf/>pdf</a>
 ,
 <a href=../bieb-accepteer/>bieb accepteer</a>
 , <a href=../opkuisen/>opkuisen</a>
@@ -50,7 +50,7 @@ en
 <a href=../products/>products</a>
 / <code>*-products</code> (die dit al deden via
 <code>list_source_paths</code>).</p><p><strong>Niet</strong> voor id-commando’s: <code>bieb hernoem</code>, <code>bieb verwijder</code>,
-<code>bieb kopieer</code> (die werken op catalogus-ids, niet op bestandsscans).</p><h2 id=batch-preflight-duur-schatting-bevestiging>Batch: preflight, duur-schatting, bevestiging</h2><p>Bij meerdere bestanden (vanaf 2) tonen o.a. <code>layout</code>, <code>pagina-pdf</code>,
+<code>bieb kopieer</code> (die werken op catalogus-ids, niet op bestandsscans).</p><h2 id=batch-preflight-duur-schatting-bevestiging>Batch: preflight, duur-schatting, bevestiging</h2><p>Bij meerdere bestanden (vanaf 2) tonen o.a. <code>layout</code>, <code>pdf.cmd</code>,
 <code>bieb accepteer</code>, <code>opkuisen</code> en de <code>*-products</code> / <code>products</code> eerst een
 <strong>preflight</strong>: hoeveel items, wat er gebeurt, en een <strong>geschatte duur</strong>.
 Die schatting komt uit een running gemiddelde van de laatste metingen op
@@ -66,7 +66,7 @@ bevestigen in het opdrachtvenster. Zonder terminal stopt zo’n grote batch
 met uitleg.</p><p>Tijdens de batch: doorgaan bij fouten, tussentijdse
 resterende-tijd-schatting, eindlijst van mislukte paden.</p><p>Technische helpers: <code>scripts\input_paths.py</code>, <code>scripts\batch_guard.py</code>.</p><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\layout.cmd content-source\catalogus\ektinia\vrede\hemelum\lied.mscz
 </span></span><span style=display:flex><span>scripts\layout.cmd content-source\catalogus\ektinia\vrede
-</span></span><span style=display:flex><span>scripts\pagina-pdf.cmd content-source\koormappen\hemelum\liturgie-zondag
+</span></span><span style=display:flex><span>scripts\pdf.cmd content-source\koormappen\hemelum\liturgie-zondag
 </span></span><span style=display:flex><span>scripts\bieb.cmd accepteer input\_werk\batch --dry-run
 </span></span></code></pre></div><p>Bij een map: eerst <code>--dry-run</code> waar dat bestaat; controleer of je niet per
 ongeluk een te grote boom meegeeft.</p><div class=nav-buttons><a class=btn href=/bibliotheek/preview/handleiding/scripts/>Script-referentie
@@ -80,4 +80,4 @@ ongeluk een te grote boom meegeeft.</p><div class=nav-buttons><a class=btn href=
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-22</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-25</p></div></footer></body></html>

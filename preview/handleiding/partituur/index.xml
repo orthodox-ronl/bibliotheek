@@ -87,12 +87,12 @@ de rest van de catalogus-site.&lt;/p&gt;</description></item><item><title>PDF en
 &lt;p&gt;&lt;strong&gt;Werktraject&lt;/strong&gt; (waartoe, criteria, CI):
 &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/basispartituur/"&gt;Basispartituur&lt;/a&gt;
 .
-Deze pagina is de HOW voor &lt;code&gt;mscz-products&lt;/code&gt;.&lt;/p&gt;
+Deze pagina is de HOW voor &lt;code&gt;products --kinds mscz&lt;/code&gt;.&lt;/p&gt;
 &lt;aside class="handleiding-cue"&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;p&gt;Basispartituur-&lt;code&gt;.mscz&lt;/code&gt; staat in het &lt;strong&gt;bibliotheek&lt;/strong&gt; (niet alleen in &lt;code&gt;_werk&lt;/code&gt;). Daarna:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mscz-products.cmd content-source\catalogus\trisagion\8a-nederlands\hemelum
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\products.cmd --kinds mscz content-source\catalogus\trisagion\8a-nederlands\hemelum
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Of heel &lt;code&gt;content-source&lt;/code&gt;. &lt;code&gt;--force&lt;/code&gt; als producten ouder zijn dan de basispartituur of
 de bestandsdatum niet klopt. Lokale &lt;code&gt;check&lt;/code&gt;/&lt;code&gt;build&lt;/code&gt;/&lt;code&gt;serve&lt;/code&gt; vernieuwen
 stale basispartituur-producten ook automatisch. Weigert / slaat &lt;code&gt;*.print.mscz&lt;/code&gt; over.&lt;/p&gt;
@@ -107,12 +107,12 @@ sibling-bestanden maken:&lt;/p&gt;</description></item><item><title>Afgeleiden b
  &lt;div class="handleiding-cue-body"&gt;
  &lt;p&gt;Na basispartituur-edit in de catalogus:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\layout.cmd content-source\catalogus\DOEL\STAM.mscz
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\mscz-products.cmd content-source\catalogus\DOEL
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\products.cmd --kinds mscz content-source\catalogus\DOEL
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\check.cmd --strict
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Of producten voor alles: &lt;code&gt;scripts\mscz-products.cmd content-source&lt;/code&gt;.
-&lt;code&gt;--force&lt;/code&gt; op &lt;code&gt;mscz-products&lt;/code&gt; als de basispartituur nieuwer is maar dat niet in de
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Of producten voor alles: &lt;code&gt;scripts\products.cmd --kinds mscz content-source&lt;/code&gt;.
+&lt;code&gt;--force&lt;/code&gt; op &lt;code&gt;products --kinds mscz&lt;/code&gt; als de basispartituur nieuwer is maar dat niet in de
 bestandsdatum zichtbaar is.&lt;/p&gt;
-&lt;p&gt;Na &lt;code&gt;.vsa&lt;/code&gt;-edit: &lt;code&gt;scripts\vsa-products.cmd&lt;/code&gt; (of alleen &lt;code&gt;check&lt;/code&gt; lokaal) en
+&lt;p&gt;Na &lt;code&gt;.vsa&lt;/code&gt;-edit: &lt;code&gt;scripts\products.cmd --kinds vsa&lt;/code&gt; (of alleen &lt;code&gt;check&lt;/code&gt; lokaal) en
 commit &lt;code&gt;.vsa&lt;/code&gt; + &lt;code&gt;.vsa.mxl&lt;/code&gt; samen.&lt;/p&gt;
 
  &lt;/div&gt;
@@ -129,10 +129,10 @@ Deze pagina is de HOW.&lt;/p&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  Bestandsnaam eindigt op &lt;strong&gt;&lt;code&gt;.print.mscz&lt;/code&gt;&lt;/strong&gt;. Geen &lt;code&gt;scripts\layout.cmd&lt;/code&gt;, geen
-&lt;code&gt;mscz-products&lt;/code&gt;, geen Coria-eis uit dit MuseScore-bestand. PDF maak je zelf in
+&lt;code&gt;products --kinds mscz&lt;/code&gt;, geen Coria-eis uit dit MuseScore-bestand. PDF maak je zelf in
 MuseScore 4 (Bestand → Exporteren → PDF) en commit je naast het print-bestand
 &lt;strong&gt;in de catalogus&lt;/strong&gt;. Zet op de catalogus-&lt;code&gt;index.md&lt;/code&gt;
-&lt;code&gt;artefacten_handmatig: true&lt;/code&gt; (gele beheerdersbanner).
+&lt;code&gt;manueel: true&lt;/code&gt; (gele beheerdersbanner).
  &lt;/div&gt;
 &lt;/aside&gt;
 

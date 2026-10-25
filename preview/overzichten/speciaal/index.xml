@@ -397,8 +397,8 @@ hij hoeft (nog) niet via Coria te oefenen zijn.&lt;/p&gt;
  &lt;/li&gt;&lt;li&gt;&lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/vriendelijk-licht/default/groningen/"&gt;Groningen&lt;/a&gt;&lt;code class="catalogus-id"&gt;vriendelijk-licht/default/groningen&lt;/code&gt;
  &lt;/li&gt;&lt;li&gt;&lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/wij-hebben-het-ware-licht/default/hemelum/"&gt;Hemelum&lt;/a&gt;&lt;code class="catalogus-id"&gt;wij-hebben-het-ware-licht/default/hemelum&lt;/code&gt;
  &lt;/li&gt;&lt;/ul&gt;</description></item><item><title>Handmatige artefacten</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/overzichten/speciaal/handmatig/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/overzichten/speciaal/handmatig/</guid><description>&lt;p&gt;Uitvoeringsvormen waarvan de catalogus-&lt;code&gt;index.md&lt;/code&gt;
-&lt;code&gt;artefacten_handmatig: true&lt;/code&gt; heeft. Productscripts
-(&lt;code&gt;mscz-products&lt;/code&gt;, &lt;code&gt;vsa-products&lt;/code&gt;, …) en publicatiecontrole slaan die
+&lt;code&gt;manueel: true&lt;/code&gt; heeft. Productscripts
+(&lt;code&gt;products --kinds mscz&lt;/code&gt;, &lt;code&gt;products --kinds vsa&lt;/code&gt;, …) en publicatiecontrole slaan die
 mappen over: PDF en MusicXML houd je zelf bij.&lt;/p&gt;
 &lt;p&gt;Die leaves blijven wél vindbaar via &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/overzichten/zoeken/"&gt;Zoeken&lt;/a&gt;
  en
@@ -410,10 +410,10 @@ zien welke uitvoeringsvormen buiten de automatische productketen vallen.&lt;/p&g
  &lt;/li&gt;&lt;li&gt;&lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/tropaar/nikolaas-van-myra-toon-4/hemelum/"&gt;Hemelum&lt;/a&gt;&lt;code class="catalogus-id"&gt;tropaar/nikolaas-van-myra-toon-4/hemelum&lt;/code&gt;
  &lt;/li&gt;&lt;/ul&gt;</description></item><item><title>Basispartituur in MuseScore</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/overzichten/speciaal/mscz-bron/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/overzichten/speciaal/mscz-bron/</guid><description>&lt;p&gt;Uitvoeringsvormen waarvan de catalogusmap een &lt;strong&gt;basispartituur-&lt;code&gt;.mscz&lt;/code&gt;&lt;/strong&gt;
 bevat (geen print-vel &lt;code&gt;*.print.mscz&lt;/code&gt; alleen). Op het scherm horen die
-bij &lt;code&gt;{stam}.mscz.svg&lt;/code&gt; (via &lt;code&gt;scripts\mscz-products.cmd&lt;/code&gt;), niet bij de
+bij &lt;code&gt;{stam}.mscz.svg&lt;/code&gt; (via &lt;code&gt;scripts\products.cmd --kinds mscz&lt;/code&gt;), niet bij de
 product-PDF. Geen verplichte omzetting naar &lt;code&gt;.mvsa&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Koninklijke route:&lt;/strong&gt; nieuwe of blijvende catalogusbron bij voorkeur als
-&lt;strong&gt;&lt;code&gt;.mvsa&lt;/code&gt;&lt;/strong&gt; (meerstemmige tekstbron → SVG / OSMD via &lt;code&gt;mvsa-products&lt;/code&gt;). Dat
+&lt;strong&gt;&lt;code&gt;.mvsa&lt;/code&gt;&lt;/strong&gt; (meerstemmige tekstbron → SVG / OSMD via &lt;code&gt;products --kinds mvsa&lt;/code&gt;). Dat
 is één keten met de rest van de catalogus. Omzetten van een bestaande
 &lt;code&gt;.mscz&lt;/code&gt; naar &lt;code&gt;.mvsa&lt;/code&gt; mag wanneer het in de praktijk nuttig is — niet als
 eis vóór publicatie.&lt;/p&gt;</description></item></channel></rss>

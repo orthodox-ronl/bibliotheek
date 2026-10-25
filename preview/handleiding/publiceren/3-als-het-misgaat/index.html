@@ -56,16 +56,16 @@ noteer dat in de notitie. Bestaand id:
 id, bestand bestaat al (dan <code>--force</code> alleen als je bewust overschrijft),
 <code>.vsa</code> die <code>vsa validate</code> niet haalt, of een Capella-<code>.mxl</code> zonder basispartituur.
 Stappen: <a href=../1-opnemen-in-catalogus/>Opnemen in de catalogus</a>
-.</p><h2 id=layout-of-mscz-products-herstelt-je-speciale-partituur>Layout of <code>mscz-products</code> “herstelt” je speciale partituur</h2><p>Eindigt de bestandsnaam op <code>.print.mscz</code>? Dan hoort die <strong>niet</strong> door
-<code>scripts\layout.cmd</code> of <code>mscz-products</code>. Zie
+.</p><h2 id=layout-of-products---kinds-mscz-herstelt-je-speciale-partituur>Layout of <code>products --kinds mscz</code> “herstelt” je speciale partituur</h2><p>Eindigt de bestandsnaam op <code>.print.mscz</code>? Dan hoort die <strong>niet</strong> door
+<code>scripts\layout.cmd</code> of <code>products --kinds mscz</code>. Zie
 <a href=/bibliotheek/preview/handleiding/partituur/7-print-mscz/>Print-.mscz</a>
 . Per ongeluk
 als gewone <code>.mscz</code> gezet? Hernoem terug naar <code>.print.mscz</code> vóór de
-volgende <code>check</code>. Zet <code>artefacten_handmatig: true</code> op de catalogus-<code>index.md</code>
-als PDF/MXL handmatig blijven.</p><h2 id=musescore-start-niet--niet-gevonden>MuseScore start niet / “niet gevonden”</h2><p>Layout en <code>mscz-products</code> hebben MuseScore <strong>4</strong> nodig. Installeer
+volgende <code>check</code>. Zet <code>manueel: true</code> op de catalogus-<code>index.md</code>
+als PDF/MXL handmatig blijven.</p><h2 id=musescore-start-niet--niet-gevonden>MuseScore start niet / “niet gevonden”</h2><p>Layout en <code>products --kinds mscz</code> hebben MuseScore <strong>4</strong> nodig. Installeer
 MuseScore 4; gebruik niet MuseScore 3. Open het opdrachtvenster opnieuw
 na installatie. (Voor alleen <code>.vsa</code> → Coria is MuseScore niet nodig:
-<code>vsa-products</code>.)</p><h2 id=de-pagina-is-lelijk-of-de-stijl-is-weg>De pagina is lelijk of de stijl is weg</h2><p>Meestal: geëxporteerd naar MusicXML en weer geopend. Ga terug naar de
+<code>products --kinds vsa</code>.)</p><h2 id=de-pagina-is-lelijk-of-de-stijl-is-weg>De pagina is lelijk of de stijl is weg</h2><p>Meestal: geëxporteerd naar MusicXML en weer geopend. Ga terug naar de
 basispartituur-<code>.mscz</code> (of opnieuw vanaf opgekuiste <code>.mxl</code> plus normaliseren). Daarna:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\layout.cmd pad\naar\bestand.mscz
 </span></span></code></pre></div><h2 id=coria-failed-to-retrieve-file>Coria: <code>failed to retrieve file</code></h2><p>Coria haalt het muziekbestand zelf vanaf internet op. <strong>Oefenen</strong> (via
 tip-icoon <strong>♪</strong>) moet daarom naar een <strong>volledig</strong> adres op
@@ -85,7 +85,7 @@ falen met dezelfde melding <code>translation failed</code>. In de bibliotheek zi
 dit de bekende gevallen:</p><ol><li><code>&lt;identification></code> heeft zowel <code>&lt;source></code> als <code>&lt;encoding></code> —
 bronvermelding hoort in <code>miscellaneous-field name="bron"</code>.</li><li>In <code>&lt;identification></code> staat <code>&lt;miscellaneous></code> vóór <code>&lt;encoding></code> —
 Coria eist <code>encoding</code> eerst; <code>products</code> / stamp zetten die volgorde.</li><li>De score bevat <code>&lt;notehead></code> (bijvoorbeeld <code>none</code> uit MuseScore) —
-die tag hoort niet in Coria-<code>.mxl</code>; <code>mscz-products</code> / sanitize
+die tag hoort niet in Coria-<code>.mxl</code>; <code>products --kinds mscz</code> / sanitize
 strippen die mee.</li><li>Binnen <code>&lt;note></code> verkeerde kindvolgorde (M20): <code>&lt;lyric></code> vóór
 <code>&lt;staff></code>, of <code>&lt;dot></code> ná <code>&lt;accidental></code> — <code>mxl validate</code> faalt;
 opnieuw producten draaien met actuele tooling / <code>coria_mxl</code>.</li></ol><p>Als <code>check</code> (of <code>check_mxl_playback_contract</code>)
@@ -94,16 +94,16 @@ opnieuw producten draaien met actuele tooling / <code>coria_mxl</code>.</li></ol
 </span></span></code></pre></div><p>Als de check <code>coria_notehead</code> meldt, of na een MuseScore-export opnieuw
 <code>&lt;notehead></code> in de Coria-<code>.mxl</code> zit:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\products.cmd --kinds mscz --only-invalid
 </span></span></code></pre></div><p>(<code>products</code> vernieuwt daarna zelf de Coria-fingerprints voor <strong>Oefenen</strong>.)</p><p>Of producten opnieuw: <code>scripts\products.cmd --kinds mscz,mvsa,vsa</code>
-(voor de betreffende stukken). De <code>.mxl</code> moet uit <code>mscz-products</code>,
-<code>mvsa-products</code> of <code>vsa-products</code> komen (of handmatig bij
-<code>artefacten_handmatig</code>), niet een ruwe Capella-<code>.mxl</code>.</p><h2 id=rode-banner-partituur--of-vsa-afgeleiden-niet-in-orde>Rode banner: partituur- of VSA-afgeleiden niet in orde</h2><div class=table-scroll><table><thead><tr><th>Banner</th><th>Oorzaak</th><th>Actie</th></tr></thead><tbody><tr><td>Basispartituur-afgeleiden</td><td>PDF/MXL passen niet bij de basispartituur-<code>.mscz</code></td><td><a href=../../partituur/6-afgeleiden/>Afgeleiden</a>
-— layout + <code>mscz-products</code></td></tr><tr><td>VSA-afgeleiden</td><td><code>{stam}.vsa.mxl</code>, <code>.vsa.pdf</code> of <code>.vsa.svg</code> ontbreekt of past niet bij de <code>.vsa</code></td><td><code>scripts\vsa-products.cmd</code>, commit bron en siblings</td></tr></tbody></table></div><p>Op <code>main</code> faalt de build bij dezelfde situaties.</p><h2 id=gele-banner-handmatige-artefacten>Gele banner: handmatige artefacten</h2><p>Geen fout: <code>artefacten_handmatig: true</code> staat op die cataloguspagina.
+(voor de betreffende stukken). De <code>.mxl</code> moet uit <code>products --kinds mscz</code>,
+<code>products --kinds mvsa</code> of <code>products --kinds vsa</code> komen (of handmatig bij
+<code>manueel</code> / <code>manual</code>), niet een ruwe Capella-<code>.mxl</code>.</p><h2 id=rode-banner-partituur--of-vsa-afgeleiden-niet-in-orde>Rode banner: partituur- of VSA-afgeleiden niet in orde</h2><div class=table-scroll><table><thead><tr><th>Banner</th><th>Oorzaak</th><th>Actie</th></tr></thead><tbody><tr><td>Basispartituur-afgeleiden</td><td>PDF/MXL passen niet bij de basispartituur-<code>.mscz</code></td><td><a href=../../partituur/6-afgeleiden/>Afgeleiden</a>
+— layout + <code>products --kinds mscz</code></td></tr><tr><td>VSA-afgeleiden</td><td><code>{stam}.vsa.mxl</code>, <code>.vsa.pdf</code> of <code>.vsa.svg</code> ontbreekt of past niet bij de <code>.vsa</code></td><td><code>scripts\products.cmd --kinds vsa</code>, commit bron en siblings</td></tr></tbody></table></div><p>Op <code>main</code> faalt de build bij dezelfde situaties.</p><h2 id=gele-banner-handmatige-artefacten>Gele banner: handmatige artefacten</h2><p>Geen fout: <code>manueel: true</code> staat op die cataloguspagina.
 PDF/MXL vernieuwen de scripts niet; doe dat zelf na elke bronwijziging.</p><h2 id=bieb-faalt-bij-build><code>bieb</code> faalt bij build</h2><p>De shortcode verwijst naar een catalogus-pagina die nog niet bestaat, of
 het id klopt niet (<code>zangstuk/variant/uitvoeringsvorm</code>). Maak eerst de
 catalogus-map + <code>index.md</code>, of corrigeer het id in het koormap-slot.</p><h2 id=hugo-waarschuwing-svg-ontbreekt>Hugo-waarschuwing: SVG ontbreekt</h2><p>Shortcode <code>bieb</code> toont <code>{stam}.vsa.svg</code> of <code>{stam}.mvsa.svg</code> naast de
 bron. Ontbreekt die sibling, dan noemt de waarschuwing ook het
-legacy-pad <code>static\vsa\bladermap\…</code>.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\vsa-products.cmd content-source\catalogus\&lt;zangstuk&gt;\&lt;variant&gt;\&lt;uitvoeringsvorm&gt;
-</span></span></code></pre></div><p>Bij een <code>.mvsa</code>: <code>scripts\mvsa-products.cmd</code> op die map. <code>check</code> vult
+legacy-pad <code>static\vsa\bladermap\…</code>.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\products.cmd --kinds vsa content-source\catalogus\&lt;zangstuk&gt;\&lt;variant&gt;\&lt;uitvoeringsvorm&gt;
+</span></span></code></pre></div><p>Bij een <code>.mvsa</code>: <code>scripts\products.cmd --kinds mvsa</code> op die map. <code>check</code> vult
 de sibling niet aan. Uitleg: <a href=../../vsa/1-vsa-schrijven/>.vsa schrijven</a>
 .</p><h2 id=vsa-validate-klaagt><code>vsa validate</code> klaagt</h2><p>De markering zit in de gezongen regel. Vergelijk met een werkend <code>.vsa</code>
 ernaast. Haal niet “even de rare tekens weg” om groen te worden.</p><h2 id=template-satb-templateinstanceerror>Template SATB: <code>TemplateInstanceError</code></h2><p>De sopraan in de VSA volgt de tropaar-toon-4-formule niet (toon of
@@ -127,4 +127,4 @@ Capella, VOW of VSA gaat.</p><div class=nav-buttons><a class=btn href=/bibliothe
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-24</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-25</p></div></footer></body></html>

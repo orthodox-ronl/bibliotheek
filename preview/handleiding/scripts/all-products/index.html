@@ -48,23 +48,23 @@ onder <code>content-source\catalogus</code> (of onder een opgegeven pad). Het pa
 . Bij een map of
 meerdere kinds: preflight met bevestiging (of <code>-y</code>); per kind volgt een
 eigen duur-schatting. Audio en lyrics horen daar gewoon bij; ze zijn geen
-aparte uitzondering. Mappen met <code>artefacten_handmatig: true</code> en bestanden
+aparte uitzondering. Mappen met <code>manueel: true</code> en bestanden
 in <code>input\</code> worden overgeslagen. Past het brontype niet bij een spoor, dan
-skip (geen fout).</p><p>Volgorde:</p><ol><li><a href=../vsa-products/>vsa-products</a>
-— <code>{stam}.vsa.mxl</code> + <code>{stam}.vsa.pdf</code> + <code>{stam}.vsa.svg</code></li><li><a href=../mscz-products/>mscz-products</a>
-— <code>{stam}.mscz.pdf</code> + <code>{stam}.mscz.mxl</code></li><li><a href=../tekstblad-products/>tekstblad-products</a>
-— <code>{stam}.tekstblad.pdf</code></li><li><a href=../mvsa-products/>mvsa-products</a>
+skip (geen fout).</p><p>Volgorde:</p><ol><li><a href=../vsa-products/>products (vsa)</a>
+— <code>{stam}.vsa.mxl</code> + <code>{stam}.vsa.pdf</code> + <code>{stam}.vsa.svg</code></li><li><a href=../mscz-products/>products (mscz)</a>
+— <code>{stam}.mscz.pdf</code> + <code>{stam}.mscz.mxl</code></li><li><a href=../tekstblad-products/>products (tekstblad)</a>
+— <code>{stam}.tekstblad.pdf</code></li><li><a href=../mvsa-products/>products (mvsa)</a>
 — <code>{stam}.mvsa.mxl</code> + <code>{stam}.mvsa.pdf</code> + <code>{stam}.mvsa.svg</code> + Score-IR + from-ir MusicXML</li><li><a href=../import-mvsa/>import-mvsa</a>
-— alleen <strong>bestaande</strong> <code>{stam}.mscz.mvsa</code></li><li><a href=../audio-products/>audio-products</a>
-— <code>{stam}.mvsa.mp3</code> / <code>.mscz.mp3</code> / <code>.vsa.mp3</code></li><li><a href=../lyrics-products/>lyrics-products</a>
+— alleen <strong>bestaande</strong> <code>{stam}.mscz.mvsa</code></li><li><a href=../audio-products/>products (audio)</a>
+— <code>{stam}.mvsa.mp3</code> / <code>.mscz.mp3</code> / <code>.vsa.mp3</code></li><li><a href=../lyrics-products/>products (lyrics)</a>
 — <code>{stam}.vsa.lyrics.txt</code> / <code>.mvsa.lyrics.txt</code> / <code>.mscz.lyrics.txt</code></li></ol><p>Daarna (tenzij <code>--dry-run</code>): Coria-fingerprints voor <strong>Oefenen</strong> (♪)
 (<code>fingerprint_coria_mxl.py</code>, via <code>products.cmd</code>), en
 <code>static\zoek\index.json</code> opnieuw bouwen zodat zoeken lyrics, status en
 audio-paden volgt. Op GitHub Pages gebeurt die indexstap opnieuw in de
 deploy (ook voor <code>/preview/</code> en branch-previews).</p><p>Elk spoor vernieuwt alleen wat ontbreekt of waarvan de herkomststempel
-niet meer bij de bron past (tenzij <code>--force</code>).</p><p>Dit commando maakt <strong>geen</strong> koormap-blad. Het bestand <code>index.pagina.pdf</code>
+niet meer bij de bron past (tenzij <code>--force</code>).</p><p>Dit commando maakt <strong>geen</strong> koormap-blad. Het bestand <code>index.md.pdf</code>
 (knoppen Download pagina en Print pagina) bouw je daarna met
-<a href=../pagina-pdf/>pagina-pdf</a>
+<a href=../pdf/>pdf</a>
 , als de catalogus-PDF’s al vers zijn.
 <code>pdf-bijelkaar</code> exporteert dan een tijdelijke compacte SVG; die
 overschrijft <code>{stam}.mvsa.svg</code> niet.</p><p><strong>MuseScore 4</strong> is nodig voor PDF en audio. Zonder MuseScore stoppen die
@@ -75,8 +75,9 @@ script.</p><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 sty
 </span></span><span style=display:flex><span>scripts\all-products.cmd content-source\catalogus\alleluia
 </span></span><span style=display:flex><span>scripts\all-products.cmd --dry-run
 </span></span></code></pre></div><h1 id=when>WHEN</h1><p>Na het toevoegen of wijzigen van bronnen, of als <code>check --strict</code> meerdere
-productsporen tegelijk als missing/stale meldt. Voor één spoor: het
-specifieke <code>*-products.cmd</code>.</p><h1 id=see-also>SEE ALSO</h1><ul><li><a href=../check/>check</a></li><li><a href=../pagina-pdf/>pagina-pdf</a></li><li><a href=../audio-products/>audio-products</a></li><li><a href=/bibliotheek/preview/handleiding/start/publicatiecontrole/>Publicatiecontrole</a></li></ul></main><div id=score-audio-bar class=score-audio-bar hidden><div class=score-audio-bar-inner><p class=score-audio-bar-title id=score-audio-bar-title></p><div class=score-audio-bar-row><button type=button class="score-audio-bar-btn score-audio-bar-play" aria-label=Pauzeren aria-controls=score-audio-bar-element aria-pressed=true>
+productsporen tegelijk als missing/stale meldt. Voor één spoor:
+<code>scripts\products.cmd --kinds …</code> — zie <a href=../products/>products</a>
+.</p><h1 id=see-also>SEE ALSO</h1><ul><li><a href=../products/>products</a></li><li><a href=../check/>check</a></li><li><a href=../pdf/>pdf</a></li><li><a href=../audio-products/>products (audio)</a></li><li><a href=/bibliotheek/preview/handleiding/start/publicatiecontrole/>Publicatiecontrole</a></li></ul></main><div id=score-audio-bar class=score-audio-bar hidden><div class=score-audio-bar-inner><p class=score-audio-bar-title id=score-audio-bar-title></p><div class=score-audio-bar-row><button type=button class="score-audio-bar-btn score-audio-bar-play" aria-label=Pauzeren aria-controls=score-audio-bar-element aria-pressed=true>
 <span class="score-audio-bar-icon score-audio-bar-icon--pause" aria-hidden=true>❚❚</span>
 <span class="score-audio-bar-icon score-audio-bar-icon--play" aria-hidden=true>▶</span>
 </button>
@@ -86,4 +87,4 @@ specifieke <code>*-products.cmd</code>.</p><h1 id=see-also>SEE ALSO</h1><ul><li>
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-24</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-25</p></div></footer></body></html>

@@ -68,12 +68,12 @@ de layout.</p><p><strong>Slot-pagina</strong> (<code>index.md</code>): gewone ma
 uitleg zet je zelf; <code>bieb</code> haalt muziek (en desgewenst titel/bron) uit de
 catalogus; bladtitels met <code>kop</code>; bladindeling in de download met
 <code>pdf-pagina</code> / <code>pdf-bijelkaar</code>. Bovenaan de pagina: <strong>Download pagina</strong> en
-<strong>Print pagina</strong> als <code>index.pagina.pdf</code> bestaat — beide gebruiken die PDF
+<strong>Print pagina</strong> als <code>index.md.pdf</code> bestaat — beide gebruiken die PDF
 (niet de browserafdruk van de HTML). De voorgestelde bestandsnaam bij
 downloaden komt uit frontmatter <code>pdf_bestandsnaam</code>, anders uit <code>title</code>,
 anders uit de mapnaam. Bij elk muziekblok: tip-icoon <strong>♪</strong> voor
 <strong>Oefenen</strong> / <strong>Beluisteren</strong> van <strong>dat</strong> stuk. Pagina-PDF bouwen:
-<a href=../scripts/pagina-pdf/>pagina-pdf</a>
+<a href=../scripts/pdf/>pdf</a>
 .</p><p><strong>Spiekbriefje voor beheerders:</strong> <a href=koormap-blad/>Koormap-blad schrijven</a>
 .
 Normatieve specificatie in de repository:
@@ -98,7 +98,7 @@ geen partituur;</li><li>de bibliotheek-index van het zangstuk (<code>tropaar/</c
 <strong>beide</strong> varianten; achter de alias-naam staat dat het een alias is.</li></ul><p>Shortcode <code>bieb</code> krijgt een uitvoeringsvorm-id (drie lagen). Wie de
 alias-variant in dat id zet, bijvoorbeeld
 <code>tropaar/heilige-engelen-toon-4/hemelum</code>, wordt herschreven naar de canonieke
-uitvoeringsvorm. Product-tools (<code>vsa-products</code>, basispartituur-producten) slaan
+uitvoeringsvorm. Product-tools (<code>products --kinds vsa</code>, basispartituur-producten) slaan
 alias-varianten over: daar is niets te genereren.</p><p><code>check</code> weigert een alias-variant die toch een uitvoeringsvorm-map of
 partituur bevat. Dat patroon mag voor elk zangstuk waarvan een variant
 onder meerdere namen bekend is.</p><h2 id=titels-en-frontmatter-in-de-catalogus>Titels en frontmatter in de catalogus</h2><p>Getoonde namen in de catalogus (paginatitel, navigatie, zoeken) worden
@@ -111,9 +111,9 @@ geen bron van waarheid (Hugo negeert ze op id-pagina’s); <code>bieb accepteer<
 mag ze nog als afgeleid artefact zetten.</p><p>Op een <strong>uitvoeringsvorm-blad</strong> zet je in de Markdown geen tweede
 hoofdtitel (<code># …</code>): de site toont al één titel boven de partituur. De body
 is meestal alleen de regel met <code>bieb</code>. De PDF achter <strong>Download pagina</strong> /
-<strong>Print pagina</strong> (<code>index.pagina.pdf</code>) volgt dezelfde bladintentie; zie het
-plan <code>docs/plans/catalogus-pagina-pdf.md</code> en het script
-<a href=../scripts/pagina-pdf/>pagina-pdf</a>
+<strong>Print pagina</strong> (<code>index.md.pdf</code>) volgt dezelfde bladintentie; zie het
+plan <code>docs/plans/catalogus-index-md-pdf.md</code> en het script
+<a href=../scripts/pdf/>pdf</a>
 .</p><h3 id=afleiding-per-laag>Afleiding per laag</h3><div class=table-scroll><table><thead><tr><th>Laag</th><th>Korte naam (navigatie)</th><th>Paginatitel / zoek</th></tr></thead><tbody><tr><td><strong>Zangstuk</strong></td><td>Uit mapnaam (streepjes → spaties)</td><td>Zelfde</td></tr><tr><td><strong>Variant</strong></td><td>Uit mapnaam (<code>default</code> → Standaard)</td><td>Zelfde</td></tr><tr><td><strong>Uitvoeringsvorm (leaf)</strong></td><td>Label uit uitvoeringsvorm-id (<code>Hemelum</code>, <code>Groningen</code>, …)</td><td>Uit bron-titel als die er is, anders uit id: <code>Zangstuk Variant (Label)</code></td></tr></tbody></table></div><h3 id=variant-id-default>Variant-id <code>default</code></h3><p>Als er nog maar één variant is, heet de map vaak <code>default</code>. Op de
 <strong>variant-pagina</strong> in de catalogus is de getoonde naam dan <strong>Standaard</strong>.
 Zodra er een tweede variant komt, geef je de map een echte id (hernoemen);
@@ -147,7 +147,7 @@ Voorzien-items en technische overzichten staan onder
 <a href=/bibliotheek/preview/overzichten/speciaal/>Speciaal</a>
 . Hemelum-id-naslag en
 reserveringen: <a href=/bibliotheek/preview/overzichten/id-register/>Id-register</a>
-(niet de bron van waarheid voor wat er bestaat).</p><h2 id=special-pages>Special pages</h2><p>Automatisch bijgehouden (bij elke sitebuild):</p><div class=table-scroll><table><thead><tr><th>Pagina</th><th>Inhoud</th></tr></thead><tbody><tr><td><a href=/bibliotheek/preview/overzichten/speciaal/voorzien/>Voorzien</a></td><td>Zangstukken zonder oefenbare inhoud</td></tr><tr><td><a href=/bibliotheek/preview/overzichten/speciaal/ongerefereerd/>Ongerefereerd</a></td><td>In de catalogus, nog niet in een koormap</td></tr><tr><td><a href=/bibliotheek/preview/overzichten/speciaal/oefenbaar/>Oefenbaar</a></td><td>Platte lijst van linkbare uitvoeringsvormen + id</td></tr><tr><td><a href=/bibliotheek/preview/overzichten/speciaal/handmatig/>Handmatig</a></td><td>Uitvoeringsvormen met <code>artefacten_handmatig: true</code></td></tr></tbody></table></div><h2 id=taalvarianten-op-de-uitvoeringsvorm>Taalvarianten op de uitvoeringsvorm</h2><p>Nederlands en kerkslavisch zijn <strong>aparte uitvoeringsvormen</strong>. De taal
+(niet de bron van waarheid voor wat er bestaat).</p><h2 id=special-pages>Special pages</h2><p>Automatisch bijgehouden (bij elke sitebuild):</p><div class=table-scroll><table><thead><tr><th>Pagina</th><th>Inhoud</th></tr></thead><tbody><tr><td><a href=/bibliotheek/preview/overzichten/speciaal/voorzien/>Voorzien</a></td><td>Zangstukken zonder oefenbare inhoud</td></tr><tr><td><a href=/bibliotheek/preview/overzichten/speciaal/ongerefereerd/>Ongerefereerd</a></td><td>In de catalogus, nog niet in een koormap</td></tr><tr><td><a href=/bibliotheek/preview/overzichten/speciaal/oefenbaar/>Oefenbaar</a></td><td>Platte lijst van linkbare uitvoeringsvormen + id</td></tr><tr><td><a href=/bibliotheek/preview/overzichten/speciaal/handmatig/>Handmatig</a></td><td>Uitvoeringsvormen met <code>manueel: true</code></td></tr></tbody></table></div><h2 id=taalvarianten-op-de-uitvoeringsvorm>Taalvarianten op de uitvoeringsvorm</h2><p>Nederlands en kerkslavisch zijn <strong>aparte uitvoeringsvormen</strong>. De taal
 hoort in het derde padsegment (de leaf-map), niet in een vierde maplaag
 en niet als aparte map per bestandsformaat.</p><p><strong>Regel:</strong> geen taalsuffix op de uitvoeringsvorm-id betekent Nederlands.
 Andere talen krijgen een suffix achter de leaf-naam (<code>-ksl</code>, later
@@ -209,4 +209,4 @@ uitvoeringsvormen aanmaakt (<code>hemelum</code> + <code>hemelum-ksl</code>).</p
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-24</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-25</p></div></footer></body></html>

@@ -139,8 +139,8 @@ de bestaande productscripts en publicatiecontrole. Overzicht:
  &lt;ol&gt;
 &lt;li&gt;Canonieke bron bewerken in de catalogusmap (niet opnieuw vanuit
 een ruwe dump “ernaast”).&lt;/li&gt;
-&lt;li&gt;Producten: &lt;code&gt;scripts\all-products.cmd&lt;/code&gt; met pad naar die map (of het
-passende &lt;code&gt;*-products.cmd&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Producten: &lt;code&gt;scripts\all-products.cmd&lt;/code&gt; met pad naar die map (of
+&lt;code&gt;scripts\products.cmd --kinds …&lt;/code&gt;).&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;scripts\check.cmd --strict&lt;/code&gt; groen vóór commit/push.&lt;/li&gt;
 &lt;li&gt;Optioneel: koormap-slot met shortcode &lt;code&gt;bieb&lt;/code&gt; naar hetzelfde id.&lt;/li&gt;
 &lt;/ol&gt;
@@ -244,7 +244,7 @@ Naamgevingsconventie voor conversies (tooling):
 bijv. &lt;code&gt;{stam}.vsa.mxl&lt;/code&gt;, &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt;, &lt;code&gt;{stam}.vsa.lyrics.txt&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Publicatiecontrole&lt;/strong&gt; = versheidscontrole op site-producten (sibling +
 herkomststempel); CI genereert niet, jij wel lokaal&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Handmatig&lt;/strong&gt; = &lt;code&gt;artefacten_handmatig: true&lt;/code&gt; op &lt;code&gt;index.md&lt;/code&gt; (vervangt het
+&lt;li&gt;&lt;strong&gt;Handmatig&lt;/strong&gt; = &lt;code&gt;manueel: true&lt;/code&gt; op &lt;code&gt;index.md&lt;/code&gt; (vervangt het
 oude &lt;code&gt;.print.mscz&lt;/code&gt;-spoor)&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -296,7 +296,7 @@ met &lt;code&gt;pdf-…&lt;/code&gt;. Titels op het blad zet je met &lt;code&gt;
 &lt;code&gt;docs\specs\koormap-paginataal.md&lt;/code&gt; in de repository (shortcodes en
 paginacontract). Hoe de &lt;strong&gt;partituur op het scherm&lt;/strong&gt; eruit moet zien
 (OSMD, SVG, titels): &lt;code&gt;docs\specs\schermpartituur.md&lt;/code&gt;. Pagina-PDF bouwen:
-&lt;a href="../scripts/pagina-pdf/"&gt;pagina-pdf&lt;/a&gt;
+&lt;a href="../scripts/pdf/"&gt;pdf&lt;/a&gt;
 .&lt;/p&gt;</description></item><item><title>Zangstuk-soorten</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/zangstuk-soorten/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/zangstuk-soorten/</guid><description>&lt;h1 id="zangstuk-soorten"&gt;Zangstuk-soorten&lt;/h1&gt;
 &lt;p&gt;De bibliotheek gebruikt overal dezelfde drie lagen:
 &lt;code&gt;zangstuk&lt;/code&gt; → &lt;code&gt;variant&lt;/code&gt; → &lt;code&gt;uitvoeringsvorm&lt;/code&gt;. Niet elk zangstuk betekent
@@ -353,14 +353,14 @@ de Heilige Engelen). Dat is geen vierde soort zangstuk.&lt;/p&gt;</description><
  &lt;div class="handleiding-cue-body"&gt;
  &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;basispartituur&lt;/strong&gt; / basispartituur-&lt;code&gt;.mscz&lt;/code&gt; = canonieke MuseScore-partituur (hier bewerk je; daarna normaliseren). Bronextensie &lt;code&gt;.mscz&lt;/code&gt;; afgeleiden &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt; / &lt;code&gt;{stam}.mscz.mxl&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;handmatig MuseScore-blad&lt;/strong&gt; = gewone &lt;code&gt;{stam}.mscz&lt;/code&gt; in een map met &lt;code&gt;artefacten_handmatig: true&lt;/code&gt; (vervangt het oude &lt;code&gt;.print.mscz&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;handmatig MuseScore-blad&lt;/strong&gt; = gewone &lt;code&gt;{stam}.mscz&lt;/code&gt; in een map met &lt;code&gt;manueel: true&lt;/code&gt; (vervangt het oude &lt;code&gt;.print.mscz&lt;/code&gt;)&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;versheidscontrole&lt;/strong&gt; = sibling bestaat + herkomststempel past bij bron; meet/meldt alleen&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;publicatiecontrole&lt;/strong&gt; = versheidscontrole op site-producten; zie &lt;a href="publicatiecontrole/"&gt;Publicatiecontrole&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;importcontrole&lt;/strong&gt; = versheidscontrole op bewerk-/importvorm (bijv. &lt;code&gt;.mscz.mvsa&lt;/code&gt;); zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/import-mvsa/"&gt;import-mvsa&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;geldigheidscontrole&lt;/strong&gt; = &lt;code&gt;vsa validate&lt;/code&gt; / &lt;code&gt;mvsa validate&lt;/code&gt; / …&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;artefacten_handmatig&lt;/strong&gt; = frontmatter op catalogus-&lt;code&gt;index.md&lt;/code&gt;: PDF/MXL niet auto-bijwerken&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;manueel&lt;/strong&gt; / &lt;strong&gt;manual&lt;/strong&gt; = frontmatter op catalogus-&lt;code&gt;index.md&lt;/code&gt; (&lt;code&gt;manueel: true&lt;/code&gt; of &lt;code&gt;manual: true&lt;/code&gt;): PDF/MXL niet auto-bijwerken&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;.mxl&lt;/code&gt; / &lt;code&gt;.vsa.mxl&lt;/code&gt; / &lt;code&gt;.mscz.mxl&lt;/code&gt; = MusicXML voor Coria (&lt;strong&gt;afgeleide&lt;/strong&gt;; niet terug importeren om te layouten)&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;.pdf&lt;/code&gt; / &lt;code&gt;.mscz.pdf&lt;/code&gt; = A4-afgeleide om te lezen of te printen&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;.mp3&lt;/code&gt; / &lt;code&gt;.mvsa.mp3&lt;/code&gt; / &lt;code&gt;.mscz.mp3&lt;/code&gt; / &lt;code&gt;.vsa.mp3&lt;/code&gt; = preview-audio voor &lt;strong&gt;Beluisteren&lt;/strong&gt; (zelfde bronnen als Coria-&lt;code&gt;.mxl&lt;/code&gt;; zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/audio/"&gt;audio&lt;/a&gt;
@@ -416,7 +416,7 @@ past bij wat jullie nodig hebben.&lt;/p&gt;
 &lt;li&gt;Synoniemen: &lt;a href="https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml"&gt;&lt;code&gt;data/zoek-synoniemen.yaml&lt;/code&gt;&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;Gezongen tekst: sibling &lt;code&gt;{stam}.vsa.lyrics.txt&lt;/code&gt; / &lt;code&gt;.mvsa.lyrics.txt&lt;/code&gt; /
-&lt;code&gt;.mscz.lyrics.txt&lt;/code&gt; — zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/lyrics-products/"&gt;lyrics-products&lt;/a&gt;
+&lt;code&gt;.mscz.lyrics.txt&lt;/code&gt; — zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/lyrics-products/"&gt;products (lyrics)&lt;/a&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 

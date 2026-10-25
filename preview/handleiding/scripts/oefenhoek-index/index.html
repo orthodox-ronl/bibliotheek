@@ -44,10 +44,10 @@ legacy widgets uit <code>index.md</code> strippen</p><h1 id=synopsis>SYNOPSIS</h
 canonieke catalogus-<code>.vsa</code> naar <code>static\vsa\bladermap\…</code>. Het scherm
 gebruikt dat plaatje alleen als er nog geen sibling <code>{stam}.vsa.svg</code>
 naast de bron staat. Die sibling maak je met
-<a href=../vsa-products/>vsa-products</a>
+<a href=../vsa-products/>products (vsa)</a>
 ; <code>check</code> eist daar een herkomststempel
 voor. Hetzelfde geldt voor <code>.mvsa</code>: het webplaatje is <code>{stam}.mvsa.svg</code>
-via <a href=../mvsa-products/>mvsa-products</a>
+via <a href=../mvsa-products/>products (mvsa)</a>
 , niet dit commando.</p><p><code>check</code>, <code>build</code>, <code>serve</code> en de Pages-build draaien <code>--svg</code> nog vóór
 Hugo, zodat de fallback bij de huidige <code>.vsa</code> past zolang de sibling
 ontbreekt. Er is geen stempel en CI faalt niet op een verouderd
@@ -59,7 +59,7 @@ bladermap-<code>index.md</code>. Pagina’s met shortcode <code>bieb</code> of m
 </span></span><span style=display:flex><span>scripts\oefenhoek-index.cmd --dry-run
 </span></span></code></pre></div><h1 id=when>WHEN</h1><p>Automatisch in <code>check</code> / <code>build</code> / <code>serve</code> / Pages-CI (alleen <code>--svg</code>),
 als fallback. Na een wijziging aan een <code>.vsa</code> die op het scherm moet:
-eerst <code>vsa-products</code>, niet alleen dit commando.</p><h1 id=see-also>SEE ALSO</h1><ul><li><a href=../check/>check</a></li><li><a href=../vsa-products/>vsa-products</a>
+eerst <code>products --kinds vsa</code>, niet alleen dit commando.</p><h1 id=see-also>SEE ALSO</h1><ul><li><a href=../check/>check</a></li><li><a href=../vsa-products/>products (vsa)</a>
 — <code>{stam}.vsa.svg</code> voor het scherm, mét stempel</li><li><a href=/bibliotheek/preview/handleiding/start/publicatiecontrole/>Publicatiecontrole</a></li><li>Workflow: <a href=/bibliotheek/preview/handleiding/werktrajecten/vsa/>VSA → SVG en Coria</a></li></ul></main><div id=score-audio-bar class=score-audio-bar hidden><div class=score-audio-bar-inner><p class=score-audio-bar-title id=score-audio-bar-title></p><div class=score-audio-bar-row><button type=button class="score-audio-bar-btn score-audio-bar-play" aria-label=Pauzeren aria-controls=score-audio-bar-element aria-pressed=true>
 <span class="score-audio-bar-icon score-audio-bar-icon--pause" aria-hidden=true>❚❚</span>
 <span class="score-audio-bar-icon score-audio-bar-icon--play" aria-hidden=true>▶</span>
@@ -70,4 +70,4 @@ eerst <code>vsa-products</code>, niet alleen dit commando.</p><h1 id=see-also>SE
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-22</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-25</p></div></footer></body></html>

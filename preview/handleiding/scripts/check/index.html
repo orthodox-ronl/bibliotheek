@@ -42,7 +42,7 @@ omgewisselde woorden tellen mee. Zoeken loopt over de
 </span></span><span style=display:flex><span>check --strict
 </span></span></code></pre></div><p>Of: <code>scripts\check.cmd</code> vanuit de repo-root.</p><h1 id=description>DESCRIPTION</h1><p><code>check</code> is de preflight voor deze repo (CI-spiegel):</p><ol><li><code>validate</code> — <code>vsa validate</code> op <code>content-source\catalogus</code> (en
 <code>mvsa validate</code> als daar <code>.mvsa</code>-bestanden staan)</li><li>VSA-publicatiecontrole — of elke catalogus-<code>.vsa</code> (behalve
-<code>artefacten_handmatig</code>) passende siblings <code>{stam}.vsa.mxl</code>,
+<code>manueel</code> / <code>manual</code>) passende siblings <code>{stam}.vsa.mxl</code>,
 <code>{stam}.vsa.pdf</code> en <code>{stam}.vsa.svg</code> heeft met <code>vsa-source-sha256</code></li><li>MSCZ-publicatiecontrole — of elke basispartituur-<code>.mscz</code> (behalve
 handmatig/print) passende siblings <code>{stam}.mscz.pdf</code> en
 <code>{stam}.mscz.mxl</code> heeft met <code>vsa-partituur-sha256</code></li><li>Tekstblad-publicatiecontrole — of elke <code>{stam}.tekstblad.md</code> een
@@ -73,17 +73,17 @@ lokaal maar falen niet (behalve op <code>main</code> of met
 verouderde import-sibling, of een id-mismatch een fout. Vernieuw
 producten lokaal met <a href=../all-products/>all-products</a>
 (alles tegelijk)
-of met <a href=../vsa-products/>vsa-products</a>
+of met <a href=../vsa-products/>products (vsa)</a>
 ,
-<a href=../mscz-products/>mscz-products</a>
+<a href=../mscz-products/>products (mscz)</a>
 ,
-<a href=../tekstblad-products/>tekstblad-products</a>
+<a href=../tekstblad-products/>products (tekstblad)</a>
 ,
-<a href=../mvsa-products/>mvsa-products</a>
+<a href=../mvsa-products/>products (mvsa)</a>
 ,
-<a href=../audio-products/>audio-products</a>
+<a href=../audio-products/>products (audio)</a>
 of
-<a href=../lyrics-products/>lyrics-products</a>
+<a href=../lyrics-products/>products (lyrics)</a>
 ; vernieuw
 import-siblings met <a href=../import-mvsa/>import-mvsa</a>
 ; herstel id’s met
@@ -92,16 +92,16 @@ of
 <a href=../layout/>layout</a>
 . CI genereert geen MuseScore-/PDF-/audio-/lyrics-producten en geen
 sibling-SVG (<code>.vsa.svg</code> / <code>.mvsa.svg</code>); wel de zoekindex en de legacy
-bladermap-SVG bij elke site-deploy.</p><p><code>pagina-pdf</code> genereert CI niet. Het blad <code>index.pagina.pdf</code> maak je
+bladermap-SVG bij elke site-deploy.</p><p><code>pdf.cmd</code> genereert CI niet. Het blad <code>index.md.pdf</code> maak je
 lokaal (ná de catalogusproducten) en commit je mee. <code>check</code> controleert
 of die PDF er is en niet ouder is dan de Markdown of notatiebron
-(<code>check_pagina_pdf.py</code>). Ontbreekt of verouderd: waarschuwing lokaal;
+(<code>check_index_md_pdf.py</code>). Ontbreekt of verouderd: waarschuwing lokaal;
 fout met <code>--strict</code>, in CI, of op <code>main</code>. Zonder die PDF tonen
 Download pagina en Print pagina niet.</p><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span><span style=color:#66d9ef>cd</span> /d C:\Git\orthodox-ronl\bibliotheek
 </span></span><span style=display:flex><span>check
 </span></span><span style=display:flex><span>check --strict
 </span></span></code></pre></div><h1 id=when>WHEN</h1><p>Vóór je commit of push. Tussendoor alleen markdown bekijken: <code>serve</code> is
-genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole).</p><h1 id=see-also>SEE ALSO</h1><ul><li><a href=../validate/>validate</a></li><li><a href=../vsa-products/>vsa-products</a></li><li><a href=../mscz-products/>mscz-products</a></li><li><a href=../tekstblad-products/>tekstblad-products</a></li><li><a href=../import-mvsa/>import-mvsa</a></li><li><a href=../mvsa-products/>mvsa-products</a></li><li><a href=../audio-products/>audio-products</a></li><li><a href=../all-products/>all-products</a></li><li><a href=../oefenhoek-index/>oefenhoek-index</a></li><li><a href=../pagina-pdf/>pagina-pdf</a></li><li><a href=../layout/>layout</a></li><li><a href=../ensure-bibliotheek-id/>ensure-bibliotheek-id</a></li><li><a href=../bieb-hernoem/>bieb hernoem</a></li><li><a href=../h/>h</a></li><li><a href=../serve/>serve</a></li><li><a href=../build/>build</a></li><li><a href=/bibliotheek/preview/handleiding/werktrajecten/zangstuk-hernoemen/>Zangstuk hernoemen</a></li><li><a href=/bibliotheek/preview/handleiding/start/wat-heb-je-nodig/>Wat heb je nodig</a></li><li><a href=/bibliotheek/preview/handleiding/publiceren/2-status-en-check/>Status en check</a></li><li><a href=/bibliotheek/preview/handleiding/start/publicatiecontrole/>Publicatiecontrole</a></li></ul></main><div id=score-audio-bar class=score-audio-bar hidden><div class=score-audio-bar-inner><p class=score-audio-bar-title id=score-audio-bar-title></p><div class=score-audio-bar-row><button type=button class="score-audio-bar-btn score-audio-bar-play" aria-label=Pauzeren aria-controls=score-audio-bar-element aria-pressed=true>
+genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole).</p><h1 id=see-also>SEE ALSO</h1><ul><li><a href=../validate/>validate</a></li><li><a href=../vsa-products/>products (vsa)</a></li><li><a href=../mscz-products/>products (mscz)</a></li><li><a href=../tekstblad-products/>products (tekstblad)</a></li><li><a href=../import-mvsa/>import-mvsa</a></li><li><a href=../mvsa-products/>products (mvsa)</a></li><li><a href=../audio-products/>products (audio)</a></li><li><a href=../all-products/>all-products</a></li><li><a href=../oefenhoek-index/>oefenhoek-index</a></li><li><a href=../pdf/>pdf</a></li><li><a href=../layout/>layout</a></li><li><a href=../ensure-bibliotheek-id/>ensure-bibliotheek-id</a></li><li><a href=../bieb-hernoem/>bieb hernoem</a></li><li><a href=../h/>h</a></li><li><a href=../serve/>serve</a></li><li><a href=../build/>build</a></li><li><a href=/bibliotheek/preview/handleiding/werktrajecten/zangstuk-hernoemen/>Zangstuk hernoemen</a></li><li><a href=/bibliotheek/preview/handleiding/start/wat-heb-je-nodig/>Wat heb je nodig</a></li><li><a href=/bibliotheek/preview/handleiding/publiceren/2-status-en-check/>Status en check</a></li><li><a href=/bibliotheek/preview/handleiding/start/publicatiecontrole/>Publicatiecontrole</a></li></ul></main><div id=score-audio-bar class=score-audio-bar hidden><div class=score-audio-bar-inner><p class=score-audio-bar-title id=score-audio-bar-title></p><div class=score-audio-bar-row><button type=button class="score-audio-bar-btn score-audio-bar-play" aria-label=Pauzeren aria-controls=score-audio-bar-element aria-pressed=true>
 <span class="score-audio-bar-icon score-audio-bar-icon--pause" aria-hidden=true>❚❚</span>
 <span class="score-audio-bar-icon score-audio-bar-icon--play" aria-hidden=true>▶</span>
 </button>
@@ -111,4 +111,4 @@ genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole)
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-24</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-25</p></div></footer></body></html>

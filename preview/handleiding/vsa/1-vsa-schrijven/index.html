@@ -38,14 +38,14 @@ omgewisselde woorden tellen mee. Zoeken loopt over de
 </a><a class=site-jump href=https://github.com/orthodox-ronl/bibliotheek title="VSA-demo - broncode op GitHub"><svg class="site-jump-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483.0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951.0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65.0.0.84-.27 2.75 1.026A9.564 9.564.0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688.0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855.0 1.338-.012 2.419-.012 2.747.0.268.18.58.688.482A10.019 10.019.0 0022 12.021C22 6.484 17.522 2 12 2z"/></svg>
 <span class=site-jump-label>GitHub</span></a></nav></div></header></div><header class=oefenhoek-header><div class=oefenhoek-header-inner><nav class=oefenhoek-breadcrumb aria-label=Broodkruimels><a class=oefenhoek-breadcrumb-link href=/bibliotheek/preview/handleiding/>Handleiding</a>
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><a class=oefenhoek-breadcrumb-link href=/bibliotheek/preview/handleiding/vsa/>VSA</a>
-<span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><span class=oefenhoek-breadcrumb-current aria-current=page>.vsa schrijven</span></nav></div></header><main class=page><h1 id=vsa-schrijven-en-op-de-pagina>.vsa schrijven en op de pagina</h1><aside class=handleiding-cue><p class=handleiding-cue-label>Snel (als je het al eens deed)</p><div class=handleiding-cue-body><ol><li>Kopieer een bestaand <code>.vsa</code> in de catalogus (bijvoorbeeld eerste antifoon weekdagen Hemelum).</li><li>Zet het bestand in de catalogus-map; bestandsnaam zonder spaties (publicatiestam).</li><li>Zet bovenaan YAML met minstens <code>do</code>, <code>mode</code> en <code>tempo: 130</code>.</li><li><code>vsa validate pad\naar\bestand.vsa</code></li><li>Catalogus-<code>index.md</code> + slot-pagina (of compositieblad): shortcode <code>bieb</code> met de catalogus-id</li><li><code>scripts\vsa-products.cmd</code> op die map, daarna <code>scripts\check.cmd --strict</code>. Commit <code>.vsa</code>, <code>.vsa.svg</code>, <code>.vsa.pdf</code> en <code>.vsa.mxl</code> samen.</li></ol></div></aside><p><strong>Wat je nu doet:</strong> de gezongen tekst in VSA-notatie zetten en via de
+<span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><span class=oefenhoek-breadcrumb-current aria-current=page>.vsa schrijven</span></nav></div></header><main class=page><h1 id=vsa-schrijven-en-op-de-pagina>.vsa schrijven en op de pagina</h1><aside class=handleiding-cue><p class=handleiding-cue-label>Snel (als je het al eens deed)</p><div class=handleiding-cue-body><ol><li>Kopieer een bestaand <code>.vsa</code> in de catalogus (bijvoorbeeld eerste antifoon weekdagen Hemelum).</li><li>Zet het bestand in de catalogus-map; bestandsnaam zonder spaties (publicatiestam).</li><li>Zet bovenaan YAML met minstens <code>do</code>, <code>mode</code> en <code>tempo: 130</code>.</li><li><code>vsa validate pad\naar\bestand.vsa</code></li><li>Catalogus-<code>index.md</code> + slot-pagina (of compositieblad): shortcode <code>bieb</code> met de catalogus-id</li><li><code>scripts\products.cmd --kinds vsa</code> op die map, daarna <code>scripts\check.cmd --strict</code>. Commit <code>.vsa</code>, <code>.vsa.svg</code>, <code>.vsa.pdf</code> en <code>.vsa.mxl</code> samen.</li></ol></div></aside><p><strong>Wat je nu doet:</strong> de gezongen tekst in VSA-notatie zetten en via de
 catalogus op de site tonen, inclusief oefenen in Coria. Nog geen
 vierstemmig blad — daarvoor is de <a href=../2-template-satb/>volgende pagina</a>
 ,
 alleen voor tropaar toon 4.</p><p><strong>Wanneer:</strong> je hebt tekst (en een bekende melodie) in plaats van een
 Capella-partituur. Voorbeeld-catalogus-id:
 <code>eerste-antifoon/weekdagen/hemelum</code>.</p><h2 id=wat-de-site-van-je-vsa-maakt>Wat de site van je <code>.vsa</code> maakt</h2><p>Op een gewone eenstemmige catalogus-pagina (geen basispartituur-<code>.mscz</code> ernaast)
-doet de build twee aparte dingen met hetzelfde <code>.vsa</code>-bestand:</p><div class=table-scroll><table><thead><tr><th>Afgeleide</th><th>Rol op de pagina</th><th>Hoe maak je die</th></tr></thead><tbody><tr><td><code>{stam}.vsa.svg</code> naast de <code>.vsa</code></td><td>Het <strong>plaatje</strong> dat shortcode <code>bieb</code> toont</td><td><code>scripts\vsa-products.cmd</code> (samen met PDF en Coria-<code>.mxl</code>)</td></tr><tr><td><code>{stam}.vsa.pdf</code> naast de <code>.vsa</code></td><td>(nog productketen; print/download blad = <strong>Download/Print pagina</strong>)</td><td>Zelfde commando</td></tr><tr><td><code>{stam}.vsa.mxl</code> naast de <code>.vsa</code></td><td><strong>Oefenen</strong> via tip-icoon <strong>♪</strong> (Coria)</td><td>Zelfde commando; export syllabificeert woorden tijdelijk, zonder je <code>.vsa</code> te wijzigen</td></tr></tbody></table></div><p><code>scripts\opkuisen.cmd</code> past <strong>geen</strong> Capella-/MusicXML-heuristieken toe op een
+doet de build twee aparte dingen met hetzelfde <code>.vsa</code>-bestand:</p><div class=table-scroll><table><thead><tr><th>Afgeleide</th><th>Rol op de pagina</th><th>Hoe maak je die</th></tr></thead><tbody><tr><td><code>{stam}.vsa.svg</code> naast de <code>.vsa</code></td><td>Het <strong>plaatje</strong> dat shortcode <code>bieb</code> toont</td><td><code>scripts\products.cmd --kinds vsa</code> (samen met PDF en Coria-<code>.mxl</code>)</td></tr><tr><td><code>{stam}.vsa.pdf</code> naast de <code>.vsa</code></td><td>(nog productketen; print/download blad = <strong>Download/Print pagina</strong>)</td><td>Zelfde commando</td></tr><tr><td><code>{stam}.vsa.mxl</code> naast de <code>.vsa</code></td><td><strong>Oefenen</strong> via tip-icoon <strong>♪</strong> (Coria)</td><td>Zelfde commando; export syllabificeert woorden tijdelijk, zonder je <code>.vsa</code> te wijzigen</td></tr></tbody></table></div><p><code>scripts\opkuisen.cmd</code> past <strong>geen</strong> Capella-/MusicXML-heuristieken toe op een
 <code>.vsa</code>. Met <code>--analyze</code> of <code>--dry-run</code> kan <code>opkuisen</code> wél <code>vsa validate</code>
 rapporteren; automatische inhoudsfix op <code>.vsa</code> bestaat in v1 niet — zie
 <a href=/bibliotheek/preview/handleiding/scripts/opkuisen/>opkuisen</a>
@@ -54,7 +54,7 @@ rapporteren; automatische inhoudsfix op <code>.vsa</code> bestaat in v1 niet —
 ).
 HOW op deze pagina; de werktrajectpagina beschrijft waartoe, CI en commando’s.</p><p>Een basispartituur-<code>.mscz</code> in dezelfde map toont de PDF van dat spoor
 op het scherm, niet de VSA-SVG. Een oud <code>.print.mscz</code> blokkeert de
-VSA-SVG niet.</p><p>Het plaatje vernieuwen:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\vsa-products.cmd content-source\catalogus\&lt;zangstuk&gt;\&lt;variant&gt;\&lt;uitvoeringsvorm&gt;
+VSA-SVG niet.</p><p>Het plaatje vernieuwen:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\products.cmd --kinds vsa content-source\catalogus\&lt;zangstuk&gt;\&lt;variant&gt;\&lt;uitvoeringsvorm&gt;
 </span></span></code></pre></div><p>Zolang <code>{stam}.vsa.svg</code> ontbreekt, zoekt de site nog een legacy-plaatje
 onder <code>static\vsa\bladermap\</code>. Dat vult <code>oefenhoek-index --svg</code> (ook in
 <code>check</code> / <code>build</code> / <code>serve</code>). Dat is de fallback, niet het product dat
@@ -86,8 +86,8 @@ halen is geen oplossing.</p><ol start=5><li>In catalogus-<code>index.md</code> (
 VSA’s op één liturgische plek? Sectie met kindpagina’s, of één
 compositieblad — zie
 <a href=../../start/catalogus-en-koormappen/>Catalogus en koormappen</a>
-.</p></li><li><p>Draai <code>scripts\vsa-products.cmd</code> op de catalogusmap, daarna
-<code>scripts\check.cmd --strict</code>. <code>vsa-products</code> schrijft
+.</p></li><li><p>Draai <code>scripts\products.cmd --kinds vsa</code> op de catalogusmap, daarna
+<code>scripts\check.cmd --strict</code>. <code>products --kinds vsa</code> schrijft
 <code>{stam}.vsa.svg</code>, <code>{stam}.vsa.pdf</code> en <code>{stam}.vsa.mxl</code>. <code>check</code>
 controleert die siblings en bouwt de site; <code>check</code> maakt ze niet.</p><p>Commit <strong><code>.vsa</code>, <code>.vsa.svg</code>, <code>.vsa.pdf</code> en <code>.vsa.mxl</code> samen</strong>. Op de
 preview verschijnt het plaatje én tip-icoon <strong>♪</strong> met <strong>Oefenen</strong>.</p></li></ol><p>Catalogus-includes horen <strong>niet</strong> in de oefenhoek (geen verwijzing naar
@@ -96,8 +96,8 @@ Zie <a href=../../publiceren/1-bladermap/>Catalogus en koormap</a>
 .</p><p>Uitleg van de VSA-tekens (<code>{/</code>, <code>{_</code>, <code>*</code>, …): de pagina’s onder
 <a href=../../../demo/>Tooling Demo</a>
 , niet deze handleiding. Hier gaat het over
-waar het <code>.vsa</code>-bestand hoort en hoe het op de catalogus-site komt.</p><h3 id=handmatige-artefacten>Handmatige artefacten</h3><p>Zet je op de catalogus-<code>index.md</code> <code>artefacten_handmatig: true</code>, dan
-slaat <code>vsa-products</code> die map over: geen <code>.vsa.svg</code>, geen <code>.vsa.pdf</code> en
+waar het <code>.vsa</code>-bestand hoort en hoe het op de catalogus-site komt.</p><h3 id=handmatige-artefacten>Handmatige artefacten</h3><p>Zet je op de catalogus-<code>index.md</code> <code>manueel: true</code>, dan
+slaat <code>products --kinds vsa</code> die map over: geen <code>.vsa.svg</code>, geen <code>.vsa.pdf</code> en
 geen <code>.vsa.mxl</code>. Dat hoort bij een MuseScore-blad dat je zelf bijhoudt
 — zie <a href=../../werktrajecten/print-vel/>Print-vel</a>
 en de gele banner op
@@ -106,17 +106,17 @@ die cataloguspagina. Afspraak over namen en sporen:
 .</p><p>Een basispartituur-<code>.mscz</code> in dezelfde map toont op het scherm de PDF
 van dat spoor, niet de VSA-SVG.</p><h3 id=banner-of-check-over-vsamxl>Banner of check over <code>.vsa.mxl</code></h3><p>Rode banner “VSA-afgeleiden niet in orde”, of <code>check</code> rood op <code>main</code>: de
 <code>.vsa.mxl</code>, <code>.vsa.pdf</code> of <code>.vsa.svg</code> ontbreekt, is ouder dan de <code>.vsa</code>,
-of mist de herkomststempel. Oplossing: <code>scripts\vsa-products.cmd</code>,
+of mist de herkomststempel. Oplossing: <code>scripts\products.cmd --kinds vsa</code>,
 daarna opnieuw <code>check</code>, en bron plus siblings committen. Zie ook
 <a href=../../publiceren/3-als-het-misgaat/>Als het misgaat</a>
 .</p><h3 id=hugo-waarschuwing-svg-ontbreekt>Hugo-waarschuwing “SVG ontbreekt”</h3><p>Shortcode <code>bieb</code> verwacht <code>{stam}.vsa.svg</code> naast de <code>.vsa</code>. Ontbreekt
 die sibling, dan meldt Hugo ook het legacy-pad
-<code>static\vsa\bladermap\…</code>. Oplossing:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\vsa-products.cmd content-source\catalogus\&lt;zangstuk&gt;\&lt;variant&gt;\&lt;uitvoeringsvorm&gt;
+<code>static\vsa\bladermap\…</code>. Oplossing:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\products.cmd --kinds vsa content-source\catalogus\&lt;zangstuk&gt;\&lt;variant&gt;\&lt;uitvoeringsvorm&gt;
 </span></span></code></pre></div><p>Daarna opnieuw previewen. <code>check</code> alleen vult de sibling niet aan.</p><h2 id=klaar-als>Klaar als</h2><p><code>vsa validate</code> is stil, catalogus en koormap verwijzen met hetzelfde id,
-na <code>vsa-products</code> en <code>check</code> zie je het plaatje op de lokale preview,
+na <code>products --kinds vsa</code> en <code>check</code> zie je het plaatje op de lokale preview,
 en er liggen verse <code>{stam}.vsa.svg</code>, <code>{stam}.vsa.pdf</code> en <code>{stam}.vsa.mxl</code>
 naast de <code>.vsa</code> (scherm, download en <strong>Oefenen</strong>), tenzij
-<code>artefacten_handmatig: true</code> op die cataloguspagina staat (dan houd jij
+<code>manueel: true</code> op die cataloguspagina staat (dan houd jij
 de afgeleiden zelf bij).</p><div class=nav-buttons><a class=btn href=/bibliotheek/preview/handleiding/vsa/2-template-satb/>Volgende: template SATB</a></div></main><div id=score-audio-bar class=score-audio-bar hidden><div class=score-audio-bar-inner><p class=score-audio-bar-title id=score-audio-bar-title></p><div class=score-audio-bar-row><button type=button class="score-audio-bar-btn score-audio-bar-play" aria-label=Pauzeren aria-controls=score-audio-bar-element aria-pressed=true>
 <span class="score-audio-bar-icon score-audio-bar-icon--pause" aria-hidden=true>❚❚</span>
 <span class="score-audio-bar-icon score-audio-bar-icon--play" aria-hidden=true>▶</span>
@@ -127,4 +127,4 @@ de afgeleiden zelf bij).</p><div class=nav-buttons><a class=btn href=/bibliothee
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-24</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-25</p></div></footer></body></html>
