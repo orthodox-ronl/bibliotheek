@@ -1,18 +1,18 @@
 ---
-title: "mvsa-products"
-linkTitle: "mvsa-products"
+title: "products — mvsa"
+linkTitle: "products (mvsa)"
 weight: 106
 ---
 
 # NAME
 
-`scripts\mvsa-products.cmd` — Coria-`.mxl`, A4-PDF, koormap-SVG en
+`scripts\products.cmd --kinds mvsa` — Coria-`.mxl`, A4-PDF, koormap-SVG en
 Score-IR/OSMD-MusicXML maken bij een catalogus-`.mvsa`
 
 # SYNOPSIS
 
 ```cmd
-scripts\mvsa-products.cmd [pad] [--force] [--dry-run]
+scripts\products.cmd --kinds mvsa [pad] [--force] [--dry-run]
 ```
 
 # DESCRIPTION
@@ -34,21 +34,20 @@ Het script schrijft herkomstinformatie (`vsa-source-sha256`,
 Het zoekt `.mvsa` onder het opgegeven pad (of, zonder pad, onder
 `content-source\catalogus`). Import-siblings die eindigen op
 `.mscz.mvsa`, bestanden in `input\`, en mappen met
-`artefacten_handmatig: true` worden overgeslagen. Geen passende `.mvsa`
+`manueel: true` worden overgeslagen. Geen passende `.mvsa`
 op het pad = overslaan (geen fout; zelfde schil als
 [products](../all-products/)).
 
-Onder de motorkap: tooling-CLI `mvsa musicxml` voor Coria; `mvsa pdf` met
-layoutprofiel `partituur` en catalogus-id uit het bladermap-pad voor de
-PDF; `mvsa svg` voor de koormap-SVG (MuseScore 4, layout `muziek`);
-`mvsa score-ir --musicxml` voor Score-IR plus OSMD-MusicXML (geen
-MuseScore). Geen fork van VSA-tooling-logica. Een `.mvsa` die meer dan één
-SVG-pagina zou geven, faalt bij `mvsa svg` — verkort het stuk of gebruik
-`--section` in de tooling (niet in dit script).
+Onder de motorkap: tooling `mvsa products` (Coria-`.mxl` + Score-IR +
+from-ir; SVG alleen als dat slot nodig is, anders `--skip-svg`) schrijft
+ook de herkomst-sidecar (`*.products-meta.json`, schema 2). Versheid voor
+check/regen komt uit die meta, niet uit stempels in de productbestanden.
+Optionele A4-PDF nog via `mvsa pdf` (layout `partituur`, catalogus-id uit
+het bladermap-pad). Geen fork van VSA-tooling-exportlogica.
 
 CI genereert deze producten niet; jij wel lokaal, daarna committen. Zonder
-MuseScore kan het script de `.mxl` en Score-IR/MusicXML vernieuwen en meldt
-het ontbrekende PDF’s en SVG’s.
+MuseScore vernieuwt het script `.mxl` en Score-IR/from-ir (`--skip-svg`)
+en meldt het ontbrekende PDF’s en SVG’s.
 
 # OPTIONS
 
@@ -60,8 +59,8 @@ het ontbrekende PDF’s en SVG’s.
 # EXAMPLES
 
 ```cmd
-scripts\mvsa-products.cmd
-scripts\mvsa-products.cmd content-source\catalogus\ektinia\vrede\hemelum --force
+scripts\products.cmd --kinds mvsa
+scripts\products.cmd --kinds mvsa content-source\catalogus\ektinia\vrede\hemelum --force
 ```
 
 # WHEN

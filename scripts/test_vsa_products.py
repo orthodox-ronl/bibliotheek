@@ -19,6 +19,35 @@ class ProductNameTests(unittest.TestCase):
         self.assertEqual(sync.product_svg_for_vsa(vsa).name, "lied.vsa.svg")
 
 
+class SyncCallsToolingProductsTests(unittest.TestCase):
+    def test_sync_one_calls_vsa_products_then_meta(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            vsa = root / "lied.vsa"
+            vsa.write_text("[:] Amen. [:]\n", encoding="utf-8")
+            mxl = sync.product_path_for_vsa(vsa)
+            svg = sync.product_svg_for_vsa(vsa)
+
+            def fake_products(path: Path) -> None:
+                self.assertEqual(path, vsa)
+                mxl.write_bytes(b"PK\x03\x04fake")
+                # Minimal zip-like not needed if stamp helpers mocked
+                svg.write_text(
+                    '<?xml version="1.0"?>\n<svg xmlns="http://www.w3.org/2000/svg"/>\n',
+                    encoding="utf-8",
+                )
+
+            with (
+                mock.patch.object(sync, "REPO_ROOT", root),
+                mock.patch.object(sync, "_run_vsa_products", side_effect=fake_products),
+                mock.patch.object(sync, "_apply_bron_identification", return_value=False),
+                mock.patch.object(sync, "write_products_meta") as write_meta,
+            ):
+                sync.sync_one(vsa, dry_run=False, do_mxl=True, do_pdf=False, do_svg=True)
+
+            write_meta.assert_called_once()
+
+
 class StampOkTests(unittest.TestCase):
     def test_stale_without_products(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

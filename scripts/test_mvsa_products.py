@@ -36,6 +36,90 @@ class CollectTests(unittest.TestCase):
         )
 
 
+class SyncCallsToolingProductsTests(unittest.TestCase):
+    def test_sync_one_calls_mvsa_products_skip_svg(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            mvsa = root / "lied.mvsa"
+            mvsa.write_text("L: a\nS: a\nA: a\nT: a\nB: a\n", encoding="utf-8")
+            mxl = sync.product_mxl_for_mvsa(mvsa)
+            score_ir = sync.product_score_ir_for_mvsa(mvsa)
+            from_ir = sync.product_from_ir_musicxml_for_mvsa(mvsa)
+
+            def fake_products(path: Path, *, skip_svg: bool) -> None:
+                self.assertEqual(path, mvsa)
+                self.assertTrue(skip_svg)
+                mxl.write_bytes(b"PK\x03\x04fake")
+                score_ir.write_text('{"format":"score-ir"}\n', encoding="utf-8")
+                from_ir.write_text(
+                    '<?xml version="1.0"?>\n<score-partwise/>\n',
+                    encoding="utf-8",
+                )
+
+            with (
+                mock.patch.object(sync, "REPO_ROOT", root),
+                mock.patch.object(sync, "_run_mvsa_products", side_effect=fake_products),
+                mock.patch.object(sync, "write_products_meta") as write_meta,
+            ):
+                sync.sync_one(
+                    mvsa,
+                    need_mxl=True,
+                    need_pdf=False,
+                    need_svg=False,
+                    need_score_ir=True,
+                    need_from_ir=True,
+                    dry_run=False,
+                )
+
+            write_meta.assert_called_once()
+
+    def test_mvsa_svg_outputs_bladreeks(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            mvsa = Path(tmp) / "lied.mvsa"
+            mvsa.write_text("L: a\n", encoding="utf-8")
+            p1 = Path(tmp) / "lied.mvsa-1.svg"
+            p2 = Path(tmp) / "lied.mvsa-2.svg"
+            p1.write_text("<svg/>\n", encoding="utf-8")
+            p2.write_text("<svg/>\n", encoding="utf-8")
+            self.assertEqual(sync.mvsa_svg_outputs(mvsa), [p1, p2])
+
+    def test_sync_one_requests_svg_when_needed(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            mvsa = root / "lied.mvsa"
+            mvsa.write_text("L: a\n", encoding="utf-8")
+            calls: list[bool] = []
+
+            def fake_products(path: Path, *, skip_svg: bool) -> None:
+                calls.append(skip_svg)
+                sync.product_mxl_for_mvsa(mvsa).write_bytes(b"PK")
+                sync.product_score_ir_for_mvsa(mvsa).write_text("{}\n", encoding="utf-8")
+                sync.product_from_ir_musicxml_for_mvsa(mvsa).write_text(
+                    "<score/>\n", encoding="utf-8"
+                )
+                sync.product_svg_for_mvsa(mvsa).write_text(
+                    '<?xml version="1.0"?>\n<svg xmlns="http://www.w3.org/2000/svg"/>\n',
+                    encoding="utf-8",
+                )
+
+            with (
+                mock.patch.object(sync, "REPO_ROOT", root),
+                mock.patch.object(sync, "_run_mvsa_products", side_effect=fake_products),
+                mock.patch.object(sync, "write_products_meta"),
+            ):
+                sync.sync_one(
+                    mvsa,
+                    need_mxl=True,
+                    need_pdf=False,
+                    need_svg=True,
+                    need_score_ir=False,
+                    need_from_ir=False,
+                    dry_run=False,
+                )
+
+            self.assertEqual(calls, [False])
+
+
 class StampOkTests(unittest.TestCase):
     def test_stale_without_products(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

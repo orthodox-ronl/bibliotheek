@@ -1,18 +1,18 @@
 ---
-title: "vsa-products"
-linkTitle: "vsa-products"
+title: "products — vsa"
+linkTitle: "products (vsa)"
 weight: 110
 ---
 
 # NAME
 
-`scripts\vsa-products.cmd` — Coria-`.vsa.mxl`, A4-`.vsa.pdf` en muziek-`.vsa.svg`
+`scripts\products.cmd --kinds vsa` — Coria-`.vsa.mxl`, A4-`.vsa.pdf` en muziek-`.vsa.svg`
 maken bij een catalogus-`.vsa`
 
 # SYNOPSIS
 
 ```cmd
-scripts\vsa-products.cmd [pad] [--force] [--dry-run]
+scripts\products.cmd --kinds vsa [pad] [--force] [--dry-run]
 ```
 
 `[pad]` = één `.vsa` of een map (recursief) — zie
@@ -22,7 +22,7 @@ die bijgewerkt moeten worden: preflight met geschatte duur (of `-y`).
 # DESCRIPTION
 
 Maakt naast een catalogus-`.vsa` drie siblings (zelfde productrol als bij
-`.mvsa` via `mvsa-products`):
+`.mvsa` via `products --kinds mvsa`):
 
 | Product | Waartoe |
 | --- | --- |
@@ -30,26 +30,16 @@ Maakt naast een catalogus-`.vsa` drie siblings (zelfde productrol als bij
 | `{stam}.vsa.pdf` | A4-blad (**Downloaden** / **Printen**; mag titel uit `index.md`) |
 | `{stam}.vsa.svg` | Alleen notatie op het **scherm** (shortcode `muziek`) |
 
-Voor de `.mxl`:
+Onder de motorkap: tooling `vsa products` maakt Coria-`.mxl` (tijdelijke
+syllabify + playback + finalize) en scherm-`.svg`, en schrijft
+`*.products-meta.json` (schema 2: bron- + product-hashes). Versheid voor
+check/regen komt uit die meta. Optioneel zet dit script nog een
+Coria-bronvermelding in de MXL (geen versheidstempel).
 
-1. syllabificeert in een tijdelijk bestand (canonieke `.vsa` blijft ongewijzigd);
-2. exporteert via `vsa musicxml --musicxml-profile playback`;
-3. saniteert voor Coria;
-4. zet een `vsa-source-sha256`-stempel van de canonieke `.vsa`.
+Product-PDF is geen vast sync-slot meer (blad = `index.md.pdf` via
+`pdf.cmd`). Zonder scherm-SVG kan de site nog een PDF als fallback tonen.
 
-Voor de `.pdf`: tijdelijke Markdown met alleen de VSA-notatie (de
-YAML-frontmatter van de `.vsa` eraf, zodat die niet als tekst op het blad
-komt) in `::: vsa-notatie` → `vsa pdf` (Chrome of Edge nodig). De titel
-bovenaan komt uit de bladermap-`index.md`. Daarna dezelfde
-herkomststempel in de PDF. Zonder PDF blijven **Downloaden** en
-**Printen** op VSA-only bladermappen weg.
-
-Voor de `.svg`: `vsa svg` (native VSA-renderer, muziek-only) +
-herkomststempel in XML-commentaren. Zonder SVG toont de site de PDF als
-fallback op het scherm (met titel) — daarom hoort de SVG bij dit
-productcommando, net als `.mvsa.svg` bij `mvsa-products`.
-
-Mappen met `artefacten_handmatig: true` in de frontmatter worden
+Mappen met `manueel: true` in de frontmatter worden
 overgeslagen. Zonder pad werkt het onder `content-source\catalogus`.
 
 Lokaal vernieuw je producten met dit commando. CI genereert **niet** —
@@ -65,11 +55,11 @@ Lokaal vernieuw je producten met dit commando. CI genereert **niet** —
 # WHEN
 
 Na een wijziging aan een `.vsa` in de catalogus, of als `check --strict`
-meldt dat de `.vsa.mxl`, `.vsa.pdf` of `.vsa.svg` verouderd of zonder stamp is.
+meldt dat `.vsa.mxl` / `.vsa.svg` of de products-meta ontbreekt of verouderd is.
 
 # SEE ALSO
 
 - [check](../check/)
 - [validate](../validate/)
-- [mvsa-products](../mvsa-products/) — dezelfde drie producten voor `.mvsa`
+- [products (mvsa)](../mvsa-products/) — dezelfde drie producten voor `.mvsa`
 - Workflow: [VSA → SVG en Coria](/handleiding/werktrajecten/vsa/)

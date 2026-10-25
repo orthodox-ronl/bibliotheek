@@ -1,23 +1,26 @@
 """Maak siblings bij catalogus-``.mvsa``.
 
-Roept tooling aan: ``mvsa musicxml`` (Coria), ``mvsa svg`` (scherm-fallback),
-``mvsa score-ir --musicxml`` (Score-IR JSON + OSMD-MusicXML). A4-``.mvsa.pdf``
-is geen verplicht product meer (blad = ``index.pagina.pdf``); PDF-export in
-``sync_one`` blijft voor optioneel herstel.
-Zet ``vsa-source-sha256`` + ``vsa-source-kind=mvsa``.
+Export via tooling ``mvsa products`` (schema-2 products-meta). Hierna
+alleen meta bevestigen/herschrijven; geen in-file versheidstempels
+(versheid = meta). A4-``.mvsa.pdf`` is geen verplicht product (blad =
+``index.md.pdf``); PDF-export blijft voor optioneel herstel.
 
-Slaat ``input/``, ``artefacten_handmatig`` en import-siblings ``*.mscz.mvsa``
+Slaat ``input/``, ``manueel/manual`` en import-siblings ``*.mscz.mvsa``
 over. CI genereert niet — alleen ``check_mvsa_products``; vernieuw lokaal met
-``scripts\\mvsa-products.cmd``.
+``scripts\\products.cmd --kinds mvsa``.
 """
 
 from __future__ import annotations
 
+import re
 import subprocess
+import sys
 from pathlib import Path
 from typing import Sequence
 
-from coria_mxl import load_score_xml, process_existing_mxl, require_no_spaces, write_mxl
+_SVG_PAGE_RE = re.compile(r"-(\d+)\.svg$", re.IGNORECASE)
+
+from coria_mxl import require_no_spaces
 from ensure_bibliotheek_id import id_from_catalogus_path
 from product_kind import (
     DEFAULT_ROOT,
@@ -37,16 +40,15 @@ from product_meta import (
     read_score_ir_stamp,
     read_svg_stamp,
     source_sha256,
-    stamp_from_ir_musicxml,
-    stamp_mxl_source,
     stamp_pdf,
-    stamp_score_ir_json,
-    stamp_svg,
     utc_now_iso,
 )
 from product_regen import RegenPolicy, list_source_paths, mxl_contract_ok
+from street_meta import assign_svg_keys, stamp_ok_or_meta, write_products_meta
 from sync_import_mvsa import is_import_mvsa
 from sync_vsa_products import folder_is_handmatig
+
+_MVSA_META_KEYS = {"mxl", "score-ir", "from-ir"}
 
 
 def product_mxl_for_mvsa(mvsa: Path) -> Path:
@@ -72,6 +74,23 @@ def product_score_ir_for_mvsa(mvsa: Path) -> Path:
 def product_from_ir_musicxml_for_mvsa(mvsa: Path) -> Path:
     """``naam.mvsa`` → ``naam.mvsa.from-ir.musicxml``."""
     return mvsa.with_suffix(".mvsa.from-ir.musicxml")
+
+
+def _svg_page_index(path: Path) -> int:
+    match = _SVG_PAGE_RE.search(path.name)
+    return int(match.group(1)) if match else 0
+
+
+def mvsa_svg_outputs(mvsa: Path) -> list[Path]:
+    """Bestaande scherm-SVG('s) bij een ``.mvsa`` (enkel of bladreeks)."""
+    dest = product_svg_for_mvsa(mvsa)
+    pages = sorted(
+        dest.parent.glob(f"{dest.stem}-*.svg"),
+        key=_svg_page_index,
+    )
+    if dest.is_file():
+        return [dest, *pages] if pages else [dest]
+    return pages
 
 
 def collect_mvsa(root: Path) -> list[Path]:
@@ -151,6 +170,13 @@ def _stamp_ok_from_ir(path: Path, source_hash: str) -> bool:
     return stamp.get(FIELD_SOURCE_SHA, "") == source_hash
 
 
+def _svg_stamps_ok(mvsa: Path, digest: str) -> bool:
+    outs = mvsa_svg_outputs(mvsa)
+    if not outs:
+        return False
+    return all(_stamp_ok_svg(p, digest) for p in outs)
+
+
 def is_stale(mvsa: Path) -> tuple[bool, bool, bool, bool]:
     """Return (need_mxl, need_svg, need_score_ir, need_from_ir).
 
@@ -163,15 +189,40 @@ def is_stale(mvsa: Path) -> tuple[bool, bool, bool, bool]:
         product_from_ir_musicxml_for_mvsa(mvsa), digest
     )
     # SVG optioneel als from-ir scherm dekt (geen MuseScore-SVG forceren).
-    need_svg = (not _stamp_ok_svg(product_svg_for_mvsa(mvsa), digest)) and (
+    need_svg = (not _svg_stamps_ok(mvsa, digest)) and (
         not _stamp_ok_from_ir(product_from_ir_musicxml_for_mvsa(mvsa), digest)
     )
     return need_mxl, need_svg, need_score_ir, need_from_ir
 
 
-def _run_mvsa_musicxml(mvsa: Path, mxl: Path) -> None:
-    cmd = ["mvsa", "musicxml", str(mvsa), "-o", str(mxl)]
+def _run_mvsa_products(mvsa: Path, *, skip_svg: bool) -> None:
+    """Kale export via tooling ``mvsa products`` (+ optioneel ``--skip-svg``)."""
+    cmd = [
+        sys.executable,
+        "-m",
+        "vsa.cli_mvsa",
+        "products",
+        "--force",
+        str(mvsa),
+    ]
+    if skip_svg:
+        cmd.append("--skip-svg")
     subprocess.check_call(cmd, cwd=str(REPO_ROOT))
+    mxl = product_mxl_for_mvsa(mvsa)
+    score_ir = product_score_ir_for_mvsa(mvsa)
+    from_ir = product_from_ir_musicxml_for_mvsa(mvsa)
+    if not mxl.is_file():
+        raise RuntimeError(f"MXL ontbreekt na mvsa products: {mxl}")
+    if not score_ir.is_file():
+        raise RuntimeError(f"Score-IR ontbreekt na mvsa products: {score_ir}")
+    if not from_ir.is_file():
+        raise RuntimeError(f"from-ir MusicXML ontbreekt na mvsa products: {from_ir}")
+    if not skip_svg:
+        outs = mvsa_svg_outputs(mvsa)
+        if not outs:
+            raise RuntimeError(
+                f"SVG ontbreekt na mvsa products: {product_svg_for_mvsa(mvsa)}"
+            )
 
 
 def _run_mvsa_pdf(mvsa: Path, pdf: Path, *, bibliotheek_id: str | None) -> None:
@@ -186,24 +237,6 @@ def _run_mvsa_pdf(mvsa: Path, pdf: Path, *, bibliotheek_id: str | None) -> None:
     ]
     if bibliotheek_id:
         cmd.extend(["--bibliotheek-id", bibliotheek_id])
-    subprocess.check_call(cmd, cwd=str(REPO_ROOT))
-
-
-def _run_mvsa_svg(mvsa: Path, svg: Path) -> None:
-    cmd = ["mvsa", "svg", str(mvsa), "-o", str(svg)]
-    subprocess.check_call(cmd, cwd=str(REPO_ROOT))
-
-
-def _run_mvsa_score_ir(mvsa: Path, score_ir: Path, from_ir: Path) -> None:
-    cmd = [
-        "mvsa",
-        "score-ir",
-        str(mvsa),
-        "-o",
-        str(score_ir),
-        "--musicxml",
-        str(from_ir),
-    ]
     subprocess.check_call(cmd, cwd=str(REPO_ROOT))
 
 
@@ -227,92 +260,46 @@ def sync_one(
     from_ir = product_from_ir_musicxml_for_mvsa(mvsa)
     bib = id_from_catalogus_path(mvsa)
 
-    # Score-IR eerst (geen MuseScore): blijft slagen als SVG multipagina faalt.
-    if need_score_ir or need_from_ir:
-        print(
-            f"  IR   {rel} -> {score_ir.name} + {from_ir.name}",
-            flush=True,
-        )
-        if not dry_run:
-            require_no_spaces(score_ir)
-            require_no_spaces(from_ir)
-            _run_mvsa_score_ir(mvsa, score_ir, from_ir)
-            if not score_ir.is_file():
-                raise RuntimeError(f"Score-IR ontbreekt na mvsa score-ir: {score_ir}")
-            if not from_ir.is_file():
-                raise RuntimeError(
-                    f"from-ir MusicXML ontbreekt na mvsa score-ir: {from_ir}"
-                )
-            stamp_score_ir_json(
-                score_ir,
-                source_hash=digest,
-                source_kind=SOURCE_KIND_MVSA,
-                generated_at=generated_at,
-                generator=GENERATOR_MVSA,
-            )
-            stamp_from_ir_musicxml(
-                from_ir,
-                source_hash=digest,
-                source_kind=SOURCE_KIND_MVSA,
-                generated_at=generated_at,
-                generator=GENERATOR_MVSA,
-            )
-
-    if need_mxl:
-        print(f"  MXL  {rel} -> {mxl.name}", flush=True)
-        if not dry_run:
-            require_no_spaces(mxl)
-            _run_mvsa_musicxml(mvsa, mxl)
-            if not mxl.is_file():
-                raise RuntimeError(f"MXL ontbreekt na mvsa musicxml: {mxl}")
-            # Strip Coria-vijandige tags (o.a. identification/source) vóór stamp.
-            process_existing_mxl(mxl)
-            root = load_score_xml(mxl)
-            stamp_mxl_source(
-                root,
-                source_hash=digest,
-                source_kind=SOURCE_KIND_MVSA,
-                generated_at=generated_at,
-                generator=GENERATOR_MVSA,
-            )
-            write_mxl(mxl, root)
-
+    need_export = need_mxl or need_svg or need_score_ir or need_from_ir
+    skip_svg = not need_svg
+    if need_export:
+        svg_note = "mxl+ir+svg" if need_svg else "mxl+ir (--skip-svg)"
+        print(f"  EXP  {rel} -> mvsa products ({svg_note})", flush=True)
     if need_pdf:
         print(f"  PDF  {rel} -> {pdf.name}", flush=True)
-        if not dry_run:
-            require_no_spaces(pdf)
-            _run_mvsa_pdf(mvsa, pdf, bibliotheek_id=bib)
-            if not pdf.is_file():
-                raise RuntimeError(f"PDF ontbreekt na mvsa pdf: {pdf}")
-            stamp_pdf(
-                pdf,
-                source_hash=digest,
-                source_kind=SOURCE_KIND_MVSA,
-                generated_at=generated_at,
-                generator=GENERATOR_MVSA,
-            )
+    if dry_run:
+        return
 
-    if need_svg:
-        print(f"  SVG  {rel} -> {svg.name}", flush=True)
-        if not dry_run:
-            require_no_spaces(svg)
-            _run_mvsa_svg(mvsa, svg)
-            if not svg.is_file():
-                raise RuntimeError(f"SVG ontbreekt na mvsa svg: {svg}")
-            stamp_svg(
-                svg,
-                source_hash=digest,
-                source_kind=SOURCE_KIND_MVSA,
-                generated_at=generated_at,
-                generator=GENERATOR_MVSA,
-            )
+    if need_export:
+        _run_mvsa_products(mvsa, skip_svg=skip_svg)
+        products: dict[str, Path] = {
+            "mxl": mxl,
+            "score-ir": score_ir,
+            "from-ir": from_ir,
+        }
+        assign_svg_keys(products, mvsa_svg_outputs(mvsa))
+        # Tooling schreef meta; herschrijf voor actuele sibling-set/hashes.
+        write_products_meta(mvsa, products)
+
+    if need_pdf:
+        require_no_spaces(pdf)
+        _run_mvsa_pdf(mvsa, pdf, bibliotheek_id=bib)
+        if not pdf.is_file():
+            raise RuntimeError(f"PDF ontbreekt na mvsa pdf: {pdf}")
+        stamp_pdf(
+            pdf,
+            source_hash=digest,
+            source_kind=SOURCE_KIND_MVSA,
+            generated_at=generated_at,
+            generator=GENERATOR_MVSA,
+        )
 
 
 class MvsaKind:
     id = "mvsa"
     label = "MVSA-producten"
     source_noun = " .mvsa"
-    fix_cmd = r"scripts\mvsa-products.cmd"
+    fix_cmd = r"scripts\products.cmd --kinds mvsa"
 
     def collect(self, root: Path) -> list[Path]:
         return collect_mvsa(root)
@@ -329,18 +316,29 @@ class MvsaKind:
             if policy.invalid and mxl_exists
             else None
         )
-        from_ir_ok = _stamp_ok_from_ir(from_ir, digest)
-        svg_exists = svg.is_file()
+        from_ir_ok = stamp_ok_or_meta(
+            source,
+            required_keys=_MVSA_META_KEYS,
+            stamp_ok=_stamp_ok_from_ir(from_ir, digest),
+        )
+        svg_outs = mvsa_svg_outputs(source)
+        svg_exists = bool(svg_outs)
         # Ontbrekende SVG mag als from-ir scherm dekt (OSMD); anders verplicht.
         svg_covered = svg_exists or from_ir_ok
         svg_stamp_ok = (
-            _stamp_ok_svg(svg, digest) if svg_exists else from_ir_ok
+            all(_stamp_ok_svg(p, digest) for p in svg_outs)
+            if svg_exists
+            else from_ir_ok
         )
         return [
             ProductSlot(
                 path=mxl,
                 exists=mxl_exists,
-                stamp_ok=_stamp_ok_mxl(mxl, digest),
+                stamp_ok=stamp_ok_or_meta(
+                    source,
+                    required_keys=_MVSA_META_KEYS,
+                    stamp_ok=_stamp_ok_mxl(mxl, digest),
+                ),
                 contract_ok=contract,
                 needs_musescore=False,
             ),
@@ -354,7 +352,11 @@ class MvsaKind:
             ProductSlot(
                 path=score_ir,
                 exists=score_ir.is_file(),
-                stamp_ok=_stamp_ok_score_ir(score_ir, digest),
+                stamp_ok=stamp_ok_or_meta(
+                    source,
+                    required_keys=_MVSA_META_KEYS,
+                    stamp_ok=_stamp_ok_score_ir(score_ir, digest),
+                ),
                 contract_ok=None,
                 needs_musescore=False,
             ),
@@ -394,7 +396,7 @@ def main(argv: list[str] | None = None) -> int:
         description=(
             "Exporteer stale Coria-.mxl + koormap-SVG + Score-IR "
             "(+ from-ir MusicXML) vanuit bibliotheek-.mvsa "
-            "(geen A4-product-PDF; blad = index.pagina.pdf)."
+            "(via mvsa products; geen A4-product-PDF; blad = index.md.pdf)."
         ),
         default_root=DEFAULT_ROOT,
     )

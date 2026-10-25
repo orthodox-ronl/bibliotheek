@@ -1,26 +1,23 @@
 """Maak sibling ``{stam}.mscz.mxl`` + ``{stam}.mscz.svg`` bij basispartituur-``.mscz``.
 
-Roept tooling aan: ``mscz mxl`` (Coria) en ``mvsa svg`` (scherm). A4-``.mscz.pdf``
-is geen verplicht product meer (blad = ``index.pagina.pdf``); PDF-export blijft
-in ``sync_one`` voor optioneel herstel. Zet ``vsa-partituur-sha256``.
-Slaat ``artefacten_handmatig`` en ``*.print.mscz`` over. CI genereert niet —
-alleen ``check_mscz_products``; vernieuw lokaal met ``scripts\\mscz-products.cmd``.
+Export via tooling ``mscz products`` (schema-2 products-meta). Daarna
+optioneel Coria-bron-``identification`` + meta herschrijven; legacy-opruim.
+Geen in-file versheidstempels (versheid = meta). A4-``.mscz.pdf`` is geen
+verplicht product (blad = ``index.md.pdf``); PDF-export blijft voor
+optioneel herstel. Slaat ``manueel/manual`` en ``*.print.mscz`` over.
+CI genereert niet — alleen ``check_mscz_products``; vernieuw lokaal met
+``scripts\\products.cmd --kinds mscz``.
 """
 
 from __future__ import annotations
 
 import re
 import subprocess
+import sys
 from pathlib import Path
 from typing import Sequence
 
-from coria_mxl import (
-    apply_playback_accidentals,
-    load_score_xml,
-    require_no_spaces,
-    sanitize_coria_importer,
-    write_mxl,
-)
+from coria_mxl import load_score_xml, require_no_spaces, write_mxl
 from product_kind import (
     DEFAULT_ROOT,
     REPO_ROOT,
@@ -30,20 +27,17 @@ from product_kind import (
 )
 from product_meta import (
     FIELD_SOURCE_SHA,
-    GENERATOR_MSCZ,
-    SOURCE_KIND_PARTITUUR,
     partituur_sha256,
     read_mxl_stamp,
     read_pdf_stamp,
     read_svg_stamp,
     set_mxl_identification_source,
-    stamp_mxl_partituur,
     stamp_pdf,
     stamp_sha_from_dict,
-    stamp_svg,
     utc_now_iso,
 )
 from product_regen import RegenPolicy, list_source_paths, mxl_contract_ok
+from street_meta import assign_svg_keys, stamp_ok_or_meta, write_products_meta
 from sync_vsa_products import folder_is_handmatig
 
 _SVG_PAGE_RE = re.compile(r"-(\d+)\.svg$", re.IGNORECASE)
@@ -146,29 +140,34 @@ def is_stale(mscz: Path) -> tuple[bool, bool]:
     return need_mxl, need_svg
 
 
-def _run_mscz_mxl(mscz: Path, mxl: Path) -> None:
-    cmd = ["mscz", "mxl", str(mscz), "-o", str(mxl)]
+def _run_mscz_products(mscz: Path, *, skip_svg: bool) -> None:
+    """Kale export via tooling ``mscz products`` (+ optioneel ``--skip-svg``)."""
+    cmd = [
+        sys.executable,
+        "-m",
+        "vsa.cli_mscz",
+        "products",
+        "--force",
+        str(mscz),
+    ]
+    if skip_svg:
+        cmd.append("--skip-svg")
     subprocess.check_call(cmd, cwd=str(REPO_ROOT))
+    mxl = product_mxl_for_mscz(mscz)
+    if not mxl.is_file():
+        raise RuntimeError(f"MXL ontbreekt na mscz products: {mxl}")
+    if not skip_svg:
+        outs = mscz_svg_outputs(mscz)
+        if not outs:
+            raise RuntimeError(
+                f"SVG ontbreekt na mscz products: {product_svg_for_mscz(mscz)}"
+            )
 
 
 def _export_pdf(mscz: Path, pdf: Path) -> None:
     from vsa.musescore_cli import convert_with_musescore
 
     convert_with_musescore(mscz, pdf)
-
-
-def _run_mscz_svg(mscz: Path, svg: Path) -> list[Path]:
-    """Exporteer scherm-SVG; bij multi-page: ``stem-N.svg`` naast ``-o``."""
-    if svg.exists():
-        svg.unlink()
-    for stale in svg.parent.glob(f"{svg.stem}-*.svg"):
-        stale.unlink(missing_ok=True)
-    cmd = ["mvsa", "svg", str(mscz), "-o", str(svg)]
-    subprocess.check_call(cmd, cwd=str(REPO_ROOT))
-    outs = mscz_svg_outputs(mscz)
-    if not outs:
-        raise RuntimeError(f"SVG ontbreekt na mvsa svg: {svg}")
-    return outs
 
 
 def _remove_legacy(canonical: Path, legacy: Path) -> None:
@@ -178,6 +177,19 @@ def _remove_legacy(canonical: Path, legacy: Path) -> None:
         return
     print(f"  remove legacy {legacy.name}", flush=True)
     legacy.unlink()
+
+
+def _apply_bron_identification(mscz: Path, mxl: Path) -> None:
+    """Zet Coria-bron in MXL indien bekend (wijzigt bytes → meta herschrijven)."""
+    from vsa_bron import bron_uitgangspunt_near
+
+    bron = bron_uitgangspunt_near(mscz)
+    if not bron:
+        return
+    require_no_spaces(mxl)
+    root = load_score_xml(mxl)
+    set_mxl_identification_source(root, bron)
+    write_mxl(mxl, root)
 
 
 def sync_one(
@@ -195,59 +207,38 @@ def sync_one(
     mxl = product_mxl_for_mscz(mscz)
     svg = product_svg_for_mscz(mscz)
 
+    need_export = need_mxl or need_svg
+    skip_svg = not need_svg
     if need_pdf:
         print(f"  PDF  {rel} -> {pdf.name}", flush=True)
-        if not dry_run:
-            require_no_spaces(pdf)
-            _export_pdf(mscz, pdf)
-            stamp_pdf(pdf, partituur_hash=digest, generated_at=generated_at)
-            _remove_legacy(pdf, legacy_pdf_for_mscz(mscz))
-            # Oude representatie-id-namen
-            partituur_pdf = mscz.with_suffix(".partituur.pdf")
-            _remove_legacy(pdf, partituur_pdf)
+    if need_export:
+        svg_note = "mxl+svg" if need_svg else "mxl (--skip-svg)"
+        print(f"  EXP  {rel} -> mscz products ({svg_note})", flush=True)
+    if dry_run:
+        return
 
-    if need_mxl:
-        print(f"  MXL  {rel} -> {mxl.name}", flush=True)
-        if not dry_run:
-            require_no_spaces(mxl)
-            _run_mscz_mxl(mscz, mxl)
-            root = load_score_xml(mxl)
-            # Zelfde Coria-sanitize als mvsa-products (o.a. notehead).
-            sanitize_coria_importer(root)
-            apply_playback_accidentals(root)
-            stamp_mxl_partituur(
-                root, partituur_hash=digest, generated_at=generated_at
-            )
-            from vsa_bron import bron_uitgangspunt_near
+    if need_pdf:
+        require_no_spaces(pdf)
+        _export_pdf(mscz, pdf)
+        stamp_pdf(pdf, partituur_hash=digest, generated_at=generated_at)
+        _remove_legacy(pdf, legacy_pdf_for_mscz(mscz))
+        _remove_legacy(pdf, mscz.with_suffix(".partituur.pdf"))
 
-            bron = bron_uitgangspunt_near(mscz)
-            if bron:
-                set_mxl_identification_source(root, bron)
-            write_mxl(mxl, root)
-            _remove_legacy(mxl, legacy_mxl_for_mscz(mscz))
-            partituur_mxl = mscz.with_suffix(".partituur.mxl")
-            _remove_legacy(mxl, partituur_mxl)
-
-    if need_svg:
-        print(f"  SVG  {rel} -> {svg.name}", flush=True)
-        if not dry_run:
-            require_no_spaces(svg)
-            outs = _run_mscz_svg(mscz, svg)
-            for out in outs:
-                stamp_svg(
-                    out,
-                    source_hash=digest,
-                    source_kind=SOURCE_KIND_PARTITUUR,
-                    generated_at=generated_at,
-                    generator=GENERATOR_MSCZ,
-                )
+    if need_export:
+        _run_mscz_products(mscz, skip_svg=skip_svg)
+        _apply_bron_identification(mscz, mxl)
+        _remove_legacy(mxl, legacy_mxl_for_mscz(mscz))
+        _remove_legacy(mxl, mscz.with_suffix(".partituur.mxl"))
+        products: dict[str, Path] = {"mxl": mxl}
+        assign_svg_keys(products, mscz_svg_outputs(mscz))
+        write_products_meta(mscz, products)
 
 
 class MsczKind:
     id = "mscz"
     label = "MSCZ-producten"
     source_noun = " .mscz"
-    fix_cmd = r"scripts\mscz-products.cmd"
+    fix_cmd = r"scripts\products.cmd --kinds mscz"
 
     def collect(self, root: Path) -> list[Path]:
         return collect_mscz(root)
@@ -263,6 +254,13 @@ class MsczKind:
         svg_outs = mscz_svg_outputs(source)
         svg_exists = bool(svg_outs)
         svg_stamp_ok = _svg_stamps_ok(source, digest)
+        meta_keys = {"mxl", "svg"} if len(svg_outs) <= 1 else {"mxl", "svg-1"}
+        mxl_stamp_ok = stamp_ok_or_meta(
+            source, required_keys=meta_keys, stamp_ok=mxl_stamp_ok
+        )
+        svg_stamp_ok = stamp_ok_or_meta(
+            source, required_keys=meta_keys, stamp_ok=svg_stamp_ok
+        )
         mxl_path = mxl if mxl.is_file() else legacy_mxl_for_mscz(source)
         contract = None
         if policy.invalid and mxl_path.is_file():
@@ -307,7 +305,7 @@ def main(argv: list[str] | None = None) -> int:
         description=(
             "Exporteer stale Coria-.mxl en scherm-.mscz.svg "
             "vanuit basispartituur-.mscz "
-            "(geen A4-product-PDF; blad = index.pagina.pdf)."
+            "(via mscz products; geen A4-product-PDF; blad = index.md.pdf)."
         ),
         default_root=DEFAULT_ROOT,
     )

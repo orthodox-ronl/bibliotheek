@@ -1,17 +1,17 @@
 ﻿---
-title: "mscz-products"
-linkTitle: "mscz-products"
+title: "products — mscz"
+linkTitle: "products (mscz)"
 weight: 100
 ---
 
 # NAME
 
-`scripts\mscz-products.cmd` — PDF en Coria-`.mxl` maken bij een basispartituur-`.mscz`
+`scripts\products.cmd --kinds mscz` — PDF en Coria-`.mxl` maken bij een basispartituur-`.mscz`
 
 # SYNOPSIS
 
 ```cmd
-scripts\mscz-products.cmd [pad] [--force] [--dry-run]
+scripts\products.cmd --kinds mscz [pad] [--force] [--dry-run]
 ```
 
 # DESCRIPTION
@@ -24,13 +24,15 @@ producten.
 
 Het zoekt basispartituur-`.mscz` onder het opgegeven pad (of, zonder pad,
 onder `content-source\catalogus`). Bestanden in `input\`, namen die
-eindigen op `.print.mscz`, en mappen met `artefacten_handmatig: true`
+eindigen op `.print.mscz`, en mappen met `manueel: true`
 worden overgeslagen. Geef je een ander brontype (bijvoorbeeld een `.mvsa`),
 dan slaat dit spoor over — dat is geen fout (zelfde gedrag als bij
 [products](../all-products/)).
 
-Onder de motorkap: MuseScore 4 voor de PDF; de tooling-CLI `mscz mxl` voor
-Coria (vier parts). Geen fork van VSA-tooling-logica.
+Onder de motorkap: tooling `mscz products` (Coria-`.mxl` + optioneel
+scherm-SVG; `--skip-svg` als alleen MXL nodig is) schrijft ook
+`*.products-meta.json` (schema 2). Versheid = die meta. Optionele A4-PDF
+nog via MuseScore 4. Geen fork van VSA-tooling-exportlogica.
 
 **Volgorde:** eerst [layout](../layout/), daarna eventueel een editslag in
 MuseScore 4, daarna dit commando — niet meteen PDF maken als je nog gaat
@@ -46,8 +48,8 @@ editen. CI genereert deze producten niet; jij wel lokaal, daarna committen.
 # EXAMPLES
 
 ```cmd
-scripts\mscz-products.cmd
-scripts\mscz-products.cmd content-source\catalogus\trisagion --force
+scripts\products.cmd --kinds mscz
+scripts\products.cmd --kinds mscz content-source\catalogus\trisagion --force
 ```
 
 # WHEN

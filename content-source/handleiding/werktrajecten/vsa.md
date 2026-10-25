@@ -13,7 +13,7 @@ drie siblings: een scherm-SVG, een A4-PDF en een Coria-bestand
 {{< cue >}}
 Na een werkende `{stam}.vsa` in de bladermap:
 ```cmd
-scripts\vsa-products.cmd content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>
+scripts\products.cmd --kinds vsa content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>
 check --strict
 ```
 {{< /cue >}}
@@ -38,11 +38,11 @@ afspeelbaar zijn — zonder een volledige MuseScore-basispartituur.
 
 **Waarom geen lettergreepstreepjes in de canonieke `.vsa`?** Orthografische
 `-` (Pyphen) helpt Coria én preview-audio (één kwartnoot per lettergreep),
-maar hoort niet op het gepubliceerde SVG. `vsa-products` en `audio-products`
-syllabify’t alleen in een **tijdelijk** bestand tijdens export en schrijft
-die tekst niet terug naar `{stam}.vsa`. Een experimentele sidecar
-`{stam}.syl.vsa` is **geen** bron voor SVG, `vsa-products` of
-`audio-products`.
+maar hoort niet op het gepubliceerde SVG. `products --kinds vsa` roept
+tooling `vsa products` aan (tijdelijke syllabify + Coria-MXL + SVG); audio
+syllabify’t apart tijdelijk. Die tekst wordt niet teruggeschreven naar
+`{stam}.vsa`. Een experimentele sidecar `{stam}.syl.vsa` is **geen** bron
+voor SVG, `products --kinds vsa` of `products --kinds audio`.
 
 ## Wanneer wel / wanneer niet
 
@@ -51,7 +51,7 @@ die tekst niet terug naar `{stam}.vsa`. Een experimentele sidecar
 | Eenstemmige tekst op bekende melodie | Vierstemmig blad → [Basispartituur](../basispartituur/) |
 | catalogus-uitvoeringsvorm met `.vsa` | VSA alleen op een demo-/handleidingpagina → [Ingebedde VSA](../ingebedde-vsa/) |
 | | Printvel met handmatige PDF → [Print-vel](../print-vel/) |
-| | Map met `artefacten_handmatig: true` (pipeline slaat auto-producten over) |
+| | Map met `manueel: true` (pipeline slaat auto-producten over) |
 
 ## Volgorde (bestanden)
 
@@ -62,7 +62,7 @@ die tekst niet terug naar `{stam}.vsa`. Een experimentele sidecar
 3. Coria-`.vsa.mxl`, A4-`.vsa.pdf` en scherm-`.vsa.svg`:
 
 ```cmd
-scripts\vsa-products.cmd content-source\catalogus\eniggeboren-zoon
+scripts\products.cmd --kinds vsa content-source\catalogus\eniggeboren-zoon
 ```
 
 4. Controleer: `check --strict` (validate + publicatiecontrole + Hugo).
@@ -80,14 +80,14 @@ Bibliotheek-**Oefenen** gebruikt `{stam}.vsa.mxl`. Het scherm toont
   Hugo (geen stamp). Dat plaatje telt alleen als de sibling-SVG er
   nog niet is.
 - **Niet:** stilzwijgend verouderde producten herschrijven zonder commit.
-  Vernieuw lokaal met `vsa-products` en commit `.vsa.mxl`, `.vsa.pdf`
+  Vernieuw lokaal met `products --kinds vsa` en commit `.vsa.mxl`, `.vsa.pdf`
   en `.vsa.svg` mee. `check` maakt die bestanden niet.
 
 ## Handmatig
 
 | Situatie | Commando | Man-page |
 | --- | --- | --- |
-| Coria-`.vsa.mxl` + A4-`.vsa.pdf` + `.vsa.svg` | `scripts\vsa-products.cmd` `[map]` | [vsa-products](../../scripts/vsa-products/) |
+| Coria-`.vsa.mxl` + A4-`.vsa.pdf` + `.vsa.svg` | `scripts\products.cmd --kinds vsa` `[map]` | [products (vsa)](../../scripts/vsa-products/) |
 | Alles vóór commit | `scripts\check.cmd --strict` | [check](../../scripts/check/) |
 
 ## Zie ook

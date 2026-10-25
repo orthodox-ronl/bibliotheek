@@ -1,13 +1,14 @@
 """Maak Coria-``.vsa.mxl`` + muziek-``.vsa.svg`` bij ``.vsa``.
 
 Siblings: ``{stam}.vsa.mxl`` (Coria / Oefenen), ``{stam}.vsa.svg`` (scherm).
-A4-``.vsa.pdf`` is geen verplicht product meer (blad = ``index.pagina.pdf``);
-``product_pdf_for_vsa`` / PDF-export in ``sync_one`` blijven voor optioneel
-herstel. MXL: ``vsa musicxml --musicxml-profile playback`` na tijdelijke
-syllabify. SVG: ``vsa svg``. Beide krijgen ``vsa-source-sha256``.
+Export via tooling ``vsa products`` (schrijft schema-2 products-meta).
+Daarna optioneel Coria-bron-``identification`` + meta herschrijven
+(product-hashes), legacy-opruim. Geen in-file versheidstempels meer
+(versheid = meta). A4-``.vsa.pdf`` is geen verplicht product (blad =
+``index.md.pdf``); PDF-export blijft voor optioneel herstel.
 
-Slaat mappen met ``artefacten_handmatig: true`` over. CI genereert niet —
-alleen ``check_vsa_products``; vernieuw lokaal met ``scripts\\vsa-products.cmd``.
+Slaat mappen met ``manueel: true`` of ``manual: true`` over. CI genereert niet —
+alleen ``check_vsa_products``; vernieuw lokaal met ``scripts\\products.cmd --kinds vsa``.
 """
 
 from __future__ import annotations
@@ -19,7 +20,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Sequence
 
-from coria_mxl import load_score_xml, process_existing_mxl, require_no_spaces, write_mxl
+from coria_mxl import load_score_xml, require_no_spaces, write_mxl
 from product_kind import (
     DEFAULT_ROOT,
     REPO_ROOT,
@@ -30,7 +31,6 @@ from product_kind import (
 from product_meta import (
     FIELD_SOURCE_KIND,
     FIELD_SOURCE_SHA,
-    GENERATOR_VSA,
     GENERATOR_VSA_PDF,
     SOURCE_KIND_VSA,
     read_mxl_stamp,
@@ -38,12 +38,11 @@ from product_meta import (
     read_svg_stamp,
     set_mxl_identification_source,
     source_sha256,
-    stamp_mxl_source,
     stamp_pdf,
-    stamp_svg,
     utc_now_iso,
 )
 from product_regen import RegenPolicy, mxl_contract_ok
+from street_meta import stamp_ok_or_meta, write_products_meta
 
 
 def _fm_bool(text: str, key: str) -> bool:
@@ -62,13 +61,15 @@ def _fm_bool(text: str, key: str) -> bool:
 
 
 def folder_is_handmatig(folder: Path) -> bool:
+    """True als catalogus-``index.md`` ``manueel`` of ``manual`` zet (synoniemen)."""
     index = folder / "index.md"
     if not index.is_file():
         return False
     try:
-        return _fm_bool(index.read_text(encoding="utf-8"), "artefacten_handmatig")
+        text = index.read_text(encoding="utf-8")
     except OSError:
         return False
+    return _fm_bool(text, "manueel") or _fm_bool(text, "manual")
 
 
 def product_path_for_vsa(vsa: Path) -> Path:
@@ -113,7 +114,11 @@ class PlaybackVsaSource:
 
 
 def playback_vsa_for_export(canonical: Path) -> PlaybackVsaSource:
-    """Syllabify ongescoopte tekst voor Coria; canonieke bron blijft ongewijzigd."""
+    """Syllabify ongescoopte tekst voor Coria; canonieke bron blijft ongewijzigd.
+
+    Nog gebruikt door ``sync_audio_products`` (audio-keten). MXL/SVG gaan via
+    ``vsa products`` (tooling doet tijdelijke syllabify zelf).
+    """
     try:
         from vsa.syllabify import syllabify_vsa_source
     except ImportError:
@@ -179,18 +184,23 @@ def is_stale_pair(vsa: Path) -> tuple[bool, bool]:
     )
 
 
-def _run_vsa_musicxml(vsa: Path, mxl: Path) -> None:
+def _run_vsa_products(vsa: Path) -> None:
+    """Kale export via tooling: syllabify + Coria-MXL + SVG + products-meta."""
     cmd = [
         sys.executable,
         "-m",
         "vsa.cli",
-        "musicxml",
-        "--musicxml-profile",
-        "playback",
+        "products",
+        "--force",
         str(vsa),
-        str(mxl),
     ]
     subprocess.check_call(cmd, cwd=str(REPO_ROOT))
+    mxl = product_path_for_vsa(vsa)
+    svg = product_svg_for_vsa(vsa)
+    if not mxl.is_file():
+        raise RuntimeError(f"MXL ontbreekt na vsa products: {mxl}")
+    if not svg.is_file():
+        raise RuntimeError(f"SVG ontbreekt na vsa products: {svg}")
 
 
 def _title_for_vsa(vsa: Path) -> str:
@@ -238,22 +248,6 @@ def _point_pdf_errors_at_source(text: str, *, tmp_path: Path, source: Path) -> s
         if alias:
             out = out.replace(alias, shown)
     return out
-
-
-def _run_vsa_svg(vsa: Path, svg: Path) -> None:
-    """Muziek-only sibling-SVG via ``vsa svg`` (native renderer)."""
-    cmd = [
-        sys.executable,
-        "-m",
-        "vsa.cli",
-        "svg",
-        str(vsa),
-        "-o",
-        str(svg),
-    ]
-    subprocess.check_call(cmd, cwd=str(REPO_ROOT))
-    if not svg.is_file():
-        raise RuntimeError(f"SVG ontbreekt na vsa svg: {svg}")
 
 
 def _run_vsa_pdf(vsa: Path, pdf: Path) -> None:
@@ -311,6 +305,29 @@ def _run_vsa_pdf(vsa: Path, pdf: Path) -> None:
         raise RuntimeError(f"PDF ontbreekt na vsa pdf: {pdf}")
 
 
+def _apply_bron_identification(vsa: Path, mxl: Path) -> bool:
+    """Zet Coria-bron in MXL indien bekend; True als het bestand is gewijzigd."""
+    from vsa_bron import bron_uitgangspunt_from_file
+
+    bron = bron_uitgangspunt_from_file(vsa)
+    if not bron:
+        return False
+    require_no_spaces(mxl)
+    root = load_score_xml(mxl)
+    set_mxl_identification_source(root, bron)
+    write_mxl(mxl, root)
+    return True
+
+
+def _remove_legacy_vsa_mxl(vsa: Path, mxl: Path) -> None:
+    legacy = vsa.with_suffix(".mxl")
+    if legacy.is_file() and legacy.resolve() != mxl.resolve():
+        stamp = read_mxl_stamp(legacy)
+        if stamp.get(FIELD_SOURCE_KIND, SOURCE_KIND_VSA) in {"", SOURCE_KIND_VSA}:
+            print(f"  remove legacy {legacy.name}", flush=True)
+            legacy.unlink()
+
+
 def sync_one(
     vsa: Path,
     *,
@@ -325,57 +342,27 @@ def sync_one(
     mxl = product_path_for_vsa(vsa)
     pdf = product_pdf_for_vsa(vsa)
     svg = product_svg_for_vsa(vsa)
-    if do_mxl:
-        print(f"  MXL  {rel} -> {mxl.name}", flush=True)
+    need_export = do_mxl or do_svg
+    if need_export:
+        print(f"  EXP  {rel} -> vsa products (mxl+svg)", flush=True)
     if do_pdf:
         print(f"  PDF  {rel} -> {pdf.name}", flush=True)
-    if do_svg:
-        print(f"  SVG  {rel} -> {svg.name}", flush=True)
     if dry_run:
         return
-    if do_mxl:
-        require_no_spaces(mxl)
-        playback = playback_vsa_for_export(vsa)
-        try:
-            _run_vsa_musicxml(playback.path, mxl)
-        finally:
-            playback.cleanup()
-        process_existing_mxl(mxl)
-        root = load_score_xml(mxl)
-        stamp_mxl_source(
-            root,
-            source_hash=source_hash,
-            source_kind=SOURCE_KIND_VSA,
-            generated_at=generated_at,
-            generator=GENERATOR_VSA,
-        )
-        from vsa_bron import bron_uitgangspunt_from_file
 
-        bron = bron_uitgangspunt_from_file(vsa)
-        if bron:
-            set_mxl_identification_source(root, bron)
-        write_mxl(mxl, root)
-        legacy = vsa.with_suffix(".mxl")
-        if legacy.is_file() and legacy.resolve() != mxl.resolve():
-            stamp = read_mxl_stamp(legacy)
-            if stamp.get(FIELD_SOURCE_KIND, SOURCE_KIND_VSA) in {"", SOURCE_KIND_VSA}:
-                print(f"  remove legacy {legacy.name}", flush=True)
-                legacy.unlink()
+    if need_export:
+        _run_vsa_products(vsa)
+        _apply_bron_identification(vsa, mxl)
+        _remove_legacy_vsa_mxl(vsa, mxl)
+        # Tooling schreef meta; herschrijf zodat hashes bij eventuele
+        # bron-identification en actuele siblings passen.
+        write_products_meta(vsa, {"mxl": mxl, "svg": svg})
+
     if do_pdf:
         require_no_spaces(pdf)
         _run_vsa_pdf(vsa, pdf)
         stamp_pdf(
             pdf,
-            source_hash=source_hash,
-            source_kind=SOURCE_KIND_VSA,
-            generated_at=generated_at,
-            generator=GENERATOR_VSA_PDF,
-        )
-    if do_svg:
-        require_no_spaces(svg)
-        _run_vsa_svg(vsa, svg)
-        stamp_svg(
-            svg,
             source_hash=source_hash,
             source_kind=SOURCE_KIND_VSA,
             generated_at=generated_at,
@@ -387,7 +374,7 @@ class VsaKind:
     id = "vsa"
     label = "VSA-producten"
     source_noun = " .vsa"
-    fix_cmd = r"scripts\vsa-products.cmd"
+    fix_cmd = r"scripts\products.cmd --kinds vsa"
 
     def collect(self, root: Path) -> list[Path]:
         return collect_vsa(root)
@@ -402,18 +389,28 @@ class VsaKind:
             if policy.invalid and mxl_exists
             else None
         )
+        mxl_stamp = stamp_ok_or_meta(
+            source,
+            required_keys={"mxl", "svg"},
+            stamp_ok=_stamp_ok_mxl(mxl, digest),
+        )
+        svg_stamp = stamp_ok_or_meta(
+            source,
+            required_keys={"mxl", "svg"},
+            stamp_ok=_stamp_ok_svg(svg, digest),
+        )
         return [
             ProductSlot(
                 path=mxl,
                 exists=mxl_exists,
-                stamp_ok=_stamp_ok_mxl(mxl, digest),
+                stamp_ok=mxl_stamp,
                 contract_ok=contract,
                 needs_musescore=False,
             ),
             ProductSlot(
                 path=svg,
                 exists=svg.is_file(),
-                stamp_ok=_stamp_ok_svg(svg, digest),
+                stamp_ok=svg_stamp,
                 contract_ok=None,
                 needs_musescore=False,
             ),
@@ -441,7 +438,7 @@ def main(argv: list[str] | None = None) -> int:
         argv,
         description=(
             "Exporteer stale Coria-.mxl en muziek-.vsa.svg vanuit bibliotheek-.vsa "
-            "(geen A4-product-PDF; blad = index.pagina.pdf)."
+            "(via vsa products; geen A4-product-PDF; blad = index.md.pdf)."
         ),
         default_root=DEFAULT_ROOT,
     )
