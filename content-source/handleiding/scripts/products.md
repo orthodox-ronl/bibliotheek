@@ -27,9 +27,11 @@ Kinds: `vsa`, `mscz`, `tekstblad`, `import`, `mvsa`, `audio`, `lyrics`.
 Bouwt de bestanden die de site en Coria nodig hebben naast de bron in de
 catalogus. Bij een map of meerdere kinds vraagt het **één keer** om
 bevestiging (of `-y`); de kind-sporen vragen daarna niet opnieuw. Na een
-geslaagde run (niet `--dry-run`) schrijft het voor vsa/mvsa/mscz ook
-`{bron}.products-meta.json` (snelle versheid) en vernieuwt het de
-zoekindex en Coria-fingerprints.
+geslaagde run (niet `--dry-run`) schrijft de tooling voor vsa/mvsa/mscz
+`{bron}.products-meta.json` (snelle versheid; bladreeks-SVG als `svg-1`…).
+Bibliotheek herschrijft die meta niet meer uit siblings; bij mscz wordt
+alleen de MXL-hash gemerged als de Coria-bron-id de MXL wijzigt. Daarna
+vernieuwt het de zoekindex en Coria-fingerprints.
 
 Dit is het **enige** gebruikerscommando voor die producten. Er zijn geen
 aparte `vsa-products.cmd`-wrappers meer. Per kind staat detail op de

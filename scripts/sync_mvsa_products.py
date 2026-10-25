@@ -1,9 +1,10 @@
 """Maak siblings bij catalogus-``.mvsa``.
 
-Export via tooling ``mvsa products`` (schema-2 products-meta). Hierna
-alleen meta bevestigen/herschrijven; geen in-file versheidstempels
-(versheid = meta). A4-``.mvsa.pdf`` is geen verplicht product (blad =
-``index.md.pdf``); PDF-export blijft voor optioneel herstel.
+Export via tooling ``mvsa products`` (schrijft schema-2 products-meta,
+inclusief bladreeks ``svg-1``…). Bibliotheek schrijft die meta niet
+opnieuw. Geen in-file versheidstempels (versheid = meta).
+A4-``.mvsa.pdf`` is geen verplicht product (blad = ``index.md.pdf``);
+PDF-export blijft voor optioneel herstel.
 
 Slaat ``input/``, ``manueel/manual`` en import-siblings ``*.mscz.mvsa``
 over. CI genereert niet — alleen ``check_mvsa_products``; vernieuw lokaal met
@@ -44,7 +45,7 @@ from product_meta import (
     utc_now_iso,
 )
 from product_regen import RegenPolicy, list_source_paths, mxl_contract_ok
-from street_meta import assign_svg_keys, stamp_ok_or_meta, write_products_meta
+from street_meta import stamp_ok_or_meta
 from sync_import_mvsa import is_import_mvsa
 from sync_vsa_products import folder_is_handmatig
 
@@ -253,11 +254,7 @@ def sync_one(
     rel = mvsa.relative_to(REPO_ROOT)
     digest = source_sha256(mvsa)
     generated_at = utc_now_iso()
-    mxl = product_mxl_for_mvsa(mvsa)
     pdf = product_pdf_for_mvsa(mvsa)
-    svg = product_svg_for_mvsa(mvsa)
-    score_ir = product_score_ir_for_mvsa(mvsa)
-    from_ir = product_from_ir_musicxml_for_mvsa(mvsa)
     bib = id_from_catalogus_path(mvsa)
 
     need_export = need_mxl or need_svg or need_score_ir or need_from_ir
@@ -272,14 +269,6 @@ def sync_one(
 
     if need_export:
         _run_mvsa_products(mvsa, skip_svg=skip_svg)
-        products: dict[str, Path] = {
-            "mxl": mxl,
-            "score-ir": score_ir,
-            "from-ir": from_ir,
-        }
-        assign_svg_keys(products, mvsa_svg_outputs(mvsa))
-        # Tooling schreef meta; herschrijf voor actuele sibling-set/hashes.
-        write_products_meta(mvsa, products)
 
     if need_pdf:
         require_no_spaces(pdf)

@@ -12,14 +12,24 @@ from pathlib import Path
 from typing import Callable
 
 
-def write_products_meta(bron: Path, products: dict[str, Path]) -> Path | None:
-    """Schrijf meta voor bestaande productbestanden; None als niets te schrijven."""
+def write_products_meta(
+    bron: Path,
+    products: dict[str, Path],
+    *,
+    merge: bool = False,
+) -> Path | None:
+    """Schrijf meta voor bestaande productbestanden; None als niets te schrijven.
+
+    ``merge=False`` (default): vervang ``products`` door precies deze keys
+    (zoals tooling ``… products``). ``merge=True``: alleen de meegegeven
+    keys bijwerken; overige keys behouden (bijv. MXL-hash na bron-id).
+    """
     existing = {k: p for k, p in products.items() if p.is_file()}
     if not existing:
         return None
     from vsa.products_meta import write_meta
 
-    dest = write_meta(bron, existing)
+    dest = write_meta(bron, existing, merge=merge)
     print(f"  Meta {dest.name}", flush=True)
     return dest
 

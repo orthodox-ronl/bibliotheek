@@ -58,8 +58,7 @@ class SyncCallsToolingProductsTests(unittest.TestCase):
 
             with (
                 mock.patch.object(sync, "REPO_ROOT", root),
-                mock.patch.object(sync, "_run_mvsa_products", side_effect=fake_products),
-                mock.patch.object(sync, "write_products_meta") as write_meta,
+                mock.patch.object(sync, "_run_mvsa_products", side_effect=fake_products) as run,
             ):
                 sync.sync_one(
                     mvsa,
@@ -71,7 +70,7 @@ class SyncCallsToolingProductsTests(unittest.TestCase):
                     dry_run=False,
                 )
 
-            write_meta.assert_called_once()
+            run.assert_called_once_with(mvsa, skip_svg=True)
 
     def test_mvsa_svg_outputs_bladreeks(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -105,7 +104,6 @@ class SyncCallsToolingProductsTests(unittest.TestCase):
             with (
                 mock.patch.object(sync, "REPO_ROOT", root),
                 mock.patch.object(sync, "_run_mvsa_products", side_effect=fake_products),
-                mock.patch.object(sync, "write_products_meta"),
             ):
                 sync.sync_one(
                     mvsa,

@@ -1,7 +1,9 @@
 """Maak sibling ``{stam}.mscz.mxl`` + ``{stam}.mscz.svg`` bij basispartituur-``.mscz``.
 
-Export via tooling ``mscz products`` (schema-2 products-meta). Daarna
-optioneel Coria-bron-``identification`` + meta herschrijven; legacy-opruim.
+Export via tooling ``mscz products`` (schrijft schema-2 products-meta,
+inclusief bladreeks ``svg-1``…). Daarna optioneel Coria-bron-
+``identification`` op de MXL (wijzigt bytes) → alleen key ``mxl`` in meta
+mergen; SVG-keys blijven die van tooling. Legacy-opruim.
 Geen in-file versheidstempels (versheid = meta). A4-``.mscz.pdf`` is geen
 verplicht product (blad = ``index.md.pdf``); PDF-export blijft voor
 optioneel herstel. Slaat ``manueel/manual`` en ``*.print.mscz`` over.
@@ -37,7 +39,7 @@ from product_meta import (
     utc_now_iso,
 )
 from product_regen import RegenPolicy, list_source_paths, mxl_contract_ok
-from street_meta import assign_svg_keys, stamp_ok_or_meta, write_products_meta
+from street_meta import stamp_ok_or_meta, write_products_meta
 from sync_vsa_products import folder_is_handmatig
 
 _SVG_PAGE_RE = re.compile(r"-(\d+)\.svg$", re.IGNORECASE)
@@ -205,7 +207,6 @@ def sync_one(
     generated_at = utc_now_iso()
     pdf = product_pdf_for_mscz(mscz)
     mxl = product_mxl_for_mscz(mscz)
-    svg = product_svg_for_mscz(mscz)
 
     need_export = need_mxl or need_svg
     skip_svg = not need_svg
@@ -229,9 +230,9 @@ def sync_one(
         _apply_bron_identification(mscz, mxl)
         _remove_legacy(mxl, legacy_mxl_for_mscz(mscz))
         _remove_legacy(mxl, mscz.with_suffix(".partituur.mxl"))
-        products: dict[str, Path] = {"mxl": mxl}
-        assign_svg_keys(products, mscz_svg_outputs(mscz))
-        write_products_meta(mscz, products)
+        # Tooling schreef volledige meta; bron-id kan MXL-bytes wijzigen.
+        if mxl.is_file():
+            write_products_meta(mscz, {"mxl": mxl}, merge=True)
 
 
 class MsczKind:

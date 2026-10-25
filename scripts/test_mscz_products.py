@@ -45,7 +45,7 @@ class SyncCallsToolingProductsTests(unittest.TestCase):
                     dry_run=False,
                 )
 
-            write_meta.assert_called_once()
+            write_meta.assert_called_once_with(mscz, {"mxl": mxl}, merge=True)
 
     def test_sync_one_requests_svg_when_needed(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
