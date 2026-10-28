@@ -31,6 +31,13 @@ Ownership: sibling-namen, publicatie-/importcontroles en Hugo-CI horen
 | Afgeleide | `{stam}.{bron-ext}.{doel-ext}` — bijv. `.vsa.mxl`, `.vsa.pdf`, `.mscz.pdf`, `.mscz.mxl`, `.vsa.lyrics.txt`, `.mscz.lyrics.txt` |
 | Tekstblad | uitzondering: `{stam}.tekstblad.md` → `{stam}.tekstblad.pdf`                                               |
 
+**Geen product-van-product:** uit één bron komt hoogstens één laag
+afgeleiden (`….mvsa.mp3`, `….mscz.mxl`, optioneel `….mvsa.mscz`). Niet
+`….mvsa.mscz.mp3`, `….mscz.mscz…`, of Score-IR/from-ir op `.mscz`/`.vsa`
+(die horen alleen bij canonieke `.mvsa`). Bulk-`products` slaat afgeleide
+`*.vsa.mscz` / `*.mvsa.mscz` over; een expliciet CLI-bestandspad mag wél.
+Rommel opruimen: [`scripts/cleanup-chained-products.cmd`](../scripts/cleanup-chained-products.cmd).
+
 Geen nieuwe `.print.mscz`: handmatige MuseScore-bladen = `{stam}.mscz` +
 `manueel: true` op `index.md`.
 
@@ -71,7 +78,9 @@ Lokaal (niet in CI): [`scripts/products.cmd`](../scripts/products.cmd) —
 wrapper over alle product-sporen (vsa, mscz, tekstblad, mvsa, import, audio,
 lyrics). Default-condities: **missing ∪ stale ∪ invalid** (`mxl validate` op
 Coria-siblings). Ontbreekt het brontype voor een spoor, dan skip (geen fout).
-`--kinds` is focus/uitsluiting, geen “vertel welke bronnen bestaan”. Opties:
+Map-scan gebruikt alleen canonieke bronnen (geen `*.mvsa.mscz` als
+basis-`.mscz`). `--kinds` is focus/uitsluiting, geen “vertel welke bronnen
+bestaan”. Opties:
 `--dry-run`, `--force`, `--only-missing` / `--only-stale` / `--only-invalid`,
 `--reasons`. Na een geslaagde run (niet `--dry-run`) vernieuwt `products.cmd`
 ook de Coria-fingerprints (`fingerprint_coria_mxl.py`) voor **Oefenen** (tip-icoon **♪**).

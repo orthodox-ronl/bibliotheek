@@ -47,6 +47,13 @@ man-page van dat kind (zelfde map):
 Koormap-/catalogusblad `index.md.pdf` hoort hier **niet** bij — dat is
 [pdf](../pdf/).
 
+Bij een **map** pakt `products` alleen canonieke bronnen (`.vsa` /
+`.mvsa` / basis-`.mscz`). Afgeleide `*.mvsa.mscz` / `*.vsa.mscz` worden
+overgeslagen, zodat er geen kettingnamen zoals `*.mvsa.mscz.mp3` ontstaan.
+Wil je wél vanaf zo’n afgeleide werken: geef dat bestand expliciet als
+pad. Bestaande kettingrommel:
+[cleanup-chained-products](../cleanup-chained-products/).
+
 # EXAMPLES
 
 ```cmd
@@ -59,5 +66,6 @@ scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid
 # SEE ALSO
 
 - [all-products](../all-products/)
+- [cleanup-chained-products](../cleanup-chained-products/)
 - [check](../check/)
 - [Publicatiecontrole](../../start/publicatiecontrole/)

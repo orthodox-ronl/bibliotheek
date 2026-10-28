@@ -60,4 +60,5 @@ nog zijn.
 # SEE ALSO
 
 [products](../products/),
+[Publicatiecontrole](../../start/publicatiecontrole/),
 [opkuisen](../opkuisen/)

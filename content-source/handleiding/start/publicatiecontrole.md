@@ -132,6 +132,12 @@ Het **laatste** segment is wat programma’s als bestandstype zien (`.mxl`,
 product komt. Zo botsen een Coria-bestand uit VSA en een Coria-bestand uit
 een MuseScore-partituur nooit op dezelfde korte naam.
 
+**Geen tweede laag:** maak geen afgeleide *van* een afgeleide
+(`….mvsa.mscz.mp3`, `….mscz.mscz…`). Score-IR en from-ir MusicXML horen
+alleen bij een canonieke `.mvsa` (scherm via OSMD); bij alleen een
+basis-`.mscz` is het schermbeeld de `.mscz.svg` (of `-1.svg`, `-2.svg`,
+…). Zie [cleanup-chained-products](../scripts/cleanup-chained-products/).
+
 Deze regel sluit aan bij VSA-tooling (`stem.brontype.doeltype`). In de
 bibliotheek is die vorm **normatief voor nieuwe en vernieuwde producten**.
 
@@ -147,6 +153,12 @@ verplichte product-`.tekstblad.pdf` meer; geen Coria uit dit spoor.
 
 - `{stam}.vsa.mxl`, `{stam}.mscz.pdf`, … — altijd **afgeleide**; niet
   terug importeren om te “layouten”.
+- `{stam}.mvsa.mscz` / `{stam}.vsa.mscz` — optioneel *één* product naast
+  `.mvsa`/`.vsa`, maar **geen** bron voor een map-brede `products`-run
+  (wel als je dat bestand expliciet als pad doorgeeft).
+- `{stam}.mscz.score-ir.json` / `{stam}.mscz.from-ir.musicxml` — horen
+  niet bij basis-`.mscz`; opruimen met
+  [cleanup-chained-products](../scripts/cleanup-chained-products/).
 - Bestanden onder `content-source\input\` — werkvoorraad, geen publicatiebron.
 
 ## Publicatiesporen en publicatiecontroles

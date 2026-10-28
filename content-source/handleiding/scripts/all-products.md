@@ -79,6 +79,7 @@ productsporen tegelijk als missing/stale meldt. Voor één spoor:
 # SEE ALSO
 
 - [products](../products/)
+- [cleanup-chained-products](../cleanup-chained-products/)
 - [check](../check/)
 - [pdf](../pdf/)
 - [products (audio)](../audio-products/)

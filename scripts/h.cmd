@@ -72,7 +72,7 @@ echo     productie-pin vsa-tooling.pin bijwerken
 echo   opkuisen
 echo     herkomstanalyse + inhoudsopkuis
 echo   cleanup-chained-products
-echo     ketting-afgeleiden wissen ^(*.mvsa.mscz.mp3 e.d.; dry-run zonder --apply^)
+echo     ketting-afgeleiden + verkeerde score-ir/from-ir wissen ^(dry-run zonder --apply^)
 echo   bieb
 echo     multi-command: accepteer^|hernoem^|verwijder^|kopieer ^(EN: accept^|rename^|delete^|copy^)
 echo   update-werkvoorraad
