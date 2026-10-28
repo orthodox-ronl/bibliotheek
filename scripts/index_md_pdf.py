@@ -1,10 +1,10 @@
 """Bouw index.md.pdf voor bladermap-index.md (koormap/catalogus).
 
 A4-compositie uit shortcode ``kop`` (en legacy ``#`` / HTML-titels) + kale
-muziek-SVG's (geen catalogus-product-PDF's plakken). Binnen ``pdf-bijelkaar``
-exporteert de pijplijn opnieuw met tooling ``--compact``. Zonder bijelkaar:
-één tall-SVG per stuk, gesneden op systeembrenzen zodat rest-ruimte op
-een A4-pagina (na titel/proza) wél met muziek wordt gevuld.
+muziek-SVG's (geen catalogus-product-PDF's plakken). Bij voorkeur de
+catalogus-sibling tall-SVG (``*.mvsa.svg`` / ``*.mscz.svg`` / ``*.vsa.svg``);
+alleen lokaal opnieuw exporteren als die ontbreekt. Compose snijdt op
+systeembrenzen zodat rest-ruimte na titel/proza op A4 wél gevuld wordt.
 
 Catalogus-leaves zonder Markdown-titel: afgeleide leaf-titel injecteren
 (zelfde algoritme als Hugo; zie ``ensure_catalogus_derived_titles``).
@@ -19,7 +19,6 @@ import shutil
 import subprocess
 import sys
 import tempfile
-import zipfile
 from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
@@ -36,8 +35,6 @@ CATALOGUS = CONTENT / "catalogus"
 _A4_W = 595.28
 _A4_H = 841.89
 _MARGIN = 28.0  # ~10 mm; tooling --compact zet Style-marges al strakker
-# MuseScore pageHeight (inches) voor één doorlopende tall-SVG (geen A4-breuk)
-_TALL_PAGE_HEIGHT_IN = "20000"
 # Minimale gap (SVG user space) tussen staflijn-clusters = nieuw systeem
 _SYSTEM_GAP_MIN = 200.0
 
@@ -1200,118 +1197,28 @@ def _mscz_cli() -> list[str]:
     )
 
 
-def _patch_style_in_mscz(path: Path, overrides: dict[str, str]) -> None:
-    """Zet MuseScore Style-tags in .mscz/.mscx (en eventuele .mss)."""
-    with zipfile.ZipFile(path, "r") as zin:
-        names = zin.namelist()
-        mscx_name = next(
-            (n for n in names if n.lower().endswith(".mscx")), None
-        )
-        if mscx_name is None:
-            raise RuntimeError(f"geen .mscx in {path}")
-        files = {n: zin.read(n) for n in names}
-
-    def patch_xml(raw: bytes) -> bytes:
-        text = raw.decode("utf-8")
-        if "<Style>" not in text:
-            return raw
-        for key, val in overrides.items():
-            pat = re.compile(rf"<{key}>.*?</{key}>", re.DOTALL)
-            tag = f"<{key}>{val}</{key}>"
-            if pat.search(text):
-                text = pat.sub(tag, text)
-            else:
-                text = text.replace("<Style>", f"<Style>{tag}", 1)
-        return text.encode("utf-8")
-
-    files[mscx_name] = patch_xml(files[mscx_name])
-    for name in list(files):
-        if name.lower().endswith(".mss") or name.endswith("score_style.mss"):
-            files[name] = patch_xml(files[name])
-
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    with zipfile.ZipFile(tmp, "w", compression=zipfile.ZIP_DEFLATED) as zout:
-        for name, data in files.items():
-            zout.writestr(name, data)
-    tmp.replace(path)
+def product_svg_path(source: Path) -> Path:
+    """Canonieke sibling-SVG: ``lied.mvsa`` → ``lied.mvsa.svg`` (tall product)."""
+    source = Path(source)
+    return source.with_name(source.name + ".svg")
 
 
-def export_tall_mscz_svg(
-    mscz: Path,
-    out: Path,
-    *,
-    page_height_in: str = _TALL_PAGE_HEIGHT_IN,
-) -> list[Path]:
-    """Eén doorlopende SVG (hoge pageHeight); snijden gebeurt bij A4-compose."""
-    from vsa.mscz_partituur import strip_mscz_sheet_chrome
-    from vsa.musescore_cli import (
-        MuseScoreConvertError,
-        MuseScoreNotFoundError,
-        convert_with_musescore,
-        list_musescore_svg_pages,
+def legacy_bladreeks_svgs(source: Path) -> list[Path]:
+    """Oude A4-bladreeks ``{bronnaam}-N.svg`` naast de bron (tot products regen)."""
+    source = Path(source)
+    return sorted(
+        source.parent.glob(f"{source.name}-*.svg"),
+        key=_svg_page_index,
     )
-    from vsa.svg_trim import trim_musescore_svg
-
-    out = Path(out)
-    if out.suffix.lower() != ".svg":
-        out = out.with_suffix(".svg")
-    out.parent.mkdir(parents=True, exist_ok=True)
-    if out.exists():
-        out.unlink()
-    for stale in out.parent.glob(f"{out.stem}-*.svg"):
-        stale.unlink(missing_ok=True)
-
-    fd, tmp_name = tempfile.mkstemp(suffix=".mscz", prefix="tall-svg-")
-    os.close(fd)
-    tmp = Path(tmp_name)
-    try:
-        shutil.copy2(mscz, tmp)
-        strip_mscz_sheet_chrome(tmp)
-        _patch_style_in_mscz(
-            tmp,
-            {
-                "pageHeight": page_height_in,
-                "enableVerticalSpread": "0",
-                "maxPageFillSpread": "0",
-                "lastSystemFillLimit": "0",
-                "showFooter": "0",
-                "footerFirstPage": "0",
-                "showHeader": "0",
-                "headerFirstPage": "0",
-            },
-        )
-        print(f"  SVG tall (mscz) {mscz.name}", flush=True)
-        first = convert_with_musescore(tmp, out)
-    except (MuseScoreNotFoundError, MuseScoreConvertError) as exc:
-        tmp.unlink(missing_ok=True)
-        raise RuntimeError(f"tall-SVG via MuseScore mislukt: {exc}") from exc
-    finally:
-        tmp.unlink(missing_ok=True)
-
-    pages = list_musescore_svg_pages(out)
-    if out.is_file() and not pages:
-        written = [out]
-    elif pages:
-        written = pages
-    else:
-        written = [first]
-    for path in written:
-        trimmed = trim_musescore_svg(
-            path.read_text(encoding="utf-8"),
-            white_background=True,
-        )
-        path.write_text(trimmed, encoding="utf-8", newline="\n")
-    return written
 
 
 def export_blad_svgs(
     source: Path, dest: Path, *, compact: bool = False
 ) -> list[Path]:
-    """Exporteer kale blad-SVG('s); bij multi-page: ``dest.stem-N.svg``.
+    """Lokaal tall-SVG exporteren via street-CLI (alleen als product ontbreekt).
 
-    Zonder ``compact``: bij ``.mscz``/``.mvsa`` één tall-SVG (doorlopend),
-    zodat de A4-composer op systeembrenzen kan snijden. ``.vsa`` blijft
-    bladreeks via ``vsa svg``.
+    ``mvsa``/``mscz`` ``svg`` schrijft één compacte tall-SVG. ``compact`` is
+    optioneel (tooling-default is al compact); blijft voor CLI-compatibiliteit.
     """
     dest.parent.mkdir(parents=True, exist_ok=True)
     if dest.exists():
@@ -1320,45 +1227,68 @@ def export_blad_svgs(
         stale.unlink(missing_ok=True)
 
     suffix = source.suffix.lower()
-    if not compact and suffix == ".mscz":
-        return export_tall_mscz_svg(source, dest)
-    if not compact and suffix == ".mvsa":
-        fd, tmp_name = tempfile.mkstemp(suffix=".mscz", prefix="mvsa-tall-")
-        os.close(fd)
-        tmp_mscz = Path(tmp_name)
-        try:
-            cmd = [*_mvsa_cli(), "mscz", str(source), "-o", str(tmp_mscz)]
-            print(f"  mscz (voor tall-SVG) {source.name}", flush=True)
-            subprocess.check_call(cmd, cwd=str(ROOT))
-            return export_tall_mscz_svg(tmp_mscz, dest)
-        finally:
-            tmp_mscz.unlink(missing_ok=True)
-
     if suffix == ".mvsa":
         cmd = [*_mvsa_cli(), "svg", str(source), "-o", str(dest)]
         if compact:
             cmd.append("--compact")
-        label = "SVG --compact" if compact else "SVG"
+        label = "SVG (mvsa, lokaal)"
     elif suffix == ".mscz":
         cmd = [*_mscz_cli(), "svg", str(source), "-o", str(dest)]
-        label = "SVG (mscz)"
+        label = "SVG (mscz, lokaal)"
     elif suffix == ".vsa":
         cmd = [_vsa_exe(), "svg", str(source), "-o", str(dest)]
-        label = "SVG (vsa)"
+        label = "SVG (vsa, lokaal)"
     else:
         raise RuntimeError(f"SVG-export: onverwacht brontype {source.name}")
 
-    print(f"  {label} {source}", flush=True)
+    print(f"  {label} {source.name}", flush=True)
     subprocess.check_call(cmd, cwd=str(ROOT))
+    if dest.is_file():
+        return [dest]
     pages = sorted(
         dest.parent.glob(f"{dest.stem}-*.svg"),
         key=_svg_page_index,
     )
-    if dest.is_file():
-        return [dest]
     if pages:
         return pages
     raise RuntimeError(f"SVG ontbreekt na export: {dest}")
+
+
+def resolve_svgs_for_pdf(
+    source: Path,
+    work: Path | None = None,
+    *,
+    uv_id: str = "",
+    compact: bool = False,
+) -> list[Path]:
+    """Kies SVG voor compose: product → legacy bladreeks → lokaal exporteren.
+
+    *work* / *uv_id* blijven voor aanroepers; export schrijft de canonieke
+    sibling naast *source* (niet naar een temp-map).
+    """
+    product = product_svg_path(source)
+    if product.is_file():
+        try:
+            rel = product.relative_to(ROOT)
+        except ValueError:
+            rel = product
+        print(f"  SVG product {rel}", flush=True)
+        return [product]
+
+    legacy = legacy_bladreeks_svgs(source)
+    if legacy:
+        print(
+            f"  SVG legacy-bladreeks ({len(legacy)}×) naast {source.name}",
+            flush=True,
+        )
+        return legacy
+
+    print(
+        f"  SVG-product ontbreekt ({product.name}); "
+        "lokaal exporteren naar sibling (MuseScore)…",
+        flush=True,
+    )
+    return export_blad_svgs(source, product, compact=compact)
 
 
 def _staff_line_ys(svg_text: str) -> list[float]:
@@ -1433,12 +1363,11 @@ def export_compact_svg(mvsa: Path, dest: Path) -> None:
 
 
 def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
-    """Zet titel(s) + kale blad-SVG's op A4.
+    """Zet titel(s) + kale muziek-SVG's op A4.
 
-    Doel (koormap-dichtheid, zie scan-referentie alleluja's): één
-    ``pdf-bijelkaar``-blok idealiter op **één** A4 — uniforme schaal zodat
-    alle stukken + koppen in de bladhoogte passen. Zonder bijelkaar: tall-SVG
-    snijden op systeembrenzen zodat rest-ruimte na titel/proza gevuld wordt.
+    SVG bij voorkeur uit catalogus-product (tall); anders legacy bladreeks
+    of lokale street-CLI-export. Zonder ``pdf-bijelkaar``: snijden op
+    systeembrenzen zodat rest-ruimte na titel/proza gevuld wordt.
     """
     try:
         import pymupdf
@@ -1453,14 +1382,16 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
             if item.uv_id in svg_series:
                 continue
             source = find_notation_source(item.uv_id)
-            out = work / f"{item.uv_id.replace('/', '__')}.svg"
             try:
                 rel = source.relative_to(ROOT)
             except ValueError:
                 rel = source
             print(f"  bron {rel}", flush=True)
-            svg_series[item.uv_id] = export_blad_svgs(
-                source, out, compact=item.compact
+            svg_series[item.uv_id] = resolve_svgs_for_pdf(
+                source,
+                work,
+                uv_id=item.uv_id,
+                compact=item.compact,
             )
 
     # Per blad-SVG een PDF-pagina (afmetingen + systeemsnee)

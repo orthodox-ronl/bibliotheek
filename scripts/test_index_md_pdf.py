@@ -441,9 +441,7 @@ def test_build_one_voorzien_without_bieb(tmp_path, monkeypatch) -> None:
     assert "Voorzien" in pymupdf.open(out)[0].get_text()
 
 
-def test_export_blad_svgs_mscz_compact_uses_mscz_cli(
-    tmp_path, monkeypatch
-) -> None:
+def test_export_blad_svgs_mscz_uses_mscz_cli(tmp_path, monkeypatch) -> None:
     source = tmp_path / "lied.mscz"
     source.write_bytes(b"fake")
     dest = tmp_path / "out.svg"
@@ -455,27 +453,10 @@ def test_export_blad_svgs_mscz_compact_uses_mscz_cli(
 
     monkeypatch.setattr(pp, "_mscz_cli", lambda: ["mscz"])
     monkeypatch.setattr(pp.subprocess, "check_call", fake_call)
-    pages = pp.export_blad_svgs(source, dest, compact=True)
+    pages = pp.export_blad_svgs(source, dest)
     assert pages == [dest]
     assert calls[0][:2] == ["mscz", "svg"]
     assert str(source) in calls[0]
-
-
-def test_export_blad_svgs_mscz_tall_path(tmp_path, monkeypatch) -> None:
-    source = tmp_path / "lied.mscz"
-    source.write_bytes(b"fake")
-    dest = tmp_path / "out.svg"
-    called: list[Path] = []
-
-    def fake_tall(mscz: Path, out: Path, **kwargs):
-        called.append(mscz)
-        out.write_text("<svg/>", encoding="utf-8")
-        return [out]
-
-    monkeypatch.setattr(pp, "export_tall_mscz_svg", fake_tall)
-    pages = pp.export_blad_svgs(source, dest)
-    assert pages == [dest]
-    assert called == [source]
 
 
 def test_export_blad_svgs_mvsa_uses_mvsa_cli(tmp_path, monkeypatch) -> None:
@@ -493,6 +474,48 @@ def test_export_blad_svgs_mvsa_uses_mvsa_cli(tmp_path, monkeypatch) -> None:
     pp.export_blad_svgs(source, dest, compact=True)
     assert calls[0][:2] == ["mvsa", "svg"]
     assert "--compact" in calls[0]
+
+
+def test_resolve_svgs_prefers_product(tmp_path: Path) -> None:
+    source = tmp_path / "lied.mscz"
+    source.write_bytes(b"fake")
+    product = tmp_path / "lied.mscz.svg"
+    product.write_text("<svg/>", encoding="utf-8")
+    work = tmp_path / "work"
+    work.mkdir()
+    paths = pp.resolve_svgs_for_pdf(source, work, uv_id="a/b")
+    assert paths == [product]
+
+
+def test_resolve_svgs_uses_legacy_bladreeks(tmp_path: Path) -> None:
+    source = tmp_path / "lied.mscz"
+    source.write_bytes(b"fake")
+    p1 = tmp_path / "lied.mscz-1.svg"
+    p2 = tmp_path / "lied.mscz-2.svg"
+    p1.write_text("<svg>1</svg>", encoding="utf-8")
+    p2.write_text("<svg>2</svg>", encoding="utf-8")
+    work = tmp_path / "work"
+    work.mkdir()
+    paths = pp.resolve_svgs_for_pdf(source, work, uv_id="a/b")
+    assert paths == [p1, p2]
+
+
+def test_resolve_svgs_exports_when_missing(tmp_path, monkeypatch) -> None:
+    source = tmp_path / "lied.mscz"
+    source.write_bytes(b"fake")
+    work = tmp_path / "work"
+    work.mkdir()
+    exported: list[Path] = []
+
+    def fake_export(src: Path, dest: Path, *, compact: bool = False):
+        exported.append(dest)
+        dest.write_text("<svg/>", encoding="utf-8")
+        return [dest]
+
+    monkeypatch.setattr(pp, "export_blad_svgs", fake_export)
+    paths = pp.resolve_svgs_for_pdf(source, work, uv_id="x/y")
+    assert paths == [tmp_path / "lied.mscz.svg"]
+    assert exported == [paths[0]]
 
 
 def test_system_cut_points_between_staff_clusters(tmp_path: Path) -> None:

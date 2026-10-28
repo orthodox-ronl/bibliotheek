@@ -50,7 +50,7 @@ De site kiest in deze volgorde ([`bieb-score.html`](../../layouts/partials/bieb-
    **behalve** S8-recite met spacer-noten (`<notehead>none</notehead>` in
    from-ir): dan **`.mvsa.svg`** op het scherm zolang OSMD die printlaag niet
    betrouwbaar tekent (§5.1).
-2. **Muziek-SVG** — sibling `{stam}.mvsa.svg`, `{stam}.vsa.svg` of `{stam}.mscz.svg` (anders legacy `static/vsa/bladermap/….svg` bij `.vsa`)
+2. **Muziek-SVG** — één tall compacte sibling `{stam}.mvsa.svg`, `{stam}.vsa.svg` of `{stam}.mscz.svg` (geen A4-bladreeks `*-N.svg`; anders legacy `static/vsa/bladermap/….svg` bij `.vsa`)
 3. **Tekstblad** — body van sibling `{stam}.tekstblad.md` (HTML; geen product-PDF als viewer)
 4. **PDF op scherm** — alleen als 1–3 ontbreken
 

@@ -60,10 +60,10 @@ De Pages-workflow installeert `vsa-tool` (pin/float), runt
 daarna Coria-fingerprints en Hugo. CI genereert geen producten — vernieuw
 lokaal met `scripts\products.cmd` en commit de siblings. Tooling
 `vsa`/`mvsa`/`mscz products` schrijft `{bron}.products-meta.json` (schema 2;
-bladreeks-SVG: `svg-1`…). Bibliotheek reconstrueert die meta niet uit
-siblings; bij mscz alleen merge van key `mxl` na optionele bron-id op de
-MXL. `check_*` leest die meta voor snelle versheid, met stamp-fallback
-zolang meta nog ontbreekt.
+SVG-key `svg` = één tall compacte sibling). Bibliotheek reconstrueert die
+meta niet uit siblings; bij mscz alleen merge van key `mxl` na optionele
+bron-id op de MXL. `check_*` leest die meta voor snelle versheid, met
+stamp-fallback zolang meta nog ontbreekt.
 
 Lokaal: `scripts\validate.cmd` of `check` / `check --strict`.
 

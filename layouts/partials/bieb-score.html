@@ -50,10 +50,10 @@
 {{ partial "oefenhoek-score-acties.html" (dict "score" $p "viewer" $viewer "position" .position) }}
 {{- /*
   Scherm (voorkeur): Score-IR → MusicXML-sibling → OSMD
-  (``.mvsa.from-ir.musicxml``). Anders: muziek-SVG (``.mvsa.svg`` /
-  ``.vsa.svg`` / ``.mscz.svg``, of legacy static bladermap). Tekstblad:
-  body van ``.tekstblad.md``. PDF alleen als laatste scherm-fallback.
-  Print/blad: ``index.md.pdf`` (nav), niet deze product-PDF.
+  (``.mvsa.from-ir.musicxml``). Anders: één tall muziek-SVG (``.mvsa.svg`` /
+  ``.vsa.svg`` / ``.mscz.svg``; geen A4-bladreeks ``*-N.svg``), of legacy
+  static bladermap. Tekstblad: body van ``.tekstblad.md``. PDF alleen als
+  laatste scherm-fallback. Print/blad: ``index.md.pdf`` (nav).
 */ -}}
 <div class="score-partituur">
 {{- $pdf := "" -}}
@@ -68,7 +68,7 @@
   {{- $n := lower .Name -}}
   {{- if strings.HasSuffix $n ".from-ir.musicxml" -}}
     {{- $fromIrMxl = $fromIrMxl | append .RelPermalink -}}
-  {{- else if or (strings.HasSuffix $n ".mvsa.svg") (strings.HasSuffix $n ".vsa.svg") (strings.HasSuffix $n ".mscz.svg") (findRE `\.mscz-\d+\.svg$` $n) -}}
+  {{- else if or (strings.HasSuffix $n ".mvsa.svg") (strings.HasSuffix $n ".vsa.svg") (strings.HasSuffix $n ".mscz.svg") -}}
     {{- $musicSvgs = $musicSvgs | append .RelPermalink -}}
   {{- else if and (strings.HasSuffix $n ".pdf") (ne $n "index.md.pdf") -}}
     {{- $pdf = .RelPermalink -}}
@@ -98,7 +98,7 @@
             {{- $fromIrMxl = $fromIrMxl | append $url -}}
           {{- end -}}
         {{- end -}}
-        {{- if or (strings.HasSuffix $nameLower ".mvsa.svg") (strings.HasSuffix $nameLower ".vsa.svg") (strings.HasSuffix $nameLower ".mscz.svg") (findRE `\.mscz-\d+\.svg$` $nameLower) -}}
+        {{- if or (strings.HasSuffix $nameLower ".mvsa.svg") (strings.HasSuffix $nameLower ".vsa.svg") (strings.HasSuffix $nameLower ".mscz.svg") -}}
           {{- $url := printf "%s%s" $p.RelPermalink .Name -}}
           {{- with $p.Resources.GetMatch .Name -}}
             {{- $url = .RelPermalink -}}

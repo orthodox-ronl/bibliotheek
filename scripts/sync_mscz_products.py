@@ -1,9 +1,11 @@
 """Maak sibling ``{stam}.mscz.mxl`` + ``{stam}.mscz.svg`` bij basispartituur-``.mscz``.
 
-Export via tooling ``mscz products`` (schrijft schema-2 products-meta,
-inclusief bladreeks ``svg-1``…). Daarna optioneel Coria-bron-
-``identification`` op de MXL (wijzigt bytes) → alleen key ``mxl`` in meta
-mergen; SVG-keys blijven die van tooling. Legacy-opruim.
+Tall compacte SVG (één bestand; geen A4-bladreeks).
+
+Export via tooling ``mscz products`` (schema-2 products-meta, key ``svg``).
+Daarna optioneel Coria-bron-``identification`` op de MXL (wijzigt bytes) →
+alleen key ``mxl`` in meta mergen; SVG-key blijft die van tooling.
+Legacy-opruim.
 Geen in-file versheidstempels (versheid = meta). A4-``.mscz.pdf`` is geen
 verplicht product (blad = ``index.md.pdf``); PDF-export blijft voor
 optioneel herstel. Slaat ``manueel/manual``, ``*.print.mscz`` en afgeleide
@@ -14,7 +16,6 @@ CI genereert niet — alleen ``check_mscz_products``; vernieuw lokaal met
 
 from __future__ import annotations
 
-import re
 import subprocess
 import sys
 from pathlib import Path
@@ -44,7 +45,6 @@ from score_filenames import is_derived_mscz
 from street_meta import stamp_ok_or_meta, write_products_meta
 from sync_vsa_products import folder_is_handmatig
 
-_SVG_PAGE_RE = re.compile(r"-(\d+)\.svg$", re.IGNORECASE)
 
 
 def product_pdf_for_mscz(mscz: Path) -> Path:
@@ -58,7 +58,7 @@ def product_mxl_for_mscz(mscz: Path) -> Path:
 
 
 def product_svg_for_mscz(mscz: Path) -> Path:
-    """``naam.mscz`` → ``naam.mscz.svg`` (scherm; bladreeks ``naam.mscz-N.svg``)."""
+    """``naam.mscz`` → ``naam.mscz.svg`` (tall compacte scherm-/print-SVG)."""
     return mscz.with_suffix(".mscz.svg")
 
 
@@ -70,21 +70,10 @@ def legacy_mxl_for_mscz(mscz: Path) -> Path:
     return mscz.with_suffix(".mxl")
 
 
-def _svg_page_index(path: Path) -> int:
-    match = _SVG_PAGE_RE.search(path.name)
-    return int(match.group(1)) if match else 0
-
-
 def mscz_svg_outputs(mscz: Path) -> list[Path]:
-    """Bestaande scherm-SVG('s) bij een ``.mscz`` (enkel of bladreeks)."""
+    """Bestaande tall scherm-SVG bij een ``.mscz`` (één sibling, geen bladreeks)."""
     dest = product_svg_for_mscz(mscz)
-    pages = sorted(
-        dest.parent.glob(f"{dest.stem}-*.svg"),
-        key=_svg_page_index,
-    )
-    if dest.is_file():
-        return [dest, *pages] if pages else [dest]
-    return pages
+    return [dest] if dest.is_file() else []
 
 
 def is_print_mscz(path: Path) -> bool:
