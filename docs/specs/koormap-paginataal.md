@@ -159,6 +159,7 @@ Twee schrijfwijzen zijn **gelijkwaardig** wanneer er een openstaande
 | `{{< muziek >}}` | `{{< bieb muziek  />}}` |
 | `{{< bron >}}` | `{{< bieb bron  />}}` |
 | `{{< copyright >}}` | `{{< bieb copyright  />}}` |
+| `{{< colofon >}}` | `{{< bieb colofon  />}}` |
 | `{{< veld "…" >}}` | `{{< bieb veld "…"  />}}` |
 
 | Situatie | Regel |
@@ -174,7 +175,8 @@ Twee schrijfwijzen zijn **gelijkwaardig** wanneer er een openstaande
 | `titel` | `title` | Catalogustitel van de uitvoeringsvorm, als platte tekst (geschikt in een Markdown-kop of binnen `kop`). |
 | `muziek` | — | Partituurweergave (+ tip-icoon **♪** bij dat blok). Geen paginatitel forceren. **Schermketen en look:** [schermpartituur.md](schermpartituur.md) (normatief). Kort: voorkeur ``.mvsa.from-ir.musicxml`` → OSMD; anders SVG (``.mvsa.svg`` / ``.vsa.svg`` / ``.mscz.svg`` / legacy bladermap); tekstblad-md of PDF alleen als nood-fallback. Blad download/print: nav **Download/Print pagina** (`index.md.pdf`), geen score-knop naar product-PDF. Artifact Score-IR: `vsa mvsa score-ir … --musicxml` in VSA-tooling. |
 | `bron` | — | Korte bronvermelding van de uitvoeringsvorm. |
-| `copyright` | — | Copyright-/licentieregel(s), alleen als de beheerder dit zet. |
+| `copyright` | — | Korte copyright-/licentieregel (footer-achtig), alleen als de beheerder dit zet. Verwijst vaak naar het colofon («zie colofon»). |
+| `colofon` | — | Volledige colofontekst: uit MuseScore-colofon-VBox indien aanwezig; anders opgebouwd uit copyright-notice, eredienst-kopieertoestemming, Bron en Bibliotheek-id. Scherm én `index.md.pdf`. |
 | `veld` | — | Generieke frontmatter; zie §5.4. |
 
 Welke sleutels later **ook zonder** `veld` een eigen korte naam krijgen,
@@ -315,7 +317,10 @@ SVG/mscz/tekstblad wél en nog niet eisen.
 
 Org-/tooling-richting (print vs scherm): kale blad-SVG voor print;
 `pdf.cmd` bouwt `index.md.pdf` uit blad-SVG’s + Markdown (geen
-catalogus-PDF-plak). MuseScore blijft print/blad. Zie
+catalogus-PDF-plak). Zonder `pdf-bijelkaar` exporteert `pdf.cmd` één
+doorlopende tall-SVG en snijdt die op systeembrenzen, zodat rest-ruimte
+na titel/proza op dezelfde A4-pagina wél met muziek wordt gevuld.
+MuseScore blijft print/blad. Zie
 [VSA-tooling — kale-muziek-svg-en-uitgaven](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/kale-muziek-svg-en-uitgaven.md)
 §4 en [partituur-ir §7](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/partituur-ir.md).
 

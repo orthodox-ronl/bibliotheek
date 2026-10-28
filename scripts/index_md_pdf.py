@@ -2,8 +2,9 @@
 
 A4-compositie uit shortcode ``kop`` (en legacy ``#`` / HTML-titels) + kale
 muziek-SVG's (geen catalogus-product-PDF's plakken). Binnen ``pdf-bijelkaar``
-exporteert de pijplijn opnieuw met tooling ``--compact``. Meerdere
-MuseScore-pagina's → bladreeks ``stem-N.svg`` (VSA-tooling fase 1).
+exporteert de pijplijn opnieuw met tooling ``--compact``. Zonder bijelkaar:
+één tall-SVG per stuk, gesneden op systeembrenzen zodat rest-ruimte op
+een A4-pagina (na titel/proza) wél met muziek wordt gevuld.
 
 Catalogus-leaves zonder Markdown-titel: afgeleide leaf-titel injecteren
 (zelfde algoritme als Hugo; zie ``ensure_catalogus_derived_titles``).
@@ -18,6 +19,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import zipfile
 from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
@@ -34,26 +36,69 @@ CATALOGUS = CONTENT / "catalogus"
 _A4_W = 595.28
 _A4_H = 841.89
 _MARGIN = 28.0  # ~10 mm; tooling --compact zet Style-marges al strakker
+# MuseScore pageHeight (inches) voor één doorlopende tall-SVG (geen A4-breuk)
+_TALL_PAGE_HEIGHT_IN = "20000"
+# Minimale gap (SVG user space) tussen staflijn-clusters = nieuw systeem
+_SYSTEM_GAP_MIN = 200.0
 
 _SC = re.compile(
     r"\{\{<\s*(/?)\s*([a-z0-9_-]+)([^>]*)>\}\}",
     re.IGNORECASE,
 )
 _ID = re.compile(r'\bid\s*=\s*"([^"]+)"', re.IGNORECASE)
+_VELD_PAD = re.compile(r'\bveld\s+"([^"]+)"', re.IGNORECASE)
 _H1_HTML = re.compile(
     r"<h1\b[^>]*>(.*?)</h1>",
     re.IGNORECASE | re.DOTALL,
 )
-_H1_MD = re.compile(r"(?m)^#\s+(.+?)\s*$")
+_AT_FIELD = re.compile(
+    r'(?m)^@(?P<name>[A-Za-z0-9_-]+)\s+(?:"([^"]*)"|\'([^\']*)\')'
+)
+_YAML_FIELD = re.compile(
+    r'(?m)^(?P<name>[A-Za-z0-9_-]+):\s*["\']?([^"\'\r\n]+)'
+)
+_MSCZ_COPYRIGHT = re.compile(
+    r'<metaTag\s+name="copyright">([^<]*)</metaTag>',
+    re.IGNORECASE,
+)
 _ONDERDELEN = frozenset(
-    {"titel", "title", "muziek", "bron", "copyright", "veld"}
+    {"titel", "title", "muziek", "bron", "copyright", "colofon", "veld"}
+)
+_TEXT_ONDERDELEN = frozenset(
+    {"titel", "title", "bron", "copyright", "colofon", "veld"}
+)
+_KOP_ALIGNS = frozenset({"links", "midden", "rechts"})
+_KOP_SIZES = frozenset({"groot", "middel", "klein"})
+# CSS ``koormap-kop--*`` (site.css): ~1.75rem / 1.25rem / 1rem bij 12 pt basis
+_KOP_FONT_PT = {"groot": 21.0, "middel": 15.0, "klein": 12.0}
+_MD_HEADING = re.compile(r"^(#{1,6})\s+(.+?)\s*$")
+_MSCZ_COLOPHON_VBOX = re.compile(
+    r"<VBox>(?:(?!</VBox>).)*?Colofon(?:(?!</VBox>).)*?</VBox>",
+    re.IGNORECASE | re.DOTALL,
+)
+_LITURGY_COPY = (
+    "Voor gebruik in de orthodoxe eredienst is kopiëren toegestaan."
 )
 
 
 @dataclass
 class TitleItem:
+    """``kop`` (contract §6) of Markdown-``#``-kop (altijd links)."""
+
     text: str
-    prominent: bool = True  # False = lichte tussenkop (Toon n)
+    size: str = "groot"  # groot | middel | klein
+    align: str = "midden"  # links | midden | rechts
+
+    @property
+    def prominent(self) -> bool:
+        return self.size == "groot"
+
+
+@dataclass
+class TextItem:
+    """Markdown-proza of opgelost bieb-onderdeel (links uitgelijnd)."""
+
+    text: str
 
 
 @dataclass
@@ -69,15 +114,18 @@ class SpaceItem:
     points: float
 
 
+FlowItem = TitleItem | TextItem | MusicItem | SpaceItem
+
 # klein / middel (default) / groot — zelfde namen als shortcode-knoppen
 _WITRUIMTE_PT = {"klein": 10.0, "middel": 20.0, "groot": 40.0}
+_PROSE_PT = 11.0
 
 
 @dataclass
 class PageFlow:
     """Eén PDF-bladgroep (pdf-pagina of apart pdf-bijelkaar-blok)."""
 
-    items: list[TitleItem | MusicItem | SpaceItem] = field(default_factory=list)
+    items: list[FlowItem] = field(default_factory=list)
 
     @property
     def music_ids(self) -> list[str]:
@@ -105,12 +153,41 @@ def _strip_tags(html: str) -> str:
     return " ".join(text.split()).strip()
 
 
-def _kop_prominent(params: str) -> bool:
-    """groot (default) = prominent; middel/klein = tussenkop."""
-    tokens = {t.strip().lower() for t in params.replace("/", " ").split() if t.strip()}
-    if "middel" in tokens or "klein" in tokens:
-        return False
-    return True
+def _parse_kop_style(params: str) -> tuple[str, str]:
+    """``(align, size)`` volgens koormap-paginataal §6 / shortcode ``kop``.
+
+    Defaults: midden + groot (zelfde als ``layouts/shortcodes/kop.html``).
+    """
+    align = "midden"
+    size = "groot"
+    has_align = False
+    has_size = False
+    for raw in params.replace("/", " ").split():
+        tok = raw.strip().lower()
+        if not tok:
+            continue
+        if tok in _KOP_ALIGNS:
+            if has_align:
+                raise ValueError(
+                    "shortcode kop: hoogstens één uitlijning "
+                    "(links, midden of rechts)"
+                )
+            align = tok
+            has_align = True
+        elif tok in _KOP_SIZES:
+            if has_size:
+                raise ValueError(
+                    "shortcode kop: hoogstens één grootte "
+                    "(groot, middel of klein)"
+                )
+            size = tok
+            has_size = True
+        else:
+            raise ValueError(
+                f"shortcode kop: onbekende knop {tok!r}. "
+                "Toegestaan: links, midden, rechts, groot, middel, klein."
+            )
+    return align, size
 
 
 def _witruimte_points(params: str) -> float:
@@ -166,23 +243,229 @@ def _title_font_files() -> tuple[Path, Path]:
     return regular, bold
 
 
-def _titles_in_gap(gap: str) -> list[TitleItem]:
-    """Legacy titels in Markdown-gaten: HTML-h1 of ``#`` (zonder shortcodes).
+def _md_heading_size(level: int) -> str:
+    if level <= 1:
+        return "groot"
+    if level == 2:
+        return "middel"
+    return "klein"
 
-    Canonieke beheerderstaal is shortcode ``kop`` (zie parse_page_flows).
+
+def _gap_items(gap: str) -> list[TitleItem | TextItem]:
+    """Markdown in gaten: ``#``-koppen + gewone alinea’s (links uitgelijnd).
+
+    Shortcode ``kop`` hoort niet hier — die komt via ``parse_page_flows``.
+    Legacy HTML-``<h1>`` blijft ondersteund (links, groot).
     """
-    marks: list[tuple[int, TitleItem]] = []
+    items: list[tuple[int, TitleItem | TextItem]] = []
+    covered: list[tuple[int, int]] = []
     for m in _H1_HTML.finditer(gap):
         t = _strip_tags(m.group(1))
         if t:
-            marks.append((m.start(), TitleItem(t, prominent=True)))
-    if not any(it.prominent for _, it in marks):
-        for m in _H1_MD.finditer(gap):
-            t = m.group(1).strip()
-            if t and "{{" not in t:
-                marks.append((m.start(), TitleItem(t, prominent=True)))
-    marks.sort(key=lambda x: x[0])
-    return [it for _, it in marks]
+            items.append(
+                (
+                    m.start(),
+                    TitleItem(t, size="groot", align="links"),
+                )
+            )
+            covered.append((m.start(), m.end()))
+    for m in re.finditer(r"(?m)^.*$", gap):
+        line = m.group(0)
+        stripped = line.strip()
+        if not stripped or stripped.startswith("{{"):
+            continue
+        start, end = m.start(), m.end()
+        if any(a <= start < b or a < end <= b for a, b in covered):
+            continue
+        if re.match(r"(?i)^<h1\b", stripped):
+            continue
+        hm = _MD_HEADING.match(stripped)
+        if hm:
+            level = len(hm.group(1))
+            label = hm.group(2).strip()
+            if label and "{{" not in label:
+                items.append(
+                    (
+                        start,
+                        TitleItem(
+                            label,
+                            size=_md_heading_size(level),
+                            align="links",
+                        ),
+                    )
+                )
+            continue
+        items.append((start, TextItem(_strip_tags(stripped))))
+    items.sort(key=lambda x: x[0])
+    return [it for _, it in items]
+
+
+def _veld_pad(params: str) -> str | None:
+    m = _VELD_PAD.search(params)
+    return m.group(1).strip() if m else None
+
+
+def _leaf_source_text(uv_id: str) -> str:
+    """Tekst voor veldresolutie: ``.mvsa`` / ``.vsa``, anders ``.mscz.mvsa``."""
+    leaf = CATALOGUS.joinpath(*uv_id.split("/"))
+    if not leaf.is_dir():
+        return ""
+    preferred = sorted(
+        p
+        for p in leaf.glob("*.mvsa")
+        if not p.name.lower().endswith(".mscz.mvsa")
+    )
+    if not preferred:
+        preferred = sorted(leaf.glob("*.vsa"))
+    if not preferred:
+        preferred = sorted(leaf.glob("*.mscz.mvsa"))
+    if not preferred:
+        return ""
+    try:
+        return preferred[0].read_text(encoding="utf-8")
+    except OSError:
+        return ""
+
+
+def _field_from_source_text(text: str, pad: str) -> str:
+    """Spiegel Hugo ``bieb-veld-waarde``: YAML-sleutel of ``@``-regel."""
+    key = pad.rsplit(".", 1)[-1].strip()
+    if not key or not text:
+        return ""
+    key_l = key.lower()
+    for m in _YAML_FIELD.finditer(text):
+        if m.group("name").lower() == key_l:
+            return m.group(2).strip().strip("\"'")
+    at_name = key
+    if key_l in {"uitgangspunt", "bron"}:
+        at_name = "bron"
+    elif key_l == "copyright":
+        at_name = "copyright"
+    elif key_l in {"titel", "title"}:
+        at_name = "title"
+    for m in _AT_FIELD.finditer(text):
+        if m.group("name").lower() == at_name.lower():
+            return (m.group(2) or m.group(3) or "").strip()
+    return ""
+
+
+def _iter_mscx_texts(uv_id: str):
+    """Yield MSCX XML-strings uit leaf-``.mscz``-bestanden."""
+    import zipfile
+
+    leaf = CATALOGUS.joinpath(*uv_id.split("/"))
+    if not leaf.is_dir():
+        return
+    for mscz in sorted(leaf.glob("*.mscz")):
+        try:
+            with zipfile.ZipFile(mscz) as zf:
+                for name in zf.namelist():
+                    if name.lower().endswith(".mscx"):
+                        yield zf.read(name).decode("utf-8", errors="replace")
+        except (OSError, zipfile.BadZipFile):
+            continue
+
+
+def _copyright_from_mscz(uv_id: str) -> str:
+    for raw in _iter_mscx_texts(uv_id):
+        m = _MSCZ_COPYRIGHT.search(raw)
+        if m:
+            return _strip_tags(m.group(1))
+    return ""
+
+
+def _colofon_from_mscz(uv_id: str) -> str:
+    """Volledige colofontekst uit MuseScore-VBox (titel ``Colofon``).
+
+    MSCX: ``<Text>``-wrapper met geneste ``<text>…</text>`` (kleine letters)
+    waarin ``<br/>`` de regels scheidt.
+    """
+    # Alleen het geneste content-element (niet de ``<Text>``-wrapper).
+    text_re = re.compile(r"<text>(.*?)</text>", re.DOTALL)
+    for raw in _iter_mscx_texts(uv_id):
+        m = _MSCZ_COLOPHON_VBOX.search(raw)
+        if not m:
+            continue
+        tm = text_re.search(m.group(0))
+        if not tm:
+            continue
+        html = tm.group(1).replace("<br/>", "\n").replace("<br>", "\n")
+        # Geen ``_strip_tags`` (die ruimtes/newlines platslaat): alleen tags weg.
+        plain = re.sub(r"<[^>]+>", "", html)
+        plain = plain.replace("\xad", "").replace("\u00ad", "")
+        lines = [ln.strip() for ln in plain.splitlines() if ln.strip()]
+        if lines and lines[0].lower() == "colofon":
+            lines = lines[1:]
+        if lines:
+            return "Colofon\n\n" + "\n".join(lines)
+    return ""
+
+
+def _build_colofon_text(uv_id: str) -> str:
+    """Colofon: uit MSCZ-VBox, anders opgebouwd (copyright + bron + id)."""
+    existing = _colofon_from_mscz(uv_id)
+    if existing:
+        return existing
+    notice = (
+        _field_from_source_text(_leaf_source_text(uv_id), "copyright")
+        or _copyright_from_mscz(uv_id)
+        or "Deze partituur: CC BY-SA 4.0 (orthodox-ronl)."
+    )
+    lines = [notice]
+    if _LITURGY_COPY.lower() not in notice.lower():
+        lines.append(_LITURGY_COPY)
+    bron = resolve_bieb_onderdeel(uv_id, "bron")
+    if bron:
+        lines.append(f"Bron: {bron}")
+    lines.append(f"Bibliotheek-id: {uv_id}")
+    return "Colofon\n\n" + "\n".join(lines)
+
+
+def resolve_bieb_onderdeel(uv_id: str, onderdeel: str, *, veld_pad: str = "") -> str:
+    """Platte tekst voor bieb-onderdeel (leeg als onbekend/ontbrekend)."""
+    onderdeel = onderdeel.lower().strip()
+    if onderdeel == "veld":
+        pad = veld_pad.strip()
+        if not pad:
+            return ""
+        return _field_from_source_text(_leaf_source_text(uv_id), pad)
+    if onderdeel in {"titel", "title"}:
+        text = _leaf_source_text(uv_id)
+        value = _field_from_source_text(text, "title") or _field_from_source_text(
+            text, "titel"
+        )
+        if value:
+            return value
+        from catalogus import derived_leaf_title
+
+        leaf_dir = CATALOGUS.joinpath(*uv_id.split("/"))
+        return derived_leaf_title(uv_id, leaf_dir=leaf_dir)
+    if onderdeel == "bron":
+        text = _leaf_source_text(uv_id)
+        return (
+            _field_from_source_text(text, "bron")
+            or _field_from_source_text(text, "bron.uitgangspunt")
+            or _field_from_source_text(text, "uitgangspunt")
+        )
+    if onderdeel == "copyright":
+        text = _leaf_source_text(uv_id)
+        value = _field_from_source_text(text, "copyright")
+        if value:
+            return value
+        return _copyright_from_mscz(uv_id)
+    if onderdeel == "colofon":
+        return _build_colofon_text(uv_id)
+    return ""
+
+
+def _body_without_frontmatter(text: str) -> str:
+    """Strip optionele ``---``-YAML-kop; body begint daarna."""
+    if not text.lstrip().startswith("---"):
+        return text
+    parts = text.split("---", 2)
+    if len(parts) < 3:
+        return text
+    return parts[2]
 
 
 def parse_page_flows(text: str) -> list[PageFlow]:
@@ -193,6 +476,7 @@ def parse_page_flows(text: str) -> list[PageFlow]:
     het **eerste** blad; latere bijelkaar-blokken krijgen die titel niet
     opnieuw.
     """
+    text = _body_without_frontmatter(text)
     finished: list[PageFlow] = []
     current = PageFlow()
     stack: list[str] = []
@@ -207,17 +491,17 @@ def parse_page_flows(text: str) -> list[PageFlow]:
             # Prominente titel buiten pdf-bijelkaar (``kop`` / ``#``) hoort
             # bij het eerste blad met inhoud.
             if pending_titles:
-                current.items = [
-                    TitleItem(t.text, prominent=t.prominent)
-                    for t in pending_titles
-                ] + current.items
+                current.items = list(pending_titles) + current.items
                 pending_titles.clear()
             finished.append(current)
             current = PageFlow()
 
     def add_title(t: TitleItem) -> None:
         if bijelkaar == 0:
-            if t.prominent:
+            if t.size == "groot" and t.align == "midden":
+                # Standaard bladkop buiten bijelkaar → eenmalig op eerste blad
+                pending_titles.append(t)
+            elif t.size == "groot":
                 pending_titles.append(t)
             else:
                 current.items.append(t)
@@ -229,12 +513,20 @@ def parse_page_flows(text: str) -> list[PageFlow]:
         gap = text[pos:end]
         # Binnen ``kop … /kop``: tekst wordt bij sluiten gelezen, niet hier.
         if not kop_stack:
-            for t in _titles_in_gap(gap):
-                add_title(t)
+            for item in _gap_items(gap):
+                if isinstance(item, TitleItem):
+                    add_title(item)
+                else:
+                    current.items.append(item)
         pos = end
 
     def add_music(uv_id: str) -> None:
         current.items.append(MusicItem(uv_id, compact=bijelkaar > 0))
+
+    def add_bieb_text(uv_id: str, onderdeel: str, *, veld_pad: str = "") -> None:
+        value = resolve_bieb_onderdeel(uv_id, onderdeel, veld_pad=veld_pad)
+        if value:
+            current.items.append(TextItem(value))
 
     for m in _SC.finditer(text):
         gap_before(m.start())
@@ -247,9 +539,8 @@ def parse_page_flows(text: str) -> list[PageFlow]:
                 raw = text[inner_start : m.start()]
                 label = _strip_tags(raw)
                 if label:
-                    add_title(
-                        TitleItem(label, prominent=_kop_prominent(open_params))
-                    )
+                    align, size = _parse_kop_style(open_params)
+                    add_title(TitleItem(label, size=size, align=align))
             elif name == "bieb" and stack:
                 stack.pop()
             elif name == "pdf-bijelkaar" and bijelkaar:
@@ -279,10 +570,7 @@ def parse_page_flows(text: str) -> list[PageFlow]:
                 flush_current()
             # Paginatitel(s) alleen op het eerste bijelkaar-blad
             if pending_titles:
-                current.items = [
-                    TitleItem(t.text, prominent=t.prominent)
-                    for t in pending_titles
-                ] + current.items
+                current.items = list(pending_titles) + current.items
                 pending_titles.clear()
             bijelkaar += 1
             continue
@@ -318,6 +606,12 @@ def parse_page_flows(text: str) -> list[PageFlow]:
             onderdeel = "muziek"
         if onderdeel == "muziek":
             add_music(uv_id)
+        elif onderdeel in _TEXT_ONDERDELEN:
+            add_bieb_text(
+                uv_id,
+                onderdeel,
+                veld_pad=_veld_pad(params) or "",
+            )
 
     gap_before(len(text))
     flush_current()
@@ -369,7 +663,10 @@ def ensure_catalogus_derived_titles(
     for flow in flows:
         if not flow.music_ids or _flow_has_prominent_title(flow):
             continue
-        flow.items = [TitleItem(title, prominent=True), *flow.items]
+        flow.items = [
+            TitleItem(title, size="groot", align="midden"),
+            *flow.items,
+        ]
     return flows
 
 
@@ -888,10 +1185,134 @@ def _mvsa_cli() -> list[str]:
     )
 
 
+def _mscz_cli() -> list[str]:
+    # ``mscz`` is een apart CLI-entry (mscz.exe); ``mvsa svg`` weigert .mscz.
+    sibling_mscz = (
+        ROOT.parent / "VSA-tooling" / ".venv" / "Scripts" / "mscz.exe"
+    )
+    if sibling_mscz.is_file():
+        return [str(sibling_mscz)]
+    if shutil.which("mscz"):
+        return ["mscz"]
+    raise RuntimeError(
+        "mscz niet op PATH. Oplossing: scripts\\_ensure.cmd --vsa-tool "
+        "(sibling ..\\VSA-tooling of pin)."
+    )
+
+
+def _patch_style_in_mscz(path: Path, overrides: dict[str, str]) -> None:
+    """Zet MuseScore Style-tags in .mscz/.mscx (en eventuele .mss)."""
+    with zipfile.ZipFile(path, "r") as zin:
+        names = zin.namelist()
+        mscx_name = next(
+            (n for n in names if n.lower().endswith(".mscx")), None
+        )
+        if mscx_name is None:
+            raise RuntimeError(f"geen .mscx in {path}")
+        files = {n: zin.read(n) for n in names}
+
+    def patch_xml(raw: bytes) -> bytes:
+        text = raw.decode("utf-8")
+        if "<Style>" not in text:
+            return raw
+        for key, val in overrides.items():
+            pat = re.compile(rf"<{key}>.*?</{key}>", re.DOTALL)
+            tag = f"<{key}>{val}</{key}>"
+            if pat.search(text):
+                text = pat.sub(tag, text)
+            else:
+                text = text.replace("<Style>", f"<Style>{tag}", 1)
+        return text.encode("utf-8")
+
+    files[mscx_name] = patch_xml(files[mscx_name])
+    for name in list(files):
+        if name.lower().endswith(".mss") or name.endswith("score_style.mss"):
+            files[name] = patch_xml(files[name])
+
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    with zipfile.ZipFile(tmp, "w", compression=zipfile.ZIP_DEFLATED) as zout:
+        for name, data in files.items():
+            zout.writestr(name, data)
+    tmp.replace(path)
+
+
+def export_tall_mscz_svg(
+    mscz: Path,
+    out: Path,
+    *,
+    page_height_in: str = _TALL_PAGE_HEIGHT_IN,
+) -> list[Path]:
+    """Eén doorlopende SVG (hoge pageHeight); snijden gebeurt bij A4-compose."""
+    from vsa.mscz_partituur import strip_mscz_sheet_chrome
+    from vsa.musescore_cli import (
+        MuseScoreConvertError,
+        MuseScoreNotFoundError,
+        convert_with_musescore,
+        list_musescore_svg_pages,
+    )
+    from vsa.svg_trim import trim_musescore_svg
+
+    out = Path(out)
+    if out.suffix.lower() != ".svg":
+        out = out.with_suffix(".svg")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    if out.exists():
+        out.unlink()
+    for stale in out.parent.glob(f"{out.stem}-*.svg"):
+        stale.unlink(missing_ok=True)
+
+    fd, tmp_name = tempfile.mkstemp(suffix=".mscz", prefix="tall-svg-")
+    os.close(fd)
+    tmp = Path(tmp_name)
+    try:
+        shutil.copy2(mscz, tmp)
+        strip_mscz_sheet_chrome(tmp)
+        _patch_style_in_mscz(
+            tmp,
+            {
+                "pageHeight": page_height_in,
+                "enableVerticalSpread": "0",
+                "maxPageFillSpread": "0",
+                "lastSystemFillLimit": "0",
+                "showFooter": "0",
+                "footerFirstPage": "0",
+                "showHeader": "0",
+                "headerFirstPage": "0",
+            },
+        )
+        print(f"  SVG tall (mscz) {mscz.name}", flush=True)
+        first = convert_with_musescore(tmp, out)
+    except (MuseScoreNotFoundError, MuseScoreConvertError) as exc:
+        tmp.unlink(missing_ok=True)
+        raise RuntimeError(f"tall-SVG via MuseScore mislukt: {exc}") from exc
+    finally:
+        tmp.unlink(missing_ok=True)
+
+    pages = list_musescore_svg_pages(out)
+    if out.is_file() and not pages:
+        written = [out]
+    elif pages:
+        written = pages
+    else:
+        written = [first]
+    for path in written:
+        trimmed = trim_musescore_svg(
+            path.read_text(encoding="utf-8"),
+            white_background=True,
+        )
+        path.write_text(trimmed, encoding="utf-8", newline="\n")
+    return written
+
+
 def export_blad_svgs(
     source: Path, dest: Path, *, compact: bool = False
 ) -> list[Path]:
-    """Exporteer kale blad-SVG('s); bij multi-page: ``dest.stem-N.svg``."""
+    """Exporteer kale blad-SVG('s); bij multi-page: ``dest.stem-N.svg``.
+
+    Zonder ``compact``: bij ``.mscz``/``.mvsa`` één tall-SVG (doorlopend),
+    zodat de A4-composer op systeembrenzen kan snijden. ``.vsa`` blijft
+    bladreeks via ``vsa svg``.
+    """
     dest.parent.mkdir(parents=True, exist_ok=True)
     if dest.exists():
         dest.unlink()
@@ -899,11 +1320,28 @@ def export_blad_svgs(
         stale.unlink(missing_ok=True)
 
     suffix = source.suffix.lower()
-    if suffix in {".mvsa", ".mscz"}:
+    if not compact and suffix == ".mscz":
+        return export_tall_mscz_svg(source, dest)
+    if not compact and suffix == ".mvsa":
+        fd, tmp_name = tempfile.mkstemp(suffix=".mscz", prefix="mvsa-tall-")
+        os.close(fd)
+        tmp_mscz = Path(tmp_name)
+        try:
+            cmd = [*_mvsa_cli(), "mscz", str(source), "-o", str(tmp_mscz)]
+            print(f"  mscz (voor tall-SVG) {source.name}", flush=True)
+            subprocess.check_call(cmd, cwd=str(ROOT))
+            return export_tall_mscz_svg(tmp_mscz, dest)
+        finally:
+            tmp_mscz.unlink(missing_ok=True)
+
+    if suffix == ".mvsa":
         cmd = [*_mvsa_cli(), "svg", str(source), "-o", str(dest)]
-        if compact and suffix == ".mvsa":
+        if compact:
             cmd.append("--compact")
-        label = "SVG --compact" if compact and suffix == ".mvsa" else "SVG"
+        label = "SVG --compact" if compact else "SVG"
+    elif suffix == ".mscz":
+        cmd = [*_mscz_cli(), "svg", str(source), "-o", str(dest)]
+        label = "SVG (mscz)"
     elif suffix == ".vsa":
         cmd = [_vsa_exe(), "svg", str(source), "-o", str(dest)]
         label = "SVG (vsa)"
@@ -923,6 +1361,72 @@ def export_blad_svgs(
     raise RuntimeError(f"SVG ontbreekt na export: {dest}")
 
 
+def _staff_line_ys(svg_text: str) -> list[float]:
+    """Y-coördinaten van MuseScore ``StaffLines`` (SVG user space)."""
+    ys: list[float] = []
+    for pat in (
+        r'<polyline[^>]*class="StaffLines"[^>]*points="([^"]+)"',
+        r'<polyline[^>]*points="([^"]+)"[^>]*class="StaffLines"',
+    ):
+        for m in re.finditer(pat, svg_text):
+            first = m.group(1).split()[0]
+            ys.append(float(first.split(",")[1]))
+    return sorted({round(y, 2) for y in ys})
+
+
+def _cluster_systems(
+    staff_ys: list[float], *, gap_min: float = _SYSTEM_GAP_MIN
+) -> list[tuple[float, float]]:
+    """Per systeem (top, bottom) in SVG-y op basis van staflijn-clusters."""
+    if not staff_ys:
+        return []
+    clusters: list[list[float]] = [[staff_ys[0]]]
+    for y in staff_ys[1:]:
+        if y - clusters[-1][-1] > gap_min:
+            clusters.append([y])
+        else:
+            clusters[-1].append(y)
+    return [(c[0], c[-1]) for c in clusters]
+
+
+def system_cut_points_pdf(svg_path: Path, pdf_height: float) -> list[float]:
+    """Y-snijpunten in PDF-coördinaten (na SVG→PDF), tussen systemen.
+
+    Snede ligt midden in de gap tussen systemen, zodat een pagina nooit
+    midden door een notenbalk eindigt. Laatste punt = ``pdf_height``.
+    """
+    text = svg_path.read_text(encoding="utf-8")
+    vb_m = re.search(r'viewBox="([^"]+)"', text)
+    if not vb_m:
+        return [pdf_height]
+    vb = [float(x) for x in vb_m.group(1).split()]
+    min_y, vb_h = vb[1], vb[3]
+    if vb_h <= 0:
+        return [pdf_height]
+
+    def to_pdf(svg_y: float) -> float:
+        return (svg_y - min_y) / vb_h * pdf_height
+
+    systems = _cluster_systems(_staff_line_ys(text))
+    if not systems:
+        return [pdf_height]
+
+    cuts: list[float] = []
+    for i, (_top, bottom) in enumerate(systems):
+        if i + 1 < len(systems):
+            next_top = systems[i + 1][0]
+            mid = (bottom + next_top) / 2.0
+        else:
+            mid = min_y + vb_h
+        cuts.append(to_pdf(mid))
+    out = sorted({round(c, 3) for c in cuts if 0 < c <= pdf_height + 1e-6})
+    if not out or out[-1] < pdf_height - 0.5:
+        out.append(pdf_height)
+    else:
+        out[-1] = pdf_height
+    return out
+
+
 def export_compact_svg(mvsa: Path, dest: Path) -> None:
     """Compat: schrijf compacte SVG (of bladreeks) voor ``dest``."""
     export_blad_svgs(mvsa, dest, compact=True)
@@ -933,8 +1437,8 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
 
     Doel (koormap-dichtheid, zie scan-referentie alleluja's): één
     ``pdf-bijelkaar``-blok idealiter op **één** A4 — uniforme schaal zodat
-    alle stukken + koppen in de bladhoogte passen. Tussenkop-pt schaalt mee
-    met de lyrics in die SVG. Lange stukken: bladreeks pagina voor pagina.
+    alle stukken + koppen in de bladhoogte passen. Zonder bijelkaar: tall-SVG
+    snijden op systeembrenzen zodat rest-ruimte na titel/proza gevuld wordt.
     """
     try:
         import pymupdf
@@ -959,12 +1463,14 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
                 source, out, compact=item.compact
             )
 
-    # Per blad-SVG een PDF-pagina (afmetingen + place)
+    # Per blad-SVG een PDF-pagina (afmetingen + systeemsnee)
     svg_pdfs: dict[str, list[object]] = {}
     sizes: dict[str, list[tuple[float, float]]] = {}
+    cuts_map: dict[str, list[list[float]]] = {}
     for uv_id, paths in svg_series.items():
         docs: list[object] = []
         dims: list[tuple[float, float]] = []
+        cuts_list: list[list[float]] = []
         for svg_path in paths:
             svg_doc = pymupdf.open(svg_path)
             try:
@@ -977,8 +1483,16 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
                 raise RuntimeError(f"ongeldige SVG-afmeting: {svg_path}")
             docs.append(src)
             dims.append((sw, sh))
+            cuts_list.append(system_cut_points_pdf(svg_path, sh))
         svg_pdfs[uv_id] = docs
         sizes[uv_id] = dims
+        cuts_map[uv_id] = cuts_list
+        n_cuts = sum(len(c) for c in cuts_list)
+        print(
+            f"  systeemsnee {uv_id}: {n_cuts} snijpunt(en) "
+            f"over {len(paths)} SVG('s)",
+            flush=True,
+        )
 
     try:
         content_w = _A4_W - 2 * _MARGIN
@@ -988,18 +1502,14 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
         music_ids = [
             i.uv_id for i in flow.items if isinstance(i, MusicItem)
         ]
-        n_prom = sum(
-            1
-            for i in flow.items
-            if isinstance(i, TitleItem) and i.prominent
-        )
-        n_tussen = sum(
-            1
-            for i in flow.items
-            if isinstance(i, TitleItem) and not i.prominent
-        )
+        n_text = sum(1 for i in flow.items if isinstance(i, TextItem))
         space_pts = sum(
             i.points for i in flow.items if isinstance(i, SpaceItem)
+        )
+        title_h = sum(
+            _KOP_FONT_PT.get(i.size, 15.0) * 1.85 + 4.0
+            for i in flow.items
+            if isinstance(i, TitleItem)
         )
         n_items = len(flow.items)
         n_gaps = max(0, n_items - 1)
@@ -1013,12 +1523,10 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
 
         # Schaal: binnen pdf-bijelkaar (--compact) streven naar één A4
         # (min breedte/hoogte). Zonder bijelkaar: leesbare breedte-schaal;
-        # bladreeks mag over meerdere A4 (catalogus lange mvsa e.d.).
-        # Tussenkop-vak ≥ 24 pt hoog (anders weigert pymupdf insert_textbox).
-        lyric_k = 13.0 * 1.15
+        # tall-SVG mag over meerdere A4 (snede op systeembrenzen).
         fixed = (
-            n_prom * 30.0
-            + n_tussen * 26.0
+            title_h
+            + n_text * max(36.0, _PROSE_PT * 2.4)
             + (n_gaps + n_page_gaps) * gap
             + space_pts
         )
@@ -1046,36 +1554,141 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
 
         font_reg, font_bold = _title_font_files()
 
-        for idx, item in enumerate(flow.items):
-            if isinstance(item, TitleItem):
-                if item.prominent:
-                    fontsize, pad = 13.0, 4.0
-                    fontfile, fontname = font_reg, "koormap-kop"
-                else:
-                    # Zelfde optische maat als lyrics in de geschaalde SVG
-                    fontsize = max(8.0, lyric_k * scale)
-                    pad = 1.0
-                    fontfile, fontname = font_bold, "koormap-tussenkop"
-                # pymupdf insert_textbox faalt stil als het vak te laag is
-                # (rc < 0); ~1.85× fontsize is veilig voor latijnse metrics.
-                box_h = max(24.0, fontsize * 1.85)
-                if y + box_h > _A4_H - _MARGIN and y > _MARGIN + 1:
+        def _draw_lines(
+            text: str,
+            *,
+            fontsize: float,
+            fontfile: Path,
+            fontname: str,
+            align: str,
+            pad: float,
+            bold: bool = False,
+        ) -> None:
+            """Regel-voor-regel ``insert_text`` — geen soft-hyphens van textbox."""
+            nonlocal y
+            # PyMuPDF ``insert_text`` + TrueType mag ASCII-``-`` omzetten naar
+            # soft hyphen (U+00AD → raar teken). En-dash (U+2013) blijft intact
+            # en oogt als een normaal streepje in BY–SA / bibliotheek-id.
+            text = (
+                text.replace("\xad", "")
+                .replace("\u00ad", "")
+                .replace("\u2011", "\u2013")
+                .replace("-", "\u2013")
+            )
+            lines = text.splitlines() or [text]
+            line_h = fontsize * 1.35
+            need = line_h * len(lines) + pad
+            if y + need > _A4_H - _MARGIN and y > _MARGIN + 1:
+                new_page()
+            font = pymupdf.Font(fontfile=str(fontfile))
+            for line in lines:
+                if y + line_h > _A4_H - _MARGIN and y > _MARGIN + 1:
                     new_page()
-                rect = pymupdf.Rect(_MARGIN, y, _A4_W - _MARGIN, y + box_h)
-                rc = page.insert_textbox(
-                    rect,
-                    item.text,
+                tw = font.text_length(line, fontsize=fontsize)
+                if align == "rechts":
+                    x = _A4_W - _MARGIN - tw
+                elif align == "midden":
+                    x = max(_MARGIN, (_A4_W - tw) / 2)
+                else:
+                    x = _MARGIN
+                # Baseline iets onder de top van de regel
+                page.insert_text(
+                    (x, y + fontsize),
+                    line,
                     fontsize=fontsize,
                     fontname=fontname,
                     fontfile=str(fontfile),
-                    align=pymupdf.TEXT_ALIGN_CENTER,
                 )
-                if rc < 0:
-                    raise RuntimeError(
-                        f"titel past niet in PDF-vak ({item.text!r}, "
-                        f"fontsize={fontsize}, box_h={box_h}, rc={rc})"
+                y += line_h
+            y += pad
+
+        def _place_music_strip(
+            src: object,
+            sw: float,
+            sh: float,
+            cuts: list[float],
+            *,
+            use_cuts: bool,
+        ) -> None:
+            """Plaats één SVG-strip; bij ``use_cuts`` pack op systeembrenzen."""
+            nonlocal y
+            draw_w = sw * scale
+            if not use_cuts or len(cuts) <= 1:
+                draw_h = sh * scale
+                if y + draw_h > _A4_H - _MARGIN and y > _MARGIN + 1:
+                    new_page()
+                x0 = _MARGIN + max(0.0, (content_w - draw_w) / 2)
+                dest_rect = pymupdf.Rect(x0, y, x0 + draw_w, y + draw_h)
+                page.show_pdf_page(dest_rect, src, 0)
+                y += draw_h
+                return
+
+            src_y = 0.0
+            cut_i = 0
+            while src_y < sh - 1e-3 and cut_i < len(cuts):
+                page_avail = _A4_H - _MARGIN - y
+                if page_avail < 36.0 and y > _MARGIN + 1:
+                    new_page()
+                    page_avail = _A4_H - _MARGIN - y
+                max_src = src_y + page_avail / scale
+                chosen: float | None = None
+                j = cut_i
+                while j < len(cuts) and cuts[j] <= max_src + 1e-3:
+                    chosen = cuts[j]
+                    j += 1
+                if chosen is None:
+                    if y > _MARGIN + 1:
+                        new_page()
+                        continue
+                    chosen = cuts[cut_i]
+                    print(
+                        "  WAARSCHUWING: systeem hoger dan rest-A4; "
+                        "alsnog één systeem geplaatst",
+                        flush=True,
                     )
-                y += box_h + pad
+                band_h = (chosen - src_y) * scale
+                if band_h > 1e-6:
+                    clip = pymupdf.Rect(0, src_y, sw, chosen)
+                    x0 = _MARGIN + max(0.0, (content_w - draw_w) / 2)
+                    dest_rect = pymupdf.Rect(
+                        x0, y, x0 + draw_w, y + band_h
+                    )
+                    page.show_pdf_page(dest_rect, src, 0, clip=clip)
+                    y += band_h
+                while cut_i < len(cuts) and cuts[cut_i] <= chosen + 1e-6:
+                    cut_i += 1
+                src_y = chosen
+                if src_y < sh - 1e-3 and cut_i < len(cuts):
+                    if (_A4_H - _MARGIN - y) < 36.0:
+                        new_page()
+
+        for idx, item in enumerate(flow.items):
+            if isinstance(item, TitleItem):
+                fontsize = _KOP_FONT_PT.get(item.size, 15.0)
+                pad = 6.0 if item.size == "groot" else 3.0
+                fontfile = font_bold if item.size != "groot" else font_reg
+                fontname = (
+                    "koormap-tussenkop"
+                    if item.size != "groot"
+                    else "koormap-kop"
+                )
+                _draw_lines(
+                    item.text,
+                    fontsize=fontsize,
+                    fontfile=fontfile,
+                    fontname=fontname,
+                    align=item.align,
+                    pad=pad,
+                )
+            elif isinstance(item, TextItem):
+                _draw_lines(
+                    item.text,
+                    fontsize=_PROSE_PT,
+                    fontfile=font_reg,
+                    fontname="koormap-prose",
+                    align="links",
+                    pad=6.0,
+                )
             elif isinstance(item, SpaceItem):
                 if y + item.points > _A4_H - _MARGIN and y > _MARGIN + 1:
                     new_page()
@@ -1083,15 +1696,14 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
             else:
                 docs = svg_pdfs[item.uv_id]
                 dims = sizes[item.uv_id]
-                for page_i, (src, (sw, sh)) in enumerate(zip(docs, dims)):
-                    draw_w = sw * scale
-                    draw_h = sh * scale
-                    if y + draw_h > _A4_H - _MARGIN and y > _MARGIN + 1:
-                        new_page()
-                    x0 = _MARGIN + max(0.0, (content_w - draw_w) / 2)
-                    dest_rect = pymupdf.Rect(x0, y, x0 + draw_w, y + draw_h)
-                    page.show_pdf_page(dest_rect, src, 0)
-                    y += draw_h
+                cut_lists = cuts_map[item.uv_id]
+                use_cuts = not item.compact
+                for page_i, (src, (sw, sh), cuts) in enumerate(
+                    zip(docs, dims, cut_lists)
+                ):
+                    _place_music_strip(
+                        src, sw, sh, cuts, use_cuts=use_cuts
+                    )
                     if page_i < len(docs) - 1:
                         y += gap
             if idx < n_items - 1:

@@ -177,7 +177,7 @@ def test_cyrillic_kop_in_composed_pdf(tmp_path: Path) -> None:
 
     dest = tmp_path / "titel.pdf"
     flow = pp.PageFlow(
-        items=[pp.TitleItem("Малая ектения", prominent=True)]
+        items=[pp.TitleItem("Малая ектения", size="groot", align="midden")]
     )
     pp._compose_flow_svg(flow, dest, work=tmp_path / "work")
     doc = pymupdf.open(dest)
@@ -188,6 +188,95 @@ def test_cyrillic_kop_in_composed_pdf(tmp_path: Path) -> None:
     assert "Малая" in extracted
     assert "ектения" in extracted
     assert "?????" not in extracted
+
+
+def test_parse_prose_and_bieb_copyright(tmp_path, monkeypatch) -> None:
+    """Proza tussen shortcodes + ``bieb copyright`` horen in de flow."""
+    cat = tmp_path / "catalogus"
+    leaf = cat / "vriendelijk-licht" / "default" / "x"
+    leaf.mkdir(parents=True)
+    (leaf / "lied.mvsa").write_text(
+        '@do C4\n@copyright "CC BY-SA 4.0 — zie colofon"\nL: a |\nS: c |\n',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(pp, "CATALOGUS", cat)
+    text = """---
+title: "Demo"
+---
+
+{{< kop >}}Vriendelijk Licht{{< /kop >}}
+
+bron: Groningen
+
+{{< bieb id="vriendelijk-licht/default/x" />}}
+
+{{< bieb id="vriendelijk-licht/default/x" copyright />}}
+"""
+    flows = pp.parse_page_flows(text)
+    assert len(flows) == 1
+    kinds = [type(i).__name__ for i in flows[0].items]
+    assert kinds == ["TitleItem", "TextItem", "MusicItem", "TextItem"]
+    assert flows[0].items[0].text == "Vriendelijk Licht"
+    assert flows[0].items[0].align == "midden"
+    assert flows[0].items[0].size == "groot"
+    assert flows[0].items[1].text == "bron: Groningen"
+    assert "CC BY-SA" in flows[0].items[3].text
+
+
+def test_markdown_heading_and_prose_are_left_aligned() -> None:
+    text = """
+{{< kop links middel >}}Rubriek{{< /kop >}}
+
+## Markdown tussenkop
+
+gewone alinea links
+"""
+    flows = pp.parse_page_flows(text)
+    items = flows[0].items
+    assert isinstance(items[0], pp.TitleItem)
+    assert items[0].align == "links" and items[0].size == "middel"
+    assert isinstance(items[1], pp.TitleItem)
+    assert items[1].text == "Markdown tussenkop"
+    assert items[1].align == "links" and items[1].size == "middel"
+    assert isinstance(items[2], pp.TextItem)
+    assert items[2].text == "gewone alinea links"
+
+
+def test_build_colofon_when_missing_vbox(tmp_path, monkeypatch) -> None:
+    cat = tmp_path / "catalogus"
+    leaf = cat / "a" / "b" / "c"
+    leaf.mkdir(parents=True)
+    (leaf / "x.mvsa").write_text(
+        '@do C4\n@copyright "CC BY-SA 4.0 — zie colofon"\n'
+        '@bron "Groningen"\nL: a |\nS: c |\n',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(pp, "CATALOGUS", cat)
+    text = pp.resolve_bieb_onderdeel("a/b/c", "colofon")
+    assert text.startswith("Colofon")
+    assert "CC BY-SA 4.0" in text
+    assert "Bibliotheek-id: a/b/c" in text
+    assert "Bron: Groningen" in text
+
+
+def test_copyright_falls_back_to_mscz_metatag(tmp_path, monkeypatch) -> None:
+    """Geïmporteerde sketch zonder ``@copyright``: lees MuseScore-metaTag."""
+    import zipfile
+
+    cat = tmp_path / "catalogus"
+    leaf = cat / "a" / "b" / "c"
+    leaf.mkdir(parents=True)
+    (leaf / "a.mscz.mvsa").write_text("@do C4\nL: a |\nS: c |\n", encoding="utf-8")
+    mscx = (
+        '<?xml version="1.0"?>\n<museScore>\n'
+        '<metaTag name="copyright">CC BY-SA 4.0 — zie colofon</metaTag>\n'
+        "</museScore>\n"
+    )
+    mscz = leaf / "a.mscz"
+    with zipfile.ZipFile(mscz, "w") as zf:
+        zf.writestr("score.mscx", mscx)
+    monkeypatch.setattr(pp, "CATALOGUS", cat)
+    assert "CC BY-SA" in pp.resolve_bieb_onderdeel("a/b/c", "copyright")
 
 
 def test_expand_pagina_md_path_directory(tmp_path, monkeypatch) -> None:
@@ -350,3 +439,89 @@ def test_build_one_voorzien_without_bieb(tmp_path, monkeypatch) -> None:
     import pymupdf
 
     assert "Voorzien" in pymupdf.open(out)[0].get_text()
+
+
+def test_export_blad_svgs_mscz_compact_uses_mscz_cli(
+    tmp_path, monkeypatch
+) -> None:
+    source = tmp_path / "lied.mscz"
+    source.write_bytes(b"fake")
+    dest = tmp_path / "out.svg"
+    calls: list[list[str]] = []
+
+    def fake_call(cmd: list[str], cwd: str | None = None) -> None:
+        calls.append(list(cmd))
+        dest.write_text("<svg/>", encoding="utf-8")
+
+    monkeypatch.setattr(pp, "_mscz_cli", lambda: ["mscz"])
+    monkeypatch.setattr(pp.subprocess, "check_call", fake_call)
+    pages = pp.export_blad_svgs(source, dest, compact=True)
+    assert pages == [dest]
+    assert calls[0][:2] == ["mscz", "svg"]
+    assert str(source) in calls[0]
+
+
+def test_export_blad_svgs_mscz_tall_path(tmp_path, monkeypatch) -> None:
+    source = tmp_path / "lied.mscz"
+    source.write_bytes(b"fake")
+    dest = tmp_path / "out.svg"
+    called: list[Path] = []
+
+    def fake_tall(mscz: Path, out: Path, **kwargs):
+        called.append(mscz)
+        out.write_text("<svg/>", encoding="utf-8")
+        return [out]
+
+    monkeypatch.setattr(pp, "export_tall_mscz_svg", fake_tall)
+    pages = pp.export_blad_svgs(source, dest)
+    assert pages == [dest]
+    assert called == [source]
+
+
+def test_export_blad_svgs_mvsa_uses_mvsa_cli(tmp_path, monkeypatch) -> None:
+    source = tmp_path / "lied.mvsa"
+    source.write_text("x", encoding="utf-8")
+    dest = tmp_path / "out.svg"
+    calls: list[list[str]] = []
+
+    def fake_call(cmd: list[str], cwd: str | None = None) -> None:
+        calls.append(list(cmd))
+        dest.write_text("<svg/>", encoding="utf-8")
+
+    monkeypatch.setattr(pp, "_mvsa_cli", lambda: ["mvsa"])
+    monkeypatch.setattr(pp.subprocess, "check_call", fake_call)
+    pp.export_blad_svgs(source, dest, compact=True)
+    assert calls[0][:2] == ["mvsa", "svg"]
+    assert "--compact" in calls[0]
+
+
+def test_system_cut_points_between_staff_clusters(tmp_path: Path) -> None:
+    """Snijpunten vallen in de gap tussen systemen, niet midden in een balk."""
+    # Twee systemen: staflijnen ~100–140 en ~400–440 (gap > 200)
+    svg = tmp_path / "tall.svg"
+    svg.write_text(
+        """<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="500"
+     viewBox="0 0 100 500">
+  <polyline class="StaffLines" points="0,100 100,100"/>
+  <polyline class="StaffLines" points="0,110 100,110"/>
+  <polyline class="StaffLines" points="0,120 100,120"/>
+  <polyline class="StaffLines" points="0,130 100,130"/>
+  <polyline class="StaffLines" points="0,140 100,140"/>
+  <polyline class="StaffLines" points="0,400 100,400"/>
+  <polyline class="StaffLines" points="0,410 100,410"/>
+  <polyline class="StaffLines" points="0,420 100,420"/>
+  <polyline class="StaffLines" points="0,430 100,430"/>
+  <polyline class="StaffLines" points="0,440 100,440"/>
+</svg>
+""",
+        encoding="utf-8",
+    )
+    pdf_h = 500.0
+    cuts = pp.system_cut_points_pdf(svg, pdf_h)
+    assert cuts[-1] == pdf_h
+    assert len(cuts) == 2
+    # Middelste snede ≈ (140+400)/2 = 270
+    assert 250.0 < cuts[0] < 290.0
+    systems = pp._cluster_systems(pp._staff_line_ys(svg.read_text(encoding="utf-8")))
+    assert len(systems) == 2
