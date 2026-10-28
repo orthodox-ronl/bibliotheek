@@ -54,11 +54,17 @@ vernieuwt het de zoekindex en Coria-fingerprints.</p><p>Dit is het <strong>enige
 aparte <code>vsa-products.cmd</code>-wrappers meer. Per kind staat detail op de
 man-page van dat kind (zelfde map):</p><ul><li><a href=../vsa-products/>products (vsa)</a></li><li><a href=../mvsa-products/>products (mvsa)</a></li><li><a href=../mscz-products/>products (mscz)</a></li><li><a href=../audio-products/>products (audio)</a></li><li><a href=../lyrics-products/>products (lyrics)</a></li><li><a href=../tekstblad-products/>products (tekstblad)</a></li></ul><p>Koormap-/catalogusblad <code>index.md.pdf</code> hoort hier <strong>niet</strong> bij — dat is
 <a href=../pdf/>pdf</a>
+.</p><p>Bij een <strong>map</strong> pakt <code>products</code> alleen canonieke bronnen (<code>.vsa</code> /
+<code>.mvsa</code> / basis-<code>.mscz</code>). Afgeleide <code>*.mvsa.mscz</code> / <code>*.vsa.mscz</code> worden
+overgeslagen, zodat er geen kettingnamen zoals <code>*.mvsa.mscz.mp3</code> ontstaan.
+Wil je wél vanaf zo’n afgeleide werken: geef dat bestand expliciet als
+pad. Bestaande kettingrommel:
+<a href=../cleanup-chained-products/>cleanup-chained-products</a>
 .</p><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\products.cmd
 </span></span><span style=display:flex><span>scripts\products.cmd content-source\catalogus\trisagion --kinds mscz,audio
 </span></span><span style=display:flex><span>scripts\products.cmd --kinds vsa --dry-run
 </span></span><span style=display:flex><span>scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid
-</span></span></code></pre></div><h1 id=see-also>SEE ALSO</h1><ul><li><a href=../all-products/>all-products</a></li><li><a href=../check/>check</a></li><li><a href=../../start/publicatiecontrole/>Publicatiecontrole</a></li></ul></main><div id=score-audio-bar class=score-audio-bar hidden><div class=score-audio-bar-inner><p class=score-audio-bar-title id=score-audio-bar-title></p><div class=score-audio-bar-row><button type=button class="score-audio-bar-btn score-audio-bar-play" aria-label=Pauzeren aria-controls=score-audio-bar-element aria-pressed=true>
+</span></span></code></pre></div><h1 id=see-also>SEE ALSO</h1><ul><li><a href=../all-products/>all-products</a></li><li><a href=../cleanup-chained-products/>cleanup-chained-products</a></li><li><a href=../check/>check</a></li><li><a href=../../start/publicatiecontrole/>Publicatiecontrole</a></li></ul></main><div id=score-audio-bar class=score-audio-bar hidden><div class=score-audio-bar-inner><p class=score-audio-bar-title id=score-audio-bar-title></p><div class=score-audio-bar-row><button type=button class="score-audio-bar-btn score-audio-bar-play" aria-label=Pauzeren aria-controls=score-audio-bar-element aria-pressed=true>
 <span class="score-audio-bar-icon score-audio-bar-icon--pause" aria-hidden=true>❚❚</span>
 <span class="score-audio-bar-icon score-audio-bar-icon--play" aria-hidden=true>▶</span>
 </button>
@@ -68,4 +74,4 @@ man-page van dat kind (zelfde map):</p><ul><li><a href=../vsa-products/>products
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-25</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-28</p></div></footer></body></html>

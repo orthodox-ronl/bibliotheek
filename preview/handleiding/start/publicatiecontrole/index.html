@@ -86,13 +86,23 @@ contract-gate in deze stap — daar tellen missing/stale (en <code>--force</code
 Voorbeeld: <code>trisagion-8a-nederlands-hemelum</code>.</p><h3 id=bron-versus-afgeleide>Bron versus afgeleide</h3><div class=table-scroll><table><thead><tr><th>Rol</th><th>Patroon</th><th>Voorbeelden</th></tr></thead><tbody><tr><td><strong>Bron</strong></td><td><code>{stam}</code> + <strong>één</strong> echte extensie</td><td><code>….vsa</code>, <code>….mscz</code>, <code>….mvsa</code></td></tr><tr><td><strong>Afgeleide</strong></td><td><code>{stam}.{bron-extensie}.{doel-extensie}</code></td><td><code>….vsa.mxl</code>, <code>….mscz.pdf</code>, <code>….mscz.mxl</code>, <code>….mvsa.mscz</code>, <code>….vsa.lyrics.txt</code></td></tr></tbody></table></div><p>Het <strong>laatste</strong> segment is wat programma’s als bestandstype zien (<code>.mxl</code>,
 <code>.pdf</code>, <code>.mscz</code>, …). Het middelste segment zegt <strong>uit welke bron</strong> het
 product komt. Zo botsen een Coria-bestand uit VSA en een Coria-bestand uit
-een MuseScore-partituur nooit op dezelfde korte naam.</p><p>Deze regel sluit aan bij VSA-tooling (<code>stem.brontype.doeltype</code>). In de
+een MuseScore-partituur nooit op dezelfde korte naam.</p><p><strong>Geen tweede laag:</strong> maak geen afgeleide <em>van</em> een afgeleide
+(<code>….mvsa.mscz.mp3</code>, <code>….mscz.mscz…</code>). Score-IR en from-ir MusicXML horen
+alleen bij een canonieke <code>.mvsa</code> (scherm via OSMD); bij alleen een
+basis-<code>.mscz</code> is het schermbeeld de <code>.mscz.svg</code> (of <code>-1.svg</code>, <code>-2.svg</code>,
+…). Zie <a href=../scripts/cleanup-chained-products/>cleanup-chained-products</a>
+.</p><p>Deze regel sluit aan bij VSA-tooling (<code>stem.brontype.doeltype</code>). In de
 bibliotheek is die vorm <strong>normatief voor nieuwe en vernieuwde producten</strong>.</p><h3 id=tekstblad-uitzondering>Tekstblad (uitzondering)</h3><p>Liturgische tekst/dialoog is Markdown, maar een kale <code>.md</code> is te breed
 (Hugo-pagina’s zijn ook <code>.md</code>). Daarom blijft het inhoudstype in de naam:
 <code>{stam}.tekstblad.md</code>. Blad voor <strong>Download/Print pagina</strong>:
 <code>index.md.pdf</code> via <code>pdf.cmd</code> (rechtstreeks uit die bron). Geen
 verplichte product-<code>.tekstblad.pdf</code> meer; geen Coria uit dit spoor.</p><h3 id=wat-geen-bron-is>Wat geen bron is</h3><ul><li><code>{stam}.vsa.mxl</code>, <code>{stam}.mscz.pdf</code>, … — altijd <strong>afgeleide</strong>; niet
-terug importeren om te “layouten”.</li><li>Bestanden onder <code>content-source\input\</code> — werkvoorraad, geen publicatiebron.</li></ul><h2 id=publicatiesporen-en-publicatiecontroles>Publicatiesporen en publicatiecontroles</h2><p>Elke bladermap onder <code>content-source\catalogus\&lt;zangstuk>\&lt;variant>\&lt;uitvoeringsvorm>\</code>
+terug importeren om te “layouten”.</li><li><code>{stam}.mvsa.mscz</code> / <code>{stam}.vsa.mscz</code> — optioneel <em>één</em> product naast
+<code>.mvsa</code>/<code>.vsa</code>, maar <strong>geen</strong> bron voor een map-brede <code>products</code>-run
+(wel als je dat bestand expliciet als pad doorgeeft).</li><li><code>{stam}.mscz.score-ir.json</code> / <code>{stam}.mscz.from-ir.musicxml</code> — horen
+niet bij basis-<code>.mscz</code>; opruimen met
+<a href=../scripts/cleanup-chained-products/>cleanup-chained-products</a>
+.</li><li>Bestanden onder <code>content-source\input\</code> — werkvoorraad, geen publicatiebron.</li></ul><h2 id=publicatiesporen-en-publicatiecontroles>Publicatiesporen en publicatiecontroles</h2><p>Elke bladermap onder <code>content-source\catalogus\&lt;zangstuk>\&lt;variant>\&lt;uitvoeringsvorm>\</code>
 kan één of meer <strong>sporen</strong> hebben. Het spoor volgt uit het <strong>brontype</strong>
 (de echte extensie), niet uit een verzonnen middelste woord zoals vroeger
 <code>partituur</code> of <code>print</code> in de bestandsnaam. Meerdere bronnen in één map
@@ -163,4 +173,4 @@ expliciete <code>{stam}.{bron-extensie}.{doel-extensie}</code>-vorm <strong>verp
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-25</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-28</p></div></footer></body></html>
