@@ -11,6 +11,19 @@ from pathlib import Path
 _UNSAFE = re.compile(r"[^a-zA-Z0-9_-]+")
 PRINT_MSCZ_SUFFIX = ".print.mscz"
 TEKSTBLAD_MD_SUFFIX = ".tekstblad.md"
+# Ketting / verkeerde siblings:
+# - twee notatie-extensies + nog iets (….mvsa.mscz.mp3) of bladreeks
+#   (….mscz.mscz-1.svg);
+# - kaal ….mscz.mscz;
+# - Score-IR/from-ir horen alleen bij .mvsa, niet bij .mscz/.vsa.
+_CHAINED_PRODUCT = re.compile(
+    r"(?i)"
+    r"(?:"
+    r"(?:\.(?:m?vsa|mscz)){2}(?:\.|-)"
+    r"|\.mscz\.mscz$"
+    r"|\.(?:mscz|vsa)\.(?:score-ir\.json|from-ir\.musicxml)$"
+    r")"
+)
 
 
 def require_no_spaces(path: Path) -> None:
@@ -26,6 +39,28 @@ def is_print_mscz(path: Path | str) -> bool:
 def is_tekstblad_md(path: Path | str) -> bool:
     name = path.name if isinstance(path, Path) else Path(path).name
     return name.lower().endswith(TEKSTBLAD_MD_SUFFIX)
+
+
+def is_derived_mscz(path: Path | str) -> bool:
+    """True voor ``{stam}.vsa.mscz`` / ``.mvsa.mscz`` / ``.mscz.mscz``.
+
+    Dat is een afgeleide (of ketting), geen canonieke basispartituur-``.mscz``.
+    Bulk-productruns moeten die overslaan; een expliciet CLI-bestandspad mag
+    wél als bron.
+    """
+    name = path.name if isinstance(path, Path) else Path(path).name
+    lower = name.lower()
+    if not lower.endswith(".mscz"):
+        return False
+    if is_print_mscz(name):
+        return False
+    base = lower[: -len(".mscz")]
+    return base.endswith((".vsa", ".mvsa", ".mscz"))
+
+
+def is_chained_product_name(name: str) -> bool:
+    """True voor ketting-afgeleiden zoals ``{stam}.mvsa.mscz.mp3``."""
+    return _CHAINED_PRODUCT.search(name) is not None
 
 
 def is_vsa_source(path: Path | str) -> bool:

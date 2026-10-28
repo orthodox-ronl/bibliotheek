@@ -126,7 +126,11 @@ def sync_one(mscz: Path, *, pitch: str, dry_run: bool) -> None:
 
 
 def collect_import_sources(root: Path, *, create: bool) -> list[Path]:
-    """Basispartituur-``.mscz`` die in aanmerking komen voor import-``.mvsa``."""
+    """Basispartituur-``.mscz`` die in aanmerking komen voor import-``.mvsa``.
+
+    Expliciet CLI-bestandspad mag een afgeleide ``*.mvsa.mscz`` zijn;
+    map-scan via ``collect_mscz`` slaat die over.
+    """
     if root.is_file():
         path = root
         if is_print_mscz(path):

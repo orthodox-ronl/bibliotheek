@@ -41,7 +41,8 @@ past.
 
 Zoekt onder het opgegeven pad (of, zonder pad, onder
 `content-source\catalogus`). Overgeslagen: `input\`, mappen met
-`manueel: true`, `*.print.mscz`.
+`manueel: true`, `*.print.mscz`, en afgeleide `*.vsa.mscz` /
+`*.mvsa.mscz` (tenzij je zo’n bestand expliciet als pad doorgeeft).
 
 CI genereert **geen** lyrics; jij wel lokaal (of via `products` /
 `all-products`), daarna committen. De **zoekindex** wel: die wordt

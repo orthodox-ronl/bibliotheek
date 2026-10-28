@@ -33,8 +33,10 @@ velden als bij PDF/MXL: hash van de bron, wanneer gemaakt). Zo ziet
 
 Zoekt onder het opgegeven pad (of, zonder pad, onder
 `content-source\catalogus`). Overgeslagen: `input\`, mappen met
-`manueel: true`, import-siblings `*.mscz.mvsa`, en
-`.print.mscz`.
+`manueel: true`, import-siblings `*.mscz.mvsa`, `.print.mscz`, en
+afgeleide `*.vsa.mscz` / `*.mvsa.mscz` (die maken anders
+`*.mvsa.mscz.mp3`). Zo’n afgeleide wél als bron: geef het bestand
+expliciet als pad op de commandoregel.
 
 Onder de motorkap: tooling-CLI `vsa audio` (MuseScore 4). Bij `.vsa`
 syllabificeert het script eerst in een **tijdelijk** bestand (zelfde als

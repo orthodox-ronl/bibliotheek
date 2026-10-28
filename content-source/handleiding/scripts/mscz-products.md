@@ -24,9 +24,11 @@ producten.
 
 Het zoekt basispartituur-`.mscz` onder het opgegeven pad (of, zonder pad,
 onder `content-source\catalogus`). Bestanden in `input\`, namen die
-eindigen op `.print.mscz`, en mappen met `manueel: true`
-worden overgeslagen. Geef je een ander brontype (bijvoorbeeld een `.mvsa`),
-dan slaat dit spoor over — dat is geen fout (zelfde gedrag als bij
+eindigen op `.print.mscz`, afgeleide `*.vsa.mscz` / `*.mvsa.mscz`, en
+mappen met `manueel: true` worden overgeslagen. Een afgeleide
+`*.mvsa.mscz` wél behandelen: geef dat bestand expliciet als pad. Geef
+je een ander brontype (bijvoorbeeld een `.mvsa`), dan slaat dit spoor
+over — dat is geen fout (zelfde gedrag als bij
 [products](../all-products/)).
 
 Onder de motorkap: tooling `mscz products` (Coria-`.mxl` + optioneel

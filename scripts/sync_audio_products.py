@@ -1,14 +1,17 @@
 """Maak sibling preview-``.mp3`` bij bibliotheek-``.mvsa`` / ``.mscz`` / ``.vsa``.
 
 Per brontype een eigen product: ``{stam}.mvsa.mp3``, ``{stam}.mscz.mp3``,
-``{stam}.vsa.mp3``. Roept ``vsa audio`` aan (MuseScore). Bij ``.vsa`` eerst
-tijdelijk syllabifyen (zelfde als ``products --kinds vsa`` / Coria-``.vsa.mxl``),
-zodat preview-audio dezelfde lettergreep-notatie krijgt. Zet herkomststempel
-in ID3 (``vsa-source-sha256`` of ``vsa-partituur-sha256``).
+``{stam}.vsa.mp3``. Straat-puur: ``mvsa mp3`` / ``mscz mp3`` / ``vsa audio``
+(MuseScore). Bij ``.vsa`` eerst tijdelijk syllabifyen (zelfde als
+``products --kinds vsa`` / Coria-``.vsa.mxl``), zodat preview-audio dezelfde
+lettergreep-notatie krijgt. Zet herkomststempel in ID3
+(``vsa-source-sha256`` of ``vsa-partituur-sha256``).
 
-Slaat ``input/``, ``manueel/manual``, import-``.mscz.mvsa`` en
-``.print.mscz`` over. CI genereert niet — alleen ``check_audio_products``
-(bestaande siblings); vernieuw lokaal met ``scripts\\products.cmd --kinds audio``.
+Slaat ``input/``, ``manueel/manual``, import-``.mscz.mvsa``,
+``.print.mscz`` en afgeleide ``*.vsa.mscz`` / ``*.mvsa.mscz`` over
+(tenzij je zo'n bestand expliciet als CLI-pad doorgeeft). CI genereert
+niet — alleen ``check_audio_products`` (bestaande siblings); vernieuw
+lokaal met ``scripts\\products.cmd --kinds audio``.
 """
 
 from __future__ import annotations
@@ -41,6 +44,7 @@ from product_meta import (
     utc_now_iso,
 )
 from product_regen import RegenPolicy, list_source_paths
+from score_filenames import is_derived_mscz
 from sync_import_mvsa import is_import_mvsa
 from sync_mscz_products import is_print_mscz
 from sync_vsa_products import folder_is_handmatig, playback_vsa_for_export
@@ -61,8 +65,13 @@ class AudioJob:
 
 
 def collect_audio_jobs(root: Path) -> list[AudioJob]:
-    """Alle bronnen die preview-audio mogen krijgen."""
+    """Alle bronnen die preview-audio mogen krijgen.
+
+    Map-scan slaat afgeleide ``*.vsa.mscz`` / ``*.mvsa.mscz`` over.
+    Expliciet CLI-bestandspad (ook met meerdere extensies) mag wél.
+    """
     jobs: list[AudioJob] = []
+    explicit = root.is_file()
     for path in list_source_paths(root, pattern="*"):
         if not path.is_file():
             continue
@@ -77,6 +86,8 @@ def collect_audio_jobs(root: Path) -> list[AudioJob]:
             jobs.append(AudioJob(path, SOURCE_KIND_MVSA))
         elif suffix == ".mscz":
             if is_print_mscz(path):
+                continue
+            if not explicit and is_derived_mscz(path):
                 continue
             require_no_spaces(path)
             jobs.append(AudioJob(path, SOURCE_KIND_PARTITUUR))
@@ -121,9 +132,17 @@ def is_stale(job: AudioJob) -> bool:
     return not _stamp_ok(job)
 
 
-def _run_vsa_audio(source: Path, mp3: Path) -> None:
-    cmd = ["vsa", "audio", str(source), str(mp3), "--format", "mp3"]
-    subprocess.check_call(cmd, cwd=str(REPO_ROOT))
+def _audio_cli_cmd(job: AudioJob, mp3: Path) -> list[str]:
+    """Canonieke street-CLI per brontype (``vsa audio`` weigert .mscz/.mvsa)."""
+    if job.kind == SOURCE_KIND_PARTITUUR:
+        return ["mscz", "mp3", str(job.source), "-o", str(mp3)]
+    if job.kind == SOURCE_KIND_MVSA:
+        return ["mvsa", "mp3", str(job.source), "-o", str(mp3)]
+    return ["vsa", "audio", str(job.source), str(mp3), "--format", "mp3"]
+
+
+def _run_audio(job: AudioJob, mp3: Path) -> None:
+    subprocess.check_call(_audio_cli_cmd(job, mp3), cwd=str(REPO_ROOT))
 
 
 def sync_one(job: AudioJob, *, dry_run: bool) -> None:
@@ -136,13 +155,13 @@ def sync_one(job: AudioJob, *, dry_run: bool) -> None:
     if job.kind == SOURCE_KIND_VSA:
         playback = playback_vsa_for_export(job.source)
         try:
-            _run_vsa_audio(playback.path, mp3)
+            _run_audio(AudioJob(playback.path, SOURCE_KIND_VSA), mp3)
         finally:
             playback.cleanup()
     else:
-        _run_vsa_audio(job.source, mp3)
+        _run_audio(job, mp3)
     if not mp3.is_file():
-        raise RuntimeError(f"MP3 ontbreekt na vsa audio: {mp3}")
+        raise RuntimeError(f"MP3 ontbreekt na audio-export: {mp3}")
     generated_at = utc_now_iso()
     digest = _digest_for(job)
     if job.kind == SOURCE_KIND_PARTITUUR:

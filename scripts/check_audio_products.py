@@ -29,6 +29,7 @@ from product_meta import (
     source_sha256,
     stamp_sha_from_dict,
 )
+from score_filenames import is_chained_product_name, is_derived_mscz
 from sync_audio_products import (
     DEFAULT_ROOT,
     AudioJob,
@@ -82,8 +83,14 @@ def _source_for_mp3(mp3: Path) -> AudioJob | None:
             return AudioJob(source, SOURCE_KIND_MVSA)
         return None
     if lower.endswith(".mscz.mp3"):
+        if is_chained_product_name(name):
+            return None
         source = mp3.with_name(name[: -len(".mp3")])
-        if source.is_file() and not is_print_mscz(source):
+        if (
+            source.is_file()
+            and not is_print_mscz(source)
+            and not is_derived_mscz(source)
+        ):
             return AudioJob(source, SOURCE_KIND_PARTITUUR)
         return None
     if lower.endswith(".vsa.mp3"):
@@ -106,6 +113,8 @@ def collect_existing_mp3(root: Path) -> list[Path]:
         if folder_is_handmatig(path.parent):
             continue
         lower = path.name.lower()
+        if is_chained_product_name(path.name):
+            continue
         if not (
             lower.endswith(".mvsa.mp3")
             or lower.endswith(".mscz.mp3")

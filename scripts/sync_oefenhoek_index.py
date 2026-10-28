@@ -16,7 +16,7 @@ import argparse
 import re
 from pathlib import Path
 
-from score_filenames import is_print_mscz, is_vsa_source
+from score_filenames import is_derived_mscz, is_print_mscz, is_vsa_source
 
 REPO = Path(__file__).resolve().parents[1]
 CONTENT = REPO / "content-source"
@@ -159,7 +159,7 @@ def render_svgs(*, verbose: bool) -> int:
         msczs = [
             p
             for p in folder.glob("*.mscz")
-            if not is_print_mscz(p)
+            if not is_print_mscz(p) and not is_derived_mscz(p)
         ]
         if msczs:
             continue

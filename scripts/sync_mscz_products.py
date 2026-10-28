@@ -6,7 +6,8 @@ inclusief bladreeks ``svg-1``…). Daarna optioneel Coria-bron-
 mergen; SVG-keys blijven die van tooling. Legacy-opruim.
 Geen in-file versheidstempels (versheid = meta). A4-``.mscz.pdf`` is geen
 verplicht product (blad = ``index.md.pdf``); PDF-export blijft voor
-optioneel herstel. Slaat ``manueel/manual`` en ``*.print.mscz`` over.
+optioneel herstel. Slaat ``manueel/manual``, ``*.print.mscz`` en afgeleide
+``*.vsa.mscz`` / ``*.mvsa.mscz`` over (tenzij expliciet CLI-bestandspad).
 CI genereert niet — alleen ``check_mscz_products``; vernieuw lokaal met
 ``scripts\\products.cmd --kinds mscz``.
 """
@@ -39,6 +40,7 @@ from product_meta import (
     utc_now_iso,
 )
 from product_regen import RegenPolicy, list_source_paths, mxl_contract_ok
+from score_filenames import is_derived_mscz
 from street_meta import stamp_ok_or_meta, write_products_meta
 from sync_vsa_products import folder_is_handmatig
 
@@ -91,11 +93,19 @@ def is_print_mscz(path: Path) -> bool:
 
 
 def collect_mscz(root: Path) -> list[Path]:
+    """Basispartituur-``.mscz`` onder ``root``.
+
+    Map-scan slaat afgeleide namen over (``*.vsa.mscz``, ``*.mvsa.mscz``).
+    Een expliciet CLI-bestandspad (ook met meerdere extensies) mag wél.
+    """
     out: list[Path] = []
+    explicit = root.is_file()
     for path in list_source_paths(root, pattern="*.mscz"):
         if path.suffix.lower() != ".mscz":
             continue
         if is_print_mscz(path):
+            continue
+        if not explicit and is_derived_mscz(path):
             continue
         if not catalog_eligible(path, folder_is_handmatig=folder_is_handmatig):
             continue

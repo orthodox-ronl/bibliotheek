@@ -19,6 +19,7 @@ Korte hulp in het opdrachtvenster: `h` (lijst) of `h <naam>` (zelfde als
 | `ensure-bibliotheek-id` | Zet/controleert colofonregel `Bibliotheek-id:` op basispartituur-`.mscz` |
 | `bump-vsa-tooling-pin` | Zet `vsa-tooling.pin` op tip van VSA-tooling (`main` of andere ref) |
 | `opkuisen` | Herkomstanalyse + inhoudsopkuis (niet in `check`/CI) |
+| `cleanup-chained-products` | Ketting-afgeleiden wissen (`*.mvsa.mscz.mp3` e.d.; dry-run zonder `--apply`) |
 | `bieb accepteer` (`accept`) | Opnemen in `content-source\catalogus` onder catalogus-id (Werkbank → Catalogus) |
 | `bieb hernoem` (`rename`) | Catalogus-id hernoemen (zangstuk/variant/uitvoeringsvorm; map, stam, refs, koormap-slots; flexibele id-vormen) |
 | `bieb verwijder` (`delete`) | Catalogus-id wissen; dangling refs / koormap-slots rapporteren |

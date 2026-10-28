@@ -37,7 +37,7 @@ from product_meta import (
     utc_now_iso,
 )
 from product_regen import RegenPolicy, list_source_paths
-from score_filenames import is_print_mscz
+from score_filenames import is_derived_mscz, is_print_mscz
 from sync_mscz_products import legacy_mxl_for_mscz, product_mxl_for_mscz
 from sync_vsa_products import folder_is_handmatig
 
@@ -51,6 +51,7 @@ def product_path_for_source(source: Path) -> Path:
 
 def collect_lyric_sources(root: Path) -> list[Path]:
     out: list[Path] = []
+    explicit = root.is_file()
     for path in list_source_paths(root, pattern="*"):
         if not path.is_file():
             continue
@@ -63,6 +64,8 @@ def collect_lyric_sources(root: Path) -> list[Path]:
         if name.endswith(".mscz.mvsa"):
             continue
         if suf == ".mscz" and is_print_mscz(path):
+            continue
+        if suf == ".mscz" and not explicit and is_derived_mscz(path):
             continue
         if not catalog_eligible(path, folder_is_handmatig=folder_is_handmatig):
             continue
