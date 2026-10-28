@@ -190,6 +190,30 @@ def test_rewrite_skips_title_reports_doubt() -> None:
     assert any(ln == 5 for ln, _col in changes)
 
 
+def test_hernoem_leaf_missing_parent_explains_zangstuk_as_variant(
+    tmp_path: Path, monkeypatch, capsys
+) -> None:
+    """Nieuw `zangstuk\\naam` bij leaf → variant/uv; foutmelding moet dat uitleggen."""
+    root = tmp_path / "repo"
+    cat_root = root / "content-source" / "catalogus"
+    leaf = cat_root / "demo" / "var" / "hemelum"
+    leaf.mkdir(parents=True)
+    (leaf / "index.md").write_text("---\ntitle: x\n---\n", encoding="utf-8")
+
+    monkeypatch.setattr(cat, "CATALOGUS_ROOT", cat_root)
+    monkeypatch.setattr(cat, "REPO_ROOT", root)
+    monkeypatch.setattr(bh, "REPO_ROOT", root)
+    monkeypatch.setattr(bh, "KOORMAPPEN_ROOT", root / "content-source" / "koormappen")
+
+    code = bh.hernoem("demo/var/hemelum", r"demo\nieuw", dry_run=True)
+    assert code == 1
+    err = capsys.readouterr().err
+    assert "doel-ouder ontbreekt" in err
+    assert "demo/demo/nieuw" in err
+    assert "variant\\uitvoeringsvorm" in err
+    assert "alleen `nieuw`" in err
+
+
 def test_hernoem_leaf_dry_run(tmp_path: Path, monkeypatch) -> None:
     root = tmp_path / "repo"
     cat_root = root / "content-source" / "catalogus"

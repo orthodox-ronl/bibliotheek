@@ -375,12 +375,48 @@ def hernoem(old_raw: str, new_raw: str, *, dry_run: bool) -> int:
             # Ouder mag mee veranderen alleen als die al bestaat (verhuis naar
             # ander zangstuk/variant) — dan moet dest.parent bestaan.
             if not dest.parent.is_dir():
+                old_parts = old_slash.split("/")
+                new_parts = new_slash.split("/")
+                # Vaak: nieuw als zangstuk\… terwijl oud een uitvoeringsvorm is;
+                # twee segmenten betekenen dan variant/uv → dubbele zangstuk-map.
+                footgun = (
+                    old_level == "leaf"
+                    and len(new_parts) == 3
+                    and new_parts[0] == new_parts[1] == old_parts[0]
+                )
+                if footgun:
+                    uv = new_parts[2]
+                    oplossing = (
+                        f"Geïnterpreteerd als uitvoeringsvorm "
+                        f"{old_slash} → {new_slash}. Bij een uitvoeringsvorm "
+                        f"betekenen twee segmenten variant\\uitvoeringsvorm "
+                        f"onder het zangstuk (niet zangstuk\\…). "
+                        f"Bedoelde je alleen `{uv}` (zelfde variant "
+                        f"{old_parts[1]}), of `{uv}/{old_parts[2]}` "
+                        f"(andere variant onder {old_parts[0]}), of eerst "
+                        f"de variant hernoemen "
+                        f"(`bieb hernoem {old_parts[0]}\\{old_parts[1]} …`)?"
+                    )
+                elif old_level == "leaf":
+                    oplossing = (
+                        f"Geïnterpreteerd als {old_slash} → {new_slash}. "
+                        f"De doelmap zelf mag nieuw zijn, maar de map erboven "
+                        f"({_rel(dest.parent)}) moet al bestaan. Maak die eerst "
+                        f"(bijv. met bieb accepteer --stub), of hernoem in "
+                        f"stappen. Tip: één segment = alleen nieuwe "
+                        f"uitvoeringsvorm-naam; twee segmenten = "
+                        f"variant\\uitvoeringsvorm onder hetzelfde zangstuk."
+                    )
+                else:
+                    oplossing = (
+                        f"Geïnterpreteerd als {old_slash} → {new_slash}. "
+                        f"De doelmap zelf mag nieuw zijn, maar de map erboven "
+                        f"({_rel(dest.parent)}) moet al bestaan. Maak die eerst "
+                        f"(bijv. met bieb accepteer --stub), of hernoem in stappen."
+                    )
                 bieb_fs.print_fail(
                     f"doel-ouder ontbreekt: {_rel(dest.parent)}",
-                    oplossing=(
-                        "maak die catalogusmap eerst (bijv. met bieb accepteer "
-                        "--stub), of hernoem in stappen."
-                    ),
+                    oplossing=oplossing,
                     stream=sys.stderr,
                 )
                 return 1
