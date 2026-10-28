@@ -208,9 +208,11 @@ herkomstinformatie (&lt;code&gt;vsa-partituur-sha256&lt;/code&gt;, &lt;code&gt;v
 producten.&lt;/p&gt;
 &lt;p&gt;Het zoekt basispartituur-&lt;code&gt;.mscz&lt;/code&gt; onder het opgegeven pad (of, zonder pad,
 onder &lt;code&gt;content-source\catalogus&lt;/code&gt;). Bestanden in &lt;code&gt;input\&lt;/code&gt;, namen die
-eindigen op &lt;code&gt;.print.mscz&lt;/code&gt;, en mappen met &lt;code&gt;manueel: true&lt;/code&gt;
-worden overgeslagen. Geef je een ander brontype (bijvoorbeeld een &lt;code&gt;.mvsa&lt;/code&gt;),
-dan slaat dit spoor over — dat is geen fout (zelfde gedrag als bij
+eindigen op &lt;code&gt;.print.mscz&lt;/code&gt;, afgeleide &lt;code&gt;*.vsa.mscz&lt;/code&gt; / &lt;code&gt;*.mvsa.mscz&lt;/code&gt;, en
+mappen met &lt;code&gt;manueel: true&lt;/code&gt; worden overgeslagen. Een afgeleide
+&lt;code&gt;*.mvsa.mscz&lt;/code&gt; wél behandelen: geef dat bestand expliciet als pad. Geef
+je een ander brontype (bijvoorbeeld een &lt;code&gt;.mvsa&lt;/code&gt;), dan slaat dit spoor
+over — dat is geen fout (zelfde gedrag als bij
 &lt;a href="../all-products/"&gt;products&lt;/a&gt;
 ).&lt;/p&gt;</description></item><item><title>import-mvsa</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/import-mvsa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/import-mvsa/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\import-mvsa.cmd&lt;/code&gt; — bewerkvorm &lt;code&gt;{stam}.mscz.mvsa&lt;/code&gt; maken naast een
@@ -549,4 +551,16 @@ variant- of zangstuk-kopie (nog niet).&lt;/p&gt;
 &lt;a href="../bieb-hernoem/"&gt;bieb hernoem&lt;/a&gt;
  (slash, dash, backslash, repo-pad, unieke
 suffix). Nieuw mag &lt;strong&gt;korter&lt;/strong&gt; t.o.v. de bron: alleen de uitvoeringsvorm
-(&lt;code&gt;groningen&lt;/code&gt;), of &lt;code&gt;variant/uv&lt;/code&gt; / &lt;code&gt;variant-uv&lt;/code&gt; onder hetzelfde zangstuk.&lt;/p&gt;</description></item></channel></rss>
+(&lt;code&gt;groningen&lt;/code&gt;), of &lt;code&gt;variant/uv&lt;/code&gt; / &lt;code&gt;variant-uv&lt;/code&gt; onder hetzelfde zangstuk.&lt;/p&gt;</description></item><item><title>cleanup-chained-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/cleanup-chained-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/cleanup-chained-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;cleanup-chained-products&lt;/code&gt; — ketting-afgeleiden (product van product) in
+de catalogus melden of verwijderen&lt;/p&gt;
+&lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\cleanup-chained-products.cmd [map|bestand] [--apply]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Met &lt;code&gt;.\scripts&lt;/code&gt; op PATH: &lt;code&gt;cleanup-chained-products …&lt;/code&gt;. Korte hulp:
+&lt;code&gt;h cleanup-chained-products&lt;/code&gt; of &lt;code&gt;cleanup-chained-products -h&lt;/code&gt;.&lt;/p&gt;
+&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
+&lt;p&gt;Soms zijn per ongeluk afgeleiden gemaakt &lt;em&gt;van&lt;/em&gt; een afgeleide, bijvoorbeeld
+een &lt;code&gt;.mp3&lt;/code&gt; naast &lt;code&gt;{stam}.mvsa.mscz&lt;/code&gt; in plaats van naast &lt;code&gt;{stam}.mvsa&lt;/code&gt;.
+Die kettingbestanden hoort de catalogus niet te hebben.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Dit script verwijdert&lt;/strong&gt; bestanden waarvan de naam zo’n ketting is, onder
+meer:&lt;/p&gt;</description></item></channel></rss>

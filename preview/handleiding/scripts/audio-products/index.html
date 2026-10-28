@@ -46,8 +46,10 @@ eigen sibling:</p><div class=table-scroll><table><thead><tr><th>Bron</th><th>Aud
 velden als bij PDF/MXL: hash van de bron, wanneer gemaakt). Zo ziet
 <code>check</code> later of de bron is gewijzigd terwijl het mp3 nog oud is.</p><p>Zoekt onder het opgegeven pad (of, zonder pad, onder
 <code>content-source\catalogus</code>). Overgeslagen: <code>input\</code>, mappen met
-<code>manueel: true</code>, import-siblings <code>*.mscz.mvsa</code>, en
-<code>.print.mscz</code>.</p><p>Onder de motorkap: tooling-CLI <code>vsa audio</code> (MuseScore 4). Bij <code>.vsa</code>
+<code>manueel: true</code>, import-siblings <code>*.mscz.mvsa</code>, <code>.print.mscz</code>, en
+afgeleide <code>*.vsa.mscz</code> / <code>*.mvsa.mscz</code> (die maken anders
+<code>*.mvsa.mscz.mp3</code>). Zo’n afgeleide wél als bron: geef het bestand
+expliciet als pad op de commandoregel.</p><p>Onder de motorkap: tooling-CLI <code>vsa audio</code> (MuseScore 4). Bij <code>.vsa</code>
 syllabificeert het script eerst in een <strong>tijdelijk</strong> bestand (zelfde als
 <code>products --kinds vsa</code> voor Coria), zodat Beluisteren dezelfde lettergreep-noten
 heeft als Oefenen; de canonieke <code>.vsa</code> blijft ongewijzigd. CI genereert
@@ -69,4 +71,4 @@ meldt dat een bestaand <code>.mp3</code> verouderd is.</p><h1 id=see-also>SEE AL
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-25</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-28</p></div></footer></body></html>
