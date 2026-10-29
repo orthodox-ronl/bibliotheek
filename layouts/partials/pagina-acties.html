@@ -3,7 +3,7 @@
 
   - Download pagina — alleen als index.md.pdf bestaat (page resource).
   - Schakelaar Transliteratie — aan/uit (default uit); JS bewaart de stand
-    en toont OSMG met *.hulptekst.from-ir.musicxml (lyric 2) als die sibling
+    en toont OSMG met *.translit.from-ir.musicxml (lyric 2) als die sibling
     bestaat; anders alleen data-translit op <html>.
 
   Geen «Print pagina»: die knop is vervangen door de transliteratie-schakelaar.
@@ -40,7 +40,7 @@
     {{- if $paginaPdf -}}
     <a class="btn pagina-acties-btn" href="{{ $paginaPdf }}" download="{{ $dlName }}" title="PDF van deze hele pagina opslaan">Download pagina</a>
     {{- end -}}
-    <label class="pagina-acties-translit" title="Toon de partituur met of zonder transliteratie-hulptekst">
+    <label class="pagina-acties-translit" title="Toon de partituur met of zonder transliteratie">
       <span class="pagina-acties-translit-label">Transliteratie</span>
       <input
         type="checkbox"

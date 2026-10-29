@@ -27,12 +27,12 @@
     else el.removeAttribute("hidden");
   }
 
-  function pageHasHulptekst() {
-    return !!document.querySelector("[data-has-hulptekst], [data-translit-view='aan'] .osmd-container");
+  function pageHasTranslit() {
+    return !!document.querySelector("[data-has-translit], [data-translit-view='aan'] .osmd-container");
   }
 
   function preferOsmgForTranslit() {
-    if (!pageHasHulptekst()) return;
+    if (!pageHasTranslit()) return;
     var root = document.querySelector("[data-scherm-root]");
     if (!root) return;
     var osmg = root.querySelector('[data-scherm="osmg"]');

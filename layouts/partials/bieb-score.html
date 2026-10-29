@@ -56,20 +56,20 @@
 <div class="score-partituur" data-scherm-root>
 {{- $pdf := "" -}}
 {{- $fromIrPlain := slice -}}
-{{- $fromIrHulptekst := slice -}}
+{{- $fromIrTranslit := slice -}}
 {{- $musicSvgs := slice -}}
 {{- $tekstbladBody := "" -}}
 {{- $vsas := slice -}}
 {{- $hasMscz := false -}}
-{{- /* Verzamel from-ir: gewoon vs *.hulptekst.from-ir.musicxml (translit-aan).
+{{- /* Verzamel from-ir: gewoon vs *.translit.from-ir.musicxml (translit-aan).
      Glob op *.from-ir.musicxml faalt soms bij meervoudige punten. */ -}}
 {{- range $p.Resources -}}
   {{- $n := lower .Name -}}
   {{- /* Geen ketting-SVG (bijv. *.mvsa.mscz.svg) — dat is product-van-product. */ -}}
   {{- $kettingSvg := or (strings.Contains $n ".mvsa.mscz.") (strings.Contains $n ".vsa.mscz.") (strings.Contains $n ".mscz.mscz.") -}}
   {{- if strings.HasSuffix $n ".from-ir.musicxml" -}}
-    {{- if strings.Contains $n ".hulptekst.from-ir.musicxml" -}}
-      {{- $fromIrHulptekst = $fromIrHulptekst | append .RelPermalink -}}
+    {{- if strings.Contains $n ".translit.from-ir.musicxml" -}}
+      {{- $fromIrTranslit = $fromIrTranslit | append .RelPermalink -}}
     {{- else -}}
       {{- $fromIrPlain = $fromIrPlain | append .RelPermalink -}}
     {{- end -}}
@@ -98,9 +98,9 @@
           {{- with $p.Resources.GetMatch .Name -}}
             {{- $url = .RelPermalink -}}
           {{- end -}}
-          {{- if strings.Contains $nameLower ".hulptekst.from-ir.musicxml" -}}
-            {{- if not (in $fromIrHulptekst $url) -}}
-              {{- $fromIrHulptekst = $fromIrHulptekst | append $url -}}
+          {{- if strings.Contains $nameLower ".translit.from-ir.musicxml" -}}
+            {{- if not (in $fromIrTranslit $url) -}}
+              {{- $fromIrTranslit = $fromIrTranslit | append $url -}}
             {{- end -}}
           {{- else if not (in $fromIrPlain $url) -}}
             {{- $fromIrPlain = $fromIrPlain | append $url -}}
@@ -135,7 +135,7 @@
   {{- end -}}
 {{- end -}}
 {{- $staticSvgs := slice -}}
-{{- $fromIrAny := $fromIrPlain | append $fromIrHulptekst -}}
+{{- $fromIrAny := $fromIrPlain | append $fromIrTranslit -}}
 {{- if and $vsas (not $hasMscz) $dir -}}
   {{- range $vsas -}}
     {{- $rel := replaceRE "\\.vsa$" ".svg" (printf "%s/%s" $dir .) -}}
@@ -150,9 +150,9 @@
 {{- $alt := partial "display-title.html" $p -}}
 {{- $hasSvgView := or (gt (len $musicSvgs) 0) (gt (len $staticSvgs) 0) -}}
 {{- $hasOsmgView := gt (len $fromIrAny) 0 -}}
-{{- $hasHulptekst := gt (len $fromIrHulptekst) 0 -}}
+{{- $hasTranslit := gt (len $fromIrTranslit) 0 -}}
 {{- if or $hasSvgView $hasOsmgView -}}
-<div class="score-scherm score-scherm--svg" data-scherm="svg"{{ if $hasHulptekst }} data-translit-svg-fallback{{ end }}>
+<div class="score-scherm score-scherm--svg" data-scherm="svg"{{ if $hasTranslit }} data-translit-svg-fallback{{ end }}>
   {{- if $musicSvgs -}}
     {{- range $musicSvgs -}}
 <div class="vsa-container"><img class="vsa-notation" src="{{ . }}" alt="{{ $alt }}" loading="lazy"></div>
@@ -164,12 +164,12 @@
   {{- else -}}
 <p class="score-scherm-missing">Geen SVG-product voor dit blad. Kies OSMG in {} of vernieuw met <code>scripts\products.cmd</code>.</p>
   {{- end -}}
-  {{- if $hasHulptekst -}}
-  <p class="score-scherm-translit-hint" data-translit-view="aan" hidden>Transliteratie staat aan: kies OSMG (knop {}) om de hulptekst te zien, of zet transliteratie uit voor de SVG.</p>
+  {{- if $hasTranslit -}}
+  <p class="score-scherm-translit-hint" data-translit-view="aan" hidden>Transliteratie staat aan: kies OSMG (knop {}) om de transliteratie te zien, of zet transliteratie uit voor de SVG.</p>
   {{- end -}}
 </div>
-<div class="score-scherm score-scherm--osmg" data-scherm="osmg" hidden{{ if $hasHulptekst }} data-has-hulptekst{{ end }}>
-  {{- if or $fromIrPlain $fromIrHulptekst -}}
+<div class="score-scherm score-scherm--osmg" data-scherm="osmg" hidden{{ if $hasTranslit }} data-has-translit{{ end }}>
+  {{- if or $fromIrPlain $fromIrTranslit -}}
     {{- if $fromIrPlain -}}
   <div data-translit-view="uit">
       {{- range $fromIrPlain -}}
@@ -179,9 +179,9 @@
       {{- end -}}
   </div>
     {{- end -}}
-    {{- if $fromIrHulptekst -}}
+    {{- if $fromIrTranslit -}}
   <div data-translit-view="aan"{{ if $fromIrPlain }} hidden{{ end }}>
-      {{- range $fromIrHulptekst -}}
+      {{- range $fromIrTranslit -}}
 <div class="vsa-container osmd-container" data-osmd-src="{{ . }}" role="img" aria-label="{{ $alt }} (met transliteratie)">
   <p class="osmd-status">Partituur laden…</p>
 </div>
