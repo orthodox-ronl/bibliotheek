@@ -3,7 +3,7 @@
 
   Context: dict
     "score" Page
-    "onderdeel" titel|title|muziek|bron|copyright|veld
+    "onderdeel" titel|title|muziek|bron|copyright|colofon|veld
     "veld" optioneel pad voor veld
     "viewer" Page
     "position" optional
@@ -27,6 +27,8 @@
 {{- $v -}}
 {{- else if eq $onderdeel "copyright" -}}
 {{- partial "bieb-veld-waarde.html" (dict "score" $score "pad" "copyright") -}}
+{{- else if eq $onderdeel "colofon" -}}
+{{ partial "bieb-colofon.html" (dict "score" $score) }}
 {{- else if eq $onderdeel "veld" -}}
 {{- $pad := strings.TrimSpace (printf "%s" .veld) -}}
 {{- if not $pad -}}
@@ -34,5 +36,5 @@
 {{- end -}}
 {{- partial "bieb-veld-waarde.html" (dict "score" $score "pad" $pad) -}}
 {{- else -}}
-  {{- errorf "%s: onbekend bieb-onderdeel %q. Oplossing: gebruik titel, muziek, bron, copyright of veld." $loc $onderdeel -}}
+  {{- errorf "%s: onbekend bieb-onderdeel %q. Oplossing: gebruik titel, muziek, bron, copyright, colofon of veld." $loc $onderdeel -}}
 {{- end -}}

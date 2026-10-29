@@ -361,7 +361,11 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 10
+            "lyricIndex": 10,
+            "melisma": {
+              "extend": true,
+              "slurStart": true
+            }
           },
           {
             "pitch": {
@@ -388,6 +392,9 @@
             },
             "duration": {
               "elm": "_"
+            },
+            "melisma": {
+              "slurStop": true
             }
           },
           {
@@ -558,7 +565,11 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 10
+            "lyricIndex": 10,
+            "melisma": {
+              "extend": true,
+              "slurStart": true
+            }
           },
           {
             "pitch": {
@@ -585,6 +596,9 @@
             },
             "duration": {
               "elm": "_"
+            },
+            "melisma": {
+              "slurStop": true
             }
           },
           {
@@ -930,7 +944,11 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 10
+            "lyricIndex": 10,
+            "melisma": {
+              "extend": true,
+              "slurStart": true
+            }
           },
           {
             "pitch": {
@@ -957,6 +975,9 @@
             },
             "duration": {
               "elm": "_"
+            },
+            "melisma": {
+              "slurStop": true
             }
           },
           {
@@ -982,9 +1003,5 @@
         ]
       }
     }
-  ],
-  "vsa-source-sha256": "4681fc58bd68c49b41c94a63c9c5ec602d543d603fe741d485ded85f65429ce8",
-  "vsa-source-kind": "mvsa",
-  "vsa-generated-at": "2026-10-24T21:51:17+00:00",
-  "vsa-generator": "mvsa-products"
+  ]
 }

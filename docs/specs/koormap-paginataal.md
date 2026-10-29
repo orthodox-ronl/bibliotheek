@@ -111,22 +111,21 @@ zelfde bedoeling, wel in te typen in de sitebouw.)
 Er zijn drie manieren om catalogusinhoud te zetten. Die mogen op één pagina
 door elkaar.
 
-### 5.1 Korte vorm met `id` (overal toegestaan)
+### 5.1 Korte vorm met `id` (alleen muziek)
 
 ```markdown
 {{< bieb id="zangstuk/variant/uitvoeringsvorm" />}}
-{{< bieb id="zangstuk/variant/uitvoeringsvorm" muziek />}}
-{{< bieb id="zangstuk/variant/uitvoeringsvorm" titel />}}
-{{< bieb id="zangstuk/variant/uitvoeringsvorm" veld "bron.uitgangspunt" />}}
 ```
 
 | Eis | Toelichting |
 | --- | --- |
-| `id` | **Verplicht** in de korte vorm. Catalogus-id in drie lagen. |
-| Self-close `/>` | **Verplicht** in Hugo voor de korte vorm (dezelfde shortcode bestaat ook als blok). |
-| Zonder onderdeelnaam | Betekenis = het **muzikale deel** (+ oefenacties bij dat blok), gelijk aan expliciet `muziek`. |
-| Met onderdeelnaam | Zelfde onderdelen als in §5.3 (`titel` / `title`, `muziek`, `bron`, `copyright`, `veld`, …). |
-| Waar | **Buiten** én **binnen** een `bieb`-blok. Binnen een blok mag je zo “tussendoor” een **andere** uitvoeringsvorm tonen (bijvoorbeeld een tropaar uit een ander id midden in een derde-antifoon-blad), zonder de omringende context te veranderen. |
+| `id` | **Verplicht**. Catalogus-id in drie lagen. |
+| Self-close `/>` | **Verplicht** in Hugo voor deze korte vorm (dezelfde shortcode bestaat ook als blok). |
+| Betekenis | Het **muzikale deel** (+ oefenacties bij dat blok). |
+
+Hugo staat **geen** mix toe van named `id="…"` en positional `titel` /
+`colofon` / `muziek` op één shortcode. Andere onderdelen: gebruik het
+**blok** (§5.2) met geneste `{{< titel >}}` / `{{< colofon >}}` / enz.
 
 Een geneste korte `bieb id="…"` **wijzigt de openstaande blok-context niet**.
 Na die korte shortcode blijven volgende `{{< titel >}}` / `{{< muziek >}}`
@@ -165,7 +164,7 @@ Twee schrijfwijzen zijn **gelijkwaardig** wanneer er een openstaande
 | Situatie | Regel |
 | --- | --- |
 | Binnen `bieb … /bieb` | Onderdeel zonder `id` → context-UV. |
-| Buiten elk `bieb`-blok | Onderdeel **moet** via de korte vorm met `id` (§5.1), bijv. `{{< bieb id="…" titel />}}`. Kale `{{< titel >}}` is dan ongeldig. |
+| Buiten elk `bieb`-blok | Open een `bieb`-blok met `id` en zet daarin het onderdeel (`{{< titel >}}` / `{{< colofon >}}`, …). Hugo staat **geen** mix van named `id=` en positional `titel`/`colofon` op één self-closing shortcode toe. |
 | Binnen een blok, andere UV | Gebruik §5.1 met ander `id`; context van het blok blijft staan. |
 
 #### Bekende onderdelen (fase 1 — lijst mag groeien)
@@ -488,12 +487,16 @@ daarna weer de context van het blok.
 af van latere `@blok`-selectie; het voorbeeld toont alleen het
 **context**-idee.)
 
-### 10.6 Onderdeel buiten elk blok (altijd met `id`)
+### 10.6 Onderdeel buiten elk blok (via `bieb`-blok)
 
 ```markdown
-{{< kop >}}{{< bieb id="ektinia/vrede/hemelum" titel />}}{{< /kop >}}
+{{< bieb id="ektinia/vrede/hemelum" >}}
 
-{{< bieb id="ektinia/vrede/hemelum" muziek />}}
+{{< kop >}}{{< titel >}}{{< /kop >}}
+
+{{< muziek >}}
+
+{{< /bieb >}}
 ```
 
 ---

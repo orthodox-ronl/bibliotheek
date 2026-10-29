@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- vsa-source-sha256: d15fdbe5ca45fa971a3e1826536ba5520eca103af2c9785f394b8e4d0b714bff -->
-<!-- vsa-source-kind: mvsa -->
-<!-- vsa-generated-at: 2026-10-23T14:26:39+00:00 -->
-<!-- vsa-generator: mvsa-products -->
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 3.1 Partwise//EN"
   "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise version="3.1">
@@ -31,7 +27,7 @@
 <time><senza-misura/></time>
 <clef><sign>G</sign><line>2</line></clef>
 </attributes>
-<sound tempo="130"/>
+<sound tempo="160"/>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
 <duration>4</duration>
@@ -102,7 +98,7 @@
 <voice>1</voice>
 <type>quarter</type>
 <stem>up</stem>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text></lyric>
+<lyric number="1"><syllabic>single</syllabic><text>al</text></lyric>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
@@ -121,7 +117,6 @@
 <lyric number="1"><syllabic>middle</syllabic><text>lu</text><extend/></lyric>
 <notations>
 <slur type="start" number="1" placement="above"/>
-<slur type="stop" number="1"/>
 </notations>
 </note>
 <note>
@@ -145,7 +140,6 @@
 <type>half</type><accidental>sharp</accidental>
 <stem>up</stem>
 <notations>
-<slur type="start" number="1" placement="above"/>
 <slur type="stop" number="1"/>
 </notations>
 </note>
@@ -195,24 +189,25 @@
 </note>
 <note>
 <pitch><step>F</step><octave>4</octave></pitch>
+<duration>16</duration>
+<tie type="start"/>
+<voice>2</voice>
+<type>whole</type><accidental>natural</accidental>
+<stem>down</stem>
+<notations>
+<tied type="start"/>
+</notations>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
 <duration>4</duration>
+<tie type="stop"/>
 <voice>2</voice>
 <type>quarter</type>
 <stem>down</stem>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>2</voice>
-<type>half</type>
-<stem>down</stem>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>2</voice>
-<type>half</type>
-<stem>down</stem>
+<notations>
+<tied type="stop"/>
+</notations>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
@@ -223,21 +218,10 @@
 </note>
 <note>
 <pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
+<duration>8</duration>
 <voice>2</voice>
-<type>quarter</type>
+<type>half</type>
 <stem>down</stem>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>2</voice>
-<type>quarter</type>
-<stem>down</stem>
-<notations>
-<slur type="start" number="2" placement="below"/>
-<slur type="stop" number="2"/>
-</notations>
 </note>
 <note>
 <pitch><step>E</step><alter>-1</alter><octave>4</octave></pitch>
@@ -249,20 +233,24 @@
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
 <duration>16</duration>
+<tie type="start"/>
 <voice>2</voice>
 <type>whole</type>
 <stem>down</stem>
 <notations>
-<slur type="start" number="2" placement="below"/>
-<slur type="stop" number="2"/>
+<tied type="start"/>
 </notations>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
 <duration>16</duration>
+<tie type="stop"/>
 <voice>2</voice>
 <type>whole</type>
 <stem>down</stem>
+<notations>
+<tied type="stop"/>
+</notations>
 </note>
 <barline location="right"><bar-style>light-light</bar-style></barline>
 </measure>
@@ -353,7 +341,6 @@
 <stem>up</stem>
 <notations>
 <slur type="start" number="1" placement="above"/>
-<slur type="stop" number="1"/>
 </notations>
 </note>
 <note>
@@ -377,7 +364,6 @@
 <type>half</type>
 <stem>up</stem>
 <notations>
-<slur type="start" number="1" placement="above"/>
 <slur type="stop" number="1"/>
 </notations>
 </note>
@@ -467,7 +453,6 @@
 <stem>down</stem>
 <notations>
 <slur type="start" number="2" placement="below"/>
-<slur type="stop" number="2"/>
 </notations>
 </note>
 <note>
@@ -483,10 +468,6 @@
 <voice>2</voice>
 <type>whole</type>
 <stem>down</stem>
-<notations>
-<slur type="start" number="2" placement="below"/>
-<slur type="stop" number="2"/>
-</notations>
 </note>
 <note>
 <pitch><step>G</step><octave>3</octave></pitch>

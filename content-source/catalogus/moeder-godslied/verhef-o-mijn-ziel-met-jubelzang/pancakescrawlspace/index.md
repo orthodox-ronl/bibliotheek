@@ -1,8 +1,20 @@
 ---
-title: "Moeder Godslied Verhef O Mijn Ziel Met Jubelzang (Pancakescrawlspace)"
+title: "Verhef O Mijn Ziel Met Jubelzang (Moeder Godslied)"
 linkTitle: "Pancakescrawlspace"
-publicatiestatus: reviewable
+bron:
+  uitgangspunt: pancakescrawlspace
+publicatiestatus: concept
 automatische_inhoud: false
 ---
 
-{{< bieb id="moeder-godslied/verhef-o-mijn-ziel-met-jubelzang/pancakescrawlspace" />}}
+{{< kop >}}Verhef o mijn ziel met jubelzang{{< /kop >}}
+
+bron: Pancakescrawlspace (Groningen)
+
+{{< bieb id="moeder-godslied/verhef-o-mijn-ziel-met-jubelzang/pancakescrawlspace" >}}
+
+{{< muziek >}}
+
+{{< colofon >}}
+
+{{< /bieb >}}

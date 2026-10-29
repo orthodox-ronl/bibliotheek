@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- vsa-source-sha256: 846eefd57951f9a682b5a733075cc15450c81735c2abce22de6fafce8f8dadc0 -->
-<!-- vsa-source-kind: mvsa -->
-<!-- vsa-generated-at: 2026-10-24T21:51:52+00:00 -->
-<!-- vsa-generator: mvsa-products -->
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 3.1 Partwise//EN"
   "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise version="3.1">
@@ -1788,7 +1784,10 @@
 <voice>1</voice>
 <type>half</type>
 <stem>up</stem>
-<lyric number="1"><syllabic>single</syllabic><text>Red</text></lyric>
+<lyric number="1"><syllabic>begin</syllabic><text>Red</text><extend/></lyric>
+<notations>
+<slur type="start" number="1" placement="above"/>
+</notations>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
@@ -1796,6 +1795,9 @@
 <voice>1</voice>
 <type>half</type>
 <stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
 </note>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
@@ -1812,6 +1814,9 @@
 <voice>2</voice>
 <type>half</type>
 <stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
 </note>
 <note>
 <pitch><step>F</step><octave>4</octave></pitch>
@@ -1819,6 +1824,9 @@
 <voice>2</voice>
 <type>half</type>
 <stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
 </note>
 <note>
 <pitch><step>E</step><octave>4</octave></pitch>
@@ -3527,6 +3535,9 @@
 <voice>2</voice>
 <type>half</type>
 <stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
@@ -3534,6 +3545,9 @@
 <voice>2</voice>
 <type>half</type>
 <stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
 </note>
 <note>
 <pitch><step>C</step><octave>3</octave></pitch>

@@ -5,7 +5,8 @@
   "meta": {
     "title": "Alleluia - Toon 6",
     "bibliotheekId": "content-source/catalogus/alleluia",
-    "sourceLabel": "koormap Groningen"
+    "sourceLabel": "koormap Groningen",
+    "tempo": "160"
   },
   "pitchContext": {
     "do": "F4",
@@ -138,7 +139,7 @@
           "syllables": [
             {
               "text": "al",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -307,7 +308,7 @@
             "lyricIndex": 10,
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -338,7 +339,7 @@
               "elm": "_"
             },
             "melisma": {
-              "slur": true
+              "slurStop": true
             }
           },
           {
@@ -414,29 +415,25 @@
               "octave": 4
             },
             "duration": {
+              "elm": "__"
+            },
+            "lyricIndex": 5,
+            "melisma": {
+              "extend": true,
+              "tieStart": true
+            }
+          },
+          {
+            "pitch": {
+              "step": "F",
+              "octave": 4
+            },
+            "duration": {
               "elm": "~"
             },
-            "lyricIndex": 5
-          },
-          {
-            "pitch": {
-              "step": "F",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "_"
-            },
-            "lyricIndex": 6
-          },
-          {
-            "pitch": {
-              "step": "F",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "_"
-            },
-            "lyricIndex": 7
+            "melisma": {
+              "tieStop": true
+            }
           },
           {
             "pitch": {
@@ -446,31 +443,17 @@
             "duration": {
               "elm": "~"
             },
+            "lyricIndex": 7
+          },
+          {
+            "pitch": {
+              "step": "F",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "_"
+            },
             "lyricIndex": 8
-          },
-          {
-            "pitch": {
-              "step": "F",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "~"
-            },
-            "lyricIndex": 9
-          },
-          {
-            "pitch": {
-              "step": "F",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "~"
-            },
-            "lyricIndex": 10,
-            "melisma": {
-              "extend": true,
-              "slur": true
-            }
           },
           {
             "pitch": {
@@ -491,7 +474,7 @@
               "elm": "__"
             },
             "melisma": {
-              "slur": true
+              "tieStart": true
             }
           },
           {
@@ -501,6 +484,9 @@
             },
             "duration": {
               "elm": "__"
+            },
+            "melisma": {
+              "tieStop": true
             }
           }
         ],
@@ -627,7 +613,7 @@
             "lyricIndex": 10,
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -658,7 +644,7 @@
               "elm": "_"
             },
             "melisma": {
-              "slur": true
+              "slurStop": true
             }
           },
           {
@@ -792,7 +778,7 @@
             "lyricIndex": 10,
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -811,9 +797,6 @@
             },
             "duration": {
               "elm": "__"
-            },
-            "melisma": {
-              "slur": true
             }
           },
           {
@@ -828,9 +811,5 @@
         ]
       }
     }
-  ],
-  "vsa-source-sha256": "d15fdbe5ca45fa971a3e1826536ba5520eca103af2c9785f394b8e4d0b714bff",
-  "vsa-source-kind": "mvsa",
-  "vsa-generated-at": "2026-10-23T14:26:39+00:00",
-  "vsa-generator": "mvsa-products"
+  ]
 }

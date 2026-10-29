@@ -7172,7 +7172,7 @@
           "syllables": [
             {
               "text": "Red",
-              "syllabic": "single"
+              "syllabic": "begin"
             }
           ],
           "layers": {
@@ -7206,7 +7206,11 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 0
+            "lyricIndex": 0,
+            "melisma": {
+              "extend": true,
+              "slurStart": true
+            }
           },
           {
             "pitch": {
@@ -7215,6 +7219,9 @@
             },
             "duration": {
               "elm": "_"
+            },
+            "melisma": {
+              "slurStop": true
             }
           },
           {
@@ -7237,7 +7244,11 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 0
+            "lyricIndex": 0,
+            "melisma": {
+              "extend": true,
+              "slurStart": true
+            }
           },
           {
             "pitch": {
@@ -7246,6 +7257,9 @@
             },
             "duration": {
               "elm": "_"
+            },
+            "melisma": {
+              "slurStop": true
             }
           },
           {
@@ -7296,7 +7310,11 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 0
+            "lyricIndex": 0,
+            "melisma": {
+              "extend": true,
+              "slurStart": true
+            }
           },
           {
             "pitch": {
@@ -7305,6 +7323,9 @@
             },
             "duration": {
               "elm": "_"
+            },
+            "melisma": {
+              "slurStop": true
             }
           },
           {
@@ -7320,9 +7341,5 @@
         ]
       }
     }
-  ],
-  "vsa-source-sha256": "846eefd57951f9a682b5a733075cc15450c81735c2abce22de6fafce8f8dadc0",
-  "vsa-source-kind": "mvsa",
-  "vsa-generated-at": "2026-10-24T21:51:52+00:00",
-  "vsa-generator": "mvsa-products"
+  ]
 }

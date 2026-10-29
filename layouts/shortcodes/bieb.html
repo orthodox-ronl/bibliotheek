@@ -3,16 +3,16 @@
 
   Vormen:
   - {{< bieb id="z/v/u" />}}                     → muziek
-  - {{< bieb id="z/v/u" muziek />}} / titel / … → genoemd onderdeel
-  - {{< bieb id="z/v/u" veld "pad" />}}
-  - {{< bieb titel />}} e.d. binnen paired blok  → onderdeel van ouder-id
   - {{< bieb id="z/v/u" >}} … {{< /bieb >}}      → context voor geneste onderdelen
+  - {{< bieb titel />}} / colofon / … binnen blok → onderdeel van ouder-id
+  - {{< titel >}} / {{< colofon >}} e.d. binnen blok (zelfde context)
 
+  Hugo: geen mix van named id= en positional onderdeel op één shortcode.
   Geneste korte bieb met eigen id wijzigt de ouder-context niet (.Parent).
   Self-closing vorm vereist /> (Hugo), omdat dezelfde shortcode ook paired is.
 */ -}}
 {{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}
-{{- $known := slice "titel" "title" "muziek" "bron" "copyright" "veld" -}}
+{{- $known := slice "titel" "title" "muziek" "bron" "copyright" "colofon" "veld" -}}
 {{- $onderdeel := "" -}}
 {{- $veldPad := "" -}}
 {{- with .Get 0 -}}

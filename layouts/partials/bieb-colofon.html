@@ -1,0 +1,33 @@
+{{- /*
+  Colofon op het scherm: copyright/notice + eredienstregel + Bron + Bibliotheek-id.
+  (MuseScore-VBox-colofon blijft voor index.md.pdf via pdf.cmd.)
+  Context: dict "score" Page
+*/ -}}
+{{- $score := .score -}}
+{{- $id := "" -}}
+{{- with $score.File -}}
+  {{- $dir := strings.TrimSuffix "/" (replace .Dir "\\" "/") -}}
+  {{- $id = strings.TrimPrefix "catalogus/" $dir -}}
+{{- end -}}
+{{- $notice := partial "bieb-veld-waarde.html" (dict "score" $score "pad" "copyright") -}}
+{{- if not $notice -}}
+  {{- $notice = "Deze partituur: CC BY-SA 4.0 (orthodox-ronl)." -}}
+{{- end -}}
+{{- $bron := partial "bieb-veld-waarde.html" (dict "score" $score "pad" "bron") -}}
+{{- if not $bron -}}
+  {{- $bron = partial "bieb-veld-waarde.html" (dict "score" $score "pad" "bron.uitgangspunt") -}}
+{{- end -}}
+{{- $liturgy := "Voor gebruik in de orthodoxe eredienst is kopiëren toegestaan." -}}
+<div class="bieb-colofon">
+<p class="bieb-colofon-titel">Colofon</p>
+<p>{{ $notice }}</p>
+{{- if not (strings.Contains (lower $notice) (lower "eredienst")) -}}
+<p>{{ $liturgy }}</p>
+{{- end -}}
+{{- with $bron -}}
+<p>Bron: {{ . }}</p>
+{{- end -}}
+{{- with $id -}}
+<p>Bibliotheek-id: {{ . }}</p>
+{{- end -}}
+</div>
