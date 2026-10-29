@@ -5,12 +5,12 @@ bibliotheek-site (catalogusblad en koormap-slot via `bieb` / `muziek`).
 Doel: beheerders en bouwers toetsen dezelfde checklist; QA vóór
 `development` → `main` gebruikt dit document.
 
-**Eén pakket voor beide schermgeneratoren:** OSMD (Score-IR → from-ir
-MusicXML) én SVG-fallback (MuseScore/`mvsa svg`, VSA-SVG, mscz-SVG).
-Semantiek + deze lookregels zijn bindend; pixel-perfecte gelijkheid tussen
-de ketens is dat niet (besluit 2). Tijdelijk: enkele cue-/centreer-regels
-zijn alleen voor OSMD bindend zolang scherm-SVG via MuseScore loopt
-(§4.2–4.3); daarna weer voor beide.
+**Eén pakket voor beide schermgeneratoren:** SVG (default; MuseScore/
+`mvsa svg`, VSA-SVG, mscz-SVG) én OSMG/OSMD (Score-IR → from-ir MusicXML),
+geschakeld via het **{}**-menu. Semantiek + deze lookregels zijn bindend;
+pixel-perfecte gelijkheid tussen de ketens is dat niet (besluit 2).
+Tijdelijk: enkele cue-/centreer-regels zijn alleen voor OSMD bindend zolang
+scherm-SVG via MuseScore loopt (§4.2–4.3); daarna weer voor beide.
 
 Beheerder-taal en shortcodes: [koormap-paginataal.md](koormap-paginataal.md).
 Productketens: [publicatiecontrole.md](../publicatiecontrole.md),
@@ -42,33 +42,35 @@ horen bij de Hugo-pagina (catalogus-H1) of bij koormap-`kop` / Markdown.
 
 ---
 
-## 2. Welk plaatje op het scherm (volgorde)
+## 2. Welk plaatje op het scherm
 
-De site kiest in deze volgorde ([`bieb-score.html`](../../layouts/partials/bieb-score.html)):
+In het **{}**-menu staan onder elkaar **Bronnen** en één wisselknop:
+**OSMG** (als je nu SVG ziet) of **SVG** (als je nu OSMG ziet). Default is
+SVG. Keuze in `localStorage` (`bibliotheek-schermstand`), sitebreed in die
+browser ([`bieb-score.html`](../../layouts/partials/bieb-score.html) +
+`static/js/score-schermstand.js`).
 
-1. **OSMD** — sibling `{stam}.mvsa.from-ir.musicxml` (Score-IR → MusicXML),
-   **behalve** S8-recite met spacer-noten (`<notehead>none</notehead>` in
-   from-ir): dan **`.mvsa.svg`** op het scherm zolang OSMD die printlaag niet
-   betrouwbaar tekent (§5.1).
-2. **Muziek-SVG** — één tall compacte sibling `{stam}.mvsa.svg`, `{stam}.vsa.svg` of `{stam}.mscz.svg` (geen A4-bladreeks `*-N.svg`; anders legacy `static/vsa/bladermap/….svg` bij `.vsa`)
-3. **Tekstblad** — body van sibling `{stam}.tekstblad.md` (HTML; geen product-PDF als viewer)
-4. **PDF op scherm** — alleen als 1–3 ontbreken
+| Stand | Bron op scherm |
+| ----- | -------------- |
+| **SVG** (default) | Sibling `{stam}.mvsa.svg` / `.vsa.svg` / `.mscz.svg` (geen ketting `*.mvsa.mscz.svg`); anders legacy bladermap-SVG |
+| **OSMG** | Sibling `{stam}.mvsa.from-ir.musicxml` via OpenSheetMusicDisplay (`score-osmd.js`) |
 
-Gevolgen:
+Geen automatische wissel tussen SVG en OSMG (ook niet bij S8-recite). Ontbreekt
+het product voor de gekozen stand, dan een korte melding op dat blad — niet
+stiekem de andere keten.
 
-- Waar OSMD beschikbaar is (geen S8-bypass), is dat de **gewenste** schermlook.
-- **S8 (nu):** from-ir met `<notehead>none</notehead>` + sibling `.mvsa.svg` →
-  SVG op het scherm (`bieb-score.html`). OSMD+A1-adapter blijft experiment
-  op branch `feat/products-meta-consumer`.
-- SVG is ook **fallback** voor bronnen zonder Score-IR (`.vsa`, basispartituur-`.mscz`).
-- Tekstblad toont de Markdown/HTML-bron op scherm; product-PDF is geen viewer meer.
-- PDF-op-scherm blijft alleen nood-fallback als SVG/OSMD/tekstblad-md ontbreken.
-- Coria (`.mxl` / Oefenen) en audio horen **niet** bij de schermlook van de partituur; die acties zitten in tip-icoon **♪**.
+Alleen als **beide** schermproducten ontbreken:
 
-Beide ketens (1 en 2) volgen hetzelfde lookpakket in §4. Verschil is alleen
-*hoe* de tekening tot stand komt, niet *wat* er wel/niet op mag staan — met
-één **tijdelijke** uitzondering: een paar cue-/centreer-regels zijn nu
-alleen bindend voor OSMD (§4.2–4.3), zolang scherm-SVG via MuseScore loopt.
+1. **Tekstblad** — body van sibling `{stam}.tekstblad.md`
+2. **PDF op scherm** — nood-fallback
+
+Coria (`.mxl` / Oefenen) en audio horen **niet** bij de schermlook; die zitten
+in tip-icoon **♪**.
+
+Beide ketens volgen hetzelfde lookpakket in §4. Verschil is alleen *hoe* de
+tekening tot stand komt — met één **tijdelijke** uitzondering: een paar
+cue-/centreer-regels zijn nu alleen bindend voor OSMD (§4.2–4.3), zolang
+scherm-SVG via MuseScore loopt.
 
 ---
 
@@ -187,15 +189,15 @@ Repro-voorbeeld volta: catalogus
 | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Bron      | Sibling `{stam}.mvsa.from-ir.musicxml`.                                                                                                                                                                                                                                                                                                                              |
 | Gedrag    | Volgt §4; bron van waarheid voor clientgedrag: `static/js/score-osmd.js`.                                                                                                                                                                                                                                                                                            |
-| S8-recite | From-ir met `<notehead>none</notehead>`: site toont **`{stam}.mvsa.svg`** als sibling (MuseScore `mvsa svg`), **nooit OSMD** — spacer/breve/recite-tekst is print-MuseScore-semantiek, geen VexFlow-pariteit. Ketting-SVG (`{stam}.mvsa.mscz.svg`) telt niet. From-ir blijft product (o.a. nav-CI). Tooling: [osmd-s8-recite](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/osmd-s8-recite.md). |
+| S8-recite | From-ir mag spacer-markering (`<notehead>none</notehead>`) blijven houden voor product/CI. Op het **scherm** beslist alleen de {}-stand SVG/OSMG — geen S8-bypass meer. Tooling: [osmd-s8-recite](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/osmd-s8-recite.md). |
 | Systemen  | Volgens MusicXML (`newSystemFromXML`); cues niet afkappen.                                                                                                                                                                                                                                                                                                           |
 
-### 5.2 SVG-fallback
+### 5.2 SVG (default-schermstand)
 
 | Eis        | Toelichting                                                                                                                                                                                                                                                                                                                |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Bron       | Sibling `{stam}.mvsa.svg` of `{stam}.vsa.svg` (preferred); legacy bladermap-SVG alleen zolang de sibling ontbreekt.                                                                                                                                                                                                        |
-| Rol        | Primair schermpad voor **VSA** (nog geen Score-IR/OSMD). Voor **mvsa** alleen als from-ir ontbreekt.                                                                                                                                                                                                                       |
+| Rol        | **Default** schermstand via {}-menu. Ook bruikbaar zonder from-ir (`.vsa`, basispartituur-`.mscz`).                                                                                                                                                                                                                         |
 | Look       | Zelfde pakket als §4 (titel/chrome uit, Source Sans 3, maatnummers, cues, speelplan-nav). Export: VSA-tooling layout `muziek` / MuseScore 4. Cue-inklappen / cues-niet-meeschuiven / noten-centreren: nu **best-effort** t.o.v. OSMD (§4.2–4.3); weer verplicht voor beide zodra scherm-SVG niet meer via MuseScore loopt. |
 | Kolom      | Breedte volgt de contentkolom; geen horizontale overflow buiten de kolom op oefenhoek-pagina’s (`overflow-x` begrensd).                                                                                                                                                                                                    |
 | Site-titel | Het onderdeel `muziek` zet geen extra HTML-titel.                                                                                                                                                                                                                                                                          |
@@ -207,9 +209,10 @@ volta. Enige `<title>mvsa-…</title>` is SVG-meta, geen bladkop. Technische
 gap-audit: VSA-tooling
 [`docs/plans/schermeisen-vereniging.md`](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/schermeisen-vereniging.md).
 
-**Steekproef (S8):** catalogus `alleluia/9a-toon-8/groningen` — scherm via
-sibling `.mvsa.svg` (bypass). OSMD+adapter-doelbeeld blijft op de
-S8-experimentbranch peilbaar met `s8-alleluia-hide-check.mjs`.
+**Steekproef (S8 / schermstand):** catalogus `alleluia/9a-toon-8/groningen` —
+default **SVG** toont sibling `.mvsa.svg`; via {} kun je **OSMG** (from-ir)
+kiezen om te vergelijken. OSMD+adapter-doelbeeld blijft peilbaar met
+`s8-alleluia-hide-check.mjs` op de S8-experimentbranch.
 
 Als MuseScore een §4-regel die **wel** voor beide ketens bindend is nog
 niet haalt: documenteer de gap of open een VSA-tooling-ticket — versoepel

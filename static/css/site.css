@@ -1813,6 +1813,17 @@ body.score-audio-bar-open {
   right: 0;
 }
 
+.score-scherm[hidden] {
+  display: none !important;
+}
+
+.score-scherm-missing {
+  margin: 0.75rem 0;
+  padding: 0.65rem 0.8rem;
+  border: 1px dashed #888;
+  font-size: 0.95rem;
+}
+
 /* Koormap: meerdere score-bundels dichter op elkaar */
 .oefenhoek-page .score-bundle {
   margin: 0.75rem 0 1rem;

@@ -49,13 +49,11 @@
 <div class="score-bundle">
 {{ partial "oefenhoek-score-acties.html" (dict "score" $p "viewer" $viewer "position" .position) }}
 {{- /*
-  Scherm (voorkeur): Score-IR → MusicXML-sibling → OSMD
-  (``.mvsa.from-ir.musicxml``). Anders: één tall muziek-SVG (``.mvsa.svg`` /
-  ``.vsa.svg`` / ``.mscz.svg``; geen A4-bladreeks ``*-N.svg``), of legacy
-  static bladermap. Tekstblad: body van ``.tekstblad.md``. PDF alleen als
-  laatste scherm-fallback. Print/blad: ``index.md.pdf`` (nav).
+  Scherm: SVG en OSMG (OSMD/from-ir) naast elkaar in de DOM. Keuze via
+  {}-menu → localStorage (default SVG). Geen automatische S8-bypass.
+  Zie schermpartituur §2. Print/blad: index.md.pdf (nav).
 */ -}}
-<div class="score-partituur">
+<div class="score-partituur" data-scherm-root>
 {{- $pdf := "" -}}
 {{- $fromIrMxl := slice -}}
 {{- $musicSvgs := slice -}}
@@ -91,7 +89,6 @@
       {{- if not .IsDir -}}
         {{- $nameLower := lower .Name -}}
         {{- if strings.HasSuffix $nameLower ".from-ir.musicxml" -}}
-          {{- /* GetMatch kan ontbreken; URL uit bladermap-permalink + naam. */ -}}
           {{- $url := printf "%s%s" $p.RelPermalink .Name -}}
           {{- with $p.Resources.GetMatch .Name -}}
             {{- $url = .RelPermalink -}}
@@ -114,7 +111,6 @@
           {{- $srcPath := printf "%s/%s" $srcDir .Name -}}
           {{- if fileExists $srcPath -}}
             {{- $raw := readFile $srcPath -}}
-            {{- /* YAML-frontmatter strippen; body is HTML (bewust). */ -}}
             {{- $tekstbladBody = replaceRE `(?s)^---\r?\n.*?\r?\n---\r?\n?` "" $raw -}}
           {{- end -}}
         {{- end -}}
@@ -129,7 +125,6 @@
     {{- end -}}
   {{- end -}}
 {{- end -}}
-{{- /* Legacy .vsa-plaatje onder static/ (tot sibling .vsa.svg overal staat). */ -}}
 {{- $staticSvgs := slice -}}
 {{- if and $vsas (not $hasMscz) $dir -}}
   {{- range $vsas -}}
@@ -142,59 +137,34 @@
     {{- end -}}
   {{- end -}}
 {{- end -}}
-{{- /*
-  S8 recite (notehead none in from-ir): OSMD/VexFlow tekent geen MuseScore-
-  spacerblad. Scherm = sibling .mvsa.svg (geen ketting *.mvsa.mscz.svg);
-  from-ir blijft product (nav-check). Zie schermpartituur §2.
-*/ -}}
-{{- $mvsaSvgScherm := "" -}}
-{{- $s8ReciteFromIr := false -}}
-{{- if $dir -}}
-  {{- range os.ReadDir (printf "content-source/%s" $dir) -}}
-    {{- if not .IsDir -}}
-      {{- $nl := lower .Name -}}
-      {{- if and (strings.HasSuffix $nl ".mvsa.svg") (not (strings.Contains $nl ".mvsa.mscz.")) (not (strings.Contains $nl ".vsa.mscz.")) -}}
-        {{- $url := printf "%s%s" $p.RelPermalink .Name -}}
-        {{- with $p.Resources.GetMatch .Name -}}
-          {{- $url = .RelPermalink -}}
-        {{- end -}}
-        {{- $mvsaSvgScherm = $url -}}
-      {{- end -}}
-      {{- if strings.HasSuffix $nl ".from-ir.musicxml" -}}
-        {{- $irPath := printf "content-source/%s/%s" $dir .Name -}}
-        {{- if fileExists $irPath -}}
-          {{- $irText := readFile $irPath -}}
-          {{- if strings.Contains $irText "<notehead>none</notehead>" -}}
-            {{- $s8ReciteFromIr = true -}}
-          {{- end -}}
-        {{- end -}}
-      {{- end -}}
-    {{- end -}}
-  {{- end -}}
-{{- end -}}
-{{- /* S8: nooit OSMD; SVG verplicht als sibling bestaat. */ -}}
-{{- $osmdS8GebruikSvg := and $s8ReciteFromIr $mvsaSvgScherm -}}
-{{- if and $s8ReciteFromIr (not $mvsaSvgScherm) -}}
-  {{- warnf "%s: S8-recite in from-ir maar geen sibling .mvsa.svg — OSMD overgeslagen. Vernieuw met scripts\\products.cmd --kinds mvsa." $loc -}}
-{{- end -}}
 {{- $alt := partial "display-title.html" $p -}}
-{{- if and $fromIrMxl (not $s8ReciteFromIr) -}}
-  {{- range $fromIrMxl -}}
+{{- $hasSvgView := or (gt (len $musicSvgs) 0) (gt (len $staticSvgs) 0) -}}
+{{- $hasOsmgView := gt (len $fromIrMxl) 0 -}}
+{{- if or $hasSvgView $hasOsmgView -}}
+<div class="score-scherm score-scherm--svg" data-scherm="svg">
+  {{- if $musicSvgs -}}
+    {{- range $musicSvgs -}}
+<div class="vsa-container"><img class="vsa-notation" src="{{ . }}" alt="{{ $alt }}" loading="lazy"></div>
+    {{- end -}}
+  {{- else if $staticSvgs -}}
+    {{- range $staticSvgs -}}
+<div class="vsa-container"><img class="vsa-notation" src="{{ . | relURL }}" alt="{{ $alt }}" loading="lazy"></div>
+    {{- end -}}
+  {{- else -}}
+<p class="score-scherm-missing">Geen SVG-product voor dit blad. Kies OSMG in {} of vernieuw met <code>scripts\products.cmd</code>.</p>
+  {{- end -}}
+</div>
+<div class="score-scherm score-scherm--osmg" data-scherm="osmg" hidden>
+  {{- if $fromIrMxl -}}
+    {{- range $fromIrMxl -}}
 <div class="vsa-container osmd-container" data-osmd-src="{{ . }}" role="img" aria-label="{{ $alt }}">
   <p class="osmd-status">Partituur laden…</p>
 </div>
+    {{- end -}}
+  {{- else -}}
+<p class="score-scherm-missing">Geen <code>.from-ir.musicxml</code> voor OSMG. Kies SVG of vernieuw met <code>scripts\products.cmd --kinds mvsa</code>.</p>
   {{- end -}}
-{{- else if $osmdS8GebruikSvg -}}
-<div class="vsa-container"><img class="vsa-notation" src="{{ $mvsaSvgScherm }}" alt="{{ $alt }}" loading="lazy"></div>
-{{- else if $musicSvgs -}}
-  {{- /* Inclusief S8 zonder .mvsa.svg (waarschuwing hierboven) of zonder from-ir. */ -}}
-  {{- range $musicSvgs -}}
-<div class="vsa-container"><img class="vsa-notation" src="{{ . }}" alt="{{ $alt }}" loading="lazy"></div>
-  {{- end -}}
-{{- else if $staticSvgs -}}
-  {{- range $staticSvgs -}}
-<div class="vsa-container"><img class="vsa-notation" src="{{ . | relURL }}" alt="{{ $alt }}" loading="lazy"></div>
-  {{- end -}}
+</div>
 {{- else if $tekstbladBody -}}
 <div class="tekstblad-scherm vsa-container" role="article" aria-label="{{ $alt }}">
 {{ $tekstbladBody | safeHTML }}

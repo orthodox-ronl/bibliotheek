@@ -4,9 +4,9 @@
   de shortcode staat — bepaalt knopset), optioneel "position".
 
   Oefenen / Beluisteren: compact ♪-menu linksboven op de partituur
-  (catalogus én koormap). Catalogus extra: Bronnen als {}-menu rechtsboven.
-  Print en download van het blad: nav «Download pagina» / «Print pagina»
-  (index.md.pdf) — geen score-knoppen naar catalogus-product-PDF.
+  (catalogus én koormap). {}-menu: schermstand SVG/OSMG (sitebreed via
+  localStorage) + op catalogus brontekst .mvsa/.vsa.
+  Print/download blad: nav «Download pagina» / «Print pagina» (index.md.pdf).
 */ -}}
 {{- $score := .score -}}
 {{- $viewer := or .viewer $score -}}
@@ -182,10 +182,42 @@
   {{- end -}}
   {{- $bronMenu = $bronPreferred | append $bronOther -}}
 {{- end -}}
+{{- /* Schermstand: SVG / OSMG als die producten er zijn. */ -}}
+{{- $hasSchermSvg := false -}}
+{{- $hasSchermOsmg := false -}}
+{{- range $score.Resources -}}
+  {{- $n := lower .Name -}}
+  {{- $kettingSvg := or (strings.Contains $n ".mvsa.mscz.") (strings.Contains $n ".vsa.mscz.") (strings.Contains $n ".mscz.mscz.") -}}
+  {{- if and (not $kettingSvg) (or (strings.HasSuffix $n ".mvsa.svg") (strings.HasSuffix $n ".vsa.svg") (strings.HasSuffix $n ".mscz.svg")) -}}
+    {{- $hasSchermSvg = true -}}
+  {{- end -}}
+  {{- if strings.HasSuffix $n ".from-ir.musicxml" -}}
+    {{- $hasSchermOsmg = true -}}
+  {{- end -}}
+{{- end -}}
+{{- with $score.File -}}
+  {{- $srcDir := printf "content-source/%s" (strings.TrimSuffix "/" (replace .Dir "\\" "/")) -}}
+  {{- if fileExists $srcDir -}}
+    {{- range os.ReadDir $srcDir -}}
+      {{- if not .IsDir -}}
+        {{- $nl := lower .Name -}}
+        {{- $kettingSvg := or (strings.Contains $nl ".mvsa.mscz.") (strings.Contains $nl ".vsa.mscz.") (strings.Contains $nl ".mscz.mscz.") -}}
+        {{- if and (not $kettingSvg) (or (strings.HasSuffix $nl ".mvsa.svg") (strings.HasSuffix $nl ".vsa.svg") (strings.HasSuffix $nl ".mscz.svg")) -}}
+          {{- $hasSchermSvg = true -}}
+        {{- end -}}
+        {{- if strings.HasSuffix $nl ".from-ir.musicxml" -}}
+          {{- $hasSchermOsmg = true -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $hasScherm := or $hasSchermSvg $hasSchermOsmg -}}
 {{- $hasOefenen := gt (len $oefenMenu) 0 -}}
 {{- $hasAudio := gt (len $audioMenu) 0 -}}
 {{- $hasBron := and $inCatalogus (gt (len $bronMenu) 0) -}}
-{{- if or $hasOefenen $hasAudio $hasBron -}}
+{{- $hasBronTip := or $hasBron $hasScherm -}}
+{{- if or $hasOefenen $hasAudio $hasBronTip -}}
 {{- /* Geen indentatie/newlines: bieb-Inner gaat door markdownify; 4 spaties → codeblok.
      Native details: open/dicht zonder JS (voorkomt dubbele handlers bij livereload). */ -}}
 {{- $wrapClass := "score-actions oefenhoek-acties score-actions--in-tip" -}}
@@ -204,8 +236,8 @@
 {{- if or $hasOefenen $hasAudio -}}
 <details class="score-oefen-tip"><summary class="score-oefen-tip-trigger" aria-label="Oefenen en beluisteren" title="Oefenen en beluisteren">♪</summary><div class="score-oefen-tip-panel"><div class="{{ $wrapClass }}">{{ partial "score-action-menu.html" (dict "title" "Oefenen" "items" $oefenMenu "btnClass" "btn" "hint" $oefenHint "role" "oefenen") }}{{ partial "score-action-menu.html" (dict "title" "Beluisteren" "items" $audioMenu "btnClass" "btn" "hint" $audioHint "role" "beluisteren") }}</div></div></details>
 {{- end -}}
-{{- if $hasBron -}}
-<details class="score-bron-tip"><summary class="score-bron-tip-trigger" aria-label="Bronnen" title="Bronnen">{}</summary><div class="score-bron-tip-panel"><div class="{{ $wrapClass }}"><div class="score-action-menu score-action-menu--bron-mode" data-score-role="bron-download" hidden><a class="btn" data-bron-download href="#" download>Downloaden</a></div><div class="score-action-menu score-action-menu--bron-mode" data-score-role="bron-print" hidden><button type="button" class="btn" data-bron-print>Printen</button></div>{{ partial "score-action-menu.html" (dict "title" "Bronnen" "items" $bronMenu "btnClass" "btn" "hint" $bronHint "role" "bronnen") }}</div></div></details>
+{{- if $hasBronTip -}}
+<details class="score-bron-tip"><summary class="score-bron-tip-trigger" aria-label="Bronnen en scherm" title="Bronnen en scherm">{}</summary><div class="score-bron-tip-panel"><div class="{{ $wrapClass }}">{{- if $hasBron -}}<div class="score-action-menu score-action-menu--bron-mode" data-score-role="bron-download" hidden><a class="btn" data-bron-download href="#" download>Downloaden</a></div><div class="score-action-menu score-action-menu--bron-mode" data-score-role="bron-print" hidden><button type="button" class="btn" data-bron-print>Printen</button></div>{{ partial "score-action-menu.html" (dict "title" "Bronnen" "items" $bronMenu "btnClass" "btn" "hint" $bronHint "role" "bronnen") }}{{- end -}}{{- if and $hasSchermSvg $hasSchermOsmg -}}<div class="score-action-menu" data-score-role="schermstand"><button type="button" class="btn" data-schermstand-switch data-schermstand="osmg">OSMG</button></div>{{- end -}}</div></div></details>
 {{- end -}}
 {{- end -}}
 {{- end -}}
