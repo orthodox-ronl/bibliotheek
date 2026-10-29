@@ -1,93 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 3.1 Partwise//EN"
+  "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise version="3.1">
 <work><work-title>de-naam-des-heren-zij-gezegend-default-groningen</work-title></work>
 <identification>
 <rights>Bibliotheek-id: de-naam-des-heren-zij-gezegend/default/groningen</rights>
 </identification>
 <part-list>
+<part-group type="start" number="1"><group-symbol>bracket</group-symbol></part-group>
 <score-part id="P1">
-<part-name>Soprano</part-name>
-<part-abbreviation>S</part-abbreviation>
-<score-instrument id="P1-I1">
-<instrument-name />
-<instrument-sound>keyboard.piano.grand</instrument-sound>
-</score-instrument>
-<midi-device id="P1-I1" port="1" />
-<midi-instrument id="P1-I1">
-<midi-channel>1</midi-channel>
-<midi-program>1</midi-program>
-<volume>78.7402</volume>
-<pan>0</pan>
-</midi-instrument>
+<part-name></part-name>
+<part-abbreviation></part-abbreviation>
 </score-part>
 <score-part id="P2">
-<part-name>Alto</part-name>
-<part-abbreviation>A</part-abbreviation>
-<score-instrument id="P2-I1">
-<instrument-name />
-<instrument-sound>keyboard.piano.grand</instrument-sound>
-</score-instrument>
-<midi-device id="P2-I1" port="1" />
-<midi-instrument id="P2-I1">
-<midi-channel>2</midi-channel>
-<midi-program>1</midi-program>
-<volume>78.7402</volume>
-<pan>0</pan>
-</midi-instrument>
+<part-name></part-name>
+<part-abbreviation></part-abbreviation>
 </score-part>
-<score-part id="P3">
-<part-name>Tenor</part-name>
-<part-abbreviation>T</part-abbreviation>
-<score-instrument id="P3-I1">
-<instrument-name />
-<instrument-sound>keyboard.piano.grand</instrument-sound>
-</score-instrument>
-<midi-device id="P3-I1" port="1" />
-<midi-instrument id="P3-I1">
-<midi-channel>3</midi-channel>
-<midi-program>1</midi-program>
-<volume>78.7402</volume>
-<pan>0</pan>
-</midi-instrument>
-</score-part>
-<score-part id="P4">
-<part-name>Bass</part-name>
-<part-abbreviation>B</part-abbreviation>
-<score-instrument id="P4-I1">
-<instrument-name />
-<instrument-sound>keyboard.piano.grand</instrument-sound>
-</score-instrument>
-<midi-device id="P4-I1" port="1" />
-<midi-instrument id="P4-I1">
-<midi-channel>4</midi-channel>
-<midi-program>1</midi-program>
-<volume>78.7402</volume>
-<pan>0</pan>
-</midi-instrument>
-</score-part>
+<part-group type="stop" number="1"/>
 </part-list>
 <part id="P1">
 <measure number="1">
 <attributes>
 <divisions>4</divisions>
 <key><fifths>-1</fifths></key>
-<time><senza-misura /></time>
+<time><senza-misura/></time>
 <clef><sign>G</sign><line>2</line></clef>
 </attributes>
-<direction placement="above">
+<direction placement="above" print-object="no">
 <direction-type>
 <metronome parentheses="no">
 <beat-unit>quarter</beat-unit>
 <per-minute>150</per-minute>
 </metronome>
 </direction-type>
-<sound tempo="150" />
+<sound tempo="150"/>
 </direction>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>begin</syllabic><text>A</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>А</text></lyric>
 </note>
 <note>
@@ -95,25 +48,42 @@
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>men</text></lyric><lyric number="2"><syllabic>end</syllabic><text>мен</text></lyric>
+</note>
+<backup><duration>16</duration></backup>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
 <measure number="2">
-<direction placement="above">
+<direction placement="above" print-object="no">
 <direction-type>
 <metronome parentheses="no">
 <beat-unit>quarter</beat-unit>
 <per-minute>220</per-minute>
 </metronome>
 </direction-type>
-<sound tempo="220" />
+<sound tempo="220"/>
 </direction>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>De</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Де</text></lyric>
 </note>
 <note>
@@ -121,6 +91,8 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>none</stem>
+<notehead>breve</notehead>
 <lyric number="1"><syllabic>single</syllabic><text>Naam</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Нам</text></lyric>
 </note>
 <note>
@@ -128,6 +100,8 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
 <lyric number="1"><syllabic>single</syllabic><text>des</text></lyric><lyric number="2"><syllabic>single</syllabic><text>дес</text></lyric>
 </note>
 <note>
@@ -135,6 +109,8 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
 <lyric number="1"><syllabic>begin</syllabic><text>He</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хе</text></lyric>
 </note>
 <note>
@@ -142,6 +118,8 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
 <lyric number="1"><syllabic>end</syllabic><text>ren</text></lyric><lyric number="2"><syllabic>end</syllabic><text>рен</text></lyric>
 </note>
 <note>
@@ -149,6 +127,8 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
 <lyric number="1"><syllabic>single</syllabic><text>zij</text></lyric><lyric number="2"><syllabic>single</syllabic><text>зей</text></lyric>
 </note>
 <note>
@@ -156,6 +136,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>begin</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>хе</text></lyric>
 </note>
 <note>
@@ -163,6 +144,7 @@
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>ze</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>зе</text></lyric>
 </note>
 <note>
@@ -170,9 +152,79 @@
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>gend</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хенд</text></lyric>
 </note>
-<barline location="left"><bar-style>heavy-light</bar-style><repeat direction="forward" /></barline>
+<backup><duration>44</duration></backup>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>breve</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<barline location="left"><bar-style>heavy-light</bar-style><repeat direction="forward"/></barline>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
 <measure number="3">
@@ -181,6 +233,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>van</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ван</text></lyric>
 </note>
 <note>
@@ -188,6 +241,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>nu</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ну</text></lyric>
 </note>
 <note>
@@ -195,6 +249,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>af</text></lyric><lyric number="2"><syllabic>single</syllabic><text>аф</text></lyric>
 </note>
 <note>
@@ -202,6 +257,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>tot</text></lyric><lyric number="2"><syllabic>single</syllabic><text>тот</text></lyric>
 </note>
 <note>
@@ -209,6 +265,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
 </note>
 <note>
@@ -216,6 +273,7 @@
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>begin</syllabic><text>eeu</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>еу</text></lyric>
 </note>
 <note>
@@ -223,6 +281,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>wig</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>вих</text></lyric>
 </note>
 <note>
@@ -230,9 +289,67 @@
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>heid</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хейд</text></lyric>
 </note>
-<barline location="right"><bar-style>light-heavy</bar-style><repeat direction="backward" /></barline>
+<backup><duration>40</duration></backup>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<barline location="right"><bar-style>light-heavy</bar-style><repeat direction="backward"/></barline>
 </measure>
 <measure number="4">
 <note>
@@ -240,6 +357,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>De</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Де</text></lyric>
 </note>
 <note>
@@ -247,6 +365,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>Naam</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Нам</text></lyric>
 </note>
 <note>
@@ -254,6 +373,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>des</text></lyric><lyric number="2"><syllabic>single</syllabic><text>дес</text></lyric>
 </note>
 <note>
@@ -261,6 +381,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>begin</syllabic><text>He</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хе</text></lyric>
 </note>
 <note>
@@ -268,6 +389,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>ren</text></lyric><lyric number="2"><syllabic>end</syllabic><text>рен</text></lyric>
 </note>
 <note>
@@ -275,6 +397,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>zij</text></lyric><lyric number="2"><syllabic>single</syllabic><text>зей</text></lyric>
 </note>
 <note>
@@ -282,6 +405,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>begin</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>хе</text></lyric>
 </note>
 <note>
@@ -289,6 +413,7 @@
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>ze</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>зе</text></lyric>
 </note>
 <note>
@@ -296,7 +421,72 @@
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>gend</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хенд</text></lyric>
+</note>
+<backup><duration>44</duration></backup>
+<note>
+<pitch><step>D</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>D</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -306,6 +496,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>van</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ван</text></lyric>
 </note>
 <note>
@@ -313,6 +504,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>nu</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ну</text></lyric>
 </note>
 <note>
@@ -320,6 +512,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>af</text></lyric><lyric number="2"><syllabic>single</syllabic><text>аф</text></lyric>
 </note>
 <note>
@@ -327,6 +520,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>tot</text></lyric><lyric number="2"><syllabic>single</syllabic><text>тот</text></lyric>
 </note>
 <note>
@@ -334,6 +528,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
 </note>
 <note>
@@ -341,6 +536,7 @@
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>begin</syllabic><text>eeu</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>еу</text></lyric>
 </note>
 <note>
@@ -348,6 +544,7 @@
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>wig</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>вих</text></lyric>
 </note>
 <note>
@@ -355,7 +552,65 @@
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>heid</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хейд</text></lyric>
+</note>
+<backup><duration>52</duration></backup>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>G</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -365,6 +620,7 @@
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>begin</syllabic><text>A</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>А</text></lyric>
 </note>
 <note>
@@ -372,34 +628,47 @@
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>men</text></lyric><lyric number="2"><syllabic>end</syllabic><text>мен</text></lyric>
+</note>
+<backup><duration>32</duration></backup>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>light-light</bar-style></barline>
 </measure>
-<measure number="7">
-<direction placement="above">
-<direction-type>
-<words justify="left">Wegzending</words>
-</direction-type>
-</direction>
-<note><rest /><duration>16</duration><type>whole</type><lyric number="1"><syllabic>single</syllabic><text>[PAUZE]</text></lyric></note>
-<barline location="right"><bar-style>light-light</bar-style></barline>
-</measure>
-<measure number="8">
-<direction placement="above">
+<measure number="7" width="140">
+<direction placement="above" print-object="no">
 <direction-type>
 <metronome parentheses="no">
 <beat-unit>quarter</beat-unit>
 <per-minute>220</per-minute>
 </metronome>
 </direction-type>
-<sound tempo="220" />
+<sound tempo="220"/>
+</direction>
+<direction placement="above">
+<direction-type>
+<words justify="left" default-x="0">Wegzending</words>
+</direction-type>
 </direction>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>Eer</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Ер</text></lyric>
 </note>
 <note>
@@ -407,6 +676,8 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>none</stem>
+<notehead>breve</notehead>
 <lyric number="1"><syllabic>single</syllabic><text>aan</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ан</text></lyric>
 </note>
 <note>
@@ -414,6 +685,8 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
 <lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
 </note>
 <note>
@@ -421,6 +694,8 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
 <lyric number="1"><syllabic>begin</syllabic><text>Va</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Ва</text></lyric>
 </note>
 <note>
@@ -428,6 +703,8 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
 <lyric number="1"><syllabic>end</syllabic><text>der,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>дер,</text></lyric>
 </note>
 <note>
@@ -435,6 +712,8 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
 <lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
 </note>
 <note>
@@ -442,6 +721,8 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
 <lyric number="1"><syllabic>single</syllabic><text>Zoon</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Зон</text></lyric>
 </note>
 <note>
@@ -449,6 +730,8 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
 <lyric number="1"><syllabic>single</syllabic><text>en</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ен</text></lyric>
 </note>
 <note>
@@ -456,6 +739,8 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
 <lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
 </note>
 <note>
@@ -463,6 +748,8 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
 <lyric number="1"><syllabic>begin</syllabic><text>Hei</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хей</text></lyric>
 </note>
 <note>
@@ -470,6 +757,8 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
 <lyric number="1"><syllabic>middle</syllabic><text>li</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ли</text></lyric>
 </note>
 <note>
@@ -477,6 +766,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хе</text></lyric>
 </note>
 <note>
@@ -484,7 +774,342 @@
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>Geest</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хест</text></lyric>
+</note>
+<backup><duration>56</duration></backup>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>breve</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<barline location="right"><bar-style>regular</bar-style></barline>
+</measure>
+<measure number="8">
+<note>
+<pitch><step>A</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>up</stem>
+<lyric number="1"><syllabic>single</syllabic><text>Nu</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Ну</text></lyric>
+</note>
+<note>
+<pitch><step>A</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>breve</notehead>
+<lyric number="1"><syllabic>single</syllabic><text>en</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ен</text></lyric>
+</note>
+<note>
+<pitch><step>A</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+<lyric number="1"><syllabic>begin</syllabic><text>al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text></lyric>
+</note>
+<note>
+<pitch><step>A</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+<lyric number="1"><syllabic>end</syllabic><text>tijd</text></lyric><lyric number="2"><syllabic>end</syllabic><text>тейд</text></lyric>
+</note>
+<note>
+<pitch><step>A</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+<lyric number="1"><syllabic>single</syllabic><text>en</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ен</text></lyric>
+</note>
+<note>
+<pitch><step>A</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
+</note>
+<note>
+<pitch><step>A</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
+</note>
+<note>
+<pitch><step>A</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+<lyric number="1"><syllabic>begin</syllabic><text>eeu</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>еу</text></lyric>
+</note>
+<note>
+<pitch><step>A</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+<lyric number="1"><syllabic>end</syllabic><text>wen</text></lyric><lyric number="2"><syllabic>end</syllabic><text>вен</text></lyric>
+</note>
+<note>
+<pitch><step>A</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
+</note>
+<note>
+<pitch><step>A</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>up</stem>
+<lyric number="1"><syllabic>begin</syllabic><text>eeuw</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>еув</text></lyric>
+</note>
+<note>
+<pitch><step>G</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>up</stem>
+<lyric number="1"><syllabic>end</syllabic><text>en,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ен,</text></lyric>
+</note>
+<note>
+<pitch><step>A</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>1</voice>
+<type>half</type>
+<stem>up</stem>
+<lyric number="1"><syllabic>begin</syllabic><text>a</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>а</text></lyric>
+</note>
+<note>
+<pitch><step>A</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>1</voice>
+<type>half</type>
+<stem>up</stem>
+<lyric number="1"><syllabic>end</syllabic><text>men</text></lyric><lyric number="2"><syllabic>end</syllabic><text>мен</text></lyric>
+</note>
+<backup><duration>64</duration></backup>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>breve</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -494,195 +1119,206 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Nu</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Ну</text></lyric>
+<stem>up</stem>
+<lyric number="1"><syllabic>single</syllabic><text>Heer,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хер,</text></lyric>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>en</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ен</text></lyric>
+<stem>none</stem>
+<notehead>breve</notehead>
+<lyric number="1"><syllabic>begin</syllabic><text>ont</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>онт</text></lyric>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
+<lyric number="1"><syllabic>end</syllabic><text>ferm</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ферм</text></lyric>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>tijd</text></lyric><lyric number="2"><syllabic>end</syllabic><text>тейд</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
+<lyric number="1"><syllabic>single</syllabic><text>U,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>У,</text></lyric>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>en</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ен</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
+<lyric number="1"><syllabic>single</syllabic><text>Heer,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хер,</text></lyric>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
+<lyric number="1"><syllabic>begin</syllabic><text>ont</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>онт</text></lyric>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
+<lyric number="1"><syllabic>end</syllabic><text>ferm</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ферм</text></lyric>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>eeu</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>еу</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
+<lyric number="1"><syllabic>single</syllabic><text>U,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>У,</text></lyric>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>wen</text></lyric><lyric number="2"><syllabic>end</syllabic><text>вен</text></lyric>
-</note>
-<note>
-<pitch><step>A</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>A</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>eeuw</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>еув</text></lyric>
+<stem>up</stem>
+<lyric number="1"><syllabic>single</syllabic><text>Heer,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хер,</text></lyric>
 </note>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>en,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ен,</text></lyric>
+<stem>up</stem>
+<lyric number="1"><syllabic>begin</syllabic><text>ont</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>онт</text></lyric>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>a</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>а</text></lyric>
+<stem>up</stem>
+<lyric number="1"><syllabic>end</syllabic><text>ferm</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ферм</text></lyric>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>men</text></lyric><lyric number="2"><syllabic>end</syllabic><text>мен</text></lyric>
+<stem>up</stem>
+<lyric number="1"><syllabic>single</syllabic><text>U</text></lyric><lyric number="2"><syllabic>single</syllabic><text>У</text></lyric>
+</note>
+<backup><duration>56</duration></backup>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>breve</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
 <measure number="10">
-<print new-system="yes" />
+<print new-system="yes"/>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Heer,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хер,</text></lyric>
-</note>
-<note>
-<pitch><step>A</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ont</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>онт</text></lyric>
-</note>
-<note>
-<pitch><step>A</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ferm</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ферм</text></lyric>
-</note>
-<note>
-<pitch><step>A</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>U,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>У,</text></lyric>
-</note>
-<note>
-<pitch><step>A</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Heer,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хер,</text></lyric>
-</note>
-<note>
-<pitch><step>A</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ont</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>онт</text></lyric>
-</note>
-<note>
-<pitch><step>A</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ferm</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ферм</text></lyric>
-</note>
-<note>
-<pitch><step>A</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>U,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>У,</text></lyric>
-</note>
-<note>
-<pitch><step>A</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Heer,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хер,</text></lyric>
-</note>
-<note>
-<pitch><step>G</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ont</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>онт</text></lyric>
-</note>
-<note>
-<pitch><step>A</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>ferm</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ферм</text></lyric>
-</note>
-<note>
-<pitch><step>A</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>U</text></lyric><lyric number="2"><syllabic>single</syllabic><text>У</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="11">
-<note>
-<pitch><step>A</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>begin</syllabic><text>Va</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Ва</text></lyric>
 </note>
 <note>
@@ -690,6 +1326,7 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>der</text></lyric><lyric number="2"><syllabic>end</syllabic><text>дер</text></lyric>
 </note>
 <note>
@@ -697,6 +1334,7 @@
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>ze</text></lyric><lyric number="2"><syllabic>single</syllabic><text>зе</text></lyric>
 </note>
 <note>
@@ -704,54 +1342,128 @@
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>gen</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хен</text></lyric>
 </note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="12">
-<direction placement="above">
-<direction-type>
-<words justify="left">Slotzegen</words>
-</direction-type>
-</direction>
-<note><rest /><duration>16</duration><type>whole</type><lyric number="1"><syllabic>single</syllabic><text>[PAUZE]</text></lyric></note>
+<backup><duration>40</duration></backup>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
+</note>
 <barline location="right"><bar-style>light-light</bar-style></barline>
 </measure>
-<measure number="13">
-<direction placement="above">
+<measure number="11" width="126">
+<direction placement="above" print-object="no">
 <direction-type>
 <metronome parentheses="no">
 <beat-unit>quarter</beat-unit>
 <per-minute>130</per-minute>
 </metronome>
 </direction-type>
-<sound tempo="130" />
+<sound tempo="130"/>
+</direction>
+<direction placement="above">
+<direction-type>
+<words justify="left" default-x="0">Slotzegen</words>
+</direction-type>
 </direction>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>A</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>А</text><extend /></lyric>
+<stem>up</stem>
+<lyric number="1"><syllabic>begin</syllabic><text>A</text><extend/></lyric><lyric number="2"><syllabic>begin</syllabic><text>А</text><extend/></lyric>
+<notations>
+<slur type="start" number="1" placement="above"/>
+</notations>
 </note>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>B</step><alter>-1</alter><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>men</text></lyric><lyric number="2"><syllabic>end</syllabic><text>мен</text></lyric>
+</note>
+<backup><duration>40</duration></backup>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>light-heavy</bar-style></barline>
 </measure>
@@ -761,650 +1473,7 @@
 <attributes>
 <divisions>4</divisions>
 <key><fifths>-1</fifths></key>
-<time><senza-misura /></time>
-<clef><sign>G</sign><line>2</line></clef>
-</attributes>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>A</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>А</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>men</text></lyric><lyric number="2"><syllabic>end</syllabic><text>мен</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="2">
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>De</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Де</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Naam</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Нам</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>des</text></lyric><lyric number="2"><syllabic>single</syllabic><text>дес</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>He</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хе</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ren</text></lyric><lyric number="2"><syllabic>end</syllabic><text>рен</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>zij</text></lyric><lyric number="2"><syllabic>single</syllabic><text>зей</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>хе</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>ze</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>зе</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>gend</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хенд</text></lyric>
-</note>
-<barline location="left"><bar-style>heavy-light</bar-style><repeat direction="forward" /></barline>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="3">
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>van</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ван</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>nu</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ну</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>af</text></lyric><lyric number="2"><syllabic>single</syllabic><text>аф</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>tot</text></lyric><lyric number="2"><syllabic>single</syllabic><text>тот</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>eeu</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>еу</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>wig</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>вих</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>heid</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хейд</text></lyric>
-</note>
-<barline location="right"><bar-style>light-heavy</bar-style><repeat direction="backward" /></barline>
-</measure>
-<measure number="4">
-<note>
-<pitch><step>D</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>De</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Де</text></lyric>
-</note>
-<note>
-<pitch><step>D</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Naam</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Нам</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>des</text></lyric><lyric number="2"><syllabic>single</syllabic><text>дес</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>He</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хе</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ren</text></lyric><lyric number="2"><syllabic>end</syllabic><text>рен</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>zij</text></lyric><lyric number="2"><syllabic>single</syllabic><text>зей</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>хе</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>ze</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>зе</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>gend</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хенд</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="5">
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>van</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ван</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>nu</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ну</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>af</text></lyric><lyric number="2"><syllabic>single</syllabic><text>аф</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>tot</text></lyric><lyric number="2"><syllabic>single</syllabic><text>тот</text></lyric>
-</note>
-<note>
-<pitch><step>G</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>eeu</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>еу</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>wig</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>вих</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>heid</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хейд</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="6">
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>begin</syllabic><text>A</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>А</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>men</text></lyric><lyric number="2"><syllabic>end</syllabic><text>мен</text></lyric>
-</note>
-<barline location="right"><bar-style>light-light</bar-style></barline>
-</measure>
-<measure number="7">
-<note><rest /><duration>16</duration><type>whole</type><lyric number="1"><syllabic>single</syllabic><text>[PAUZE]</text></lyric></note>
-<barline location="right"><bar-style>light-light</bar-style></barline>
-</measure>
-<measure number="8">
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Eer</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Ер</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>aan</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ан</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Va</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Ва</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>der,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>дер,</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Zoon</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Зон</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>en</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ен</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Hei</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хей</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>li</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ли</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хе</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>Geest</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хест</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="9">
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Nu</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Ну</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>en</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ен</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>tijd</text></lyric><lyric number="2"><syllabic>end</syllabic><text>тейд</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>en</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ен</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>eeu</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>еу</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>wen</text></lyric><lyric number="2"><syllabic>end</syllabic><text>вен</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>eeuw</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>еув</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>en,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ен,</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>a</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>а</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>men</text></lyric><lyric number="2"><syllabic>end</syllabic><text>мен</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="10">
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Heer,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хер,</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ont</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>онт</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ferm</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ферм</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>U,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>У,</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Heer,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хер,</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ont</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>онт</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ferm</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ферм</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>U,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>У,</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Heer,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хер,</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ont</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>онт</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>ferm</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ферм</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>U</text></lyric><lyric number="2"><syllabic>single</syllabic><text>У</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="11">
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Va</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Ва</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>der</text></lyric><lyric number="2"><syllabic>end</syllabic><text>дер</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ze</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>зе</text><extend /></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>gen</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хен</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="12">
-<note><rest /><duration>16</duration><type>whole</type><lyric number="1"><syllabic>single</syllabic><text>[PAUZE]</text></lyric></note>
-<barline location="right"><bar-style>light-light</bar-style></barline>
-</measure>
-<measure number="13">
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>single</syllabic><text>A</text></lyric><lyric number="2"><syllabic>single</syllabic><text>А</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>men</text></lyric><lyric number="2"><syllabic>end</syllabic><text>мен</text></lyric>
-</note>
-<barline location="right"><bar-style>light-heavy</bar-style></barline>
-</measure>
-</part>
-<part id="P3">
-<measure number="1">
-<attributes>
-<divisions>4</divisions>
-<key><fifths>-1</fifths></key>
-<time><senza-misura /></time>
+<time><senza-misura/></time>
 <clef><sign>F</sign><line>4</line></clef>
 </attributes>
 <note>
@@ -1412,14 +1481,29 @@
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>A</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>А</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>men</text></lyric><lyric number="2"><syllabic>end</syllabic><text>мен</text></lyric>
+<stem>up</stem>
+</note>
+<backup><duration>16</duration></backup>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -1429,65 +1513,139 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>De</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Де</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Naam</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Нам</text></lyric>
+<stem>none</stem>
+<notehead>breve</notehead>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>des</text></lyric><lyric number="2"><syllabic>single</syllabic><text>дес</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>He</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хе</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ren</text></lyric><lyric number="2"><syllabic>end</syllabic><text>рен</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>zij</text></lyric><lyric number="2"><syllabic>single</syllabic><text>зей</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>хе</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>ze</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>зе</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>gend</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хенд</text></lyric>
+<stem>up</stem>
 </note>
-<barline location="left"><bar-style>heavy-light</bar-style><repeat direction="forward" /></barline>
+<backup><duration>44</duration></backup>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>breve</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<barline location="left"><bar-style>heavy-light</bar-style><repeat direction="forward"/></barline>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
 <measure number="3">
@@ -1496,58 +1654,115 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>van</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ван</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>nu</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ну</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>af</text></lyric><lyric number="2"><syllabic>single</syllabic><text>аф</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>tot</text></lyric><lyric number="2"><syllabic>single</syllabic><text>тот</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>eeu</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>еу</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>wig</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>вих</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>heid</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хейд</text></lyric>
+<stem>up</stem>
 </note>
-<barline location="right"><bar-style>light-heavy</bar-style><repeat direction="backward" /></barline>
+<backup><duration>40</duration></backup>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<barline location="right"><bar-style>light-heavy</bar-style><repeat direction="backward"/></barline>
 </measure>
 <measure number="4">
 <note>
@@ -1555,63 +1770,127 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>De</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Де</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Naam</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Нам</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>des</text></lyric><lyric number="2"><syllabic>single</syllabic><text>дес</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>He</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хе</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ren</text></lyric><lyric number="2"><syllabic>end</syllabic><text>рен</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>zij</text></lyric><lyric number="2"><syllabic>single</syllabic><text>зей</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>хе</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>ze</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>зе</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>gend</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хенд</text></lyric>
+<stem>up</stem>
+</note>
+<backup><duration>44</duration></backup>
+<note>
+<pitch><step>D</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>D</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -1621,1078 +1900,913 @@
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>van</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ван</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>nu</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ну</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>af</text></lyric><lyric number="2"><syllabic>single</syllabic><text>аф</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>tot</text></lyric><lyric number="2"><syllabic>single</syllabic><text>тот</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>eeu</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>еу</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>wig</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>вих</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>A</step><octave>3</octave></pitch>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>heid</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хейд</text></lyric>
+<stem>up</stem>
 </note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="6">
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>begin</syllabic><text>A</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>А</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>men</text></lyric><lyric number="2"><syllabic>end</syllabic><text>мен</text></lyric>
-</note>
-<barline location="right"><bar-style>light-light</bar-style></barline>
-</measure>
-<measure number="7">
-<note><rest /><duration>16</duration><type>whole</type><lyric number="1"><syllabic>single</syllabic><text>[PAUZE]</text></lyric></note>
-<barline location="right"><bar-style>light-light</bar-style></barline>
-</measure>
-<measure number="8">
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Eer</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Ер</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>aan</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ан</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Va</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Ва</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>der,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>дер,</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Zoon</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Зон</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>en</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ен</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Hei</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хей</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>li</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ли</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хе</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>Geest</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хест</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="9">
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Nu</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Ну</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>en</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ен</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>tijd</text></lyric><lyric number="2"><syllabic>end</syllabic><text>тейд</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>en</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ен</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>eeu</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>еу</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>wen</text></lyric><lyric number="2"><syllabic>end</syllabic><text>вен</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>eeuw</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>еув</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>en,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ен,</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>a</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>а</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>men</text></lyric><lyric number="2"><syllabic>end</syllabic><text>мен</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="10">
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Heer,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хер,</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ont</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>онт</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ferm</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ферм</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>U,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>У,</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Heer,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хер,</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ont</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>онт</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ferm</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ферм</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>U,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>У,</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Heer,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хер,</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ont</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>онт</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>ferm</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ферм</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>U</text></lyric><lyric number="2"><syllabic>single</syllabic><text>У</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="11">
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Va</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Ва</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>der</text></lyric><lyric number="2"><syllabic>end</syllabic><text>дер</text></lyric>
-</note>
-<note>
-<pitch><step>D</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ze</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>зе</text><extend /></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>gen</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хен</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="12">
-<note><rest /><duration>16</duration><type>whole</type><lyric number="1"><syllabic>single</syllabic><text>[PAUZE]</text></lyric></note>
-<barline location="right"><bar-style>light-light</bar-style></barline>
-</measure>
-<measure number="13">
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>A</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>А</text><extend /></lyric>
-</note>
-<note>
-<pitch><step>D</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>men</text></lyric><lyric number="2"><syllabic>end</syllabic><text>мен</text></lyric>
-</note>
-<barline location="right"><bar-style>light-heavy</bar-style></barline>
-</measure>
-</part>
-<part id="P4">
-<measure number="1">
-<attributes>
-<divisions>4</divisions>
-<key><fifths>-1</fifths></key>
-<time><senza-misura /></time>
-<clef><sign>F</sign><line>4</line></clef>
-</attributes>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>A</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>А</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>men</text></lyric><lyric number="2"><syllabic>end</syllabic><text>мен</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="2">
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>De</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Де</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Naam</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Нам</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>des</text></lyric><lyric number="2"><syllabic>single</syllabic><text>дес</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>He</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хе</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ren</text></lyric><lyric number="2"><syllabic>end</syllabic><text>рен</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>zij</text></lyric><lyric number="2"><syllabic>single</syllabic><text>зей</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>хе</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>ze</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>зе</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>gend</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хенд</text></lyric>
-</note>
-<barline location="left"><bar-style>heavy-light</bar-style><repeat direction="forward" /></barline>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="3">
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>van</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ван</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>nu</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ну</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>af</text></lyric><lyric number="2"><syllabic>single</syllabic><text>аф</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>tot</text></lyric><lyric number="2"><syllabic>single</syllabic><text>тот</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>eeu</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>еу</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>wig</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>вих</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>heid</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хейд</text></lyric>
-</note>
-<barline location="right"><bar-style>light-heavy</bar-style><repeat direction="backward" /></barline>
-</measure>
-<measure number="4">
+<backup><duration>52</duration></backup>
 <note>
 <pitch><step>D</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>De</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Де</text></lyric>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>D</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Naam</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Нам</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>des</text></lyric><lyric number="2"><syllabic>single</syllabic><text>дес</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>He</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хе</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ren</text></lyric><lyric number="2"><syllabic>end</syllabic><text>рен</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>zij</text></lyric><lyric number="2"><syllabic>single</syllabic><text>зей</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>хе</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>ze</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>зе</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>gend</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хенд</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="5">
-<note>
-<pitch><step>D</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>van</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ван</text></lyric>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>D</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>nu</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ну</text></lyric>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>D</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>af</text></lyric><lyric number="2"><syllabic>single</syllabic><text>аф</text></lyric>
-</note>
-<note>
-<pitch><step>D</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>tot</text></lyric><lyric number="2"><syllabic>single</syllabic><text>тот</text></lyric>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>G</step><octave>2</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>3</octave></pitch>
 <duration>8</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>eeu</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>еу</text></lyric>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>3</octave></pitch>
 <duration>8</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>wig</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>вих</text></lyric>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>F</step><octave>2</octave></pitch>
 <duration>16</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>heid</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хейд</text></lyric>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
 <measure number="6">
 <note>
-<pitch><step>C</step><octave>3</octave></pitch>
+<pitch><step>F</step><octave>3</octave></pitch>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>begin</syllabic><text>A</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>А</text></lyric>
+<stem>up</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>16</duration>
+<voice>1</voice>
+<type>whole</type>
+<stem>up</stem>
+</note>
+<backup><duration>32</duration></backup>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>3</octave></pitch>
 <duration>16</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>men</text></lyric><lyric number="2"><syllabic>end</syllabic><text>мен</text></lyric>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>light-light</bar-style></barline>
 </measure>
-<measure number="7">
-<note><rest /><duration>16</duration><type>whole</type><lyric number="1"><syllabic>single</syllabic><text>[PAUZE]</text></lyric></note>
-<barline location="right"><bar-style>light-light</bar-style></barline>
-</measure>
-<measure number="8">
+<measure number="7" width="140">
 <note>
-<pitch><step>F</step><octave>3</octave></pitch>
+<pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Eer</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Ер</text></lyric>
+<stem>up</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>breve</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>up</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>1</voice>
+<type>half</type>
+<stem>up</stem>
+</note>
+<backup><duration>56</duration></backup>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>aan</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ан</text></lyric>
+<stem>none</stem>
+<notehead>breve</notehead>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Va</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Ва</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>der,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>дер,</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Zoon</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Зон</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>en</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ен</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Hei</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хей</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>li</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ли</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хе</text></lyric>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<barline location="right"><bar-style>regular</bar-style></barline>
+</measure>
+<measure number="8">
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>up</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>breve</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>up</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>up</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>Geest</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хест</text></lyric>
+<stem>up</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>1</voice>
+<type>half</type>
+<stem>up</stem>
+</note>
+<backup><duration>64</duration></backup>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>breve</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
 <measure number="9">
 <note>
-<pitch><step>F</step><octave>3</octave></pitch>
+<pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Nu</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Ну</text></lyric>
+<stem>up</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>breve</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>none</stem>
+<notehead>none</notehead>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>up</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
+<stem>up</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>1</voice>
+<type>half</type>
+<stem>up</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>1</voice>
+<type>half</type>
+<stem>up</stem>
+</note>
+<backup><duration>56</duration></backup>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>en</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ен</text></lyric>
+<stem>none</stem>
+<notehead>breve</notehead>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>tijd</text></lyric><lyric number="2"><syllabic>end</syllabic><text>тейд</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>en</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ен</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>eeu</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>еу</text></lyric>
+<stem>none</stem>
+<notehead>none</notehead>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>wen</text></lyric><lyric number="2"><syllabic>end</syllabic><text>вен</text></lyric>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>eeuw</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>еув</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>en,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ен,</text></lyric>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>8</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>a</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>а</text></lyric>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>8</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>men</text></lyric><lyric number="2"><syllabic>end</syllabic><text>мен</text></lyric>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
 <measure number="10">
 <note>
-<pitch><step>F</step><octave>3</octave></pitch>
+<pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Heer,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хер,</text></lyric>
+<stem>up</stem>
 </note>
 <note>
-<pitch><step>F</step><octave>3</octave></pitch>
+<pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ont</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>онт</text></lyric>
+<stem>up</stem>
 </note>
 <note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ferm</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ферм</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>U,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>У,</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Heer,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хер,</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ont</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>онт</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ferm</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ферм</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>U,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>У,</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>Heer,</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хер,</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ont</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>онт</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
+<pitch><step>D</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>ferm</text></lyric><lyric number="2"><syllabic>end</syllabic><text>ферм</text></lyric>
+<stem>up</stem>
+<notations>
+<slur type="start" number="1" placement="above"/>
+</notations>
 </note>
 <note>
-<pitch><step>F</step><octave>3</octave></pitch>
+<pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>U</text></lyric><lyric number="2"><syllabic>single</syllabic><text>У</text></lyric>
+<stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
 </note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="11">
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>1</voice>
+<type>whole</type>
+<stem>up</stem>
+</note>
+<backup><duration>40</duration></backup>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Va</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Ва</text></lyric>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>der</text></lyric><lyric number="2"><syllabic>end</syllabic><text>дер</text></lyric>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>B</step><alter>-1</alter><octave>2</octave></pitch>
 <duration>8</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>ze</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>зе</text><extend /></lyric>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
 </note>
 <note>
 <pitch><step>C</step><octave>3</octave></pitch>
 <duration>8</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>half</type>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>16</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>gen</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хен</text></lyric>
+<stem>down</stem>
 </note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="12">
-<note><rest /><duration>16</duration><type>whole</type><lyric number="1"><syllabic>single</syllabic><text>[PAUZE]</text></lyric></note>
 <barline location="right"><bar-style>light-light</bar-style></barline>
 </measure>
-<measure number="13">
+<measure number="11" width="126">
 <note>
-<pitch><step>F</step><octave>3</octave></pitch>
+<pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>A</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>А</text><extend /></lyric>
+<stem>up</stem>
+<notations>
+<slur type="start" number="1" placement="above"/>
+</notations>
+</note>
+<note>
+<pitch><step>D</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>1</voice>
+<type>half</type>
+<stem>up</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>1</voice>
+<type>half</type>
+<stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>1</voice>
+<type>whole</type>
+<stem>up</stem>
+</note>
+<backup><duration>40</duration></backup>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
 </note>
 <note>
 <pitch><step>B</step><alter>-1</alter><octave>2</octave></pitch>
 <duration>8</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>half</type>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>3</octave></pitch>
 <duration>8</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>half</type>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>16</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>men</text></lyric><lyric number="2"><syllabic>end</syllabic><text>мен</text></lyric>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>light-heavy</bar-style></barline>
 </measure>

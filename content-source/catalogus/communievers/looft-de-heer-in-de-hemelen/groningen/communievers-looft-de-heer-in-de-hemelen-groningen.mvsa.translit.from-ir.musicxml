@@ -1,95 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 3.1 Partwise//EN"
+  "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise version="3.1">
 <work><work-title>Communievers (25)</work-title></work>
 <identification>
 <creator type="composer">Traditioneel</creator>
 <rights>CC BY-SA 4.0
 Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
-<miscellaneous><miscellaneous-field name="bron">koormap Groningen</miscellaneous-field></miscellaneous></identification>
+<source>koormap Groningen</source>
+</identification>
 <part-list>
+<part-group type="start" number="1"><group-symbol>bracket</group-symbol></part-group>
 <score-part id="P1">
-<part-name>Soprano</part-name>
-<part-abbreviation>S</part-abbreviation>
-<score-instrument id="P1-I1">
-<instrument-name />
-<instrument-sound>keyboard.piano.grand</instrument-sound>
-</score-instrument>
-<midi-device id="P1-I1" port="1" />
-<midi-instrument id="P1-I1">
-<midi-channel>1</midi-channel>
-<midi-program>1</midi-program>
-<volume>78.7402</volume>
-<pan>0</pan>
-</midi-instrument>
+<part-name></part-name>
+<part-abbreviation></part-abbreviation>
 </score-part>
 <score-part id="P2">
-<part-name>Alto</part-name>
-<part-abbreviation>A</part-abbreviation>
-<score-instrument id="P2-I1">
-<instrument-name />
-<instrument-sound>keyboard.piano.grand</instrument-sound>
-</score-instrument>
-<midi-device id="P2-I1" port="1" />
-<midi-instrument id="P2-I1">
-<midi-channel>2</midi-channel>
-<midi-program>1</midi-program>
-<volume>78.7402</volume>
-<pan>0</pan>
-</midi-instrument>
+<part-name></part-name>
+<part-abbreviation></part-abbreviation>
 </score-part>
-<score-part id="P3">
-<part-name>Tenor</part-name>
-<part-abbreviation>T</part-abbreviation>
-<score-instrument id="P3-I1">
-<instrument-name />
-<instrument-sound>keyboard.piano.grand</instrument-sound>
-</score-instrument>
-<midi-device id="P3-I1" port="1" />
-<midi-instrument id="P3-I1">
-<midi-channel>3</midi-channel>
-<midi-program>1</midi-program>
-<volume>78.7402</volume>
-<pan>0</pan>
-</midi-instrument>
-</score-part>
-<score-part id="P4">
-<part-name>Bass</part-name>
-<part-abbreviation>B</part-abbreviation>
-<score-instrument id="P4-I1">
-<instrument-name />
-<instrument-sound>keyboard.piano.grand</instrument-sound>
-</score-instrument>
-<midi-device id="P4-I1" port="1" />
-<midi-instrument id="P4-I1">
-<midi-channel>4</midi-channel>
-<midi-program>1</midi-program>
-<volume>78.7402</volume>
-<pan>0</pan>
-</midi-instrument>
-</score-part>
+<part-group type="stop" number="1"/>
 </part-list>
 <part id="P1">
 <measure number="1">
 <attributes>
 <divisions>4</divisions>
 <key><fifths>-1</fifths></key>
-<time><senza-misura /></time>
+<time><senza-misura/></time>
 <clef><sign>G</sign><line>2</line></clef>
 </attributes>
-<direction placement="above">
+<direction placement="above" print-object="no">
 <direction-type>
 <metronome parentheses="no">
 <beat-unit>quarter</beat-unit>
 <per-minute>180</per-minute>
 </metronome>
 </direction-type>
-<sound tempo="180" />
+<sound tempo="180"/>
 </direction>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>12</duration>
 <voice>1</voice>
-<type>half</type><dot />
+<type>half</type><dot/>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>Looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Лофт</text></lyric>
 </note>
 <note>
@@ -97,6 +51,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
 </note>
 <note>
@@ -104,49 +59,63 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Heer</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хер</text><extend /></lyric>
+<stem>up</stem>
+<lyric number="1"><syllabic>begin</syllabic><text>Heer</text><extend/></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хер</text><extend/></lyric>
+<notations>
+<slur type="start" number="1" placement="above"/>
+</notations>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>12</duration>
 <voice>1</voice>
-<type>half</type><dot />
+<type>half</type><dot/>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>F</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>B</step><alter>-1</alter><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
 </note>
 <note>
@@ -154,13 +123,15 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
 </note>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
 <duration>12</duration>
 <voice>1</voice>
-<type>half</type><dot />
+<type>half</type><dot/>
+<stem>up</stem>
 <lyric number="1"><syllabic>begin</syllabic><text>He</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хе</text></lyric>
 </note>
 <note>
@@ -168,6 +139,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>me</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ме</text></lyric>
 </note>
 <note>
@@ -175,7 +147,118 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>len</text></lyric><lyric number="2"><syllabic>end</syllabic><text>лен</text></lyric>
+</note>
+<backup><duration>104</duration></backup>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>12</duration>
+<voice>2</voice>
+<type>half</type><dot/>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>16</duration>
+<tie type="start"/>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
+<notations>
+<tied type="start"/>
+</notations>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<tie type="stop"/>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+<notations>
+<tied type="stop"/>
+</notations>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>12</duration>
+<voice>2</voice>
+<type>half</type><dot/>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -184,7 +267,8 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <pitch><step>G</step><octave>4</octave></pitch>
 <duration>12</duration>
 <voice>1</voice>
-<type>half</type><dot />
+<type>half</type><dot/>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>Looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Лофт</text></lyric>
 </note>
 <note>
@@ -192,6 +276,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
 </note>
 <note>
@@ -199,31 +284,53 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Heer</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хер</text><extend /></lyric>
+<stem>up</stem>
+<lyric number="1"><syllabic>begin</syllabic><text>Heer</text><extend/></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хер</text><extend/></lyric>
+<notations>
+<slur type="start" number="1" placement="above"/>
+</notations>
 </note>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
 <duration>16</duration>
+<tie type="start"/>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
+<notations>
+<tied type="start"/>
+</notations>
 </note>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
 <duration>16</duration>
+<tie type="start"/>
+<tie type="stop"/>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
+<notations>
+<tied type="start"/>
+<tied type="stop"/>
+</notations>
 </note>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
 <duration>8</duration>
+<tie type="stop"/>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
+<notations>
+<tied type="stop"/>
+</notations>
 </note>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
 </note>
 <note>
@@ -231,13 +338,15 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
 </note>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
 <duration>12</duration>
 <voice>1</voice>
-<type>half</type><dot />
+<type>half</type><dot/>
+<stem>up</stem>
 <lyric number="1"><syllabic>begin</syllabic><text>He</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хе</text></lyric>
 </note>
 <note>
@@ -245,6 +354,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>me</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ме</text></lyric>
 </note>
 <note>
@@ -252,7 +362,120 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>len</text></lyric><lyric number="2"><syllabic>end</syllabic><text>лен</text></lyric>
+</note>
+<backup><duration>104</duration></backup>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>12</duration>
+<voice>2</voice>
+<type>half</type><dot/>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
+</note>
+<note>
+<pitch><step>G</step><octave>4</octave></pitch>
+<duration>12</duration>
+<voice>2</voice>
+<type>half</type><dot/>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>G</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>12</duration>
+<voice>2</voice>
+<type>half</type><dot/>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -262,6 +485,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>лофт</text></lyric>
 </note>
 <note>
@@ -269,6 +493,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>Hem</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хем</text></lyric>
 </note>
 <note>
@@ -276,6 +501,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
 </note>
 <note>
@@ -283,6 +509,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
 </note>
 <note>
@@ -290,6 +517,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>begin</syllabic><text>Ho</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хо</text></lyric>
 </note>
 <note>
@@ -297,7 +525,51 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хе</text></lyric>
+</note>
+<backup><duration>56</duration></backup>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>G</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -307,6 +579,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>лофт</text></lyric>
 </note>
 <note>
@@ -314,6 +587,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>Hem</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хем</text></lyric>
 </note>
 <note>
@@ -321,6 +595,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
 </note>
 <note>
@@ -328,6 +603,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
 </note>
 <note>
@@ -335,6 +611,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>begin</syllabic><text>Ho</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хо</text></lyric>
 </note>
 <note>
@@ -342,7 +619,51 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хе</text></lyric>
+</note>
+<backup><duration>40</duration></backup>
+<note>
+<pitch><step>F</step><alter>1</alter><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type><accidental>sharp</accidental>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><alter>1</alter><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>D</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type><accidental>natural</accidental>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -352,6 +673,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>лофт</text></lyric>
 </note>
 <note>
@@ -359,6 +681,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>Hem</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хем</text></lyric>
 </note>
 <note>
@@ -366,6 +689,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
 </note>
 <note>
@@ -373,6 +697,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
 </note>
 <note>
@@ -380,6 +705,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>begin</syllabic><text>Ho</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хо</text></lyric>
 </note>
 <note>
@@ -387,17 +713,62 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хе</text></lyric>
+</note>
+<backup><duration>56</duration></backup>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
 <measure number="6">
-<print new-system="yes" />
+<print new-system="yes"/>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>begin</syllabic><text>Al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Ал</text></lyric>
 </note>
 <note>
@@ -405,6 +776,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
 </note>
 <note>
@@ -412,6 +784,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
 </note>
 <note>
@@ -419,7 +792,37 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
+</note>
+<backup><duration>32</duration></backup>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -428,26 +831,36 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>12</duration>
 <voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
+<type>half</type><dot/>
+<stem>up</stem>
+<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend/></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend/></lyric>
+<notations>
+<slur type="start" number="1" placement="above"/>
+</notations>
 </note>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>F</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
 </note>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
 </note>
 <note>
@@ -455,6 +868,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
 </note>
 <note>
@@ -462,7 +876,57 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
+</note>
+<backup><duration>32</duration></backup>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>12</duration>
+<voice>2</voice>
+<type>half</type><dot/>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -472,19 +936,28 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
+<stem>up</stem>
+<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend/></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend/></lyric>
+<notations>
+<slur type="start" number="1" placement="above"/>
+</notations>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
 </note>
 <note>
@@ -492,6 +965,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
 </note>
 <note>
@@ -499,7 +973,50 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
+</note>
+<backup><duration>48</duration></backup>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -509,6 +1026,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>begin</syllabic><text>Al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Ал</text></lyric>
 </note>
 <note>
@@ -516,6 +1034,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
 </note>
 <note>
@@ -523,6 +1042,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
 </note>
 <note>
@@ -530,7 +1050,37 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
+</note>
+<backup><duration>32</duration></backup>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -538,21 +1088,32 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
 <duration>16</duration>
+<tie type="start"/>
 <voice>1</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
+<stem>up</stem>
+<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend/></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend/></lyric>
+<notations>
+<tied type="start"/>
+</notations>
+</note>
+<note>
+<pitch><step>G</step><octave>4</octave></pitch>
+<duration>4</duration>
+<tie type="stop"/>
+<voice>1</voice>
+<type>quarter</type>
+<stem>up</stem>
+<notations>
+<tied type="stop"/>
+</notations>
 </note>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-</note>
-<note>
-<pitch><step>G</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
 </note>
 <note>
@@ -560,6 +1121,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
 </note>
 <note>
@@ -567,23 +1129,90 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
+</note>
+<backup><duration>32</duration></backup>
+<note>
+<pitch><step>G</step><octave>4</octave></pitch>
+<duration>12</duration>
+<voice>2</voice>
+<type>half</type><dot/>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>G</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
 <measure number="11">
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
-<duration>12</duration>
+<duration>8</duration>
+<tie type="start"/>
 <voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>single</syllabic><text>al</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ал</text></lyric>
+<type>half</type>
+<stem>up</stem>
+<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend/></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend/></lyric>
+<notations>
+<tied type="start"/>
+</notations>
+</note>
+<note>
+<pitch><step>G</step><octave>4</octave></pitch>
+<duration>4</duration>
+<tie type="stop"/>
+<voice>1</voice>
+<type>quarter</type>
+<stem>up</stem>
+<notations>
+<tied type="stop"/>
+</notations>
 </note>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
 </note>
 <note>
@@ -591,6 +1220,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
 </note>
 <note>
@@ -598,7 +1228,52 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
+</note>
+<backup><duration>48</duration></backup>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>8</duration>
+<tie type="start"/>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+<notations>
+<tied type="start"/>
+</notations>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<tie type="stop"/>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+<notations>
+<tied type="stop"/>
+</notations>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -608,25 +1283,35 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
+<stem>up</stem>
+<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend/></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend/></lyric>
+<notations>
+<slur type="start" number="1" placement="above"/>
+</notations>
 </note>
 <note>
 <pitch><step>B</step><alter>-1</alter><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
 </note>
 <note>
@@ -634,6 +1319,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
 </note>
 <note>
@@ -641,7 +1327,57 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
+</note>
+<backup><duration>56</duration></backup>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
+</note>
+<note>
+<pitch><step>G</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -651,6 +1387,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>begin</syllabic><text>al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text></lyric>
 </note>
 <note>
@@ -658,6 +1395,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
 </note>
 <note>
@@ -665,6 +1403,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
 </note>
 <note>
@@ -672,6 +1411,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
 </note>
 <note>
@@ -679,19 +1419,28 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
+<stem>up</stem>
+<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend/></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend/></lyric>
+<notations>
+<slur type="start" number="1" placement="above"/>
+</notations>
 </note>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
 </note>
 <note>
 <pitch><step>B</step><alter>-1</alter><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
 </note>
 <note>
@@ -699,6 +1448,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
 </note>
 <note>
@@ -706,7 +1456,78 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
+</note>
+<backup><duration>48</duration></backup>
+<note>
+<pitch><step>F</step><alter>1</alter><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type><accidental>sharp</accidental>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><alter>1</alter><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><alter>1</alter><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><alter>1</alter><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>D</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type><accidental>natural</accidental>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -716,6 +1537,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>begin</syllabic><text>al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text></lyric>
 </note>
 <note>
@@ -723,6 +1545,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
 </note>
 <note>
@@ -730,6 +1553,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
 </note>
 <note>
@@ -737,6 +1561,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
 </note>
 <note>
@@ -744,6 +1569,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>begin</syllabic><text>al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text></lyric>
 </note>
 <note>
@@ -751,6 +1577,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
 </note>
 <note>
@@ -758,6 +1585,7 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
 </note>
 <note>
@@ -765,7 +1593,65 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>ja</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа</text></lyric>
+</note>
+<backup><duration>56</duration></backup>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>light-heavy</bar-style></barline>
 </measure>
@@ -775,812 +1661,215 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <attributes>
 <divisions>4</divisions>
 <key><fifths>-1</fifths></key>
-<time><senza-misura /></time>
-<clef><sign>G</sign><line>2</line></clef>
-</attributes>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>12</duration>
-<voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>single</syllabic><text>Looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Лофт</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Heer</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хер</text><extend /></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>12</duration>
-<voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>begin</syllabic><text>He</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хе</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>me</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ме</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>len</text></lyric><lyric number="2"><syllabic>end</syllabic><text>лен</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="2">
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>12</duration>
-<voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>single</syllabic><text>Looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Лофт</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Heer</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хер</text><extend /></lyric>
-</note>
-<note>
-<pitch><step>G</step><octave>4</octave></pitch>
-<duration>12</duration>
-<voice>1</voice>
-<type>half</type><dot />
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>G</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>12</duration>
-<voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>begin</syllabic><text>He</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хе</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>me</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ме</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>len</text></lyric><lyric number="2"><syllabic>end</syllabic><text>лен</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="3">
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>лофт</text></lyric>
-</note>
-<note>
-<pitch><step>G</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>Hem</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хем</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Ho</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хо</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хе</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="4">
-<note>
-<pitch><step>F</step><alter>1</alter><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type><accidental>sharp</accidental><lyric number="1"><syllabic>single</syllabic><text>looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>лофт</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><alter>1</alter><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>Hem</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хем</text></lyric>
-</note>
-<note>
-<pitch><step>D</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type><accidental>natural</accidental><lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Ho</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хо</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хе</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="5">
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>лофт</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>Hem</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хем</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Ho</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хо</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хе</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="6">
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Ал</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="7">
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>12</duration>
-<voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="8">
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="9">
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Ал</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="10">
-<note>
-<pitch><step>G</step><octave>4</octave></pitch>
-<duration>12</duration>
-<voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>G</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="11">
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>12</duration>
-<voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>single</syllabic><text>al</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ал</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="12">
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
-</note>
-<note>
-<pitch><step>G</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="13">
-<note>
-<pitch><step>F</step><alter>1</alter><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type><accidental>sharp</accidental><lyric number="1"><syllabic>begin</syllabic><text>al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><alter>1</alter><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><alter>1</alter><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><alter>1</alter><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<note>
-<pitch><step>D</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type><accidental>natural</accidental></note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="14">
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа</text></lyric>
-</note>
-<barline location="right"><bar-style>light-heavy</bar-style></barline>
-</measure>
-</part>
-<part id="P3">
-<measure number="1">
-<attributes>
-<divisions>4</divisions>
-<key><fifths>-1</fifths></key>
-<time><senza-misura /></time>
+<time><senza-misura/></time>
 <clef><sign>F</sign><line>4</line></clef>
 </attributes>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>12</duration>
 <voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>single</syllabic><text>Looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Лофт</text></lyric>
+<type>half</type><dot/>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Heer</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хер</text><extend /></lyric>
+<stem>up</stem>
+<notations>
+<slur type="start" number="1" placement="above"/>
+</notations>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>12</duration>
 <voice>1</voice>
-<type>half</type><dot />
+<type>half</type><dot/>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>B</step><alter>-1</alter><octave>3</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>A</step><octave>3</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>16</duration>
+<tie type="start"/>
 <voice>1</voice>
 <type>whole</type>
+<stem>up</stem>
+<notations>
+<tied type="start"/>
+</notations>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<tie type="stop"/>
+<voice>1</voice>
+<type>quarter</type>
+<stem>up</stem>
+<notations>
+<tied type="stop"/>
+</notations>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>12</duration>
 <voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>begin</syllabic><text>He</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хе</text></lyric>
+<type>half</type><dot/>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>me</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ме</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>len</text></lyric><lyric number="2"><syllabic>end</syllabic><text>лен</text></lyric>
+<stem>up</stem>
+</note>
+<backup><duration>104</duration></backup>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>12</duration>
+<voice>2</voice>
+<type>half</type><dot/>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>B</step><alter>-1</alter><octave>2</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>12</duration>
+<voice>2</voice>
+<type>half</type><dot/>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>D</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>G</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>12</duration>
+<voice>2</voice>
+<type>half</type><dot/>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -1589,92 +1878,222 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>12</duration>
 <voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>single</syllabic><text>Looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Лофт</text></lyric>
+<type>half</type><dot/>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>16</duration>
+<tie type="start"/>
 <voice>1</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Heer</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хер</text><extend /></lyric>
+<stem>up</stem>
+<notations>
+<tied type="start"/>
+</notations>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<tie type="stop"/>
+<voice>1</voice>
+<type>quarter</type>
+<stem>up</stem>
+<notations>
+<tied type="stop"/>
+</notations>
+</note>
+<note>
+<pitch><step>B</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type><accidental>natural</accidental>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-</note>
-<note>
-<pitch><step>B</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type><accidental>natural</accidental></note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>B</step><octave>3</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>B</step><octave>3</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
+<stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>B</step><octave>3</octave></pitch>
 <duration>12</duration>
 <voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>begin</syllabic><text>He</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хе</text></lyric>
+<type>half</type><dot/>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>B</step><octave>3</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>me</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ме</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>len</text></lyric><lyric number="2"><syllabic>end</syllabic><text>лен</text></lyric>
+<stem>up</stem>
+</note>
+<backup><duration>104</duration></backup>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>12</duration>
+<voice>2</voice>
+<type>half</type><dot/>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
+</note>
+<note>
+<pitch><step>E</step><octave>3</octave></pitch>
+<duration>12</duration>
+<voice>2</voice>
+<type>half</type><dot/>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>D</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>D</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>D</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>G</step><octave>3</octave></pitch>
+<duration>12</duration>
+<voice>2</voice>
+<type>half</type><dot/>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>G</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -1684,42 +2103,85 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>лофт</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>Hem</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хем</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Ho</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хо</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хе</text></lyric>
+<stem>up</stem>
+</note>
+<backup><duration>56</duration></backup>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -1729,42 +2191,98 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>лофт</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>Hem</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хем</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>B</step><alter>-1</alter><octave>3</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Ho</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хо</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хе</text></lyric>
+<stem>up</stem>
+</note>
+<backup><duration>40</duration></backup>
+<note>
+<pitch><step>D</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>D</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>G</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>B</step><alter>-1</alter><octave>2</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>B</step><alter>-1</alter><octave>2</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
+</note>
+<note>
+<pitch><step>D</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -1774,42 +2292,85 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>лофт</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>Hem</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хем</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Ho</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хо</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хе</text></lyric>
+<stem>up</stem>
+</note>
+<backup><duration>56</duration></backup>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>G</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -1819,28 +2380,57 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Ал</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
+<stem>up</stem>
+</note>
+<backup><duration>32</duration></backup>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>B</step><alter>-1</alter><octave>2</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -1849,72 +2439,186 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>12</duration>
 <voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
+<type>half</type><dot/>
+<stem>up</stem>
+<notations>
+<slur type="start" number="1" placement="above"/>
+</notations>
 </note>
 <note>
 <pitch><step>B</step><alter>-1</alter><octave>3</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>A</step><octave>3</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
+<stem>up</stem>
+</note>
+<backup><duration>32</duration></backup>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>12</duration>
+<voice>2</voice>
+<type>half</type><dot/>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>D</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
 <measure number="8">
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
-<duration>12</duration>
+<duration>8</duration>
+<tie type="start"/>
 <voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>single</syllabic><text>al</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ал</text></lyric>
+<type>half</type>
+<stem>up</stem>
+<notations>
+<tied type="start"/>
+</notations>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<tie type="stop"/>
+<voice>1</voice>
+<type>quarter</type>
+<stem>up</stem>
+<notations>
+<tied type="stop"/>
+</notations>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
+<stem>up</stem>
+</note>
+<backup><duration>48</duration></backup>
+<note>
+<pitch><step>E</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -1924,28 +2628,57 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Ал</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
+<stem>up</stem>
+</note>
+<backup><duration>32</duration></backup>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -1954,40 +2687,98 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>12</duration>
 <voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
+<type>half</type><dot/>
+<stem>up</stem>
+<notations>
+<slur type="start" number="1" placement="above"/>
+</notations>
 </note>
 <note>
 <pitch><step>B</step><octave>3</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
-<type>quarter</type><accidental>natural</accidental></note>
+<type>quarter</type><accidental>natural</accidental>
+<stem>up</stem>
+</note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
 </note>
 <note>
 <pitch><step>B</step><octave>3</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
+<stem>up</stem>
+</note>
+<backup><duration>32</duration></backup>
+<note>
+<pitch><step>E</step><octave>3</octave></pitch>
+<duration>12</duration>
+<voice>2</voice>
+<type>half</type><dot/>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
+</note>
+<note>
+<pitch><step>D</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
+</note>
+<note>
+<pitch><step>D</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -1996,34 +2787,84 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <pitch><step>B</step><octave>3</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
-<type>half</type><accidental>natural</accidental><lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
+<type>half</type><accidental>natural</accidental>
+<stem>up</stem>
+<notations>
+<slur type="start" number="1" placement="above"/>
+</notations>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>B</step><octave>3</octave></pitch>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
+<stem>up</stem>
+</note>
+<backup><duration>48</duration></backup>
+<note>
+<pitch><step>D</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
+</note>
+<note>
+<pitch><step>E</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>G</step><octave>3</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>3</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -2031,36 +2872,94 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>16</duration>
+<tie type="start"/>
 <voice>1</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
+<stem>up</stem>
+<notations>
+<tied type="start"/>
+</notations>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>4</duration>
+<tie type="stop"/>
+<voice>1</voice>
+<type>quarter</type>
+<stem>up</stem>
+<notations>
+<tied type="stop"/>
+</notations>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>1</voice>
+<type>whole</type>
+<stem>up</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>16</duration>
+<voice>1</voice>
+<type>whole</type>
+<stem>up</stem>
+</note>
+<backup><duration>56</duration></backup>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
+</note>
+<note>
+<pitch><step>E</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
 </note>
 <note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
 </note>
 <note>
-<pitch><step>C</step><octave>4</octave></pitch>
+<pitch><step>C</step><octave>3</octave></pitch>
 <duration>16</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>16</duration>
+<voice>2</voice>
+<type>whole</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -2070,62 +2969,139 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>B</step><alter>-1</alter><octave>3</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
+<stem>up</stem>
+<notations>
+<slur type="start" number="1" placement="above"/>
+</notations>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
+<stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
 <duration>8</duration>
 <voice>1</voice>
 <type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
+<stem>up</stem>
+</note>
+<backup><duration>48</duration></backup>
+<note>
+<pitch><step>D</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>D</step><octave>3</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>D</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>D</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>G</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
+</note>
+<note>
+<pitch><step>F</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
+</note>
+<note>
+<pitch><step>B</step><alter>-1</alter><octave>2</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>B</step><alter>-1</alter><octave>2</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>D</step><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
@@ -2135,790 +3111,113 @@ Bibliotheek-id: communievers/looft-de-heer-in-de-hemelen/groningen</rights>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
 <voice>1</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
+<stem>up</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>16</duration>
 <voice>1</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа</text></lyric>
+<stem>up</stem>
 </note>
-<barline location="right"><bar-style>light-heavy</bar-style></barline>
-</measure>
-</part>
-<part id="P4">
-<measure number="1">
-<attributes>
-<divisions>4</divisions>
-<key><fifths>-1</fifths></key>
-<time><senza-misura /></time>
-<clef><sign>F</sign><line>4</line></clef>
-</attributes>
+<backup><duration>56</duration></backup>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
-<duration>12</duration>
-<voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>single</syllabic><text>Looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Лофт</text></lyric>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>B</step><alter>-1</alter><octave>2</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Heer</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хер</text><extend /></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>12</duration>
-<voice>1</voice>
-<type>half</type><dot />
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>D</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-</note>
-<note>
-<pitch><step>G</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>12</duration>
-<voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>begin</syllabic><text>He</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хе</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>me</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ме</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>len</text></lyric><lyric number="2"><syllabic>end</syllabic><text>лен</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="2">
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>12</duration>
-<voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>single</syllabic><text>Looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Лофт</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Heer</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хер</text><extend /></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>3</octave></pitch>
-<duration>12</duration>
-<voice>1</voice>
-<type>half</type><dot />
-</note>
-<note>
-<pitch><step>D</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>D</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>E</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>D</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>G</step><octave>3</octave></pitch>
-<duration>12</duration>
-<voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>begin</syllabic><text>He</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хе</text></lyric>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>G</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>me</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ме</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>len</text></lyric><lyric number="2"><syllabic>end</syllabic><text>лен</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="3">
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>лофт</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>Hem</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хем</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Ho</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хо</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хе</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="4">
-<note>
-<pitch><step>D</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>лофт</text></lyric>
-</note>
-<note>
-<pitch><step>D</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>Hem</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хем</text></lyric>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>G</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
-</note>
-<note>
-<pitch><step>B</step><alter>-1</alter><octave>2</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Ho</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хо</text></lyric>
-</note>
-<note>
-<pitch><step>B</step><alter>-1</alter><octave>2</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ge</text><extend /></lyric><lyric number="2"><syllabic>end</syllabic><text>хе</text><extend /></lyric>
-</note>
-<note>
-<pitch><step>D</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="5">
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>looft</text></lyric><lyric number="2"><syllabic>single</syllabic><text>лофт</text></lyric>
-</note>
-<note>
-<pitch><step>G</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>single</syllabic><text>Hem</text></lyric><lyric number="2"><syllabic>single</syllabic><text>Хем</text></lyric>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>4</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>in</text></lyric><lyric number="2"><syllabic>single</syllabic><text>ин</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>single</syllabic><text>de</text></lyric><lyric number="2"><syllabic>single</syllabic><text>де</text></lyric>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>C</step><octave>3</octave></pitch>
 <duration>16</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Ho</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Хо</text></lyric>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>16</duration>
-<voice>1</voice>
+<voice>2</voice>
 <type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>ge</text></lyric><lyric number="2"><syllabic>end</syllabic><text>хе</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="6">
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Ал</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>B</step><alter>-1</alter><octave>2</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="7">
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>12</duration>
-<voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>D</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="8">
-<note>
-<pitch><step>E</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="9">
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>Al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>Ал</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="10">
-<note>
-<pitch><step>E</step><octave>3</octave></pitch>
-<duration>12</duration>
-<voice>1</voice>
-<type>half</type><dot />
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
-</note>
-<note>
-<pitch><step>D</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>D</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="11">
-<note>
-<pitch><step>D</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>E</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>G</step><octave>3</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="12">
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
-</note>
-<note>
-<pitch><step>E</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="13">
-<note>
-<pitch><step>D</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text></lyric>
-</note>
-<note>
-<pitch><step>D</step><octave>3</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>D</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>D</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<note>
-<pitch><step>G</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text><extend /></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text><extend /></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-</note>
-<note>
-<pitch><step>B</step><alter>-1</alter><octave>2</octave></pitch>
-<duration>8</duration>
-<voice>1</voice>
-<type>half</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>B</step><alter>-1</alter><octave>2</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>D</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<barline location="right"><bar-style>regular</bar-style></barline>
-</measure>
-<measure number="14">
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>G</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>G</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja,</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа,</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>begin</syllabic><text>al</text></lyric><lyric number="2"><syllabic>begin</syllabic><text>ал</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>4</duration>
-<voice>1</voice>
-<type>quarter</type>
-<lyric number="1"><syllabic>middle</syllabic><text>le</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>ле</text></lyric>
-</note>
-<note>
-<pitch><step>C</step><octave>3</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>middle</syllabic><text>lu</text></lyric><lyric number="2"><syllabic>middle</syllabic><text>лу</text></lyric>
-</note>
-<note>
-<pitch><step>F</step><octave>3</octave></pitch>
-<duration>16</duration>
-<voice>1</voice>
-<type>whole</type>
-<lyric number="1"><syllabic>end</syllabic><text>ja</text></lyric><lyric number="2"><syllabic>end</syllabic><text>йа</text></lyric>
+<stem>down</stem>
 </note>
 <barline location="right"><bar-style>light-heavy</bar-style></barline>
 </measure>
