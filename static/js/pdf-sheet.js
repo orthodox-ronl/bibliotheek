@@ -103,7 +103,7 @@ async function initSheet(root) {
 }
 
 document.querySelectorAll(".pdf-sheet").forEach(initSheet);
-/* Catalogusblad, score-menu én koormap «Print pagina» (pagina.pdf). */
+/* Catalogusblad / score-menu: print via .pdf-sheet-print (o.a. product-PDF). */
 document.querySelectorAll("a.pdf-sheet-print").forEach((link) => {
   wirePrint(link, link.getAttribute("href") || "");
 });

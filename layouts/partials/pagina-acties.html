@@ -1,8 +1,12 @@
 {{- /*
-  Download / Print van de getoonde bladermap-pagina — in de site-header (nav).
+  Acties in de site-header (nav) op bladermap-pagina’s (catalogus / koormappen):
 
-  Beide knoppen gebruiken index.md.pdf (page resource). Geen browser-HTML-afdruk:
-  dat is hetzelfde als Ctrl+P en overbodig. Zonder blad-PDF: geen knoppen.
+  - Download pagina — alleen als index.md.pdf bestaat (page resource).
+  - Schakelaar Transliteratie — aan/uit (default uit); JS bewaart de stand
+    en zet data-translit op <html> voor latere UV-keuze.
+
+  Geen «Print pagina»: die knop is vervangen door de transliteratie-schakelaar.
+  Geen browser-HTML-afdruk via Ctrl+P als site-actie.
 
   Voorgestelde downloadnaam (HTML download=…; bestand op schijf blijft index.md.pdf):
   1. frontmatter pdf_bestandsnaam
@@ -15,23 +19,40 @@
   {{- range .Resources.Match "index.md.pdf" -}}
     {{- $paginaPdf = .RelPermalink -}}
   {{- end -}}
+  {{- $dlName := "" -}}
   {{- if $paginaPdf -}}
-  {{- $dlBase := "" -}}
-  {{- with .Params.pdf_bestandsnaam -}}
-    {{- $dlBase = . -}}
-  {{- else with .Params.title -}}
-    {{- $dlBase = . -}}
-  {{- else -}}
-    {{- $dlBase = path.Base (strings.TrimSuffix "/" .File.Dir) -}}
+    {{- $dlBase := "" -}}
+    {{- with .Params.pdf_bestandsnaam -}}
+      {{- $dlBase = . -}}
+    {{- else with .Params.title -}}
+      {{- $dlBase = . -}}
+    {{- else -}}
+      {{- $dlBase = path.Base (strings.TrimSuffix "/" .File.Dir) -}}
+    {{- end -}}
+    {{- $dlBase = $dlBase | replaceRE `[\\/:*?"<>|]+` "-" | replaceRE `(?i)\.pdf$` "" | strings.TrimSpace -}}
+    {{- if eq $dlBase "" -}}
+      {{- $dlBase = path.Base (strings.TrimSuffix "/" .File.Dir) -}}
+    {{- end -}}
+    {{- $dlName = printf "%s.pdf" $dlBase -}}
   {{- end -}}
-  {{- $dlBase = $dlBase | replaceRE `[\\/:*?"<>|]+` "-" | replaceRE `(?i)\.pdf$` "" | strings.TrimSpace -}}
-  {{- if eq $dlBase "" -}}
-    {{- $dlBase = path.Base (strings.TrimSuffix "/" .File.Dir) -}}
-  {{- end -}}
-  {{- $dlName := printf "%s.pdf" $dlBase -}}
-  <div class="pagina-acties" role="group" aria-label="Deze pagina downloaden of printen">
+  <div class="pagina-acties" role="group" aria-label="Pagina-acties">
+    {{- if $paginaPdf -}}
     <a class="btn pagina-acties-btn" href="{{ $paginaPdf }}" download="{{ $dlName }}" title="PDF van deze hele pagina opslaan">Download pagina</a>
-    <a class="btn pagina-acties-btn pdf-sheet-print" href="{{ $paginaPdf }}" title="PDF van deze hele pagina afdrukken">Print pagina</a>
+    {{- end -}}
+    <label class="pagina-acties-translit" title="Toon uitvoeringsvormen met of zonder transliteratie">
+      <span class="pagina-acties-translit-label">Transliteratie</span>
+      <input
+        type="checkbox"
+        class="pagina-acties-translit-input"
+        role="switch"
+        data-translit-switch
+        aria-checked="false"
+        aria-label="Transliteratie aan of uit"
+      >
+      <span class="pagina-acties-translit-track" aria-hidden="true">
+        <span class="pagina-acties-translit-thumb"></span>
+      </span>
+      <span class="pagina-acties-translit-state" data-translit-state>uit</span>
+    </label>
   </div>
-  {{- end -}}
 {{- end -}}
