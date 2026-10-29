@@ -55,19 +55,24 @@
 */ -}}
 <div class="score-partituur" data-scherm-root>
 {{- $pdf := "" -}}
-{{- $fromIrMxl := slice -}}
+{{- $fromIrPlain := slice -}}
+{{- $fromIrHulptekst := slice -}}
 {{- $musicSvgs := slice -}}
 {{- $tekstbladBody := "" -}}
 {{- $vsas := slice -}}
 {{- $hasMscz := false -}}
-{{- /* Alle page resources (glob op *.from-ir.musicxml faalt soms bij
-     meervoudige punten in de bestandsnaam). */ -}}
+{{- /* Verzamel from-ir: gewoon vs *.hulptekst.from-ir.musicxml (translit-aan).
+     Glob op *.from-ir.musicxml faalt soms bij meervoudige punten. */ -}}
 {{- range $p.Resources -}}
   {{- $n := lower .Name -}}
   {{- /* Geen ketting-SVG (bijv. *.mvsa.mscz.svg) — dat is product-van-product. */ -}}
   {{- $kettingSvg := or (strings.Contains $n ".mvsa.mscz.") (strings.Contains $n ".vsa.mscz.") (strings.Contains $n ".mscz.mscz.") -}}
   {{- if strings.HasSuffix $n ".from-ir.musicxml" -}}
-    {{- $fromIrMxl = $fromIrMxl | append .RelPermalink -}}
+    {{- if strings.Contains $n ".hulptekst.from-ir.musicxml" -}}
+      {{- $fromIrHulptekst = $fromIrHulptekst | append .RelPermalink -}}
+    {{- else -}}
+      {{- $fromIrPlain = $fromIrPlain | append .RelPermalink -}}
+    {{- end -}}
   {{- else if and (not $kettingSvg) (or (strings.HasSuffix $n ".mvsa.svg") (strings.HasSuffix $n ".vsa.svg") (strings.HasSuffix $n ".mscz.svg")) -}}
     {{- $musicSvgs = $musicSvgs | append .RelPermalink -}}
   {{- else if and (strings.HasSuffix $n ".pdf") (ne $n "index.md.pdf") -}}
@@ -93,8 +98,12 @@
           {{- with $p.Resources.GetMatch .Name -}}
             {{- $url = .RelPermalink -}}
           {{- end -}}
-          {{- if not (in $fromIrMxl $url) -}}
-            {{- $fromIrMxl = $fromIrMxl | append $url -}}
+          {{- if strings.Contains $nameLower ".hulptekst.from-ir.musicxml" -}}
+            {{- if not (in $fromIrHulptekst $url) -}}
+              {{- $fromIrHulptekst = $fromIrHulptekst | append $url -}}
+            {{- end -}}
+          {{- else if not (in $fromIrPlain $url) -}}
+            {{- $fromIrPlain = $fromIrPlain | append $url -}}
           {{- end -}}
         {{- end -}}
         {{- $kettingSvg := or (strings.Contains $nameLower ".mvsa.mscz.") (strings.Contains $nameLower ".vsa.mscz.") (strings.Contains $nameLower ".mscz.mscz.") -}}
@@ -126,22 +135,24 @@
   {{- end -}}
 {{- end -}}
 {{- $staticSvgs := slice -}}
+{{- $fromIrAny := $fromIrPlain | append $fromIrHulptekst -}}
 {{- if and $vsas (not $hasMscz) $dir -}}
   {{- range $vsas -}}
     {{- $rel := replaceRE "\\.vsa$" ".svg" (printf "%s/%s" $dir .) -}}
     {{- $svgFile := printf "static/vsa/bladermap/%s" $rel -}}
     {{- if fileExists $svgFile -}}
       {{- $staticSvgs = $staticSvgs | append (printf "vsa/bladermap/%s" $rel) -}}
-    {{- else if and (not $musicSvgs) (not $fromIrMxl) -}}
+    {{- else if and (not $musicSvgs) (not $fromIrAny) -}}
       {{- warnf "%s: SVG ontbreekt voor %s. Verwacht sibling .vsa.svg naast de .vsa (scripts\\products.cmd --kinds vsa). Zolang die sibling er niet is, zoekt de site ook %s (legacy: scripts\\oefenhoek-index.cmd --svg). Zie /handleiding/vsa/1-vsa-schrijven/." $loc $p.RelPermalink $svgFile -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
 {{- $alt := partial "display-title.html" $p -}}
 {{- $hasSvgView := or (gt (len $musicSvgs) 0) (gt (len $staticSvgs) 0) -}}
-{{- $hasOsmgView := gt (len $fromIrMxl) 0 -}}
+{{- $hasOsmgView := gt (len $fromIrAny) 0 -}}
+{{- $hasHulptekst := gt (len $fromIrHulptekst) 0 -}}
 {{- if or $hasSvgView $hasOsmgView -}}
-<div class="score-scherm score-scherm--svg" data-scherm="svg">
+<div class="score-scherm score-scherm--svg" data-scherm="svg"{{ if $hasHulptekst }} data-translit-svg-fallback{{ end }}>
   {{- if $musicSvgs -}}
     {{- range $musicSvgs -}}
 <div class="vsa-container"><img class="vsa-notation" src="{{ . }}" alt="{{ $alt }}" loading="lazy"></div>
@@ -153,13 +164,29 @@
   {{- else -}}
 <p class="score-scherm-missing">Geen SVG-product voor dit blad. Kies OSMG in {} of vernieuw met <code>scripts\products.cmd</code>.</p>
   {{- end -}}
+  {{- if $hasHulptekst -}}
+  <p class="score-scherm-translit-hint" data-translit-view="aan" hidden>Transliteratie staat aan: kies OSMG (knop {}) om de hulptekst te zien, of zet transliteratie uit voor de SVG.</p>
+  {{- end -}}
 </div>
-<div class="score-scherm score-scherm--osmg" data-scherm="osmg" hidden>
-  {{- if $fromIrMxl -}}
-    {{- range $fromIrMxl -}}
+<div class="score-scherm score-scherm--osmg" data-scherm="osmg" hidden{{ if $hasHulptekst }} data-has-hulptekst{{ end }}>
+  {{- if or $fromIrPlain $fromIrHulptekst -}}
+    {{- if $fromIrPlain -}}
+  <div data-translit-view="uit">
+      {{- range $fromIrPlain -}}
 <div class="vsa-container osmd-container" data-osmd-src="{{ . }}" role="img" aria-label="{{ $alt }}">
   <p class="osmd-status">Partituur laden…</p>
 </div>
+      {{- end -}}
+  </div>
+    {{- end -}}
+    {{- if $fromIrHulptekst -}}
+  <div data-translit-view="aan"{{ if $fromIrPlain }} hidden{{ end }}>
+      {{- range $fromIrHulptekst -}}
+<div class="vsa-container osmd-container" data-osmd-src="{{ . }}" role="img" aria-label="{{ $alt }} (met transliteratie)">
+  <p class="osmd-status">Partituur laden…</p>
+</div>
+      {{- end -}}
+  </div>
     {{- end -}}
   {{- else -}}
 <p class="score-scherm-missing">Geen <code>.from-ir.musicxml</code> voor OSMG. Kies SVG of vernieuw met <code>scripts\products.cmd --kinds mvsa</code>.</p>

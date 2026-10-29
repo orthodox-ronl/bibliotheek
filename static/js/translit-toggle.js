@@ -21,6 +21,46 @@
     }
   }
 
+  function setHidden(el, hidden) {
+    if (!el) return;
+    if (hidden) el.setAttribute("hidden", "");
+    else el.removeAttribute("hidden");
+  }
+
+  function pageHasHulptekst() {
+    return !!document.querySelector("[data-has-hulptekst], [data-translit-view='aan'] .osmd-container");
+  }
+
+  function preferOsmgForTranslit() {
+    if (!pageHasHulptekst()) return;
+    var root = document.querySelector("[data-scherm-root]");
+    if (!root) return;
+    var osmg = root.querySelector('[data-scherm="osmg"]');
+    if (!osmg) return;
+    root.querySelectorAll("[data-scherm]").forEach(function (panel) {
+      var kind = (panel.getAttribute("data-scherm") || "").toLowerCase();
+      setHidden(panel, kind !== "osmg");
+    });
+    if (typeof window.__vsaEnsureOsmd === "function") {
+      window.__vsaEnsureOsmd(osmg);
+    }
+  }
+
+  function applyTranslitViews(aan) {
+    var want = aan ? "aan" : "uit";
+    document.querySelectorAll("[data-translit-view]").forEach(function (el) {
+      var view = el.getAttribute("data-translit-view");
+      setHidden(el, view !== want);
+    });
+    if (aan) {
+      preferOsmgForTranslit();
+    }
+    var osmg = document.querySelector('[data-scherm="osmg"]');
+    if (osmg && !osmg.hasAttribute("hidden") && typeof window.__vsaEnsureOsmd === "function") {
+      window.__vsaEnsureOsmd(osmg);
+    }
+  }
+
   function applyState(aan) {
     var root = document.documentElement;
     root.dataset.translit = aan ? "aan" : "uit";
@@ -35,6 +75,8 @@
       var stateEl = label.querySelector("[data-translit-state]");
       if (stateEl) stateEl.textContent = aan ? "aan" : "uit";
     });
+
+    applyTranslitViews(aan);
 
     window.dispatchEvent(
       new CustomEvent("bibliotheek:translit", { detail: { aan: aan } })
