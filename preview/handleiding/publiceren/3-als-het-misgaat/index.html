@@ -65,24 +65,22 @@ na installatie. (Voor alleen <code>.vsa</code> → Coria is MuseScore niet nodig
 basispartituur-<code>.mscz</code> (of opnieuw vanaf opgekuiste <code>.mxl</code> plus normaliseren). Daarna:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\layout.cmd pad\naar\bestand.mscz
 </span></span></code></pre></div><h2 id=coria-failed-to-retrieve-file>Coria: <code>failed to retrieve file</code></h2><p>Coria haalt het muziekbestand zelf vanaf internet op. <strong>Oefenen</strong> (tip-icoon
 <strong>♪</strong>) moet daarom naar een <strong>volledig</strong> https-adres wijzen van een fingerprint
-onder <code>mxl/c/&lt;hash>.musicxml</code> (niet <code>/mxl/c/…</code> zonder host, niet
-<code>http://127.0.0.1:…</code>, niet de page-bundle-<code>.mxl</code> naast de partituur).</p><p>Welke host Coria mag ophalen, wisselt: soms faalt
-<code>raw.githubusercontent.com/.../gh-pages/…</code>, soms
-<code>orthodox-ronl.github.io/bibliotheek/…</code>. Daarom doet de build een <strong>Coria-probe</strong>
-(<code>python scripts\probe_coria_fetch.py</code>): die vraagt Coria voor een
-<strong>steekproef</strong> (tot vijf risicovolle <code>.mscz.mxl</code>-fingerprints plus één
-<code>.mvsa.mxl</code> en één <code>.vsa.mxl</code>, die al op beide hosts staan) of ophalen
-lukt. Een host telt alleen mee als Coria <strong>alle relevante</strong> samples vanaf
-die host slikte — zo vangen we gevallen waarbij raw wél de meeste bestanden
-maar niet elk MSCZ-bestand pakt.
-De werkende host komt in <code>data\coria-public-base.json</code> als <code>base</code>, de andere
-als <code>alternate</code>. De primaire ♪-link gebruikt <code>base</code>; in het Oefenen-menu
-staat ook <strong>Werkt Oefenen niet? Andere bron</strong> (de <code>alternate</code>-host).</p><p>Draai <code>scripts\check.cmd</code> of <code>scripts\build.cmd</code> opnieuw zodat fingerprints,
-probe en Hugo meelopen. Met <code>check --strict</code> faalt de check als <strong>beide</strong>
-hosts bij Coria <code>failed to retrieve file</code> geven.</p><p><code>check</code> controleert ook dat Coria-<code>.mxl</code> geen verboden
-<code>source</code>+<code>encoding</code>-combinatie heeft (anders <code>translation failed</code>).</p><p>Een nieuw zangstuk dat nog niet op branch <code>gh-pages</code> staat, opent in Coria
-pas na een <code>git push</code> (Coria kan de lokale Hugo-server niet bereiken; de probe
-vindt dan nog geen gepubliceerde canary).</p><h2 id=coria-translation-failed-of-check-weigert-de-mxl>Coria: <code>translation failed</code> of check weigert de <code>.mxl</code></h2><p>Coria’s vertaler (<code>play_from_url</code>) kan op meer dan één MusicXML-vorm
+onder <code>mxl/c/&lt;hash>.musicxml</code> op <strong>GitHub Pages</strong>, bijvoorbeeld
+<code>https://orthodox-ronl.github.io/bibliotheek/preview/mxl/c/&lt;hash>.musicxml</code>
+(niet <code>/mxl/c/…</code> zonder host, niet <code>http://127.0.0.1:…</code>, niet de
+page-bundle-<code>.mxl</code> naast de partituur).</p><p>Gebruik <strong>geen</strong> <code>raw.githubusercontent.com</code> voor Coria. Volgens het
+Coria-devteam ziet GitHub de Coria-server als scraper en beperkt dat verkeer
+onvoorspelbaar. Coria cachet geslaagde downloads, maar ook mislukte URL’s:
+die worden <strong>niet opnieuw</strong> geprobeerd — je krijgt meteen
+<code>failed to retrieve file</code>. Daardoor kan het ene bestand op raw “toevallig”
+blijven werken en het andere permanent falen.</p><p>De site zet de Coria-fetch-basis daarom op github.io
+(<code>data\coria-public-base.json</code>). <code>python scripts\probe_coria_fetch.py</code>
+controleert met een steekproef (mscz/mvsa/vsa) of Coria die host nog slikte.</p><p>Draai <code>scripts\check.cmd</code> of <code>scripts\build.cmd</code> opnieuw zodat fingerprints,
+probe en Hugo meelopen. Met <code>check --strict</code> faalt de check als de
+github.io-probe bij Coria faalt.</p><p><code>check</code> controleert ook dat Coria-<code>.mxl</code> geen verboden
+<code>source</code>+<code>encoding</code>-combinatie heeft (anders <code>translation failed</code>).</p><p>Een nieuw zangstuk dat nog niet op branch <code>gh-pages</code> / Pages staat, opent in
+Coria pas na een <code>git push</code> (Coria kan de lokale Hugo-server niet bereiken; de
+probe vindt dan nog geen gepubliceerde canary).</p><h2 id=coria-translation-failed-of-check-weigert-de-mxl>Coria: <code>translation failed</code> of check weigert de <code>.mxl</code></h2><p>Coria’s vertaler (<code>play_from_url</code>) kan op meer dan één MusicXML-vorm
 falen met dezelfde melding <code>translation failed</code>. In de bibliotheek zijn
 dit de bekende gevallen:</p><ol><li><code>&lt;identification></code> heeft zowel <code>&lt;source></code> als <code>&lt;encoding></code> —
 bronvermelding hoort in <code>miscellaneous-field name="bron"</code>.</li><li>In <code>&lt;identification></code> staat <code>&lt;miscellaneous></code> vóór <code>&lt;encoding></code> —
