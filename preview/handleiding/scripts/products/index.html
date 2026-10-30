@@ -41,9 +41,11 @@ lyrics, …) opnieuw maken onder een map of voor één bronbestand</p><h1 id=syn
 </span></span></code></pre></div><p><code>[pad]</code> = catalogusmap of één bronbestand (default:
 <code>content-source\catalogus</code>). <code>--kinds</code> is een komma-lijst of <code>all</code>
 (default). Alias <code>all-products</code> = <code>--kinds all</code>.</p><p>Kinds: <code>vsa</code>, <code>mscz</code>, <code>tekstblad</code>, <code>import</code>, <code>mvsa</code>, <code>audio</code>, <code>lyrics</code>.</p><h1 id=description>DESCRIPTION</h1><p>Bouwt de bestanden die de site en Coria nodig hebben naast de bron in de
-catalogus. Bij een map of meerdere kinds vraagt het <strong>één keer</strong> om
-bevestiging (of <code>-y</code>); de kind-sporen vragen daarna niet opnieuw. Na een
-geslaagde run (niet <code>--dry-run</code>) schrijft de tooling voor vsa/mvsa/mscz
+catalogus. Elk kind toont preflight op de echte todo-lijst; korte runs
+(minder dan 100 items of geschat klaar binnen ongeveer een halve minuut)
+starten zonder vraag; bij 100+ items volgt de dubbele zekerheidsvraag.
+<code>-y</code> is vooral nodig zonder interactieve terminal. Na een geslaagde run
+(niet <code>--dry-run</code>) schrijft de tooling voor vsa/mvsa/mscz
 <code>{bron}.products-meta.json</code> (snelle versheid; bladreeks-SVG als <code>svg-1</code>…).
 Bibliotheek herschrijft die meta niet meer uit siblings; bij mscz wordt
 alleen de MXL-hash gemerged als de Coria-bron-id de MXL wijzigt. Daarna
