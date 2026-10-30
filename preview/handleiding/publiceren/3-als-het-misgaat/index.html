@@ -69,11 +69,15 @@ onder <code>mxl/c/&lt;hash>.musicxml</code> (niet <code>/mxl/c/…</code> zonder
 <code>http://127.0.0.1:…</code>, niet de page-bundle-<code>.mxl</code> naast de partituur).</p><p>Welke host Coria mag ophalen, wisselt: soms faalt
 <code>raw.githubusercontent.com/.../gh-pages/…</code>, soms
 <code>orthodox-ronl.github.io/bibliotheek/…</code>. Daarom doet de build een <strong>Coria-probe</strong>
-(<code>python scripts\probe_coria_fetch.py</code>): die vraagt Coria voor één canary of
-ophalen lukt, zet de werkende host in <code>data\coria-public-base.json</code> als
-<code>base</code>, en de andere als <code>alternate</code>. De primaire ♪-link gebruikt <code>base</code>; in
-het Oefenen-menu staat ook <strong>Werkt Oefenen niet? Andere bron</strong> (de
-<code>alternate</code>-host).</p><p>Draai <code>scripts\check.cmd</code> of <code>scripts\build.cmd</code> opnieuw zodat fingerprints,
+(<code>python scripts\probe_coria_fetch.py</code>): die vraagt Coria voor een
+<strong>steekproef</strong> (tot vijf risicovolle <code>.mscz.mxl</code>-fingerprints plus één
+<code>.mvsa.mxl</code> en één <code>.vsa.mxl</code>, die al op beide hosts staan) of ophalen
+lukt. Een host telt alleen mee als Coria <strong>alle relevante</strong> samples vanaf
+die host slikte — zo vangen we gevallen waarbij raw wél de meeste bestanden
+maar niet elk MSCZ-bestand pakt.
+De werkende host komt in <code>data\coria-public-base.json</code> als <code>base</code>, de andere
+als <code>alternate</code>. De primaire ♪-link gebruikt <code>base</code>; in het Oefenen-menu
+staat ook <strong>Werkt Oefenen niet? Andere bron</strong> (de <code>alternate</code>-host).</p><p>Draai <code>scripts\check.cmd</code> of <code>scripts\build.cmd</code> opnieuw zodat fingerprints,
 probe en Hugo meelopen. Met <code>check --strict</code> faalt de check als <strong>beide</strong>
 hosts bij Coria <code>failed to retrieve file</code> geven.</p><p><code>check</code> controleert ook dat Coria-<code>.mxl</code> geen verboden
 <code>source</code>+<code>encoding</code>-combinatie heeft (anders <code>translation failed</code>).</p><p>Een nieuw zangstuk dat nog niet op branch <code>gh-pages</code> staat, opent in Coria

@@ -1128,7 +1128,8 @@ niet alleen het zangstuk-id is en &lt;code&gt;linkTitle&lt;/code&gt; een leesbaa
 uitvoeringsvorm-label is (waarschuwing; met &lt;code&gt;--strict&lt;/code&gt; fout)&lt;/li&gt;
 &lt;li&gt;Coria-fingerprints (&lt;code&gt;python scripts\fingerprint_coria_mxl.py&lt;/code&gt;)&lt;/li&gt;
 &lt;li&gt;Coria-fetch-probe (&lt;code&gt;python scripts\probe_coria_fetch.py&lt;/code&gt;) — of Coria
-een gepubliceerde canary vanaf raw of github.io kan ophalen; zet
+een steekproef (meer mscz + mvsa/vsa) vanaf raw én github.io kan
+ophalen; host alleen ok als alle relevante samples lukken; zet
 &lt;code&gt;base&lt;/code&gt;/&lt;code&gt;alternate&lt;/code&gt; in &lt;code&gt;data\coria-public-base.json&lt;/code&gt;. Zonder &lt;code&gt;--strict&lt;/code&gt;
 alleen waarschuwen als beide falen; met &lt;code&gt;--strict&lt;/code&gt; exit 1&lt;/li&gt;
 &lt;li&gt;Legacy bladermap-SVG (&lt;code&gt;oefenhoek-index --svg&lt;/code&gt;) — plaatje onder
