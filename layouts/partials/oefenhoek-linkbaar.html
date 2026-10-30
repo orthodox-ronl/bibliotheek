@@ -34,7 +34,7 @@
 {{- else -}}
   {{- range $p.Resources.Match "*" -}}
     {{- $n := lower .Name -}}
-    {{- if or (hasSuffix $n ".mscz") (hasSuffix $n ".mxl") (hasSuffix $n ".pdf") (hasSuffix $n ".vsa") -}}
+    {{- if or (hasSuffix $n ".mscz") (hasSuffix $n ".mxl") (hasSuffix $n ".pdf") (hasSuffix $n ".mvsa") (hasSuffix $n ".vsa") -}}
       {{- $ok = true -}}
     {{- end -}}
   {{- end -}}

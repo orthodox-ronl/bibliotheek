@@ -18,15 +18,15 @@
   {{- end }}
   {{- $shown := slice -}}
   {{- range $pages }}
-    {{- if and .Title (not .Params.vsa_nav_exclude) }}
+    {{- if not .Params.vsa_nav_exclude }}
       {{- $shown = $shown | append . }}
     {{- end }}
   {{- end }}
   {{- if $shown }}
 <ul class="page-list">
     {{- range $shown }}
-  <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+  <li><a href="{{ .RelPermalink }}">{{ partial "display-link-title.html" . }}</a></li>
     {{- end }}
-</ul>
+  </ul>
   {{- end }}
 {{- end }}
