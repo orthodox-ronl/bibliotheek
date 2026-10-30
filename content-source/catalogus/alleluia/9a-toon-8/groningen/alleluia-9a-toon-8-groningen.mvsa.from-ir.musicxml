@@ -4,7 +4,6 @@
 <score-partwise version="3.1">
 <work><work-title>Alleluia - Toon 8</work-title></work>
 <identification>
-<rights>Bibliotheek-id: content-source/catalogus/alleluia</rights>
 <source>koormap Groningen</source>
 </identification>
 <part-list>
@@ -375,10 +374,20 @@
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
-<duration>12</duration>
+<duration>4</duration>
 <voice>1</voice>
-<type>half</type><dot/>
+<type>quarter</type>
 <stem>up</stem>
+</note>
+<note>
+<pitch><step>C</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>1</voice>
+<type>half</type>
+<stem>up</stem>
+<notations>
+<slur type="start" number="1" placement="above"/>
+</notations>
 </note>
 <note>
 <pitch><step>A</step><octave>3</octave></pitch>
@@ -393,6 +402,9 @@
 <voice>1</voice>
 <type>half</type><dot/>
 <stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>

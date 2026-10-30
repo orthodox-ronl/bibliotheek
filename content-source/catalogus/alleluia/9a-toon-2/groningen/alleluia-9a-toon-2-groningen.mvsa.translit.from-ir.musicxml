@@ -196,6 +196,9 @@ Bibliotheek-id: alleluia/9a-toon-2/groningen</rights>
 <voice>1</voice>
 <type>whole</type>
 <stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
 </note>
 <note>
 <pitch><step>F</step><octave>4</octave></pitch>
@@ -354,6 +357,9 @@ Bibliotheek-id: alleluia/9a-toon-2/groningen</rights>
 <voice>2</voice>
 <type>whole</type>
 <stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
@@ -478,6 +484,7 @@ Bibliotheek-id: alleluia/9a-toon-2/groningen</rights>
 <type>quarter</type>
 <stem>up</stem>
 <notations>
+<slur type="stop" number="1"/>
 <tied type="stop"/>
 </notations>
 </note>
@@ -496,6 +503,7 @@ Bibliotheek-id: alleluia/9a-toon-2/groningen</rights>
 <type>whole</type>
 <stem>up</stem>
 <notations>
+<slur type="start" number="1" placement="above"/>
 <tied type="start"/>
 </notations>
 </note>

@@ -4,7 +4,6 @@
 <score-partwise version="3.1">
 <work><work-title>Alleluia - Toon 2</work-title></work>
 <identification>
-<rights>Bibliotheek-id: content-source/catalogus/alleluia</rights>
 <source>koormap Groningen</source>
 </identification>
 <part-list>
@@ -186,6 +185,9 @@
 <voice>1</voice>
 <type>whole</type>
 <stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
 </note>
 <note>
 <pitch><step>F</step><octave>4</octave></pitch>
@@ -329,6 +331,9 @@
 <voice>2</voice>
 <type>whole</type>
 <stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
@@ -436,50 +441,29 @@
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
-<duration>16</duration>
-<tie type="start"/>
+<duration>12</duration>
 <voice>1</voice>
-<type>whole</type>
+<type>half</type><dot/>
 <stem>up</stem>
 <notations>
-<tied type="start"/>
-</notations>
-</note>
-<note>
-<pitch><step>C</step><octave>4</octave></pitch>
-<duration>16</duration>
-<tie type="start"/>
-<tie type="stop"/>
-<voice>1</voice>
-<type>whole</type>
-<stem>up</stem>
-<notations>
-<tied type="start"/>
-<tied type="stop"/>
+<slur type="stop" number="1"/>
 </notations>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
-<tie type="start"/>
-<tie type="stop"/>
 <voice>1</voice>
 <type>half</type>
 <stem>up</stem>
-<notations>
-<tied type="start"/>
-<tied type="stop"/>
-</notations>
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
-<tie type="stop"/>
 <voice>1</voice>
 <type>quarter</type>
 <stem>up</stem>
 <notations>
-<tied type="stop"/>
+<slur type="start" number="1" placement="above"/>
 </notations>
 </note>
 <note>
@@ -499,7 +483,7 @@
 <type>whole</type>
 <stem>up</stem>
 </note>
-<backup><duration>112</duration></backup>
+<backup><duration>92</duration></backup>
 <note>
 <pitch><step>G</step><octave>3</octave></pitch>
 <duration>4</duration>
