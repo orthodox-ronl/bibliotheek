@@ -386,6 +386,14 @@ def main(argv: list[str] | None = None) -> int:
             error(f"FAILED fingerprints exit={fp_code}")
             return 1
 
+        info("\n--- Coria-fetch-probe ---")
+        import probe_coria_fetch as probe_mod
+
+        probe_code = probe_mod.apply_probe(warn_only=True)
+        if probe_code not in (0, None):
+            error(f"FAILED coria-probe exit={probe_code}")
+            return 1
+
     info("\nOK: products-changed klaar")
     return 0
 

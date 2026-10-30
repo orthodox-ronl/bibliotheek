@@ -16,7 +16,8 @@ build
 
 # DESCRIPTION
 
-Maakt Coria-fingerprints, ververst het legacy bladermap-plaatje uit
+Maakt Coria-fingerprints, doet een Coria-fetch-probe (waarschuwing als beide
+hosts falen), ververst het legacy bladermap-plaatje uit
 `.vsa` (`oefenhoek-index --svg`), schrijft de bouwtijd naar
 `data\build.yaml` (footer «Gegenereerd» op de homepage; niet committen),
 en bouwt de site naar `generated\site`. Anders dan `check` draait

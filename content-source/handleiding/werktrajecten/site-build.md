@@ -48,6 +48,7 @@ juiste Pages-URL bijgewerkt.
 content-source (bronnen + product-siblings)
     |
     +-- fingerprint_coria_mxl  ->  static/mxl/c + data/coria-fp.json
+    +-- probe_coria_fetch      ->  data/coria-public-base.json (base + alternate)
     +-- oefenhoek-index --svg  ->  static/vsa/bladermap (legacy fallback)
     +-- Hugo  ->  generated/site
 ```

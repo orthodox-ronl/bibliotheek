@@ -194,6 +194,9 @@ jobs:
       - name: Coria fingerprints
         run: python scripts/fingerprint_coria_mxl.py
 
+      - name: Coria fetch probe (raw vs github.io)
+        run: python scripts/probe_coria_fetch.py --warn-only
+
       - name: Bladermap SVG from .vsa
         run: python scripts/sync_oefenhoek_index.py --svg
 

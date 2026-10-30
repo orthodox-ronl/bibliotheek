@@ -161,6 +161,14 @@ if errorlevel 1 exit /b 1
 python scripts\fingerprint_coria_mxl.py
 if errorlevel 1 exit /b 1
 
+REM Coria play_from_url: kies host die wél ophaalt (raw vs github.io).
+if defined STRICT (
+  python scripts\probe_coria_fetch.py
+) else (
+  python scripts\probe_coria_fetch.py --warn-only
+)
+if errorlevel 1 exit /b 1
+
 REM Speelplan: OSMD moet navigatie tekenen, niet alleen in from-ir XML.
 call scripts\check_osmd_nav_zichtbaar.cmd
 if errorlevel 1 exit /b 1

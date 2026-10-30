@@ -52,15 +52,19 @@ Of: `scripts\check.cmd` vanuit de repo-root.
     niet alleen het zangstuk-id is en `linkTitle` een leesbaar
     uitvoeringsvorm-label is (waarschuwing; met `--strict` fout)
 12. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
-13. Legacy bladermap-SVG (`oefenhoek-index --svg`) — plaatje onder
+13. Coria-fetch-probe (`python scripts\probe_coria_fetch.py`) — of Coria
+    een gepubliceerde canary vanaf raw of github.io kan ophalen; zet
+    `base`/`alternate` in `data\coria-public-base.json`. Zonder `--strict`
+    alleen waarschuwen als beide falen; met `--strict` exit 1
+14. Legacy bladermap-SVG (`oefenhoek-index --svg`) — plaatje onder
    `static\vsa\bladermap\` uit `.vsa`, zonder stempel. Het scherm
    gebruikt sibling `{stam}.vsa.svg` (stap 2) zodra die er is; dit
    plaatje is alleen de fallback
-14. Zoekindex (`python scripts\build_zoek_index.py` → `static\zoek\index.json`)
-15. Bouwtijd-stempel (`python scripts\write_build_stamp.py` →
+15. Zoekindex (`python scripts\build_zoek_index.py` → `static\zoek\index.json`)
+16. Bouwtijd-stempel (`python scripts\write_build_stamp.py` →
     `data\build.yaml`; footer «Gegenereerd» op de homepage; niet
     committen)
-16. Hugo-build naar `generated\site` (footer «Bijgewerkt» via
+17. Hugo-build naar `generated\site` (footer «Bijgewerkt» via
     Git-geschiedenis van het contentbestand)
 
 De Pages-deploy (productie, `/preview/`, branch-previews) bouwt de

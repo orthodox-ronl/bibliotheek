@@ -88,6 +88,17 @@
     {{- else -}}
       {{- $oefenOther = $oefenOther | append $item -}}
     {{- end -}}
+    {{- $altAbs := strings.TrimSpace (partial "coria-file-absolute-url.html" (dict "src" $mapped "which" "alternate" "position" $.position "page" $viewer)) -}}
+    {{- if and $altAbs (ne $altAbs $absolute) -}}
+      {{- $altCoria := printf "https://coria.nl/play_from_url?back=coria.nl&url=%s" (urlquery $altAbs) -}}
+      {{- $altLabel := "Werkt Oefenen niet? Andere bron" -}}
+      {{- $altItem := dict "href" $altCoria "label" $altLabel "detail" .detail "name" .name "class" "coria-play coria-play--alternate" "target" "_blank" "rel" "noopener noreferrer" -}}
+      {{- if eq .id $preferId -}}
+        {{- $oefenPreferred = $oefenPreferred | append $altItem -}}
+      {{- else -}}
+        {{- $oefenOther = $oefenOther | append $altItem -}}
+      {{- end -}}
+    {{- end -}}
     {{- end -}}
   {{- else -}}
     {{- errorf "%s: geen Coria-fingerprint voor MusicXML-bestand %q. Oplossing: python scripts\\fingerprint_coria_mxl.py (of scripts\\check.cmd)." $loc $src -}}

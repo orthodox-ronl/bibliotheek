@@ -4,9 +4,10 @@ Coria play_from_url rejects URLs that do not end in .xml/.mxl/.musicxml
 (query strings) and cannot fetch GitHub paths with spaces. A single ASCII
 filename under /mxl/c/ avoids that; the hash changes when bytes change.
 
-Coria haalt het bestand server-side op: Oefenen gebruikt daarom
-raw.githubusercontent.com op branch gh-pages (niet github.io).
-Fetch-root: data/coria-public-base.json.
+Coria haalt het bestand server-side op. Fetch-root staat in
+``data/coria-public-base.json`` (``base`` + ``alternate``). Na fingerprints
+kiest ``probe_coria_fetch.py`` welke host Coria wél kan ophalen (raw vs
+github.io).
 
 Bronnen:
 - content-source/**/*.mxl (niet input/) — page-bundle Coria-.mxl
@@ -116,10 +117,23 @@ def detect_git_branch() -> str:
 
 
 def write_public_base(branch: str | None = None) -> str:
-    base = coria_fetch_base_url(branch or detect_git_branch())
+    """Schrijf provisional base (raw) + alternate (pages); probe overschrijft."""
+    br = branch or detect_git_branch()
+    base = coria_fetch_base_url(br)
+    alternate = github_pages_base_url(br)
     PUBLIC_BASE_FILE.parent.mkdir(parents=True, exist_ok=True)
     PUBLIC_BASE_FILE.write_text(
-        json.dumps({"base": base}, indent=2) + "\n",
+        json.dumps(
+            {
+                "base": base,
+                "alternate": alternate,
+                "probed_at": None,
+                "canary": None,
+                "results": {"raw": "skipped", "pages": "skipped"},
+            },
+            indent=2,
+        )
+        + "\n",
         encoding="utf-8",
     )
     return base
@@ -203,7 +217,7 @@ def main() -> int:
     public_base = write_public_base()
     print(
         f"Coria MusicXML fingerprints: {len(mapping)} bestand(en); "
-        f"public base {public_base}",
+        f"provisional public base {public_base}",
         flush=True,
     )
     return 0

@@ -70,24 +70,30 @@ scripts\layout.cmd pad\naar\bestand.mscz
 
 ## Coria: `failed to retrieve file`
 
-Coria haalt het muziekbestand zelf vanaf internet op. **Oefenen** (via
-tip-icoon **♪**) moet daarom naar een **volledig** adres op
-`raw.githubusercontent.com`
-wijzen, bijvoorbeeld
-`https://raw.githubusercontent.com/orthodox-ronl/bibliotheek/gh-pages/preview/mxl/c/<hash>.musicxml`
-(fingerprint op branch `gh-pages`). De website voor mensen blijft
-`https://orthodox-ronl.github.io/bibliotheek/`; Coria's server faalt op
-`github.io`-MusicXML regelmatig met `failed to retrieve file`.
-Gebruik geen pad zonder host (`/mxl/c/…`), geen `http://127.0.0.1:…`,
-geen `github.io`-MusicXML, en geen page-bundle-`.mxl`.
+Coria haalt het muziekbestand zelf vanaf internet op. **Oefenen** (tip-icoon
+**♪**) moet daarom naar een **volledig** https-adres wijzen van een fingerprint
+onder `mxl/c/<hash>.musicxml` (niet `/mxl/c/…` zonder host, niet
+`http://127.0.0.1:…`, niet de page-bundle-`.mxl` naast de partituur).
 
-Draai `scripts\check.cmd` of `scripts\build.cmd` opnieuw zodat
-`fingerprint_coria_mxl.py` en Hugo meelopen.
+Welke host Coria mag ophalen, wisselt: soms faalt
+`raw.githubusercontent.com/.../gh-pages/…`, soms
+`orthodox-ronl.github.io/bibliotheek/…`. Daarom doet de build een **Coria-probe**
+(`python scripts\probe_coria_fetch.py`): die vraagt Coria voor één canary of
+ophalen lukt, zet de werkende host in `data\coria-public-base.json` als
+`base`, en de andere als `alternate`. De primaire ♪-link gebruikt `base`; in
+het Oefenen-menu staat ook **Werkt Oefenen niet? Andere bron** (de
+`alternate`-host).
+
+Draai `scripts\check.cmd` of `scripts\build.cmd` opnieuw zodat fingerprints,
+probe en Hugo meelopen. Met `check --strict` faalt de check als **beide**
+hosts bij Coria `failed to retrieve file` geven.
+
 `check` controleert ook dat Coria-`.mxl` geen verboden
 `source`+`encoding`-combinatie heeft (anders `translation failed`).
 
 Een nieuw zangstuk dat nog niet op branch `gh-pages` staat, opent in Coria
-pas na een `git push` (Coria kan de lokale Hugo-server niet bereiken).
+pas na een `git push` (Coria kan de lokale Hugo-server niet bereiken; de probe
+vindt dan nog geen gepubliceerde canary).
 
 ## Coria: `translation failed` of check weigert de `.mxl`
 

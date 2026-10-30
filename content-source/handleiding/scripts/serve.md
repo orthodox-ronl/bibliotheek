@@ -16,7 +16,8 @@ serve
 
 # DESCRIPTION
 
-Maakt Coria-fingerprints, ververst het legacy bladermap-plaatje uit
+Maakt Coria-fingerprints, doet een Coria-fetch-probe (waarschuwing als beide
+hosts falen), ververst het legacy bladermap-plaatje uit
 `.vsa`, schrijft de bouwtijd naar `data\build.yaml` (footer
 «Gegenereerd» op de homepage), en start de Hugo-development server.
 Open daarna **http://127.0.0.1:18732/**. Niet poort **1313** (lokaal
