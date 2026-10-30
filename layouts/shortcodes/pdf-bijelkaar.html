@@ -3,5 +3,7 @@
   Contract: pdf.cmd exporteert muziek in dit blok met tooling --compact
   (zie docs/specs/koormap-paginataal.md §9). Web: compact onder elkaar;
   print-CSS: break-inside avoid (site.css).
+  Optioneel size="1.1" zet --vsa-size voor em-relatieve VSA-SVG’s.
 */ -}}
-<div class="pdf-bijelkaar" data-pdf-layout="compact">{{ .Page.RenderString (printf "\n%s" .Inner) }}</div>
+{{- $size := .Get "size" -}}
+<div class="pdf-bijelkaar" data-pdf-layout="compact"{{ with $size }} style="--vsa-size: {{ . }}"{{ end }}>{{ .Page.RenderString (printf "\n%s" .Inner) }}</div>
