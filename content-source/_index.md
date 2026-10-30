@@ -5,21 +5,18 @@ linkTitle: "Home"
 
 {{< home-banner title="RONL Oefensite en Catalogus" >}}
 
-Deze site is primair bedoeld om te voorzien in de behoefte aan oefenmateriaal voor hen die (willen) meezingen
-in het koor van het Russisch-Orthodoxe klooster van St. Nicolaas in Hemelum, en niet noodzakelijkerwijs van
-blad kunnen zingen. Het idee is dat zij thuis zangstukken kunnen oefenen, zodat de noodzaak om fysiek bijeen
-te komen voor repetities wordt gereduceerd - de meeste mensen komen immers van ver. En omdat we denken dat
-ook in parochies een dergelijke behoefte zou kunnen bestaan, is de site zo opgezet dat ook in die behoefte
-op vergelijkbare wijze voorzien zou kunnen worden.
+Deze site is oorspronkelijk bedoeld om te voorzien in de behoefte aan oefenmateriaal voor hen 
+die (willen) meezingen in het koor van het Russisch-Orthodoxe klooster van St. Nicolaas in Hemelum,
+en niet noodzakelijkerwijs van blad kunnen zingen. Het idee is dat zij thuis zangstukken kunnen oefenen,
+zodat de noodzaak om fysiek bijeen te komen voor repetities wordt gereduceerd - de meeste mensen komen
+immers van ver. En omdat we denken dat ook in parochies een dergelijke behoefte zou kunnen bestaan,
+is de site zo opgezet dat ook in die behoefte op vergelijkbare wijze voorzien zou kunnen worden.
 
 De site bevat:
-- een [Catalogus](/overzichten/) van (varianten van) zangstukken, en vooral die, welke in de Heilige Liturgie
-  worden gebruikt, zoals Ektinia's, Alleluia's, Cherubijnen hymnes, de Eucharistische canon, Troparen, Kondaken, enzovoorts.
-- [Koormappen](/koormappen/): een koormap is feitelijk een lijst van zangstukken die bij een bepaalde gelegenheid
-  op een bepaalde plaats (bijv. een doordeweekse H. Liturgie in Hemelum), achtereenvolgens worden gezongen.
-- een [Handleiding](/handleiding/): deze bevat werkwijzen voor hen die de bibliotheek bijhouden,
-  zoals het opnemen van nieuwe zangstukken, deze bijhouden/corrigeren, en beschikbaar maken zodat ze
-  in koormappen kunnen worden opgenomen.
+- [Koormappen](/koormappen/): een koormap is feitelijk een lijst van zangstukken die om een of
+  andere reden bij elkaar zijn gezet. Koormappen zijn georganiseerd naar plaats/parochie/klooster.
+- [De Catalogus](/overzichten/): hier staan alle (varianten van) zangstukken die beschikbaar zijn.
+- een [Handleiding](/handleiding/): deze bevat werkwijzen voor hen die de bibliotheek bijhouden.
 
 De werking van de site voor het oefenen zou min of meer vanzelfsprekend moeten zijn voor mensen die
 redelijk overweg kunnen met een computer, tablet of telefoon (met een internet verbinding).
@@ -40,17 +37,15 @@ Zangstukken kunnen op verschillende manieren worden getoond:
 
 Bij de partituur staan donkerblauwe icoontjes:
 
-- **♪** (Oefenen-icoon) linksboven bij de muziek: opent een menu met **Oefenen** en **Beluisteren**.
+- **♪** (linksboven bij de muziek): Als je hier op klikt opent een keuzemenu:
   - **Oefenen** brengt je naar [coria.nl](https://coria.nl), waar je je eigen stem kunt meezingen.
-  - **Beluisteren** geeft een *indruk* van hoe het klinkt. In het echt klinkt het vaak anders: de
-    audio-speler is eenvoudig (bijvoorbeeld bij `breve`-noten, herhalingen en refreinen in antifonen).
-- **{}** rechtsboven, alleen in de **catalogus**: bronbestand als tekst (meestal `.vsa` / `.mvsa`)
-  en de wissel **SVG** / **OSMG** voor de schermpartituur. Die keuze geldt daarna overal in de
-  browser, ook op koormap-bladen — daar zie je het **{}**-icoon niet.
+    *LET OP:* Omdat Coria wel eens problemen mag je uit twee links kiezen (hopelijk werkt er tenminste 1).
+  - **Beluisteren** geeft een *indruk* van hoe het zangstuk klinkt; in het echt klinkt het vaak anders.
+- **{}** (rechtsboven, alleen in de **catalogus**): dit opent een keuzemenu die we hier verder niet
+  uitleggen, en omdat dit vooral voor beheerders en ontwikkelaars van belang is staat dit icoontje
+  ook alleen op catalogus-pagina's
 
-Hele blad meenemen of afdrukken: bovenaan in de navigatie **Download pagina** en **Print pagina**
-(als er een pagina-PDF bij dat blad staat). Dat is de PDF van wat je op die pagina ziet, niet een
-los catalogus-productbestand.
+Je kunt het blad ook downloaden als een PDF, waarna je het desgewenst ook kunt adrukken.
 
 ## Onze bronnen
 
