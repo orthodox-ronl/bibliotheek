@@ -1,6 +1,4 @@
 ---
-title: "Prokimen zondag toon 4 (Kiev, Groningen)"
-linkTitle: "Groningen"
 publicatiestatus: voorzien
 automatische_inhoud: false
 ---

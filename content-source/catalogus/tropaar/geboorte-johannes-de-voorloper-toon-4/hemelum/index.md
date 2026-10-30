@@ -1,6 +1,4 @@
 ---
-title: "Tropaar Geboorte Johannes de Voorloper toon 4 (Hemelum)"
-linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

@@ -1,6 +1,4 @@
 ---
-title: "Tropaar Besnijdenis des Heren toon 2 (Hemelum)"
-linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

@@ -1,6 +1,4 @@
 ---
-title: "Communievers Moeder Gods — Liturgikon-melodie"
-linkTitle: "Liturgikon"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

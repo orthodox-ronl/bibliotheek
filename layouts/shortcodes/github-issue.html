@@ -1,0 +1,12 @@
+{{- /* Inline link «GitHub-issue» naar nieuw issue (paginatitel/-URL vooraf). */ -}}
+{{- $page := .Page -}}
+{{- $github := site.Params.linksGithub | default "https://github.com/orthodox-ronl/bibliotheek" -}}
+{{- if not $github -}}
+  {{- errorf "%s: shortcode github-issue: zet linksGithub in hugo.toml" (partial "diag-location.html" (dict "page" $page)) -}}
+{{- end -}}
+{{- $pageTitle := partial "display-title.html" $page -}}
+{{- $pageURL := $page.Permalink -}}
+{{- $issueTitle := printf "Bibliotheek: %s" $pageTitle -}}
+{{- $issueBody := printf "Pagina: %s\nAdres: %s\n\nOpmerking:\n" $pageTitle $pageURL -}}
+{{- $issue := printf "%s/issues/new?title=%s&body=%s" $github ($issueTitle | urlquery) ($issueBody | urlquery) -}}
+<a href="{{ $issue }}">GitHub-issue</a>

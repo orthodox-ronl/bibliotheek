@@ -1,6 +1,4 @@
 ---
-title: "Prijslied - Johannes de Voorloper"
-linkTitle: "Prijslied - Johannes de Voorloper"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

@@ -1,6 +1,4 @@
 ---
-title: "Eer aan de Vader"
-linkTitle: "Eer aan de Vader"
 nav_sort: weight
 publicatiestatus: reviewable
 automatische_inhoud: true

@@ -1,6 +1,4 @@
 ---
-title: "Trisagion"
-linkTitle: "Trisagion"
 nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true

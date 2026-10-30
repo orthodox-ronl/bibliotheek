@@ -7,7 +7,7 @@ automatische_inhoud: false
 ---
 
 {{< kop >}}Zondag — toon 8{{< /kop >}}
-Compositieblad: prokimen en alleluia voor zondag in toon 8 (Kiev, Groningen).
+Compositieblad: prokimen en alleluia voor zondag in toon 8 (Kiev).
 
 De **alleluia** staat in de bibliotheek (`.mvsa`). De **prokimen** volgt wanneer die bron in de bibliotheek staat.
 

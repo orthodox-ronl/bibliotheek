@@ -44,8 +44,9 @@ Bij de partituur staan donkerblauwe icoontjes:
   - **Oefenen** brengt je naar [coria.nl](https://coria.nl), waar je je eigen stem kunt meezingen.
   - **Beluisteren** geeft een *indruk* van hoe het klinkt. In het echt klinkt het vaak anders: de
     audio-speler is eenvoudig (bijvoorbeeld bij `breve`-noten, herhalingen en refreinen in antifonen).
-- **{}** (Bron-icoon) rechtsboven, alleen in de **catalogus**: voor beheerders — bronbestand als tekst
-  (meestal `.vsa`, `.mvsa` of `.mscz`). Op een koormap-blad zie je dit icoon niet.
+- **{}** rechtsboven, alleen in de **catalogus**: bronbestand als tekst (meestal `.vsa` / `.mvsa`)
+  en de wissel **SVG** / **OSMG** voor de schermpartituur. Die keuze geldt daarna overal in de
+  browser, ook op koormap-bladen — daar zie je het **{}**-icoon niet.
 
 Hele blad meenemen of afdrukken: bovenaan in de navigatie **Download pagina** en **Print pagina**
 (als er een pagina-PDF bij dat blad staat). Dat is de PDF van wat je op die pagina ziet, niet een

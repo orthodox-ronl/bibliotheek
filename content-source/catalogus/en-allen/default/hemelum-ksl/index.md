@@ -1,6 +1,4 @@
 ---
-title: "En Allen Standaard (Hemelum (ksl))"
-linkTitle: "Hemelum (ksl)"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

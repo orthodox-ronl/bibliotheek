@@ -73,8 +73,9 @@ catalogus; bladtitels met `kop`; bladindeling in de download met
 `pdf-pagina` / `pdf-bijelkaar`. Bovenaan de pagina: **Download pagina** en
 **Print pagina** als `index.md.pdf` bestaat — beide gebruiken die PDF
 (niet de browserafdruk van de HTML). De voorgestelde bestandsnaam bij
-downloaden komt uit frontmatter `pdf_bestandsnaam`, anders uit `title`,
-anders uit de mapnaam. Bij elk muziekblok: tip-icoon **♪** voor
+downloaden komt uit frontmatter `pdf_bestandsnaam`; anders op een
+**koormap** uit `title` en op een **catalogus**-blad uit de afgeleide
+bladtitel; anders uit de mapnaam. Bij elk muziekblok: tip-icoon **♪** voor
 **Oefenen** / **Beluisteren** van **dat** stuk. Pagina-PDF bouwen:
 [pdf](../scripts/pdf/).
 
@@ -95,7 +96,7 @@ tonen —zelfde mechaniek, andere leeservaring:
 Voorbeeld compositieblad (schets):
 
 ```markdown
-# Prokimen weekdagen (Kiev, Groningen)
+# Prokimen weekdagen (Kiev)
 
 ## Maandag
 {{</* bieb id="prokimen/9a-maandag/groningen" */>}}
@@ -151,9 +152,8 @@ Elke catalogus-pagina (`_index.md` of leaf-`index.md`) heeft minstens:
 | `automatische_inhoud` | Sectie: meestal `true` (kindlijst). Leaf: altijd `false` (score via `bieb`) |
 
 Ids komen uit het **pad** (`zangstuk/variant/uitvoeringsvorm`). Tooling en
-shortcode `bieb` gebruiken het pad. Frontmatter `title` / `linkTitle` zijn
-geen bron van waarheid (Hugo negeert ze op id-pagina’s); `bieb accepteer`
-mag ze nog als afgeleid artefact zetten.
+shortcode `bieb` gebruiken het pad. Op id-pagina’s zet je geen frontmatter
+`title` / `linkTitle`; Hugo en zoeken leiden die namen af.
 
 Op een **uitvoeringsvorm-blad** zet je in de Markdown geen tweede
 hoofdtitel (`# …`): de site toont al één titel boven de partituur. De body

@@ -1,6 +1,4 @@
 ---
-title: "Eer aan de Vader — tweede antifoon (Liturgikon)"
-linkTitle: "Liturgikon"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

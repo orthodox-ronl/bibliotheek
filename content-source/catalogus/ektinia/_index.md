@@ -1,6 +1,4 @@
 ---
-title: "Ektinia"
-linkTitle: "Ektinia"
 nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true

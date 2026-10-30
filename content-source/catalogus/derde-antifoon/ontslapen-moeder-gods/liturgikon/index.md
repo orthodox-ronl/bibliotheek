@@ -1,6 +1,4 @@
 ---
-title: "Derde antifoon Ontslapen Moeder Gods (Liturgikon)"
-linkTitle: "Liturgikon"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

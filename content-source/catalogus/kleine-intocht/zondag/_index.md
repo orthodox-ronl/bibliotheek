@@ -1,6 +1,4 @@
 ---
-title: "Zondag"
-linkTitle: "Zondag"
 nav_sort: weight
 weight: 20
 publicatiestatus: reviewable

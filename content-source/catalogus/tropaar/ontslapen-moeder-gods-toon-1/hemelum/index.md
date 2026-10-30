@@ -1,6 +1,4 @@
 ---
-title: "Tropaar Ontslapen Moeder Gods toon 1 (Hemelum)"
-linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

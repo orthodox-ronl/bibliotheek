@@ -1,6 +1,4 @@
 ---
-title: "Prijslied Icoon Moeder Gods Vladimir (Meneon I)"
-linkTitle: "Meneon I"
 publicatiestatus: reviewable
 automatische_inhoud: false
 aliases:

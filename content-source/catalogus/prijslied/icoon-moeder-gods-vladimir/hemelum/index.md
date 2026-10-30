@@ -1,6 +1,4 @@
 ---
-title: "Prijslied Icoon Moeder Gods Vladimir (Hemelum)"
-linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

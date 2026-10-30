@@ -1,6 +1,4 @@
 ---
-title: "Kondak zondag toon 3"
-linkTitle: "zondag-toon-3"
 nav_sort: weight
 weight: 103
 publicatiestatus: concept

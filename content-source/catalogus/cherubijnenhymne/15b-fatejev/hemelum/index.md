@@ -1,6 +1,4 @@
 ---
-title: "15b Cherubijnenhymne (Fatejev)"
-linkTitle: "15b Cherubijnenhymne (Fatejev)"
 publicatiestatus: voorzien
 automatische_inhoud: false
 ---

@@ -1,6 +1,4 @@
 ---
-title: "Vredeslitanie"
-linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

@@ -1,6 +1,4 @@
 ---
-title: "Alleluia toon 4 (Kiev, Groningen)"
-linkTitle: "Groningen"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

@@ -1,6 +1,4 @@
 ---
-title: "Tweede kleine litanie"
-linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

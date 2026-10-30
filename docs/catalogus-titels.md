@@ -21,12 +21,16 @@ leidt ze opnieuw af uit het (nieuwe) pad/id of de bron.
 - **Hugo** (partials `display-title.html` / `display-link-title.html`) en
   **zoekindex** (`scripts/build_zoek_index.py`) gebruiken hetzelfde
   algoritme uit pad/id, en voor leaf-`title` optioneel uit de bron.
-- Frontmatter `title` / `linkTitle` in de catalogus zijn **geen bron van
-  waarheid** op id-pagina’s (`zangstuk` / `variant` / leaf). Speciale
-  pagina’s (`speciaal/`, `zoeken/`, catalogus-root) blijven FM gebruiken.
+- Frontmatter `title` / `linkTitle` horen **niet** op catalogus-id-pagina’s
+  (`zangstuk` / `variant` / leaf). Speciale pagina’s (`speciaal/`,
+  `zoeken/`, catalogus-root) blijven FM gebruiken.
+- Body-`kop` / `#` op een catalogus-leaf is **ondertitel** op de
+  pagina-PDF, niet de hoofdtitel.
 - Uitvoeringsvorm-labels: Python
   `catalogus.UITVOERINGSVORM_LINK_TITLES` + spiegel
   `data/uitvoeringsvorm-link-titles.yaml` (check houdt die gelijk).
+- Tekstblad-dialoog (`dialoog-met-diaken/…`) heeft een eigen titelpad;
+  die blijft buiten deze weergave-regel.
 
 ## Afleidalgoritme
 
@@ -62,13 +66,13 @@ Shortcode `catalogus-referentie` (Alfabetisch / Per herkomst; `kind=per-soort` b
 
 
 Implementatie: `scripts/catalogus.py` (`section_title`, `derived_leaf_*`,
-`title_hint_from_source`).
+`title_hint_from_source`, `catalogus_weergave_title`).
 
 ## Wat wél in catalogus-frontmatter blijft
 
 - `publicatiestatus`, `automatische_inhoud`, `alias_van`,
   build-/productflags, shortcode `bieb` op de leaf.
-- Geen redactionele H1-tekst die losstaat van id/bron.
+- Geen `title` / `linkTitle` op id-pagina’s.
 - Op een uitvoeringsvorm-leaf: **geen** Markdown-`#` / `<h1>` die de
   template-H1 herhaalt; body bij voorkeur alleen `bieb` (zie
   [plans/catalogus-index-md-pdf.md](plans/catalogus-index-md-pdf.md)).
@@ -79,14 +83,14 @@ Implementatie: `scripts/catalogus.py` (`section_title`, `derived_leaf_*`,
 | --- | --- |
 | Dit contract | van kracht |
 | Hugo + zoekindex zelfde algoritme | gedaan |
-| `bieb accepteer` / `check_catalogus_leaf_titles` | gedaan (accepteer schrijft nog afgeleide FM; `--title` alleen uitzondering) |
+| `bieb accepteer` / `check_catalogus_leaf_titles` | gedaan (accepteer schrijft geen `title`/`linkTitle`) |
 | Handleiding § Titels | synchroon |
 | `bieb hernoem` verbreden | gedaan (titels niet aanpassen; bouw leidt af) |
 
 ## Hard rules (agents)
 
-1. Geen nieuwe handmatige catalogus-`title`/`linkTitle` als redactionele
-   inhoud toevoegen of eisen.
+1. Geen catalogus-`title`/`linkTitle` als redactionele inhoud toevoegen
+   of eisen.
 2. Bij nieuwe uitvoeringsvorm-labels: Python-dict én
    `data/uitvoeringsvorm-link-titles.yaml` bijwerken.
 3. Geen hernoem-uitbreiding die op frontmatter-titels leunt.

@@ -44,10 +44,12 @@ horen bij de Hugo-pagina (catalogus-H1) of bij koormap-`kop` / Markdown.
 
 ## 2. Welk plaatje op het scherm
 
-In het **{}**-menu staan onder elkaar **Bronnen** en één wisselknop:
-**OSMG** (als je nu SVG ziet) of **SVG** (als je nu OSMG ziet). Default is
-SVG. Keuze in `localStorage` (`bibliotheek-schermstand`), sitebreed in die
-browser ([`bieb-score.html`](../../layouts/partials/bieb-score.html) +
+Op **catalogus**-bladen: in het **{}**-menu staan **Bronnen** en één
+wisselknop **OSMG** (als je nu SVG ziet) of **SVG** (als je nu OSMG ziet).
+Op **koormap**-bladen geen wisselknop (en geen **{}** alleen daarvoor).
+Default is SVG. Keuze in `localStorage` (`bibliotheek-schermstand`),
+**sitebreed** in die browser — ook koormap-pagina’s volgen die stand
+([`bieb-score.html`](../../layouts/partials/bieb-score.html) +
 `static/js/score-schermstand.js`).
 
 | Stand | Bron op scherm |

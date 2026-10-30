@@ -17,19 +17,23 @@
   {{- with $p.File -}}
     {{- $dir = strings.TrimSuffix "/" (replace .Dir "\\" "/") -}}
   {{- end -}}
+  {{- $bronMsczMvsaPanels := slice -}}
   {{- range $p.Resources.Match "*.mvsa" -}}
-    {{- if not (strings.HasSuffix (lower .Name) ".mscz.mvsa") -}}
-      {{- $text := "" -}}
-      {{- if $dir -}}
-        {{- $srcPath := printf "content-source/%s/%s" $dir .Name -}}
-        {{- if fileExists $srcPath -}}
-          {{- $text = readFile $srcPath -}}
-        {{- end -}}
+    {{- $text := "" -}}
+    {{- if $dir -}}
+      {{- $srcPath := printf "content-source/%s/%s" $dir .Name -}}
+      {{- if fileExists $srcPath -}}
+        {{- $text = readFile $srcPath -}}
       {{- end -}}
-      {{- if not $text -}}
-        {{- with .Content -}}{{- $text = . -}}{{- end -}}
-      {{- end -}}
-      {{- $bronPanels = $bronPanels | append (dict "key" .Name "href" .RelPermalink "text" $text) -}}
+    {{- end -}}
+    {{- if not $text -}}
+      {{- with .Content -}}{{- $text = . -}}{{- end -}}
+    {{- end -}}
+    {{- $panel := dict "key" .Name "href" .RelPermalink "text" $text -}}
+    {{- if strings.HasSuffix (lower .Name) ".mscz.mvsa" -}}
+      {{- $bronMsczMvsaPanels = $bronMsczMvsaPanels | append $panel -}}
+    {{- else -}}
+      {{- $bronPanels = $bronPanels | append $panel -}}
     {{- end -}}
   {{- end -}}
   {{- range $p.Resources.Match "*.vsa" -}}
@@ -44,6 +48,9 @@
       {{- with .Content -}}{{- $text = . -}}{{- end -}}
     {{- end -}}
     {{- $bronPanels = $bronPanels | append (dict "key" .Name "href" .RelPermalink "text" $text) -}}
+  {{- end -}}
+  {{- if eq (len $bronPanels) 0 -}}
+    {{- $bronPanels = $bronMsczMvsaPanels -}}
   {{- end -}}
 {{- end -}}
 <div class="score-bundle">

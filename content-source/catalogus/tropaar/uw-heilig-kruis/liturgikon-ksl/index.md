@@ -1,6 +1,4 @@
 ---
-title: "Uw Heilig Kruis (Liturgikon, Kerkslavisch)"
-linkTitle: "Liturgikon (ksl)"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

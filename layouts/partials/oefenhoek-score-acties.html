@@ -4,8 +4,9 @@
   de shortcode staat — bepaalt knopset), optioneel "position".
 
   Oefenen / Beluisteren: compact ♪-menu linksboven op de partituur
-  (catalogus én koormap). {}-menu: schermstand SVG/OSMG (sitebreed via
-  localStorage) + op catalogus brontekst .mvsa/.vsa.
+  (catalogus én koormap). {}-menu alleen catalogus: brontekst .mvsa/.vsa
+  + knop SVG/OSMG. Schermstand zelf (localStorage) geldt sitebreed, ook
+  op koormap-pagina’s — daar geen wisselknop.
   Print/download blad: nav «Download pagina» / «Print pagina» (index.md.pdf).
 */ -}}
 {{- $score := .score -}}
@@ -154,22 +155,30 @@
   {{- end -}}
 {{- end -}}
 {{- $audioMenu := $audioPreferred | append $audioOther -}}
-{{- /* Bronbestanden (alleen op catalogus-pagina's): .mvsa / .vsa tonen als tekst.
-     Alleen-.mscz: geen Bronnen-knop (die bron is niet als tekst te lezen). */ -}}
+{{- /* Bronbestanden (alleen catalogus): .mvsa / .vsa als tekst.
+     Import-sibling .mscz.mvsa alleen als er geen echte .mvsa/.vsa is
+     (anders blijft {} zonder Bronnen bij mscz-bladen). */ -}}
 {{- $bronMenu := slice -}}
 {{- if $inCatalogus -}}
   {{- $bronItems := slice -}}
+  {{- $bronMsczMvsa := slice -}}
   {{- range $score.Resources.Match "*.mvsa" -}}
-    {{- if not (strings.HasSuffix (lower .Name) ".mscz.mvsa") -}}
-      {{- $meta := partial "product-representatie-label.html" (dict "name" .Name "score" $score) -}}
-      {{- $extra := printf "data-bron-href=%q data-bron-key=%q" .RelPermalink .Name -}}
-      {{- $bronItems = $bronItems | append (dict "href" .RelPermalink "label" $meta.label "detail" $meta.detail "id" $meta.id "class" "score-bron-show" "extra" $extra) -}}
+    {{- $meta := partial "product-representatie-label.html" (dict "name" .Name "score" $score) -}}
+    {{- $extra := printf "data-bron-href=%q data-bron-key=%q" .RelPermalink .Name -}}
+    {{- $it := dict "href" .RelPermalink "label" $meta.label "detail" $meta.detail "id" $meta.id "class" "score-bron-show" "extra" $extra -}}
+    {{- if strings.HasSuffix (lower .Name) ".mscz.mvsa" -}}
+      {{- $bronMsczMvsa = $bronMsczMvsa | append $it -}}
+    {{- else -}}
+      {{- $bronItems = $bronItems | append $it -}}
     {{- end -}}
   {{- end -}}
   {{- range $score.Resources.Match "*.vsa" -}}
     {{- $meta := partial "product-representatie-label.html" (dict "name" .Name "score" $score) -}}
     {{- $extra := printf "data-bron-href=%q data-bron-key=%q" .RelPermalink .Name -}}
     {{- $bronItems = $bronItems | append (dict "href" .RelPermalink "label" $meta.label "detail" $meta.detail "id" $meta.id "class" "score-bron-show" "extra" $extra) -}}
+  {{- end -}}
+  {{- if eq (len $bronItems) 0 -}}
+    {{- $bronItems = $bronMsczMvsa -}}
   {{- end -}}
   {{- $bronPreferred := slice -}}
   {{- $bronOther := slice -}}
@@ -182,9 +191,10 @@
   {{- end -}}
   {{- $bronMenu = $bronPreferred | append $bronOther -}}
 {{- end -}}
-{{- /* Schermstand: SVG / OSMG als die producten er zijn. */ -}}
+{{- /* Schermstand-knop alleen catalogus; stand zelf geldt sitebreed (JS). */ -}}
 {{- $hasSchermSvg := false -}}
 {{- $hasSchermOsmg := false -}}
+{{- if $inCatalogus -}}
 {{- range $score.Resources -}}
   {{- $n := lower .Name -}}
   {{- $kettingSvg := or (strings.Contains $n ".mvsa.mscz.") (strings.Contains $n ".vsa.mscz.") (strings.Contains $n ".mscz.mscz.") -}}
@@ -212,11 +222,12 @@
     {{- end -}}
   {{- end -}}
 {{- end -}}
-{{- $hasScherm := or $hasSchermSvg $hasSchermOsmg -}}
+{{- end -}}
+{{- $showSchermstandKnop := and $inCatalogus $hasSchermSvg $hasSchermOsmg -}}
 {{- $hasOefenen := gt (len $oefenMenu) 0 -}}
 {{- $hasAudio := gt (len $audioMenu) 0 -}}
 {{- $hasBron := and $inCatalogus (gt (len $bronMenu) 0) -}}
-{{- $hasBronTip := or $hasBron $hasScherm -}}
+{{- $hasBronTip := or $hasBron $showSchermstandKnop -}}
 {{- if or $hasOefenen $hasAudio $hasBronTip -}}
 {{- /* Geen indentatie/newlines: bieb-Inner gaat door markdownify; 4 spaties → codeblok.
      Native details: open/dicht zonder JS (voorkomt dubbele handlers bij livereload). */ -}}
@@ -237,7 +248,7 @@
 <details class="score-oefen-tip"><summary class="score-oefen-tip-trigger" aria-label="Oefenen en beluisteren" title="Oefenen en beluisteren">♪</summary><div class="score-oefen-tip-panel"><div class="{{ $wrapClass }}">{{ partial "score-action-menu.html" (dict "title" "Oefenen" "items" $oefenMenu "btnClass" "btn" "hint" $oefenHint "role" "oefenen") }}{{ partial "score-action-menu.html" (dict "title" "Beluisteren" "items" $audioMenu "btnClass" "btn" "hint" $audioHint "role" "beluisteren") }}</div></div></details>
 {{- end -}}
 {{- if $hasBronTip -}}
-<details class="score-bron-tip"><summary class="score-bron-tip-trigger" aria-label="Bronnen en scherm" title="Bronnen en scherm">{}</summary><div class="score-bron-tip-panel"><div class="{{ $wrapClass }}">{{- if $hasBron -}}<div class="score-action-menu score-action-menu--bron-mode" data-score-role="bron-download" hidden><a class="btn" data-bron-download href="#" download>Downloaden</a></div><div class="score-action-menu score-action-menu--bron-mode" data-score-role="bron-print" hidden><button type="button" class="btn" data-bron-print>Printen</button></div>{{ partial "score-action-menu.html" (dict "title" "Bronnen" "items" $bronMenu "btnClass" "btn" "hint" $bronHint "role" "bronnen") }}{{- end -}}{{- if and $hasSchermSvg $hasSchermOsmg -}}<div class="score-action-menu" data-score-role="schermstand"><button type="button" class="btn" data-schermstand-switch data-schermstand="osmg">OSMG</button></div>{{- end -}}</div></div></details>
+<details class="score-bron-tip"><summary class="score-bron-tip-trigger" aria-label="Bronnen en scherm" title="Bronnen en scherm">{}</summary><div class="score-bron-tip-panel"><div class="{{ $wrapClass }}">{{- if $hasBron -}}<div class="score-action-menu score-action-menu--bron-mode" data-score-role="bron-download" hidden><a class="btn" data-bron-download href="#" download>Downloaden</a></div><div class="score-action-menu score-action-menu--bron-mode" data-score-role="bron-print" hidden><button type="button" class="btn" data-bron-print>Printen</button></div>{{ partial "score-action-menu.html" (dict "title" "Bronnen" "items" $bronMenu "btnClass" "btn" "hint" $bronHint "role" "bronnen") }}{{- end -}}{{- if $showSchermstandKnop -}}<div class="score-action-menu" data-score-role="schermstand"><button type="button" class="btn" data-schermstand-switch data-schermstand="osmg">OSMG</button></div>{{- end -}}</div></div></details>
 {{- end -}}
 {{- end -}}
 {{- end -}}

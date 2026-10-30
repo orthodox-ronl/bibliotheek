@@ -1,6 +1,4 @@
 ---
-title: "Moeder Gods"
-linkTitle: "Moeder Gods"
 nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true

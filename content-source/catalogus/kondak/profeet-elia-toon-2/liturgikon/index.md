@@ -1,6 +1,4 @@
 ---
-title: "Kondak Profeet Elia toon 2 (Liturgikon)"
-linkTitle: "Liturgikon"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

@@ -1,6 +1,4 @@
 ---
-title: "20 moeder godslied"
-linkTitle: "20 moeder godslied"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

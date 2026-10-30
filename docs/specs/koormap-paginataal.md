@@ -58,11 +58,14 @@ Plaatsing van Download/Print in de navigatie is onderdeel van dit contract.
 
 Het bestand naast de Markdown blijft `index.md.pdf` (Hugo page
 resource). Bij **Download pagina** stelt de site een bestandsnaam voor
-volgens deze volgorde:
+volgens deze volgorde (koormap-slot):
 
 1. frontmatter `pdf_bestandsnaam` — als die gezet is;
 2. anders frontmatter `title`;
 3. anders de **mapnaam** van de pagina (laatste map in het pad).
+
+Op een **catalogus**-blad geldt stap 2 als de afgeleide bladtitel
+(zelfde als de H1), niet frontmatter `title`.
 
 Zonder `.pdf` in die waarde wordt die extensie toegevoegd. Tekens die in
 bestandsnamen niet mogen (`\ / : * ? " < > |`) worden door een streepje
