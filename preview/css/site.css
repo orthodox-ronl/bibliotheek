@@ -1672,10 +1672,67 @@ body.score-audio-bar-open {
   display: none;
 }
 
-.score-oefen-tip-trigger::before,
-.score-bron-tip-trigger::before {
-  content: none !important;
-  display: none !important;
+/* Hover-label naast het icoon (geen native title-tooltip). */
+@media (hover: hover) and (pointer: fine) {
+  .score-oefen-tip-trigger::before,
+  .score-bron-tip-trigger::before {
+    content: attr(aria-label);
+    position: absolute;
+    top: 50%;
+    z-index: 50;
+    box-sizing: border-box;
+    max-width: min(14rem, 70vw);
+    padding: 0.28rem 0.5rem;
+    border-radius: 4px;
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 500;
+    font-family: system-ui, sans-serif;
+    letter-spacing: normal;
+    line-height: 1.25;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-50%);
+    transition: opacity 0.08s ease;
+  }
+
+  /* ♪: label rechts van het knopje */
+  .score-oefen-tip-trigger::before {
+    left: calc(100% + 0.4rem);
+    right: auto;
+  }
+
+  /* {}: label links van het knopje */
+  .score-bron-tip-trigger::before {
+    left: auto;
+    right: calc(100% + 0.4rem);
+  }
+
+  .score-oefen-tip-trigger:hover::before,
+  .score-oefen-tip-trigger:focus-visible::before,
+  .score-bron-tip-trigger:hover::before,
+  .score-bron-tip-trigger:focus-visible::before {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Geen hover-label terwijl het klikmenu open is */
+  .score-oefen-tip[open] > .score-oefen-tip-trigger::before,
+  .score-bron-tip[open] > .score-bron-tip-trigger::before {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .score-oefen-tip-trigger::before,
+  .score-bron-tip-trigger::before {
+    content: none !important;
+    display: none !important;
+  }
 }
 
 /* Telefoon/tablet: tikvlak ~44px, icoon blijft 30px. */
@@ -1711,8 +1768,8 @@ body.score-audio-bar-open {
 .score-oefen-tip-panel,
 .score-bron-tip-panel {
   position: absolute;
-  top: auto;
-  bottom: calc(100% + 0.35rem);
+  top: 0;
+  bottom: auto;
   z-index: 40;
   width: 10.5rem;
   max-width: min(16rem, 92vw);
@@ -1725,16 +1782,16 @@ body.score-audio-bar-open {
   text-align: left;
 }
 
-/* ♪: popup rechtsboven het icoon */
+/* ♪: klikmenu rechts van het icoon (blijft in het blad) */
 .score-oefen-tip-panel {
-  left: auto;
-  right: 0;
+  left: calc(100% + 0.35rem);
+  right: auto;
 }
 
-/* {}: popup linksboven het icoon */
+/* {}: klikmenu links van het icoon */
 .score-bron-tip-panel {
-  left: 0;
-  right: auto;
+  left: auto;
+  right: calc(100% + 0.35rem);
 }
 
 .score-actions--in-tip {
