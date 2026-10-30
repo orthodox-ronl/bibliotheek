@@ -415,35 +415,9 @@
               "octave": 4
             },
             "duration": {
-              "elm": "__"
-            },
-            "lyricIndex": 5,
-            "melisma": {
-              "extend": true,
-              "tieStart": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "F",
-              "octave": 4
-            },
-            "duration": {
               "elm": "~"
             },
-            "melisma": {
-              "tieStop": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "D",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "~"
-            },
-            "lyricIndex": 7
+            "lyricIndex": 5
           },
           {
             "pitch": {
@@ -453,7 +427,51 @@
             "duration": {
               "elm": "_"
             },
+            "lyricIndex": 6
+          },
+          {
+            "pitch": {
+              "step": "F",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "_"
+            },
+            "lyricIndex": 7
+          },
+          {
+            "pitch": {
+              "step": "D",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "~"
+            },
             "lyricIndex": 8
+          },
+          {
+            "pitch": {
+              "step": "F",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 9
+          },
+          {
+            "pitch": {
+              "step": "F",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 10,
+            "melisma": {
+              "extend": true,
+              "slurStart": true
+            }
           },
           {
             "pitch": {
@@ -474,7 +492,7 @@
               "elm": "__"
             },
             "melisma": {
-              "tieStart": true
+              "slurStop": true
             }
           },
           {
@@ -484,9 +502,6 @@
             },
             "duration": {
               "elm": "__"
-            },
-            "melisma": {
-              "tieStop": true
             }
           }
         ],
@@ -797,6 +812,9 @@
             },
             "duration": {
               "elm": "__"
+            },
+            "melisma": {
+              "slurStop": true
             }
           },
           {

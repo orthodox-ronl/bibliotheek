@@ -417,6 +417,9 @@
             },
             "duration": {
               "elm": "__"
+            },
+            "melisma": {
+              "slurStop": true
             }
           },
           {
@@ -634,6 +637,9 @@
             },
             "duration": {
               "elm": "__"
+            },
+            "melisma": {
+              "slurStop": true
             }
           },
           {
@@ -806,23 +812,10 @@
               "octave": 4
             },
             "duration": {
-              "elm": "__"
+              "elm": "_."
             },
             "melisma": {
-              "tieStart": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "C",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "__"
-            },
-            "melisma": {
-              "tieStart": true,
-              "tieStop": true
+              "slurStop": true
             }
           },
           {
@@ -832,10 +825,6 @@
             },
             "duration": {
               "elm": "_"
-            },
-            "melisma": {
-              "tieStart": true,
-              "tieStop": true
             }
           },
           {
@@ -846,8 +835,10 @@
             "duration": {
               "elm": "~"
             },
+            "lyricIndex": 9,
             "melisma": {
-              "tieStop": true
+              "extend": true,
+              "slurStart": true
             }
           },
           {

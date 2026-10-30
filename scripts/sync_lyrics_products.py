@@ -9,6 +9,7 @@ temp-``.mxl`` via tooling.
 
 from __future__ import annotations
 
+from cli_style import detail
 from pathlib import Path
 from typing import Sequence
 
@@ -144,7 +145,7 @@ def _extract_plain(source: Path) -> str:
 def sync_one(source: Path, *, dry_run: bool) -> None:
     lyrics = product_path_for_source(source)
     rel = source.relative_to(REPO_ROOT)
-    print(f"  TXT  {rel} -> {lyrics.name}", flush=True)
+    detail(f"  TXT  {rel} -> {lyrics.name}")
     if dry_run:
         return
     plain = _extract_plain(source)

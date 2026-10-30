@@ -1,58 +1,46 @@
 {
   "fix_page": "/handleiding/partituur/5-pdf-en-coria/",
   "folders": {
-    "catalogus/cherubijnenhymne/15e-bortnjanski/hemelum": {
-      "mscz": "content-source/catalogus/cherubijnenhymne/15e-bortnjanski/hemelum/cherubijnenhymne-15e-bortnjanski-hemelum.mscz",
-      "ok": true,
-      "fix_cmd": "scripts\\mscz-products.cmd",
-      "issues": []
-    },
     "catalogus/communievers/moeder-gods/pancakescrawlspace": {
       "mscz": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.mscz",
       "ok": true,
-      "fix_cmd": "scripts\\mscz-products.cmd",
+      "fix_cmd": "scripts\\products.cmd --kinds mscz",
       "issues": []
     },
     "catalogus/eerste-antifoon/zondag/hemelum": {
       "mscz": "content-source/catalogus/eerste-antifoon/zondag/hemelum/eerste-antifoon-zondag-hemelum.mscz",
       "ok": true,
-      "fix_cmd": "scripts\\mscz-products.cmd",
+      "fix_cmd": "scripts\\products.cmd --kinds mscz",
       "issues": []
     },
     "catalogus/eucharistische-canon/19a-feofan/hemelum": {
       "mscz": "content-source/catalogus/eucharistische-canon/19a-feofan/hemelum/eucharistische-canon-19a-feofan-hemelum.mscz",
       "ok": true,
-      "fix_cmd": "scripts\\mscz-products.cmd",
+      "fix_cmd": "scripts\\products.cmd --kinds mscz",
       "issues": []
     },
     "catalogus/moeder-godslied/20d-in-waarheid/hemelum": {
       "mscz": "content-source/catalogus/moeder-godslied/20d-in-waarheid/hemelum/moeder-godslied-20d-in-waarheid-hemelum.mscz",
       "ok": true,
-      "fix_cmd": "scripts\\mscz-products.cmd",
+      "fix_cmd": "scripts\\products.cmd --kinds mscz",
       "issues": []
     },
     "catalogus/moeder-godslied/verhef-o-mijn-ziel-met-jubelzang/pancakescrawlspace": {
       "mscz": "content-source/catalogus/moeder-godslied/verhef-o-mijn-ziel-met-jubelzang/pancakescrawlspace/moeder-godslied-verhef-o-mijn-ziel-met-jubelzang-pancakescrawlspace.mscz",
       "ok": true,
-      "fix_cmd": "scripts\\mscz-products.cmd",
+      "fix_cmd": "scripts\\products.cmd --kinds mscz",
       "issues": []
     },
-    "catalogus/onder-uwe-hoede/default/groningen": {
-      "mscz": "content-source/catalogus/onder-uwe-hoede/default/groningen/onder-uwe-hoede-default-groningen.mscz",
+    "catalogus/onder-uwe-hoede/default/pancakescrawlspace": {
+      "mscz": "content-source/catalogus/onder-uwe-hoede/default/pancakescrawlspace/onder-uwe-hoede-default-pancakescrawlspace.mscz",
       "ok": true,
-      "fix_cmd": "scripts\\mscz-products.cmd",
+      "fix_cmd": "scripts\\products.cmd --kinds mscz",
       "issues": []
     },
-    "catalogus/tweede-antifoon/zondag/hemelum": {
-      "mscz": "content-source/catalogus/tweede-antifoon/zondag/hemelum/tweede-antifoon-zondag-hemelum.mscz",
+    "catalogus/vriendelijk-licht/default/pancakescrawlspace": {
+      "mscz": "content-source/catalogus/vriendelijk-licht/default/pancakescrawlspace/vriendelijk-licht-default-pancakescrawlspace.mscz",
       "ok": true,
-      "fix_cmd": "scripts\\mscz-products.cmd",
-      "issues": []
-    },
-    "catalogus/vriendelijk-licht/default/groningen": {
-      "mscz": "content-source/catalogus/vriendelijk-licht/default/groningen/vriendelijk-licht-default-groningen.mscz",
-      "ok": true,
-      "fix_cmd": "scripts\\mscz-products.cmd",
+      "fix_cmd": "scripts\\products.cmd --kinds mscz",
       "issues": []
     }
   }

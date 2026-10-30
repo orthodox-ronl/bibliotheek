@@ -6,7 +6,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Sequence
 
-from product_kind import ProductSlot, run_kind
+from product_kind import KindFailure, ProductSlot, collect_failures, run_kind
 from product_regen import RegenPolicy
 
 
@@ -149,3 +149,42 @@ def test_musescore_gate_fails_locally_when_only_ms(
     )
     assert code == 1
     assert kind.synced == []
+
+
+def test_sync_failure_explained_and_collected(tmp_path: Path) -> None:
+    src = tmp_path / "a.mscz"
+    src.write_bytes(b"PK")
+    prod = tmp_path / "a.mscz.mxl"
+
+    class BoomKind(FakeKind):
+        def sync(self, source, *, need, dry_run):  # noqa: ANN001
+            raise RuntimeError(
+                "a.mscz: ERROR: [WinError 32] door een ander proces wordt gebruikt"
+            )
+
+    kind = BoomKind(
+        id="mscz",
+        sources=[src],
+        slots={
+            src: [
+                ProductSlot(
+                    path=prod, exists=False, stamp_ok=False, contract_ok=None
+                )
+            ]
+        },
+    )
+    rows: list[KindFailure] = []
+    with collect_failures(rows):
+        code = run_kind(
+            kind,
+            tmp_path,
+            RegenPolicy(),
+            dry_run=True,
+            yes=True,
+            already_confirmed=True,
+            repo_root=tmp_path,
+        )
+    assert code == 1
+    assert len(rows) == 1
+    assert "a.mscz" in rows[0].path.replace("\\", "/")
+    assert rows[0].solution.startswith("Oplossing:")

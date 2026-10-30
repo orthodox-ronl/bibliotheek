@@ -13,11 +13,11 @@ niets.
 
 from __future__ import annotations
 
-import subprocess
 import sys
 from pathlib import Path
 from typing import Sequence
 
+from cli_style import detail, run_checked
 from product_kind import (
     DEFAULT_ROOT,
     REPO_ROOT,
@@ -76,7 +76,7 @@ def sync_one(md: Path, *, dry_run: bool) -> None:
     """Optioneel: schrijf sibling product-PDF (niet meer via products-slots)."""
     pdf = product_pdf_for_md(md)
     rel = md.relative_to(REPO_ROOT)
-    print(f"  PDF  {rel} -> {pdf.name}", flush=True)
+    detail(f"  PDF  {rel} -> {pdf.name}")
     if dry_run:
         return
     cmd = [
@@ -90,7 +90,7 @@ def sync_one(md: Path, *, dry_run: bool) -> None:
         "--content-root",
         str(REPO_ROOT / "content-source"),
     ]
-    proc = subprocess.run(cmd, cwd=str(REPO_ROOT), check=False)
+    proc = run_checked(cmd, cwd=str(REPO_ROOT))
     if proc.returncode != 0:
         raise RuntimeError(f"vsa pdf faalde (exit {proc.returncode})")
     if not pdf.is_file():

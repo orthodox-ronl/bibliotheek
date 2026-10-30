@@ -16,11 +16,11 @@ CI genereert niet — alleen ``check_mscz_products``; vernieuw lokaal met
 
 from __future__ import annotations
 
-import subprocess
 import sys
 from pathlib import Path
 from typing import Sequence
 
+from cli_style import check_call, detail, street_products_quiet_flags
 from coria_mxl import load_score_xml, require_no_spaces, write_mxl
 from product_kind import (
     DEFAULT_ROOT,
@@ -149,11 +149,12 @@ def _run_mscz_products(mscz: Path, *, skip_svg: bool) -> None:
         "vsa.cli_mscz",
         "products",
         "--force",
+        *street_products_quiet_flags(),
         str(mscz),
     ]
     if skip_svg:
         cmd.append("--skip-svg")
-    subprocess.check_call(cmd, cwd=str(REPO_ROOT))
+    check_call(cmd, cwd=str(REPO_ROOT))
     mxl = product_mxl_for_mscz(mscz)
     if not mxl.is_file():
         raise RuntimeError(f"MXL ontbreekt na mscz products: {mxl}")
@@ -176,7 +177,7 @@ def _remove_legacy(canonical: Path, legacy: Path) -> None:
         return
     if legacy.resolve() == canonical.resolve():
         return
-    print(f"  remove legacy {legacy.name}", flush=True)
+    detail(f"  remove legacy {legacy.name}")
     legacy.unlink()
 
 
@@ -210,10 +211,10 @@ def sync_one(
     need_export = need_mxl or need_svg
     skip_svg = not need_svg
     if need_pdf:
-        print(f"  PDF  {rel} -> {pdf.name}", flush=True)
+        detail(f"  PDF  {rel} -> {pdf.name}")
     if need_export:
         svg_note = "mxl+svg" if need_svg else "mxl (--skip-svg)"
-        print(f"  EXP  {rel} -> mscz products ({svg_note})", flush=True)
+        detail(f"  EXP  {rel} -> mscz products ({svg_note})")
     if dry_run:
         return
 

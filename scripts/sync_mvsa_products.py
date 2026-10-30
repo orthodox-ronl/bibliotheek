@@ -14,10 +14,11 @@ over. CI genereert niet — alleen ``check_mvsa_products``; vernieuw lokaal met
 from __future__ import annotations
 
 import re
-import subprocess
 import sys
 from pathlib import Path
 from typing import Sequence
+
+from cli_style import check_call, detail, street_products_quiet_flags
 
 _SVG_PAGE_RE = re.compile(r"-(\d+)\.svg$", re.IGNORECASE)
 
@@ -204,11 +205,12 @@ def _run_mvsa_products(mvsa: Path, *, skip_svg: bool) -> None:
         "vsa.cli_mvsa",
         "products",
         "--force",
+        *street_products_quiet_flags(),
         str(mvsa),
     ]
     if skip_svg:
         cmd.append("--skip-svg")
-    subprocess.check_call(cmd, cwd=str(REPO_ROOT))
+    check_call(cmd, cwd=str(REPO_ROOT))
     mxl = product_mxl_for_mvsa(mvsa)
     score_ir = product_score_ir_for_mvsa(mvsa)
     from_ir = product_from_ir_musicxml_for_mvsa(mvsa)
@@ -238,7 +240,7 @@ def _run_mvsa_pdf(mvsa: Path, pdf: Path, *, bibliotheek_id: str | None) -> None:
     ]
     if bibliotheek_id:
         cmd.extend(["--bibliotheek-id", bibliotheek_id])
-    subprocess.check_call(cmd, cwd=str(REPO_ROOT))
+    check_call(cmd, cwd=str(REPO_ROOT))
 
 
 def sync_one(
@@ -261,9 +263,9 @@ def sync_one(
     skip_svg = not need_svg
     if need_export:
         svg_note = "mxl+ir+svg" if need_svg else "mxl+ir (--skip-svg)"
-        print(f"  EXP  {rel} -> mvsa products ({svg_note})", flush=True)
+        detail(f"  EXP  {rel} -> mvsa products ({svg_note})")
     if need_pdf:
-        print(f"  PDF  {rel} -> {pdf.name}", flush=True)
+        detail(f"  PDF  {rel} -> {pdf.name}")
     if dry_run:
         return
 
