@@ -182,7 +182,8 @@ of een map (recursief die extensies). &lt;code&gt;-o&lt;/code&gt; en &lt;code&gt
 &lt;p&gt;&lt;code&gt;scripts\products.cmd&lt;/code&gt; — catalogus-afgeleiden (MXL, SVG, Score-IR, audio,
 lyrics, …) opnieuw maken onder een map of voor één bronbestand&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\products.cmd [pad] [--kinds LIST] [--force] [--dry-run] [--only-missing|--only-stale|--only-invalid]
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\products.cmd [pad] [--kinds LIST] [--force] [--dry-run] [--verbose]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; [--only-missing|--only-stale|--only-invalid]
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\all-products.cmd [opties]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;[pad]&lt;/code&gt; = catalogusmap of één bronbestand (default:
 &lt;code&gt;content-source\catalogus&lt;/code&gt;). &lt;code&gt;--kinds&lt;/code&gt; is een komma-lijst of &lt;code&gt;all&lt;/code&gt;

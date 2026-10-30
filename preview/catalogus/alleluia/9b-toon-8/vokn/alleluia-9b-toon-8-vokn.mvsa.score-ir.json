@@ -5,7 +5,8 @@
   "meta": {
     "title": "Alleluia - Toon 8",
     "bibliotheekId": "content-source/catalogus/alleluia",
-    "sourceLabel": "Liturgiemap Vereniging van Orthodoxen"
+    "sourceLabel": "Liturgiemap Vereniging van Orthodoxen",
+    "tempo": "160"
   },
   "pitchContext": {
     "do": "G4",
@@ -29,7 +30,7 @@
           "syllables": [
             {
               "text": "Al",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -275,7 +276,7 @@
             "lyricIndex": 7,
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -296,7 +297,7 @@
               "elm": "~"
             },
             "melisma": {
-              "slur": true
+              "slurStop": true
             }
           },
           {
@@ -310,7 +311,7 @@
             "lyricIndex": 8,
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -349,7 +350,7 @@
               "elm": "_"
             },
             "melisma": {
-              "slur": true
+              "slurStop": true
             }
           },
           {
@@ -363,7 +364,7 @@
             "lyricIndex": 9,
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -375,7 +376,7 @@
               "elm": "~"
             },
             "melisma": {
-              "slur": true
+              "slurStop": true
             }
           },
           {
@@ -389,7 +390,7 @@
             "lyricIndex": 10,
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -425,22 +426,7 @@
               "octave": 4
             },
             "duration": {
-              "elm": "_"
-            },
-            "melisma": {
-              "tie": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "B",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "~"
-            },
-            "melisma": {
-              "tie": true
+              "elm": "_."
             }
           },
           {
@@ -488,7 +474,7 @@
               "elm": "~"
             },
             "melisma": {
-              "slur": true
+              "slurStop": true
             }
           },
           {
@@ -589,7 +575,7 @@
             "lyricIndex": 7,
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -611,7 +597,7 @@
               "elm": "~"
             },
             "melisma": {
-              "slur": true
+              "slurStop": true
             }
           },
           {
@@ -625,7 +611,7 @@
             "lyricIndex": 8,
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -665,7 +651,7 @@
               "elm": "_"
             },
             "melisma": {
-              "slur": true
+              "slurStop": true
             }
           },
           {
@@ -679,7 +665,7 @@
             "lyricIndex": 9,
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -692,7 +678,7 @@
               "elm": "~"
             },
             "melisma": {
-              "slur": true
+              "slurStop": true
             }
           },
           {
@@ -706,7 +692,7 @@
             "lyricIndex": 10,
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -743,22 +729,7 @@
               "octave": 4
             },
             "duration": {
-              "elm": "_"
-            },
-            "melisma": {
-              "tie": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "G",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "~"
-            },
-            "melisma": {
-              "tie": true
+              "elm": "_."
             }
           },
           {
@@ -808,7 +779,7 @@
               "elm": "~"
             },
             "melisma": {
-              "slur": true
+              "slurStop": true
             }
           },
           {
@@ -918,7 +889,7 @@
             },
             "melisma": {
               "extend": true,
-              "tie": true
+              "tieStart": true
             }
           },
           {
@@ -930,7 +901,8 @@
               "elm": "__"
             },
             "melisma": {
-              "tie": true
+              "tieStart": true,
+              "tieStop": true
             }
           },
           {
@@ -942,7 +914,7 @@
               "elm": "_"
             },
             "melisma": {
-              "tie": true
+              "tieStop": true
             }
           },
           {
@@ -964,7 +936,7 @@
             },
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -973,22 +945,7 @@
               "octave": 4
             },
             "duration": {
-              "elm": "__"
-            },
-            "melisma": {
-              "tie": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "E",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "_"
-            },
-            "melisma": {
-              "tie": true
+              "elm": "~"
             }
           },
           {
@@ -1000,7 +957,7 @@
               "elm": "__"
             },
             "melisma": {
-              "tie": true
+              "tieStart": true
             }
           },
           {
@@ -1012,8 +969,8 @@
               "elm": "~"
             },
             "melisma": {
-              "slur": true,
-              "tie": true
+              "slurStop": true,
+              "tieStop": true
             }
           },
           {
@@ -1023,8 +980,7 @@
             },
             "duration": {
               "elm": "__"
-            },
-            "lyricIndex": 10
+            }
           }
         ],
         "B": [
@@ -1123,7 +1079,7 @@
             },
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -1132,22 +1088,7 @@
               "octave": 3
             },
             "duration": {
-              "elm": "__"
-            },
-            "melisma": {
-              "tie": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "D",
-              "octave": 3
-            },
-            "duration": {
-              "elm": "_"
-            },
-            "melisma": {
-              "tie": true
+              "elm": "~"
             }
           },
           {
@@ -1159,7 +1100,7 @@
               "elm": "_"
             },
             "melisma": {
-              "slur": true
+              "slurStop": true
             }
           },
           {
@@ -1172,7 +1113,7 @@
             },
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -1184,7 +1125,7 @@
               "elm": "~"
             },
             "melisma": {
-              "slur": true
+              "slurStop": true
             }
           },
           {
@@ -1197,8 +1138,8 @@
             },
             "melisma": {
               "extend": true,
-              "slur": true,
-              "tie": true
+              "slurStart": true,
+              "tieStart": true
             }
           },
           {
@@ -1210,7 +1151,8 @@
               "elm": "__"
             },
             "melisma": {
-              "tie": true
+              "tieStart": true,
+              "tieStop": true
             }
           },
           {
@@ -1222,7 +1164,7 @@
               "elm": "_"
             },
             "melisma": {
-              "tie": true
+              "tieStop": true
             }
           },
           {
@@ -1243,7 +1185,7 @@
               "elm": "~"
             },
             "melisma": {
-              "slur": true
+              "slurStop": true
             }
           },
           {
@@ -1258,9 +1200,5 @@
         ]
       }
     }
-  ],
-  "vsa-source-sha256": "5de985798dc9a4ea00172dcfe0e2abefe8e0a2235761256b70e75a902c6c8a9f",
-  "vsa-source-kind": "mvsa",
-  "vsa-generated-at": "2026-10-23T14:32:45+00:00",
-  "vsa-generator": "mvsa-products"
+  ]
 }

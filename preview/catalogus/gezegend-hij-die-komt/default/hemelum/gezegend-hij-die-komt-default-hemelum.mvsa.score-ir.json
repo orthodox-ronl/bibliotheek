@@ -5,7 +5,8 @@
   "meta": {
     "title": "Gezegend Hij die komt (26)",
     "bibliotheekId": "content-source/catalogus/gezegend-hij-die-komt",
-    "sourceLabel": "koormap Hemelum"
+    "sourceLabel": "koormap Hemelum",
+    "tempo": "180"
   },
   "pitchContext": {
     "do": "F4",
@@ -36,7 +37,7 @@
           "syllables": [
             {
               "text": "Ge",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -166,7 +167,7 @@
           "syllables": [
             {
               "text": "He",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -782,7 +783,7 @@
           "syllables": [
             {
               "text": "ver",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1014,7 +1015,7 @@
             "lyricIndex": 8,
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -1026,7 +1027,7 @@
               "elm": "_"
             },
             "melisma": {
-              "slur": true
+              "slurStop": true
             }
           },
           {
@@ -1131,7 +1132,7 @@
             "lyricIndex": 8,
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -1143,7 +1144,7 @@
               "elm": "_"
             },
             "melisma": {
-              "slur": true
+              "slurStop": true
             }
           },
           {
@@ -1249,7 +1250,7 @@
             "lyricIndex": 8,
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -1261,7 +1262,7 @@
               "elm": "_"
             },
             "melisma": {
-              "slur": true
+              "slurStop": true
             }
           },
           {
@@ -1287,7 +1288,7 @@
           "syllables": [
             {
               "text": "A",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1401,9 +1402,5 @@
         ]
       }
     }
-  ],
-  "vsa-source-sha256": "787c50cf204bfa843e29a571d1eb3a4b794b32a7bd1c4f616197b0cb83a80913",
-  "vsa-source-kind": "mvsa",
-  "vsa-generated-at": "2026-10-23T09:14:46+00:00",
-  "vsa-generator": "mvsa-products"
+  ]
 }

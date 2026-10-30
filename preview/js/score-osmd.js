@@ -1262,14 +1262,37 @@
     }
   }
 
-  function init() {
-    var hosts = document.querySelectorAll("[data-osmd-src]");
-    if (!hosts.length) {
-      return;
+  function hostIsVisible(host) {
+    var panel = host.closest("[data-scherm]");
+    if (panel && panel.hasAttribute("hidden")) {
+      return false;
     }
-    hosts.forEach(function (host) {
+    return true;
+  }
+
+  function ensureOsmd(root) {
+    var scope = root && root.querySelectorAll ? root : document;
+    var hosts = scope.querySelectorAll
+      ? scope.querySelectorAll("[data-osmd-src]")
+      : [];
+    if (!hosts.length && root && root.getAttribute && root.getAttribute("data-osmd-src")) {
+      hosts = [root];
+    }
+    Array.prototype.forEach.call(hosts, function (host) {
+      if (!hostIsVisible(host)) {
+        return;
+      }
+      if (host.getAttribute("data-osmd-ready") === "1") {
+        return;
+      }
+      host.setAttribute("data-osmd-ready", "1");
       renderHost(host);
     });
+  }
+
+  function init() {
+    // Alleen zichtbare hosts (SVG-default: OSMG-panel is hidden tot {}-keuze).
+    ensureOsmd(document);
   }
 
   if (document.readyState === "loading") {
@@ -1277,7 +1300,8 @@
   } else {
     init();
   }
-  window.__VSA_SCORE_OSMD_BUILD = "20261024-lyric-gap";
+  window.__vsaEnsureOsmd = ensureOsmd;
+  window.__VSA_SCORE_OSMD_BUILD = "20261029-schermstand";
 
   function diagnoseStaff(measures, byPart, mi, label) {
     var out = { label: label };

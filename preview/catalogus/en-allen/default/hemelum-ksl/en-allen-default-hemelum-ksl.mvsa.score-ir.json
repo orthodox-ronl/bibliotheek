@@ -5,7 +5,8 @@
   "meta": {
     "title": "И всех, и вся (21)",
     "bibliotheekId": "content-source/catalogus/en-allen",
-    "sourceLabel": "koormap Hemelum"
+    "sourceLabel": "koormap Hemelum",
+    "tempo": "180"
   },
   "pitchContext": {
     "do": "F4",
@@ -160,7 +161,7 @@
             "lyricIndex": 2,
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -172,7 +173,7 @@
               "elm": "~"
             },
             "melisma": {
-              "slur": true
+              "slurStop": true
             }
           },
           {
@@ -217,7 +218,7 @@
             "lyricIndex": 2,
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -229,7 +230,7 @@
               "elm": "~"
             },
             "melisma": {
-              "slur": true
+              "slurStop": true
             }
           },
           {
@@ -275,7 +276,7 @@
             "lyricIndex": 2,
             "melisma": {
               "extend": true,
-              "slur": true
+              "slurStart": true
             }
           },
           {
@@ -287,7 +288,7 @@
               "elm": "~"
             },
             "melisma": {
-              "slur": true
+              "slurStop": true
             }
           },
           {
@@ -319,7 +320,7 @@
           "syllables": [
             {
               "text": "А",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -476,7 +477,7 @@
           "syllables": [
             {
               "text": "ду",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -502,7 +503,7 @@
           "syllables": [
             {
               "text": "тво",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -780,9 +781,5 @@
         ]
       }
     }
-  ],
-  "vsa-source-sha256": "07920bd57252458a67c8b6775c70b5667a964e798ec37ec4c6b1852a9498a544",
-  "vsa-source-kind": "mvsa",
-  "vsa-generated-at": "2026-10-23T09:14:31+00:00",
-  "vsa-generator": "mvsa-products"
+  ]
 }
