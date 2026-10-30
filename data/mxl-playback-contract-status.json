@@ -98,6 +98,12 @@
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
       "issues": []
     },
+    "content-source/catalogus/alleluia/na-communievers-f-majeur/default/alleluia-na-communievers-f-majeur-default.mvsa.mxl": {
+      "profile": "satb",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
+      "issues": []
+    },
     "content-source/catalogus/cherubijnenhymne/15c-kastorski/hemelum/cherubijnenhymne-15c-kastorski-hemelum.mvsa.mxl": {
       "profile": "satb",
       "ok": true,
@@ -148,6 +154,12 @@
     },
     "content-source/catalogus/communievers/onthoofding-johannes-de-doper/hemelum/communievers-onthoofding-johannes-de-doper-hemelum.vsa.mxl": {
       "profile": "mono",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
+      "issues": []
+    },
+    "content-source/catalogus/communiezang/ontvangt-het-lichaam/hemelum/communiezang-ontvangt-het-lichaam-hemelum.mvsa.mxl": {
+      "profile": "satb",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid",
       "issues": []

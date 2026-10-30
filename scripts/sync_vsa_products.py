@@ -232,7 +232,7 @@ def _title_for_vsa(vsa: Path) -> str:
 def _point_pdf_errors_at_source(text: str, *, tmp_path: Path, source: Path) -> str:
     """Vervang temp-Markdown-paden in tool-output door het echte ``.vsa``-pad.
 
-    ``vsa pdf`` valideert een tijdelijk blad; foutregels noemen anders
+    ``markdown pdf`` valideert een tijdelijk blad; foutregels noemen anders
     ``AppData\\Local\\Temp\\vsa-pdf-….md`` i.p.v. de catalogusbron.
     """
     try:
@@ -253,7 +253,7 @@ def _point_pdf_errors_at_source(text: str, *, tmp_path: Path, source: Path) -> s
 
 
 def _run_vsa_pdf(vsa: Path, pdf: Path) -> None:
-    """A4-PDF via tijdelijke Markdown + ``vsa pdf`` (site-SVG-look, printbaar).
+    """A4-PDF via tijdelijke Markdown + ``markdown pdf`` (site-SVG-look).
 
     Alleen de VSA-notatie (zonder YAML-frontmatter van de ``.vsa``) in
     ``::: vsa-notatie``; anders verschijnen ``do:`` / ``tempo:`` als tekst
@@ -274,7 +274,7 @@ def _run_vsa_pdf(vsa: Path, pdf: Path) -> None:
         cmd = [
             sys.executable,
             "-m",
-            "vsa.cli",
+            "vsa.cli_md",
             "pdf",
             str(tmp_path),
             "-o",
@@ -300,11 +300,13 @@ def _run_vsa_pdf(vsa: Path, pdf: Path) -> None:
                 rel = vsa.relative_to(REPO_ROOT)
             except ValueError:
                 rel = vsa
-            raise RuntimeError(f"vsa pdf faalde (exit {proc.returncode}) voor {rel}")
+            raise RuntimeError(
+                f"markdown pdf faalde (exit {proc.returncode}) voor {rel}"
+            )
     finally:
         tmp_path.unlink(missing_ok=True)
     if not pdf.is_file():
-        raise RuntimeError(f"PDF ontbreekt na vsa pdf: {pdf}")
+        raise RuntimeError(f"PDF ontbreekt na markdown pdf: {pdf}")
 
 
 def _apply_bron_identification(vsa: Path, mxl: Path) -> bool:

@@ -12,7 +12,9 @@
   {{- end -}}
   {{- if and .RegularPages (not .Params.hide_page_list) -}}
     {{- range .RegularPages -}}
-      {{- if and .Title (not .Params.vsa_nav_exclude) -}}
+      {{- /* Geen .Title-eis: catalogus-leaves hebben afgeleide titels
+           (display-title), vaak zonder frontmatter title/linkTitle. */ -}}
+      {{- if not .Params.vsa_nav_exclude -}}
         {{- $items = $items | append . -}}
       {{- end -}}
     {{- end -}}

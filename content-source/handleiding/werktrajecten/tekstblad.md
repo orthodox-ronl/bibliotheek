@@ -4,40 +4,46 @@ linkTitle: "Tekstblad"
 weight: 55
 ---
 
-# Tekstblad → PDF
+# Tekstblad
 
-Dit werktraject maakt uit een bibliotheek-bron **`{stam}.tekstblad.md`**
-(vooral tekst, eventueel HTML en `::: vsa-notatie`) een A4-PDF
-**`{stam}.tekstblad.pdf`**. Representatie-id: `tekstblad`.
+Dit werktraject houdt een bibliotheek-bron **`{stam}.tekstblad.md`**
+bij (vooral tekst, eventueel HTML en `::: vsa-notatie`). Representatie-id:
+`tekstblad`. Op het scherm toont `bieb` die inhoud; blokken
+`::: vsa-notatie` worden als SVG getekend via
+`{stam}.tekstblad.scherm.html`. Download/Print gebruikt `index.md.pdf`
+(via `pdf.cmd`).
 
 {{< cue >}}
-Na een `{stam}.tekstblad.md` in de bladermap:
+Na een `{stam}.tekstblad.md` met `::: vsa-notatie` in de bladermap:
 ```cmd
 scripts\products.cmd --kinds tekstblad content-source\catalogus\<zangstuk>
+scripts\pdf.cmd content-source\catalogus\<zangstuk>
 scripts\check.cmd --strict
 ```
-Commit de `.tekstblad.md` en de `.tekstblad.pdf` samen.
+Commit de `.tekstblad.md` samen met `.tekstblad.scherm.html` en de
+block-SVG’s; commit `index.md.pdf` na `pdf.cmd`.
 {{< /cue >}}
 
 ## Waartoe
 
 Liturgische tekst of dialoog (bijvoorbeeld ustav met de diaken) hoort in de
 **bibliotheek**, net als een basispartituur of een `.vsa`. Koorleden zien
-en downloaden/printen de PDF via shortcode `bieb` — niet een tweede kopie
-van de tekst in de koormap.
+het blad via shortcode `bieb` en downloaden via **Download pagina** —
+niet een tweede kopie van de tekst in de koormap.
 
 ## Eindresultaat en criteria
 
 | Bestand (in de bladermap) | Rol |
 | --- | --- |
 | `{stam}.tekstblad.md` | Canonieke bron (nooit een Hugo-pagina) |
-| `{stam}.tekstblad.pdf` | A4-product; stamp `vsa-source-sha256` |
+| `{stam}.tekstblad.scherm.html` + `…-block-N.svg` | Scherm: VSA-blokken als tekening (`products --kinds tekstblad`) |
+| `index.md.pdf` | Blad voor Download/Print (`pdf.cmd`) |
 
 **Klaar** als: de bron frontmatter `build: render: never` (en `list: never`)
-heeft; de PDF bij de bron past (`check_tekstblad_products`); `bieb` toont
-het blad met **Download pagina** / **Print pagina** (`index.md.pdf`
-uit de `.tekstblad.md` via `pdf.cmd`). Geen verplichte product-PDF
-meer; geen Coria uit dit spoor.
+heeft; bij `::: vsa-notatie` de scherm-HTML/SVG’s bij de bron passen;
+`bieb` toont leesbare tekst met gerenderde notatie; **Download pagina**
+werkt via `index.md.pdf`. Geen verplichte product-`.tekstblad.pdf` meer;
+geen Coria uit dit spoor.
 
 Voorbeeld:
 `content-source\catalogus\dialoog-met-diaken\default\hemelum\`.
@@ -55,28 +61,35 @@ Voorbeeld:
 1. Schrijf of herstel `{stam}.tekstblad.md` (HTML en `::: vsa-notatie` mogen).
 2. Neem op met [Opnemen](../opnemen-in-catalogus/) /
    `bieb accepteer` (zet indien nodig de `build:`-frontmatter).
-3. Bouw de PDF:
+3. Bouw scherm-SVG’s (alleen nodig bij `::: vsa-notatie`):
 
 ```cmd
 scripts\products.cmd --kinds tekstblad content-source\catalogus\dialoog-met-diaken
 ```
 
-4. Koormap-slot: alleen intro + `bieb` (geen tweede kopie van de tekst).
-5. [Site-build](../site-build/) / `scripts\check.cmd --strict`.
+4. Bouw het blad voor Download/Print:
+
+```cmd
+scripts\pdf.cmd content-source\catalogus\dialoog-met-diaken
+```
+
+5. Koormap-slot: alleen intro + `bieb` (geen tweede kopie van de tekst).
+6. [Site-build](../site-build/) / `scripts\check.cmd --strict`.
 
 ## Automatisch (CI)
 
-- **Wel:** `check_tekstblad_products.py` controleert of de PDF bij de
-  `.tekstblad.md` past (source-sha).
-- **Niet:** PDF opnieuw genereren op GitHub Actions. Maak de PDF **lokaal**
-  met `products --kinds tekstblad` (Chrome of Edge nodig) en commit bron + PDF samen.
+- **Wel:** `check_tekstblad_products.py` controleert of de `.tekstblad.md`
+  bestaat (statusbestand).
+- **Niet:** scherm-SVG’s of `index.md.pdf` opnieuw genereren op GitHub
+  Actions. Maak die **lokaal** (`products --kinds tekstblad`, `pdf.cmd`)
+  en commit ze samen met de bron.
 
 ## Handmatig
 
 | Situatie | Commando | Man-page |
 | --- | --- | --- |
-| PDF bij tekstblad | `scripts\products.cmd --kinds tekstblad` `[map]` | [products (tekstblad)](../../scripts/tekstblad-products/) |
-| Koormap-blad (meerdere stukken op één pagina) | `scripts\pdf.cmd` | [pdf](../../scripts/pdf/) |
+| Scherm-SVG’s bij `::: vsa-notatie` | `scripts\products.cmd --kinds tekstblad` `[map]` | [products (tekstblad)](../../scripts/tekstblad-products/) |
+| Blad `index.md.pdf` | `scripts\pdf.cmd` | [pdf](../../scripts/pdf/) |
 | Opnemen | `bieb accepteer` | [bieb accepteer](../../scripts/bieb-accepteer/) |
 | Alles vóór commit | `scripts\check.cmd --strict` | [check](../../scripts/check/) |
 

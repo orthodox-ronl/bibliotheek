@@ -20,7 +20,7 @@
 <part-group type="stop" number="1"/>
 </part-list>
 <part id="P1">
-<measure number="1" width="392">
+<measure number="1" width="350">
 <attributes>
 <divisions>4</divisions>
 <key><fifths>-1</fifths></key>
@@ -30,7 +30,7 @@
 <sound tempo="130"/>
 <direction placement="above">
 <direction-type>
-<words font-family="Source Sans 3" font-size="12" justify="left" default-x="110" default-y="50">P: Katechumenen bidt de Heer</words>
+<words font-family="Source Sans 3" font-size="12" justify="left" default-x="110" default-y="50">Katechumenen bidt de Heer</words>
 </direction-type>
 </direction>
 <note>
@@ -126,10 +126,10 @@
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
-<measure number="2" width="700">
+<measure number="2" width="560">
 <direction placement="above">
 <direction-type>
-<words font-family="Source Sans 3" font-size="12" justify="left" default-x="28" default-y="50">invallen en 6x herhalen tijdens gebed van priester</words>
+<words font-family="Source Sans 3" font-size="12" justify="left" default-x="28" default-y="50">(6x herhalen tijdens gebed van priester)</words>
 </direction-type>
 </direction>
 <note>
@@ -223,6 +223,7 @@
 <type>half</type>
 <stem>down</stem>
 </note>
+<barline location="left"><bar-style>heavy-light</bar-style><repeat direction="forward"/></barline>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
 <measure number="3">
@@ -317,7 +318,7 @@
 <type>half</type>
 <stem>down</stem>
 </note>
-<barline location="right"><bar-style>light-light</bar-style></barline>
+<barline location="right"><bar-style>light-heavy</bar-style><repeat direction="backward"/></barline>
 </measure>
 <measure number="4">
 <note>
@@ -396,7 +397,7 @@
 <type>whole</type>
 <stem>down</stem>
 </note>
-<barline location="right"><bar-style>regular</bar-style></barline>
+<barline location="right"><bar-style>light-light</bar-style></barline>
 </measure>
 <measure number="5">
 <note>
@@ -434,7 +435,7 @@
 </measure>
 </part>
 <part id="P2">
-<measure number="1" width="392">
+<measure number="1" width="350">
 <attributes>
 <divisions>4</divisions>
 <key><fifths>-1</fifths></key>
@@ -528,7 +529,7 @@
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
-<measure number="2" width="700">
+<measure number="2" width="560">
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>4</duration>
@@ -614,6 +615,7 @@
 <type>half</type>
 <stem>down</stem>
 </note>
+<barline location="left"><bar-style>heavy-light</bar-style><repeat direction="forward"/></barline>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
 <measure number="3">
@@ -702,7 +704,7 @@
 <type>half</type>
 <stem>down</stem>
 </note>
-<barline location="right"><bar-style>light-light</bar-style></barline>
+<barline location="right"><bar-style>light-heavy</bar-style><repeat direction="backward"/></barline>
 </measure>
 <measure number="4">
 <note>
@@ -776,7 +778,7 @@
 <type>whole</type>
 <stem>down</stem>
 </note>
-<barline location="right"><bar-style>regular</bar-style></barline>
+<barline location="right"><bar-style>light-light</bar-style></barline>
 </measure>
 <measure number="5">
 <note>

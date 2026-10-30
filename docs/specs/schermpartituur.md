@@ -35,7 +35,7 @@ Bladvorm op scherm: §4.4 hieronder.
 | Kanaal                        | Bedoeling                                                                                                                                                                             |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Scherm**                    | Doorlopende partituur om mee te lezen/oefenen in de browser. Geen A4-bladkaders als primaire look.                                                                                    |
-| **Download / Print (pagina)** | `index.md.pdf` van het getoonde blad (koormap of catalogus-leaf) via nav **Download pagina** / **Print pagina**. Catalogus heeft geen aparte score-knoppen meer naar product-PDF. |
+| **Download (pagina)** | `index.md.pdf` van het getoonde blad (koormap of catalogus-leaf) via nav **Download pagina**. Catalogus heeft geen aparte score-knoppen meer naar product-PDF. |
 
 Op het scherm forceert het onderdeel `muziek` **geen** paginatitel. Titels
 horen bij de Hugo-pagina (catalogus-H1) of bij koormap-`kop` / Markdown.
@@ -63,7 +63,7 @@ stiekem de andere keten.
 
 Alleen als **beide** schermproducten ontbreken:
 
-1. **Tekstblad** — body van sibling `{stam}.tekstblad.md`
+1. **Tekstblad** — `{stam}.tekstblad.scherm.html` als die er is (VSA als SVG), anders body van `{stam}.tekstblad.md`
 2. **PDF op scherm** — nood-fallback
 
 Coria (`.mxl` / Oefenen) en audio horen **niet** bij de schermlook; die zitten
@@ -241,8 +241,8 @@ voor elke losse `.mscz`.
 
 | Eis    | Toelichting                                                                                |
 | ------ | ------------------------------------------------------------------------------------------ |
-| Scherm | Body van sibling `{stam}.tekstblad.md` (HTML via `bieb-score`). Er is geen OSMD/SVG-keten. |
-| Inhoud | Leesbare liturgische tekst/dialoog.                                                        |
+| Scherm | Body van sibling `{stam}.tekstblad.md` (HTML via `bieb-score`). Blokken `::: vsa-notatie` komen als SVG via `{stam}.tekstblad.scherm.html` (`products --kinds tekstblad`). Geen OSMD-/partituur-SVG-keten. |
+| Inhoud | Leesbare liturgische tekst/dialoog, met inline VSA als getekende notatie.                  |
 | Titel  | Zelfde paginaregels als §3.                                                                |
 | Print  | Blad = `index.md.pdf` (nav); product-`.tekstblad.pdf` is geen schermviewer.            |
 
@@ -258,7 +258,7 @@ Per geopende catalogus- of koormap-URL:
 4. Cues / centreren / wit (§4.2–4.3): leesbaar, niet afgekapt, niet over maatstrepen? Op OSMD: inklappen / cues niet meeschuiven / noten centreren. Op MuseScore-SVG: wrap + juiste maat volstaan nu; centreer/inklappen is best-effort tot scherm-SVG niet meer via MuseScore loopt.
 5. Speelplan (§4.4): bij bron met `@speelplan` — zichtbare herhaal/volta/D.S./… (niet alleen in het MusicXML-bestand)? Steekproef minstens `alleluia/9a-toon-1/groningen`.
 6. Kolom / fallback (§5–7): SVG/mscz/tekstblad zichtbaar in de kolom; geen extra site-titel door `muziek`?
-7. Download/Print: nav-pagina-PDF; tip-icoon **♪** (en op catalogus **{}**) werken?
+7. Download: nav-pagina-PDF; tip-icoon **♪** (en op catalogus **{}**) werken?
 
 Neem in een steekproef **korte én lange** stukken mee (en bij mvsa bij voorkeur
 ook een multi-`bieb`-pagina NL+KSL).

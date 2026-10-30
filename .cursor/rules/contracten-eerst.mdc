@@ -1,0 +1,35 @@
+---
+description: Bij elk werk aan bestandsinhoud/export/PDF eerst contract-index + bibliotheek-specs
+alwaysApply: true
+---
+
+# Contracten eerst (bibliotheek)
+
+**Hard, vóór elke code- of contentwijziging** die de *inhoud* of *opbouw*
+van afgeleide of bronbestanden raakt (PDF, SVG, MSCZ, MXL, from-ir,
+lyrics, audio, `index.md.pdf`, tekstblad-scherm, shortcode-parsing, …) —
+niet pas ná een bugmelding:
+
+1. Open VSA-tooling
+   [`docs/formats/contract-index.md`](../../VSA-tooling/docs/formats/contract-index.md)
+   (sibling `..\VSA-tooling\` of
+   https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/contract-index.md).
+2. Zoek het onderwerp → canonieke hub → checklist-/profiel-id
+   (P*, S*, M*, K2/K3, L3/L4, S8, layout `partituur`, …).
+3. Lees de relevante regel(s) **én** de bibliotheek-consumer-specs die ernaar
+   linken — o.a.:
+   - [`docs/specs/koormap-paginataal.md`](docs/specs/koormap-paginataal.md)
+     (bladvolgorde `kop`/`bieb`/`witruimte`/`pdf-bijelkaar` → `index.md.pdf`)
+   - [`docs/specs/schermpartituur.md`](docs/specs/schermpartituur.md)
+   - [`docs/plans/catalogus-index-md-pdf.md`](docs/plans/catalogus-index-md-pdf.md)
+4. Controleer dat de **voorgenomen code** die contracten naleeft (geen
+   “handige” herordening van bladinhoud, geen stille notatie-herschrijving).
+5. Noem het contract-id / de spec-sectie in uitleg, tests en PR.
+6. Wijzig normatieve tekst **alleen** in de canonieke hub; elders alleen
+   linken.
+
+**Verboden:** exporteren/composeren “op gevoel”; aannemen dat een bestaande
+helper het contract al volgt zonder de hub te lezen; PDF-/SVG-volgorde
+afwijken van de Markdown-bladintentie.
+
+Tooling-spiegel: VSA-tooling `.cursor/rules/contracten-eerst.mdc`.

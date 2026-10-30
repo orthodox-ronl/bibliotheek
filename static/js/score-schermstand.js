@@ -55,8 +55,17 @@
       var kind = (panel.getAttribute("data-scherm") || "").toLowerCase();
       var show = kind === effective;
       setHidden(panel, !show);
-      if (show && kind === "osmg" && typeof window.__vsaEnsureOsmd === "function") {
-        window.__vsaEnsureOsmd(panel);
+      if (show) {
+        if (kind === "osmg" && typeof window.__vsaEnsureOsmd === "function") {
+          window.__vsaEnsureOsmd(panel);
+        }
+        try {
+          document.dispatchEvent(
+            new CustomEvent("vsa:schermstand", { detail: { root: panel, stand: effective } })
+          );
+        } catch (e) {
+          /* oudere browsers */
+        }
       }
     });
   }

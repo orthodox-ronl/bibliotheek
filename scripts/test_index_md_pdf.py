@@ -151,6 +151,44 @@ def test_witruimte_between_music() -> None:
     assert space.points == pp._WITRUIMTE_PT["groot"]
 
 
+def test_koormap_two_kops_keep_document_order() -> None:
+    """Koormap-paginataal §6/§10: elke ``kop`` blijft vóór zijn ``bieb``.
+
+    Regressie: groot-koppen buiten ``pdf-bijelkaar`` werden gebundeld vóór
+    alle muziek → NL-titel + KSL-titel, daarna beide partituren.
+    """
+    text = """---
+title: "Eerste Kleine Litanie"
+---
+
+{{< kop >}}1e Kleine Ektinia{{< /kop >}}
+
+{{< bieb id="ektinia/eerste-kleine/hemelum" />}}
+
+{{< witruimte groot >}}
+
+{{< kop >}}Малая ектения{{< /kop >}}
+
+{{< bieb id="ektinia/eerste-kleine/hemelum-ksl" />}}
+"""
+    flows = pp.parse_page_flows(text)
+    assert len(flows) == 1
+    kinds = [
+        (
+            type(i).__name__,
+            getattr(i, "text", None) or getattr(i, "uv_id", None) or getattr(i, "points", None),
+        )
+        for i in flows[0].items
+    ]
+    assert kinds == [
+        ("TitleItem", "1e Kleine Ektinia"),
+        ("MusicItem", "ektinia/eerste-kleine/hemelum"),
+        ("SpaceItem", pp._WITRUIMTE_PT["groot"]),
+        ("TitleItem", "Малая ектения"),
+        ("MusicItem", "ektinia/eerste-kleine/hemelum-ksl"),
+    ]
+
+
 def test_find_notation_source_prefers_mvsa(tmp_path, monkeypatch) -> None:
     leaf = tmp_path / "catalogus" / "a" / "b" / "c"
     leaf.mkdir(parents=True)

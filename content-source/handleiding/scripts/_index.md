@@ -22,10 +22,12 @@ vanuit de repo-root.
 | *(conventie)* | Pad = één bronbestand of een map (recursief). | [Bestand of map](invoer-bestand-of-map/) |
 | `h` | Overzicht van commando’s; `h <naam>` = `<naam> -h`. | [h](h/) |
 | `validate` | Controleert catalogus-`.vsa` (en eventueel `.mvsa`) via de `vsa`-CLI. | [validate](validate/) |
-| `check` | Preflight: validate + publicatiecontroles + Coria-fingerprints + Hugo-build. Maakt geen catalogusproducten en geen blad-PDF. | [check](check/) |
+| `check` | Preflight: validate + publicatiecontroles + Coria-fingerprints + Hugo-build. Maakt geen catalogusproducten en geen blad-PDF. Schrijft `data\check-fixlist.json`. | [check](check/) |
+| `fix` | Auto-fixbare check-problemen afwerken (`--check` = eerst `check --strict`; `--dry-run` = alleen tonen). | [fix](fix/) |
 | `build` | Bouwt de site naar `generated\site`. | [build](build/) |
 | `serve` | Lokale preview op http://127.0.0.1:18732/ (niet 1313, niet 18731). | [serve](serve/) |
 | `products` | Catalogus-afgeleiden bouwen (`--kinds vsa,mvsa,mscz,audio,lyrics,…` of `all`). | [products](products/) |
+| `products-changed` | Alleen producten (+ koormap-`index.md.pdf`) voor git-gewijzigde bronnen onder `content-source` (missing+stale). | [products-changed](products-changed/) |
 | `products --kinds vsa` | `{stam}.vsa.mxl` + `{stam}.vsa.svg` bij catalogus-`.vsa`. | [products (vsa)](vsa-products/) |
 | `products --kinds mscz` | `{stam}.mscz.mxl` + `{stam}.mscz.svg` bij basispartituur-`.mscz`. | [products (mscz)](mscz-products/) |
 | `products --kinds tekstblad` | Tekstblad-kind (blad-PDF via [pdf](pdf/)). | [products (tekstblad)](tekstblad-products/) |

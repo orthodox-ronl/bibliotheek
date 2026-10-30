@@ -1,26 +1,29 @@
 <footer class="site-footer">
-  <div class="site-meta">
-    {{- $bijgewerkt := "" -}}
-    {{- with .Params.git_date -}}
-      {{- $bijgewerkt = . -}}
-    {{- end -}}
-    {{- if not $bijgewerkt -}}
-      {{- with .GitInfo -}}
-        {{- with .AuthorDate -}}
-          {{- $bijgewerkt = .Format "2006-01-02" -}}
+  <div class="site-footer-row">
+    {{ partial "site-jumps.html" . }}
+    <div class="site-meta">
+      {{- $bijgewerkt := "" -}}
+      {{- with .Params.git_date -}}
+        {{- $bijgewerkt = . -}}
+      {{- end -}}
+      {{- if not $bijgewerkt -}}
+        {{- with .GitInfo -}}
+          {{- with .AuthorDate -}}
+            {{- $bijgewerkt = .Format "2006-01-02" -}}
+          {{- end -}}
         {{- end -}}
       {{- end -}}
-    {{- end -}}
-    {{- if and (not $bijgewerkt) (not .Lastmod.IsZero) -}}
-      {{- $bijgewerkt = .Lastmod.Format "2006-01-02" -}}
-    {{- end -}}
-    {{- with $bijgewerkt }}
-      <p class="page-git-date">Bijgewerkt: {{ . }}</p>
-    {{- end }}
-    {{- if .IsHome }}
-      {{- with hugo.Data.build.time }}
-        <p class="build-time-stamp">Gegenereerd: {{ . }}</p>
+      {{- if and (not $bijgewerkt) (not .Lastmod.IsZero) -}}
+        {{- $bijgewerkt = .Lastmod.Format "2006-01-02" -}}
+      {{- end -}}
+      {{- with $bijgewerkt }}
+        <p class="page-git-date">Bijgewerkt: {{ . }}</p>
       {{- end }}
-    {{- end }}
+      {{- if .IsHome }}
+        {{- with hugo.Data.build.time }}
+          <p class="build-time-stamp">Gegenereerd: {{ . }}</p>
+        {{- end }}
+      {{- end }}
+    </div>
   </div>
 </footer>

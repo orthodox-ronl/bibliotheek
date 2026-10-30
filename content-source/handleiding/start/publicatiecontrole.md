@@ -116,6 +116,18 @@ bron voor een kind = overslaan (geen fout). Audio en lyrics zijn gewone
 kinds, geen uitzondering. Er zijn geen aparte `vsa-products.cmd`-wrappers
 meer.
 
+**Alleen wat je net in git wijzigde** (sneller, kleinere commits):
+`scripts\products-changed.cmd`. Dat pakt gewijzigde catalogusbronnen
+onder `content-source` met condities missing+stale (geen invalid), en
+gewijzigde koormap-`index.md` via [pdf](../../scripts/pdf/). Eerst
+kijken: `scripts\products-changed.cmd --dry-run`. Man-page:
+[products-changed](../../scripts/products-changed/).
+
+**Alles wat `check --strict` nog als auto-fixbaar ziet** (vaak stale
+blad-`index.md.pdf`): `scripts\fix.cmd --check --dry-run` toont de
+lijst; `scripts\fix.cmd --check` werkt hem af. Man-page:
+[fix](../../scripts/fix/).
+
 Contract-ongeldigheid geldt voor **`.mscz.mxl` / `.mvsa.mxl` / `.vsa.mxl`**
 (profiel satb of mono). PDF, mp3, lyrics en tekstblad kennen geen aparte
 contract-gate in deze stap — daar tellen missing/stale (en `--force`).
@@ -156,7 +168,7 @@ bibliotheek is die vorm **normatief voor nieuwe en vernieuwde producten**.
 
 Liturgische tekst/dialoog is Markdown, maar een kale `.md` is te breed
 (Hugo-pagina’s zijn ook `.md`). Daarom blijft het inhoudstype in de naam:
-`{stam}.tekstblad.md`. Blad voor **Download/Print pagina**:
+`{stam}.tekstblad.md`. Blad voor **Download pagina**:
 `index.md.pdf` via `pdf.cmd` (rechtstreeks uit die bron). Geen
 verplichte product-`.tekstblad.pdf` meer; geen Coria uit dit spoor.
 
@@ -267,8 +279,7 @@ controleert of die PDF er is en niet ouder is dan de Markdown of
 notatiebron (zelfde regels als bij andere publicatiecontroles). Bij
 `pdf-bijelkaar` maakt `pdf.cmd` een tijdelijke compacte SVG;
 `{stam}.mvsa.svg` blijft het gewone webplaatje. Commit de blad-PDF mee,
-anders tonen Download pagina en Print pagina niet en faalt `check
---strict`.
+anders toont **Download pagina** niet en faalt `check --strict`.
 
 Op bibliotheek-bladermappen: icoon **♪** (linksboven op de partituur)
 opent **Oefenen** en **Beluisteren** (Beluisteren bij elke bron met
