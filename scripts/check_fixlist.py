@@ -54,14 +54,24 @@ def _issue_bits(entry: dict) -> tuple[str, str, str]:
     return "", "", ""
 
 
+def _rel_content_source(path_str: str) -> str:
+    """Pad t.o.v. content-source (posix), anders genormaliseerd pad."""
+    text = (path_str or "").replace("\\", "/").strip()
+    while text.startswith("./"):
+        text = text[2:]
+    prefix = "content-source/"
+    if text.startswith(prefix):
+        return text[len(prefix) :]
+    return text
+
+
 def _summary(key: str, entry: dict, *, kind: str, file: str, detail: str) -> str:
+    """Korte regel: ``[soort] pad-t.o.v.-content-source``."""
     source = str(entry.get("source") or entry.get("mvsa") or key)
-    if kind and (file or detail):
-        tail = f"{file}: {detail}" if file and detail else (file or detail)
-        return f"[{kind}] {tail}"
-    if not entry.get("ok", True):
-        return f"probleem: {source}"
-    return source
+    path = file or source or key
+    rel = _rel_content_source(path)
+    label = kind or "probleem"
+    return f"[{label}] {rel}"
 
 
 def _item_from_entry(checker: str, key: str, entry: dict) -> FixItem | None:
@@ -190,7 +200,7 @@ def print_fixlist(items: list[FixItem], *, stream=None) -> None:
         return
     print(f"Fixlist: {len(items)} item(s)", file=stream)
     for i, item in enumerate(items, 1):
-        print(f"{i}. [{item.checker}] {item.summary}", file=stream)
+        print(f"{i}. {item.summary}", file=stream)
         print(f"   fix: {item.fix_cmd}", file=stream)
 
 

@@ -156,7 +156,7 @@ def main(argv: list[str] | None = None) -> int:
     failed = 0
 
     for item in list(items):
-        info(f"\n>>> [{item.checker}] {item.summary}")
+        info(f"\n>>> {item.summary}")
         info(f"    {item.fix_cmd}")
         t0 = time.perf_counter()
         code = _run_fix_cmd(item.fix_cmd, verbose=bool(args.verbose))

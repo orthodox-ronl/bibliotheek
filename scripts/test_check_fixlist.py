@@ -8,6 +8,7 @@ from pathlib import Path
 import fix as fix_mod
 from check_fixlist import (
     FixItem,
+    _rel_content_source,
     collect_items,
     load_fixlist,
     save_fixlist,
@@ -45,6 +46,18 @@ def _write_pdf_status(data_dir: Path, *, stale: bool) -> None:
     )
 
 
+def test_rel_content_source():
+    assert (
+        _rel_content_source(
+            "content-source/catalogus/x/index.md.pdf"
+        )
+        == "catalogus/x/index.md.pdf"
+    )
+    assert _rel_content_source(r"content-source\koormappen\a\index.md") == (
+        "koormappen/a/index.md"
+    )
+
+
 def test_collect_only_not_ok(tmp_path: Path):
     data = tmp_path / "data"
     data.mkdir()
@@ -53,6 +66,9 @@ def test_collect_only_not_ok(tmp_path: Path):
     assert len(items) == 1
     assert items[0].checker == "pdf"
     assert items[0].kind == "stale_pdf"
+    assert items[0].summary == (
+        "[stale_pdf] catalogus/x/stale/index.md.pdf"
+    )
     assert "pdf.cmd" in items[0].fix_cmd
 
 

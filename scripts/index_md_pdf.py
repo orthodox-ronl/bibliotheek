@@ -889,12 +889,12 @@ def _pdf_page_content_clip(page: object, *, pad: float = 6.0) -> object:
 
 
 def export_tekstblad_md_pdf(md: Path, dest: Path) -> None:
-    """Render ``.tekstblad.md`` naar PDF via ``vsa pdf`` (HTML + ``::: vsa-notatie``)."""
+    """Render ``.tekstblad.md`` naar PDF via ``markdown pdf`` (``::: vsa-notatie``)."""
     dest.parent.mkdir(parents=True, exist_ok=True)
     cmd = [
         sys.executable,
         "-m",
-        "vsa.cli",
+        "vsa.cli_md",
         "pdf",
         str(md),
         "-o",
@@ -905,7 +905,9 @@ def export_tekstblad_md_pdf(md: Path, dest: Path) -> None:
     print(f"  tekstblad-body {md.name}", flush=True)
     subprocess.check_call(cmd, cwd=str(ROOT))
     if not dest.is_file():
-        raise RuntimeError(f"tekstblad-body-PDF ontbreekt na vsa pdf: {dest}")
+        raise RuntimeError(
+            f"tekstblad-body-PDF ontbreekt na markdown pdf: {dest}"
+        )
 
 
 def compose_tekstblad_pagina_pdf(

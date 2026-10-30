@@ -140,7 +140,7 @@ def sync_one(md: Path, *, dry_run: bool) -> None:
     cmd = [
         sys.executable,
         "-m",
-        "vsa.cli",
+        "vsa.cli_md",
         "pdf",
         str(md),
         "-o",
@@ -150,9 +150,9 @@ def sync_one(md: Path, *, dry_run: bool) -> None:
     ]
     proc = run_checked(cmd, cwd=str(REPO_ROOT))
     if proc.returncode != 0:
-        raise RuntimeError(f"vsa pdf faalde (exit {proc.returncode})")
+        raise RuntimeError(f"markdown pdf faalde (exit {proc.returncode})")
     if not pdf.is_file():
-        raise RuntimeError(f"PDF ontbreekt na vsa pdf: {pdf}")
+        raise RuntimeError(f"PDF ontbreekt na markdown pdf: {pdf}")
     stamp_pdf(
         pdf,
         source_hash=source_sha256(md),
