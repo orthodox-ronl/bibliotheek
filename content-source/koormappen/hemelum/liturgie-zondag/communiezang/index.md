@@ -7,4 +7,4 @@ automatische_inhoud: false
 ---
 
 {{< kop >}}27 Communiezang{{< /kop >}}
-{{< bieb id="communiezang/default/hemelum" />}}
+{{< bieb id="communiezang/ontvangt-het-lichaam/hemelum" />}}

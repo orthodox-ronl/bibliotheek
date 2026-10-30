@@ -211,7 +211,6 @@ of Speciaal.
 | `onze-vader/` | `onze-vader/default/hemelum` | |
 | `een-is-heilig/` | `een-is-heilig/default/hemelum` | |
 | `gezegend-hij-die-komt/` | `gezegend-hij-die-komt/default/hemelum` | |
-| `communiezang/` | `communiezang/default/hemelum` | |
 | `dialoog-met-diaken/` | `dialoog-met-diaken/default/hemelum` | tekstblad.md, tekstblad.pdf |
 
 ### Oude catalogus-paden → huidige ids

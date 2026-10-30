@@ -53,7 +53,8 @@ man-page van dat kind (zelfde map):
 - [products (tekstblad)](../tekstblad-products/)
 
 Koormap-/catalogusblad `index.md.pdf` hoort hier **niet** bij — dat is
-[pdf](../pdf/).
+[pdf](../pdf/). Alleen git-gewijzigde bronnen (plus koormap-pdf):
+[products-changed](../products-changed/).
 
 Bij een **map** pakt `products` alleen canonieke bronnen (`.vsa` /
 `.mvsa` / basis-`.mscz`). Afgeleide `*.mvsa.mscz` / `*.vsa.mscz` worden
@@ -74,6 +75,7 @@ scripts\products.cmd --verbose
 
 # SEE ALSO
 
+- [products-changed](../products-changed/) — alleen git-gewijzigde bronnen
 - [all-products](../all-products/)
 - [cleanup-chained-products](../cleanup-chained-products/)
 - [check](../check/)

@@ -59,6 +59,8 @@ echo   serve
 echo     lokale preview http://127.0.0.1:18732/
 echo   products
 echo     afgeleide producten ^(MXL/SVG/mp3/...^); --kinds vsa^|mvsa^|mscz^|audio^|lyrics^|...
+echo   products-changed
+echo     alleen producten/pdf voor git-gewijzigde bronnen ^(missing+stale^)
 echo   all-products
 echo     alias: products --kinds all
 echo   import-mvsa

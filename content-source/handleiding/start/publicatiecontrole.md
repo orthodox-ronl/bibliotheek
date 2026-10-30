@@ -116,6 +116,13 @@ bron voor een kind = overslaan (geen fout). Audio en lyrics zijn gewone
 kinds, geen uitzondering. Er zijn geen aparte `vsa-products.cmd`-wrappers
 meer.
 
+**Alleen wat je net in git wijzigde** (sneller, kleinere commits):
+`scripts\products-changed.cmd`. Dat pakt gewijzigde catalogusbronnen
+onder `content-source` met condities missing+stale (geen invalid), en
+gewijzigde koormap-`index.md` via [pdf](../../scripts/pdf/). Eerst
+kijken: `scripts\products-changed.cmd --dry-run`. Man-page:
+[products-changed](../../scripts/products-changed/).
+
 Contract-ongeldigheid geldt voor **`.mscz.mxl` / `.mvsa.mxl` / `.vsa.mxl`**
 (profiel satb of mono). PDF, mp3, lyrics en tekstblad kennen geen aparte
 contract-gate in deze stap — daar tellen missing/stale (en `--force`).

@@ -26,7 +26,8 @@ catalogus-uitvoeringsvorm), niet hetzelfde als de losse catalogus-product-PDF
 van één uitvoeringsvorm.
 
 Dit commando hoort niet bij `products`, `all-products`, `check` of de
-Pages-build. Die keten maakt en controleert catalogus-siblings
+Pages-build. Gewijzigde koormap-`index.md` meenemen na een git-edit:
+[products-changed](../products-changed/). Die keten maakt en controleert catalogus-siblings
 (`.mvsa.pdf`, `.mvsa.svg`, `.vsa.svg`, en de rest). De pagina-PDF maak je
 lokaal uit de **notatiebronnen** (`.mvsa` / `.vsa` / `.mscz`) plus de
 Markdown-layout, en commit je mee. `check` meldt niet of de pagina-PDF

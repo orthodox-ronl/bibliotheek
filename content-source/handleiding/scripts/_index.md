@@ -26,6 +26,7 @@ vanuit de repo-root.
 | `build` | Bouwt de site naar `generated\site`. | [build](build/) |
 | `serve` | Lokale preview op http://127.0.0.1:18732/ (niet 1313, niet 18731). | [serve](serve/) |
 | `products` | Catalogus-afgeleiden bouwen (`--kinds vsa,mvsa,mscz,audio,lyrics,…` of `all`). | [products](products/) |
+| `products-changed` | Alleen producten (+ koormap-`index.md.pdf`) voor git-gewijzigde bronnen onder `content-source` (missing+stale). | [products-changed](products-changed/) |
 | `products --kinds vsa` | `{stam}.vsa.mxl` + `{stam}.vsa.svg` bij catalogus-`.vsa`. | [products (vsa)](vsa-products/) |
 | `products --kinds mscz` | `{stam}.mscz.mxl` + `{stam}.mscz.svg` bij basispartituur-`.mscz`. | [products (mscz)](mscz-products/) |
 | `products --kinds tekstblad` | Tekstblad-kind (blad-PDF via [pdf](pdf/)). | [products (tekstblad)](tekstblad-products/) |

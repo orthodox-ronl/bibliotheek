@@ -120,6 +120,14 @@ def main(argv: list[str] | None = None) -> int:
     )
     add_regen_arguments(parser)
     add_verbose_argument(parser)
+    parser.add_argument(
+        "--skip-post",
+        action="store_true",
+        help=(
+            "Geen zoekindex na afloop (voor batch-wrappers die dat "
+            "één keer zelf doen)."
+        ),
+    )
     from batch_guard import add_yes_argument
 
     add_yes_argument(parser)
@@ -203,8 +211,9 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     # Zoekindex hangt af van lyrics, status en audio-paden — altijd vernieuwen
-    # na een geslaagde products-run (ook --only-stale), behalve dry-run.
-    if not args.dry_run:
+    # na een geslaagde products-run (ook --only-stale), behalve dry-run
+    # of --skip-post (batch-wrappers).
+    if not args.dry_run and not args.skip_post:
         info("\n--- zoekindex (static/zoek/index.json) ---")
         from build_zoek_index import main as build_zoek_main
 

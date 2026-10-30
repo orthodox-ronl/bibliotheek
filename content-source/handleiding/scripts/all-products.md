@@ -75,11 +75,13 @@ scripts\all-products.cmd --dry-run
 
 Na het toevoegen of wijzigen van bronnen, of als `check --strict` meerdere
 productsporen tegelijk als missing/stale meldt. Voor één spoor:
-`scripts\products.cmd --kinds …` — zie [products](../products/).
+`scripts\products.cmd --kinds …` — zie [products](../products/). Alleen
+lokale git-wijzigingen: [products-changed](../products-changed/).
 
 # SEE ALSO
 
 - [products](../products/)
+- [products-changed](../products-changed/)
 - [cleanup-chained-products](../cleanup-chained-products/)
 - [check](../check/)
 - [pdf](../pdf/)
