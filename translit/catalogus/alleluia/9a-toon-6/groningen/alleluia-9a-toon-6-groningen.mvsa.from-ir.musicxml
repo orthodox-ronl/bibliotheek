@@ -4,7 +4,6 @@
 <score-partwise version="3.1">
 <work><work-title>Alleluia - Toon 6</work-title></work>
 <identification>
-<rights>Bibliotheek-id: content-source/catalogus/alleluia</rights>
 <source>koormap Groningen</source>
 </identification>
 <part-list>
@@ -189,25 +188,24 @@
 </note>
 <note>
 <pitch><step>F</step><octave>4</octave></pitch>
-<duration>16</duration>
-<tie type="start"/>
+<duration>4</duration>
 <voice>2</voice>
-<type>whole</type><accidental>natural</accidental>
+<type>quarter</type><accidental>natural</accidental>
 <stem>down</stem>
-<notations>
-<tied type="start"/>
-</notations>
 </note>
 <note>
 <pitch><step>F</step><octave>4</octave></pitch>
-<duration>4</duration>
-<tie type="stop"/>
+<duration>8</duration>
 <voice>2</voice>
-<type>quarter</type>
+<type>half</type>
 <stem>down</stem>
-<notations>
-<tied type="stop"/>
-</notations>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
@@ -218,10 +216,20 @@
 </note>
 <note>
 <pitch><step>F</step><octave>4</octave></pitch>
-<duration>8</duration>
+<duration>4</duration>
 <voice>2</voice>
-<type>half</type>
+<type>quarter</type>
 <stem>down</stem>
+</note>
+<note>
+<pitch><step>F</step><octave>4</octave></pitch>
+<duration>4</duration>
+<voice>2</voice>
+<type>quarter</type>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
 </note>
 <note>
 <pitch><step>E</step><alter>-1</alter><octave>4</octave></pitch>
@@ -233,24 +241,19 @@
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
 <duration>16</duration>
-<tie type="start"/>
 <voice>2</voice>
 <type>whole</type>
 <stem>down</stem>
 <notations>
-<tied type="start"/>
+<slur type="stop" number="2"/>
 </notations>
 </note>
 <note>
 <pitch><step>D</step><octave>4</octave></pitch>
 <duration>16</duration>
-<tie type="stop"/>
 <voice>2</voice>
 <type>whole</type>
 <stem>down</stem>
-<notations>
-<tied type="stop"/>
-</notations>
 </note>
 <barline location="right"><bar-style>light-light</bar-style></barline>
 </measure>
@@ -468,6 +471,9 @@
 <voice>2</voice>
 <type>whole</type>
 <stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
 </note>
 <note>
 <pitch><step>G</step><octave>3</octave></pitch>

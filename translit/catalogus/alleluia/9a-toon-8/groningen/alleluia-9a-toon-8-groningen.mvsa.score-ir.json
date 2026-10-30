@@ -4,7 +4,6 @@
   "profile": "partituur",
   "meta": {
     "title": "Alleluia - Toon 8",
-    "bibliotheekId": "content-source/catalogus/alleluia",
     "sourceLabel": "koormap Groningen",
     "tempo": "160"
   },
@@ -756,9 +755,23 @@
               "octave": 4
             },
             "duration": {
-              "elm": "_."
+              "elm": "~"
             },
             "lyricIndex": 9
+          },
+          {
+            "pitch": {
+              "step": "C",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "_"
+            },
+            "lyricIndex": 10,
+            "melisma": {
+              "extend": true,
+              "slurStart": true
+            }
           },
           {
             "pitch": {
@@ -776,6 +789,9 @@
             },
             "duration": {
               "elm": "_."
+            },
+            "melisma": {
+              "slurStop": true
             }
           },
           {
@@ -795,7 +811,8 @@
             },
             "duration": {
               "elm": "__"
-            }
+            },
+            "lyricIndex": 11
           }
         ],
         "B": [
