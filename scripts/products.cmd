@@ -22,6 +22,8 @@ REM Coria-Oefenen-knop: fingerprints bijwerken (niet bij --dry-run).
 echo.%*| findstr /I /C:"--dry-run" >nul
 if not errorlevel 1 exit /b 0
 python scripts\fingerprint_coria_mxl.py
+if errorlevel 1 exit /b 1
+python scripts\probe_coria_fetch.py --warn-only
 exit /b %ERRORLEVEL%
 
 :usage

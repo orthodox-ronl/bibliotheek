@@ -20,7 +20,7 @@ Open http://127.0.0.1:18732/ — **niet** poort 1313, niet 18731.
 ## Waartoe
 
 Koorleden en jij zien markdown, SVG’s, PDF’s en knoppen pas nadat de
-site is gebouwd. Productpipelines (`vsa-products`, `mscz-products`, …)
+site is gebouwd. Productpipelines (`products --kinds vsa`, `products --kinds mscz`, …)
 draai je lokaal vóór `check`; CI controleert versheid maar schrijft die
 producten niet. Lifecycle van een uitvoeringsvorm:
 [Levenscyclus](../start/levenscyclus/).
@@ -48,12 +48,17 @@ juiste Pages-URL bijgewerkt.
 content-source (bronnen + product-siblings)
     |
     +-- fingerprint_coria_mxl  ->  static/mxl/c + data/coria-fp.json
-    +-- oefenhoek-index --svg  ->  static/vsa/bladermap (plaatjes; geen stamp)
+    +-- probe_coria_fetch      ->  data/coria-public-base.json (base = github.io)
+    +-- oefenhoek-index --svg  ->  static/vsa/bladermap (legacy fallback)
     +-- Hugo  ->  generated/site
 ```
 
-Productpipelines (`vsa-products`, `mscz-products`, `mvsa-products`, …)
+Productpipelines (`products --kinds vsa`, `products --kinds mscz`, `products --kinds mvsa`, …)
 draai je lokaal; CI controleert versheid maar schrijft die producten niet.
+Het schermplaatje is de sibling `{stam}.vsa.svg` of `{stam}.mvsa.svg`.
+De bladermap-SVG is alleen de fallback zolang `{stam}.vsa.svg` ontbreekt.
+Het koormap-blad `index.md.pdf` maak je met `pdf.cmd`, ook lokaal;
+de site-build controleert dat bestand niet.
 
 ## See also
 

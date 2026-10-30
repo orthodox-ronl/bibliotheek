@@ -68,8 +68,14 @@ jobs:
             echo "pages_url=https://orthodox-ronl.github.io/bibliotheek/preview/" >> "$GITHUB_OUTPUT"
             echo "label=development-preview" >> "$GITHUB_OUTPUT"
             echo "keep_files=true" >> "$GITHUB_OUTPUT"
-            echo "tooling_mode=float" >> "$GITHUB_OUTPUT"
-            echo "tooling_ref=main" >> "$GITHUB_OUTPUT"
+            # products-meta nog niet op tooling main (PR VSA-tooling#58): pin.
+            echo "tooling_mode=pin" >> "$GITHUB_OUTPUT"
+            ref="$(tr -d '[:space:]' < vsa-tooling.pin | head -n1)"
+            if [[ -z "$ref" ]]; then
+              echo "::error::vsa-tooling.pin is empty"
+              exit 1
+            fi
+            echo "tooling_ref=$ref" >> "$GITHUB_OUTPUT"
           else
             slug="$(printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9_-]+/-/g; s/-+/-/g; s/^-+//; s/-+$//')"
             if [[ -z "$slug" ]]; then
@@ -85,8 +91,20 @@ jobs:
             echo "pages_url=https://orthodox-ronl.github.io/bibliotheek/${slug}/" >> "$GITHUB_OUTPUT"
             echo "label=branch-preview" >> "$GITHUB_OUTPUT"
             echo "keep_files=true" >> "$GITHUB_OUTPUT"
-            echo "tooling_mode=float" >> "$GITHUB_OUTPUT"
-            echo "tooling_ref=main" >> "$GITHUB_OUTPUT"
+            # products-meta nog niet op tooling main (PR VSA-tooling#58).
+            # Deze consumer-branch pint tot die merge; andere branches floaten.
+            if [[ "$branch" == "feat/products-meta-consumer" ]]; then
+              echo "tooling_mode=pin" >> "$GITHUB_OUTPUT"
+              ref="$(tr -d '[:space:]' < vsa-tooling.pin | head -n1)"
+              if [[ -z "$ref" ]]; then
+                echo "::error::vsa-tooling.pin is empty"
+                exit 1
+              fi
+              echo "tooling_ref=$ref" >> "$GITHUB_OUTPUT"
+            else
+              echo "tooling_mode=float" >> "$GITHUB_OUTPUT"
+              echo "tooling_ref=main" >> "$GITHUB_OUTPUT"
+            fi
           fi
 
       - name: Show deploy target
@@ -147,6 +165,23 @@ jobs:
       - name: Check Coria MXL playback contract
         run: python scripts/check_mxl_playback_contract.py --fail
 
+      - name: Setup Node (OSMD-navigatie-steekproef)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: scripts/osmd-nav-check/package-lock.json
+
+      - name: Check OSMD speelplan-navigatie zichtbaar
+        run: |
+          set -euo pipefail
+          cd scripts/osmd-nav-check
+          npm ci
+          npx playwright install --with-deps chromium
+          node check.mjs
+          # S8 A1-adapter (s8-alleluia-hide-check.mjs): nog niet — pas als
+          # die groen is én SVG-bypass in bieb-score weg is.
+
       - name: Check bibliotheek-id in MSCZ colofon
         run: python scripts/ensure_bibliotheek_id.py --check-only --fail
 
@@ -158,6 +193,9 @@ jobs:
 
       - name: Coria fingerprints
         run: python scripts/fingerprint_coria_mxl.py
+
+      - name: Coria fetch probe (raw vs github.io)
+        run: python scripts/probe_coria_fetch.py --warn-only
 
       - name: Bladermap SVG from .vsa
         run: python scripts/sync_oefenhoek_index.py --svg
