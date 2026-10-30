@@ -5,5 +5,10 @@ automatische_inhoud: true
 weight: 950
 ---
 
-Alleluias (Kiev: `9a-toon-N`; znameni: `9b-toon-N`, alleen gereserveerd in
-het Id-register). Uitvoeringsvorm voor deze set: Groningen.
+{{<kop>}}Alleluias{{</kop>}}
+
+We hebben verschillende soorten Alleluia's:
+
+- Kiev: `9a-toon-N`
+- Znameni: `9b-toon-N`
+- Alleluia die na het Communievers wordt gebruikt (in F majeur)
