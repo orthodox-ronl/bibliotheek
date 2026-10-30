@@ -1295,13 +1295,23 @@
     ensureOsmd(document);
   }
 
+  // Vóór init: schermstand kan ensureOsmd al aanroepen tijdens dezelfde tick.
+  window.__vsaEnsureOsmd = ensureOsmd;
+  window.__VSA_SCORE_OSMD_BUILD = "20261030-scherm-load";
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
   } else {
     init();
   }
-  window.__vsaEnsureOsmd = ensureOsmd;
-  window.__VSA_SCORE_OSMD_BUILD = "20261029-schermstand";
+  // bfcache / late zichtbaar: opnieuw proberen (o.a. na navigatie vanaf overzicht).
+  window.addEventListener("pageshow", function () {
+    ensureOsmd(document);
+  });
+  document.addEventListener("vsa:schermstand", function (ev) {
+    var root = ev && ev.detail && ev.detail.root;
+    ensureOsmd(root || document);
+  });
 
   function diagnoseStaff(measures, byPart, mi, label) {
     var out = { label: label };

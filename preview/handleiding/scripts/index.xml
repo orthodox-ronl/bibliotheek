@@ -141,7 +141,7 @@ catalogus-product-PDF’s plakken)&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\pdf.cmd &amp;lt;pad\naar\index.md|map&amp;gt; [--force]
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\pdf.cmd --all-koormappen [--force]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Maakt de PDF achter de knoppen &lt;strong&gt;Download pagina&lt;/strong&gt; en &lt;strong&gt;Print pagina&lt;/strong&gt;: één
+&lt;p&gt;Maakt de PDF achter de knop &lt;strong&gt;Download pagina&lt;/strong&gt;: één
 bestand &lt;code&gt;index.md.pdf&lt;/code&gt; naast de Markdown van een bladermap-pagina (Hugo
 page resource). Dat is de PDF van de &lt;strong&gt;getoonde pagina&lt;/strong&gt; (koormap-slot of
 catalogus-uitvoeringsvorm), niet hetzelfde als de losse catalogus-product-PDF
@@ -397,18 +397,22 @@ syllabify + playback + finalize) en scherm-&lt;code&gt;.svg&lt;/code&gt;, en sch
 &lt;code&gt;*.products-meta.json&lt;/code&gt; (schema 2: bron- + product-hashes). Versheid voor
 check/regen komt uit die meta. Optioneel zet dit script nog een
 Coria-bronvermelding in de MXL (geen versheidstempel).&lt;/p&gt;</description></item><item><title>products — tekstblad</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/tekstblad-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/tekstblad-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;scripts\products.cmd --kinds tekstblad&lt;/code&gt; — A4-PDF maken bij een catalogus-&lt;code&gt;.tekstblad.md&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;scripts\products.cmd --kinds tekstblad&lt;/code&gt; — scherm-SVG’s bij catalogus-&lt;code&gt;.tekstblad.md&lt;/code&gt; met &lt;code&gt;::: vsa-notatie&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\products.cmd --kinds tekstblad [pad] [--force] [--dry-run]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Zoekt canonieke bronnen &lt;code&gt;{stam}.tekstblad.md&lt;/code&gt; onder het opgegeven pad
-(of, zonder pad, onder &lt;code&gt;content-source\catalogus&lt;/code&gt;) en schrijft ernaast
-&lt;code&gt;{stam}.tekstblad.pdf&lt;/code&gt; via &lt;code&gt;vsa pdf&lt;/code&gt;. In de PDF komt een stamp
-(&lt;code&gt;vsa-source-sha256&lt;/code&gt;, &lt;code&gt;vsa-source-kind=tekstblad&lt;/code&gt;) zodat &lt;code&gt;check&lt;/code&gt; kan zien
-of de PDF nog bij de bron past.&lt;/p&gt;
-&lt;p&gt;Bestanden in &lt;code&gt;input\&lt;/code&gt; en mappen met &lt;code&gt;manueel: true&lt;/code&gt; worden
-overgeslagen. CI genereert deze PDF’s niet; jij wel lokaal (Chrome of Edge
-nodig voor &lt;code&gt;vsa pdf&lt;/code&gt;), daarna bron + PDF samen committen.&lt;/p&gt;</description></item><item><title>ensure-bibliotheek-id</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/ensure-bibliotheek-id/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/ensure-bibliotheek-id/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+(of, zonder pad, onder &lt;code&gt;content-source\catalogus&lt;/code&gt;). Als de bron
+&lt;code&gt;::: vsa-notatie&lt;/code&gt;-blokken heeft, schrijft het script ernaast:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;{stam}.tekstblad.scherm.html&lt;/code&gt; — dezelfde HTML/tekst, met elk VSA-blok
+als &lt;code&gt;&amp;lt;img&amp;gt;&lt;/code&gt; naar een sibling-SVG;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;{stam}-…-block-N.svg&lt;/code&gt; — de getekende notatie voor schermweergave
+(shortcode &lt;code&gt;bieb&lt;/code&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Zonder &lt;code&gt;::: vsa-notatie&lt;/code&gt; doet dit kind niets. Pagina-PDF (Download/Print)
+hoort bij &lt;code&gt;scripts\pdf.cmd&lt;/code&gt; (&lt;code&gt;index.md.pdf&lt;/code&gt;), niet bij dit product-kind.
+Bestanden in &lt;code&gt;input\&lt;/code&gt; en mappen met &lt;code&gt;manueel: true&lt;/code&gt; worden overgeslagen.&lt;/p&gt;</description></item><item><title>ensure-bibliotheek-id</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/ensure-bibliotheek-id/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/ensure-bibliotheek-id/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\ensure-bibliotheek-id.cmd&lt;/code&gt; — catalogus-id in het colofon zetten of controleren&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\ensure-bibliotheek-id.cmd [root] [--check-only] [--fail]
