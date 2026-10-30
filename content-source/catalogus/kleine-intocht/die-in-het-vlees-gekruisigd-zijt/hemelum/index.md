@@ -1,6 +1,4 @@
 ---
-title: "Kleine Intocht Die In Het Vlees Gekruisigd Zijt (Hemelum)"
-linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

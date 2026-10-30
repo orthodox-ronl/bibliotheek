@@ -1,6 +1,4 @@
 ---
-title: "7d Dialoog met de diaken"
-linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

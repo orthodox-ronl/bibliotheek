@@ -1,6 +1,4 @@
 ---
-title: "Tropaar Maria Hulp Der Christenen Pokrof Toon 4 (Liturgikon)"
-linkTitle: "Liturgikon"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

@@ -1,6 +1,4 @@
 ---
-title: "Uw Heilig Kruis (Groningen)"
-linkTitle: "Groningen"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

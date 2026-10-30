@@ -1,6 +1,4 @@
 ---
-title: "Heer, red Uw volk (Liturgikon)"
-linkTitle: "Liturgikon"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

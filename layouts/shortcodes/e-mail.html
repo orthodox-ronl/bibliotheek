@@ -1,0 +1,12 @@
+{{- /* Inline mailto-link «e-mail» (paginatitel/-URL in subject/body). */ -}}
+{{- $page := .Page -}}
+{{- $email := site.Params.feedback_email -}}
+{{- if not $email -}}
+  {{- errorf "%s: shortcode e-mail: zet feedback_email in hugo.toml" (partial "diag-location.html" (dict "page" $page)) -}}
+{{- end -}}
+{{- $pageTitle := partial "display-title.html" $page -}}
+{{- $pageURL := $page.Permalink -}}
+{{- $mailSubject := printf "Bibliotheek: %s" $pageTitle -}}
+{{- $mailBody := printf "Pagina: %s\nAdres: %s\n\nUw opmerking:\n" $pageTitle $pageURL -}}
+{{- $mailto := printf "mailto:%s?subject=%s&body=%s" $email ($mailSubject | urlquery) ($mailBody | urlquery) -}}
+<a href="{{ $mailto }}">e-mail</a>

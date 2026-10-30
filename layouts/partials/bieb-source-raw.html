@@ -9,13 +9,19 @@
   {{- $dir = strings.TrimSuffix "/" (replace .Dir "\\" "/") -}}
 {{- end -}}
 {{- $candidates := slice -}}
+{{- $msczMvsa := slice -}}
 {{- range .Resources.Match "*.mvsa" -}}
-  {{- if not (strings.HasSuffix (lower .Name) ".mscz.mvsa") -}}
+  {{- if strings.HasSuffix (lower .Name) ".mscz.mvsa" -}}
+    {{- $msczMvsa = $msczMvsa | append . -}}
+  {{- else -}}
     {{- $candidates = $candidates | append . -}}
   {{- end -}}
 {{- end -}}
 {{- range .Resources.Match "*.vsa" -}}
   {{- $candidates = $candidates | append . -}}
+{{- end -}}
+{{- if eq (len $candidates) 0 -}}
+  {{- $candidates = $msczMvsa -}}
 {{- end -}}
 {{- with index $candidates 0 -}}
   {{- if $dir -}}
@@ -31,15 +37,19 @@
 {{- if and (not $text) $dir -}}
   {{- $srcDir := printf "content-source/%s" $dir -}}
   {{- if fileExists $srcDir -}}
+    {{- $fallbackMscz := "" -}}
     {{- range os.ReadDir $srcDir -}}
       {{- if and (not .IsDir) (not $text) -}}
         {{- $n := lower .Name -}}
-        {{- if or (strings.HasSuffix $n ".mvsa") (strings.HasSuffix $n ".vsa") -}}
-          {{- if not (strings.HasSuffix $n ".mscz.mvsa") -}}
-            {{- $text = readFile (printf "%s/%s" $srcDir .Name) -}}
-          {{- end -}}
+        {{- if or (and (strings.HasSuffix $n ".mvsa") (not (strings.HasSuffix $n ".mscz.mvsa"))) (strings.HasSuffix $n ".vsa") -}}
+          {{- $text = readFile (printf "%s/%s" $srcDir .Name) -}}
+        {{- else if and (eq $fallbackMscz "") (strings.HasSuffix $n ".mscz.mvsa") -}}
+          {{- $fallbackMscz = .Name -}}
         {{- end -}}
       {{- end -}}
+    {{- end -}}
+    {{- if and (not $text) $fallbackMscz -}}
+      {{- $text = readFile (printf "%s/%s" $srcDir $fallbackMscz) -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}

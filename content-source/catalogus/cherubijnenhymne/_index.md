@@ -1,6 +1,4 @@
 ---
-title: "Cherubijnenhymne"
-linkTitle: "Cherubijnenhymne"
 nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true

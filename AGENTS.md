@@ -11,6 +11,7 @@ Publicatiecontrole / sibling-namen: [docs/publicatiecontrole.md](docs/publicatie
 Lifecycle Werkbank/Catalogus: [docs/levenscyclus.md](docs/levenscyclus.md)
 (leesbaar: handleiding *Levenscyclus*).
 Catalogus-titels (afleiden bij bouw): [docs/catalogus-titels.md](docs/catalogus-titels.md).
+Eén canonieke notatiebron per leaf: [docs/catalogus-notatiebron.md](docs/catalogus-notatiebron.md).
 
 ---
 

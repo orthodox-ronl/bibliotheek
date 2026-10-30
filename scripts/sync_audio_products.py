@@ -16,11 +16,11 @@ lokaal met ``scripts\\products.cmd --kinds audio``.
 
 from __future__ import annotations
 
-import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Sequence
 
+from cli_style import check_call, detail
 from coria_mxl import require_no_spaces
 from product_kind import (
     DEFAULT_ROOT,
@@ -142,13 +142,13 @@ def _audio_cli_cmd(job: AudioJob, mp3: Path) -> list[str]:
 
 
 def _run_audio(job: AudioJob, mp3: Path) -> None:
-    subprocess.check_call(_audio_cli_cmd(job, mp3), cwd=str(REPO_ROOT))
+    check_call(_audio_cli_cmd(job, mp3), cwd=str(REPO_ROOT))
 
 
 def sync_one(job: AudioJob, *, dry_run: bool) -> None:
     rel = job.source.relative_to(REPO_ROOT)
     mp3 = job.product
-    print(f"  MP3  {rel} -> {mp3.name}", flush=True)
+    detail(f"  MP3  {rel} -> {mp3.name}")
     if dry_run:
         return
     require_no_spaces(mp3)

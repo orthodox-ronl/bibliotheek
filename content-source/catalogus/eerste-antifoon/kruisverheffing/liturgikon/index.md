@@ -1,6 +1,4 @@
 ---
-title: "Eerste antifoon Kruisverheffing (Liturgikon)"
-linkTitle: "Eerste antifoon Kruisverheffing (Liturgikon)"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

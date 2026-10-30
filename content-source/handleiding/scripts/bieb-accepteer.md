@@ -56,22 +56,18 @@ stopt het script (typo-vangnet; `--force` om toch door te gaan).
 Je mag het bestand ook als **eerste** CLI-argument geven (zonder id); het
 script herkent een pad en leidt het id af.
 
-## Bladpagina: title en linkTitle
+## Bladpagina: geen title / linkTitle
 
 Het script maakt ontbrekende `_index.md` / `index.md` met shortcode `bieb`
 en hernoemt naar de publicatiestam. Getoonde namen leidt Hugo/zoek af uit
 het id (en de bron); zie
 [Catalogus en koormappen](../../start/catalogus-en-koormappen/) (§ Titels).
-Op de leaf mag het script nog afgeleide `title` / `linkTitle` zetten:
+Op catalogus-id-pagina’s schrijft het script **geen** `title` / `linkTitle`.
 
-| Veld | Default (afgeleid) |
-| --- | --- |
-| `title` | Uit VSA-frontmatter (`titel:` / `soort:`), anders uit id |
-| `linkTitle` | Uitvoeringsvorm-label (`Liturgikon`, `Hemelum`, …) |
-
-`--title` alleen als uitzondering. `check --strict` controleert dat de
-UV-labels in `data/uitvoeringsvorm-link-titles.yaml` gelijk blijven aan
-Python (`check_catalogus_leaf_titles`).
+`--title` alleen bij een **tekstblad**-bron (titel in die bron).
+`check --strict` controleert dat de UV-labels in
+`data/uitvoeringsvorm-link-titles.yaml` gelijk blijven aan Python
+(`check_catalogus_leaf_titles`).
 
 Sibling-PDF/MXL krijgen de doelvorm `{stam}.mscz.pdf` / `{stam}.mscz.mxl`
 (of `.vsa.mxl` / `.tekstblad.pdf`). Een kale ongekuiste `.mxl` wordt
@@ -90,7 +86,7 @@ wijzigen), [verwijder](../bieb-verwijder/) (wissen + dangling refs),
 
 | Optie | Betekenis |
 | --- | --- |
-| `--title` | Uitzondering: overschrijf afgeleide leaf-titel |
+| `--title` | Alleen tekstblad: titel in de tekstblad-bron |
 | `--status` | Publicatiestatus |
 | `--stub` | Lege leaf (`voorzien`); schrijft meteen `index.md.pdf` (tekst «Voorzien», geen partituur) |
 | `--move` | Bronbestanden verplaatsen (default: kopieer) |

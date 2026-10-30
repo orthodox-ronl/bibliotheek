@@ -109,8 +109,8 @@ Uitvoer: `static\zoek\index.json` met o.a.:
 | --- | --- |
 | `id` | `zangstuk/variant/uitvoeringsvorm` |
 | `url` | Site-absoluut pad `/catalogus/<id>/` (client plakt `data-base` ervoor) |
-| `title` / `linkTitle` | Uit leaf-frontmatter (fallback variant / id) |
-| `zangstukTitle` / `variantTitle` | Titels van de bovenliggende `_index.md` |
+| `title` / `linkTitle` | Afgeleid uit bron/id (zelfde algoritme als de site) |
+| `zangstukTitle` / `variantTitle` | Afgeleid uit de bovenliggende mapnamen |
 | `status` | `publicatiestatus` van de leaf |
 | `text` | Genormaliseerde zoekblob (titels + id-woorden + gezongen tekst) |
 | `tokens` | Gesorteerde unieke tokens van `text` (woordvolgorde-varianten) |

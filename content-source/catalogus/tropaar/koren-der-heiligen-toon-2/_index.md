@@ -1,6 +1,4 @@
 ---
-title: "Tropaar koren-der-heiligen-toon-2 (= zaterdag-heiligen-toon-2)"
-linkTitle: "koren-der-heiligen-toon-2"
 nav_sort: weight
 weight: 306
 publicatiestatus: concept

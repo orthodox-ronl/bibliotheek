@@ -1,6 +1,4 @@
 ---
-title: "Heer, red Uw volk (Hemelum)"
-linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

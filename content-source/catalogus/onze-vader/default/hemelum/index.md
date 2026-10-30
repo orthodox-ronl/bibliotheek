@@ -1,6 +1,4 @@
 ---
-title: "Onze Vader Standaard (Hemelum)"
-linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

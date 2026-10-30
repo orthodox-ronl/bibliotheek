@@ -1,6 +1,4 @@
 ---
-title: "Alleluia 9b Toon 7 (Vokn)"
-linkTitle: "Vokn"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

@@ -11,7 +11,7 @@
 
   Voorgestelde downloadnaam (HTML download=…; bestand op schijf blijft index.md.pdf):
   1. frontmatter pdf_bestandsnaam
-  2. anders frontmatter title
+  2. catalogus: afgeleide bladtitel (display-title); koormap: frontmatter title
   3. anders mapnaam van de pagina
 */ -}}
 {{- $bladermap := in (slice "catalogus" "koormappen") .Section -}}
@@ -23,10 +23,12 @@
   {{- $dlName := "" -}}
   {{- if $paginaPdf -}}
     {{- $dlBase := "" -}}
-    {{- with .Params.pdf_bestandsnaam -}}
-      {{- $dlBase = . -}}
-    {{- else with .Params.title -}}
-      {{- $dlBase = . -}}
+    {{- if .Params.pdf_bestandsnaam -}}
+      {{- $dlBase = .Params.pdf_bestandsnaam -}}
+    {{- else if eq .Section "catalogus" -}}
+      {{- $dlBase = partial "display-title.html" . -}}
+    {{- else if .Params.title -}}
+      {{- $dlBase = .Params.title -}}
     {{- else -}}
       {{- $dlBase = path.Base (strings.TrimSuffix "/" .File.Dir) -}}
     {{- end -}}

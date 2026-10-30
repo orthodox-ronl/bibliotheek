@@ -1,6 +1,4 @@
 ---
-title: "9 Alleluia"
-linkTitle: "9 Alleluia"
 nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true

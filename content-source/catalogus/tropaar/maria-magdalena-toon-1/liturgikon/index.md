@@ -1,6 +1,4 @@
 ---
-title: "Tropaar Maria Magdalena toon 1 (Liturgikon)"
-linkTitle: "Liturgikon"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

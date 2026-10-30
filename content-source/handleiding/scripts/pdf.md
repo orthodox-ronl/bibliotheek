@@ -38,7 +38,8 @@ Catalogus-leaves: ontwerp en restmijlpalen in
 
 Beide knoppen gebruiken die PDF (opslaan respectievelijk afdrukken). Bij
 **Download pagina** stelt de site een bestandsnaam voor: frontmatter
-`pdf_bestandsnaam`, anders `title`, anders de mapnaam — zie
+`pdf_bestandsnaam`; anders op een koormap `title`, op een catalogus-blad
+de afgeleide bladtitel; anders de mapnaam — zie
 `docs\specs\koormap-paginataal.md`. Zonder dit bestand tonen de knoppen
 niet. Er is geen aparte browser-HTML-afdruk meer via de navigatie (dat
 was hetzelfde als Ctrl+P).

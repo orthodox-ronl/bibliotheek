@@ -1,11 +1,11 @@
 ---
-title: "Prokimen weekdagen (Kiev, Groningen)"
+title: "Prokimen weekdagen (Kiev)"
 linkTitle: "Weekdagen"
 weight: 1
 publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-{{< kop >}}Prokimen weekdagen (Kiev, Groningen){{< /kop >}}
+{{< kop >}}Prokimen weekdagen (Kiev){{< /kop >}}
 
 {{< kop links middel >}}Maandag (Ps. 103, toon 4){{< /kop >}}
 

@@ -1,6 +1,4 @@
 ---
-title: "Geloofsbelijdenis Standaard (Groningen)"
-linkTitle: "Groningen"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

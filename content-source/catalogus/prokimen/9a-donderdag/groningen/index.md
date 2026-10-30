@@ -1,6 +1,4 @@
 ---
-title: "Prokimen Donderdag (Kiev, Groningen)"
-linkTitle: "Groningen"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

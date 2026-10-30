@@ -1,6 +1,4 @@
 ---
-title: "Kondak zondag toon 7 (Groningen)"
-linkTitle: "Groningen"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

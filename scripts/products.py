@@ -9,6 +9,8 @@ import argparse
 import sys
 from pathlib import Path
 
+from cli_style import add_verbose_argument, error, error_block, info, set_verbose
+from product_kind import KindFailure, collect_failures
 from product_regen import (
     KIND_HELP,
     KIND_ORDER,
@@ -33,6 +35,41 @@ def _parse_kinds(raw: str) -> list[str]:
         raise SystemExit(f"Onbekend kind: {', '.join(unknown)}. Bekend: {known}, all")
     # Stabiele volgorde zoals KIND_ORDER
     return [k for k in KIND_ORDER if k in parts]
+
+
+def _print_products_summary(
+    *,
+    kind_failures: dict[str, list[KindFailure]],
+    kind_exit: dict[str, int],
+) -> None:
+    failed_kinds = [k for k, code in kind_exit.items() if code != 0]
+    if not failed_kinds:
+        info("\nOK: products klaar")
+        return
+
+    error("")
+    error("=== Samenvatting products ===")
+    error(f"{len(failed_kinds)} kind(s) mislukt: {', '.join(failed_kinds)}")
+    for kind in failed_kinds:
+        rows = kind_failures.get(kind) or []
+        if not rows:
+            error(f"\n{kind}: exit {kind_exit[kind]} (geen per-bestanddetails)")
+            error(
+                "  Oplossing: draai opnieuw met --verbose of alleen "
+                f"--kinds {kind} om de fout te zien."
+            )
+            continue
+        error(f"\n{kind} ({len(rows)}):")
+        for fail in rows:
+            error(f"  - {fail.path}")
+            error(f"    {fail.reason}")
+            error(f"    {fail.solution}")
+    error("")
+    error(
+        "Oplossing: herstel de items hierboven (vaak: bestand sluiten of "
+        "bronfout), daarna opnieuw: scripts\\products.cmd … "
+        "(eventueel --kinds …). Meer detail: voeg --verbose toe."
+    )
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -61,6 +98,7 @@ def main(argv: list[str] | None = None) -> int:
             "--kinds mscz,audio\n"
             "  python scripts/products.py --kinds all --dry-run\n"
             "  python scripts/products.py --only-invalid --kinds mscz,mvsa,vsa\n"
+            "  python scripts/products.py --verbose\n"
         ),
     )
     parser.add_argument(
@@ -81,7 +119,8 @@ def main(argv: list[str] | None = None) -> int:
         ),
     )
     add_regen_arguments(parser)
-    from batch_guard import add_yes_argument, confirm_batch
+    add_verbose_argument(parser)
+    from batch_guard import CONFIRM_FROM, add_yes_argument, confirm_batch
 
     add_yes_argument(parser)
     args = parser.parse_args(argv)
@@ -95,9 +134,14 @@ def main(argv: list[str] | None = None) -> int:
             return 2
         raise
 
+    set_verbose(bool(args.verbose))
     root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
     if not root.exists():
-        print(f"Root niet gevonden: {root}", file=sys.stderr)
+        error(f"Root niet gevonden: {root}")
+        error(
+            "Oplossing: geef een bestaande map of bronbestand onder "
+            "content-source\\catalogus."
+        )
         return 1
 
     # Zelfde flags doorgeven aan sync_*-mains (minus --kinds).
@@ -114,32 +158,42 @@ def main(argv: list[str] | None = None) -> int:
         forward.append("--only-invalid")
     if args.reasons:
         forward.extend(["--reasons", args.reasons])
-    # Kind-mains niet opnieuw laten vragen: orchestrator bevestigt één keer
-    # (ook de harde limiet per kind — anders opnieuw j/ja per spoor).
-    forward.append("-y")
-    forward.append("--already-confirmed")
+    if args.verbose:
+        forward.append("--verbose")
 
-    # Bevestiging bij map of meerdere kinds (één bestand + één kind: stil).
-    confirm_n = 2 if (root.is_dir() or len(kinds) > 1) else 1
     actie = "dry-run" if args.dry_run else "schrijven"
-    if not confirm_batch(
-        "products",
-        n=confirm_n,
-        headline=f"kinds={','.join(kinds)} · root={root}",
-        details=[
-            f"Actie: {actie}; condities={','.join(policy.active_reasons())}",
-            "Per kind volgt een eigen duur-schatting (op basis van eerdere runs)",
-            "Kind-sporen vragen niet opnieuw om bevestiging",
-        ],
-        yes=args.yes,
-    ):
-        return 2
+    multi_kind = len(kinds) > 1
 
-    print(
+    if multi_kind:
+        # Eén preflight voor alle kinds; kind-sporen niet opnieuw laten vragen.
+        # n=CONFIRM_FROM → zachte vraag (geen nep-«2 items»).
+        if not confirm_batch(
+            "products",
+            n=CONFIRM_FROM,
+            headline=f"kinds={','.join(kinds)} · root={root}",
+            details=[
+                f"Actie: {actie}; condities={','.join(policy.active_reasons())}",
+                f"Aantal kinds: {len(kinds)}",
+                "Per kind volgt een eigen duur-schatting (op basis van eerdere runs)",
+                "Kind-sporen vragen niet opnieuw om bevestiging",
+                "Standaard beknopte log; --verbose voor per-stap detail",
+            ],
+            yes=args.yes,
+        ):
+            return 2
+        forward.append("-y")
+        forward.append("--already-confirmed")
+    elif args.yes:
+        # Eén kind + -y: stil doorgeven.
+        forward.append("-y")
+        forward.append("--already-confirmed")
+    # else: één kind — kind-batch bevestigt op de echte todo-lijst
+    # (kleine todo: stil; ≥ CONFIRM_FROM: Doorgaan?; 100+: dubbel).
+
+    info(
         f"=== products: kinds={','.join(kinds)} "
         f"reasons={','.join(policy.active_reasons())} "
         f"root={root} ===",
-        flush=True,
     )
 
     # Dunne mains blijven (CLI-compat); elk delegeert naar product_kind.run_kind.
@@ -153,32 +207,42 @@ def main(argv: list[str] | None = None) -> int:
         "lyrics": "sync_lyrics_products",
     }
 
-    failed = 0
+    kind_exit: dict[str, int] = {}
+    kind_failures: dict[str, list[KindFailure]] = {}
+
     for kind in kinds:
         mod_name = runners[kind]
-        print(f"\n--- {kind} ({KIND_HELP[kind]}) ---", flush=True)
+        info(f"\n--- {kind} ({KIND_HELP[kind]}) ---")
         mod = __import__(mod_name)
-        code = mod.main(forward)
-        if code not in (0, None):
-            failed += 1
-            print(f"FAILED kind={kind} exit={code}", flush=True)
+        rows: list[KindFailure] = []
+        with collect_failures(rows):
+            code = mod.main(forward)
+        kind_exit[kind] = 0 if code in (0, None) else int(code)
+        kind_failures[kind] = rows
 
+    failed = sum(1 for c in kind_exit.values() if c != 0)
     if failed:
-        print(f"\nproducts: {failed} kind(s) mislukt", flush=True)
+        _print_products_summary(kind_failures=kind_failures, kind_exit=kind_exit)
         return 1
 
     # Zoekindex hangt af van lyrics, status en audio-paden — altijd vernieuwen
     # na een geslaagde products-run (ook --only-stale), behalve dry-run.
     if not args.dry_run:
-        print("\n--- zoekindex (static/zoek/index.json) ---", flush=True)
+        info("\n--- zoekindex (static/zoek/index.json) ---")
         from build_zoek_index import main as build_zoek_main
 
         zoek_code = build_zoek_main([])
         if zoek_code not in (0, None):
-            print(f"FAILED zoekindex exit={zoek_code}", flush=True)
+            error_block(
+                [
+                    f"FAILED zoekindex exit={zoek_code}",
+                    "Oplossing: controleer de fout hierboven; daarna "
+                    "python scripts\\build_zoek_index.py opnieuw.",
+                ]
+            )
             return 1
 
-    print("\nOK: products klaar", flush=True)
+    info("\nOK: products klaar")
     return 0
 
 

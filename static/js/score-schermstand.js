@@ -1,6 +1,7 @@
 /**
- * Schermstand SVG | OSMG: één wisselknop in {} (label = de ándere stand).
- * Default: svg. Sitebreed via localStorage.
+ * Schermstand SVG | OSMG. Default: svg. Sitebreed via localStorage —
+ * geldt op catalogus én koormap. De wisselknop staat alleen in {} op
+ * catalogus-bladen (label = de ándere stand).
  */
 (function () {
   var STORAGE_KEY = "bibliotheek-schermstand";

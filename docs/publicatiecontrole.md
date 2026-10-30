@@ -31,7 +31,15 @@ Ownership: sibling-namen, publicatie-/importcontroles en Hugo-CI horen
 | Afgeleide | `{stam}.{bron-ext}.{doel-ext}` — bijv. `.vsa.mxl`, `.vsa.pdf`, `.mscz.pdf`, `.mscz.mxl`, `.vsa.lyrics.txt`, `.mscz.lyrics.txt` |
 | Tekstblad | uitzondering: `{stam}.tekstblad.md` → `{stam}.tekstblad.pdf`                                               |
 
-**Geen product-van-product:** uit één bron komt hoogstens één laag
+**Eén canonieke notatiebron per leaf:** niet tegelijk `.vsa` én `.mvsa`
+én/of basis-`.mscz` in dezelfde uitvoeringsvorm-map. Optioneel
+`{stam}.mscz.mvsa` blijft import-bewerkvorm bij een `.mscz`-bron;
+`{stam}.mvsa.mscz` is product, geen tweede bron. Vervangen bron
+archiveren onder `content-source/input/archief-bronnen/`. Contract:
+[catalogus-notatiebron.md](catalogus-notatiebron.md).
+
+**Geen product-van-product:**
+ uit één bron komt hoogstens één laag
 afgeleiden (`….mvsa.mp3`, `….mscz.mxl`, optioneel `….mvsa.mscz`). Niet
 `….mvsa.mscz.mp3`, `….mscz.mscz…`, of Score-IR/from-ir op `.mscz`/`.vsa`
 (die horen alleen bij canonieke `.mvsa`). Bulk-`products` slaat afgeleide
@@ -82,8 +90,10 @@ Map-scan gebruikt alleen canonieke bronnen (geen `*.mvsa.mscz` als
 basis-`.mscz`). `--kinds` is focus/uitsluiting, geen “vertel welke bronnen
 bestaan”. Opties:
 `--dry-run`, `--force`, `--only-missing` / `--only-stale` / `--only-invalid`,
-`--reasons`. Na een geslaagde run (niet `--dry-run`) vernieuwt `products.cmd`
-ook de Coria-fingerprints (`fingerprint_coria_mxl.py`) voor **Oefenen** (tip-icoon **♪**).
+`--reasons`, `-v` / `--verbose` (standaard beknopte log + eind-samenvatting
+bij fouten; zonder verbose krijgt de tooling `--quiet`). Na een geslaagde
+run (niet `--dry-run`) vernieuwt `products.cmd` ook de Coria-fingerprints
+(`fingerprint_coria_mxl.py`) voor **Oefenen** (tip-icoon **♪**).
 
 ### Architectuur (orthogonaal)
 

@@ -1,6 +1,4 @@
 ---
-title: "Kondak Maria Magdalena toon 3 (Liturgikon)"
-linkTitle: "Liturgikon"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

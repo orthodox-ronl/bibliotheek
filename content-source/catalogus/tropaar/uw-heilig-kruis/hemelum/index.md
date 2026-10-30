@@ -1,6 +1,4 @@
 ---
-title: "Uw Heilig Kruis (Hemelum)"
-linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

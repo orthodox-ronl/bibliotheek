@@ -1,6 +1,4 @@
 ---
-title: "Kondak Onthoofding Johannes de Doper toon 5 (Hemelum)"
-linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

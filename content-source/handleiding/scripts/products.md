@@ -12,7 +12,8 @@ lyrics, …) opnieuw maken onder een map of voor één bronbestand
 # SYNOPSIS
 
 ```cmd
-scripts\products.cmd [pad] [--kinds LIST] [--force] [--dry-run] [--only-missing|--only-stale|--only-invalid]
+scripts\products.cmd [pad] [--kinds LIST] [--force] [--dry-run] [--verbose]
+                     [--only-missing|--only-stale|--only-invalid]
 scripts\all-products.cmd [opties]
 ```
 
@@ -32,6 +33,11 @@ geslaagde run (niet `--dry-run`) schrijft de tooling voor vsa/mvsa/mscz
 Bibliotheek herschrijft die meta niet meer uit siblings; bij mscz wordt
 alleen de MXL-hash gemerged als de Coria-bron-id de MXL wijzigt. Daarna
 vernieuwt het de zoekindex en Coria-fingerprints.
+
+**Logging:** standaard beknopt (voortgang + fouten met `Oplossing: …`).
+Mislukt er iets over meerdere kinds, dan eindigt de run met
+`=== Samenvatting products ===`. Gebruik `-v` / `--verbose` voor
+per-stap detail; zonder die vlag krijgt de VSA-tooling `--quiet`.
 
 Dit is het **enige** gebruikerscommando voor die producten. Er zijn geen
 aparte `vsa-products.cmd`-wrappers meer. Per kind staat detail op de
@@ -61,6 +67,7 @@ scripts\products.cmd
 scripts\products.cmd content-source\catalogus\trisagion --kinds mscz,audio
 scripts\products.cmd --kinds vsa --dry-run
 scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid
+scripts\products.cmd --verbose
 ```
 
 # SEE ALSO

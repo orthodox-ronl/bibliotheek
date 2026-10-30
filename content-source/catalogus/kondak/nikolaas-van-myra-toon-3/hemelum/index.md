@@ -1,6 +1,4 @@
 ---
-title: "Kondak Nikolaas van Myra toon 3 (Hemelum)"
-linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

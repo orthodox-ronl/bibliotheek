@@ -7,7 +7,7 @@ automatische_inhoud: false
 ---
 
 {{< kop >}}Zondag — toon 5{{< /kop >}}
-Compositieblad: prokimen en alleluia voor zondag in toon 5 (Kiev, Groningen).
+Compositieblad: prokimen en alleluia voor zondag in toon 5 (Kiev).
 
 De **alleluia** staat in de bibliotheek (`.mvsa`). De **prokimen** volgt wanneer die bron in de bibliotheek staat.
 

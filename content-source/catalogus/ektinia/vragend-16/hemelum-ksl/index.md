@@ -1,6 +1,4 @@
 ---
-title: "Vragende litanie 16 (Hemelum, KSL)"
-linkTitle: "Vragende litanie 16 (Hemelum, KSL)"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

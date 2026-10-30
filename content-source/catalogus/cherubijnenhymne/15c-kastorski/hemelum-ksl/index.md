@@ -1,6 +1,4 @@
 ---
-title: "15c Cherubijnenhymne (Kastorski, Kerkslavisch transliteratie)"
-linkTitle: "15c Kastorski (ksl-trlat)"
 publicatiestatus: voorzien
 automatische_inhoud: false
 ---

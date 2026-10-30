@@ -1,6 +1,4 @@
 ---
-title: "Communievers Kruisverheffing (Hemelum)"
-linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

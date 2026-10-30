@@ -1,6 +1,4 @@
 ---
-title: "Tropaar zaterdag gestorvenen toon 2"
-linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

@@ -1,6 +1,4 @@
 ---
-title: "Kleine Intocht Moeder Gods (Hemelum)"
-linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

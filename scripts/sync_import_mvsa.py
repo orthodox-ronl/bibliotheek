@@ -14,11 +14,11 @@ lokaal met ``scripts\\import-mvsa.cmd``.
 from __future__ import annotations
 
 import argparse
-import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Sequence
 
+from cli_style import check_call, detail
 from product_kind import (
     DEFAULT_ROOT,
     REPO_ROOT,
@@ -104,13 +104,13 @@ def _run_mscz_mvsa(mscz: Path, mvsa: Path, *, pitch: str) -> None:
         "-o",
         str(mvsa),
     ]
-    subprocess.check_call(cmd, cwd=str(REPO_ROOT))
+    check_call(cmd, cwd=str(REPO_ROOT))
 
 
 def sync_one(mscz: Path, *, pitch: str, dry_run: bool) -> None:
     mvsa = product_mvsa_for_mscz(mscz)
     rel = mscz.relative_to(REPO_ROOT)
-    print(f"  MVSA {rel} -> {mvsa.name}", flush=True)
+    detail(f"  MVSA {rel} -> {mvsa.name}")
     if dry_run:
         return
     require_no_spaces_name(mvsa)

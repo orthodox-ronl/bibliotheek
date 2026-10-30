@@ -20,6 +20,10 @@
 {{- if and (strings.HasSuffix $lower ".mvsa") (not (strings.HasSuffix $lower ".mscz.mvsa")) -}}
   {{- $isSource = true -}}
   {{- $id = "mvsa" -}}
+{{- else if strings.HasSuffix $lower ".mscz.mvsa" -}}
+  {{- /* Leesbare import-tekst naast .mscz; id partituur zodat voorkeur bij mscz-bladen klopt. */ -}}
+  {{- $isSource = true -}}
+  {{- $id = "partituur" -}}
 {{- else if and (strings.HasSuffix $lower ".mscz") (not (strings.HasSuffix $lower ".print.mscz")) -}}
   {{- $isSource = true -}}
   {{- $id = "partituur" -}}
@@ -114,6 +118,9 @@
   {{- if eq $id "mvsa" -}}
     {{- $label = "Meerstemmige tekstbron (.mvsa)" -}}
     {{- $detail = "Feitelijke brontekst tonen" -}}
+  {{- else if and (eq $id "partituur") (strings.HasSuffix $lower ".mscz.mvsa") -}}
+    {{- $label = "Tekstbron uit MuseScore (.mscz.mvsa)" -}}
+    {{- $detail = "Leesbare tekst afgeleid van de partituur" -}}
   {{- else if eq $id "partituur" -}}
     {{- $label = "MuseScore-partituur (.mscz)" -}}
     {{- $detail = "Bronbestand downloaden" -}}

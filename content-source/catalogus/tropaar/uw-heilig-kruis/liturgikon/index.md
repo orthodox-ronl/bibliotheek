@@ -1,6 +1,4 @@
 ---
-title: "Uw Heilig Kruis (Liturgikon)"
-linkTitle: "Liturgikon"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

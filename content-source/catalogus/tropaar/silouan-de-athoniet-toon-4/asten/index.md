@@ -1,6 +1,4 @@
 ---
-title: "Tropaar H. Silouan de Athoniet (Asten)"
-linkTitle: "H. Silouan de Athoniet"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

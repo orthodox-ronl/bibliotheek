@@ -1,6 +1,4 @@
 ---
-title: "Tropaar Johannes van Shanghai en San Francisco (Hemelum)"
-linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

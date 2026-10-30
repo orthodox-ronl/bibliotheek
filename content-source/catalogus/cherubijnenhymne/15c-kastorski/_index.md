@@ -1,8 +1,6 @@
 ---
-title: "Kastorski (15c)"
-linkTitle: "Kastorski (15c)"
 weight: 30
 nav_sort: weight
-publicatiestatus: concept
+publicatiestatus: reviewable
 automatische_inhoud: true
 ---

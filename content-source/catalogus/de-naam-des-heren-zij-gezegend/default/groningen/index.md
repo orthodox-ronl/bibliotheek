@@ -1,6 +1,4 @@
 ---
-title: "29 De Naam des Heren zij gezegend"
-linkTitle: "29 De Naam des Heren zij gezegend"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

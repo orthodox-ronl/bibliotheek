@@ -63,8 +63,8 @@ of een eenduidige slash-vorm typen. `?` toont de hulptekst.
    zangstuk-id (bij zangstuk-hernoem) of aan de oude stam (bij
    variant/uitvoeringsvorm), zodat TOC-links niet 404 geven.
 5. Werkt id-verwijzingen bij (`bieb id=…`, `alias_van`, paden, stam in
-   docs). Frontmatter `title` / `linkTitle` worden **niet** aangepast —
-   die leidt de bouw af uit het (nieuwe) id; zie
+   docs). Catalogus-titels hoeven niet herschreven: die leidt de bouw
+   af uit het (nieuwe) id; zie
    [Catalogus en koormappen](../../start/catalogus-en-koormappen/) (§ Titels).
 
 Twijfelgevallen (bijv. oude id alleen in een `title:`-regel) worden

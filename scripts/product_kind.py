@@ -8,11 +8,20 @@ from __future__ import annotations
 
 import argparse
 import os
-import sys
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable, Protocol, Sequence
+from typing import Callable, Iterator, Protocol, Sequence
 
+from cli_style import (
+    add_verbose_argument,
+    detail,
+    error,
+    error_block,
+    explain_sync_failure,
+    info,
+    set_verbose,
+)
 from product_regen import (
     RegenPolicy,
     add_regen_arguments,
@@ -33,6 +42,30 @@ class ProductSlot:
     stamp_ok: bool
     contract_ok: bool | None = None  # None = geen contract voor dit slot
     needs_musescore: bool = False
+
+
+@dataclass(frozen=True)
+class KindFailure:
+    """Eén mislukte bron in een product-spoor."""
+
+    path: str
+    reason: str
+    solution: str
+
+
+_FAILURES_OUT: list[KindFailure] | None = None
+
+
+@contextmanager
+def collect_failures(out: list[KindFailure]) -> Iterator[None]:
+    """Laat ``run_kind`` failures in ``out`` zetten (o.a. vanuit ``products``)."""
+    global _FAILURES_OUT
+    prev = _FAILURES_OUT
+    _FAILURES_OUT = out
+    try:
+        yield
+    finally:
+        _FAILURES_OUT = prev
 
 
 class ProductKind(Protocol):
@@ -90,11 +123,22 @@ def parse_product_args(
         help="Catalogusmap of één bronbestand (default: content-source/catalogus)",
     )
     add_regen_arguments(parser)
+    add_verbose_argument(parser)
     add_yes_argument(parser)
     add_already_confirmed_argument(parser)
     if add_extra is not None:
         add_extra(parser)
     return parser.parse_args(argv)
+
+
+def _print_kind_failure_summary(kind_id: str, failures: Sequence[KindFailure]) -> None:
+    if not failures:
+        return
+    error(f"Mislukt ({kind_id}): {len(failures)}")
+    for fail in failures:
+        error(f"  - {fail.path}")
+        error(f"    {fail.reason}")
+        error(f"    {fail.solution}")
 
 
 def run_kind(
@@ -105,25 +149,30 @@ def run_kind(
     dry_run: bool = False,
     yes: bool = False,
     already_confirmed: bool = False,
+    verbose: bool = False,
     repo_root: Path = REPO_ROOT,
     find_musescore: Callable[[], Path | None] | None = None,
+    failures_out: list[KindFailure] | None = None,
 ) -> int:
     """Draai één product-spoor. Geen passende bron = skip (exit 0), geen fout."""
+    set_verbose(verbose)
     if not root.exists():
-        print(f"FAIL: pad bestaat niet: {root}", file=sys.stderr)
+        error(f"FAIL: pad bestaat niet: {root}")
+        error(
+            "Oplossing: geef een bestaande catalogusmap of één bronbestand "
+            "onder content-source\\catalogus."
+        )
         return 1
 
     sources = kind.collect(root)
     if not sources:
         if root.is_file():
-            print(
+            info(
                 f"{kind.id}: geen passende bron op {root.name}; overgeslagen",
-                flush=True,
             )
         else:
-            print(
+            info(
                 f"{kind.label} up-to-date (0{kind.source_noun})",
-                flush=True,
             )
         return 0
 
@@ -143,9 +192,8 @@ def run_kind(
             todo.append((source, need, slots))
 
     if not todo:
-        print(
+        info(
             f"{kind.label} up-to-date ({len(sources)}{kind.source_noun})",
-            flush=True,
         )
         return 0
 
@@ -171,30 +219,31 @@ def run_kind(
                         new_need[i] = False
                 if any(new_need):
                     trimmed.append((source, new_need, slots))
-            print(
+            info(
                 f"{len(pending)} product(en) wachten op MuseScore ({kind.id}).",
-                flush=True,
             )
             if running_in_ci():
-                print(
+                info(
                     f"CI: sla MuseScore-stappen over voor {kind.id}; "
                     "overige slots wel bijwerken.",
-                    flush=True,
                 )
                 todo = trimmed
                 if not todo:
                     return 0
             else:
-                print(f"Installeer MuseScore 4 of: {kind.fix_cmd}", flush=True)
+                error(f"Installeer MuseScore 4 of: {kind.fix_cmd}")
+                error(
+                    "Oplossing: installeer MuseScore 4, of genereer later "
+                    f"met {kind.fix_cmd} zodra MuseScore beschikbaar is."
+                )
                 for line in pending:
-                    print(f"  - {line}", flush=True)
+                    detail(f"  - {line}")
                 todo = trimmed
                 if not todo:
                     return 1
 
-    print(
+    info(
         f"{kind.label} bijwerken: {len(todo)} van {len(sources)}",
-        flush=True,
     )
     from batch_guard import confirm_batch, run_timed_batch
 
@@ -214,7 +263,7 @@ def run_kind(
     ):
         return 2
 
-    failed_paths: list[str] = []
+    failed_rows: list[KindFailure] = []
 
     def _one(item: tuple[Path, list[bool], list[ProductSlot]]) -> int:
         source, need_flags, _slots = item
@@ -222,12 +271,24 @@ def run_kind(
             rel = source.relative_to(repo_root)
         except ValueError:
             rel = source
-        print(f"== {rel}", flush=True)
+        detail(f"== {rel}")
         try:
             kind.sync(source, need=need_flags, dry_run=dry_run)
         except Exception as exc:  # noqa: BLE001
-            print(f"  FAILED {exc}", flush=True)
-            failed_paths.append(str(rel))
+            explained = explain_sync_failure(exc)
+            fail = KindFailure(
+                path=str(rel),
+                reason=explained.reason,
+                solution=explained.solution,
+            )
+            failed_rows.append(fail)
+            error_block(
+                [
+                    f"MISLUKT {rel}",
+                    f"  {fail.reason}",
+                    f"  {fail.solution}",
+                ]
+            )
             return 1
         return 0
 
@@ -237,12 +298,14 @@ def run_kind(
         _one,
         label=lambda it: str(it[0]),
     )
-    if failed_paths:
-        print("Mislukt:", flush=True)
-        for line in failed_paths:
-            print(f"  - {line}", flush=True)
+    sink = failures_out if failures_out is not None else _FAILURES_OUT
+    if sink is not None:
+        sink.extend(failed_rows)
+    else:
+        # Alleen bij losse kind-CLI: volledige samenvatting hier.
+        _print_kind_failure_summary(kind.id, failed_rows)
     if failed:
-        print(f"{failed} mislukt van {len(todo)}", flush=True)
+        error(f"{failed} mislukt van {len(todo)} ({kind.id})")
         return 1
     return 0
 
@@ -275,5 +338,6 @@ def main_for_kind(
         dry_run=bool(args.dry_run),
         yes=bool(getattr(args, "yes", False)),
         already_confirmed=bool(getattr(args, "already_confirmed", False)),
+        verbose=bool(getattr(args, "verbose", False)),
         repo_root=repo_root,
     )

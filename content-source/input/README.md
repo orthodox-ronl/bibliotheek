@@ -25,7 +25,8 @@ op de publieke site. Daarom geen `_index.md` hier.
 | `pdf/`       | scans of print-PDF die je als bron bewaart |
 | `_inbox/`    | lokaal, niet in git: “gisteren in de mail, nog niet gekozen” |
 | `_werk/`     | lokaal, niet in git: tussenproducten (opgekuiste MXL, halve layout) |
-| `.archief/`  | oude kopieën; git negeert `.archief/` al globaal |
+| `archief-bronnen/` | vervangen canonieke catalogus-bron (alleen het bronbestand; wél in git) — zie [catalogus-notatiebron](../../docs/catalogus-notatiebron.md) |
+| `.archief/`  | lokale oude kopieën; git negeert `.archief/` globaal |
 
 De eenmalige map `vsa-demo/` (extract uit de VSA-demo-site) is **opgenomen
 in de catalogus en verwijderd**. Verslag:

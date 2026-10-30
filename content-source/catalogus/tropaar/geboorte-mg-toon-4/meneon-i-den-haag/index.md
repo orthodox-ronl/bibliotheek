@@ -1,6 +1,4 @@
 ---
-title: "110 tropaar"
-linkTitle: "110 tropaar"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

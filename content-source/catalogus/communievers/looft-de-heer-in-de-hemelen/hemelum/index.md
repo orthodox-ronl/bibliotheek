@@ -1,6 +1,4 @@
 ---
-title: "Communievers Looft De Heer In De Hemelen (Hemelum)"
-linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

@@ -1,6 +1,4 @@
 ---
-title: "9 Prokimen"
-linkTitle: "9 Prokimen"
 nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true

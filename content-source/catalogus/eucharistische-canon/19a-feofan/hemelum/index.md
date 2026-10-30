@@ -1,6 +1,4 @@
 ---
-title: "19a Eucharistische Kanon"
-linkTitle: "19a Eucharistische Kanon"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

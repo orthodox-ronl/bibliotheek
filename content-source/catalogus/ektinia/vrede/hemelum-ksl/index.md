@@ -1,6 +1,4 @@
 ---
-title: "Ektinia Vrede (Hemelum (ksl))"
-linkTitle: "Hemelum (ksl)"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

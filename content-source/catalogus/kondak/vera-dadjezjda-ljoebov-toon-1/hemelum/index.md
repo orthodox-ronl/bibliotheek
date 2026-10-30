@@ -1,6 +1,4 @@
 ---
-title: "Kondak Vera, Nadjezjda, Ljoebov (Hemelum)"
-linkTitle: "Hemelum"
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

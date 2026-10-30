@@ -20,6 +20,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Sequence
 
+from cli_style import check_call, detail, street_products_quiet_flags
 from coria_mxl import load_score_xml, require_no_spaces, write_mxl
 from product_kind import (
     DEFAULT_ROOT,
@@ -192,9 +193,10 @@ def _run_vsa_products(vsa: Path) -> None:
         "vsa.cli",
         "products",
         "--force",
+        *street_products_quiet_flags(),
         str(vsa),
     ]
-    subprocess.check_call(cmd, cwd=str(REPO_ROOT))
+    check_call(cmd, cwd=str(REPO_ROOT))
     mxl = product_path_for_vsa(vsa)
     svg = product_svg_for_vsa(vsa)
     if not mxl.is_file():
@@ -324,7 +326,7 @@ def _remove_legacy_vsa_mxl(vsa: Path, mxl: Path) -> None:
     if legacy.is_file() and legacy.resolve() != mxl.resolve():
         stamp = read_mxl_stamp(legacy)
         if stamp.get(FIELD_SOURCE_KIND, SOURCE_KIND_VSA) in {"", SOURCE_KIND_VSA}:
-            print(f"  remove legacy {legacy.name}", flush=True)
+            detail(f"  remove legacy {legacy.name}")
             legacy.unlink()
 
 
@@ -344,9 +346,9 @@ def sync_one(
     svg = product_svg_for_vsa(vsa)
     need_export = do_mxl or do_svg
     if need_export:
-        print(f"  EXP  {rel} -> vsa products (mxl+svg)", flush=True)
+        detail(f"  EXP  {rel} -> vsa products (mxl+svg)")
     if do_pdf:
-        print(f"  PDF  {rel} -> {pdf.name}", flush=True)
+        detail(f"  PDF  {rel} -> {pdf.name}")
     if dry_run:
         return
 

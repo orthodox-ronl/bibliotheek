@@ -24,7 +24,8 @@ voor elke catalogus-uitvoeringsvorm-pagina, zonder catalogus-product-PDF’s
 | --- | --- |
 | Self-closing `{{</* bieb id="zangstuk/variant/uv" */>}}` | Markdown-`#` / `<h1>` met dezelfde (of andere) hoofdtitel als de template-H1 |
 | Korte toelichting in gewone alinea’s (zeldzaam; bijv. dialoog) | Shortcode `kop` als tweede hoofdtitel naast de template-H1 |
-| Frontmatter: `publicatiestatus`, `automatische_inhoud: false`, optioneel `pdf_bestandsnaam`, product-/buildflags, `manueel` / `manual` | Redactionele `title` / `linkTitle` als bron van waarheid (blijft: afleiden bij bouw) |
+| Frontmatter: `publicatiestatus`, `automatische_inhoud: false`, optioneel `pdf_bestandsnaam`, product-/buildflags | Redactionele `title` / `linkTitle` (bouw leidt af; zie `docs/catalogus-titels.md`) |
+| Shortcode `kop` als **ondertitel** (liturgische regel) | `kop` als enige/vervangende hoofdtitel i.p.v. weergavetitel |
 | | `pdf-bijelkaar` op een leaf met **één** stuk — geen winst; compact is koormap-keuze |
 
 Canonieke minimale leaf:
@@ -38,13 +39,12 @@ automatische_inhoud: false
 {{< bieb id="tropaar/zondag-toon-1/groningen" />}}
 ```
 
-(`title` / `linkTitle` mag `bieb accepteer` nog als afgeleid artefact
-zetten; dat is geen redactionele inhoud.)
+(Geen `title` / `linkTitle` op id-pagina’s; zie `docs/catalogus-titels.md`.)
 
 ### 1.2 Scherm
 
 - Precies **één** hoofdtitel: template-H1 via afgeleide catalogustitel
-  (`display-title`).
+  (`display-title`; geen frontmatter-`title`).
 - Muziek via `bieb`: keten uit schermpartituur (OSMD → SVG → PDF-fallback).
 - Nav **Download pagina** / **Print pagina** zodra `index.md.pdf`
   bestaat (page resource).
@@ -77,19 +77,14 @@ zetten; dat is geen redactionele inhoud.)
 Als de catalogus-`#` weggaat (scherm: geen dubbele H1), zou de PDF zonder
 aanpassing **alleen muziek** krijgen.
 
-**Keuze (te bouwen in mijlpaal 3):**
+**Keuze (pagina-PDF-titel op catalogus-leaf):**
 
-1. Catalogus-`index.md` onder `content-source/catalogus/…` (diepte
-   zangstuk/variant/uv): als een flow muziek heeft maar **geen**
-   prominente titel uit Markdown, injecteer de **afgeleide leaf-titel**
-   (zelfde algoritme als Hugo/zoek: `scripts/catalogus.py` —
-   bron-`titel:`/`soort:` anders id-afleiding).
-2. Koormap-slots blijven zoals nu: titel uit `kop` / `#` in de Markdown
-   (geen template-H1).
-3. Geen parallelle “waarheid” in leaf-frontmatter alleen voor de PDF.
+1. **Weergavetitel** = afgeleide leaf-titel (bron / id) — zelfde als
+   site-H1 (`catalogus_weergave_title`). Frontmatter ``title`` telt niet.
+2. Body-``kop`` / ``#`` wordt **ondertitel** (niet de hoofdtitel).
 
-Zo blijft catalogus-titels.md leidend en voldoet de PDF wél aan
-“titel + muziek”.
+Koormap-slots blijven: titel uit `kop` / `#` in de Markdown (geen
+template-H1, geen FM-injectie hier). Tekstblad-dialoog: eigen titelpad.
 
 ---
 
