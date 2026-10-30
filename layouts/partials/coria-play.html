@@ -16,6 +16,11 @@
   {{- if $absolute -}}
   {{- $coria := printf "https://coria.nl/play_from_url?back=coria.nl&url=%s" (urlquery $absolute) -}}
 <a class="btn coria-play" href="{{ $coria }}" target="_blank" rel="noopener noreferrer">{{ $label }}</a>
+  {{- $altAbs := strings.TrimSpace (partial "coria-file-absolute-url.html" (dict "src" $mapped "which" "alternate" "position" .position "page" .page)) -}}
+  {{- if and $altAbs (ne $altAbs $absolute) -}}
+  {{- $altCoria := printf "https://coria.nl/play_from_url?back=coria.nl&url=%s" (urlquery $altAbs) -}}
+<a class="btn coria-play coria-play--alternate" href="{{ $altCoria }}" target="_blank" rel="noopener noreferrer">Werkt Oefenen niet? Andere bron</a>
+  {{- end -}}
   {{- end -}}
 {{- else if or (strings.HasSuffix $src ".mxl") (strings.HasSuffix $src ".musicxml") (strings.HasSuffix $src ".xml") -}}
   {{- errorf "%s: geen Coria-fingerprint voor MusicXML-bestand %q. Oplossing: python scripts\\fingerprint_coria_mxl.py (of scripts\\check.cmd)." $loc $src -}}

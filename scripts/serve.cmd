@@ -11,6 +11,8 @@ python scripts\update_werkvoorraad.py
 if errorlevel 1 exit /b 1
 python scripts\fingerprint_coria_mxl.py
 if errorlevel 1 exit /b 1
+python scripts\probe_coria_fetch.py --warn-only
+if errorlevel 1 exit /b 1
 python scripts\sync_oefenhoek_index.py --svg
 if errorlevel 1 exit /b 1
 python scripts\write_build_stamp.py

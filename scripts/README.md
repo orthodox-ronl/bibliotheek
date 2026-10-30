@@ -12,18 +12,16 @@ Korte hulp in het opdrachtvenster: `h` (lijst) of `h <naam>` (zelfde als
 | -------- | ---- |
 | `h` | Overzicht van commando’s; `h <naam>` = `<naam> -h` |
 | `validate` | `vsa validate` op `content-source\catalogus` (plus `mvsa validate` als er `.mvsa` staat) |
-| `vsa-products` | Maakt/vernieuwt `{stam}.vsa.mxl` + `{stam}.vsa.pdf` via `vsa musicxml` / `vsa pdf` + stamp |
-| `mscz-products` | Maakt/vernieuwt `{stam}.mscz.pdf` + `{stam}.mscz.mxl` via MuseScore / `mscz mxl` + stamp |
-| `tekstblad-products` | Maakt/vernieuwt `{stam}.tekstblad.pdf` via `vsa pdf` + stamp |
+| `fix` | Auto-fixbare problemen uit `data\check-fixlist.json` afwerken (`--check` = eerst `check --strict`; `--dry-run` = tonen) |
+| `products` / `all-products` | Afgeleiden bouwen (`--kinds vsa,mvsa,mscz,audio,lyrics,…` of `all`); daarna Coria-fingerprints (niet bij `--dry-run`). Geen `pdf.cmd`. |
+| `products-changed` | Alleen producten (+ koormap-`index.md.pdf`) voor git-gewijzigde bronnen onder `content-source` (missing+stale; geen invalid). |
 | `import-mvsa` | Maakt/vernieuwt bewerkvorm `{stam}.mscz.mvsa` via `mscz import` + stamp (standaard alleen bestaande siblings) |
-| `mvsa-products` | Maakt/vernieuwt `{stam}.mvsa.mxl` + `{stam}.mvsa.pdf` via `mvsa musicxml` / `mvsa pdf` + stamp |
-| `audio-products` | Maakt/vernieuwt preview-`{stam}.{bron}.mp3` via `vsa audio` + ID3-stamp (Beluisteren) |
-| `lyrics-products` | Maakt/vernieuwt `{stam}.….lyrics.txt` (zoektekst) |
-| `products` / `all-products` | Product-kinds achter elkaar (`all-products` = `--kinds all`); daarna Coria-fingerprints (niet bij `--dry-run`) |
+| `pdf.cmd` | `index.md.pdf` naast een koormap- of catalogus-`index.md` (lokaal; niet in `products` / `check` / CI) |
 | `layout` | Past layoutprofiel `partituur` toe op `.mscz` / `.mxl` (via tooling) |
 | `ensure-bibliotheek-id` | Zet/controleert colofonregel `Bibliotheek-id:` op basispartituur-`.mscz` |
 | `bump-vsa-tooling-pin` | Zet `vsa-tooling.pin` op tip van VSA-tooling (`main` of andere ref) |
 | `opkuisen` | Herkomstanalyse + inhoudsopkuis (niet in `check`/CI) |
+| `cleanup-chained-products` | Ketting-afgeleiden + score-ir/from-ir op `.mscz`/`.vsa` wissen (dry-run zonder `--apply`) |
 | `bieb accepteer` (`accept`) | Opnemen in `content-source\catalogus` onder catalogus-id (Werkbank → Catalogus) |
 | `bieb hernoem` (`rename`) | Catalogus-id hernoemen (zangstuk/variant/uitvoeringsvorm; map, stam, refs, koormap-slots; flexibele id-vormen) |
 | `bieb verwijder` (`delete`) | Catalogus-id wissen; dangling refs / koormap-slots rapporteren |
@@ -31,12 +29,13 @@ Korte hulp in het opdrachtvenster: `h` (lijst) of `h <naam>` (zelfde als
 | `update-werkvoorraad` | Tabel `input\werkvoorraad.md` bijwerken (ook in check/build/serve) |
 | `werkbank-status` | Open werkbank-cases; `data\werkbank-status.json` (ook via update-werkvoorraad) |
 | `lifecycle-grenzen` | Grenzen werkbank ↔ catalogus (spaties / ruwe formats) |
-| `oefenhoek-index` | SVG uit catalogus-`.vsa` → `static\vsa\bladermap\` (check/build/serve/CI; geen stamp) |
+| `oefenhoek-index` | Legacy SVG uit catalogus-`.vsa` → `static\vsa\bladermap\` (check/build/serve/CI; geen stamp). Scherm gebruikt sibling `{stam}.vsa.svg` zodra die er is. |
 | `serve` | Hugo-preview op http://127.0.0.1:18732/ (niet 1313, niet 18731) |
 | `build` | Site in `generated\site` |
 | `check` | CI-spiegel / preflight (validate + publicatie-/importcontroles + bibliotheek-id + koormap-slotlinks + Coria + Hugo) |
 
 Intern: `_ensure.cmd` (`--hugo`, `--vsa-tool`), `fingerprint_coria_mxl.py`,
+`probe_coria_fetch.py` (Coria play_from_url via github.io; geen raw),
 `check_koormap_slot_links.py`, `sync_vsa_products.py`,
 `check_vsa_products.py`, `sync_mscz_products.py`,
 `check_mscz_products.py`, `sync_tekstblad_products.py`,
@@ -57,6 +56,6 @@ pin op `main` via `vsa-tooling.pin`).
 
 ```cmd
 scripts\_ensure.cmd --hugo --vsa-tool
-scripts\vsa-products.cmd
+scripts\products.cmd --kinds vsa
 check --strict
 ```

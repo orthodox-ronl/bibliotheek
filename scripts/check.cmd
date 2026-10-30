@@ -32,68 +32,119 @@ if errorlevel 1 exit /b 1
 python scripts\update_werkvoorraad.py
 if errorlevel 1 exit /b 1
 
+REM Product-/pdf-/contract-checks: bij --strict niet meteen stoppen, zodat
+REM data\check-fixlist.json alle bekende fix_cmd’s bevat (voor scripts\fix.cmd).
+REM Zonder --strict: bij onverwachte exit 1 nog steeds meteen stoppen.
+set "PRODUCT_FAIL=0"
+
 if defined STRICT (
   python scripts\check_vsa_products.py --fail
 ) else (
   python scripts\check_vsa_products.py
 )
-if errorlevel 1 exit /b 1
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
 
 if defined STRICT (
   python scripts\check_mscz_products.py --fail
 ) else (
   python scripts\check_mscz_products.py
 )
-if errorlevel 1 exit /b 1
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
 
 if defined STRICT (
   python scripts\check_tekstblad_products.py --fail
 ) else (
   python scripts\check_tekstblad_products.py
 )
-if errorlevel 1 exit /b 1
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
 
 if defined STRICT (
   python scripts\check_import_mvsa.py --fail
 ) else (
   python scripts\check_import_mvsa.py
 )
-if errorlevel 1 exit /b 1
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
 
 if defined STRICT (
   python scripts\check_mvsa_products.py --fail
 ) else (
   python scripts\check_mvsa_products.py
 )
-if errorlevel 1 exit /b 1
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
 
 if defined STRICT (
   python scripts\check_audio_products.py --fail
 ) else (
   python scripts\check_audio_products.py
 )
-if errorlevel 1 exit /b 1
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
 
 if defined STRICT (
   python scripts\check_lyrics_products.py --fail
 ) else (
   python scripts\check_lyrics_products.py
 )
-if errorlevel 1 exit /b 1
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
+
+if defined STRICT (
+  python scripts\check_index_md_pdf.py --fail
+) else (
+  python scripts\check_index_md_pdf.py
+)
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
 
 if defined STRICT (
   python scripts\check_mxl_playback_contract.py --fail
 ) else (
   python scripts\check_mxl_playback_contract.py
 )
-if errorlevel 1 exit /b 1
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
 
 if defined STRICT (
   python scripts\ensure_bibliotheek_id.py --check-only --fail
 ) else (
   python scripts\ensure_bibliotheek_id.py --check-only
 )
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
+
+python scripts\check_fixlist.py
 if errorlevel 1 exit /b 1
+
+if defined STRICT if "%PRODUCT_FAIL%"=="1" (
+  echo.
+  echo FAILED: product/pdf/contract/id-check^(s^). Afwerken: scripts\fix.cmd --dry-run
+  exit /b 1
+)
 
 REM Relatieve TOC-links moeten bestaan (anders Hugo-404 na hernoem).
 python scripts\check_koormap_slot_links.py --fail
@@ -108,6 +159,18 @@ if defined STRICT (
 if errorlevel 1 exit /b 1
 
 python scripts\fingerprint_coria_mxl.py
+if errorlevel 1 exit /b 1
+
+REM Coria play_from_url: kies host die wél ophaalt (raw vs github.io).
+if defined STRICT (
+  python scripts\probe_coria_fetch.py
+) else (
+  python scripts\probe_coria_fetch.py --warn-only
+)
+if errorlevel 1 exit /b 1
+
+REM Speelplan: OSMD moet navigatie tekenen, niet alleen in from-ir XML.
+call scripts\check_osmd_nav_zichtbaar.cmd
 if errorlevel 1 exit /b 1
 
 python scripts\sync_oefenhoek_index.py --svg
@@ -140,6 +203,7 @@ echo   --strict   faal op stale/missing producten of bibliotheek-id ^(CI-spiegel
 echo.
 echo Zonder --strict: product-/id-checks waarschuwen lokaal maar falen niet
 echo ^(behalve op main / BIBLIOTHEEK_PRODUCTS_STRICT=1^). CI faalt altijd.
+echo   Na product-checks: data\check-fixlist.json ^(afwerken: scripts\fix.cmd^).
 echo.
 endlocal
 exit /b 2

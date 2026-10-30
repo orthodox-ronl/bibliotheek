@@ -4,9 +4,11 @@ Coria play_from_url rejects URLs that do not end in .xml/.mxl/.musicxml
 (query strings) and cannot fetch GitHub paths with spaces. A single ASCII
 filename under /mxl/c/ avoids that; the hash changes when bytes change.
 
-Coria haalt het bestand server-side op: Oefenen gebruikt daarom
-raw.githubusercontent.com op branch gh-pages (niet github.io).
-Fetch-root: data/coria-public-base.json.
+Coria haalt het bestand server-side op. Fetch-root staat in
+``data/coria-public-base.json`` (``base`` = github.io; geen
+``raw.githubusercontent.com`` — Coria-dev: GitHub behandelt die fetches als
+scraping en cachet mislukte URL's permanent). ``probe_coria_fetch.py``
+controleert of Coria de pages-host nog slikte.
 
 Bronnen:
 - content-source/**/*.mxl (niet input/) — page-bundle Coria-.mxl
@@ -39,7 +41,6 @@ SOURCE_TREES = (
 
 # Keep in sync with .github/workflows/pages.yml (Determine deploy target).
 PAGES_ROOT = "https://orthodox-ronl.github.io/bibliotheek"
-RAW_ROOT = "https://raw.githubusercontent.com/orthodox-ronl/bibliotheek/gh-pages"
 RESERVED_SLUGS = frozenset(
     {
         "preview",
@@ -90,7 +91,8 @@ def github_pages_base_url(branch: str) -> str:
 
 
 def coria_fetch_base_url(branch: str) -> str:
-    return _join_root(RAW_ROOT, _pages_subdir(branch))
+    """Publieke Coria-fetch-root: altijd github.io (niet raw.githubusercontent)."""
+    return github_pages_base_url(branch)
 
 
 def detect_git_branch() -> str:
@@ -116,10 +118,24 @@ def detect_git_branch() -> str:
 
 
 def write_public_base(branch: str | None = None) -> str:
-    base = coria_fetch_base_url(branch or detect_git_branch())
+    """Schrijf provisional github.io-base; probe vult probed_at/results."""
+    br = branch or detect_git_branch()
+    base = coria_fetch_base_url(br)
     PUBLIC_BASE_FILE.parent.mkdir(parents=True, exist_ok=True)
     PUBLIC_BASE_FILE.write_text(
-        json.dumps({"base": base}, indent=2) + "\n",
+        json.dumps(
+            {
+                "base": base,
+                "alternate": "",
+                "probed_at": None,
+                "canary": None,
+                "canaries": [],
+                "results": {"pages": "skipped"},
+                "sample_results": {},
+            },
+            indent=2,
+        )
+        + "\n",
         encoding="utf-8",
     )
     return base
@@ -203,7 +219,7 @@ def main() -> int:
     public_base = write_public_base()
     print(
         f"Coria MusicXML fingerprints: {len(mapping)} bestand(en); "
-        f"public base {public_base}",
+        f"provisional public base {public_base}",
         flush=True,
     )
     return 0
