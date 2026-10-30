@@ -151,10 +151,32 @@
 </note>
 <note>
 <pitch><step>B</step><alter>-1</alter><octave>4</octave></pitch>
-<duration>4</duration>
+<duration>8</duration>
 <voice>1</voice>
-<type>quarter</type>
+<type>half</type>
 <stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
+</note>
+<note>
+<pitch><step>B</step><alter>-1</alter><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>1</voice>
+<type>half</type>
+<stem>up</stem>
+<lyric number="1"><syllabic>end</syllabic><text>le</text></lyric>
+</note>
+<note>
+<pitch><step>B</step><alter>-1</alter><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>1</voice>
+<type>half</type>
+<stem>up</stem>
+<lyric number="1"><syllabic>begin</syllabic><text>lu</text><extend/></lyric>
+<notations>
+<slur type="start" number="1" placement="above"/>
+</notations>
 </note>
 <note>
 <pitch><step>C</step><octave>5</octave></pitch>
@@ -204,6 +226,9 @@
 <voice>1</voice>
 <type>half</type>
 <stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
 </note>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
@@ -213,7 +238,7 @@
 <stem>up</stem>
 <lyric number="1"><syllabic>end</syllabic><text>ja</text></lyric>
 </note>
-<backup><duration>128</duration></backup>
+<backup><duration>148</duration></backup>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
 <duration>4</duration>
@@ -328,10 +353,30 @@
 </note>
 <note>
 <pitch><step>G</step><octave>4</octave></pitch>
-<duration>4</duration>
+<duration>8</duration>
 <voice>2</voice>
-<type>quarter</type>
+<type>half</type>
 <stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
+</note>
+<note>
+<pitch><step>G</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>G</step><octave>4</octave></pitch>
+<duration>8</duration>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+<notations>
+<slur type="start" number="2" placement="below"/>
+</notations>
 </note>
 <note>
 <pitch><step>A</step><alter>-1</alter><octave>4</octave></pitch>
@@ -507,6 +552,7 @@
 <type>whole</type>
 <stem>up</stem>
 <notations>
+<slur type="start" number="1" placement="above"/>
 <tied type="start"/>
 </notations>
 </note>
@@ -554,6 +600,9 @@
 <voice>1</voice>
 <type>half</type>
 <stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
 </note>
 <note>
 <pitch><step>B</step><alter>-1</alter><octave>3</octave></pitch>
@@ -636,37 +685,29 @@
 </note>
 <note>
 <pitch><step>E</step><alter>-1</alter><octave>3</octave></pitch>
-<duration>16</duration>
-<tie type="start"/>
+<duration>4</duration>
 <voice>2</voice>
-<type>whole</type>
+<type>quarter</type>
 <stem>down</stem>
 <notations>
-<tied type="start"/>
-</notations>
-</note>
-<note>
-<pitch><step>E</step><alter>-1</alter><octave>3</octave></pitch>
-<duration>16</duration>
-<tie type="start"/>
-<tie type="stop"/>
-<voice>2</voice>
-<type>whole</type>
-<stem>down</stem>
-<notations>
-<tied type="start"/>
-<tied type="stop"/>
+<slur type="stop" number="2"/>
 </notations>
 </note>
 <note>
 <pitch><step>E</step><alter>-1</alter><octave>3</octave></pitch>
 <duration>8</duration>
-<tie type="stop"/>
+<voice>2</voice>
+<type>half</type>
+<stem>down</stem>
+</note>
+<note>
+<pitch><step>E</step><alter>-1</alter><octave>3</octave></pitch>
+<duration>8</duration>
 <voice>2</voice>
 <type>half</type>
 <stem>down</stem>
 <notations>
-<tied type="stop"/>
+<slur type="start" number="2" placement="below"/>
 </notations>
 </note>
 <note>
@@ -690,26 +731,21 @@
 <note>
 <pitch><step>E</step><alter>-1</alter><octave>3</octave></pitch>
 <duration>16</duration>
-<tie type="start"/>
 <tie type="stop"/>
 <voice>2</voice>
 <type>whole</type>
 <stem>down</stem>
 <notations>
-<tied type="start"/>
+<slur type="stop" number="2"/>
 <tied type="stop"/>
 </notations>
 </note>
 <note>
 <pitch><step>E</step><alter>-1</alter><octave>3</octave></pitch>
 <duration>16</duration>
-<tie type="stop"/>
 <voice>2</voice>
 <type>whole</type>
 <stem>down</stem>
-<notations>
-<tied type="stop"/>
-</notations>
 </note>
 <barline location="right"><bar-style>light-light</bar-style></barline>
 </measure>

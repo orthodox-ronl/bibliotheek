@@ -268,13 +268,9 @@
               "octave": 3
             },
             "duration": {
-              "elm": "__"
+              "elm": "~"
             },
-            "lyricIndex": 0,
-            "melisma": {
-              "extend": true,
-              "tieStart": true
-            }
+            "lyricIndex": 0
           },
           {
             "pitch": {
@@ -282,12 +278,9 @@
               "octave": 3
             },
             "duration": {
-              "elm": "__"
+              "elm": "_."
             },
-            "melisma": {
-              "tieStart": true,
-              "tieStop": true
-            }
+            "lyricIndex": 1
           },
           {
             "pitch": {
@@ -297,8 +290,29 @@
             "duration": {
               "elm": "_"
             },
+            "lyricIndex": 2
+          },
+          {
+            "pitch": {
+              "step": "B",
+              "octave": 3
+            },
+            "duration": {
+              "elm": "~"
+            }
+          },
+          {
+            "pitch": {
+              "step": "B",
+              "octave": 3
+            },
+            "duration": {
+              "elm": "_."
+            },
+            "lyricIndex": 3,
             "melisma": {
-              "tieStop": true
+              "extend": true,
+              "slurStart": true
             }
           },
           {
@@ -341,9 +355,18 @@
               "octave": 2
             },
             "duration": {
-              "elm": "_."
+              "elm": "_"
             },
             "lyricIndex": 2
+          },
+          {
+            "pitch": {
+              "step": "B",
+              "octave": 2
+            },
+            "duration": {
+              "elm": "~"
+            }
           },
           {
             "pitch": {
@@ -353,6 +376,7 @@
             "duration": {
               "elm": "_."
             },
+            "lyricIndex": 3,
             "melisma": {
               "extend": true,
               "slurStart": true
@@ -384,12 +408,40 @@
           "syllables": [
             {
               "text": "hei",
-              "syllabic": "single"
+              "syllabic": "begin"
             }
           ],
           "layers": {
             "1": [
               "hei"
+            ]
+          },
+          "recite": true
+        },
+        {
+          "syllables": [
+            {
+              "text": "li",
+              "syllabic": "middle"
+            }
+          ],
+          "layers": {
+            "1": [
+              "li"
+            ]
+          },
+          "recite": true
+        },
+        {
+          "syllables": [
+            {
+              "text": "ge",
+              "syllabic": "end"
+            }
+          ],
+          "layers": {
+            "1": [
+              "ge"
             ]
           },
           "recite": true
@@ -429,9 +481,31 @@
               "octave": 4
             },
             "duration": {
-              "elm": "_."
+              "elm": "~"
             },
             "lyricIndex": 0,
+            "recite": true
+          },
+          {
+            "pitch": {
+              "step": "B",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 1,
+            "recite": true
+          },
+          {
+            "pitch": {
+              "step": "B",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 2,
             "recite": true
           },
           {
@@ -442,7 +516,7 @@
             "duration": {
               "elm": "~"
             },
-            "lyricIndex": 1,
+            "lyricIndex": 3,
             "melisma": {
               "extend": true,
               "slurStart": true
@@ -477,7 +551,7 @@
             "duration": {
               "elm": "~"
             },
-            "lyricIndex": 2
+            "lyricIndex": 4
           }
         ],
         "A": [
@@ -487,9 +561,31 @@
               "octave": 4
             },
             "duration": {
-              "elm": "_."
+              "elm": "~"
             },
             "lyricIndex": 0,
+            "recite": true
+          },
+          {
+            "pitch": {
+              "step": "G",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 1,
+            "recite": true
+          },
+          {
+            "pitch": {
+              "step": "G",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 2,
             "recite": true
           },
           {
@@ -501,7 +597,7 @@
             "duration": {
               "elm": "~"
             },
-            "lyricIndex": 1,
+            "lyricIndex": 3,
             "melisma": {
               "extend": true,
               "slurStart": true
@@ -536,7 +632,7 @@
             "duration": {
               "elm": "~"
             },
-            "lyricIndex": 2
+            "lyricIndex": 4
           }
         ],
         "T": [
@@ -546,13 +642,9 @@
               "octave": 4
             },
             "duration": {
-              "elm": "__"
+              "elm": "~"
             },
             "lyricIndex": 0,
-            "melisma": {
-              "extend": true,
-              "tieStart": true
-            },
             "recite": true
           },
           {
@@ -561,12 +653,9 @@
               "octave": 4
             },
             "duration": {
-              "elm": "__"
+              "elm": "~"
             },
-            "melisma": {
-              "tieStart": true,
-              "tieStop": true
-            },
+            "lyricIndex": 1,
             "recite": true
           },
           {
@@ -575,12 +664,29 @@
               "octave": 4
             },
             "duration": {
-              "elm": "__"
+              "elm": "~"
             },
-            "melisma": {
-              "tieStop": true
-            },
+            "lyricIndex": 2,
             "recite": true
+          },
+          {
+            "pitch": {
+              "step": "D",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "_."
+            },
+            "lyricIndex": 3
+          },
+          {
+            "pitch": {
+              "step": "D",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "~"
+            }
           }
         ],
         "B": [
@@ -590,9 +696,31 @@
               "octave": 3
             },
             "duration": {
-              "elm": "_."
+              "elm": "~"
             },
             "lyricIndex": 0,
+            "recite": true
+          },
+          {
+            "pitch": {
+              "step": "G",
+              "octave": 3
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 1,
+            "recite": true
+          },
+          {
+            "pitch": {
+              "step": "G",
+              "octave": 3
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 2,
             "recite": true
           },
           {
@@ -603,7 +731,7 @@
             "duration": {
               "elm": "_."
             },
-            "lyricIndex": 1
+            "lyricIndex": 3
           },
           {
             "pitch": {
@@ -628,12 +756,54 @@
           "syllables": [
             {
               "text": "hei",
-              "syllabic": "single"
+              "syllabic": "begin"
             }
           ],
           "layers": {
             "1": [
               "hei"
+            ]
+          },
+          "recite": true
+        },
+        {
+          "syllables": [
+            {
+              "text": "li",
+              "syllabic": "middle"
+            }
+          ],
+          "layers": {
+            "1": [
+              "li"
+            ]
+          },
+          "recite": true
+        },
+        {
+          "syllables": [
+            {
+              "text": "ge",
+              "syllabic": "end"
+            }
+          ],
+          "layers": {
+            "1": [
+              "ge"
+            ]
+          },
+          "recite": true
+        },
+        {
+          "syllables": [
+            {
+              "text": "On",
+              "syllabic": "begin"
+            }
+          ],
+          "layers": {
+            "1": [
+              "On"
             ]
           },
           "recite": true
@@ -686,9 +856,42 @@
               "octave": 4
             },
             "duration": {
-              "elm": "__"
+              "elm": "~"
             },
             "lyricIndex": 0,
+            "recite": true
+          },
+          {
+            "pitch": {
+              "step": "B",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 1,
+            "recite": true
+          },
+          {
+            "pitch": {
+              "step": "B",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 2,
+            "recite": true
+          },
+          {
+            "pitch": {
+              "step": "B",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 3,
             "recite": true
           },
           {
@@ -699,7 +902,7 @@
             "duration": {
               "elm": "_."
             },
-            "lyricIndex": 1
+            "lyricIndex": 4
           },
           {
             "pitch": {
@@ -709,7 +912,7 @@
             "duration": {
               "elm": "~"
             },
-            "lyricIndex": 2
+            "lyricIndex": 5
           },
           {
             "pitch": {
@@ -719,7 +922,7 @@
             "duration": {
               "elm": "_."
             },
-            "lyricIndex": 3
+            "lyricIndex": 6
           }
         ],
         "A": [
@@ -729,9 +932,42 @@
               "octave": 4
             },
             "duration": {
-              "elm": "__"
+              "elm": "~"
             },
             "lyricIndex": 0,
+            "recite": true
+          },
+          {
+            "pitch": {
+              "step": "G",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 1,
+            "recite": true
+          },
+          {
+            "pitch": {
+              "step": "G",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 2,
+            "recite": true
+          },
+          {
+            "pitch": {
+              "step": "G",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 3,
             "recite": true
           },
           {
@@ -742,7 +978,7 @@
             "duration": {
               "elm": "_."
             },
-            "lyricIndex": 1
+            "lyricIndex": 4
           },
           {
             "pitch": {
@@ -752,7 +988,7 @@
             "duration": {
               "elm": "~"
             },
-            "lyricIndex": 2
+            "lyricIndex": 5
           },
           {
             "pitch": {
@@ -763,7 +999,7 @@
             "duration": {
               "elm": "_."
             },
-            "lyricIndex": 3
+            "lyricIndex": 6
           }
         ],
         "T": [
@@ -773,41 +1009,9 @@
               "octave": 4
             },
             "duration": {
-              "elm": "__"
+              "elm": "~"
             },
             "lyricIndex": 0,
-            "melisma": {
-              "extend": true,
-              "tieStart": true
-            },
-            "recite": true
-          },
-          {
-            "pitch": {
-              "step": "D",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "__"
-            },
-            "melisma": {
-              "tieStart": true,
-              "tieStop": true
-            },
-            "recite": true
-          },
-          {
-            "pitch": {
-              "step": "D",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "_"
-            },
-            "melisma": {
-              "tieStart": true,
-              "tieStop": true
-            },
             "recite": true
           },
           {
@@ -818,10 +1022,60 @@
             "duration": {
               "elm": "~"
             },
-            "melisma": {
-              "tieStop": true
-            },
+            "lyricIndex": 1,
             "recite": true
+          },
+          {
+            "pitch": {
+              "step": "D",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 2,
+            "recite": true
+          },
+          {
+            "pitch": {
+              "step": "D",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 3,
+            "recite": true
+          },
+          {
+            "pitch": {
+              "step": "D",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "_."
+            },
+            "lyricIndex": 4
+          },
+          {
+            "pitch": {
+              "step": "D",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 5
+          },
+          {
+            "pitch": {
+              "step": "D",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "_."
+            },
+            "lyricIndex": 6
           }
         ],
         "B": [
@@ -831,13 +1085,9 @@
               "octave": 3
             },
             "duration": {
-              "elm": "__"
+              "elm": "~"
             },
             "lyricIndex": 0,
-            "melisma": {
-              "extend": true,
-              "tieStart": true
-            },
             "recite": true
           },
           {
@@ -846,12 +1096,52 @@
               "octave": 3
             },
             "duration": {
-              "elm": "__"
+              "elm": "~"
             },
-            "melisma": {
-              "tieStop": true
-            },
+            "lyricIndex": 1,
             "recite": true
+          },
+          {
+            "pitch": {
+              "step": "G",
+              "octave": 3
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 2,
+            "recite": true
+          },
+          {
+            "pitch": {
+              "step": "G",
+              "octave": 3
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 3,
+            "recite": true
+          },
+          {
+            "pitch": {
+              "step": "G",
+              "octave": 3
+            },
+            "duration": {
+              "elm": "_."
+            },
+            "lyricIndex": 4
+          },
+          {
+            "pitch": {
+              "step": "G",
+              "octave": 3
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 5
           },
           {
             "pitch": {
@@ -861,7 +1151,7 @@
             "duration": {
               "elm": "_."
             },
-            "lyricIndex": 2
+            "lyricIndex": 6
           }
         ]
       },
@@ -925,6 +1215,19 @@
           "layers": {
             "1": [
               "o"
+            ]
+          }
+        },
+        {
+          "syllables": [
+            {
+              "text": "ver",
+              "syllabic": "end"
+            }
+          ],
+          "layers": {
+            "1": [
+              "ver"
             ]
           }
         },
@@ -997,9 +1300,20 @@
               "alter": 1.0
             },
             "duration": {
-              "elm": "__"
+              "elm": "_"
             },
             "lyricIndex": 3
+          },
+          {
+            "pitch": {
+              "step": "F",
+              "octave": 4,
+              "alter": 1.0
+            },
+            "duration": {
+              "elm": "_"
+            },
+            "lyricIndex": 4
           },
           {
             "pitch": {
@@ -1009,7 +1323,7 @@
             "duration": {
               "elm": "__"
             },
-            "lyricIndex": 4
+            "lyricIndex": 5
           }
         ],
         "A": [
@@ -1068,9 +1382,20 @@
               "alter": 1.0
             },
             "duration": {
-              "elm": "__"
+              "elm": "_"
             },
             "lyricIndex": 3
+          },
+          {
+            "pitch": {
+              "step": "D",
+              "octave": 4,
+              "alter": 1.0
+            },
+            "duration": {
+              "elm": "_"
+            },
+            "lyricIndex": 4
           },
           {
             "pitch": {
@@ -1080,7 +1405,7 @@
             "duration": {
               "elm": "__"
             },
-            "lyricIndex": 4
+            "lyricIndex": 5
           }
         ],
         "T": [
@@ -1090,36 +1415,19 @@
               "octave": 4
             },
             "duration": {
-              "elm": "_."
+              "elm": "~"
             },
             "lyricIndex": 0
           },
           {
             "pitch": {
-              "step": "B",
-              "octave": 3
+              "step": "D",
+              "octave": 4
             },
             "duration": {
-              "elm": "__"
+              "elm": "_"
             },
-            "lyricIndex": 1,
-            "melisma": {
-              "extend": true,
-              "tieStart": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "B",
-              "octave": 3
-            },
-            "duration": {
-              "elm": "__"
-            },
-            "melisma": {
-              "tieStart": true,
-              "tieStop": true
-            }
+            "lyricIndex": 1
           },
           {
             "pitch": {
@@ -1128,10 +1436,37 @@
             },
             "duration": {
               "elm": "~"
-            },
-            "melisma": {
-              "tieStop": true
             }
+          },
+          {
+            "pitch": {
+              "step": "B",
+              "octave": 3
+            },
+            "duration": {
+              "elm": "_"
+            },
+            "lyricIndex": 2
+          },
+          {
+            "pitch": {
+              "step": "B",
+              "octave": 3
+            },
+            "duration": {
+              "elm": "_"
+            },
+            "lyricIndex": 3
+          },
+          {
+            "pitch": {
+              "step": "B",
+              "octave": 3
+            },
+            "duration": {
+              "elm": "__"
+            },
+            "lyricIndex": 4
           }
         ],
         "B": [
@@ -1187,9 +1522,19 @@
               "octave": 2
             },
             "duration": {
-              "elm": "__"
+              "elm": "_"
             },
             "lyricIndex": 3
+          },
+          {
+            "pitch": {
+              "step": "B",
+              "octave": 2
+            },
+            "duration": {
+              "elm": "_"
+            },
+            "lyricIndex": 4
           },
           {
             "pitch": {
@@ -1199,7 +1544,7 @@
             "duration": {
               "elm": "__"
             },
-            "lyricIndex": 4
+            "lyricIndex": 5
           }
         ]
       }
@@ -1411,50 +1756,37 @@
               "octave": 3
             },
             "duration": {
-              "elm": "__"
-            },
-            "lyricIndex": 0,
-            "melisma": {
-              "extend": true,
-              "tieStart": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "B",
-              "octave": 3
-            },
-            "duration": {
-              "elm": "__"
-            },
-            "melisma": {
-              "tieStart": true,
-              "tieStop": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "B",
-              "octave": 3
-            },
-            "duration": {
-              "elm": "_"
-            },
-            "melisma": {
-              "tieStart": true,
-              "tieStop": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "B",
-              "octave": 3
-            },
-            "duration": {
               "elm": "~"
             },
-            "melisma": {
-              "tieStop": true
+            "lyricIndex": 0
+          },
+          {
+            "pitch": {
+              "step": "B",
+              "octave": 3
+            },
+            "duration": {
+              "elm": "_."
+            },
+            "lyricIndex": 1
+          },
+          {
+            "pitch": {
+              "step": "B",
+              "octave": 3
+            },
+            "duration": {
+              "elm": "_."
+            },
+            "lyricIndex": 2
+          },
+          {
+            "pitch": {
+              "step": "B",
+              "octave": 3
+            },
+            "duration": {
+              "elm": "__"
             }
           }
         ],
@@ -1705,50 +2037,37 @@
               "octave": 4
             },
             "duration": {
-              "elm": "__"
-            },
-            "lyricIndex": 0,
-            "melisma": {
-              "extend": true,
-              "tieStart": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "D",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "__"
-            },
-            "melisma": {
-              "tieStart": true,
-              "tieStop": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "D",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "_"
-            },
-            "melisma": {
-              "tieStart": true,
-              "tieStop": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "D",
-              "octave": 4
-            },
-            "duration": {
               "elm": "~"
             },
-            "melisma": {
-              "tieStop": true
+            "lyricIndex": 0
+          },
+          {
+            "pitch": {
+              "step": "D",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "_."
+            },
+            "lyricIndex": 1
+          },
+          {
+            "pitch": {
+              "step": "D",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "_."
+            },
+            "lyricIndex": 2
+          },
+          {
+            "pitch": {
+              "step": "D",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "__"
             }
           }
         ],
@@ -1932,13 +2251,9 @@
               "octave": 4
             },
             "duration": {
-              "elm": "__"
+              "elm": "~"
             },
-            "lyricIndex": 0,
-            "melisma": {
-              "extend": true,
-              "tieStart": true
-            }
+            "lyricIndex": 0
           },
           {
             "pitch": {
@@ -1946,11 +2261,9 @@
               "octave": 4
             },
             "duration": {
-              "elm": "__"
+              "elm": "~"
             },
-            "melisma": {
-              "tieStop": true
-            }
+            "lyricIndex": 1
           }
         ],
         "B": [
@@ -1960,13 +2273,9 @@
               "octave": 3
             },
             "duration": {
-              "elm": "__"
+              "elm": "~"
             },
-            "lyricIndex": 0,
-            "melisma": {
-              "extend": true,
-              "tieStart": true
-            }
+            "lyricIndex": 0
           },
           {
             "pitch": {
@@ -1974,10 +2283,12 @@
               "octave": 3
             },
             "duration": {
-              "elm": "~"
+              "elm": "__"
             },
+            "lyricIndex": 1,
             "melisma": {
-              "tieStop": true
+              "extend": true,
+              "slurStart": true
             }
           },
           {
@@ -2116,9 +2427,29 @@
               "octave": 4
             },
             "duration": {
-              "elm": "_."
+              "elm": "~"
             },
             "lyricIndex": 0
+          },
+          {
+            "pitch": {
+              "step": "D",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 1
+          },
+          {
+            "pitch": {
+              "step": "D",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "~"
+            },
+            "lyricIndex": 2
           }
         ],
         "B": [
@@ -2191,6 +2522,19 @@
         {
           "syllables": [
             {
+              "text": "луй",
+              "syllabic": "middle"
+            }
+          ],
+          "layers": {
+            "1": [
+              "луй"
+            ]
+          }
+        },
+        {
+          "syllables": [
+            {
               "text": "нас",
               "syllabic": "end"
             }
@@ -2221,9 +2565,20 @@
               "alter": 1.0
             },
             "duration": {
-              "elm": "__"
+              "elm": "_"
             },
             "lyricIndex": 1
+          },
+          {
+            "pitch": {
+              "step": "F",
+              "octave": 4,
+              "alter": 1.0
+            },
+            "duration": {
+              "elm": "_"
+            },
+            "lyricIndex": 2
           },
           {
             "pitch": {
@@ -2233,7 +2588,7 @@
             "duration": {
               "elm": "__"
             },
-            "lyricIndex": 2
+            "lyricIndex": 3
           }
         ],
         "A": [
@@ -2254,9 +2609,20 @@
               "alter": 1.0
             },
             "duration": {
-              "elm": "__"
+              "elm": "_"
             },
             "lyricIndex": 1
+          },
+          {
+            "pitch": {
+              "step": "D",
+              "octave": 4,
+              "alter": 1.0
+            },
+            "duration": {
+              "elm": "_"
+            },
+            "lyricIndex": 2
           },
           {
             "pitch": {
@@ -2266,7 +2632,7 @@
             "duration": {
               "elm": "__"
             },
-            "lyricIndex": 2
+            "lyricIndex": 3
           }
         ],
         "T": [
@@ -2276,38 +2642,39 @@
               "octave": 3
             },
             "duration": {
-              "elm": "__"
-            },
-            "lyricIndex": 0,
-            "melisma": {
-              "extend": true,
-              "tieStart": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "B",
-              "octave": 3
-            },
-            "duration": {
-              "elm": "__"
-            },
-            "melisma": {
-              "tieStart": true,
-              "tieStop": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "B",
-              "octave": 3
-            },
-            "duration": {
               "elm": "~"
             },
-            "melisma": {
-              "tieStop": true
-            }
+            "lyricIndex": 0
+          },
+          {
+            "pitch": {
+              "step": "B",
+              "octave": 3
+            },
+            "duration": {
+              "elm": "_"
+            },
+            "lyricIndex": 1
+          },
+          {
+            "pitch": {
+              "step": "B",
+              "octave": 3
+            },
+            "duration": {
+              "elm": "_"
+            },
+            "lyricIndex": 2
+          },
+          {
+            "pitch": {
+              "step": "B",
+              "octave": 3
+            },
+            "duration": {
+              "elm": "__"
+            },
+            "lyricIndex": 3
           }
         ],
         "B": [
@@ -2327,9 +2694,19 @@
               "octave": 2
             },
             "duration": {
-              "elm": "__"
+              "elm": "_"
             },
             "lyricIndex": 1
+          },
+          {
+            "pitch": {
+              "step": "B",
+              "octave": 2
+            },
+            "duration": {
+              "elm": "_"
+            },
+            "lyricIndex": 2
           },
           {
             "pitch": {
@@ -2339,7 +2716,7 @@
             "duration": {
               "elm": "__"
             },
-            "lyricIndex": 2
+            "lyricIndex": 3
           }
         ]
       },
@@ -3480,7 +3857,7 @@
           "syllables": [
             {
               "text": "A",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {

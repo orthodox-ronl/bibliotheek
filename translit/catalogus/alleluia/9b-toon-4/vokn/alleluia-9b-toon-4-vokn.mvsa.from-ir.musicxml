@@ -310,9 +310,16 @@
 </attributes>
 <note>
 <pitch><step>B</step><alter>-1</alter><octave>3</octave></pitch>
-<duration>8</duration>
+<duration>4</duration>
 <voice>1</voice>
-<type>half</type>
+<type>quarter</type>
+<stem>up</stem>
+</note>
+<note>
+<pitch><step>B</step><alter>-1</alter><octave>3</octave></pitch>
+<duration>4</duration>
+<voice>1</voice>
+<type>quarter</type>
 <stem>up</stem>
 </note>
 <note>
@@ -391,6 +398,9 @@
 <voice>1</voice>
 <type>whole</type>
 <stem>up</stem>
+<notations>
+<slur type="stop" number="1"/>
+</notations>
 </note>
 <note>
 <pitch><step>B</step><alter>-1</alter><octave>3</octave></pitch>
@@ -490,6 +500,9 @@
 <voice>2</voice>
 <type>whole</type>
 <stem>down</stem>
+<notations>
+<slur type="stop" number="2"/>
+</notations>
 </note>
 <note>
 <pitch><step>E</step><alter>-1</alter><octave>3</octave></pitch>
