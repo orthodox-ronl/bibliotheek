@@ -84,7 +84,14 @@ de Coria-fingerprints voor <strong>Oefenen</strong> (tip-icoon <strong>♪</stro
 Met <code>--kinds</code> beperk je welke sporen draaien (zelfde flags). Geen passende
 bron voor een kind = overslaan (geen fout). Audio en lyrics zijn gewone
 kinds, geen uitzondering. Er zijn geen aparte <code>vsa-products.cmd</code>-wrappers
-meer.</p><p>Contract-ongeldigheid geldt voor <strong><code>.mscz.mxl</code> / <code>.mvsa.mxl</code> / <code>.vsa.mxl</code></strong>
+meer.</p><p><strong>Alleen wat je net in git wijzigde</strong> (sneller, kleinere commits):
+<code>scripts\products-changed.cmd</code>. Dat pakt gewijzigde catalogusbronnen
+onder <code>content-source</code> met condities missing+stale (geen invalid), en
+gewijzigde koormap-<code>index.md</code> via <a href=../../scripts/pdf/>pdf</a>
+. Eerst
+kijken: <code>scripts\products-changed.cmd --dry-run</code>. Man-page:
+<a href=../../scripts/products-changed/>products-changed</a>
+.</p><p>Contract-ongeldigheid geldt voor <strong><code>.mscz.mxl</code> / <code>.mvsa.mxl</code> / <code>.vsa.mxl</code></strong>
 (profiel satb of mono). PDF, mp3, lyrics en tekstblad kennen geen aparte
 contract-gate in deze stap — daar tellen missing/stale (en <code>--force</code>).</p><h2 id=bestandsnamen-doelvorm>Bestandsnamen (doelvorm)</h2><h3 id=stam>Stam</h3><p>De <strong>publicatiestam</strong> is de bestandsnaam zonder extensies:</p><p><code>{zangstuk-id}-{variant-id}-{uitvoeringsvorm-id}</code></p><p>Alleen kleine letters, cijfers, <code>_</code> en <code>-</code> — <strong>geen spaties</strong>.
 Voorbeeld: <code>trisagion-8a-nederlands-hemelum</code>.</p><h3 id=bron-versus-afgeleide>Bron versus afgeleide</h3><div class=table-scroll><table><thead><tr><th>Rol</th><th>Patroon</th><th>Voorbeelden</th></tr></thead><tbody><tr><td><strong>Bron</strong></td><td><code>{stam}</code> + <strong>één</strong> echte extensie</td><td><code>….vsa</code>, <code>….mscz</code>, <code>….mvsa</code></td></tr><tr><td><strong>Afgeleide</strong></td><td><code>{stam}.{bron-extensie}.{doel-extensie}</code></td><td><code>….vsa.mxl</code>, <code>….mscz.pdf</code>, <code>….mscz.mxl</code>, <code>….mvsa.mscz</code>, <code>….vsa.lyrics.txt</code></td></tr></tbody></table></div><p>Het <strong>laatste</strong> segment is wat programma’s als bestandstype zien (<code>.mxl</code>,

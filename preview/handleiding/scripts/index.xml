@@ -147,7 +147,9 @@ page resource). Dat is de PDF van de &lt;strong&gt;getoonde pagina&lt;/strong&gt
 catalogus-uitvoeringsvorm), niet hetzelfde als de losse catalogus-product-PDF
 van één uitvoeringsvorm.&lt;/p&gt;
 &lt;p&gt;Dit commando hoort niet bij &lt;code&gt;products&lt;/code&gt;, &lt;code&gt;all-products&lt;/code&gt;, &lt;code&gt;check&lt;/code&gt; of de
-Pages-build. Die keten maakt en controleert catalogus-siblings
+Pages-build. Gewijzigde koormap-&lt;code&gt;index.md&lt;/code&gt; meenemen na een git-edit:
+&lt;a href="../products-changed/"&gt;products-changed&lt;/a&gt;
+. Die keten maakt en controleert catalogus-siblings
 (&lt;code&gt;.mvsa.pdf&lt;/code&gt;, &lt;code&gt;.mvsa.svg&lt;/code&gt;, &lt;code&gt;.vsa.svg&lt;/code&gt;, en de rest). De pagina-PDF maak je
 lokaal uit de &lt;strong&gt;notatiebronnen&lt;/strong&gt; (&lt;code&gt;.mvsa&lt;/code&gt; / &lt;code&gt;.vsa&lt;/code&gt; / &lt;code&gt;.mscz&lt;/code&gt;) plus de
 Markdown-layout, en commit je mee. &lt;code&gt;check&lt;/code&gt; meldt niet of de pagina-PDF
@@ -232,7 +234,21 @@ site. Koormappen en publicatiecontroles eisen die sibling &lt;strong&gt;niet&lt;
 &lt;code&gt;.mvsa&lt;/code&gt;). Bij output &lt;code&gt;*.mscz.mvsa&lt;/code&gt; zet de tooling al herkomstcommentaren;
 dit script herstempel daarna met generator &lt;code&gt;import-mvsa&lt;/code&gt;
 (&lt;code&gt;vsa-partituur-sha256&lt;/code&gt;, &lt;code&gt;vsa-generated-at&lt;/code&gt;), zodat &lt;code&gt;check&lt;/code&gt; / CI kunnen
-zien of de import nog bij de huidige &lt;code&gt;.mscz&lt;/code&gt; past.&lt;/p&gt;</description></item><item><title>products — lyrics</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/lyrics-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/lyrics-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+zien of de import nog bij de huidige &lt;code&gt;.mscz&lt;/code&gt; past.&lt;/p&gt;</description></item><item><title>products-changed</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/products-changed/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/products-changed/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;scripts\products-changed.cmd&lt;/code&gt; — catalogus-producten en koormap-blad-PDF’s
+alleen voor bestanden die in git gewijzigd zijn onder &lt;code&gt;content-source&lt;/code&gt;&lt;/p&gt;
+&lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\products-changed.cmd [--dry-run]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; [--since-main | --since-development | --base REF]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; [--force] [-y] [--verbose]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;--since-dev&lt;/code&gt; is een alias voor &lt;code&gt;--since-development&lt;/code&gt;.&lt;/p&gt;
+&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
+&lt;p&gt;Lost het probleem op dat een volle &lt;code&gt;products&lt;/code&gt;-run de hele catalogus scant
+(inclusief de dure contractcheck &lt;strong&gt;invalid&lt;/strong&gt;) terwijl je vaak alleen een
+paar bronnen hebt aangepast. Dit commando kijkt naar &lt;strong&gt;git&lt;/strong&gt;: welke
+bestanden onder &lt;code&gt;content-source&lt;/code&gt; zijn gewijzigd t.o.v. een referentie
+(default: &lt;code&gt;HEAD&lt;/code&gt;, dus jouw lokale wijzigingen t.o.v. de laatste commit),
+inclusief nieuwe (nog niet getrackte) bestanden.&lt;/p&gt;</description></item><item><title>products — lyrics</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/lyrics-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/lyrics-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\products.cmd --kinds lyrics&lt;/code&gt; — platte zoektekst naast &lt;code&gt;.vsa&lt;/code&gt; / &lt;code&gt;.mvsa&lt;/code&gt; /
 &lt;code&gt;.mscz&lt;/code&gt; (gewoon product-spoor; ook via &lt;code&gt;products&lt;/code&gt; / &lt;code&gt;all-products&lt;/code&gt;)&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
