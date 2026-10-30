@@ -1,4 +1,4 @@
-"""Unit tests for probe_coria_fetch HTML classification and config write."""
+"""Unit tests for probe_coria_fetch HTML classification and sampling."""
 
 from __future__ import annotations
 
@@ -39,10 +39,81 @@ def test_coria_play_url_encodes():
     assert "abc.musicxml" in url
 
 
+def test_source_kind():
+    assert (
+        probe.source_kind(
+            "mxl__catalogus__x__y.mscz.mxl"
+        )
+        == "mscz"
+    )
+    assert probe.source_kind("mxl__a__b.mvsa.mxl") == "mvsa"
+    assert probe.source_kind("mxl__a__b.vsa.mxl") == "vsa"
+    assert probe.source_kind("mxl__legacy.musicxml") == "other"
+
+
+def test_select_sample_canaries_prefers_kinds():
+    mapping = {
+        "mxl__z__late.mvsa.mxl": "mxl/c/mvsa2.musicxml",
+        "mxl__a__early.mscz.mxl": "mxl/c/mscz1.musicxml",
+        "mxl__b__mid.mvsa.mxl": "mxl/c/mvsa1.musicxml",
+        "mxl__c__v.vsa.mxl": "mxl/c/vsa1.musicxml",
+        "mxl__d__also.mscz.mxl": "mxl/c/mscz2.musicxml",
+    }
+    published = {
+        "mxl/c/mscz1.musicxml",
+        "mxl/c/mscz2.musicxml",
+        "mxl/c/mvsa1.musicxml",
+        "mxl/c/mvsa2.musicxml",
+        "mxl/c/vsa1.musicxml",
+    }
+    samples = probe.select_sample_canaries(
+        mapping, published=published, per_kind=1
+    )
+    assert samples[0] == "mxl/c/mscz1.musicxml"  # mscz first, sorted key
+    assert "mxl/c/mvsa1.musicxml" in samples
+    assert "mxl/c/vsa1.musicxml" in samples
+    assert "mxl/c/mscz2.musicxml" not in samples  # per_kind=1
+
+
+def test_host_ok_from_sample_results():
+    assert probe.host_ok_from_sample_results(["ok", "ok"]) is True
+    assert probe.host_ok_from_sample_results(["ok", "fail"]) is False
+    assert probe.host_ok_from_sample_results([]) is False
+
+
+def test_score_hosts_ignores_universally_broken_sample():
+    samples = ["mxl/c/good.musicxml", "mxl/c/bad.musicxml"]
+    sample_results = {
+        "raw": {"mxl/c/good.musicxml": "fail", "mxl/c/bad.musicxml": "fail"},
+        "pages": {"mxl/c/good.musicxml": "ok", "mxl/c/bad.musicxml": "fail"},
+    }
+    # bad faalt overal → negeren; raw faalt op good → raw fail; pages ok
+    assert probe.score_hosts(sample_results, samples) == {
+        "raw": "fail",
+        "pages": "ok",
+    }
+
+
+def test_score_hosts_raw_fails_one_relevant_sample():
+    samples = ["mxl/c/mscz.musicxml", "mxl/c/mvsa.musicxml"]
+    sample_results = {
+        "raw": {"mxl/c/mscz.musicxml": "fail", "mxl/c/mvsa.musicxml": "ok"},
+        "pages": {"mxl/c/mscz.musicxml": "ok", "mxl/c/mvsa.musicxml": "ok"},
+    }
+    assert probe.score_hosts(sample_results, samples) == {
+        "raw": "fail",
+        "pages": "ok",
+    }
+
+
+def test_kind_sample_limit_boosts_mscz():
+    assert probe.kind_sample_limit("mscz", 1) == probe.MSCZ_SAMPLES
+    assert probe.kind_sample_limit("mvsa", 1) == 1
+
+
 def test_apply_probe_skip_network(tmp_path: Path, monkeypatch):
     cfg_path = tmp_path / "coria-public-base.json"
     monkeypatch.setattr(probe, "PUBLIC_BASE_FILE", cfg_path)
-    # Avoid git in detect when branch given
     code = probe.apply_probe(branch="development", skip_network=True)
     assert code == 0
     data = json.loads(cfg_path.read_text(encoding="utf-8"))
@@ -53,6 +124,7 @@ def test_apply_probe_skip_network(tmp_path: Path, monkeypatch):
         "https://orthodox-ronl.github.io/bibliotheek/preview/"
     )
     assert data["results"]["raw"] == "skipped"
+    assert data["canaries"] == []
 
 
 def test_provisional_main_branch():

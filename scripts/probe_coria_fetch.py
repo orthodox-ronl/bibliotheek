@@ -1,8 +1,13 @@
-"""Probe of Coria een gepubliceerde MusicXML-canary kan ophalen.
+"""Probe of Coria gepubliceerde MusicXML-canaries kan ophalen.
 
 Coria ``play_from_url`` haalt server-side op. Wij meten dat door Coria's
 HTML te lezen (``failed to retrieve file`` vs partijkeuze), niet door alleen
 GitHub 200 te checken.
+
+Steekproef: minstens één fingerprint per bronsoort (``.mscz.mxl``,
+``.mvsa.mxl``, ``.vsa.mxl``) die op **beide** kandidaten al publiek is.
+Een host is alleen ``ok`` als Coria **alle** samples vanaf die host
+slikt — zo vangen we raw×MSCZ-falen die een enkele MVSA-canary mist.
 
 Kandidaten: raw.githubusercontent.com (gh-pages) en github.io — zelfde
 branch-subdir als ``fingerprint_coria_mxl``. Winnaar → ``base``, andere →
@@ -22,6 +27,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from fingerprint_coria_mxl import (
+    DATA_FILE,
     DEST_ROOT,
     PUBLIC_BASE_FILE,
     URL_PREFIX,
@@ -34,6 +40,13 @@ CORIA_PLAY = "https://coria.nl/play_from_url"
 TIMEOUT_S = 20
 USER_AGENT = "orthodox-ronl-bibliotheek-coria-probe/1.0"
 
+# Steekproef alleen productstraten (niet legacy/other): MSCZ eerst
+# (bekend raw×MSCZ-falen), daarna mvsa/vsa.
+KIND_ORDER = ("mscz", "mvsa", "vsa")
+SAMPLES_PER_KIND = 1
+# MSCZ: meer samples (Untitled/raw-risico); mvsa/vsa blijven zuinig.
+MSCZ_SAMPLES = 5
+
 FAIL_MARKERS = (
     "failed to retrieve file",
     "fout: failed to retrieve",
@@ -42,7 +55,7 @@ OK_MARKERS = (
     "kies de partij",
     "kies de partij die je wilt oefenen",
     'value="P1"',
-    "name=\"Soprano\"",
+    'name="Soprano"',
     ">Soprano<",
 )
 
@@ -64,6 +77,31 @@ def coria_play_url(file_url: str) -> str:
         f"{CORIA_PLAY}?back=coria.nl&url="
         f"{urllib.parse.quote(file_url, safe='')}"
     )
+
+
+def source_kind(fp_key: str) -> str:
+    """Bronsoort uit coria-fp-sleutel (``…foo.mscz.mxl`` → ``mscz``)."""
+    k = (fp_key or "").lower().replace("\\", "/")
+    if k.endswith(".mscz.mxl") or ".mscz.mxl" in k:
+        return "mscz"
+    if k.endswith(".mvsa.mxl") or ".mvsa.mxl" in k:
+        return "mvsa"
+    if k.endswith(".vsa.mxl") or ".vsa.mxl" in k:
+        return "vsa"
+    return "other"
+
+
+def load_fp_mapping(path: Path | None = None) -> dict[str, str]:
+    p = path or DATA_FILE
+    if not p.is_file():
+        return {}
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    return {str(k): str(v).strip() for k, v in data.items() if v}
 
 
 def _http_get(url: str, *, timeout: float = TIMEOUT_S) -> tuple[int, str]:
@@ -89,7 +127,6 @@ def _http_head_ok(url: str, *, timeout: float = TIMEOUT_S) -> bool:
         with urllib.request.urlopen(req, timeout=timeout, context=ctx) as resp:
             return 200 <= int(resp.status) < 400
     except urllib.error.HTTPError as exc:
-        # Sommige hosts weigeren HEAD; probeer korte GET.
         if exc.code in {403, 405}:
             try:
                 code, _ = _http_get(url, timeout=timeout)
@@ -116,25 +153,150 @@ def pick_canary(*, dest_root: Path = DEST_ROOT) -> str | None:
     files = sorted(dest_root.glob("*.musicxml"))
     if not files:
         return None
-    # Stabiele keuze: kleinste bestandsnaam (hash), deterministisch.
     return f"{URL_PREFIX}/{files[0].name}"
 
 
-def find_published_canary(
-    bases: dict[str, str],
+def published_on_all_hosts(rel: str, bases: dict[str, str]) -> bool:
+    return all(
+        _http_head_ok(f"{base.rstrip('/')}/{rel}") for base in bases.values()
+    )
+
+
+def select_sample_canaries(
+    mapping: dict[str, str],
     *,
+    published: set[str] | None = None,
+    per_kind: int = SAMPLES_PER_KIND,
+) -> list[str]:
+    """Stabiele steekproef: tot ``per_kind`` unieke paden per bronsoort.
+
+    ``published``: relatieve ``mxl/c/…``-paden die op alle hosts staan.
+    Zonder ``published``: alle mapping-waarden (alleen voor unit tests).
+    """
+    by_kind: dict[str, list[str]] = {k: [] for k in KIND_ORDER}
+    seen: set[str] = set()
+    for key in sorted(mapping):
+        rel = mapping[key].lstrip("/")
+        if not rel.startswith(f"{URL_PREFIX}/"):
+            continue
+        if published is not None and rel not in published:
+            continue
+        if rel in seen:
+            continue
+        kind = source_kind(key)
+        bucket = by_kind.setdefault(kind, [])
+        if len(bucket) >= per_kind:
+            continue
+        bucket.append(rel)
+        seen.add(rel)
+
+    out: list[str] = []
+    for kind in KIND_ORDER:
+        out.extend(by_kind.get(kind, []))
+    return out
+
+
+def _local_mscz_risk(rel: str, *, dest_root: Path = DEST_ROOT) -> int:
+    """Lager = eerder in steekproef (Untitled / geen identification)."""
+    path = dest_root / Path(rel).name
+    if not path.is_file():
+        return 1
+    try:
+        head = path.read_bytes()[:800]
+    except OSError:
+        return 1
+    risky = b"Untitled score" in head or b"<identification" not in head
+    return 0 if risky else 1
+
+
+def kind_sample_limit(kind: str, per_kind: int) -> int:
+    if kind == "mscz":
+        return max(per_kind, MSCZ_SAMPLES)
+    return per_kind
+
+
+def find_published_samples(
+    bases: dict[str, str],
+    mapping: dict[str, str],
+    *,
+    per_kind: int = SAMPLES_PER_KIND,
     dest_root: Path = DEST_ROOT,
-) -> str | None:
-    """Eerste lokale fingerprint die op minstens één host al publiek is."""
-    if not dest_root.is_dir():
-        return None
-    for path in sorted(dest_root.glob("*.musicxml")):
-        rel = f"{URL_PREFIX}/{path.name}"
-        for base in bases.values():
-            url = f"{base.rstrip('/')}/{rel}"
-            if _http_head_ok(url):
-                return rel
-    return None
+) -> list[str]:
+    """Steekproef: per bronsoort HEAD tot limiet op alle hosts publiek is.
+
+    Geen HEAD over de hele catalogus — alleen tot de steekproef vol is.
+    Bij MSCZ: voorkeur voor lokaal «Untitled» / zonder identification (raw-risico),
+    en tot ``MSCZ_SAMPLES`` stuks (andere soorten: ``per_kind``).
+    """
+    # Kandidaten per kind: (sort_key, fp_key, rel)
+    buckets: dict[str, list[tuple[tuple, str, str]]] = {k: [] for k in KIND_ORDER}
+    for key in mapping:
+        kind = source_kind(key)
+        if kind not in buckets:
+            continue
+        rel = mapping[key].lstrip("/")
+        if not rel.startswith(f"{URL_PREFIX}/"):
+            continue
+        risk = _local_mscz_risk(rel, dest_root=dest_root) if kind == "mscz" else 1
+        buckets[kind].append(((risk, key), key, rel))
+
+    for kind in buckets:
+        buckets[kind].sort(key=lambda t: t[0])
+
+    chosen: dict[str, list[str]] = {k: [] for k in KIND_ORDER}
+    seen_rel: set[str] = set()
+    checked: dict[str, bool] = {}
+
+    for kind in KIND_ORDER:
+        limit = kind_sample_limit(kind, per_kind)
+        for _sort, _key, rel in buckets[kind]:
+            if len(chosen[kind]) >= limit:
+                break
+            if rel in seen_rel:
+                continue
+            if rel not in checked:
+                checked[rel] = published_on_all_hosts(rel, bases)
+            if not checked[rel]:
+                continue
+            chosen[kind].append(rel)
+            seen_rel.add(rel)
+
+    out: list[str] = []
+    for kind in KIND_ORDER:
+        out.extend(chosen.get(kind, []))
+    return out
+
+
+def host_ok_from_sample_results(sample_statuses: list[str]) -> bool:
+    """Host ok alleen als er samples zijn en allemaal ``ok``."""
+    if not sample_statuses:
+        return False
+    return all(s == "ok" for s in sample_statuses)
+
+
+def score_hosts(
+    sample_results: dict[str, dict[str, str]],
+    samples: list[str],
+    host_names: tuple[str, ...] = ("raw", "pages"),
+) -> dict[str, str]:
+    """Host ``ok`` als alle samples lukken, behalve universeel kapotte samples.
+
+    Een sample dat op **alle** hosts faalt (inhoud/Coria-vertaling) telt niet
+    mee voor de hostkeuze — anders maakt één slecht fingerprint beide hosts
+    ten onrechte ``fail``.
+    """
+    relevant = [
+        rel
+        for rel in samples
+        if any(sample_results.get(h, {}).get(rel) == "ok" for h in host_names)
+    ]
+    out: dict[str, str] = {}
+    for host in host_names:
+        statuses = [
+            sample_results.get(host, {}).get(rel, "fail") for rel in relevant
+        ]
+        out[host] = "ok" if host_ok_from_sample_results(statuses) else "fail"
+    return out
 
 
 def probe_coria_for_file(file_url: str) -> str:
@@ -160,7 +322,9 @@ def provisional_config(branch: str) -> dict:
         "alternate": bases["pages"],
         "probed_at": None,
         "canary": None,
+        "canaries": [],
         "results": {"raw": "skipped", "pages": "skipped"},
+        "sample_results": {},
     }
 
 
@@ -178,6 +342,7 @@ def apply_probe(
     warn_only: bool = False,
     skip_network: bool = False,
     canary: str | None = None,
+    per_kind: int = SAMPLES_PER_KIND,
 ) -> int:
     """Schrijf coria-public-base.json. Exit 1 als beide hosts falen (tenzij warn_only)."""
     br = branch or detect_git_branch()
@@ -192,66 +357,92 @@ def apply_probe(
         )
         return 0
 
-    chosen = canary
-    if not chosen:
-        print("Coria-probe: zoek gepubliceerde canary…", flush=True)
+    samples: list[str]
+    if canary:
+        samples = [canary.lstrip("/")]
+    else:
+        mapping = load_fp_mapping()
+        print(
+            "Coria-probe: zoek gepubliceerde steekproef "
+            f"(mscz/mvsa/vsa, {per_kind} per soort)…",
+            flush=True,
+        )
         try:
-            chosen = find_published_canary(bases)
+            samples = find_published_samples(
+                bases, mapping, per_kind=per_kind
+            )
         except (urllib.error.URLError, TimeoutError, OSError) as exc:
-            print(f"Coria-probe: canary-zoekfout ({exc}); provisional.", flush=True)
+            print(f"Coria-probe: sample-zoekfout ({exc}); provisional.", flush=True)
             cfg = provisional_config(br)
             write_config(cfg)
-            return 0 if warn_only else 0
+            return 0
 
-    if not chosen:
+    if not samples:
         local = pick_canary()
         cfg = provisional_config(br)
         cfg["canary"] = local
+        cfg["canaries"] = [local] if local else []
         write_config(cfg)
         print(
-            "Coria-probe: geen gepubliceerde canary op raw/pages "
+            "Coria-probe: geen gepubliceerde steekproef op raw én pages "
             "(nieuwe hashes nog niet op gh-pages?). "
             f"Provisional base={cfg['base']}",
             flush=True,
         )
         return 0
 
-    results: dict[str, str] = {}
-    print(f"Coria-probe canary={chosen}", flush=True)
+    print(f"Coria-probe samples ({len(samples)}): {', '.join(samples)}", flush=True)
+    sample_results: dict[str, dict[str, str]] = {}
+
     for name, base in bases.items():
-        file_url = f"{base.rstrip('/')}/{chosen}"
-        status = probe_coria_for_file(file_url)
-        # unknown/error tellen als niet-ok voor hostkeuze
-        results[name] = "ok" if status == "ok" else "fail"
-        print(f"  {name}: {status} → {results[name]} ({file_url})", flush=True)
+        per_sample: dict[str, str] = {}
+        for rel in samples:
+            file_url = f"{base.rstrip('/')}/{rel}"
+            status = probe_coria_for_file(file_url)
+            normalized = "ok" if status == "ok" else "fail"
+            per_sample[rel] = normalized
+            print(
+                f"  {name} {rel}: {status} → {normalized}",
+                flush=True,
+            )
+        sample_results[name] = per_sample
+
+    results = score_hosts(sample_results, samples, tuple(bases.keys()))
+    for name, verdict in results.items():
+        print(f"  {name} host: {verdict}", flush=True)
 
     # Voorkeur als beide ok: pages (juiste MusicXML Content-Type).
     order = ("pages", "raw")
     winner = next((n for n in order if results.get(n) == "ok"), None)
+    probed_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     if winner is None:
         cfg = {
             "base": bases["pages"],
             "alternate": bases["raw"],
-            "probed_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-            "canary": chosen,
+            "probed_at": probed_at,
+            "canary": samples[0],
+            "canaries": samples,
             "results": results,
+            "sample_results": sample_results,
         }
         write_config(cfg)
-        msg = (
-            "Coria-probe FAILED: geen host kon de canary ophalen "
-            f"(canary={chosen}). ♪ krijgt pages als base + raw als alternate."
+        print(
+            "Coria-probe FAILED: geen host slikte alle samples "
+            f"({samples}). ♪ krijgt pages als base + raw als alternate.",
+            flush=True,
         )
-        print(msg, flush=True)
         return 0 if warn_only else 1
 
     alternate_name = "raw" if winner == "pages" else "pages"
     cfg = {
         "base": bases[winner],
         "alternate": bases[alternate_name],
-        "probed_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "canary": chosen,
+        "probed_at": probed_at,
+        "canary": samples[0],
+        "canaries": samples,
         "results": results,
+        "sample_results": sample_results,
     }
     write_config(cfg)
     print(
@@ -264,7 +455,10 @@ def apply_probe(
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Meet of Coria raw/pages-MusicXML kan ophalen; schrijf coria-public-base.json.",
+        description=(
+            "Meet of Coria raw/pages-MusicXML kan ophalen "
+            "(steekproef mscz/mvsa/vsa); schrijf coria-public-base.json."
+        ),
     )
     parser.add_argument(
         "--branch",
@@ -274,7 +468,13 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--canary",
         default=None,
-        help="Relatief pad mxl/c/<hash>.musicxml (default: eerste gepubliceerde).",
+        help="Eén relatief pad mxl/c/<hash>.musicxml (overschrijft steekproef).",
+    )
+    parser.add_argument(
+        "--per-kind",
+        type=int,
+        default=SAMPLES_PER_KIND,
+        help=f"Samples per bronsoort (default {SAMPLES_PER_KIND}).",
     )
     parser.add_argument(
         "--warn-only",
@@ -297,6 +497,7 @@ def main(argv: list[str] | None = None) -> int:
         warn_only=warn,
         skip_network=args.skip_network,
         canary=args.canary,
+        per_kind=max(1, args.per_kind),
     )
 
 

@@ -53,7 +53,8 @@ Of: `scripts\check.cmd` vanuit de repo-root.
     uitvoeringsvorm-label is (waarschuwing; met `--strict` fout)
 12. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
 13. Coria-fetch-probe (`python scripts\probe_coria_fetch.py`) — of Coria
-    een gepubliceerde canary vanaf raw of github.io kan ophalen; zet
+    een steekproef (meer mscz + mvsa/vsa) vanaf raw én github.io kan
+    ophalen; host alleen ok als alle relevante samples lukken; zet
     `base`/`alternate` in `data\coria-public-base.json`. Zonder `--strict`
     alleen waarschuwen als beide falen; met `--strict` exit 1
 14. Legacy bladermap-SVG (`oefenhoek-index --svg`) — plaatje onder

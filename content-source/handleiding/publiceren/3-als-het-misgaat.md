@@ -78,11 +78,15 @@ onder `mxl/c/<hash>.musicxml` (niet `/mxl/c/…` zonder host, niet
 Welke host Coria mag ophalen, wisselt: soms faalt
 `raw.githubusercontent.com/.../gh-pages/…`, soms
 `orthodox-ronl.github.io/bibliotheek/…`. Daarom doet de build een **Coria-probe**
-(`python scripts\probe_coria_fetch.py`): die vraagt Coria voor één canary of
-ophalen lukt, zet de werkende host in `data\coria-public-base.json` als
-`base`, en de andere als `alternate`. De primaire ♪-link gebruikt `base`; in
-het Oefenen-menu staat ook **Werkt Oefenen niet? Andere bron** (de
-`alternate`-host).
+(`python scripts\probe_coria_fetch.py`): die vraagt Coria voor een
+**steekproef** (tot vijf risicovolle `.mscz.mxl`-fingerprints plus één
+`.mvsa.mxl` en één `.vsa.mxl`, die al op beide hosts staan) of ophalen
+lukt. Een host telt alleen mee als Coria **alle relevante** samples vanaf
+die host slikte — zo vangen we gevallen waarbij raw wél de meeste bestanden
+maar niet elk MSCZ-bestand pakt.
+De werkende host komt in `data\coria-public-base.json` als `base`, de andere
+als `alternate`. De primaire ♪-link gebruikt `base`; in het Oefenen-menu
+staat ook **Werkt Oefenen niet? Andere bron** (de `alternate`-host).
 
 Draai `scripts\check.cmd` of `scripts\build.cmd` opnieuw zodat fingerprints,
 probe en Hugo meelopen. Met `check --strict` faalt de check als **beide**
