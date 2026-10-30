@@ -1,4 +1,4 @@
-<!doctype html><html lang=nl><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Catalogus en koormappen</title><link rel=icon href=/bibliotheek/preview/images/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/bibliotheek/preview/images/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/bibliotheek/preview/images/favicon-32x32.png><link rel=apple-touch-icon sizes=180x180 href=/bibliotheek/preview/images/apple-touch-icon.png><link rel=manifest href=/bibliotheek/preview/images/site.webmanifest><link rel=stylesheet href=/bibliotheek/preview/css/site.css><script src=/bibliotheek/preview/js/site-nav.js defer></script><script src=/bibliotheek/preview/js/score-audio.js defer></script><script src=/bibliotheek/preview/js/score-bron.js defer></script><script src="/bibliotheek/preview/js/score-schermstand.js?v=20261029c" defer></script><script src="/bibliotheek/preview/js/score-osmd.js?v=20261029-schermstand" defer></script><script src=/bibliotheek/preview/js/catalogus-zoek.js defer></script><script type=module src=/bibliotheek/preview/js/pdf-sheet.js></script></head><body><div class=site-chrome><header class=site-header><div class=site-header-inner><div class=site-header-start><a class=site-logo href=/bibliotheek/preview/><img src=/bibliotheek/preview/images/favicon-32x32.png width=26 height=26 alt>
+<!doctype html><html lang=nl><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Catalogus en koormappen</title><link rel=icon href=/bibliotheek/preview/images/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/bibliotheek/preview/images/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/bibliotheek/preview/images/favicon-32x32.png><link rel=apple-touch-icon sizes=180x180 href=/bibliotheek/preview/images/apple-touch-icon.png><link rel=manifest href=/bibliotheek/preview/images/site.webmanifest><link rel=stylesheet href=/bibliotheek/preview/css/site.css><script src=/bibliotheek/preview/js/site-nav.js defer></script><script src=/bibliotheek/preview/js/score-audio.js defer></script><script src=/bibliotheek/preview/js/score-bron.js defer></script><script src="/bibliotheek/preview/js/score-schermstand.js?v=20261029d" defer></script><script src="/bibliotheek/preview/js/score-osmd.js?v=20261029-schermstand" defer></script><script src=/bibliotheek/preview/js/catalogus-zoek.js defer></script><script type=module src=/bibliotheek/preview/js/pdf-sheet.js></script></head><body><div class=site-chrome><header class=site-header><div class=site-header-inner><div class=site-header-start><a class=site-logo href=/bibliotheek/preview/><img src=/bibliotheek/preview/images/favicon-32x32.png width=26 height=26 alt>
 <span class=site-logo-text>Bibliotheek</span></a><nav class=site-nav aria-label=Hoofdnavigatie><details class=site-nav-group><summary>Catalogus</summary><div class=site-nav-menu><a href=/bibliotheek/preview/overzichten/>Overzicht</a>
 <a href=/bibliotheek/preview/overzichten/zoeken/>Zoeken</a>
 <a href=/bibliotheek/preview/overzichten/alfabetisch/>Alfabetisch</a>
@@ -6,7 +6,8 @@
 <a href=/bibliotheek/preview/overzichten/speciaal/>Speciaal</a>
 <a href=/bibliotheek/preview/overzichten/id-register/>Id-register</a></div></details><details class=site-nav-group><summary>Koormappen</summary><div class=site-nav-menu><a href=/bibliotheek/preview/koormappen/>Overzicht</a>
 <a href=/bibliotheek/preview/koormappen/hemelum/>Hemelum</a>
-<a href=/bibliotheek/preview/koormappen/zwolle/>Zwolle</a></div></details><details class="site-nav-group is-current"><summary>Handleiding</summary><div class=site-nav-menu><a href=/bibliotheek/preview/handleiding/>Overzicht</a>
+<a href=/bibliotheek/preview/koormappen/zwolle/>Zwolle</a>
+<a href=/bibliotheek/preview/koormappen/groningen/>Groningen</a></div></details><details class="site-nav-group is-current"><summary>Handleiding</summary><div class=site-nav-menu><a href=/bibliotheek/preview/handleiding/>Overzicht</a>
 <a href=/bibliotheek/preview/handleiding/start/ aria-current=page>Start</a>
 <a href=/bibliotheek/preview/handleiding/werktrajecten/>Werktrajecten</a>
 <a href=/bibliotheek/preview/handleiding/partituur/>Partituur</a>
@@ -70,8 +71,9 @@ catalogus; bladtitels met <code>kop</code>; bladindeling in de download met
 <code>pdf-pagina</code> / <code>pdf-bijelkaar</code>. Bovenaan de pagina: <strong>Download pagina</strong> en
 <strong>Print pagina</strong> als <code>index.md.pdf</code> bestaat — beide gebruiken die PDF
 (niet de browserafdruk van de HTML). De voorgestelde bestandsnaam bij
-downloaden komt uit frontmatter <code>pdf_bestandsnaam</code>, anders uit <code>title</code>,
-anders uit de mapnaam. Bij elk muziekblok: tip-icoon <strong>♪</strong> voor
+downloaden komt uit frontmatter <code>pdf_bestandsnaam</code>; anders op een
+<strong>koormap</strong> uit <code>title</code> en op een <strong>catalogus</strong>-blad uit de afgeleide
+bladtitel; anders uit de mapnaam. Bij elk muziekblok: tip-icoon <strong>♪</strong> voor
 <strong>Oefenen</strong> / <strong>Beluisteren</strong> van <strong>dat</strong> stuk. Pagina-PDF bouwen:
 <a href=../scripts/pdf/>pdf</a>
 .</p><p><strong>Spiekbriefje voor beheerders:</strong> <a href=koormap-blad/>Koormap-blad schrijven</a>
@@ -79,7 +81,7 @@ anders uit de mapnaam. Bij elk muziekblok: tip-icoon <strong>♪</strong> voor
 Normatieve specificatie in de repository:
 <a href=https://github.com/orthodox-ronl/bibliotheek/blob/development/docs/specs/koormap-paginataal.md>koormap-paginataal</a>
 .</p><h3 id=boom-of-compositieblad>Boom of compositieblad?</h3><p>Twee manieren om meerdere uitvoeringsvormen op <strong>één liturgische plek</strong> te
-tonen —zelfde mechaniek, andere leeservaring:</p><div class=table-scroll><table><thead><tr><th>Patroon</th><th>Wanneer</th><th>Voorbeeld</th></tr></thead><tbody><tr><td><strong>Boom</strong></td><td>De zanger kiest één variant (of bladert per kind)</td><td>Cherubijnenhymne: sectie → 15b, 15c, …; antifoon: weekdagen / zondag</td></tr><tr><td><strong>Compositieblad</strong></td><td>Eén pagina bundelt een set (proza + scores)</td><td>Prokimens voor de hele week op één <code>index.md</code>, met shortcode per weekdag</td></tr></tbody></table></div><p>Voorbeeld compositieblad (schets):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-markdown data-lang=markdown><span style=display:flex><span># Prokimen weekdagen (Kiev, Groningen)
+tonen —zelfde mechaniek, andere leeservaring:</p><div class=table-scroll><table><thead><tr><th>Patroon</th><th>Wanneer</th><th>Voorbeeld</th></tr></thead><tbody><tr><td><strong>Boom</strong></td><td>De zanger kiest één variant (of bladert per kind)</td><td>Cherubijnenhymne: sectie → 15b, 15c, …; antifoon: weekdagen / zondag</td></tr><tr><td><strong>Compositieblad</strong></td><td>Eén pagina bundelt een set (proza + scores)</td><td>Prokimens voor de hele week op één <code>index.md</code>, met shortcode per weekdag</td></tr></tbody></table></div><p>Voorbeeld compositieblad (schets):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-markdown data-lang=markdown><span style=display:flex><span># Prokimen weekdagen (Kiev)
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>## Maandag
 </span></span></span><span style=display:flex><span>{{&lt; bieb id=&#34;prokimen/9a-maandag/groningen&#34; &gt;}}
@@ -106,9 +108,8 @@ onder meerdere namen bekend is.</p><h2 id=titels-en-frontmatter-in-de-catalogus>
 bron (VSA/mvsa-<code>titel:</code>). Handmatige redactionele titels horen in
 <strong>koormappen</strong>, niet in de catalogus. Agent-contract in de repo:
 <code>docs/catalogus-titels.md</code>.</p><p>Elke catalogus-pagina (<code>_index.md</code> of leaf-<code>index.md</code>) heeft minstens:</p><div class=table-scroll><table><thead><tr><th>Veld</th><th>Rol</th></tr></thead><tbody><tr><td><code>publicatiestatus</code></td><td>Wat koorleden mogen verwachten (<code>voorzien</code> / <code>concept</code> / <code>reviewable</code> / <code>productie</code>)</td></tr><tr><td><code>automatische_inhoud</code></td><td>Sectie: meestal <code>true</code> (kindlijst). Leaf: altijd <code>false</code> (score via <code>bieb</code>)</td></tr></tbody></table></div><p>Ids komen uit het <strong>pad</strong> (<code>zangstuk/variant/uitvoeringsvorm</code>). Tooling en
-shortcode <code>bieb</code> gebruiken het pad. Frontmatter <code>title</code> / <code>linkTitle</code> zijn
-geen bron van waarheid (Hugo negeert ze op id-pagina’s); <code>bieb accepteer</code>
-mag ze nog als afgeleid artefact zetten.</p><p>Op een <strong>uitvoeringsvorm-blad</strong> zet je in de Markdown geen tweede
+shortcode <code>bieb</code> gebruiken het pad. Op id-pagina’s zet je geen frontmatter
+<code>title</code> / <code>linkTitle</code>; Hugo en zoeken leiden die namen af.</p><p>Op een <strong>uitvoeringsvorm-blad</strong> zet je in de Markdown geen tweede
 hoofdtitel (<code># …</code>): de site toont al één titel boven de partituur. De body
 is meestal alleen de regel met <code>bieb</code>. De PDF achter <strong>Download pagina</strong> /
 <strong>Print pagina</strong> (<code>index.md.pdf</code>) volgt dezelfde bladintentie; zie het
@@ -209,4 +210,4 @@ uitvoeringsvormen aanmaakt (<code>hemelum</code> + <code>hemelum-ksl</code>).</p
 <button type=button class="score-audio-bar-btn score-audio-bar-skip" data-skip=10 aria-label="10 seconden vooruit">+10</button>
 <label class=score-audio-bar-rate><span class=score-audio-bar-rate-text>Snelheid</span>
 <select class=score-audio-bar-rate-select aria-label=Afspeelsnelheid><option value=0.75>0,75×</option><option value=1 selected>1×</option><option value=1.25>1,25×</option><option value=1.5>1,5×</option><option value=2>2×</option></select>
-</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-25</p></div></footer></body></html>
+</label><button type=button class="score-audio-bar-btn score-audio-bar-close" aria-label="Stoppen en sluiten">×</button></div></div><audio id=score-audio-bar-element class=score-audio-bar-element preload=metadata></audio></div><footer class=site-footer><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-30</p></div></footer></body></html>
