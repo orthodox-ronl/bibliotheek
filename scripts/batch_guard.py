@@ -5,7 +5,9 @@ bestanden bij (lokaal in ``generated/batch_timing.json``). Zo kan de
 preflight niet alleen „47 bestanden” zeggen, maar ook „ongeveer 8 minuten”
 op basis van eerdere runs op deze machine.
 
-- Bevestiging vanaf ``confirm_from`` items (default 2), tenzij ``--yes`` / ``-y``.
+- Bevestiging alleen als de run **niet kort** is. Kort = minder dan
+  ``CONFIRM_FROM`` items (default = ``HARD_LIMIT`` = 100) **of**
+  geschatte duur ≤ ``SOFT_SECONDS`` (default 30). Preflight blijft.
 - Vanaf ``HARD_LIMIT`` items: dubbele vraag («weet je het zeker?» /
   «HEEL zeker?») — ``-y`` zet die **niet** uit (geen stille mega-batch).
 - Zonder TTY: zachte batch → hint ``-y``; mega-batch → draai interactief.
@@ -26,9 +28,12 @@ from typing import Iterator, TypeVar
 REPO_ROOT = Path(__file__).resolve().parents[1]
 STORE_PATH = REPO_ROOT / "generated" / "batch_timing.json"
 WINDOW = 20
-CONFIRM_FROM = 2
 # Boven deze grens: twee expliciete vragen; geen switch-naam onthouden.
 HARD_LIMIT = 100
+# Soft «Doorgaan?» vanaf dit aantal (default = harde limiet → geen soft-vraag).
+CONFIRM_FROM = HARD_LIMIT
+# Bekende schatting tot en met zoveel seconden telt als korte run (geen soft-vraag).
+SOFT_SECONDS = 30
 
 T = TypeVar("T")
 
@@ -96,6 +101,17 @@ def format_duration(seconds: float) -> str:
     if hours < 10:
         return f"ongeveer {hours:.1f} uur".replace(".", ",")
     return f"ongeveer {int(round(hours))} uur"
+
+
+def estimated_total_seconds(kind: str, n: int) -> float | None:
+    """Geschatte totale duur in seconden, of None zonder metingen / n≤0."""
+    if n <= 0:
+        return None
+    stats = mean_seconds(kind)
+    if stats is None:
+        return None
+    mean, _ = stats
+    return mean * n
 
 
 def estimate_line(kind: str, n: int) -> str:
@@ -186,10 +202,15 @@ def confirm_batch(
     details: Sequence[str] = (),
     yes: bool = False,
     already_confirmed: bool = False,
-    confirm_from: int = CONFIRM_FROM,
-    hard_limit: int = HARD_LIMIT,
+    confirm_from: int | None = None,
+    hard_limit: int | None = None,
+    soft_seconds: float | None = None,
 ) -> bool:
-    """Toon preflight; vraag bevestiging als ``n >= confirm_from``.
+    """Toon preflight; vraag bevestiging alleen bij niet-korte runs.
+
+    Kort (geen soft-vraag): ``n < confirm_from`` **of** bekende schatting
+    ≤ ``soft_seconds``. Default ``confirm_from`` = ``HARD_LIMIT`` (100),
+    dus in de praktijk alleen de harde dubbele vraag bij 100+ items.
 
     Bij ``n >= hard_limit``: altijd dubbele zekerheidsvraag; ``-y`` helpt
     daar niet (bewust: na tooling-wijziging alles opnieuw maken zonder
@@ -204,6 +225,13 @@ def confirm_batch(
     bool
         True = doorgaan, False = afbreken (caller → exit 2).
     """
+    if confirm_from is None:
+        confirm_from = CONFIRM_FROM
+    if hard_limit is None:
+        hard_limit = HARD_LIMIT
+    if soft_seconds is None:
+        soft_seconds = float(SOFT_SECONDS)
+
     print(flush=True)
     print(f"Batch «{kind}»: {headline}", flush=True)
     for line in details:
@@ -213,10 +241,6 @@ def confirm_batch(
 
     if already_confirmed:
         print("  Bevestiging: al gedaan (aanroepende batch).", flush=True)
-        print(flush=True)
-        return True
-
-    if n < confirm_from:
         print(flush=True)
         return True
 
@@ -230,6 +254,20 @@ def confirm_batch(
                 flush=True,
             )
         return _confirm_hard_limit(n)
+
+    # Korte run: onder item-drempel, of bekende schatting binnen soft_seconds.
+    est = estimated_total_seconds(kind, n)
+    short_by_count = n < confirm_from
+    short_by_time = est is not None and est <= soft_seconds
+    if short_by_count or short_by_time:
+        if short_by_time and not short_by_count:
+            print(
+                "  Bevestiging: overgeslagen "
+                f"(geschat ≤ {int(soft_seconds)} s).",
+                flush=True,
+            )
+        print(flush=True)
+        return True
 
     if yes:
         print("  Bevestiging: overgeslagen (-y/--yes).", flush=True)

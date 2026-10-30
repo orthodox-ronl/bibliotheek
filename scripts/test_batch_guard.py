@@ -53,13 +53,94 @@ def test_confirm_skips_when_small(tmp_path: Path, monkeypatch, capsys) -> None:
     assert "Doorgaan?" not in out
 
 
+def test_confirm_skips_under_hard_limit(
+    tmp_path: Path, monkeypatch, capsys
+) -> None:
+    """Default: onder HARD_LIMIT geen soft-vraag (korte run op aantal)."""
+    monkeypatch.setattr(bg, "STORE_PATH", tmp_path / "t.json")
+    monkeypatch.setattr(bg.sys.stdin, "isatty", lambda: True)
+
+    def _boom(_p: str) -> str:
+        raise AssertionError("geen Doorgaan? onder harde limiet")
+
+    monkeypatch.setattr(bg, "_read_answer", _boom)
+    assert bg.confirm_batch(
+        "product_vsa",
+        n=bg.HARD_LIMIT - 1,
+        headline="99 bestanden",
+        yes=False,
+    )
+    assert "Doorgaan?" not in capsys.readouterr().out
+
+
+def test_confirm_skips_when_short_estimate(
+    tmp_path: Path, monkeypatch, capsys
+) -> None:
+    """Bekende schatting ≤ SOFT_SECONDS: geen soft-vraag ondanks lagere drempel."""
+    monkeypatch.setattr(bg, "STORE_PATH", tmp_path / "t.json")
+    for _ in range(5):
+        bg.record_sample("layout", 0.4)  # 20 × 0,4 s = 8 s
+    monkeypatch.setattr(bg.sys.stdin, "isatty", lambda: True)
+
+    def _boom(_p: str) -> str:
+        raise AssertionError("geen Doorgaan? bij korte schatting")
+
+    monkeypatch.setattr(bg, "_read_answer", _boom)
+    assert bg.confirm_batch(
+        "layout",
+        n=20,
+        headline="20 bestanden",
+        yes=False,
+        confirm_from=5,
+        hard_limit=100,
+        soft_seconds=30,
+    )
+    out = capsys.readouterr().out
+    assert "Doorgaan?" not in out
+    assert "geschat" in out.lower() or "overgeslagen" in out
+
+
+def test_confirm_asks_when_long_estimate(
+    tmp_path: Path, monkeypatch, capsys
+) -> None:
+    """Lange schatting + n ≥ confirm_from (< hard): soft Doorgaan?."""
+    monkeypatch.setattr(bg, "STORE_PATH", tmp_path / "t.json")
+    for _ in range(5):
+        bg.record_sample("layout", 10.0)  # 5 × 10 s = 50 s > 30
+    monkeypatch.setattr(bg.sys.stdin, "isatty", lambda: True)
+    prompts: list[str] = []
+
+    def _answer(p: str) -> str:
+        prompts.append(p)
+        return "j"
+
+    monkeypatch.setattr(bg, "_read_answer", _answer)
+    assert bg.confirm_batch(
+        "layout",
+        n=5,
+        headline="5 bestanden",
+        yes=False,
+        confirm_from=2,
+        hard_limit=100,
+        soft_seconds=30,
+    )
+    assert prompts == ["Doorgaan? [j/N] "]
+    _ = capsys.readouterr()
+
+
 def test_confirm_yes_flag(tmp_path: Path, monkeypatch, capsys) -> None:
     monkeypatch.setattr(bg, "STORE_PATH", tmp_path / "t.json")
+    # Soft-pad forceren: confirm_from laag + lange schatting
+    for _ in range(3):
+        bg.record_sample("layout", 20.0)
     assert bg.confirm_batch(
         "layout",
         n=5,
         headline="5 bestanden",
         yes=True,
+        confirm_from=2,
+        hard_limit=100,
+        soft_seconds=30,
     )
     assert "-y/--yes" in capsys.readouterr().out
 

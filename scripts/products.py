@@ -120,7 +120,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     add_regen_arguments(parser)
     add_verbose_argument(parser)
-    from batch_guard import CONFIRM_FROM, add_yes_argument, confirm_batch
+    from batch_guard import add_yes_argument
 
     add_yes_argument(parser)
     args = parser.parse_args(argv)
@@ -161,34 +161,11 @@ def main(argv: list[str] | None = None) -> int:
     if args.verbose:
         forward.append("--verbose")
 
-    actie = "dry-run" if args.dry_run else "schrijven"
-    multi_kind = len(kinds) > 1
-
-    if multi_kind:
-        # Eén preflight voor alle kinds; kind-sporen niet opnieuw laten vragen.
-        # n=CONFIRM_FROM → zachte vraag (geen nep-«2 items»).
-        if not confirm_batch(
-            "products",
-            n=CONFIRM_FROM,
-            headline=f"kinds={','.join(kinds)} · root={root}",
-            details=[
-                f"Actie: {actie}; condities={','.join(policy.active_reasons())}",
-                f"Aantal kinds: {len(kinds)}",
-                "Per kind volgt een eigen duur-schatting (op basis van eerdere runs)",
-                "Kind-sporen vragen niet opnieuw om bevestiging",
-                "Standaard beknopte log; --verbose voor per-stap detail",
-            ],
-            yes=args.yes,
-        ):
-            return 2
+    # Bevestiging per kind op de echte todo-lijst (korte runs stil;
+    # 100+: dubbele vraag). -y/--yes: stil doorgeven aan kind-sporen.
+    if args.yes:
         forward.append("-y")
         forward.append("--already-confirmed")
-    elif args.yes:
-        # Eén kind + -y: stil doorgeven.
-        forward.append("-y")
-        forward.append("--already-confirmed")
-    # else: één kind — kind-batch bevestigt op de echte todo-lijst
-    # (kleine todo: stil; ≥ CONFIRM_FROM: Doorgaan?; 100+: dubbel).
 
     info(
         f"=== products: kinds={','.join(kinds)} "

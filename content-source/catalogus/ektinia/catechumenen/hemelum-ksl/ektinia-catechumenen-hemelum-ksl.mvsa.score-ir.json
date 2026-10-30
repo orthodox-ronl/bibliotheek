@@ -26,7 +26,7 @@
       "cues": [
         {
           "kind": "tekst",
-          "text": "P: Katechumenen bidt de Heer",
+          "text": "Katechumenen bidt de Heer",
           "anchor": "measure-start"
         }
       ],
@@ -364,12 +364,13 @@
     {
       "id": "m2",
       "bar": {
+        "left": "repeat-start",
         "right": "single"
       },
       "cues": [
         {
           "kind": "tekst",
-          "text": "invallen en 6x herhalen tijdens gebed van priester",
+          "text": "(6x herhalen tijdens gebed van priester)",
           "anchor": "measure-start"
         }
       ],
@@ -707,7 +708,7 @@
     {
       "id": "m3",
       "bar": {
-        "right": "light-light"
+        "right": "repeat-end"
       },
       "cues": [],
       "lyrics": [
@@ -1045,7 +1046,7 @@
     {
       "id": "m4",
       "bar": {
-        "right": "single"
+        "right": "light-light"
       },
       "cues": [],
       "lyrics": [

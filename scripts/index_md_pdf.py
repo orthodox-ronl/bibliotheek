@@ -468,41 +468,45 @@ def _body_without_frontmatter(text: str) -> str:
 def parse_page_flows(text: str) -> list[PageFlow]:
     """Bladgroepen: ``pdf-pagina`` of elk apart ``pdf-bijelkaar``-blok.
 
-    Muziek binnen ``pdf-bijelkaar`` krijgt ``compact=True``. Paginatitels
-    buiten de blokken (``kop`` / legacy ``<h1>`` / ``#``) horen alleen bij
-    het **eerste** blad; latere bijelkaar-blokken krijgen die titel niet
-    opnieuw.
+    Muziek binnen ``pdf-bijelkaar`` krijgt ``compact=True``.
+
+    Standaard-``kop`` (groot) *vóór* het eerste bijelkaar-blok mag als
+    bladkop alleen op het **eerste** bijelkaar-blad (niet herhaald op een
+    volgend bijelkaar). Overige ``kop``-regels blijven in
+    **documentvolgorde** bij hun muziek (koormap-paginataal §6 / §10.1) —
+    nooit alle groot-koppen vooraf bundelen vóór alle ``bieb``-blokken.
     """
     text = _body_without_frontmatter(text)
     finished: list[PageFlow] = []
     current = PageFlow()
     stack: list[str] = []
     bijelkaar = 0
-    pending_titles: list[TitleItem] = []  # prominente titel buiten blokken → eenmalig
+    # Alleen groot-koppen die nog vóór enige andere inhoud / bijelkaar staan.
+    pending_titles: list[TitleItem] = []
     kop_stack: list[tuple[str, int]] = []  # (params, inner_start)
     pos = 0
 
+    def drain_pending() -> None:
+        """Zet uitgestelde bladkoppen in documentvolgorde in ``current``."""
+        if pending_titles:
+            current.items.extend(pending_titles)
+            pending_titles.clear()
+
     def flush_current() -> None:
         nonlocal current
+        drain_pending()
         if current.items:
-            # Prominente titel buiten pdf-bijelkaar (``kop`` / ``#``) hoort
-            # bij het eerste blad met inhoud.
-            if pending_titles:
-                current.items = list(pending_titles) + current.items
-                pending_titles.clear()
             finished.append(current)
             current = PageFlow()
 
     def add_title(t: TitleItem) -> None:
-        if bijelkaar == 0:
-            if t.size == "groot" and t.align == "midden":
-                # Standaard bladkop buiten bijelkaar → eenmalig op eerste blad
-                pending_titles.append(t)
-            elif t.size == "groot":
-                pending_titles.append(t)
-            else:
-                current.items.append(t)
+        if bijelkaar == 0 and t.size == "groot" and not current.items:
+            # Bladkop vóór eerste inhoud/bijelkaar → later injecteren
+            # (eenmalig op eerste bijelkaar-blad), of drainen bij eerste
+            # muziek/proza/witruimte zodat volgorde kop→muziek klopt.
+            pending_titles.append(t)
         else:
+            drain_pending()
             current.items.append(t)
 
     def gap_before(end: int) -> None:
@@ -514,15 +518,18 @@ def parse_page_flows(text: str) -> list[PageFlow]:
                 if isinstance(item, TitleItem):
                     add_title(item)
                 else:
+                    drain_pending()
                     current.items.append(item)
         pos = end
 
     def add_music(uv_id: str) -> None:
+        drain_pending()
         current.items.append(MusicItem(uv_id, compact=bijelkaar > 0))
 
     def add_bieb_text(uv_id: str, onderdeel: str, *, veld_pad: str = "") -> None:
         value = resolve_bieb_onderdeel(uv_id, onderdeel, veld_pad=veld_pad)
         if value:
+            drain_pending()
             current.items.append(TextItem(value))
 
     for m in _SC.finditer(text):
@@ -551,6 +558,7 @@ def parse_page_flows(text: str) -> list[PageFlow]:
             continue
 
         if name == "witruimte":
+            drain_pending()
             current.items.append(SpaceItem(_witruimte_points(params)))
             continue
 
@@ -565,10 +573,8 @@ def parse_page_flows(text: str) -> list[PageFlow]:
             # Nieuw bijelkaar-blok = nieuwe bladgroep (na een vorige met muziek)
             if current.music_ids:
                 flush_current()
-            # Paginatitel(s) alleen op het eerste bijelkaar-blad
-            if pending_titles:
-                current.items = list(pending_titles) + current.items
-                pending_titles.clear()
+            # Bladkop(pen) vóór dit eerste bijelkaar alleen hier injecteren
+            drain_pending()
             bijelkaar += 1
             continue
 

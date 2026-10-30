@@ -30,17 +30,18 @@ Dit geldt onder meer voor [layout](../layout/), [pdf](../pdf/),
 
 ## Batch: preflight, duur-schatting, bevestiging
 
-Bij meerdere bestanden (vanaf 2) tonen o.a. `layout`, `pdf.cmd`,
-`bieb accepteer`, `opkuisen` en de `*-products` / `products` eerst een
-**preflight**: hoeveel items, wat er gebeurt, en een **geschatte duur**.
-Die schatting komt uit een running gemiddelde van de laatste metingen op
-deze pc (per bewerkingstype, max. 20 samples), opgeslagen in
+Bij een batch tonen o.a. `layout`, `pdf.cmd`, `bieb accepteer`,
+`opkuisen` en de `*-products` / `products` eerst een **preflight**:
+hoeveel items, wat er gebeurt, en een **geschatte duur**. Die schatting
+komt uit een running gemiddelde van de laatste metingen op deze pc (per
+bewerkingstype, max. 20 samples), opgeslagen in
 `generated\batch_timing.json` (niet in git). Zonder eerdere metingen staat
 er expliciet „onbekend”.
 
-Daarna: **Doorgaan? [j/N]**. Met `-y` / `--yes` sla je die gewone vraag
-over (nodig in niet-interactieve runs). `products` (meerdere kinds) vraagt
-één keer; de kind-sporen krijgen intern `-y`.
+**Korte runs** (minder dan 100 items, of geschat klaar binnen ongeveer
+een halve minuut) starten daarna meteen — geen **Doorgaan?**. Met `-y` /
+`--yes` sla je een eventuele soft-vraag over (nodig zonder interactieve
+terminal). Elk product-kind bevestigt op zijn eigen todo-lijst.
 
 **Harde limiet (100+ items):** geen aparte switch onthouden. Het script
 vraagt dan **Weet je het zeker?** en daarna **HEEL zeker?** (typ precies

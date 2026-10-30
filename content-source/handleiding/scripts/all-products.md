@@ -22,12 +22,13 @@ Roept achter elkaar **alle** product-sporen aan (zelfde als
 onder `content-source\catalogus` (of onder een opgegeven pad). Het pad is
 één bronbestand of een map — zie
 [Invoer: bestand of map](../invoer-bestand-of-map/). Bij een map of
-meerdere kinds: één preflight met bevestiging (of `-y`) aan het begin;
-daarna geen nieuwe `j`/`ja`-vragen per kind (ook niet bij grote
-batches). Per kind volgt wel een eigen duur-schatting. Audio en lyrics
-horen daar gewoon bij; ze zijn geen aparte uitzondering. Mappen met
-`manueel: true` en bestanden in `input\` worden overgeslagen. Past het
-brontype niet bij een spoor, dan skip (geen fout).
+meerdere kinds toont elk kind preflight op de echte todo-lijst: korte
+runs starten zonder vraag; bij 100+ items volgt de dubbele
+zekerheidsvraag. `-y` zet eventuele soft-vragen uit. Per kind volgt een
+eigen duur-schatting. Audio en lyrics horen daar gewoon bij; ze zijn
+geen aparte uitzondering. Mappen met `manueel: true` en bestanden in
+`input\` worden overgeslagen. Past het brontype niet bij een spoor, dan
+skip (geen fout).
 
 Volgorde:
 

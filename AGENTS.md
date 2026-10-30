@@ -6,6 +6,10 @@ Organisatie-context: [orthodox-ronl/AGENTS.md](https://github.com/orthodox-ronl/
 (of org-root). Terminologie: [bron/docs/specs/terminologie.md](https://github.com/orthodox-ronl/bron/blob/main/docs/specs/terminologie.md).
 
 Tooling-contract: [docs/tooling-koppeling.md](docs/tooling-koppeling.md).
+**Contracten eerst** (hard): bij elk werk aan bestandsinhoud/export/PDF/SVG/…
+eerst VSA-tooling `docs/formats/contract-index.md` + bibliotheek-specs
+(`docs/specs/koormap-paginataal.md`, `schermpartituur.md`, …) lezen en
+naleven — zie `.cursor/rules/contracten-eerst.mdc`.
 Publicatiecontrole / sibling-namen: [docs/publicatiecontrole.md](docs/publicatiecontrole.md)
 (leesbaar: handleiding *Publicatiecontrole*).
 Lifecycle Werkbank/Catalogus: [docs/levenscyclus.md](docs/levenscyclus.md)
