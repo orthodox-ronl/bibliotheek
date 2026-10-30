@@ -80,6 +80,17 @@
     applyButtons(stand);
   }
 
+  /** Toon stand zonder localStorage te wijzigen (bv. tijdelijk OSMG bij translit). */
+  function applyTemporary(stand) {
+    if (stand !== "svg" && stand !== "osmg") return;
+    applyAll(stand);
+  }
+
+  /** Herstel de opgeslagen (of default) schermstand. */
+  function applyStored() {
+    applyAll(readStand());
+  }
+
   function onClick(event) {
     var btn = event.target.closest("[data-schermstand-switch]");
     if (!btn) return;
@@ -92,14 +103,33 @@
     if (tip) tip.open = false;
   }
 
+  function onTranslit(ev) {
+    var aan = !!(ev && ev.detail && ev.detail.aan);
+    if (aan) {
+      /* Transliteratie zit alleen in OSMG; voorkeur in localStorage blijft staan. */
+      applyTemporary("osmg");
+    } else {
+      applyStored();
+    }
+  }
+
   function init() {
     document.addEventListener("click", onClick);
     window.addEventListener("storage", function (ev) {
       if (ev.key !== STORAGE_KEY) return;
-      applyAll(readStand());
+      applyStored();
     });
-    applyAll(readStand());
+    window.addEventListener("bibliotheek:translit", onTranslit);
+    /* Na translit-toggle (laadt eerder): als translit al «aan» is, OSMG tonen. */
+    if (document.documentElement.dataset.translit === "aan") {
+      applyTemporary("osmg");
+    } else {
+      applyStored();
+    }
   }
+
+  window.__bibliotheekApplySchermstand = applyStored;
+  window.__bibliotheekApplySchermstandTemporary = applyTemporary;
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
