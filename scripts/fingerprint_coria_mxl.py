@@ -5,9 +5,10 @@ Coria play_from_url rejects URLs that do not end in .xml/.mxl/.musicxml
 filename under /mxl/c/ avoids that; the hash changes when bytes change.
 
 Coria haalt het bestand server-side op. Fetch-root staat in
-``data/coria-public-base.json`` (``base`` + ``alternate``). Na fingerprints
-kiest ``probe_coria_fetch.py`` welke host Coria wél kan ophalen (raw vs
-github.io).
+``data/coria-public-base.json`` (``base`` = github.io; geen
+``raw.githubusercontent.com`` — Coria-dev: GitHub behandelt die fetches als
+scraping en cachet mislukte URL's permanent). ``probe_coria_fetch.py``
+controleert of Coria de pages-host nog slikte.
 
 Bronnen:
 - content-source/**/*.mxl (niet input/) — page-bundle Coria-.mxl
@@ -40,7 +41,6 @@ SOURCE_TREES = (
 
 # Keep in sync with .github/workflows/pages.yml (Determine deploy target).
 PAGES_ROOT = "https://orthodox-ronl.github.io/bibliotheek"
-RAW_ROOT = "https://raw.githubusercontent.com/orthodox-ronl/bibliotheek/gh-pages"
 RESERVED_SLUGS = frozenset(
     {
         "preview",
@@ -91,7 +91,8 @@ def github_pages_base_url(branch: str) -> str:
 
 
 def coria_fetch_base_url(branch: str) -> str:
-    return _join_root(RAW_ROOT, _pages_subdir(branch))
+    """Publieke Coria-fetch-root: altijd github.io (niet raw.githubusercontent)."""
+    return github_pages_base_url(branch)
 
 
 def detect_git_branch() -> str:
@@ -117,19 +118,20 @@ def detect_git_branch() -> str:
 
 
 def write_public_base(branch: str | None = None) -> str:
-    """Schrijf provisional base (raw) + alternate (pages); probe overschrijft."""
+    """Schrijf provisional github.io-base; probe vult probed_at/results."""
     br = branch or detect_git_branch()
     base = coria_fetch_base_url(br)
-    alternate = github_pages_base_url(br)
     PUBLIC_BASE_FILE.parent.mkdir(parents=True, exist_ok=True)
     PUBLIC_BASE_FILE.write_text(
         json.dumps(
             {
                 "base": base,
-                "alternate": alternate,
+                "alternate": "",
                 "probed_at": None,
                 "canary": None,
-                "results": {"raw": "skipped", "pages": "skipped"},
+                "canaries": [],
+                "results": {"pages": "skipped"},
+                "sample_results": {},
             },
             indent=2,
         )

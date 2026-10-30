@@ -1,17 +1,14 @@
-"""Probe of Coria gepubliceerde MusicXML-canaries kan ophalen.
+"""Probe of Coria MusicXML vanaf github.io kan ophalen.
 
-Coria ``play_from_url`` haalt server-side op. Wij meten dat door Coria's
-HTML te lezen (``failed to retrieve file`` vs partijkeuze), niet door alleen
-GitHub 200 te checken.
+Coria ``play_from_url`` haalt server-side op. ``raw.githubusercontent.com``
+gebruiken we **niet**: GitHub behandelt zulke serverfetches als scraping;
+mislukte URL's cachet Coria permanent (geen retry). Canonieke fetch-host:
+``orthodox-ronl.github.io/bibliotheek/`` (+ branch-subdir).
 
-Steekproef: minstens één fingerprint per bronsoort (``.mscz.mxl``,
-``.mvsa.mxl``, ``.vsa.mxl``) die op **beide** kandidaten al publiek is.
-Een host is alleen ``ok`` als Coria **alle** samples vanaf die host
-slikt — zo vangen we raw×MSCZ-falen die een enkele MVSA-canary mist.
-
-Kandidaten: raw.githubusercontent.com (gh-pages) en github.io — zelfde
-branch-subdir als ``fingerprint_coria_mxl``. Winnaar → ``base``, andere →
-``alternate`` in ``data/coria-public-base.json``.
+Steekproef: fingerprints per bronsoort (``.mscz.mxl``, ``.mvsa.mxl``,
+``.vsa.mxl``) die al op github.io staan. Host ``ok`` alleen als Coria alle
+relevante samples slikte. Schrijft ``data/coria-public-base.json``
+(``base`` = pages; ``alternate`` leeg).
 """
 
 from __future__ import annotations
@@ -31,7 +28,6 @@ from fingerprint_coria_mxl import (
     DEST_ROOT,
     PUBLIC_BASE_FILE,
     URL_PREFIX,
-    coria_fetch_base_url,
     detect_git_branch,
     github_pages_base_url,
 )
@@ -40,11 +36,8 @@ CORIA_PLAY = "https://coria.nl/play_from_url"
 TIMEOUT_S = 20
 USER_AGENT = "orthodox-ronl-bibliotheek-coria-probe/1.0"
 
-# Steekproef alleen productstraten (niet legacy/other): MSCZ eerst
-# (bekend raw×MSCZ-falen), daarna mvsa/vsa.
 KIND_ORDER = ("mscz", "mvsa", "vsa")
 SAMPLES_PER_KIND = 1
-# MSCZ: meer samples (Untitled/raw-risico); mvsa/vsa blijven zuinig.
 MSCZ_SAMPLES = 5
 
 FAIL_MARKERS = (
@@ -139,11 +132,8 @@ def _http_head_ok(url: str, *, timeout: float = TIMEOUT_S) -> bool:
 
 
 def candidate_bases(branch: str) -> dict[str, str]:
-    """Naam → fetch-root (eindigend op /)."""
-    return {
-        "raw": coria_fetch_base_url(branch),
-        "pages": github_pages_base_url(branch),
-    }
+    """Alleen github.io (Coria-fetch). Geen raw.githubusercontent.com."""
+    return {"pages": github_pages_base_url(branch)}
 
 
 def pick_canary(*, dest_root: Path = DEST_ROOT) -> str | None:
@@ -156,10 +146,8 @@ def pick_canary(*, dest_root: Path = DEST_ROOT) -> str | None:
     return f"{URL_PREFIX}/{files[0].name}"
 
 
-def published_on_all_hosts(rel: str, bases: dict[str, str]) -> bool:
-    return all(
-        _http_head_ok(f"{base.rstrip('/')}/{rel}") for base in bases.values()
-    )
+def published_on_host(rel: str, base: str) -> bool:
+    return _http_head_ok(f"{base.rstrip('/')}/{rel}")
 
 
 def select_sample_canaries(
@@ -168,11 +156,7 @@ def select_sample_canaries(
     published: set[str] | None = None,
     per_kind: int = SAMPLES_PER_KIND,
 ) -> list[str]:
-    """Stabiele steekproef: tot ``per_kind`` unieke paden per bronsoort.
-
-    ``published``: relatieve ``mxl/c/…``-paden die op alle hosts staan.
-    Zonder ``published``: alle mapping-waarden (alleen voor unit tests).
-    """
+    """Stabiele steekproef: tot ``per_kind`` unieke paden per bronsoort."""
     by_kind: dict[str, list[str]] = {k: [] for k in KIND_ORDER}
     seen: set[str] = set()
     for key in sorted(mapping):
@@ -222,13 +206,8 @@ def find_published_samples(
     per_kind: int = SAMPLES_PER_KIND,
     dest_root: Path = DEST_ROOT,
 ) -> list[str]:
-    """Steekproef: per bronsoort HEAD tot limiet op alle hosts publiek is.
-
-    Geen HEAD over de hele catalogus — alleen tot de steekproef vol is.
-    Bij MSCZ: voorkeur voor lokaal «Untitled» / zonder identification (raw-risico),
-    en tot ``MSCZ_SAMPLES`` stuks (andere soorten: ``per_kind``).
-    """
-    # Kandidaten per kind: (sort_key, fp_key, rel)
+    """Steekproef: per bronsoort HEAD tot limiet op github.io publiek is."""
+    pages = bases.get("pages") or next(iter(bases.values()))
     buckets: dict[str, list[tuple[tuple, str, str]]] = {k: [] for k in KIND_ORDER}
     for key in mapping:
         kind = source_kind(key)
@@ -255,7 +234,7 @@ def find_published_samples(
             if rel in seen_rel:
                 continue
             if rel not in checked:
-                checked[rel] = published_on_all_hosts(rel, bases)
+                checked[rel] = published_on_host(rel, pages)
             if not checked[rel]:
                 continue
             chosen[kind].append(rel)
@@ -277,19 +256,21 @@ def host_ok_from_sample_results(sample_statuses: list[str]) -> bool:
 def score_hosts(
     sample_results: dict[str, dict[str, str]],
     samples: list[str],
-    host_names: tuple[str, ...] = ("raw", "pages"),
+    host_names: tuple[str, ...] = ("pages",),
 ) -> dict[str, str]:
-    """Host ``ok`` als alle samples lukken, behalve universeel kapotte samples.
+    """Host ``ok`` als alle (relevante) samples lukken.
 
-    Een sample dat op **alle** hosts faalt (inhoud/Coria-vertaling) telt niet
-    mee voor de hostkeuze — anders maakt één slecht fingerprint beide hosts
-    ten onrechte ``fail``.
+    Bij meerdere hosts: sample dat overal faalt telt niet mee (inhoudsfout).
+    Bij één host (pages): alle samples tellen.
     """
-    relevant = [
-        rel
-        for rel in samples
-        if any(sample_results.get(h, {}).get(rel) == "ok" for h in host_names)
-    ]
+    if len(host_names) <= 1:
+        relevant = list(samples)
+    else:
+        relevant = [
+            rel
+            for rel in samples
+            if any(sample_results.get(h, {}).get(rel) == "ok" for h in host_names)
+        ]
     out: dict[str, str] = {}
     for host in host_names:
         statuses = [
@@ -315,15 +296,15 @@ def probe_coria_for_file(file_url: str) -> str:
 
 
 def provisional_config(branch: str) -> dict:
-    """Zonder netwerk: raw primair, pages als alternate (historische default)."""
+    """Zonder netwerk: github.io als base; geen raw-alternate."""
     bases = candidate_bases(branch)
     return {
-        "base": bases["raw"],
-        "alternate": bases["pages"],
+        "base": bases["pages"],
+        "alternate": "",
         "probed_at": None,
         "canary": None,
         "canaries": [],
-        "results": {"raw": "skipped", "pages": "skipped"},
+        "results": {"pages": "skipped"},
         "sample_results": {},
     }
 
@@ -344,7 +325,7 @@ def apply_probe(
     canary: str | None = None,
     per_kind: int = SAMPLES_PER_KIND,
 ) -> int:
-    """Schrijf coria-public-base.json. Exit 1 als beide hosts falen (tenzij warn_only)."""
+    """Schrijf coria-public-base.json. Exit 1 als pages faalt (tenzij warn_only)."""
     br = branch or detect_git_branch()
     bases = candidate_bases(br)
     if skip_network:
@@ -352,7 +333,7 @@ def apply_probe(
         write_config(cfg)
         print(
             "Coria-probe overgeslagen (--skip-network); "
-            f"base={cfg['base']} alternate={cfg['alternate']}",
+            f"base={cfg['base']}",
             flush=True,
         )
         return 0
@@ -363,7 +344,7 @@ def apply_probe(
     else:
         mapping = load_fp_mapping()
         print(
-            "Coria-probe: zoek gepubliceerde steekproef "
+            "Coria-probe: zoek gepubliceerde steekproef op github.io "
             f"(mscz/mvsa/vsa, {per_kind} per soort)…",
             flush=True,
         )
@@ -384,8 +365,8 @@ def apply_probe(
         cfg["canaries"] = [local] if local else []
         write_config(cfg)
         print(
-            "Coria-probe: geen gepubliceerde steekproef op raw én pages "
-            "(nieuwe hashes nog niet op gh-pages?). "
+            "Coria-probe: geen gepubliceerde steekproef op github.io "
+            "(nieuwe hashes nog niet gedeployed?). "
             f"Provisional base={cfg['base']}",
             flush=True,
         )
@@ -411,33 +392,11 @@ def apply_probe(
     for name, verdict in results.items():
         print(f"  {name} host: {verdict}", flush=True)
 
-    # Voorkeur als beide ok: pages (juiste MusicXML Content-Type).
-    order = ("pages", "raw")
-    winner = next((n for n in order if results.get(n) == "ok"), None)
     probed_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-
-    if winner is None:
-        cfg = {
-            "base": bases["pages"],
-            "alternate": bases["raw"],
-            "probed_at": probed_at,
-            "canary": samples[0],
-            "canaries": samples,
-            "results": results,
-            "sample_results": sample_results,
-        }
-        write_config(cfg)
-        print(
-            "Coria-probe FAILED: geen host slikte alle samples "
-            f"({samples}). ♪ krijgt pages als base + raw als alternate.",
-            flush=True,
-        )
-        return 0 if warn_only else 1
-
-    alternate_name = "raw" if winner == "pages" else "pages"
+    pages_ok = results.get("pages") == "ok"
     cfg = {
-        "base": bases[winner],
-        "alternate": bases[alternate_name],
+        "base": bases["pages"],
+        "alternate": "",
         "probed_at": probed_at,
         "canary": samples[0],
         "canaries": samples,
@@ -445,19 +404,25 @@ def apply_probe(
         "sample_results": sample_results,
     }
     write_config(cfg)
-    print(
-        f"Coria-probe OK: base={winner} ({cfg['base']}) "
-        f"alternate={alternate_name} ({cfg['alternate']})",
-        flush=True,
-    )
+
+    if not pages_ok:
+        print(
+            "Coria-probe FAILED: github.io slikte niet alle samples "
+            f"({samples}). ♪ blijft op pages-base; zie sample_results.",
+            flush=True,
+        )
+        return 0 if warn_only else 1
+
+    print(f"Coria-probe OK: base=pages ({cfg['base']})", flush=True)
     return 0
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Meet of Coria raw/pages-MusicXML kan ophalen "
-            "(steekproef mscz/mvsa/vsa); schrijf coria-public-base.json."
+            "Meet of Coria github.io-MusicXML kan ophalen "
+            "(steekproef mscz/mvsa/vsa); schrijf coria-public-base.json. "
+            "Gebruikt geen raw.githubusercontent.com."
         ),
     )
     parser.add_argument(
@@ -479,12 +444,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--warn-only",
         action="store_true",
-        help="Exit 0 ook als beide hosts falen.",
+        help="Exit 0 ook als github.io-probe faalt.",
     )
     parser.add_argument(
         "--skip-network",
         action="store_true",
-        help="Geen HTTP; schrijf provisional raw+pages.",
+        help="Geen HTTP; schrijf provisional pages-base.",
     )
     args = parser.parse_args(argv)
     warn = args.warn_only or os.environ.get("CORIA_PROBE_WARN_ONLY", "").strip() in {

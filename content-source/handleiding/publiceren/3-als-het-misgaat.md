@@ -72,32 +72,32 @@ scripts\layout.cmd pad\naar\bestand.mscz
 
 Coria haalt het muziekbestand zelf vanaf internet op. **Oefenen** (tip-icoon
 **♪**) moet daarom naar een **volledig** https-adres wijzen van een fingerprint
-onder `mxl/c/<hash>.musicxml` (niet `/mxl/c/…` zonder host, niet
-`http://127.0.0.1:…`, niet de page-bundle-`.mxl` naast de partituur).
+onder `mxl/c/<hash>.musicxml` op **GitHub Pages**, bijvoorbeeld
+`https://orthodox-ronl.github.io/bibliotheek/preview/mxl/c/<hash>.musicxml`
+(niet `/mxl/c/…` zonder host, niet `http://127.0.0.1:…`, niet de
+page-bundle-`.mxl` naast de partituur).
 
-Welke host Coria mag ophalen, wisselt: soms faalt
-`raw.githubusercontent.com/.../gh-pages/…`, soms
-`orthodox-ronl.github.io/bibliotheek/…`. Daarom doet de build een **Coria-probe**
-(`python scripts\probe_coria_fetch.py`): die vraagt Coria voor een
-**steekproef** (tot vijf risicovolle `.mscz.mxl`-fingerprints plus één
-`.mvsa.mxl` en één `.vsa.mxl`, die al op beide hosts staan) of ophalen
-lukt. Een host telt alleen mee als Coria **alle relevante** samples vanaf
-die host slikte — zo vangen we gevallen waarbij raw wél de meeste bestanden
-maar niet elk MSCZ-bestand pakt.
-De werkende host komt in `data\coria-public-base.json` als `base`, de andere
-als `alternate`. De primaire ♪-link gebruikt `base`; in het Oefenen-menu
-staat ook **Werkt Oefenen niet? Andere bron** (de `alternate`-host).
+Gebruik **geen** `raw.githubusercontent.com` voor Coria. Volgens het
+Coria-devteam ziet GitHub de Coria-server als scraper en beperkt dat verkeer
+onvoorspelbaar. Coria cachet geslaagde downloads, maar ook mislukte URL’s:
+die worden **niet opnieuw** geprobeerd — je krijgt meteen
+`failed to retrieve file`. Daardoor kan het ene bestand op raw “toevallig”
+blijven werken en het andere permanent falen.
+
+De site zet de Coria-fetch-basis daarom op github.io
+(`data\coria-public-base.json`). `python scripts\probe_coria_fetch.py`
+controleert met een steekproef (mscz/mvsa/vsa) of Coria die host nog slikte.
 
 Draai `scripts\check.cmd` of `scripts\build.cmd` opnieuw zodat fingerprints,
-probe en Hugo meelopen. Met `check --strict` faalt de check als **beide**
-hosts bij Coria `failed to retrieve file` geven.
+probe en Hugo meelopen. Met `check --strict` faalt de check als de
+github.io-probe bij Coria faalt.
 
 `check` controleert ook dat Coria-`.mxl` geen verboden
 `source`+`encoding`-combinatie heeft (anders `translation failed`).
 
-Een nieuw zangstuk dat nog niet op branch `gh-pages` staat, opent in Coria
-pas na een `git push` (Coria kan de lokale Hugo-server niet bereiken; de probe
-vindt dan nog geen gepubliceerde canary).
+Een nieuw zangstuk dat nog niet op branch `gh-pages` / Pages staat, opent in
+Coria pas na een `git push` (Coria kan de lokale Hugo-server niet bereiken; de
+probe vindt dan nog geen gepubliceerde canary).
 
 ## Coria: `translation failed` of check weigert de `.mxl`
 

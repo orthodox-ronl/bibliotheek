@@ -6,8 +6,10 @@
 
   Bron: data/coria-public-base.json (gitignored; via readFile).
   Geschreven door fingerprint_coria_mxl.py + probe_coria_fetch.py:
-  - base = host die Coria bij de laatste probe wél ophaalde
-  - alternate = de andere kandidaat (raw vs github.io)
+  - base = github.io (orthodox-ronl.github.io/bibliotheek/…); nooit
+    raw.githubusercontent.com (Coria-dev: scraping-blokkades + permanente
+    fail-cache)
+  - alternate = leeg (geen tweede onbetrouwbare host)
 
   Context: string (legacy) of dict met src, optioneel:
     position, page, which ("base"|"alternate", default base).
@@ -51,7 +53,7 @@
 {{- if or (not $pub) (not (strings.HasPrefix $pub "http")) -}}
   {{- if eq $which "alternate" -}}
   {{- else -}}
-  {{- errorf "%s: Coria kan geen publieke https-basis bepalen (nu %q; site.BaseURL=%q). Oplossing: python scripts\\fingerprint_coria_mxl.py en python scripts\\probe_coria_fetch.py." $loc $pub site.BaseURL -}}
+  {{- errorf "%s: Coria kan geen publieke https-basis bepalen (nu %q; site.BaseURL=%q). Oplossing: python scripts\\fingerprint_coria_mxl.py en python scripts\\probe_coria_fetch.py (base = github.io)." $loc $pub site.BaseURL -}}
   {{- end -}}
 {{- else -}}
 {{- printf "%s/%s" $pub $src -}}

@@ -54,7 +54,7 @@ vanuit de repo-root.
 Intern (geen apart gebruikerscommando): `python scripts\fingerprint_coria_mxl.py`
 maakt `/mxl/c/<hash>.musicxml` en `data/coria-fp.json` voor **Oefenen** (♪).
 Daarna `python scripts\probe_coria_fetch.py`: steekproef mscz/mvsa/vsa bij
-Coria (raw vs github.io); schrijft `base`/`alternate` in
+Coria via **github.io** (geen raw); schrijft `base` in
 `data/coria-public-base.json`.
 Wordt al door `check` / `build` / `serve` aangeroepen.
 `check_koormap_slot_links.py` controleert relatieve links in koormappen

@@ -51,6 +51,15 @@ def test_source_kind():
     assert probe.source_kind("mxl__legacy.musicxml") == "other"
 
 
+def test_candidate_bases_pages_only():
+    bases = probe.candidate_bases("development")
+    assert list(bases.keys()) == ["pages"]
+    assert "raw.githubusercontent" not in bases["pages"]
+    assert bases["pages"].startswith(
+        "https://orthodox-ronl.github.io/bibliotheek/preview/"
+    )
+
+
 def test_select_sample_canaries_prefers_kinds():
     mapping = {
         "mxl__z__late.mvsa.mxl": "mxl/c/mvsa2.musicxml",
@@ -69,10 +78,10 @@ def test_select_sample_canaries_prefers_kinds():
     samples = probe.select_sample_canaries(
         mapping, published=published, per_kind=1
     )
-    assert samples[0] == "mxl/c/mscz1.musicxml"  # mscz first, sorted key
+    assert samples[0] == "mxl/c/mscz1.musicxml"
     assert "mxl/c/mvsa1.musicxml" in samples
     assert "mxl/c/vsa1.musicxml" in samples
-    assert "mxl/c/mscz2.musicxml" not in samples  # per_kind=1
+    assert "mxl/c/mscz2.musicxml" not in samples
 
 
 def test_host_ok_from_sample_results():
@@ -81,26 +90,23 @@ def test_host_ok_from_sample_results():
     assert probe.host_ok_from_sample_results([]) is False
 
 
-def test_score_hosts_ignores_universally_broken_sample():
+def test_score_hosts_single_host_counts_all_samples():
+    samples = ["mxl/c/good.musicxml", "mxl/c/bad.musicxml"]
+    sample_results = {
+        "pages": {"mxl/c/good.musicxml": "ok", "mxl/c/bad.musicxml": "fail"},
+    }
+    assert probe.score_hosts(sample_results, samples, ("pages",)) == {
+        "pages": "fail",
+    }
+
+
+def test_score_hosts_multi_ignores_universally_broken():
     samples = ["mxl/c/good.musicxml", "mxl/c/bad.musicxml"]
     sample_results = {
         "raw": {"mxl/c/good.musicxml": "fail", "mxl/c/bad.musicxml": "fail"},
         "pages": {"mxl/c/good.musicxml": "ok", "mxl/c/bad.musicxml": "fail"},
     }
-    # bad faalt overal → negeren; raw faalt op good → raw fail; pages ok
-    assert probe.score_hosts(sample_results, samples) == {
-        "raw": "fail",
-        "pages": "ok",
-    }
-
-
-def test_score_hosts_raw_fails_one_relevant_sample():
-    samples = ["mxl/c/mscz.musicxml", "mxl/c/mvsa.musicxml"]
-    sample_results = {
-        "raw": {"mxl/c/mscz.musicxml": "fail", "mxl/c/mvsa.musicxml": "ok"},
-        "pages": {"mxl/c/mscz.musicxml": "ok", "mxl/c/mvsa.musicxml": "ok"},
-    }
-    assert probe.score_hosts(sample_results, samples) == {
+    assert probe.score_hosts(sample_results, samples, ("raw", "pages")) == {
         "raw": "fail",
         "pages": "ok",
     }
@@ -118,17 +124,15 @@ def test_apply_probe_skip_network(tmp_path: Path, monkeypatch):
     assert code == 0
     data = json.loads(cfg_path.read_text(encoding="utf-8"))
     assert data["base"].startswith(
-        "https://raw.githubusercontent.com/orthodox-ronl/bibliotheek/gh-pages/preview/"
-    )
-    assert data["alternate"].startswith(
         "https://orthodox-ronl.github.io/bibliotheek/preview/"
     )
-    assert data["results"]["raw"] == "skipped"
+    assert data["alternate"] == ""
+    assert "raw" not in data["results"]
+    assert data["results"]["pages"] == "skipped"
     assert data["canaries"] == []
 
 
 def test_provisional_main_branch():
     cfg = probe.provisional_config("main")
-    assert cfg["base"].endswith("gh-pages/")
-    assert "preview" not in cfg["base"]
-    assert cfg["alternate"] == "https://orthodox-ronl.github.io/bibliotheek/"
+    assert cfg["base"] == "https://orthodox-ronl.github.io/bibliotheek/"
+    assert cfg["alternate"] == ""
