@@ -123,6 +123,11 @@ gewijzigde koormap-`index.md` via [pdf](../../scripts/pdf/). Eerst
 kijken: `scripts\products-changed.cmd --dry-run`. Man-page:
 [products-changed](../../scripts/products-changed/).
 
+**Alles wat `check --strict` nog als auto-fixbaar ziet** (vaak stale
+blad-`index.md.pdf`): `scripts\fix.cmd --check --dry-run` toont de
+lijst; `scripts\fix.cmd --check` werkt hem af. Man-page:
+[fix](../../scripts/fix/).
+
 Contract-ongeldigheid geldt voor **`.mscz.mxl` / `.mvsa.mxl` / `.vsa.mxl`**
 (profiel satb of mono). PDF, mp3, lyrics en tekstblad kennen geen aparte
 contract-gate in deze stap — daar tellen missing/stale (en `--force`).

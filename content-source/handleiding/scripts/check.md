@@ -92,12 +92,19 @@ of die PDF er is en niet ouder is dan de Markdown of notatiebron
 fout met `--strict`, in CI, of op `main`. Zonder die PDF tonen
 Download pagina en Print pagina niet.
 
+Na de product-/pdf-/contract-checks schrijft `check` altijd
+`data\check-fixlist.json`: elk auto-fixbaar probleem plus het
+eenvoudigste herstelcommando. Afwerken: [fix](../fix/)
+(`fix --check --dry-run` inventariseert opnieuw en toont de lijst;
+`fix --check` werkt hem af).
+
 # EXAMPLES
 
 ```cmd
 cd /d C:\Git\orthodox-ronl\bibliotheek
 check
 check --strict
+scripts\fix.cmd --check --dry-run
 ```
 
 # WHEN
@@ -107,6 +114,7 @@ genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole)
 
 # SEE ALSO
 
+- [fix](../fix/)
 - [validate](../validate/)
 - [products (vsa)](../vsa-products/)
 - [products (mscz)](../mscz-products/)

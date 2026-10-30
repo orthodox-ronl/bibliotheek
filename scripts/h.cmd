@@ -52,7 +52,9 @@ echo     overzicht of hulp per commando
 echo   validate
 echo     vsa/mvsa validate op de catalogus
 echo   check
-echo     preflight / CI-spiegel ^(validate, producten, Hugo^)
+echo     preflight / CI-spiegel ^(validate, producten, Hugo^); schrijft fixlist
+echo   fix
+echo     auto-fixbare check-problemen afwerken ^(--check / --dry-run^)
 echo   build
 echo     site bouwen naar generated\site
 echo   serve
