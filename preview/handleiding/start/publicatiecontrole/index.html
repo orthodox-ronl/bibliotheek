@@ -91,6 +91,10 @@ gewijzigde koormap-<code>index.md</code> via <a href=../../scripts/pdf/>pdf</a>
 . Eerst
 kijken: <code>scripts\products-changed.cmd --dry-run</code>. Man-page:
 <a href=../../scripts/products-changed/>products-changed</a>
+.</p><p><strong>Alles wat <code>check --strict</code> nog als auto-fixbaar ziet</strong> (vaak stale
+blad-<code>index.md.pdf</code>): <code>scripts\fix.cmd --check --dry-run</code> toont de
+lijst; <code>scripts\fix.cmd --check</code> werkt hem af. Man-page:
+<a href=../../scripts/fix/>fix</a>
 .</p><p>Contract-ongeldigheid geldt voor <strong><code>.mscz.mxl</code> / <code>.mvsa.mxl</code> / <code>.vsa.mxl</code></strong>
 (profiel satb of mono). PDF, mp3, lyrics en tekstblad kennen geen aparte
 contract-gate in deze stap — daar tellen missing/stale (en <code>--force</code>).</p><h2 id=bestandsnamen-doelvorm>Bestandsnamen (doelvorm)</h2><h3 id=stam>Stam</h3><p>De <strong>publicatiestam</strong> is de bestandsnaam zonder extensies:</p><p><code>{zangstuk-id}-{variant-id}-{uitvoeringsvorm-id}</code></p><p>Alleen kleine letters, cijfers, <code>_</code> en <code>-</code> — <strong>geen spaties</strong>.
