@@ -63,20 +63,22 @@ MuseScore 4; gebruik niet MuseScore 3. Open het opdrachtvenster opnieuw
 na installatie. (Voor alleen <code>.vsa</code> → Coria is MuseScore niet nodig:
 <code>products --kinds vsa</code>.)</p><h2 id=de-pagina-is-lelijk-of-de-stijl-is-weg>De pagina is lelijk of de stijl is weg</h2><p>Meestal: geëxporteerd naar MusicXML en weer geopend. Ga terug naar de
 basispartituur-<code>.mscz</code> (of opnieuw vanaf opgekuiste <code>.mxl</code> plus normaliseren). Daarna:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\layout.cmd pad\naar\bestand.mscz
-</span></span></code></pre></div><h2 id=coria-failed-to-retrieve-file>Coria: <code>failed to retrieve file</code></h2><p>Coria haalt het muziekbestand zelf vanaf internet op. <strong>Oefenen</strong> (via
-tip-icoon <strong>♪</strong>) moet daarom naar een <strong>volledig</strong> adres op
-<code>raw.githubusercontent.com</code>
-wijzen, bijvoorbeeld
-<code>https://raw.githubusercontent.com/orthodox-ronl/bibliotheek/gh-pages/preview/mxl/c/&lt;hash>.musicxml</code>
-(fingerprint op branch <code>gh-pages</code>). De website voor mensen blijft
-<code>https://orthodox-ronl.github.io/bibliotheek/</code>; Coria&rsquo;s server faalt op
-<code>github.io</code>-MusicXML regelmatig met <code>failed to retrieve file</code>.
-Gebruik geen pad zonder host (<code>/mxl/c/…</code>), geen <code>http://127.0.0.1:…</code>,
-geen <code>github.io</code>-MusicXML, en geen page-bundle-<code>.mxl</code>.</p><p>Draai <code>scripts\check.cmd</code> of <code>scripts\build.cmd</code> opnieuw zodat
-<code>fingerprint_coria_mxl.py</code> en Hugo meelopen.
-<code>check</code> controleert ook dat Coria-<code>.mxl</code> geen verboden
+</span></span></code></pre></div><h2 id=coria-failed-to-retrieve-file>Coria: <code>failed to retrieve file</code></h2><p>Coria haalt het muziekbestand zelf vanaf internet op. <strong>Oefenen</strong> (tip-icoon
+<strong>♪</strong>) moet daarom naar een <strong>volledig</strong> https-adres wijzen van een fingerprint
+onder <code>mxl/c/&lt;hash>.musicxml</code> (niet <code>/mxl/c/…</code> zonder host, niet
+<code>http://127.0.0.1:…</code>, niet de page-bundle-<code>.mxl</code> naast de partituur).</p><p>Welke host Coria mag ophalen, wisselt: soms faalt
+<code>raw.githubusercontent.com/.../gh-pages/…</code>, soms
+<code>orthodox-ronl.github.io/bibliotheek/…</code>. Daarom doet de build een <strong>Coria-probe</strong>
+(<code>python scripts\probe_coria_fetch.py</code>): die vraagt Coria voor één canary of
+ophalen lukt, zet de werkende host in <code>data\coria-public-base.json</code> als
+<code>base</code>, en de andere als <code>alternate</code>. De primaire ♪-link gebruikt <code>base</code>; in
+het Oefenen-menu staat ook <strong>Werkt Oefenen niet? Andere bron</strong> (de
+<code>alternate</code>-host).</p><p>Draai <code>scripts\check.cmd</code> of <code>scripts\build.cmd</code> opnieuw zodat fingerprints,
+probe en Hugo meelopen. Met <code>check --strict</code> faalt de check als <strong>beide</strong>
+hosts bij Coria <code>failed to retrieve file</code> geven.</p><p><code>check</code> controleert ook dat Coria-<code>.mxl</code> geen verboden
 <code>source</code>+<code>encoding</code>-combinatie heeft (anders <code>translation failed</code>).</p><p>Een nieuw zangstuk dat nog niet op branch <code>gh-pages</code> staat, opent in Coria
-pas na een <code>git push</code> (Coria kan de lokale Hugo-server niet bereiken).</p><h2 id=coria-translation-failed-of-check-weigert-de-mxl>Coria: <code>translation failed</code> of check weigert de <code>.mxl</code></h2><p>Coria’s vertaler (<code>play_from_url</code>) kan op meer dan één MusicXML-vorm
+pas na een <code>git push</code> (Coria kan de lokale Hugo-server niet bereiken; de probe
+vindt dan nog geen gepubliceerde canary).</p><h2 id=coria-translation-failed-of-check-weigert-de-mxl>Coria: <code>translation failed</code> of check weigert de <code>.mxl</code></h2><p>Coria’s vertaler (<code>play_from_url</code>) kan op meer dan één MusicXML-vorm
 falen met dezelfde melding <code>translation failed</code>. In de bibliotheek zijn
 dit de bekende gevallen:</p><ol><li><code>&lt;identification></code> heeft zowel <code>&lt;source></code> als <code>&lt;encoding></code> —
 bronvermelding hoort in <code>miscellaneous-field name="bron"</code>.</li><li>In <code>&lt;identification></code> staat <code>&lt;miscellaneous></code> vóór <code>&lt;encoding></code> —
@@ -128,4 +130,4 @@ Capella, VOW of VSA gaat.</p><div class=nav-buttons><a class=btn href=/bibliothe
 </a><a class=site-jump href=https://orthodox-ronl.github.io/VSA-tooling/ title="VSA-tooling - documentatie"><svg class="site-jump-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8.5 3 7 8.5 1.5 10 7 11.5 8.5 17 10 11.5 15.5 10 10 8.5 8.5 3zm7 4L14 10.5 9.5 12 14 13.5 15.5 19 17 13.5 22.5 12 17 10.5 15.5 7z"/></svg>
 <span class=site-jump-label>VSA-tooling</span>
 </a><a class=site-jump href=https://github.com/orthodox-ronl/bibliotheek title="VSA-demo - broncode op GitHub"><svg class="site-jump-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483.0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951.0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65.0.0.84-.27 2.75 1.026A9.564 9.564.0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688.0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855.0 1.338-.012 2.419-.012 2.747.0.268.18.58.688.482A10.019 10.019.0 0022 12.021C22 6.484 17.522 2 12 2z"/></svg>
-<span class=site-jump-label>GitHub</span></a></nav><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-25</p></div></div></footer></body></html>
+<span class=site-jump-label>GitHub</span></a></nav><div class=site-meta><p class=page-git-date>Bijgewerkt: 2026-10-30</p></div></div></footer></body></html>

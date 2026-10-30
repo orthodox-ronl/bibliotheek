@@ -90,6 +90,10 @@ uitgevoerde &lt;code&gt;bieb hernoem&lt;/code&gt;&lt;/li&gt;
 niet alleen het zangstuk-id is en &lt;code&gt;linkTitle&lt;/code&gt; een leesbaar
 uitvoeringsvorm-label is (waarschuwing; met &lt;code&gt;--strict&lt;/code&gt; fout)&lt;/li&gt;
 &lt;li&gt;Coria-fingerprints (&lt;code&gt;python scripts\fingerprint_coria_mxl.py&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Coria-fetch-probe (&lt;code&gt;python scripts\probe_coria_fetch.py&lt;/code&gt;) — of Coria
+een gepubliceerde canary vanaf raw of github.io kan ophalen; zet
+&lt;code&gt;base&lt;/code&gt;/&lt;code&gt;alternate&lt;/code&gt; in &lt;code&gt;data\coria-public-base.json&lt;/code&gt;. Zonder &lt;code&gt;--strict&lt;/code&gt;
+alleen waarschuwen als beide falen; met &lt;code&gt;--strict&lt;/code&gt; exit 1&lt;/li&gt;
 &lt;li&gt;Legacy bladermap-SVG (&lt;code&gt;oefenhoek-index --svg&lt;/code&gt;) — plaatje onder
 &lt;code&gt;static\vsa\bladermap\&lt;/code&gt; uit &lt;code&gt;.vsa&lt;/code&gt;, zonder stempel. Het scherm
 gebruikt sibling &lt;code&gt;{stam}.vsa.svg&lt;/code&gt; (stap 2) zodra die er is; dit
@@ -125,20 +129,20 @@ auto-fixbaar was — op 0 problemen uitkomen.&lt;/p&gt;</description></item><ite
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;build
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Maakt Coria-fingerprints, ververst het legacy bladermap-plaatje uit
+&lt;p&gt;Maakt Coria-fingerprints, doet een Coria-fetch-probe (waarschuwing als beide
+hosts falen), ververst het legacy bladermap-plaatje uit
 &lt;code&gt;.vsa&lt;/code&gt; (&lt;code&gt;oefenhoek-index --svg&lt;/code&gt;), schrijft de bouwtijd naar
 &lt;code&gt;data\build.yaml&lt;/code&gt; (footer «Gegenereerd» op de homepage; niet committen),
 en bouwt de site naar &lt;code&gt;generated\site&lt;/code&gt;. Anders dan &lt;code&gt;check&lt;/code&gt; draait
 &lt;code&gt;build&lt;/code&gt; geen &lt;code&gt;vsa validate&lt;/code&gt; en geen publicatiecontrole. &lt;code&gt;build&lt;/code&gt; maakt
 geen catalogus-siblings en geen &lt;code&gt;index.md.pdf&lt;/code&gt;. Commit &lt;code&gt;generated\&lt;/code&gt;
-en &lt;code&gt;static\mxl\&lt;/code&gt; niet (gitignore).&lt;/p&gt;
-&lt;h1 id="when"&gt;WHEN&lt;/h1&gt;
-&lt;p&gt;Als je het site-artifact nodig hebt zonder een preview-server te starten.&lt;/p&gt;</description></item><item><title>serve</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/serve/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/serve/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+en &lt;code&gt;static\mxl\&lt;/code&gt; niet (gitignore).&lt;/p&gt;</description></item><item><title>serve</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/serve/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/serve/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\serve.cmd&lt;/code&gt; — lokale website-preview in de browser&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;serve
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Maakt Coria-fingerprints, ververst het legacy bladermap-plaatje uit
+&lt;p&gt;Maakt Coria-fingerprints, doet een Coria-fetch-probe (waarschuwing als beide
+hosts falen), ververst het legacy bladermap-plaatje uit
 &lt;code&gt;.vsa&lt;/code&gt;, schrijft de bouwtijd naar &lt;code&gt;data\build.yaml&lt;/code&gt; (footer
 «Gegenereerd» op de homepage), en start de Hugo-development server.
 Open daarna &lt;strong&gt;http://127.0.0.1:18732/&lt;/strong&gt;. Niet poort &lt;strong&gt;1313&lt;/strong&gt; (lokaal
