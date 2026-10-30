@@ -17,7 +17,7 @@
     {{- if fileExists $svgFile -}}
       {{- $src := printf "vsa/bladermap/%s" $rel -}}
       {{- $showedSvg = true -}}
-<div class="vsa-container"><img class="vsa-notation" src="{{ $src | relURL }}" alt="{{ $alt }}" loading="lazy"></div>
+<div class="vsa-container"><img class="vsa-notation" src="{{ $src | relURL }}" alt="{{ $alt }}"></div>
     {{- end -}}
   {{- end -}}
 {{- end -}}

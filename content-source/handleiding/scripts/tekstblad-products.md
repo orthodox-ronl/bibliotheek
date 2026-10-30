@@ -6,7 +6,7 @@ weight: 115
 
 # NAME
 
-`scripts\products.cmd --kinds tekstblad` — A4-PDF maken bij een catalogus-`.tekstblad.md`
+`scripts\products.cmd --kinds tekstblad` — scherm-SVG’s bij catalogus-`.tekstblad.md` met `::: vsa-notatie`
 
 # SYNOPSIS
 
@@ -17,20 +17,23 @@ scripts\products.cmd --kinds tekstblad [pad] [--force] [--dry-run]
 # DESCRIPTION
 
 Zoekt canonieke bronnen `{stam}.tekstblad.md` onder het opgegeven pad
-(of, zonder pad, onder `content-source\catalogus`) en schrijft ernaast
-`{stam}.tekstblad.pdf` via `vsa pdf`. In de PDF komt een stamp
-(`vsa-source-sha256`, `vsa-source-kind=tekstblad`) zodat `check` kan zien
-of de PDF nog bij de bron past.
+(of, zonder pad, onder `content-source\catalogus`). Als de bron
+`::: vsa-notatie`-blokken heeft, schrijft het script ernaast:
 
-Bestanden in `input\` en mappen met `manueel: true` worden
-overgeslagen. CI genereert deze PDF’s niet; jij wel lokaal (Chrome of Edge
-nodig voor `vsa pdf`), daarna bron + PDF samen committen.
+- `{stam}.tekstblad.scherm.html` — dezelfde HTML/tekst, met elk VSA-blok
+  als `<img>` naar een sibling-SVG;
+- `{stam}-…-block-N.svg` — de getekende notatie voor schermweergave
+  (shortcode `bieb`).
+
+Zonder `::: vsa-notatie` doet dit kind niets. Pagina-PDF (Download/Print)
+hoort bij `scripts\pdf.cmd` (`index.md.pdf`), niet bij dit product-kind.
+Bestanden in `input\` en mappen met `manueel: true` worden overgeslagen.
 
 # OPTIONS
 
 | Optie | Betekenis |
 | --- | --- |
-| `--force` | Bestaande PDF overschrijven |
+| `--force` | Bestaande scherm-HTML/SVG’s overschrijven |
 | `--dry-run` | Alleen tonen wat er zou gebeuren |
 
 # EXAMPLES
@@ -42,12 +45,14 @@ scripts\products.cmd --kinds tekstblad content-source\catalogus\dialoog-met-diak
 
 # WHEN
 
-Als de `.tekstblad.md` klaar is voor publicatie-PDF, of als `check --strict`
-meldt dat de PDF ontbreekt, zonder stamp is, of verouderd.
+Als je `::: vsa-notatie` in een tekstblad hebt gezet of gewijzigd, of als
+Hugo waarschuwt dat `.tekstblad.scherm.html` ontbreekt (ruwe VSA op
+scherm). Commit de `.tekstblad.md` samen met de scherm-HTML en de
+block-SVG’s.
 
 # SEE ALSO
 
 - [check](../check/)
-- [pdf](../pdf/) — generieke markdown ? PDF
+- [pdf](../pdf/) — blad `index.md.pdf` uit tekstblad of notatiebron
 - Workflow: [Tekstblad](/handleiding/werktrajecten/tekstblad/)
 - [Publicatiecontrole](/handleiding/start/publicatiecontrole/)

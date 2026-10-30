@@ -19,7 +19,7 @@ scripts\pdf.cmd --all-koormappen [--force]
 
 # DESCRIPTION
 
-Maakt de PDF achter de knoppen **Download pagina** en **Print pagina**: één
+Maakt de PDF achter de knop **Download pagina**: één
 bestand `index.md.pdf` naast de Markdown van een bladermap-pagina (Hugo
 page resource). Dat is de PDF van de **getoonde pagina** (koormap-slot of
 catalogus-uitvoeringsvorm), niet hetzelfde als de losse catalogus-product-PDF
@@ -36,9 +36,8 @@ zodra de pagina zulke bronnen of `pdf-bijelkaar` gebruikt).
 Catalogus-leaves: ontwerp en restmijlpalen in
 `docs/plans/catalogus-index-md-pdf.md`.
 
-Beide knoppen gebruiken die PDF (opslaan respectievelijk afdrukken). Bij
-**Download pagina** stelt de site een bestandsnaam voor: frontmatter
-`pdf_bestandsnaam`; anders op een koormap `title`, op een catalogus-blad
+**Download pagina** gebruikt die PDF. De site stelt een bestandsnaam voor:
+frontmatter `pdf_bestandsnaam`; anders op een koormap `title`, op een catalogus-blad
 de afgeleide bladtitel; anders de mapnaam — zie
 `docs\specs\koormap-paginataal.md`. Zonder dit bestand tonen de knoppen
 niet. Er is geen aparte browser-HTML-afdruk meer via de navigatie (dat
@@ -72,7 +71,7 @@ bladreeks (`stem-1.svg`, …) onder elkaar gezet. Vereist MuseScore 4 (bij
 
 Catalogus-leaf **zonder** notatie (stub / `voorzien`, geen tekstblad): één
 A4 met de afgeleide titel en de tekst dat het blad voorzien is. Zelfde
-bestand `index.md.pdf`, zodat Download/Print pagina werken.
+bestand `index.md.pdf`, zodat **Download pagina** werkt.
 `bieb accepteer --stub` maakt die PDF meteen mee.
 
 Catalogus-leaf met alleen een **tekstblad** (`.tekstblad.pdf`): titel uit
@@ -105,7 +104,7 @@ scripts\pdf.cmd content-source\koormappen\hemelum\liturgie-zondag
 # WHEN
 
 Je hebt de shortcodes op een slot-pagina gezet of gewijzigd en wilt de
-knoppen Download/Print pagina een actuele pagina-PDF geven. Ook vóór
+knop **Download pagina** een actuele pagina-PDF geven. Ook vóór
 push/PR: `check` (en CI) eist die PDF bij bladen met `bieb`/`muziek`
 waar een notatiebron bestaat — zie [check](../check/).
 

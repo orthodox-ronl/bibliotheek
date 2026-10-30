@@ -65,6 +65,7 @@
 {{- $fromIrMxl := slice -}}
 {{- $musicSvgs := slice -}}
 {{- $tekstbladBody := "" -}}
+{{- $tekstbladScherm := "" -}}
 {{- $vsas := slice -}}
 {{- $hasMscz := false -}}
 {{- /* Alle page resources (glob op *.from-ir.musicxml faalt soms bij
@@ -114,6 +115,12 @@
             {{- $musicSvgs = $musicSvgs | append $url -}}
           {{- end -}}
         {{- end -}}
+        {{- if and (not $tekstbladScherm) (strings.HasSuffix $nameLower ".tekstblad.scherm.html") -}}
+          {{- $srcPath := printf "%s/%s" $srcDir .Name -}}
+          {{- if fileExists $srcPath -}}
+            {{- $tekstbladScherm = readFile $srcPath -}}
+          {{- end -}}
+        {{- end -}}
         {{- if and (not $tekstbladBody) (strings.HasSuffix $nameLower ".tekstblad.md") -}}
           {{- $srcPath := printf "%s/%s" $srcDir .Name -}}
           {{- if fileExists $srcPath -}}
@@ -151,11 +158,11 @@
 <div class="score-scherm score-scherm--svg" data-scherm="svg">
   {{- if $musicSvgs -}}
     {{- range $musicSvgs -}}
-<div class="vsa-container"><img class="vsa-notation" src="{{ . }}" alt="{{ $alt }}" loading="lazy"></div>
+<div class="vsa-container"><img class="vsa-notation" src="{{ . }}" alt="{{ $alt }}"></div>
     {{- end -}}
   {{- else if $staticSvgs -}}
     {{- range $staticSvgs -}}
-<div class="vsa-container"><img class="vsa-notation" src="{{ . | relURL }}" alt="{{ $alt }}" loading="lazy"></div>
+<div class="vsa-container"><img class="vsa-notation" src="{{ . | relURL }}" alt="{{ $alt }}"></div>
     {{- end -}}
   {{- else -}}
 <p class="score-scherm-missing">Geen SVG-product voor dit blad. Kies OSMG in {} of vernieuw met <code>scripts\products.cmd</code>.</p>
@@ -172,9 +179,17 @@
 <p class="score-scherm-missing">Geen <code>.from-ir.musicxml</code> voor OSMG. Kies SVG of vernieuw met <code>scripts\products.cmd --kinds mvsa</code>.</p>
   {{- end -}}
 </div>
-{{- else if $tekstbladBody -}}
+{{- else if or $tekstbladScherm $tekstbladBody -}}
+  {{- if and $tekstbladBody (not $tekstbladScherm) (findRE `(?i):::[\t ]*vsa-notatie` $tekstbladBody) -}}
+    {{- warnf "%s: tekstblad heeft ::: vsa-notatie zonder .tekstblad.scherm.html (ruwe bron op scherm). Vernieuw met scripts\\products.cmd --kinds tekstblad. Zie /handleiding/werktrajecten/tekstblad/." $loc -}}
+  {{- end -}}
+  {{- /* __TEKSTBLAD_ASSET__/… → catalogus-leaf-URL (werkt ook vanuit koormappen). */ -}}
+  {{- $tekstbladHtml := or $tekstbladScherm $tekstbladBody -}}
+  {{- if $tekstbladScherm -}}
+    {{- $tekstbladHtml = replace $tekstbladHtml "__TEKSTBLAD_ASSET__/" $p.RelPermalink -}}
+  {{- end -}}
 <div class="tekstblad-scherm vsa-container" role="article" aria-label="{{ $alt }}">
-{{ $tekstbladBody | safeHTML }}
+{{ $tekstbladHtml | safeHTML }}
 </div>
 {{- else if $pdf -}}
 <div class="pdf-sheet vsa-container" data-pdf-src="{{ $pdf }}">

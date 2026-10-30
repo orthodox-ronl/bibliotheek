@@ -70,10 +70,10 @@ de layout.
 **Slot-pagina** (`index.md`): gewone markdown plus shortcodes. Titels en
 uitleg zet je zelf; `bieb` haalt muziek (en desgewenst titel/bron) uit de
 catalogus; bladtitels met `kop`; bladindeling in de download met
-`pdf-pagina` / `pdf-bijelkaar`. Bovenaan de pagina: **Download pagina** en
-**Print pagina** als `index.md.pdf` bestaat — beide gebruiken die PDF
-(niet de browserafdruk van de HTML). De voorgestelde bestandsnaam bij
-downloaden komt uit frontmatter `pdf_bestandsnaam`; anders op een
+`pdf-pagina` / `pdf-bijelkaar`. Bovenaan de pagina: **Download pagina**
+als `index.md.pdf` bestaat (niet de browserafdruk van de HTML). De
+voorgestelde bestandsnaam bij downloaden komt uit frontmatter
+`pdf_bestandsnaam`; anders op een
 **koormap** uit `title` en op een **catalogus**-blad uit de afgeleide
 bladtitel; anders uit de mapnaam. Bij elk muziekblok: tip-icoon **♪** voor
 **Oefenen** / **Beluisteren** van **dat** stuk. Pagina-PDF bouwen:
@@ -157,9 +157,9 @@ shortcode `bieb` gebruiken het pad. Op id-pagina’s zet je geen frontmatter
 
 Op een **uitvoeringsvorm-blad** zet je in de Markdown geen tweede
 hoofdtitel (`# …`): de site toont al één titel boven de partituur. De body
-is meestal alleen de regel met `bieb`. De PDF achter **Download pagina** /
-**Print pagina** (`index.md.pdf`) volgt dezelfde bladintentie; zie het
-plan `docs/plans/catalogus-index-md-pdf.md` en het script
+is meestal alleen de regel met `bieb`. De PDF achter **Download pagina**
+(`index.md.pdf`) volgt dezelfde bladintentie; zie het plan
+`docs/plans/catalogus-index-md-pdf.md` en het script
 [pdf](../scripts/pdf/).
 
 ### Afleiding per laag

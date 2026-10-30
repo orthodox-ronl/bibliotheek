@@ -156,7 +156,7 @@ bibliotheek is die vorm **normatief voor nieuwe en vernieuwde producten**.
 
 Liturgische tekst/dialoog is Markdown, maar een kale `.md` is te breed
 (Hugo-pagina’s zijn ook `.md`). Daarom blijft het inhoudstype in de naam:
-`{stam}.tekstblad.md`. Blad voor **Download/Print pagina**:
+`{stam}.tekstblad.md`. Blad voor **Download pagina**:
 `index.md.pdf` via `pdf.cmd` (rechtstreeks uit die bron). Geen
 verplichte product-`.tekstblad.pdf` meer; geen Coria uit dit spoor.
 
@@ -267,8 +267,7 @@ controleert of die PDF er is en niet ouder is dan de Markdown of
 notatiebron (zelfde regels als bij andere publicatiecontroles). Bij
 `pdf-bijelkaar` maakt `pdf.cmd` een tijdelijke compacte SVG;
 `{stam}.mvsa.svg` blijft het gewone webplaatje. Commit de blad-PDF mee,
-anders tonen Download pagina en Print pagina niet en faalt `check
---strict`.
+anders toont **Download pagina** niet en faalt `check --strict`.
 
 Op bibliotheek-bladermappen: icoon **♪** (linksboven op de partituur)
 opent **Oefenen** en **Beluisteren** (Beluisteren bij elke bron met

@@ -1,18 +1,14 @@
-"""Tekstblad-producten (historisch: sibling ``{stam}.tekstblad.pdf``).
+"""Tekstblad-producten: scherm-HTML (+ SVG) uit ``::: vsa-notatie``.
 
-Sinds product-pdf-afbouw + blad-PDF uit ``.tekstblad.md`` is de
-product-PDF **niet meer verplicht**. Blad print/download:
-``index.md.pdf`` via ``scripts\\pdf.cmd``. Scherm: body van de
-``.tekstblad.md`` in ``bieb``.
-
-Dit script blijft als no-op / optioneel herstelpad: ``sync_one`` kan nog
-een PDF schrijven als je het handmatig aanroept; ``TekstbladKind`` heeft
-geen sync-slots meer, dus ``products --kinds tekstblad`` doet standaard
-niets.
+Product-PDF is afgebouwd (blad = ``index.md.pdf`` via ``scripts\\pdf.cmd``).
+Scherm: body van ``.tekstblad.md``; blokken ``::: vsa-notatie`` worden
+vervangen door sibling-SVG’s in ``{stam}.tekstblad.scherm.html``
+(``products --kinds tekstblad``).
 """
 
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 from typing import Sequence
@@ -27,6 +23,8 @@ from product_kind import (
     require_no_spaces_name,
 )
 from product_meta import (
+    FIELD_GENERATED_AT,
+    FIELD_GENERATOR,
     FIELD_SOURCE_KIND,
     FIELD_SOURCE_SHA,
     GENERATOR_TEKSTBLAD,
@@ -34,10 +32,22 @@ from product_meta import (
     read_pdf_stamp,
     source_sha256,
     stamp_pdf,
+    stamp_svg,
     utc_now_iso,
 )
 from product_regen import RegenPolicy, list_source_paths
 from sync_vsa_products import folder_is_handmatig
+
+_VSA_NOTATIE_OPEN = re.compile(r":::[\t ]*vsa-notatie\b", re.IGNORECASE)
+_FRONTMATTER = re.compile(r"^---\r?\n.*?\r?\n---\r?\n?", re.DOTALL)
+_HTML_STAMP_STRIP = re.compile(
+    r"<!--\s*vsa-(?:source-sha256|source-kind|generated-at|generator):\s*[^>]*-->\s*",
+    re.IGNORECASE,
+)
+_HTML_STAMP_READ = re.compile(
+    r"<!--\s*(vsa-source-sha256|vsa-source-kind|vsa-generated-at|vsa-generator):\s*([^>]*?)-->",
+    re.IGNORECASE,
+)
 
 
 def is_tekstblad_md(path: Path) -> bool:
@@ -47,6 +57,19 @@ def is_tekstblad_md(path: Path) -> bool:
 def product_pdf_for_md(md: Path) -> Path:
     """``naam.tekstblad.md`` → ``naam.tekstblad.pdf``."""
     return md.with_suffix(".pdf")
+
+
+def scherm_html_for_md(md: Path) -> Path:
+    """``naam.tekstblad.md`` → ``naam.tekstblad.scherm.html``."""
+    return md.with_name(md.name[: -len(".md")] + ".scherm.html")
+
+
+def has_vsa_notatie(md: Path) -> bool:
+    try:
+        text = md.read_text(encoding="utf-8")
+    except OSError:
+        return False
+    return bool(_VSA_NOTATIE_OPEN.search(text))
 
 
 def collect_tekstblad(root: Path) -> list[Path]:
@@ -70,6 +93,41 @@ def is_stale(md: Path, pdf: Path) -> bool:
     if stamp.get(FIELD_SOURCE_SHA) != source_sha256(md):
         return True
     return False
+
+
+def read_html_stamp(path: Path) -> dict[str, str]:
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError:
+        return {}
+    out: dict[str, str] = {}
+    for m in _HTML_STAMP_READ.finditer(text):
+        key, value = m.group(1).lower(), m.group(2).strip()
+        if value:
+            out[key] = value
+    return out
+
+
+def _stamp_ok_scherm(html: Path, source_hash: str) -> bool:
+    if not html.is_file():
+        return False
+    stamp = read_html_stamp(html)
+    return (
+        stamp.get(FIELD_SOURCE_SHA) == source_hash
+        and stamp.get(FIELD_SOURCE_KIND) == SOURCE_KIND_TEKSTBLAD
+    )
+
+
+def _block_svg_glob(md: Path) -> str:
+    """Prefix van door ``prepare_markdown_document`` gekozen block-SVG-namen."""
+    stem = md.name[: -len(".md")] if md.name.lower().endswith(".md") else md.stem
+    safe = re.sub(r"[^a-z0-9_-]+", "-", stem.lower()).strip("-") or "vsa"
+    return f"{safe}-block-*.svg"
+
+
+def _remove_old_block_svgs(md: Path) -> None:
+    for path in md.parent.glob(_block_svg_glob(md)):
+        path.unlink(missing_ok=True)
 
 
 def sync_one(md: Path, *, dry_run: bool) -> None:
@@ -104,22 +162,85 @@ def sync_one(md: Path, *, dry_run: bool) -> None:
     )
 
 
+def sync_tekstblad_scherm(md: Path, *, dry_run: bool) -> None:
+    """Schrijf ``.tekstblad.scherm.html`` + block-SVG’s voor schermweergave."""
+    from vsa.markdown_builder import prepare_markdown_document
+
+    html_path = scherm_html_for_md(md)
+    rel = md.relative_to(REPO_ROOT)
+    detail(f"  scherm  {rel} -> {html_path.name}")
+    if dry_run:
+        return
+
+    digest = source_sha256(md)
+    generated_at = utc_now_iso()
+    _remove_old_block_svgs(md)
+
+    rewritten, svg_paths = prepare_markdown_document(
+        md,
+        content_root=md.parent,
+        assets_dir=md.parent,
+        # Token: Hugo vervangt door RelPermalink van de catalogus-leaf
+        # (relatief ./… breekt op koormappen).
+        assets_url_prefix="__TEKSTBLAD_ASSET__",
+        output_mode="img",
+    )
+    body = _FRONTMATTER.sub("", rewritten, count=1)
+    body = _HTML_STAMP_STRIP.sub("", body).lstrip("\n")
+    body = re.sub(
+        r'<img class="vsa-notation"([^>]*)>',
+        r'<div class="vsa-container"><img class="vsa-notation"\1></div>',
+        body,
+    )
+    stamp_block = "\n".join(
+        [
+            f"<!-- {FIELD_SOURCE_SHA}: {digest} -->",
+            f"<!-- {FIELD_SOURCE_KIND}: {SOURCE_KIND_TEKSTBLAD} -->",
+            f"<!-- {FIELD_GENERATED_AT}: {generated_at} -->",
+            f"<!-- {FIELD_GENERATOR}: {GENERATOR_TEKSTBLAD} -->",
+            "",
+        ]
+    )
+    html_path.write_text(stamp_block + body, encoding="utf-8", newline="\n")
+
+    for svg in svg_paths:
+        if svg.is_file():
+            stamp_svg(
+                svg,
+                generated_at=generated_at,
+                source_hash=digest,
+                source_kind=SOURCE_KIND_TEKSTBLAD,
+                generator=GENERATOR_TEKSTBLAD,
+            )
+
+
 class TekstbladKind:
     id = "tekstblad"
     label = "Tekstblad-producten"
     source_noun = " .tekstblad.md"
-    fix_cmd = r"scripts\pdf.cmd"
+    fix_cmd = r"scripts\products.cmd --kinds tekstblad"
 
     def collect(self, root: Path) -> list[Path]:
         return collect_tekstblad(root)
 
     def slots_for(self, source: Path, policy: RegenPolicy) -> list[ProductSlot]:
-        del source, policy
-        # Geen verplichte product-PDF meer (blad = index.md.pdf via pdf.cmd).
-        return []
+        del policy
+        if not has_vsa_notatie(source):
+            return []
+        html = scherm_html_for_md(source)
+        digest = source_sha256(source)
+        return [
+            ProductSlot(
+                path=html,
+                exists=html.is_file(),
+                stamp_ok=_stamp_ok_scherm(html, digest),
+            )
+        ]
 
     def sync(self, source: Path, *, need: Sequence[bool], dry_run: bool) -> None:
-        del source, need, dry_run
+        if not any(need):
+            return
+        sync_tekstblad_scherm(source, dry_run=dry_run)
 
 
 KIND = TekstbladKind()
@@ -130,8 +251,8 @@ def main(argv: list[str] | None = None) -> int:
         KIND,
         argv,
         description=(
-            "Tekstblad: geen verplichte product-PDF meer. "
-            "Pagina: scripts\\pdf.cmd op de catalogus-leaf."
+            "Tekstblad-scherm: SVG’s voor ::: vsa-notatie in .scherm.html. "
+            "Pagina-PDF: scripts\\pdf.cmd."
         ),
         default_root=DEFAULT_ROOT,
     )
