@@ -45,7 +45,9 @@ class SyncCallsToolingProductsTests(unittest.TestCase):
             ):
                 sync.sync_one(vsa, dry_run=False, do_mxl=True, do_pdf=False, do_svg=True)
 
-            write_meta.assert_called_once()
+            write_meta.assert_called_once_with(
+                vsa, {"mxl": mxl, "svg": svg}, merge=True
+            )
 
 
 class StampOkTests(unittest.TestCase):

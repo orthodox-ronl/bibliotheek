@@ -32,9 +32,12 @@ starten zonder vraag; bij 100+ items volgt de dubbele zekerheidsvraag.
 `-y` is vooral nodig zonder interactieve terminal. Na een geslaagde run
 (niet `--dry-run`) schrijft de tooling voor vsa/mvsa/mscz
 `{bron}.products-meta.json` (snelle versheid; bladreeks-SVG als `svg-1`…).
-Bibliotheek herschrijft die meta niet meer uit siblings; bij mscz wordt
-alleen de MXL-hash gemerged als de Coria-bron-id de MXL wijzigt. Daarna
-vernieuwt het de zoekindex en Coria-fingerprints.
+Die export is **kaal**: lyrics en preview-mp3 krijgen daarbij nog geen
+bibliotheek-herkomststempel. Direct daarna zet `products` die stempels
+wél (zelfde regels als `--kinds lyrics` / `--kinds audio`) en werkt de
+hashes in de meta bij. Bij vsa/mscz worden gewijzigde MXL/SVG-hashes
+gemerged zonder andere meta-keys te wissen. Daarna vernieuwt het de
+zoekindex en Coria-fingerprints.
 
 **Logging:** standaard beknopt (voortgang + fouten met `Oplossing: …`).
 Mislukt er iets over meerdere kinds, dan eindigt de run met

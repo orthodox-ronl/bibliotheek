@@ -33,8 +33,10 @@ over — dat is geen fout (zelfde gedrag als bij
 
 Onder de motorkap: tooling `mscz products` (Coria-`.mxl` + optioneel
 scherm-SVG; `--skip-svg` als alleen MXL nodig is) schrijft ook
-`*.products-meta.json` (schema 2). Versheid = die meta. Optionele A4-PDF
-nog via MuseScore 4. Geen fork van VSA-tooling-exportlogica.
+`*.products-meta.json` (schema 2) en kan kale lyrics/mp3 meeschrijven.
+Versheid van mxl/svg = die meta. Lyrics- en Beluisteren-stempels zet dit
+script daarna zelf. Optionele A4-PDF nog via MuseScore 4. Geen fork van
+VSA-tooling-exportlogica.
 
 **Volgorde:** eerst [layout](../layout/), daarna eventueel een editslag in
 MuseScore 4, daarna dit commando — niet meteen PDF maken als je nog gaat

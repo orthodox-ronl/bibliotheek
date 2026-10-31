@@ -42,6 +42,7 @@ from product_meta import (
 )
 from product_regen import RegenPolicy, list_source_paths, mxl_contract_ok
 from score_filenames import is_derived_mscz
+from street_consumer_stamps import restamp_after_street_products
 from street_meta import stamp_ok_or_meta, write_products_meta
 from sync_vsa_products import folder_is_handmatig
 
@@ -233,6 +234,8 @@ def sync_one(
         # Tooling schreef volledige meta; bron-id kan MXL-bytes wijzigen.
         if mxl.is_file():
             write_products_meta(mscz, {"mxl": mxl}, merge=True)
+        # Tooling lyrics/mp3 zijn kaal; bibliotheek-check eist stempels.
+        restamp_after_street_products(mscz)
 
 
 class MsczKind:
