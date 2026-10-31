@@ -635,3 +635,47 @@ def test_system_cut_points_real_hemelum_deel2_vsa() -> None:
     assert cuts[-1] == 968.0
     assert len(cuts) >= 20
     assert pp._staff_line_ys(svg.read_text(encoding="utf-8")) == []
+
+def test_open_svg_as_pdf_uses_dejavu_not_times(tmp_path: Path) -> None:
+    """VSA-SVG-tekst moet DejaVu houden (geen Times-substitutie van MuPDF)."""
+    import pymupdf
+
+    font = pp._notation_font_file("DejaVu Sans")
+    if font is None:
+        import pytest
+
+        pytest.skip("DejaVu Sans TTF niet gevonden (VSA-tooling assets)")
+
+    svg = tmp_path / "sample.vsa.svg"
+    svg.write_text(
+        """<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="80"
+     viewBox="0 0 200 80">
+  <text class="vsa-text" x="10.00" y="40.00" xml:space="preserve"
+        font-family="DejaVu Sans" font-size="20.00">Laat</text>
+  <text class="vsa-text" x="60.00" y="40.00" xml:space="preserve"
+        font-family="DejaVu Sans" font-size="20.00">ons</text>
+</svg>
+""",
+        encoding="utf-8",
+    )
+    doc = pp.open_svg_as_pdf(svg)
+    try:
+        fonts = " ".join(f[3] for f in doc[0].get_fonts())
+        assert "DejaVu" in fonts
+        assert "Times" not in fonts
+        assert "Nimbus" not in fonts
+        spans = []
+        for block in doc[0].get_text("dict")["blocks"]:
+            if block.get("type") != 0:
+                continue
+            for line in block.get("lines", []):
+                for span in line.get("spans", []):
+                    if span["text"].strip():
+                        spans.append((span["text"], span["font"], span["bbox"][0]))
+        assert spans[0][0] == "Laat"
+        assert "DejaVu" in spans[0][1] or "dejavu" in spans[0][1].lower()
+        assert abs(spans[0][2] - 10.0) < 0.1
+        assert abs(spans[1][2] - 60.0) < 0.1
+    finally:
+        doc.close()

@@ -241,6 +241,162 @@ def _title_font_files() -> tuple[Path, Path]:
     return regular, bold
 
 
+@lru_cache(maxsize=1)
+def _notation_font_file(family: str) -> Path | None:
+    """TTF voor SVG-notatietekst (DejaVu / Consolas) â€” MuPDF vindt die niet zelf.
+
+    VSA-``.vsa.svg`` zet ``font-family="DejaVu Sans"``; PyMuPDF's SVGâ†’PDF
+    vervangt dat door Times/Nimbus â†’ verkeerde breedtes en losse spaties.
+    """
+    key = family.strip().lower().replace('"', "")
+    windir = Path(os.environ.get("WINDIR", r"C:\Windows"))
+    tooling_roots = [
+        ROOT.parent / "VSA-tooling",
+        ROOT / "vendor" / "VSA-tooling",
+    ]
+    if "dejavu" in key:
+        candidates = [
+            *(
+                root / "assets" / "fonts" / name
+                for root in tooling_roots
+                for name in ("DejaVuSans.ttf", "dejavu-sans-ttf-2.37/ttf/DejaVuSans.ttf")
+            ),
+            Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"),
+            windir / "Fonts" / "DejaVuSans.ttf",
+        ]
+        return next((p for p in candidates if p.is_file()), None)
+    if "consolas" in key or "mono" in key:
+        candidates = [
+            windir / "Fonts" / "consola.ttf",
+            windir / "Fonts" / "Consolas.ttf",
+            Path("/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"),
+            *(
+                root / "assets" / "fonts" / "DejaVuSansMono.ttf"
+                for root in tooling_roots
+            ),
+        ]
+        return next((p for p in candidates if p.is_file()), None)
+    return None
+
+
+_SVG_TEXT_RE = re.compile(r"<text\b([^>]*)>(.*?)</text>", re.DOTALL | re.IGNORECASE)
+_SVG_ATTR_RE = re.compile(
+    r'([a-zA-Z_:][-a-zA-Z0-9_.:]*)="([^"]*)"'
+)
+
+
+def _parse_svg_text_nodes(svg: str) -> list[dict[str, object]]:
+    """Haal ``<text>``-nodes uit een VSA/MuseScore-SVG (x/y/baseline)."""
+    nodes: list[dict[str, object]] = []
+    for match in _SVG_TEXT_RE.finditer(svg):
+        attrs = {
+            m.group(1): m.group(2) for m in _SVG_ATTR_RE.finditer(match.group(1))
+        }
+        if "x" not in attrs or "y" not in attrs:
+            continue
+        family = attrs.get("font-family", "")
+        fontfile = _notation_font_file(family)
+        if fontfile is None:
+            continue
+        raw = match.group(2)
+        # Geen geneste tags in VSA-tekst; HTML-entities normaal zeldzaam.
+        text = (
+            raw.replace("&amp;", "&")
+            .replace("&lt;", "<")
+            .replace("&gt;", ">")
+            .replace("&quot;", '"')
+            .replace("&#39;", "'")
+        )
+        fill = attrs.get("fill", "black").strip().lower()
+        color = (0.0, 0.0, 0.0)
+        if fill in {"red", "#f00", "#ff0000"}:
+            color = (1.0, 0.0, 0.0)
+        elif fill not in {"", "black", "#000", "#000000", "currentcolor"}:
+            # Onbekende kleur: toch zwart tekenen (beter leesbaar dan skip).
+            color = (0.0, 0.0, 0.0)
+        nodes.append(
+            {
+                "x": float(attrs["x"]),
+                "y": float(attrs["y"]),
+                "size": float(attrs.get("font-size", "20")),
+                "family": family,
+                "fontfile": fontfile,
+                "text": text,
+                "anchor": attrs.get("text-anchor", "start"),
+                "color": color,
+            }
+        )
+    return nodes
+
+
+def open_svg_as_pdf(svg_path: Path):
+    """SVGâ†’PDF; teken DejaVu/Consolas-tekst opnieuw met echte TTF-bestanden.
+
+    PyMuPDF ``convert_to_pdf`` substitueert ontbrekende families door Times.
+    Voor VSA-product-SVG's (en Consolas-glyphtekst) strippen we ``<text>``,
+    converteren de grafiek, en zetten de letters terug met ``insert_font``.
+    """
+    import pymupdf
+
+    raw = svg_path.read_text(encoding="utf-8")
+    nodes = _parse_svg_text_nodes(raw)
+    if not nodes:
+        svg_doc = pymupdf.open(svg_path)
+        try:
+            return pymupdf.open("pdf", svg_doc.convert_to_pdf())
+        finally:
+            svg_doc.close()
+
+    # Alleen nodes strippen die we opnieuw tekenen (zelfde regex-pass).
+    def _strip_managed(match: re.Match[str]) -> str:
+        attrs = {
+            m.group(1): m.group(2) for m in _SVG_ATTR_RE.finditer(match.group(1))
+        }
+        family = attrs.get("font-family", "")
+        if _notation_font_file(family) is not None:
+            return ""
+        return match.group(0)
+
+    stripped = _SVG_TEXT_RE.sub(_strip_managed, raw)
+    svg_doc = pymupdf.open(stream=stripped.encode("utf-8"), filetype="svg")
+    try:
+        pdf = pymupdf.open("pdf", svg_doc.convert_to_pdf())
+    finally:
+        svg_doc.close()
+
+    page = pdf[0]
+    registered: dict[str, str] = {}
+    font_objs: dict[str, object] = {}
+    for node in nodes:
+        fontfile = Path(str(node["fontfile"]))
+        key = str(fontfile.resolve())
+        if key not in registered:
+            fontname = f"vsa-f{len(registered)}"
+            page.insert_font(fontname=fontname, fontfile=str(fontfile))
+            registered[key] = fontname
+            font_objs[key] = pymupdf.Font(fontfile=str(fontfile))
+        fontname = registered[key]
+        x = float(node["x"])
+        y = float(node["y"])
+        size = float(node["size"])
+        text = str(node["text"])
+        anchor = str(node["anchor"])
+        if anchor in {"middle", "end"}:
+            width = font_objs[key].text_length(text, fontsize=size)  # type: ignore[attr-defined]
+            if anchor == "middle":
+                x -= width / 2
+            else:
+                x -= width
+        page.insert_text(
+            (x, y),
+            text,
+            fontsize=size,
+            fontname=fontname,
+            color=node["color"],  # type: ignore[arg-type]
+        )
+    return pdf
+
+
 def _md_heading_size(level: int) -> str:
     if level <= 1:
         return "groot"
@@ -1457,11 +1613,7 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
         dims: list[tuple[float, float]] = []
         cuts_list: list[list[float]] = []
         for svg_path in paths:
-            svg_doc = pymupdf.open(svg_path)
-            try:
-                src = pymupdf.open("pdf", svg_doc.convert_to_pdf())
-            finally:
-                svg_doc.close()
+            src = open_svg_as_pdf(svg_path)
             sw, sh = src[0].rect.width, src[0].rect.height
             if sw <= 0 or sh <= 0:
                 src.close()
