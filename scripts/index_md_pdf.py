@@ -4,7 +4,8 @@ A4-compositie uit shortcode ``kop`` (en legacy ``#`` / HTML-titels) + kale
 muziek-SVG's (geen catalogus-product-PDF's plakken). Bij voorkeur de
 catalogus-sibling tall-SVG (``*.mvsa.svg`` / ``*.mscz.svg`` / ``*.vsa.svg``);
 alleen lokaal opnieuw exporteren als die ontbreekt. Compose snijdt op
-systeembrenzen zodat rest-ruimte na titel/proza op A4 wél gevuld wordt.
+systeembrenzen (MuseScore ``StaffLines``, anders VSA ``vsa-line``) zodat
+rest-ruimte na titel/proza op A4 wél gevuld wordt.
 
 Catalogus-leaves zonder Markdown-titel: afgeleide leaf-titel injecteren
 (zelfde algoritme als Hugo; zie ``ensure_catalogus_derived_titles``).
@@ -1327,11 +1328,55 @@ def _cluster_systems(
     return [(c[0], c[-1]) for c in clusters]
 
 
+_VSA_LINE_OPEN = re.compile(
+    r'<g\b(?=[^>]*\bclass="[^"]*\bvsa-line\b)[^>]*>',
+    re.IGNORECASE,
+)
+_VSA_TRANSLATE_Y = re.compile(
+    r'transform="[^"]*translate\(\s*[-\d.]+[,\s]+([-\d.]+)\s*\)',
+    re.IGNORECASE,
+)
+_VSA_Y_ATTR = re.compile(r'\by[12]?="([-\d.]+)"', re.IGNORECASE)
+
+
+def _vsa_line_systems(svg_text: str) -> list[tuple[float, float]]:
+    """Per VSA-regel (``vsa-line``) (top, bottom) in SVG-y.
+
+    Pure ``.vsa.svg`` heeft geen MuseScore ``StaffLines``; wel één
+    ``<g class="vsa-line">`` per tekstregel. Snede valt tussen die groepen.
+    """
+    opens = list(_VSA_LINE_OPEN.finditer(svg_text))
+    if not opens:
+        return []
+    systems: list[tuple[float, float]] = []
+    for i, m in enumerate(opens):
+        end = opens[i + 1].start() if i + 1 < len(opens) else len(svg_text)
+        chunk = svg_text[m.start() : end]
+        ty = 0.0
+        tm = _VSA_TRANSLATE_Y.search(m.group(0))
+        if tm:
+            ty = float(tm.group(1))
+        ys = [float(y) + ty for y in _VSA_Y_ATTR.findall(chunk)]
+        if not ys:
+            continue
+        systems.append((min(ys), max(ys)))
+    return systems
+
+
+def _score_systems(svg_text: str) -> list[tuple[float, float]]:
+    """Systeembrenzen: MuseScore-staflijnen, anders VSA ``vsa-line``."""
+    systems = _cluster_systems(_staff_line_ys(svg_text))
+    if systems:
+        return systems
+    return _vsa_line_systems(svg_text)
+
+
 def system_cut_points_pdf(svg_path: Path, pdf_height: float) -> list[float]:
     """Y-snijpunten in PDF-coördinaten (na SVG→PDF), tussen systemen.
 
     Snede ligt midden in de gap tussen systemen, zodat een pagina nooit
-    midden door een notenbalk eindigt. Laatste punt = ``pdf_height``.
+    midden door een notenbalk of VSA-regel eindigt. Laatste punt =
+    ``pdf_height``.
     """
     text = svg_path.read_text(encoding="utf-8")
     vb_m = re.search(r'viewBox="([^"]+)"', text)
@@ -1345,7 +1390,7 @@ def system_cut_points_pdf(svg_path: Path, pdf_height: float) -> list[float]:
     def to_pdf(svg_y: float) -> float:
         return (svg_y - min_y) / vb_h * pdf_height
 
-    systems = _cluster_systems(_staff_line_ys(text))
+    systems = _score_systems(text)
     if not systems:
         return [pdf_height]
 
@@ -1375,7 +1420,8 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
 
     SVG bij voorkeur uit catalogus-product (tall); anders legacy bladreeks
     of lokale street-CLI-export. Zonder ``pdf-bijelkaar``: snijden op
-    systeembrenzen zodat rest-ruimte na titel/proza gevuld wordt.
+    systeembrenzen (``StaffLines`` of ``vsa-line``) zodat rest-ruimte na
+    titel/proza gevuld wordt.
     """
     try:
         import pymupdf

@@ -586,3 +586,52 @@ def test_system_cut_points_between_staff_clusters(tmp_path: Path) -> None:
     assert 250.0 < cuts[0] < 290.0
     systems = pp._cluster_systems(pp._staff_line_ys(svg.read_text(encoding="utf-8")))
     assert len(systems) == 2
+
+
+def test_system_cut_points_between_vsa_lines(tmp_path: Path) -> None:
+    """Pure .vsa.svg: snede tussen vsa-line-groepen (geen StaffLines)."""
+    svg = tmp_path / "vsa.svg"
+    svg.write_text(
+        """<?xml version="1.0"?>
+<svg class="vsa-svg" xmlns="http://www.w3.org/2000/svg" width="100" height="200"
+     viewBox="0 0 100 200">
+  <g class="vsa-score">
+    <g class="vsa-line" data-vsa-line="1">
+      <text class="vsa-text" x="10" y="40">regel een</text>
+      <line x1="10" y1="45" x2="90" y2="45"/>
+    </g>
+    <g class="vsa-line" data-vsa-line="2">
+      <text class="vsa-text" x="10" y="140">regel twee</text>
+      <line x1="10" y1="145" x2="90" y2="145"/>
+    </g>
+  </g>
+</svg>
+""",
+        encoding="utf-8",
+    )
+    pdf_h = 200.0
+    assert pp._staff_line_ys(svg.read_text(encoding="utf-8")) == []
+    systems = pp._vsa_line_systems(svg.read_text(encoding="utf-8"))
+    assert len(systems) == 2
+    cuts = pp.system_cut_points_pdf(svg, pdf_h)
+    assert cuts[-1] == pdf_h
+    assert len(cuts) == 2
+    # Mid tussen max(regel1)≈45 en min(regel2)≈140 → ≈92.5
+    assert 80.0 < cuts[0] < 110.0
+
+
+def test_system_cut_points_real_hemelum_deel2_vsa() -> None:
+    """Catalogus-leaf hemelum-deel-2: tientallen vsa-line-sneden."""
+    svg = (
+        pp.CATALOGUS
+        / "geloofsbelijdenis"
+        / "default"
+        / "hemelum-deel-2"
+        / "geloofsbelijdenis-default-hemelum-deel-2.vsa.svg"
+    )
+    if not svg.is_file():
+        return
+    cuts = pp.system_cut_points_pdf(svg, 968.0)
+    assert cuts[-1] == 968.0
+    assert len(cuts) >= 20
+    assert pp._staff_line_ys(svg.read_text(encoding="utf-8")) == []
