@@ -30,6 +30,8 @@ eigen sibling:
 Het script schrijft een **herkomststempel** in het mp3-bestand (zelfde
 velden als bij PDF/MXL: hash van de bron, wanneer gemaakt). Zo ziet
 `check` later of de bron is gewijzigd terwijl het mp3 nog oud is.
+`products --kinds mvsa` / `vsa` / `mscz` zet die stempel ook als tooling
+eerst een kaal mp3 schreef — anders zou `check` `unstamped_mp3` melden.
 
 Zoekt onder het opgegeven pad (of, zonder pad, onder
 `content-source\catalogus`). Overgeslagen: `input\`, mappen met

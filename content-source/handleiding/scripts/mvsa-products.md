@@ -40,10 +40,14 @@ op het pad = overslaan (geen fout; zelfde schil als
 
 Onder de motorkap: tooling `mvsa products` (Coria-`.mxl` + Score-IR +
 from-ir; SVG alleen als dat slot nodig is, anders `--skip-svg`) schrijft
-ook de herkomst-sidecar (`*.products-meta.json`, schema 2). Versheid voor
-check/regen komt uit die meta, niet uit stempels in de productbestanden.
-Optionele A4-PDF nog via `mvsa pdf` (layout `partituur`, catalogus-id uit
-het bladermap-pad). Geen fork van VSA-tooling-exportlogica.
+ook de herkomst-sidecar (`*.products-meta.json`, schema 2) en kan
+tegelijk kale `{stam}.mvsa.lyrics.txt` en `{stam}.mvsa.mp3` zetten.
+Versheid van mxl/score-ir/from-ir voor check/regen komt uit die meta.
+Voor lyrics en Beluisteren-mp3 eist `check` wél bibliotheek-stempels;
+daarom zet dit script die stempels meteen na de tooling-export en werkt
+de meta-hashes bij. Optionele A4-PDF nog via `mvsa pdf` (layout
+`partituur`, catalogus-id uit het bladermap-pad). Geen fork van
+VSA-tooling-exportlogica.
 
 CI genereert deze producten niet; jij wel lokaal, daarna committen. Zonder
 MuseScore vernieuwt het script `.mxl` en Score-IR/from-ir (`--skip-svg`)

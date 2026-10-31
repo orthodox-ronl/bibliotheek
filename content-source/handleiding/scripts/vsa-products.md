@@ -32,9 +32,11 @@ Maakt naast een catalogus-`.vsa` drie siblings (zelfde productrol als bij
 
 Onder de motorkap: tooling `vsa products` maakt Coria-`.mxl` (tijdelijke
 syllabify + playback + finalize) en scherm-`.svg`, en schrijft
-`*.products-meta.json` (schema 2: bron- + product-hashes). Versheid voor
-check/regen komt uit die meta. Optioneel zet dit script nog een
-Coria-bronvermelding in de MXL (geen versheidstempel).
+`*.products-meta.json` (schema 2: bron- + product-hashes), plus eventueel
+kale lyrics/mp3. Versheid van mxl/svg voor check/regen komt uit die meta.
+Lyrics- en Beluisteren-stempels zet dit script daarna zelf (anders klaagt
+`check` over `unstamped_lyrics` / `unstamped_mp3`). Optioneel zet het nog
+een Coria-bronvermelding in de MXL (geen versheidstempel).
 
 Product-PDF is geen vast sync-slot meer (blad = `index.md.pdf` via
 `pdf.cmd`). Zonder scherm-SVG kan de site nog een PDF als fallback tonen.

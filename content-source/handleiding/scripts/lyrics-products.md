@@ -33,7 +33,10 @@ ouder dan de `.mscz`, dan exporteert tooling tijdelijk via MuseScore (geen
 
 Bovenaan het tekstbestand staan herkomstregels (`# vsa-source-sha256:` …),
 zodat `check` kan zien of de bron nieuwer is dan de lyrics. Bij `.mscz` is
-`vsa-source-kind` = `partituur`. Na een geslaagde run vernieuwt dit script
+`vsa-source-kind` = `partituur`. Dezelfde stempels zet
+`products --kinds mvsa` / `vsa` / `mscz` ook, wanneer tooling eerst een
+kale `.lyrics.txt` schreef — anders zou de volgende `check` ten onrechte
+`unstamped_lyrics` melden. Na een geslaagde run vernieuwt dit script
 ook `static\zoek\index.json` (zelfde stap als `products` en `check`). Op
 GitHub Pages (productie, preview én branch-previews) bouwt de deploy-workflow
 die index opnieuw vóór Hugo, zodat zoeken altijd bij de gecommitte catalogus

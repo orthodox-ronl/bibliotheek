@@ -46,6 +46,7 @@ from product_meta import (
     utc_now_iso,
 )
 from product_regen import RegenPolicy, list_source_paths, mxl_contract_ok
+from street_consumer_stamps import restamp_after_street_products
 from street_meta import stamp_ok_or_meta
 from sync_import_mvsa import is_import_mvsa
 from sync_vsa_products import folder_is_handmatig
@@ -271,6 +272,8 @@ def sync_one(
 
     if need_export:
         _run_mvsa_products(mvsa, skip_svg=skip_svg)
+        # Tooling lyrics/mp3 zijn kaal; bibliotheek-check eist stempels.
+        restamp_after_street_products(mvsa)
 
     if need_pdf:
         require_no_spaces(pdf)

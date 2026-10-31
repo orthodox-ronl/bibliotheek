@@ -43,6 +43,7 @@ from product_meta import (
     utc_now_iso,
 )
 from product_regen import RegenPolicy, mxl_contract_ok
+from street_consumer_stamps import restamp_after_street_products
 from street_meta import stamp_ok_or_meta, write_products_meta
 
 
@@ -358,9 +359,10 @@ def sync_one(
         _run_vsa_products(vsa)
         _apply_bron_identification(vsa, mxl)
         _remove_legacy_vsa_mxl(vsa, mxl)
-        # Tooling schreef meta; herschrijf zodat hashes bij eventuele
-        # bron-identification en actuele siblings passen.
-        write_products_meta(vsa, {"mxl": mxl, "svg": svg})
+        # Tooling schreef meta; werk mxl/svg-hashes bij zonder andere keys
+        # (lyrics/mp3/pdf) te wissen. Tooling lyrics/mp3 zijn kaal → stempelen.
+        write_products_meta(vsa, {"mxl": mxl, "svg": svg}, merge=True)
+        restamp_after_street_products(vsa)
 
     if do_pdf:
         require_no_spaces(pdf)
