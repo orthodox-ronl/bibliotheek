@@ -1,8 +1,14 @@
 {{- /*
-  Download van de getoonde bladermap-pagina — in de site-header (nav).
+  Acties in de site-header (nav) op bladermap-pagina’s (catalogus / koormappen):
 
-  Gebruikt index.md.pdf (page resource). Zonder blad-PDF: geen knop.
-  Printen via de PDF zelf (viewer), geen aparte «Print pagina»-knop.
+  - Download pagina — alleen als index.md.pdf bestaat (page resource).
+  - Schakelaar Transliteratie — aan/uit (default uit); JS bewaart de stand
+    en toont OSMG met *.translit.from-ir.musicxml (lyric 2) als die sibling
+    bestaat; anders alleen data-translit op <html>.
+
+  Geen «Print pagina»: die knop is vervangen door de transliteratie-schakelaar.
+  Geen browser-HTML-afdruk via Ctrl+P als site-actie.
+  Printen via de PDF zelf (viewer).
 
   Voorgestelde downloadnaam (HTML download=…; bestand op schijf blijft index.md.pdf):
   1. frontmatter pdf_bestandsnaam
@@ -15,24 +21,42 @@
   {{- range .Resources.Match "index.md.pdf" -}}
     {{- $paginaPdf = .RelPermalink -}}
   {{- end -}}
+  {{- $dlName := "" -}}
   {{- if $paginaPdf -}}
-  {{- $dlBase := "" -}}
-  {{- if .Params.pdf_bestandsnaam -}}
-    {{- $dlBase = .Params.pdf_bestandsnaam -}}
-  {{- else if eq .Section "catalogus" -}}
-    {{- $dlBase = partial "display-title.html" . -}}
-  {{- else if .Params.title -}}
-    {{- $dlBase = .Params.title -}}
-  {{- else -}}
-    {{- $dlBase = path.Base (strings.TrimSuffix "/" .File.Dir) -}}
+    {{- $dlBase := "" -}}
+    {{- if .Params.pdf_bestandsnaam -}}
+      {{- $dlBase = .Params.pdf_bestandsnaam -}}
+    {{- else if eq .Section "catalogus" -}}
+      {{- $dlBase = partial "display-title.html" . -}}
+    {{- else if .Params.title -}}
+      {{- $dlBase = .Params.title -}}
+    {{- else -}}
+      {{- $dlBase = path.Base (strings.TrimSuffix "/" .File.Dir) -}}
+    {{- end -}}
+    {{- $dlBase = $dlBase | replaceRE `[\\/:*?"<>|]+` "-" | replaceRE `(?i)\.pdf$` "" | strings.TrimSpace -}}
+    {{- if eq $dlBase "" -}}
+      {{- $dlBase = path.Base (strings.TrimSuffix "/" .File.Dir) -}}
+    {{- end -}}
+    {{- $dlName = printf "%s.pdf" $dlBase -}}
   {{- end -}}
-  {{- $dlBase = $dlBase | replaceRE `[\\/:*?"<>|]+` "-" | replaceRE `(?i)\.pdf$` "" | strings.TrimSpace -}}
-  {{- if eq $dlBase "" -}}
-    {{- $dlBase = path.Base (strings.TrimSuffix "/" .File.Dir) -}}
-  {{- end -}}
-  {{- $dlName := printf "%s.pdf" $dlBase -}}
-  <div class="pagina-acties" role="group" aria-label="Deze pagina downloaden">
+  <div class="pagina-acties" role="group" aria-label="Pagina-acties">
+    {{- if $paginaPdf -}}
     <a class="btn pagina-acties-btn" href="{{ $paginaPdf }}" download="{{ $dlName }}" title="PDF van deze hele pagina opslaan">Download pagina</a>
+    {{- end -}}
+    <label class="pagina-acties-translit" title="Toon de partituur met of zonder transliteratie">
+      <span class="pagina-acties-translit-label">Transliteratie</span>
+      <input
+        type="checkbox"
+        class="pagina-acties-translit-input"
+        role="switch"
+        data-translit-switch
+        aria-checked="false"
+        aria-label="Transliteratie aan of uit"
+      >
+      <span class="pagina-acties-translit-track" aria-hidden="true">
+        <span class="pagina-acties-translit-thumb"></span>
+      </span>
+      <span class="pagina-acties-translit-state" data-translit-state>uit</span>
+    </label>
   </div>
-  {{- end -}}
 {{- end -}}

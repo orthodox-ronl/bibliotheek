@@ -1,0 +1,33 @@
+# Worktrees: rollen (bibliotheek)
+
+Geldt voor lokale git-worktrees van deze repo op de beheerder-pc.
+
+## `bibliotheek` (hoofdcheckout)
+
+Hier hoort **site-/feature-werk**: UI, layouts, JS, handleiding,
+transliteratie-schakelaar, schermstand, docs, CI-aanpassingen, merges
+van `development` in feature-branches zoals `translit`.
+
+Feature-branches (o.a. `translit`) check je uit **in deze map**, niet
+in de onderhoud-worktree.
+
+## `bibliotheek-onderhoud` (worktree)
+
+**Alleen** werk rond bronbestanden importeren en wijzigen, plus daarna
+afgeleide producten genereren:
+
+- ruwe invoer → accepteer / kopieer / hernoem
+- `.mvsa` / `.vsa` / `.mscz` / tekstblad-bronnen aanpassen
+- `scripts\products.cmd` (en verwante product-checks) voor die bronnen
+
+**Niet** in deze worktree: transliteratie-UI, schermstand-JS, layout-
+refactors, feature-branches die geen import/bron-focus hebben.
+
+## Agent-gedrag
+
+- Translit / UI / site-features → root = `bibliotheek`, branch bijv.
+  `translit`.
+- Import of bronwijziging + producten → root = `bibliotheek-onderhoud`
+  (of expliciet gevraagde onderhoud-branch).
+- Zit je in de verkeerde worktree: stop, zeg het, wissel (of vraag
+  «move to root») vóór duur werk.
