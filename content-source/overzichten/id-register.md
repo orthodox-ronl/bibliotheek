@@ -205,7 +205,6 @@ of Speciaal.
 | `gelovigen-litanie/` | `ektinia/gelovigen/hemelum` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
 | `vragende-litanie-16/` | `ektinia/vragend-16/hemelum` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
 | `vredeswens/` | `vredeswens/default/hemelum` | |
-| `geloofsbelijdenis/` | `geloofsbelijdenis/default/hemelum` | |
 | `en-allen/` | `en-allen/default/hemelum` | |
 | `vragende-litanie-22/` | `ektinia/vragend-22/hemelum` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
 | `onze-vader/` | `onze-vader/default/hemelum` | |
