@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 import index_md_pdf as pp
@@ -588,6 +589,60 @@ def test_system_cut_points_between_staff_clusters(tmp_path: Path) -> None:
     assert len(systems) == 2
 
 
+def test_system_cut_keeps_bracketed_staves_together(tmp_path: Path) -> None:
+    """Accolade (Bracket) over twee balken = één systeem; geen snede ertussen.
+
+    Koormap-paginataal §8a. Zonder Bracket blijft elke balk een systeem
+    (zie test_system_cut_points_between_staff_clusters).
+    """
+    svg = tmp_path / "grand.svg"
+    svg.write_text(
+        """<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="500"
+     viewBox="0 0 100 500">
+  <polyline class="StaffLines" points="0,100 100,100"/>
+  <polyline class="StaffLines" points="0,140 100,140"/>
+  <polyline class="StaffLines" points="0,400 100,400"/>
+  <polyline class="StaffLines" points="0,440 100,440"/>
+  <path class="Bracket" transform="matrix(1,0,0,1,0,0)" d="M0,90 L8,90 L8,450 L0,450"/>
+</svg>
+""",
+        encoding="utf-8",
+    )
+    text = svg.read_text(encoding="utf-8")
+    staves = pp._cluster_systems(pp._staff_line_ys(text))
+    assert len(staves) == 2
+    systems = pp._score_systems(text)
+    assert len(systems) == 1
+    cuts = pp.system_cut_points_pdf(svg, 500.0)
+    assert cuts == [500.0]
+
+
+def test_system_cut_uses_bracket_polyline_not_each_staff(tmp_path: Path) -> None:
+    """Geloofsbelijdenis-achtig: accolade is een polyline over twee balken."""
+    svg = tmp_path / "poly.svg"
+    svg.write_text(
+        """<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 900">
+  <polyline class="StaffLines" points="10,100 90,100"/>
+  <polyline class="StaffLines" points="10,140 90,140"/>
+  <polyline class="StaffLines" points="10,400 90,400"/>
+  <polyline class="StaffLines" points="10,440 90,440"/>
+  <polyline class="StaffLines" points="10,700 90,700"/>
+  <polyline class="StaffLines" points="10,740 90,740"/>
+  <polyline class="Bracket" points="4,90 4,450"/>
+  <polyline class="Bracket" points="4,690 4,750"/>
+</svg>
+""",
+        encoding="utf-8",
+    )
+    systems = pp._score_systems(svg.read_text(encoding="utf-8"))
+    assert len(systems) == 2
+    cuts = pp.system_cut_points_pdf(svg, 900.0)
+    assert len(cuts) == 2
+    assert 500.0 < cuts[0] < 650.0
+
+
 def test_system_cut_points_between_vsa_lines(tmp_path: Path) -> None:
     """Pure .vsa.svg: snede tussen vsa-line-groepen (geen StaffLines)."""
     svg = tmp_path / "vsa.svg"
@@ -621,7 +676,7 @@ def test_system_cut_points_between_vsa_lines(tmp_path: Path) -> None:
 
 
 def test_system_cut_points_real_hemelum_deel2_vsa() -> None:
-    """Catalogus-leaf hemelum-deel-2: tientallen vsa-line-sneden."""
+    """Catalogus-leaf hemelum-deel-2: snede tussen vsa-line, nooit erdoor."""
     svg = (
         pp.CATALOGUS
         / "geloofsbelijdenis"
@@ -631,10 +686,55 @@ def test_system_cut_points_real_hemelum_deel2_vsa() -> None:
     )
     if not svg.is_file():
         return
-    cuts = pp.system_cut_points_pdf(svg, 968.0)
-    assert cuts[-1] == 968.0
-    assert len(cuts) >= 20
-    assert pp._staff_line_ys(svg.read_text(encoding="utf-8")) == []
+    text = svg.read_text(encoding="utf-8")
+    assert pp._staff_line_ys(text) == []
+    systems = pp._score_systems(text)
+    assert len(systems) >= 20
+    pdf_h = 968.0
+    cuts = pp.system_cut_points_pdf(svg, pdf_h)
+    assert cuts[-1] == pdf_h
+    assert len(cuts) == len(systems)
+    vb = [float(x) for x in re.search(r'viewBox="([^"]+)"', text).group(1).split()]
+    min_y, vb_h = vb[1], vb[3]
+
+    def to_svg(pdf_y: float) -> float:
+        return min_y + pdf_y / pdf_h * vb_h
+
+    for cut in cuts[:-1]:
+        y = to_svg(cut)
+        inside = [sys for sys in systems if sys[0] + 0.5 < y < sys[1] - 0.5]
+        assert inside == []
+
+
+def test_system_cut_real_eerste_antifoon_hemelum_keeps_grand_staff() -> None:
+    """Eerste antifoon zondag Hemelum: 10 systemen (accolade), niet 20 balken."""
+    svg = (
+        pp.CATALOGUS
+        / "eerste-antifoon"
+        / "zondag"
+        / "hemelum"
+        / "eerste-antifoon-zondag-hemelum.mscz.svg"
+    )
+    if not svg.is_file():
+        return
+    text = svg.read_text(encoding="utf-8")
+    staves = pp._cluster_systems(pp._staff_line_ys(text))
+    systems = pp._score_systems(text)
+    assert len(staves) == 20
+    assert len(systems) == 10
+    pdf_h = 1384.0384521484375
+    cuts = pp.system_cut_points_pdf(svg, pdf_h)
+    assert len(cuts) == 10
+    vb = [float(x) for x in re.search(r'viewBox="([^"]+)"', text).group(1).split()]
+    min_y, vb_h = vb[1], vb[3]
+
+    def to_svg(pdf_y: float) -> float:
+        return min_y + pdf_y / pdf_h * vb_h
+
+    for cut in cuts[:-1]:
+        y = to_svg(cut)
+        inside = [sys for sys in systems if sys[0] - 1 <= y <= sys[1] + 1]
+        assert inside == []
 
 def test_open_svg_as_pdf_uses_dejavu_not_times(tmp_path: Path) -> None:
     """VSA-SVG-tekst moet DejaVu houden (geen Times-substitutie van MuPDF)."""

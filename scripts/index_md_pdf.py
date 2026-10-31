@@ -1472,7 +1472,12 @@ def _staff_line_ys(svg_text: str) -> list[float]:
 def _cluster_systems(
     staff_ys: list[float], *, gap_min: float = _SYSTEM_GAP_MIN
 ) -> list[tuple[float, float]]:
-    """Per systeem (top, bottom) in SVG-y op basis van staflijn-clusters."""
+    """Per notenbalk (top, bottom) in SVG-y op basis van staflijn-clusters.
+
+    Vijf staflijnen horen bij één balk. De afstand tussen sopraan en bas
+    van hetzelfde systeem is groter dan ``gap_min``; die groepering doet
+    ``_score_systems`` via de accolade (``Bracket``).
+    """
     if not staff_ys:
         return []
     clusters: list[list[float]] = [[staff_ys[0]]]
@@ -1482,6 +1487,199 @@ def _cluster_systems(
         else:
             clusters[-1].append(y)
     return [(c[0], c[-1]) for c in clusters]
+
+
+_SVG_NUM = r"[-+]?(?:\d*\.\d+|\d+)(?:[eE][-+]?\d+)?"
+_BRACKET_OPEN = re.compile(
+    r'<path\b([^>]*\bclass="[^"]*\bBracket\b[^"]*"[^>]*)>',
+    re.IGNORECASE,
+)
+_MATRIX = re.compile(
+    rf"matrix\(\s*({_SVG_NUM})[,\s]+({_SVG_NUM})[,\s]+({_SVG_NUM})"
+    rf"[,\s]+({_SVG_NUM})[,\s]+({_SVG_NUM})[,\s]+({_SVG_NUM})\s*\)"
+)
+_PATH_TOK = re.compile(rf"[MmLlHhVvCcSsQqTtAaZz]|{_SVG_NUM}")
+
+
+def _path_local_ys(d: str) -> list[float]:
+    """Y-coördinaten uit een SVG-path (lokale ruimte, vóór transform)."""
+    tokens = _PATH_TOK.findall(d)
+    ys: list[float] = []
+    i = 0
+    cmd = "M"
+    cx = cy = 0.0
+
+    def num() -> float:
+        nonlocal i
+        value = float(tokens[i])
+        i += 1
+        return value
+
+    while i < len(tokens):
+        token = tokens[i]
+        if re.fullmatch(r"[MmLlHhVvCcSsQqTtAaZz]", token):
+            cmd = token
+            i += 1
+            if cmd in "Zz":
+                continue
+        rel = cmd.islower()
+        kind = cmd.upper()
+        if kind == "M":
+            x, y = num(), num()
+            if rel:
+                x += cx
+                y += cy
+            cx, cy = x, y
+            ys.append(cy)
+            cmd = "l" if rel else "L"
+        elif kind == "L":
+            x, y = num(), num()
+            if rel:
+                x += cx
+                y += cy
+            cx, cy = x, y
+            ys.append(cy)
+        elif kind == "H":
+            x = num()
+            cx = cx + x if rel else x
+        elif kind == "V":
+            y = num()
+            cy = cy + y if rel else y
+            ys.append(cy)
+        elif kind == "C":
+            x = y = 0.0
+            for _ in range(3):
+                x, y = num(), num()
+                if rel:
+                    x += cx
+                    y += cy
+                ys.append(y)
+            cx, cy = x, y
+        elif kind in {"S", "Q"}:
+            x = y = 0.0
+            for _ in range(2):
+                x, y = num(), num()
+                if rel:
+                    x += cx
+                    y += cy
+                ys.append(y)
+            cx, cy = x, y
+        elif kind == "T":
+            x, y = num(), num()
+            if rel:
+                x += cx
+                y += cy
+            cx, cy = x, y
+            ys.append(cy)
+        elif kind == "A":
+            for _ in range(5):
+                num()
+            x, y = num(), num()
+            if rel:
+                x += cx
+                y += cy
+            cx, cy = x, y
+            ys.append(cy)
+        else:
+            break
+    return ys
+
+
+_BRACKET_POLY = re.compile(
+    r'<polyline\b([^>]*\bclass="[^"]*\bBracket\b[^"]*"[^>]*)>',
+    re.IGNORECASE,
+)
+
+
+def _polyline_bracket_spans(svg_text: str) -> list[tuple[float, float]]:
+    """Verticale balk van de accolade (``polyline class=Bracket``)."""
+    spans: list[tuple[float, float]] = []
+    for match in _BRACKET_POLY.finditer(svg_text):
+        points_m = re.search(r'\bpoints="([^"]+)"', match.group(1))
+        if not points_m:
+            continue
+        ys = [
+            float(pair.split(",")[1])
+            for pair in points_m.group(1).split()
+            if "," in pair
+        ]
+        if ys:
+            spans.append((min(ys), max(ys)))
+    return spans
+
+
+def _bracket_spans(svg_text: str) -> list[tuple[float, float]]:
+    """Verticale span (SVG-y) van elke MuseScore-accolade (``Bracket``).
+
+    De balk is een ``polyline``. Ontbreekt die (alleen een haak-``path``
+    met ``matrix``), dan telt dat path.
+    """
+    bars = _polyline_bracket_spans(svg_text)
+    if bars:
+        return bars
+    spans: list[tuple[float, float]] = []
+    for match in _BRACKET_OPEN.finditer(svg_text):
+        attrs = match.group(1)
+        transform_m = re.search(r'\btransform="([^"]+)"', attrs)
+        path_m = re.search(r'\bd="([^"]*)"', attrs)
+        if not transform_m or not path_m:
+            continue
+        matrix = _MATRIX.search(transform_m.group(1))
+        local_ys = _path_local_ys(path_m.group(1))
+        if not matrix or not local_ys:
+            continue
+        # matrix(a b c d e f): y' = b*x + d*y + f. Accolades hebben b ≈ 0.
+        b = float(matrix.group(2))
+        d_scale = float(matrix.group(4))
+        f = float(matrix.group(6))
+        if abs(b) > 1e-3:
+            continue
+        world = [d_scale * y + f for y in local_ys]
+        spans.append((min(world), max(world)))
+    return spans
+
+
+def _group_staves_by_brackets(
+    staves: list[tuple[float, float]],
+    brackets: list[tuple[float, float]],
+) -> list[tuple[float, float]]:
+    """Voeg notenbalken samen die in dezelfde accolade vallen."""
+    if not brackets:
+        return staves
+    parent = list(range(len(staves)))
+
+    def find(index: int) -> int:
+        while parent[index] != index:
+            parent[index] = parent[parent[index]]
+            index = parent[index]
+        return index
+
+    def union(left: int, right: int) -> None:
+        root_l, root_r = find(left), find(right)
+        if root_l != root_r:
+            parent[root_r] = root_l
+
+    for top, bottom in brackets:
+        lo, hi = (top, bottom) if top <= bottom else (bottom, top)
+        members = [
+            index
+            for index, (staff_top, staff_bottom) in enumerate(staves)
+            if lo - 30.0 <= (staff_top + staff_bottom) / 2.0 <= hi + 30.0
+        ]
+        for other in members[1:]:
+            union(members[0], other)
+    grouped: dict[int, list[int]] = {}
+    for index in range(len(staves)):
+        grouped.setdefault(find(index), []).append(index)
+    systems = [
+        (
+            min(staves[index][0] for index in indexes),
+            max(staves[index][1] for index in indexes),
+        )
+        for indexes in grouped.values()
+    ]
+    systems.sort()
+    return systems
 
 
 _VSA_LINE_OPEN = re.compile(
@@ -1520,19 +1718,25 @@ def _vsa_line_systems(svg_text: str) -> list[tuple[float, float]]:
 
 
 def _score_systems(svg_text: str) -> list[tuple[float, float]]:
-    """Systeembrenzen: MuseScore-staflijnen, anders VSA ``vsa-line``."""
-    systems = _cluster_systems(_staff_line_ys(svg_text))
-    if systems:
-        return systems
+    """Systeembrenzen voor de pagina-PDF (koormap-paginataal §8a).
+
+    MuseScore: accolade (``Bracket``) om de notenbalken van één systeem.
+    Zonder accolade blijft elke notenbalk een systeem. Pure ``.vsa.svg``
+    (geen ``StaffLines``): elke ``vsa-line`` is een systeem.
+    """
+    staves = _cluster_systems(_staff_line_ys(svg_text))
+    if staves:
+        return _group_staves_by_brackets(staves, _bracket_spans(svg_text))
     return _vsa_line_systems(svg_text)
 
 
 def system_cut_points_pdf(svg_path: Path, pdf_height: float) -> list[float]:
     """Y-snijpunten in PDF-coördinaten (na SVG→PDF), tussen systemen.
 
-    Snede ligt midden in de gap tussen systemen, zodat een pagina nooit
-    midden door een notenbalk of VSA-regel eindigt. Laatste punt =
-    ``pdf_height``.
+    Snede ligt midden in de gap tussen systemen (accolade / ``Bracket``,
+    of ``vsa-line``), zodat een pagina nooit midden door een systeem,
+    tussen sopraan en bas van hetzelfde systeem, of door een VSA-regel
+    eindigt. Laatste punt = ``pdf_height``.
     """
     text = svg_path.read_text(encoding="utf-8")
     vb_m = re.search(r'viewBox="([^"]+)"', text)

@@ -320,10 +320,14 @@ SVG/mscz/tekstblad wél en nog niet eisen.
 Org-/tooling-richting (print vs scherm): kale tall-SVG (catalogusproduct)
 voor scherm-fallback én print-bouwsteen. `pdf.cmd` bouwt `index.md.pdf` uit
 die sibling-SVG + Markdown (geen catalogus-PDF-plak; geen MuseScore als de
-SVG er al is). Compose snijdt op systeembrenzen (MuseScore ``StaffLines``,
-anders VSA ``vsa-line``), zodat rest-ruimte na titel/proza op dezelfde
-A4-pagina wél met muziek wordt gevuld. Ontbreekt de SVG: alleen lokaal
-opnieuw exporteren. Zie
+SVG er al is). Compose snijdt op systeembrenzen, zodat rest-ruimte na
+titel/proza op dezelfde A4-pagina wél met muziek wordt gevuld. Een
+**systeem** is de groep notenbalken binnen één accolade (in de
+MuseScore-SVG: `Bracket`). De snede valt in de ruimte tussen die
+systemen, nooit tussen de sopraan- en de basbalk van hetzelfde systeem.
+Zonder accolade is elke notenbalk een systeem. Een pure `.vsa.svg`
+(geen MuseScore-notenbalken) snijdt tussen de tekstregels (`vsa-line`).
+Ontbreekt de SVG: alleen lokaal opnieuw exporteren. Zie
 [VSA-tooling — kale-muziek-svg-en-uitgaven](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/kale-muziek-svg-en-uitgaven.md)
 §4 en [partituur-ir §7](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/partituur-ir.md).
 
