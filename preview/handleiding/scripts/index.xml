@@ -221,9 +221,12 @@ starten zonder vraag; bij 100+ items volgt de dubbele zekerheidsvraag.
 &lt;code&gt;-y&lt;/code&gt; is vooral nodig zonder interactieve terminal. Na een geslaagde run
 (niet &lt;code&gt;--dry-run&lt;/code&gt;) schrijft de tooling voor vsa/mvsa/mscz
 &lt;code&gt;{bron}.products-meta.json&lt;/code&gt; (snelle versheid; bladreeks-SVG als &lt;code&gt;svg-1&lt;/code&gt;…).
-Bibliotheek herschrijft die meta niet meer uit siblings; bij mscz wordt
-alleen de MXL-hash gemerged als de Coria-bron-id de MXL wijzigt. Daarna
-vernieuwt het de zoekindex en Coria-fingerprints.&lt;/p&gt;</description></item><item><title>products — mscz</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+Die export is &lt;strong&gt;kaal&lt;/strong&gt;: lyrics en preview-mp3 krijgen daarbij nog geen
+bibliotheek-herkomststempel. Direct daarna zet &lt;code&gt;products&lt;/code&gt; die stempels
+wél (zelfde regels als &lt;code&gt;--kinds lyrics&lt;/code&gt; / &lt;code&gt;--kinds audio&lt;/code&gt;) en werkt de
+hashes in de meta bij. Bij vsa/mscz worden gewijzigde MXL/SVG-hashes
+gemerged zonder andere meta-keys te wissen. Daarna vernieuwt het de
+zoekindex en Coria-fingerprints.&lt;/p&gt;</description></item><item><title>products — mscz</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mscz-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\products.cmd --kinds mscz&lt;/code&gt; — PDF en Coria-&lt;code&gt;.mxl&lt;/code&gt; maken bij een basispartituur-&lt;code&gt;.mscz&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\products.cmd --kinds mscz [pad] [--force] [--dry-run]
@@ -381,7 +384,9 @@ eigen sibling:&lt;/p&gt;
 &lt;/table&gt;
 &lt;p&gt;Het script schrijft een &lt;strong&gt;herkomststempel&lt;/strong&gt; in het mp3-bestand (zelfde
 velden als bij PDF/MXL: hash van de bron, wanneer gemaakt). Zo ziet
-&lt;code&gt;check&lt;/code&gt; later of de bron is gewijzigd terwijl het mp3 nog oud is.&lt;/p&gt;</description></item><item><title>all-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/all-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/all-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;code&gt;check&lt;/code&gt; later of de bron is gewijzigd terwijl het mp3 nog oud is.
+&lt;code&gt;products --kinds mvsa&lt;/code&gt; / &lt;code&gt;vsa&lt;/code&gt; / &lt;code&gt;mscz&lt;/code&gt; zet die stempel ook als tooling
+eerst een kaal mp3 schreef — anders zou &lt;code&gt;check&lt;/code&gt; &lt;code&gt;unstamped_mp3&lt;/code&gt; melden.&lt;/p&gt;</description></item><item><title>all-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/all-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/all-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\all-products.cmd&lt;/code&gt; — alle ontbrekende of verouderde bibliotheek-producten
 in één keer bijwerken&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
@@ -435,9 +440,11 @@ die bijgewerkt moeten worden: preflight met geschatte duur (of &lt;code&gt;-y&lt
 &lt;/table&gt;
 &lt;p&gt;Onder de motorkap: tooling &lt;code&gt;vsa products&lt;/code&gt; maakt Coria-&lt;code&gt;.mxl&lt;/code&gt; (tijdelijke
 syllabify + playback + finalize) en scherm-&lt;code&gt;.svg&lt;/code&gt;, en schrijft
-&lt;code&gt;*.products-meta.json&lt;/code&gt; (schema 2: bron- + product-hashes). Versheid voor
-check/regen komt uit die meta. Optioneel zet dit script nog een
-Coria-bronvermelding in de MXL (geen versheidstempel).&lt;/p&gt;</description></item><item><title>products — tekstblad</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/tekstblad-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/tekstblad-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;code&gt;*.products-meta.json&lt;/code&gt; (schema 2: bron- + product-hashes), plus eventueel
+kale lyrics/mp3. Versheid van mxl/svg voor check/regen komt uit die meta.
+Lyrics- en Beluisteren-stempels zet dit script daarna zelf (anders klaagt
+&lt;code&gt;check&lt;/code&gt; over &lt;code&gt;unstamped_lyrics&lt;/code&gt; / &lt;code&gt;unstamped_mp3&lt;/code&gt;). Optioneel zet het nog
+een Coria-bronvermelding in de MXL (geen versheidstempel).&lt;/p&gt;</description></item><item><title>products — tekstblad</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/tekstblad-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/tekstblad-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\products.cmd --kinds tekstblad&lt;/code&gt; — scherm-SVG’s bij catalogus-&lt;code&gt;.tekstblad.md&lt;/code&gt; met &lt;code&gt;::: vsa-notatie&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\products.cmd --kinds tekstblad [pad] [--force] [--dry-run]

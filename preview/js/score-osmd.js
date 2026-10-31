@@ -1267,6 +1267,10 @@
     if (panel && panel.hasAttribute("hidden")) {
       return false;
     }
+    var translitView = host.closest("[data-translit-view]");
+    if (translitView && translitView.hasAttribute("hidden")) {
+      return false;
+    }
     return true;
   }
 
