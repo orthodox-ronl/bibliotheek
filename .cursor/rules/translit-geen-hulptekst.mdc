@@ -1,0 +1,22 @@
+---
+description: Transliteratie heet translit — nooit hulptekst
+alwaysApply: true
+---
+
+# Transliteratie: geen «hulptekst»
+
+**Hard:** in docs, UI, bestandsnamen, commits, PR’s, chat en code-commentaar
+in bibliotheek (en bij verwante tooling-consumptie) **niet** het woord
+**hulptekst** gebruiken voor dit product.
+
+| Gebruik | Vermijd |
+| --- | --- |
+| **transliteratie** / **translit** | hulptekst, `hulptekst` als productnaam |
+| `*.translit.from-ir.musicxml` | `*.hulptekst.from-ir.musicxml` |
+| Schakelaar «Transliteratie» | «Hulptekst» |
+
+Legacy CLI-vlaggen in VSA-tooling (`--hulptekst`, …) mogen intern nog bestaan
+tot die repo ze hernoemt; noem ze in bibliotheek-docs/UI **niet** als
+productterm. Spreek over **transliteratie-producten** en **translit**.
+
+Geldt voor **nieuwe chats** en alle vervolgstappen (schema, products, scherm).
