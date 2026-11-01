@@ -23,6 +23,11 @@ import zipfile
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
+from fix_cmds import (
+    coria_source_for_mxl,
+    products_only_invalid_fix_cmd,
+    win_repo_rel,
+)
 from product_regen import mxl_contract_ok
 from sync_vsa_products import folder_is_handmatig
 
@@ -30,13 +35,13 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ROOT = REPO_ROOT / "content-source" / "catalogus"
 STATUS_PATH = REPO_ROOT / "data" / "mxl-playback-contract-status.json"
 FIX_PAGE = "/handleiding/start/publicatiecontrole/"
-FIX_CMD = r"scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid"
+FIX_CMD = r"scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid --skip-post"
 FIX_CMD_SOURCE = (
     r"python scripts\strip_coria_mxl_source.py"
     r"  (of products opnieuw; Coria faalt op source+encoding)"
 )
 FIX_CMD_NOTEHEAD = (
-    r"scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid"
+    r"scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid --skip-post"
     r"  (Coria faalt op <notehead>, o.a. none)"
 )
 
@@ -139,10 +144,28 @@ def collect_coria_mxl(root: Path) -> list[tuple[Path, str]]:
     return out
 
 
+def _fix_cmd_for_mxl(path: Path, *, notehead: bool, source_clash: bool) -> str:
+    if source_clash:
+        return (
+            rf"python scripts\strip_coria_mxl_source.py "
+            rf"{win_repo_rel(path)}"
+        )
+    source = coria_source_for_mxl(path)
+    if source is not None:
+        cmd = products_only_invalid_fix_cmd(source)
+        if notehead:
+            return cmd + r"  (Coria faalt op <notehead>, o.a. none)"
+        return cmd
+    if notehead:
+        return FIX_CMD_NOTEHEAD
+    return FIX_CMD
+
+
 def check_one(path: Path, profile: str) -> FileStatus:
     issues: list[Issue] = []
-    fix_cmd = FIX_CMD
-    if has_coria_source_encoding_clash(path):
+    source_clash = has_coria_source_encoding_clash(path)
+    notehead = has_coria_notehead(path)
+    if source_clash:
         issues.append(
             Issue(
                 "coria_source_encoding",
@@ -151,8 +174,7 @@ def check_one(path: Path, profile: str) -> FileStatus:
                 "(Coria: translation failed)",
             )
         )
-        fix_cmd = FIX_CMD_SOURCE
-    if has_coria_notehead(path):
+    if notehead:
         issues.append(
             Issue(
                 "coria_notehead",
@@ -160,7 +182,6 @@ def check_one(path: Path, profile: str) -> FileStatus:
                 "score bevat <notehead> (Coria: translation failed)",
             )
         )
-        fix_cmd = FIX_CMD_NOTEHEAD
     result = mxl_contract_ok(path, profile=profile)
     if result is None:
         issues.append(
@@ -178,6 +199,11 @@ def check_one(path: Path, profile: str) -> FileStatus:
                 f"faalt mxl validate --profile {profile} "
                 f"(M2/M8, Coria-importer-tags of meta)",
             )
+        )
+    fix_cmd = FIX_CMD
+    if issues:
+        fix_cmd = _fix_cmd_for_mxl(
+            path, notehead=notehead, source_clash=source_clash
         )
     return FileStatus(
         file=_rel(path),

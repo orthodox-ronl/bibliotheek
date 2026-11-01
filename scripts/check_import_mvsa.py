@@ -16,6 +16,7 @@ import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
+from fix_cmds import import_mvsa_fix_cmd
 from product_meta import (
     FIELD_GENERATED_AT,
     partituur_sha256,
@@ -64,8 +65,8 @@ def _bladermap_key(path: Path) -> str:
 
 def check_one(mvsa: Path) -> PairStatus:
     issues: list[Issue] = []
-    fix = r"scripts\import-mvsa.cmd"
     mscz = mscz_for_import_mvsa(mvsa)
+    fix = import_mvsa_fix_cmd(mscz if mscz.is_file() else mvsa)
 
     if not mscz.is_file():
         issues.append(

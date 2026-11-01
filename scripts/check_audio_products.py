@@ -17,6 +17,7 @@ import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
+from fix_cmds import products_fix_cmd
 from product_meta import (
     FIELD_GENERATED_AT,
     FIELD_SOURCE_KIND,
@@ -128,7 +129,7 @@ def collect_existing_mp3(root: Path) -> list[Path]:
 def check_one(job: AudioJob) -> FolderStatus:
     issues: list[Issue] = []
     mp3 = job.product
-    fix = r"scripts\products.cmd --kinds audio"
+    fix = products_fix_cmd("audio", job.source)
     digest = (
         partituur_sha256(job.source)
         if job.kind == SOURCE_KIND_PARTITUUR

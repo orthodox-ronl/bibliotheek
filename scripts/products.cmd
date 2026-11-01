@@ -18,8 +18,10 @@ if errorlevel 1 exit /b 1
 python scripts\products.py %*
 if errorlevel 1 exit /b 1
 
-REM Coria-Oefenen-knop: fingerprints bijwerken (niet bij --dry-run).
+REM Coria-Oefenen-knop: fingerprints (niet bij --dry-run / --skip-post).
 echo.%*| findstr /I /C:"--dry-run" >nul
+if not errorlevel 1 exit /b 0
+echo.%*| findstr /I /C:"--skip-post" >nul
 if not errorlevel 1 exit /b 0
 python scripts\fingerprint_coria_mxl.py
 if errorlevel 1 exit /b 1
