@@ -6,5 +6,5 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-{{< kop >}}8a Trisagion (Nederlands){{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 {{< bieb id="trisagion/8a-nederlands/hemelum" />}}

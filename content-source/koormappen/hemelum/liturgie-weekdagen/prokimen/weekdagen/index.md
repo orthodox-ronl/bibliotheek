@@ -5,7 +5,7 @@ weight: 1
 publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-{{< kop >}}Prokimen weekdagen (Kiev){{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 
 {{< kop links middel >}}Maandag (Ps. 103, toon 4){{< /kop >}}
 

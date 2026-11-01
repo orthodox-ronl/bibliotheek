@@ -1,7 +1,6 @@
 ---
-title: "Troparen en Kondaken"
-linkTitle: "Troparen en Kondaken"
-weight: 8
+title: "Troparen en Kondaken (weinig gebruikt)"
+weight: 999
 nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true

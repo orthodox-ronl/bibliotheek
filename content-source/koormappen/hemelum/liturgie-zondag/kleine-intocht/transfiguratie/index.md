@@ -6,5 +6,5 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-{{< kop >}}7a Kleine intocht (Transfiguratie){{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 {{< bieb id="kleine-intocht/transfiguratie/hemelum" />}}

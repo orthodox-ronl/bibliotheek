@@ -5,6 +5,6 @@ weight: 80
 publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-{{< kop >}}Kondak donderdag toon 2 (Apostelen){{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 
 {{< bieb id="kondak/donderdag-toon-2/hemelum" />}}

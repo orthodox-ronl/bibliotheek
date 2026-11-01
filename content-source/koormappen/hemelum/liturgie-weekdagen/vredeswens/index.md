@@ -5,5 +5,5 @@ weight: 17
 publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-{{< kop >}}17 Vredeswens{{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 {{< bieb id="vredeswens/default/hemelum" />}}

@@ -5,6 +5,6 @@ weight: 70
 publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-{{< kop >}}Kondak dinsdag toon 3 (Joannes de Doper){{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 
 {{< bieb id="kondak/dinsdag-toon-3/hemelum" />}}

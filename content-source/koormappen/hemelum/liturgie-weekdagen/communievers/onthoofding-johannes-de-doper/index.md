@@ -5,5 +5,5 @@ weight: 10
 publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-{{< kop >}}Communievers — Onthoofding Johannes de Doper{{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 {{< bieb id="communievers/onthoofding-johannes-de-doper/hemelum" />}}

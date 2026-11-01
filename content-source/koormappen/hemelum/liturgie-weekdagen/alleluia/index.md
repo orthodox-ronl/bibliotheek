@@ -1,11 +1,10 @@
 ---
 title: "9b Alleluia"
-linkTitle: "9b Alleluia"
 weight: 9
 publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-{{< kop groot>}}(9b) Alleluia{{< /kop >}}
+{{< kop groot>}}{{< param title >}}{{< /kop >}}
 
 {{< pdf-bijelkaar >}}
 

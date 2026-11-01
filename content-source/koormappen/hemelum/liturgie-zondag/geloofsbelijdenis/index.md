@@ -6,7 +6,7 @@ publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
 
-{{< kop >}}18 Geloofsbelijdenis{{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 
 {{< bieb id="geloofsbelijdenis/default/hemelum-deel-1" />}}
 {{< witruimte>}}

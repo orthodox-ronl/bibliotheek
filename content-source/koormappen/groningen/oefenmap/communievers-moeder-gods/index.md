@@ -6,7 +6,7 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-{{< kop >}}Communievers — Moeder Gods{{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 
 {{< bieb id="communievers/moeder-gods/pancakescrawlspace" />}}
 

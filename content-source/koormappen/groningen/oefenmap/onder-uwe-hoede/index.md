@@ -6,5 +6,5 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-{{< kop >}}Onder Uwe hoede{{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 {{< bieb id="onder-uwe-hoede/default/pancakescrawlspace" />}}

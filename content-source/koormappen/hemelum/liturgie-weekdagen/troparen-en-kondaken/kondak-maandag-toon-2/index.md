@@ -5,6 +5,6 @@ weight: 60
 publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-{{< kop >}}Kondak maandag toon 2 (Heilige Engelen){{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 
 {{< bieb id="kondak/maandag-toon-2/hemelum" />}}

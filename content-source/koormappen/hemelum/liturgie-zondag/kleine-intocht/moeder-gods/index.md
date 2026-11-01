@@ -6,5 +6,5 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-{{< kop >}}7c Kleine intocht (Moeder Gods){{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 {{< bieb id="kleine-intocht/moeder-gods/hemelum" />}}
