@@ -117,15 +117,13 @@ gecommitte &lt;code&gt;index.json&lt;/code&gt;.&lt;/p&gt;</description></item><i
 &lt;p&gt;Na een &lt;code&gt;check&lt;/code&gt; (met of zonder &lt;code&gt;--strict&lt;/code&gt;) schrijft de repository een
 &lt;strong&gt;afwerklijst&lt;/strong&gt; in &lt;code&gt;data\check-fixlist.json&lt;/code&gt;. Elke regel is één probleem
 waarvoor check al een eenvoudig herstelcommando kent (&lt;code&gt;fix_cmd&lt;/code&gt;),
-bijvoorbeeld &lt;code&gt;scripts\pdf.cmd …\index.md&lt;/code&gt; bij een verouderde blad-PDF.&lt;/p&gt;
-&lt;p&gt;Dit commando:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;toont&lt;/strong&gt; die lijst (&lt;code&gt;--dry-run&lt;/code&gt;), of&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;voert&lt;/strong&gt; elke &lt;code&gt;fix_cmd&lt;/code&gt; uit en &lt;strong&gt;schrapt&lt;/strong&gt; geslaagde regels uit het
-bestand.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Zo kun je na &lt;code&gt;fix&lt;/code&gt; opnieuw &lt;code&gt;check --strict&lt;/code&gt; draaien en — voor alles wat
-auto-fixbaar was — op 0 problemen uitkomen.&lt;/p&gt;</description></item><item><title>build</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+bijvoorbeeld &lt;code&gt;scripts\pdf.cmd …\index.md&lt;/code&gt; bij een verouderde blad-PDF,
+of &lt;code&gt;scripts\products.cmd --kinds mvsa …\lied.mvsa&lt;/code&gt; voor één verouderde
+uitvoeringsvorm (niet de hele catalogus).&lt;/p&gt;
+&lt;p&gt;Product-herstelregels gebruiken &lt;code&gt;--reasons missing,stale&lt;/code&gt; en
+&lt;code&gt;--skip-post&lt;/code&gt;. Zo blijft &lt;code&gt;fix&lt;/code&gt; bij een handvol wijzigingen klein.
+Zoekindex en Coria-fingerprints draait &lt;code&gt;fix&lt;/code&gt; daarna één keer.
+Identieke &lt;code&gt;fix_cmd&lt;/code&gt;-regels worden maar één keer uitgevoerd.&lt;/p&gt;</description></item><item><title>build</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\build.cmd&lt;/code&gt; — hele website bouwen naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;build
