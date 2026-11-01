@@ -59,6 +59,7 @@ class SyncCallsToolingProductsTests(unittest.TestCase):
             with (
                 mock.patch.object(sync, "REPO_ROOT", root),
                 mock.patch.object(sync, "_run_mvsa_products", side_effect=fake_products) as run,
+                mock.patch.object(sync, "sync_translit_svgs") as sync_translit,
             ):
                 sync.sync_one(
                     mvsa,
@@ -71,6 +72,7 @@ class SyncCallsToolingProductsTests(unittest.TestCase):
                 )
 
             run.assert_called_once_with(mvsa, skip_svg=True)
+            sync_translit.assert_not_called()
 
     def test_mvsa_svg_outputs_bladreeks(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -104,6 +106,7 @@ class SyncCallsToolingProductsTests(unittest.TestCase):
             with (
                 mock.patch.object(sync, "REPO_ROOT", root),
                 mock.patch.object(sync, "_run_mvsa_products", side_effect=fake_products),
+                mock.patch.object(sync, "sync_translit_svgs") as sync_translit,
             ):
                 sync.sync_one(
                     mvsa,
@@ -116,6 +119,7 @@ class SyncCallsToolingProductsTests(unittest.TestCase):
                 )
 
             self.assertEqual(calls, [False])
+            sync_translit.assert_called_once_with(mvsa, dry_run=False, force=True)
 
 
 class StampOkTests(unittest.TestCase):

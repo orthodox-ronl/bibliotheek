@@ -1,10 +1,11 @@
 """Maak siblings bij catalogus-``.mvsa``.
 
 Export via tooling ``mvsa products`` (schrijft schema-2 products-meta,
-inclusief bladreeks ``svg-1``…). Bibliotheek schrijft die meta niet
-opnieuw. Geen in-file versheidstempels (versheid = meta).
-A4-``.mvsa.pdf`` is geen verplicht product (blad = ``index.md.pdf``);
-PDF-export blijft voor optioneel herstel.
+inclusief bladreeks ``svg-1``…). Translit-SVG’s (``.translit-nls.svg`` /
+``.translit-ksl.svg``) apart via ``mvsa svg --translit-modus`` (§5a).
+Bibliotheek merget die keys in products-meta. Geen in-file
+versheidstempels (versheid = meta). A4-``.mvsa.pdf`` is geen verplicht
+product (blad = ``index.md.pdf``); PDF-export blijft voor optioneel herstel.
 
 Slaat ``input/``, ``manueel/manual`` en import-siblings ``*.mscz.mvsa``
 over. CI genereert niet — alleen ``check_mvsa_products``; vernieuw lokaal met
@@ -50,6 +51,12 @@ from street_consumer_stamps import restamp_after_street_products
 from street_meta import stamp_ok_or_meta
 from sync_import_mvsa import is_import_mvsa
 from sync_vsa_products import folder_is_handmatig
+from translit_svg_products import (
+    product_translit_svg,
+    sync_translit_svgs,
+    translit_modi_for_source,
+    translit_svgs_fresh,
+)
 
 _MVSA_META_KEYS = {"mxl", "score-ir", "from-ir"}
 
@@ -253,6 +260,7 @@ def sync_one(
     need_score_ir: bool,
     need_from_ir: bool,
     dry_run: bool,
+    need_translit_svg: bool = False,
 ) -> None:
     rel = mvsa.relative_to(REPO_ROOT)
     digest = source_sha256(mvsa)
@@ -262,18 +270,24 @@ def sync_one(
 
     need_export = need_mxl or need_svg or need_score_ir or need_from_ir
     skip_svg = not need_svg
+    want_translit = need_translit_svg or need_svg
     if need_export:
         svg_note = "mxl+ir+svg" if need_svg else "mxl+ir (--skip-svg)"
         detail(f"  EXP  {rel} -> mvsa products ({svg_note})")
     if need_pdf:
         detail(f"  PDF  {rel} -> {pdf.name}")
     if dry_run:
+        if want_translit:
+            sync_translit_svgs(mvsa, dry_run=True, force=need_svg)
         return
 
     if need_export:
         _run_mvsa_products(mvsa, skip_svg=skip_svg)
         # Tooling lyrics/mp3 zijn kaal; bibliotheek-check eist stempels.
         restamp_after_street_products(mvsa)
+
+    if want_translit:
+        sync_translit_svgs(mvsa, dry_run=False, force=need_svg)
 
     if need_pdf:
         require_no_spaces(pdf)
@@ -324,7 +338,7 @@ class MvsaKind:
             if svg_exists
             else from_ir_ok
         )
-        return [
+        slots = [
             ProductSlot(
                 path=mxl,
                 exists=mxl_exists,
@@ -362,13 +376,32 @@ class MvsaKind:
                 needs_musescore=False,
             ),
         ]
+        modi = translit_modi_for_source(source)
+        if modi:
+            first = product_translit_svg(source, modi[0])
+            fresh = translit_svgs_fresh(source, digest)
+            slots.append(
+                ProductSlot(
+                    path=first,
+                    exists=fresh
+                    or all(
+                        product_translit_svg(source, m).is_file() for m in modi
+                    ),
+                    stamp_ok=fresh,
+                    contract_ok=None,
+                    # MuseScore-keten (zelfde als kale mvsa svg).
+                    needs_musescore=True,
+                )
+            )
+        return slots
 
     def sync(self, source: Path, *, need: Sequence[bool], dry_run: bool) -> None:
         need_mxl = bool(need[0]) if len(need) > 0 else False
         need_svg = bool(need[1]) if len(need) > 1 else False
         need_score_ir = bool(need[2]) if len(need) > 2 else False
         need_from_ir = bool(need[3]) if len(need) > 3 else False
-        if need_mxl or need_svg or need_score_ir or need_from_ir:
+        need_translit = bool(need[4]) if len(need) > 4 else False
+        if need_mxl or need_svg or need_score_ir or need_from_ir or need_translit:
             sync_one(
                 source,
                 need_mxl=need_mxl,
@@ -377,6 +410,7 @@ class MvsaKind:
                 need_score_ir=need_score_ir,
                 need_from_ir=need_from_ir,
                 dry_run=dry_run,
+                need_translit_svg=need_translit,
             )
 
 

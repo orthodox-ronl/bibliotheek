@@ -501,6 +501,42 @@ def test_compose_tekstblad_pagina_pdf_trims_and_titles(tmp_path: Path) -> None:
     assert "Laat ons de Here bidden" in text
 
 
+def test_resolve_svgs_translit_uses_sibling(tmp_path, monkeypatch) -> None:
+    source = tmp_path / "lied.vsa"
+    source.write_text("[:] Amen. [:]\n", encoding="utf-8")
+    tsvg = tmp_path / "lied.vsa.translit-ksl.svg"
+    tsvg.write_text(
+        '<?xml version="1.0"?>\n<svg xmlns="http://www.w3.org/2000/svg"/>\n',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(pp, "ROOT", tmp_path)
+    outs = pp.resolve_svgs_for_pdf(source, translit_modus="ksl")
+    assert outs == [tsvg]
+
+
+def test_resolve_svgs_translit_falls_back_when_modus_niet_van_toepassing(
+    tmp_path, monkeypatch
+) -> None:
+    source = tmp_path / "lied.vsa"
+    source.write_text("[:] Amen. [:]\n", encoding="utf-8")
+    base = tmp_path / "lied.vsa.svg"
+    base.write_text(
+        '<?xml version="1.0"?>\n<svg xmlns="http://www.w3.org/2000/svg"/>\n',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(pp, "ROOT", tmp_path)
+    # nls hoort niet bij puur Latijn → kale SVG
+    outs = pp.resolve_svgs_for_pdf(source, translit_modus="nls")
+    assert outs == [base]
+
+
+def test_pagina_translit_pdf_out_path() -> None:
+    md = Path("x/index.md")
+    assert pp._pagina_translit_pdf_out_path(md, "nls").name == (
+        "index.md.translit-nls.pdf"
+    )
+
+
 def test_build_one_voorzien_without_bieb(tmp_path, monkeypatch) -> None:
     cat = tmp_path / "catalogus"
     leaf = cat / "prokimen" / "x" / "groningen"

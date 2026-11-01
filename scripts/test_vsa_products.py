@@ -42,12 +42,14 @@ class SyncCallsToolingProductsTests(unittest.TestCase):
                 mock.patch.object(sync, "_run_vsa_products", side_effect=fake_products),
                 mock.patch.object(sync, "_apply_bron_identification", return_value=False),
                 mock.patch.object(sync, "write_products_meta") as write_meta,
+                mock.patch.object(sync, "sync_translit_svgs") as sync_translit,
             ):
                 sync.sync_one(vsa, dry_run=False, do_mxl=True, do_pdf=False, do_svg=True)
 
             write_meta.assert_called_once_with(
                 vsa, {"mxl": mxl, "svg": svg}, merge=True
             )
+            sync_translit.assert_called_once_with(vsa, dry_run=False, force=True)
 
 
 class StampOkTests(unittest.TestCase):

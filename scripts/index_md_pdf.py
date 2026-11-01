@@ -7,6 +7,10 @@ alleen lokaal opnieuw exporteren als die ontbreekt. Compose snijdt op
 systeembrenzen (MuseScore ``StaffLines``, anders VSA ``vsa-line``) zodat
 rest-ruimte na titel/proza op A4 wél gevuld wordt.
 
+Naast de basis-PDF: optioneel ``index.md.translit-nls.pdf`` /
+``index.md.translit-ksl.pdf`` (§5a) uit translit-SVG-siblings
+(``.translit-nls.svg`` / ``.translit-ksl.svg``).
+
 Catalogus-leaves zonder Markdown-titel: afgeleide leaf-titel injecteren
 (zelfde algoritme als Hugo; zie ``ensure_catalogus_derived_titles``).
 """
@@ -1078,6 +1082,13 @@ def _pagina_pdf_out_path(md_path: Path) -> Path:
     return md_path.with_name(md_path.name + ".pdf")
 
 
+def _pagina_translit_pdf_out_path(md_path: Path, modus: str) -> Path:
+    """``index.md`` + ``nls`` → ``index.md.translit-nls.pdf``."""
+    from translit_svg_products import pagina_translit_pdf_path
+
+    return pagina_translit_pdf_path(md_path, modus)
+
+
 @dataclass(frozen=True)
 class PaginaPdfJob:
     """Wat ``pdf.cmd`` zou moeten bouwen (zonder te exporteren)."""
@@ -1546,12 +1557,46 @@ def resolve_svgs_for_pdf(
     *,
     uv_id: str = "",
     compact: bool = False,
+    translit_modus: str | None = None,
 ) -> list[Path]:
     """Kies SVG voor compose: product → legacy bladreeks → lokaal exporteren.
+
+    Met ``translit_modus`` (``nls``/``ksl``): translit-sibling als die modus
+    bij de bron hoort; anders de kale bron-SVG. Ontbrekende translit-SVG
+    wordt lokaal geëxporteerd (``vsa``/``mvsa svg --translit-modus``).
 
     *work* / *uv_id* blijven voor aanroepers; export schrijft de canonieke
     sibling naast *source* (niet naar een temp-map).
     """
+    if translit_modus:
+        from translit_svg_products import (
+            export_one_translit_svg,
+            product_translit_svg,
+            translit_modi_for_source,
+        )
+
+        modi = translit_modi_for_source(source)
+        if translit_modus not in modi:
+            return resolve_svgs_for_pdf(
+                source, work, uv_id=uv_id, compact=compact, translit_modus=None
+            )
+        tpath = product_translit_svg(source, translit_modus)
+        if tpath.is_file():
+            try:
+                rel = tpath.relative_to(ROOT)
+            except ValueError:
+                rel = tpath
+            detail(f"  SVG translit-{translit_modus} {rel}")
+            return [tpath]
+        detail(
+            f"  translit-SVG ontbreekt ({tpath.name}); "
+            f"exporteren (--translit-modus {translit_modus})…"
+        )
+        export_one_translit_svg(source, translit_modus)
+        if not tpath.is_file():
+            raise RuntimeError(f"translit-SVG ontbreekt na export: {tpath}")
+        return [tpath]
+
     product = product_svg_path(source)
     if product.is_file():
         try:
@@ -1690,13 +1735,20 @@ def export_compact_svg(mvsa: Path, dest: Path) -> None:
     export_blad_svgs(mvsa, dest, compact=True)
 
 
-def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
+def _compose_flow_svg(
+    flow: PageFlow,
+    dest: Path,
+    *,
+    work: Path,
+    translit_modus: str | None = None,
+) -> None:
     """Zet titel(s) + kale muziek-SVG's op A4.
 
     SVG bij voorkeur uit catalogus-product (tall); anders legacy bladreeks
-    of lokale street-CLI-export. Zonder ``pdf-bijelkaar``: snijden op
-    systeembrenzen (``StaffLines`` of ``vsa-line``) zodat rest-ruimte na
-    titel/proza gevuld wordt.
+    of lokale street-CLI-export. Met ``translit_modus``: translit-SVG’s
+    (§5a). Zonder ``pdf-bijelkaar``: snijden op systeembrenzen
+    (``StaffLines`` of ``vsa-line``) zodat rest-ruimte na titel/proza
+    gevuld wordt.
     """
     try:
         import pymupdf
@@ -1721,6 +1773,7 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
                 work,
                 uv_id=item.uv_id,
                 compact=item.compact,
+                translit_modus=translit_modus,
             )
 
     # Per blad-SVG een PDF-pagina (afmetingen + systeemsnee)
@@ -2016,31 +2069,98 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
 
     # Bronnen voor mtime-check (notatiebestanden, geen catalogus-PDF)
     deps = [md_path]
+    sources: list[Path] = []
     for flow in flows:
         for mid in flow.music_ids:
-            deps.append(find_notation_source(mid))
+            src = find_notation_source(mid)
+            deps.append(src)
+            sources.append(src)
 
+    skip_base = False
     if out.is_file() and not force:
         newest = max(p.stat().st_mtime for p in deps if p.is_file())
         if out.stat().st_mtime >= newest:
-            return out
+            skip_base = True
 
-    with tempfile.TemporaryDirectory(prefix="pagina-pdf-") as tmp:
-        work = Path(tmp)
-        parts: list[Path] = []
-        for i, flow in enumerate(flows):
-            if not flow.items:
+    if not skip_base:
+        with tempfile.TemporaryDirectory(prefix="pagina-pdf-") as tmp:
+            work = Path(tmp)
+            parts: list[Path] = []
+            for i, flow in enumerate(flows):
+                if not flow.items:
+                    continue
+                part = work / f"flow-{i}.pdf"
+                _compose_flow_svg(flow, part, work=work / f"svg-{i}")
+                parts.append(part)
+            if not parts:
+                return None
+            if len(parts) == 1:
+                shutil.copy2(parts[0], out)
+            else:
+                stitch_pdfs(parts, out)
+
+    _build_translit_pagina_pdfs(md_path, flows, sources, force=force)
+    return out if out.is_file() else None
+
+
+def _build_translit_pagina_pdfs(
+    md_path: Path,
+    flows: list,
+    sources: list[Path],
+    *,
+    force: bool,
+) -> list[Path]:
+    """Schrijf ``index.md.translit-*.pdf`` waar §5a dat vraagt."""
+    from translit_svg_products import (
+        page_translit_modi,
+        product_translit_svg,
+        translit_modi_for_source,
+    )
+
+    modi = page_translit_modi(sources)
+    written: list[Path] = []
+    for modus in modi:
+        dest = _pagina_translit_pdf_out_path(md_path, modus)
+        tdeps: list[Path] = [md_path, *sources]
+        for src in sources:
+            if modus in translit_modi_for_source(src):
+                tdeps.append(product_translit_svg(src, modus))
+        if dest.is_file() and not force:
+            newest = max(
+                (p.stat().st_mtime for p in tdeps if p.is_file()),
+                default=0.0,
+            )
+            if newest and dest.stat().st_mtime >= newest:
+                written.append(dest)
                 continue
-            part = work / f"flow-{i}.pdf"
-            _compose_flow_svg(flow, part, work=work / f"svg-{i}")
-            parts.append(part)
-        if not parts:
-            return None
-        if len(parts) == 1:
-            shutil.copy2(parts[0], out)
-        else:
-            stitch_pdfs(parts, out)
-    return out
+        detail(f"  pagina translit-{modus} → {dest.name}")
+        with tempfile.TemporaryDirectory(prefix=f"pagina-pdf-{modus}-") as tmp:
+            work = Path(tmp)
+            parts: list[Path] = []
+            for i, flow in enumerate(flows):
+                if not flow.items:
+                    continue
+                part = work / f"flow-{i}.pdf"
+                _compose_flow_svg(
+                    flow,
+                    part,
+                    work=work / f"svg-{i}",
+                    translit_modus=modus,
+                )
+                parts.append(part)
+            if not parts:
+                continue
+            if len(parts) == 1:
+                shutil.copy2(parts[0], dest)
+            else:
+                stitch_pdfs(parts, dest)
+        written.append(dest)
+        try:
+            rel = dest.relative_to(ROOT)
+        except ValueError:
+            rel = dest
+        info(f"  OK translit {rel}")
+    return written
 
 
 def expand_pagina_md_path(path: Path) -> list[Path]:
@@ -2087,7 +2207,8 @@ def iter_targets(explicit: list[Path], all_koormappen: bool) -> list[Path]:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(
         description=(
-            "Bouw index.md.pdf uit kale blad-SVG's + Markdown-koppen "
+            "Bouw index.md.pdf (+ optioneel index.md.translit-nls.pdf / "
+            "index.md.translit-ksl.pdf) uit kale blad-SVG's + Markdown-koppen "
             "(pdf-bijelkaar → --compact). Pad = één .md of een map "
             "(recursief index.md)."
         )

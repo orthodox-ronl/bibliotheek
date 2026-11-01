@@ -1,11 +1,13 @@
 """Maak Coria-``.vsa.mxl`` + muziek-``.vsa.svg`` bij ``.vsa``.
 
-Siblings: ``{stam}.vsa.mxl`` (Coria / Oefenen), ``{stam}.vsa.svg`` (scherm).
-Export via tooling ``vsa products`` (schrijft schema-2 products-meta).
-Daarna optioneel Coria-bron-``identification`` + meta herschrijven
-(product-hashes), legacy-opruim. Geen in-file versheidstempels meer
-(versheid = meta). A4-``.vsa.pdf`` is geen verplicht product (blad =
-``index.md.pdf``); PDF-export blijft voor optioneel herstel.
+Siblings: ``{stam}.vsa.mxl`` (Coria / Oefenen), ``{stam}.vsa.svg`` (scherm),
+plus optioneel ``.vsa.translit-nls.svg`` / ``.vsa.translit-ksl.svg`` (§5a).
+Export via tooling ``vsa products`` (schrijft schema-2 products-meta);
+translit-SVG’s apart via ``vsa svg --translit-modus``. Daarna optioneel
+Coria-bron-``identification`` + meta herschrijven (product-hashes),
+legacy-opruim. Geen in-file versheidstempels meer (versheid = meta).
+A4-``.vsa.pdf`` is geen verplicht product (blad = ``index.md.pdf``);
+PDF-export blijft voor optioneel herstel.
 
 Slaat mappen met ``manueel: true`` of ``manual: true`` over. CI genereert niet —
 alleen ``check_vsa_products``; vernieuw lokaal met ``scripts\\products.cmd --kinds vsa``.
@@ -45,6 +47,12 @@ from product_meta import (
 from product_regen import RegenPolicy, mxl_contract_ok
 from street_consumer_stamps import restamp_after_street_products
 from street_meta import stamp_ok_or_meta, write_products_meta
+from translit_svg_products import (
+    product_translit_svg,
+    sync_translit_svgs,
+    translit_modi_for_source,
+    translit_svgs_fresh,
+)
 
 
 def _fm_bool(text: str, key: str) -> bool:
@@ -340,6 +348,7 @@ def sync_one(
     do_mxl: bool = True,
     do_pdf: bool = True,
     do_svg: bool = True,
+    do_translit_svg: bool = False,
 ) -> None:
     rel = vsa.relative_to(REPO_ROOT)
     source_hash = source_sha256(vsa)
@@ -348,11 +357,15 @@ def sync_one(
     pdf = product_pdf_for_vsa(vsa)
     svg = product_svg_for_vsa(vsa)
     need_export = do_mxl or do_svg
+    # Na bron-SVG-export altijd translit meenemen; anders alleen als stale.
+    want_translit = do_translit_svg or do_svg
     if need_export:
         detail(f"  EXP  {rel} -> vsa products (mxl+svg)")
     if do_pdf:
         detail(f"  PDF  {rel} -> {pdf.name}")
     if dry_run:
+        if want_translit:
+            sync_translit_svgs(vsa, dry_run=True, force=do_svg)
         return
 
     if need_export:
@@ -363,6 +376,9 @@ def sync_one(
         # (lyrics/mp3/pdf) te wissen. Tooling lyrics/mp3 zijn kaal → stempelen.
         write_products_meta(vsa, {"mxl": mxl, "svg": svg}, merge=True)
         restamp_after_street_products(vsa)
+
+    if want_translit:
+        sync_translit_svgs(vsa, dry_run=False, force=do_svg)
 
     if do_pdf:
         require_no_spaces(pdf)
@@ -405,7 +421,7 @@ class VsaKind:
             required_keys={"mxl", "svg"},
             stamp_ok=_stamp_ok_svg(svg, digest),
         )
-        return [
+        slots = [
             ProductSlot(
                 path=mxl,
                 exists=mxl_exists,
@@ -421,17 +437,35 @@ class VsaKind:
                 needs_musescore=False,
             ),
         ]
+        modi = translit_modi_for_source(source)
+        if modi:
+            first = product_translit_svg(source, modi[0])
+            fresh = translit_svgs_fresh(source, digest)
+            slots.append(
+                ProductSlot(
+                    path=first,
+                    exists=fresh or all(
+                        product_translit_svg(source, m).is_file() for m in modi
+                    ),
+                    stamp_ok=fresh,
+                    contract_ok=None,
+                    needs_musescore=False,
+                )
+            )
+        return slots
 
     def sync(self, source: Path, *, need: Sequence[bool], dry_run: bool) -> None:
         need_mxl = bool(need[0]) if len(need) > 0 else False
         need_svg = bool(need[1]) if len(need) > 1 else False
-        if need_mxl or need_svg:
+        need_translit = bool(need[2]) if len(need) > 2 else False
+        if need_mxl or need_svg or need_translit:
             sync_one(
                 source,
                 dry_run=dry_run,
                 do_mxl=need_mxl,
                 do_pdf=False,
                 do_svg=need_svg,
+                do_translit_svg=need_translit,
             )
 
 
