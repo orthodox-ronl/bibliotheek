@@ -5,6 +5,6 @@ weight: 50
 publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-{{< kop >}}Tropaar zaterdag gestorvenen toon 2{{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 
 {{< bieb id="tropaar/zaterdag-gestorvenen-toon-2/hemelum" />}}

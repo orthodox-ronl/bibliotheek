@@ -1,4 +1,4 @@
----
+﻿---
 title: "products — audio"
 linkTitle: "products (audio)"
 weight: 107
@@ -7,7 +7,7 @@ weight: 107
 # NAME
 
 `scripts\products.cmd --kinds audio` — preview-`.mp3` maken bij een bibliotheek-bron
-(gewoon product-spoor; ook via `products` / `all-products`)
+(gewoon product-spoor; ook via `products` / `products --kinds all`)
 
 # SYNOPSIS
 
@@ -50,7 +50,7 @@ heeft als Oefenen; de canonieke `.vsa` blijft ongewijzigd. CI genereert
 handmatige mappen) hoort een passende `.mp3` te hebben — dezelfde scope
 als de Coria-`.mxl`. Ontbreekt of veroudert die, dan faalt
 `check --strict` / CI. Maak ze lokaal met dit script (of
-[all-products](../all-products/)); CI genereert geen MuseScore-audio.
+[products](../products/)); CI genereert geen MuseScore-audio.
 
 # OPTIONS
 

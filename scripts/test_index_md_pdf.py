@@ -151,6 +151,48 @@ def test_witruimte_between_music() -> None:
     assert space.points == pp._WITRUIMTE_PT["groot"]
 
 
+def test_kop_param_reads_frontmatter_title() -> None:
+    """``param`` in ``kop`` komt uit de frontmatter (koormap-paginataal §6)."""
+    text = """---
+title: "Kondak H. Nikolas van Myra (toon 3)"
+linkTitle: "Nikolas"
+weight: 40
+params:
+  noot: "toon 3"
+---
+
+{{< kop >}}{{< param title >}}{{< /kop >}}
+
+{{< bieb id="kondak/nikolaas-van-myra-toon-3/hemelum" />}}
+
+{{< kop links middel >}}(1a) {{< param "linkTitle" >}}{{< /kop >}}
+
+{{< kop midden klein >}}{{% param noot %}}{{< /kop >}}
+"""
+    flows = pp.parse_page_flows(text)
+    titles = [i for i in flows[0].items if isinstance(i, pp.TitleItem)]
+    assert [(t.text, t.size, t.align) for t in titles] == [
+        ("Kondak H. Nikolas van Myra (toon 3)", "groot", "midden"),
+        ("(1a) Nikolas", "middel", "links"),
+        ("toon 3", "klein", "midden"),
+    ]
+
+
+def test_kop_param_unknown_field_errors() -> None:
+    text = """---
+title: "Vredeslitanie"
+---
+
+{{< kop >}}{{< param ontbreekt >}}{{< /kop >}}
+"""
+    try:
+        pp.parse_page_flows(text)
+    except ValueError as exc:
+        assert "ontbreekt" in str(exc)
+    else:
+        raise AssertionError("verwacht ValueError voor onbekend param-veld")
+
+
 def test_koormap_two_kops_keep_document_order() -> None:
     """Koormap-paginataal §6/§10: elke ``kop`` blijft vóór zijn ``bieb``.
 

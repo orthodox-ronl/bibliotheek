@@ -167,12 +167,12 @@ def run_kind(
     sources = kind.collect(root)
     if not sources:
         if root.is_file():
-            info(
+            detail(
                 f"{kind.id}: geen passende bron op {root.name}; overgeslagen",
             )
         else:
-            info(
-                f"{kind.label} up-to-date (0{kind.source_noun})",
+            detail(
+                f"{kind.label}: 0 bronnen onder {root}",
             )
         return 0
 
@@ -192,7 +192,7 @@ def run_kind(
             todo.append((source, need, slots))
 
     if not todo:
-        info(
+        detail(
             f"{kind.label} up-to-date ({len(sources)}{kind.source_noun})",
         )
         return 0
@@ -242,9 +242,7 @@ def run_kind(
                 if not todo:
                     return 1
 
-    info(
-        f"{kind.label} bijwerken: {len(todo)} van {len(sources)}",
-    )
+    info(f">>> {kind.id}: {len(todo)} van {len(sources)} bijwerken")
     from batch_guard import confirm_batch, run_timed_batch
 
     timing_kind = f"product_{kind.id}"

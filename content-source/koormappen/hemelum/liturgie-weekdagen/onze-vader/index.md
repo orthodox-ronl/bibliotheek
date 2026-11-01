@@ -5,5 +5,5 @@ weight: 23
 publicatiestatus: "voorzien"
 automatische_inhoud: false
 ---
-{{< kop >}}23 Onze Vader{{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 {{< bieb id="onze-vader/default/hemelum" />}}

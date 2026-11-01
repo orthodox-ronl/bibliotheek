@@ -1,4 +1,4 @@
----
+﻿---
 title: "audio"
 linkTitle: "audio"
 weight: 85
@@ -41,13 +41,13 @@ De canonieke `.vsa` (en het SVG) blijven zonder orthografische `-`.
 ## Bestanden en scripts
 
 - Lokaal maken: [products (audio)](/handleiding/scripts/audio-products/)
-- Alles tegelijk: [all-products](/handleiding/scripts/all-products/)
+- Alles tegelijk: [products](../products/)
 - Controle: [check](/handleiding/scripts/check/)
 - Namen: [Publicatiecontrole](/handleiding/start/publicatiecontrole/)
 
 ## CI / handmatig
 
 CI genereert geen MuseScore-audio. Vernieuw lokaal met `products --kinds audio`
-of `all-products`, commit bron én `.mp3`.
+of `products --kinds all`, commit bron én `.mp3`.
 
 {{< navbuttons "mvsa|/handleiding/werktrajecten/mvsa/" "Werktrajecten|/handleiding/werktrajecten/" >}}

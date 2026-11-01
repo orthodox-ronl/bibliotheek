@@ -6,5 +6,5 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-{{< kop >}}20d In waarheid (Moeder Godslied){{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 {{< bieb id="moeder-godslied/20d-in-waarheid/hemelum" />}}

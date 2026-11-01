@@ -232,17 +232,23 @@ def confirm_batch(
     if soft_seconds is None:
         soft_seconds = float(SOFT_SECONDS)
 
+    # Parent (products / products-changed) heeft al bevestigd: geen
+    # preflight-rommel, tenzij --verbose.
+    if already_confirmed:
+        from cli_style import detail
+
+        detail(f"Batch «{kind}»: {headline} (al bevestigd)")
+        for line in details:
+            detail(f"  {line}")
+        detail(f"  Aantal items: {n}")
+        return True
+
     print(flush=True)
     print(f"Batch «{kind}»: {headline}", flush=True)
     for line in details:
         print(f"  {line}", flush=True)
     print(f"  Aantal items: {n}", flush=True)
     print(f"  {estimate_line(kind, n)}", flush=True)
-
-    if already_confirmed:
-        print("  Bevestiging: al gedaan (aanroepende batch).", flush=True)
-        print(flush=True)
-        return True
 
     large = n >= hard_limit
 

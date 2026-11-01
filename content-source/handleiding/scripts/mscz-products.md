@@ -1,4 +1,4 @@
-﻿---
+---
 title: "products — mscz"
 linkTitle: "products (mscz)"
 weight: 100
@@ -29,7 +29,7 @@ mappen met `manueel: true` worden overgeslagen. Een afgeleide
 `*.mvsa.mscz` wél behandelen: geef dat bestand expliciet als pad. Geef
 je een ander brontype (bijvoorbeeld een `.mvsa`), dan slaat dit spoor
 over — dat is geen fout (zelfde gedrag als bij
-[products](../all-products/)).
+[products](../products/)).
 
 Onder de motorkap: tooling `mscz products` (Coria-`.mxl` + optioneel
 scherm-SVG; `--skip-svg` als alleen MXL nodig is) schrijft ook

@@ -36,7 +36,7 @@ Het zoekt `.mvsa` onder het opgegeven pad (of, zonder pad, onder
 `.mscz.mvsa`, bestanden in `input\`, en mappen met
 `manueel: true` worden overgeslagen. Geen passende `.mvsa`
 op het pad = overslaan (geen fout; zelfde schil als
-[products](../all-products/)).
+[products](../products/)).
 
 Onder de motorkap: tooling `mvsa products` (Coria-`.mxl` + Score-IR +
 from-ir; SVG alleen als dat slot nodig is, anders `--skip-svg`) schrijft

@@ -1,4 +1,4 @@
----
+﻿---
 title: "Script-referentie"
 linkTitle: "Scripts"
 weight: 50
@@ -35,7 +35,6 @@ vanuit de repo-root.
 | `products --kinds mvsa` | MXL, Score-IR, from-ir (+ optioneel SVG) bij catalogus-`.mvsa`. | [products (mvsa)](mvsa-products/) |
 | `products --kinds audio` | Preview-`{stam}.{bron}.mp3` (Beluisteren). | [products (audio)](audio-products/) |
 | `products --kinds lyrics` | `{stam}.….lyrics.txt` (zoektekst). | [products (lyrics)](lyrics-products/) |
-| `all-products` | Alias voor `products --kinds all` (inclusief import-mvsa). | [all-products](all-products/) |
 | `layout` | Past de basispartituur-standaard toe op `.mscz` of `.mxl` (tooling-layoutprofiel `partituur`). | [layout](layout/) |
 | `ensure-bibliotheek-id` | Zet of controleert de colofonregel `Bibliotheek-id:` op basispartituur-`.mscz`. | [ensure-bibliotheek-id](ensure-bibliotheek-id/) |
 | `bump-vsa-tooling-pin` | Zet `vsa-tooling.pin` op de tip van VSA-tooling (productie-pin); commit/PR zelf. | [bump-vsa-tooling-pin](bump-vsa-tooling-pin/) |
@@ -48,15 +47,15 @@ vanuit de repo-root.
 | `update-werkvoorraad` | Tabel in `input\werkvoorraad.md` laten aansluiten op bestanden in `input\`. | [update-werkvoorraad](update-werkvoorraad/) |
 | `werkbank-status` | Overzicht open werkbank-cases; schrijft `data\werkbank-status.json`. | [werkbank-status](werkbank-status/) |
 | `lifecycle-grenzen` | Spaties/ruwe formats in catalogusmappen melden (optioneel `--fail`). | [lifecycle-grenzen](lifecycle-grenzen/) |
-| `oefenhoek-index` | Legacy SVG uit `.vsa` naar `static\vsa\bladermap\` (geen stamp). Het scherm gebruikt `{stam}.vsa.svg` zodra `products --kinds vsa` die heeft gemaakt. | [oefenhoek-index](oefenhoek-index/) |
 | `pdf.cmd` | Maakt `index.md.pdf` voor Download/Print pagina uit kale blad-SVG’s + Markdown-koppen (`pdf-bijelkaar` → compact). | [pdf](pdf/) |
 
 Intern (geen apart gebruikerscommando): `python scripts\fingerprint_coria_mxl.py`
 maakt `/mxl/c/<hash>.musicxml` en `data/coria-fp.json` voor **Oefenen** (♪).
 Daarna `python scripts\probe_coria_fetch.py`: steekproef mscz/mvsa/vsa bij
 Coria via **github.io** (geen raw); schrijft `base` in
-`data/coria-public-base.json`.
-Wordt al door `check` / `build` / `serve` aangeroepen.
+`data/coria-public-base.json`. Legacy bladermap-SVG:
+`python scripts\sync_oefenhoek_index.py --svg`. Dit alles wordt al door
+`check` / `build` / `serve` aangeroepen.
 `check_koormap_slot_links.py` controleert relatieve links in koormappen
 (onderdeel van `check` / CI). `check_vsa_products.py`,
 `check_mscz_products.py`, `check_tekstblad_products.py`,

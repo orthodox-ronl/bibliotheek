@@ -63,8 +63,6 @@ echo   products
 echo     afgeleide producten ^(MXL/SVG/mp3/...^); --kinds vsa^|mvsa^|mscz^|audio^|lyrics^|...
 echo   products-changed
 echo     alleen producten/pdf voor git-gewijzigde bronnen ^(missing+stale^)
-echo   all-products
-echo     alias: products --kinds all
 echo   import-mvsa
 echo     bewerkvorm .mscz.mvsa naast basis-.mscz
 echo   layout
@@ -85,8 +83,6 @@ echo   werkbank-status
 echo     open werkbank-cases
 echo   lifecycle-grenzen
 echo     grenzen werkbank vs catalogus
-echo   oefenhoek-index
-echo     legacy bladermap-SVG uit .vsa ^(fallback^)
 echo   pdf
 echo     PDF van een koormap- of catalogusblad ^(index.md.pdf^)
 echo.

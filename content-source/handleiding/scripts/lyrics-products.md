@@ -1,4 +1,4 @@
----
+﻿---
 title: "products — lyrics"
 linkTitle: "products (lyrics)"
 weight: 106
@@ -7,7 +7,7 @@ weight: 106
 # NAME
 
 `scripts\products.cmd --kinds lyrics` — platte zoektekst naast `.vsa` / `.mvsa` /
-`.mscz` (gewoon product-spoor; ook via `products` / `all-products`)
+`.mscz` (gewoon product-spoor; ook via `products` / `products --kinds all`)
 
 # SYNOPSIS
 
@@ -48,7 +48,7 @@ Zoekt onder het opgegeven pad (of, zonder pad, onder
 `*.mvsa.mscz` (tenzij je zo’n bestand expliciet als pad doorgeeft).
 
 CI genereert **geen** lyrics; jij wel lokaal (of via `products` /
-`all-products`), daarna committen. De **zoekindex** wel: die wordt
+`products --kinds all`), daarna committen. De **zoekindex** wel: die wordt
 bij elke Pages-deploy opnieuw gebouwd.
 
 # EXAMPLES
@@ -61,7 +61,7 @@ scripts\products.cmd --kinds lyrics --dry-run
 
 # SEE ALSO
 
-[all-products](../all-products/), [products (mscz)](../mscz-products/),
+[products](../products/), [products (mscz)](../mscz-products/),
 [check](../check/),
 [Zoeken (handleiding)](/handleiding/start/zoeken/),
 [Publicatiecontrole](/handleiding/start/publicatiecontrole/),

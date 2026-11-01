@@ -1,4 +1,4 @@
----
+﻿---
 title: "Catalogus"
 linkTitle: "Catalogus"
 weight: 17
@@ -16,7 +16,7 @@ de bestaande productscripts en publicatiecontrole. Overzicht:
 {{< cue >}}
 1. Canonieke bron bewerken in de catalogusmap (niet opnieuw vanuit
    een ruwe dump “ernaast”).
-2. Producten: `scripts\all-products.cmd` met pad naar die map (of
+2. Producten: `scripts\products.cmd --kinds all` met pad naar die map (of
    `scripts\products.cmd --kinds …`).
 3. `scripts\check.cmd --strict` groen vóór commit/push.
 4. Optioneel: koormap-slot met shortcode `bieb` naar hetzelfde id.
@@ -42,7 +42,7 @@ Namen: [Publicatiecontrole](publicatiecontrole/). Model:
 | Wel met de hand | Via regeneratie / script |
 | --- | --- |
 | Canonieke bron (`.mscz`, `.vsa`, `.mvsa`, `.tekstblad.md`) | `{stam}.….pdf` / `.mxl` / `.svg` / `.mp3` / `.lyrics.txt` via `products` |
-| Frontmatter `publicatiestatus`, titel, `manueel` / `manual` | Legacy bladermap-SVG (`oefenhoek-index --svg`, alleen fallback) |
+| Frontmatter `publicatiestatus`, titel, `manueel` / `manual` | Legacy bladermap-SVG (`python scripts\sync_oefenhoek_index.py --svg`, alleen fallback) |
 | Koormap-markdown en `bieb`-id | Coria-fingerprints (gegenereerd, niet committen) |
 
 Bij `manueel: true` houd je PDF/MXL zelf bij; de
@@ -53,7 +53,7 @@ automatische productcontrole slaat die map over. Zie
 
 | Stap | Commando | Wat het hier doet |
 | --- | --- | --- |
-| Producten (één map) | `scripts\all-products.cmd content-source\catalogus\…` | Alle ontbrekende/stale siblings voor die boom |
+| Producten (één map) | `scripts\products.cmd --kinds all content-source\catalogus\…` | Alle ontbrekende/stale siblings voor die boom |
 | Eén spoor | `products --kinds vsa` / `products --kinds mscz` / `products --kinds mvsa` / `products --kinds audio` / … | Alleen dat producttype |
 | Validate | `scripts\validate.cmd` | Geldigheid `.vsa` / `.mvsa` in de catalogus |
 | Preflight | `scripts\check.cmd --strict` | Publicatiecontrole + Hugo + … |
@@ -91,7 +91,7 @@ Op `index.md` (bibliotheek én koormap): `voorzien`, `concept`,
 
 ```cmd
 cd /d C:\Git\orthodox-ronl\bibliotheek
-scripts\all-products.cmd content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>
+scripts\products.cmd --kinds all content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>
 scripts\check.cmd --strict
 ```
 

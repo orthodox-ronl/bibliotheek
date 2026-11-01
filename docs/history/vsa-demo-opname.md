@@ -7,15 +7,12 @@ is het bewaarde verslag.
 
 ## Traject
 
-1. **Stap 1** — VSA-blokken uit demo-Markdown → `_stap1/`  
-   Script: `scripts/extract-vsa-demo-md.py`
-2. **Stap 2** — normaliseren + vergelijken met catalogus → `_stap2/`  
-   Scripts: `scripts/stap2-vergelijk-vsa.py`, `scripts/stap2-verwerken.py`
-3. **Opname** — nieuw/varianten/twijfel → catalogus (`bieb accepteer`)  
-   Script: `scripts/_stap2_nieuw_accepteer.py`
+1. **Stap 1** — VSA-blokken uit demo-Markdown → `_stap1/`
+2. **Stap 2** — normaliseren + vergelijken met catalogus → `_stap2/`
+3. **Opname** — nieuw/varianten/twijfel → catalogus (`bieb accepteer`)
 
-Die scripts blijven in de repo als historisch hulpmiddel. Zonder de
-inputmap doen ze niets nuttigs meer.
+De eenmalige scripts daarvoor zijn uit de repo verwijderd; dit document
+blijft het verslag.
 
 ## Stap-2-vergelijking (samenvatting)
 

@@ -5,5 +5,5 @@ weight: 1
 publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-{{< kop >}}4 Tweede antifoon (weekdagen){{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 {{< bieb id="tweede-antifoon/weekdagen/hemelum" />}}

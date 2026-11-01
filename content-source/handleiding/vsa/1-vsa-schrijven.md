@@ -55,7 +55,7 @@ scripts\products.cmd --kinds vsa content-source\catalogus\<zangstuk>\<variant>\<
 ```
 
 Zolang `{stam}.vsa.svg` ontbreekt, zoekt de site nog een legacy-plaatje
-onder `static\vsa\bladermap\`. Dat vult `oefenhoek-index --svg` (ook in
+onder `static\vsa\bladermap\`. Dat vult `python scripts\sync_oefenhoek_index.py --svg` (ook in
 `check` / `build` / `serve`). Dat is de fallback, niet het product dat
 je commit.
 

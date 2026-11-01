@@ -73,7 +73,7 @@ uitvoeringsvorm-map. Zet `alias_van` op de variant-`_index.md`; zie
 | VSA via catalogus | `koormappen/hemelum/liturgie-weekdagen\eerste-antifoon\weekdagen\index.md` |
 | Sectie (boom van keuzes) | `koormappen/hemelum/liturgie-zondag\cherubijnenhymne\_index.md` + kindmappen |
 | Compositieblad (meerdere scores) | Eén `index.md` met markdown en meerdere `bieb`-shortcodes — zie [Catalogus en koormappen](../../start/catalogus-en-koormappen/) |
-| Troparen / kondaken / losse gezangen | Bijv. `tropaar/…`, `kondak/…`, `tropaar/uw-heilig-kruis/hemelum` — altijd `bieb`, geen `:::include` |
+| Troparen / kondaken / losse gezangen | Bijv. `tropaar/…`, `kondak/…`, `tropaar/nikolaas-van-myra-toon-4/hemelum` — altijd `bieb`, geen `:::include` |
 
 5. Hoort het stuk in het liturgie-overzicht? Controleer
    `koormappen/hemelum/liturgie-zondag\_index.md` of

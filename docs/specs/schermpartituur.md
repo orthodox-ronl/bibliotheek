@@ -173,10 +173,10 @@ Kort overzicht (details en patronen blijven in speelplan.md):
 
 1. **VSA-tooling** — from-ir MusicXML bevat dezelfde navigatiemarkeringen als
    partituur-MusicXML (bestaande tests daar).
-2. **Bibliotheek** — steekproef/`scripts\check_osmd_nav_zichtbaar.cmd` (ook in
-   `check` en Pages-CI): OSMD moet die tekens **zichtbaar tekenen** (VexFlow-
-   modifiers / SVG), niet alleen dat ze in `.from-ir.musicxml` staan
-   (besluit 9). S8 A1-adapter-check volgt op de S8-experimentbranch.
+2. **Bibliotheek** — handmatige of ad-hoc browsercontrole: OSMD moet die
+   tekens **zichtbaar tekenen** (VexFlow-modifiers / SVG), niet alleen dat
+   ze in `.from-ir.musicxml` staan (besluit 9). De aparte
+   Playwright-steekproef is uit `check`/CI gehaald.
 
 Repro-voorbeeld volta: catalogus
 `alleluia/9a-toon-1/groningen` (`@speelplan 1, 2, 1, 2, 1, 3`).

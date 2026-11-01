@@ -1,4 +1,4 @@
----
+﻿---
 title: "Zoeken in de catalogus"
 linkTitle: "Zoeken"
 weight: 85
@@ -83,7 +83,7 @@ baseURL*.
 ### Bouwen van de index
 
 Script: `python scripts\build_zoek_index.py` (ook via `products --kinds lyrics`,
-`products` / `all-products`, en bij elke Pages-deploy vóór Hugo).
+`products` / `products --kinds all`, en bij elke Pages-deploy vóór Hugo).
 
 Bronnen: elke uitvoeringsvorm-leaf
 `content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\index.md`

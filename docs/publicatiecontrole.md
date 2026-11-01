@@ -1,4 +1,4 @@
-# Publicatiecontrole (bibliotheek)
+﻿# Publicatiecontrole (bibliotheek)
 
 Normatief consumer-beleid voor deze repo. Leesbare vorm voor beheerders:
 [handleiding — Publicatiecontrole](../content-source/handleiding/start/publicatiecontrole.md)
@@ -62,11 +62,11 @@ Geen nieuwe `.print.mscz`: handmatige MuseScore-bladen = `{stam}.mscz` +
 | Score-IR scherm (OSMD) | `.mvsa`                                        | `.mvsa.score-ir.json` + `.mvsa.from-ir.musicxml` | **Actief** (`products --kinds mvsa` / `check`). Scherm: OSMD. `.mvsa.svg` alleen scherm-fallback; check eist die SVG niet als from-ir geldig is. |
 | Audio (preview)       | `.mvsa` / `.mscz` / `.vsa`                       | `.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3` + stamp      | **Actief** (`products --kinds audio` / `check_audio_products`; zelfde bronnen als Coria-MXL) |
 | Coria-contract        | bestaande `.vsa.mxl` / `.mscz.mxl` / `.mvsa.mxl` | `mxl validate` (mono / satb)                        | **Actief** (`check_mxl_playback_contract`)                                           |
-| VSA-SVG (legacy pad)  | `.vsa`                                           | `static/vsa/bladermap/….svg`                        | **Legacy**; scherm gebruikt sibling `.vsa.svg` (zie VSA hierboven). Optioneel nog `oefenhoek-index --svg` |
+| VSA-SVG (legacy pad)  | `.vsa`                                           | `static/vsa/bladermap/….svg`                        | **Legacy**; scherm gebruikt sibling `.vsa.svg` (zie VSA hierboven). Optioneel nog `python scripts\sync_oefenhoek_index.py --svg` |
 
 CI genereert geen MuseScore-/PDF-/audio-producten en geen sibling-SVG
 (`.vsa.svg` / `.mvsa.svg`). Wel, vóór Hugo, een legacy bladermap-plaatje
-uit `.vsa` (`oefenhoek-index --svg`) voor het geval de sibling-SVG nog
+uit `.vsa` (`python scripts\sync_oefenhoek_index.py --svg`) voor het geval de sibling-SVG nog
 ontbreekt. Het scherm gebruikt de sibling. Koormap-blad
 `index.md.pdf` hoort niet bij `products.cmd`: lokaal
 `scripts/pdf.cmd`, daarna committen. Wel in `check`

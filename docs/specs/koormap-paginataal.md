@@ -218,11 +218,18 @@ namen (`bladkop` / `tussenkop`): defaults + optionele knoppen volstaan.
 {{< kop >}}(1a) Vredeslitanie{{< /kop >}}
 {{< kop links middel >}}Toon 1{{< /kop >}}
 {{< kop >}}{{< titel >}}{{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 ```
+
+`param` is de Hugo-shortcode die een veld uit de frontmatter van **dezelfde**
+pagina afdrukt (`title`, `linkTitle`, een eigen veld, of een sleutel onder
+`params:`). Op het web doet Hugo dat. `scripts\pdf.cmd` vult hetzelfde veld
+in vóór de kop op `index.md.pdf` komt. Een onbekende veldnaam stopt de
+PDF-bouw met een fout.
 
 | Eis | Toelichting |
 | --- | --- |
-| Blokvorm | Openen met `{{< kop … >}}`, sluiten met `{{< /kop >}}`. Inhoud = de zichtbare tekst (platte tekst, of een genest onderdeel zoals `titel`). Geen geneste Markdown-opmaak in v1 (`**vet**`); wel HTML-inline desgewenst. |
+| Blokvorm | Openen met `{{< kop … >}}`, sluiten met `{{< /kop >}}`. Inhoud = de zichtbare tekst (platte tekst, of een genest onderdeel zoals `titel` of `param`). Geen geneste Markdown-opmaak in v1 (`**vet**`); wel HTML-inline desgewenst. |
 | Standaard | **Midden** uitgelijnd, grootte **groot** (typische bladtitel). |
 | Knoppen | Optionele woordjes uit twee vaste sets (volgorde vrij; hoogstens één per set). Onbekende woorden: fout bij bouw. |
 | Web en PDF | Zelfde look op de pagina en in de pagina-download. |

@@ -63,7 +63,6 @@ uitvoeringsvorm-map).
 | Nikolaas kondak | `kondak/nikolaas-van-myra-toon-3/hemelum` |
 | Moeder Gods kondak | `kondak/moeder-gods-toon-6/hemelum` |
 | Losse Hemelum-troparen | `tropaar/heilige-martelaren-toon-4/hemelum`, `…/icoon-moeder-gods-vladimir-toon-4/…`, `…/mantel-moeder-gods-toon-4/…` |
-| Uw heilig kruis (koormap) | `troparen-en-kondaken/uw-heilig-kruis/` → `tropaar/uw-heilig-kruis/hemelum` |
 
 `default` als variant-id betekent: één uitvoeringsvorm in Hemelum, geen
 geneste varianten in de koormap.

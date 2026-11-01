@@ -1,9 +1,10 @@
 ---
-title: "Tropaar Heilige Martelaren toon 4"
+title: "Tropaar Heilige Martelaren (toon 4)"
 linkTitle: "Tropaar Martelaren"
 weight: 30
-publicatiestatus: "reviewable"
+publicatiestatus: reviewable
 automatische_inhoud: false
 ---
-{{< kop >}}Tropaar Heilige Martelaren toon 4{{< /kop >}}
+
+{{< kop >}}{{< param title >}}{{< /kop >}}
 {{< bieb id="tropaar/heilige-martelaren-toon-4/hemelum" />}}

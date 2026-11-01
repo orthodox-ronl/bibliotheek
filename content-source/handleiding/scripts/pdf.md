@@ -1,4 +1,4 @@
----
+﻿---
 title: "pdf"
 linkTitle: "pdf"
 weight: 52
@@ -13,8 +13,8 @@ catalogus-product-PDF’s plakken)
 # SYNOPSIS
 
 ```cmd
-scripts\pdf.cmd <pad\naar\index.md|map> [--force]
-scripts\pdf.cmd --all-koormappen [--force]
+scripts\pdf.cmd <pad\naar\index.md|map> [--force] [--verbose]
+scripts\pdf.cmd --all-koormappen [--force] [--verbose]
 ```
 
 # DESCRIPTION
@@ -25,7 +25,7 @@ page resource). Dat is de PDF van de **getoonde pagina** (koormap-slot of
 catalogus-uitvoeringsvorm), niet hetzelfde als de losse catalogus-product-PDF
 van één uitvoeringsvorm.
 
-Dit commando hoort niet bij `products`, `all-products`, `check` of de
+Dit commando hoort niet bij `products`, `products --kinds all`, `check` of de
 Pages-build. Gewijzigde koormap-`index.md` meenemen na een git-edit:
 [products-changed](../products-changed/). Die keten maakt en controleert catalogus-siblings
 (`.mvsa.pdf`, `.mvsa.svg`, `.vsa.svg`, en de rest). De pagina-PDF maak je
@@ -33,6 +33,9 @@ lokaal uit de **notatiebronnen** (`.mvsa` / `.vsa` / `.mscz`) plus de
 Markdown-layout, en commit je mee. `check` meldt niet of de pagina-PDF
 ontbreekt. MuseScore 4 is nodig voor `.mvsa`/`.mscz`-SVG-export (en dus
 zodra de pagina zulke bronnen of `pdf-bijelkaar` gebruikt).
+
+**Uitvoer:** standaard `OK …` per gemaakte PDF en een slotregel
+`Klaar: …`. Tussenstappen (bron, SVG, schaal, …) alleen met `--verbose`.
 
 Catalogus-leaves: ontwerp en restmijlpalen in
 `docs/plans/catalogus-index-md-pdf.md`.

@@ -1,10 +1,11 @@
 ---
-title: "Uw Heilig Kruis"
-linkTitle: "Uw Heilig Kruis"
-weight: 30
+title: "Uw Heilig Kruis (Nls en Ksl)"
+weight: 150
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-{{< kop >}}Uw Heilig Kruis{{< /kop >}}
-{{< bieb id="tropaar/uw-heilig-kruis/hemelum" />}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
+{{< bieb id="tropaar/uw-heilig-kruis/groningen" />}}
+{{< witruimte >}}
+{{< bieb id="tropaar/uw-heilig-kruis/groningen-ksl" />}}

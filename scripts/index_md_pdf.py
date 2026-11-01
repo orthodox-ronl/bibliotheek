@@ -28,6 +28,13 @@ _SCRIPTS = Path(__file__).resolve().parent
 if str(_SCRIPTS) not in sys.path:
     sys.path.insert(0, str(_SCRIPTS))
 
+from cli_style import (  # noqa: E402
+    add_verbose_argument,
+    detail,
+    info,
+    set_verbose,
+)
+
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT / "content-source"
 CATALOGUS = CONTENT / "catalogus"
@@ -622,6 +629,119 @@ def _body_without_frontmatter(text: str) -> str:
     return parts[2]
 
 
+def _frontmatter_block(text: str) -> str:
+    if not text.lstrip().startswith("---"):
+        return ""
+    parts = text.split("---", 2)
+    if len(parts) < 3:
+        return ""
+    return parts[1]
+
+
+def _unquote_scalar(raw: str) -> str:
+    value = raw.strip()
+    if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
+        return value[1:-1]
+    return value
+
+
+def _parse_yaml_block(block: str) -> dict:
+    """Kleine YAML-subset: scalars en geneste maps (geen lijsten)."""
+    root: dict = {}
+    stack: list[tuple[int, dict]] = [(-1, root)]
+    for raw in block.splitlines():
+        if not raw.strip() or raw.lstrip().startswith("#"):
+            continue
+        indent = len(raw) - len(raw.lstrip(" "))
+        line = raw.strip()
+        if line.startswith("-") or ":" not in line:
+            continue
+        key, _, rest = line.partition(":")
+        key = key.strip()
+        if not key:
+            continue
+        while stack and indent <= stack[-1][0]:
+            stack.pop()
+        parent = stack[-1][1] if stack else root
+        rest = rest.strip()
+        if rest == "" or rest in {"|", ">"}:
+            child: dict = {}
+            parent[key] = child
+            stack.append((indent, child))
+        else:
+            parent[key] = _unquote_scalar(rest)
+    return root
+
+
+def _hugo_page_params(text: str) -> dict:
+    """Velden die Hugo-shortcode ``param`` op deze pagina ziet.
+
+    Wortel-scalars (``title``, ``linkTitle``, …) plus de map ``params:``.
+    Een wortelveld wint van dezelfde naam onder ``params:``.
+    """
+    fm = _parse_yaml_block(_frontmatter_block(text))
+    out: dict = {}
+    nested = fm.get("params")
+    if isinstance(nested, dict):
+        out.update(nested)
+    for key, value in fm.items():
+        if key == "params":
+            continue
+        out[key] = value
+    return out
+
+
+def _lookup_param(params: dict, key: str) -> str | None:
+    cur: object = params
+    for part in key.split("."):
+        if not isinstance(cur, dict):
+            return None
+        if part in cur:
+            cur = cur[part]
+            continue
+        match = next((k for k in cur if k.lower() == part.lower()), None)
+        if match is None:
+            return None
+        cur = cur[match]
+    if not isinstance(cur, str):
+        return None
+    return cur
+
+
+_PARAM_SC = re.compile(
+    r"\{\{\s*[<%]\s*param\s+"
+    r'(?:"([^"]*)"|\'([^\']*)\'|([A-Za-z0-9_.-]+))'
+    r"\s*/?\s*[>%]\s*\}\}",
+    re.IGNORECASE,
+)
+
+
+def _expand_param_shortcodes(body: str, params: dict) -> str:
+    """Vervang ``{{< param veld >}}`` door de frontmatter-waarde.
+
+    Zelfde korte vorm als Hugo (``{{% param veld %}}`` en aanhalingstekens
+    mogen). Onbekend veld: fout, net als de sitebouw. Koormap-paginataal §6.
+    """
+
+    def repl(match: re.Match[str]) -> str:
+        key = match.group(1) or match.group(2) or match.group(3) or ""
+        key = key.strip()
+        if not key:
+            raise ValueError(
+                "shortcode param mist de veldnaam. "
+                'Oplossing: {{< param title >}}.'
+            )
+        value = _lookup_param(params, key)
+        if value is None:
+            raise ValueError(
+                f"shortcode param: veld {key!r} niet gevonden in de "
+                "frontmatter van deze pagina."
+            )
+        return value
+
+    return _PARAM_SC.sub(repl, body)
+
+
 def parse_page_flows(text: str) -> list[PageFlow]:
     """Bladgroepen: ``pdf-pagina`` of elk apart ``pdf-bijelkaar``-blok.
 
@@ -633,7 +753,8 @@ def parse_page_flows(text: str) -> list[PageFlow]:
     **documentvolgorde** bij hun muziek (koormap-paginataal §6 / §10.1) —
     nooit alle groot-koppen vooraf bundelen vóór alle ``bieb``-blokken.
     """
-    text = _body_without_frontmatter(text)
+    params = _hugo_page_params(text)
+    text = _expand_param_shortcodes(_body_without_frontmatter(text), params)
     finished: list[PageFlow] = []
     current = PageFlow()
     stack: list[str] = []
@@ -1059,7 +1180,7 @@ def export_tekstblad_md_pdf(md: Path, dest: Path) -> None:
         "--content-root",
         str(CONTENT),
     ]
-    print(f"  tekstblad-body {md.name}", flush=True)
+    detail(f"  tekstblad-body {md.name}")
     subprocess.check_call(cmd, cwd=str(ROOT))
     if not dest.is_file():
         raise RuntimeError(
@@ -1406,7 +1527,7 @@ def export_blad_svgs(
     else:
         raise RuntimeError(f"SVG-export: onverwacht brontype {source.name}")
 
-    print(f"  {label} {source.name}", flush=True)
+    detail(f"  {label} {source.name}")
     subprocess.check_call(cmd, cwd=str(ROOT))
     if dest.is_file():
         return [dest]
@@ -1437,21 +1558,19 @@ def resolve_svgs_for_pdf(
             rel = product.relative_to(ROOT)
         except ValueError:
             rel = product
-        print(f"  SVG product {rel}", flush=True)
+        detail(f"  SVG product {rel}")
         return [product]
 
     legacy = legacy_bladreeks_svgs(source)
     if legacy:
-        print(
-            f"  SVG legacy-bladreeks ({len(legacy)}×) naast {source.name}",
-            flush=True,
+        detail(
+            f"  SVG legacy-bladreeks ({len(legacy)}×) naast {source.name}"
         )
         return legacy
 
-    print(
+    detail(
         f"  SVG-product ontbreekt ({product.name}); "
-        "lokaal exporteren naar sibling (MuseScore)…",
-        flush=True,
+        "lokaal exporteren naar sibling (MuseScore)…"
     )
     return export_blad_svgs(source, product, compact=compact)
 
@@ -1596,7 +1715,7 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
                 rel = source.relative_to(ROOT)
             except ValueError:
                 rel = source
-            print(f"  bron {rel}", flush=True)
+            detail(f"  bron {rel}")
             svg_series[item.uv_id] = resolve_svgs_for_pdf(
                 source,
                 work,
@@ -1625,10 +1744,9 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
         sizes[uv_id] = dims
         cuts_map[uv_id] = cuts_list
         n_cuts = sum(len(c) for c in cuts_list)
-        print(
+        detail(
             f"  systeemsnee {uv_id}: {n_cuts} snijpunt(en) "
-            f"over {len(paths)} SVG('s)",
-            flush=True,
+            f"over {len(paths)} SVG('s)"
         )
 
     try:
@@ -1673,11 +1791,10 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
             scale = max(0.12, min(s_w, s_h))
         else:
             scale = max(0.12, min(s_w, 1.0))
-        print(
+        detail(
             f"  compose-schaal {scale:.3f} "
             f"(breedte-max {s_w:.3f}, hoogte-fit {s_h:.3f}"
-            f"{', bijelkaar' if flow.any_compact else ', meerbladig-ok'})",
-            flush=True,
+            f"{', bijelkaar' if flow.any_compact else ', meerbladig-ok'})"
         )
 
         doc = pymupdf.open()
@@ -1778,10 +1895,9 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
                         new_page()
                         continue
                     chosen = cuts[cut_i]
-                    print(
+                    info(
                         "  WAARSCHUWING: systeem hoger dan rest-A4; "
-                        "alsnog één systeem geplaatst",
-                        flush=True,
+                        "alsnog één systeem geplaatst"
                     )
                 band_h = (chosen - src_y) * scale
                 if band_h > 1e-6:
@@ -1868,7 +1984,7 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
             if out.stat().st_mtime >= md_path.stat().st_mtime:
                 return out
         title = _catalogus_voorzien_title(md_path, voorzien_id)
-        print(f"  voorzien-placeholder {voorzien_id}", flush=True)
+        detail(f"  voorzien-placeholder {voorzien_id}")
         compose_voorzien_pdf(out, title=title)
         return out
 
@@ -1882,7 +1998,7 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
                 return out
         title = _catalogus_tekstblad_pagina_title(leaf_id)
         notes = prose_notes_from_catalogus_md(text)
-        print(f"  tekstblad-pagina {leaf_id}", flush=True)
+        detail(f"  tekstblad-pagina {leaf_id}")
         compose_tekstblad_pagina_pdf(
             out, title=title, notes=notes, tekstblad_md=tb_md
         )
@@ -2000,7 +2116,9 @@ def main(argv: list[str] | None = None) -> int:
     )
 
     add_yes_argument(ap)
+    add_verbose_argument(ap)
     args = ap.parse_args(argv)
+    set_verbose(bool(args.verbose))
 
     targets = iter_targets(args.paths, args.all_koormappen)
     kind = "pagina_pdf"

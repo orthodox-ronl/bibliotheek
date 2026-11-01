@@ -208,13 +208,13 @@ geen voorvoegsel-cijfer meer (`vredeslitanie`, `vragende-litanie-16`,
   `ontslapenen`, `catechumenen`, `gelovigen`, `vragend-16`, `vragend-22`).
   Vragende 16/22
   zijn aparte varianten (andere priestertekst; 16 met slotamen); per
-  variant `hemelum` + `hemelum-ksl`. Script: `scripts/migrate_ektinia.py`.
+  variant `hemelum` + `hemelum-ksl`.
 - Cherubijnen-golf: `15-cherubijnenhymne` → `cherubijnenhymne`; variant-
   `linkTitle` met VO-label (bijv. «Kastorski (15c)»).
 - Trisagion-golf: `8-trisagion` → `trisagion`.
 - Kruis-golf: `210-heer-red-uw-volk-en-zegen-uw-erfdeel` →
   `tropaar/heer-red-uw-volk`; `220-uw-heilig-kruis` →
-  `tropaar/uw-heilig-kruis`. Script: `scripts/migrate_tropaar_kruis.py`.
+  `tropaar/uw-heilig-kruis`.
 - Koormap-slotmappen voor trisagion/cherubijnenhymne hernoemd zodat
   inhoudsopgave-links en mapnamen weer overeenkomen.
 - Antifonen + intocht: `2-eerste-antifoon` → `eerste-antifoon`,

@@ -1,4 +1,4 @@
----
+﻿---
 title: "Publicatiecontrole en bestandsnamen"
 linkTitle: "Publicatiecontrole"
 weight: 25
@@ -110,7 +110,7 @@ tooling met `--quiet` aan.
 Na een geslaagde run (niet bij `--dry-run`) vernieuwt `products.cmd` ook
 de Coria-fingerprints voor **Oefenen** (tip-icoon **♪**).
 
-Alias: `scripts\all-products.cmd` = `products.cmd --kinds all …`.
+Alias: `scripts\products.cmd --kinds all` = `products.cmd --kinds all …`.
 Met `--kinds` beperk je welke sporen draaien (zelfde flags). Geen passende
 bron voor een kind = overslaan (geen fout). Audio en lyrics zijn gewone
 kinds, geen uitzondering. Er zijn geen aparte `vsa-products.cmd`-wrappers
@@ -261,16 +261,16 @@ of **stale**. Ontbreekt het sibling-bestand → **missing**.
 | Importcontrole (bestaande `.mscz.mvsa` ↔ `.mscz`)          | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
 | Publicatiecontrole mvsa (`.mvsa` ↔ MXL/PDF/SVG)            | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
 | Publicatiecontrole audio (`.mvsa`/`.mscz`/`.vsa` ↔ `.mp3`) | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
-| Legacy bladermap-SVG uit `.vsa`                            | vernieuwen (`oefenhoek-index --svg`) | vernieuwen (geen stamp-fail) |
+| Legacy bladermap-SVG uit `.vsa`                            | vernieuwen (`python scripts\sync_oefenhoek_index.py --svg`) | vernieuwen (geen stamp-fail) |
 | Koormap-/catalogus-blad `index.md.pdf`                     | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
 | Coria-fingerprints + Hugo                                  | ja                                   | ja                           |
 
 CI **genereert geen** MuseScore-/PDF-/audio-producten en geen sibling-SVG
-(`.vsa.svg` / `.mvsa.svg`). Vernieuw die lokaal (`all-products`, of apart
+(`.vsa.svg` / `.mvsa.svg`). Vernieuw die lokaal (`products --kinds all`, of apart
 `products --kinds vsa`, `products --kinds mscz`, `products --kinds tekstblad`, `products --kinds mvsa`,
 `products --kinds audio`, eventueel `import-mvsa`) en commit siblings mee. Het
 scherm toont `{stam}.vsa.svg` of `{stam}.mvsa.svg`. Zolang de `.vsa.svg`
-ontbreekt, vult `oefenhoek-index --svg` een legacy-plaatje onder
+ontbreekt, vult `python scripts\sync_oefenhoek_index.py --svg` een legacy-plaatje onder
 `static\vsa\bladermap\` (geen stempel, geen “stale”-fout).
 
 Het blad `index.md.pdf` is geen catalogus-sibling. `products` maakt

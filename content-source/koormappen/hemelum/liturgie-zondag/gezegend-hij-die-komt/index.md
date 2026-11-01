@@ -6,5 +6,5 @@ publicatiestatus: voorzien
 automatische_inhoud: false
 ---
 
-{{< kop >}}26 Gezegend Hij, Die komt ...{{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 {{< bieb id="gezegend-hij-die-komt/default/hemelum" />}}

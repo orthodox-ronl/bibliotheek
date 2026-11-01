@@ -75,7 +75,7 @@ lettergrepen synchroon met noten. MusicXML: `scripts\opkuisen.cmd`. Bij een
 | **Slot-pagina** | Map met `index.md` in de koormap: markdown plus `bieb` (geen catalogus-include in de oefenhoek) |
 | **Compositieblad** | Slot-pagina met proza en **meerdere** `bieb`-shortcodes (bijv. prokimens van de week) |
 | **Alias-variant** | Variant zonder eigen uitvoeringsvorm-bestanden; op de variant-`_index.md` staat `alias_van: zangstuk/canonieke-variant` |
-| **Diversen** | (verouderd als zangstuk-id) Losse gezangen hebben nu een eigen zangstuk-id, bv. `tropaar/uw-heilig-kruis/hemelum` |
+| **Diversen** | (verouderd als zangstuk-id) Losse gezangen hebben nu een eigen zangstuk-id, bv. `tropaar/nikolaas-van-myra-toon-4/hemelum` |
 | **Tropaar** / **kondak** | Nederlandse termen voor die gezangen (niet “troparion” / “kondakion”) |
 | **Special page** | Automatisch overzicht onder `catalogus\speciaal\` (werkbank, voorzien, ongerefereerd, oefenbaar, handmatig) |
 | **Werkvoorraad** | Tabel in `input\werkvoorraad.md`: per *input* hoe ver de conversie is |

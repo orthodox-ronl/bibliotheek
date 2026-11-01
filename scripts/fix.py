@@ -21,7 +21,7 @@ from check_fixlist import (
     save_fixlist,
     write_fixlist,
 )
-from cli_style import add_verbose_argument, error, info, set_verbose
+from cli_style import add_verbose_argument, detail, error, info, run_quiet, set_verbose
 from fix_cmds import is_products_fix_cmd
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -70,39 +70,54 @@ def _refresh_fixlist_from_status() -> list[FixItem]:
 
 
 def _run_fix_cmd(fix_cmd: str, *, verbose: bool) -> int:
+    if verbose:
+        proc = subprocess.run(
+            ["cmd", "/c", fix_cmd],
+            cwd=str(REPO_ROOT),
+            check=False,
+        )
+        info(f"exit={proc.returncode} ← {fix_cmd}")
+        return int(proc.returncode)
     proc = subprocess.run(
         ["cmd", "/c", fix_cmd],
         cwd=str(REPO_ROOT),
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
         check=False,
     )
-    if verbose:
-        info(f"exit={proc.returncode} ← {fix_cmd}")
+    if proc.returncode != 0:
+        error(f"FAILED exit={proc.returncode}")
+        out = (proc.stdout or "").rstrip()
+        err = (proc.stderr or "").rstrip()
+        if out:
+            error(out)
+        if err:
+            error(err)
     return int(proc.returncode)
 
 
 def _run_products_post(*, verbose: bool) -> int:
     """Zoekindex + Coria-fingerprints één keer na pad-specifieke products-fixes."""
-    info("\n--- fix: zoekindex / Coria-fingerprints (na products --skip-post) ---")
+    info(">>> nabewerking (zoekindex, Coria-fingerprints)")
     from build_zoek_index import main as build_zoek_main
 
-    zoek_code = build_zoek_main([])
-    if zoek_code not in (0, None):
-        error(f"FAILED zoekindex exit={zoek_code}")
+    if run_quiet("zoekindex", build_zoek_main, [], verbose=verbose):
         return 1
     import fingerprint_coria_mxl as fp_mod
 
-    fp_code = fp_mod.main()
-    if fp_code not in (0, None):
-        error(f"FAILED fingerprints exit={fp_code}")
+    if run_quiet("fingerprints", lambda _a: fp_mod.main(), [], verbose=verbose):
         return 1
     import probe_coria_fetch as probe_mod
 
-    probe_code = probe_mod.apply_probe(warn_only=True)
-    if probe_code not in (0, None):
-        error(f"FAILED coria-probe exit={probe_code}")
+    if run_quiet(
+        "coria-probe",
+        lambda _a: probe_mod.apply_probe(warn_only=True),
+        [],
+        verbose=verbose,
+    ):
         return 1
-    if verbose:
-        info("products-post klaar")
     return 0
 
 
@@ -117,6 +132,7 @@ def main(argv: list[str] | None = None) -> int:
             "voorbeelden:\n"
             "  python scripts/fix.py --dry-run\n"
             "  python scripts/fix.py --check --dry-run\n"
+            "  python scripts/fix.py --strict --dry-run\n"
             "  python scripts/fix.py --check\n"
             "  python scripts/fix.py -y\n"
         ),
@@ -128,8 +144,13 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "--check",
+        "--strict",
+        dest="check",
         action="store_true",
-        help="Eerst check --strict (lijst opnieuw bouwen), daarna tonen/afwerken.",
+        help=(
+            "Eerst check --strict (lijst opnieuw bouwen), daarna tonen/afwerken. "
+            "--strict is hetzelfde als --check."
+        ),
     )
     add_verbose_argument(parser)
     add_yes_argument(parser)
@@ -188,11 +209,10 @@ def main(argv: list[str] | None = None) -> int:
         if item.fix_cmd in done_cmds:
             remaining = [x for x in remaining if x.fix_cmd != item.fix_cmd]
             save_fixlist(remaining)
-            info(f"\n>>> {item.summary}")
-            info("    (zelfde fix_cmd al ok — overgeslagen)")
+            detail(f">>> {item.summary} (zelfde fix_cmd al ok)")
             continue
-        info(f"\n>>> {item.summary}")
-        info(f"    {item.fix_cmd}")
+        info(f">>> {item.summary}")
+        detail(f"    {item.fix_cmd}")
         t0 = time.perf_counter()
         code = _run_fix_cmd(item.fix_cmd, verbose=bool(args.verbose))
         elapsed = time.perf_counter() - t0
@@ -203,10 +223,7 @@ def main(argv: list[str] | None = None) -> int:
                 products_ok += 1
             remaining = [x for x in remaining if x.fix_cmd != item.fix_cmd]
             save_fixlist(remaining)
-            info(
-                f"    OK ({elapsed:.1f}s) — geschrapt "
-                f"({len(remaining)} rest)"
-            )
+            info(f"    OK ({elapsed:.1f}s, {len(remaining)} rest)")
         else:
             failed += 1
             error(f"    FAILED exit={code} — blijft op de lijst")
@@ -216,8 +233,7 @@ def main(argv: list[str] | None = None) -> int:
         if post != 0:
             return 1
 
-    info(f"\n=== fix klaar: {fixed} ok, {failed} mislukt, "
-         f"{len(remaining)} rest ===")
+    info(f"=== fix klaar: {fixed} ok, {failed} mislukt, {len(remaining)} rest ===")
     if failed:
         error(
             "Oplossing: bekijk de fout hierboven; daarna "

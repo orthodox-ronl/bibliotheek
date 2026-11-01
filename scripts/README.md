@@ -13,7 +13,7 @@ Korte hulp in het opdrachtvenster: `h` (lijst) of `h <naam>` (zelfde als
 | `h` | Overzicht van commando’s; `h <naam>` = `<naam> -h` |
 | `validate` | `vsa validate` op `content-source\catalogus` (plus `mvsa validate` als er `.mvsa` staat) |
 | `fix` | Auto-fixbare problemen uit `data\check-fixlist.json` afwerken (`--check` = eerst `check --strict`; `--dry-run` = tonen) |
-| `products` / `all-products` | Afgeleiden bouwen (`--kinds vsa,mvsa,mscz,audio,lyrics,…` of `all`); daarna Coria-fingerprints (niet bij `--dry-run`). Geen `pdf.cmd`. |
+| `products` | Afgeleiden bouwen (`--kinds vsa,mvsa,mscz,audio,lyrics,…` of `all`); daarna Coria-fingerprints (niet bij `--dry-run`). Geen `pdf.cmd`. |
 | `products-changed` | Alleen producten (+ koormap-`index.md.pdf`) voor git-gewijzigde bronnen onder `content-source` (missing+stale; geen invalid). |
 | `import-mvsa` | Maakt/vernieuwt bewerkvorm `{stam}.mscz.mvsa` via `mscz import` + stamp (standaard alleen bestaande siblings) |
 | `pdf.cmd` | `index.md.pdf` naast een koormap- of catalogus-`index.md` (lokaal; niet in `products` / `check` / CI) |
@@ -29,7 +29,7 @@ Korte hulp in het opdrachtvenster: `h` (lijst) of `h <naam>` (zelfde als
 | `update-werkvoorraad` | Tabel `input\werkvoorraad.md` bijwerken (ook in check/build/serve) |
 | `werkbank-status` | Open werkbank-cases; `data\werkbank-status.json` (ook via update-werkvoorraad) |
 | `lifecycle-grenzen` | Grenzen werkbank ↔ catalogus (spaties / ruwe formats) |
-| `oefenhoek-index` | Legacy SVG uit catalogus-`.vsa` → `static\vsa\bladermap\` (check/build/serve/CI; geen stamp). Scherm gebruikt sibling `{stam}.vsa.svg` zodra die er is. |
+| *(intern)* `sync_oefenhoek_index.py --svg` | Legacy SVG uit catalogus-`.vsa` → `static\vsa\bladermap\` (via check/build/serve/CI; geen stamp). Scherm gebruikt sibling `{stam}.vsa.svg` zodra die er is. |
 | `serve` | Hugo-preview op http://127.0.0.1:18732/ (niet 1313, niet 18731) |
 | `build` | Site in `generated\site` |
 | `check` | CI-spiegel / preflight (validate + publicatie-/importcontroles + bibliotheek-id + koormap-slotlinks + Coria + Hugo) |

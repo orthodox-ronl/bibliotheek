@@ -1,4 +1,4 @@
----
+﻿---
 title: "check"
 linkTitle: "check"
 weight: 20
@@ -57,7 +57,7 @@ Of: `scripts\check.cmd` vanuit de repo-root.
     `raw.githubusercontent.com`); zet `base` in
     `data\coria-public-base.json`. Zonder `--strict` alleen waarschuwen bij
     falen; met `--strict` exit 1
-14. Legacy bladermap-SVG (`oefenhoek-index --svg`) — plaatje onder
+14. Legacy bladermap-SVG (`python scripts\sync_oefenhoek_index.py --svg`) — plaatje onder
    `static\vsa\bladermap\` uit `.vsa`, zonder stempel. Het scherm
    gebruikt sibling `{stam}.vsa.svg` (stap 2) zodra die er is; dit
    plaatje is alleen de fallback
@@ -77,7 +77,7 @@ lokaal maar falen niet (behalve op `main` of met
 `BIBLIOTHEEK_PRODUCTS_STRICT=1` / `BIBLIOTHEEK_ID_STRICT=1`). Met
 `--strict`, en altijd in CI, is een stale of missing product, een
 verouderde import-sibling, of een id-mismatch een fout. Vernieuw
-producten lokaal met [all-products](../all-products/) (alles tegelijk)
+producten lokaal met [products](../products/) (alles tegelijk)
 of met [products (vsa)](../vsa-products/),
 [products (mscz)](../mscz-products/),
 [products (tekstblad)](../tekstblad-products/),
@@ -127,8 +127,8 @@ genoeg (die runt fingerprints + Hugo-server, zonder validate/publicatiecontrole)
 - [import-mvsa](../import-mvsa/)
 - [products (mvsa)](../mvsa-products/)
 - [products (audio)](../audio-products/)
-- [all-products](../all-products/)
-- [oefenhoek-index](../oefenhoek-index/)
+- [products](../products/)
+- `python scripts\sync_oefenhoek_index.py`
 - [pdf](../pdf/)
 - [layout](../layout/)
 - [ensure-bibliotheek-id](../ensure-bibliotheek-id/)

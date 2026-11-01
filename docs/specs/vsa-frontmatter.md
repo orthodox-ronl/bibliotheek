@@ -37,9 +37,7 @@ te gooien — **geen** notatie herschrijven.
 
 Tooling (lokaal):
 
-1. Migreren: `scripts\migrate-vsa-frontmatter.cmd` (legacy +
-   `herkomst_vsa_demo` → canonieke sleutels; daarna strip)
-2. Alleen strippen: `scripts\frontmatter-canoniek.cmd`
+1. Strippen / controleren: `scripts\frontmatter-canoniek.cmd`
    (`--check` melden; zonder vlag stdout of `--in-place`)
 
 Koppeling aan `bieb accepteer`: nog te doen.

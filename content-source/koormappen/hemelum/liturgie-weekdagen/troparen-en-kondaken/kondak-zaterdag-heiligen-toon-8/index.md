@@ -5,6 +5,6 @@ weight: 90
 publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-{{< kop >}}Kondak zaterdag heiligen toon 8{{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 
 {{< bieb id="kondak/zaterdag-heiligen-toon-8/hemelum" />}}

@@ -6,7 +6,7 @@ publicatiestatus: voorzien
 automatische_inhoud: false
 ---
 
-{{< kop >}}Zondag — toon 2{{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 Compositieblad: prokimen en alleluia voor zondag in toon 2 (Kiev).
 
 De **alleluia** staat in de bibliotheek (`.mvsa`). De **prokimen** volgt wanneer die bron in de bibliotheek staat.

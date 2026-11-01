@@ -6,8 +6,12 @@ import os
 import re
 import subprocess
 import sys
+import time
+from contextlib import redirect_stderr, redirect_stdout
 from dataclasses import dataclass
-from typing import Sequence
+from io import StringIO
+from pathlib import Path
+from typing import Callable, Sequence
 
 _VERBOSE = False
 
@@ -59,6 +63,62 @@ def detail(msg: str) -> None:
 
 def info(msg: str) -> None:
     print(msg, flush=True)
+
+
+def atomic_write_text(
+    path: Path,
+    text: str,
+    *,
+    encoding: str = "utf-8",
+    retries: int = 8,
+) -> None:
+    """Schrijf via temp+replace; retry bij Windows-vergrendeling (Errno 22)."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(path.name + ".tmp")
+    tmp.write_text(text, encoding=encoding)
+    last: OSError | None = None
+    for attempt in range(max(1, retries)):
+        try:
+            os.replace(tmp, path)
+            return
+        except OSError as exc:
+            last = exc
+            # WinError 5/32 / Errno 22: bestand even vast (editor, AV, …)
+            time.sleep(0.05 * (attempt + 1))
+    try:
+        path.write_text(text, encoding=encoding)
+    except OSError:
+        if last is not None:
+            raise last
+        raise
+    finally:
+        tmp.unlink(missing_ok=True)
+
+
+def run_quiet(
+    label: str,
+    fn: Callable[[list[str]], int | None],
+    argv: list[str] | None = None,
+    *,
+    verbose: bool | None = None,
+) -> int:
+    """Kind-aanroep: stil tenzij verbose of mislukking (dan wél de log)."""
+    args = list(argv or [])
+    show = is_verbose() if verbose is None else bool(verbose)
+    if show:
+        code = fn(args)
+        return 0 if code in (0, None) else int(code)
+    buf = StringIO()
+    with redirect_stdout(buf), redirect_stderr(buf):
+        code = fn(args)
+    rc = 0 if code in (0, None) else int(code)
+    if rc != 0:
+        text = buf.getvalue().rstrip()
+        error(f"FAILED {label}")
+        if text:
+            error(text)
+    return rc
 
 
 def error(msg: str) -> None:

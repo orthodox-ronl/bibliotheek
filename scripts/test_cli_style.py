@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import cli_style as cs
 
 
@@ -36,3 +38,12 @@ def test_detail_when_verbose(capsys) -> None:
         assert "zichtbaar" in capsys.readouterr().out
     finally:
         cs.set_verbose(False)
+
+
+def test_atomic_write_text(tmp_path: Path) -> None:
+    dest = tmp_path / "out.json"
+    cs.atomic_write_text(dest, '{"ok": true}\n')
+    assert dest.read_text(encoding="utf-8") == '{"ok": true}\n'
+    assert not (tmp_path / "out.json.tmp").exists()
+    cs.atomic_write_text(dest, '{"ok": false}\n')
+    assert dest.read_text(encoding="utf-8") == '{"ok": false}\n'

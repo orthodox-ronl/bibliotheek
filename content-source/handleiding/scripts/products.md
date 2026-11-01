@@ -14,12 +14,12 @@ lyrics, …) opnieuw maken onder een map of voor één bronbestand
 ```cmd
 scripts\products.cmd [pad] [--kinds LIST] [--force] [--dry-run] [--verbose]
                      [--only-missing|--only-stale|--only-invalid]
-scripts\all-products.cmd [opties]
+scripts\products.cmd --kinds all [opties]
 ```
 
 `[pad]` = catalogusmap of één bronbestand (default:
 `content-source\catalogus`). `--kinds` is een komma-lijst of `all`
-(default). Alias `all-products` = `--kinds all`.
+(default).
 
 Kinds: `vsa`, `mscz`, `tekstblad`, `import`, `mvsa`, `audio`, `lyrics`.
 
@@ -39,10 +39,11 @@ hashes in de meta bij. Bij vsa/mscz worden gewijzigde MXL/SVG-hashes
 gemerged zonder andere meta-keys te wissen. Daarna vernieuwt het de
 zoekindex en Coria-fingerprints.
 
-**Logging:** standaard beknopt (voortgang + fouten met `Oplossing: …`).
-Mislukt er iets over meerdere kinds, dan eindigt de run met
-`=== Samenvatting products ===`. Gebruik `-v` / `--verbose` voor
-per-stap detail; zonder die vlag krijgt de VSA-tooling `--quiet`.
+**Logging:** standaard alleen wat wél gebeurt (`>>> kind: N van M
+bijwerken`) plus fouten met `Oplossing: …`. Kinds die al up-to-date zijn
+blijven stil (detail achter `-v` / `--verbose`). Mislukt er iets over
+meerdere kinds, dan eindigt de run met `=== Samenvatting products ===`.
+Zonder `--verbose` krijgt de VSA-tooling `--quiet`.
 
 Dit is het **enige** gebruikerscommando voor die producten. Er zijn geen
 aparte `vsa-products.cmd`-wrappers meer. Per kind staat detail op de
@@ -79,7 +80,6 @@ scripts\products.cmd --verbose
 # SEE ALSO
 
 - [products-changed](../products-changed/) — alleen git-gewijzigde bronnen
-- [all-products](../all-products/)
 - [cleanup-chained-products](../cleanup-chained-products/)
 - [check](../check/)
 - [Publicatiecontrole](../../start/publicatiecontrole/)

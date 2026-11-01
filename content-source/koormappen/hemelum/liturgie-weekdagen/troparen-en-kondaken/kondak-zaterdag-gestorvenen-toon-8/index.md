@@ -5,6 +5,6 @@ weight: 100
 publicatiestatus: "reviewable"
 automatische_inhoud: false
 ---
-{{< kop >}}Kondak zaterdag gestorvenen toon 8{{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 
 {{< bieb id="kondak/zaterdag-gestorvenen-toon-8/hemelum" />}}

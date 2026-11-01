@@ -75,6 +75,18 @@ Zonder knoppen is de standaard **midden** en **groot** (typische
 bladtitel). Een rubriek tussen partituren (zoals «Toon 1») zet je meestal
 met `links` en `middel`.
 
+De titel uit de frontmatter van dezelfde `index.md` hoef je niet
+over te typen. Zet de Hugo-shortcode `param` in de kop; de veldnaam is
+`title`:
+
+```markdown
+{{</* kop */>}}{{</* param title */>}}{{</* /kop */>}}
+```
+
+Op de site vult Hugo dat veld in. **Download pagina** (`pdf` op die
+`index.md`) doet hetzelfde. Bestaat het veld niet, dan stopt de PDF-bouw
+met een fout.
+
 Gebruik geen `<h1 style=…>` en geen class-namen zoals
 `koormap-tussenkop`. Gewone Markdown-koppen (`#`, `##`) mag je gebruiken
 voor uitlegtekst; voor de bladtitel en rubrieken tussen partituren: `kop`.
