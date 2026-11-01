@@ -10,7 +10,7 @@ automatische_inhoud: false
 
 {{< bieb id="ektinia/vrede/hemelum" />}}
 
-{{< witruimte groot >}}
+{{< pdf-pagina >}}
 
 {{< kop >}}Великая ектения (1a){{< /kop >}}
 
