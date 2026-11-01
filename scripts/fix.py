@@ -22,6 +22,7 @@ from check_fixlist import (
     write_fixlist,
 )
 from cli_style import add_verbose_argument, error, info, set_verbose
+from fix_cmds import is_products_fix_cmd
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CHECK_CMD = REPO_ROOT / "scripts" / "check.cmd"
@@ -77,6 +78,32 @@ def _run_fix_cmd(fix_cmd: str, *, verbose: bool) -> int:
     if verbose:
         info(f"exit={proc.returncode} ← {fix_cmd}")
     return int(proc.returncode)
+
+
+def _run_products_post(*, verbose: bool) -> int:
+    """Zoekindex + Coria-fingerprints één keer na pad-specifieke products-fixes."""
+    info("\n--- fix: zoekindex / Coria-fingerprints (na products --skip-post) ---")
+    from build_zoek_index import main as build_zoek_main
+
+    zoek_code = build_zoek_main([])
+    if zoek_code not in (0, None):
+        error(f"FAILED zoekindex exit={zoek_code}")
+        return 1
+    import fingerprint_coria_mxl as fp_mod
+
+    fp_code = fp_mod.main()
+    if fp_code not in (0, None):
+        error(f"FAILED fingerprints exit={fp_code}")
+        return 1
+    import probe_coria_fetch as probe_mod
+
+    probe_code = probe_mod.apply_probe(warn_only=True)
+    if probe_code not in (0, None):
+        error(f"FAILED coria-probe exit={probe_code}")
+        return 1
+    if verbose:
+        info("products-post klaar")
+    return 0
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -154,8 +181,16 @@ def main(argv: list[str] | None = None) -> int:
     remaining = list(items)
     fixed = 0
     failed = 0
+    done_cmds: set[str] = set()
+    products_ok = 0
 
     for item in list(items):
+        if item.fix_cmd in done_cmds:
+            remaining = [x for x in remaining if x.fix_cmd != item.fix_cmd]
+            save_fixlist(remaining)
+            info(f"\n>>> {item.summary}")
+            info("    (zelfde fix_cmd al ok — overgeslagen)")
+            continue
         info(f"\n>>> {item.summary}")
         info(f"    {item.fix_cmd}")
         t0 = time.perf_counter()
@@ -163,7 +198,10 @@ def main(argv: list[str] | None = None) -> int:
         elapsed = time.perf_counter() - t0
         if code == 0:
             fixed += 1
-            remaining = [x for x in remaining if x.id != item.id]
+            done_cmds.add(item.fix_cmd)
+            if is_products_fix_cmd(item.fix_cmd):
+                products_ok += 1
+            remaining = [x for x in remaining if x.fix_cmd != item.fix_cmd]
             save_fixlist(remaining)
             info(
                 f"    OK ({elapsed:.1f}s) — geschrapt "
@@ -172,6 +210,11 @@ def main(argv: list[str] | None = None) -> int:
         else:
             failed += 1
             error(f"    FAILED exit={code} — blijft op de lijst")
+
+    if products_ok and failed == 0:
+        post = _run_products_post(verbose=bool(args.verbose))
+        if post != 0:
+            return 1
 
     info(f"\n=== fix klaar: {fixed} ok, {failed} mislukt, "
          f"{len(remaining)} rest ===")

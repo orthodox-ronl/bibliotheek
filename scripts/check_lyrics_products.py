@@ -13,6 +13,7 @@ import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
+from fix_cmds import products_fix_cmd
 from product_meta import (
     FIELD_GENERATED_AT,
     FIELD_SOURCE_KIND,
@@ -65,7 +66,7 @@ def check_one(source: Path) -> FolderStatus:
     issues: list[Issue] = []
     src_hash = digest_for_source(source)
     expect_kind = source_kind_for(source)
-    fix = r"scripts\products.cmd --kinds lyrics"
+    fix = products_fix_cmd("lyrics", source)
     if not lyrics.is_file():
         issues.append(
             Issue(

@@ -208,3 +208,44 @@ def test_fix_run_removes_success(tmp_path: Path, monkeypatch):
     )
     assert fix_mod.main(["-y"]) == 0
     assert load_fixlist(path) == []
+
+
+def test_fix_skips_duplicate_fix_cmd(tmp_path: Path, monkeypatch):
+    """Zelfde fix_cmd op meerdere regels: één keer uitvoeren."""
+    path = tmp_path / "check-fixlist.json"
+    shared = r"scripts\products.cmd --kinds mvsa --skip-post a.mvsa"
+    save_fixlist(
+        [
+            FixItem(
+                id="mvsa:a",
+                checker="mvsa",
+                summary="a",
+                fix_cmd=shared,
+            ),
+            FixItem(
+                id="mvsa:a2",
+                checker="mvsa",
+                summary="a2",
+                fix_cmd=shared,
+            ),
+        ],
+        path=path,
+    )
+    calls: list[str] = []
+
+    def _run(cmd: str, *, verbose: bool = False) -> int:
+        calls.append(cmd)
+        return 0
+
+    monkeypatch.setattr(fix_mod, "load_fixlist", lambda: load_fixlist(path))
+    monkeypatch.setattr(
+        fix_mod,
+        "save_fixlist",
+        lambda items: save_fixlist(items, path=path),
+    )
+    monkeypatch.setattr(fix_mod, "_run_fix_cmd", _run)
+    monkeypatch.setattr(fix_mod, "_run_products_post", lambda **_k: 0)
+    monkeypatch.setattr(fix_mod, "confirm_batch", lambda *_a, **_k: True)
+    assert fix_mod.main(["-y"]) == 0
+    assert calls == [shared]
+    assert load_fixlist(path) == []

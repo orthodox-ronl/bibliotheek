@@ -23,6 +23,7 @@ from product_meta import (
     read_svg_stamp,
     source_sha256,
 )
+from fix_cmds import products_fix_cmd
 from street_meta import issues_from_meta_or
 from sync_vsa_products import (
     DEFAULT_ROOT,
@@ -148,7 +149,7 @@ def _stamp_issues(vsa: Path, src_hash: str) -> list[Issue]:
 
 def check_one(vsa: Path) -> FolderStatus:
     src_hash = source_sha256(vsa)
-    fix = r"scripts\products.cmd --kinds vsa"
+    fix = products_fix_cmd("vsa", vsa)
     issues = issues_from_meta_or(
         vsa,
         required_keys={"mxl", "svg"},

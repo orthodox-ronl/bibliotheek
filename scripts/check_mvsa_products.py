@@ -26,6 +26,7 @@ from product_meta import (
     source_sha256,
 )
 from street_meta import issues_from_meta_or
+from fix_cmds import products_fix_cmd
 from sync_mvsa_products import (
     DEFAULT_ROOT,
     _MVSA_META_KEYS,
@@ -187,7 +188,7 @@ def _stamp_issues(mvsa: Path, digest: str) -> list[Issue]:
 
 def check_one(mvsa: Path) -> FolderStatus:
     digest = source_sha256(mvsa)
-    fix = r"scripts\products.cmd --kinds mvsa"
+    fix = products_fix_cmd("mvsa", mvsa)
     issues = issues_from_meta_or(
         mvsa,
         required_keys=set(_MVSA_META_KEYS),

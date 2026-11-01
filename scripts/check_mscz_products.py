@@ -25,6 +25,7 @@ from product_meta import (
     read_svg_stamp,
     stamp_sha_from_dict,
 )
+from fix_cmds import products_fix_cmd
 from street_meta import meta_has_svg_product, meta_status
 from sync_mscz_products import (
     DEFAULT_ROOT,
@@ -152,7 +153,7 @@ def _stamp_issues(mscz: Path, digest: str) -> list[Issue]:
 
 def check_one(mscz: Path) -> FolderStatus:
     digest = partituur_sha256(mscz)
-    fix = r"scripts\products.cmd --kinds mscz"
+    fix = products_fix_cmd("mscz", mscz)
     status, detail = meta_status(mscz)
     if status == "ok" and meta_has_svg_product(mscz):
         from vsa.products_meta import load_meta
