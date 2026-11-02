@@ -165,15 +165,9 @@
     },
     "catalogus/communievers/moeder-gods/pancakescrawlspace": {
       "source": "catalogus/communievers/moeder-gods/pancakescrawlspace/index.md",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\pdf.cmd catalogus\\communievers\\moeder-gods\\pancakescrawlspace\\index.md",
-      "issues": [
-        {
-          "kind": "stale_pdf",
-          "file": "catalogus/communievers/moeder-gods/pancakescrawlspace/index.md.pdf",
-          "detail": "index.md.pdf is ouder dan Markdown, notatiebron of product-SVG"
-        }
-      ]
+      "issues": []
     },
     "catalogus/communievers/onthoofding-johannes-de-doper/hemelum": {
       "source": "catalogus/communievers/onthoofding-johannes-de-doper/hemelum/index.md",
@@ -1345,12 +1339,6 @@
       "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-weekdagen\\kleine-intocht\\weekdagen\\index.md",
       "issues": []
     },
-    "koormappen/hemelum/liturgie-weekdagen/kleine-intocht/zo-wk-mg": {
-      "source": "koormappen/hemelum/liturgie-weekdagen/kleine-intocht/zo-wk-mg/index.md",
-      "ok": true,
-      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-weekdagen\\kleine-intocht\\zo-wk-mg\\index.md",
-      "issues": []
-    },
     "koormappen/hemelum/liturgie-weekdagen/moeder-godslied/20d-in-waarheid-moeder-godslied": {
       "source": "koormappen/hemelum/liturgie-weekdagen/moeder-godslied/20d-in-waarheid-moeder-godslied/index.md",
       "ok": true,
@@ -1661,12 +1649,6 @@
       "source": "koormappen/hemelum/liturgie-zondag/kleine-intocht/transfiguratie/index.md",
       "ok": true,
       "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\kleine-intocht\\transfiguratie\\index.md",
-      "issues": []
-    },
-    "koormappen/hemelum/liturgie-zondag/kleine-intocht/zo-wk-mg": {
-      "source": "koormappen/hemelum/liturgie-zondag/kleine-intocht/zo-wk-mg/index.md",
-      "ok": true,
-      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\kleine-intocht\\zo-wk-mg\\index.md",
       "issues": []
     },
     "koormappen/hemelum/liturgie-zondag/kleine-intocht/zondag": {

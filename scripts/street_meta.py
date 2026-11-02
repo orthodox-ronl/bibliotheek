@@ -17,19 +17,27 @@ def write_products_meta(
     products: dict[str, Path],
     *,
     merge: bool = False,
+    drop_keys: set[str] | None = None,
 ) -> Path | None:
     """Schrijf meta voor bestaande productbestanden; None als niets te schrijven.
 
     ``merge=False`` (default): vervang ``products`` door precies deze keys
     (zoals een volle tooling-export). ``merge=True``: alleen de meegegeven
     keys bijwerken; overige keys behouden (bijv. MXL-hash na bron-id).
+
+    ``drop_keys``: verwijder die product-keys (bijv. verouderde ``pdf``).
     """
     existing = {k: p for k, p in products.items() if p.is_file()}
     if not existing:
         return None
     from vsa.products_meta import write_meta
 
-    dest = write_meta(bron, existing, merge=merge)
+    dest = write_meta(
+        bron,
+        existing,
+        merge=merge,
+        drop_keys=drop_keys,
+    )
     print(f"  Meta {dest.name}", flush=True)
     return dest
 

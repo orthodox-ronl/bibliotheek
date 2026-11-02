@@ -649,17 +649,23 @@ def test_resolve_svgs_exports_when_missing(tmp_path, monkeypatch) -> None:
     work = tmp_path / "work"
     work.mkdir()
     exported: list[Path] = []
+    meta_calls: list[tuple] = []
 
     def fake_export(src: Path, dest: Path, *, compact: bool = False):
         exported.append(dest)
         dest.write_text("<svg/>", encoding="utf-8")
         return [dest]
 
+    def fake_meta(src: Path, paths: list):
+        meta_calls.append((src, list(paths)))
+
     monkeypatch.setattr(pp, "export_blad_svgs", fake_export)
+    monkeypatch.setattr(pp, "refresh_svg_products_meta", fake_meta)
     paths = pp.resolve_svgs_for_pdf(source, work, uv_id="x/y")
     assert paths == [tmp_path / "lied.mscz.svg"]
     assert exported == [paths[0]]
     assert pp.product_svg_stamp_ok(source, paths[0])
+    assert meta_calls == [(source, paths)]
 
 
 def test_resolve_svgs_exports_when_stale(tmp_path, monkeypatch) -> None:
@@ -685,6 +691,7 @@ def test_resolve_svgs_exports_when_stale(tmp_path, monkeypatch) -> None:
         return [dest]
 
     monkeypatch.setattr(pp, "export_blad_svgs", fake_export)
+    monkeypatch.setattr(pp, "refresh_svg_products_meta", lambda *a, **k: None)
     paths = pp.resolve_svgs_for_pdf(source, uv_id="x/y")
     assert paths == [product]
     assert exported == [product]

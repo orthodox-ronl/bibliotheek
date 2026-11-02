@@ -522,7 +522,11 @@ def _iter_mscx_texts(uv_id: str):
     leaf = CATALOGUS.joinpath(*uv_id.split("/"))
     if not leaf.is_dir():
         return
+    from score_filenames import is_derived_mscz, is_print_mscz
+
     for mscz in sorted(leaf.glob("*.mscz")):
+        if is_print_mscz(mscz) or is_derived_mscz(mscz):
+            continue
         try:
             with zipfile.ZipFile(mscz) as zf:
                 for name in zf.namelist():
@@ -988,7 +992,13 @@ def try_find_notation_source(uv_id: str) -> Path | None:
     vsas = sorted(leaf.glob("*.vsa"))
     if vsas:
         return vsas[0]
-    msczs = sorted(leaf.glob("*.mscz"))
+    from score_filenames import is_derived_mscz, is_print_mscz
+
+    msczs = sorted(
+        p
+        for p in leaf.glob("*.mscz")
+        if not is_print_mscz(p) and not is_derived_mscz(p)
+    )
     if msczs:
         return msczs[0]
     return None
@@ -1552,6 +1562,22 @@ def stamp_sibling_svg(source: Path, svg: Path) -> None:
     )
 
 
+def refresh_svg_products_meta(source: Path, svg_paths: list[Path]) -> None:
+    """Werk products-meta bij na SVG-export/stempel (voorkomt meta_stale-lus)."""
+    if not svg_paths:
+        return
+    from street_meta import assign_svg_keys, write_products_meta
+
+    products: dict[str, Path] = {}
+    assign_svg_keys(products, list(svg_paths))
+    if not products:
+        return
+    drop_keys = {"pdf"}
+    if source.suffix.lower() == ".mscz":
+        drop_keys.add("mscz")
+    write_products_meta(source, products, merge=True, drop_keys=drop_keys)
+
+
 def legacy_bladreeks_svgs(source: Path) -> list[Path]:
     """Oude A4-bladreeks ``{bronnaam}-N.svg`` naast de bron (tot products regen)."""
     source = Path(source)
@@ -1606,10 +1632,11 @@ def export_blad_svgs(
 def _export_product_svg_for_pdf(
     source: Path, dest: Path, *, compact: bool = False
 ) -> list[Path]:
-    """Exporteer sibling-SVG en zet herkomststempel."""
+    """Exporteer sibling-SVG, zet herkomststempel, vernieuw products-meta."""
     paths = export_blad_svgs(source, dest, compact=compact)
     for path in paths:
         stamp_sibling_svg(source, path)
+    refresh_svg_products_meta(source, paths)
     return paths
 
 
@@ -1660,6 +1687,7 @@ def resolve_svgs_for_pdf(
         if not tpath.is_file():
             raise RuntimeError(f"translit-SVG ontbreekt na export: {tpath}")
         stamp_sibling_svg(source, tpath)
+        refresh_svg_products_meta(source, [tpath])
         return [tpath]
 
     product = product_svg_path(source)

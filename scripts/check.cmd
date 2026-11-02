@@ -143,7 +143,7 @@ if errorlevel 1 exit /b 1
 if defined STRICT if "%PRODUCT_FAIL%"=="1" (
   echo.
   echo Check --strict: er zijn product-/pdf-/contract-/id-problemen gevonden.
-  echo Dat is de inventarisatie — nog niet 'fix mislukt'.
+  echo Dat is de inventarisatie - nog niet 'fix mislukt'.
   echo Bekijken:  scripts\fix.cmd --dry-run
   echo Afwerken:  scripts\fix.cmd
   exit /b 1

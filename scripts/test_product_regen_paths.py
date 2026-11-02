@@ -43,7 +43,7 @@ def test_derived_mscz_helpers() -> None:
     assert not is_chained_product_name("lied.mvsa.mscz")
 
 
-def test_collect_skips_derived_mscz_in_dir_allows_explicit(tmp_path: Path) -> None:
+def test_collect_skips_derived_mscz_always(tmp_path: Path) -> None:
     leaf = tmp_path / "zang" / "var" / "uv"
     leaf.mkdir(parents=True)
     (leaf / "index.md").write_text(
@@ -53,10 +53,14 @@ def test_collect_skips_derived_mscz_in_dir_allows_explicit(tmp_path: Path) -> No
     basis.write_bytes(b"PK")
     derived = leaf / "zang-var-uv.mvsa.mscz"
     derived.write_bytes(b"PK")
+    chained = leaf / "zang-var-uv.mscz.mscz"
+    chained.write_bytes(b"PK")
     (leaf / "zang-var-uv.mvsa").write_text("L: a\n", encoding="utf-8")
 
     assert {p.name for p in collect_mscz(leaf)} == {"zang-var-uv.mscz"}
-    assert collect_mscz(derived) == [derived]
+    # Geen product-van-product via products --kinds mscz (ook niet expliciet).
+    assert collect_mscz(derived) == []
+    assert collect_mscz(chained) == []
 
     audio_names = {j.source.name for j in audio.collect_audio_jobs(leaf)}
     assert "zang-var-uv.mscz" in audio_names

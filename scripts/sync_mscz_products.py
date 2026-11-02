@@ -41,10 +41,13 @@ from product_meta import (
     utc_now_iso,
 )
 from product_regen import RegenPolicy, list_source_paths, mxl_contract_ok
-from score_filenames import is_derived_mscz
+from score_filenames import is_chained_product_name, is_derived_mscz
 from street_consumer_stamps import restamp_after_street_products
 from street_meta import stamp_ok_or_meta, write_products_meta
 from sync_vsa_products import folder_is_handmatig
+
+# Verouderde/universele-straat-keys die bibliotheek-mscz niet meer bijhoudt.
+_MSCZ_DROP_META_KEYS = frozenset({"pdf", "mscz"})
 
 
 
@@ -85,23 +88,60 @@ def is_print_mscz(path: Path) -> bool:
 def collect_mscz(root: Path) -> list[Path]:
     """Basispartituur-``.mscz`` onder ``root``.
 
-    Map-scan slaat afgeleide namen over (``*.vsa.mscz``, ``*.mvsa.mscz``).
-    Een expliciet CLI-bestandspad (ook met meerdere extensies) mag wél.
+    Slaat afgeleide namen altijd over (``*.vsa.mscz``, ``*.mvsa.mscz``,
+    ``*.mscz.mscz``) — ook bij een expliciet CLI-bestandspad. Producten van
+    die ketting horen niet via ``products --kinds mscz``.
     """
     out: list[Path] = []
-    explicit = root.is_file()
     for path in list_source_paths(root, pattern="*.mscz"):
         if path.suffix.lower() != ".mscz":
             continue
         if is_print_mscz(path):
             continue
-        if not explicit and is_derived_mscz(path):
+        if is_derived_mscz(path):
             continue
         if not catalog_eligible(path, folder_is_handmatig=folder_is_handmatig):
             continue
         require_no_spaces(path)
         out.append(path)
     return out
+
+
+def _remove_chained_siblings(mscz: Path) -> None:
+    """Wis ``{stam}.mscz.mscz*`` e.d. naast de basispartituur."""
+    prefix = mscz.name
+    parent = mscz.parent
+    if not parent.is_dir():
+        return
+    for path in list(parent.iterdir()):
+        if not path.is_file():
+            continue
+        if not path.name.startswith(prefix):
+            continue
+        if path.resolve() == mscz.resolve():
+            continue
+        if is_chained_product_name(path.name):
+            detail(f"  remove chained {path.name}")
+            path.unlink(missing_ok=True)
+
+
+def _stamp_mscz_svg(
+    mscz: Path, svg: Path, *, digest: str, generated_at: str
+) -> None:
+    """Bibliotheek-herkomststempel op ``.mscz.svg`` (vóór meta-hash)."""
+    from product_meta import (
+        GENERATOR_MSCZ,
+        SOURCE_KIND_PARTITUUR,
+        stamp_svg,
+    )
+
+    stamp_svg(
+        svg,
+        source_hash=digest,
+        source_kind=SOURCE_KIND_PARTITUUR,
+        generated_at=generated_at,
+        generator=GENERATOR_MSCZ,
+    )
 
 
 def _stamp_ok_pdf(pdf: Path, digest: str) -> bool:
@@ -214,6 +254,11 @@ def sync_one(
 ) -> None:
     from input_paths import rel_for_log
 
+    if is_derived_mscz(mscz):
+        raise RuntimeError(
+            f"afgeleide .mscz mag geen products-bron zijn: {mscz.name}"
+        )
+
     rel = rel_for_log(mscz, repo_root=REPO_ROOT)
     digest = partituur_sha256(mscz)
     generated_at = utc_now_iso()
@@ -229,6 +274,8 @@ def sync_one(
         detail(f"  EXP  {rel} -> mscz svg")
     if dry_run:
         return
+
+    _remove_chained_siblings(mscz)
 
     if need_pdf:
         require_no_spaces(pdf)
@@ -246,9 +293,17 @@ def sync_one(
         meta_products["mxl"] = mxl
     if need_svg:
         _run_mscz_svg(mscz)
+        # Stempel vóór meta: anders herschrijft pdf.cmd de SVG en wordt meta stale.
+        _stamp_mscz_svg(mscz, svg, digest=digest, generated_at=generated_at)
         meta_products["svg"] = svg
     if meta_products:
-        write_products_meta(mscz, meta_products, merge=True)
+        # drop pdf/mscz: geen A4-.mscz.pdf; geen universele {stam}.mscz.mscz
+        write_products_meta(
+            mscz,
+            meta_products,
+            merge=True,
+            drop_keys=set(_MSCZ_DROP_META_KEYS),
+        )
         # Bestaande lyrics/mp3 (van eerdere products-run) opnieuw stempelen.
         restamp_after_street_products(mscz)
 

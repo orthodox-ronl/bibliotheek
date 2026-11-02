@@ -26,7 +26,7 @@ from product_meta import (
     stamp_sha_from_dict,
 )
 from fix_cmds import products_fix_cmd
-from street_meta import meta_has_svg_product, meta_status
+from street_meta import issues_from_meta_or
 from sync_mscz_products import (
     DEFAULT_ROOT,
     collect_mscz,
@@ -151,22 +151,30 @@ def _stamp_issues(mscz: Path, digest: str) -> list[Issue]:
     return issues
 
 
+def _mscz_meta_keys(mscz: Path) -> set[str]:
+    """Zelfde keys als ``sync_mscz_products`` (geen verplichte product-PDF)."""
+    svg_outs = mscz_svg_outputs(mscz)
+    if len(svg_outs) <= 1:
+        return {"mxl", "svg"}
+    return {"mxl", "svg-1"}
+
+
 def check_one(mscz: Path) -> FolderStatus:
     digest = partituur_sha256(mscz)
     fix = products_fix_cmd("mscz", mscz)
-    status, detail = meta_status(mscz)
-    if status == "ok" and meta_has_svg_product(mscz):
-        from vsa.products_meta import load_meta
+    # Verwijder verouderde ``pdf``-key uit meta (geen verplicht .mscz.pdf meer).
+    from vsa.products_meta import strip_retired_product_keys
 
-        products = (load_meta(mscz) or {}).get("products") or {}
-        issues = [] if "mxl" in products else _stamp_issues(mscz, digest)
-    elif status == "no_meta":
-        issues = _stamp_issues(mscz, digest)
-    else:
-        from vsa.products_meta import meta_path_for
-
-        kind = "meta_missing" if status == "missing" else "meta_stale"
-        issues = [Issue(kind, _rel(meta_path_for(mscz)), detail)]
+    strip_retired_product_keys(mscz)
+    # Alleen mxl/svg: verouderde meta-keys mogen niet eindeloos meta_missing
+    # blijven triggeren na products --kinds mscz.
+    issues = issues_from_meta_or(
+        mscz,
+        required_keys=_mscz_meta_keys(mscz),
+        rel=_rel,
+        stamp_issues=lambda: _stamp_issues(mscz, digest),
+        issue_cls=Issue,
+    )
     return FolderStatus(
         dir=_bladermap_key(mscz),
         mscz=_rel(mscz),
