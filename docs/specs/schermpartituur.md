@@ -61,8 +61,9 @@ Geen automatische wissel tussen SVG en OSMG (ook niet bij S8-recite of bij
 translit-knoppen). Ontbreekt het product voor de gekozen SVG/OSMG-stand,
 dan een korte melding — niet stiekem de andere keten.
 
-**Translit** (nav: icoonknoppen **ФЛД→FLD** = Nls en **FLD→ФЛД** = Ksl,
-onafhankelijk; default beide uit): sitebreed in `localStorage`. Geen
+**Translit** (nav: icoonknoppen **Ксл→Nls** = Nls en **Nls→Ксл** = Ksl,
+onafhankelijk; default beide uit; **Ксл** is Ksl in Cyrillische letters):
+sitebreed in `localStorage`. Geen
 knop = uit; alleen Nls / alleen Ksl / beide knoppen = bijbehorende
 modus. Nls = Latijn onder kerkslavische tekst; Ksl = Cyrillisch onder
 Nederlandse tekst; beide knoppen = per uitvoeringsvorm alle aanwezige

@@ -72,7 +72,7 @@ uitleg zet je zelf; `bieb` haalt muziek (en desgewenst titel/bron) uit de
 catalogus; bladtitels met `kop`; bladindeling in de download met
 `pdf-pagina` / `pdf-bijelkaar`. Bovenaan de pagina: **download-icoon**
 (pijl omlaag) als `index.md.pdf` bestaat (niet de browserafdruk van de
-HTML), plus translit-icoonknoppen **ФЛД→FLD** / **FLD→ФЛД**. De
+HTML), plus translit-icoonknoppen **Ксл→Nls** / **Nls→Ксл**. De
 voorgestelde bestandsnaam bij downloaden komt uit frontmatter
 `pdf_bestandsnaam`; anders op een
 **koormap** uit `title` en op een **catalogus**-blad uit de afgeleide
@@ -280,8 +280,8 @@ migratie; voor **nieuwe** ids volg je de suffix-regel hierboven.
 
 **Transliteratie (hulpregel)** is géén extra leaf en geen aparte
 uitvoeringsvorm-id. Op de site staan in de navigatie twee icoonknoppen:
-**ФЛД→FLD** (Nls: Latijn onder kerkslavisch) en **FLD→ФЛД** (Ksl:
-Cyrillisch onder Nederlands). De knoppen werken onafhankelijk; beide
+**Ксл→Nls** (Nls: Latijn onder kerkslavisch) en **Nls→Ксл** (Ksl:
+Cyrillisch onder Nederlands). **Ксл** is Ksl in Cyrillische letters. De knoppen werken onafhankelijk; beide
 indrukken = beide richtingen. Geen knop = uit. Bij actieve knop(pen)
 toont het scherm sibling-SVG’s met die meeleesregel (vorm A); het
 download-icoon volgt die stand. Handig op een koormap met NL én ksl

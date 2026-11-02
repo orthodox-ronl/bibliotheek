@@ -302,7 +302,7 @@ passende `.mp3`). Alleen in de catalogus: icoon **{}** (rechtsboven)
 opent **Bronnen** als er een `.vsa` of `.mvsa` is; dat toont de
 feitelijke brontekst in plaats van de gerenderde partituur. In de
 navigatie: **download-icoon** (volgt translit-stand) en icoonknoppen
-**ФЛД→FLD** (Nls) / **FLD→ФЛД** (Ksl). Bij alleen een `.mscz` (geen
+**Ксл→Nls** (Nls) / **Nls→Ксл** (Ksl). **Ксл** is Ksl in Cyrillische letters. Bij alleen een `.mscz` (geen
 VSA-tekst) ontbreekt het icoon **Bronnen**.
 
 ## Legacy-namen (nog toegestaan tot migratie)

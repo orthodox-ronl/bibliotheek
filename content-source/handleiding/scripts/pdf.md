@@ -37,7 +37,8 @@ translit-SVG-siblings:
 Ontbreekt de bijbehorende `{bron}.translit-*.svg`, dan exporteert
 `pdf.cmd` die SVG onderweg (MuseScore bij `.mvsa`). Op de site volgt
 het **download-icoon** de translit-knoppen (geen knop → basis-PDF;
-**ФЛД→FLD**/Nls of **FLD→ФЛД**/Ksl → translit-PDF). `check --strict`
+**Ксл→Nls** kiest de Nls-PDF, **Nls→Ксл** de Ksl-PDF). **Ксл** is Ksl
+in Cyrillische letters. `check --strict`
 eist de translit-PDF’s nog niet; wél de basis-`index.md.pdf`.
 
 Dit commando hoort niet bij `products`, `products --kinds all` of de

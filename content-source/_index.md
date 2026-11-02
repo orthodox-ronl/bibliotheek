@@ -52,11 +52,14 @@ rechts in dezelfde balk nog bij:
 - **Transliteratie** — twee icoonknoppen naast elkaar. Die laten onder de
   gezongen tekst dezelfde woorden zien in het *andere* schrift, zodat je
   mee kunt lezen als je het schrift van de zangtekst nog niet (goed) kent.
+  Op de knop staat **Ксл** voor kerkslavisch (dezelfde afkorting Ksl, in
+  Cyrillische letters) en **Nls** voor de Latijnse meeleesregel.
   De knoppen werken los van elkaar; je mag ze allebei indrukken.
   Grijs = uit, blauw = aan.
-  - **ФЛД → FLD** — bij kerkslavische (Cyrillische) tekst: Latijnse letters
-    eronder
-  - **FLD → ФЛД** — bij Nederlandse tekst: Cyrillische letters eronder  
+
+    - **Ксл → Nls** — bij kerkslavische tekst: Latijnse letters eronder
+    - **Nls → Ксл** — bij Nederlandse tekst: Cyrillische letters eronder
+
   Zonder knop blijft de gewone weergave. De downloadknop volgt dezelfde
   stand (gewone PDF, of PDF waarin die meeleesregel ook staat).
 

@@ -40,7 +40,7 @@ volgorde, bladindeling).
 | Inhoud | Een koormap-pagina mag **meerdere** zangstukken, varianten en/of uitvoeringsvormen bevatten. Daar legt het systeem geen limiet op. |
 | Catalogus-blad | Bevat per definitie **één** uitvoeringsvorm; download/print van het blad = die pagina (`index.md.pdf`, of bij actieve translit-knop `index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf`). |
 | Layout | Bladtitels en rubrieken tussen partituren: shortcode `kop` (§6). Uitleg en gewone structuur: Markdown. Catalogusmuziek: `bieb`. Geen HTML voor uitlijning of kopgrootte. |
-| Navbalk | **Download-icoon** (pijl omlaag) en translit-icoonknoppen **ФЛД→FLD** (Nls) / **FLD→ФЛД** (Ksl) horen bij de pagina (niet per `bieb`-blok). Bij elk muziekblok: tip-icoon **♪** voor oefenen/beluisteren. |
+| Navbalk | **Download-icoon** (pijl omlaag) en translit-icoonknoppen **Ксл→Nls** (Nls) / **Nls→Ксл** (Ksl) horen bij de pagina (niet per `bieb`-blok). **Ксл** is Ksl in Cyrillische letters. Bij elk muziekblok: tip-icoon **♪** voor oefenen/beluisteren. |
 
 Plaatsing van download en translit in de navigatie is onderdeel van dit contract.
 
