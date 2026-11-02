@@ -62,8 +62,7 @@ handwerk.
 
 Bij veel items (vaak tientallen of honderden blad-PDF’s) toont `fix`
 preflight met geschatte duur. Korte runs starten zonder vraag; bij 100+
-items de dubbele zekerheidsvraag. `-y` helpt bij zachte batches; bij 100+
-niet.
+items de dubbele zekerheidsvraag, tenzij je `-y` / `--yes` meegeeft.
 
 # EXAMPLES
 

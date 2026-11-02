@@ -145,7 +145,28 @@ def test_confirm_yes_flag(tmp_path: Path, monkeypatch, capsys) -> None:
     assert "-y/--yes" in capsys.readouterr().out
 
 
-def test_hard_limit_rejects_yes_without_tty(
+def test_yes_skips_hard_limit_without_tty(
+    tmp_path: Path, monkeypatch, capsys
+) -> None:
+    monkeypatch.setattr(bg, "STORE_PATH", tmp_path / "t.json")
+    monkeypatch.setattr(bg.sys.stdin, "isatty", lambda: False)
+
+    def _boom(_p: str) -> str:
+        raise AssertionError("geen input bij -y")
+
+    monkeypatch.setattr(bg, "_read_answer", _boom)
+    assert bg.confirm_batch(
+        "products",
+        n=bg.HARD_LIMIT,
+        headline="alles",
+        yes=True,
+    )
+    out = capsys.readouterr().out
+    assert "-y/--yes" in out
+    assert "HEEL zeker" not in out
+
+
+def test_hard_limit_without_yes_rejects_without_tty(
     tmp_path: Path, monkeypatch, capsys
 ) -> None:
     monkeypatch.setattr(bg, "STORE_PATH", tmp_path / "t.json")
@@ -154,10 +175,10 @@ def test_hard_limit_rejects_yes_without_tty(
         "products",
         n=bg.HARD_LIMIT,
         headline="alles",
-        yes=True,
+        yes=False,
     )
     out = capsys.readouterr().out
-    assert "dubbele bevestiging" in out or "HEEL zeker" in out or "grote batch" in out
+    assert "-y" in out or "terminal" in out.lower()
 
 
 def test_already_confirmed_skips_hard_limit(
@@ -183,6 +204,28 @@ def test_already_confirmed_skips_hard_limit(
     assert "aanroepende batch" not in out
 
 
+def test_yes_skips_hard_limit_double_confirm(
+    tmp_path: Path, monkeypatch, capsys
+) -> None:
+    monkeypatch.setattr(bg, "STORE_PATH", tmp_path / "t.json")
+    monkeypatch.setattr(bg.sys.stdin, "isatty", lambda: True)
+
+    def _boom(_p: str) -> str:
+        raise AssertionError("geen input bij -y op harde limiet")
+
+    monkeypatch.setattr(bg, "_read_answer", _boom)
+    assert bg.confirm_batch(
+        "product_vsa",
+        n=bg.HARD_LIMIT + 1,
+        headline="rebuild",
+        yes=True,
+    )
+    out = capsys.readouterr().out
+    assert "-y/--yes" in out
+    assert "HEEL zeker" not in out
+    assert "Dubbele bevestiging ok" not in out
+
+
 def test_hard_limit_double_confirm(tmp_path: Path, monkeypatch, capsys) -> None:
     monkeypatch.setattr(bg, "STORE_PATH", tmp_path / "t.json")
     monkeypatch.setattr(bg.sys.stdin, "isatty", lambda: True)
@@ -192,10 +235,9 @@ def test_hard_limit_double_confirm(tmp_path: Path, monkeypatch, capsys) -> None:
         "product_vsa",
         n=bg.HARD_LIMIT + 1,
         headline="rebuild",
-        yes=True,  # moet genegeerd worden
+        yes=False,
     )
     out = capsys.readouterr().out
-    assert "genegeerd" in out
     assert "Dubbele bevestiging ok" in out
 
 

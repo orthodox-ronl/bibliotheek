@@ -26,10 +26,10 @@ Kinds: `vsa`, `mscz`, `tekstblad`, `import`, `mvsa`, `audio`, `lyrics`.
 # DESCRIPTION
 
 Bouwt de bestanden die de site en Coria nodig hebben naast de bron in de
-catalogus. Elk kind toont preflight op de echte todo-lijst; korte runs
-(minder dan 100 items of geschat klaar binnen ongeveer een halve minuut)
-starten zonder vraag; bij 100+ items volgt de dubbele zekerheidsvraag.
-`-y` is vooral nodig zonder interactieve terminal. Na een geslaagde run
+catalogus. Preflight en bevestiging gebeuren **één keer** voor de hele
+run (som van bronnen over de gekozen kinds). Korte runs starten zonder
+vraag; bij 100+ bronnen volgt de dubbele zekerheidsvraag, tenzij je
+`-y` / `--yes` meegeeft — dan geen vraag. Na een geslaagde run
 (niet `--dry-run`) schrijft de tooling voor vsa/mvsa/mscz
 `{bron}.products-meta.json` (snelle versheid; bladreeks-SVG als `svg-1`…).
 Die export is **kaal**: lyrics en preview-mp3 krijgen daarbij nog geen

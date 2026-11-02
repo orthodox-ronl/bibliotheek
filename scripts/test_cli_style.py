@@ -16,6 +16,18 @@ def test_explain_winerror_32() -> None:
     assert "WinError 32" in explained.reason or "vergrendeld" in explained.reason.lower()
     assert explained.solution.startswith("Oplossing:")
     assert "MuseScore" in explained.solution or "viewer" in explained.solution.lower()
+    assert cs.is_transient_lock_error(exc)
+
+
+def test_explain_winerror_5() -> None:
+    exc = RuntimeError(
+        "x.mscz: ERROR: [WinError 5] Toegang geweigerd: "
+        "'C:\\\\tmp\\\\x.mscz.products-meta.json.tmp'"
+    )
+    explained = cs.explain_sync_failure(exc)
+    assert "WinError 5" in explained.reason or "vergrendeld" in explained.reason.lower()
+    assert explained.solution.startswith("Oplossing:")
+    assert cs.is_transient_lock_error(exc)
 
 
 def test_explain_errno_22() -> None:

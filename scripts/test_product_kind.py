@@ -160,13 +160,21 @@ def test_musescore_gate_fails_locally_when_only_ms(
     assert kind.synced == []
 
 
-def test_sync_failure_explained_and_collected(tmp_path: Path) -> None:
+def test_sync_failure_explained_and_collected(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import product_kind as pk
+
+    monkeypatch.setattr(pk.time, "sleep", lambda _s: None)
     src = tmp_path / "a.mscz"
     src.write_bytes(b"PK")
     prod = tmp_path / "a.mscz.mxl"
 
     class BoomKind(FakeKind):
+        calls: int = 0
+
         def sync(self, source, *, need, dry_run):  # noqa: ANN001
+            self.calls += 1
             raise RuntimeError(
                 "a.mscz: ERROR: [WinError 32] door een ander proces wordt gebruikt"
             )
@@ -197,6 +205,100 @@ def test_sync_failure_explained_and_collected(tmp_path: Path) -> None:
     assert len(rows) == 1
     assert "a.mscz" in rows[0].path.replace("\\", "/")
     assert rows[0].solution.startswith("Oplossing:")
+    # Eerste poging + LOCK_RETRY_PASSES herhalingen.
+    assert kind.calls == 1 + pk.LOCK_RETRY_PASSES
+
+
+def test_lock_retry_then_ok(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import product_kind as pk
+
+    monkeypatch.setattr(pk.time, "sleep", lambda _s: None)
+    src = tmp_path / "a.mscz"
+    src.write_bytes(b"PK")
+    prod = tmp_path / "a.mscz.mxl"
+
+    class FlakyKind(FakeKind):
+        attempts: int = 0
+
+        def sync(self, source, *, need, dry_run):  # noqa: ANN001
+            self.attempts += 1
+            if self.attempts == 1:
+                raise RuntimeError(
+                    "a.mscz: ERROR: [WinError 5] Toegang geweigerd: 'a.mscz'"
+                )
+            self.synced.append((source, tuple(need)))
+
+    kind = FlakyKind(
+        id="mscz",
+        sources=[src],
+        slots={
+            src: [
+                ProductSlot(
+                    path=prod, exists=False, stamp_ok=False, contract_ok=None
+                )
+            ]
+        },
+    )
+    rows: list[KindFailure] = []
+    with collect_failures(rows):
+        code = run_kind(
+            kind,
+            tmp_path,
+            RegenPolicy(),
+            dry_run=True,
+            yes=True,
+            already_confirmed=True,
+            repo_root=tmp_path,
+        )
+    assert code == 0
+    assert rows == []
+    assert kind.attempts == 2
+    assert kind.synced == [(src, (True,))]
+
+
+def test_non_lock_failure_no_retry(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import product_kind as pk
+
+    sleeps: list[float] = []
+    monkeypatch.setattr(pk.time, "sleep", lambda s: sleeps.append(s))
+    src = tmp_path / "a.vsa"
+    src.write_text("a", encoding="utf-8")
+    prod = tmp_path / "a.vsa.svg"
+
+    class BoomKind(FakeKind):
+        calls: int = 0
+
+        def sync(self, source, *, need, dry_run):  # noqa: ANN001
+            self.calls += 1
+            raise RuntimeError("parse error: onbekende toon")
+
+    kind = BoomKind(
+        id="vsa",
+        sources=[src],
+        slots={
+            src: [
+                ProductSlot(
+                    path=prod, exists=False, stamp_ok=False, contract_ok=None
+                )
+            ]
+        },
+    )
+    code = run_kind(
+        kind,
+        tmp_path,
+        RegenPolicy(),
+        dry_run=True,
+        yes=True,
+        already_confirmed=True,
+        repo_root=tmp_path,
+    )
+    assert code == 1
+    assert kind.calls == 1
+    assert sleeps == []
 
 
 def test_resolve_root_short_catalogus(

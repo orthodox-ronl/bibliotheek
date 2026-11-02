@@ -9,8 +9,8 @@ op basis van eerdere runs op deze machine.
   ``CONFIRM_FROM`` items (default = ``HARD_LIMIT`` = 100) **of**
   geschatte duur ≤ ``SOFT_SECONDS`` (default 30). Preflight blijft.
 - Vanaf ``HARD_LIMIT`` items: dubbele vraag («weet je het zeker?» /
-  «HEEL zeker?») — ``-y`` zet die **niet** uit (geen stille mega-batch).
-- Zonder TTY: zachte batch → hint ``-y``; mega-batch → draai interactief.
+  «HEEL zeker?») tenzij ``-y`` / ``--yes`` (dan stil door).
+- Zonder TTY: zachte of harde batch → ``-y``; anders stop met uitleg.
 - Na elke gemeten item: sample opslaan (window = 20).
 """
 
@@ -134,14 +134,14 @@ def estimate_line(kind: str, n: int) -> str:
 
 
 def add_yes_argument(parser) -> None:
-    """Voeg ``-y`` / ``--yes`` toe (batch zonder zachte vraag)."""
+    """Voeg ``-y`` / ``--yes`` toe (batch zonder bevestigingsvraag)."""
     parser.add_argument(
         "-y",
         "--yes",
         action="store_true",
         help=(
-            "Batch zonder gewone bevestigingsvraag (nodig zonder TTY). "
-            f"Bij {HARD_LIMIT}+ items blijft de dubbele zekerheidsvraag verplicht."
+            "Batch zonder bevestigingsvraag, ook bij "
+            f"{HARD_LIMIT}+ items (nodig zonder TTY)."
         ),
     )
 
@@ -162,18 +162,18 @@ def _read_answer(prompt: str) -> str:
         return ""
 
 
-def _confirm_hard_limit(n: int) -> bool:
-    """Dubbele bevestiging boven HARD_LIMIT — geen speciale CLI-switch."""
+def _confirm_hard_limit(n: int, *, hard_limit: int) -> bool:
+    """Dubbele bevestiging boven HARD_LIMIT (alleen zonder ``-y``)."""
     print(
-        f"  Let op: {n} items (harde limiet {HARD_LIMIT}). "
+        f"  Let op: {n} items (harde limiet {hard_limit}). "
         "Dit is een grote batch (bijv. alle producten opnieuw).",
         flush=True,
     )
     if not sys.stdin.isatty():
         print(
-            "  Gestopt: zo’n grote batch kan niet met -y of zonder terminal.\n"
-            "  Oplossing: draai in een opdrachtvenster en beantwoord "
-            "«weet je het zeker?» en daarna «HEEL zeker?».",
+            "  Gestopt: zo’n grote batch zonder terminal vraagt -y/--yes.\n"
+            "  Oplossing: voeg -y toe, of draai in een opdrachtvenster en "
+            "beantwoord «weet je het zeker?» en daarna «HEEL zeker?».",
             flush=True,
         )
         print(flush=True)
@@ -212,9 +212,8 @@ def confirm_batch(
     ≤ ``soft_seconds``. Default ``confirm_from`` = ``HARD_LIMIT`` (100),
     dus in de praktijk alleen de harde dubbele vraag bij 100+ items.
 
-    Bij ``n >= hard_limit``: altijd dubbele zekerheidsvraag; ``-y`` helpt
-    daar niet (bewust: na tooling-wijziging alles opnieuw maken zonder
-    switch-naam te onthouden, wél met twee bewuste antwoorden).
+    Bij ``n >= hard_limit``: dubbele zekerheidsvraag, tenzij ``-y`` /
+    ``--yes`` (dan stil door, ook zonder TTY).
 
     ``already_confirmed=True`` (alleen via parent zoals ``products``):
     geen enkele vraag meer, ook niet boven de harde limiet — de
@@ -252,14 +251,13 @@ def confirm_batch(
 
     large = n >= hard_limit
 
+    if yes:
+        print("  Bevestiging: overgeslagen (-y/--yes).", flush=True)
+        print(flush=True)
+        return True
+
     if large:
-        if yes:
-            print(
-                "  -y/--yes genegeerd: bij "
-                f"{hard_limit}+ items is dubbele bevestiging verplicht.",
-                flush=True,
-            )
-        return _confirm_hard_limit(n)
+        return _confirm_hard_limit(n, hard_limit=hard_limit)
 
     # Korte run: onder item-drempel, of bekende schatting binnen soft_seconds.
     est = estimated_total_seconds(kind, n)
@@ -272,11 +270,6 @@ def confirm_batch(
                 f"(geschat ≤ {int(soft_seconds)} s).",
                 flush=True,
             )
-        print(flush=True)
-        return True
-
-    if yes:
-        print("  Bevestiging: overgeslagen (-y/--yes).", flush=True)
         print(flush=True)
         return True
 

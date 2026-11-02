@@ -184,12 +184,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.verbose:
         forward.append("--verbose")
 
-    # Bevestiging per kind op de echte todo-lijst (korte runs stil;
-    # 100+: dubbele vraag). -y/--yes: stil doorgeven aan kind-sporen.
-    if args.yes:
-        forward.append("-y")
-        forward.append("--already-confirmed")
-
+    from batch_guard import confirm_batch
     from input_paths import rel_for_log
 
     info(
@@ -208,6 +203,38 @@ def main(argv: list[str] | None = None) -> int:
         "audio": "sync_audio_products",
         "lyrics": "sync_lyrics_products",
     }
+
+    # Eén bevestiging voor de hele products-run; kind-sporen krijgen
+    # --already-confirmed (geen tweede vraag halverwege). n = som van
+    # bronbestanden per kind (bovengrens; todo kan kleiner zijn).
+    kind_counts: list[str] = []
+    n_sources = 0
+    for kind in kinds:
+        mod = __import__(runners[kind])
+        count = len(mod.KIND.collect(root))
+        n_sources += count
+        kind_counts.append(f"{kind}: {count} bron(nen)")
+    actie = "dry-run (geen schrijven)" if args.dry_run else "producten schrijven/vernieuwen"
+    if not confirm_batch(
+        "products",
+        n=n_sources,
+        headline=(
+            f"products: {len(kinds)} kind(s), "
+            f"{n_sources} bron(nen) onder root"
+        ),
+        details=[
+            f"Root: {rel_for_log(root, repo_root=REPO_ROOT)}",
+            f"Actie: {actie}",
+            f"Condities: {', '.join(policy.active_reasons())}",
+            *kind_counts,
+        ],
+        yes=bool(args.yes),
+    ):
+        return 2
+
+    forward.append("--already-confirmed")
+    if args.yes:
+        forward.append("-y")
 
     kind_exit: dict[str, int] = {}
     kind_failures: dict[str, list[KindFailure]] = {}

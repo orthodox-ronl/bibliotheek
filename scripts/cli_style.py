@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import errno
 import os
 import re
 import subprocess
@@ -143,8 +144,8 @@ class FailureExplain:
     solution: str
 
 
-def explain_sync_failure(exc: BaseException) -> FailureExplain:
-    """Vertaal ruwe uitzondering naar reden + Oplossing."""
+def _exception_text(exc: BaseException) -> str:
+    """Stdout/stderr + str(exc) voor lock-detectie en foutuitleg."""
     parts: list[str] = [str(exc).strip()]
     stderr = getattr(exc, "stderr", None)
     stdout = getattr(exc, "stdout", None)
@@ -156,7 +157,40 @@ def explain_sync_failure(exc: BaseException) -> FailureExplain:
         parts.insert(0, stderr.strip())
     if isinstance(stdout, str) and stdout.strip():
         parts.append(stdout.strip())
-    combined = "\n".join(p for p in parts if p)
+    return "\n".join(p for p in parts if p)
+
+
+def is_transient_lock_error(exc: BaseException) -> bool:
+    """True bij tijdelijke Windows-vergrendeling (Access Denied / sharing).
+
+    Die fouten horen in de products-batch in een herhaal-wachtrij, niet
+    meteen als definitieve MISLUKT.
+    """
+    if isinstance(exc, PermissionError):
+        return True
+    if isinstance(exc, OSError):
+        win = getattr(exc, "winerror", None)
+        if win in {5, 32, 1224}:
+            return True
+        if exc.errno in {errno.EACCES, errno.EPERM, errno.EINVAL}:
+            return True
+    low = _exception_text(exc).lower()
+    markers = (
+        "winerror 5",
+        "winerror 32",
+        "winerror 1224",
+        "toegang geweigerd",
+        "access is denied",
+        "door een ander proces wordt gebruikt",
+        "errno 22",
+        "lokale sessie",
+    )
+    return any(m in low for m in markers)
+
+
+def explain_sync_failure(exc: BaseException) -> FailureExplain:
+    """Vertaal ruwe uitzondering naar reden + Oplossing."""
+    combined = _exception_text(exc)
 
     error_line = ""
     for line in combined.splitlines():
@@ -165,7 +199,13 @@ def explain_sync_failure(exc: BaseException) -> FailureExplain:
             break
 
     low = combined.lower()
-    if "winerror 32" in low or "door een ander proces wordt gebruikt" in low:
+    if (
+        "winerror 5" in low
+        or "winerror 32" in low
+        or "toegang geweigerd" in low
+        or "access is denied" in low
+        or "door een ander proces wordt gebruikt" in low
+    ):
         return FailureExplain(
             reason=(
                 error_line

@@ -95,18 +95,20 @@ er expliciet „onbekend”.
 
 **Korte runs** (minder dan 100 items, of geschat klaar binnen ongeveer
 een halve minuut) starten daarna meteen — geen **Doorgaan?**. Met `-y` /
-`--yes` sla je een eventuele soft-vraag over (nodig zonder interactieve
-terminal). Elk product-kind bevestigt op zijn eigen todo-lijst.
+`--yes` sla je elke bevestigingsvraag over (nodig zonder interactieve
+terminal). `products` vraagt hooguit **één keer** voor de hele run;
+daarna geen tweede vraag per kind.
 
-**Harde limiet (100+ items):** geen aparte switch onthouden. Het script
-vraagt dan **Weet je het zeker?** en daarna **HEEL zeker?** (typ precies
-`ja`). `-y` zet die dubbele vraag *niet* uit — handig na een grote
-tooling-wijziging: alles opnieuw maken door twee keer bewust te
-bevestigen in het opdrachtvenster. Zonder terminal stopt zo’n grote batch
-met uitleg.
+**Harde limiet (100+ items):** zonder `-y` vraagt het script
+**Weet je het zeker?** en daarna **HEEL zeker?** (typ precies `ja`).
+Met `-y` / `--yes` gaat die batch stil door. Zonder terminal en zonder
+`-y` stopt zo’n grote batch met uitleg.
 
 Tijdens de batch: doorgaan bij fouten, tussentijdse
-resterende-tijd-schatting, eindlijst van mislukte paden.
+resterende-tijd-schatting, eindlijst van mislukte paden. Tijdelijke
+Windows-vergrendeling (bestand even vast door MuseScore, viewer of
+Defender) wordt uitgesteld en later in dezelfde run opnieuw geprobeerd;
+pas daarna telt het als mislukt.
 
 # EXAMPLES
 

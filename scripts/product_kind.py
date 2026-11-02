@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import time
 from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
@@ -20,8 +21,13 @@ from cli_style import (
     error_block,
     explain_sync_failure,
     info,
+    is_transient_lock_error,
     set_verbose,
 )
+
+# Na de eerste ronde: vergrendelde items nog zo vaak proberen.
+LOCK_RETRY_PASSES = 2
+LOCK_RETRY_PAUSE_S = 1.5
 from product_regen import (
     RegenPolicy,
     add_regen_arguments,
@@ -274,28 +280,40 @@ def run_kind(
         return 2
 
     failed_rows: list[KindFailure] = []
+    deferred: list[tuple[Path, list[bool], list[ProductSlot]]] = []
+    deferred_exc: dict[Path, BaseException] = {}
+
+    def _record_failure(rel: str, exc: BaseException) -> None:
+        explained = explain_sync_failure(exc)
+        fail = KindFailure(
+            path=rel,
+            reason=explained.reason,
+            solution=explained.solution,
+        )
+        failed_rows.append(fail)
+        error_block(
+            [
+                f"MISLUKT {rel}",
+                f"  {fail.reason}",
+                f"  {fail.solution}",
+            ]
+        )
 
     def _one(item: tuple[Path, list[bool], list[ProductSlot]]) -> int:
+        from batch_guard import SKIP
+
         source, need_flags, _slots = item
         rel = rel_for_log(source, repo_root=repo_root)
         detail(f"== {rel}")
         try:
             kind.sync(source, need=need_flags, dry_run=dry_run)
         except Exception as exc:  # noqa: BLE001
-            explained = explain_sync_failure(exc)
-            fail = KindFailure(
-                path=rel,
-                reason=explained.reason,
-                solution=explained.solution,
-            )
-            failed_rows.append(fail)
-            error_block(
-                [
-                    f"MISLUKT {rel}",
-                    f"  {fail.reason}",
-                    f"  {fail.solution}",
-                ]
-            )
+            if is_transient_lock_error(exc):
+                info(f"  Uitgesteld (vergrendeld): {rel} — later opnieuw")
+                deferred.append(item)
+                deferred_exc[source] = exc
+                return SKIP
+            _record_failure(rel, exc)
             return 1
         return 0
 
@@ -305,6 +323,43 @@ def run_kind(
         _one,
         label=lambda it: str(it[0]),
     )
+
+    for pass_i in range(1, LOCK_RETRY_PASSES + 1):
+        if not deferred:
+            break
+        time.sleep(LOCK_RETRY_PAUSE_S * pass_i)
+        info(
+            f">>> {kind.id}: {len(deferred)} opnieuw na vergrendeling "
+            f"(poging {pass_i}/{LOCK_RETRY_PASSES})"
+        )
+        still: list[tuple[Path, list[bool], list[ProductSlot]]] = []
+        for item in deferred:
+            source, need_flags, _slots = item
+            rel = rel_for_log(source, repo_root=repo_root)
+            detail(f"== retry {rel}")
+            try:
+                kind.sync(source, need=need_flags, dry_run=dry_run)
+            except Exception as exc:  # noqa: BLE001
+                if is_transient_lock_error(exc):
+                    still.append(item)
+                    deferred_exc[source] = exc
+                    info(f"  Nog vergrendeld: {rel}")
+                else:
+                    _record_failure(rel, exc)
+                    failed += 1
+            else:
+                info(f"  OK na herhaling: {rel}")
+        deferred = still
+
+    for item in deferred:
+        source, need_flags, _slots = item
+        rel = rel_for_log(source, repo_root=repo_root)
+        exc = deferred_exc.get(source) or RuntimeError(
+            "Bestand bleef vergrendeld na herhaalpogingen."
+        )
+        _record_failure(rel, exc)
+        failed += 1
+
     sink = failures_out if failures_out is not None else _FAILURES_OUT
     if sink is not None:
         sink.extend(failed_rows)
