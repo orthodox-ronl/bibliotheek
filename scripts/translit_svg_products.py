@@ -249,6 +249,11 @@ def sync_translit_svgs(
         written[meta_key] = dest
 
     if written and not dry_run:
+        # Tooling ``mvsa/vsa svg --translit-modus`` schrijft meta-key ``svg``
+        # naar het translit-bestand; herstel de kale scherm-SVG.
+        main_svg = source.with_name(f"{source.name}.svg")
+        if main_svg.is_file():
+            written["svg"] = main_svg
         write_products_meta(source, written, merge=True)
     return written
 
@@ -352,5 +357,11 @@ def sync_translit_mxl(
     _stamp_translit_mxl_file(
         dest, source_hash=digest, generated_at=generated_at
     )
-    write_products_meta(source, {META_KEY_MXL: dest}, merge=True)
+    # Tooling ``mvsa mxl --translit-as-parts`` schrijft meta-key ``mxl`` naar
+    # het translit-bestand. Zet canonieke Coria-``.mxl`` terug + translit-key.
+    products: dict[str, Path] = {META_KEY_MXL: dest}
+    main_mxl = source.with_name(f"{source.name}.mxl")
+    if main_mxl.is_file():
+        products["mxl"] = main_mxl
+    write_products_meta(source, products, merge=True)
     return {META_KEY_MXL: dest}
