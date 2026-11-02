@@ -54,7 +54,7 @@ Deze pagina is de HOW voor publicatiestatus en lokale controle.&lt;/p&gt;
  &lt;ol&gt;
 &lt;li&gt;Zet &lt;code&gt;publicatiestatus&lt;/code&gt; op catalogus-&lt;code&gt;index.md&lt;/code&gt; &lt;strong&gt;en&lt;/strong&gt; koormap-&lt;code&gt;index.md&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;scripts\check.cmd --strict&lt;/code&gt; moet groen zijn.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;scripts\serve.cmd --no-build&lt;/code&gt; → http://127.0.0.1:18732/ — klik zelf als koorlid (koormap-slot).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;scripts\serve.cmd&lt;/code&gt; → http://127.0.0.1:18732/ — klik zelf als koorlid (koormap-slot).&lt;/li&gt;
 &lt;li&gt;Live: pas na groen, via git naar &lt;code&gt;main&lt;/code&gt; (of vragen). &lt;code&gt;productie&lt;/code&gt; niet raden.&lt;/li&gt;
 &lt;/ol&gt;
 

@@ -1,4 +1,9 @@
 (function () {
+  /* Livereload kan dit script opnieuw injecteren; voorkom dubbele click-handlers
+     (anders opent ♪ en sluit meteen weer). */
+  if (window.__bibliotheekSiteNavBound) return;
+  window.__bibliotheekSiteNavBound = true;
+
   function syncChromeHeight() {
     var chrome = document.querySelector(".site-chrome");
     var oefHeader = document.querySelector(".oefenhoek-header");
@@ -40,6 +45,9 @@
     document.querySelectorAll("details.publicatiestatus-tip[open]").forEach(function (tip) {
       if (!tip.contains(event.target)) tip.open = false;
     });
+    document.querySelectorAll("details.score-oefen-tip[open], details.score-bron-tip[open]").forEach(function (tip) {
+      if (!tip.contains(event.target)) tip.open = false;
+    });
     syncChromeHeight();
   });
 
@@ -72,4 +80,52 @@
       placeScoreActionHelp(menu);
     });
   });
+
+  /* ♪/{}-klikpanelen: naast het icoon; verticaal gelijk aan knop, zo nodig omhoog. */
+  function placeScoreTipPanel(tip) {
+    var panel = tip.querySelector(".score-oefen-tip-panel, .score-bron-tip-panel");
+    if (!panel) return;
+    panel.style.top = "0px";
+    var rect = panel.getBoundingClientRect();
+    if (!(rect.height > 0)) return;
+    var margin = 8;
+    var shift = 0;
+    if (rect.bottom > window.innerHeight - margin) {
+      shift -= rect.bottom - (window.innerHeight - margin);
+    }
+    if (rect.top + shift < margin) {
+      shift += margin - (rect.top + shift);
+    }
+    if (shift !== 0) {
+      panel.style.top = shift + "px";
+    }
+  }
+
+  function bindScoreTipPlacement(tip) {
+    tip.addEventListener("toggle", function () {
+      if (!tip.open) {
+        var panel = tip.querySelector(
+          ".score-oefen-tip-panel, .score-bron-tip-panel"
+        );
+        if (panel) panel.style.top = "";
+        return;
+      }
+      requestAnimationFrame(function () {
+        placeScoreTipPanel(tip);
+      });
+    });
+  }
+
+  document
+    .querySelectorAll("details.score-oefen-tip, details.score-bron-tip")
+    .forEach(bindScoreTipPlacement);
+
+  window.addEventListener("resize", function () {
+    document
+      .querySelectorAll(
+        "details.score-oefen-tip[open], details.score-bron-tip[open]"
+      )
+      .forEach(placeScoreTipPanel);
+  });
+
 })();

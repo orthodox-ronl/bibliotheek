@@ -59,6 +59,10 @@ body {
 }
 
 .oefenhoek-header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
   width: 100%;
   max-width: var(--page-max-width);
   margin: 0 auto;
@@ -67,6 +71,221 @@ body {
     max(var(--page-padding), env(safe-area-inset-right))
     0.5rem
     max(var(--page-padding), env(safe-area-inset-left));
+}
+
+.oefenhoek-header-inner .oefenhoek-breadcrumb {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.oefenhoek-header-inner .publicatiestatus-tip {
+  flex: 0 0 auto;
+}
+
+/* Pagina-download + translit in de site-header (naast zoeken) */
+.site-header-inner .pagina-acties {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.pagina-acties-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+  padding: 0.25rem 0.5rem;
+  min-height: 1.85rem;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid var(--border-color, #ccc);
+  background: #fff;
+  color: #003366;
+  border-radius: 3px;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.pagina-acties-btn--icon {
+  padding: 0.25rem;
+  width: 1.85rem;
+  min-width: 1.85rem;
+}
+
+.pagina-acties-icon {
+  display: block;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.pagina-acties-btn:hover,
+.pagina-acties-btn:focus {
+  background: #eef3f8;
+  text-decoration: none;
+}
+
+.pagina-acties-translit {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  min-height: 1.85rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #003366;
+  user-select: none;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+/* Nls / Ksl: icoonknoppen Ксл↔Nls (beide aan = beide richtingen) */
+.pagina-acties-translit-modus {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 3px;
+  /* Geen overflow:hidden — anders knippen de nav-popovers weg. */
+  background: #fff;
+  min-height: 1.85rem;
+  box-sizing: border-box;
+}
+
+.pagina-acties-translit-modus > .site-chrome-tip {
+  align-items: stretch;
+}
+
+.pagina-acties-translit-modus-opt {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  cursor: pointer;
+}
+
+.pagina-acties-translit-modus-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.pagina-acties-translit-modus-text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem 0.4rem;
+  min-height: 1.85rem;
+  box-sizing: border-box;
+  color: #6a7785;
+  background: #eef1f4;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.pagina-acties-translit-modus > .site-chrome-tip + .site-chrome-tip .pagina-acties-translit-modus-text,
+.pagina-acties-translit-modus-opt + .pagina-acties-translit-modus-opt .pagina-acties-translit-modus-text {
+  border-left: 1px solid #c5ced8;
+}
+
+.pagina-acties-translit-modus > .site-chrome-tip:first-child .pagina-acties-translit-modus-text {
+  border-radius: 2px 0 0 2px;
+}
+
+.pagina-acties-translit-modus > .site-chrome-tip:last-child .pagina-acties-translit-modus-text {
+  border-radius: 0 2px 2px 0;
+}
+
+.pagina-acties-translit-glyph {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.pagina-acties-translit-glyph-letters {
+  color: inherit;
+  font: inherit;
+  letter-spacing: normal;
+}
+
+.pagina-acties-translit-glyph-arrow {
+  display: block;
+  width: 0.85rem;
+  height: 0.55rem;
+  flex: 0 0 auto;
+  overflow: visible;
+}
+
+.pagina-acties-translit-glyph-arrow path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pagina-acties-translit-modus-input:checked + .pagina-acties-translit-modus-text {
+  background: #1f5a86;
+  color: #fff;
+}
+
+.pagina-acties-translit-modus-input:focus-visible + .pagina-acties-translit-modus-text {
+  outline: 2px solid #003366;
+  outline-offset: 1px;
+}
+
+.pagina-acties-translit:hover .pagina-acties-translit-modus,
+.pagina-acties-translit:focus-within .pagina-acties-translit-modus {
+  border-color: #9aabbc;
+}
+
+.score-scherm-translit-hint {
+  margin: 0.75rem 0 0;
+  font-size: 0.9rem;
+  color: #334;
+}
+
+/* Voorbeeld-iconen op de home (zelfde look als tip-knoppen op de partituur) */
+.home-score-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: 1.55rem;
+  height: 1.55rem;
+  min-width: 1.55rem;
+  margin: 0 0.1rem;
+  padding: 0;
+  border: 1.5px solid #003366;
+  border-radius: 50%;
+  background: #003366;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+}
+
+.home-score-icon--bron {
+  width: auto;
+  min-width: 1.55rem;
+  padding: 0 0.28rem;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-family: Consolas, "Courier New", monospace;
+  letter-spacing: -0.04em;
 }
 
 .oefenhoek-breadcrumb {
@@ -144,7 +363,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem 0.75rem;
+  gap: 0.35rem 0.5rem;
   min-width: 0;
 }
 
@@ -174,7 +393,7 @@ body {
 .site-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem;
+  gap: 0.2rem;
   align-items: center;
   margin: 0;
   padding: 0;
@@ -182,20 +401,25 @@ body {
 }
 
 .site-nav a {
+  display: inline-flex;
+  align-items: center;
   color: #003366;
   text-decoration: none;
   white-space: nowrap;
   font-size: 0.8rem;
+  font-weight: 600;
   line-height: 1.2;
-  padding: 0.15rem 0.45rem;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  min-height: 1.85rem;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 3px;
   background: #fff;
+  box-sizing: border-box;
 }
 
 .site-nav a:hover,
 .site-nav a:focus {
-  background: #eee;
+  background: #eef3f8;
   text-decoration: none;
 }
 
@@ -210,16 +434,21 @@ body {
 }
 
 .site-nav-group summary {
+  display: inline-flex;
+  align-items: center;
   color: #003366;
   white-space: nowrap;
   font-size: 0.8rem;
+  font-weight: 600;
   line-height: 1.2;
-  padding: 0.15rem 0.45rem;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  min-height: 1.85rem;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 3px;
   background: #fff;
   cursor: pointer;
   list-style: none;
+  box-sizing: border-box;
 }
 
 .site-nav-group summary::-webkit-details-marker {
@@ -238,7 +467,7 @@ body {
 .site-nav-group[open] summary,
 .site-nav-group summary:hover,
 .site-nav-group summary:focus {
-  background: #eee;
+  background: #eef3f8;
 }
 
 .site-nav-group.is-current summary {
@@ -264,6 +493,14 @@ body {
   border: 1px solid var(--border-color);
   border-radius: 4px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Dropdown-items compacter dan de topnav-knoppen. */
+.site-nav-menu a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 0.2rem 0.5rem;
 }
 
 .site-subnav {
@@ -498,6 +735,30 @@ code.catalogus-id {
   font-size: 0.95rem;
 }
 
+.catalogus-boom-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.1rem 0 0.35rem;
+}
+
+.catalogus-boom-actions .btn {
+  display: inline-block;
+  padding: 0.08rem 0.45rem;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: #003366;
+  text-decoration: none;
+}
+
+.catalogus-boom-actions .btn:hover,
+.catalogus-boom-actions .btn:focus {
+  background: #eee;
+}
+
 .catalogus-boom-lyric {
   font-style: italic;
   color: #333;
@@ -558,30 +819,116 @@ code.catalogus-id {
   flex: 0 0 auto;
 }
 
-.site-zoek-toggle-wrap {
+/* Hover/focus-uitleg bij knoppen in de site-header */
+.site-chrome-tip {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  max-width: 100%;
+}
+
+.site-chrome-tip-panel {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  z-index: 120;
+  width: max(12rem, 100%);
+  max-width: min(22rem, 92vw);
+  margin: 0;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.88rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: #223344;
+  background: #fffef8;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  text-align: left;
+  white-space: normal;
+  pointer-events: none;
+}
+
+.site-chrome-tip-panel::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 0.45rem;
+}
+
+.site-chrome-tip-panel--end {
+  left: auto;
+  right: 0;
+}
+
+.site-chrome-tip-panel--interactive {
+  pointer-events: auto;
+}
+
+.site-chrome-tip-panel p {
+  margin: 0 0 0.45rem;
+}
+
+.site-chrome-tip-panel p:last-child {
+  margin-bottom: 0;
+}
+
+.site-chrome-tip-panel a {
+  color: #003366;
+}
+
+/* Hover: tip weg zodra de muis van de knop af gaat.
+   Geen :focus-within — na een muisklik blijft focus op download/translit
+   en bleef de tip anders hangen. Toetsenbord: :focus-visible. */
+.site-chrome-tip:hover > .site-chrome-tip-panel,
+.site-chrome-tip:has(:focus-visible) > .site-chrome-tip-panel {
+  display: block;
+}
+
+/* Open submenu / open zoekvenster: geen tip over het menu heen */
+.site-chrome-tip:has(.site-nav-group[open]) > .site-chrome-tip-panel,
+.site-chrome-tip:has(.site-zoek-toggle[aria-expanded="true"]) > .site-chrome-tip-panel {
+  display: none;
 }
 
 .site-zoek-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
+  justify-content: center;
+  gap: 0.25rem;
   color: #003366;
   background: #fff;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 3px;
   font: inherit;
   font-size: 0.8rem;
+  font-weight: 600;
   line-height: 1.2;
-  padding: 0.15rem 0.45rem;
+  padding: 0.25rem;
+  width: 1.85rem;
+  min-height: 1.85rem;
   cursor: pointer;
+}
+
+.site-zoek-toggle-label {
+  /* Icoon volstaat in de krappe header; label blijft voor screenreaders. */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .site-zoek-toggle:hover,
 .site-zoek-toggle:focus {
-  background: #eee;
+  background: #eef3f8;
 }
 
 .site-zoek-toggle[aria-expanded="true"] {
@@ -713,6 +1060,24 @@ body.site-zoek-open {
   border-top: 1px solid var(--border-color);
 }
 
+.site-footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.25rem;
+  margin-top: 1rem;
+}
+
+.site-footer .site-jumps {
+  margin: 0;
+}
+
+.site-footer .site-meta {
+  margin: 0;
+  text-align: right;
+}
+
 .site-meta {
   margin-top: 1rem;
 }
@@ -841,8 +1206,44 @@ svg:not(.site-jump-icon),
   overflow-x: hidden;
 }
 
+
 .oefenhoek-page .vsa-notation {
   box-sizing: border-box;
+}
+
+.osmd-container .osmd-status {
+  margin: 0;
+  padding: 0.75rem;
+  color: var(--muted, #555);
+  font-size: 0.95rem;
+}
+
+.osmd-container .osmd-mount {
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+
+.osmd-container .osmd-mount svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* S8 print-spacer: kop/stok verborgen via score-osmd.js (path.vf-notehead!). */
+.osmd-container .osmd-mount .vf-stavenote[data-osmd-spacer="1"] .vf-note,
+.osmd-container .osmd-mount .vf-stavenote[data-osmd-spacer="1"] .vf-note *,
+.osmd-container .osmd-mount .vf-stavenote[data-osmd-spacer="1"] .vf-beam,
+.osmd-container .osmd-mount .vf-stavenote[data-osmd-spacer="1"] .vf-modifiers,
+.osmd-container .osmd-mount .vf-stavenote[data-osmd-spacer="1"] .vf-stem {
+  visibility: hidden !important;
+  display: none !important;
+}
+
+/* S8 recite: breve «le» (OSMD tekent vaak als ronde kwart). */
+.osmd-container .osmd-mount .vf-stavenote[data-osmd-breve="1"] .vf-notehead,
+.osmd-container .osmd-mount .vf-stavenote[data-osmd-breve="1"] path.vf-notehead {
+  transform: scaleX(1.85);
+  transform-origin: center center;
 }
 
 .pdf-sheet-pages {
@@ -1479,6 +1880,324 @@ body.score-audio-bar-open {
   }
 }
 
+/* Partituur: Oefenen/Beluisteren (♪ linksboven) en Bronnen ({} rechtsboven). */
+.score-bundle:has(> .score-oefen-tip),
+.score-bundle:has(> .score-bron-tip) {
+  position: relative;
+}
+
+.score-oefen-tip,
+.score-bron-tip {
+  position: absolute;
+  top: 0.45rem;
+  z-index: 6;
+  display: block;
+  margin: 0;
+}
+
+.score-oefen-tip {
+  left: 0.45rem;
+  right: auto;
+}
+
+.score-bron-tip {
+  left: auto;
+  right: 0.45rem;
+}
+
+.score-oefen-tip-trigger,
+.score-bron-tip-trigger {
+  list-style: none;
+  box-sizing: border-box;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Was 44px; ~⅔ zodat ze minder over de partituur heen liggen. */
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  min-height: 30px;
+  padding: 0;
+  border: 1.5px solid #003366;
+  border-radius: 50%;
+  background: #003366;
+  color: #fff;
+  font-size: 0.97rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+}
+
+.score-bron-tip-trigger {
+  width: auto;
+  min-width: 30px;
+  padding: 0 0.37rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-family: Consolas, "Courier New", monospace;
+  letter-spacing: -0.04em;
+}
+
+/* Geen browser-driehoek naast ♪ / {} */
+.score-oefen-tip-trigger::-webkit-details-marker,
+.score-bron-tip-trigger::-webkit-details-marker {
+  display: none;
+}
+
+.score-oefen-tip-trigger::marker,
+.score-bron-tip-trigger::marker {
+  content: none;
+  display: none;
+}
+
+/* Hover-label naast het icoon (geen native title-tooltip). */
+@media (hover: hover) and (pointer: fine) {
+  .score-oefen-tip-trigger::before,
+  .score-bron-tip-trigger::before {
+    content: attr(aria-label);
+    position: absolute;
+    top: 50%;
+    z-index: 50;
+    box-sizing: border-box;
+    max-width: min(14rem, 70vw);
+    padding: 0.28rem 0.5rem;
+    border-radius: 4px;
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 500;
+    font-family: system-ui, sans-serif;
+    letter-spacing: normal;
+    line-height: 1.25;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-50%);
+    transition: opacity 0.08s ease;
+  }
+
+  /* ♪: label rechts van het knopje */
+  .score-oefen-tip-trigger::before {
+    left: calc(100% + 0.4rem);
+    right: auto;
+  }
+
+  /* {}: label links van het knopje */
+  .score-bron-tip-trigger::before {
+    left: auto;
+    right: calc(100% + 0.4rem);
+  }
+
+  .score-oefen-tip-trigger:hover::before,
+  .score-oefen-tip-trigger:focus-visible::before,
+  .score-bron-tip-trigger:hover::before,
+  .score-bron-tip-trigger:focus-visible::before {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Geen hover-label terwijl het klikmenu open is */
+  .score-oefen-tip[open] > .score-oefen-tip-trigger::before,
+  .score-bron-tip[open] > .score-bron-tip-trigger::before {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .score-oefen-tip-trigger::before,
+  .score-bron-tip-trigger::before {
+    content: none !important;
+    display: none !important;
+  }
+}
+
+/* Telefoon/tablet: tikvlak ~44px, icoon blijft 30px. */
+@media (hover: none), (pointer: coarse) {
+  .score-oefen-tip-trigger::after,
+  .score-bron-tip-trigger::after {
+    content: "" !important;
+    display: block !important;
+    position: absolute;
+    inset: -7px;
+    border-radius: inherit;
+  }
+}
+
+.score-oefen-tip-trigger:hover,
+.score-oefen-tip-trigger:focus,
+.score-bron-tip-trigger:hover,
+.score-bron-tip-trigger:focus {
+  background: #004080;
+  border-color: #004080;
+  color: #fff;
+  outline: none;
+}
+
+.score-oefen-tip[open] > .score-oefen-tip-trigger,
+.score-bron-tip[open] > .score-bron-tip-trigger {
+  background: #00264d;
+  border-color: #00264d;
+  color: #fff;
+  box-shadow: 0 0 0 2px rgba(0, 51, 102, 0.35);
+}
+
+.score-oefen-tip-panel,
+.score-bron-tip-panel {
+  position: absolute;
+  top: 0;
+  bottom: auto;
+  z-index: 40;
+  width: 10.5rem;
+  max-width: min(16rem, 92vw);
+  margin: 0;
+  padding: 0.25rem;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  text-align: left;
+}
+
+/* ♪: klikmenu rechts van het icoon (blijft in het blad) */
+.score-oefen-tip-panel {
+  left: calc(100% + 0.35rem);
+  right: auto;
+}
+
+/* {}: klikmenu links van het icoon */
+.score-bron-tip-panel {
+  left: auto;
+  right: calc(100% + 0.35rem);
+}
+
+.score-actions--in-tip {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  align-items: stretch;
+}
+
+/* Geen dikke catalogus-knoppen: gelijke, lichte menuregels.
+   Specificiteit ≥ a.btn.coria-play (anders blijft Oefenen een dikke knop). */
+.score-actions--in-tip .score-action-menu {
+  flex: 0 0 auto;
+  width: 100%;
+  display: block;
+}
+
+/* hidden-attribuut alleen is niet genoeg: .score-action-menu { display:block }
+   hierboven wint daarvan. Alleen tonen in bron-weergave. */
+.score-actions--in-tip .score-action-menu--bron-mode,
+.score-actions--in-tip .score-action-menu--bron-mode[hidden] {
+  display: none;
+}
+
+.score-bundle.is-bron-view .score-actions--in-tip .score-action-menu--bron-mode:not([hidden]) {
+  display: block;
+}
+
+.score-actions--in-tip a.btn,
+.score-actions--in-tip button.btn,
+.score-actions--in-tip a.btn.coria-play,
+.score-actions--in-tip a.btn.score-audio-play,
+.score-actions--in-tip .score-action-menu-trigger,
+.catalogus-page .score-actions--in-tip a.btn,
+.catalogus-page .score-actions--in-tip button.btn,
+.catalogus-page .score-actions--in-tip a.btn.coria-play,
+.catalogus-page .score-actions--in-tip .score-action-menu-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  width: 100%;
+  min-height: 2.25rem; /* tikbaar op telefoon, niet lomp */
+  height: 2.25rem;
+  padding: 0 0.65rem;
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #003366;
+  box-shadow: none;
+  text-align: left;
+}
+
+.score-actions--in-tip a.btn:hover,
+.score-actions--in-tip a.btn:focus,
+.score-actions--in-tip button.btn:hover,
+.score-actions--in-tip button.btn:focus,
+.score-actions--in-tip a.btn.coria-play:hover,
+.score-actions--in-tip a.btn.coria-play:focus,
+.score-actions--in-tip a.btn.score-audio-play:hover,
+.score-actions--in-tip a.btn.score-audio-play:focus,
+.score-actions--in-tip .score-action-menu-trigger:hover,
+.score-actions--in-tip .score-action-menu-trigger:focus,
+.catalogus-page .score-actions--in-tip a.btn:hover,
+.catalogus-page .score-actions--in-tip a.btn:focus,
+.catalogus-page .score-actions--in-tip button.btn:hover,
+.catalogus-page .score-actions--in-tip button.btn:focus,
+.catalogus-page .score-actions--in-tip a.btn.coria-play:hover,
+.catalogus-page .score-actions--in-tip a.btn.coria-play:focus,
+.catalogus-page .score-actions--in-tip .score-action-menu-trigger:hover,
+.catalogus-page .score-actions--in-tip .score-action-menu-trigger:focus {
+  background: #eef3f8;
+  color: #003366;
+  text-decoration: none;
+}
+
+/* Geen hover-uitlegballon in het tip-menu (pijlpunt las als tweede icoon). */
+.score-actions--in-tip .score-action-help,
+.score-actions--in-tip .score-action-menu:hover > .score-action-help,
+.score-actions--in-tip .score-action-menu:focus-within > .score-action-help {
+  display: none !important;
+}
+
+.score-actions--in-tip .score-action-menu-panel {
+  left: 0;
+  right: auto;
+  min-width: 100%;
+}
+
+.score-bron-tip .score-actions--in-tip .score-action-menu-panel {
+  left: auto;
+  right: 0;
+}
+
+.score-scherm[hidden] {
+  display: none !important;
+}
+
+.score-scherm-missing {
+  margin: 0.75rem 0;
+  padding: 0.65rem 0.8rem;
+  border: 1px dashed #888;
+  font-size: 0.95rem;
+}
+
+/* Koormap: meerdere score-bundels dichter op elkaar */
+.oefenhoek-page .score-bundle {
+  margin: 0.75rem 0 1rem;
+}
+
+.oefenhoek-page .score-bundle + .score-bundle {
+  margin-top: 0.5rem;
+}
+
+/* pdf-pagina: op het scherm geen gat; wel print-bladscheiding */
+.pdf-pagina {
+  display: none;
+}
+
 /* Print / A4 */
 @media print {
   @page {
@@ -1486,8 +2205,14 @@ body.score-audio-bar-open {
     margin: 2cm;
   }
 
-  .pagebreak {
+  .pdf-pagina {
+    display: block;
     page-break-before: always;
+    break-before: page;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
   }
 
   .site-header,
@@ -1498,6 +2223,8 @@ body.score-audio-bar-open {
   .site-jumps,
   .nav-buttons,
   .score-actions,
+  .score-oefen-tip,
+  .score-bron-tip,
   .score-audio-bar,
   .publicatiestatus,
   .publicatiestatus-tip,
@@ -1507,16 +2234,13 @@ body.score-audio-bar-open {
     display: none;
   }
 
-  .web-only { display: none; }
-
-  .keep-together {
+  .pdf-bijelkaar {
     break-inside: avoid;
     page-break-inside: avoid;
   }
 
   /* Lege alinea's uit markdown mogen geen extra ruimte in de afdruk geven. */
-  .keep-together > p:empty,
-  .print-only > p:empty {
+  .pdf-bijelkaar > p:empty {
     display: none;
     margin: 0;
     padding: 0;
@@ -1670,9 +2394,70 @@ body.score-audio-bar-open {
   margin: 0.35rem 0 0;
 }
 
-/* Titel komt uit het template; verberg herhaalde #-titel in de markdown. */
-.oefenhoek-page .oefenhoek-body > h1:first-child {
+/* Catalogus: titel komt uit het template; verberg herhaalde #-titel in de markdown.
+   Koormap: géén template-H1 — paginatitel staat in de Markdown. */
+.catalogus-page .oefenhoek-body > h1:first-child {
   display: none;
+}
+
+/* Shortcode witruimte: expliciete ruimte (lege Markdown-regels werken niet
+   tussen shortcodes). Hoogtes ongeveer gelijk aan pagina-PDF-punten. */
+.oefenhoek-body .koormap-witruimte {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  pointer-events: none;
+}
+
+.oefenhoek-body .koormap-witruimte--klein {
+  height: 0.75rem;
+}
+
+.oefenhoek-body .koormap-witruimte--middel {
+  height: 1.5rem;
+}
+
+.oefenhoek-body .koormap-witruimte--groot {
+  height: 3rem;
+}
+
+/* Shortcode kop (koormap-paginataal §6). */
+.oefenhoek-body .koormap-kop {
+  margin: 0.75rem 0 0.35rem;
+  font-weight: 700;
+  color: #222;
+  line-height: 1.25;
+}
+
+.oefenhoek-body .koormap-kop--links {
+  text-align: left;
+}
+
+.oefenhoek-body .koormap-kop--midden {
+  text-align: center;
+}
+
+.oefenhoek-body .koormap-kop--rechts {
+  text-align: right;
+}
+
+.oefenhoek-body .koormap-kop--groot {
+  font-size: 1.75rem;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.oefenhoek-body .koormap-kop--middel {
+  /* Optisch dicht bij lyrics in de partituur-SVG. */
+  margin: 0.85rem 0 0.25rem;
+  font-size: 1.25rem;
+}
+
+.oefenhoek-body .koormap-kop--klein {
+  margin: 0.5rem 0 0.2rem;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .werkvoorraad {
@@ -1684,12 +2469,6 @@ body.score-audio-bar-open {
 .werkvoorraad summary {
   cursor: pointer;
   font-weight: 600;
-}
-
-.print-only { display: none; }
-
-@media print {
-  .print-only { display: block; }
 }
 
 /* Bibliotheek-zoeken */
@@ -2007,13 +2786,6 @@ body.score-audio-bar-open {
   right: 0;
   left: auto;
   width: min(22rem, 92vw);
-}
-
-.site-zoek-toggle-wrap .catalogus-zoek-tip--help .catalogus-zoek-tip-panel {
-  top: calc(100% + 0.4rem);
-  right: 0;
-  left: auto;
-  z-index: 50;
 }
 
 .catalogus-zoek-tip.is-open .catalogus-zoek-tip-panel,
