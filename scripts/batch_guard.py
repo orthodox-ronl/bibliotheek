@@ -25,6 +25,10 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import Iterator, TypeVar
 
+from cli_style import configure_stdio, safe_print
+
+configure_stdio()
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 STORE_PATH = REPO_ROOT / "generated" / "batch_timing.json"
 WINDOW = 20
@@ -164,33 +168,33 @@ def _read_answer(prompt: str) -> str:
 
 def _confirm_hard_limit(n: int, *, hard_limit: int) -> bool:
     """Dubbele bevestiging boven HARD_LIMIT (alleen zonder ``-y``)."""
-    print(
+    safe_print(
         f"  Let op: {n} items (harde limiet {hard_limit}). "
         "Dit is een grote batch (bijv. alle producten opnieuw).",
         flush=True,
     )
     if not sys.stdin.isatty():
-        print(
+        safe_print(
             "  Gestopt: zo’n grote batch zonder terminal vraagt -y/--yes.\n"
             "  Oplossing: voeg -y toe, of draai in een opdrachtvenster en "
             "beantwoord «weet je het zeker?» en daarna «HEEL zeker?».",
             flush=True,
         )
-        print(flush=True)
+        safe_print(flush=True)
         return False
 
     a1 = _read_answer("Weet je het zeker? [j/N] ")
     if a1 not in {"j", "ja", "y", "yes"}:
-        print("Afgebroken.", flush=True)
-        print(flush=True)
+        safe_print("Afgebroken.", flush=True)
+        safe_print(flush=True)
         return False
     a2 = _read_answer('HEEL zeker? Typ precies "ja" om door te gaan: ')
     if a2 != "ja":
-        print("Afgebroken (tweede bevestiging niet «ja»).", flush=True)
-        print(flush=True)
+        safe_print("Afgebroken (tweede bevestiging niet «ja»).", flush=True)
+        safe_print(flush=True)
         return False
-    print("  Dubbele bevestiging ok — grote batch start.", flush=True)
-    print(flush=True)
+    safe_print("  Dubbele bevestiging ok — grote batch start.", flush=True)
+    safe_print(flush=True)
     return True
 
 
@@ -242,18 +246,18 @@ def confirm_batch(
         detail(f"  Aantal items: {n}")
         return True
 
-    print(flush=True)
-    print(f"Batch «{kind}»: {headline}", flush=True)
+    safe_print(flush=True)
+    safe_print(f"Batch «{kind}»: {headline}", flush=True)
     for line in details:
-        print(f"  {line}", flush=True)
-    print(f"  Aantal items: {n}", flush=True)
-    print(f"  {estimate_line(kind, n)}", flush=True)
+        safe_print(f"  {line}", flush=True)
+    safe_print(f"  Aantal items: {n}", flush=True)
+    safe_print(f"  {estimate_line(kind, n)}", flush=True)
 
     large = n >= hard_limit
 
     if yes:
-        print("  Bevestiging: overgeslagen (-y/--yes).", flush=True)
-        print(flush=True)
+        safe_print("  Bevestiging: overgeslagen (-y/--yes).", flush=True)
+        safe_print(flush=True)
         return True
 
     if large:
@@ -265,30 +269,30 @@ def confirm_batch(
     short_by_time = est is not None and est <= soft_seconds
     if short_by_count or short_by_time:
         if short_by_time and not short_by_count:
-            print(
+            safe_print(
                 "  Bevestiging: overgeslagen "
                 f"(geschat ≤ {int(soft_seconds)} s).",
                 flush=True,
             )
-        print(flush=True)
+        safe_print(flush=True)
         return True
 
     if not sys.stdin.isatty():
-        print(
+        safe_print(
             "  Gestopt: dit is een batch zonder interactieve terminal.\n"
             "  Oplossing: voeg -y/--yes toe als je bewust wilt doorgaan, "
             "of draai in een opdrachtvenster.",
             flush=True,
         )
-        print(flush=True)
+        safe_print(flush=True)
         return False
 
     answer = _read_answer("Doorgaan? [j/N] ")
     if answer in {"j", "ja", "y", "yes"}:
-        print(flush=True)
+        safe_print(flush=True)
         return True
-    print("Afgebroken.", flush=True)
-    print(flush=True)
+    safe_print("Afgebroken.", flush=True)
+    safe_print(flush=True)
     return False
 
 

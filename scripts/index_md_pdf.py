@@ -2546,7 +2546,7 @@ def main(argv: list[str] | None = None) -> int:
     if not confirm_batch(
         kind,
         n=len(targets),
-        headline=f"{len(targets)}× index.md → pagina-PDF",
+        headline=f"{len(targets)}x index.md -> pagina-PDF",
         details=[
             "Actie: bouw/vernieuw index.md.pdf (MuseScore bij pdf-bijelkaar)",
             f"--force={'ja' if args.force else 'nee (sla over als PDF nieuwer lijkt)'}",

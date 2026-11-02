@@ -25,6 +25,45 @@ _DIM = "\033[2m"
 _RESET = "\033[0m"
 
 
+def configure_stdio() -> None:
+    """Forceer UTF-8 op stdout/stderr (Windows cp1252 crasht op →/←/…)."""
+    for stream in (sys.stdout, sys.stderr):
+        reconf = getattr(stream, "reconfigure", None)
+        if not callable(reconf):
+            continue
+        try:
+            reconf(encoding="utf-8", errors="replace")
+        except (OSError, ValueError, AttributeError):
+            pass
+
+
+def safe_print(*args: object, sep: str = " ", end: str = "\n", file=None, flush: bool = False) -> None:
+    """``print`` die bij codec-fouten tekens vervangt i.p.v. te crashen."""
+    stream = sys.stdout if file is None else file
+    text = sep.join(str(a) for a in args) + end
+    try:
+        stream.write(text)
+        if flush:
+            stream.flush()
+        return
+    except UnicodeEncodeError:
+        pass
+    enc = getattr(stream, "encoding", None) or "utf-8"
+    raw = text.encode(enc, errors="replace")
+    buf = getattr(stream, "buffer", None)
+    if buf is not None:
+        buf.write(raw)
+        if flush:
+            buf.flush()
+        return
+    stream.write(raw.decode(enc, errors="replace"))
+    if flush:
+        stream.flush()
+
+
+configure_stdio()
+
+
 def paint(msg: str, *codes: str, stream=None) -> str:
     """ANSI om msg heen als de stream kleuren mag; anders msg ongewijzigd."""
     target = sys.stdout if stream is None else stream

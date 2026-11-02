@@ -70,17 +70,30 @@ def _refresh_fixlist_from_status() -> list[FixItem]:
     return items
 
 
+def _ensure_yes_flag(fix_cmd: str) -> str:
+    """Voeg ``-y`` toe zodat kind-scripts niet opnieuw om bevestiging vragen."""
+    text = (fix_cmd or "").strip()
+    if not text:
+        return text
+    tokens = text.split()
+    if "-y" in tokens or "--yes" in tokens:
+        return text
+    return f"{text} -y"
+
+
 def _run_fix_cmd(fix_cmd: str, *, verbose: bool) -> int:
+    # Parent (fix) heeft al bevestigd: kind-batches stil door (-y).
+    cmd = _ensure_yes_flag(fix_cmd)
     if verbose:
         proc = subprocess.run(
-            ["cmd", "/c", fix_cmd],
+            ["cmd", "/c", cmd],
             cwd=str(REPO_ROOT),
             check=False,
         )
-        info(f"exit={proc.returncode} ← {fix_cmd}")
+        info(f"exit={proc.returncode} <- {cmd}")
         return int(proc.returncode)
     proc = subprocess.run(
-        ["cmd", "/c", fix_cmd],
+        ["cmd", "/c", cmd],
         cwd=str(REPO_ROOT),
         capture_output=True,
         text=True,

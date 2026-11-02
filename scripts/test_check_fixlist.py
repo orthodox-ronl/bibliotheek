@@ -16,6 +16,13 @@ from check_fixlist import (
 )
 
 
+def test_ensure_yes_flag_appends_once() -> None:
+    cmd = r"scripts\pdf.cmd catalogus\a\index.md"
+    assert fix_mod._ensure_yes_flag(cmd) == cmd + " -y"
+    assert fix_mod._ensure_yes_flag(cmd + " -y") == cmd + " -y"
+    assert fix_mod._ensure_yes_flag(cmd + " --yes") == cmd + " --yes"
+
+
 def _write_pdf_status(data_dir: Path, *, stale: bool) -> None:
     folders = {
         "catalogus/x/ok": {

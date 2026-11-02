@@ -37,6 +37,41 @@ def test_explain_errno_22() -> None:
     assert explained.solution.startswith("Oplossing:")
 
 
+def test_safe_print_replaces_unencodable() -> None:
+    class BoomStream:
+        encoding = "cp1252"
+
+        def __init__(self) -> None:
+            self.chunks: list[bytes] = []
+
+        def write(self, s: str) -> int:
+            s.encode("cp1252")  # raise op →
+            return len(s)
+
+        def flush(self) -> None:
+            return None
+
+        @property
+        def buffer(self):
+            class Buf:
+                def __init__(self, outer: "BoomStream") -> None:
+                    self._outer = outer
+
+                def write(self, raw: bytes) -> int:
+                    self._outer.chunks.append(raw)
+                    return len(raw)
+
+                def flush(self) -> None:
+                    return None
+
+            return Buf(self)
+
+    stream = BoomStream()
+    cs.safe_print("index.md → pdf", file=stream, flush=True)
+    assert stream.chunks
+    assert b"index.md" in stream.chunks[0]
+
+
 def test_detail_silent_by_default(capsys) -> None:
     cs.set_verbose(False)
     cs.detail("geheim")
