@@ -14,8 +14,21 @@ if errorlevel 1 (
   exit /b 1
 )
 
-set "TARGET=content-source\catalogus"
-if not "%~1"=="" set "TARGET=%~1"
+set "RAW=content-source\catalogus"
+if not "%~1"=="" set "RAW=%~1"
+
+set "RESOLVE_OUT=%TEMP%\bibliotheek-validate-target.txt"
+python scripts\resolve_cli_path.py "%RAW%" > "%RESOLVE_OUT%"
+if errorlevel 1 (
+  del "%RESOLVE_OUT%" 2>nul
+  exit /b 1
+)
+set /p TARGET=<"%RESOLVE_OUT%"
+del "%RESOLVE_OUT%" 2>nul
+if not defined TARGET (
+  echo FAIL: kon pad niet oplossen: %RAW%
+  exit /b 1
+)
 
 echo === bibliotheek validate: vsa validate %TARGET% ===
 vsa validate "%TARGET%"
@@ -45,6 +58,7 @@ echo.
 echo Gebruik: scripts\validate.cmd [map]
 echo.
 echo   Zonder map: content-source\catalogus
+echo   Korte paden: t.o.v. content-source, catalogus of koormappen.
 echo   Draait vsa validate ^(en mvsa validate als er .mvsa staat^).
 echo.
 echo Handleiding: content-source\handleiding\scripts\validate.md

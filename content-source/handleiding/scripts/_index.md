@@ -13,9 +13,9 @@ vanuit de repo-root.
 
 **Bestand of map:** commando’s die op bronbestanden werken, nemen meestal
 óf één bestand óf een map (recursief passende bestanden). Bij
-`products` en `pdf.cmd` mag het pad kort zijn (t.o.v. `content-source`,
-catalogus of koormappen); logs tonen paden onder `content-source`
-zonder die prefix. Zie
+`products`, `pdf.cmd`, `validate`, `layout`, `opkuisen` e.d. mag het
+pad kort zijn (t.o.v. `content-source`, catalogus of koormappen); logs
+tonen paden onder `content-source` zonder die prefix. Zie
 [Invoer: bestand of map](invoer-bestand-of-map/).
 
 ## Nu beschikbaar in deze repo

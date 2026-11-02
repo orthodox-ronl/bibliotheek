@@ -29,7 +29,11 @@ Dit geldt onder meer voor [layout](../layout/), [pdf](../pdf/),
 
 ## Korte paden (waar het CLI dat ondersteunt)
 
-Bij [products](../products/) (en elk product-kind) en [pdf](../pdf/)
+Bij [products](../products/) (en elk product-kind), [pdf](../pdf/),
+[layout](../layout/), [opkuisen](../opkuisen/),
+[cleanup-chained-products](../cleanup-chained-products/),
+[ensure-bibliotheek-id](../ensure-bibliotheek-id/),
+[bieb accepteer](../bieb-accepteer/) en [validate](../validate/)
 zoekt het script een ontbrekend pad in deze volgorde:
 
 1. precies zoals je het typt (absoluut, of relatief t.o.v. de map waarin
@@ -58,8 +62,9 @@ scripts\pdf.cmd hemelum\liturgie-zondag
 ```
 
 Andere script-man-pages kunnen nog een volledig `content-source\…`-pad
-in de voorbeelden tonen; korte vormen werken daar alleen als die CLI
-dezelfde padzoeking heeft (nu: products-familie en `pdf.cmd`).
+in de voorbeelden tonen; korte vormen werken op de CLI’s hierboven.
+`validate` lost het pad op via `scripts\resolve_cli_path.py` en geeft
+het absolute pad door aan de `vsa`-/`mvsa`-CLI.
 
 ## Logging: korte bestandsnamen
 

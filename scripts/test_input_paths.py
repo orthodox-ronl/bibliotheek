@@ -164,6 +164,20 @@ def test_rel_for_log_outside_repo(tmp_path: Path) -> None:
     assert rel_for_log(f, repo_root=repo) == f.resolve().as_posix()
 
 
+def test_resolve_cli_path_main_default(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import resolve_cli_path as rcp
+
+    repo = _fake_repo(tmp_path)
+    monkeypatch.setattr(rcp, "REPO_ROOT", repo)
+    monkeypatch.chdir(repo)
+    assert rcp.main([]) == 0
+    # default = content-source/catalogus — bestaat in fake repo
+    assert rcp.main(["tweede-antifoon"]) == 0
+    assert rcp.main(["bestaat-niet"]) == 1
+
+
 def test_normalize_suffixes() -> None:
     assert normalize_suffixes([".mvsa", "MSCZ"]) == frozenset({".mvsa", ".mscz"})
     assert normalize_suffixes(["tekstblad.md"]) == frozenset({".tekstblad.md"})
