@@ -38,11 +38,11 @@ volgorde, bladindeling).
 | --- | --- |
 | Download / print | Altijd de **getoonde pagina** (koormap-slot of catalogus-blad). |
 | Inhoud | Een koormap-pagina mag **meerdere** zangstukken, varianten en/of uitvoeringsvormen bevatten. Daar legt het systeem geen limiet op. |
-| Catalogus-blad | Bevat per definitie **één** uitvoeringsvorm; download/print van het blad = die pagina (`index.md.pdf`). |
+| Catalogus-blad | Bevat per definitie **één** uitvoeringsvorm; download/print van het blad = die pagina (`index.md.pdf`, of bij actieve translit-knop `index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf`). |
 | Layout | Bladtitels en rubrieken tussen partituren: shortcode `kop` (§6). Uitleg en gewone structuur: Markdown. Catalogusmuziek: `bieb`. Geen HTML voor uitlijning of kopgrootte. |
-| Navbalk | **Download pagina** hoort bij de pagina (niet per `bieb`-blok). Bij elk muziekblok: tip-icoon **♪** voor oefenen/beluisteren. |
+| Navbalk | **Download-icoon** (pijl omlaag) en translit-icoonknoppen **ФЛД→FLD** (Nls) / **FLD→ФЛД** (Ksl) horen bij de pagina (niet per `bieb`-blok). Bij elk muziekblok: tip-icoon **♪** voor oefenen/beluisteren. |
 
-Plaatsing van Download/Print in de navigatie is onderdeel van dit contract.
+Plaatsing van download en translit in de navigatie is onderdeel van dit contract.
 
 ---
 
@@ -54,11 +54,12 @@ Plaatsing van Download/Print in de navigatie is onderdeel van dit contract.
 | Frontmatter van de pagina | Blijft zoals nu (`title`, `linkTitle`, `weight`, `publicatiestatus`, `automatische_inhoud`, …). Dat is **pagina**-metadata van de koormap, niet de catalogus-frontmatter van een uitvoeringsvorm. Optioneel: `pdf_bestandsnaam` (zie hieronder). |
 | Body | Gewone Markdown (koppen, alinea’s, lijsten, tabellen, …) plus de shortcodes in dit document. |
 
-### Voorgestelde naam bij «Download pagina»
+### Voorgestelde naam bij het download-icoon
 
-Het bestand naast de Markdown blijft `index.md.pdf` (Hugo page
-resource). Bij **Download pagina** stelt de site een bestandsnaam voor
-volgens deze volgorde (koormap-slot):
+Het bestand naast de Markdown blijft `index.md.pdf` (of
+`index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf` als een
+translit-knop aan staat). Bij het **download-icoon** stelt de site een
+bestandsnaam voor volgens deze volgorde (koormap-slot):
 
 1. frontmatter `pdf_bestandsnaam` — als die gezet is;
 2. anders frontmatter `title`;
@@ -175,7 +176,7 @@ Twee schrijfwijzen zijn **gelijkwaardig** wanneer er een openstaande
 | Onderdeel | Aliassen | Betekenis |
 | --- | --- | --- |
 | `titel` | `title` | Catalogustitel van de uitvoeringsvorm, als platte tekst (geschikt in een Markdown-kop of binnen `kop`). |
-| `muziek` | — | Partituurweergave (+ tip-icoon **♪** bij dat blok). Geen paginatitel forceren. **Schermketen en look:** [schermpartituur.md](schermpartituur.md) (normatief). Kort: voorkeur ``.mvsa.from-ir.musicxml`` → OSMD; anders één tall SVG (``.mvsa.svg`` / ``.vsa.svg`` / ``.mscz.svg`` / legacy bladermap; geen ``*-N.svg``); tekstblad-md of PDF alleen als nood-fallback. Blad download: nav **Download pagina** (`index.md.pdf`), geen score-knop naar product-PDF. Artifact Score-IR: `vsa mvsa score-ir … --musicxml` in VSA-tooling. |
+| `muziek` | — | Partituurweergave (+ tip-icoon **♪** bij dat blok). Geen paginatitel forceren. **Schermketen en look:** [schermpartituur.md](schermpartituur.md) (normatief). Kort: default tall SVG (``.mvsa.svg`` / ``.vsa.svg`` / ``.mscz.svg``; bij actieve translit-knop: ``.translit-nls.svg`` / ``.translit-ksl.svg``); OSMG/from-ir experimenteel via {}; tekstblad-md of PDF alleen als nood-fallback. Blad download: nav **download-icoon** volgt translit-knoppen. Artifact Score-IR: `vsa mvsa score-ir … --musicxml` in VSA-tooling. |
 | `bron` | — | Korte bronvermelding van de uitvoeringsvorm. |
 | `copyright` | — | Korte copyright-/licentieregel (footer-achtig), alleen als de beheerder dit zet. Verwijst vaak naar het colofon («zie colofon»). |
 | `colofon` | — | Volledige colofontekst: uit MuseScore-colofon-VBox indien aanwezig; anders opgebouwd uit copyright-notice, eredienst-kopieertoestemming, Bron en Bibliotheek-id. Scherm én `index.md.pdf`. |
@@ -218,11 +219,18 @@ namen (`bladkop` / `tussenkop`): defaults + optionele knoppen volstaan.
 {{< kop >}}(1a) Vredeslitanie{{< /kop >}}
 {{< kop links middel >}}Toon 1{{< /kop >}}
 {{< kop >}}{{< titel >}}{{< /kop >}}
+{{< kop >}}{{< param title >}}{{< /kop >}}
 ```
+
+`param` is de Hugo-shortcode die een veld uit de frontmatter van **dezelfde**
+pagina afdrukt (`title`, `linkTitle`, een eigen veld, of een sleutel onder
+`params:`). Op het web doet Hugo dat. `scripts\pdf.cmd` vult hetzelfde veld
+in vóór de kop op `index.md.pdf` komt. Een onbekende veldnaam stopt de
+PDF-bouw met een fout.
 
 | Eis | Toelichting |
 | --- | --- |
-| Blokvorm | Openen met `{{< kop … >}}`, sluiten met `{{< /kop >}}`. Inhoud = de zichtbare tekst (platte tekst, of een genest onderdeel zoals `titel`). Geen geneste Markdown-opmaak in v1 (`**vet**`); wel HTML-inline desgewenst. |
+| Blokvorm | Openen met `{{< kop … >}}`, sluiten met `{{< /kop >}}`. Inhoud = de zichtbare tekst (platte tekst, of een genest onderdeel zoals `titel` of `param`). Geen geneste Markdown-opmaak in v1 (`**vet**`); wel HTML-inline desgewenst. |
 | Standaard | **Midden** uitgelijnd, grootte **groot** (typische bladtitel). |
 | Knoppen | Optionele woordjes uit twee vaste sets (volgorde vrij; hoogstens één per set). Onbekende woorden: fout bij bouw. |
 | Web en PDF | Zelfde look op de pagina en in de pagina-download. |
@@ -320,14 +328,16 @@ SVG/mscz/tekstblad wél en nog niet eisen.
 Org-/tooling-richting (print vs scherm): kale tall-SVG (catalogusproduct)
 voor scherm-fallback én print-bouwsteen. `pdf.cmd` bouwt `index.md.pdf` uit
 die sibling-SVG + Markdown (geen catalogus-PDF-plak; geen MuseScore als de
-SVG er al is). Compose snijdt op systeembrenzen, zodat rest-ruimte na
-titel/proza op dezelfde A4-pagina wél met muziek wordt gevuld. Een
-**systeem** is de groep notenbalken binnen één accolade (in de
-MuseScore-SVG: `Bracket`). De snede valt in de ruimte tussen die
-systemen, nooit tussen de sopraan- en de basbalk van hetzelfde systeem.
-Zonder accolade is elke notenbalk een systeem. Een pure `.vsa.svg`
-(geen MuseScore-notenbalken) snijdt tussen de tekstregels (`vsa-line`).
-Ontbreekt de SVG: alleen lokaal opnieuw exporteren. Zie
+SVG vers is — herkomststempel past bij de bron). Compose snijdt op
+systeembrenzen, zodat rest-ruimte na titel/proza op dezelfde A4-pagina wél
+met muziek wordt gevuld. Een **systeem** is de groep notenbalken binnen één
+accolade (in de MuseScore-SVG: `Bracket`; snede via ``StaffLines``). De snede
+valt in de ruimte tussen die systemen, nooit tussen de sopraan- en de basbalk
+van hetzelfde systeem. Zonder accolade is elke notenbalk een systeem. Een
+pure `.vsa.svg` (geen MuseScore-notenbalken) snijdt tussen de tekstregels
+(`vsa-line`). Ontbreekt of is de SVG verouderd: alleen lokaal opnieuw
+exporteren (en stempelen). Versheid van `index.md.pdf` hangt ook van die
+sibling-SVG af. Zie
 [VSA-tooling — kale-muziek-svg-en-uitgaven](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/kale-muziek-svg-en-uitgaven.md)
 §4 en [partituur-ir §7](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/partituur-ir.md).
 

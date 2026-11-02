@@ -13,12 +13,10 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 def win_repo_rel(path: Path, *, repo_root: Path = REPO_ROOT) -> str:
-    """Pad relatief aan de repo, met backslashes (voor cmd)."""
-    try:
-        rel = path.relative_to(repo_root)
-    except ValueError:
-        rel = path
-    return rel.as_posix().replace("/", "\\")
+    """Kort log-/CLI-pad met backslashes (content-source → t.o.v. die map)."""
+    from input_paths import rel_for_log
+
+    return rel_for_log(path, repo_root=repo_root).replace("/", "\\")
 
 
 def products_fix_cmd(

@@ -32,7 +32,7 @@ doet de build twee aparte dingen met hetzelfde `.vsa`-bestand:
 | Afgeleide | Rol op de pagina | Hoe maak je die |
 | --- | --- | --- |
 | `{stam}.vsa.svg` naast de `.vsa` | Het **plaatje** dat shortcode `bieb` toont | `scripts\products.cmd --kinds vsa` (samen met PDF en Coria-`.mxl`) |
-| `{stam}.vsa.pdf` naast de `.vsa` | (nog productketen; print/download blad = **Download/Print pagina**) | Zelfde commando |
+| `{stam}.vsa.pdf` naast de `.vsa` | (nog productketen; blad-download = **download-icoon** / `index.md.pdf`) | Zelfde commando |
 | `{stam}.vsa.mxl` naast de `.vsa` | **Oefenen** via tip-icoon **♪** (Coria) | Zelfde commando; export syllabificeert woorden tijdelijk, zonder je `.vsa` te wijzigen |
 
 `scripts\opkuisen.cmd` past **geen** Capella-/MusicXML-heuristieken toe op een
@@ -55,7 +55,7 @@ scripts\products.cmd --kinds vsa content-source\catalogus\<zangstuk>\<variant>\<
 ```
 
 Zolang `{stam}.vsa.svg` ontbreekt, zoekt de site nog een legacy-plaatje
-onder `static\vsa\bladermap\`. Dat vult `oefenhoek-index --svg` (ook in
+onder `static\vsa\bladermap\`. Dat vult `python scripts\sync_oefenhoek_index.py --svg` (ook in
 `check` / `build` / `serve`). Dat is de fallback, niet het product dat
 je commit.
 

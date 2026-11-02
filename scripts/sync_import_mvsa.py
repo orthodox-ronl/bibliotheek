@@ -109,7 +109,9 @@ def _run_mscz_mvsa(mscz: Path, mvsa: Path, *, pitch: str) -> None:
 
 def sync_one(mscz: Path, *, pitch: str, dry_run: bool) -> None:
     mvsa = product_mvsa_for_mscz(mscz)
-    rel = mscz.relative_to(REPO_ROOT)
+    from input_paths import rel_for_log
+
+    rel = rel_for_log(mscz, repo_root=REPO_ROOT)
     detail(f"  MVSA {rel} -> {mvsa.name}")
     if dry_run:
         return

@@ -19,11 +19,11 @@ publicatie, ids en navigatie niet door elkaar lopen.
 
 ## Drie invalshoeken
 
-| Wie | Vraag | Ingang |
-| --- | --- | --- |
-| Beheerder | Wat hebben we? Welk id gebruik ik? | Bestaand: [Catalogus](/overzichten/) / [Zoeken](/overzichten/zoeken/). Hemelum-naslag of reservering: [Id-register](/overzichten/id-register/) |
-| Koor (in situ) | Wat zingen we in welke volgorde? | Koormap, nu vooral [liturgie zondag](/koormappen/hemelum/liturgie-zondag/) / [weekdagen](/koormappen/hemelum/liturgie-weekdagen/) |
-| Individueel koorlid | Wat moet / wil ik oefenen? | Koormap *of* catalogus (ook stukken die nog in geen map zitten) |
+| Wie                 | Vraag                              | Ingang                                                                                                                                         |
+| ------------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Beheerder           | Wat hebben we? Welk id gebruik ik? | Bestaand: [Catalogus](/overzichten/) / [Zoeken](/overzichten/zoeken/). Hemelum-naslag of reservering: [Id-register](/overzichten/id-register/) |
+| Koor (in situ)      | Wat zingen we in welke volgorde?   | Koormap, nu vooral [liturgie zondag](/koormappen/hemelum/liturgie-zondag/) / [weekdagen](/koormappen/hemelum/liturgie-weekdagen/)              |
+| Individueel koorlid | Wat moet / wil ik oefenen?         | Koormap *of* catalogus (ook stukken die nog in geen map zitten)                                                                                |
 
 ### Catalogus bladeren (referentie)
 
@@ -54,11 +54,11 @@ weekdagen) zijn een
 kan naar één zangstuk wijzen, of naar een **hoofdstuk** met meerdere
 keuzes (bijvoorbeeld eerste antifoon: weekdagen, zondag, later feestdagen).
 
-| Bouwsteen | Bestand | Rol |
-| --- | --- | --- |
-| **Koormap-root** | `koormappen/hemelum/liturgie-zondag\_index.md` (of `liturgie-weekdagen`) | Handmatige inhoudsopgave van die map |
-| **Koormap-sectie** | map met `_index.md` | Liturgische plek / hoofdstuk; tekst plus kindlijst, of eigen TOC |
-| **Slot-pagina** | map met `index.md` | Lees- of oefenblad: markdown plus `bieb` (geen catalogus/`lokaal/`-include) |
+| Bouwsteen          | Bestand                                                                  | Rol                                                                         |
+| ------------------ | ------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| **Koormap-root**   | `koormappen/hemelum/liturgie-zondag\_index.md` (of `liturgie-weekdagen`) | Handmatige inhoudsopgave van die map                                        |
+| **Koormap-sectie** | map met `_index.md`                                                      | Liturgische plek / hoofdstuk; tekst plus kindlijst, of eigen TOC            |
+| **Slot-pagina**    | map met `index.md`                                                       | Lees- of oefenblad: markdown plus `bieb` (geen catalogus/`lokaal/`-include) |
 
 **Sectie** (`_index.md`): zet `automatische_inhoud: true` als de layout de
 kindpagina’s mag tonen (voorbeeld:
@@ -70,8 +70,9 @@ de layout.
 **Slot-pagina** (`index.md`): gewone markdown plus shortcodes. Titels en
 uitleg zet je zelf; `bieb` haalt muziek (en desgewenst titel/bron) uit de
 catalogus; bladtitels met `kop`; bladindeling in de download met
-`pdf-pagina` / `pdf-bijelkaar`. Bovenaan de pagina: **Download pagina**
-als `index.md.pdf` bestaat (niet de browserafdruk van de HTML). De
+`pdf-pagina` / `pdf-bijelkaar`. Bovenaan de pagina: **download-icoon**
+(pijl omlaag) als `index.md.pdf` bestaat (niet de browserafdruk van de
+HTML), plus translit-icoonknoppen **ФЛД→FLD** / **FLD→ФЛД**. De
 voorgestelde bestandsnaam bij downloaden komt uit frontmatter
 `pdf_bestandsnaam`; anders op een
 **koormap** uit `title` en op een **catalogus**-blad uit de afgeleide
@@ -88,10 +89,10 @@ Normatieve specificatie in de repository:
 Twee manieren om meerdere uitvoeringsvormen op **één liturgische plek** te
 tonen —zelfde mechaniek, andere leeservaring:
 
-| Patroon | Wanneer | Voorbeeld |
-| --- | --- | --- |
-| **Boom** | De zanger kiest één variant (of bladert per kind) | Cherubijnenhymne: sectie → 15b, 15c, …; antifoon: weekdagen / zondag |
-| **Compositieblad** | Eén pagina bundelt een set (proza + scores) | Prokimens voor de hele week op één `index.md`, met shortcode per weekdag |
+| Patroon            | Wanneer                                           | Voorbeeld                                                                |
+| ------------------ | ------------------------------------------------- | ------------------------------------------------------------------------ |
+| **Boom**           | De zanger kiest één variant (of bladert per kind) | Cherubijnenhymne: sectie → 15b, 15c, …; antifoon: weekdagen / zondag     |
+| **Compositieblad** | Eén pagina bundelt een set (proza + scores)       | Prokimens voor de hele week op één `index.md`, met shortcode per weekdag |
 
 Voorbeeld compositieblad (schets):
 
@@ -146,10 +147,10 @@ bron (VSA/mvsa-`titel:`). Handmatige redactionele titels horen in
 
 Elke catalogus-pagina (`_index.md` of leaf-`index.md`) heeft minstens:
 
-| Veld | Rol |
-| --- | --- |
-| `publicatiestatus` | Wat koorleden mogen verwachten (`voorzien` / `concept` / `reviewable` / `productie`) |
-| `automatische_inhoud` | Sectie: meestal `true` (kindlijst). Leaf: altijd `false` (score via `bieb`) |
+| Veld                  | Rol                                                                                  |
+| --------------------- | ------------------------------------------------------------------------------------ |
+| `publicatiestatus`    | Wat koorleden mogen verwachten (`voorzien` / `concept` / `reviewable` / `productie`) |
+| `automatische_inhoud` | Sectie: meestal `true` (kindlijst). Leaf: altijd `false` (score via `bieb`)          |
 
 Ids komen uit het **pad** (`zangstuk/variant/uitvoeringsvorm`). Tooling en
 shortcode `bieb` gebruiken het pad. Op id-pagina’s zet je geen frontmatter
@@ -157,17 +158,17 @@ shortcode `bieb` gebruiken het pad. Op id-pagina’s zet je geen frontmatter
 
 Op een **uitvoeringsvorm-blad** zet je in de Markdown geen tweede
 hoofdtitel (`# …`): de site toont al één titel boven de partituur. De body
-is meestal alleen de regel met `bieb`. De PDF achter **Download pagina**
+is meestal alleen de regel met `bieb`. De PDF achter het **download-icoon**
 (`index.md.pdf`) volgt dezelfde bladintentie; zie het plan
 `docs/plans/catalogus-index-md-pdf.md` en het script
 [pdf](../scripts/pdf/).
 
 ### Afleiding per laag
 
-| Laag | Korte naam (navigatie) | Paginatitel / zoek |
-| --- | --- | --- |
-| **Zangstuk** | Uit mapnaam (streepjes → spaties) | Zelfde |
-| **Variant** | Uit mapnaam (`default` → Standaard) | Zelfde |
+| Laag                       | Korte naam (navigatie)                                   | Paginatitel / zoek                                                      |
+| -------------------------- | -------------------------------------------------------- | ----------------------------------------------------------------------- |
+| **Zangstuk**               | Uit mapnaam (streepjes → spaties)                        | Zelfde                                                                  |
+| **Variant**                | Uit mapnaam (`default` → Standaard)                      | Zelfde                                                                  |
 | **Uitvoeringsvorm (leaf)** | Label uit uitvoeringsvorm-id (`Hemelum`, `Groningen`, …) | Uit bron-titel als die er is, anders uit id: `Zangstuk Variant (Label)` |
 
 ### Variant-id `default`
@@ -215,12 +216,12 @@ de `?` naast de titel; de build faalt daar niet op.
 
 Zelfde mechaniek, andere bedoeling — geen nieuwe id-laag:
 
-| Type | Ordening | Voorbeeld |
-| --- | --- | --- |
-| Liturgisch | Volgorde in de dienst | Liturgiemap Hemelum |
-| Feest / kalender | Orde van die dag of cyclus | Pasen, 15 augustus |
-| Collectie | Thematisch | Alle cherubijnen, troparen toon 1–8 |
-| Parochiekeuze | Wat *dit* koor deze periode zingt | “Hemelum najaar”, “Zwolle-cherubijn” |
+| Type             | Ordening                          | Voorbeeld                            |
+| ---------------- | --------------------------------- | ------------------------------------ |
+| Liturgisch       | Volgorde in de dienst             | Liturgiemap Hemelum                  |
+| Feest / kalender | Orde van die dag of cyclus        | Pasen, 15 augustus                   |
+| Collectie        | Thematisch                        | Alle cherubijnen, troparen toon 1–8  |
+| Parochiekeuze    | Wat *dit* koor deze periode zingt | “Hemelum najaar”, “Zwolle-cherubijn” |
 
 Optioneel later: frontmatter `type:` op de koormap-`_index` (`liturgie`,
 `feest`, `collectie`, `parochie`).
@@ -242,12 +243,12 @@ reserveringen: [Id-register](/overzichten/id-register/)
 
 Automatisch bijgehouden (bij elke sitebuild):
 
-| Pagina | Inhoud |
-| --- | --- |
-| [Voorzien](/overzichten/speciaal/voorzien/) | Zangstukken zonder oefenbare inhoud |
-| [Ongerefereerd](/overzichten/speciaal/ongerefereerd/) | In de catalogus, nog niet in een koormap |
-| [Oefenbaar](/overzichten/speciaal/oefenbaar/) | Platte lijst van linkbare uitvoeringsvormen + id |
-| [Handmatig](/overzichten/speciaal/handmatig/) | Uitvoeringsvormen met `manueel: true` |
+| Pagina                                                | Inhoud                                           |
+| ----------------------------------------------------- | ------------------------------------------------ |
+| [Voorzien](/overzichten/speciaal/voorzien/)           | Zangstukken zonder oefenbare inhoud              |
+| [Ongerefereerd](/overzichten/speciaal/ongerefereerd/) | In de catalogus, nog niet in een koormap         |
+| [Oefenbaar](/overzichten/speciaal/oefenbaar/)         | Platte lijst van linkbare uitvoeringsvormen + id |
+| [Handmatig](/overzichten/speciaal/handmatig/)         | Uitvoeringsvormen met `manueel: true`            |
 
 ## Taalvarianten op de uitvoeringsvorm
 
@@ -261,12 +262,12 @@ Andere talen krijgen een suffix achter de leaf-naam (`-ksl`, later
 
 ### Wanneer wel, wanneer niet
 
-| Situatie | Wat je doet |
-| --- | --- |
-| Nederlands (alleen of naast een andere taal) | Geen taalsuffix: leaf `hemelum` |
-| Zelfde herkomst in **beide** talen | Twee leaves: `hemelum` en `hemelum-ksl` (in het overzicht *Per herkomst* onder dezelfde herkomst-tak, Nederlands eerst) |
-| Alleen kerkslavisch (Cyrillisch) | Suffix `-ksl` op de uitvoeringsvorm-id |
-| Mengvorm NL + kerkslavisch in één partituur | Suffix `-nl-ksl` (zeldzaam) |
+| Situatie                                     | Wat je doet                                                                                                             |
+| -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Nederlands (alleen of naast een andere taal) | Geen taalsuffix: leaf `hemelum`                                                                                         |
+| Zelfde herkomst in **beide** talen           | Twee leaves: `hemelum` en `hemelum-ksl` (in het overzicht *Per herkomst* onder dezelfde herkomst-tak, Nederlands eerst) |
+| Alleen kerkslavisch (Cyrillisch)             | Suffix `-ksl` op de uitvoeringsvorm-id                                                                                  |
+| Mengvorm NL + kerkslavisch in één partituur  | Suffix `-nl-ksl` (zeldzaam)                                                                                             |
 
 **Voorkeursconventie** voor nieuw werk: Nederlands zonder suffix; andere
 talen via suffix op de **uitvoeringsvorm-id**. Zet de taal **niet** in de
@@ -277,16 +278,37 @@ variant, bijvoorbeeld `trisagion/8a-nederlands/hemelum` naast
 `trisagion/8a-slav/hemelum`. Die maps niet hernoemen tot een aparte
 migratie; voor **nieuwe** ids volg je de suffix-regel hierboven.
 
-Getranslitereerde producten (Latijns schrift naast Cyrillisch) horen
-later; die conventie staat nog niet vast in dit padmodel.
+**Transliteratie (hulpregel)** is géén extra leaf en geen aparte
+uitvoeringsvorm-id. Op de site staan in de navigatie twee icoonknoppen:
+**ФЛД→FLD** (Nls: Latijn onder kerkslavisch) en **FLD→ФЛД** (Ksl:
+Cyrillisch onder Nederlands). De knoppen werken onafhankelijk; beide
+indrukken = beide richtingen. Geen knop = uit. Bij actieve knop(pen)
+toont het scherm sibling-SVG’s met die meeleesregel (vorm A); het
+download-icoon volgt die stand. Handig op een koormap met NL én ksl
+naast elkaar. Bestandsnamen naast de bron:
+
+| Stand     | Scherm-SVG                                            | Pagina-PDF                  |
+| --------- | ----------------------------------------------------- | --------------------------- |
+| uit       | `{stam}.vsa.svg` / `{stam}.mvsa.svg`                  | `index.md.pdf`              |
+| aan + Nls | `{stam}.….translit-nls.svg` (Cyrillisch → Latijn)     | `index.md.translit-nls.pdf` |
+| aan + Ksl | `{stam}.….translit-ksl.svg` (Nederlands → Cyrillisch) | `index.md.translit-ksl.pdf` |
+
+Die siblings maak je lokaal met `scripts\products.cmd --kinds vsa` of
+`mvsa`, en **daarna** de pagina-PDF’s met `scripts\pdf.cmd` (eerst
+products, dan pdf; zie [pdf](/handleiding/scripts/pdf/) en
+[Publicatiecontrole](/handleiding/start/publicatiecontrole/)).
+`check --strict` eist de translit-bestanden nog niet. Ontbreekt de
+translit-SVG voor de gekozen modus bij een uitvoeringsvorm (bijv.
+Nederlandse litanie bij Nls), dan toont het scherm de gewone SVG van
+die uitvoeringsvorm.
 
 ### Pad, catalogus-id en bestandsstam
 
-| Begrip | Vorm | Voorbeeld (schets) |
-| --- | --- | --- |
-| Cataloguspad | `catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\` | `catalogus\prijslied\bisschop-gregorios\hemelum\` |
-| Catalogus-id (`bieb`) | `zangstuk/variant/uitvoeringsvorm` | `prijslied/bisschop-gregorios/hemelum` |
-| Publicatiestam | `{zangstuk}-{variant}-{uitvoeringsvorm}` | `prijslied-bisschop-gregorios-hemelum` |
+| Begrip                | Vorm                                                | Voorbeeld (schets)                                |
+| --------------------- | --------------------------------------------------- | ------------------------------------------------- |
+| Cataloguspad          | `catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\` | `catalogus\prijslied\bisschop-gregorios\hemelum\` |
+| Catalogus-id (`bieb`) | `zangstuk/variant/uitvoeringsvorm`                  | `prijslied/bisschop-gregorios/hemelum`            |
+| Publicatiestam        | `{zangstuk}-{variant}-{uitvoeringsvorm}`            | `prijslied-bisschop-gregorios-hemelum`            |
 
 Voorbeeld-paar (nog niet per se in de catalogus; richting voor nieuw werk):
 
@@ -308,10 +330,10 @@ Precedent in het [Id-register](/overzichten/id-register/): o.a.
 
 In **elke** leaf-map liggen bron en afgeleiden naast elkaar (siblings):
 
-| Soort | Voorbeelden | Rol |
-| --- | --- | --- |
-| **Canonieke bron** | `{stam}.vsa`, `{stam}.mscz`, `{stam}.mvsa`, `{stam}.tekstblad.md` | Hier bewerk je |
-| **Afgeleiden** | `{stam}.vsa.mxl`, `{stam}.vsa.pdf`, `{stam}.mp3`, `{stam}.mscz.pdf`, … | Regenereren met productscripts |
+| Soort              | Voorbeelden                                                            | Rol                            |
+| ------------------ | ---------------------------------------------------------------------- | ------------------------------ |
+| **Canonieke bron** | `{stam}.vsa`, `{stam}.mscz`, `{stam}.mvsa`, `{stam}.tekstblad.md`      | Hier bewerk je                 |
+| **Afgeleiden**     | `{stam}.vsa.mxl`, `{stam}.vsa.pdf`, `{stam}.mp3`, `{stam}.mscz.pdf`, … | Regenereren met productscripts |
 
 Formaat is **geen** id-laag: geen aparte map `pdf/` of `mxl/` onder de
 leaf. PDF, MusicXML en audio blijven siblings van de bron in dezelfde

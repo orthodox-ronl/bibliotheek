@@ -2,15 +2,15 @@
 
 Tall compacte SVG (één bestand; geen A4-bladreeks).
 
-Export via tooling ``mscz products`` (schema-2 products-meta, key ``svg``).
-Daarna optioneel Coria-bron-``identification`` op de MXL (wijzigt bytes) →
-alleen key ``mxl`` in meta mergen; SVG-key blijft die van tooling.
-Legacy-opruim.
-Geen in-file versheidstempels (versheid = meta). A4-``.mscz.pdf`` is geen
-verplicht product (blad = ``index.md.pdf``); PDF-export blijft voor
-optioneel herstel. Slaat ``manueel/manual``, ``*.print.mscz`` en afgeleide
-``*.vsa.mscz`` / ``*.mvsa.mscz`` over (tenzij expliciet CLI-bestandspad).
-CI genereert niet — alleen ``check_mscz_products``; vernieuw lokaal met
+Export per slot: ``mscz mxl`` en/of ``mscz svg`` (geen atomair
+``mscz products`` — die zou ook mp3/pdf/IR meenemen). Daarna optioneel
+Coria-bron-``identification`` op de MXL (wijzigt bytes) → meta mergen.
+Legacy-opruim. Geen in-file versheidstempels (versheid = meta).
+A4-``.mscz.pdf`` is geen verplicht product (blad = ``index.md.pdf``);
+PDF-export blijft voor optioneel herstel. Slaat ``manueel/manual``,
+``*.print.mscz`` en afgeleide ``*.vsa.mscz`` / ``*.mvsa.mscz`` over
+(tenzij expliciet CLI-bestandspad). CI genereert niet — alleen
+``check_mscz_products``; vernieuw lokaal met
 ``scripts\\products.cmd --kinds mscz``.
 """
 
@@ -20,7 +20,7 @@ import sys
 from pathlib import Path
 from typing import Sequence
 
-from cli_style import check_call, detail, street_products_quiet_flags
+from cli_style import check_call, detail
 from coria_mxl import load_score_xml, require_no_spaces, write_mxl
 from product_kind import (
     DEFAULT_ROOT,
@@ -142,29 +142,38 @@ def is_stale(mscz: Path) -> tuple[bool, bool]:
     return need_mxl, need_svg
 
 
-def _run_mscz_products(mscz: Path, *, skip_svg: bool) -> None:
-    """Kale export via tooling ``mscz products`` (+ optioneel ``--skip-svg``)."""
+def _run_mscz_mxl(mscz: Path) -> None:
+    """Coria-``.mscz.mxl`` via ``mscz mxl`` (sibling-pad)."""
+    mxl = product_mxl_for_mscz(mscz)
     cmd = [
         sys.executable,
         "-m",
         "vsa.cli_mscz",
-        "products",
-        "--force",
-        *street_products_quiet_flags(),
+        "mxl",
         str(mscz),
+        "-o",
+        str(mxl),
     ]
-    if skip_svg:
-        cmd.append("--skip-svg")
     check_call(cmd, cwd=str(REPO_ROOT))
-    mxl = product_mxl_for_mscz(mscz)
     if not mxl.is_file():
-        raise RuntimeError(f"MXL ontbreekt na mscz products: {mxl}")
-    if not skip_svg:
-        outs = mscz_svg_outputs(mscz)
-        if not outs:
-            raise RuntimeError(
-                f"SVG ontbreekt na mscz products: {product_svg_for_mscz(mscz)}"
-            )
+        raise RuntimeError(f"MXL ontbreekt na mscz mxl: {mxl}")
+
+
+def _run_mscz_svg(mscz: Path) -> None:
+    """Scherm-``.mscz.svg`` via ``mscz svg`` (sibling-pad)."""
+    svg = product_svg_for_mscz(mscz)
+    cmd = [
+        sys.executable,
+        "-m",
+        "vsa.cli_mscz",
+        "svg",
+        str(mscz),
+        "-o",
+        str(svg),
+    ]
+    check_call(cmd, cwd=str(REPO_ROOT))
+    if not mscz_svg_outputs(mscz):
+        raise RuntimeError(f"SVG ontbreekt na mscz svg: {svg}")
 
 
 def _export_pdf(mscz: Path, pdf: Path) -> None:
@@ -203,19 +212,21 @@ def sync_one(
     need_svg: bool,
     dry_run: bool,
 ) -> None:
-    rel = mscz.relative_to(REPO_ROOT)
+    from input_paths import rel_for_log
+
+    rel = rel_for_log(mscz, repo_root=REPO_ROOT)
     digest = partituur_sha256(mscz)
     generated_at = utc_now_iso()
     pdf = product_pdf_for_mscz(mscz)
     mxl = product_mxl_for_mscz(mscz)
+    svg = product_svg_for_mscz(mscz)
 
-    need_export = need_mxl or need_svg
-    skip_svg = not need_svg
     if need_pdf:
         detail(f"  PDF  {rel} -> {pdf.name}")
-    if need_export:
-        svg_note = "mxl+svg" if need_svg else "mxl (--skip-svg)"
-        detail(f"  EXP  {rel} -> mscz products ({svg_note})")
+    if need_mxl:
+        detail(f"  EXP  {rel} -> mscz mxl")
+    if need_svg:
+        detail(f"  EXP  {rel} -> mscz svg")
     if dry_run:
         return
 
@@ -226,15 +237,19 @@ def sync_one(
         _remove_legacy(pdf, legacy_pdf_for_mscz(mscz))
         _remove_legacy(pdf, mscz.with_suffix(".partituur.pdf"))
 
-    if need_export:
-        _run_mscz_products(mscz, skip_svg=skip_svg)
+    meta_products: dict[str, Path] = {}
+    if need_mxl:
+        _run_mscz_mxl(mscz)
         _apply_bron_identification(mscz, mxl)
         _remove_legacy(mxl, legacy_mxl_for_mscz(mscz))
         _remove_legacy(mxl, mscz.with_suffix(".partituur.mxl"))
-        # Tooling schreef volledige meta; bron-id kan MXL-bytes wijzigen.
-        if mxl.is_file():
-            write_products_meta(mscz, {"mxl": mxl}, merge=True)
-        # Tooling lyrics/mp3 zijn kaal; bibliotheek-check eist stempels.
+        meta_products["mxl"] = mxl
+    if need_svg:
+        _run_mscz_svg(mscz)
+        meta_products["svg"] = svg
+    if meta_products:
+        write_products_meta(mscz, meta_products, merge=True)
+        # Bestaande lyrics/mp3 (van eerdere products-run) opnieuw stempelen.
         restamp_after_street_products(mscz)
 
 
@@ -309,7 +324,7 @@ def main(argv: list[str] | None = None) -> int:
         description=(
             "Exporteer stale Coria-.mxl en scherm-.mscz.svg "
             "vanuit basispartituur-.mscz "
-            "(via mscz products; geen A4-product-PDF; blad = index.md.pdf)."
+            "(via mscz mxl / mscz svg; geen A4-product-PDF; blad = index.md.pdf)."
         ),
         default_root=DEFAULT_ROOT,
     )

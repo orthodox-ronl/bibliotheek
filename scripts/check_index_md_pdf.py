@@ -43,26 +43,20 @@ class FolderStatus:
 
 
 def _rel(path: Path) -> str:
-    try:
-        return path.relative_to(REPO_ROOT).as_posix()
-    except ValueError:
-        return path.as_posix()
+    from input_paths import rel_for_log
+
+    return rel_for_log(path, repo_root=REPO_ROOT)
 
 
 def _bladermap_key(md: Path) -> str:
-    try:
-        rel = md.parent.relative_to(REPO_ROOT / "content-source")
-    except ValueError:
-        return md.parent.as_posix()
-    return rel.as_posix()
+    from input_paths import rel_for_log
+
+    return rel_for_log(md.parent, repo_root=REPO_ROOT)
 
 
 def _fix_cmd(md: Path) -> str:
-    try:
-        rel = md.relative_to(REPO_ROOT)
-    except ValueError:
-        rel = md
-    return rf"scripts\pdf.cmd {rel.as_posix().replace('/', '\\')}"
+    rel = _rel(md).replace("/", "\\")
+    return rf"scripts\pdf.cmd {rel}"
 
 
 def check_job(job: PaginaPdfJob) -> FolderStatus:
@@ -85,7 +79,7 @@ def check_job(job: PaginaPdfJob) -> FolderStatus:
                 Issue(
                     "stale_pdf",
                     _rel(out),
-                    "index.md.pdf is ouder dan Markdown of notatiebron",
+                    "index.md.pdf is ouder dan Markdown, notatiebron of product-SVG",
                 )
             )
     return FolderStatus(
@@ -170,7 +164,7 @@ def main(argv: list[str] | None = None) -> int:
     n_ok = len(statuses) - len(bad)
     print(
         f"Blad-PDF: {n_ok} ok, {len(bad)} probleem "
-        f"({STATUS_PATH.relative_to(REPO_ROOT).as_posix()})",
+        f"({_rel(STATUS_PATH)})",
         flush=True,
     )
     for s in bad:

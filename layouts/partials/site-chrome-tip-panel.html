@@ -1,0 +1,12 @@
+{{- /*
+  Popover-tekst onder een knop in de site-header.
+  Context: dict "html" (HTML-fragment) of "text" (plain).
+  Optioneel "end" = true → rechts uitlijnen (zoek/download/translit).
+*/ -}}
+{{- $end := .end | default false -}}
+<span
+  class="site-chrome-tip-panel{{ if $end }} site-chrome-tip-panel--end{{ end }}{{ if .interactive }} site-chrome-tip-panel--interactive{{ end }}"
+  role="tooltip"
+>
+  {{- with .html -}}{{ . | safeHTML }}{{- else -}}<p>{{ .text }}</p>{{- end -}}
+</span>

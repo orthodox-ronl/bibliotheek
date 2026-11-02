@@ -50,11 +50,10 @@ Opnemen in de catalogus  (bieb accepteer → Catalogus)
 Site-build  (check / build / serve, of CI)  ->  generated/site + GitHub Pages
 ```
 
-Een koormap-blad (`index.md.pdf`, nav Download pagina en Print
-pagina) komt ná die catalogusproducten, met
-`scripts\pdf.cmd`. Dat bestand zit niet in `products` en niet in
-de site-build. Zie [pdf](../scripts/pdf/) en
-[Koormap-blad](../start/koormap-blad/).
+Een koormap-blad (`index.md.pdf` voor het download-icoon in de nav)
+komt ná die catalogusproducten, met `scripts\pdf.cmd`. Dat bestand zit
+niet in `products` en niet in de site-build. Zie [pdf](../scripts/pdf/)
+en [Koormap-blad](../start/koormap-blad/).
 
 [Markdown naar PDF](markdown-naar-pdf/) beschrijft geen commando van deze
 repository. [Ingebedde VSA](ingebedde-vsa/) evenmin: notatie op de site

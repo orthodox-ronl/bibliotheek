@@ -1,4 +1,4 @@
----
+﻿---
 title: "products — lyrics"
 linkTitle: "products (lyrics)"
 weight: 106
@@ -7,7 +7,7 @@ weight: 106
 # NAME
 
 `scripts\products.cmd --kinds lyrics` — platte zoektekst naast `.vsa` / `.mvsa` /
-`.mscz` (gewoon product-spoor; ook via `products` / `all-products`)
+`.mscz` (gewoon product-spoor; ook via `products` / `products --kinds all`)
 
 # SYNOPSIS
 
@@ -26,10 +26,11 @@ MusicXML-lyrics in VSA-tooling) en schrijft die naast de bron als sibling:
 | `{stam}.mvsa` | `{stam}.mvsa.lyrics.txt` |
 | `{stam}.mscz` (basispartituur) | `{stam}.mscz.lyrics.txt` |
 
-Bij een basispartituur-`.mscz` gebruikt het script bij voorkeur een **verse**
-sibling `{stam}.mscz.mxl` (geen MuseScore-aanroep). Ontbreekt die of is die
-ouder dan de `.mscz`, dan exporteert tooling tijdelijk via MuseScore (geen
-`.mscz.mvsa`).
+Bij een basispartituur-`.mscz` gebruikt het script een **verse** sibling
+`{stam}.mscz.mxl`. Ontbreekt die of past de herkomststempel niet meer bij
+de `.mscz`, dan draait eerst `mscz mxl` (zelfde straat als
+[products (mscz)](../mscz-products/)). Lukt dat niet, dan valt tooling terug
+op een tijdelijke export uit de `.mscz` (geen `.mscz.mvsa`).
 
 Bovenaan het tekstbestand staan herkomstregels (`# vsa-source-sha256:` …),
 zodat `check` kan zien of de bron nieuwer is dan de lyrics. Bij `.mscz` is
@@ -43,25 +44,26 @@ die index opnieuw vóór Hugo, zodat zoeken altijd bij de gecommitte catalogus
 past.
 
 Zoekt onder het opgegeven pad (of, zonder pad, onder
-`content-source\catalogus`). Overgeslagen: `input\`, mappen met
-`manueel: true`, `*.print.mscz`, en afgeleide `*.vsa.mscz` /
+`content-source\catalogus`). Korte paden mogen — zie
+[bestand of map](../invoer-bestand-of-map/). Overgeslagen: `input\`,
+mappen met `manueel: true`, `*.print.mscz`, en afgeleide `*.vsa.mscz` /
 `*.mvsa.mscz` (tenzij je zo’n bestand expliciet als pad doorgeeft).
 
 CI genereert **geen** lyrics; jij wel lokaal (of via `products` /
-`all-products`), daarna committen. De **zoekindex** wel: die wordt
+`products --kinds all`), daarna committen. De **zoekindex** wel: die wordt
 bij elke Pages-deploy opnieuw gebouwd.
 
 # EXAMPLES
 
 ```cmd
 scripts\products.cmd --kinds lyrics
-scripts\products.cmd --kinds lyrics content-source\catalogus\cherubijnenhymne
+scripts\products.cmd --kinds lyrics cherubijnenhymne
 scripts\products.cmd --kinds lyrics --dry-run
 ```
 
 # SEE ALSO
 
-[all-products](../all-products/), [products (mscz)](../mscz-products/),
+[products](../products/), [products (mscz)](../mscz-products/),
 [check](../check/),
 [Zoeken (handleiding)](/handleiding/start/zoeken/),
 [Publicatiecontrole](/handleiding/start/publicatiecontrole/),

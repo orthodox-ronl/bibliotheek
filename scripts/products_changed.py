@@ -15,7 +15,14 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
-from cli_style import add_verbose_argument, error, info, set_verbose
+from cli_style import (
+    add_verbose_argument,
+    detail,
+    error,
+    info,
+    run_quiet,
+    set_verbose,
+)
 from product_regen import KIND_ORDER
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -190,45 +197,66 @@ def build_plan(relpaths: list[str], *, repo: Path = REPO_ROOT) -> Plan:
     return Plan(products=products, pdfs=pdfs, ignored=ignored)
 
 
-def _print_plan(plan: Plan, *, dry_run: bool, base: str) -> None:
-    label = "dry-run" if dry_run else "plan"
+def _rel_show(path: Path) -> str:
+    from input_paths import rel_for_log
+
+    return rel_for_log(path, repo_root=REPO_ROOT)
+
+
+def _summary_line(plan: Plan, *, scanned: int) -> str:
+    """Korte telling: wat bekeken is vs. wat actie vraagt."""
+    action = len(plan.products) + len(plan.pdfs)
+    no_action = max(0, scanned - action)
+    return (
+        f"Bekeken: {scanned} git-pad(en) onder content-source; "
+        f"{action} met actie, {no_action} zonder."
+    )
+
+
+def print_plan(
+    plan: Plan,
+    *,
+    dry_run: bool,
+    base: str,
+    scanned: int,
+) -> None:
+    """Beheerder-output: alleen wat wél gebeurt; rest in één regel."""
+    label = "dry-run" if dry_run else "run"
     info(f"=== products-changed ({label}, base={base}) ===")
     if not plan.products and not plan.pdfs:
-        info("Geen productbronnen of koormap-index.md in de git-wijzigingen.")
-        if plan.ignored:
-            info(
-                f"(Overgeslagen niet-bron: {len(plan.ignored)} pad(en) "
-                "onder content-source.)"
-            )
+        info("Niets te doen.")
+        info(_summary_line(plan, scanned=scanned))
         if base.upper() == "HEAD":
-            info(
+            detail(
                 "Tip: wijzigingen al gecommit? Probeer "
-                "--since-development --dry-run (feature → development) "
-                "of --since-main --dry-run (richting productie)."
+                "--since-development --dry-run of --since-main --dry-run."
             )
+        if plan.ignored:
+            detail(f"Geen actie (voorbeelden): {', '.join(plan.ignored[:5])}")
         return
+
+    if dry_run:
+        info("Gaat doen:")
+    else:
+        info(
+            f"Te doen: {len(plan.products)} products, "
+            f"{len(plan.pdfs)} pdf."
+        )
     if plan.products:
         info(f"products ({len(plan.products)}):")
         for job in plan.products:
-            try:
-                show = job.path.relative_to(REPO_ROOT)
-            except ValueError:
-                show = job.path
-            info(f"  {show}  --kinds {','.join(job.kinds)}")
+            info(f"  {_rel_show(job.path)}  --kinds {','.join(job.kinds)}")
     if plan.pdfs:
         info(f"pdf ({len(plan.pdfs)}):")
         for path in plan.pdfs:
-            try:
-                show = path.relative_to(REPO_ROOT)
-            except ValueError:
-                show = path
-            info(f"  {show}")
-    if plan.ignored and dry_run:
-        info(f"overgeslagen ({len(plan.ignored)}), bijv.:")
+            info(f"  {_rel_show(path)}")
+    info(_summary_line(plan, scanned=scanned))
+    if plan.ignored:
+        detail(f"Geen actie ({len(plan.ignored)}), bijv.:")
         for rel in plan.ignored[:8]:
-            info(f"  {rel}")
+            detail(f"  {rel}")
         if len(plan.ignored) > 8:
-            info(f"  … +{len(plan.ignored) - 8} meer")
+            detail(f"  … +{len(plan.ignored) - 8} meer")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -314,21 +342,27 @@ def main(argv: list[str] | None = None) -> int:
         raise
 
     plan = build_plan(rels, repo=REPO_ROOT)
-    _print_plan(plan, dry_run=bool(args.dry_run), base=resolved)
+    print_plan(
+        plan,
+        dry_run=bool(args.dry_run),
+        base=resolved,
+        scanned=len(rels),
+    )
 
     if not plan.products and not plan.pdfs:
         return 0
 
     if args.dry_run:
-        info("\nOK: dry-run (niets geschreven)")
+        info("OK: dry-run (niets geschreven)")
         return 0
 
     import products as products_mod
 
     failed = 0
+    verbose = bool(args.verbose)
     for job in plan.products:
         if not job.path.exists():
-            error(f"Bron ontbreekt (verwijderd?): {job.path}")
+            error(f"Bron ontbreekt (verwijderd?): {_rel_show(job.path)}")
             failed += 1
             continue
         forward = [
@@ -342,11 +376,15 @@ def main(argv: list[str] | None = None) -> int:
         ]
         if args.force:
             forward.append("--force")
-        if args.verbose:
+        if verbose:
             forward.append("--verbose")
-        info(f"\n>>> products {' '.join(forward)}")
-        code = products_mod.main(forward)
-        if code not in (0, None):
+        info(f">>> products {_rel_show(job.path)} (--kinds {','.join(job.kinds)})")
+        if run_quiet(
+            f"products {_rel_show(job.path)}",
+            products_mod.main,
+            forward,
+            verbose=verbose,
+        ):
             failed += 1
 
     if plan.pdfs:
@@ -354,47 +392,58 @@ def main(argv: list[str] | None = None) -> int:
 
         for path in plan.pdfs:
             if not path.exists():
-                error(f"index.md ontbreekt: {path}")
+                error(f"index.md ontbreekt: {_rel_show(path)}")
                 failed += 1
                 continue
             forward = [str(path)]
             if args.force:
                 forward.append("--force")
-            info(f"\n>>> pdf {' '.join(forward)}")
-            code = pdf_mod.main(forward)
-            if code not in (0, None):
+            if verbose:
+                forward.append("--verbose")
+            info(f">>> pdf {_rel_show(path)}")
+            if run_quiet(
+                f"pdf {_rel_show(path)}",
+                pdf_mod.main,
+                forward,
+                verbose=verbose,
+            ):
                 failed += 1
 
     if failed:
-        error(f"\nFAILED: {failed} taak(en) mislukt")
+        error(f"FAILED: {failed} taak(en) mislukt")
         return 1
 
     if plan.products:
-        info("\n--- zoekindex (static/zoek/index.json) ---")
+        info(">>> nabewerking (zoekindex, Coria-fingerprints)")
         from build_zoek_index import main as build_zoek_main
 
-        zoek_code = build_zoek_main([])
-        if zoek_code not in (0, None):
-            error(f"FAILED zoekindex exit={zoek_code}")
+        if run_quiet("zoekindex", build_zoek_main, [], verbose=verbose):
             return 1
 
-        info("\n--- Coria-fingerprints ---")
         import fingerprint_coria_mxl as fp_mod
 
-        fp_code = fp_mod.main()
-        if fp_code not in (0, None):
-            error(f"FAILED fingerprints exit={fp_code}")
+        if run_quiet(
+            "fingerprints",
+            lambda _a: fp_mod.main(),
+            [],
+            verbose=verbose,
+        ):
             return 1
 
-        info("\n--- Coria-fetch-probe ---")
         import probe_coria_fetch as probe_mod
 
-        probe_code = probe_mod.apply_probe(warn_only=True)
-        if probe_code not in (0, None):
-            error(f"FAILED coria-probe exit={probe_code}")
+        if run_quiet(
+            "coria-probe",
+            lambda _a: probe_mod.apply_probe(warn_only=True),
+            [],
+            verbose=verbose,
+        ):
             return 1
 
-    info("\nOK: products-changed klaar")
+    info(
+        f"OK: products-changed klaar "
+        f"({len(plan.products)} products, {len(plan.pdfs)} pdf)"
+    )
     return 0
 
 

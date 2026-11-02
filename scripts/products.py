@@ -9,7 +9,15 @@ import argparse
 import sys
 from pathlib import Path
 
-from cli_style import add_verbose_argument, error, error_block, info, set_verbose
+from cli_style import (
+    add_verbose_argument,
+    detail,
+    error,
+    error_block,
+    info,
+    run_quiet,
+    set_verbose,
+)
 from product_kind import KindFailure, collect_failures
 from product_regen import (
     KIND_HELP,
@@ -106,7 +114,11 @@ def main(argv: list[str] | None = None) -> int:
         nargs="?",
         type=Path,
         default=DEFAULT_ROOT,
-        help="Catalogusmap of één bronbestand (default: content-source/catalogus)",
+        help=(
+            "Catalogusmap of één bronbestand (default: "
+            "content-source/catalogus). Korte paden: t.o.v. "
+            "content-source, catalogus of koormappen."
+        ),
     )
     parser.add_argument(
         "--kinds",
@@ -143,12 +155,15 @@ def main(argv: list[str] | None = None) -> int:
         raise
 
     set_verbose(bool(args.verbose))
-    root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
-    if not root.exists():
-        error(f"Root niet gevonden: {root}")
+    from input_paths import InputPathError, resolve_user_path
+
+    try:
+        root = resolve_user_path(args.root, repo_root=REPO_ROOT)
+    except InputPathError as exc:
+        error(str(exc))
         error(
-            "Oplossing: geef een bestaande map of bronbestand onder "
-            "content-source\\catalogus."
+            "Oplossing: geef een bestaande map of bronbestand "
+            "(kort: t.o.v. content-source, catalogus of koormappen)."
         )
         return 1
 
@@ -175,10 +190,12 @@ def main(argv: list[str] | None = None) -> int:
         forward.append("-y")
         forward.append("--already-confirmed")
 
+    from input_paths import rel_for_log
+
     info(
         f"=== products: kinds={','.join(kinds)} "
         f"reasons={','.join(policy.active_reasons())} "
-        f"root={root} ===",
+        f"root={rel_for_log(root, repo_root=REPO_ROOT)} ===",
     )
 
     # Dunne mains blijven (CLI-compat); elk delegeert naar product_kind.run_kind.
@@ -197,7 +214,7 @@ def main(argv: list[str] | None = None) -> int:
 
     for kind in kinds:
         mod_name = runners[kind]
-        info(f"\n--- {kind} ({KIND_HELP[kind]}) ---")
+        detail(f"--- {kind} ({KIND_HELP[kind]}) ---")
         mod = __import__(mod_name)
         rows: list[KindFailure] = []
         with collect_failures(rows):
@@ -214,21 +231,25 @@ def main(argv: list[str] | None = None) -> int:
     # na een geslaagde products-run (ook --only-stale), behalve dry-run
     # of --skip-post (batch-wrappers).
     if not args.dry_run and not args.skip_post:
-        info("\n--- zoekindex (static/zoek/index.json) ---")
+        info(">>> nabewerking (zoekindex)")
         from build_zoek_index import main as build_zoek_main
 
-        zoek_code = build_zoek_main([])
-        if zoek_code not in (0, None):
+        if run_quiet(
+            "zoekindex",
+            build_zoek_main,
+            [],
+            verbose=bool(args.verbose),
+        ):
             error_block(
                 [
-                    f"FAILED zoekindex exit={zoek_code}",
+                    "FAILED zoekindex",
                     "Oplossing: controleer de fout hierboven; daarna "
                     "python scripts\\build_zoek_index.py opnieuw.",
                 ]
             )
             return 1
 
-    info("\nOK: products klaar")
+    info(f"OK: products klaar ({len(kinds)} kind(s))")
     return 0
 
 

@@ -3,9 +3,14 @@
 A4-compositie uit shortcode ``kop`` (en legacy ``#`` / HTML-titels) + kale
 muziek-SVG's (geen catalogus-product-PDF's plakken). Bij voorkeur de
 catalogus-sibling tall-SVG (``*.mvsa.svg`` / ``*.mscz.svg`` / ``*.vsa.svg``);
-alleen lokaal opnieuw exporteren als die ontbreekt. Compose snijdt op
-systeembrenzen (MuseScore ``StaffLines``, anders VSA ``vsa-line``) zodat
-rest-ruimte na titel/proza op A4 wél gevuld wordt.
+lokaal opnieuw exporteren als die ontbreekt of de herkomststempel niet bij
+de bron past. Versheid van ``index.md.pdf`` hangt ook van die sibling-SVG’s
+af. Compose snijdt op systeembrenzen (MuseScore ``StaffLines``, anders VSA
+``vsa-line``) zodat rest-ruimte na titel/proza op A4 wél gevuld wordt.
+
+Naast de basis-PDF: optioneel ``index.md.translit-nls.pdf`` /
+``index.md.translit-ksl.pdf`` (§5a) uit translit-SVG-siblings
+(``.translit-nls.svg`` / ``.translit-ksl.svg``).
 
 Catalogus-leaves zonder Markdown-titel: afgeleide leaf-titel injecteren
 (zelfde algoritme als Hugo; zie ``ensure_catalogus_derived_titles``).
@@ -27,6 +32,13 @@ from pathlib import Path
 _SCRIPTS = Path(__file__).resolve().parent
 if str(_SCRIPTS) not in sys.path:
     sys.path.insert(0, str(_SCRIPTS))
+
+from cli_style import (  # noqa: E402
+    add_verbose_argument,
+    detail,
+    info,
+    set_verbose,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT / "content-source"
@@ -622,6 +634,119 @@ def _body_without_frontmatter(text: str) -> str:
     return parts[2]
 
 
+def _frontmatter_block(text: str) -> str:
+    if not text.lstrip().startswith("---"):
+        return ""
+    parts = text.split("---", 2)
+    if len(parts) < 3:
+        return ""
+    return parts[1]
+
+
+def _unquote_scalar(raw: str) -> str:
+    value = raw.strip()
+    if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
+        return value[1:-1]
+    return value
+
+
+def _parse_yaml_block(block: str) -> dict:
+    """Kleine YAML-subset: scalars en geneste maps (geen lijsten)."""
+    root: dict = {}
+    stack: list[tuple[int, dict]] = [(-1, root)]
+    for raw in block.splitlines():
+        if not raw.strip() or raw.lstrip().startswith("#"):
+            continue
+        indent = len(raw) - len(raw.lstrip(" "))
+        line = raw.strip()
+        if line.startswith("-") or ":" not in line:
+            continue
+        key, _, rest = line.partition(":")
+        key = key.strip()
+        if not key:
+            continue
+        while stack and indent <= stack[-1][0]:
+            stack.pop()
+        parent = stack[-1][1] if stack else root
+        rest = rest.strip()
+        if rest == "" or rest in {"|", ">"}:
+            child: dict = {}
+            parent[key] = child
+            stack.append((indent, child))
+        else:
+            parent[key] = _unquote_scalar(rest)
+    return root
+
+
+def _hugo_page_params(text: str) -> dict:
+    """Velden die Hugo-shortcode ``param`` op deze pagina ziet.
+
+    Wortel-scalars (``title``, ``linkTitle``, …) plus de map ``params:``.
+    Een wortelveld wint van dezelfde naam onder ``params:``.
+    """
+    fm = _parse_yaml_block(_frontmatter_block(text))
+    out: dict = {}
+    nested = fm.get("params")
+    if isinstance(nested, dict):
+        out.update(nested)
+    for key, value in fm.items():
+        if key == "params":
+            continue
+        out[key] = value
+    return out
+
+
+def _lookup_param(params: dict, key: str) -> str | None:
+    cur: object = params
+    for part in key.split("."):
+        if not isinstance(cur, dict):
+            return None
+        if part in cur:
+            cur = cur[part]
+            continue
+        match = next((k for k in cur if k.lower() == part.lower()), None)
+        if match is None:
+            return None
+        cur = cur[match]
+    if not isinstance(cur, str):
+        return None
+    return cur
+
+
+_PARAM_SC = re.compile(
+    r"\{\{\s*[<%]\s*param\s+"
+    r'(?:"([^"]*)"|\'([^\']*)\'|([A-Za-z0-9_.-]+))'
+    r"\s*/?\s*[>%]\s*\}\}",
+    re.IGNORECASE,
+)
+
+
+def _expand_param_shortcodes(body: str, params: dict) -> str:
+    """Vervang ``{{< param veld >}}`` door de frontmatter-waarde.
+
+    Zelfde korte vorm als Hugo (``{{% param veld %}}`` en aanhalingstekens
+    mogen). Onbekend veld: fout, net als de sitebouw. Koormap-paginataal §6.
+    """
+
+    def repl(match: re.Match[str]) -> str:
+        key = match.group(1) or match.group(2) or match.group(3) or ""
+        key = key.strip()
+        if not key:
+            raise ValueError(
+                "shortcode param mist de veldnaam. "
+                'Oplossing: {{< param title >}}.'
+            )
+        value = _lookup_param(params, key)
+        if value is None:
+            raise ValueError(
+                f"shortcode param: veld {key!r} niet gevonden in de "
+                "frontmatter van deze pagina."
+            )
+        return value
+
+    return _PARAM_SC.sub(repl, body)
+
+
 def parse_page_flows(text: str) -> list[PageFlow]:
     """Bladgroepen: ``pdf-pagina`` of elk apart ``pdf-bijelkaar``-blok.
 
@@ -633,7 +758,8 @@ def parse_page_flows(text: str) -> list[PageFlow]:
     **documentvolgorde** bij hun muziek (koormap-paginataal §6 / §10.1) —
     nooit alle groot-koppen vooraf bundelen vóór alle ``bieb``-blokken.
     """
-    text = _body_without_frontmatter(text)
+    params = _hugo_page_params(text)
+    text = _expand_param_shortcodes(_body_without_frontmatter(text), params)
     finished: list[PageFlow] = []
     current = PageFlow()
     stack: list[str] = []
@@ -957,6 +1083,13 @@ def _pagina_pdf_out_path(md_path: Path) -> Path:
     return md_path.with_name(md_path.name + ".pdf")
 
 
+def _pagina_translit_pdf_out_path(md_path: Path, modus: str) -> Path:
+    """``index.md`` + ``nls`` → ``index.md.translit-nls.pdf``."""
+    from translit_svg_products import pagina_translit_pdf_path
+
+    return pagina_translit_pdf_path(md_path, modus)
+
+
 @dataclass(frozen=True)
 class PaginaPdfJob:
     """Wat ``pdf.cmd`` zou moeten bouwen (zonder te exporteren)."""
@@ -996,7 +1129,9 @@ def pagina_pdf_job(md_path: Path) -> PaginaPdfJob | None:
     try:
         for flow in flows:
             for mid in flow.music_ids:
-                deps.append(find_notation_source(mid))
+                src = find_notation_source(mid)
+                deps.append(src)
+                deps.append(product_svg_path(src))
     except FileNotFoundError:
         return None
     return PaginaPdfJob(md_path, out, tuple(deps))
@@ -1059,7 +1194,7 @@ def export_tekstblad_md_pdf(md: Path, dest: Path) -> None:
         "--content-root",
         str(CONTENT),
     ]
-    print(f"  tekstblad-body {md.name}", flush=True)
+    detail(f"  tekstblad-body {md.name}")
     subprocess.check_call(cmd, cwd=str(ROOT))
     if not dest.is_file():
         raise RuntimeError(
@@ -1368,6 +1503,55 @@ def product_svg_path(source: Path) -> Path:
     return source.with_name(source.name + ".svg")
 
 
+def notation_digest(source: Path) -> str:
+    """Herkomst-hash van de notatiebron (zelfde als product-stempels)."""
+    from product_meta import partituur_sha256, source_sha256
+
+    if source.suffix.lower() == ".mscz":
+        return partituur_sha256(source)
+    return source_sha256(source)
+
+
+def product_svg_stamp_ok(source: Path, svg: Path) -> bool:
+    """True als sibling-SVG bestaat en ``vsa-source-sha256`` bij de bron past."""
+    from product_meta import FIELD_SOURCE_SHA, read_svg_stamp, stamp_sha_from_dict
+
+    if not svg.is_file():
+        return False
+    stamp = read_svg_stamp(svg)
+    got = stamp.get(FIELD_SOURCE_SHA) or stamp_sha_from_dict(stamp)
+    return got == notation_digest(source)
+
+
+def stamp_sibling_svg(source: Path, svg: Path) -> None:
+    """Zet bibliotheek-herkomststempel op een zojuist geëxporteerde sibling-SVG."""
+    from product_meta import (
+        GENERATOR_MSCZ,
+        GENERATOR_MVSA,
+        GENERATOR_VSA_PDF,
+        SOURCE_KIND_MVSA,
+        SOURCE_KIND_PARTITUUR,
+        SOURCE_KIND_VSA,
+        stamp_svg,
+        utc_now_iso,
+    )
+
+    suf = source.suffix.lower()
+    if suf == ".mscz":
+        kind, generator = SOURCE_KIND_PARTITUUR, GENERATOR_MSCZ
+    elif suf == ".vsa":
+        kind, generator = SOURCE_KIND_VSA, GENERATOR_VSA_PDF
+    else:
+        kind, generator = SOURCE_KIND_MVSA, GENERATOR_MVSA
+    stamp_svg(
+        svg,
+        source_hash=notation_digest(source),
+        source_kind=kind,
+        generated_at=utc_now_iso(),
+        generator=generator,
+    )
+
+
 def legacy_bladreeks_svgs(source: Path) -> list[Path]:
     """Oude A4-bladreeks ``{bronnaam}-N.svg`` naast de bron (tot products regen)."""
     source = Path(source)
@@ -1380,7 +1564,7 @@ def legacy_bladreeks_svgs(source: Path) -> list[Path]:
 def export_blad_svgs(
     source: Path, dest: Path, *, compact: bool = False
 ) -> list[Path]:
-    """Lokaal tall-SVG exporteren via street-CLI (alleen als product ontbreekt).
+    """Lokaal tall-SVG exporteren via street-CLI (ontbrekend of verouderd product).
 
     ``mvsa``/``mscz`` ``svg`` schrijft één compacte tall-SVG. ``compact`` is
     optioneel (tooling-default is al compact); blijft voor CLI-compatibiliteit.
@@ -1406,7 +1590,7 @@ def export_blad_svgs(
     else:
         raise RuntimeError(f"SVG-export: onverwacht brontype {source.name}")
 
-    print(f"  {label} {source.name}", flush=True)
+    detail(f"  {label} {source.name}")
     subprocess.check_call(cmd, cwd=str(ROOT))
     if dest.is_file():
         return [dest]
@@ -1419,41 +1603,91 @@ def export_blad_svgs(
     raise RuntimeError(f"SVG ontbreekt na export: {dest}")
 
 
+def _export_product_svg_for_pdf(
+    source: Path, dest: Path, *, compact: bool = False
+) -> list[Path]:
+    """Exporteer sibling-SVG en zet herkomststempel."""
+    paths = export_blad_svgs(source, dest, compact=compact)
+    for path in paths:
+        stamp_sibling_svg(source, path)
+    return paths
+
+
 def resolve_svgs_for_pdf(
     source: Path,
     work: Path | None = None,
     *,
     uv_id: str = "",
     compact: bool = False,
+    translit_modus: str | None = None,
 ) -> list[Path]:
-    """Kies SVG voor compose: product → legacy bladreeks → lokaal exporteren.
+    """Kies SVG voor compose: verse product → legacy bladreeks → lokaal exporteren.
+
+    Met ``translit_modus`` (``nls``/``ksl``): translit-sibling als die modus
+    bij de bron hoort; anders de kale bron-SVG. Ontbrekende of verouderde
+    translit-SVG wordt lokaal geëxporteerd (``vsa``/``mvsa svg --translit-modus``).
 
     *work* / *uv_id* blijven voor aanroepers; export schrijft de canonieke
     sibling naast *source* (niet naar een temp-map).
     """
+    if translit_modus:
+        from translit_svg_products import (
+            export_one_translit_svg,
+            product_translit_svg,
+            translit_modi_for_source,
+        )
+
+        modi = translit_modi_for_source(source)
+        if translit_modus not in modi:
+            return resolve_svgs_for_pdf(
+                source, work, uv_id=uv_id, compact=compact, translit_modus=None
+            )
+        tpath = product_translit_svg(source, translit_modus)
+        if tpath.is_file() and product_svg_stamp_ok(source, tpath):
+            from input_paths import rel_for_log
+
+            detail(
+                f"  SVG translit-{translit_modus} "
+                f"{rel_for_log(tpath, repo_root=ROOT)}"
+            )
+            return [tpath]
+        reason = "verouderd" if tpath.is_file() else "ontbreekt"
+        detail(
+            f"  translit-SVG {reason} ({tpath.name}); "
+            f"exporteren (--translit-modus {translit_modus})…"
+        )
+        export_one_translit_svg(source, translit_modus)
+        if not tpath.is_file():
+            raise RuntimeError(f"translit-SVG ontbreekt na export: {tpath}")
+        stamp_sibling_svg(source, tpath)
+        return [tpath]
+
     product = product_svg_path(source)
-    if product.is_file():
-        try:
-            rel = product.relative_to(ROOT)
-        except ValueError:
-            rel = product
-        print(f"  SVG product {rel}", flush=True)
+    if product.is_file() and product_svg_stamp_ok(source, product):
+        from input_paths import rel_for_log
+
+        detail(f"  SVG product {rel_for_log(product, repo_root=ROOT)}")
         return [product]
+
+    if product.is_file():
+        detail(
+            f"  SVG-product verouderd ({product.name}); "
+            "lokaal opnieuw exporteren…"
+        )
+        return _export_product_svg_for_pdf(source, product, compact=compact)
 
     legacy = legacy_bladreeks_svgs(source)
     if legacy:
-        print(
-            f"  SVG legacy-bladreeks ({len(legacy)}×) naast {source.name}",
-            flush=True,
+        detail(
+            f"  SVG legacy-bladreeks ({len(legacy)}×) naast {source.name}"
         )
         return legacy
 
-    print(
+    detail(
         f"  SVG-product ontbreekt ({product.name}); "
-        "lokaal exporteren naar sibling (MuseScore)…",
-        flush=True,
+        "lokaal exporteren naar sibling (MuseScore)…"
     )
-    return export_blad_svgs(source, product, compact=compact)
+    return _export_product_svg_for_pdf(source, product, compact=compact)
 
 
 def _staff_line_ys(svg_text: str) -> list[float]:
@@ -1693,11 +1927,21 @@ _VSA_TRANSLATE_Y = re.compile(
 _VSA_Y_ATTR = re.compile(r'\by[12]?="([-\d.]+)"', re.IGNORECASE)
 
 
+_VSA_TEXT_Y = re.compile(
+    r"<text\b[^>]*\by=\"([-\d.]+)\"",
+    re.IGNORECASE,
+)
+
+
 def _vsa_line_systems(svg_text: str) -> list[tuple[float, float]]:
     """Per VSA-regel (``vsa-line``) (top, bottom) in SVG-y.
 
     Pure ``.vsa.svg`` heeft geen MuseScore ``StaffLines``; wel één
     ``<g class="vsa-line">`` per tekstregel. Snede valt tussen die groepen.
+
+    Alleen ``<text y>`` telt (bron + translit-vorm A). Glyph-paden (EHM/ELM)
+    overlappen vaak in y met de volgende regel; die meenemen gaf negatieve
+    gaps en sneden midden door letters in ``index.md.translit-*.pdf``.
     """
     opens = list(_VSA_LINE_OPEN.finditer(svg_text))
     if not opens:
@@ -1710,7 +1954,7 @@ def _vsa_line_systems(svg_text: str) -> list[tuple[float, float]]:
         tm = _VSA_TRANSLATE_Y.search(m.group(0))
         if tm:
             ty = float(tm.group(1))
-        ys = [float(y) + ty for y in _VSA_Y_ATTR.findall(chunk)]
+        ys = [float(y) + ty for y in _VSA_TEXT_Y.findall(chunk)]
         if not ys:
             continue
         systems.append((min(ys), max(ys)))
@@ -1758,7 +2002,11 @@ def system_cut_points_pdf(svg_path: Path, pdf_height: float) -> list[float]:
     for i, (_top, bottom) in enumerate(systems):
         if i + 1 < len(systems):
             next_top = systems[i + 1][0]
-            mid = (bottom + next_top) / 2.0
+            if next_top > bottom:
+                mid = (bottom + next_top) / 2.0
+            else:
+                # Overlap (zeldzaam na tekst-only bands): knip vóór volgende regel.
+                mid = next_top
         else:
             mid = min_y + vb_h
         cuts.append(to_pdf(mid))
@@ -1775,13 +2023,20 @@ def export_compact_svg(mvsa: Path, dest: Path) -> None:
     export_blad_svgs(mvsa, dest, compact=True)
 
 
-def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
+def _compose_flow_svg(
+    flow: PageFlow,
+    dest: Path,
+    *,
+    work: Path,
+    translit_modus: str | None = None,
+) -> None:
     """Zet titel(s) + kale muziek-SVG's op A4.
 
     SVG bij voorkeur uit catalogus-product (tall); anders legacy bladreeks
-    of lokale street-CLI-export. Zonder ``pdf-bijelkaar``: snijden op
-    systeembrenzen (``StaffLines`` of ``vsa-line``) zodat rest-ruimte na
-    titel/proza gevuld wordt.
+    of lokale street-CLI-export. Met ``translit_modus``: translit-SVG’s
+    (§5a). Zonder ``pdf-bijelkaar``: snijden op systeembrenzen
+    (``StaffLines`` of ``vsa-line``) zodat rest-ruimte na titel/proza
+    gevuld wordt.
     """
     try:
         import pymupdf
@@ -1796,16 +2051,15 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
             if item.uv_id in svg_series:
                 continue
             source = find_notation_source(item.uv_id)
-            try:
-                rel = source.relative_to(ROOT)
-            except ValueError:
-                rel = source
-            print(f"  bron {rel}", flush=True)
+            from input_paths import rel_for_log
+
+            detail(f"  bron {rel_for_log(source, repo_root=ROOT)}")
             svg_series[item.uv_id] = resolve_svgs_for_pdf(
                 source,
                 work,
                 uv_id=item.uv_id,
                 compact=item.compact,
+                translit_modus=translit_modus,
             )
 
     # Per blad-SVG een PDF-pagina (afmetingen + systeemsnee)
@@ -1829,10 +2083,9 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
         sizes[uv_id] = dims
         cuts_map[uv_id] = cuts_list
         n_cuts = sum(len(c) for c in cuts_list)
-        print(
+        detail(
             f"  systeemsnee {uv_id}: {n_cuts} snijpunt(en) "
-            f"over {len(paths)} SVG('s)",
-            flush=True,
+            f"over {len(paths)} SVG('s)"
         )
 
     try:
@@ -1877,11 +2130,10 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
             scale = max(0.12, min(s_w, s_h))
         else:
             scale = max(0.12, min(s_w, 1.0))
-        print(
+        detail(
             f"  compose-schaal {scale:.3f} "
             f"(breedte-max {s_w:.3f}, hoogte-fit {s_h:.3f}"
-            f"{', bijelkaar' if flow.any_compact else ', meerbladig-ok'})",
-            flush=True,
+            f"{', bijelkaar' if flow.any_compact else ', meerbladig-ok'})"
         )
 
         doc = pymupdf.open()
@@ -1982,10 +2234,9 @@ def _compose_flow_svg(flow: PageFlow, dest: Path, *, work: Path) -> None:
                         new_page()
                         continue
                     chosen = cuts[cut_i]
-                    print(
+                    info(
                         "  WAARSCHUWING: systeem hoger dan rest-A4; "
-                        "alsnog één systeem geplaatst",
-                        flush=True,
+                        "alsnog één systeem geplaatst"
                     )
                 band_h = (chosen - src_y) * scale
                 if band_h > 1e-6:
@@ -2072,7 +2323,7 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
             if out.stat().st_mtime >= md_path.stat().st_mtime:
                 return out
         title = _catalogus_voorzien_title(md_path, voorzien_id)
-        print(f"  voorzien-placeholder {voorzien_id}", flush=True)
+        detail(f"  voorzien-placeholder {voorzien_id}")
         compose_voorzien_pdf(out, title=title)
         return out
 
@@ -2086,7 +2337,7 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
                 return out
         title = _catalogus_tekstblad_pagina_title(leaf_id)
         notes = prose_notes_from_catalogus_md(text)
-        print(f"  tekstblad-pagina {leaf_id}", flush=True)
+        detail(f"  tekstblad-pagina {leaf_id}")
         compose_tekstblad_pagina_pdf(
             out, title=title, notes=notes, tekstblad_md=tb_md
         )
@@ -2102,42 +2353,120 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
     if not flows:
         return None
 
-    # Bronnen voor mtime-check (notatiebestanden, geen catalogus-PDF)
+    # Bronnen + product-SVG’s voor versheid (geen catalogus-PDF)
     deps = [md_path]
+    sources: list[Path] = []
     for flow in flows:
         for mid in flow.music_ids:
-            deps.append(find_notation_source(mid))
+            src = find_notation_source(mid)
+            deps.append(src)
+            sources.append(src)
+            deps.append(product_svg_path(src))
 
+    skip_base = False
     if out.is_file() and not force:
-        newest = max(p.stat().st_mtime for p in deps if p.is_file())
-        if out.stat().st_mtime >= newest:
-            return out
+        svgs_fresh = all(
+            product_svg_stamp_ok(src, product_svg_path(src)) for src in sources
+        )
+        if svgs_fresh:
+            newest = max(p.stat().st_mtime for p in deps if p.is_file())
+            if out.stat().st_mtime >= newest:
+                skip_base = True
 
-    with tempfile.TemporaryDirectory(prefix="pagina-pdf-") as tmp:
-        work = Path(tmp)
-        parts: list[Path] = []
-        for i, flow in enumerate(flows):
-            if not flow.items:
+    if not skip_base:
+        with tempfile.TemporaryDirectory(prefix="pagina-pdf-") as tmp:
+            work = Path(tmp)
+            parts: list[Path] = []
+            for i, flow in enumerate(flows):
+                if not flow.items:
+                    continue
+                part = work / f"flow-{i}.pdf"
+                _compose_flow_svg(flow, part, work=work / f"svg-{i}")
+                parts.append(part)
+            if not parts:
+                return None
+            if len(parts) == 1:
+                shutil.copy2(parts[0], out)
+            else:
+                stitch_pdfs(parts, out)
+
+    _build_translit_pagina_pdfs(md_path, flows, sources, force=force)
+    return out if out.is_file() else None
+
+
+def _build_translit_pagina_pdfs(
+    md_path: Path,
+    flows: list,
+    sources: list[Path],
+    *,
+    force: bool,
+) -> list[Path]:
+    """Schrijf ``index.md.translit-*.pdf`` waar §5a dat vraagt."""
+    from translit_svg_products import (
+        page_translit_modi,
+        product_translit_svg,
+        translit_modi_for_source,
+    )
+
+    modi = page_translit_modi(sources)
+    written: list[Path] = []
+    for modus in modi:
+        dest = _pagina_translit_pdf_out_path(md_path, modus)
+        tdeps: list[Path] = [md_path, *sources]
+        tsvgs: list[tuple[Path, Path]] = []
+        for src in sources:
+            if modus in translit_modi_for_source(src):
+                tsvg = product_translit_svg(src, modus)
+                tdeps.append(tsvg)
+                tsvgs.append((src, tsvg))
+        if dest.is_file() and not force:
+            tsvgs_fresh = all(
+                product_svg_stamp_ok(src, tsvg) for src, tsvg in tsvgs
+            )
+            if tsvgs_fresh:
+                newest = max(
+                    (p.stat().st_mtime for p in tdeps if p.is_file()),
+                    default=0.0,
+                )
+                if newest and dest.stat().st_mtime >= newest:
+                    written.append(dest)
+                    continue
+        detail(f"  pagina translit-{modus} → {dest.name}")
+        with tempfile.TemporaryDirectory(prefix=f"pagina-pdf-{modus}-") as tmp:
+            work = Path(tmp)
+            parts: list[Path] = []
+            for i, flow in enumerate(flows):
+                if not flow.items:
+                    continue
+                part = work / f"flow-{i}.pdf"
+                _compose_flow_svg(
+                    flow,
+                    part,
+                    work=work / f"svg-{i}",
+                    translit_modus=modus,
+                )
+                parts.append(part)
+            if not parts:
                 continue
-            part = work / f"flow-{i}.pdf"
-            _compose_flow_svg(flow, part, work=work / f"svg-{i}")
-            parts.append(part)
-        if not parts:
-            return None
-        if len(parts) == 1:
-            shutil.copy2(parts[0], out)
-        else:
-            stitch_pdfs(parts, out)
-    return out
+            if len(parts) == 1:
+                shutil.copy2(parts[0], dest)
+            else:
+                stitch_pdfs(parts, dest)
+        written.append(dest)
+        from input_paths import rel_for_log
+
+        info(f"  OK translit {rel_for_log(dest, repo_root=ROOT)}")
+    return written
 
 
 def expand_pagina_md_path(path: Path) -> list[Path]:
     """Eén ``index.md`` of een map → recursief alle ``index.md``."""
-    from input_paths import InputPathError, collect_cli_sources
+    from input_paths import InputPathError, collect_cli_sources, resolve_user_path
 
-    p = path if path.is_absolute() else ROOT / path
-    if not p.exists():
-        raise SystemExit(f"Pad niet gevonden: {p}")
+    try:
+        p = resolve_user_path(path, repo_root=ROOT)
+    except InputPathError as exc:
+        raise SystemExit(str(exc)) from exc
     if p.is_file():
         if p.suffix.lower() != ".md":
             raise SystemExit(f"Verwacht .md-bestand of map; kreeg: {p.name}")
@@ -2175,7 +2504,8 @@ def iter_targets(explicit: list[Path], all_koormappen: bool) -> list[Path]:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(
         description=(
-            "Bouw index.md.pdf uit kale blad-SVG's + Markdown-koppen "
+            "Bouw index.md.pdf (+ optioneel index.md.translit-nls.pdf / "
+            "index.md.translit-ksl.pdf) uit kale blad-SVG's + Markdown-koppen "
             "(pdf-bijelkaar → --compact). Pad = één .md of een map "
             "(recursief index.md)."
         )
@@ -2184,7 +2514,10 @@ def main(argv: list[str] | None = None) -> int:
         "paths",
         nargs="*",
         type=Path,
-        help="Pad(en) naar index.md of map(pen) met index.md eronder",
+        help=(
+            "Pad(en) naar index.md of map(pen) met index.md eronder. "
+            "Korte paden: t.o.v. content-source, catalogus of koormappen."
+        ),
     )
     ap.add_argument(
         "--all-koormappen",
@@ -2204,7 +2537,9 @@ def main(argv: list[str] | None = None) -> int:
     )
 
     add_yes_argument(ap)
+    add_verbose_argument(ap)
     args = ap.parse_args(argv)
+    set_verbose(bool(args.verbose))
 
     targets = iter_targets(args.paths, args.all_koormappen)
     kind = "pagina_pdf"
@@ -2235,7 +2570,9 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"OVERGESLAGEN: {exc}", file=sys.stderr)
                 return SKIP
             print(f"FOUT: {exc}", file=sys.stderr)
-            failed_paths.append(str(md))
+            from input_paths import rel_for_log
+
+            failed_paths.append(rel_for_log(md, repo_root=ROOT))
             return 1
         except (
             ValueError,
@@ -2243,18 +2580,27 @@ def main(argv: list[str] | None = None) -> int:
             subprocess.CalledProcessError,
         ) as exc:
             print(f"FOUT: {exc}", file=sys.stderr)
-            failed_paths.append(str(md))
+            from input_paths import rel_for_log
+
+            failed_paths.append(rel_for_log(md, repo_root=ROOT))
             return 1
         if out is None:
             return SKIP
-        print(f"OK {out.relative_to(ROOT)} ({md.relative_to(ROOT)})")
+        from input_paths import rel_for_log
+
+        print(
+            f"OK {rel_for_log(out, repo_root=ROOT)} "
+            f"({rel_for_log(md, repo_root=ROOT)})"
+        )
         return 0
+
+    from input_paths import rel_for_log as _rel_log
 
     written, failed, skipped = run_timed_batch(
         kind,
         targets,
         _one,
-        label=lambda p: p.as_posix(),
+        label=lambda p: _rel_log(p, repo_root=ROOT),
     )
     if failed_paths:
         print("Mislukt:", flush=True)

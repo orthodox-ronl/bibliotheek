@@ -1,4 +1,4 @@
----
+﻿---
 title: "products — audio"
 linkTitle: "products (audio)"
 weight: 107
@@ -7,7 +7,7 @@ weight: 107
 # NAME
 
 `scripts\products.cmd --kinds audio` — preview-`.mp3` maken bij een bibliotheek-bron
-(gewoon product-spoor; ook via `products` / `all-products`)
+(gewoon product-spoor; ook via `products` / `products --kinds all`)
 
 # SYNOPSIS
 
@@ -34,11 +34,12 @@ velden als bij PDF/MXL: hash van de bron, wanneer gemaakt). Zo ziet
 eerst een kaal mp3 schreef — anders zou `check` `unstamped_mp3` melden.
 
 Zoekt onder het opgegeven pad (of, zonder pad, onder
-`content-source\catalogus`). Overgeslagen: `input\`, mappen met
-`manueel: true`, import-siblings `*.mscz.mvsa`, `.print.mscz`, en
-afgeleide `*.vsa.mscz` / `*.mvsa.mscz` (die maken anders
-`*.mvsa.mscz.mp3`). Zo’n afgeleide wél als bron: geef het bestand
-expliciet als pad op de commandoregel.
+`content-source\catalogus`). Korte paden mogen — zie
+[bestand of map](../invoer-bestand-of-map/). Overgeslagen: `input\`,
+mappen met `manueel: true`, import-siblings `*.mscz.mvsa`,
+`.print.mscz`, en afgeleide `*.vsa.mscz` / `*.mvsa.mscz` (die maken
+anders `*.mvsa.mscz.mp3`). Zo’n afgeleide wél als bron: geef het
+bestand expliciet als pad op de commandoregel.
 
 Onder de motorkap: tooling-CLI `vsa audio` (MuseScore 4). Bij `.vsa`
 syllabificeert het script eerst in een **tijdelijk** bestand (zelfde als
@@ -50,7 +51,7 @@ heeft als Oefenen; de canonieke `.vsa` blijft ongewijzigd. CI genereert
 handmatige mappen) hoort een passende `.mp3` te hebben — dezelfde scope
 als de Coria-`.mxl`. Ontbreekt of veroudert die, dan faalt
 `check --strict` / CI. Maak ze lokaal met dit script (of
-[all-products](../all-products/)); CI genereert geen MuseScore-audio.
+[products](../products/)); CI genereert geen MuseScore-audio.
 
 # OPTIONS
 
@@ -62,8 +63,8 @@ als de Coria-`.mxl`. Ontbreekt of veroudert die, dan faalt
 # EXAMPLES
 
 ```cmd
-scripts\products.cmd --kinds audio content-source\catalogus\alleluia\9a-toon-1\groningen
-scripts\products.cmd --kinds audio content-source\catalogus\tropaar\maandag-toon-4\hemelum --force
+scripts\products.cmd --kinds audio alleluia\9a-toon-1\groningen
+scripts\products.cmd --kinds audio tropaar\maandag-toon-4\hemelum --force
 ```
 
 # WHEN

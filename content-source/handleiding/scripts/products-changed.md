@@ -1,4 +1,4 @@
----
+﻿---
 title: "products-changed"
 linkTitle: "products-changed"
 weight: 105
@@ -67,9 +67,16 @@ Na een geslaagde run (niet bij `--dry-run`), en alleen als er minstens
 één productbron is afgehandeld: zoekindex en Coria-fingerprints **één
 keer** aan het eind. Koormap-pdf alleen telt daar niet voor mee.
 
+**Uitvoer:** `--dry-run` toont alleen wat wél zou gebeuren, plus één
+telregel (`Bekeken: … met actie / zonder`). Een echte run toont dezelfde
+lijst en daarna per taak een korte `>>>`-regel; detail van
+products/pdf/nabewerking alleen bij `--verbose`, of bij een fout.
+Overgeslagen paden (afgeleiden, handleiding, …) staan niet standaard in
+de log.
+
 `--force` gaat door naar de onderliggende aanroepen. Bij een lege run
-t.o.v. `HEAD` (alles al gecommit) geeft het commando tips voor
-`--since-development` en `--since-main`.
+t.o.v. `HEAD` staat de tip over `--since-development` /
+`--since-main` achter `--verbose`.
 
 # EXAMPLES
 
@@ -91,7 +98,7 @@ scripts\products-changed.cmd --since-main --dry-run
 # WHEN
 
 Na het wijzigen van één of enkele catalogusbronnen of koormap-pagina’s,
-vóór je commit — wanneer een volle `products` of `all-products` te breed
+vóór je commit — wanneer een volle `products` of `products --kinds all` te breed
 (en te langzaam) is. Na commits op een feature-branch: meestal
 `--since-development`; pas `--since-main` als je echt t.o.v. productie
 wilt. Niet als vervanging van `check`, en niet als je bewust de hele boom
@@ -100,7 +107,7 @@ of alleen contract-ongeldige MXL’s wilt aanpakken.
 # SEE ALSO
 
 - [products](../products/)
-- [all-products](../all-products/)
+- [products](../products/)
 - [pdf](../pdf/)
 - [check](../check/)
 - [Publicatiecontrole](../../start/publicatiecontrole/)

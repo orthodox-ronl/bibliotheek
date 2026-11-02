@@ -178,7 +178,9 @@ def test_already_confirmed_skips_hard_limit(
         already_confirmed=True,
     )
     out = capsys.readouterr().out
-    assert "aanroepende batch" in out
+    # Stil t.o.v. beheerder; detail alleen bij --verbose.
+    assert "Batch «product_vsa»" not in out
+    assert "aanroepende batch" not in out
 
 
 def test_hard_limit_double_confirm(tmp_path: Path, monkeypatch, capsys) -> None:

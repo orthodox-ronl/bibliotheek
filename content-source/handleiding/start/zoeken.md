@@ -1,4 +1,4 @@
----
+﻿---
 title: "Zoeken in de catalogus"
 linkTitle: "Zoeken"
 weight: 85
@@ -15,7 +15,8 @@ past bij wat jullie nodig hebben.
 
 {{< cue >}}
 - Ingang voor koorleden: knop **Zoeken** in de kop, of `/overzichten/zoeken/`
-- Korte tip: klik op **?** naast de knop Zoeken
+- Korte tip: ga met de muis over de knop **Zoeken** in de kop (popover);
+  in het zoekvenster zelf staat nog een **?** bij het zoekveld
 - Indexbestand: `static\zoek\index.json` (bij Pages-deploy opnieuw gebouwd)
 - Synoniemen: [`data/zoek-synoniemen.yaml`](https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml)
 - Gezongen tekst: sibling `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` /
@@ -83,7 +84,7 @@ baseURL*.
 ### Bouwen van de index
 
 Script: `python scripts\build_zoek_index.py` (ook via `products --kinds lyrics`,
-`products` / `all-products`, en bij elke Pages-deploy vóór Hugo).
+`products` / `products --kinds all`, en bij elke Pages-deploy vóór Hugo).
 
 Bronnen: elke uitvoeringsvorm-leaf
 `content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>\index.md`

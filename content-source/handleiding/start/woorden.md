@@ -43,7 +43,7 @@ commando’s en mappen kloppen.
 | basispartituur-`.mscz` | MuseScore 4-bestand; bron voor PDF, Coria en scherm-SVG | Openen, nakijken, opslaan; daarna `scripts\layout.cmd`; afgeleiden `{stam}.mscz.pdf` / `{stam}.mscz.mxl` / `{stam}.mscz.svg` |
 | handmatig `.mscz` | Zelfde soort MuseScore-bestand, map met `manueel: true` | Alleen in MuseScore bewerken; PDF handmatig; geen automatische publicatiecontrole — zie [Publicatiecontrole](publicatiecontrole/) |
 | `.mxl` / `.vsa.mxl` / `.mscz.mxl` | Samengeperste MusicXML (**afgeleide**) | Naar Coria; of (na opkuisen) als start voor een nieuwe basispartituur. Nooit roundtrip: `.mscz` → `.mxl` → weer `.mscz` gooit de layout weg. |
-| `.pdf` / `.mscz.pdf` | A4-product (nog in productketen; stap 3-afbouw) | Blad: **Download/Print pagina** in de nav; niet meer via score-acties |
+| `.pdf` / `.mscz.pdf` | A4-product (nog in productketen; stap 3-afbouw) | Blad: **download-icoon** in de nav (`index.md.pdf`); niet meer via score-acties |
 | `.mp3` / `.mvsa.mp3` e.d. | Preview-audio (afgeleide) | Beluisteren op de site; maken met `products --kinds audio` |
 | `.vsa` | VSA-notatie | Schrijven in een editor; `products --kinds vsa` maakt `.vsa.svg` (scherm), `.vsa.pdf` en `.vsa.mxl`; `check` controleert die siblings — zie [.vsa schrijven](/handleiding/vsa/1-vsa-schrijven/) |
 | `.mvsa` | Meerstemmige tekstbron | Schrijven/valideren met `mvsa`; producten via `products --kinds mvsa` (Coria-`.mxl`, A4-PDF, koormap-SVG, Score-IR + OSMD-MusicXML) — zie [mvsa](/handleiding/werktrajecten/mvsa/) |
@@ -75,7 +75,7 @@ lettergrepen synchroon met noten. MusicXML: `scripts\opkuisen.cmd`. Bij een
 | **Slot-pagina** | Map met `index.md` in de koormap: markdown plus `bieb` (geen catalogus-include in de oefenhoek) |
 | **Compositieblad** | Slot-pagina met proza en **meerdere** `bieb`-shortcodes (bijv. prokimens van de week) |
 | **Alias-variant** | Variant zonder eigen uitvoeringsvorm-bestanden; op de variant-`_index.md` staat `alias_van: zangstuk/canonieke-variant` |
-| **Diversen** | (verouderd als zangstuk-id) Losse gezangen hebben nu een eigen zangstuk-id, bv. `tropaar/uw-heilig-kruis/hemelum` |
+| **Diversen** | (verouderd als zangstuk-id) Losse gezangen hebben nu een eigen zangstuk-id, bv. `tropaar/nikolaas-van-myra-toon-4/hemelum` |
 | **Tropaar** / **kondak** | Nederlandse termen voor die gezangen (niet “troparion” / “kondakion”) |
 | **Special page** | Automatisch overzicht onder `catalogus\speciaal\` (werkbank, voorzien, ongerefereerd, oefenbaar, handmatig) |
 | **Werkvoorraad** | Tabel in `input\werkvoorraad.md`: per *input* hoe ver de conversie is |

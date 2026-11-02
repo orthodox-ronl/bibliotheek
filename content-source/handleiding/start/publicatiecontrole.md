@@ -1,4 +1,4 @@
----
+﻿---
 title: "Publicatiecontrole en bestandsnamen"
 linkTitle: "Publicatiecontrole"
 weight: 25
@@ -110,11 +110,18 @@ tooling met `--quiet` aan.
 Na een geslaagde run (niet bij `--dry-run`) vernieuwt `products.cmd` ook
 de Coria-fingerprints voor **Oefenen** (tip-icoon **♪**).
 
-Alias: `scripts\all-products.cmd` = `products.cmd --kinds all …`.
+Alias: `scripts\products.cmd --kinds all` = `products.cmd --kinds all …`.
 Met `--kinds` beperk je welke sporen draaien (zelfde flags). Geen passende
 bron voor een kind = overslaan (geen fout). Audio en lyrics zijn gewone
 kinds, geen uitzondering. Er zijn geen aparte `vsa-products.cmd`-wrappers
 meer.
+
+Binnen vsa/mscz/mvsa maakt `products` alleen **wat verouderd of
+ontbreekt** (aparte tooling-commando’s per bestandstype, bijv. alleen
+MXL of alleen SVG). Bij `all` komen notatie-kinds vóór audio/lyrics;
+lyrics bij een `.mscz` maakt zonodig eerst `.mscz.mxl`. Pagina-PDF
+(`index.md.pdf`): eerst `products` (sibling-SVG’s), daarna
+[pdf](../../scripts/pdf/).
 
 **Alleen wat je net in git wijzigde** (sneller, kleinere commits):
 `scripts\products-changed.cmd`. Dat pakt gewijzigde catalogusbronnen
@@ -168,7 +175,7 @@ bibliotheek is die vorm **normatief voor nieuwe en vernieuwde producten**.
 
 Liturgische tekst/dialoog is Markdown, maar een kale `.md` is te breed
 (Hugo-pagina’s zijn ook `.md`). Daarom blijft het inhoudstype in de naam:
-`{stam}.tekstblad.md`. Blad voor **Download pagina**:
+`{stam}.tekstblad.md`. Blad voor het **download-icoon**:
 `index.md.pdf` via `pdf.cmd` (rechtstreeks uit die bron). Geen
 verplichte product-`.tekstblad.pdf` meer; geen Coria uit dit spoor.
 
@@ -198,11 +205,11 @@ Vervangen MuseScore-bron bewaren in
 
 | Spoor (brontype)          | Canonieke bron                                   | Verwachte afgeleiden (doelvorm)                                                                                                                               | Stamp in afgeleide                                                      | Lokaal maken                                                | Publicatiecontrole                                                |
 | ------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------------- |
-| **vsa**                   | `{stam}.vsa`                                     | `{stam}.vsa.mxl` (Coria), `{stam}.vsa.svg` (scherm; geen verplichte `.vsa.pdf`)                                                                               | `vsa-source-sha256` van de `.vsa`                                       | `scripts\products.cmd --kinds vsa`                          | **Actief:** `check_vsa_products`                                  |
+| **vsa**                   | `{stam}.vsa`                                     | `{stam}.vsa.mxl` (Coria), `{stam}.vsa.svg` (scherm); optioneel `.translit-nls.svg` / `.translit-ksl.svg` (check eist die nog niet; geen verplichte `.vsa.pdf`) | `vsa-source-sha256` van de `.vsa`                                       | `scripts\products.cmd --kinds vsa`                          | **Actief:** `check_vsa_products`                                  |
 | **lyrics** (zoektekst)    | `{stam}.vsa` / `.mvsa` / `.mscz`                 | `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` / `.mscz.lyrics.txt`                                                                                             | `vsa-source-sha256` van de bron (`kind` = `vsa` / `mvsa` / `partituur`) | `scripts\products.cmd --kinds lyrics`                       | **Actief:** `check_lyrics_products`                               |
 | **mscz** (basispartituur) | `{stam}.mscz`                                    | `{stam}.mscz.mxl`, `{stam}.mscz.svg` (scherm; geen verplichte `.mscz.pdf`)                                                                                    | `vsa-partituur-sha256` van de `.mscz`                                   | `scripts\products.cmd --kinds mscz`                         | **Actief:** `check_mscz_products`                                 |
 | **import** (bewerkvorm)   | `{stam}.mscz`                                    | `{stam}.mscz.mvsa` (optioneel)                                                                                                                                | `vsa-partituur-sha256` in commentaren                                   | `scripts\import-mvsa.cmd`                                   | **Actief:** `check_import_mvsa` (alleen bestaande siblings)       |
-| **mvsa**                  | `{stam}.mvsa`                                    | `{stam}.mvsa.mxl`, `{stam}.mvsa.score-ir.json`, `{stam}.mvsa.from-ir.musicxml`; `{stam}.mvsa.svg` optioneel bij geldige from-ir (geen verplichte `.mvsa.pdf`) | `vsa-source-sha256` van de `.mvsa`                                      | `scripts\products.cmd --kinds mvsa`                         | **Actief:** `check_mvsa_products`                                 |
+| **mvsa**                  | `{stam}.mvsa`                                    | `{stam}.mvsa.mxl`, `{stam}.mvsa.score-ir.json`, `{stam}.mvsa.from-ir.musicxml`; `{stam}.mvsa.svg` optioneel bij geldige from-ir; optioneel `.translit-nls.svg` / `.translit-ksl.svg` (check eist die nog niet; geen verplichte `.mvsa.pdf`) | `vsa-source-sha256` van de `.mvsa`                                      | `scripts\products.cmd --kinds mvsa`                         | **Actief:** `check_mvsa_products`                                 |
 | **audio** (preview)       | `{stam}.mvsa` / `.mscz` / `.vsa`                 | `{stam}.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3`                                                                                                                  | hash van die bron in het mp3                                            | `scripts\products.cmd --kinds audio` (of `products`)        | **Actief:** `check_audio_products` (zelfde bronnen als Coria-MXL) |
 | **tekstblad**             | `{stam}.tekstblad.md`                            | geen verplichte product-PDF; blad = `index.md.pdf`                                                                                                            | —                                                                       | `scripts\pdf.cmd`                                           | **Actief:** `check_tekstblad_products` (bron)                     |
 | **Coria-contract**        | bestaande `.vsa.mxl` / `.mscz.mxl` / `.mvsa.mxl` | (geen nieuw bestand; checklist op de sibling)                                                                                                                 | —                                                                       | `scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid` | **Actief:** `check_mxl_playback_contract`                         |
@@ -261,34 +268,42 @@ of **stale**. Ontbreekt het sibling-bestand → **missing**.
 | Importcontrole (bestaande `.mscz.mvsa` ↔ `.mscz`)          | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
 | Publicatiecontrole mvsa (`.mvsa` ↔ MXL/PDF/SVG)            | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
 | Publicatiecontrole audio (`.mvsa`/`.mscz`/`.vsa` ↔ `.mp3`) | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
-| Legacy bladermap-SVG uit `.vsa`                            | vernieuwen (`oefenhoek-index --svg`) | vernieuwen (geen stamp-fail) |
+| Legacy bladermap-SVG uit `.vsa`                            | vernieuwen (`python scripts\sync_oefenhoek_index.py --svg`) | vernieuwen (geen stamp-fail) |
 | Koormap-/catalogus-blad `index.md.pdf`                     | waarschuwing; met `--strict` fout    | fout (`--fail`)              |
 | Coria-fingerprints + Hugo                                  | ja                                   | ja                           |
 
 CI **genereert geen** MuseScore-/PDF-/audio-producten en geen sibling-SVG
-(`.vsa.svg` / `.mvsa.svg`). Vernieuw die lokaal (`all-products`, of apart
-`products --kinds vsa`, `products --kinds mscz`, `products --kinds tekstblad`, `products --kinds mvsa`,
-`products --kinds audio`, eventueel `import-mvsa`) en commit siblings mee. Het
-scherm toont `{stam}.vsa.svg` of `{stam}.mvsa.svg`. Zolang de `.vsa.svg`
-ontbreekt, vult `oefenhoek-index --svg` een legacy-plaatje onder
+(`.vsa.svg` / `.mvsa.svg` / translit-SVG). Vernieuw die lokaal
+(`products --kinds all`, of apart `products --kinds vsa`, `mscz`,
+`tekstblad`, `mvsa`, `audio`, eventueel `import-mvsa`) en commit
+siblings mee. Het scherm toont standaard `{stam}.vsa.svg` of
+`{stam}.mvsa.svg`. Met actieve translit-icoonknop in de navigatie: de
+sibling `.translit-nls.svg` of `.translit-ksl.svg` (zelfde
+`products`-run). Zolang de kale `.vsa.svg` ontbreekt, vult
+`python scripts\sync_oefenhoek_index.py --svg` een legacy-plaatje onder
 `static\vsa\bladermap\` (geen stempel, geen “stale”-fout).
 
 Het blad `index.md.pdf` is geen catalogus-sibling. `products` maakt
-het niet; na de catalogusproducten: `scripts\pdf.cmd`. `check`
-controleert of die PDF er is en niet ouder is dan de Markdown of
-notatiebron (zelfde regels als bij andere publicatiecontroles). Bij
-`pdf-bijelkaar` maakt `pdf.cmd` een tijdelijke compacte SVG;
-`{stam}.mvsa.svg` blijft het gewone webplaatje. Commit de blad-PDF mee,
-anders toont **Download pagina** niet en faalt `check --strict`.
+het niet. **Volgorde:** eerst `scripts\products.cmd` (verse
+sibling-SVG’s), daarna `scripts\pdf.cmd`. Die PDF-run schrijft ook
+`index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf` waar de bron
+dat vraagt. Ontbreekt of is een sibling-SVG verouderd, dan helpt
+`pdf.cmd` lokaal bij — dat vervangt `products` niet. `check`
+controleert of de **basis**-`index.md.pdf` er is en niet ouder is dan
+de Markdown, de notatiebron of de product-SVG; translit-PDF’s eist
+`check` nog niet. Bij `pdf-bijelkaar` maakt `pdf.cmd` een tijdelijke
+compacte SVG; `{stam}.mvsa.svg` blijft het gewone webplaatje. Commit
+de blad-PDF’s mee, anders toont het **download-icoon** niet (of mist de
+translit-variant) en faalt `check --strict` zonder basis-PDF.
 
 Op bibliotheek-bladermappen: icoon **♪** (linksboven op de partituur)
 opent **Oefenen** en **Beluisteren** (Beluisteren bij elke bron met
 passende `.mp3`). Alleen in de catalogus: icoon **{}** (rechtsboven)
 opent **Bronnen** als er een `.vsa` of `.mvsa` is; dat toont de
-feitelijke brontekst in plaats van de gerenderde partituur.
-**Downloaden** en **Printen** in dat menu gelden dan voor dat
-bronbestand. Bij alleen een `.mscz` (geen VSA-tekst) ontbreekt het
-icoon **Bronnen**.
+feitelijke brontekst in plaats van de gerenderde partituur. In de
+navigatie: **download-icoon** (volgt translit-stand) en icoonknoppen
+**ФЛД→FLD** (Nls) / **FLD→ФЛД** (Ksl). Bij alleen een `.mscz` (geen
+VSA-tekst) ontbreekt het icoon **Bronnen**.
 
 ## Legacy-namen (nog toegestaan tot migratie)
 

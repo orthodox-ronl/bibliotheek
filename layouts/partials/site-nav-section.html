@@ -11,6 +11,17 @@
   {{- end }}
 {{- end }}
 {{- $current := or ($page.Eq $sec) ($page.IsDescendant $sec) }}
+{{- $secId := $sec.Section -}}
+{{- $helpText := "" -}}
+{{- if eq $secId "overzichten" -}}
+  {{- $helpText = "Catalogus: alle zangstukken. Onder dit menu: overzicht, zoeken, alfabetisch, per herkomst, speciaal, en id-register." -}}
+{{- else if eq $secId "koormappen" -}}
+  {{- $helpText = "Koormappen per plaats of parochie (bijvoorbeeld Hemelum, Zwolle, Groningen). Kies een map om de stukken voor die liturgie of oefenmap te openen." -}}
+{{- else if eq $secId "handleiding" -}}
+  {{- $helpText = "Handleiding voor beheerders die de bibliotheek bijhouden. Als koorlid heb je dit menu meestal niet nodig." -}}
+{{- else -}}
+  {{- $helpText = printf "Ga naar %s." (partial "display-link-title.html" $sec) -}}
+{{- end -}}
 {{- /* Sectie catalogus: geen topnav (startpagina zit onder overzichten). */ -}}
 {{- if eq $sec.Section "catalogus" -}}
 {{- /* Catalogus-nav (sectie overzichten): vaste referentie-ingangen. */ -}}
@@ -21,6 +32,7 @@
   {{- with site.GetPage "/overzichten/herkomst" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
   {{- with site.GetPage "/overzichten/speciaal" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
   {{- with site.GetPage "/overzichten/id-register" -}}{{- $navPages = $navPages | append . -}}{{- end -}}
+        <span class="site-chrome-tip">
         <details class="site-nav-group{{ if $current }} is-current{{ end }}">
           <summary>{{ partial "display-link-title.html" $sec }}</summary>
           <div class="site-nav-menu">
@@ -31,7 +43,10 @@
             {{- end }}
           </div>
         </details>
+        {{ partial "site-chrome-tip-panel.html" (dict "text" $helpText) }}
+        </span>
 {{- else if $childSecs }}
+        <span class="site-chrome-tip">
         <details class="site-nav-group{{ if $current }} is-current{{ end }}">
           <summary>{{ partial "display-link-title.html" $sec }}</summary>
           <div class="site-nav-menu">
@@ -42,7 +57,10 @@
             {{- end }}
           </div>
         </details>
+        {{ partial "site-chrome-tip-panel.html" (dict "text" $helpText) }}
+        </span>
 {{- else if $items }}
+        <span class="site-chrome-tip">
         <details class="site-nav-group{{ if $current }} is-current{{ end }}">
           <summary>{{ partial "display-link-title.html" $sec }}</summary>
           <div class="site-nav-menu">
@@ -53,6 +71,11 @@
             {{- end }}
           </div>
         </details>
+        {{ partial "site-chrome-tip-panel.html" (dict "text" $helpText) }}
+        </span>
 {{- else }}
+        <span class="site-chrome-tip">
         <a href="{{ $sec.RelPermalink }}"{{ if $current }} aria-current="page"{{ end }}>{{ partial "display-link-title.html" $sec }}</a>
+        {{ partial "site-chrome-tip-panel.html" (dict "text" $helpText) }}
+        </span>
 {{- end }}

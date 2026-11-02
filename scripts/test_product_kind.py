@@ -6,7 +6,16 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Sequence
 
-from product_kind import KindFailure, ProductSlot, collect_failures, run_kind
+import pytest
+
+from input_paths import InputPathError
+from product_kind import (
+    KindFailure,
+    ProductSlot,
+    collect_failures,
+    resolve_root,
+    run_kind,
+)
 from product_regen import RegenPolicy
 
 
@@ -188,3 +197,28 @@ def test_sync_failure_explained_and_collected(tmp_path: Path) -> None:
     assert len(rows) == 1
     assert "a.mscz" in rows[0].path.replace("\\", "/")
     assert rows[0].solution.startswith("Oplossing:")
+
+
+def test_resolve_root_short_catalogus(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    leaf = (
+        tmp_path
+        / "content-source"
+        / "catalogus"
+        / "tweede-antifoon"
+        / "hemelum"
+    )
+    leaf.mkdir(parents=True)
+    (leaf / "x.vsa").write_text("x\n", encoding="utf-8")
+    monkeypatch.chdir(tmp_path)
+    got = resolve_root(Path("tweede-antifoon/hemelum"), repo_root=tmp_path)
+    assert got == leaf.resolve()
+
+
+def test_resolve_root_missing(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.chdir(tmp_path)
+    with pytest.raises(InputPathError, match="niet gevonden"):
+        resolve_root(Path("geen-map"), repo_root=tmp_path)

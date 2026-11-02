@@ -1,4 +1,4 @@
----
+﻿---
 title: "build"
 linkTitle: "build"
 weight: 30
@@ -18,7 +18,7 @@ build
 
 Maakt Coria-fingerprints, doet een Coria-fetch-probe (waarschuwing als beide
 hosts falen), ververst het legacy bladermap-plaatje uit
-`.vsa` (`oefenhoek-index --svg`), schrijft de bouwtijd naar
+`.vsa` (`python scripts\sync_oefenhoek_index.py --svg`), schrijft de bouwtijd naar
 `data\build.yaml` (footer «Gegenereerd» op de homepage; niet committen),
 en bouwt de site naar `generated\site`. Anders dan `check` draait
 `build` geen `vsa validate` en geen publicatiecontrole. `build` maakt

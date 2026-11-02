@@ -1,4 +1,4 @@
----
+﻿---
 title: "Levenscyclus van een uitvoeringsvorm"
 linkTitle: "Levenscyclus"
 weight: 15
@@ -67,7 +67,7 @@ bron leidt. Andere inputs blijven herkomst in `input\`, niet een tweede
 | Grenzen werkbank/catalogus checken | `scripts\lifecycle-grenzen.cmd` |
 | Werkvoorraad-tabel bijwerken | `scripts\update-werkvoorraad.cmd` |
 | Opnemen in de catalogus | `bieb accepteer` |
-| Producten voor één map | `scripts\all-products.cmd content-source\catalogus\…` |
+| Producten voor één map | `scripts\products.cmd --kinds all content-source\catalogus\…` |
 | Alles controleren | `scripts\check.cmd --strict` |
 
 Detail per fase: [Werkbank](werkbank/), [Catalogus](catalogus/).

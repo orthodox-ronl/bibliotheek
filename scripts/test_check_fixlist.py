@@ -168,6 +168,26 @@ def test_fix_check_hard_fail_exit2(monkeypatch):
     assert fix_mod.main(["--check", "--dry-run"]) == 2
 
 
+def test_fix_strict_alias_runs_check(monkeypatch):
+    """--strict is hetzelfde als --check."""
+    called = {"n": 0}
+    times = {"n": 0}
+
+    def _fake_check(**_k):
+        called["n"] += 1
+        return 0
+
+    def fake_mtime() -> float:
+        times["n"] += 1
+        return 1.0 if times["n"] == 1 else 2.0
+
+    monkeypatch.setattr(fix_mod, "_run_check_strict", _fake_check)
+    monkeypatch.setattr(fix_mod, "_fixlist_mtime", fake_mtime)
+    monkeypatch.setattr(fix_mod, "_refresh_fixlist_from_status", lambda: [])
+    assert fix_mod.main(["--strict", "--dry-run"]) == 0
+    assert called["n"] == 1
+
+
 def test_fix_check_hard_fail_stale_list(monkeypatch):
     """Exit 1 maar fixlist niet vernieuwd (bijv. validate-stop) → stop."""
     monkeypatch.setattr(fix_mod, "_run_check_strict", lambda **_k: 1)

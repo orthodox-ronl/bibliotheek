@@ -5,6 +5,8 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+import pytest
+
 import index_md_pdf as pp
 
 
@@ -150,6 +152,48 @@ def test_witruimte_between_music() -> None:
     space = flows[0].items[1]
     assert isinstance(space, pp.SpaceItem)
     assert space.points == pp._WITRUIMTE_PT["groot"]
+
+
+def test_kop_param_reads_frontmatter_title() -> None:
+    """``param`` in ``kop`` komt uit de frontmatter (koormap-paginataal §6)."""
+    text = """---
+title: "Kondak H. Nikolas van Myra (toon 3)"
+linkTitle: "Nikolas"
+weight: 40
+params:
+  noot: "toon 3"
+---
+
+{{< kop >}}{{< param title >}}{{< /kop >}}
+
+{{< bieb id="kondak/nikolaas-van-myra-toon-3/hemelum" />}}
+
+{{< kop links middel >}}(1a) {{< param "linkTitle" >}}{{< /kop >}}
+
+{{< kop midden klein >}}{{% param noot %}}{{< /kop >}}
+"""
+    flows = pp.parse_page_flows(text)
+    titles = [i for i in flows[0].items if isinstance(i, pp.TitleItem)]
+    assert [(t.text, t.size, t.align) for t in titles] == [
+        ("Kondak H. Nikolas van Myra (toon 3)", "groot", "midden"),
+        ("(1a) Nikolas", "middel", "links"),
+        ("toon 3", "klein", "midden"),
+    ]
+
+
+def test_kop_param_unknown_field_errors() -> None:
+    text = """---
+title: "Vredeslitanie"
+---
+
+{{< kop >}}{{< param ontbreekt >}}{{< /kop >}}
+"""
+    try:
+        pp.parse_page_flows(text)
+    except ValueError as exc:
+        assert "ontbreekt" in str(exc)
+    else:
+        raise AssertionError("verwacht ValueError voor onbekend param-veld")
 
 
 def test_koormap_two_kops_keep_document_order() -> None:
@@ -332,6 +376,27 @@ def test_expand_pagina_md_path_directory(tmp_path, monkeypatch) -> None:
     assert got == [idx.resolve()]
 
 
+def test_expand_pagina_md_path_short_catalogus(
+    tmp_path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Kort pad t.o.v. catalogus via resolve_user_path."""
+    leaf = (
+        tmp_path
+        / "content-source"
+        / "catalogus"
+        / "tweede-antifoon"
+        / "weekdagen"
+        / "hemelum"
+    )
+    leaf.mkdir(parents=True)
+    idx = leaf / "index.md"
+    idx.write_text("---\ntitle: X\n---\n", encoding="utf-8")
+    monkeypatch.setattr(pp, "ROOT", tmp_path)
+    monkeypatch.chdir(tmp_path)
+    got = pp.expand_pagina_md_path(Path("tweede-antifoon/weekdagen/hemelum"))
+    assert got == [idx.resolve()]
+
+
 def test_catalogus_leaf_id(tmp_path, monkeypatch) -> None:
     cat = tmp_path / "catalogus"
     leaf = cat / "tropaar" / "zondag-toon-1" / "groningen"
@@ -460,6 +525,44 @@ def test_compose_tekstblad_pagina_pdf_trims_and_titles(tmp_path: Path) -> None:
     assert "Laat ons de Here bidden" in text
 
 
+def test_resolve_svgs_translit_uses_sibling(tmp_path, monkeypatch) -> None:
+    source = tmp_path / "lied.vsa"
+    source.write_text("[:] Amen. [:]\n", encoding="utf-8")
+    tsvg = tmp_path / "lied.vsa.translit-ksl.svg"
+    tsvg.write_text(
+        '<?xml version="1.0"?>\n<svg xmlns="http://www.w3.org/2000/svg"/>\n',
+        encoding="utf-8",
+    )
+    pp.stamp_sibling_svg(source, tsvg)
+    monkeypatch.setattr(pp, "ROOT", tmp_path)
+    outs = pp.resolve_svgs_for_pdf(source, translit_modus="ksl")
+    assert outs == [tsvg]
+
+
+def test_resolve_svgs_translit_falls_back_when_modus_niet_van_toepassing(
+    tmp_path, monkeypatch
+) -> None:
+    source = tmp_path / "lied.vsa"
+    source.write_text("[:] Amen. [:]\n", encoding="utf-8")
+    base = tmp_path / "lied.vsa.svg"
+    base.write_text(
+        '<?xml version="1.0"?>\n<svg xmlns="http://www.w3.org/2000/svg"/>\n',
+        encoding="utf-8",
+    )
+    pp.stamp_sibling_svg(source, base)
+    monkeypatch.setattr(pp, "ROOT", tmp_path)
+    # nls hoort niet bij puur Latijn → kale SVG
+    outs = pp.resolve_svgs_for_pdf(source, translit_modus="nls")
+    assert outs == [base]
+
+
+def test_pagina_translit_pdf_out_path() -> None:
+    md = Path("x/index.md")
+    assert pp._pagina_translit_pdf_out_path(md, "nls").name == (
+        "index.md.translit-nls.pdf"
+    )
+
+
 def test_build_one_voorzien_without_bieb(tmp_path, monkeypatch) -> None:
     cat = tmp_path / "catalogus"
     leaf = cat / "prokimen" / "x" / "groningen"
@@ -520,6 +623,7 @@ def test_resolve_svgs_prefers_product(tmp_path: Path) -> None:
     source.write_bytes(b"fake")
     product = tmp_path / "lied.mscz.svg"
     product.write_text("<svg/>", encoding="utf-8")
+    pp.stamp_sibling_svg(source, product)
     work = tmp_path / "work"
     work.mkdir()
     paths = pp.resolve_svgs_for_pdf(source, work, uv_id="a/b")
@@ -555,6 +659,36 @@ def test_resolve_svgs_exports_when_missing(tmp_path, monkeypatch) -> None:
     paths = pp.resolve_svgs_for_pdf(source, work, uv_id="x/y")
     assert paths == [tmp_path / "lied.mscz.svg"]
     assert exported == [paths[0]]
+    assert pp.product_svg_stamp_ok(source, paths[0])
+
+
+def test_resolve_svgs_exports_when_stale(tmp_path, monkeypatch) -> None:
+    source = tmp_path / "lied.vsa"
+    source.write_text("[:] Amen. [:]\n", encoding="utf-8")
+    product = tmp_path / "lied.vsa.svg"
+    product.write_text("<svg>oud</svg>", encoding="utf-8")
+    # Stempel hoort bij andere inhoud → verouderd.
+    import product_meta as pm
+
+    pm.stamp_svg(
+        product,
+        source_hash="niet-de-echte-hash",
+        source_kind=pm.SOURCE_KIND_VSA,
+        generated_at="2026-01-01T00:00:00+00:00",
+        generator=pm.GENERATOR_VSA_PDF,
+    )
+    exported: list[Path] = []
+
+    def fake_export(src: Path, dest: Path, *, compact: bool = False):
+        exported.append(dest)
+        dest.write_text("<svg>nieuw</svg>", encoding="utf-8")
+        return [dest]
+
+    monkeypatch.setattr(pp, "export_blad_svgs", fake_export)
+    paths = pp.resolve_svgs_for_pdf(source, uv_id="x/y")
+    assert paths == [product]
+    assert exported == [product]
+    assert pp.product_svg_stamp_ok(source, product)
 
 
 def test_system_cut_points_between_staff_clusters(tmp_path: Path) -> None:
@@ -668,11 +802,52 @@ def test_system_cut_points_between_vsa_lines(tmp_path: Path) -> None:
     assert pp._staff_line_ys(svg.read_text(encoding="utf-8")) == []
     systems = pp._vsa_line_systems(svg.read_text(encoding="utf-8"))
     assert len(systems) == 2
+    assert systems[0] == (40.0, 40.0)
+    assert systems[1] == (140.0, 140.0)
     cuts = pp.system_cut_points_pdf(svg, pdf_h)
     assert cuts[-1] == pdf_h
     assert len(cuts) == 2
-    # Mid tussen max(regel1)≈45 en min(regel2)≈140 → ≈92.5
+    # Mid tussen tekst y=40 en y=140 → 90 (glyph-lijnen tellen niet mee).
     assert 80.0 < cuts[0] < 110.0
+
+
+def test_system_cut_points_translit_ignores_overlapping_glyph_paths(
+    tmp_path: Path,
+) -> None:
+    """Vorm A: EHM/ELM-paden mogen in y overlappen; snede volgt tekst+translit."""
+    svg = tmp_path / "translit.svg"
+    # Opzettelijk: path van regel 1 eindigt onder start van path regel 2
+    # (zoals echte translit-SVG’s) — snede mag niet door de letters.
+    svg.write_text(
+        """<?xml version="1.0"?>
+<svg class="vsa-svg" xmlns="http://www.w3.org/2000/svg" width="200" height="300"
+     viewBox="0 0 200 300">
+  <g class="vsa-score">
+    <g class="vsa-line" data-vsa-line="1">
+      <path d="M10 20 L10 95"/>
+      <text class="vsa-text" x="20" y="40">Heer</text>
+      <text class="vsa-text vsa-translit-text" x="20" y="61">Хиир</text>
+      <path d="M20 70 L40 70"/>
+    </g>
+    <g class="vsa-line" data-vsa-line="2">
+      <path d="M10 90 L10 160"/>
+      <text class="vsa-text" x="20" y="120">God</text>
+      <text class="vsa-text vsa-translit-text" x="20" y="141">Ход</text>
+    </g>
+  </g>
+</svg>
+""",
+        encoding="utf-8",
+    )
+    systems = pp._vsa_line_systems(svg.read_text(encoding="utf-8"))
+    assert systems == [(40.0, 61.0), (120.0, 141.0)]
+    assert systems[0][1] < systems[1][0]
+    cuts = pp.system_cut_points_pdf(svg, 300.0)
+    assert cuts[-1] == 300.0
+    # Mid tussen 61 en 120 → ≈90,5 — buiten beide tekstbanden.
+    assert 70.0 < cuts[0] < 110.0
+    assert not (40.0 <= cuts[0] <= 61.0)
+    assert not (120.0 <= cuts[0] <= 141.0)
 
 
 def test_system_cut_points_real_hemelum_deel2_vsa() -> None:

@@ -1,9 +1,10 @@
-"""Bibliotheek-stempels na kale tooling-``… products``.
+"""Bibliotheek-stempels op bestaande lyrics/mp3-siblings.
 
-Tooling schrijft lyrics/mp3 expres zonder bibliotheek-herkomststempels
-(products-meta is genoeg voor tooling). Bibliotheek-check voor lyrics en
-audio eist wél die stempels. Na ``mvsa``/``vsa``/``mscz products`` opnieuw
-zetten zonder opnieuw te exporteren.
+Oudere atomische ``… products``-runs schreven lyrics/mp3 kaal (zonder
+bibliotheek-herkomststempel). Check eist wél die stempels. Na slot-export
+(``vsa``/``mvsa``/``mscz`` mxl/svg/…) opnieuw zetten op *bestaande*
+siblings, zonder opnieuw te exporteren. Verse audio/lyrics komen uit
+``products --kinds audio`` / ``lyrics``.
 """
 
 from __future__ import annotations

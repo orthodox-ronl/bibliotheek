@@ -79,23 +79,28 @@ class MvsaSyncRestampsTests(unittest.TestCase):
             lyrics = Path(str(mvsa) + ".lyrics.txt")
             mp3 = Path(str(mvsa) + ".mp3")
 
-            def fake_products(path: Path, *, skip_svg: bool) -> None:
-                del skip_svg
+            def fake_mxl(path: Path) -> None:
                 mvsa_sync.product_mxl_for_mvsa(path).write_bytes(b"PK")
+                lyrics.write_text("kaal amen\n", encoding="utf-8")
+                mp3.write_bytes(b"\xff\xfb\x90\x00" + b"\x00" * 32)
+
+            def fake_ir(path: Path, *, with_from_ir: bool) -> None:
+                del with_from_ir
                 mvsa_sync.product_score_ir_for_mvsa(path).write_text(
                     "{}\n", encoding="utf-8"
                 )
                 mvsa_sync.product_from_ir_musicxml_for_mvsa(path).write_text(
                     "<score/>\n", encoding="utf-8"
                 )
-                lyrics.write_text("kaal amen\n", encoding="utf-8")
-                mp3.write_bytes(b"\xff\xfb\x90\x00" + b"\x00" * 32)
 
             with (
                 mock.patch.object(mvsa_sync, "REPO_ROOT", root),
+                mock.patch.object(mvsa_sync, "_run_mvsa_mxl", side_effect=fake_mxl),
                 mock.patch.object(
-                    mvsa_sync, "_run_mvsa_products", side_effect=fake_products
+                    mvsa_sync, "_run_mvsa_score_ir", side_effect=fake_ir
                 ),
+                mock.patch.object(mvsa_sync, "sync_translit_svgs"),
+                mock.patch.object(mvsa_sync, "sync_translit_mxl"),
             ):
                 mvsa_sync.sync_one(
                     mvsa,

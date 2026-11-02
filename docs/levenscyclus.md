@@ -1,4 +1,4 @@
-# Levenscyclus (bibliotheek) — agent-contract
+﻿# Levenscyclus (bibliotheek) — agent-contract
 
 Leesbare vorm voor beheerders:
 [handleiding — Levenscyclus](../content-source/handleiding/start/levenscyclus.md).
@@ -23,7 +23,7 @@ Leesbare vorm voor beheerders:
 | `scripts/werkbank-status.cmd` | Open werkbank-cases; schrijft `data/werkbank-status.json` |
 | `scripts/lifecycle-grenzen.cmd` | Grenzen werkbank ↔ catalogus (spaties/ruwe formats) |
 | `bieb accepteer` | Promote Werkbank → Catalogus |
-| `*-products` / `all-products` | Catalogus-producten (pad mag) |
+| `*-products` / `products --kinds all` | Catalogus-producten (pad mag) |
 
 `update_werkvoorraad.py` (in check/build/serve) vernieuwt ook de
 werkbank-status-JSON.

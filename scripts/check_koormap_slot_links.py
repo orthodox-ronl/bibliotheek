@@ -23,10 +23,9 @@ _MD_LINK = re.compile(
 
 
 def _rel(path: Path) -> str:
-    try:
-        return path.resolve().relative_to(REPO_ROOT.resolve()).as_posix()
-    except ValueError:
-        return path.as_posix()
+    from input_paths import rel_for_log
+
+    return rel_for_log(path, repo_root=REPO_ROOT)
 
 
 def _target_exists(from_md: Path, href: str) -> bool:

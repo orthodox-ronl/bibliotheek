@@ -14,6 +14,8 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
+from cli_style import atomic_write_text
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DATA = REPO_ROOT / "data"
 FIXLIST_PATH = DATA / "check-fixlist.json"
@@ -145,15 +147,14 @@ def write_fixlist(
     """Schrijf fixlist; return de items."""
     if items is None:
         items = collect_items(data_dir)
-    path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
         "version": 1,
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "items": [asdict(i) for i in items],
     }
-    path.write_text(
+    atomic_write_text(
+        path,
         json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
-        encoding="utf-8",
     )
     return items
 
@@ -215,7 +216,9 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
     items = write_fixlist()
-    rel = FIXLIST_PATH.relative_to(REPO_ROOT).as_posix()
+    from input_paths import rel_for_log
+
+    rel = rel_for_log(FIXLIST_PATH, repo_root=REPO_ROOT)
     print(f"Fixlist: {len(items)} item(s) → {rel}", flush=True)
     if args.print:
         print_fixlist(items)

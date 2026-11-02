@@ -1,4 +1,4 @@
----
+﻿---
 title: "VSA → SVG en Coria"
 linkTitle: "VSA"
 weight: 30
@@ -31,7 +31,7 @@ afspeelbaar zijn — zonder een volledige MuseScore-basispartituur.
 | `{stam}.vsa.svg` naast de `.vsa` | Alleen notatie op het scherm; stamp `vsa-source-sha256` |
 | `{stam}.vsa.mxl` naast de `.vsa` | Coria; dezelfde stamp |
 | `{stam}.vsa.pdf` naast de `.vsa` | A4 voor **Downloaden** / **Printen**; dezelfde stamp |
-| `static\vsa\bladermap\…\*.svg` | Legacy fallback, alleen zolang `{stam}.vsa.svg` ontbreekt (`oefenhoek-index --svg`; geen stamp) |
+| `static\vsa\bladermap\…\*.svg` | Legacy fallback, alleen zolang `{stam}.vsa.svg` ontbreekt (`python scripts\sync_oefenhoek_index.py --svg`; geen stamp) |
 
 **Klaar** als: `vsa validate` stil is; de sibling-SVG zichtbaar is via shortcode `bieb`;
 `check_vsa_products` (onder `check --strict`) is groen voor MXL, PDF én SVG.
@@ -39,10 +39,10 @@ afspeelbaar zijn — zonder een volledige MuseScore-basispartituur.
 **Waarom geen lettergreepstreepjes in de canonieke `.vsa`?** Orthografische
 `-` (Pyphen) helpt Coria én preview-audio (één kwartnoot per lettergreep),
 maar hoort niet op het gepubliceerde SVG. `products --kinds vsa` roept
-tooling `vsa products` aan (tijdelijke syllabify + Coria-MXL + SVG); audio
-syllabify’t apart tijdelijk. Die tekst wordt niet teruggeschreven naar
-`{stam}.vsa`. Een experimentele sidecar `{stam}.syl.vsa` is **geen** bron
-voor SVG, `products --kinds vsa` of `products --kinds audio`.
+`vsa musicxml --syllabify` en/of `vsa svg` aan (alleen de stale slots);
+audio syllabify’t apart tijdelijk. Die tekst wordt niet teruggeschreven
+naar `{stam}.vsa`. Een experimentele sidecar `{stam}.syl.vsa` is **geen**
+bron voor SVG, `products --kinds vsa` of `products --kinds audio`.
 
 ## Wanneer wel / wanneer niet
 
@@ -76,7 +76,7 @@ Bibliotheek-**Oefenen** gebruikt `{stam}.vsa.mxl`. Het scherm toont
 - **Wel:** `check_vsa_products.py` controleert of `{stam}.vsa.mxl`,
   `{stam}.vsa.pdf` en `{stam}.vsa.svg` bij de canonieke `.vsa` passen
   (sha-stamp). Pages-CI faalt bij missing/stale.
-- **Wel:** `oefenhoek-index --svg` vernieuwt het legacy-plaatje vóór
+- **Wel:** `python scripts\sync_oefenhoek_index.py --svg` vernieuwt het legacy-plaatje vóór
   Hugo (geen stamp). Dat plaatje telt alleen als de sibling-SVG er
   nog niet is.
 - **Niet:** stilzwijgend verouderde producten herschrijven zonder commit.

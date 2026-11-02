@@ -12,7 +12,7 @@ weight: 22
 # SYNOPSIS
 
 ```cmd
-scripts\fix.cmd [--check] [--dry-run] [-y] [--verbose]
+scripts\fix.cmd [--check | --strict] [--dry-run] [-y] [--verbose]
 ```
 
 # DESCRIPTION
@@ -20,14 +20,20 @@ scripts\fix.cmd [--check] [--dry-run] [-y] [--verbose]
 Na een `check` (met of zonder `--strict`) schrijft de repository een
 **afwerklijst** in `data\check-fixlist.json`. Elke regel is één probleem
 waarvoor check al een eenvoudig herstelcommando kent (`fix_cmd`),
-bijvoorbeeld `scripts\pdf.cmd …\index.md` bij een verouderde blad-PDF,
-of `scripts\products.cmd --kinds mvsa …\lied.mvsa` voor één verouderde
-uitvoeringsvorm (niet de hele catalogus).
+bijvoorbeeld `scripts\pdf.cmd catalogus\…\index.md` bij een verouderde
+blad-PDF, of `scripts\products.cmd --kinds mvsa catalogus\…\lied.mvsa`
+voor één verouderde uitvoeringsvorm (niet de hele catalogus). Die paden
+zijn kort (zonder `content-source\`), zodat je ze ook handmatig kunt
+plakken — zie [bestand of map](../invoer-bestand-of-map/).
 
 Product-herstelregels gebruiken `--reasons missing,stale` en
 `--skip-post`. Zo blijft `fix` bij een handvol wijzigingen klein.
 Zoekindex en Coria-fingerprints draait `fix` daarna één keer.
 Identieke `fix_cmd`-regels worden maar één keer uitgevoerd.
+
+**Uitvoer:** per regel een korte `>>>`-samenvatting en `OK`/`FAILED`.
+De ruwe uitvoer van het herstelcommando alleen bij `--verbose`, of als
+het mislukt.
 
 Dit commando:
 
@@ -38,11 +44,11 @@ Dit commando:
 Zo kun je na `fix` opnieuw `check --strict` draaien en — voor alles wat
 auto-fixbaar was — op 0 problemen uitkomen.
 
-**`--check`:** runt eerst `check --strict`, bouwt daarna de fixlist opnieuw
-uit de status-JSON’s, en toont of werkt die verse lijst af. Exitcode 1 van
-check (er zijn product/pdf-problemen) is **verwacht** en stopt `fix`
-niet. Exitcode 2 of hoger (validate/tooling/usage) wél: dan is er geen
-betrouwbare lijst.
+**`--check` / `--strict`:** runt eerst `check --strict`, bouwt daarna de
+fixlist opnieuw uit de status-JSON’s, en toont of werkt die verse lijst
+af. `--strict` is hetzelfde als `--check`. Exitcode 1 van check (er zijn
+product/pdf-problemen) is **verwacht** en stopt `fix` niet. Exitcode 2 of
+hoger (validate/tooling/usage) wél: dan is er geen betrouwbare lijst.
 
 **`--dry-run`:** schrijft geen producten; met `--check` wél eerst de lijst
 vernieuwen, daarna printen.
@@ -64,9 +70,11 @@ niet.
 ```cmd
 REM Verse inventarisatie + alleen tonen
 scripts\fix.cmd --check --dry-run
+scripts\fix.cmd --strict --dry-run
 
 REM Inventariseren en meteen afwerken
 scripts\fix.cmd --check
+scripts\fix.cmd --strict -y
 
 REM Bestaande lijst bekijken / afwerken (na eerdere check)
 scripts\fix.cmd --dry-run
