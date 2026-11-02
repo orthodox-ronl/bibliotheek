@@ -212,7 +212,9 @@ def sync_one(
     need_svg: bool,
     dry_run: bool,
 ) -> None:
-    rel = mscz.relative_to(REPO_ROOT)
+    from input_paths import rel_for_log
+
+    rel = rel_for_log(mscz, repo_root=REPO_ROOT)
     digest = partituur_sha256(mscz)
     generated_at = utc_now_iso()
     pdf = product_pdf_for_mscz(mscz)

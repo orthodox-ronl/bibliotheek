@@ -23,6 +23,7 @@ from check_fixlist import (
 )
 from cli_style import add_verbose_argument, detail, error, info, run_quiet, set_verbose
 from fix_cmds import is_products_fix_cmd
+from input_paths import rel_for_log
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CHECK_CMD = REPO_ROOT / "scripts" / "check.cmd"
@@ -64,7 +65,7 @@ def _refresh_fixlist_from_status() -> list[FixItem]:
     items = write_fixlist()
     info(
         f"Fixlist vernieuwd: {len(items)} item(s) → "
-        f"{FIXLIST_PATH.relative_to(REPO_ROOT).as_posix()}"
+        f"{rel_for_log(FIXLIST_PATH, repo_root=REPO_ROOT)}"
     )
     return items
 
@@ -192,7 +193,7 @@ def main(argv: list[str] | None = None) -> int:
         n=len(items),
         headline=f"{len(items)} auto-fix(es) uit check-fixlist",
         details=[
-            f"Bestand: {FIXLIST_PATH.relative_to(REPO_ROOT).as_posix()}",
+            f"Bestand: {rel_for_log(FIXLIST_PATH, repo_root=REPO_ROOT)}",
             "Elke regel = één fix_cmd (zoals check voorstelt).",
         ],
         yes=bool(args.yes),

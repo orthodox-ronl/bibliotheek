@@ -198,10 +198,9 @@ def build_plan(relpaths: list[str], *, repo: Path = REPO_ROOT) -> Plan:
 
 
 def _rel_show(path: Path) -> str:
-    try:
-        return str(path.relative_to(REPO_ROOT))
-    except ValueError:
-        return str(path)
+    from input_paths import rel_for_log
+
+    return rel_for_log(path, repo_root=REPO_ROOT)
 
 
 def _summary_line(plan: Plan, *, scanned: int) -> str:

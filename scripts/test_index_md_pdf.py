@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 import index_md_pdf as pp
 
 
@@ -373,6 +375,27 @@ def test_expand_pagina_md_path_directory(tmp_path, monkeypatch) -> None:
     assert got == [idx.resolve()]
 
 
+def test_expand_pagina_md_path_short_catalogus(
+    tmp_path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Kort pad t.o.v. catalogus via resolve_user_path."""
+    leaf = (
+        tmp_path
+        / "content-source"
+        / "catalogus"
+        / "tweede-antifoon"
+        / "weekdagen"
+        / "hemelum"
+    )
+    leaf.mkdir(parents=True)
+    idx = leaf / "index.md"
+    idx.write_text("---\ntitle: X\n---\n", encoding="utf-8")
+    monkeypatch.setattr(pp, "ROOT", tmp_path)
+    monkeypatch.chdir(tmp_path)
+    got = pp.expand_pagina_md_path(Path("tweede-antifoon/weekdagen/hemelum"))
+    assert got == [idx.resolve()]
+
+
 def test_catalogus_leaf_id(tmp_path, monkeypatch) -> None:
     cat = tmp_path / "catalogus"
     leaf = cat / "tropaar" / "zondag-toon-1" / "groningen"
@@ -724,11 +747,52 @@ def test_system_cut_points_between_vsa_lines(tmp_path: Path) -> None:
     assert pp._staff_line_ys(svg.read_text(encoding="utf-8")) == []
     systems = pp._vsa_line_systems(svg.read_text(encoding="utf-8"))
     assert len(systems) == 2
+    assert systems[0] == (40.0, 40.0)
+    assert systems[1] == (140.0, 140.0)
     cuts = pp.system_cut_points_pdf(svg, pdf_h)
     assert cuts[-1] == pdf_h
     assert len(cuts) == 2
-    # Mid tussen max(regel1)≈45 en min(regel2)≈140 → ≈92.5
+    # Mid tussen tekst y=40 en y=140 → 90 (glyph-lijnen tellen niet mee).
     assert 80.0 < cuts[0] < 110.0
+
+
+def test_system_cut_points_translit_ignores_overlapping_glyph_paths(
+    tmp_path: Path,
+) -> None:
+    """Vorm A: EHM/ELM-paden mogen in y overlappen; snede volgt tekst+translit."""
+    svg = tmp_path / "translit.svg"
+    # Opzettelijk: path van regel 1 eindigt onder start van path regel 2
+    # (zoals echte translit-SVG’s) — snede mag niet door de letters.
+    svg.write_text(
+        """<?xml version="1.0"?>
+<svg class="vsa-svg" xmlns="http://www.w3.org/2000/svg" width="200" height="300"
+     viewBox="0 0 200 300">
+  <g class="vsa-score">
+    <g class="vsa-line" data-vsa-line="1">
+      <path d="M10 20 L10 95"/>
+      <text class="vsa-text" x="20" y="40">Heer</text>
+      <text class="vsa-text vsa-translit-text" x="20" y="61">Хиир</text>
+      <path d="M20 70 L40 70"/>
+    </g>
+    <g class="vsa-line" data-vsa-line="2">
+      <path d="M10 90 L10 160"/>
+      <text class="vsa-text" x="20" y="120">God</text>
+      <text class="vsa-text vsa-translit-text" x="20" y="141">Ход</text>
+    </g>
+  </g>
+</svg>
+""",
+        encoding="utf-8",
+    )
+    systems = pp._vsa_line_systems(svg.read_text(encoding="utf-8"))
+    assert systems == [(40.0, 61.0), (120.0, 141.0)]
+    assert systems[0][1] < systems[1][0]
+    cuts = pp.system_cut_points_pdf(svg, 300.0)
+    assert cuts[-1] == 300.0
+    # Mid tussen 61 en 120 → ≈90,5 — buiten beide tekstbanden.
+    assert 70.0 < cuts[0] < 110.0
+    assert not (40.0 <= cuts[0] <= 61.0)
+    assert not (120.0 <= cuts[0] <= 141.0)
 
 
 def test_system_cut_points_real_hemelum_deel2_vsa() -> None:

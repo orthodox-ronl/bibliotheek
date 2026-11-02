@@ -21,5 +21,6 @@ def test_point_pdf_errors_at_source_replaces_temp(tmp_path: Path, monkeypatch) -
     out = sync._point_pdf_errors_at_source(raw, tmp_path=tmp, source=source)
     assert "AppData" not in out
     assert "vsa-pdf-" not in out
-    assert "content-source\\catalogus\\lied.vsa" in out or "content-source/catalogus/lied.vsa" in out
+    assert "catalogus\\lied.vsa" in out or "catalogus/lied.vsa" in out
+    assert "content-source" not in out
     assert ":8:9" in out

@@ -63,15 +63,15 @@ class FolderStatus:
 
 
 def _rel(path: Path) -> str:
-    try:
-        return path.relative_to(REPO_ROOT).as_posix()
-    except ValueError:
-        return path.as_posix()
+    from input_paths import rel_for_log
+
+    return rel_for_log(path, repo_root=REPO_ROOT)
 
 
 def _bladermap_key(path: Path) -> str:
-    rel = path.parent.relative_to(REPO_ROOT / "content-source")
-    return rel.as_posix()
+    from input_paths import rel_for_log
+
+    return rel_for_log(path.parent, repo_root=REPO_ROOT)
 
 
 def _source_for_mp3(mp3: Path) -> AudioJob | None:
@@ -299,7 +299,7 @@ def main() -> int:
     bad = [s for s in statuses if not s.ok]
     print(
         f"Audio-producten: {len(statuses) - len(bad)} ok, {len(bad)} probleem "
-        f"({STATUS_PATH.relative_to(REPO_ROOT).as_posix()})",
+        f"({_rel(STATUS_PATH)})",
         flush=True,
     )
     for s in bad:

@@ -65,10 +65,9 @@ zijn; die refs blijven dan staan tot jij ze fixt.
 
 
 def _rel(path: Path) -> str:
-    try:
-        return path.resolve().relative_to(REPO_ROOT.resolve()).as_posix()
-    except ValueError:
-        return path.as_posix()
+    from input_paths import rel_for_log
+
+    return rel_for_log(path, repo_root=REPO_ROOT)
 
 
 def _print_help_block(text: str) -> None:
@@ -425,19 +424,17 @@ def _apply_auto_clean(
     for hit in auto_hits:
         by_kind.setdefault(_dangling_kind(hit[0]), []).append(hit)
 
-    for path_rel, loci in sorted(
-        _loci_by_path(by_kind.get("id-register", [])).items()
-    ):
-        path = REPO_ROOT.joinpath(*path_rel.split("/"))
-        _drop_lines_at(path, {ln for ln, _c in loci})
+    reg_lines: dict[Path, set[int]] = {}
+    for path, line, _col, _snip in by_kind.get("id-register", []):
+        reg_lines.setdefault(path, set()).add(line)
+    for path, lines in sorted(reg_lines.items(), key=lambda kv: _rel(kv[0])):
+        _drop_lines_at(path, lines)
 
-    for path_rel, loci in sorted(
-        _loci_by_path(by_kind.get("werkvoorraad", [])).items()
-    ):
-        path = REPO_ROOT.joinpath(*path_rel.split("/"))
-        _clear_werkvoorraad_doel_ids(
-            path, {ln for ln, _c in loci}, needles, dry_run=False
-        )
+    wv_lines: dict[Path, set[int]] = {}
+    for path, line, _col, _snip in by_kind.get("werkvoorraad", []):
+        wv_lines.setdefault(path, set()).add(line)
+    for path, lines in sorted(wv_lines.items(), key=lambda kv: _rel(kv[0])):
+        _clear_werkvoorraad_doel_ids(path, lines, needles, dry_run=False)
 
 
 def _find_koormap_dirs(names: list[str]) -> list[Path]:

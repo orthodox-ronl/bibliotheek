@@ -101,8 +101,15 @@ def require_no_spaces_name(path: Path) -> None:
         raise SystemExit(f"bestandsnaam mag geen spaties hebben: {path.name}")
 
 
-def resolve_root(raw: Path, *, repo_root: Path = REPO_ROOT) -> Path:
-    return raw if raw.is_absolute() else repo_root / raw
+def resolve_root(raw: Path | str, *, repo_root: Path = REPO_ROOT) -> Path:
+    """CLI-root: as-is → content-source → catalogus → koormappen.
+
+    Zie :func:`input_paths.resolve_user_path`. Ontbreekt het pad →
+    :exc:`input_paths.InputPathError`.
+    """
+    from input_paths import resolve_user_path
+
+    return resolve_user_path(raw, repo_root=repo_root)
 
 
 def parse_product_args(
@@ -244,6 +251,7 @@ def run_kind(
 
     info(f">>> {kind.id}: {len(todo)} van {len(sources)} bijwerken")
     from batch_guard import confirm_batch, run_timed_batch
+    from input_paths import rel_for_log
 
     timing_kind = f"product_{kind.id}"
     actie = "dry-run (geen schrijven)" if dry_run else "producten schrijven/vernieuwen"
@@ -252,7 +260,7 @@ def run_kind(
         n=len(todo),
         headline=f"{kind.label}: {len(todo)} van {len(sources)}{kind.source_noun}",
         details=[
-            f"Root: {root}",
+            f"Root: {rel_for_log(root, repo_root=repo_root)}",
             f"Actie: {actie}",
             f"Condities: {', '.join(policy.active_reasons())}",
         ],
@@ -265,17 +273,14 @@ def run_kind(
 
     def _one(item: tuple[Path, list[bool], list[ProductSlot]]) -> int:
         source, need_flags, _slots = item
-        try:
-            rel = source.relative_to(repo_root)
-        except ValueError:
-            rel = source
+        rel = rel_for_log(source, repo_root=repo_root)
         detail(f"== {rel}")
         try:
             kind.sync(source, need=need_flags, dry_run=dry_run)
         except Exception as exc:  # noqa: BLE001
             explained = explain_sync_failure(exc)
             fail = KindFailure(
-                path=str(rel),
+                path=rel,
                 reason=explained.reason,
                 solution=explained.solution,
             )
@@ -328,7 +333,17 @@ def main_for_kind(
     if after_parse is not None:
         after_parse(args)
     policy = policy_from_args(args)
-    root = resolve_root(args.root, repo_root=repo_root)
+    from input_paths import InputPathError
+
+    try:
+        root = resolve_root(args.root, repo_root=repo_root)
+    except InputPathError as exc:
+        error(f"FAIL: {exc}")
+        error(
+            "Oplossing: geef een bestaande catalogusmap of één bronbestand "
+            "(kort: t.o.v. content-source, catalogus of koormappen)."
+        )
+        return 1
     return run_kind(
         kind,
         root,

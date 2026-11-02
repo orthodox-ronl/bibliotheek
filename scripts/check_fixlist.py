@@ -216,7 +216,9 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
     items = write_fixlist()
-    rel = FIXLIST_PATH.relative_to(REPO_ROOT).as_posix()
+    from input_paths import rel_for_log
+
+    rel = rel_for_log(FIXLIST_PATH, repo_root=REPO_ROOT)
     print(f"Fixlist: {len(items)} item(s) → {rel}", flush=True)
     if args.print:
         print_fixlist(items)

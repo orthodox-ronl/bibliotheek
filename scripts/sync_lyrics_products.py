@@ -160,8 +160,10 @@ def _extract_plain(source: Path) -> str:
 
 
 def sync_one(source: Path, *, dry_run: bool) -> None:
+    from input_paths import rel_for_log
+
     lyrics = product_path_for_source(source)
-    rel = source.relative_to(REPO_ROOT)
+    rel = rel_for_log(source, repo_root=REPO_ROOT)
     detail(f"  TXT  {rel} -> {lyrics.name}")
     if dry_run:
         return

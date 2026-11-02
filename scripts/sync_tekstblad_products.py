@@ -132,8 +132,10 @@ def _remove_old_block_svgs(md: Path) -> None:
 
 def sync_one(md: Path, *, dry_run: bool) -> None:
     """Optioneel: schrijf sibling product-PDF (niet meer via products-slots)."""
+    from input_paths import rel_for_log
+
     pdf = product_pdf_for_md(md)
-    rel = md.relative_to(REPO_ROOT)
+    rel = rel_for_log(md, repo_root=REPO_ROOT)
     detail(f"  PDF  {rel} -> {pdf.name}")
     if dry_run:
         return
@@ -166,8 +168,10 @@ def sync_tekstblad_scherm(md: Path, *, dry_run: bool) -> None:
     """Schrijf ``.tekstblad.scherm.html`` + block-SVG’s voor schermweergave."""
     from vsa.markdown_builder import prepare_markdown_document
 
+    from input_paths import rel_for_log
+
     html_path = scherm_html_for_md(md)
-    rel = md.relative_to(REPO_ROOT)
+    rel = rel_for_log(md, repo_root=REPO_ROOT)
     detail(f"  scherm  {rel} -> {html_path.name}")
     if dry_run:
         return

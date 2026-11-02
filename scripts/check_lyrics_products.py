@@ -50,15 +50,15 @@ class FolderStatus:
 
 
 def _rel(path: Path) -> str:
-    try:
-        return path.relative_to(REPO_ROOT).as_posix()
-    except ValueError:
-        return path.as_posix()
+    from input_paths import rel_for_log
+
+    return rel_for_log(path, repo_root=REPO_ROOT)
 
 
 def _bladermap_key(source: Path) -> str:
-    rel = source.parent.relative_to(REPO_ROOT / "content-source")
-    return rel.as_posix()
+    from input_paths import rel_for_log
+
+    return rel_for_log(source.parent, repo_root=REPO_ROOT)
 
 
 def check_one(source: Path) -> FolderStatus:

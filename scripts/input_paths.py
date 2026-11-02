@@ -4,6 +4,9 @@
 is óf één bronbestand met de juiste extensie, óf een map waarvan (standaard
 recursief) alle passende bestanden worden verzameld.
 
+CLI-paden: :func:`resolve_user_path` (as-is → ``content-source`` →
+``catalogus`` → ``koormappen``). Logs: :func:`rel_for_log`.
+
 Enkelvoudige uitvoerpaden (``-o`` / ``--output``) alleen bij precies één bron.
 """
 
@@ -15,6 +18,70 @@ from pathlib import Path
 
 class InputPathError(ValueError):
     """Pad ontbreekt, is geen bestand/map, of past niet bij de extensies."""
+
+
+def resolve_user_path(raw: Path | str, *, repo_root: Path) -> Path:
+    """Bestaand bestand of map zoeken voor een CLI-padargument.
+
+    Volgorde (eerste bestaande kandidaat wint):
+
+    1. pad zoals opgegeven (absoluut, of relatief t.o.v. de cwd; bij een
+       relatief pad ook ``repo_root / pad`` als dat iets anders is);
+    2. ``content-source/<pad>`` onder ``repo_root``;
+    3. ``content-source/catalogus/<pad>``;
+    4. ``content-source/koormappen/<pad>``.
+
+    Raises
+    ------
+    InputPathError
+        Geen kandidaat bestaat.
+    """
+    raw_path = Path(raw)
+    root = Path(repo_root)
+    content = root / "content-source"
+    if raw_path.is_absolute():
+        candidates = [raw_path]
+    else:
+        candidates = [
+            raw_path,
+            root / raw_path,
+            content / raw_path,
+            content / "catalogus" / raw_path,
+            content / "koormappen" / raw_path,
+        ]
+
+    seen: set[str] = set()
+    for cand in candidates:
+        try:
+            key = str(cand.resolve())
+        except OSError:
+            key = str(cand)
+        if key in seen:
+            continue
+        seen.add(key)
+        if cand.exists():
+            return cand.resolve()
+
+    raise InputPathError(f"Pad niet gevonden: {raw_path}")
+
+
+def rel_for_log(path: Path | str, *, repo_root: Path) -> str:
+    """Kort pad voor logs (posix).
+
+    Onder ``content-source`` → relatief t.o.v. die map; anders relatief
+    t.o.v. ``repo_root``; buiten de repo → absoluut posix-pad.
+    """
+    p = Path(path).resolve()
+    root = Path(repo_root).resolve()
+    content = (root / "content-source").resolve()
+    try:
+        return p.relative_to(content).as_posix()
+    except ValueError:
+        pass
+    try:
+        return p.relative_to(root).as_posix()
+    except ValueError:
+        return p.as_posix()
 
 
 def normalize_suffixes(suffixes: Sequence[str]) -> frozenset[str]:

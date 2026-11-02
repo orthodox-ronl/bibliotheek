@@ -40,15 +40,15 @@ class FolderStatus:
 
 
 def _rel(path: Path) -> str:
-    try:
-        return path.relative_to(REPO_ROOT).as_posix()
-    except ValueError:
-        return path.as_posix()
+    from input_paths import rel_for_log
+
+    return rel_for_log(path, repo_root=REPO_ROOT)
 
 
 def _bladermap_key(md: Path) -> str:
-    rel = md.parent.relative_to(REPO_ROOT / "content-source")
-    return rel.as_posix()
+    from input_paths import rel_for_log
+
+    return rel_for_log(md.parent, repo_root=REPO_ROOT)
 
 
 def check_one(md: Path) -> FolderStatus:
@@ -130,7 +130,7 @@ def main(argv: list[str] | None = None) -> int:
     bad = [s for s in statuses if not s.ok]
     n_ok = len(statuses) - len(bad)
     print(
-        f"Tekstblad: {n_ok} ok, {len(bad)} probleem ({STATUS_PATH.relative_to(REPO_ROOT).as_posix()})",
+        f"Tekstblad: {n_ok} ok, {len(bad)} probleem ({_rel(STATUS_PATH)})",
         flush=True,
     )
     for s in bad:

@@ -146,7 +146,9 @@ def _run_audio(job: AudioJob, mp3: Path) -> None:
 
 
 def sync_one(job: AudioJob, *, dry_run: bool) -> None:
-    rel = job.source.relative_to(REPO_ROOT)
+    from input_paths import rel_for_log
+
+    rel = rel_for_log(job.source, repo_root=REPO_ROOT)
     mp3 = job.product
     detail(f"  MP3  {rel} -> {mp3.name}")
     if dry_run:

@@ -151,12 +151,15 @@ def main(argv: list[str] | None = None) -> int:
         raise
 
     set_verbose(bool(args.verbose))
-    root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
-    if not root.exists():
-        error(f"Root niet gevonden: {root}")
+    from input_paths import InputPathError, resolve_user_path
+
+    try:
+        root = resolve_user_path(args.root, repo_root=REPO_ROOT)
+    except InputPathError as exc:
+        error(str(exc))
         error(
-            "Oplossing: geef een bestaande map of bronbestand onder "
-            "content-source\\catalogus."
+            "Oplossing: geef een bestaande map of bronbestand "
+            "(kort: t.o.v. content-source, catalogus of koormappen)."
         )
         return 1
 
@@ -183,10 +186,12 @@ def main(argv: list[str] | None = None) -> int:
         forward.append("-y")
         forward.append("--already-confirmed")
 
+    from input_paths import rel_for_log
+
     info(
         f"=== products: kinds={','.join(kinds)} "
         f"reasons={','.join(policy.active_reasons())} "
-        f"root={root} ===",
+        f"root={rel_for_log(root, repo_root=REPO_ROOT)} ===",
     )
 
     # Dunne mains blijven (CLI-compat); elk delegeert naar product_kind.run_kind.

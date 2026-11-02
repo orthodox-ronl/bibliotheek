@@ -1644,11 +1644,12 @@ def resolve_svgs_for_pdf(
             )
         tpath = product_translit_svg(source, translit_modus)
         if tpath.is_file() and product_svg_stamp_ok(source, tpath):
-            try:
-                rel = tpath.relative_to(ROOT)
-            except ValueError:
-                rel = tpath
-            detail(f"  SVG translit-{translit_modus} {rel}")
+            from input_paths import rel_for_log
+
+            detail(
+                f"  SVG translit-{translit_modus} "
+                f"{rel_for_log(tpath, repo_root=ROOT)}"
+            )
             return [tpath]
         reason = "verouderd" if tpath.is_file() else "ontbreekt"
         detail(
@@ -1663,11 +1664,9 @@ def resolve_svgs_for_pdf(
 
     product = product_svg_path(source)
     if product.is_file() and product_svg_stamp_ok(source, product):
-        try:
-            rel = product.relative_to(ROOT)
-        except ValueError:
-            rel = product
-        detail(f"  SVG product {rel}")
+        from input_paths import rel_for_log
+
+        detail(f"  SVG product {rel_for_log(product, repo_root=ROOT)}")
         return [product]
 
     if product.is_file():
@@ -1730,11 +1729,21 @@ _VSA_TRANSLATE_Y = re.compile(
 _VSA_Y_ATTR = re.compile(r'\by[12]?="([-\d.]+)"', re.IGNORECASE)
 
 
+_VSA_TEXT_Y = re.compile(
+    r"<text\b[^>]*\by=\"([-\d.]+)\"",
+    re.IGNORECASE,
+)
+
+
 def _vsa_line_systems(svg_text: str) -> list[tuple[float, float]]:
     """Per VSA-regel (``vsa-line``) (top, bottom) in SVG-y.
 
     Pure ``.vsa.svg`` heeft geen MuseScore ``StaffLines``; wel één
     ``<g class="vsa-line">`` per tekstregel. Snede valt tussen die groepen.
+
+    Alleen ``<text y>`` telt (bron + translit-vorm A). Glyph-paden (EHM/ELM)
+    overlappen vaak in y met de volgende regel; die meenemen gaf negatieve
+    gaps en sneden midden door letters in ``index.md.translit-*.pdf``.
     """
     opens = list(_VSA_LINE_OPEN.finditer(svg_text))
     if not opens:
@@ -1747,7 +1756,7 @@ def _vsa_line_systems(svg_text: str) -> list[tuple[float, float]]:
         tm = _VSA_TRANSLATE_Y.search(m.group(0))
         if tm:
             ty = float(tm.group(1))
-        ys = [float(y) + ty for y in _VSA_Y_ATTR.findall(chunk)]
+        ys = [float(y) + ty for y in _VSA_TEXT_Y.findall(chunk)]
         if not ys:
             continue
         systems.append((min(ys), max(ys)))
@@ -1789,7 +1798,11 @@ def system_cut_points_pdf(svg_path: Path, pdf_height: float) -> list[float]:
     for i, (_top, bottom) in enumerate(systems):
         if i + 1 < len(systems):
             next_top = systems[i + 1][0]
-            mid = (bottom + next_top) / 2.0
+            if next_top > bottom:
+                mid = (bottom + next_top) / 2.0
+            else:
+                # Overlap (zeldzaam na tekst-only bands): knip vóór volgende regel.
+                mid = next_top
         else:
             mid = min_y + vb_h
         cuts.append(to_pdf(mid))
@@ -1834,11 +1847,9 @@ def _compose_flow_svg(
             if item.uv_id in svg_series:
                 continue
             source = find_notation_source(item.uv_id)
-            try:
-                rel = source.relative_to(ROOT)
-            except ValueError:
-                rel = source
-            detail(f"  bron {rel}")
+            from input_paths import rel_for_log
+
+            detail(f"  bron {rel_for_log(source, repo_root=ROOT)}")
             svg_series[item.uv_id] = resolve_svgs_for_pdf(
                 source,
                 work,
@@ -2238,21 +2249,20 @@ def _build_translit_pagina_pdfs(
             else:
                 stitch_pdfs(parts, dest)
         written.append(dest)
-        try:
-            rel = dest.relative_to(ROOT)
-        except ValueError:
-            rel = dest
-        info(f"  OK translit {rel}")
+        from input_paths import rel_for_log
+
+        info(f"  OK translit {rel_for_log(dest, repo_root=ROOT)}")
     return written
 
 
 def expand_pagina_md_path(path: Path) -> list[Path]:
     """Eén ``index.md`` of een map → recursief alle ``index.md``."""
-    from input_paths import InputPathError, collect_cli_sources
+    from input_paths import InputPathError, collect_cli_sources, resolve_user_path
 
-    p = path if path.is_absolute() else ROOT / path
-    if not p.exists():
-        raise SystemExit(f"Pad niet gevonden: {p}")
+    try:
+        p = resolve_user_path(path, repo_root=ROOT)
+    except InputPathError as exc:
+        raise SystemExit(str(exc)) from exc
     if p.is_file():
         if p.suffix.lower() != ".md":
             raise SystemExit(f"Verwacht .md-bestand of map; kreeg: {p.name}")
@@ -2353,7 +2363,9 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"OVERGESLAGEN: {exc}", file=sys.stderr)
                 return SKIP
             print(f"FOUT: {exc}", file=sys.stderr)
-            failed_paths.append(str(md))
+            from input_paths import rel_for_log
+
+            failed_paths.append(rel_for_log(md, repo_root=ROOT))
             return 1
         except (
             ValueError,
@@ -2361,18 +2373,27 @@ def main(argv: list[str] | None = None) -> int:
             subprocess.CalledProcessError,
         ) as exc:
             print(f"FOUT: {exc}", file=sys.stderr)
-            failed_paths.append(str(md))
+            from input_paths import rel_for_log
+
+            failed_paths.append(rel_for_log(md, repo_root=ROOT))
             return 1
         if out is None:
             return SKIP
-        print(f"OK {out.relative_to(ROOT)} ({md.relative_to(ROOT)})")
+        from input_paths import rel_for_log
+
+        print(
+            f"OK {rel_for_log(out, repo_root=ROOT)} "
+            f"({rel_for_log(md, repo_root=ROOT)})"
+        )
         return 0
+
+    from input_paths import rel_for_log as _rel_log
 
     written, failed, skipped = run_timed_batch(
         kind,
         targets,
         _one,
-        label=lambda p: p.as_posix(),
+        label=lambda p: _rel_log(p, repo_root=ROOT),
     )
     if failed_paths:
         print("Mislukt:", flush=True)

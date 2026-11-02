@@ -259,10 +259,9 @@ def _point_pdf_errors_at_source(text: str, *, tmp_path: Path, source: Path) -> s
     ``markdown pdf`` valideert een tijdelijk blad; foutregels noemen anders
     ``AppData\\Local\\Temp\\vsa-pdf-….md`` i.p.v. de catalogusbron.
     """
-    try:
-        shown = str(source.relative_to(REPO_ROOT))
-    except ValueError:
-        shown = str(source)
+    from input_paths import rel_for_log
+
+    shown = rel_for_log(source, repo_root=REPO_ROOT)
     aliases = {
         str(tmp_path),
         str(tmp_path.resolve()),
@@ -320,10 +319,9 @@ def _run_vsa_pdf(vsa: Path, pdf: Path) -> None:
             )
             if rewritten.strip():
                 print(rewritten.rstrip(), file=sys.stderr, flush=True)
-            try:
-                rel = vsa.relative_to(REPO_ROOT)
-            except ValueError:
-                rel = vsa
+            from input_paths import rel_for_log
+
+            rel = rel_for_log(vsa, repo_root=REPO_ROOT)
             raise RuntimeError(
                 f"markdown pdf faalde (exit {proc.returncode}) voor {rel}"
             )
@@ -365,7 +363,9 @@ def sync_one(
     do_svg: bool = True,
     do_translit_svg: bool = False,
 ) -> None:
-    rel = vsa.relative_to(REPO_ROOT)
+    from input_paths import rel_for_log
+
+    rel = rel_for_log(vsa, repo_root=REPO_ROOT)
     source_hash = source_sha256(vsa)
     generated_at = utc_now_iso()
     mxl = product_path_for_vsa(vsa)

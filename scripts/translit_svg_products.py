@@ -223,10 +223,9 @@ def sync_translit_svgs(
     kind, generator = _source_kind_and_generator(source)
     written: dict[str, Path] = {}
 
-    try:
-        rel = source.relative_to(REPO_ROOT)
-    except ValueError:
-        rel = source
+    from input_paths import rel_for_log
+
+    rel = rel_for_log(source, repo_root=REPO_ROOT)
 
     for modus in modi:
         dest = product_translit_svg(source, modus)
@@ -342,10 +341,9 @@ def sync_translit_mxl(
     if fresh and not force:
         return {META_KEY_MXL: dest}
 
-    try:
-        rel = source.relative_to(REPO_ROOT)
-    except ValueError:
-        rel = source
+    from input_paths import rel_for_log
+
+    rel = rel_for_log(source, repo_root=REPO_ROOT)
     detail(f"  EXP  {rel} -> {dest.name} (--translit-as-parts)")
     if dry_run:
         return {META_KEY_MXL: dest}

@@ -69,6 +69,11 @@ Zonder basis-`index.md.pdf` (en zonder enige translit-PDF) blijft het
 download-icoon weg. Er is geen aparte browser-HTML-afdruk meer via de
 navigatie (dat was hetzelfde als Ctrl+P).
 
+Lange bladen (ook met translit: bronregel + Cyrillisch/Latijn eronder)
+worden op A4 **geschaald** op de breedte en zo nodig over meerdere
+bladzijden gesneden. De snede valt tussen VSA-regels (of notenbalken),
+niet door de letters van een regel heen.
+
 Invoer volgt [bestand of map](../invoer-bestand-of-map/): één `.md` of een
 map (recursief alle `index.md`). `--all-koormappen` is suiker voor het pad
 `content-source\koormappen`. Bij meerdere pagina’s: preflight met geschatte
