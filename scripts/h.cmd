@@ -75,6 +75,8 @@ echo   opkuisen
 echo     herkomstanalyse + inhoudsopkuis
 echo   cleanup-chained-products
 echo     ketting-afgeleiden + verkeerde score-ir/from-ir wissen ^(dry-run zonder --apply^)
+echo   seed-repo
+echo     kale kopie naar externe map ^(optioneel configure / git / ensure^)
 echo   bieb
 echo     multi-command: accepteer^|hernoem^|verwijder^|kopieer ^(EN: accept^|rename^|delete^|copy^)
 echo   update-werkvoorraad
