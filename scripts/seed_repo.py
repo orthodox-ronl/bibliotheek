@@ -524,7 +524,9 @@ def rewrite_hugo_toml(path: Path, identity: dict[str, str]) -> None:
     )
     if n1 + n2 + n3 == 0:
         raise SystemExit(f"ERROR: kon hugo.toml niet herschrijven: {path}")
-    path.write_text(text, encoding="utf-8")
+    from cli_style import atomic_write_text
+
+    atomic_write_text(path, text)
 
 
 def rewrite_pages_yml(path: Path, identity: dict[str, str]) -> None:
@@ -535,7 +537,9 @@ def rewrite_pages_yml(path: Path, identity: dict[str, str]) -> None:
         raise SystemExit(
             f"ERROR: verwachtte {old!r} in {path}, niets vervangen."
         )
-    path.write_text(text.replace(old, new), encoding="utf-8")
+    from cli_style import atomic_write_text
+
+    atomic_write_text(path, text.replace(old, new))
 
 
 def rewrite_fingerprint(path: Path, identity: dict[str, str]) -> None:
@@ -557,7 +561,9 @@ def rewrite_fingerprint(path: Path, identity: dict[str, str]) -> None:
             return m.group(0)
 
         text = _RESERVED_SLUG_LINE.sub(_swap_slug, text)
-    path.write_text(text, encoding="utf-8")
+    from cli_style import atomic_write_text
+
+    atomic_write_text(path, text)
 
 
 def apply_identity_rewrites(dest_root: Path, identity: dict[str, str]) -> None:

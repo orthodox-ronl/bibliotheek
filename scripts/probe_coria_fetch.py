@@ -310,11 +310,9 @@ def provisional_config(branch: str) -> dict:
 
 
 def write_config(cfg: dict) -> None:
-    PUBLIC_BASE_FILE.parent.mkdir(parents=True, exist_ok=True)
-    PUBLIC_BASE_FILE.write_text(
-        json.dumps(cfg, indent=2) + "\n",
-        encoding="utf-8",
-    )
+    from cli_style import atomic_write_json
+
+    atomic_write_json(PUBLIC_BASE_FILE, cfg)
 
 
 def apply_probe(

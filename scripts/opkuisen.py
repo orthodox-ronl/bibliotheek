@@ -227,8 +227,9 @@ def apply_content(path: Path, det: DetectResult, dest: Path) -> list[str]:
                     r"Zie handleiding partituur/7-print-mscz."
                 )
             if dest != path:
-                dest.parent.mkdir(parents=True, exist_ok=True)
-                dest.write_bytes(path.read_bytes())
+                from cli_style import atomic_write_bytes
+
+                atomic_write_bytes(dest, path.read_bytes())
                 work = dest
             else:
                 work = path

@@ -124,7 +124,9 @@ def write_mxl(path: Path, root: ET.Element) -> None:
     with zipfile.ZipFile(buf, "w", compression=zipfile.ZIP_DEFLATED) as z:
         z.writestr("META-INF/container.xml", _MXL_CONTAINER)
         z.writestr("score.xml", xml_text.encode("utf-8"))
-    path.write_bytes(buf.getvalue())
+    from cli_style import atomic_write_bytes
+
+    atomic_write_bytes(path, buf.getvalue())
 
 
 def music_parts(root: ET.Element) -> list[ET.Element]:

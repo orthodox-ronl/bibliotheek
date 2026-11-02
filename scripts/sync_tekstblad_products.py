@@ -205,7 +205,9 @@ def sync_tekstblad_scherm(md: Path, *, dry_run: bool) -> None:
             "",
         ]
     )
-    html_path.write_text(stamp_block + body, encoding="utf-8", newline="\n")
+    from cli_style import atomic_write_text
+
+    atomic_write_text(html_path, stamp_block + body, newline="\n")
 
     for svg in svg_paths:
         if svg.is_file():

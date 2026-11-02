@@ -148,9 +148,12 @@ def main() -> int:
     statuses = [check_one(s) for s in sources]
     bad = [s for s in statuses if not s.ok]
     STATUS_PATH.parent.mkdir(parents=True, exist_ok=True)
-    STATUS_PATH.write_text(
-        json.dumps([asdict(s) for s in statuses], indent=2, ensure_ascii=False) + "\n",
-        encoding="utf-8",
+    from cli_style import atomic_write_json
+
+    atomic_write_json(
+        STATUS_PATH,
+        [asdict(s) for s in statuses],
+        ensure_ascii=False,
     )
 
     from check_report import print_check_findings

@@ -94,3 +94,15 @@ def test_atomic_write_text(tmp_path: Path) -> None:
     assert not (tmp_path / "out.json.tmp").exists()
     cs.atomic_write_text(dest, '{"ok": false}\n')
     assert dest.read_text(encoding="utf-8") == '{"ok": false}\n'
+
+
+def test_atomic_write_json_and_bytes(tmp_path: Path) -> None:
+    js = tmp_path / "a.json"
+    cs.atomic_write_json(js, {"n": 1}, ensure_ascii=False)
+    assert '"n": 1' in js.read_text(encoding="utf-8")
+    blob = tmp_path / "a.bin"
+    cs.atomic_write_bytes(blob, b"abc")
+    assert blob.read_bytes() == b"abc"
+    cs.atomic_write_bytes(blob, b"xyz")
+    assert blob.read_bytes() == b"xyz"
+    assert not (tmp_path / "a.bin.tmp").exists()

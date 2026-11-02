@@ -21,6 +21,8 @@ import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
 
+from cli_style import atomic_write_bytes, atomic_write_json, atomic_write_text
+
 FIELD_SOURCE_SHA = "vsa-source-sha256"
 FIELD_SOURCE_KIND = "vsa-source-kind"
 FIELD_PARTITUUR_SHA = "vsa-partituur-sha256"
@@ -287,10 +289,11 @@ def stamp_pdf(
         if source_kind:
             meta[PDF_KEY_SOURCE_KIND] = source_kind
     writer.add_metadata(meta)
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    with tmp.open("wb") as fh:
-        writer.write(fh)
-    tmp.replace(path)
+    import io
+
+    buf = io.BytesIO()
+    writer.write(buf)
+    atomic_write_bytes(path, buf.getvalue())
 
 
 def read_pdf_stamp(path: Path) -> dict[str, str]:
@@ -354,13 +357,13 @@ def stamp_svg(
     if body.startswith("<?xml"):
         nl = body.find("\n")
         if nl >= 0:
-            path.write_text(
+            atomic_write_text(
+                path,
                 body[: nl + 1] + block + body[nl + 1 :].lstrip("\n"),
-                encoding="utf-8",
                 newline="\n",
             )
             return
-    path.write_text(block + body, encoding="utf-8", newline="\n")
+    atomic_write_text(path, block + body, newline="\n")
 
 
 def read_svg_stamp(path: Path) -> dict[str, str]:
@@ -421,11 +424,7 @@ def stamp_score_ir_json(
     doc[FIELD_SOURCE_KIND] = source_kind
     doc[FIELD_GENERATED_AT] = generated_at
     doc[FIELD_GENERATOR] = generator
-    path.write_text(
-        json.dumps(doc, indent=2, ensure_ascii=False) + "\n",
-        encoding="utf-8",
-        newline="\n",
-    )
+    atomic_write_json(path, doc, ensure_ascii=False)
 
 
 def read_score_ir_stamp(path: Path) -> dict[str, str]:
@@ -481,13 +480,13 @@ def stamp_mvsa_partituur(
             close = end + len("\n---")
             if close < len(body) and body[close] == "\n":
                 close += 1
-            path.write_text(
+            atomic_write_text(
+                path,
                 body[:close] + block + body[close:].lstrip("\n"),
-                encoding="utf-8",
                 newline="\n",
             )
             return
-    path.write_text(block + body, encoding="utf-8", newline="\n")
+    atomic_write_text(path, block + body, newline="\n")
 
 
 def read_mvsa_stamp(path: Path) -> dict[str, str]:
@@ -610,7 +609,7 @@ def stamp_audio(
             fields[FIELD_SOURCE_KIND] = source_kind
     raw = path.read_bytes()
     audio = _strip_id3v2(raw)
-    path.write_bytes(_build_id3v2(fields) + audio)
+    atomic_write_bytes(path, _build_id3v2(fields) + audio)
 
 
 def read_audio_stamp(path: Path) -> dict[str, str]:

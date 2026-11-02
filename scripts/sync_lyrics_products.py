@@ -182,7 +182,9 @@ def sync_one(source: Path, *, dry_run: bool) -> None:
         ]
     )
     body = plain.strip() + ("\n" if plain.strip() else "")
-    lyrics.write_text(header + body, encoding="utf-8", newline="\n")
+    from cli_style import atomic_write_text
+
+    atomic_write_text(lyrics, header + body, newline="\n")
 
 
 class LyricsKind:

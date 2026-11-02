@@ -20,6 +20,7 @@ try:
 except ImportError:
     yaml = None  # type: ignore
 
+from cli_style import atomic_write_text
 from sync_lyrics_products import (
     DEFAULT_ROOT,
     lyrics_body,
@@ -316,10 +317,10 @@ def main(argv: list[str] | None = None) -> int:
         "synonyms": synonyms,
         "entries": entries,
     }
-    OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUT_PATH.write_text(
+    # atomic_write_text: Windows Errno 22 als index.json even vastzit (browser/AV).
+    atomic_write_text(
+        OUT_PATH,
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
     )
     print(
         f"zoek-index: {len(entries)} uitvoeringsvorm(en) -> "

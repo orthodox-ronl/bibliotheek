@@ -105,7 +105,9 @@ def strip_indexes(*, dry_run: bool, verbose: bool) -> int:
         if dry_run:
             print(f"would strip {rel}", flush=True)
         else:
-            path.write_text(new, encoding="utf-8", newline="\n")
+            from cli_style import atomic_write_text
+
+            atomic_write_text(path, new, newline="\n")
             if verbose:
                 print(f"stripped {rel}", flush=True)
         changed += 1
@@ -126,8 +128,9 @@ def _render_one_vsa(src: Path, dest: Path) -> None:
     body, _ = prepare_vsa_body(text, src)
     document = Parser(preserve_vsa_source_newlines(body)).parse()
     svg = SVGRenderer().render_document(document)
-    dest.parent.mkdir(parents=True, exist_ok=True)
-    dest.write_text(svg, encoding="utf-8")
+    from cli_style import atomic_write_text
+
+    atomic_write_text(dest, svg)
 
 
 def _bladermap_folders() -> list[Path]:

@@ -268,7 +268,9 @@ def main() -> int:
     old = _parse_rows(text)
     updated = _replace_table(text, _table(old))
     if updated != text:
-        DOC.write_text(updated, encoding="utf-8", newline="\n")
+        from cli_style import atomic_write_text
+
+        atomic_write_text(DOC, updated, newline="\n")
         print("Werkvoorraad-tabel bijgewerkt.", flush=True)
     else:
         print("Werkvoorraad-tabel ongewijzigd.", flush=True)

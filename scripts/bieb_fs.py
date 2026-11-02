@@ -181,8 +181,10 @@ def mkdir(path: Path) -> None:
 
 
 def write_text(path: Path, text: str, *, encoding: str = "utf-8", newline: str = "\n") -> None:
+    from cli_style import atomic_write_text
+
     def _do() -> None:
-        path.write_text(text, encoding=encoding, newline=newline)
+        atomic_write_text(path, text, encoding=encoding, newline=newline)
 
     with_retry(_do, action="schrijven", paths=[path])
 

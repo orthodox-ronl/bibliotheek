@@ -209,9 +209,9 @@ def write_status_json(statuses: list[FolderStatus], path: Path = STATUS_PATH) ->
             for s in statuses
         },
     }
-    path.write_text(
-        json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
-    )
+    from cli_style import atomic_write_json
+
+    atomic_write_json(path, payload, ensure_ascii=False)
 
 
 def main() -> int:

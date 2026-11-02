@@ -121,22 +121,19 @@ def write_public_base(branch: str | None = None) -> str:
     """Schrijf provisional github.io-base; probe vult probed_at/results."""
     br = branch or detect_git_branch()
     base = coria_fetch_base_url(br)
-    PUBLIC_BASE_FILE.parent.mkdir(parents=True, exist_ok=True)
-    PUBLIC_BASE_FILE.write_text(
-        json.dumps(
-            {
-                "base": base,
-                "alternate": "",
-                "probed_at": None,
-                "canary": None,
-                "canaries": [],
-                "results": {"pages": "skipped"},
-                "sample_results": {},
-            },
-            indent=2,
-        )
-        + "\n",
-        encoding="utf-8",
+    from cli_style import atomic_write_json
+
+    atomic_write_json(
+        PUBLIC_BASE_FILE,
+        {
+            "base": base,
+            "alternate": "",
+            "probed_at": None,
+            "canary": None,
+            "canaries": [],
+            "results": {"pages": "skipped"},
+            "sample_results": {},
+        },
     )
     return base
 
@@ -208,14 +205,14 @@ def main() -> int:
         fp = _fingerprint(payload)
         target = DEST_ROOT / f"{fp}.musicxml"
         if not target.exists():
-            target.write_bytes(payload)
+            from cli_style import atomic_write_bytes
+
+            atomic_write_bytes(target, payload)
         mapping[key] = f"{URL_PREFIX}/{fp}.musicxml"
 
-    DATA_FILE.parent.mkdir(parents=True, exist_ok=True)
-    DATA_FILE.write_text(
-        json.dumps(mapping, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+    from cli_style import atomic_write_json
+
+    atomic_write_json(DATA_FILE, mapping, sort_keys=True)
     public_base = write_public_base()
     print(
         f"Coria MusicXML fingerprints: {len(mapping)} bestand(en); "

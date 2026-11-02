@@ -147,13 +147,21 @@ def atomic_write_text(
     text: str,
     *,
     encoding: str = "utf-8",
+    newline: str | None = None,
     retries: int = 8,
 ) -> None:
     """Schrijf via temp+replace; retry bij Windows-vergrendeling (Errno 22)."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_name(path.name + ".tmp")
-    tmp.write_text(text, encoding=encoding)
+    write_kw: dict = {"encoding": encoding}
+    if newline is not None:
+        write_kw["newline"] = newline
+
+    def _write_direct(target: Path) -> None:
+        target.write_text(text, **write_kw)
+
+    _write_direct(tmp)
     last: OSError | None = None
     for attempt in range(max(1, retries)):
         try:
@@ -164,7 +172,60 @@ def atomic_write_text(
             # WinError 5/32 / Errno 22: bestand even vast (editor, AV, …)
             time.sleep(0.05 * (attempt + 1))
     try:
-        path.write_text(text, encoding=encoding)
+        _write_direct(path)
+    except OSError:
+        if last is not None:
+            raise last
+        raise
+    finally:
+        tmp.unlink(missing_ok=True)
+
+
+def atomic_write_json(
+    path: Path,
+    payload: object,
+    *,
+    indent: int = 2,
+    ensure_ascii: bool = False,
+    sort_keys: bool = False,
+) -> None:
+    """JSON + newline via ``atomic_write_text`` (data/status/static indexen)."""
+    import json
+
+    atomic_write_text(
+        path,
+        json.dumps(
+            payload,
+            indent=indent,
+            ensure_ascii=ensure_ascii,
+            sort_keys=sort_keys,
+        )
+        + "\n",
+        newline="\n",
+    )
+
+
+def atomic_write_bytes(
+    path: Path,
+    data: bytes,
+    *,
+    retries: int = 8,
+) -> None:
+    """Bytes via temp+replace; zelfde Windows-retry als ``atomic_write_text``."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(path.name + ".tmp")
+    tmp.write_bytes(data)
+    last: OSError | None = None
+    for attempt in range(max(1, retries)):
+        try:
+            os.replace(tmp, path)
+            return
+        except OSError as exc:
+            last = exc
+            time.sleep(0.05 * (attempt + 1))
+    try:
+        path.write_bytes(data)
     except OSError:
         if last is not None:
             raise last

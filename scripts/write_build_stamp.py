@@ -67,8 +67,9 @@ def format_build_time(when: datetime | None = None) -> str:
 def main() -> int:
     args = parse_args()
     build_time = args.time or format_build_time()
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(f'time: "{build_time}"\n', encoding="utf-8")
+    from cli_style import atomic_write_text
+
+    atomic_write_text(args.output, f'time: "{build_time}"\n', newline="\n")
     print(f"Bouwtijd geschreven: {build_time} -> {args.output}")
     return 0
 

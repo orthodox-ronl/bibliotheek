@@ -201,7 +201,9 @@ def main() -> int:
             "pip install did not provide them in this Python 3.14 interpreter.",
         )
 
-    STAMP.write_text(payload + "\n", encoding="utf-8")
+    from cli_style import atomic_write_text
+
+    atomic_write_text(STAMP, payload + "\n", newline="\n")
     return 0
 
 

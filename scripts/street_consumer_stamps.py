@@ -62,7 +62,9 @@ def restamp_lyrics_sibling(source: Path) -> bool:
         ]
     )
     payload = body.strip() + ("\n" if body.strip() else "")
-    lyrics.write_text(header + payload, encoding="utf-8", newline="\n")
+    from cli_style import atomic_write_text
+
+    atomic_write_text(lyrics, header + payload, newline="\n")
     return True
 
 

@@ -201,7 +201,9 @@ def main(argv: list[str] | None = None) -> int:
             continue
         if args.in_place:
             if changed:
-                path.write_text(new_text, encoding="utf-8", newline="\n")
+                from cli_style import atomic_write_text
+
+                atomic_write_text(path, new_text, newline="\n")
                 print("  -> geschreven")
         else:
             print("--- resultaat ---")

@@ -45,8 +45,9 @@ def write_musicxml(
                 "<!-- opgekuist door scripts/opkuisen.py -->\n"
                 + body
             )
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(body, encoding="utf-8", newline="\n")
+        from cli_style import atomic_write_text
+
+        atomic_write_text(path, body, newline="\n")
         return
     raise ValueError(f"geen MusicXML-doel-extensie: {path}")
 
@@ -97,8 +98,9 @@ def write_mscz(
             zout.writestr("score_style.mss", mss.encode("utf-8"))
         for n, data in others.items():
             zout.writestr(n, data)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes(buf.getvalue())
+    from cli_style import atomic_write_bytes
+
+    atomic_write_bytes(path, buf.getvalue())
 
 
 def read_mscx_file(path: Path) -> str:
@@ -106,5 +108,6 @@ def read_mscx_file(path: Path) -> str:
 
 
 def write_mscx_file(path: Path, mscx: str) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(mscx, encoding="utf-8", newline="\n")
+    from cli_style import atomic_write_text
+
+    atomic_write_text(path, mscx, newline="\n")

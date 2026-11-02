@@ -187,11 +187,9 @@ def write_json(report: StatusReport, path: Path = STATUS_PATH) -> None:
         "stubs": [asdict(x) for x in report.stubs],
         "werk_dirs": [asdict(x) for x in report.werk_dirs],
     }
-    path.write_text(
-        json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
-        encoding="utf-8",
-        newline="\n",
-    )
+    from cli_style import atomic_write_json
+
+    atomic_write_json(path, payload, ensure_ascii=False)
 
 
 def print_report(report: StatusReport) -> None:

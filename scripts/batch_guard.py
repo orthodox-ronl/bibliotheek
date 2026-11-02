@@ -62,12 +62,10 @@ def _load_store() -> dict[str, list[float]]:
 
 
 def _save_store(store: dict[str, list[float]]) -> None:
-    STORE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    from cli_style import atomic_write_json
+
     payload = {k: v[-WINDOW:] for k, v in store.items() if v}
-    STORE_PATH.write_text(
-        json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
-        encoding="utf-8",
-    )
+    atomic_write_json(STORE_PATH, payload, ensure_ascii=False)
 
 
 def record_sample(kind: str, seconds: float) -> None:
