@@ -229,13 +229,6 @@ def explain_sync_failure(exc: BaseException) -> FailureExplain:
 _CMD_RE = re.compile(r"^Command\s+'\[", re.I)
 
 
-def street_products_quiet_flags() -> list[str]:
-    """``--quiet`` voor vsa/mvsa/mscz products tenzij bibliotheek-verbose."""
-    if is_verbose():
-        return []
-    return ["--quiet"]
-
-
 def check_call(cmd: Sequence[str], *, cwd: str | None = None) -> None:
     """subprocess.check_call; dempt stdout/stderr tenzij verbose.
 

@@ -77,6 +77,53 @@ class PagePdfNamingTests(unittest.TestCase):
             self.assertEqual(tsp.page_translit_modi([mscz]), ())
 
 
+class TranslitMxlNamingTests(unittest.TestCase):
+    def test_product_translit_mxl_name(self) -> None:
+        mvsa = Path("a/lied.mvsa")
+        self.assertEqual(
+            tsp.product_translit_mxl(mvsa).name, "lied.mvsa.translit.mxl"
+        )
+
+    def test_expects_only_mvsa_with_script(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            mvsa = root / "nl.mvsa"
+            mvsa.write_text("L: Amen\n", encoding="utf-8")
+            self.assertTrue(tsp.expects_translit_mxl(mvsa))
+            vsa = root / "x.vsa"
+            vsa.write_text("[:] Amen. [:]\n", encoding="utf-8")
+            self.assertFalse(tsp.expects_translit_mxl(vsa))
+
+
+class SyncTranslitMxlTests(unittest.TestCase):
+    def test_sync_exports_and_merges_meta(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            mvsa = root / "lied.mvsa"
+            mvsa.write_text("L: Amen\nS: a\n", encoding="utf-8")
+            dest = tsp.product_translit_mxl(mvsa)
+
+            def fake_export(source: Path) -> Path:
+                self.assertEqual(source, mvsa)
+                dest.write_bytes(b"PK\x03\x04fake")
+                return dest
+
+            with (
+                mock.patch.object(tsp, "REPO_ROOT", root),
+                mock.patch.object(
+                    tsp, "export_one_translit_mxl", side_effect=fake_export
+                ),
+                mock.patch.object(tsp, "_stamp_translit_mxl_file"),
+                mock.patch.object(tsp, "write_products_meta") as write_meta,
+            ):
+                out = tsp.sync_translit_mxl(mvsa, dry_run=False, force=True)
+
+            self.assertEqual(out, {"mxl-translit": dest})
+            write_meta.assert_called_once_with(
+                mvsa, {"mxl-translit": dest}, merge=True
+            )
+
+
 class SyncTranslitTests(unittest.TestCase):
     def test_sync_exports_and_merges_meta(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

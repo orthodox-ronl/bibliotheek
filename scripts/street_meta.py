@@ -21,7 +21,7 @@ def write_products_meta(
     """Schrijf meta voor bestaande productbestanden; None als niets te schrijven.
 
     ``merge=False`` (default): vervang ``products`` door precies deze keys
-    (zoals tooling ``… products``). ``merge=True``: alleen de meegegeven
+    (zoals een volle tooling-export). ``merge=True``: alleen de meegegeven
     keys bijwerken; overige keys behouden (bijv. MXL-hash na bron-id).
     """
     existing = {k: p for k, p in products.items() if p.is_file()}

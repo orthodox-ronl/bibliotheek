@@ -1,8 +1,10 @@
 """Maak siblings bij catalogus-``.mvsa``.
 
-Export via tooling ``mvsa products`` (schrijft schema-2 products-meta,
-inclusief bladreeks ``svg-1``…). Translit-SVG’s (``.translit-nls.svg`` /
-``.translit-ksl.svg``) apart via ``mvsa svg --translit-modus`` (§5a).
+Export per slot: ``mvsa mxl``, ``mvsa svg``, ``mvsa score-ir``
+(+ ``--musicxml`` voor from-ir) — geen atomair ``mvsa products`` (dat zou
+ook mp3/pdf/mscz meenemen). Translit-SVG’s (``.translit-nls.svg`` /
+``.translit-ksl.svg``) apart via ``mvsa svg --translit-modus``; Coria
+``{bron}.translit.mxl`` via ``mvsa mxl --translit-as-parts`` (§5a).
 Bibliotheek merget die keys in products-meta. Geen in-file
 versheidstempels (versheid = meta). A4-``.mvsa.pdf`` is geen verplicht
 product (blad = ``index.md.pdf``); PDF-export blijft voor optioneel herstel.
@@ -19,7 +21,7 @@ import sys
 from pathlib import Path
 from typing import Sequence
 
-from cli_style import check_call, detail, street_products_quiet_flags
+from cli_style import check_call, detail
 
 _SVG_PAGE_RE = re.compile(r"-(\d+)\.svg$", re.IGNORECASE)
 
@@ -48,13 +50,17 @@ from product_meta import (
 )
 from product_regen import RegenPolicy, list_source_paths, mxl_contract_ok
 from street_consumer_stamps import restamp_after_street_products
-from street_meta import stamp_ok_or_meta
+from street_meta import stamp_ok_or_meta, write_products_meta
 from sync_import_mvsa import is_import_mvsa
 from sync_vsa_products import folder_is_handmatig
 from translit_svg_products import (
+    expects_translit_mxl,
+    product_translit_mxl,
     product_translit_svg,
+    sync_translit_mxl,
     sync_translit_svgs,
     translit_modi_for_source,
+    translit_mxl_fresh,
     translit_svgs_fresh,
 )
 
@@ -205,34 +211,62 @@ def is_stale(mvsa: Path) -> tuple[bool, bool, bool, bool]:
     return need_mxl, need_svg, need_score_ir, need_from_ir
 
 
-def _run_mvsa_products(mvsa: Path, *, skip_svg: bool) -> None:
-    """Kale export via tooling ``mvsa products`` (+ optioneel ``--skip-svg``)."""
+def _run_mvsa_mxl(mvsa: Path) -> None:
+    """Coria-``.mvsa.mxl`` via ``mvsa mxl``."""
+    mxl = product_mxl_for_mvsa(mvsa)
     cmd = [
         sys.executable,
         "-m",
         "vsa.cli_mvsa",
-        "products",
-        "--force",
-        *street_products_quiet_flags(),
+        "mxl",
         str(mvsa),
+        "-o",
+        str(mxl),
     ]
-    if skip_svg:
-        cmd.append("--skip-svg")
     check_call(cmd, cwd=str(REPO_ROOT))
-    mxl = product_mxl_for_mvsa(mvsa)
-    score_ir = product_score_ir_for_mvsa(mvsa)
-    from_ir = product_from_ir_musicxml_for_mvsa(mvsa)
     if not mxl.is_file():
-        raise RuntimeError(f"MXL ontbreekt na mvsa products: {mxl}")
+        raise RuntimeError(f"MXL ontbreekt na mvsa mxl: {mxl}")
+
+
+def _run_mvsa_svg(mvsa: Path) -> None:
+    """Scherm-``.mvsa.svg`` via ``mvsa svg``."""
+    svg = product_svg_for_mvsa(mvsa)
+    cmd = [
+        sys.executable,
+        "-m",
+        "vsa.cli_mvsa",
+        "svg",
+        str(mvsa),
+        "-o",
+        str(svg),
+    ]
+    check_call(cmd, cwd=str(REPO_ROOT))
+    if not mvsa_svg_outputs(mvsa):
+        raise RuntimeError(f"SVG ontbreekt na mvsa svg: {svg}")
+
+
+def _run_mvsa_score_ir(mvsa: Path, *, with_from_ir: bool) -> None:
+    """Score-IR JSON; optioneel sibling from-ir MusicXML via ``--musicxml``."""
+    score_ir = product_score_ir_for_mvsa(mvsa)
+    cmd = [
+        sys.executable,
+        "-m",
+        "vsa.cli_mvsa",
+        "score-ir",
+        str(mvsa),
+        "-o",
+        str(score_ir),
+    ]
+    if with_from_ir:
+        cmd.append("--musicxml")
+    check_call(cmd, cwd=str(REPO_ROOT))
     if not score_ir.is_file():
-        raise RuntimeError(f"Score-IR ontbreekt na mvsa products: {score_ir}")
-    if not from_ir.is_file():
-        raise RuntimeError(f"from-ir MusicXML ontbreekt na mvsa products: {from_ir}")
-    if not skip_svg:
-        outs = mvsa_svg_outputs(mvsa)
-        if not outs:
+        raise RuntimeError(f"Score-IR ontbreekt na mvsa score-ir: {score_ir}")
+    if with_from_ir:
+        from_ir = product_from_ir_musicxml_for_mvsa(mvsa)
+        if not from_ir.is_file():
             raise RuntimeError(
-                f"SVG ontbreekt na mvsa products: {product_svg_for_mvsa(mvsa)}"
+                f"from-ir MusicXML ontbreekt na mvsa score-ir --musicxml: {from_ir}"
             )
 
 
@@ -261,33 +295,60 @@ def sync_one(
     need_from_ir: bool,
     dry_run: bool,
     need_translit_svg: bool = False,
+    need_translit_mxl: bool = False,
 ) -> None:
     rel = mvsa.relative_to(REPO_ROOT)
     digest = source_sha256(mvsa)
     generated_at = utc_now_iso()
     pdf = product_pdf_for_mvsa(mvsa)
+    mxl = product_mxl_for_mvsa(mvsa)
+    svg = product_svg_for_mvsa(mvsa)
+    score_ir = product_score_ir_for_mvsa(mvsa)
+    from_ir = product_from_ir_musicxml_for_mvsa(mvsa)
     bib = id_from_catalogus_path(mvsa)
 
-    need_export = need_mxl or need_svg or need_score_ir or need_from_ir
-    skip_svg = not need_svg
-    want_translit = need_translit_svg or need_svg
-    if need_export:
-        svg_note = "mxl+ir+svg" if need_svg else "mxl+ir (--skip-svg)"
-        detail(f"  EXP  {rel} -> mvsa products ({svg_note})")
+    want_translit_svg = need_translit_svg or need_svg
+    # Na kale MXL-export altijd translit-MXL meenemen; anders alleen als stale.
+    want_translit_mxl = need_translit_mxl or need_mxl
+    if need_mxl:
+        detail(f"  EXP  {rel} -> mvsa mxl")
+    if need_score_ir or need_from_ir:
+        ir_note = "score-ir+from-ir" if need_from_ir else "score-ir"
+        detail(f"  EXP  {rel} -> mvsa score-ir ({ir_note})")
+    if need_svg:
+        detail(f"  EXP  {rel} -> mvsa svg")
     if need_pdf:
         detail(f"  PDF  {rel} -> {pdf.name}")
     if dry_run:
-        if want_translit:
+        if want_translit_svg:
             sync_translit_svgs(mvsa, dry_run=True, force=need_svg)
+        if want_translit_mxl:
+            sync_translit_mxl(mvsa, dry_run=True, force=need_mxl)
         return
 
-    if need_export:
-        _run_mvsa_products(mvsa, skip_svg=skip_svg)
-        # Tooling lyrics/mp3 zijn kaal; bibliotheek-check eist stempels.
+    meta_products: dict[str, Path] = {}
+    if need_mxl:
+        _run_mvsa_mxl(mvsa)
+        meta_products["mxl"] = mxl
+    if need_score_ir or need_from_ir:
+        # Alleen from-ir stale: score-ir --musicxml vernieuwt IR ook (nodig als bron).
+        _run_mvsa_score_ir(mvsa, with_from_ir=need_from_ir)
+        meta_products["score-ir"] = score_ir
+        if need_from_ir:
+            meta_products["from-ir"] = from_ir
+    if need_svg:
+        _run_mvsa_svg(mvsa)
+        meta_products["svg"] = svg
+    if meta_products:
+        write_products_meta(mvsa, meta_products, merge=True)
+        # Bestaande lyrics/mp3 (van eerdere products-run) opnieuw stempelen.
         restamp_after_street_products(mvsa)
 
-    if want_translit:
+    if want_translit_svg:
         sync_translit_svgs(mvsa, dry_run=False, force=need_svg)
+
+    if want_translit_mxl:
+        sync_translit_mxl(mvsa, dry_run=False, force=need_mxl)
 
     if need_pdf:
         require_no_spaces(pdf)
@@ -393,6 +454,18 @@ class MvsaKind:
                     needs_musescore=True,
                 )
             )
+        if expects_translit_mxl(source):
+            tmxl = product_translit_mxl(source)
+            tmxl_fresh = translit_mxl_fresh(source, digest)
+            slots.append(
+                ProductSlot(
+                    path=tmxl,
+                    exists=tmxl_fresh or tmxl.is_file(),
+                    stamp_ok=tmxl_fresh,
+                    contract_ok=None,
+                    needs_musescore=False,
+                )
+            )
         return slots
 
     def sync(self, source: Path, *, need: Sequence[bool], dry_run: bool) -> None:
@@ -400,8 +473,24 @@ class MvsaKind:
         need_svg = bool(need[1]) if len(need) > 1 else False
         need_score_ir = bool(need[2]) if len(need) > 2 else False
         need_from_ir = bool(need[3]) if len(need) > 3 else False
-        need_translit = bool(need[4]) if len(need) > 4 else False
-        if need_mxl or need_svg or need_score_ir or need_from_ir or need_translit:
+        # Slot 4 = translit-SVG (alleen als modi); slot 5 = translit-MXL
+        # (alleen als verwacht). Index schuift als SVG-slot ontbreekt.
+        idx = 4
+        need_translit_svg = False
+        if translit_modi_for_source(source):
+            need_translit_svg = bool(need[idx]) if len(need) > idx else False
+            idx += 1
+        need_translit_mxl = False
+        if expects_translit_mxl(source):
+            need_translit_mxl = bool(need[idx]) if len(need) > idx else False
+        if (
+            need_mxl
+            or need_svg
+            or need_score_ir
+            or need_from_ir
+            or need_translit_svg
+            or need_translit_mxl
+        ):
             sync_one(
                 source,
                 need_mxl=need_mxl,
@@ -410,7 +499,8 @@ class MvsaKind:
                 need_score_ir=need_score_ir,
                 need_from_ir=need_from_ir,
                 dry_run=dry_run,
-                need_translit_svg=need_translit,
+                need_translit_svg=need_translit_svg,
+                need_translit_mxl=need_translit_mxl,
             )
 
 
@@ -424,7 +514,8 @@ def main(argv: list[str] | None = None) -> int:
         description=(
             "Exporteer stale Coria-.mxl + koormap-SVG + Score-IR "
             "(+ from-ir MusicXML) vanuit bibliotheek-.mvsa "
-            "(via mvsa products; geen A4-product-PDF; blad = index.md.pdf)."
+            "(via mvsa mxl / svg / score-ir; geen A4-product-PDF; "
+            "blad = index.md.pdf)."
         ),
         default_root=DEFAULT_ROOT,
     )

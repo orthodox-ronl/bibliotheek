@@ -1,14 +1,20 @@
-"""Translit-SVG siblings naast ``.vsa`` / ``.mvsa`` (§5a vorm A).
+"""Translit-siblings naast ``.vsa`` / ``.mvsa`` (§5a).
 
-Bestandsnamen (gelijk aan VSA-tooling ``derived_svg_output_path``):
+SVG (vorm A), namen gelijk aan VSA-tooling ``derived_svg_output_path``:
 
 - ``{bron}.translit-nls.svg`` — hulpregel Latijn (ksl→nls)
 - ``{bron}.translit-ksl.svg`` — hulpregel Cyrillisch (nl→ksl)
 
-Welke modi: puur ksl → nls; puur nl → ksl; hybride (beide schriften) →
-beide. Geen Latin/Cyrillisch in de bron → geen translit-SVG.
+Coria-MXL (alleen ``.mvsa``): ``{bron}.translit.mxl`` via
+``mvsa mxl --translit-as-parts`` (extra Nls-/Ksl-parts; één bestand).
+Kale ``{bron}.mxl`` blijft zonder hulp-parts.
 
-Aanroep: na kale ``vsa``/``mvsa products`` vanuit sync; niet via OSMG.
+Welke modi/SVG’s: puur ksl → nls; puur nl → ksl; hybride → beide.
+Geen Latin/Cyrillisch → geen translit-producten. Translit-MXL volgt
+dezelfde voorwaarde (er is iets te translitereren).
+
+Aanroep: na kale SVG-export vanuit sync (``vsa svg`` / ``mvsa``-straat);
+niet via OSMG.
 """
 
 from __future__ import annotations
@@ -33,6 +39,7 @@ MODUS_NLS = "nls"
 MODUS_KSL = "ksl"
 META_KEY_NLS = "svg-translit-nls"
 META_KEY_KSL = "svg-translit-ksl"
+META_KEY_MXL = "mxl-translit"
 
 _META_KEYS = {
     MODUS_NLS: META_KEY_NLS,
@@ -46,6 +53,22 @@ def product_translit_svg(source: Path, modus: str) -> Path:
     if m not in {MODUS_NLS, MODUS_KSL}:
         raise ValueError(f"onbekende translit-modus {modus!r} (nls|ksl)")
     return source.with_name(f"{source.name}.translit-{m}.svg")
+
+
+def product_translit_mxl(source: Path) -> Path:
+    """``lied.mvsa`` → ``lied.mvsa.translit.mxl`` (Coria + hulp-parts)."""
+    return source.with_name(f"{source.name}.translit.mxl")
+
+
+def expects_translit_mxl(source: Path) -> bool:
+    """True als deze bron een Coria-translit-``.mxl`` hoort te krijgen.
+
+    Alleen ``.mvsa`` (tooling ``--translit-as-parts``); en alleen als er
+    Latin/Cyrillisch in de bron zit.
+    """
+    if source.suffix.lower() != ".mvsa":
+        return False
+    return bool(translit_modi_for_source(source))
 
 
 def meta_key_for_modus(modus: str) -> str:
@@ -229,3 +252,107 @@ def sync_translit_svgs(
     if written and not dry_run:
         write_products_meta(source, written, merge=True)
     return written
+
+
+def _stamp_ok_translit_mxl(mxl: Path, source_hash: str) -> bool:
+    from product_meta import FIELD_SOURCE_KIND, FIELD_SOURCE_SHA, read_mxl_stamp
+
+    if not mxl.is_file():
+        return False
+    stamp = read_mxl_stamp(mxl)
+    kind = stamp.get(FIELD_SOURCE_KIND, SOURCE_KIND_MVSA)
+    if kind not in {"", SOURCE_KIND_MVSA}:
+        return False
+    return stamp.get(FIELD_SOURCE_SHA, "") == source_hash
+
+
+def translit_mxl_fresh(source: Path, digest: str | None = None) -> bool:
+    """True als verwachte translit-``.mxl`` vers is (of niet verwacht)."""
+    from street_meta import stamp_ok_or_meta
+
+    if not expects_translit_mxl(source):
+        return True
+    digest = digest or source_sha256(source)
+    path = product_translit_mxl(source)
+    return stamp_ok_or_meta(
+        source,
+        required_keys={META_KEY_MXL},
+        stamp_ok=_stamp_ok_translit_mxl(path, digest),
+    )
+
+
+def export_one_translit_mxl(source: Path) -> Path:
+    """``mvsa mxl --translit-as-parts`` → ``{bron}.translit.mxl``."""
+    if source.suffix.lower() != ".mvsa":
+        raise ValueError(
+            f"translit-MXL (--translit-as-parts) alleen voor .mvsa, niet {source.suffix!r}"
+        )
+    dest = product_translit_mxl(source)
+    cmd = [
+        sys.executable,
+        "-m",
+        "vsa.cli_mvsa",
+        "mxl",
+        str(source),
+        "--translit-as-parts",
+        "-o",
+        str(dest),
+    ]
+    check_call(cmd, cwd=str(REPO_ROOT))
+    if not dest.is_file():
+        raise RuntimeError(f"translit-MXL ontbreekt na export: {dest}")
+    return dest
+
+
+def _stamp_translit_mxl_file(
+    mxl: Path,
+    *,
+    source_hash: str,
+    generated_at: str,
+) -> None:
+    from coria_mxl import load_score_xml, require_no_spaces, write_mxl
+    from product_meta import stamp_mxl_source
+
+    require_no_spaces(mxl)
+    root = load_score_xml(mxl)
+    stamp_mxl_source(
+        root,
+        source_hash=source_hash,
+        source_kind=SOURCE_KIND_MVSA,
+        generated_at=generated_at,
+        generator=GENERATOR_MVSA,
+    )
+    write_mxl(mxl, root)
+
+
+def sync_translit_mxl(
+    source: Path,
+    *,
+    dry_run: bool = False,
+    force: bool = False,
+) -> dict[str, Path]:
+    """Bouw ontbrekende/stale ``{bron}.translit.mxl``; merge products-meta."""
+    if not expects_translit_mxl(source):
+        return {}
+
+    digest = source_sha256(source)
+    generated_at = utc_now_iso()
+    dest = product_translit_mxl(source)
+    fresh = _stamp_ok_translit_mxl(dest, digest)
+    if fresh and not force:
+        return {META_KEY_MXL: dest}
+
+    try:
+        rel = source.relative_to(REPO_ROOT)
+    except ValueError:
+        rel = source
+    detail(f"  EXP  {rel} -> {dest.name} (--translit-as-parts)")
+    if dry_run:
+        return {META_KEY_MXL: dest}
+
+    export_one_translit_mxl(source)
+    _stamp_translit_mxl_file(
+        dest, source_hash=digest, generated_at=generated_at
+    )
+    write_products_meta(source, {META_KEY_MXL: dest}, merge=True)
+    return {META_KEY_MXL: dest}

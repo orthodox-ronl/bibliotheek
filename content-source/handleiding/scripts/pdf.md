@@ -19,20 +19,39 @@ scripts\pdf.cmd --all-koormappen [--force] [--verbose]
 
 # DESCRIPTION
 
-Maakt de PDF achter de knop **Download pagina**: één
-bestand `index.md.pdf` naast de Markdown van een bladermap-pagina (Hugo
-page resource). Dat is de PDF van de **getoonde pagina** (koormap-slot of
-catalogus-uitvoeringsvorm), niet hetzelfde als de losse catalogus-product-PDF
-van één uitvoeringsvorm.
+Maakt de PDF achter de knop **Download pagina**: eerst altijd
+`index.md.pdf` naast de Markdown van een bladermap-pagina (Hugo page
+resource). Dat is de PDF van de **getoonde pagina** (koormap-slot of
+catalogus-uitvoeringsvorm), niet hetzelfde als een losse
+catalogus-product-PDF van één uitvoeringsvorm.
 
-Dit commando hoort niet bij `products`, `products --kinds all`, `check` of de
-Pages-build. Gewijzigde koormap-`index.md` meenemen na een git-edit:
-[products-changed](../products-changed/). Die keten maakt en controleert catalogus-siblings
-(`.mvsa.pdf`, `.mvsa.svg`, `.vsa.svg`, en de rest). De pagina-PDF maak je
-lokaal uit de **notatiebronnen** (`.mvsa` / `.vsa` / `.mscz`) plus de
-Markdown-layout, en commit je mee. `check` meldt niet of de pagina-PDF
-ontbreekt. MuseScore 4 is nodig voor `.mvsa`/`.mscz`-SVG-export (en dus
-zodra de pagina zulke bronnen of `pdf-bijelkaar` gebruikt).
+Zelfde run schrijft waar nodig ook translit-pagina-PDF’s (§5a), uit de
+translit-SVG-siblings:
+
+| Broninhoud op het blad | Extra bestanden naast `index.md.pdf` |
+| ---------------------- | ------------------------------------ |
+| Puur Nederlands        | `index.md.translit-ksl.pdf`          |
+| Puur kerkslavisch      | `index.md.translit-nls.pdf`          |
+| Hybride (nl + ksl)     | beide                                |
+
+Ontbreekt de bijbehorende `{bron}.translit-*.svg`, dan exporteert
+`pdf.cmd` die SVG onderweg (MuseScore bij `.mvsa`). Op de site volgt
+**Download pagina** de Translit-schakelaar (uit → basis-PDF; aan + Nls/Ksl
+→ translit-PDF). `check --strict` eist de translit-PDF’s nog niet; wél de
+basis-`index.md.pdf`.
+
+Dit commando hoort niet bij `products`, `products --kinds all` of de
+Pages-build. **Volgorde:** eerst catalogus-siblings vernieuwen met
+[products](../products/) (`.mvsa.svg` / `.vsa.svg` / `.mscz.svg` en
+eventuele translit-SVG’s), daarna pas `pdf.cmd`. Zo gebruikt de
+pagina-PDF de verse product-SVG’s. Ontbreekt of is een sibling-SVG
+verouderd (herkomststempel past niet bij de bron), dan exporteert
+`pdf.cmd` die SVG nog lokaal opnieuw — dat is noodhulp, geen vervanging
+van `products`. Gewijzigde koormap-`index.md` meenemen na een git-edit:
+[products-changed](../products-changed/). De pagina-PDF maak je lokaal
+uit de **notatiebronnen**, de sibling-SVG’s en de Markdown-layout, en
+commit je mee. MuseScore 4 is nodig voor `.mvsa`/`.mscz`-SVG-export (en
+dus zodra de pagina zulke bronnen of `pdf-bijelkaar` gebruikt).
 
 **Uitvoer:** standaard `OK …` per gemaakte PDF en een slotregel
 `Klaar: …`. Tussenstappen (bron, SVG, schaal, …) alleen met `--verbose`.
@@ -40,12 +59,15 @@ zodra de pagina zulke bronnen of `pdf-bijelkaar` gebruikt).
 Catalogus-leaves: ontwerp en restmijlpalen in
 `docs/plans/catalogus-index-md-pdf.md`.
 
-**Download pagina** gebruikt die PDF. De site stelt een bestandsnaam voor:
+**Download pagina** gebruikt die PDF’s. De site stelt een bestandsnaam voor:
 frontmatter `pdf_bestandsnaam`; anders op een koormap `title`, op een catalogus-blad
 de afgeleide bladtitel; anders de mapnaam — zie
-`docs\specs\koormap-paginataal.md`. Zonder dit bestand tonen de knoppen
-niet. Er is geen aparte browser-HTML-afdruk meer via de navigatie (dat
-was hetzelfde als Ctrl+P).
+`docs\specs\koormap-paginataal.md`. Bij Translit aan krijgt de
+voorgestelde naam het achtervoegsel « (translit Nls)» of « (translit Ksl)»;
+op schijf blijven de namen `index.md.pdf` / `index.md.translit-*.pdf`.
+Zonder basis-`index.md.pdf` (en zonder enige translit-PDF) blijft de
+downloadknop weg. Er is geen aparte browser-HTML-afdruk meer via de
+navigatie (dat was hetzelfde als Ctrl+P).
 
 Invoer volgt [bestand of map](../invoer-bestand-of-map/): één `.md` of een
 map (recursief alle `index.md`). `--all-koormappen` is suiker voor het pad
@@ -67,11 +89,12 @@ Later: tall scherm-SVG of Score-IR. Plan in VSA-tooling:
 [kale-muziek-svg-en-uitgaven](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/kale-muziek-svg-en-uitgaven.md).
 
 **Huidige implementatie:** kale blad-SVG’s + koppen uit de Markdown op A4
-(`index.md.pdf`). Bron: `.mvsa` / `.vsa` / `.mscz` in de catalogusmap —
-**geen** plakken van catalogus-product-PDF’s. Binnen `pdf-bijelkaar`: opnieuw
-exporteren met `mvsa svg --compact`. Meerdere MuseScore-pagina’s worden als
-bladreeks (`stem-1.svg`, …) onder elkaar gezet. Vereist MuseScore 4 (bij
-`.mvsa`/`.mscz`) en `pymupdf`.
+(`index.md.pdf`, plus optioneel translit-varianten). Bron: `.mvsa` /
+`.vsa` / `.mscz` in de catalogusmap — **geen** plakken van
+catalogus-product-PDF’s. Translit-varianten gebruiken
+`*.translit-nls.svg` / `*.translit-ksl.svg`. Binnen `pdf-bijelkaar`: opnieuw
+exporteren met `mvsa svg --compact`. Vereist MuseScore 4 (bij `.mvsa`/`.mscz`)
+en `pymupdf`.
 
 Catalogus-leaf **zonder** notatie (stub / `voorzien`, geen tekstblad): één
 A4 met de afgeleide titel en de tekst dat het blad voorzien is. Zelfde
@@ -85,11 +108,11 @@ idealiter op één A4.
 
 # OPTIONS
 
-| Optie | Betekenis |
-| --- | --- |
-| `--all-koormappen` | Suiker: zelfde als pad `content-source\koormappen` |
-| `--force` | Opnieuw schrijven, ook als de PDF nieuwer lijkt dan de bronnen |
-| `-y`, `--yes` | Batch zonder bevestigingsvraag |
+| Optie              | Betekenis                                                      |
+| ------------------ | -------------------------------------------------------------- |
+| `--all-koormappen` | Suiker: zelfde als pad `content-source\koormappen`             |
+| `--force`          | Opnieuw schrijven, ook als de PDF nieuwer lijkt dan de bronnen |
+| `-y`, `--yes`      | Batch zonder bevestigingsvraag                                 |
 
 # EXAMPLES
 
@@ -110,10 +133,13 @@ scripts\pdf.cmd content-source\koormappen\hemelum\liturgie-zondag
 Je hebt de shortcodes op een slot-pagina gezet of gewijzigd en wilt de
 knop **Download pagina** een actuele pagina-PDF geven. Ook vóór
 push/PR: `check` (en CI) eist die PDF bij bladen met `bieb`/`muziek`
-waar een notatiebron bestaat — zie [check](../check/).
+waar een notatiebron bestaat — zie [check](../check/). Na een
+notatiewijziging: eerst [products](../products/) voor die bronnen, dan
+`pdf.cmd` voor de bladermap-pagina’s die ernaar verwijzen.
 
 # SEE ALSO
 
+- [products](../products/) — sibling-SVG’s en andere catalogus-afgeleiden
 - [Koormap-blad schrijven](/handleiding/start/koormap-blad/) — spiekbriefje voor shortcodes
 - [Catalogus en koormappen](/handleiding/start/catalogus-en-koormappen/)
 - Spec: `docs\specs\koormap-paginataal.md` in de repository

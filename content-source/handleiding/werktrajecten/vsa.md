@@ -39,10 +39,10 @@ afspeelbaar zijn — zonder een volledige MuseScore-basispartituur.
 **Waarom geen lettergreepstreepjes in de canonieke `.vsa`?** Orthografische
 `-` (Pyphen) helpt Coria én preview-audio (één kwartnoot per lettergreep),
 maar hoort niet op het gepubliceerde SVG. `products --kinds vsa` roept
-tooling `vsa products` aan (tijdelijke syllabify + Coria-MXL + SVG); audio
-syllabify’t apart tijdelijk. Die tekst wordt niet teruggeschreven naar
-`{stam}.vsa`. Een experimentele sidecar `{stam}.syl.vsa` is **geen** bron
-voor SVG, `products --kinds vsa` of `products --kinds audio`.
+`vsa musicxml --syllabify` en/of `vsa svg` aan (alleen de stale slots);
+audio syllabify’t apart tijdelijk. Die tekst wordt niet teruggeschreven
+naar `{stam}.vsa`. Een experimentele sidecar `{stam}.syl.vsa` is **geen**
+bron voor SVG, `products --kinds vsa` of `products --kinds audio`.
 
 ## Wanneer wel / wanneer niet
 

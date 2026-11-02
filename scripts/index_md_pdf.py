@@ -3,9 +3,10 @@
 A4-compositie uit shortcode ``kop`` (en legacy ``#`` / HTML-titels) + kale
 muziek-SVG's (geen catalogus-product-PDF's plakken). Bij voorkeur de
 catalogus-sibling tall-SVG (``*.mvsa.svg`` / ``*.mscz.svg`` / ``*.vsa.svg``);
-alleen lokaal opnieuw exporteren als die ontbreekt. Compose snijdt op
-systeembrenzen (MuseScore ``StaffLines``, anders VSA ``vsa-line``) zodat
-rest-ruimte na titel/proza op A4 wél gevuld wordt.
+lokaal opnieuw exporteren als die ontbreekt of de herkomststempel niet bij
+de bron past. Versheid van ``index.md.pdf`` hangt ook van die sibling-SVG’s
+af. Compose snijdt op systeembrenzen (MuseScore ``StaffLines``, anders VSA
+``vsa-line``) zodat rest-ruimte na titel/proza op A4 wél gevuld wordt.
 
 Naast de basis-PDF: optioneel ``index.md.translit-nls.pdf`` /
 ``index.md.translit-ksl.pdf`` (§5a) uit translit-SVG-siblings
@@ -1128,7 +1129,9 @@ def pagina_pdf_job(md_path: Path) -> PaginaPdfJob | None:
     try:
         for flow in flows:
             for mid in flow.music_ids:
-                deps.append(find_notation_source(mid))
+                src = find_notation_source(mid)
+                deps.append(src)
+                deps.append(product_svg_path(src))
     except FileNotFoundError:
         return None
     return PaginaPdfJob(md_path, out, tuple(deps))
@@ -1500,6 +1503,55 @@ def product_svg_path(source: Path) -> Path:
     return source.with_name(source.name + ".svg")
 
 
+def notation_digest(source: Path) -> str:
+    """Herkomst-hash van de notatiebron (zelfde als product-stempels)."""
+    from product_meta import partituur_sha256, source_sha256
+
+    if source.suffix.lower() == ".mscz":
+        return partituur_sha256(source)
+    return source_sha256(source)
+
+
+def product_svg_stamp_ok(source: Path, svg: Path) -> bool:
+    """True als sibling-SVG bestaat en ``vsa-source-sha256`` bij de bron past."""
+    from product_meta import FIELD_SOURCE_SHA, read_svg_stamp, stamp_sha_from_dict
+
+    if not svg.is_file():
+        return False
+    stamp = read_svg_stamp(svg)
+    got = stamp.get(FIELD_SOURCE_SHA) or stamp_sha_from_dict(stamp)
+    return got == notation_digest(source)
+
+
+def stamp_sibling_svg(source: Path, svg: Path) -> None:
+    """Zet bibliotheek-herkomststempel op een zojuist geëxporteerde sibling-SVG."""
+    from product_meta import (
+        GENERATOR_MSCZ,
+        GENERATOR_MVSA,
+        GENERATOR_VSA_PDF,
+        SOURCE_KIND_MVSA,
+        SOURCE_KIND_PARTITUUR,
+        SOURCE_KIND_VSA,
+        stamp_svg,
+        utc_now_iso,
+    )
+
+    suf = source.suffix.lower()
+    if suf == ".mscz":
+        kind, generator = SOURCE_KIND_PARTITUUR, GENERATOR_MSCZ
+    elif suf == ".vsa":
+        kind, generator = SOURCE_KIND_VSA, GENERATOR_VSA_PDF
+    else:
+        kind, generator = SOURCE_KIND_MVSA, GENERATOR_MVSA
+    stamp_svg(
+        svg,
+        source_hash=notation_digest(source),
+        source_kind=kind,
+        generated_at=utc_now_iso(),
+        generator=generator,
+    )
+
+
 def legacy_bladreeks_svgs(source: Path) -> list[Path]:
     """Oude A4-bladreeks ``{bronnaam}-N.svg`` naast de bron (tot products regen)."""
     source = Path(source)
@@ -1512,7 +1564,7 @@ def legacy_bladreeks_svgs(source: Path) -> list[Path]:
 def export_blad_svgs(
     source: Path, dest: Path, *, compact: bool = False
 ) -> list[Path]:
-    """Lokaal tall-SVG exporteren via street-CLI (alleen als product ontbreekt).
+    """Lokaal tall-SVG exporteren via street-CLI (ontbrekend of verouderd product).
 
     ``mvsa``/``mscz`` ``svg`` schrijft één compacte tall-SVG. ``compact`` is
     optioneel (tooling-default is al compact); blijft voor CLI-compatibiliteit.
@@ -1551,6 +1603,16 @@ def export_blad_svgs(
     raise RuntimeError(f"SVG ontbreekt na export: {dest}")
 
 
+def _export_product_svg_for_pdf(
+    source: Path, dest: Path, *, compact: bool = False
+) -> list[Path]:
+    """Exporteer sibling-SVG en zet herkomststempel."""
+    paths = export_blad_svgs(source, dest, compact=compact)
+    for path in paths:
+        stamp_sibling_svg(source, path)
+    return paths
+
+
 def resolve_svgs_for_pdf(
     source: Path,
     work: Path | None = None,
@@ -1559,11 +1621,11 @@ def resolve_svgs_for_pdf(
     compact: bool = False,
     translit_modus: str | None = None,
 ) -> list[Path]:
-    """Kies SVG voor compose: product → legacy bladreeks → lokaal exporteren.
+    """Kies SVG voor compose: verse product → legacy bladreeks → lokaal exporteren.
 
     Met ``translit_modus`` (``nls``/``ksl``): translit-sibling als die modus
-    bij de bron hoort; anders de kale bron-SVG. Ontbrekende translit-SVG
-    wordt lokaal geëxporteerd (``vsa``/``mvsa svg --translit-modus``).
+    bij de bron hoort; anders de kale bron-SVG. Ontbrekende of verouderde
+    translit-SVG wordt lokaal geëxporteerd (``vsa``/``mvsa svg --translit-modus``).
 
     *work* / *uv_id* blijven voor aanroepers; export schrijft de canonieke
     sibling naast *source* (niet naar een temp-map).
@@ -1581,30 +1643,39 @@ def resolve_svgs_for_pdf(
                 source, work, uv_id=uv_id, compact=compact, translit_modus=None
             )
         tpath = product_translit_svg(source, translit_modus)
-        if tpath.is_file():
+        if tpath.is_file() and product_svg_stamp_ok(source, tpath):
             try:
                 rel = tpath.relative_to(ROOT)
             except ValueError:
                 rel = tpath
             detail(f"  SVG translit-{translit_modus} {rel}")
             return [tpath]
+        reason = "verouderd" if tpath.is_file() else "ontbreekt"
         detail(
-            f"  translit-SVG ontbreekt ({tpath.name}); "
+            f"  translit-SVG {reason} ({tpath.name}); "
             f"exporteren (--translit-modus {translit_modus})…"
         )
         export_one_translit_svg(source, translit_modus)
         if not tpath.is_file():
             raise RuntimeError(f"translit-SVG ontbreekt na export: {tpath}")
+        stamp_sibling_svg(source, tpath)
         return [tpath]
 
     product = product_svg_path(source)
-    if product.is_file():
+    if product.is_file() and product_svg_stamp_ok(source, product):
         try:
             rel = product.relative_to(ROOT)
         except ValueError:
             rel = product
         detail(f"  SVG product {rel}")
         return [product]
+
+    if product.is_file():
+        detail(
+            f"  SVG-product verouderd ({product.name}); "
+            "lokaal opnieuw exporteren…"
+        )
+        return _export_product_svg_for_pdf(source, product, compact=compact)
 
     legacy = legacy_bladreeks_svgs(source)
     if legacy:
@@ -1617,7 +1688,7 @@ def resolve_svgs_for_pdf(
         f"  SVG-product ontbreekt ({product.name}); "
         "lokaal exporteren naar sibling (MuseScore)…"
     )
-    return export_blad_svgs(source, product, compact=compact)
+    return _export_product_svg_for_pdf(source, product, compact=compact)
 
 
 def _staff_line_ys(svg_text: str) -> list[float]:
@@ -2067,7 +2138,7 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
     if not flows:
         return None
 
-    # Bronnen voor mtime-check (notatiebestanden, geen catalogus-PDF)
+    # Bronnen + product-SVG’s voor versheid (geen catalogus-PDF)
     deps = [md_path]
     sources: list[Path] = []
     for flow in flows:
@@ -2075,12 +2146,17 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
             src = find_notation_source(mid)
             deps.append(src)
             sources.append(src)
+            deps.append(product_svg_path(src))
 
     skip_base = False
     if out.is_file() and not force:
-        newest = max(p.stat().st_mtime for p in deps if p.is_file())
-        if out.stat().st_mtime >= newest:
-            skip_base = True
+        svgs_fresh = all(
+            product_svg_stamp_ok(src, product_svg_path(src)) for src in sources
+        )
+        if svgs_fresh:
+            newest = max(p.stat().st_mtime for p in deps if p.is_file())
+            if out.stat().st_mtime >= newest:
+                skip_base = True
 
     if not skip_base:
         with tempfile.TemporaryDirectory(prefix="pagina-pdf-") as tmp:
@@ -2122,17 +2198,24 @@ def _build_translit_pagina_pdfs(
     for modus in modi:
         dest = _pagina_translit_pdf_out_path(md_path, modus)
         tdeps: list[Path] = [md_path, *sources]
+        tsvgs: list[tuple[Path, Path]] = []
         for src in sources:
             if modus in translit_modi_for_source(src):
-                tdeps.append(product_translit_svg(src, modus))
+                tsvg = product_translit_svg(src, modus)
+                tdeps.append(tsvg)
+                tsvgs.append((src, tsvg))
         if dest.is_file() and not force:
-            newest = max(
-                (p.stat().st_mtime for p in tdeps if p.is_file()),
-                default=0.0,
+            tsvgs_fresh = all(
+                product_svg_stamp_ok(src, tsvg) for src, tsvg in tsvgs
             )
-            if newest and dest.stat().st_mtime >= newest:
-                written.append(dest)
-                continue
+            if tsvgs_fresh:
+                newest = max(
+                    (p.stat().st_mtime for p in tdeps if p.is_file()),
+                    default=0.0,
+                )
+                if newest and dest.stat().st_mtime >= newest:
+                    written.append(dest)
+                    continue
         detail(f"  pagina translit-{modus} → {dest.name}")
         with tempfile.TemporaryDirectory(prefix=f"pagina-pdf-{modus}-") as tmp:
             work = Path(tmp)

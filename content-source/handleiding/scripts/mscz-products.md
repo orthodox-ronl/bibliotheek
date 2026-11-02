@@ -31,12 +31,12 @@ je een ander brontype (bijvoorbeeld een `.mvsa`), dan slaat dit spoor
 over — dat is geen fout (zelfde gedrag als bij
 [products](../products/)).
 
-Onder de motorkap: tooling `mscz products` (Coria-`.mxl` + optioneel
-scherm-SVG; `--skip-svg` als alleen MXL nodig is) schrijft ook
-`*.products-meta.json` (schema 2) en kan kale lyrics/mp3 meeschrijven.
-Versheid van mxl/svg = die meta. Lyrics- en Beluisteren-stempels zet dit
-script daarna zelf. Optionele A4-PDF nog via MuseScore 4. Geen fork van
-VSA-tooling-exportlogica.
+Onder de motorkap: alleen wat nodig is. Coria-`.mxl` via `mscz mxl`,
+scherm-SVG via `mscz svg` (niet het atomische `mscz products`, dat ook
+mp3/pdf/Score-IR zou meenemen). Beide schrijven mee in
+`*.products-meta.json`. Versheid van mxl/svg = die meta. Bestaande
+lyrics-/Beluisteren-stempels worden desnoods bijgewerkt. Optionele
+A4-PDF nog via MuseScore 4. Geen fork van VSA-tooling-exportlogica.
 
 **Volgorde:** eerst [layout](../layout/), daarna eventueel een editslag in
 MuseScore 4, daarna dit commando — niet meteen PDF maken als je nog gaat

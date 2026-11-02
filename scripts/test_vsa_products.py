@@ -20,18 +20,42 @@ class ProductNameTests(unittest.TestCase):
 
 
 class SyncCallsToolingProductsTests(unittest.TestCase):
-    def test_sync_one_calls_vsa_products_then_meta(self) -> None:
+    def test_sync_one_mxl_only(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             vsa = root / "lied.vsa"
             vsa.write_text("[:] Amen. [:]\n", encoding="utf-8")
             mxl = sync.product_path_for_vsa(vsa)
-            svg = sync.product_svg_for_vsa(vsa)
 
-            def fake_products(path: Path) -> None:
+            def fake_mxl(path: Path) -> None:
                 self.assertEqual(path, vsa)
                 mxl.write_bytes(b"PK\x03\x04fake")
-                # Minimal zip-like not needed if stamp helpers mocked
+
+            with (
+                mock.patch.object(sync, "REPO_ROOT", root),
+                mock.patch.object(sync, "_run_vsa_mxl", side_effect=fake_mxl),
+                mock.patch.object(sync, "_run_vsa_svg") as run_svg,
+                mock.patch.object(sync, "_apply_bron_identification", return_value=False),
+                mock.patch.object(sync, "write_products_meta") as write_meta,
+                mock.patch.object(sync, "sync_translit_svgs") as sync_translit,
+            ):
+                sync.sync_one(
+                    vsa, dry_run=False, do_mxl=True, do_pdf=False, do_svg=False
+                )
+
+            write_meta.assert_called_once_with(vsa, {"mxl": mxl}, merge=True)
+            run_svg.assert_not_called()
+            sync_translit.assert_not_called()
+
+    def test_sync_one_svg_only(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            vsa = root / "lied.vsa"
+            vsa.write_text("[:] Amen. [:]\n", encoding="utf-8")
+            svg = sync.product_svg_for_vsa(vsa)
+
+            def fake_svg(path: Path) -> None:
+                self.assertEqual(path, vsa)
                 svg.write_text(
                     '<?xml version="1.0"?>\n<svg xmlns="http://www.w3.org/2000/svg"/>\n',
                     encoding="utf-8",
@@ -39,13 +63,52 @@ class SyncCallsToolingProductsTests(unittest.TestCase):
 
             with (
                 mock.patch.object(sync, "REPO_ROOT", root),
-                mock.patch.object(sync, "_run_vsa_products", side_effect=fake_products),
+                mock.patch.object(sync, "_run_vsa_mxl") as run_mxl,
+                mock.patch.object(sync, "_run_vsa_svg", side_effect=fake_svg),
+                mock.patch.object(sync, "write_products_meta") as write_meta,
+                mock.patch.object(sync, "sync_translit_svgs") as sync_translit,
+            ):
+                sync.sync_one(
+                    vsa, dry_run=False, do_mxl=False, do_pdf=False, do_svg=True
+                )
+
+            run_mxl.assert_not_called()
+            write_meta.assert_called_once_with(vsa, {"svg": svg}, merge=True)
+            sync_translit.assert_called_once_with(vsa, dry_run=False, force=True)
+
+    def test_sync_one_mxl_and_svg(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            vsa = root / "lied.vsa"
+            vsa.write_text("[:] Amen. [:]\n", encoding="utf-8")
+            mxl = sync.product_path_for_vsa(vsa)
+            svg = sync.product_svg_for_vsa(vsa)
+            calls: list[str] = []
+
+            def fake_mxl(path: Path) -> None:
+                calls.append("mxl")
+                mxl.write_bytes(b"PK\x03\x04fake")
+
+            def fake_svg(path: Path) -> None:
+                calls.append("svg")
+                svg.write_text(
+                    '<?xml version="1.0"?>\n<svg xmlns="http://www.w3.org/2000/svg"/>\n',
+                    encoding="utf-8",
+                )
+
+            with (
+                mock.patch.object(sync, "REPO_ROOT", root),
+                mock.patch.object(sync, "_run_vsa_mxl", side_effect=fake_mxl),
+                mock.patch.object(sync, "_run_vsa_svg", side_effect=fake_svg),
                 mock.patch.object(sync, "_apply_bron_identification", return_value=False),
                 mock.patch.object(sync, "write_products_meta") as write_meta,
                 mock.patch.object(sync, "sync_translit_svgs") as sync_translit,
             ):
-                sync.sync_one(vsa, dry_run=False, do_mxl=True, do_pdf=False, do_svg=True)
+                sync.sync_one(
+                    vsa, dry_run=False, do_mxl=True, do_pdf=False, do_svg=True
+                )
 
+            self.assertEqual(calls, ["mxl", "svg"])
             write_meta.assert_called_once_with(
                 vsa, {"mxl": mxl, "svg": svg}, merge=True
             )

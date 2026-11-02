@@ -2,9 +2,9 @@
 
 Platte gezongen tekst via ``vsa.text_export`` (``.vsa`` / ``.mvsa`` / MusicXML /
 ``.mscz``). Stamp-regels bovenaan (``# vsa-source-sha256:`` …). Slaat ``input/``,
-``manueel/manual`` en ``*.print.mscz`` over. Bij basispartituur-``.mscz``
-bij voorkeur verse sibling-``.mscz.mxl`` (geen MuseScore); anders ``mscz`` →
-temp-``.mxl`` via tooling.
+``manueel/manual`` en ``*.print.mscz`` over. Bij basispartituur-``.mscz``:
+eerst verse sibling-``.mscz.mxl`` (zonodig ``mscz mxl``); anders tijdelijk
+via tooling uit de ``.mscz``.
 """
 
 from __future__ import annotations
@@ -127,6 +127,23 @@ def _fresh_mscz_mxl(source: Path) -> Path | None:
     return None
 
 
+def _ensure_mscz_mxl_for_lyrics(source: Path) -> Path | None:
+    """Verse ``.mscz.mxl``; ontbreekt/stale → ``mscz mxl`` (zelfde straat als products)."""
+    fresh = _fresh_mscz_mxl(source)
+    if fresh is not None:
+        return fresh
+    from street_meta import write_products_meta
+    from sync_mscz_products import _run_mscz_mxl
+
+    detail(f"  MXL  {source.name} -> mscz mxl (voor lyrics)")
+    _run_mscz_mxl(source)
+    mxl = product_mxl_for_mscz(source)
+    if not mxl.is_file():
+        return None
+    write_products_meta(source, {"mxl": mxl}, merge=True)
+    return _fresh_mscz_mxl(source) or mxl
+
+
 def _extract_plain(source: Path) -> str:
     try:
         from vsa.text_export import plain_text_from_path
@@ -136,7 +153,7 @@ def _extract_plain(source: Path) -> str:
             "via scripts\\_ensure.cmd --vsa-tool (tooling ≥ lyrics-uit-mscz)"
         ) from exc
     if source.suffix.lower() == ".mscz":
-        mxl = _fresh_mscz_mxl(source)
+        mxl = _ensure_mscz_mxl_for_lyrics(source)
         if mxl is not None:
             return plain_text_from_path(mxl)
     return plain_text_from_path(source)

@@ -37,6 +37,7 @@ def test_pagina_pdf_job_requires_notation(
     assert job.out_path == md.with_name("index.md.pdf")
     assert job.md_path == md.resolve()
     assert leaf / "lied.vsa" in job.deps
+    assert leaf / "lied.vsa.svg" in job.deps
 
 
 def test_pagina_pdf_job_skips_missing_notation(

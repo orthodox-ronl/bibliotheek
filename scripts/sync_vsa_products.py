@@ -2,8 +2,9 @@
 
 Siblings: ``{stam}.vsa.mxl`` (Coria / Oefenen), ``{stam}.vsa.svg`` (scherm),
 plus optioneel ``.vsa.translit-nls.svg`` / ``.vsa.translit-ksl.svg`` (§5a).
-Export via tooling ``vsa products`` (schrijft schema-2 products-meta);
-translit-SVG’s apart via ``vsa svg --translit-modus``. Daarna optioneel
+Export per slot: ``vsa musicxml --syllabify`` en/of ``vsa svg`` (geen
+atomair ``vsa products`` meer — die zou ook mp3/pdf/IR meenemen).
+Translit-SVG’s apart via ``vsa svg --translit-modus``. Daarna optioneel
 Coria-bron-``identification`` + meta herschrijven (product-hashes),
 legacy-opruim. Geen in-file versheidstempels meer (versheid = meta).
 A4-``.vsa.pdf`` is geen verplicht product (blad = ``index.md.pdf``);
@@ -22,7 +23,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Sequence
 
-from cli_style import check_call, detail, street_products_quiet_flags
+from cli_style import check_call, detail
 from coria_mxl import load_score_xml, require_no_spaces, write_mxl
 from product_kind import (
     DEFAULT_ROOT,
@@ -126,8 +127,8 @@ class PlaybackVsaSource:
 def playback_vsa_for_export(canonical: Path) -> PlaybackVsaSource:
     """Syllabify ongescoopte tekst voor Coria; canonieke bron blijft ongewijzigd.
 
-    Nog gebruikt door ``sync_audio_products`` (audio-keten). MXL/SVG gaan via
-    ``vsa products`` (tooling doet tijdelijke syllabify zelf).
+    Nog gebruikt door ``sync_audio_products`` (audio-keten). MXL gaat via
+    ``vsa musicxml --syllabify``; SVG via ``vsa svg``.
     """
     try:
         from vsa.syllabify import syllabify_vsa_source
@@ -194,24 +195,38 @@ def is_stale_pair(vsa: Path) -> tuple[bool, bool]:
     )
 
 
-def _run_vsa_products(vsa: Path) -> None:
-    """Kale export via tooling: syllabify + Coria-MXL + SVG + products-meta."""
+def _run_vsa_mxl(vsa: Path) -> None:
+    """Coria-``.vsa.mxl`` via ``vsa musicxml --syllabify`` (sibling-pad)."""
+    mxl = product_path_for_vsa(vsa)
     cmd = [
         sys.executable,
         "-m",
         "vsa.cli",
-        "products",
-        "--force",
-        *street_products_quiet_flags(),
+        "musicxml",
+        "--syllabify",
         str(vsa),
+        str(mxl),
     ]
     check_call(cmd, cwd=str(REPO_ROOT))
-    mxl = product_path_for_vsa(vsa)
-    svg = product_svg_for_vsa(vsa)
     if not mxl.is_file():
-        raise RuntimeError(f"MXL ontbreekt na vsa products: {mxl}")
+        raise RuntimeError(f"MXL ontbreekt na vsa musicxml: {mxl}")
+
+
+def _run_vsa_svg(vsa: Path) -> None:
+    """Scherm-``.vsa.svg`` via ``vsa svg`` (sibling-pad)."""
+    svg = product_svg_for_vsa(vsa)
+    cmd = [
+        sys.executable,
+        "-m",
+        "vsa.cli",
+        "svg",
+        str(vsa),
+        "-o",
+        str(svg),
+    ]
+    check_call(cmd, cwd=str(REPO_ROOT))
     if not svg.is_file():
-        raise RuntimeError(f"SVG ontbreekt na vsa products: {svg}")
+        raise RuntimeError(f"SVG ontbreekt na vsa svg: {svg}")
 
 
 def _title_for_vsa(vsa: Path) -> str:
@@ -356,11 +371,12 @@ def sync_one(
     mxl = product_path_for_vsa(vsa)
     pdf = product_pdf_for_vsa(vsa)
     svg = product_svg_for_vsa(vsa)
-    need_export = do_mxl or do_svg
     # Na bron-SVG-export altijd translit meenemen; anders alleen als stale.
     want_translit = do_translit_svg or do_svg
-    if need_export:
-        detail(f"  EXP  {rel} -> vsa products (mxl+svg)")
+    if do_mxl:
+        detail(f"  EXP  {rel} -> vsa musicxml (--syllabify)")
+    if do_svg:
+        detail(f"  EXP  {rel} -> vsa svg")
     if do_pdf:
         detail(f"  PDF  {rel} -> {pdf.name}")
     if dry_run:
@@ -368,13 +384,19 @@ def sync_one(
             sync_translit_svgs(vsa, dry_run=True, force=do_svg)
         return
 
-    if need_export:
-        _run_vsa_products(vsa)
+    meta_products: dict[str, Path] = {}
+    if do_mxl:
+        _run_vsa_mxl(vsa)
         _apply_bron_identification(vsa, mxl)
         _remove_legacy_vsa_mxl(vsa, mxl)
-        # Tooling schreef meta; werk mxl/svg-hashes bij zonder andere keys
-        # (lyrics/mp3/pdf) te wissen. Tooling lyrics/mp3 zijn kaal → stempelen.
-        write_products_meta(vsa, {"mxl": mxl, "svg": svg}, merge=True)
+        meta_products["mxl"] = mxl
+    if do_svg:
+        _run_vsa_svg(vsa)
+        meta_products["svg"] = svg
+    if meta_products:
+        # Tooling merget al meta; hashes opnieuw zetten na bron-id op MXL.
+        write_products_meta(vsa, meta_products, merge=True)
+        # Bestaande lyrics/mp3 (van eerdere products-run) opnieuw stempelen.
         restamp_after_street_products(vsa)
 
     if want_translit:
@@ -478,7 +500,7 @@ def main(argv: list[str] | None = None) -> int:
         argv,
         description=(
             "Exporteer stale Coria-.mxl en muziek-.vsa.svg vanuit bibliotheek-.vsa "
-            "(via vsa products; geen A4-product-PDF; blad = index.md.pdf)."
+            "(via vsa musicxml / vsa svg; geen A4-product-PDF; blad = index.md.pdf)."
         ),
         default_root=DEFAULT_ROOT,
     )

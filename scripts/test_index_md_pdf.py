@@ -509,6 +509,7 @@ def test_resolve_svgs_translit_uses_sibling(tmp_path, monkeypatch) -> None:
         '<?xml version="1.0"?>\n<svg xmlns="http://www.w3.org/2000/svg"/>\n',
         encoding="utf-8",
     )
+    pp.stamp_sibling_svg(source, tsvg)
     monkeypatch.setattr(pp, "ROOT", tmp_path)
     outs = pp.resolve_svgs_for_pdf(source, translit_modus="ksl")
     assert outs == [tsvg]
@@ -524,6 +525,7 @@ def test_resolve_svgs_translit_falls_back_when_modus_niet_van_toepassing(
         '<?xml version="1.0"?>\n<svg xmlns="http://www.w3.org/2000/svg"/>\n',
         encoding="utf-8",
     )
+    pp.stamp_sibling_svg(source, base)
     monkeypatch.setattr(pp, "ROOT", tmp_path)
     # nls hoort niet bij puur Latijn → kale SVG
     outs = pp.resolve_svgs_for_pdf(source, translit_modus="nls")
@@ -597,6 +599,7 @@ def test_resolve_svgs_prefers_product(tmp_path: Path) -> None:
     source.write_bytes(b"fake")
     product = tmp_path / "lied.mscz.svg"
     product.write_text("<svg/>", encoding="utf-8")
+    pp.stamp_sibling_svg(source, product)
     work = tmp_path / "work"
     work.mkdir()
     paths = pp.resolve_svgs_for_pdf(source, work, uv_id="a/b")
@@ -632,6 +635,36 @@ def test_resolve_svgs_exports_when_missing(tmp_path, monkeypatch) -> None:
     paths = pp.resolve_svgs_for_pdf(source, work, uv_id="x/y")
     assert paths == [tmp_path / "lied.mscz.svg"]
     assert exported == [paths[0]]
+    assert pp.product_svg_stamp_ok(source, paths[0])
+
+
+def test_resolve_svgs_exports_when_stale(tmp_path, monkeypatch) -> None:
+    source = tmp_path / "lied.vsa"
+    source.write_text("[:] Amen. [:]\n", encoding="utf-8")
+    product = tmp_path / "lied.vsa.svg"
+    product.write_text("<svg>oud</svg>", encoding="utf-8")
+    # Stempel hoort bij andere inhoud → verouderd.
+    import product_meta as pm
+
+    pm.stamp_svg(
+        product,
+        source_hash="niet-de-echte-hash",
+        source_kind=pm.SOURCE_KIND_VSA,
+        generated_at="2026-01-01T00:00:00+00:00",
+        generator=pm.GENERATOR_VSA_PDF,
+    )
+    exported: list[Path] = []
+
+    def fake_export(src: Path, dest: Path, *, compact: bool = False):
+        exported.append(dest)
+        dest.write_text("<svg>nieuw</svg>", encoding="utf-8")
+        return [dest]
+
+    monkeypatch.setattr(pp, "export_blad_svgs", fake_export)
+    paths = pp.resolve_svgs_for_pdf(source, uv_id="x/y")
+    assert paths == [product]
+    assert exported == [product]
+    assert pp.product_svg_stamp_ok(source, product)
 
 
 def test_system_cut_points_between_staff_clusters(tmp_path: Path) -> None:

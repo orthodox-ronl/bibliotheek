@@ -68,12 +68,15 @@ CI genereert geen MuseScore-/PDF-/audio-producten en geen sibling-SVG
 (`.vsa.svg` / `.mvsa.svg`). Wel, vóór Hugo, een legacy bladermap-plaatje
 uit `.vsa` (`python scripts\sync_oefenhoek_index.py --svg`) voor het geval de sibling-SVG nog
 ontbreekt. Het scherm gebruikt de sibling. Koormap-blad
-`index.md.pdf` hoort niet bij `products.cmd`: lokaal
-`scripts/pdf.cmd`, daarna committen. Wel in `check`
-(`check_index_md_pdf.py`): ontbrekend of ouder dan Markdown/notatiebron
-is een waarschuwing lokaal, een fout met `--strict` / in CI / op `main`.
-Zelfde run schrijft optioneel `index.md.translit-nls.pdf` /
-`index.md.translit-ksl.pdf` (uit translit-SVG’s; check eist die nog niet).
+`index.md.pdf` hoort niet bij `products.cmd`: lokaal eerst
+`scripts/products.cmd` (verse sibling-SVG’s), daarna `scripts/pdf.cmd`,
+dan committen. `pdf.cmd` gebruikt bij voorkeur die product-SVG’s;
+ontbreekt of is de SVG verouderd (stamp), dan exporteert het lokaal
+opnieuw. Wel in `check` (`check_index_md_pdf.py`): ontbrekend of ouder
+dan Markdown, notatiebron of product-SVG is een waarschuwing lokaal,
+een fout met `--strict` / in CI / op `main`. Zelfde run schrijft
+optioneel `index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf`
+(uit translit-SVG’s; check eist die nog niet).
 Op de site volgt **Download pagina** de Translit-schakelaar (uit →
 `index.md.pdf`; aan+Nls/Ksl → bijbehorende translit-PDF). Het scherm toont
 de sibling-SVG’s (niet OSMG).
@@ -106,8 +109,13 @@ Alle sporen delen één schil in [`scripts/product_kind.py`](../scripts/product_
 (`run_kind`: collect → `need_regen` → MuseScore-gate → sync). Per kind blijft
 alleen bron-selectie en generatie in `sync_*_products` / `sync_import_mvsa`.
 Gebruikerscommando: alleen [`scripts/products.cmd`](../scripts/products.cmd)
-(`--kinds …`); geen aparte `*-products.cmd`. Na vsa/mvsa/mscz ook
+(`--kinds …`); geen aparte `*-products.cmd`. Binnen vsa/mscz/mvsa: **per
+slot** alleen wat stale is (aparte tooling-CLI’s; geen atomair
+`… products` dat mp3/pdf/mscz meeneemt). Products-meta
 `{bron}.products-meta.json` (snelle versheid; stamp-fallback zonder meta).
-`check_*` blijft apart (status-JSON) maar hergebruikt `collect` en productpaden.
+Volgorde kinds: notatie (vsa/mscz/tekstblad/mvsa) vóór import/audio/lyrics;
+lyrics bij `.mscz` zorgt zonodig eerst voor verse `.mscz.mxl`. Pagina-PDF:
+eerst products (SVG), dan [`pdf.cmd`](../scripts/pdf.cmd). `check_*` blijft
+apart (status-JSON) maar hergebruikt `collect` en productpaden.
 
 Leesbare HOW: [handleiding — Publicatiecontrole](../content-source/handleiding/start/publicatiecontrole.md#producten-opnieuw-genereren--productscmd).

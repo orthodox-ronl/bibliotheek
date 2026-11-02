@@ -26,17 +26,15 @@ MusicXML-lyrics in VSA-tooling) en schrijft die naast de bron als sibling:
 | `{stam}.mvsa` | `{stam}.mvsa.lyrics.txt` |
 | `{stam}.mscz` (basispartituur) | `{stam}.mscz.lyrics.txt` |
 
-Bij een basispartituur-`.mscz` gebruikt het script bij voorkeur een **verse**
-sibling `{stam}.mscz.mxl` (geen MuseScore-aanroep). Ontbreekt die of is die
-ouder dan de `.mscz`, dan exporteert tooling tijdelijk via MuseScore (geen
-`.mscz.mvsa`).
+Bij een basispartituur-`.mscz` gebruikt het script een **verse** sibling
+`{stam}.mscz.mxl`. Ontbreekt die of past de herkomststempel niet meer bij
+de `.mscz`, dan draait eerst `mscz mxl` (zelfde straat als
+[products (mscz)](../mscz-products/)). Lukt dat niet, dan valt tooling terug
+op een tijdelijke export uit de `.mscz` (geen `.mscz.mvsa`).
 
 Bovenaan het tekstbestand staan herkomstregels (`# vsa-source-sha256:` …),
 zodat `check` kan zien of de bron nieuwer is dan de lyrics. Bij `.mscz` is
-`vsa-source-kind` = `partituur`. Dezelfde stempels zet
-`products --kinds mvsa` / `vsa` / `mscz` ook, wanneer tooling eerst een
-kale `.lyrics.txt` schreef — anders zou de volgende `check` ten onrechte
-`unstamped_lyrics` melden. Na een geslaagde run vernieuwt dit script
+`vsa-source-kind` = `partituur`. Na een geslaagde run vernieuwt dit script
 ook `static\zoek\index.json` (zelfde stap als `products` en `check`). Op
 GitHub Pages (productie, preview én branch-previews) bouwt de deploy-workflow
 die index opnieuw vóór Hugo, zodat zoeken altijd bij de gecommitte catalogus

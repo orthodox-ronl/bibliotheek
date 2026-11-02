@@ -85,7 +85,7 @@ def check_job(job: PaginaPdfJob) -> FolderStatus:
                 Issue(
                     "stale_pdf",
                     _rel(out),
-                    "index.md.pdf is ouder dan Markdown of notatiebron",
+                    "index.md.pdf is ouder dan Markdown, notatiebron of product-SVG",
                 )
             )
     return FolderStatus(

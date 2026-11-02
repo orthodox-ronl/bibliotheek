@@ -29,21 +29,24 @@ Bouwt de bestanden die de site en Coria nodig hebben naast de bron in de
 catalogus. Elk kind toont preflight op de echte todo-lijst; korte runs
 (minder dan 100 items of geschat klaar binnen ongeveer een halve minuut)
 starten zonder vraag; bij 100+ items volgt de dubbele zekerheidsvraag.
-`-y` is vooral nodig zonder interactieve terminal. Na een geslaagde run
-(niet `--dry-run`) schrijft de tooling voor vsa/mvsa/mscz
-`{bron}.products-meta.json` (snelle versheid; bladreeks-SVG als `svg-1`…).
-Die export is **kaal**: lyrics en preview-mp3 krijgen daarbij nog geen
-bibliotheek-herkomststempel. Direct daarna zet `products` die stempels
-wél (zelfde regels als `--kinds lyrics` / `--kinds audio`) en werkt de
-hashes in de meta bij. Bij vsa/mscz worden gewijzigde MXL/SVG-hashes
-gemerged zonder andere meta-keys te wissen. Daarna vernieuwt het de
-zoekindex en Coria-fingerprints.
+`-y` is vooral nodig zonder interactieve terminal.
+
+Per notatie-kind (vsa/mscz/mvsa) worden alleen **stale slots** opnieuw
+gemaakt (bijv. alleen `.mxl`, of alleen `.svg`), via aparte tooling-CLI’s —
+niet één atomische `… products`-run die ook mp3/pdf meeneemt. Die CLI’s
+werken `{bron}.products-meta.json` bij (snelle versheid). Audio en lyrics
+zijn aparte kinds. Bestaan er nog kale lyrics/mp3 van een oude run, dan
+krijgen die na slot-export opnieuw een bibliotheek-stempel. Daarna
+vernieuwt `products` de zoekindex en Coria-fingerprints.
+
+**Volgorde kinds** (bij `all`): vsa → mscz → tekstblad → mvsa → import →
+audio → lyrics, zodat notatie-siblings er zijn vóór audio/lyrics. Lyrics
+op `.mscz` maakt zonodig zelf eerst `.mscz.mxl`.
 
 **Logging:** standaard alleen wat wél gebeurt (`>>> kind: N van M
 bijwerken`) plus fouten met `Oplossing: …`. Kinds die al up-to-date zijn
 blijven stil (detail achter `-v` / `--verbose`). Mislukt er iets over
 meerdere kinds, dan eindigt de run met `=== Samenvatting products ===`.
-Zonder `--verbose` krijgt de VSA-tooling `--quiet`.
 
 Dit is het **enige** gebruikerscommando voor die producten. Er zijn geen
 aparte `vsa-products.cmd`-wrappers meer. Per kind staat detail op de
@@ -56,8 +59,16 @@ man-page van dat kind (zelfde map):
 - [products (lyrics)](../lyrics-products/)
 - [products (tekstblad)](../tekstblad-products/)
 
-Koormap-/catalogusblad `index.md.pdf` hoort hier **niet** bij — dat is
-[pdf](../pdf/). Alleen git-gewijzigde bronnen (plus koormap-pdf):
+Bij `vsa` / `mvsa` schrijft sync ook optionele translit-SVG’s
+(`{bron}.translit-nls.svg` / `.translit-ksl.svg`) volgens de taal van de
+bron. Bij `mvsa` bovendien `{bron}.translit.mxl` (Coria + hulp-parts).
+`check` eist de translit-SVG’s nog niet. Zie
+[products (vsa)](../vsa-products/) en [products (mvsa)](../mvsa-products/).
+
+Koormap-/catalogusblad `index.md.pdf` (en `index.md.translit-*.pdf`)
+hoort hier **niet** bij — dat is [pdf](../pdf/). Na `products` (verse
+sibling-SVG’s) draai je `pdf.cmd` voor de pagina’s die die bronnen
+tonen. Alleen git-gewijzigde bronnen (plus koormap-pdf):
 [products-changed](../products-changed/).
 
 Bij een **map** pakt `products` alleen canonieke bronnen (`.vsa` /
@@ -79,6 +90,7 @@ scripts\products.cmd --verbose
 
 # SEE ALSO
 
+- [pdf](../pdf/) — `index.md.pdf` ná verse sibling-SVG’s uit products
 - [products-changed](../products-changed/) — alleen git-gewijzigde bronnen
 - [cleanup-chained-products](../cleanup-chained-products/)
 - [check](../check/)

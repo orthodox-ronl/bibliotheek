@@ -37,7 +37,7 @@ class CollectTests(unittest.TestCase):
 
 
 class SyncCallsToolingProductsTests(unittest.TestCase):
-    def test_sync_one_calls_mvsa_products_skip_svg(self) -> None:
+    def test_sync_one_mxl_and_ir_without_svg(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             mvsa = root / "lied.mvsa"
@@ -45,11 +45,15 @@ class SyncCallsToolingProductsTests(unittest.TestCase):
             mxl = sync.product_mxl_for_mvsa(mvsa)
             score_ir = sync.product_score_ir_for_mvsa(mvsa)
             from_ir = sync.product_from_ir_musicxml_for_mvsa(mvsa)
+            calls: list[str] = []
 
-            def fake_products(path: Path, *, skip_svg: bool) -> None:
-                self.assertEqual(path, mvsa)
-                self.assertTrue(skip_svg)
+            def fake_mxl(path: Path) -> None:
+                calls.append("mxl")
                 mxl.write_bytes(b"PK\x03\x04fake")
+
+            def fake_ir(path: Path, *, with_from_ir: bool) -> None:
+                self.assertTrue(with_from_ir)
+                calls.append("ir")
                 score_ir.write_text('{"format":"score-ir"}\n', encoding="utf-8")
                 from_ir.write_text(
                     '<?xml version="1.0"?>\n<score-partwise/>\n',
@@ -58,8 +62,12 @@ class SyncCallsToolingProductsTests(unittest.TestCase):
 
             with (
                 mock.patch.object(sync, "REPO_ROOT", root),
-                mock.patch.object(sync, "_run_mvsa_products", side_effect=fake_products) as run,
-                mock.patch.object(sync, "sync_translit_svgs") as sync_translit,
+                mock.patch.object(sync, "_run_mvsa_mxl", side_effect=fake_mxl),
+                mock.patch.object(sync, "_run_mvsa_score_ir", side_effect=fake_ir),
+                mock.patch.object(sync, "_run_mvsa_svg") as run_svg,
+                mock.patch.object(sync, "write_products_meta") as write_meta,
+                mock.patch.object(sync, "sync_translit_svgs") as sync_translit_svg,
+                mock.patch.object(sync, "sync_translit_mxl") as sync_translit_mxl,
             ):
                 sync.sync_one(
                     mvsa,
@@ -71,8 +79,15 @@ class SyncCallsToolingProductsTests(unittest.TestCase):
                     dry_run=False,
                 )
 
-            run.assert_called_once_with(mvsa, skip_svg=True)
-            sync_translit.assert_not_called()
+            self.assertEqual(calls, ["mxl", "ir"])
+            run_svg.assert_not_called()
+            write_meta.assert_called_once_with(
+                mvsa,
+                {"mxl": mxl, "score-ir": score_ir, "from-ir": from_ir},
+                merge=True,
+            )
+            sync_translit_svg.assert_not_called()
+            sync_translit_mxl.assert_called_once_with(mvsa, dry_run=False, force=True)
 
     def test_mvsa_svg_outputs_bladreeks(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -84,33 +99,31 @@ class SyncCallsToolingProductsTests(unittest.TestCase):
             p2.write_text("<svg/>\n", encoding="utf-8")
             self.assertEqual(sync.mvsa_svg_outputs(mvsa), [p1, p2])
 
-    def test_sync_one_requests_svg_when_needed(self) -> None:
+    def test_sync_one_svg_only(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             mvsa = root / "lied.mvsa"
             mvsa.write_text("L: a\n", encoding="utf-8")
-            calls: list[bool] = []
+            svg = sync.product_svg_for_mvsa(mvsa)
 
-            def fake_products(path: Path, *, skip_svg: bool) -> None:
-                calls.append(skip_svg)
-                sync.product_mxl_for_mvsa(mvsa).write_bytes(b"PK")
-                sync.product_score_ir_for_mvsa(mvsa).write_text("{}\n", encoding="utf-8")
-                sync.product_from_ir_musicxml_for_mvsa(mvsa).write_text(
-                    "<score/>\n", encoding="utf-8"
-                )
-                sync.product_svg_for_mvsa(mvsa).write_text(
+            def fake_svg(path: Path) -> None:
+                svg.write_text(
                     '<?xml version="1.0"?>\n<svg xmlns="http://www.w3.org/2000/svg"/>\n',
                     encoding="utf-8",
                 )
 
             with (
                 mock.patch.object(sync, "REPO_ROOT", root),
-                mock.patch.object(sync, "_run_mvsa_products", side_effect=fake_products),
-                mock.patch.object(sync, "sync_translit_svgs") as sync_translit,
+                mock.patch.object(sync, "_run_mvsa_mxl") as run_mxl,
+                mock.patch.object(sync, "_run_mvsa_score_ir") as run_ir,
+                mock.patch.object(sync, "_run_mvsa_svg", side_effect=fake_svg),
+                mock.patch.object(sync, "write_products_meta") as write_meta,
+                mock.patch.object(sync, "sync_translit_svgs") as sync_translit_svg,
+                mock.patch.object(sync, "sync_translit_mxl") as sync_translit_mxl,
             ):
                 sync.sync_one(
                     mvsa,
-                    need_mxl=True,
+                    need_mxl=False,
                     need_pdf=False,
                     need_svg=True,
                     need_score_ir=False,
@@ -118,8 +131,11 @@ class SyncCallsToolingProductsTests(unittest.TestCase):
                     dry_run=False,
                 )
 
-            self.assertEqual(calls, [False])
-            sync_translit.assert_called_once_with(mvsa, dry_run=False, force=True)
+            run_mxl.assert_not_called()
+            run_ir.assert_not_called()
+            write_meta.assert_called_once_with(mvsa, {"svg": svg}, merge=True)
+            sync_translit_svg.assert_called_once_with(mvsa, dry_run=False, force=True)
+            sync_translit_mxl.assert_not_called()
 
 
 class StampOkTests(unittest.TestCase):
