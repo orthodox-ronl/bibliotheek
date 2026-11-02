@@ -6,7 +6,7 @@ weight: 5
 
 # NAME
 
-Invoerconventie — één bronbestand of een map
+Invoerconventie — pad zoeken, bestand of map, en korte logregels
 
 # DESCRIPTION
 
@@ -22,11 +22,61 @@ Lege map (geen treffers) → duidelijke fout. Een enkelvoudig uitvoerpad
 
 Dit geldt onder meer voor [layout](../layout/), [pdf](../pdf/),
 [bieb accepteer](../bieb-accepteer/), [opkuisen](../opkuisen/) en
-[products](../products/) / `*-products` (die dit al deden via
-`list_source_paths`).
+[products](../products/) / `*-products` (via `list_source_paths`).
 
 **Niet** voor id-commando’s: `bieb hernoem`, `bieb verwijder`,
 `bieb kopieer` (die werken op catalogus-ids, niet op bestandsscans).
+
+## Korte paden (waar het CLI dat ondersteunt)
+
+Bij [products](../products/) (en elk product-kind) en [pdf](../pdf/)
+zoekt het script een ontbrekend pad in deze volgorde:
+
+1. precies zoals je het typt (absoluut, of relatief t.o.v. de map waarin
+   je het opdrachtvenster hebt openstaan; relatief ook t.o.v. de
+   repository-map);
+2. onder `content-source\`;
+3. onder `content-source\catalogus\`;
+4. onder `content-source\koormappen\`.
+
+Het eerste bestaande bestand of de eerste bestaande map wint. Bestaat
+dezelfde relatieve naam onder catalogus én koormappen, dan wint
+**catalogus**.
+
+Voorbeelden die hetzelfde blad bedoelen:
+
+```cmd
+scripts\products.cmd content-source\catalogus\tweede-antifoon\weekdagen\hemelum
+scripts\products.cmd catalogus\tweede-antifoon\weekdagen\hemelum
+scripts\products.cmd tweede-antifoon\weekdagen\hemelum
+```
+
+```cmd
+scripts\pdf.cmd content-source\koormappen\hemelum\liturgie-zondag
+scripts\pdf.cmd koormappen\hemelum\liturgie-zondag
+scripts\pdf.cmd hemelum\liturgie-zondag
+```
+
+Andere script-man-pages kunnen nog een volledig `content-source\…`-pad
+in de voorbeelden tonen; korte vormen werken daar alleen als die CLI
+dezelfde padzoeking heeft (nu: products-familie en `pdf.cmd`).
+
+## Logging: korte bestandsnamen
+
+In de uitvoer (OK-regels, fouten, fix-suggesties) schrijft het script
+paden als volgt:
+
+- onder `content-source\` → relatief t.o.v. die map
+  (`catalogus\…`, `koormappen\…`, `handleiding\…`);
+- anders onder de repository → relatief t.o.v. de repo-root
+  (`scripts\…`, `data\…`);
+- buiten de repository → absoluut pad.
+
+Zo zie je in logs `catalogus\trisagion\…` in plaats van
+`content-source\catalogus\trisagion\…`.
+
+Technische helpers: `scripts\input_paths.py` (`resolve_user_path`,
+`rel_for_log`), `scripts\batch_guard.py`.
 
 ## Batch: preflight, duur-schatting, bevestiging
 
@@ -53,14 +103,13 @@ met uitleg.
 Tijdens de batch: doorgaan bij fouten, tussentijdse
 resterende-tijd-schatting, eindlijst van mislukte paden.
 
-Technische helpers: `scripts\input_paths.py`, `scripts\batch_guard.py`.
-
 # EXAMPLES
 
 ```cmd
+scripts\products.cmd tweede-antifoon\weekdagen\hemelum --kinds vsa
+scripts\pdf.cmd hemelum\liturgie-zondag\vredeslitanie
 scripts\layout.cmd content-source\catalogus\ektinia\vrede\hemelum\lied.mscz
 scripts\layout.cmd content-source\catalogus\ektinia\vrede
-scripts\pdf.cmd content-source\koormappen\hemelum\liturgie-zondag
 scripts\bieb.cmd accepteer input\_werk\batch --dry-run
 ```
 

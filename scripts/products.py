@@ -114,7 +114,11 @@ def main(argv: list[str] | None = None) -> int:
         nargs="?",
         type=Path,
         default=DEFAULT_ROOT,
-        help="Catalogusmap of één bronbestand (default: content-source/catalogus)",
+        help=(
+            "Catalogusmap of één bronbestand (default: "
+            "content-source/catalogus). Korte paden: t.o.v. "
+            "content-source, catalogus of koormappen."
+        ),
     )
     parser.add_argument(
         "--kinds",

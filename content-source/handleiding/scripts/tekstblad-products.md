@@ -17,7 +17,8 @@ scripts\products.cmd --kinds tekstblad [pad] [--force] [--dry-run]
 # DESCRIPTION
 
 Zoekt canonieke bronnen `{stam}.tekstblad.md` onder het opgegeven pad
-(of, zonder pad, onder `content-source\catalogus`). Als de bron
+(of, zonder pad, onder `content-source\catalogus`; korte paden: zie
+[bestand of map](../invoer-bestand-of-map/)). Als de bron
 `::: vsa-notatie`-blokken heeft, schrijft het script ernaast:
 
 - `{stam}.tekstblad.scherm.html` — dezelfde HTML/tekst, met elk VSA-blok
@@ -40,7 +41,7 @@ Bestanden in `input\` en mappen met `manueel: true` worden overgeslagen.
 
 ```cmd
 scripts\products.cmd --kinds tekstblad
-scripts\products.cmd --kinds tekstblad content-source\catalogus\dialoog-met-diaken --force
+scripts\products.cmd --kinds tekstblad dialoog-met-diaken --force
 ```
 
 # WHEN

@@ -8,6 +8,11 @@ Tooling-contract: [docs/tooling-koppeling.md](../docs/tooling-koppeling.md)
 Korte hulp in het opdrachtvenster: `h` (lijst) of `h <naam>` (zelfde als
 `<naam> -h`).
 
+**Paden:** bij `products` / `pdf.cmd` mag je kort typen (t.o.v.
+`content-source`, `catalogus` of `koormappen`). Logs laten paden onder
+`content-source` zien zonder die prefix. Detail:
+[handleiding/scripts/invoer-bestand-of-map](../content-source/handleiding/scripts/invoer-bestand-of-map.md).
+
 | Commando | Doel |
 | -------- | ---- |
 | `h` | Overzicht van commando’s; `h <naam>` = `<naam> -h` |

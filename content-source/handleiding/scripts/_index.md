@@ -12,7 +12,10 @@ Deze sectie beschrijft Windows-commando's (`.cmd`) in de repository-map
 vanuit de repo-root.
 
 **Bestand of map:** commando’s die op bronbestanden werken, nemen meestal
-óf één bestand óf een map (recursief passende bestanden). Zie
+óf één bestand óf een map (recursief passende bestanden). Bij
+`products` en `pdf.cmd` mag het pad kort zijn (t.o.v. `content-source`,
+catalogus of koormappen); logs tonen paden onder `content-source`
+zonder die prefix. Zie
 [Invoer: bestand of map](invoer-bestand-of-map/).
 
 ## Nu beschikbaar in deze repo

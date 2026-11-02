@@ -2310,7 +2310,10 @@ def main(argv: list[str] | None = None) -> int:
         "paths",
         nargs="*",
         type=Path,
-        help="Pad(en) naar index.md of map(pen) met index.md eronder",
+        help=(
+            "Pad(en) naar index.md of map(pen) met index.md eronder. "
+            "Korte paden: t.o.v. content-source, catalogus of koormappen."
+        ),
     )
     ap.add_argument(
         "--all-koormappen",

@@ -41,8 +41,9 @@ die index opnieuw vóór Hugo, zodat zoeken altijd bij de gecommitte catalogus
 past.
 
 Zoekt onder het opgegeven pad (of, zonder pad, onder
-`content-source\catalogus`). Overgeslagen: `input\`, mappen met
-`manueel: true`, `*.print.mscz`, en afgeleide `*.vsa.mscz` /
+`content-source\catalogus`). Korte paden mogen — zie
+[bestand of map](../invoer-bestand-of-map/). Overgeslagen: `input\`,
+mappen met `manueel: true`, `*.print.mscz`, en afgeleide `*.vsa.mscz` /
 `*.mvsa.mscz` (tenzij je zo’n bestand expliciet als pad doorgeeft).
 
 CI genereert **geen** lyrics; jij wel lokaal (of via `products` /
@@ -53,7 +54,7 @@ bij elke Pages-deploy opnieuw gebouwd.
 
 ```cmd
 scripts\products.cmd --kinds lyrics
-scripts\products.cmd --kinds lyrics content-source\catalogus\cherubijnenhymne
+scripts\products.cmd --kinds lyrics cherubijnenhymne
 scripts\products.cmd --kinds lyrics --dry-run
 ```
 

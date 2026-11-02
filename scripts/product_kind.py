@@ -127,7 +127,11 @@ def parse_product_args(
         nargs="?",
         type=Path,
         default=default_root,
-        help="Catalogusmap of één bronbestand (default: content-source/catalogus)",
+        help=(
+            "Catalogusmap of één bronbestand (default: "
+            "content-source/catalogus). Korte paden: t.o.v. "
+            "content-source, catalogus of koormappen."
+        ),
     )
     add_regen_arguments(parser)
     add_verbose_argument(parser)

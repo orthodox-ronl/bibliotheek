@@ -18,8 +18,10 @@ scripts\products.cmd --kinds all [opties]
 ```
 
 `[pad]` = catalogusmap of één bronbestand (default:
-`content-source\catalogus`). `--kinds` is een komma-lijst of `all`
-(default).
+`content-source\catalogus`). Korte paden mogen: t.o.v. `content-source`,
+`catalogus` of `koormappen` — zie
+[bestand of map](../invoer-bestand-of-map/). `--kinds` is een komma-lijst
+of `all` (default).
 
 Kinds: `vsa`, `mscz`, `tekstblad`, `import`, `mvsa`, `audio`, `lyrics`.
 
@@ -44,9 +46,11 @@ audio → lyrics, zodat notatie-siblings er zijn vóór audio/lyrics. Lyrics
 op `.mscz` maakt zonodig zelf eerst `.mscz.mxl`.
 
 **Logging:** standaard alleen wat wél gebeurt (`>>> kind: N van M
-bijwerken`) plus fouten met `Oplossing: …`. Kinds die al up-to-date zijn
-blijven stil (detail achter `-v` / `--verbose`). Mislukt er iets over
-meerdere kinds, dan eindigt de run met `=== Samenvatting products ===`.
+bijwerken`) plus fouten met `Oplossing: …`. Paden in die regels zijn
+kort (onder `content-source` zonder die prefix). Kinds die al
+up-to-date zijn blijven stil (detail achter `-v` / `--verbose`).
+Mislukt er iets over meerdere kinds, dan eindigt de run met
+`=== Samenvatting products ===`.
 
 Dit is het **enige** gebruikerscommando voor die producten. Er zijn geen
 aparte `vsa-products.cmd`-wrappers meer. Per kind staat detail op de
@@ -82,7 +86,8 @@ pad. Bestaande kettingrommel:
 
 ```cmd
 scripts\products.cmd
-scripts\products.cmd content-source\catalogus\trisagion --kinds mscz,audio
+scripts\products.cmd trisagion --kinds mscz,audio
+scripts\products.cmd tweede-antifoon\weekdagen\hemelum --kinds vsa
 scripts\products.cmd --kinds vsa --dry-run
 scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid
 scripts\products.cmd --verbose

@@ -46,6 +46,7 @@ Pagina-download/print is **niet** `{stam}.vsa.pdf` maar `index.md.pdf`
 
 Mappen met `manueel: true` in de frontmatter worden
 overgeslagen. Zonder pad werkt het onder `content-source\catalogus`.
+Korte paden: [bestand of map](../invoer-bestand-of-map/).
 
 Lokaal vernieuw je producten met dit commando. CI genereert **niet** —
 `check_vsa_products` faalt bij ontbrekende of verouderde siblings.

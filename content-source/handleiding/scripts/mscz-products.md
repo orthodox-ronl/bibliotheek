@@ -23,9 +23,10 @@ herkomstinformatie (`vsa-partituur-sha256`, `vsa-generated-at`) in die
 producten.
 
 Het zoekt basispartituur-`.mscz` onder het opgegeven pad (of, zonder pad,
-onder `content-source\catalogus`). Bestanden in `input\`, namen die
-eindigen op `.print.mscz`, afgeleide `*.vsa.mscz` / `*.mvsa.mscz`, en
-mappen met `manueel: true` worden overgeslagen. Een afgeleide
+onder `content-source\catalogus`). Korte paden mogen — zie
+[bestand of map](../invoer-bestand-of-map/). Bestanden in `input\`,
+namen die eindigen op `.print.mscz`, afgeleide `*.vsa.mscz` /
+`*.mvsa.mscz`, en mappen met `manueel: true` worden overgeslagen. Een afgeleide
 `*.mvsa.mscz` wél behandelen: geef dat bestand expliciet als pad. Geef
 je een ander brontype (bijvoorbeeld een `.mvsa`), dan slaat dit spoor
 over — dat is geen fout (zelfde gedrag als bij
@@ -53,7 +54,7 @@ editen. CI genereert deze producten niet; jij wel lokaal, daarna committen.
 
 ```cmd
 scripts\products.cmd --kinds mscz
-scripts\products.cmd --kinds mscz content-source\catalogus\trisagion --force
+scripts\products.cmd --kinds mscz trisagion --force
 ```
 
 # WHEN

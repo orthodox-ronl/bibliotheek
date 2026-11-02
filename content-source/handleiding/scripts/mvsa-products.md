@@ -37,8 +37,9 @@ Het script schrijft herkomstinformatie (`vsa-source-sha256`,
 `vsa-source-kind=mvsa`, `vsa-generated-at`) in die producten.
 
 Het zoekt `.mvsa` onder het opgegeven pad (of, zonder pad, onder
-`content-source\catalogus`). Import-siblings die eindigen op
-`.mscz.mvsa`, bestanden in `input\`, en mappen met
+`content-source\catalogus`). Korte paden mogen — zie
+[bestand of map](../invoer-bestand-of-map/). Import-siblings die
+eindigen op `.mscz.mvsa`, bestanden in `input\`, en mappen met
 `manueel: true` worden overgeslagen. Geen passende `.mvsa`
 op het pad = overslaan (geen fout; zelfde schil als
 [products](../products/)).
@@ -68,7 +69,7 @@ wacht op MuseScore) en meldt het ontbrekende SVG’s.
 
 ```cmd
 scripts\products.cmd --kinds mvsa
-scripts\products.cmd --kinds mvsa content-source\catalogus\ektinia\vrede\hemelum --force
+scripts\products.cmd --kinds mvsa ektinia\vrede\hemelum --force
 ```
 
 # WHEN

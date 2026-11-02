@@ -20,9 +20,11 @@ scripts\fix.cmd [--check | --strict] [--dry-run] [-y] [--verbose]
 Na een `check` (met of zonder `--strict`) schrijft de repository een
 **afwerklijst** in `data\check-fixlist.json`. Elke regel is één probleem
 waarvoor check al een eenvoudig herstelcommando kent (`fix_cmd`),
-bijvoorbeeld `scripts\pdf.cmd …\index.md` bij een verouderde blad-PDF,
-of `scripts\products.cmd --kinds mvsa …\lied.mvsa` voor één verouderde
-uitvoeringsvorm (niet de hele catalogus).
+bijvoorbeeld `scripts\pdf.cmd catalogus\…\index.md` bij een verouderde
+blad-PDF, of `scripts\products.cmd --kinds mvsa catalogus\…\lied.mvsa`
+voor één verouderde uitvoeringsvorm (niet de hele catalogus). Die paden
+zijn kort (zonder `content-source\`), zodat je ze ook handmatig kunt
+plakken — zie [bestand of map](../invoer-bestand-of-map/).
 
 Product-herstelregels gebruiken `--reasons missing,stale` en
 `--skip-post`. Zo blijft `fix` bij een handvol wijzigingen klein.

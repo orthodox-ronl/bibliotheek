@@ -54,7 +54,9 @@ commit je mee. MuseScore 4 is nodig voor `.mvsa`/`.mscz`-SVG-export (en
 dus zodra de pagina zulke bronnen of `pdf-bijelkaar` gebruikt).
 
 **Uitvoer:** standaard `OK …` per gemaakte PDF en een slotregel
-`Klaar: …`. Tussenstappen (bron, SVG, schaal, …) alleen met `--verbose`.
+`Klaar: …`. Paden daarin zijn kort (bijv.
+`catalogus\…\index.md.pdf`). Tussenstappen (bron, SVG, schaal, …)
+alleen met `--verbose`.
 
 Catalogus-leaves: ontwerp en restmijlpalen in
 `docs/plans/catalogus-index-md-pdf.md`.
@@ -75,7 +77,8 @@ bladzijden gesneden. De snede valt tussen VSA-regels (of notenbalken),
 niet door de letters van een regel heen.
 
 Invoer volgt [bestand of map](../invoer-bestand-of-map/): één `.md` of een
-map (recursief alle `index.md`). `--all-koormappen` is suiker voor het pad
+map (recursief alle `index.md`). Korte paden mogen (`hemelum\…`,
+`koormappen\hemelum\…`, …). `--all-koormappen` is suiker voor het pad
 `content-source\koormappen`. Bij meerdere pagina’s: preflight met geschatte
 duur en bevestiging (of `-y`).
 
@@ -124,13 +127,19 @@ idealiter op één A4.
 Vredeslitanie (NL + KSL in `pdf-bijelkaar`):
 
 ```cmd
-scripts\pdf.cmd content-source\koormappen\hemelum\liturgie-zondag\vredeslitanie\index.md
+scripts\pdf.cmd hemelum\liturgie-zondag\vredeslitanie
 ```
 
 Hele zondagsliturgie-map:
 
 ```cmd
-scripts\pdf.cmd content-source\koormappen\hemelum\liturgie-zondag
+scripts\pdf.cmd hemelum\liturgie-zondag
+```
+
+Catalogus-leaf (kort t.o.v. catalogus):
+
+```cmd
+scripts\pdf.cmd tweede-antifoon\weekdagen\hemelum
 ```
 
 # WHEN
