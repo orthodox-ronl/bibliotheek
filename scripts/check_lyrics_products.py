@@ -153,20 +153,25 @@ def main() -> int:
         encoding="utf-8",
     )
 
+    from check_report import print_check_findings
+
     if bad:
-        print(f"lyrics products: {len(bad)} probleem(en); zie {FIX_PAGE}")
-        for s in bad[:20]:
-            for issue in s.issues:
-                print(f"  [{issue.kind}] {issue.file}: {issue.detail}")
-            print(f"    fix: {s.fix_cmd}")
-        if len(bad) > 20:
-            print(f"  … en {len(bad) - 20} meer")
+        print_check_findings(
+            headline=(
+                f"Lyrics: {len(statuses) - len(bad)} ok, {len(bad)} probleem "
+                f"({STATUS_PATH.relative_to(REPO_ROOT).as_posix()})"
+            ),
+            what="Controle: of .lyrics.txt bij de notatiebron past",
+            bad=bad,
+            fix_page=FIX_PAGE,
+            max_dirs=20,
+        )
         if fail:
             return 1
-        print("(waarschuwing — zonder --fail geen exit 1)")
+        print("(waarschuwing — zonder --fail geen exit 1)", flush=True)
         return 0
 
-    print(f"lyrics products: OK ({len(statuses)} bronnen)")
+    print(f"Lyrics: OK ({len(statuses)} bronnen)", flush=True)
     return 0
 
 

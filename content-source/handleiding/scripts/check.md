@@ -97,9 +97,15 @@ of die PDF er is en niet ouder is dan de Markdown of notatiebron
 fout met `--strict`, in CI, of op `main`. Zonder die PDF tonen
 het download-icoon niet.
 
-Na de product-/pdf-/contract-checks schrijft `check` altijd
-`data\check-fixlist.json`: elk auto-fixbaar probleem plus het
-eenvoudigste herstelcommando. Afwerken: [fix](../fix/)
+Per productcontrole zie je eerst wat er getest wordt, dan de mappen
+die niet kloppen (korte soortlabels zoals `[meta]` / `[stale-pdf]`),
+en één fix-sjabloon met `{file}`. Details en volledige paden alleen
+met `--verbose` / `BIBLIOTHEEK_VERBOSE=1`.
+
+Na die checks schrijft `check` altijd `data\check-fixlist.json`: elk
+auto-fixbaar probleem plus herstelcommando. Met `--strict` betekent
+een non-zero exit: *er zijn problemen gevonden* (inventarisatie), niet
+dat `fix` al is mislukt. Afwerken: [fix](../fix/)
 (`fix --check --dry-run` inventariseert opnieuw en toont de lijst;
 `fix --check` werkt hem af).
 

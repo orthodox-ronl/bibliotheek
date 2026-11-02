@@ -162,19 +162,17 @@ def main(argv: list[str] | None = None) -> int:
     write_status_json(statuses)
     bad = [s for s in statuses if not s.ok]
     n_ok = len(statuses) - len(bad)
-    print(
-        f"Blad-PDF: {n_ok} ok, {len(bad)} probleem "
-        f"({_rel(STATUS_PATH)})",
-        flush=True,
+    from check_report import print_check_findings
+
+    print_check_findings(
+        headline=(
+            f"Blad-PDF: {n_ok} ok, {len(bad)} probleem "
+            f"({_rel(STATUS_PATH)})"
+        ),
+        what="Controle: of index.md.pdf bij het blad (Markdown/notatie) past",
+        bad=bad,
+        fix_page=FIX_PAGE,
     )
-    for s in bad:
-        print(f"  {s.dir}:", flush=True)
-        for issue in s.issues:
-            print(
-                f"    - [{issue.kind}] {issue.file}: {issue.detail}",
-                flush=True,
-            )
-        print(f"    fix: {s.fix_cmd}", flush=True)
     if not bad:
         return 0
     if args.warn_only:

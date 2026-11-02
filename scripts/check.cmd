@@ -142,7 +142,10 @@ if errorlevel 1 exit /b 1
 
 if defined STRICT if "%PRODUCT_FAIL%"=="1" (
   echo.
-  echo FAILED: product/pdf/contract/id-check^(s^). Afwerken: scripts\fix.cmd --dry-run
+  echo Check --strict: er zijn product-/pdf-/contract-/id-problemen gevonden.
+  echo Dat is de inventarisatie — nog niet 'fix mislukt'.
+  echo Bekijken:  scripts\fix.cmd --dry-run
+  echo Afwerken:  scripts\fix.cmd
   exit /b 1
 )
 
@@ -195,11 +198,13 @@ exit /b 0
 echo.
 echo Gebruik: scripts\check.cmd [--strict]
 echo.
-echo   --strict   faal op stale/missing producten of bibliotheek-id ^(CI-spiegel^)
+echo   --strict   non-zero als er product/pdf/id-problemen zijn ^(CI-spiegel^)
 echo.
-echo Zonder --strict: product-/id-checks waarschuwen lokaal maar falen niet
-echo ^(behalve op main / BIBLIOTHEEK_PRODUCTS_STRICT=1^). CI faalt altijd.
-echo   Na product-checks: data\check-fixlist.json ^(afwerken: scripts\fix.cmd^).
+echo Zonder --strict: product-/id-checks waarschuwen lokaal maar stoppen niet
+echo ^(behalve op main / BIBLIOTHEEK_PRODUCTS_STRICT=1^). CI stopt altijd.
+echo   Na product-checks: data\check-fixlist.json
+echo   Bekijken/afwerken: scripts\fix.cmd --dry-run   /   scripts\fix.cmd
+
 echo.
 endlocal
 exit /b 2

@@ -17,8 +17,45 @@ from typing import Callable, Sequence
 _VERBOSE = False
 
 _RED = "\033[31m"
+_GREEN = "\033[32m"
+_YELLOW = "\033[33m"
+_CYAN = "\033[36m"
 _BOLD = "\033[1m"
+_DIM = "\033[2m"
 _RESET = "\033[0m"
+
+
+def paint(msg: str, *codes: str, stream=None) -> str:
+    """ANSI om msg heen als de stream kleuren mag; anders msg ongewijzigd."""
+    target = sys.stdout if stream is None else stream
+    if not codes or not _use_color(target):
+        return msg
+    return f"{''.join(codes)}{msg}{_RESET}"
+
+
+def section(msg: str) -> None:
+    """Start van een controle/stap (cyaan)."""
+    print(paint(msg, _BOLD, _CYAN), flush=True)
+
+
+def ok(msg: str) -> None:
+    """Alles in orde (groen)."""
+    print(paint(msg, _GREEN), flush=True)
+
+
+def work(msg: str) -> None:
+    """Er is afwerkbaar werk / bevinding (geel)."""
+    print(paint(msg, _YELLOW), flush=True)
+
+
+def note(msg: str) -> None:
+    """Neutrale toelichting (dim)."""
+    print(paint(msg, _DIM), flush=True)
+
+
+def hard(msg: str) -> None:
+    """Echte fout / onverwacht probleem (rood vet), op stdout."""
+    print(paint(msg, _BOLD, _RED), flush=True)
 
 
 def set_verbose(enabled: bool) -> None:

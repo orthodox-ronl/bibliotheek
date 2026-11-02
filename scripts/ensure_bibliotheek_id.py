@@ -177,18 +177,21 @@ def main(argv: list[str] | None = None) -> int:
         else:
             bad.append((mscz, expected, detail))
 
-    print(
-        f"Bibliotheek-id: {len(items) - len(bad)} ok, {fixed} hersteld, "
-        f"{len(bad)} probleem",
-        flush=True,
+    from check_report import print_path_problems
+
+    rows = [
+        (_rel(mscz), "bibliotheek-id", detail) for mscz, expected, detail in bad
+    ]
+    print_path_problems(
+        headline=(
+            f"Bibliotheek-id: {len(items) - len(bad)} ok, {fixed} hersteld, "
+            f"{len(bad)} probleem"
+        ),
+        what="Controle: of basispartituur-.mscz de colofonregel Bibliotheek-id heeft",
+        bad_rows=rows,
+        fix_template=r'scripts\layout.cmd "{file}" --id <verwacht-id>',
+        fix_page=FIX_PAGE,
     )
-    for mscz, expected, detail in bad:
-        print(f"  [{expected}] {_rel(mscz)}: {detail}", flush=True)
-        print(
-            f"    Fix: scripts\\layout.cmd \"{_rel(mscz)}\" --id {expected}",
-            flush=True,
-        )
-        print(f"    Zie: {FIX_PAGE}", flush=True)
 
     if not bad or args.warn_only:
         return 0

@@ -261,17 +261,17 @@ def main() -> int:
     statuses = collect_statuses(root)
     write_status_json(statuses)
     bad = [s for s in statuses if not s.ok]
-    print(
-        f"MXL-playback-contract: {len(statuses) - len(bad)} ok, {len(bad)} probleem "
-        f"({_rel(STATUS_PATH)})",
-        flush=True,
+    from check_report import print_check_findings
+
+    print_check_findings(
+        headline=(
+            f"MXL-playback-contract: {len(statuses) - len(bad)} ok, "
+            f"{len(bad)} probleem ({_rel(STATUS_PATH)})"
+        ),
+        what="Controle: of Coria-.mxl het afspeelcontract volgt",
+        bad=bad,
+        fix_page=FIX_PAGE,
     )
-    for s in bad:
-        print(f"  {s.file} [{s.profile}]:", flush=True)
-        for issue in s.issues:
-            print(f"    - [{issue.kind}] {issue.detail}", flush=True)
-        print(f"    Fix: {s.fix_cmd}", flush=True)
-        print(f"    Zie: {FIX_PAGE}", flush=True)
 
     if not bad:
         return 0

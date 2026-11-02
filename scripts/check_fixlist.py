@@ -14,7 +14,8 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
-from cli_style import atomic_write_text
+from check_report import short_kind, template_fix_cmd
+from cli_style import atomic_write_text, note, ok, work
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DATA = REPO_ROOT / "data"
@@ -68,11 +69,11 @@ def _rel_content_source(path_str: str) -> str:
 
 
 def _summary(key: str, entry: dict, *, kind: str, file: str, detail: str) -> str:
-    """Korte regel: ``[soort] pad-t.o.v.-content-source``."""
-    source = str(entry.get("source") or entry.get("mvsa") or key)
-    path = file or source or key
-    rel = _rel_content_source(path)
-    label = kind or "probleem"
+    """Korte regel: ``[soort] map-of-bron`` (geen lange detail/pad-herhaling)."""
+    del entry, detail  # bewust niet in de korte summary
+    # Map-key is leesbaarder dan het productbestand (meta/pdf/…).
+    rel = _rel_content_source(key) or _rel_content_source(file)
+    label = short_kind(kind)
     return f"[{label}] {rel}"
 
 
@@ -197,12 +198,27 @@ def save_fixlist(items: list[FixItem], *, path: Path = FIXLIST_PATH) -> None:
 def print_fixlist(items: list[FixItem], *, stream=None) -> None:
     stream = stream or sys.stdout
     if not items:
-        print("Fixlist leeg (geen auto-fixbare problemen).", file=stream)
+        # ok()/work() schrijven naar stdout; bij andere stream plain print.
+        if stream is sys.stdout:
+            ok("Fixlist leeg (geen auto-fixbare problemen).")
+        else:
+            print("Fixlist leeg (geen auto-fixbare problemen).", file=stream)
         return
-    print(f"Fixlist: {len(items)} item(s)", file=stream)
+    msg = (
+        f"Fixlist: {len(items)} auto-fixbare item(s) "
+        "(afwerken: scripts\\fix.cmd; bekijken: --dry-run)"
+    )
+    if stream is sys.stdout:
+        work(msg)
+    else:
+        print(msg, file=stream)
     for i, item in enumerate(items, 1):
         print(f"{i}. {item.summary}", file=stream)
-        print(f"   fix: {item.fix_cmd}", file=stream)
+        line = f"   fix: `{template_fix_cmd(item.fix_cmd)}`"
+        if stream is sys.stdout:
+            note(line)
+        else:
+            print(line, file=stream)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -219,7 +235,11 @@ def main(argv: list[str] | None = None) -> int:
     from input_paths import rel_for_log
 
     rel = rel_for_log(FIXLIST_PATH, repo_root=REPO_ROOT)
-    print(f"Fixlist: {len(items)} item(s) → {rel}", flush=True)
+    msg = f"Fixlist bijgewerkt: {len(items)} auto-fixbare item(s) → {rel}"
+    if items:
+        work(msg)
+    else:
+        ok(msg)
     if args.print:
         print_fixlist(items)
     return 0

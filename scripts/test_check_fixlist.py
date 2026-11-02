@@ -66,9 +66,7 @@ def test_collect_only_not_ok(tmp_path: Path):
     assert len(items) == 1
     assert items[0].checker == "pdf"
     assert items[0].kind == "stale_pdf"
-    assert items[0].summary == (
-        "[stale_pdf] catalogus/x/stale/index.md.pdf"
-    )
+    assert items[0].summary == "[stale-pdf] catalogus/x/stale"
     assert "pdf.cmd" in items[0].fix_cmd
 
 
@@ -159,7 +157,7 @@ def test_fix_check_dry_run_refreshes(tmp_path: Path, monkeypatch, capsys):
     assert code == 0
     assert out.is_file()
     assert len(load_fixlist(out)) == 1
-    assert "stale_pdf" in capsys.readouterr().out
+    assert "stale-pdf" in capsys.readouterr().out
 
 
 def test_fix_check_hard_fail_exit2(monkeypatch):

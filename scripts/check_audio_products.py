@@ -297,18 +297,17 @@ def main() -> int:
     statuses = collect_statuses(root)
     write_status_json(statuses)
     bad = [s for s in statuses if not s.ok]
-    print(
-        f"Audio-producten: {len(statuses) - len(bad)} ok, {len(bad)} probleem "
-        f"({_rel(STATUS_PATH)})",
-        flush=True,
+    from check_report import print_check_findings
+
+    print_check_findings(
+        headline=(
+            f"Audio-producten: {len(statuses) - len(bad)} ok, {len(bad)} probleem "
+            f"({_rel(STATUS_PATH)})"
+        ),
+        what="Controle: of preview-.mp3 bij de notatiebron past",
+        bad=bad,
+        fix_page=FIX_PAGE,
     )
-    for s in bad:
-        label = s.dir or s.product
-        print(f"  {label}:", flush=True)
-        for issue in s.issues:
-            print(f"    - [{issue.kind}] {issue.file}: {issue.detail}", flush=True)
-        print(f"    Fix: {s.fix_cmd}", flush=True)
-        print(f"    Zie: {FIX_PAGE}", flush=True)
 
     if not bad:
         return 0
