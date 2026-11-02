@@ -214,7 +214,7 @@ Notatie op de bibliotheek-site komt uit een catalogusbron.&lt;/p&gt;
  &lt;/tr&gt;
  &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;Zolang &lt;code&gt;{stam}.vsa.svg&lt;/code&gt; ontbreekt, vult &lt;code&gt;oefenhoek-index --svg&lt;/code&gt; nog een
+&lt;p&gt;Zolang &lt;code&gt;{stam}.vsa.svg&lt;/code&gt; ontbreekt, vult &lt;code&gt;python scripts\sync_oefenhoek_index.py --svg&lt;/code&gt; nog een
 legacy-plaatje onder &lt;code&gt;static\vsa\bladermap\&lt;/code&gt;. Dat is een fallback, geen
 apart werktraject voor demo- of handleidingpagina’s.&lt;/p&gt;
 &lt;p&gt;Een koormap toont die catalogusnotatie met shortcode &lt;code&gt;bieb&lt;/code&gt;. Zie

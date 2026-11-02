@@ -82,59 +82,92 @@ body {
   flex: 0 0 auto;
 }
 
-/* Pagina-download + transliteratie-schakelaar in de site-header (naast zoeken) */
+/* Pagina-download + translit in de site-header (naast zoeken) */
 .site-header-inner .pagina-acties {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.25rem;
   flex-shrink: 0;
 }
 
 .pagina-acties-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
   font-size: 0.8rem;
-  padding: 0.15rem 0.45rem;
+  font-weight: 600;
   line-height: 1.2;
+  padding: 0.25rem 0.5rem;
+  min-height: 1.85rem;
   cursor: pointer;
   text-decoration: none;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-color, #ccc);
   background: #fff;
   color: #003366;
-  border-radius: 4px;
-  font-weight: inherit;
+  border-radius: 3px;
   white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.pagina-acties-btn--icon {
+  padding: 0.25rem;
+  width: 1.85rem;
+  min-width: 1.85rem;
+}
+
+.pagina-acties-icon {
+  display: block;
+  width: 1.1rem;
+  height: 1.1rem;
 }
 
 .pagina-acties-btn:hover,
 .pagina-acties-btn:focus {
-  background: #eee;
+  background: #eef3f8;
   text-decoration: none;
 }
 
 .pagina-acties-translit {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
   margin: 0;
-  padding: 0.25rem 0.55rem;
-  font-size: 0.85rem;
-  line-height: 1.3;
+  padding: 0;
+  min-height: 1.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
+  line-height: 1.2;
   color: #003366;
-  border: 1px solid var(--border-color, #ccc);
-  border-radius: 3px;
-  background: #fff;
-  cursor: pointer;
   user-select: none;
   white-space: nowrap;
+  box-sizing: border-box;
 }
 
-.pagina-acties-translit:hover,
-.pagina-acties-translit:focus-within {
-  background: #eef3f8;
+/* Nls / Ksl: icoonknoppen Ксл↔Nls (beide aan = beide richtingen) */
+.pagina-acties-translit-modus {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 3px;
+  /* Geen overflow:hidden — anders knippen de nav-popovers weg. */
+  background: #fff;
+  min-height: 1.85rem;
+  box-sizing: border-box;
 }
 
-.pagina-acties-translit-input {
+.pagina-acties-translit-modus > .site-chrome-tip {
+  align-items: stretch;
+}
+
+.pagina-acties-translit-modus-opt {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  cursor: pointer;
+}
+
+.pagina-acties-translit-modus-input {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -146,54 +179,113 @@ body {
   border: 0;
 }
 
-.pagina-acties-translit-track {
-  position: relative;
-  display: inline-block;
-  width: 1.85rem;
-  height: 1.05rem;
-  border-radius: 999px;
-  background: #c5ced8;
-  border: 1px solid #9aabbc;
-  flex-shrink: 0;
-  transition: background 0.15s ease, border-color 0.15s ease;
+.pagina-acties-translit-modus-text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem 0.4rem;
+  min-height: 1.85rem;
+  box-sizing: border-box;
+  color: #6a7785;
+  background: #eef1f4;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
-.pagina-acties-translit-thumb {
-  position: absolute;
-  top: 1px;
-  left: 1px;
-  width: 0.8rem;
-  height: 0.8rem;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
-  transition: transform 0.15s ease;
+.pagina-acties-translit-modus > .site-chrome-tip + .site-chrome-tip .pagina-acties-translit-modus-text,
+.pagina-acties-translit-modus-opt + .pagina-acties-translit-modus-opt .pagina-acties-translit-modus-text {
+  border-left: 1px solid #c5ced8;
 }
 
-.pagina-acties-translit-input:checked + .pagina-acties-translit-track {
-  background: #2f6b9a;
-  border-color: #21557a;
+.pagina-acties-translit-modus > .site-chrome-tip:first-child .pagina-acties-translit-modus-text {
+  border-radius: 2px 0 0 2px;
 }
 
-.pagina-acties-translit-input:checked + .pagina-acties-translit-track .pagina-acties-translit-thumb {
-  transform: translateX(0.78rem);
+.pagina-acties-translit-modus > .site-chrome-tip:last-child .pagina-acties-translit-modus-text {
+  border-radius: 0 2px 2px 0;
 }
 
-.pagina-acties-translit-input:focus-visible + .pagina-acties-translit-track {
-  outline: 2px solid #003366;
-  outline-offset: 2px;
-}
-
-.pagina-acties-translit-state {
+.pagina-acties-translit-glyph {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  min-width: 1.6rem;
-  text-transform: lowercase;
+  line-height: 1.2;
+}
+
+.pagina-acties-translit-glyph-letters {
+  color: inherit;
+  font: inherit;
+  letter-spacing: normal;
+}
+
+.pagina-acties-translit-glyph-arrow {
+  display: block;
+  width: 0.85rem;
+  height: 0.55rem;
+  flex: 0 0 auto;
+  overflow: visible;
+}
+
+.pagina-acties-translit-glyph-arrow path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pagina-acties-translit-modus-input:checked + .pagina-acties-translit-modus-text {
+  background: #1f5a86;
+  color: #fff;
+}
+
+.pagina-acties-translit-modus-input:focus-visible + .pagina-acties-translit-modus-text {
+  outline: 2px solid #003366;
+  outline-offset: 1px;
+}
+
+.pagina-acties-translit:hover .pagina-acties-translit-modus,
+.pagina-acties-translit:focus-within .pagina-acties-translit-modus {
+  border-color: #9aabbc;
 }
 
 .score-scherm-translit-hint {
   margin: 0.75rem 0 0;
   font-size: 0.9rem;
   color: #334;
+}
+
+/* Voorbeeld-iconen op de home (zelfde look als tip-knoppen op de partituur) */
+.home-score-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: 1.55rem;
+  height: 1.55rem;
+  min-width: 1.55rem;
+  margin: 0 0.1rem;
+  padding: 0;
+  border: 1.5px solid #003366;
+  border-radius: 50%;
+  background: #003366;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+}
+
+.home-score-icon--bron {
+  width: auto;
+  min-width: 1.55rem;
+  padding: 0 0.28rem;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-family: Consolas, "Courier New", monospace;
+  letter-spacing: -0.04em;
 }
 
 .oefenhoek-breadcrumb {
@@ -271,7 +363,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem 0.75rem;
+  gap: 0.35rem 0.5rem;
   min-width: 0;
 }
 
@@ -301,7 +393,7 @@ body {
 .site-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem;
+  gap: 0.2rem;
   align-items: center;
   margin: 0;
   padding: 0;
@@ -309,20 +401,25 @@ body {
 }
 
 .site-nav a {
+  display: inline-flex;
+  align-items: center;
   color: #003366;
   text-decoration: none;
   white-space: nowrap;
   font-size: 0.8rem;
+  font-weight: 600;
   line-height: 1.2;
-  padding: 0.15rem 0.45rem;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  min-height: 1.85rem;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 3px;
   background: #fff;
+  box-sizing: border-box;
 }
 
 .site-nav a:hover,
 .site-nav a:focus {
-  background: #eee;
+  background: #eef3f8;
   text-decoration: none;
 }
 
@@ -337,16 +434,21 @@ body {
 }
 
 .site-nav-group summary {
+  display: inline-flex;
+  align-items: center;
   color: #003366;
   white-space: nowrap;
   font-size: 0.8rem;
+  font-weight: 600;
   line-height: 1.2;
-  padding: 0.15rem 0.45rem;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  min-height: 1.85rem;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 3px;
   background: #fff;
   cursor: pointer;
   list-style: none;
+  box-sizing: border-box;
 }
 
 .site-nav-group summary::-webkit-details-marker {
@@ -365,7 +467,7 @@ body {
 .site-nav-group[open] summary,
 .site-nav-group summary:hover,
 .site-nav-group summary:focus {
-  background: #eee;
+  background: #eef3f8;
 }
 
 .site-nav-group.is-current summary {
@@ -391,6 +493,14 @@ body {
   border: 1px solid var(--border-color);
   border-radius: 4px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Dropdown-items compacter dan de topnav-knoppen. */
+.site-nav-menu a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 0.2rem 0.5rem;
 }
 
 .site-subnav {
@@ -709,26 +819,111 @@ code.catalogus-id {
   flex: 0 0 auto;
 }
 
-.site-zoek-toggle-wrap {
+/* Hover/focus-uitleg bij knoppen in de site-header */
+.site-chrome-tip {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  max-width: 100%;
+}
+
+.site-chrome-tip-panel {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  z-index: 120;
+  width: max(12rem, 100%);
+  max-width: min(22rem, 92vw);
+  margin: 0;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.88rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: #223344;
+  background: #fffef8;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  text-align: left;
+  white-space: normal;
+  pointer-events: none;
+}
+
+.site-chrome-tip-panel::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 0.45rem;
+}
+
+.site-chrome-tip-panel--end {
+  left: auto;
+  right: 0;
+}
+
+.site-chrome-tip-panel--interactive {
+  pointer-events: auto;
+}
+
+.site-chrome-tip-panel p {
+  margin: 0 0 0.45rem;
+}
+
+.site-chrome-tip-panel p:last-child {
+  margin-bottom: 0;
+}
+
+.site-chrome-tip-panel a {
+  color: #003366;
+}
+
+/* Hover: tip weg zodra de muis van de knop af gaat.
+   Geen :focus-within — na een muisklik blijft focus op download/translit
+   en bleef de tip anders hangen. Toetsenbord: :focus-visible. */
+.site-chrome-tip:hover > .site-chrome-tip-panel,
+.site-chrome-tip:has(:focus-visible) > .site-chrome-tip-panel {
+  display: block;
+}
+
+/* Open submenu / open zoekvenster: geen tip over het menu heen */
+.site-chrome-tip:has(.site-nav-group[open]) > .site-chrome-tip-panel,
+.site-chrome-tip:has(.site-zoek-toggle[aria-expanded="true"]) > .site-chrome-tip-panel {
+  display: none;
 }
 
 .site-zoek-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
+  justify-content: center;
+  gap: 0.25rem;
   color: #003366;
   background: #fff;
   border: 1px solid var(--border-color, #ccc);
   border-radius: 3px;
   font: inherit;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  line-height: 1.3;
-  padding: 0.3rem 0.7rem;
+  line-height: 1.2;
+  padding: 0.25rem;
+  width: 1.85rem;
+  min-height: 1.85rem;
   cursor: pointer;
+}
+
+.site-zoek-toggle-label {
+  /* Icoon volstaat in de krappe header; label blijft voor screenreaders. */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .site-zoek-toggle:hover,
@@ -2591,13 +2786,6 @@ body.score-audio-bar-open {
   right: 0;
   left: auto;
   width: min(22rem, 92vw);
-}
-
-.site-zoek-toggle-wrap .catalogus-zoek-tip--help .catalogus-zoek-tip-panel {
-  top: calc(100% + 0.4rem);
-  right: 0;
-  left: auto;
-  z-index: 50;
 }
 
 .catalogus-zoek-tip.is-open .catalogus-zoek-tip-panel,

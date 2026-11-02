@@ -139,7 +139,7 @@ de bestaande productscripts en publicatiecontrole. Overzicht:
  &lt;ol&gt;
 &lt;li&gt;Canonieke bron bewerken in de catalogusmap (niet opnieuw vanuit
 een ruwe dump “ernaast”).&lt;/li&gt;
-&lt;li&gt;Producten: &lt;code&gt;scripts\all-products.cmd&lt;/code&gt; met pad naar die map (of
+&lt;li&gt;Producten: &lt;code&gt;scripts\products.cmd --kinds all&lt;/code&gt; met pad naar die map (of
 &lt;code&gt;scripts\products.cmd --kinds …&lt;/code&gt;).&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;scripts\check.cmd --strict&lt;/code&gt; groen vóór commit/push.&lt;/li&gt;
 &lt;li&gt;Optioneel: koormap-slot met shortcode &lt;code&gt;bieb&lt;/code&gt; naar hetzelfde id.&lt;/li&gt;
@@ -288,7 +288,7 @@ oude &lt;code&gt;.print.mscz&lt;/code&gt;-spoor)&lt;/li&gt;
 &lt;/table&gt;
 &lt;p&gt;Een &lt;strong&gt;publicatiecontrole&lt;/strong&gt; in &lt;code&gt;check&lt;/code&gt; / GitHub Actions doet dit:&lt;/p&gt;</description></item><item><title>Koormap-blad schrijven</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/koormap-blad/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/koormap-blad/</guid><description>&lt;p&gt;Op een &lt;strong&gt;slot-pagina&lt;/strong&gt; (&lt;code&gt;index.md&lt;/code&gt; onder &lt;code&gt;koormappen\…&lt;/code&gt;) zet je zelf de
 volgorde, de titels en de uitleg. Muziek haal je uit de catalogus met
-&lt;code&gt;bieb&lt;/code&gt;. Bladindeling voor &lt;strong&gt;Download pagina&lt;/strong&gt; / &lt;strong&gt;Print pagina&lt;/strong&gt; regel je
+&lt;code&gt;bieb&lt;/code&gt;. Bladindeling voor het &lt;strong&gt;download-icoon&lt;/strong&gt; (pagina-PDF) regel je
 met &lt;code&gt;pdf-…&lt;/code&gt;. Titels op het blad zet je met &lt;code&gt;kop&lt;/code&gt; — geen HTML.&lt;/p&gt;
 &lt;p&gt;Lees eerst het model catalogus versus koormap in
 &lt;a href="catalogus-en-koormappen/"&gt;Catalogus en koormappen&lt;/a&gt;
@@ -411,7 +411,8 @@ past bij wat jullie nodig hebben.&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
  &lt;ul&gt;
 &lt;li&gt;Ingang voor koorleden: knop &lt;strong&gt;Zoeken&lt;/strong&gt; in de kop, of &lt;code&gt;/overzichten/zoeken/&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Korte tip: klik op &lt;strong&gt;?&lt;/strong&gt; naast de knop Zoeken&lt;/li&gt;
+&lt;li&gt;Korte tip: ga met de muis over de knop &lt;strong&gt;Zoeken&lt;/strong&gt; in de kop (popover);
+in het zoekvenster zelf staat nog een &lt;strong&gt;?&lt;/strong&gt; bij het zoekveld&lt;/li&gt;
 &lt;li&gt;Indexbestand: &lt;code&gt;static\zoek\index.json&lt;/code&gt; (bij Pages-deploy opnieuw gebouwd)&lt;/li&gt;
 &lt;li&gt;Synoniemen: &lt;a href="https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml"&gt;&lt;code&gt;data/zoek-synoniemen.yaml&lt;/code&gt;&lt;/a&gt;
 &lt;/li&gt;

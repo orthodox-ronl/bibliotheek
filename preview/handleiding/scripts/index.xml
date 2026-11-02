@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Script-referentie on Bibliotheek</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/</link><description>Recent content in Script-referentie on Bibliotheek</description><generator>Hugo</generator><language>nl</language><atom:link href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/index.xml" rel="self" type="application/rss+xml"/><item><title>Invoer: bestand of map</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/invoer-bestand-of-map/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/invoer-bestand-of-map/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
-&lt;p&gt;Invoerconventie — één bronbestand of een map&lt;/p&gt;
+&lt;p&gt;Invoerconventie — pad zoeken, bestand of map, en korte logregels&lt;/p&gt;
 &lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Veel bibliotheek-commando’s die op bestanden werken volgen dezelfde
 afspraak als in VSA-tooling: het pad-argument is&lt;/p&gt;
@@ -17,8 +17,7 @@ worden meegenomen.&lt;/li&gt;
 , &lt;a href="../opkuisen/"&gt;opkuisen&lt;/a&gt;
  en
 &lt;a href="../products/"&gt;products&lt;/a&gt;
- / &lt;code&gt;*-products&lt;/code&gt; (die dit al deden via
-&lt;code&gt;list_source_paths&lt;/code&gt;).&lt;/p&gt;</description></item><item><title>h</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/h/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/h/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+ / &lt;code&gt;*-products&lt;/code&gt; (via &lt;code&gt;list_source_paths&lt;/code&gt;).&lt;/p&gt;</description></item><item><title>h</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/h/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/h/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\h.cmd&lt;/code&gt; — overzicht van commando’s, of doorverwijzen naar &lt;code&gt;-h&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\h.cmd
@@ -38,20 +37,24 @@ doet.&lt;/p&gt;
 &lt;code&gt;.mvsa&lt;/code&gt;) geldig is volgens de &lt;code&gt;vsa&lt;/code&gt;-/&lt;code&gt;mvsa&lt;/code&gt;-CLI&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;validate
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;validate content-source\catalogus\tropaar
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;validate tropaar
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;validate catalogus\tropaar
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Of: &lt;code&gt;scripts\validate.cmd&lt;/code&gt; vanuit de repo-root. Zonder argument valideert
-het script de map &lt;code&gt;content-source\catalogus&lt;/code&gt;.&lt;/p&gt;
+het script de map &lt;code&gt;content-source\catalogus&lt;/code&gt;. Korte paden mogen — zie
+&lt;a href="../invoer-bestand-of-map/"&gt;bestand of map&lt;/a&gt;
+.&lt;/p&gt;
 &lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Zet eerst &lt;code&gt;vsa-tool&lt;/code&gt; klaar (&lt;code&gt;scripts\_ensure.cmd --vsa-tool&lt;/code&gt;) en roept
-daarna de gepubliceerde CLI aan:&lt;/p&gt;
+&lt;p&gt;Zet eerst &lt;code&gt;vsa-tool&lt;/code&gt; klaar (&lt;code&gt;scripts\_ensure.cmd --vsa-tool&lt;/code&gt;), lost het
+pad op (zelfde zoekvolgorde als products/pdf), en roept daarna de
+gepubliceerde CLI aan:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;code&gt;vsa validate&lt;/code&gt; op het gekozen pad (standaard de hele catalogus-map)&lt;/li&gt;
 &lt;li&gt;Als er onder dat pad minstens één &lt;code&gt;.mvsa&lt;/code&gt; staat: ook &lt;code&gt;mvsa validate&lt;/code&gt;
 (inclusief import-siblings &lt;code&gt;*.mscz.mvsa&lt;/code&gt;)&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Het script kopieert geen validatielogica uit VSA-tooling; het geeft alleen
-het pad door. Ruwe dumps onder &lt;code&gt;content-source\input&lt;/code&gt; horen niet bij deze
-preflight — die map is geen publicatiebron.&lt;/p&gt;</description></item><item><title>check</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/check/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/check/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+het (opgeloste) pad door. Ruwe dumps onder &lt;code&gt;content-source\input&lt;/code&gt; horen
+niet bij deze preflight — die map is geen publicatiebron.&lt;/p&gt;</description></item><item><title>check</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/check/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/check/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\check.cmd&lt;/code&gt; — controleren of de repository klaar is om te delen&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;check
@@ -95,7 +98,7 @@ een steekproef (mscz/mvsa/vsa) vanaf &lt;strong&gt;github.io&lt;/strong&gt; kan 
 &lt;code&gt;raw.githubusercontent.com&lt;/code&gt;); zet &lt;code&gt;base&lt;/code&gt; in
 &lt;code&gt;data\coria-public-base.json&lt;/code&gt;. Zonder &lt;code&gt;--strict&lt;/code&gt; alleen waarschuwen bij
 falen; met &lt;code&gt;--strict&lt;/code&gt; exit 1&lt;/li&gt;
-&lt;li&gt;Legacy bladermap-SVG (&lt;code&gt;oefenhoek-index --svg&lt;/code&gt;) — plaatje onder
+&lt;li&gt;Legacy bladermap-SVG (&lt;code&gt;python scripts\sync_oefenhoek_index.py --svg&lt;/code&gt;) — plaatje onder
 &lt;code&gt;static\vsa\bladermap\&lt;/code&gt; uit &lt;code&gt;.vsa&lt;/code&gt;, zonder stempel. Het scherm
 gebruikt sibling &lt;code&gt;{stam}.vsa.svg&lt;/code&gt; (stap 2) zodra die er is; dit
 plaatje is alleen de fallback&lt;/li&gt;
@@ -112,25 +115,24 @@ gecommitte &lt;code&gt;index.json&lt;/code&gt;.&lt;/p&gt;</description></item><i
 &lt;p&gt;&lt;code&gt;scripts\fix.cmd&lt;/code&gt; — auto-fixbare problemen uit &lt;code&gt;check&lt;/code&gt; afwerken via
 &lt;code&gt;data\check-fixlist.json&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\fix.cmd [--check] [--dry-run] [-y] [--verbose]
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\fix.cmd [--check | --strict] [--dry-run] [-y] [--verbose]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Na een &lt;code&gt;check&lt;/code&gt; (met of zonder &lt;code&gt;--strict&lt;/code&gt;) schrijft de repository een
 &lt;strong&gt;afwerklijst&lt;/strong&gt; in &lt;code&gt;data\check-fixlist.json&lt;/code&gt;. Elke regel is één probleem
 waarvoor check al een eenvoudig herstelcommando kent (&lt;code&gt;fix_cmd&lt;/code&gt;),
-bijvoorbeeld &lt;code&gt;scripts\pdf.cmd …\index.md&lt;/code&gt; bij een verouderde blad-PDF,
-of &lt;code&gt;scripts\products.cmd --kinds mvsa …\lied.mvsa&lt;/code&gt; voor één verouderde
-uitvoeringsvorm (niet de hele catalogus).&lt;/p&gt;
-&lt;p&gt;Product-herstelregels gebruiken &lt;code&gt;--reasons missing,stale&lt;/code&gt; en
-&lt;code&gt;--skip-post&lt;/code&gt;. Zo blijft &lt;code&gt;fix&lt;/code&gt; bij een handvol wijzigingen klein.
-Zoekindex en Coria-fingerprints draait &lt;code&gt;fix&lt;/code&gt; daarna één keer.
-Identieke &lt;code&gt;fix_cmd&lt;/code&gt;-regels worden maar één keer uitgevoerd.&lt;/p&gt;</description></item><item><title>build</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+bijvoorbeeld &lt;code&gt;scripts\pdf.cmd catalogus\…\index.md&lt;/code&gt; bij een verouderde
+blad-PDF, of &lt;code&gt;scripts\products.cmd --kinds mvsa catalogus\…\lied.mvsa&lt;/code&gt;
+voor één verouderde uitvoeringsvorm (niet de hele catalogus). Die paden
+zijn kort (zonder &lt;code&gt;content-source\&lt;/code&gt;), zodat je ze ook handmatig kunt
+plakken — zie &lt;a href="../invoer-bestand-of-map/"&gt;bestand of map&lt;/a&gt;
+.&lt;/p&gt;</description></item><item><title>build</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/build/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\build.cmd&lt;/code&gt; — hele website bouwen naar &lt;code&gt;generated\site&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;build
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Maakt Coria-fingerprints, doet een Coria-fetch-probe (waarschuwing als beide
 hosts falen), ververst het legacy bladermap-plaatje uit
-&lt;code&gt;.vsa&lt;/code&gt; (&lt;code&gt;oefenhoek-index --svg&lt;/code&gt;), schrijft de bouwtijd naar
+&lt;code&gt;.vsa&lt;/code&gt; (&lt;code&gt;python scripts\sync_oefenhoek_index.py --svg&lt;/code&gt;), schrijft de bouwtijd naar
 &lt;code&gt;data\build.yaml&lt;/code&gt; (footer «Gegenereerd» op de homepage; niet committen),
 en bouwt de site naar &lt;code&gt;generated\site&lt;/code&gt;. Anders dan &lt;code&gt;check&lt;/code&gt; draait
 &lt;code&gt;build&lt;/code&gt; geen &lt;code&gt;vsa validate&lt;/code&gt; en geen publicatiecontrole. &lt;code&gt;build&lt;/code&gt; maakt
@@ -158,23 +160,16 @@ eruitzien tijdens beheerwerk.&lt;/p&gt;</description></item><item><title>pdf</ti
 samenstellen uit kale blad-SVG’s en Markdown-koppen (geen
 catalogus-product-PDF’s plakken)&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\pdf.cmd &amp;lt;pad\naar\index.md|map&amp;gt; [--force]
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\pdf.cmd --all-koormappen [--force]
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\pdf.cmd &amp;lt;pad\naar\index.md|map&amp;gt; [--force] [--verbose]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\pdf.cmd --all-koormappen [--force] [--verbose]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Maakt de PDF achter de knop &lt;strong&gt;Download pagina&lt;/strong&gt;: één
-bestand &lt;code&gt;index.md.pdf&lt;/code&gt; naast de Markdown van een bladermap-pagina (Hugo
-page resource). Dat is de PDF van de &lt;strong&gt;getoonde pagina&lt;/strong&gt; (koormap-slot of
-catalogus-uitvoeringsvorm), niet hetzelfde als de losse catalogus-product-PDF
-van één uitvoeringsvorm.&lt;/p&gt;
-&lt;p&gt;Dit commando hoort niet bij &lt;code&gt;products&lt;/code&gt;, &lt;code&gt;all-products&lt;/code&gt;, &lt;code&gt;check&lt;/code&gt; of de
-Pages-build. Gewijzigde koormap-&lt;code&gt;index.md&lt;/code&gt; meenemen na een git-edit:
-&lt;a href="../products-changed/"&gt;products-changed&lt;/a&gt;
-. Die keten maakt en controleert catalogus-siblings
-(&lt;code&gt;.mvsa.pdf&lt;/code&gt;, &lt;code&gt;.mvsa.svg&lt;/code&gt;, &lt;code&gt;.vsa.svg&lt;/code&gt;, en de rest). De pagina-PDF maak je
-lokaal uit de &lt;strong&gt;notatiebronnen&lt;/strong&gt; (&lt;code&gt;.mvsa&lt;/code&gt; / &lt;code&gt;.vsa&lt;/code&gt; / &lt;code&gt;.mscz&lt;/code&gt;) plus de
-Markdown-layout, en commit je mee. &lt;code&gt;check&lt;/code&gt; meldt niet of de pagina-PDF
-ontbreekt. MuseScore 4 is nodig voor &lt;code&gt;.mvsa&lt;/code&gt;/&lt;code&gt;.mscz&lt;/code&gt;-SVG-export (en dus
-zodra de pagina zulke bronnen of &lt;code&gt;pdf-bijelkaar&lt;/code&gt; gebruikt).&lt;/p&gt;</description></item><item><title>opkuisen</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/opkuisen/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/opkuisen/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;Maakt de PDF achter het &lt;strong&gt;download-icoon&lt;/strong&gt; in de navigatie: eerst altijd
+&lt;code&gt;index.md.pdf&lt;/code&gt; naast de Markdown van een bladermap-pagina (Hugo page
+resource). Dat is de PDF van de &lt;strong&gt;getoonde pagina&lt;/strong&gt; (koormap-slot of
+catalogus-uitvoeringsvorm), niet hetzelfde als een losse
+catalogus-product-PDF van één uitvoeringsvorm.&lt;/p&gt;
+&lt;p&gt;Zelfde run schrijft waar nodig ook translit-pagina-PDF’s (§5a), uit de
+translit-SVG-siblings:&lt;/p&gt;</description></item><item><title>opkuisen</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/opkuisen/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/opkuisen/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\opkuisen.cmd&lt;/code&gt; — herkomstanalyse en inhoudelijke opkuis van
 MusicXML- en MuseScore-bestanden (optioneel daarna layout)&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
@@ -213,10 +208,10 @@ lyrics, …) opnieuw maken onder een map of voor één bronbestand&lt;/p&gt;
 &lt;p&gt;Kinds: &lt;code&gt;vsa&lt;/code&gt;, &lt;code&gt;mscz&lt;/code&gt;, &lt;code&gt;tekstblad&lt;/code&gt;, &lt;code&gt;import&lt;/code&gt;, &lt;code&gt;mvsa&lt;/code&gt;, &lt;code&gt;audio&lt;/code&gt;, &lt;code&gt;lyrics&lt;/code&gt;.&lt;/p&gt;
 &lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Bouwt de bestanden die de site en Coria nodig hebben naast de bron in de
-catalogus. Elk kind toont preflight op de echte todo-lijst; korte runs
-(minder dan 100 items of geschat klaar binnen ongeveer een halve minuut)
-starten zonder vraag; bij 100+ items volgt de dubbele zekerheidsvraag.
-&lt;code&gt;-y&lt;/code&gt; is vooral nodig zonder interactieve terminal. Na een geslaagde run
+catalogus. Preflight en bevestiging gebeuren &lt;strong&gt;één keer&lt;/strong&gt; voor de hele
+run (som van bronnen over de gekozen kinds). Korte runs starten zonder
+vraag; bij 100+ bronnen volgt de dubbele zekerheidsvraag, tenzij je
+&lt;code&gt;-y&lt;/code&gt; / &lt;code&gt;--yes&lt;/code&gt; meegeeft — dan geen vraag. Na een geslaagde run
 (niet &lt;code&gt;--dry-run&lt;/code&gt;) schrijft de tooling voor vsa/mvsa/mscz
 &lt;code&gt;{bron}.products-meta.json&lt;/code&gt; (snelle versheid; bladreeks-SVG als &lt;code&gt;svg-1&lt;/code&gt;…).
 Die export is &lt;strong&gt;kaal&lt;/strong&gt;: lyrics en preview-mp3 krijgen daarbij nog geen
@@ -273,7 +268,7 @@ bestanden onder &lt;code&gt;content-source&lt;/code&gt; zijn gewijzigd t.o.v. ee
 (default: &lt;code&gt;HEAD&lt;/code&gt;, dus jouw lokale wijzigingen t.o.v. de laatste commit),
 inclusief nieuwe (nog niet getrackte) bestanden.&lt;/p&gt;</description></item><item><title>products — lyrics</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/lyrics-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/lyrics-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\products.cmd --kinds lyrics&lt;/code&gt; — platte zoektekst naast &lt;code&gt;.vsa&lt;/code&gt; / &lt;code&gt;.mvsa&lt;/code&gt; /
-&lt;code&gt;.mscz&lt;/code&gt; (gewoon product-spoor; ook via &lt;code&gt;products&lt;/code&gt; / &lt;code&gt;all-products&lt;/code&gt;)&lt;/p&gt;
+&lt;code&gt;.mscz&lt;/code&gt; (gewoon product-spoor; ook via &lt;code&gt;products&lt;/code&gt; / &lt;code&gt;products --kinds all&lt;/code&gt;)&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\products.cmd --kinds lyrics [pad] [--force] [--dry-run]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
@@ -301,10 +296,12 @@ MusicXML-lyrics in VSA-tooling) en schrijft die naast de bron als sibling:&lt;/p
  &lt;/tr&gt;
  &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;Bij een basispartituur-&lt;code&gt;.mscz&lt;/code&gt; gebruikt het script bij voorkeur een &lt;strong&gt;verse&lt;/strong&gt;
-sibling &lt;code&gt;{stam}.mscz.mxl&lt;/code&gt; (geen MuseScore-aanroep). Ontbreekt die of is die
-ouder dan de &lt;code&gt;.mscz&lt;/code&gt;, dan exporteert tooling tijdelijk via MuseScore (geen
-&lt;code&gt;.mscz.mvsa&lt;/code&gt;).&lt;/p&gt;</description></item><item><title>products — mvsa</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mvsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mvsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;Bij een basispartituur-&lt;code&gt;.mscz&lt;/code&gt; gebruikt het script een &lt;strong&gt;verse&lt;/strong&gt; sibling
+&lt;code&gt;{stam}.mscz.mxl&lt;/code&gt;. Ontbreekt die of past de herkomststempel niet meer bij
+de &lt;code&gt;.mscz&lt;/code&gt;, dan draait eerst &lt;code&gt;mscz mxl&lt;/code&gt; (zelfde straat als
+&lt;a href="../mscz-products/"&gt;products (mscz)&lt;/a&gt;
+). Lukt dat niet, dan valt tooling terug
+op een tijdelijke export uit de &lt;code&gt;.mscz&lt;/code&gt; (geen &lt;code&gt;.mscz.mvsa&lt;/code&gt;).&lt;/p&gt;</description></item><item><title>products — mvsa</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mvsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/mvsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\products.cmd --kinds mvsa&lt;/code&gt; — Coria-&lt;code&gt;.mxl&lt;/code&gt;, A4-PDF, koormap-SVG en
 Score-IR/OSMD-MusicXML maken bij een catalogus-&lt;code&gt;.mvsa&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
@@ -351,7 +348,7 @@ koorleden en de site gebruiken:&lt;/p&gt;
 &lt;p&gt;Het script schrijft herkomstinformatie (&lt;code&gt;vsa-source-sha256&lt;/code&gt;,
 &lt;code&gt;vsa-source-kind=mvsa&lt;/code&gt;, &lt;code&gt;vsa-generated-at&lt;/code&gt;) in die producten.&lt;/p&gt;</description></item><item><title>products — audio</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/audio-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/audio-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\products.cmd --kinds audio&lt;/code&gt; — preview-&lt;code&gt;.mp3&lt;/code&gt; maken bij een bibliotheek-bron
-(gewoon product-spoor; ook via &lt;code&gt;products&lt;/code&gt; / &lt;code&gt;all-products&lt;/code&gt;)&lt;/p&gt;
+(gewoon product-spoor; ook via &lt;code&gt;products&lt;/code&gt; / &lt;code&gt;products --kinds all&lt;/code&gt;)&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\products.cmd --kinds audio [pad] [--force] [--dry-run]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
@@ -384,25 +381,7 @@ eigen sibling:&lt;/p&gt;
 velden als bij PDF/MXL: hash van de bron, wanneer gemaakt). Zo ziet
 &lt;code&gt;check&lt;/code&gt; later of de bron is gewijzigd terwijl het mp3 nog oud is.
 &lt;code&gt;products --kinds mvsa&lt;/code&gt; / &lt;code&gt;vsa&lt;/code&gt; / &lt;code&gt;mscz&lt;/code&gt; zet die stempel ook als tooling
-eerst een kaal mp3 schreef — anders zou &lt;code&gt;check&lt;/code&gt; &lt;code&gt;unstamped_mp3&lt;/code&gt; melden.&lt;/p&gt;</description></item><item><title>all-products</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/all-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/all-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;scripts\all-products.cmd&lt;/code&gt; — alle ontbrekende of verouderde bibliotheek-producten
-in één keer bijwerken&lt;/p&gt;
-&lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\all-products.cmd [pad] [--force] [--dry-run] [-y]
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Roept achter elkaar &lt;strong&gt;alle&lt;/strong&gt; product-sporen aan (zelfde als
-&lt;code&gt;products.cmd --kinds all&lt;/code&gt;) die siblings maken naast bibliotheek-bronnen
-onder &lt;code&gt;content-source\catalogus&lt;/code&gt; (of onder een opgegeven pad). Het pad is
-één bronbestand of een map — zie
-&lt;a href="../invoer-bestand-of-map/"&gt;Invoer: bestand of map&lt;/a&gt;
-. Bij een map of
-meerdere kinds toont elk kind preflight op de echte todo-lijst: korte
-runs starten zonder vraag; bij 100+ items volgt de dubbele
-zekerheidsvraag. &lt;code&gt;-y&lt;/code&gt; zet eventuele soft-vragen uit. Per kind volgt een
-eigen duur-schatting. Audio en lyrics horen daar gewoon bij; ze zijn
-geen aparte uitzondering. Mappen met &lt;code&gt;manueel: true&lt;/code&gt; en bestanden in
-&lt;code&gt;input\&lt;/code&gt; worden overgeslagen. Past het brontype niet bij een spoor, dan
-skip (geen fout).&lt;/p&gt;</description></item><item><title>products — vsa</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+eerst een kaal mp3 schreef — anders zou &lt;code&gt;check&lt;/code&gt; &lt;code&gt;unstamped_mp3&lt;/code&gt; melden.&lt;/p&gt;</description></item><item><title>products — vsa</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\products.cmd --kinds vsa&lt;/code&gt; — Coria-&lt;code&gt;.vsa.mxl&lt;/code&gt;, A4-&lt;code&gt;.vsa.pdf&lt;/code&gt; en muziek-&lt;code&gt;.vsa.svg&lt;/code&gt;
 maken bij een catalogus-&lt;code&gt;.vsa&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
@@ -448,7 +427,9 @@ een Coria-bronvermelding in de MXL (geen versheidstempel).&lt;/p&gt;</descriptio
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\products.cmd --kinds tekstblad [pad] [--force] [--dry-run]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Zoekt canonieke bronnen &lt;code&gt;{stam}.tekstblad.md&lt;/code&gt; onder het opgegeven pad
-(of, zonder pad, onder &lt;code&gt;content-source\catalogus&lt;/code&gt;). Als de bron
+(of, zonder pad, onder &lt;code&gt;content-source\catalogus&lt;/code&gt;; korte paden: zie
+&lt;a href="../invoer-bestand-of-map/"&gt;bestand of map&lt;/a&gt;
+). Als de bron
 &lt;code&gt;::: vsa-notatie&lt;/code&gt;-blokken heeft, schrijft het script ernaast:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;{stam}.tekstblad.scherm.html&lt;/code&gt; — dezelfde HTML/tekst, met elk VSA-blok
@@ -532,21 +513,7 @@ per ongeluk als catalogus-bron geldt:&lt;/p&gt;
 (hoort &lt;code&gt;{stam}.vsa.mxl&lt;/code&gt; / &lt;code&gt;{stam}.mscz.mxl&lt;/code&gt;).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Default: print problemen en eindigt met exitcode 0. Met &lt;code&gt;--fail&lt;/code&gt;: exitcode
-1 als er minstens één probleem is (handig vóór een strenge commit).&lt;/p&gt;</description></item><item><title>oefenhoek-index</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/oefenhoek-index/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/oefenhoek-index/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;scripts\oefenhoek-index.cmd&lt;/code&gt; — SVG-plaatjes uit catalogus-&lt;code&gt;.vsa&lt;/code&gt;; optioneel
-legacy widgets uit &lt;code&gt;index.md&lt;/code&gt; strippen&lt;/p&gt;
-&lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\oefenhoek-index.cmd [--dry-run] [--svg] [--verbose]
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Met &lt;strong&gt;&lt;code&gt;--svg&lt;/code&gt;&lt;/strong&gt; schrijft dit commando een &lt;strong&gt;legacy&lt;/strong&gt; plaatje van een
-canonieke catalogus-&lt;code&gt;.vsa&lt;/code&gt; naar &lt;code&gt;static\vsa\bladermap\…&lt;/code&gt;. Het scherm
-gebruikt dat plaatje alleen als er nog geen sibling &lt;code&gt;{stam}.vsa.svg&lt;/code&gt;
-naast de bron staat. Die sibling maak je met
-&lt;a href="../vsa-products/"&gt;products (vsa)&lt;/a&gt;
-; &lt;code&gt;check&lt;/code&gt; eist daar een herkomststempel
-voor. Hetzelfde geldt voor &lt;code&gt;.mvsa&lt;/code&gt;: het webplaatje is &lt;code&gt;{stam}.mvsa.svg&lt;/code&gt;
-via &lt;a href="../mvsa-products/"&gt;products (mvsa)&lt;/a&gt;
-, niet dit commando.&lt;/p&gt;</description></item><item><title>bieb accepteer</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-accepteer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-accepteer/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+1 als er minstens één probleem is (handig vóór een strenge commit).&lt;/p&gt;</description></item><item><title>bieb accepteer</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-accepteer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-accepteer/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;bieb accepteer&lt;/code&gt; — partituur of tekstblad opnemen in de catalogus&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd accepteer [id] [bestand...] [opties]
@@ -614,4 +581,14 @@ de catalogus melden of verwijderen&lt;/p&gt;
 een &lt;code&gt;.mp3&lt;/code&gt; naast &lt;code&gt;{stam}.mvsa.mscz&lt;/code&gt; in plaats van naast &lt;code&gt;{stam}.mvsa&lt;/code&gt;.
 Die kettingbestanden hoort de catalogus niet te hebben.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Dit script verwijdert&lt;/strong&gt; bestanden waarvan de naam zo’n ketting is, onder
-meer:&lt;/p&gt;</description></item></channel></rss>
+meer:&lt;/p&gt;</description></item><item><title>seed-repo</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/seed-repo/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/seed-repo/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;seed-repo&lt;/code&gt; — kale kopie van de bibliotheek-repo naar een nieuwe map&lt;/p&gt;
+&lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\seed-repo.cmd &amp;lt;doelmap&amp;gt; [opties]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Met &lt;code&gt;.\scripts&lt;/code&gt; op PATH: &lt;code&gt;seed-repo &amp;lt;doelmap&amp;gt; …&lt;/code&gt;. Korte hulp: &lt;code&gt;h seed-repo&lt;/code&gt;
+of &lt;code&gt;seed-repo -h&lt;/code&gt;. Typ &lt;code&gt;?&lt;/code&gt; bij een interactieve vraag voor uitleg.&lt;/p&gt;
+&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
+&lt;p&gt;Maakt een &lt;strong&gt;zo kaal mogelijke&lt;/strong&gt; map buiten deze repository, zodat je daar
+een nieuwe git-repo kunt starten. Het script kopieert scripts, layouts,
+documentatie, homepage, handleiding en catalogus-/koormap-&lt;strong&gt;bronnen&lt;/strong&gt;, plus
+tekstblad-schermbestanden die historisch handmatig zijn gemaakt.&lt;/p&gt;</description></item></channel></rss>
