@@ -68,13 +68,9 @@ impliciet weggelaten variant-id.
 
 ## Worktrees (lokaal)
 
-| Map | Alleen voor |
-| --- | --- |
-| `C:\Git\orthodox-ronl\bibliotheek` | Site-/feature-werk (UI, layouts, JS, docs, o.a. branch `translit`) |
-| `C:\Git\orthodox-ronl\bibliotheek-onderhoud` | Bronnen importeren/wijzigen + daarna producten genereren |
-
-Transliteratie-UI en andere features **niet** in de onderhoud-worktree.
-Detail: `.cursor/rules/worktrees-rollen.mdc`.
+Alles in **`C:\Git\orthodox-ronl\bibliotheek`** (site, bronnen, producten).
+Geen aparte onderhoud-worktree meer. Detail:
+`.cursor/rules/worktrees-rollen.mdc`.
 
 ---
 
