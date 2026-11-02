@@ -84,8 +84,8 @@ uitvoeringsvorm-map. Zet `alias_van` op de variant-`_index.md`; zie
 Op een compositieblad mag je **meerdere** `bieb`-shortcodes
 zetten (elk met een eigen catalogus-id). Elke shortcode zet bij dat blok
 een tip-icoon **♪** (menu **Oefenen** / **Beluisteren**) en daarna de
-partituur (SVG/OSMD). Print en download van het hele blad: **Download
-pagina** / **Print pagina** in de navigatie.
+partituur (SVG/OSMD). Download van het hele blad: **download-icoon** in
+de navigatie (plus translit-icoonknoppen waar van toepassing).
 
 ## Oude migratie (alleen historisch)
 

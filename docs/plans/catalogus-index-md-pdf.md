@@ -46,7 +46,7 @@ automatische_inhoud: false
 - Precies **één** hoofdtitel: template-H1 via afgeleide catalogustitel
   (`display-title`; geen frontmatter-`title`).
 - Muziek via `bieb`: keten uit schermpartituur (OSMD → SVG → PDF-fallback).
-- Nav **Download pagina** / **Print pagina** zodra `index.md.pdf`
+- Nav **download-icoon** (en translit-PDF’s) zodra `index.md.pdf`
   bestaat (page resource).
 - Score-Download/Print naar product-PDF: buiten scope van *dit* plan;
   afbouwbesluit en volgorde staan in
@@ -172,7 +172,7 @@ Geen Coria/audio. Product-PDF-afbouw: niet stil in dit traject —
 Norm: [schermpartituur.md](../specs/schermpartituur.md) §8 +
 [catalogus-titels.md](../catalogus-titels.md).
 
-| URL / blad | H1 | Keten | Nav Download/Print pagina | PDF titel+muziek |
+| URL / blad | H1 | Keten | Nav download-icoon | PDF titel+muziek |
 | --- | --- | --- | --- | --- |
 | `/catalogus/tropaar/zondag-toon-1/groningen/` | 1× afgeleid | SVG (`.vsa`) | ja | 1 A4, titel OK |
 | `/catalogus/kondak/zondag-toon-1/groningen/` | 1× | SVG | ja | 1 A4 OK |

@@ -70,8 +70,9 @@ de layout.
 **Slot-pagina** (`index.md`): gewone markdown plus shortcodes. Titels en
 uitleg zet je zelf; `bieb` haalt muziek (en desgewenst titel/bron) uit de
 catalogus; bladtitels met `kop`; bladindeling in de download met
-`pdf-pagina` / `pdf-bijelkaar`. Bovenaan de pagina: **Download pagina**
-als `index.md.pdf` bestaat (niet de browserafdruk van de HTML). De
+`pdf-pagina` / `pdf-bijelkaar`. Bovenaan de pagina: **download-icoon**
+(pijl omlaag) als `index.md.pdf` bestaat (niet de browserafdruk van de
+HTML), plus translit-icoonknoppen **ФЛД→FLD** / **FLD→ФЛД**. De
 voorgestelde bestandsnaam bij downloaden komt uit frontmatter
 `pdf_bestandsnaam`; anders op een
 **koormap** uit `title` en op een **catalogus**-blad uit de afgeleide
@@ -157,7 +158,7 @@ shortcode `bieb` gebruiken het pad. Op id-pagina’s zet je geen frontmatter
 
 Op een **uitvoeringsvorm-blad** zet je in de Markdown geen tweede
 hoofdtitel (`# …`): de site toont al één titel boven de partituur. De body
-is meestal alleen de regel met `bieb`. De PDF achter **Download pagina**
+is meestal alleen de regel met `bieb`. De PDF achter het **download-icoon**
 (`index.md.pdf`) volgt dezelfde bladintentie; zie het plan
 `docs/plans/catalogus-index-md-pdf.md` en het script
 [pdf](../scripts/pdf/).
@@ -278,11 +279,13 @@ variant, bijvoorbeeld `trisagion/8a-nederlands/hemelum` naast
 migratie; voor **nieuwe** ids volg je de suffix-regel hierboven.
 
 **Transliteratie (hulpregel)** is géén extra leaf en geen aparte
-uitvoeringsvorm-id. Op de site staan in de navigatie de drukknoppen
-**Nls** en **Ksl** (onafhankelijk; beide knoppen = beide richtingen).
-Geen knop = uit. Bij actieve knop(pen) toont het scherm sibling-SVG’s
-met hulpregel (vorm A); het download-icoon volgt die stand. Handig op
-een koormap met NL én ksl naast elkaar. Bestandsnamen naast de bron:
+uitvoeringsvorm-id. Op de site staan in de navigatie twee icoonknoppen:
+**ФЛД→FLD** (Nls: Latijn onder kerkslavisch) en **FLD→ФЛД** (Ksl:
+Cyrillisch onder Nederlands). De knoppen werken onafhankelijk; beide
+indrukken = beide richtingen. Geen knop = uit. Bij actieve knop(pen)
+toont het scherm sibling-SVG’s met die meeleesregel (vorm A); het
+download-icoon volgt die stand. Handig op een koormap met NL én ksl
+naast elkaar. Bestandsnamen naast de bron:
 
 | Stand     | Scherm-SVG                                            | Pagina-PDF                  |
 | --------- | ----------------------------------------------------- | --------------------------- |

@@ -19,7 +19,7 @@ scripts\pdf.cmd --all-koormappen [--force] [--verbose]
 
 # DESCRIPTION
 
-Maakt de PDF achter de knop **Download pagina**: eerst altijd
+Maakt de PDF achter het **download-icoon** in de navigatie: eerst altijd
 `index.md.pdf` naast de Markdown van een bladermap-pagina (Hugo page
 resource). Dat is de PDF van de **getoonde pagina** (koormap-slot of
 catalogus-uitvoeringsvorm), niet hetzelfde als een losse
@@ -36,9 +36,9 @@ translit-SVG-siblings:
 
 Ontbreekt de bijbehorende `{bron}.translit-*.svg`, dan exporteert
 `pdf.cmd` die SVG onderweg (MuseScore bij `.mvsa`). Op de site volgt
-**Download pagina** de Translit-schakelaar (uit → basis-PDF; aan + Nls/Ksl
-→ translit-PDF). `check --strict` eist de translit-PDF’s nog niet; wél de
-basis-`index.md.pdf`.
+het **download-icoon** de translit-knoppen (geen knop → basis-PDF;
+**ФЛД→FLD**/Nls of **FLD→ФЛД**/Ksl → translit-PDF). `check --strict`
+eist de translit-PDF’s nog niet; wél de basis-`index.md.pdf`.
 
 Dit commando hoort niet bij `products`, `products --kinds all` of de
 Pages-build. **Volgorde:** eerst catalogus-siblings vernieuwen met
@@ -59,14 +59,14 @@ dus zodra de pagina zulke bronnen of `pdf-bijelkaar` gebruikt).
 Catalogus-leaves: ontwerp en restmijlpalen in
 `docs/plans/catalogus-index-md-pdf.md`.
 
-**Download pagina** gebruikt die PDF’s. De site stelt een bestandsnaam voor:
+Het **download-icoon** gebruikt die PDF’s. De site stelt een bestandsnaam voor:
 frontmatter `pdf_bestandsnaam`; anders op een koormap `title`, op een catalogus-blad
 de afgeleide bladtitel; anders de mapnaam — zie
-`docs\specs\koormap-paginataal.md`. Bij Translit aan krijgt de
+`docs\specs\koormap-paginataal.md`. Bij actieve translit-knop krijgt de
 voorgestelde naam het achtervoegsel « (translit Nls)» of « (translit Ksl)»;
 op schijf blijven de namen `index.md.pdf` / `index.md.translit-*.pdf`.
-Zonder basis-`index.md.pdf` (en zonder enige translit-PDF) blijft de
-downloadknop weg. Er is geen aparte browser-HTML-afdruk meer via de
+Zonder basis-`index.md.pdf` (en zonder enige translit-PDF) blijft het
+download-icoon weg. Er is geen aparte browser-HTML-afdruk meer via de
 navigatie (dat was hetzelfde als Ctrl+P).
 
 Invoer volgt [bestand of map](../invoer-bestand-of-map/): één `.md` of een
@@ -98,7 +98,7 @@ en `pymupdf`.
 
 Catalogus-leaf **zonder** notatie (stub / `voorzien`, geen tekstblad): één
 A4 met de afgeleide titel en de tekst dat het blad voorzien is. Zelfde
-bestand `index.md.pdf`, zodat **Download pagina** werkt.
+bestand `index.md.pdf`, zodat het **download-icoon** werkt.
 `bieb accepteer --stub` maakt die PDF meteen mee.
 
 Catalogus-leaf met alleen een **tekstblad** (`.tekstblad.pdf`): titel uit
@@ -131,7 +131,7 @@ scripts\pdf.cmd content-source\koormappen\hemelum\liturgie-zondag
 # WHEN
 
 Je hebt de shortcodes op een slot-pagina gezet of gewijzigd en wilt de
-knop **Download pagina** een actuele pagina-PDF geven. Ook vóór
+**download-icoon** een actuele pagina-PDF geven. Ook vóór
 push/PR: `check` (en CI) eist die PDF bij bladen met `bieb`/`muziek`
 waar een notatiebron bestaat — zie [check](../check/). Na een
 notatiewijziging: eerst [products](../products/) voor die bronnen, dan

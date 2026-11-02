@@ -5,39 +5,47 @@
 
   var STORAGE_KEY = "bibliotheek-translit";
   var STORAGE_MODUS = "bibliotheek-translit-modus";
-  var DEFAULT_MODUS = "nls";
 
-  function readStoredAan() {
-    try {
-      return window.localStorage.getItem(STORAGE_KEY) === "aan";
-    } catch (e) {
-      return false;
-    }
+  function flagsFromModus(modus) {
+    var m = (modus || "").toLowerCase();
+    if (m === "beide") return { nls: true, ksl: true };
+    if (m === "ksl") return { nls: false, ksl: true };
+    if (m === "nls") return { nls: true, ksl: false };
+    return { nls: false, ksl: false };
   }
 
-  function writeStoredAan(aan) {
-    try {
-      window.localStorage.setItem(STORAGE_KEY, aan ? "aan" : "uit");
-    } catch (e) {
-      /* private mode / quota — UI blijft werken zonder persist. */
-    }
+  function modusFromFlags(nls, ksl) {
+    if (nls && ksl) return "beide";
+    if (ksl) return "ksl";
+    if (nls) return "nls";
+    return "uit";
   }
 
-  function readStoredModus() {
+  function readStoredFlags() {
     try {
-      var m = (window.localStorage.getItem(STORAGE_MODUS) || "").toLowerCase();
-      return m === "ksl" ? "ksl" : DEFAULT_MODUS;
+      var storedModus = (window.localStorage.getItem(STORAGE_MODUS) || "").toLowerCase();
+      var storedAan = window.localStorage.getItem(STORAGE_KEY);
+      if (storedModus === "beide" || storedModus === "nls" || storedModus === "ksl") {
+        var flags = flagsFromModus(storedModus);
+        /* Oude combo: modus nls + power uit → beide knoppen uit. */
+        if (storedAan === "uit") return { nls: false, ksl: false };
+        if (storedAan === "aan" || storedAan === null) return flags;
+        return flags;
+      }
+      if (storedModus === "uit") return { nls: false, ksl: false };
+      /* Legacy: alleen power-key, default modus was nls. */
+      if (storedAan === "aan") return { nls: true, ksl: false };
     } catch (e) {
-      return DEFAULT_MODUS;
+      /* private mode */
     }
+    return { nls: false, ksl: false };
   }
 
-  function writeStoredModus(modus) {
+  function writeStoredFlags(nls, ksl) {
+    var modus = modusFromFlags(nls, ksl);
     try {
-      window.localStorage.setItem(
-        STORAGE_MODUS,
-        modus === "ksl" ? "ksl" : DEFAULT_MODUS
-      );
+      window.localStorage.setItem(STORAGE_MODUS, modus);
+      window.localStorage.setItem(STORAGE_KEY, nls || ksl ? "aan" : "uit");
     } catch (e) {
       /* private mode / quota */
     }
@@ -58,7 +66,7 @@
       }
       if (view === "aan") {
         var forModus = (el.getAttribute("data-translit-for-modus") || "").toLowerCase();
-        if (!forModus) forModus = DEFAULT_MODUS;
+        if (!forModus) forModus = "nls";
         setHidden(el, !(aan && forModus === modus));
         return;
       }
@@ -73,6 +81,15 @@
       if (aan && modus === "ksl") {
         href = a.getAttribute("data-pdf-ksl") || href;
         name = a.getAttribute("data-pdf-name-ksl") || name;
+      } else if (aan && modus === "beide") {
+        href =
+          a.getAttribute("data-pdf-nls") ||
+          a.getAttribute("data-pdf-ksl") ||
+          href;
+        name =
+          a.getAttribute("data-pdf-name-nls") ||
+          a.getAttribute("data-pdf-name-ksl") ||
+          name;
       } else if (aan) {
         href = a.getAttribute("data-pdf-nls") || href;
         name = a.getAttribute("data-pdf-name-nls") || name;
@@ -84,18 +101,24 @@
         a.setAttribute("hidden", "");
       }
       if (name) a.setAttribute("download", name);
-      var title = "PDF van deze hele pagina opslaan";
+      var title = "Pagina als PDF downloaden";
       if (aan && modus === "ksl") {
-        title = "PDF met translit Ksl (Cyrillische hulpregel) opslaan";
+        title = "PDF met translit Ksl downloaden";
+      } else if (aan && modus === "beide") {
+        title = "PDF met translit downloaden";
       } else if (aan) {
-        title = "PDF met translit Nls (Latijnse hulpregel) opslaan";
+        title = "PDF met translit Nls downloaden";
       }
       a.setAttribute("title", title);
+      a.setAttribute("aria-label", title);
     });
   }
 
-  function applyState(aan, modus) {
-    modus = modus === "ksl" ? "ksl" : DEFAULT_MODUS;
+  function applyState(nls, ksl) {
+    nls = !!nls;
+    ksl = !!ksl;
+    var aan = nls || ksl;
+    var modus = modusFromFlags(nls, ksl);
     var root = document.documentElement;
     root.dataset.translit = aan ? "aan" : "uit";
     root.dataset.translitModus = modus;
@@ -103,69 +126,58 @@
     root.classList.toggle("translit-uit", !aan);
     root.classList.toggle("translit-modus-nls", modus === "nls");
     root.classList.toggle("translit-modus-ksl", modus === "ksl");
+    root.classList.toggle("translit-modus-beide", modus === "beide");
 
     document.querySelectorAll("[data-translit-controls]").forEach(function (box) {
       box.dataset.translitOn = aan ? "true" : "false";
       box.dataset.translitModus = modus;
     });
 
-    document.querySelectorAll("[data-translit-switch]").forEach(function (input) {
-      input.checked = aan;
-      input.setAttribute("aria-checked", aan ? "true" : "false");
-    });
-
     document.querySelectorAll("[data-translit-modus]").forEach(function (input) {
-      var val = (input.value || "").toLowerCase();
-      input.checked = val === modus;
+      var val = (input.getAttribute("data-translit-modus") || input.value || "").toLowerCase();
+      input.checked = val === "nls" ? nls : val === "ksl" ? ksl : false;
     });
 
-    applyTranslitViews(aan, modus);
-    applyPaginaPdfDownload(aan, modus);
+    applyTranslitViews(aan, modus === "uit" ? "nls" : modus);
+    applyPaginaPdfDownload(aan, modus === "uit" ? "nls" : modus);
 
     window.dispatchEvent(
       new CustomEvent("bibliotheek:translit", {
-        detail: { aan: aan, modus: modus },
+        detail: { aan: aan, modus: modus, nls: nls, ksl: ksl },
       })
     );
   }
 
-  function currentModusFromDom() {
-    var checked = document.querySelector("[data-translit-modus]:checked");
-    if (checked && (checked.value || "").toLowerCase() === "ksl") return "ksl";
-    return DEFAULT_MODUS;
+  function flagsFromDom() {
+    var nls = false;
+    var ksl = false;
+    document.querySelectorAll("[data-translit-modus]").forEach(function (input) {
+      var val = (input.getAttribute("data-translit-modus") || input.value || "").toLowerCase();
+      if (val === "nls") nls = !!input.checked;
+      if (val === "ksl") ksl = !!input.checked;
+    });
+    return { nls: nls, ksl: ksl };
   }
 
   function bindControls() {
-    document.querySelectorAll("[data-translit-switch]").forEach(function (input) {
-      if (input.__translitBound) return;
-      input.__translitBound = true;
-      input.addEventListener("change", function () {
-        var aan = !!input.checked;
-        var modus = currentModusFromDom();
-        applyState(aan, modus);
-        writeStoredAan(aan);
-      });
-    });
-
     document.querySelectorAll("[data-translit-modus]").forEach(function (input) {
       if (input.__translitModusBound) return;
       input.__translitModusBound = true;
       input.addEventListener("change", function () {
-        if (!input.checked) return;
-        var modus = (input.value || "").toLowerCase() === "ksl" ? "ksl" : DEFAULT_MODUS;
-        var aan = document.documentElement.dataset.translit === "aan";
-        applyState(aan, modus);
-        writeStoredModus(modus);
+        var flags = flagsFromDom();
+        applyState(flags.nls, flags.ksl);
+        writeStoredFlags(flags.nls, flags.ksl);
       });
     });
   }
 
-  /* Default = uit + nls; localStorage overschrijft. */
-  applyState(readStoredAan(), readStoredModus());
+  var initial = readStoredFlags();
+  applyState(initial.nls, initial.ksl);
   bindControls();
 
   document.addEventListener("DOMContentLoaded", function () {
-    applyState(readStoredAan(), readStoredModus());
+    var again = readStoredFlags();
+    applyState(again.nls, again.ksl);
     bindControls();
   });
 })();

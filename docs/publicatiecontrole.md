@@ -77,8 +77,8 @@ dan Markdown, notatiebron of product-SVG is een waarschuwing lokaal,
 een fout met `--strict` / in CI / op `main`. Zelfde run schrijft
 optioneel `index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf`
 (uit translit-SVG’s; check eist die nog niet).
-Op de site volgt **Download pagina** de Translit-schakelaar (uit →
-`index.md.pdf`; aan+Nls/Ksl → bijbehorende translit-PDF). Het scherm toont
+Op de site volgt het **download-icoon** de translit-knoppen (geen knop →
+`index.md.pdf`; Nls/Ksl → bijbehorende translit-PDF). Het scherm toont
 de sibling-SVG’s (niet OSMG).
 Importcontrole eist **geen** `.mscz.mvsa` bij elke partituur —
 alleen dat bestaande siblings vers zijn. Audio eist wél een `.mp3` bij elke

@@ -28,7 +28,7 @@ block-SVG’s; commit `index.md.pdf` na `pdf.cmd`.
 
 Liturgische tekst of dialoog (bijvoorbeeld ustav met de diaken) hoort in de
 **bibliotheek**, net als een basispartituur of een `.vsa`. Koorleden zien
-het blad via shortcode `bieb` en downloaden via **Download pagina** —
+het blad via shortcode `bieb` en downloaden via het **download-icoon** —
 niet een tweede kopie van de tekst in de koormap.
 
 ## Eindresultaat en criteria
@@ -37,11 +37,11 @@ niet een tweede kopie van de tekst in de koormap.
 | --- | --- |
 | `{stam}.tekstblad.md` | Canonieke bron (nooit een Hugo-pagina) |
 | `{stam}.tekstblad.scherm.html` + `…-block-N.svg` | Scherm: VSA-blokken als tekening (`products --kinds tekstblad`) |
-| `index.md.pdf` | Blad voor Download/Print (`pdf.cmd`) |
+| `index.md.pdf` | Blad voor het download-icoon (`pdf.cmd`) |
 
 **Klaar** als: de bron frontmatter `build: render: never` (en `list: never`)
 heeft; bij `::: vsa-notatie` de scherm-HTML/SVG’s bij de bron passen;
-`bieb` toont leesbare tekst met gerenderde notatie; **Download pagina**
+`bieb` toont leesbare tekst met gerenderde notatie; het **download-icoon**
 werkt via `index.md.pdf`. Geen verplichte product-`.tekstblad.pdf` meer;
 geen Coria uit dit spoor.
 

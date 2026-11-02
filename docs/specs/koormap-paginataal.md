@@ -38,11 +38,11 @@ volgorde, bladindeling).
 | --- | --- |
 | Download / print | Altijd de **getoonde pagina** (koormap-slot of catalogus-blad). |
 | Inhoud | Een koormap-pagina mag **meerdere** zangstukken, varianten en/of uitvoeringsvormen bevatten. Daar legt het systeem geen limiet op. |
-| Catalogus-blad | Bevat per definitie **één** uitvoeringsvorm; download/print van het blad = die pagina (`index.md.pdf`, of bij Translit aan `index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf`). |
+| Catalogus-blad | Bevat per definitie **één** uitvoeringsvorm; download/print van het blad = die pagina (`index.md.pdf`, of bij actieve translit-knop `index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf`). |
 | Layout | Bladtitels en rubrieken tussen partituren: shortcode `kop` (§6). Uitleg en gewone structuur: Markdown. Catalogusmuziek: `bieb`. Geen HTML voor uitlijning of kopgrootte. |
-| Navbalk | **Download pagina** en **Translit:** (uit/aan + Nls/Ksl) horen bij de pagina (niet per `bieb`-blok). Bij elk muziekblok: tip-icoon **♪** voor oefenen/beluisteren. |
+| Navbalk | **Download-icoon** (pijl omlaag) en translit-icoonknoppen **ФЛД→FLD** (Nls) / **FLD→ФЛД** (Ksl) horen bij de pagina (niet per `bieb`-blok). Bij elk muziekblok: tip-icoon **♪** voor oefenen/beluisteren. |
 
-Plaatsing van Download/Print in de navigatie is onderdeel van dit contract.
+Plaatsing van download en translit in de navigatie is onderdeel van dit contract.
 
 ---
 
@@ -54,12 +54,12 @@ Plaatsing van Download/Print in de navigatie is onderdeel van dit contract.
 | Frontmatter van de pagina | Blijft zoals nu (`title`, `linkTitle`, `weight`, `publicatiestatus`, `automatische_inhoud`, …). Dat is **pagina**-metadata van de koormap, niet de catalogus-frontmatter van een uitvoeringsvorm. Optioneel: `pdf_bestandsnaam` (zie hieronder). |
 | Body | Gewone Markdown (koppen, alinea’s, lijsten, tabellen, …) plus de shortcodes in dit document. |
 
-### Voorgestelde naam bij «Download pagina»
+### Voorgestelde naam bij het download-icoon
 
 Het bestand naast de Markdown blijft `index.md.pdf` (of
-`index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf` als Translit
-aan staat). Bij **Download pagina** stelt de site een bestandsnaam voor
-volgens deze volgorde (koormap-slot):
+`index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf` als een
+translit-knop aan staat). Bij het **download-icoon** stelt de site een
+bestandsnaam voor volgens deze volgorde (koormap-slot):
 
 1. frontmatter `pdf_bestandsnaam` — als die gezet is;
 2. anders frontmatter `title`;
@@ -176,7 +176,7 @@ Twee schrijfwijzen zijn **gelijkwaardig** wanneer er een openstaande
 | Onderdeel | Aliassen | Betekenis |
 | --- | --- | --- |
 | `titel` | `title` | Catalogustitel van de uitvoeringsvorm, als platte tekst (geschikt in een Markdown-kop of binnen `kop`). |
-| `muziek` | — | Partituurweergave (+ tip-icoon **♪** bij dat blok). Geen paginatitel forceren. **Schermketen en look:** [schermpartituur.md](schermpartituur.md) (normatief). Kort: default tall SVG (``.mvsa.svg`` / ``.vsa.svg`` / ``.mscz.svg``; bij Translit aan: ``.translit-nls.svg`` / ``.translit-ksl.svg``); OSMG/from-ir experimenteel via {}; tekstblad-md of PDF alleen als nood-fallback. Blad download: nav **Download pagina** volgt Translit. Artifact Score-IR: `vsa mvsa score-ir … --musicxml` in VSA-tooling. |
+| `muziek` | — | Partituurweergave (+ tip-icoon **♪** bij dat blok). Geen paginatitel forceren. **Schermketen en look:** [schermpartituur.md](schermpartituur.md) (normatief). Kort: default tall SVG (``.mvsa.svg`` / ``.vsa.svg`` / ``.mscz.svg``; bij actieve translit-knop: ``.translit-nls.svg`` / ``.translit-ksl.svg``); OSMG/from-ir experimenteel via {}; tekstblad-md of PDF alleen als nood-fallback. Blad download: nav **download-icoon** volgt translit-knoppen. Artifact Score-IR: `vsa mvsa score-ir … --musicxml` in VSA-tooling. |
 | `bron` | — | Korte bronvermelding van de uitvoeringsvorm. |
 | `copyright` | — | Korte copyright-/licentieregel (footer-achtig), alleen als de beheerder dit zet. Verwijst vaak naar het colofon («zie colofon»). |
 | `colofon` | — | Volledige colofontekst: uit MuseScore-colofon-VBox indien aanwezig; anders opgebouwd uit copyright-notice, eredienst-kopieertoestemming, Bron en Bibliotheek-id. Scherm én `index.md.pdf`. |

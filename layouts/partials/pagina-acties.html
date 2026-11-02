@@ -1,10 +1,11 @@
 {{- /*
   Acties in de site-header (nav) op bladermap-pagina’s (catalogus / koormappen):
 
-  - Download pagina — index.md.pdf, en bij Translit-aan de sibling
-    index.md.translit-nls.pdf / index.md.translit-ksl.pdf (§5a).
-  - Translit: uit/aan (default uit) + modus Nls/Ksl (default Nls).
-    Scherm wisselt sibling-SVG’s (vorm A); download volgt dezelfde stand.
+  - Download — icoon; index.md.pdf of translit-pagina-PDF (§5a).
+  - Translit: icoonknoppen ФЛД→FLD (Nls: Latijn onder Cyrillisch) en
+    FLD→ФЛД (Ksl: Cyrillisch onder Latijn/NL), onafhankelijk.
+    Geen knop = uit; één of beide = aan (beide = modus beide).
+    Scherm wisselt sibling-SVG’s; download volgt de stand.
 
   Geen «Print pagina». Printen via de PDF zelf (viewer).
 
@@ -29,7 +30,6 @@
   {{- range .Resources.Match "index.md.translit-ksl.pdf" -}}
     {{- $paginaPdfKsl = .RelPermalink -}}
   {{- end -}}
-  {{- /* Fallback: bestanden naast index.md die Hugo niet als resource zag. */ -}}
   {{- $dir := strings.TrimSuffix "/" (replace .File.Dir "\\" "/") -}}
   {{- if $dir -}}
     {{- $srcDir := printf "content-source/%s" $dir -}}
@@ -69,57 +69,82 @@
   {{- end -}}
   <div class="pagina-acties" role="group" aria-label="Pagina-acties">
     {{- if or $paginaPdf $paginaPdfNls $paginaPdfKsl -}}
+    <span class="site-chrome-tip site-chrome-tip--end">
     <a
-      class="btn pagina-acties-btn"
+      class="btn pagina-acties-btn pagina-acties-btn--icon"
       href="{{ or $paginaPdf $paginaPdfNls $paginaPdfKsl }}"
       download="{{ or $dlName $dlNameNls $dlNameKsl }}"
-      title="PDF van deze hele pagina opslaan"
+      aria-label="Pagina als PDF downloaden"
       data-pagina-pdf-download
       {{- if $paginaPdf }} data-pdf-uit="{{ $paginaPdf }}" data-pdf-name-uit="{{ $dlName }}"{{- end }}
       {{- if $paginaPdfNls }} data-pdf-nls="{{ $paginaPdfNls }}" data-pdf-name-nls="{{ $dlNameNls }}"{{- end }}
       {{- if $paginaPdfKsl }} data-pdf-ksl="{{ $paginaPdfKsl }}" data-pdf-name-ksl="{{ $dlNameKsl }}"{{- end }}
-    >Download pagina</a>
+    >
+      <svg class="pagina-acties-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path
+          fill="currentColor"
+          d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"
+        />
+      </svg>
+    </a>
+    {{ partial "site-chrome-tip-panel.html" (dict "text" "Download de PDF van deze pagina. Staat transliteratie aan, dan volgt de PDF die stand (gewone PDF of PDF met hulpregel)." "end" true) }}
+    </span>
     {{- end -}}
-    <div class="pagina-acties-translit" data-translit-controls title="Transliteratie: uit/aan en richting Nls of Ksl">
-      <span class="pagina-acties-translit-label" id="translit-label">Translit:</span>
-      <label class="pagina-acties-translit-power">
-        <span class="pagina-acties-translit-side">uit</span>
-        <input
-          type="checkbox"
-          class="pagina-acties-translit-input"
-          role="switch"
-          data-translit-switch
-          aria-checked="false"
-          aria-labelledby="translit-label"
-          aria-label="Transliteratie aan of uit"
-        >
-        <span class="pagina-acties-translit-track" aria-hidden="true">
-          <span class="pagina-acties-translit-thumb"></span>
-        </span>
-        <span class="pagina-acties-translit-side">aan</span>
-      </label>
-      <div class="pagina-acties-translit-modus" data-translit-modus-wrap role="group" aria-label="Transliteratierichting">
+    <div
+      class="pagina-acties-translit"
+      data-translit-controls
+    >
+      <div
+        class="pagina-acties-translit-modus"
+        data-translit-modus-wrap
+        role="group"
+        aria-label="Transliteratie"
+      >
+        <span class="site-chrome-tip site-chrome-tip--end">
         <label class="pagina-acties-translit-modus-opt">
           <input
-            type="radio"
-            name="translit-modus"
+            type="checkbox"
             value="nls"
             class="pagina-acties-translit-modus-input"
-            data-translit-modus
-            checked
+            data-translit-modus="nls"
+            aria-label="Translit Nls: Latijnse letters onder kerkslavische tekst"
           >
-          <span class="pagina-acties-translit-modus-text">Nls</span>
+          <span class="pagina-acties-translit-modus-text">
+            {{- /* ФЛД→FLD = Cyrillisch krijgt Latijn eronder (Nls). F/L/D en Ф/Л/Д zijn script-eigen. */ -}}
+            <svg class="pagina-acties-translit-glyph" viewBox="0 0 62 14" aria-hidden="true" focusable="false">
+              <text x="0" y="11" class="pagina-acties-translit-glyph-letters">ФЛД</text>
+              <path
+                class="pagina-acties-translit-glyph-arrow"
+                d="M26.5 7h6.5M30.5 4.2L33.8 7l-3.3 2.8"
+              />
+              <text x="36" y="11" class="pagina-acties-translit-glyph-letters">FLD</text>
+            </svg>
+          </span>
         </label>
+        {{ partial "site-chrome-tip-panel.html" (dict "text" "Transliteratie Nls: bij kerkslavische (Cyrillische) tekst dezelfde woorden in Latijnse letters eronder. Grijs = uit, blauw = aan. Mag samen met de andere knop." "end" true) }}
+        </span>
+        <span class="site-chrome-tip site-chrome-tip--end">
         <label class="pagina-acties-translit-modus-opt">
           <input
-            type="radio"
-            name="translit-modus"
+            type="checkbox"
             value="ksl"
             class="pagina-acties-translit-modus-input"
-            data-translit-modus
+            data-translit-modus="ksl"
+            aria-label="Translit Ksl: Cyrillische letters onder Nederlandse tekst"
           >
-          <span class="pagina-acties-translit-modus-text">Ksl</span>
+          <span class="pagina-acties-translit-modus-text">
+            <svg class="pagina-acties-translit-glyph" viewBox="0 0 62 14" aria-hidden="true" focusable="false">
+              <text x="0" y="11" class="pagina-acties-translit-glyph-letters">FLD</text>
+              <path
+                class="pagina-acties-translit-glyph-arrow"
+                d="M26.5 7h6.5M30.5 4.2L33.8 7l-3.3 2.8"
+              />
+              <text x="36" y="11" class="pagina-acties-translit-glyph-letters">ФЛД</text>
+            </svg>
+          </span>
         </label>
+        {{ partial "site-chrome-tip-panel.html" (dict "text" "Transliteratie Ksl: bij Nederlandse (Latijnse) tekst dezelfde woorden in Cyrillisch eronder. Grijs = uit, blauw = aan. Mag samen met de andere knop." "end" true) }}
+        </span>
       </div>
     </div>
   </div>

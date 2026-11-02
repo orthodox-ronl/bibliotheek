@@ -95,7 +95,7 @@ lokaal (ná de catalogusproducten) en commit je mee. `check` controleert
 of die PDF er is en niet ouder is dan de Markdown of notatiebron
 (`check_index_md_pdf.py`). Ontbreekt of verouderd: waarschuwing lokaal;
 fout met `--strict`, in CI, of op `main`. Zonder die PDF tonen
-Download pagina en Print pagina niet.
+het download-icoon niet.
 
 Na de product-/pdf-/contract-checks schrijft `check` altijd
 `data\check-fixlist.json`: elk auto-fixbaar probleem plus het

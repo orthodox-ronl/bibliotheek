@@ -26,7 +26,7 @@ Maakt naast een catalogus-`.vsa` de siblings voor Coria en scherm:
 | Product                       | Waartoe                                                        |
 | ----------------------------- | -------------------------------------------------------------- |
 | `{stam}.vsa.mxl`              | Coria-afspelen (**Oefenen**)                                   |
-| `{stam}.vsa.svg`              | Notatie op het **scherm** (Translit uit)                       |
+| `{stam}.vsa.svg`              | Notatie op het **scherm** (geen translit-knop)                 |
 | `{stam}.vsa.translit-nls.svg` | Scherm met Latijnse hulpregel (alleen bij kerkslavische bron)  |
 | `{stam}.vsa.translit-ksl.svg` | Scherm met Cyrillische hulpregel (alleen bij Nederlandse bron) |
 

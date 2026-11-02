@@ -175,7 +175,7 @@ bibliotheek is die vorm **normatief voor nieuwe en vernieuwde producten**.
 
 Liturgische tekst/dialoog is Markdown, maar een kale `.md` is te breed
 (Hugo-pagina’s zijn ook `.md`). Daarom blijft het inhoudstype in de naam:
-`{stam}.tekstblad.md`. Blad voor **Download pagina**:
+`{stam}.tekstblad.md`. Blad voor het **download-icoon**:
 `index.md.pdf` via `pdf.cmd` (rechtstreeks uit die bron). Geen
 verplichte product-`.tekstblad.pdf` meer; geen Coria uit dit spoor.
 
@@ -277,9 +277,9 @@ CI **genereert geen** MuseScore-/PDF-/audio-producten en geen sibling-SVG
 (`products --kinds all`, of apart `products --kinds vsa`, `mscz`,
 `tekstblad`, `mvsa`, `audio`, eventueel `import-mvsa`) en commit
 siblings mee. Het scherm toont standaard `{stam}.vsa.svg` of
-`{stam}.mvsa.svg`. Met **Translit aan** in de navigatie: de sibling
-`.translit-nls.svg` of `.translit-ksl.svg` (zelfde `products`-run).
-Zolang de kale `.vsa.svg` ontbreekt, vult
+`{stam}.mvsa.svg`. Met actieve translit-icoonknop in de navigatie: de
+sibling `.translit-nls.svg` of `.translit-ksl.svg` (zelfde
+`products`-run). Zolang de kale `.vsa.svg` ontbreekt, vult
 `python scripts\sync_oefenhoek_index.py --svg` een legacy-plaatje onder
 `static\vsa\bladermap\` (geen stempel, geen “stale”-fout).
 
@@ -293,7 +293,7 @@ controleert of de **basis**-`index.md.pdf` er is en niet ouder is dan
 de Markdown, de notatiebron of de product-SVG; translit-PDF’s eist
 `check` nog niet. Bij `pdf-bijelkaar` maakt `pdf.cmd` een tijdelijke
 compacte SVG; `{stam}.mvsa.svg` blijft het gewone webplaatje. Commit
-de blad-PDF’s mee, anders toont **Download pagina** niet (of mist de
+de blad-PDF’s mee, anders toont het **download-icoon** niet (of mist de
 translit-variant) en faalt `check --strict` zonder basis-PDF.
 
 Op bibliotheek-bladermappen: icoon **♪** (linksboven op de partituur)
@@ -301,9 +301,9 @@ opent **Oefenen** en **Beluisteren** (Beluisteren bij elke bron met
 passende `.mp3`). Alleen in de catalogus: icoon **{}** (rechtsboven)
 opent **Bronnen** als er een `.vsa` of `.mvsa` is; dat toont de
 feitelijke brontekst in plaats van de gerenderde partituur. In de
-navigatie: **Download pagina** (volgt Translit) en **Translit:**
-uit/aan + Nls/Ksl. Bij alleen een `.mscz` (geen VSA-tekst) ontbreekt
-het icoon **Bronnen**.
+navigatie: **download-icoon** (volgt translit-stand) en icoonknoppen
+**ФЛД→FLD** (Nls) / **FLD→ФЛД** (Ksl). Bij alleen een `.mscz` (geen
+VSA-tekst) ontbreekt het icoon **Bronnen**.
 
 ## Legacy-namen (nog toegestaan tot migratie)
 

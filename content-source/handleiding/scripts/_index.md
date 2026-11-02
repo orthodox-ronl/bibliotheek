@@ -47,7 +47,7 @@ vanuit de repo-root.
 | `update-werkvoorraad` | Tabel in `input\werkvoorraad.md` laten aansluiten op bestanden in `input\`. | [update-werkvoorraad](update-werkvoorraad/) |
 | `werkbank-status` | Overzicht open werkbank-cases; schrijft `data\werkbank-status.json`. | [werkbank-status](werkbank-status/) |
 | `lifecycle-grenzen` | Spaties/ruwe formats in catalogusmappen melden (optioneel `--fail`). | [lifecycle-grenzen](lifecycle-grenzen/) |
-| `pdf.cmd` | Maakt `index.md.pdf` voor Download/Print pagina uit kale blad-SVG’s + Markdown-koppen (`pdf-bijelkaar` → compact). | [pdf](pdf/) |
+| `pdf.cmd` | Maakt `index.md.pdf` (+ translit-PDF’s) voor het download-icoon uit kale blad-SVG’s + Markdown-koppen (`pdf-bijelkaar` → compact). | [pdf](pdf/) |
 
 Intern (geen apart gebruikerscommando): `python scripts\fingerprint_coria_mxl.py`
 maakt `/mxl/c/<hash>.musicxml` en `data/coria-fp.json` voor **Oefenen** (♪).

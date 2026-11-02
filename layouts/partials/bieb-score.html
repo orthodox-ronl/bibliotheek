@@ -185,28 +185,65 @@
 <p class="score-scherm-missing">Geen SVG-product voor dit blad. Kies OSMG in {} of vernieuw met <code>scripts\products.cmd</code>.</p>
   {{- end -}}
   </div>
-  {{- if $musicSvgsTranslitNls -}}
+  {{- /* Translit-modus: sibling-SVG als die er is; anders dezelfde kale SVG
+       als bij «uit» (bv. NL-blad bij Nls op een gemengde koormap). Alleen
+       «missing» als er überhaupt geen SVG is. */ -}}
   <div data-translit-view="aan" data-translit-for-modus="nls" hidden>
+  {{- if $musicSvgsTranslitNls -}}
     {{- range $musicSvgsTranslitNls -}}
 <div class="vsa-container"><img class="vsa-notation" src="{{ . }}" alt="{{ $alt }} (translit Nls)"></div>
     {{- end -}}
-  </div>
+  {{- else if $musicSvgs -}}
+    {{- range $musicSvgs -}}
+<div class="vsa-container"><img class="vsa-notation" src="{{ . }}" alt="{{ $alt }}"></div>
+    {{- end -}}
+  {{- else if $staticSvgs -}}
+    {{- range $staticSvgs -}}
+<div class="vsa-container"><img class="vsa-notation" src="{{ . | relURL }}" alt="{{ $alt }}"></div>
+    {{- end -}}
   {{- else -}}
-  <div data-translit-view="aan" data-translit-for-modus="nls" hidden>
-<p class="score-scherm-missing">Geen translit-Nls-SVG (<code>*.translit-nls.svg</code>). Vernieuw met <code>scripts\products.cmd --kinds vsa</code> of <code>mvsa</code>.</p>
-  </div>
+<p class="score-scherm-missing">Geen SVG voor dit blad (ook geen translit-Nls). Vernieuw met <code>scripts\products.cmd --kinds vsa</code> of <code>mvsa</code>.</p>
   {{- end -}}
-  {{- if $musicSvgsTranslitKsl -}}
+  </div>
   <div data-translit-view="aan" data-translit-for-modus="ksl" hidden>
+  {{- if $musicSvgsTranslitKsl -}}
     {{- range $musicSvgsTranslitKsl -}}
 <div class="vsa-container"><img class="vsa-notation" src="{{ . }}" alt="{{ $alt }} (translit Ksl)"></div>
     {{- end -}}
-  </div>
+  {{- else if $musicSvgs -}}
+    {{- range $musicSvgs -}}
+<div class="vsa-container"><img class="vsa-notation" src="{{ . }}" alt="{{ $alt }}"></div>
+    {{- end -}}
+  {{- else if $staticSvgs -}}
+    {{- range $staticSvgs -}}
+<div class="vsa-container"><img class="vsa-notation" src="{{ . | relURL }}" alt="{{ $alt }}"></div>
+    {{- end -}}
   {{- else -}}
-  <div data-translit-view="aan" data-translit-for-modus="ksl" hidden>
-<p class="score-scherm-missing">Geen translit-Ksl-SVG (<code>*.translit-ksl.svg</code>). Vernieuw met <code>scripts\products.cmd --kinds vsa</code> of <code>mvsa</code>.</p>
-  </div>
+<p class="score-scherm-missing">Geen SVG voor dit blad (ook geen translit-Ksl). Vernieuw met <code>scripts\products.cmd --kinds vsa</code> of <code>mvsa</code>.</p>
   {{- end -}}
+  </div>
+  {{- /* Beide: alle aanwezige translit-SVG’s van deze UV (Nls én/of Ksl);
+       anders kale SVG — typisch NL+ksl naast elkaar op één koormap. */ -}}
+  <div data-translit-view="aan" data-translit-for-modus="beide" hidden>
+  {{- if $musicSvgsTranslitAny -}}
+    {{- range $musicSvgsTranslitNls -}}
+<div class="vsa-container"><img class="vsa-notation" src="{{ . }}" alt="{{ $alt }} (translit Nls)"></div>
+    {{- end -}}
+    {{- range $musicSvgsTranslitKsl -}}
+<div class="vsa-container"><img class="vsa-notation" src="{{ . }}" alt="{{ $alt }} (translit Ksl)"></div>
+    {{- end -}}
+  {{- else if $musicSvgs -}}
+    {{- range $musicSvgs -}}
+<div class="vsa-container"><img class="vsa-notation" src="{{ . }}" alt="{{ $alt }}"></div>
+    {{- end -}}
+  {{- else if $staticSvgs -}}
+    {{- range $staticSvgs -}}
+<div class="vsa-container"><img class="vsa-notation" src="{{ . | relURL }}" alt="{{ $alt }}"></div>
+    {{- end -}}
+  {{- else -}}
+<p class="score-scherm-missing">Geen SVG voor dit blad. Vernieuw met <code>scripts\products.cmd --kinds vsa</code> of <code>mvsa</code>.</p>
+  {{- end -}}
+  </div>
 </div>
 <div class="score-scherm score-scherm--osmg" data-scherm="osmg" hidden>
   {{- if $fromIrPlain -}}

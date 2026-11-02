@@ -18,7 +18,7 @@ Publicatieproducten nu: [publicatiecontrole.md](../publicatiecontrole.md).
 goede eigen rol meer naast `index.md.pdf`.
 
 - **Print en download van “wat je op het blad ziet”** hoort bij
-  **Download pagina / Print pagina** (`index.md.pdf`).
+  **download-icoon** (`index.md.pdf` / translit-PDF’s).
 - **Score-Download / Score-Print** naar de product-PDF op het catalogusblad
   is overlapping / erfenis en wordt **afgebouwd**.
 - Afbouw gebeurt **niet stil** en **niet in één keer**: eerst inventaris,

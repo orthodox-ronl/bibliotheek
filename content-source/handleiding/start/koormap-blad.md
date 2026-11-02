@@ -6,7 +6,7 @@ weight: 26
 
 Op een **slot-pagina** (`index.md` onder `koormappen\…`) zet je zelf de
 volgorde, de titels en de uitleg. Muziek haal je uit de catalogus met
-`bieb`. Bladindeling voor **Download pagina** / **Print pagina** regel je
+`bieb`. Bladindeling voor het **download-icoon** (pagina-PDF) regel je
 met `pdf-…`. Titels op het blad zet je met `kop` — geen HTML.
 
 Lees eerst het model catalogus versus koormap in
@@ -29,8 +29,9 @@ paginacontract). Hoe de **partituur op het scherm** eruit moet zien
 | `pdf-pagina` | In de download: hier begint een **nieuw** A4-blad |
 
 Op het web zie je geen bladscheiding door `pdf-pagina`; alles staat onder
-elkaar. Alleen de knoppen **Download pagina** en **Print pagina** gebruiken
-die bladindeling, via het bestand `index.md.pdf` naast de Markdown.
+elkaar. Alleen het **download-icoon** (en eventuele translit-PDF’s) gebruikt
+die bladindeling, via `index.md.pdf` / `index.md.translit-*.pdf` naast de
+Markdown.
 
 ### Muziek uit de catalogus
 
@@ -83,7 +84,7 @@ over te typen. Zet de Hugo-shortcode `param` in de kop; de veldnaam is
 {{</* kop */>}}{{</* param title */>}}{{</* /kop */>}}
 ```
 
-Op de site vult Hugo dat veld in. **Download pagina** (`pdf` op die
+Op de site vult Hugo dat veld in. Het **download-icoon** (`pdf` op die
 `index.md`) doet hetzelfde. Bestaat het veld niet, dan stopt de PDF-bouw
 met een fout.
 

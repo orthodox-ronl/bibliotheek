@@ -20,7 +20,7 @@
 <part-group type="stop" number="1"/>
 </part-list>
 <part id="P1">
-<measure number="1" width="266">
+<measure number="1" width="211">
 <attributes>
 <divisions>4</divisions>
 <key><fifths>-1</fifths></key>
@@ -188,7 +188,7 @@
 <barline location="left"><bar-style>heavy-light</bar-style><repeat direction="forward"/></barline>
 <barline location="right"><bar-style>light-heavy</bar-style><repeat direction="backward"/></barline>
 </measure>
-<measure number="3" width="308">
+<measure number="3" width="238">
 <direction placement="above">
 <direction-type>
 <words font-family="Source Sans 3" font-size="12" justify="left" default-x="28" default-y="50">P:
@@ -299,7 +299,7 @@
 <barline location="left"><bar-style>heavy-light</bar-style><repeat direction="forward"/></barline>
 <barline location="right"><bar-style>light-heavy</bar-style><repeat direction="backward"/></barline>
 </measure>
-<measure number="4" width="238">
+<measure number="4" width="193">
 <direction placement="above">
 <direction-type>
 <words font-family="Source Sans 3" font-size="12" justify="left" default-x="28" default-y="50">P: Om eenheid van
@@ -411,7 +411,7 @@
 </measure>
 </part>
 <part id="P2">
-<measure number="1" width="266">
+<measure number="1" width="211">
 <attributes>
 <divisions>4</divisions>
 <key><fifths>-1</fifths></key>
@@ -551,7 +551,7 @@
 <barline location="left"><bar-style>heavy-light</bar-style><repeat direction="forward"/></barline>
 <barline location="right"><bar-style>light-heavy</bar-style><repeat direction="backward"/></barline>
 </measure>
-<measure number="3" width="308">
+<measure number="3" width="238">
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
@@ -561,9 +561,9 @@
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
+<duration>24</duration>
 <voice>1</voice>
-<type>quarter</type>
+<type>whole</type><dot/>
 <stem>up</stem>
 </note>
 <note>
@@ -580,7 +580,7 @@
 <type>whole</type>
 <stem>up</stem>
 </note>
-<backup><duration>36</duration></backup>
+<backup><duration>56</duration></backup>
 <note>
 <pitch><step>C</step><octave>3</octave></pitch>
 <duration>8</duration>
@@ -632,7 +632,7 @@
 <barline location="left"><bar-style>heavy-light</bar-style><repeat direction="forward"/></barline>
 <barline location="right"><bar-style>light-heavy</bar-style><repeat direction="backward"/></barline>
 </measure>
-<measure number="4" width="238">
+<measure number="4" width="193">
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
 <duration>8</duration>
@@ -642,9 +642,9 @@
 </note>
 <note>
 <pitch><step>C</step><octave>4</octave></pitch>
-<duration>4</duration>
+<duration>24</duration>
 <voice>1</voice>
-<type>quarter</type>
+<type>whole</type><dot/>
 <stem>up</stem>
 </note>
 <note>
@@ -661,7 +661,7 @@
 <type>whole</type>
 <stem>up</stem>
 </note>
-<backup><duration>36</duration></backup>
+<backup><duration>56</duration></backup>
 <note>
 <pitch><step>C</step><octave>3</octave></pitch>
 <duration>8</duration>

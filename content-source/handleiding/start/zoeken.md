@@ -15,7 +15,8 @@ past bij wat jullie nodig hebben.
 
 {{< cue >}}
 - Ingang voor koorleden: knop **Zoeken** in de kop, of `/overzichten/zoeken/`
-- Korte tip: klik op **?** naast de knop Zoeken
+- Korte tip: ga met de muis over de knop **Zoeken** in de kop (popover);
+  in het zoekvenster zelf staat nog een **?** bij het zoekveld
 - Indexbestand: `static\zoek\index.json` (bij Pages-deploy opnieuw gebouwd)
 - Synoniemen: [`data/zoek-synoniemen.yaml`](https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml)
 - Gezongen tekst: sibling `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` /

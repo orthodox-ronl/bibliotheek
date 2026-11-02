@@ -32,10 +32,10 @@ Bladvorm op scherm: §4.4 hieronder.
 
 ## 1. Scherm versus print/download
 
-| Kanaal                        | Bedoeling                                                                                                                                                                             |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Scherm**                    | Doorlopende partituur om mee te lezen/oefenen in de browser. Geen A4-bladkaders als primaire look.                                                                                    |
-| **Download (pagina)** | `index.md.pdf` van het getoonde blad (koormap of catalogus-leaf) via nav **Download pagina**. Catalogus heeft geen aparte score-knoppen meer naar product-PDF. |
+| Kanaal                | Bedoeling                                                                                                                                                                                                |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Scherm**            | Doorlopende partituur om mee te lezen/oefenen in de browser. Geen A4-bladkaders als primaire look. Translit-icoonknoppen wisselen sibling-SVG’s (vorm A); niet via OSMG. |
+| **Download (pagina)** | Nav **download-icoon** (pijl omlaag): `index.md.pdf` (translit uit), of `index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf` (bij actieve Nls-/Ksl-knop). Geen score-knoppen naar product-`.vsa.pdf` / `.mvsa.pdf`. |
 
 Op het scherm forceert het onderdeel `muziek` **geen** paginatitel. Titels
 horen bij de Hugo-pagina (catalogus-H1) of bij koormap-`kop` / Markdown.
@@ -52,14 +52,30 @@ Default is SVG. Keuze in `localStorage` (`bibliotheek-schermstand`),
 ([`bieb-score.html`](../../layouts/partials/bieb-score.html) +
 `static/js/score-schermstand.js`).
 
-| Stand | Bron op scherm |
-| ----- | -------------- |
-| **SVG** (default) | Sibling `{stam}.mvsa.svg` / `.vsa.svg` / `.mscz.svg` (geen ketting `*.mvsa.mscz.svg`); anders legacy bladermap-SVG |
-| **OSMG** | Sibling `{stam}.mvsa.from-ir.musicxml` via OpenSheetMusicDisplay (`score-osmd.js`) |
+| Stand             | Bron op scherm                                                                                                                                                                                                        |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **SVG** (default) | Sibling `{stam}.mvsa.svg` / `.vsa.svg` / `.mscz.svg` (geen ketting `*.mvsa.mscz.svg`); anders legacy bladermap-SVG. Met actieve translit-knop: `{stam}.….translit-nls.svg` of `.translit-ksl.svg` in hetzelfde SVG-paneel. |
+| **OSMG**          | Sibling `{stam}.mvsa.from-ir.musicxml` via OpenSheetMusicDisplay (`score-osmd.js`) — experimenteel; **geen** productiepad voor translit.                                                                              |
 
-Geen automatische wissel tussen SVG en OSMG (ook niet bij S8-recite). Ontbreekt
-het product voor de gekozen stand, dan een korte melding op dat blad — niet
-stiekem de andere keten.
+Geen automatische wissel tussen SVG en OSMG (ook niet bij S8-recite of bij
+translit-knoppen). Ontbreekt het product voor de gekozen SVG/OSMG-stand,
+dan een korte melding — niet stiekem de andere keten.
+
+**Translit** (nav: icoonknoppen **ФЛД→FLD** = Nls en **FLD→ФЛД** = Ksl,
+onafhankelijk; default beide uit): sitebreed in `localStorage`. Geen
+knop = uit; alleen Nls / alleen Ksl / beide knoppen = bijbehorende
+modus. Nls = Latijn onder kerkslavische tekst; Ksl = Cyrillisch onder
+Nederlandse tekst; beide knoppen = per uitvoeringsvorm alle aanwezige
+translit-SVG’s. Bouwen: `products --kinds vsa`/`mvsa` + `pdf.cmd`.
+
+**Fallback per uitvoeringsvorm:** ontbreekt de translit-SVG voor de
+actieve modus (bijv. puur Nederlands blad bij Nls), toont het scherm de
+gewone sibling-SVG van die uitvoeringsvorm — niet «missing». Alleen als
+er ook geen kale SVG is, volgt een melding. Op een koormap met NL én
+ksl naast elkaar: bij Nls blijft de Nederlandse litanie zichtbaar (kale
+SVG) terwijl de kerkslavische `.translit-nls.svg` toont; met beide
+knoppen krijgt elke litanie haar passende translit-SVG (of kale
+fallback).
 
 Alleen als **beide** schermproducten ontbreken:
 
@@ -78,12 +94,12 @@ scherm-SVG via MuseScore loopt.
 
 ## 3. Titels en pagina-chrome (site)
 
-| Context                 | Eis                                                                                                                                                                                          |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Catalogusblad           | Precies **één** zichtbare hoofdtitel (template-H1 uit afgeleide catalogustitel). Geen tweede dezelfde titel via `bieb titel` of een Markdown-`#` met dezelfde tekst.                         |
-| Koormap-slot            | **Geen** template-H1. Bladtitel en rubrieken via `kop` (of afgesproken Markdown). Geen dubbele titel naast `bieb titel`.                                                                     |
-| In de partituurtekening | Geen titel/ondertitel/componist/lyricist/credits — alleen muziek (**OSMD én SVG**, besluit 1). Catalogus-PDF-op-scherm mag wel een titel in het PDF-blad hebben (nood-fallback = printlook). |
-| Download/Print          | Alleen pagina-knoppen in de **nav** (`index.md.pdf`). Per muziekblok: ♪-menu oefenen/beluisteren (catalogus: ook {}-menu bronnen); geen score-Download/Print naar product-PDF.           |
+| Context                 | Eis                                                                                                                                                                                                      |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Catalogusblad           | Precies **één** zichtbare hoofdtitel (template-H1 uit afgeleide catalogustitel). Geen tweede dezelfde titel via `bieb titel` of een Markdown-`#` met dezelfde tekst.                                     |
+| Koormap-slot            | **Geen** template-H1. Bladtitel en rubrieken via `kop` (of afgesproken Markdown). Geen dubbele titel naast `bieb titel`.                                                                                 |
+| In de partituurtekening | Geen titel/ondertitel/componist/lyricist/credits — alleen muziek (**OSMD én SVG**, besluit 1). Catalogus-PDF-op-scherm mag wel een titel in het PDF-blad hebben (nood-fallback = printlook).             |
+| Download/Print          | Nav **download-icoon** volgt translit-knoppen (`index.md.pdf` of `index.md.translit-*.pdf`). Per muziekblok: ♪-menu oefenen/beluisteren (catalogus: ook {}-menu bronnen); geen score-Download naar product-PDF. |
 
 ---
 
@@ -160,14 +176,14 @@ blok-id-labels boven maten als navigatie genoeg is.
 
 Kort overzicht (details en patronen blijven in speelplan.md):
 
-| Prio | Patroon (voorbeeld)     | Bladtekens                      |
-| ---- | ----------------------- | ------------------------------- |
-| 1    | plan = blokvolgorde     | niets extra                     |
-| 2    | `(a,b)×n+(a,c)`         | herhaal + volta                 |
-| 3    | `prefix + X×n + suffix` | `\|: … :\|` (+ times)           |
-| 4    | D.S./D.C. al Fine       | Segno + Fine + sprong           |
-| 5    | D.S./D.C. al Coda       | Segno / To Coda / Coda + sprong |
-| 6    | rest                    | expand (uitgeschreven op blad)  |
+| Prio | Patroon (voorbeeld)     | Bladtekens                      |        |             |
+| ---- | ----------------------- | ------------------------------- |        |             |
+| 1    | plan = blokvolgorde     | niets extra                     |        |             |
+| 2    | `(a,b)×n+(a,c)`         | herhaal + volta                 |        |             |
+| 3    | `prefix + X×n + suffix` | `\                              | : … :\ | ` (+ times) |
+| 4    | D.S./D.C. al Fine       | Segno + Fine + sprong           |        |             |
+| 5    | D.S./D.C. al Coda       | Segno / To Coda / Coda + sprong |        |             |
+| 6    | rest                    | expand (uitgeschreven op blad)  |        |             |
 
 **Acceptatie:**
 
@@ -187,19 +203,19 @@ Repro-voorbeeld volta: catalogus
 
 ### 5.1 OSMD
 
-| Eis       | Toelichting                                                                                                                                                                                                                                                                                                                                                          |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Bron      | Sibling `{stam}.mvsa.from-ir.musicxml`.                                                                                                                                                                                                                                                                                                                              |
-| Gedrag    | Volgt §4; bron van waarheid voor clientgedrag: `static/js/score-osmd.js`.                                                                                                                                                                                                                                                                                            |
+| Eis       | Toelichting                                                                                                                                                                                                                                                                             |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bron      | Sibling `{stam}.mvsa.from-ir.musicxml`.                                                                                                                                                                                                                                                 |
+| Gedrag    | Volgt §4; bron van waarheid voor clientgedrag: `static/js/score-osmd.js`.                                                                                                                                                                                                               |
 | S8-recite | From-ir mag spacer-markering (`<notehead>none</notehead>`) blijven houden voor product/CI. Op het **scherm** beslist alleen de {}-stand SVG/OSMG — geen S8-bypass meer. Tooling: [osmd-s8-recite](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/osmd-s8-recite.md). |
-| Systemen  | Volgens MusicXML (`newSystemFromXML`); cues niet afkappen.                                                                                                                                                                                                                                                                                                           |
+| Systemen  | Volgens MusicXML (`newSystemFromXML`); cues niet afkappen.                                                                                                                                                                                                                              |
 
 ### 5.2 SVG (default-schermstand)
 
 | Eis        | Toelichting                                                                                                                                                                                                                                                                                                                |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Bron       | Sibling `{stam}.mvsa.svg` of `{stam}.vsa.svg` (preferred); legacy bladermap-SVG alleen zolang de sibling ontbreekt.                                                                                                                                                                                                        |
-| Rol        | **Default** schermstand via {}-menu. Ook bruikbaar zonder from-ir (`.vsa`, basispartituur-`.mscz`).                                                                                                                                                                                                                         |
+| Rol        | **Default** schermstand via {}-menu. Ook bruikbaar zonder from-ir (`.vsa`, basispartituur-`.mscz`).                                                                                                                                                                                                                        |
 | Look       | Zelfde pakket als §4 (titel/chrome uit, Source Sans 3, maatnummers, cues, speelplan-nav). Export: VSA-tooling layout `muziek` / MuseScore 4. Cue-inklappen / cues-niet-meeschuiven / noten-centreren: nu **best-effort** t.o.v. OSMD (§4.2–4.3); weer verplicht voor beide zodra scherm-SVG niet meer via MuseScore loopt. |
 | Kolom      | Breedte volgt de contentkolom; geen horizontale overflow buiten de kolom op oefenhoek-pagina’s (`overflow-x` begrensd).                                                                                                                                                                                                    |
 | Site-titel | Het onderdeel `muziek` zet geen extra HTML-titel.                                                                                                                                                                                                                                                                          |
@@ -239,12 +255,12 @@ voor elke losse `.mscz`.
 
 ## 7. Tekstblad (`.tekstblad.md`)
 
-| Eis    | Toelichting                                                                                |
-| ------ | ------------------------------------------------------------------------------------------ |
+| Eis    | Toelichting                                                                                                                                                                                                |
+| ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Scherm | Body van sibling `{stam}.tekstblad.md` (HTML via `bieb-score`). Blokken `::: vsa-notatie` komen als SVG via `{stam}.tekstblad.scherm.html` (`products --kinds tekstblad`). Geen OSMD-/partituur-SVG-keten. |
-| Inhoud | Leesbare liturgische tekst/dialoog, met inline VSA als getekende notatie.                  |
-| Titel  | Zelfde paginaregels als §3.                                                                |
-| Print  | Blad = `index.md.pdf` (nav); product-`.tekstblad.pdf` is geen schermviewer.            |
+| Inhoud | Leesbare liturgische tekst/dialoog, met inline VSA als getekende notatie.                                                                                                                                  |
+| Titel  | Zelfde paginaregels als §3.                                                                                                                                                                                |
+| Print  | Blad = `index.md.pdf` (nav); product-`.tekstblad.pdf` is geen schermviewer.                                                                                                                                |
 
 ---
 

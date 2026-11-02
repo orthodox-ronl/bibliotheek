@@ -23,14 +23,14 @@ koorleden en de site gebruiken:
 
 | Product       | Bestand                                              | Waartoe                                                      |
 | ------------- | ---------------------------------------------------- | ------------------------------------------------------------ |
-| Coria-MXL     | `{stam}.mvsa.mxl`                                    | Afspelen / Coria (Translit uit)                              |
+| Coria-MXL     | `{stam}.mvsa.mxl`                                    | Afspelen / Coria (geen translit-knop)                        |
 | Translit-MXL  | `{stam}.mvsa.translit.mxl`                           | Coria met Nls-/Ksl-hulp-parts (`--translit-as-parts`)        |
 | Koormap-SVG   | `{stam}.mvsa.svg`                                    | Scherm (default); `check` eist dit niet als from-ir er is    |
-| Translit-SVG  | `{stam}.mvsa.translit-nls.svg` / `.translit-ksl.svg` | Scherm bij Translit aan (Nls/Ksl); `check` eist die nog niet |
+| Translit-SVG  | `{stam}.mvsa.translit-nls.svg` / `.translit-ksl.svg` | Scherm bij icoonknop Nls/Ksl; `check` eist die nog niet      |
 | Score-IR      | `{stam}.mvsa.score-ir.json`                          | Brug naar scherm/CoriB                                       |
 | OSMD-MusicXML | `{stam}.mvsa.from-ir.musicxml`                       | Experimenteel OSMG-scherm (geen translit-pad)                |
 
-Blad **Download pagina** = `index.md.pdf` (+ optioneel
+Blad **download-icoon** = `index.md.pdf` (+ optioneel
 `index.md.translit-*.pdf`) via [pdf](../pdf/), niet `{stam}.mvsa.pdf`.
 
 Het script schrijft herkomstinformatie (`vsa-source-sha256`,
