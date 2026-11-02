@@ -2,46 +2,76 @@
   "fix_page": "/handleiding/partituur/5-pdf-en-coria/",
   "folders": {
     "catalogus/communievers/moeder-gods/pancakescrawlspace": {
-      "mscz": "content-source/catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.mscz",
-      "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds mscz",
-      "issues": []
-    },
-    "catalogus/eerste-antifoon/zondag/hemelum": {
-      "mscz": "content-source/catalogus/eerste-antifoon/zondag/hemelum/eerste-antifoon-zondag-hemelum.mscz",
-      "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds mscz",
-      "issues": []
+      "mscz": "catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.mscz",
+      "ok": false,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz --reasons missing,stale --skip-post catalogus\\communievers\\moeder-gods\\pancakescrawlspace\\communievers-moeder-gods-pancakescrawlspace.mscz",
+      "issues": [
+        {
+          "kind": "meta_missing",
+          "file": "catalogus/communievers/moeder-gods/pancakescrawlspace/communievers-moeder-gods-pancakescrawlspace.mscz.products-meta.json",
+          "detail": "productbestand ontbreekt: communievers-moeder-gods-pancakescrawlspace.mscz.pdf"
+        }
+      ]
     },
     "catalogus/eucharistische-canon/19a-feofan/hemelum": {
-      "mscz": "content-source/catalogus/eucharistische-canon/19a-feofan/hemelum/eucharistische-canon-19a-feofan-hemelum.mscz",
-      "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds mscz",
-      "issues": []
+      "mscz": "catalogus/eucharistische-canon/19a-feofan/hemelum/eucharistische-canon-19a-feofan-hemelum.mscz",
+      "ok": false,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz --reasons missing,stale --skip-post catalogus\\eucharistische-canon\\19a-feofan\\hemelum\\eucharistische-canon-19a-feofan-hemelum.mscz",
+      "issues": [
+        {
+          "kind": "meta_missing",
+          "file": "catalogus/eucharistische-canon/19a-feofan/hemelum/eucharistische-canon-19a-feofan-hemelum.mscz.products-meta.json",
+          "detail": "productbestand ontbreekt: eucharistische-canon-19a-feofan-hemelum.mscz.pdf"
+        }
+      ]
     },
     "catalogus/moeder-godslied/20d-in-waarheid/hemelum": {
-      "mscz": "content-source/catalogus/moeder-godslied/20d-in-waarheid/hemelum/moeder-godslied-20d-in-waarheid-hemelum.mscz",
-      "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds mscz",
-      "issues": []
+      "mscz": "catalogus/moeder-godslied/20d-in-waarheid/hemelum/moeder-godslied-20d-in-waarheid-hemelum.mscz",
+      "ok": false,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz --reasons missing,stale --skip-post catalogus\\moeder-godslied\\20d-in-waarheid\\hemelum\\moeder-godslied-20d-in-waarheid-hemelum.mscz",
+      "issues": [
+        {
+          "kind": "meta_missing",
+          "file": "catalogus/moeder-godslied/20d-in-waarheid/hemelum/moeder-godslied-20d-in-waarheid-hemelum.mscz.products-meta.json",
+          "detail": "productbestand ontbreekt: moeder-godslied-20d-in-waarheid-hemelum.mscz.pdf"
+        }
+      ]
     },
     "catalogus/moeder-godslied/verhef-o-mijn-ziel-met-jubelzang/pancakescrawlspace": {
-      "mscz": "content-source/catalogus/moeder-godslied/verhef-o-mijn-ziel-met-jubelzang/pancakescrawlspace/moeder-godslied-verhef-o-mijn-ziel-met-jubelzang-pancakescrawlspace.mscz",
-      "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds mscz",
-      "issues": []
+      "mscz": "catalogus/moeder-godslied/verhef-o-mijn-ziel-met-jubelzang/pancakescrawlspace/moeder-godslied-verhef-o-mijn-ziel-met-jubelzang-pancakescrawlspace.mscz",
+      "ok": false,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz --reasons missing,stale --skip-post catalogus\\moeder-godslied\\verhef-o-mijn-ziel-met-jubelzang\\pancakescrawlspace\\moeder-godslied-verhef-o-mijn-ziel-met-jubelzang-pancakescrawlspace.mscz",
+      "issues": [
+        {
+          "kind": "meta_missing",
+          "file": "catalogus/moeder-godslied/verhef-o-mijn-ziel-met-jubelzang/pancakescrawlspace/moeder-godslied-verhef-o-mijn-ziel-met-jubelzang-pancakescrawlspace.mscz.products-meta.json",
+          "detail": "productbestand ontbreekt: moeder-godslied-verhef-o-mijn-ziel-met-jubelzang-pancakescrawlspace.mscz.pdf"
+        }
+      ]
     },
     "catalogus/onder-uwe-hoede/default/pancakescrawlspace": {
-      "mscz": "content-source/catalogus/onder-uwe-hoede/default/pancakescrawlspace/onder-uwe-hoede-default-pancakescrawlspace.mscz",
-      "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds mscz",
-      "issues": []
+      "mscz": "catalogus/onder-uwe-hoede/default/pancakescrawlspace/onder-uwe-hoede-default-pancakescrawlspace.mscz",
+      "ok": false,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz --reasons missing,stale --skip-post catalogus\\onder-uwe-hoede\\default\\pancakescrawlspace\\onder-uwe-hoede-default-pancakescrawlspace.mscz",
+      "issues": [
+        {
+          "kind": "meta_missing",
+          "file": "catalogus/onder-uwe-hoede/default/pancakescrawlspace/onder-uwe-hoede-default-pancakescrawlspace.mscz.products-meta.json",
+          "detail": "productbestand ontbreekt: onder-uwe-hoede-default-pancakescrawlspace.mscz.pdf"
+        }
+      ]
     },
     "catalogus/vriendelijk-licht/default/pancakescrawlspace": {
-      "mscz": "content-source/catalogus/vriendelijk-licht/default/pancakescrawlspace/vriendelijk-licht-default-pancakescrawlspace.mscz",
-      "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds mscz",
-      "issues": []
+      "mscz": "catalogus/vriendelijk-licht/default/pancakescrawlspace/vriendelijk-licht-default-pancakescrawlspace.mscz",
+      "ok": false,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz --reasons missing,stale --skip-post catalogus\\vriendelijk-licht\\default\\pancakescrawlspace\\vriendelijk-licht-default-pancakescrawlspace.mscz",
+      "issues": [
+        {
+          "kind": "meta_missing",
+          "file": "catalogus/vriendelijk-licht/default/pancakescrawlspace/vriendelijk-licht-default-pancakescrawlspace.mscz.products-meta.json",
+          "detail": "productbestand ontbreekt: vriendelijk-licht-default-pancakescrawlspace.mscz.pdf"
+        }
+      ]
     }
   }
 }
