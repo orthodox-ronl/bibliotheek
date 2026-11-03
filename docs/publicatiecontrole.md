@@ -76,9 +76,11 @@ opnieuw. Wel in `check` (`check_index_md_pdf.py`): ontbrekend of ouder
 dan Markdown, notatiebron of product-SVG is een waarschuwing lokaal,
 een fout met `--strict` / in CI / op `main`. Zelfde run schrijft
 optioneel `index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf`
+en bij gemengd blad ook `index.md.translit-beide.pdf`
 (uit translit-SVG’s; check eist die nog niet).
 Op de site volgt het **download-icoon** de translit-knoppen (geen knop →
-`index.md.pdf`; Nls/Ksl → bijbehorende translit-PDF). Het scherm toont
+`index.md.pdf`; Nls/Ksl → bijbehorende translit-PDF; beide knoppen →
+`translit-beide.pdf` als die er is). Het scherm toont
 de sibling-SVG’s (niet OSMG).
 Importcontrole eist **geen** `.mscz.mvsa` bij elke partituur —
 alleen dat bestaande siblings vers zijn. Audio eist wél een `.mp3` bij elke

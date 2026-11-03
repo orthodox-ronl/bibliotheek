@@ -61,6 +61,10 @@ class PagePdfNamingTests(unittest.TestCase):
             tsp.pagina_translit_pdf_path(md, "ksl").name,
             "index.md.translit-ksl.pdf",
         )
+        self.assertEqual(
+            tsp.pagina_translit_pdf_path(md, "beide").name,
+            "index.md.translit-beide.pdf",
+        )
 
     def test_page_translit_modi_union(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -72,6 +76,11 @@ class PagePdfNamingTests(unittest.TestCase):
             self.assertEqual(tsp.page_translit_modi([nl]), ("ksl",))
             self.assertEqual(tsp.page_translit_modi([ksl]), ("nls",))
             self.assertEqual(tsp.page_translit_modi([nl, ksl]), ("nls", "ksl"))
+            self.assertFalse(tsp.page_needs_beide_pdf([nl]))
+            self.assertFalse(tsp.page_needs_beide_pdf([ksl]))
+            self.assertTrue(tsp.page_needs_beide_pdf([nl, ksl]))
+            self.assertEqual(tsp.beide_modus_for_source(nl), "ksl")
+            self.assertEqual(tsp.beide_modus_for_source(ksl), "nls")
             mscz = root / "x.mscz"
             mscz.write_bytes(b"PK")
             self.assertEqual(tsp.page_translit_modi([mscz]), ())

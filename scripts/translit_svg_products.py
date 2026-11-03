@@ -37,6 +37,7 @@ from street_meta import write_products_meta
 
 MODUS_NLS = "nls"
 MODUS_KSL = "ksl"
+MODUS_BEIDE = "beide"
 META_KEY_NLS = "svg-translit-nls"
 META_KEY_KSL = "svg-translit-ksl"
 META_KEY_MXL = "mxl-translit"
@@ -125,10 +126,30 @@ def page_translit_modi(sources: list[Path] | tuple[Path, ...]) -> tuple[str, ...
     return tuple(m for m in (MODUS_NLS, MODUS_KSL) if m in needed)
 
 
+def page_needs_beide_pdf(sources: list[Path] | tuple[Path, ...]) -> bool:
+    """True als het blad zowel Nls- als Ksl-translit nodig heeft (gemengd blad)."""
+    modi = page_translit_modi(sources)
+    return MODUS_NLS in modi and MODUS_KSL in modi
+
+
+def beide_modus_for_source(source: Path) -> str | None:
+    """Welke enkelvoudige translit-SVG past bij «beide knoppen» voor deze bron.
+
+    Zelfde keuze als het scherm: Ksl-bron → nls; Nls-bron → ksl; hybride → nls.
+    ``None`` = kale SVG.
+    """
+    modi = translit_modi_for_source(source)
+    if MODUS_NLS in modi:
+        return MODUS_NLS
+    if MODUS_KSL in modi:
+        return MODUS_KSL
+    return None
+
+
 def pagina_translit_pdf_path(md_path: Path, modus: str) -> Path:
     """``index.md`` + ``nls`` → ``index.md.translit-nls.pdf``."""
     m = (modus or "").casefold()
-    if m not in {MODUS_NLS, MODUS_KSL}:
+    if m not in {MODUS_NLS, MODUS_KSL, MODUS_BEIDE}:
         raise ValueError(f"onbekende translit-modus {modus!r}")
     return md_path.with_name(f"{md_path.name}.translit-{m}.pdf")
 

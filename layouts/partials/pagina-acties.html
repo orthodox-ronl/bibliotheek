@@ -22,6 +22,7 @@
   {{- $paginaPdf := "" -}}
   {{- $paginaPdfNls := "" -}}
   {{- $paginaPdfKsl := "" -}}
+  {{- $paginaPdfBeide := "" -}}
   {{- range .Resources.Match "index.md.pdf" -}}
     {{- $paginaPdf = .RelPermalink -}}
   {{- end -}}
@@ -30,6 +31,9 @@
   {{- end -}}
   {{- range .Resources.Match "index.md.translit-ksl.pdf" -}}
     {{- $paginaPdfKsl = .RelPermalink -}}
+  {{- end -}}
+  {{- range .Resources.Match "index.md.translit-beide.pdf" -}}
+    {{- $paginaPdfBeide = .RelPermalink -}}
   {{- end -}}
   {{- $dir := strings.TrimSuffix "/" (replace .File.Dir "\\" "/") -}}
   {{- if $dir -}}
@@ -43,9 +47,12 @@
     {{- if and (not $paginaPdfKsl) (fileExists (printf "%s/index.md.translit-ksl.pdf" $srcDir)) -}}
       {{- $paginaPdfKsl = printf "%sindex.md.translit-ksl.pdf" .RelPermalink -}}
     {{- end -}}
+    {{- if and (not $paginaPdfBeide) (fileExists (printf "%s/index.md.translit-beide.pdf" $srcDir)) -}}
+      {{- $paginaPdfBeide = printf "%sindex.md.translit-beide.pdf" .RelPermalink -}}
+    {{- end -}}
   {{- end -}}
   {{- $dlBase := "" -}}
-  {{- if or $paginaPdf $paginaPdfNls $paginaPdfKsl -}}
+  {{- if or $paginaPdf $paginaPdfNls $paginaPdfKsl $paginaPdfBeide -}}
     {{- if .Params.pdf_bestandsnaam -}}
       {{- $dlBase = .Params.pdf_bestandsnaam -}}
     {{- else if eq .Section "catalogus" -}}
@@ -63,23 +70,26 @@
   {{- $dlName := "" -}}
   {{- $dlNameNls := "" -}}
   {{- $dlNameKsl := "" -}}
+  {{- $dlNameBeide := "" -}}
   {{- if $dlBase -}}
     {{- $dlName = printf "%s.pdf" $dlBase -}}
     {{- $dlNameNls = printf "%s (translit Nls).pdf" $dlBase -}}
     {{- $dlNameKsl = printf "%s (translit Ksl).pdf" $dlBase -}}
+    {{- $dlNameBeide = printf "%s (translit beide).pdf" $dlBase -}}
   {{- end -}}
   <div class="pagina-acties" role="group" aria-label="Pagina-acties">
-    {{- if or $paginaPdf $paginaPdfNls $paginaPdfKsl -}}
+    {{- if or $paginaPdf $paginaPdfNls $paginaPdfKsl $paginaPdfBeide -}}
     <span class="site-chrome-tip site-chrome-tip--end">
     <a
       class="btn pagina-acties-btn pagina-acties-btn--icon"
-      href="{{ or $paginaPdf $paginaPdfNls $paginaPdfKsl }}"
-      download="{{ or $dlName $dlNameNls $dlNameKsl }}"
+      href="{{ or $paginaPdf $paginaPdfNls $paginaPdfKsl $paginaPdfBeide }}"
+      download="{{ or $dlName $dlNameNls $dlNameKsl $dlNameBeide }}"
       aria-label="Pagina als PDF downloaden"
       data-pagina-pdf-download
       {{- if $paginaPdf }} data-pdf-uit="{{ $paginaPdf }}" data-pdf-name-uit="{{ $dlName }}"{{- end }}
       {{- if $paginaPdfNls }} data-pdf-nls="{{ $paginaPdfNls }}" data-pdf-name-nls="{{ $dlNameNls }}"{{- end }}
       {{- if $paginaPdfKsl }} data-pdf-ksl="{{ $paginaPdfKsl }}" data-pdf-name-ksl="{{ $dlNameKsl }}"{{- end }}
+      {{- if $paginaPdfBeide }} data-pdf-beide="{{ $paginaPdfBeide }}" data-pdf-name-beide="{{ $dlNameBeide }}"{{- end }}
     >
       <svg class="pagina-acties-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path
@@ -88,7 +98,7 @@
         />
       </svg>
     </a>
-    {{ partial "site-chrome-tip-panel.html" (dict "text" "Download de PDF van deze pagina. Staat transliteratie aan, dan volgt de PDF die stand (gewone PDF of PDF met hulpregel)." "end" true) }}
+    {{ partial "site-chrome-tip-panel.html" (dict "text" "Download de PDF van deze pagina. Staat transliteratie aan, dan volgt de PDF die stand (één richting, of beide richtingen als beide knoppen aan staan)." "end" true) }}
     </span>
     {{- end -}}
     <div

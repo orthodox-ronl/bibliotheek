@@ -83,10 +83,12 @@
         name = a.getAttribute("data-pdf-name-ksl") || name;
       } else if (aan && modus === "beide") {
         href =
+          a.getAttribute("data-pdf-beide") ||
           a.getAttribute("data-pdf-nls") ||
           a.getAttribute("data-pdf-ksl") ||
           href;
         name =
+          a.getAttribute("data-pdf-name-beide") ||
           a.getAttribute("data-pdf-name-nls") ||
           a.getAttribute("data-pdf-name-ksl") ||
           name;
@@ -105,7 +107,7 @@
       if (aan && modus === "ksl") {
         title = "PDF met translit Ksl downloaden";
       } else if (aan && modus === "beide") {
-        title = "PDF met translit downloaden";
+        title = "PDF met beide translits downloaden";
       } else if (aan) {
         title = "PDF met translit Nls downloaden";
       }

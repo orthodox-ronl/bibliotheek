@@ -10,7 +10,8 @@ af. Compose snijdt op systeembrenzen (MuseScore ``StaffLines``, anders VSA
 
 Naast de basis-PDF: optioneel ``index.md.translit-nls.pdf`` /
 ``index.md.translit-ksl.pdf`` (§5a) uit translit-SVG-siblings
-(``.translit-nls.svg`` / ``.translit-ksl.svg``).
+(``.translit-nls.svg`` / ``.translit-ksl.svg``); bij gemengd blad
+ook ``index.md.translit-beide.pdf`` (per bron de passende richting).
 
 Catalogus-leaves zonder Markdown-titel: afgeleide leaf-titel injecteren
 (zelfde algoritme als Hugo; zie ``ensure_catalogus_derived_titles``).
@@ -1650,26 +1651,37 @@ def resolve_svgs_for_pdf(
 ) -> list[Path]:
     """Kies SVG voor compose: verse product → legacy bladreeks → lokaal exporteren.
 
-    Met ``translit_modus`` (``nls``/``ksl``): translit-sibling als die modus
-    bij de bron hoort; anders de kale bron-SVG. Ontbrekende of verouderde
-    translit-SVG wordt lokaal geëxporteerd (``vsa``/``mvsa svg --translit-modus``).
+    Met ``translit_modus`` (``nls``/``ksl``/``beide``): translit-sibling als
+    die modus bij de bron hoort (``beide`` = per bron nls of ksl); anders de
+    kale bron-SVG. Ontbrekende of verouderde translit-SVG wordt lokaal
+    geëxporteerd (``vsa``/``mvsa svg --translit-modus``).
 
     *work* / *uv_id* blijven voor aanroepers; export schrijft de canonieke
     sibling naast *source* (niet naar een temp-map).
     """
     if translit_modus:
         from translit_svg_products import (
+            MODUS_BEIDE,
+            beide_modus_for_source,
             export_one_translit_svg,
             product_translit_svg,
             translit_modi_for_source,
         )
 
+        pick = (translit_modus or "").casefold()
+        if pick == MODUS_BEIDE:
+            pick = beide_modus_for_source(source) or ""
+            if not pick:
+                return resolve_svgs_for_pdf(
+                    source, work, uv_id=uv_id, compact=compact, translit_modus=None
+                )
         modi = translit_modi_for_source(source)
-        if translit_modus not in modi:
+        if pick not in modi:
             return resolve_svgs_for_pdf(
                 source, work, uv_id=uv_id, compact=compact, translit_modus=None
             )
-        tpath = product_translit_svg(source, translit_modus)
+        tpath = product_translit_svg(source, pick)
+        translit_modus = pick
         if tpath.is_file() and product_svg_stamp_ok(source, tpath):
             from input_paths import rel_for_log
 
@@ -2429,24 +2441,40 @@ def _build_translit_pagina_pdfs(
     *,
     force: bool,
 ) -> list[Path]:
-    """Schrijf ``index.md.translit-*.pdf`` waar §5a dat vraagt."""
+    """Schrijf ``index.md.translit-*.pdf`` waar §5a dat vraagt.
+
+    Bij gemengd blad (Nls én Ksl nodig): ook ``index.md.translit-beide.pdf``,
+    per bron de passende richting (zoals beide knoppen op het scherm).
+    """
     from translit_svg_products import (
+        MODUS_BEIDE,
+        beide_modus_for_source,
+        page_needs_beide_pdf,
         page_translit_modi,
         product_translit_svg,
         translit_modi_for_source,
     )
 
-    modi = page_translit_modi(sources)
+    modi = list(page_translit_modi(sources))
+    if page_needs_beide_pdf(sources):
+        modi.append(MODUS_BEIDE)
     written: list[Path] = []
     for modus in modi:
         dest = _pagina_translit_pdf_out_path(md_path, modus)
         tdeps: list[Path] = [md_path, *sources]
         tsvgs: list[tuple[Path, Path]] = []
         for src in sources:
-            if modus in translit_modi_for_source(src):
+            if modus == MODUS_BEIDE:
+                pick = beide_modus_for_source(src)
+                if not pick:
+                    continue
+                tsvg = product_translit_svg(src, pick)
+            elif modus in translit_modi_for_source(src):
                 tsvg = product_translit_svg(src, modus)
-                tdeps.append(tsvg)
-                tsvgs.append((src, tsvg))
+            else:
+                continue
+            tdeps.append(tsvg)
+            tsvgs.append((src, tsvg))
         if dest.is_file() and not force:
             tsvgs_fresh = all(
                 product_svg_stamp_ok(src, tsvg) for src, tsvg in tsvgs

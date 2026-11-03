@@ -561,6 +561,9 @@ def test_pagina_translit_pdf_out_path() -> None:
     assert pp._pagina_translit_pdf_out_path(md, "nls").name == (
         "index.md.translit-nls.pdf"
     )
+    assert pp._pagina_translit_pdf_out_path(md, "beide").name == (
+        "index.md.translit-beide.pdf"
+    )
 
 
 def test_build_one_voorzien_without_bieb(tmp_path, monkeypatch) -> None:

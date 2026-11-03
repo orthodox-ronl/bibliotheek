@@ -35,7 +35,7 @@ Bladvorm op scherm: §4.4 hieronder.
 | Kanaal                | Bedoeling                                                                                                                                                                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Scherm**            | Doorlopende partituur om mee te lezen/oefenen in de browser. Geen A4-bladkaders als primaire look. Translit-icoonknoppen wisselen sibling-SVG’s (vorm A); niet via OSMG. |
-| **Download (pagina)** | Nav **download-icoon** (pijl omlaag): `index.md.pdf` (translit uit), of `index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf` (bij actieve Nls-/Ksl-knop). Geen score-knoppen naar product-`.vsa.pdf` / `.mvsa.pdf`. |
+| **Download (pagina)** | Nav **download-icoon** (pijl omlaag): `index.md.pdf` (translit uit), of `index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf` (één knop), of `index.md.translit-beide.pdf` (beide knoppen; per uitvoeringsvorm de passende richting). Geen score-knoppen naar product-`.vsa.pdf` / `.mvsa.pdf`. |
 
 Op het scherm forceert het onderdeel `muziek` **geen** paginatitel. Titels
 horen bij de Hugo-pagina (catalogus-H1) of bij koormap-`kop` / Markdown.
