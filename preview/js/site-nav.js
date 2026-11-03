@@ -51,33 +51,91 @@
     syncChromeHeight();
   });
 
+  /* Houd absolute tip-/help-panelen binnen het venster (links/rechts/onder/boven). */
+  function clearPopoverShift(panel) {
+    if (!panel) return;
+    panel.style.transform = "";
+  }
+
+  function placePopoverInViewport(panel) {
+    if (!panel) return;
+    clearPopoverShift(panel);
+    var rect = panel.getBoundingClientRect();
+    if (!(rect.width > 0) || !(rect.height > 0)) return;
+    var margin = 8;
+    var dx = 0;
+    var dy = 0;
+    if (rect.right > window.innerWidth - margin) {
+      dx -= rect.right - (window.innerWidth - margin);
+    }
+    if (rect.left + dx < margin) {
+      dx += margin - (rect.left + dx);
+    }
+    if (rect.bottom > window.innerHeight - margin) {
+      dy -= rect.bottom - (window.innerHeight - margin);
+    }
+    if (rect.top + dy < margin) {
+      dy += margin - (rect.top + dy);
+    }
+    if (dx || dy) {
+      panel.style.transform = "translate(" + dx + "px, " + dy + "px)";
+    }
+  }
+
+  window.bibliotheekPlacePopover = placePopoverInViewport;
+  window.bibliotheekClearPopover = clearPopoverShift;
+
   function placeScoreActionHelp(menu) {
     var help = menu.querySelector(":scope > .score-action-help");
     if (!help) return;
     help.classList.remove("score-action-help--below");
     help.style.top = "";
+    clearPopoverShift(help);
     // Standaard boven de knop; z-index 110 legt over sticky chrome heen.
     // Alleen omklappen als de popover nog buiten het venster valt.
     var rect = help.getBoundingClientRect();
-    if (!(rect.height > 0) || rect.top >= 4) return;
+    if (!(rect.height > 0) || rect.top >= 4) {
+      placePopoverInViewport(help);
+      return;
+    }
     help.classList.add("score-action-help--below");
     var panel = menu.querySelector(".score-action-menu-panel");
-    if (!panel) return;
+    if (!panel) {
+      placePopoverInViewport(help);
+      return;
+    }
     var panelStyle = getComputedStyle(panel);
-    if (panelStyle.display === "none") return;
+    if (panelStyle.display === "none") {
+      placePopoverInViewport(help);
+      return;
+    }
     // Keuzelijst zit ook onder de knop: zet uitleg eronder, niet eroverheen.
     var menuRect = menu.getBoundingClientRect();
     var panelRect = panel.getBoundingClientRect();
     help.style.top = panelRect.bottom - menuRect.top + 6 + "px";
+    placePopoverInViewport(help);
+  }
+
+  function placeScoreActionMenuPanel(menu) {
+    var panel = menu.querySelector(":scope > .score-action-menu-panel");
+    if (!panel) return;
+    var style = getComputedStyle(panel);
+    if (style.display === "none") return;
+    placePopoverInViewport(panel);
   }
 
   document.querySelectorAll(".score-action-menu").forEach(function (menu) {
-    if (!menu.querySelector(":scope > .score-action-help")) return;
     menu.addEventListener("mouseenter", function () {
-      placeScoreActionHelp(menu);
+      if (menu.querySelector(":scope > .score-action-help")) {
+        placeScoreActionHelp(menu);
+      }
+      placeScoreActionMenuPanel(menu);
     });
     menu.addEventListener("focusin", function () {
-      placeScoreActionHelp(menu);
+      if (menu.querySelector(":scope > .score-action-help")) {
+        placeScoreActionHelp(menu);
+      }
+      placeScoreActionMenuPanel(menu);
     });
   });
 
@@ -85,6 +143,7 @@
   function placeScoreTipPanel(tip) {
     var panel = tip.querySelector(".score-oefen-tip-panel, .score-bron-tip-panel");
     if (!panel) return;
+    clearPopoverShift(panel);
     panel.style.top = "0px";
     var rect = panel.getBoundingClientRect();
     if (!(rect.height > 0)) return;
@@ -99,6 +158,7 @@
     if (shift !== 0) {
       panel.style.top = shift + "px";
     }
+    placePopoverInViewport(panel);
   }
 
   function bindScoreTipPlacement(tip) {
@@ -107,7 +167,10 @@
         var panel = tip.querySelector(
           ".score-oefen-tip-panel, .score-bron-tip-panel"
         );
-        if (panel) panel.style.top = "";
+        if (panel) {
+          panel.style.top = "";
+          clearPopoverShift(panel);
+        }
         return;
       }
       requestAnimationFrame(function () {
@@ -120,12 +183,49 @@
     .querySelectorAll("details.score-oefen-tip, details.score-bron-tip")
     .forEach(bindScoreTipPlacement);
 
-  window.addEventListener("resize", function () {
+  document.querySelectorAll("details.publicatiestatus-tip").forEach(function (tip) {
+    tip.addEventListener("toggle", function () {
+      var panel = tip.querySelector(".publicatiestatus-tip-panel");
+      if (!tip.open) {
+        clearPopoverShift(panel);
+        return;
+      }
+      requestAnimationFrame(function () {
+        placePopoverInViewport(panel);
+      });
+    });
+  });
+
+  function bindChromeTipPlacement(tip) {
+    var panel = tip.querySelector(":scope > .site-chrome-tip-panel");
+    if (!panel) return;
+    function place() {
+      requestAnimationFrame(function () {
+        placePopoverInViewport(panel);
+      });
+    }
+    tip.addEventListener("mouseenter", place);
+    tip.addEventListener("focusin", place);
+    tip.addEventListener("mouseleave", function () {
+      clearPopoverShift(panel);
+    });
+  }
+
+  document.querySelectorAll(".site-chrome-tip").forEach(bindChromeTipPlacement);
+
+  function placeOpenScoreMenus() {
     document
       .querySelectorAll(
         "details.score-oefen-tip[open], details.score-bron-tip[open]"
       )
       .forEach(placeScoreTipPanel);
+    document
+      .querySelectorAll("details.publicatiestatus-tip[open] .publicatiestatus-tip-panel")
+      .forEach(placePopoverInViewport);
+  }
+
+  window.addEventListener("resize", function () {
+    placeOpenScoreMenus();
   });
 
 })();
