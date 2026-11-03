@@ -15,38 +15,39 @@ Liturgiemap voor **weekdagen**. Zondag staat in
 
 |  Nr  | Titel |
 | ---: | :---- |
-|   1  | [Vredeslitanie](vredeslitanie/) |
-|   2  | [Eerste Antifoon](eerste-antifoon/) |
-|   3  | [Eerste Kleine Litanie](eerste-kleine-litanie/) |
-|   4  | [Tweede Antifoon](tweede-antifoon/) |
-|  --  | [Tweede Kleine Litanie](tweede-kleine-litanie/) |
-|   5  | [Eniggeboren Zoon](eniggeboren-zoon/) |
-|   6  | [Derde Antifoon](derde-antifoon/) |
-|   7  | [Kleine Intocht](kleine-intocht/) |
-|  --  | [Troparen en Kondaken](troparen-en-kondaken/) |
-|  --  | [Dialoog met de Diaken](dialoog-met-diaken/) |
-|   8  | [Trisagion](trisagion/) |
-|  9a  | [Prokimen](prokimen/) |
-|  9b  | [Alleluia](alleluia/) |
-|  10  | [Evangelielezing](evangelielezing/) |
-|  11  | [Dringende Litanie](dringende-litanie/) |
-|  12  | [Ontslapenen Litanie](ontslapenen-litanie/) |
-|  13  | [Catechumenen Litanie](catechumenen-litanie/) |
-|  14  | [Gelovigen Litanie](gelovigen-litanie/) |
-|  15  | [Cherubijnenhymne](cherubijnenhymne/) |
-|  16  | [Vragende Litanie](vragende-litanie-16/) |
-|  17  | [Vredeswens](vredeswens/) |
-|  18  | [Geloofsbelijdenis](geloofsbelijdenis/) |
-|  19  | [Eucharistische Canon](eucharistische-canon/) |
-|  20  | [Moeder Godslied](moeder-godslied/) |
-|  21  | [En Allen](en-allen/) |
-|  22  | [Vragende Litanie](vragende-litanie-22/) |
-|  23  | [Onze Vader](onze-vader/) |
-|  24  | [Een is Heilig](een-is-heilig) |
-|  25  | [Communievers](communievers/) |
-|  26  | [Gezegend Hij, Die komt ...](gezegend-hij-die-komt/) |
-|  27  | [Communiezang](communiezang/) |
-|  28  | [Wij hebben het Ware Licht aanschouwd](wij-hebben-het-ware-licht/) |
-|  29  | [De Naam des Heren zij gezegend](de-naam-des-heren-zij-gezegend/) |
+|   1  | [Vredeslitanie](01-vredeslitanie/) |
+|   2  | [Eerste Antifoon](02-eerste-antifoon/) |
+|   3  | [Eerste Kleine Litanie](03-eerste-kleine-litanie/) |
+|   4  | [Tweede Antifoon](04a-tweede-antifoon/) |
+|  --  | [Tweede Kleine Litanie](04b-tweede-kleine-litanie/) |
+|   5  | [Eniggeboren Zoon](05-eniggeboren-zoon/) |
+|   6  | [Derde Antifoon](06-derde-antifoon/) |
+|   7  | [Kleine Intocht](07a-kleine-intocht/) |
+|  --  | [Troparen en Kondaken](07b-troparen-en-kondaken/) |
+|  --  | [Kondak Moeder Gods (T6)](07c-kondak-moeder-gods-toon-6/) |
+|  --  | [Dialoog met de Diaken](07d-dialoog-met-diaken/) |
+|   8  | [Trisagion](08-trisagion/) |
+|   9  | [Prokimen](09a-prokimen/) |
+|  --  | [Alleluia](09b-alleluia/) |
+|  10  | [Evangelielezing](10-evangelielezing/) |
+|  11  | [Dringende Litanie](11-dringende-litanie/) |
+|  12  | [Ontslapenen Litanie](12-ontslapenen-litanie/) |
+|  13  | [Catechumenen Litanie](13-catechumenen-litanie/) |
+|  14  | [Gelovigen Litanie](14-gelovigen-litanie/) |
+|  15  | [Cherubijnenhymne](15-cherubijnenhymne/) |
+|  16  | [Vragende Litanie](16-vragende-litanie/) |
+|  17  | [Vredeswens](17-vredeswens/) |
+|  18  | [Geloofsbelijdenis](18-geloofsbelijdenis/) |
+|  19  | [Eucharistische Canon](19-eucharistische-canon/) |
+|  20  | [Moeder Godslied](20-moeder-godslied/) |
+|  21  | [En Allen](21-en-allen/) |
+|  22  | [Vragende Litanie](22-vragende-litanie/) |
+|  23  | [Onze Vader](23-onze-vader/) |
+|  24  | [Een is Heilig](24-een-is-heilig/) |
+|  25  | [Communievers](25-communievers/) |
+|  26  | [Gezegend Hij, Die komt ...](26-gezegend-hij-die-komt/) |
+|  27  | [Communiezang](27-communiezang/) |
+|  28  | [Wij hebben het Ware Licht aanschouwd](28-wij-hebben-het-ware-licht/) |
+|  29  | [De Naam des Heren zij gezegend](29-de-naam-des-heren-zij-gezegend/) |
 
 {{< /table-plain >}}
