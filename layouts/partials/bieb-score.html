@@ -185,9 +185,15 @@
 <p class="score-scherm-missing">Geen SVG-product voor dit blad. Kies OSMG in {} of vernieuw met <code>scripts\products.cmd</code>.</p>
   {{- end -}}
   </div>
-  {{- /* Translit-modus: sibling-SVG als die er is; anders dezelfde kale SVG
-       als bij «uit» (bv. NL-blad bij Nls op een gemengde koormap). Alleen
-       «missing» als er überhaupt geen SVG is. */ -}}
+  {{- /* Translit-modus per knop, per UV:
+       - nls (Ксл→Nls): alleen .translit-nls.svg; anders kale SVG
+         (Nls-stuk op een gemengde koormap blijft ongemoeid).
+       - ksl (Nls→Ксл): alleen .translit-ksl.svg op Nls-bronnen. Heeft
+         dezelfde UV ook .translit-nls.svg, dan is het een Ksl-bron —
+         toon kale SVG (niet per ongeluk beide richtingen).
+       - beide: per UV één passende richting (nls-sibling wint bij beide
+         producten), niet gestapeld nls+ksl van één UV.
+       «missing» alleen als er überhaupt geen SVG is. */ -}}
   <div data-translit-view="aan" data-translit-for-modus="nls" hidden>
   {{- if $musicSvgsTranslitNls -}}
     {{- range $musicSvgsTranslitNls -}}
@@ -206,7 +212,7 @@
   {{- end -}}
   </div>
   <div data-translit-view="aan" data-translit-for-modus="ksl" hidden>
-  {{- if $musicSvgsTranslitKsl -}}
+  {{- if and $musicSvgsTranslitKsl (not $musicSvgsTranslitNls) -}}
     {{- range $musicSvgsTranslitKsl -}}
 <div class="vsa-container"><img class="vsa-notation" src="{{ . }}" alt="{{ $alt }} (translit Ksl)"></div>
     {{- end -}}
@@ -222,13 +228,12 @@
 <p class="score-scherm-missing">Geen SVG voor dit blad (ook geen translit-Ksl). Vernieuw met <code>scripts\products.cmd --kinds vsa</code> of <code>mvsa</code>.</p>
   {{- end -}}
   </div>
-  {{- /* Beide: alle aanwezige translit-SVG’s van deze UV (Nls én/of Ksl);
-       anders kale SVG — typisch NL+ksl naast elkaar op één koormap. */ -}}
   <div data-translit-view="aan" data-translit-for-modus="beide" hidden>
-  {{- if $musicSvgsTranslitAny -}}
+  {{- if $musicSvgsTranslitNls -}}
     {{- range $musicSvgsTranslitNls -}}
 <div class="vsa-container"><img class="vsa-notation" src="{{ . }}" alt="{{ $alt }} (translit Nls)"></div>
     {{- end -}}
+  {{- else if $musicSvgsTranslitKsl -}}
     {{- range $musicSvgsTranslitKsl -}}
 <div class="vsa-container"><img class="vsa-notation" src="{{ . }}" alt="{{ $alt }} (translit Ksl)"></div>
     {{- end -}}
