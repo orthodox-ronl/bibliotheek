@@ -2309,7 +2309,9 @@ body.score-audio-bar-open {
 
 .publicatiestatus-tip-panel {
   position: absolute;
-  left: 0;
+  /* Tip staat rechts in de broodkruimelrij: anker rechts, niet van het scherm af. */
+  left: auto;
+  right: 0;
   top: calc(100% + 0.35rem);
   z-index: 40;
   width: max(16rem, 100%);
