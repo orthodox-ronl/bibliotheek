@@ -74,43 +74,197 @@
     });
   }
 
+  function safeDownloadName(name, fallback) {
+    var n = (name || fallback || "blad.pdf").replace(/[\\/:*?"<>|]+/g, "-").trim();
+    if (!/\.pdf$/i.test(n)) n += ".pdf";
+    return n;
+  }
+
+  /** Raden van translit-beide-URL als het data-attribuut ontbreekt. */
+  function deriveBeidePdfUrl(a) {
+    var beide = a.getAttribute("data-pdf-beide") || "";
+    if (beide) return beide;
+    var nls = a.getAttribute("data-pdf-nls") || "";
+    if (nls.indexOf(".translit-nls.pdf") !== -1) {
+      return nls.split(".translit-nls.pdf").join(".translit-beide.pdf");
+    }
+    var ksl = a.getAttribute("data-pdf-ksl") || "";
+    if (ksl.indexOf(".translit-ksl.pdf") !== -1) {
+      return ksl.split(".translit-ksl.pdf").join(".translit-beide.pdf");
+    }
+    return "";
+  }
+
+  function pdfCandidates(a, aan, modus) {
+    var uit = {
+      href: a.getAttribute("data-pdf-uit") || "",
+      name: a.getAttribute("data-pdf-name-uit") || "blad.pdf",
+    };
+    var nls = {
+      href: a.getAttribute("data-pdf-nls") || "",
+      name: a.getAttribute("data-pdf-name-nls") || uit.name,
+    };
+    var ksl = {
+      href: a.getAttribute("data-pdf-ksl") || "",
+      name: a.getAttribute("data-pdf-name-ksl") || uit.name,
+    };
+    var beide = {
+      href: deriveBeidePdfUrl(a),
+      name: a.getAttribute("data-pdf-name-beide") || "blad (translit beide).pdf",
+    };
+    var list = [];
+    if (aan && modus === "ksl") {
+      if (ksl.href) list.push(ksl);
+      if (uit.href) list.push(uit);
+    } else if (aan && modus === "beide") {
+      if (beide.href) list.push(beide);
+      /* Geen gecombineerde PDF (404 op oude server): los Nls + Ksl. */
+      if (nls.href) list.push(nls);
+      if (ksl.href) list.push(ksl);
+      if (uit.href) list.push(uit);
+    } else if (aan) {
+      if (nls.href) list.push(nls);
+      if (uit.href) list.push(uit);
+    } else if (uit.href) {
+      list.push(uit);
+    }
+    return list;
+  }
+
+  function triggerBlobDownload(blob, filename) {
+    var url = URL.createObjectURL(blob);
+    var tmp = document.createElement("a");
+    tmp.href = url;
+    tmp.download = safeDownloadName(filename, "blad.pdf");
+    tmp.rel = "noopener";
+    document.body.appendChild(tmp);
+    tmp.click();
+    tmp.remove();
+    setTimeout(function () {
+      URL.revokeObjectURL(url);
+    }, 2000);
+  }
+
+  function fetchPdf(href) {
+    return fetch(href, { method: "GET", credentials: "same-origin" }).then(
+      function (res) {
+        if (!res.ok) throw new Error("pdf-http-" + res.status);
+        return res.blob();
+      }
+    );
+  }
+
+  function delay(ms) {
+    return new Promise(function (resolve) {
+      setTimeout(resolve, ms);
+    });
+  }
+
+  /**
+   * Probeer kandidaten tot er een PDF binnenkomt.
+   * Bij modus beide: eerst gecombineerde PDF; bij 404 alle losse
+   * translit-PDF’s (Nls én Ksl) achter elkaar.
+   */
+  function downloadPdfCandidates(cands, modus) {
+    if (!cands.length) return Promise.resolve(false);
+
+    var combined = [];
+    var loose = [];
+    cands.forEach(function (c) {
+      if (!c || !c.href) return;
+      if (/translit-beide\.pdf/i.test(c.href)) combined.push(c);
+      else loose.push(c);
+    });
+
+    function tryOneOf(list, i) {
+      if (i >= list.length) return Promise.resolve(false);
+      return fetchPdf(list[i].href)
+        .then(function (blob) {
+          triggerBlobDownload(blob, list[i].name);
+          return true;
+        })
+        .catch(function () {
+          return tryOneOf(list, i + 1);
+        });
+    }
+
+    function downloadAllLoose(list, i, any) {
+      if (i >= list.length) return Promise.resolve(!!any);
+      /* Alleen translit-varianten als «los»; geen kale PDF erbij als
+         er al een translit gelukt is — die staat als laatste fallback. */
+      return fetchPdf(list[i].href)
+        .then(function (blob) {
+          triggerBlobDownload(blob, list[i].name);
+          return delay(350).then(function () {
+            return downloadAllLoose(list, i + 1, true);
+          });
+        })
+        .catch(function () {
+          return downloadAllLoose(list, i + 1, any);
+        });
+    }
+
+    if (modus === "beide") {
+      return tryOneOf(combined, 0).then(function (ok) {
+        if (ok) return true;
+        var translits = loose.filter(function (c) {
+          return /translit-(nls|ksl)\.pdf/i.test(c.href);
+        });
+        var plain = loose.filter(function (c) {
+          return !/translit-(nls|ksl)\.pdf/i.test(c.href);
+        });
+        return downloadAllLoose(translits, 0, false).then(function (got) {
+          if (got) return true;
+          return tryOneOf(plain, 0);
+        });
+      });
+    }
+
+    return tryOneOf(cands, 0);
+  }
   function applyPaginaPdfDownload(aan, modus) {
     document.querySelectorAll("[data-pagina-pdf-download]").forEach(function (a) {
-      var href = a.getAttribute("data-pdf-uit") || "";
-      var name = a.getAttribute("data-pdf-name-uit") || "";
-      if (aan && modus === "ksl") {
-        href = a.getAttribute("data-pdf-ksl") || href;
-        name = a.getAttribute("data-pdf-name-ksl") || name;
-      } else if (aan && modus === "beide") {
-        href =
-          a.getAttribute("data-pdf-nls") ||
-          a.getAttribute("data-pdf-ksl") ||
-          href;
-        name =
-          a.getAttribute("data-pdf-name-nls") ||
-          a.getAttribute("data-pdf-name-ksl") ||
-          name;
-      } else if (aan) {
-        href = a.getAttribute("data-pdf-nls") || href;
-        name = a.getAttribute("data-pdf-name-nls") || name;
-      }
+      var cands = pdfCandidates(a, aan, modus);
+      a.__pdfCandidates = cands;
+      a.__pdfModus = aan ? modus : "uit";
+      var href = cands.length ? cands[0].href : "";
+      var name = cands.length ? cands[0].name : "";
       if (href) {
         a.setAttribute("href", href);
         a.removeAttribute("hidden");
       } else {
         a.setAttribute("hidden", "");
       }
-      if (name) a.setAttribute("download", name);
+      if (name) a.setAttribute("download", safeDownloadName(name, "blad.pdf"));
       var title = "Pagina als PDF downloaden";
       if (aan && modus === "ksl") {
         title = "PDF met translit Ksl downloaden";
       } else if (aan && modus === "beide") {
-        title = "PDF met translit downloaden";
+        title = "PDF met beide translits downloaden";
       } else if (aan) {
         title = "PDF met translit Nls downloaden";
       }
       a.setAttribute("title", title);
       a.setAttribute("aria-label", title);
+    });
+  }
+
+  function bindPdfDownloadClicks() {
+    document.querySelectorAll("[data-pagina-pdf-download]").forEach(function (a) {
+      if (a.__pdfDownloadBound) return;
+      a.__pdfDownloadBound = true;
+      a.addEventListener("click", function (ev) {
+        var cands = a.__pdfCandidates;
+        if (!cands || !cands.length) return;
+        ev.preventDefault();
+        ev.stopPropagation();
+        downloadPdfCandidates(cands, a.__pdfModus || "uit").then(function (ok) {
+          if (!ok && cands[0] && cands[0].href) {
+            /* Laatste redmiddel: gewone navigatie. */
+            window.location.href = cands[0].href;
+          }
+        });
+      });
     });
   }
 
@@ -186,10 +340,12 @@
   var initial = readStoredFlags();
   applyState(initial.nls, initial.ksl);
   bindControls();
+  bindPdfDownloadClicks();
 
   document.addEventListener("DOMContentLoaded", function () {
     var again = readStoredFlags();
     applyState(again.nls, again.ksl);
     bindControls();
+    bindPdfDownloadClicks();
   });
 })();
