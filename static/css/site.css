@@ -2205,6 +2205,10 @@ body.score-audio-bar-open {
     margin: 2cm;
   }
 
+  .koormap-liturgie-nav {
+    display: none !important;
+  }
+
   .pdf-pagina {
     display: block;
     page-break-before: always;
@@ -2246,6 +2250,70 @@ body.score-audio-bar-open {
     padding: 0;
   }
 
+}
+
+/* Vorige/volgende in een koormap (niet catalogus): rustig, bij titel + onderaan. */
+.koormap-liturgie-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem 1rem;
+  margin: 0 0 0.85rem;
+  padding: 0;
+  font-size: 0.92rem;
+  line-height: 1.35;
+  color: #456;
+}
+
+.koormap-liturgie-nav--top {
+  margin-top: -0.15rem;
+}
+
+.koormap-liturgie-nav--bottom {
+  margin-top: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.koormap-liturgie-nav-slot {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.koormap-liturgie-nav-slot--next {
+  text-align: right;
+}
+
+.koormap-liturgie-nav-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  max-width: 100%;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.koormap-liturgie-nav-link:hover,
+.koormap-liturgie-nav-link:focus {
+  color: #003366;
+  border-bottom-color: #003366;
+}
+
+.koormap-liturgie-nav-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.koormap-liturgie-nav-arrow {
+  flex: 0 0 auto;
+  opacity: 0.75;
+}
+
+@media (max-width: 520px) {
+  .koormap-liturgie-nav {
+    font-size: 0.85rem;
+  }
 }
 
 .page-title-row {

@@ -1,0 +1,66 @@
+{{- /*
+  Vorige/volgende binnen één koormap (bijv. liturgie-zondag), niet catalogus.
+  Map-root = koormappen/<locatie>/<map>/ (derde padsegment).
+
+  Context: page, of dict "page" / "placement" ("top"|"bottom").
+*/ -}}
+{{- $page := . -}}
+{{- $placement := "top" -}}
+{{- if reflect.IsMap . -}}
+  {{- $page = .page -}}
+  {{- $placement = .placement | default "top" -}}
+{{- end -}}
+{{- if and $page (eq $page.Section "koormappen") $page.File -}}
+  {{- $dir := strings.TrimSuffix "/" (replace $page.File.Dir "\\" "/") -}}
+  {{- $segs := split $dir "/" -}}
+  {{- if ge (len $segs) 3 -}}
+    {{- $mapRootPath := printf "%s/%s/%s" (index $segs 0) (index $segs 1) (index $segs 2) -}}
+    {{- with site.GetPage $mapRootPath -}}
+      {{- $root := . -}}
+      {{- $seq := partial "koormap-liturgie-nav-flatten.html" $root -}}
+      {{- if gt (len $seq) 0 -}}
+        {{- $cur := $page -}}
+        {{- $idx := -1 -}}
+        {{- range $i, $p := $seq -}}
+          {{- if $p.Eq $cur -}}
+            {{- $idx = $i -}}
+          {{- end -}}
+        {{- end -}}
+        {{- $onRoot := $cur.Eq $root -}}
+        {{- if or (ge $idx 0) $onRoot -}}
+          {{- $prev := false -}}
+          {{- $next := false -}}
+          {{- if $onRoot -}}
+            {{- /* Overzicht: alleen door naar het eerste blad. */ -}}
+            {{- $next = index $seq 0 -}}
+          {{- else -}}
+            {{- if gt $idx 0 -}}
+              {{- $prev = index $seq (sub $idx 1) -}}
+            {{- end -}}
+            {{- if lt $idx (sub (len $seq) 1) -}}
+              {{- $next = index $seq (add $idx 1) -}}
+            {{- end -}}
+          {{- end -}}
+<nav class="koormap-liturgie-nav koormap-liturgie-nav--{{ $placement }}" aria-label="Vorige en volgende in deze koormap">
+  <div class="koormap-liturgie-nav-slot koormap-liturgie-nav-slot--prev">
+          {{- with $prev -}}
+    <a class="koormap-liturgie-nav-link" href="{{ .RelPermalink }}" title="{{ partial "display-title.html" . }}">
+      <span class="koormap-liturgie-nav-arrow" aria-hidden="true">←</span>
+      <span class="koormap-liturgie-nav-label">{{ partial "display-title.html" . }}</span>
+    </a>
+          {{- end -}}
+  </div>
+  <div class="koormap-liturgie-nav-slot koormap-liturgie-nav-slot--next">
+          {{- with $next -}}
+    <a class="koormap-liturgie-nav-link" href="{{ .RelPermalink }}" title="{{ partial "display-title.html" . }}">
+      <span class="koormap-liturgie-nav-label">{{ partial "display-title.html" . }}</span>
+      <span class="koormap-liturgie-nav-arrow" aria-hidden="true">→</span>
+    </a>
+          {{- end -}}
+  </div>
+</nav>
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}

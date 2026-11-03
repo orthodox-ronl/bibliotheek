@@ -2,6 +2,12 @@
 <div class="page-title-row">
   <h1>{{ partial "display-title.html" . }}</h1>
 </div>
+{{- if eq .Section "koormappen" -}}
+{{ partial "koormap-liturgie-nav.html" (dict "page" . "placement" "top") }}
+{{- end -}}
 {{ partial "oefenhoek-alias.html" . }}
 {{ .Content }}
+{{- if eq .Section "koormappen" -}}
+{{ partial "koormap-liturgie-nav.html" (dict "page" . "placement" "bottom") }}
+{{- end -}}
 {{ end }}

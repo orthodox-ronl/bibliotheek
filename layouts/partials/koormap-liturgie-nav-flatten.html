@@ -1,0 +1,23 @@
+{{- /*
+  Recursief: alle pagina’s en secties onder een koormap-root, op weight.
+  Sectie zelf eerst, daarna kinderen (liturgie-volgorde).
+*/ -}}
+{{- $out := slice -}}
+{{- $items := slice -}}
+{{- range .RegularPages -}}
+  {{- $items = $items | append . -}}
+{{- end -}}
+{{- range .Sections -}}
+  {{- $items = $items | append . -}}
+{{- end -}}
+{{- range (sort $items "Weight" "asc") -}}
+  {{- if .IsSection -}}
+    {{- $out = $out | append . -}}
+    {{- range (partial "koormap-liturgie-nav-flatten.html" .) -}}
+      {{- $out = $out | append . -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $out = $out | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- return $out -}}
