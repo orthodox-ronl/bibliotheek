@@ -2252,7 +2252,7 @@ body.score-audio-bar-open {
 
 }
 
-/* Vorige/volgende in een koormap (niet catalogus): rustig, bij titel + onderaan. */
+/* Vorige/volgende in een koormap (niet catalogus): siblings op dit niveau. */
 .koormap-liturgie-nav {
   display: flex;
   justify-content: space-between;
@@ -2314,6 +2314,91 @@ body.score-audio-bar-open {
   .koormap-liturgie-nav {
     font-size: 0.85rem;
   }
+}
+
+/* Sectie-hub (map met submappen): één titel, intro, kindlijst, geen dubbele blokken. */
+.koormap-hub {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: 0 0 0.5rem;
+}
+
+.koormap-hub .page-title-row {
+  margin-bottom: 0;
+}
+
+.koormap-hub .koormap-liturgie-nav--top {
+  margin: 0;
+  padding: 0.45rem 0;
+  border-top: 1px solid var(--border-color, #dde3ea);
+  border-bottom: 1px solid var(--border-color, #dde3ea);
+}
+
+.koormap-hub .koormap-liturgie-nav--bottom {
+  margin: 0.35rem 0 0;
+  padding-top: 0.45rem;
+  border-top: 1px solid var(--border-color, #dde3ea);
+}
+
+.koormap-hub-intro {
+  margin: 0;
+  color: #334;
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+.koormap-hub-intro > :first-child {
+  margin-top: 0;
+}
+
+.koormap-hub-intro > :last-child {
+  margin-bottom: 0;
+}
+
+/* Markdown-kop herhaalt vaak de paginatitel — op hub verbergen. */
+.koormap-hub-intro > .koormap-kop--groot:first-child {
+  display: none;
+}
+
+.oefenhoek-kinderen--hub {
+  list-style: none;
+  margin: 0.15rem 0 0;
+  padding: 0;
+  border: 1px solid var(--border-color, #dde3ea);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.oefenhoek-kinderen--hub li {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--border-color, #e7ecf1);
+}
+
+.oefenhoek-kinderen--hub li:first-child {
+  border-top: 0;
+}
+
+.oefenhoek-kinderen--hub a,
+.oefenhoek-kinderen--hub .oefenhoek-voorzien {
+  display: block;
+  padding: 0.65rem 0.85rem;
+  text-decoration: none;
+  color: #003366;
+  font-weight: 600;
+}
+
+.oefenhoek-kinderen--hub a:hover,
+.oefenhoek-kinderen--hub a:focus {
+  background: #f3f6fa;
+  text-decoration: none;
+}
+
+.oefenhoek-kinderen--hub .oefenhoek-voorzien {
+  color: #667;
+  font-weight: 500;
 }
 
 .page-title-row {
