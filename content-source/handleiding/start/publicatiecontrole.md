@@ -298,11 +298,14 @@ translit-variant) en faalt `check --strict` zonder basis-PDF.
 
 Op bibliotheek-bladermappen: icoon **♪** (linksboven op de partituur)
 opent **Oefenen** en **Beluisteren** (Beluisteren bij elke bron met
-passende `.mp3`). Alleen in de catalogus: icoon **{}** (rechtsboven)
-opent **Bronnen** als er een `.vsa` of `.mvsa` is; dat toont de
-feitelijke brontekst in plaats van de gerenderde partituur. In de
-navigatie: **download-icoon** (volgt translit-stand) en icoonknoppen
-**Ксл→Nls** (Nls) / **Nls→Ксл** (Ksl). **Ксл** is Ksl in Cyrillische letters. Bij alleen een `.mscz` (geen
+passende `.mp3`). **Oefenen** volgt dezelfde translit-stand als de
+navigatieknoppen: uit → gewone Coria-`.mxl`; Nls, Ksl of beide aan →
+sibling `…translit.mxl` (geen aparte keuzelijst daarvoor). Alleen in de
+catalogus: icoon **{}** (rechtsboven) opent **Bronnen** als er een
+`.vsa` of `.mvsa` is; dat toont de feitelijke brontekst in plaats van
+de gerenderde partituur. In de navigatie: **download-icoon** (volgt
+translit-stand) en icoonknoppen **Ксл→Nls** (Nls) / **Nls→Ксл** (Ksl).
+**Ксл** is Ksl in Cyrillische letters. Bij alleen een `.mscz` (geen
 VSA-tekst) ontbreekt het icoon **Bronnen**.
 
 ## Legacy-namen (nog toegestaan tot migratie)

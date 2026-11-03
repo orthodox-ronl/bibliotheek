@@ -45,6 +45,16 @@
     {{- $id = "mvsa" -}}
   {{- else if strings.HasSuffix $stemLower ".mscz" -}}
     {{- $id = "partituur" -}}
+  {{- else if strings.HasSuffix $stemLower ".translit" -}}
+    {{- /* {stam}.mvsa.translit.mxl e.d. — zelfde bronfamilie als zonder .translit */ -}}
+    {{- $inner := strings.TrimSuffix ".translit" $stemLower -}}
+    {{- if strings.HasSuffix $inner ".mvsa" -}}
+      {{- $id = "mvsa" -}}
+    {{- else if strings.HasSuffix $inner ".vsa" -}}
+      {{- $id = "vsa" -}}
+    {{- else if strings.HasSuffix $inner ".mscz" -}}
+      {{- $id = "partituur" -}}
+    {{- end -}}
   {{- else if strings.HasSuffix $stemLower ".print" -}}
     {{- $id = "print" -}}
   {{- else if strings.HasSuffix $stemLower ".tekstblad" -}}

@@ -82,8 +82,11 @@ donkerblauwe knopjes:
 - <span class="home-score-icon home-score-icon--oefen" aria-hidden="true">♪</span>
   (linksboven bij de muziek) — menu **Oefenen** en **Beluisteren**:
   - **Oefenen** brengt je naar [coria.nl](https://coria.nl), waar je je
-    eigen stem kunt meezingen. *Let op:* omdat Coria wel eens problemen
-    geeft, mag je uit twee links kiezen (hopelijk werkt er tenminste één).
+    eigen stem kunt meezingen. Welke muziek Coria opent, volgt de
+    **transliteratie**-knoppen in de navigatie: beide grijs = gewone
+    tekst; één of beide blauw = versie met getranslitereerde stemmen.
+    *Let op:* omdat Coria wel eens problemen geeft, kan er ook een
+    tweede link «Werkt Oefenen niet? Andere bron» staan.
   - **Beluisteren** speelt een voorbeeldbestand af onderaan het scherm
     (afspelen, terug/vooruit, snelheid). Dat geeft een *indruk* van hoe
     het zangstuk klinkt; in het echt klinkt het vaak anders.

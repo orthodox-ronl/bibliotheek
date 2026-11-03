@@ -114,6 +114,17 @@
     });
   }
 
+  /** Oefenen (Coria): gewone MXL of …translit.mxl, zelfde stand als de knoppen. */
+  function applyCoriaOefenen(aan) {
+    document.querySelectorAll("[data-coria-uit]").forEach(function (a) {
+      var href = a.getAttribute("data-coria-uit") || "";
+      if (aan) {
+        href = a.getAttribute("data-coria-translit") || href;
+      }
+      if (href) a.setAttribute("href", href);
+    });
+  }
+
   function applyState(nls, ksl) {
     nls = !!nls;
     ksl = !!ksl;
@@ -140,6 +151,7 @@
 
     applyTranslitViews(aan, modus === "uit" ? "nls" : modus);
     applyPaginaPdfDownload(aan, modus === "uit" ? "nls" : modus);
+    applyCoriaOefenen(aan);
 
     window.dispatchEvent(
       new CustomEvent("bibliotheek:translit", {

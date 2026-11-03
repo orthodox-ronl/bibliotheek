@@ -54,6 +54,9 @@
 {{- else if $hasMvsa -}}
   {{- $preferId = "mvsa" -}}
 {{- end -}}
+{{- /* Coria-MXL’s: gewone + optioneel sibling …translit.mxl.
+     Oefenen toont géén keuze tussen die twee — JS wisselt de URL mee
+     met de translit-knoppen (uit → gewoon; Nls/Ksl/beide → translit). */ -}}
 {{- $coriaItems := slice -}}
 {{- $scoreDir := "" -}}
 {{- with $score.File -}}
@@ -70,9 +73,36 @@
 {{- if fileExists "data/coria-fp.json" -}}
   {{- $fps = transform.Unmarshal (readFile "data/coria-fp.json") -}}
 {{- end -}}
+{{- /* Eerst …translit.mxl → Coria-URL’s, sleutel = bijbehorende gewone bestandsnaam. */ -}}
+{{- $translitCoriaByBase := dict -}}
+{{- range $coriaItems -}}
+  {{- $nl := lower .name -}}
+  {{- if strings.HasSuffix $nl ".translit.mxl" -}}
+    {{- $src := replaceRE "^/" "" .src -}}
+    {{- $fpKey := replace $src "/" "__" -}}
+    {{- $mapped := "" -}}
+    {{- with index $fps $fpKey -}}
+      {{- $mapped = strings.TrimSpace . -}}
+    {{- end -}}
+    {{- if and $mapped (or (strings.HasSuffix $mapped ".mxl") (strings.HasSuffix $mapped ".musicxml") (strings.HasSuffix $mapped ".xml")) -}}
+      {{- $absolute := strings.TrimSpace (partial "coria-file-absolute-url.html" (dict "src" $mapped "position" $.position "page" $viewer)) -}}
+      {{- if $absolute -}}
+        {{- $coria := printf "https://coria.nl/play_from_url?back=coria.nl&url=%s" (urlquery $absolute) -}}
+        {{- $baseName := replaceRE `(?i)\.translit\.mxl$` ".mxl" .name -}}
+        {{- $translitCoriaByBase = merge $translitCoriaByBase (dict $baseName $coria) -}}
+      {{- end -}}
+    {{- else -}}
+      {{- errorf "%s: geen Coria-fingerprint voor MusicXML-bestand %q. Oplossing: python scripts\\fingerprint_coria_mxl.py (of scripts\\check.cmd)." $loc .src -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
 {{- $oefenPreferred := slice -}}
 {{- $oefenOther := slice -}}
 {{- range $coriaItems -}}
+  {{- $nl := lower .name -}}
+  {{- if strings.HasSuffix $nl ".translit.mxl" -}}
+    {{- /* Geen aparte menukeuze; gekoppeld aan de gewone MXL hierboven. */ -}}
+  {{- else -}}
   {{- $src := replaceRE "^/" "" .src -}}
   {{- $fpKey := replace $src "/" "__" -}}
   {{- $mapped := "" -}}
@@ -83,7 +113,15 @@
     {{- $absolute := strings.TrimSpace (partial "coria-file-absolute-url.html" (dict "src" $mapped "position" $.position "page" $viewer)) -}}
     {{- if $absolute -}}
     {{- $coria := printf "https://coria.nl/play_from_url?back=coria.nl&url=%s" (urlquery $absolute) -}}
-    {{- $item := dict "href" $coria "label" .label "detail" .detail "name" .name "class" "coria-play" "target" "_blank" "rel" "noopener noreferrer" -}}
+    {{- $extra := "" -}}
+    {{- $translitCoria := "" -}}
+    {{- with index $translitCoriaByBase .name -}}
+      {{- $translitCoria = . -}}
+    {{- end -}}
+    {{- if $translitCoria -}}
+      {{- $extra = printf "data-coria-uit=%q data-coria-translit=%q" $coria $translitCoria -}}
+    {{- end -}}
+    {{- $item := dict "href" $coria "label" .label "detail" .detail "name" .name "class" "coria-play" "target" "_blank" "rel" "noopener noreferrer" "extra" $extra -}}
     {{- if eq .id $preferId -}}
       {{- $oefenPreferred = $oefenPreferred | append $item -}}
     {{- else -}}
@@ -103,6 +141,7 @@
     {{- end -}}
   {{- else -}}
     {{- errorf "%s: geen Coria-fingerprint voor MusicXML-bestand %q. Oplossing: python scripts\\fingerprint_coria_mxl.py (of scripts\\check.cmd)." $loc $src -}}
+  {{- end -}}
   {{- end -}}
 {{- end -}}
 {{- $oefenMenu := $oefenPreferred | append $oefenOther -}}
@@ -127,7 +166,7 @@
       {{- $stem = strings.TrimSuffix ".hub" $stem -}}
       {{- $label = printf "%s — %s" $label $stem -}}
     {{- end -}}
-    {{- $fixed = $fixed | append (dict "href" .href "label" $label "detail" .detail "class" .class "target" .target "rel" .rel) -}}
+    {{- $fixed = $fixed | append (dict "href" .href "label" $label "detail" .detail "class" .class "target" .target "rel" .rel "extra" (.extra | default "")) -}}
   {{- end -}}
   {{- $oefenMenu = $fixed -}}
 {{- end -}}
@@ -245,8 +284,16 @@
      Native details: open/dicht zonder JS (voorkomt dubbele handlers bij livereload). */ -}}
 {{- $wrapClass := "score-actions oefenhoek-acties score-actions--in-tip" -}}
 {{- $oefenHint := "" -}}
-{{- if gt (len $oefenMenu) 1 -}}
-  {{- $oefenHint = "Kies de versie die past bij het blad waarmee je meezingt." -}}
+{{- /* Hint alleen bij meerdere bronnen (niet bij «Werkt Oefenen niet?»-alternate). */ -}}
+{{- $oefenBronCount := 0 -}}
+{{- range $oefenMenu -}}
+  {{- $cls := .class | default "" -}}
+  {{- if not (strings.Contains $cls "coria-play--alternate") -}}
+    {{- $oefenBronCount = add $oefenBronCount 1 -}}
+  {{- end -}}
+{{- end -}}
+{{- if gt $oefenBronCount 1 -}}
+  {{- $oefenHint = "Kies welke notatiebron je in Coria wilt openen (meerstemmig eerst)." -}}
 {{- end -}}
 {{- $audioHint := "" -}}
 {{- if gt (len $audioMenu) 1 -}}

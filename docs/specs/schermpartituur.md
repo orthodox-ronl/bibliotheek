@@ -100,7 +100,7 @@ scherm-SVG via MuseScore loopt.
 | Catalogusblad           | Precies **één** zichtbare hoofdtitel (template-H1 uit afgeleide catalogustitel). Geen tweede dezelfde titel via `bieb titel` of een Markdown-`#` met dezelfde tekst.                                     |
 | Koormap-slot            | **Geen** template-H1. Bladtitel en rubrieken via `kop` (of afgesproken Markdown). Geen dubbele titel naast `bieb titel`.                                                                                 |
 | In de partituurtekening | Geen titel/ondertitel/componist/lyricist/credits — alleen muziek (**OSMD én SVG**, besluit 1). Catalogus-PDF-op-scherm mag wel een titel in het PDF-blad hebben (nood-fallback = printlook).             |
-| Download/Print          | Nav **download-icoon** volgt translit-knoppen (`index.md.pdf` of `index.md.translit-*.pdf`). Per muziekblok: ♪-menu oefenen/beluisteren (catalogus: ook {}-menu bronnen); geen score-Download naar product-PDF. |
+| Download/Print          | Nav **download-icoon** volgt translit-knoppen (`index.md.pdf` of `index.md.translit-*.pdf`). Per muziekblok: ♪-menu oefenen/beluisteren (catalogus: ook {}-menu bronnen); **Oefenen** wisselt Coria-URL mee met translit (gewoon `.mxl` ↔ `…translit.mxl`, geen keuzelijst daarvoor). Geen score-Download naar product-PDF. |
 
 ---
 

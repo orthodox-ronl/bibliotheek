@@ -77,8 +77,10 @@ voorgestelde bestandsnaam bij downloaden komt uit frontmatter
 `pdf_bestandsnaam`; anders op een
 **koormap** uit `title` en op een **catalogus**-blad uit de afgeleide
 bladtitel; anders uit de mapnaam. Bij elk muziekblok: tip-icoon **♪** voor
-**Oefenen** / **Beluisteren** van **dat** stuk. Pagina-PDF bouwen:
-[pdf](../scripts/pdf/).
+**Oefenen** / **Beluisteren** van **dat** stuk. **Oefenen** opent Coria
+met de gewone of de translit-MusicXML, automatisch volgens de
+translit-knoppen (geen keuze «gewoon / translit» in het ♪-menu).
+Pagina-PDF bouwen: [pdf](../scripts/pdf/).
 
 **Spiekbriefje voor beheerders:** [Koormap-blad schrijven](koormap-blad/).
 Normatieve specificatie in de repository:
