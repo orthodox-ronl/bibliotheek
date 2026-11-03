@@ -1,6 +1,7 @@
 {{- /*
-  Vorige/volgende binnen één koormap (bijv. liturgie-zondag), niet catalogus.
-  Map-root = koormappen/<locatie>/<map>/ (derde padsegment).
+  Vorige/volgende tussen siblings in één koormap (niet catalogus).
+  Altijd sibling-mappen/bladen van dezelfde parent — geen sprong naar
+  kinderen of diepere bladen. Niets overslaan in die sibling-rij.
 
   Context: page, of dict "page" / "placement" ("top"|"bottom").
 */ -}}
@@ -13,35 +14,27 @@
 {{- if and $page (eq $page.Section "koormappen") $page.File -}}
   {{- $dir := strings.TrimSuffix "/" (replace $page.File.Dir "\\" "/") -}}
   {{- $segs := split $dir "/" -}}
+  {{- /* Alleen onder een concrete koormap (koormappen/<locatie>/<map>/…). */ -}}
   {{- if ge (len $segs) 3 -}}
-    {{- $mapRootPath := printf "%s/%s/%s" (index $segs 0) (index $segs 1) (index $segs 2) -}}
-    {{- with site.GetPage $mapRootPath -}}
-      {{- $root := . -}}
-      {{- $seq := partial "koormap-liturgie-nav-flatten.html" $root -}}
-      {{- if gt (len $seq) 0 -}}
-        {{- $cur := $page -}}
-        {{- $idx := -1 -}}
-        {{- range $i, $p := $seq -}}
-          {{- if $p.Eq $cur -}}
-            {{- $idx = $i -}}
-          {{- end -}}
+    {{- $seq := partial "koormap-liturgie-nav-siblings.html" $page -}}
+    {{- if gt (len $seq) 0 -}}
+      {{- $idx := -1 -}}
+      {{- range $i, $p := $seq -}}
+        {{- if $p.Eq $page -}}
+          {{- $idx = $i -}}
         {{- end -}}
-        {{- $onRoot := $cur.Eq $root -}}
-        {{- if or (ge $idx 0) $onRoot -}}
-          {{- $prev := false -}}
-          {{- $next := false -}}
-          {{- if $onRoot -}}
-            {{- /* Overzicht: alleen door naar het eerste blad. */ -}}
-            {{- $next = index $seq 0 -}}
-          {{- else -}}
-            {{- if gt $idx 0 -}}
-              {{- $prev = index $seq (sub $idx 1) -}}
-            {{- end -}}
-            {{- if lt $idx (sub (len $seq) 1) -}}
-              {{- $next = index $seq (add $idx 1) -}}
-            {{- end -}}
-          {{- end -}}
-<nav class="koormap-liturgie-nav koormap-liturgie-nav--{{ $placement }}" aria-label="Vorige en volgende in deze koormap">
+      {{- end -}}
+      {{- if ge $idx 0 -}}
+        {{- $prev := false -}}
+        {{- $next := false -}}
+        {{- if gt $idx 0 -}}
+          {{- $prev = index $seq (sub $idx 1) -}}
+        {{- end -}}
+        {{- if lt $idx (sub (len $seq) 1) -}}
+          {{- $next = index $seq (add $idx 1) -}}
+        {{- end -}}
+        {{- if or $prev $next -}}
+<nav class="koormap-liturgie-nav koormap-liturgie-nav--{{ $placement }}" aria-label="Vorige en volgende op dit niveau">
   <div class="koormap-liturgie-nav-slot koormap-liturgie-nav-slot--prev">
           {{- with $prev -}}
     <a class="koormap-liturgie-nav-link" href="{{ .RelPermalink }}" title="{{ partial "display-title.html" . }}">

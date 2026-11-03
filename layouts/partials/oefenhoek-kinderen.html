@@ -1,8 +1,9 @@
 {{- /*
   Linklijst van kind-pagina's. Bij precies 1 kind: niets (redirect in head),
   behalve als dat kind niet linkbaar is (voorzien) — dan toon platte tekst.
+  Koormap-hubs rendert list.html dit al in .koormap-hub (scratch-vlag).
 */ -}}
-{{- if .IsSection -}}
+{{- if and .IsSection (not (.Scratch.Get "koormap-hub-kinderen")) -}}
 {{- $items := partial "oefenhoek-kind-items.html" . -}}
 {{- if gt (len $items) 1 -}}
 <ul class="page-list oefenhoek-kinderen">

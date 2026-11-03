@@ -57,6 +57,55 @@ def test_pagina_pdf_job_skips_missing_notation(
     assert pp.pagina_pdf_job(md) is None
 
 
+def test_pagina_pdf_job_koormap_tekstblad_bieb(
+    tmp_path: Path, monkeypatch
+) -> None:
+    """Koormap-slot met ``bieb`` naar tekstblad-only leaf → pagina-PDF-job."""
+    cat = tmp_path / "catalogus"
+    monkeypatch.setattr(pp, "CATALOGUS", cat)
+    monkeypatch.setattr(pp, "CONTENT", tmp_path)
+    leaf = cat / "dialoog" / "default" / "x"
+    leaf.mkdir(parents=True)
+    tb = leaf / "dialoog-default-x.tekstblad.md"
+    tb.write_text("# Dialoog\n\nPriester: …\n", encoding="utf-8")
+    md = tmp_path / "koormappen" / "liturgie" / "07d-dialoog" / "index.md"
+    md.parent.mkdir(parents=True)
+    md.write_text(
+        '---\ntitle: "(7d) Dialoog"\n---\n\n'
+        "{{< kop >}}(7d) Dialoog{{< /kop >}}\n\n"
+        "***Alleen met diaken.***\n\n"
+        '{{< bieb id="dialoog/default/x" />}}\n',
+        encoding="utf-8",
+    )
+    job = pp.pagina_pdf_job(md)
+    assert job is not None
+    assert job.out_path == md.with_name("index.md.pdf")
+    assert tb.resolve() in {p.resolve() for p in job.deps}
+
+
+def test_resolve_tekstblad_title_prefers_kop(
+    tmp_path: Path, monkeypatch
+) -> None:
+    cat = tmp_path / "catalogus"
+    monkeypatch.setattr(pp, "CATALOGUS", cat)
+    leaf = cat / "dialoog" / "default" / "x"
+    leaf.mkdir(parents=True)
+    (leaf / "x.tekstblad.md").write_text(
+        '---\ntitle: "Catalogustitel"\n---\nBody\n', encoding="utf-8"
+    )
+    md = tmp_path / "slot.md"
+    text = (
+        '---\ntitle: "FM"\n---\n\n'
+        "{{< kop >}}(7d) Dialoog met de Diaken{{< /kop >}}\n\n"
+        '{{< bieb id="dialoog/default/x" />}}\n'
+    )
+    md.write_text(text, encoding="utf-8")
+    assert (
+        pp._tekstblad_pagina_title(md, text, "dialoog/default/x")
+        == "(7d) Dialoog met de Diaken"
+    )
+
+
 def test_check_job_missing_and_stale(tmp_path: Path) -> None:
     md = tmp_path / "index.md"
     md.write_text("x", encoding="utf-8")

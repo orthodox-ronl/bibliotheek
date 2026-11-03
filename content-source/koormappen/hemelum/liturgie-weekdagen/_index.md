@@ -18,9 +18,9 @@ Liturgiemap voor **weekdagen**. Zondag staat in
 |   1  | [Vredeslitanie](01-vredeslitanie/) |
 |   2  | [Eerste Antifoon](02-eerste-antifoon/) |
 |   3  | [Eerste Kleine Litanie](03-eerste-kleine-litanie/) |
-|   4  | [Tweede Antifoon](04a-tweede-antifoon/) |
-|  --  | [Tweede Kleine Litanie](04b-tweede-kleine-litanie/) |
-|   5  | [Eniggeboren Zoon](05-eniggeboren-zoon/) |
+|   4  | [Tweede Antifoon](04-tweede-antifoon/) |
+|   5  | [Eniggeboren Zoon](05a-eniggeboren-zoon/) |
+|  --  | [Tweede Kleine Litanie](05b-tweede-kleine-litanie/) |
 |   6  | [Derde Antifoon](06-derde-antifoon/) |
 |   7  | [Kleine Intocht](07a-kleine-intocht/) |
 |  --  | [Troparen en Kondaken](07b-troparen-en-kondaken/) |

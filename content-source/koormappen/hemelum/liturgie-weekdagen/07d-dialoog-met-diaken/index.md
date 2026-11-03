@@ -1,6 +1,6 @@
 ---
 title: "(7d) Dialoog met de Diaken"
-weight: 074
+weight: 74
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

@@ -1,6 +1,6 @@
 ---
 title: "(9b) Alleluia"
-weight: 092
+weight: 92
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

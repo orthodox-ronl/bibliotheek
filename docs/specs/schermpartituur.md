@@ -261,7 +261,7 @@ voor elke losse `.mscz`.
 | Scherm | Body van sibling `{stam}.tekstblad.md` (HTML via `bieb-score`). Blokken `::: vsa-notatie` komen als SVG via `{stam}.tekstblad.scherm.html` (`products --kinds tekstblad`). Geen OSMD-/partituur-SVG-keten. |
 | Inhoud | Leesbare liturgische tekst/dialoog, met inline VSA als getekende notatie.                                                                                                                                  |
 | Titel  | Zelfde paginaregels als §3.                                                                                                                                                                                |
-| Print  | Blad = `index.md.pdf` (nav); product-`.tekstblad.pdf` is geen schermviewer.                                                                                                                                |
+| Print  | Blad = `index.md.pdf` (nav) op de catalogus-leaf **én** op koormap-slots die via `bieb` naar dat tekstblad wijzen (`scripts\pdf.cmd`). Product-`.tekstblad.pdf` is geen schermviewer.                    |
 
 ---
 

@@ -1,6 +1,6 @@
 ---
-title: "(5) Eniggeboren/Eengeboren Zoon"
-weight: 50
+title: "(5a) Eniggeboren/Eengeboren Zoon"
+weight: 51
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

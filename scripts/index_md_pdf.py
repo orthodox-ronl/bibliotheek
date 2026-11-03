@@ -4,9 +4,12 @@ A4-compositie uit shortcode ``kop`` (en legacy ``#`` / HTML-titels) + kale
 muziek-SVG's (geen catalogus-product-PDF's plakken). Bij voorkeur de
 catalogus-sibling tall-SVG (``*.mvsa.svg`` / ``*.mscz.svg`` / ``*.vsa.svg``);
 lokaal opnieuw exporteren als die ontbreekt of de herkomststempel niet bij
-de bron past. Versheid van ``index.md.pdf`` hangt ook van die sibling-SVG’s
-af. Compose snijdt op systeembrenzen (MuseScore ``StaffLines``, anders VSA
-``vsa-line``) zodat rest-ruimte na titel/proza op A4 wél gevuld wordt.
+de bron past. Inline ``::: vsa`` / ``::: vsa-notatie``-blokken in de
+Markdown (alias zoals VSA-tooling ``block_parser``) worden naar SVG
+gerenderd en in documentvolgorde meegenomen. Versheid van ``index.md.pdf``
+hangt ook van die sibling-SVG’s af. Compose snijdt op systeembrenzen
+(MuseScore ``StaffLines``, anders VSA ``vsa-line``) zodat rest-ruimte na
+titel/proza op A4 wél gevuld wordt.
 
 Naast de basis-PDF: optioneel ``index.md.translit-nls.pdf`` /
 ``index.md.translit-ksl.pdf`` (§5a) uit translit-SVG-siblings
@@ -87,6 +90,15 @@ _MSCZ_COLOPHON_VBOX = re.compile(
     r"<VBox>(?:(?!</VBox>).)*?Colofon(?:(?!</VBox>).)*?</VBox>",
     re.IGNORECASE | re.DOTALL,
 )
+# Alias ``::: vsa`` ≡ ``::: vsa-notatie`` (VSA-tooling block_parser).
+_INLINE_VSA_FENCE = re.compile(
+    r"(?ms)^[ \t]*:::[ \t]*(?:vsa-notatie|vsa)\b[^\n]*\n"
+    r"(.*?)"
+    r"^[ \t]*:::[ \t]*\s*$"
+)
+_INLINE_VSA_OPEN = re.compile(
+    r"(?im)^[ \t]*:::[ \t]*(?:vsa-notatie|vsa)\b"
+)
 _LITURGY_COPY = (
     "Voor gebruik in de orthodoxe eredienst is kopiëren toegestaan."
 )
@@ -119,13 +131,22 @@ class MusicItem:
 
 
 @dataclass
+class InlineVsaItem:
+    """Eenstemmig VSA-blok uit ``::: vsa`` / ``::: vsa-notatie`` in de Markdown."""
+
+    key: str
+    body: str
+    compact: bool
+
+
+@dataclass
 class SpaceItem:
     """Verticale witruimte (shortcode ``witruimte``); hoogte in PDF-punten."""
 
     points: float
 
 
-FlowItem = TitleItem | TextItem | MusicItem | SpaceItem
+FlowItem = TitleItem | TextItem | MusicItem | InlineVsaItem | SpaceItem
 
 # klein / middel (default) / groot — zelfde namen als shortcode-knoppen
 _WITRUIMTE_PT = {"klein": 10.0, "middel": 20.0, "groot": 40.0}
@@ -143,8 +164,17 @@ class PageFlow:
         return [i.uv_id for i in self.items if isinstance(i, MusicItem)]
 
     @property
+    def has_music(self) -> bool:
+        return any(
+            isinstance(i, (MusicItem, InlineVsaItem)) for i in self.items
+        )
+
+    @property
     def any_compact(self) -> bool:
-        return any(isinstance(i, MusicItem) and i.compact for i in self.items)
+        return any(
+            isinstance(i, (MusicItem, InlineVsaItem)) and i.compact
+            for i in self.items
+        )
 
 
 def _parse_onderdeel(params: str) -> str | None:
@@ -252,6 +282,69 @@ def _title_font_files() -> tuple[Path, Path]:
     if bold is None:
         bold = regular
     return regular, bold
+
+
+@lru_cache(maxsize=1)
+def _emphasis_font_files() -> tuple[Path, Path, Path, Path]:
+    """``(regular, bold, italic, bolditalic)`` voor Markdown-emphasis in PDF."""
+    regular, bold = _title_font_files()
+    windir = Path(os.environ.get("WINDIR", r"C:\Windows"))
+    candidates_italic = [
+        windir / "Fonts" / "ariali.ttf",
+        windir / "Fonts" / "calibrii.ttf",
+        Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-Oblique.ttf"),
+        Path("/usr/share/fonts/truetype/liberation/LiberationSans-Italic.ttf"),
+        Path("/Library/Fonts/Arial Italic.ttf"),
+        Path("/System/Library/Fonts/Supplemental/Arial Italic.ttf"),
+    ]
+    candidates_bi = [
+        windir / "Fonts" / "arialbi.ttf",
+        windir / "Fonts" / "calibriz.ttf",
+        Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-BoldOblique.ttf"),
+        Path("/usr/share/fonts/truetype/liberation/LiberationSans-BoldItalic.ttf"),
+        Path("/Library/Fonts/Arial Bold Italic.ttf"),
+        Path("/System/Library/Fonts/Supplemental/Arial Bold Italic.ttf"),
+    ]
+    italic = next((p for p in candidates_italic if p.is_file()), None) or regular
+    bolditalic = next((p for p in candidates_bi if p.is_file()), None) or bold
+    return regular, bold, italic, bolditalic
+
+
+def _md_inline_plain_and_style(text: str) -> tuple[str, str]:
+    """Haal omhullende Markdown-emphasis weg.
+
+    Terug: ``(platte tekst, style)`` met style
+    ``normal`` / ``bold`` / ``italic`` / ``bolditalic``.
+    Alleen hele-regel-markers (``***…***``, ``**…**``, ``*…*`` e.d.).
+    """
+    s = text.strip()
+    for marker, style in (
+        ("***", "bolditalic"),
+        ("___", "bolditalic"),
+        ("**", "bold"),
+        ("__", "bold"),
+        ("*", "italic"),
+        ("_", "italic"),
+    ):
+        n = len(marker)
+        if len(s) > 2 * n and s.startswith(marker) and s.endswith(marker):
+            inner = s[n:-n]
+            # Vermijd ``*a*b*`` e.d.: marker mag niet “open” in de kern zitten.
+            if marker not in inner:
+                return inner.strip(), style
+    return s, "normal"
+
+
+def _font_for_md_style(style: str) -> tuple[Path, str]:
+    """Lettertype + PDF-fontnaam voor ``_md_inline_plain_and_style``."""
+    regular, bold, italic, bolditalic = _emphasis_font_files()
+    if style == "bold":
+        return bold, "koormap-md-bold"
+    if style == "italic":
+        return italic, "koormap-md-italic"
+    if style == "bolditalic":
+        return bolditalic, "koormap-md-bolditalic"
+    return regular, "koormap-md-regular"
 
 
 @lru_cache(maxsize=1)
@@ -418,14 +511,41 @@ def _md_heading_size(level: int) -> str:
     return "klein"
 
 
-def _gap_items(gap: str) -> list[TitleItem | TextItem]:
-    """Markdown in gaten: ``#``-koppen + gewone alinea’s (links uitgelijnd).
+def _markdown_has_pagina_music(text: str) -> bool:
+    """True als de pagina-PDF muziek kan hebben (``bieb``/``muziek``/inline VSA)."""
+    if "bieb" in text or "muziek" in text:
+        return True
+    return _INLINE_VSA_OPEN.search(text) is not None
+
+
+def _gap_items(
+    gap: str, *, compact: bool = False
+) -> list[TitleItem | TextItem | InlineVsaItem]:
+    """Markdown in gaten: ``#``-koppen, ``::: vsa``-blokken, alinea’s.
 
     Shortcode ``kop`` hoort niet hier — die komt via ``parse_page_flows``.
-    Legacy HTML-``<h1>`` blijft ondersteund (links, groot).
+    Legacy HTML-``<h1>`` blijft ondersteund (links, groot). Inline VSA
+    krijgt ``key=""``; ``parse_page_flows`` vult een unieke sleutel in.
     """
-    items: list[tuple[int, TitleItem | TextItem]] = []
+    items: list[tuple[int, TitleItem | TextItem | InlineVsaItem]] = []
     covered: list[tuple[int, int]] = []
+    for m in _INLINE_VSA_FENCE.finditer(gap):
+        body = (m.group(1) or "").strip()
+        if body:
+            items.append(
+                (
+                    m.start(),
+                    InlineVsaItem(key="", body=body, compact=compact),
+                )
+            )
+        covered.append((m.start(), m.end()))
+    for m in _INLINE_VSA_OPEN.finditer(gap):
+        if any(a <= m.start() < b for a, b in covered):
+            continue
+        raise ValueError(
+            "::: vsa-blok zonder sluitende ::: "
+            f"(rond {gap[m.start() : m.start() + 48]!r})"
+        )
     for m in _H1_HTML.finditer(gap):
         t = _strip_tags(m.group(1))
         if t:
@@ -769,6 +889,7 @@ def parse_page_flows(text: str) -> list[PageFlow]:
     current = PageFlow()
     stack: list[str] = []
     bijelkaar = 0
+    inline_vsa_n = 0
     # Alleen groot-koppen die nog vóór enige andere inhoud / bijelkaar staan.
     pending_titles: list[TitleItem] = []
     kop_stack: list[tuple[str, int]] = []  # (params, inner_start)
@@ -798,13 +919,23 @@ def parse_page_flows(text: str) -> list[PageFlow]:
             current.items.append(t)
 
     def gap_before(end: int) -> None:
-        nonlocal pos
+        nonlocal pos, inline_vsa_n
         gap = text[pos:end]
         # Binnen ``kop … /kop``: tekst wordt bij sluiten gelezen, niet hier.
         if not kop_stack:
-            for item in _gap_items(gap):
+            for item in _gap_items(gap, compact=bijelkaar > 0):
                 if isinstance(item, TitleItem):
                     add_title(item)
+                elif isinstance(item, InlineVsaItem):
+                    drain_pending()
+                    inline_vsa_n += 1
+                    current.items.append(
+                        InlineVsaItem(
+                            key=f"inline-vsa-{inline_vsa_n}",
+                            body=item.body,
+                            compact=item.compact,
+                        )
+                    )
                 else:
                     drain_pending()
                     current.items.append(item)
@@ -859,7 +990,7 @@ def parse_page_flows(text: str) -> list[PageFlow]:
             if self_closing:
                 continue
             # Nieuw bijelkaar-blok = nieuwe bladgroep (na een vorige met muziek)
-            if current.music_ids:
+            if current.has_music:
                 flush_current()
             # Bladkop(pen) vóór dit eerste bijelkaar alleen hier injecteren
             drain_pending()
@@ -1124,12 +1255,12 @@ def pagina_pdf_job(md_path: Path) -> PaginaPdfJob | None:
     if catalogus_needs_voorzien_pdf(md_path) is not None:
         return PaginaPdfJob(md_path, out, (md_path,))
 
-    tekstblad_job = catalogus_tekstblad_pagina_job(md_path)
+    tekstblad_job = resolve_tekstblad_pagina_job(md_path)
     if tekstblad_job is not None:
         _leaf_id, tb_md = tekstblad_job
         return PaginaPdfJob(md_path, out, (md_path, tb_md))
 
-    if "bieb" not in text and "muziek" not in text:
+    if not _markdown_has_pagina_music(text):
         return None
     flows = parse_page_flows(text)
     flows = ensure_catalogus_derived_titles(flows, md_path)
@@ -1238,7 +1369,12 @@ def compose_tekstblad_pagina_pdf_from_body(
     notes: list[str],
     body_pdf: Path,
 ) -> None:
-    """A4: gecentreerde titel + toelichting + getrimde body-PDF-inhoud."""
+    """A4: H1-titel + Markdown-toelichting + getrimde body-PDF-inhoud.
+
+    Titel = zelfde grootte als shortcode ``kop`` groot (pagina-H1).
+    Toelichting uit de koormap/catalogus-Markdown: ``***…***`` → vet+cursief,
+    ``**…**`` → vet, ``*…*`` → cursief (hele regel).
+    """
     try:
         import pymupdf
     except ImportError as exc:
@@ -1249,7 +1385,7 @@ def compose_tekstblad_pagina_pdf_from_body(
     if not body_pdf.is_file():
         raise FileNotFoundError(f"tekstblad-body-PDF ontbreekt: {body_pdf}")
 
-    font_reg, _font_bold = _title_font_files()
+    font_reg, font_bold = _title_font_files()
     src = pymupdf.open(body_pdf)
     try:
         doc = pymupdf.open()
@@ -1257,14 +1393,16 @@ def compose_tekstblad_pagina_pdf_from_body(
         y = _MARGIN
         content_w = _A4_W - 2 * _MARGIN
 
-        title_h = max(28.0, 13.0 * 1.85)
+        # H1 / ``kop`` groot — zelfde pt als muziek-pagina-PDF’s.
+        title_pt = _KOP_FONT_PT["groot"]
+        title_h = max(36.0, title_pt * 1.85)
         title_rect = pymupdf.Rect(_MARGIN, y, _A4_W - _MARGIN, y + title_h)
         rc = page.insert_textbox(
             title_rect,
             title,
-            fontsize=13.0,
-            fontname="koormap-kop",
-            fontfile=str(font_reg),
+            fontsize=title_pt,
+            fontname="koormap-h1",
+            fontfile=str(font_bold),
             align=pymupdf.TEXT_ALIGN_CENTER,
         )
         if rc < 0:
@@ -1272,14 +1410,18 @@ def compose_tekstblad_pagina_pdf_from_body(
         y += title_h + 10.0
 
         for note in notes:
-            note_h = max(36.0, 11.0 * 2.4)
+            plain, style = _md_inline_plain_and_style(note)
+            if not plain:
+                continue
+            note_font, note_fname = _font_for_md_style(style)
+            note_h = max(36.0, _PROSE_PT * 2.4)
             note_rect = pymupdf.Rect(_MARGIN, y, _A4_W - _MARGIN, y + note_h)
             rc = page.insert_textbox(
                 note_rect,
-                note,
-                fontsize=11.0,
-                fontname="koormap-note",
-                fontfile=str(font_reg),
+                plain,
+                fontsize=_PROSE_PT,
+                fontname=note_fname,
+                fontfile=str(note_font),
                 align=pymupdf.TEXT_ALIGN_CENTER,
             )
             if rc < 0:
@@ -1288,14 +1430,14 @@ def compose_tekstblad_pagina_pdf_from_body(
                 note_rect = pymupdf.Rect(_MARGIN, y, _A4_W - _MARGIN, y + note_h)
                 rc = page.insert_textbox(
                     note_rect,
-                    note,
-                    fontsize=11.0,
-                    fontname="koormap-note",
-                    fontfile=str(font_reg),
+                    plain,
+                    fontsize=_PROSE_PT,
+                    fontname=note_fname,
+                    fontfile=str(note_font),
                     align=pymupdf.TEXT_ALIGN_CENTER,
                 )
                 if rc < 0:
-                    raise RuntimeError(f"toelichting past niet: {note!r}")
+                    raise RuntimeError(f"toelichting past niet: {plain!r}")
             y += note_h + 8.0
 
         y += 4.0
@@ -1415,7 +1557,7 @@ def catalogus_needs_voorzien_pdf(md_path: Path) -> str | None:
 def catalogus_tekstblad_pagina_job(
     md_path: Path,
 ) -> tuple[str, Path] | None:
-    """Leaf-id + ``*.tekstblad.md`` als deze leaf een tekstblad-pagina.pdf krijgt."""
+    """Leaf-id + ``*.tekstblad.md`` als deze catalogus-leaf een tekstblad-PDF krijgt."""
     leaf_id = catalogus_leaf_id(md_path)
     if not leaf_id:
         return None
@@ -1425,6 +1567,67 @@ def catalogus_tekstblad_pagina_job(
     if tb_md is None:
         return None
     return leaf_id, tb_md
+
+
+def _tekstblad_only_from_bieb_flows(
+    flows: list[PageFlow],
+) -> tuple[str, Path] | None:
+    """Eerste ``bieb``-id die alleen ``.tekstblad.md`` heeft (geen notatiebron).
+
+    Gemengde bladen (notatie + tekstblad, of inline ``::: vsa``) → ``None``
+    zodat het gewone SVG-compose-pad (of skip) geldt.
+    """
+    if any(
+        isinstance(item, InlineVsaItem)
+        for flow in flows
+        for item in flow.items
+    ):
+        return None
+    ordered: list[str] = []
+    seen: set[str] = set()
+    for flow in flows:
+        for mid in flow.music_ids:
+            if mid in seen:
+                continue
+            seen.add(mid)
+            ordered.append(mid)
+    if not ordered:
+        return None
+    first: tuple[str, Path] | None = None
+    for mid in ordered:
+        if try_find_notation_source(mid) is not None:
+            return None
+        tb_md = find_tekstblad_md(mid)
+        if tb_md is None:
+            return None
+        if first is None:
+            first = (mid, tb_md)
+    return first
+
+
+def resolve_tekstblad_pagina_job(
+    md_path: Path,
+) -> tuple[str, Path] | None:
+    """Tekstblad-pagina-PDF: catalogus-leaf of koormap-slot via ``bieb``.
+
+    Zo kan ``pdf.cmd`` ook naast
+    ``koormappen/…/07d-dialoog-met-diaken/index.md`` een ``index.md.pdf``
+    zetten (download/print vanaf de koormap).
+    """
+    cat = catalogus_tekstblad_pagina_job(md_path)
+    if cat is not None:
+        return cat
+    try:
+        text = md_path.read_text(encoding="utf-8")
+    except OSError:
+        return None
+    if "bieb" not in text:
+        return None
+    try:
+        flows = parse_page_flows(text)
+    except ValueError:
+        return None
+    return _tekstblad_only_from_bieb_flows(flows)
 
 
 def _catalogus_tekstblad_pagina_title(leaf_id: str) -> str:
@@ -1438,6 +1641,22 @@ def _catalogus_tekstblad_pagina_title(leaf_id: str) -> str:
     return derived_leaf_title(
         leaf_id, leaf_dir=CATALOGUS.joinpath(*leaf_id.split("/"))
     )
+
+
+def _tekstblad_pagina_title(md_path: Path, text: str, leaf_id: str) -> str:
+    """Titel voor tekstblad-``index.md.pdf``: kop op de pagina, anders catalogus."""
+    try:
+        flows = parse_page_flows(text)
+    except ValueError:
+        flows = []
+    for flow in flows:
+        for item in flow.items:
+            if isinstance(item, TitleItem) and item.prominent:
+                return item.text
+    fm = _frontmatter_title(md_path)
+    if fm:
+        return fm
+    return _catalogus_tekstblad_pagina_title(leaf_id)
 
 
 def _svg_page_index(path: Path) -> int:
@@ -1628,6 +1847,15 @@ def export_blad_svgs(
     if pages:
         return pages
     raise RuntimeError(f"SVG ontbreekt na export: {dest}")
+
+
+def export_inline_vsa_svg(body: str, dest: Path) -> list[Path]:
+    """Schrijf tijdelijke ``.vsa`` uit een fence-body en exporteer kale SVG."""
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    vsa_path = dest.with_suffix(".vsa")
+    vsa_path.write_text(body.rstrip() + "\n", encoding="utf-8")
+    detail(f"  SVG (inline ::: vsa) → {dest.name}")
+    return export_blad_svgs(vsa_path, dest, compact=False)
 
 
 def _export_product_svg_for_pdf(
@@ -2086,27 +2314,37 @@ def _compose_flow_svg(
         ) from exc
 
     svg_series: dict[str, list[Path]] = {}
+    # Documentvolgorde (inclusief herhaalde ids) voor schaal/hoogte-som.
+    music_keys: list[str] = []
     for item in flow.items:
         if isinstance(item, MusicItem):
-            if item.uv_id in svg_series:
+            key = item.uv_id
+            music_keys.append(key)
+            if key in svg_series:
                 continue
             source = find_notation_source(item.uv_id)
             from input_paths import rel_for_log
 
             detail(f"  bron {rel_for_log(source, repo_root=ROOT)}")
-            svg_series[item.uv_id] = resolve_svgs_for_pdf(
+            svg_series[key] = resolve_svgs_for_pdf(
                 source,
                 work,
                 uv_id=item.uv_id,
                 compact=item.compact,
                 translit_modus=translit_modus,
             )
+        elif isinstance(item, InlineVsaItem):
+            music_keys.append(item.key)
+            if item.key in svg_series:
+                continue
+            inline_svg = work / f"{item.key}.svg"
+            svg_series[item.key] = export_inline_vsa_svg(item.body, inline_svg)
 
     # Per blad-SVG een PDF-pagina (afmetingen + systeemsnee)
     svg_pdfs: dict[str, list[object]] = {}
     sizes: dict[str, list[tuple[float, float]]] = {}
     cuts_map: dict[str, list[list[float]]] = {}
-    for uv_id, paths in svg_series.items():
+    for key, paths in svg_series.items():
         docs: list[object] = []
         dims: list[tuple[float, float]] = []
         cuts_list: list[list[float]] = []
@@ -2119,12 +2357,12 @@ def _compose_flow_svg(
             docs.append(src)
             dims.append((sw, sh))
             cuts_list.append(system_cut_points_pdf(svg_path, sh))
-        svg_pdfs[uv_id] = docs
-        sizes[uv_id] = dims
-        cuts_map[uv_id] = cuts_list
+        svg_pdfs[key] = docs
+        sizes[key] = dims
+        cuts_map[key] = cuts_list
         n_cuts = sum(len(c) for c in cuts_list)
         detail(
-            f"  systeemsnee {uv_id}: {n_cuts} snijpunt(en) "
+            f"  systeemsnee {key}: {n_cuts} snijpunt(en) "
             f"over {len(paths)} SVG('s)"
         )
 
@@ -2133,9 +2371,6 @@ def _compose_flow_svg(
         avail = _A4_H - 2 * _MARGIN
         gap = 4.0  # strak, vergelijkbaar met scan-koormap
 
-        music_ids = [
-            i.uv_id for i in flow.items if isinstance(i, MusicItem)
-        ]
         n_text = sum(1 for i in flow.items if isinstance(i, TextItem))
         space_pts = sum(
             i.points for i in flow.items if isinstance(i, SpaceItem)
@@ -2148,10 +2383,10 @@ def _compose_flow_svg(
         n_items = len(flow.items)
         n_gaps = max(0, n_items - 1)
         # Extra gaps tussen bladreeks-pagina's van hetzelfde stuk
-        n_page_gaps = sum(max(0, len(sizes[mid]) - 1) for mid in music_ids)
-        sum_sh = sum(h for mid in music_ids for _, h in sizes[mid])
+        n_page_gaps = sum(max(0, len(sizes[mid]) - 1) for mid in music_keys)
+        sum_sh = sum(h for mid in music_keys for _, h in sizes[mid])
         max_sw = max(
-            (w for mid in music_ids for w, _ in sizes[mid]),
+            (w for mid in music_keys for w, _ in sizes[mid]),
             default=content_w,
         )
 
@@ -2325,10 +2560,15 @@ def _compose_flow_svg(
                 if y + item.points > _A4_H - _MARGIN and y > _MARGIN + 1:
                     new_page()
                 y += item.points
-            else:
-                docs = svg_pdfs[item.uv_id]
-                dims = sizes[item.uv_id]
-                cut_lists = cuts_map[item.uv_id]
+            elif isinstance(item, (MusicItem, InlineVsaItem)):
+                key = (
+                    item.uv_id
+                    if isinstance(item, MusicItem)
+                    else item.key
+                )
+                docs = svg_pdfs[key]
+                dims = sizes[key]
+                cut_lists = cuts_map[key]
                 use_cuts = not item.compact
                 for page_i, (src, (sw, sh), cuts) in enumerate(
                     zip(docs, dims, cut_lists)
@@ -2367,7 +2607,7 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
         compose_voorzien_pdf(out, title=title)
         return out
 
-    tekstblad_job = catalogus_tekstblad_pagina_job(md_path)
+    tekstblad_job = resolve_tekstblad_pagina_job(md_path)
     if tekstblad_job is not None:
         leaf_id, tb_md = tekstblad_job
         deps = [md_path, tb_md]
@@ -2375,7 +2615,7 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
             newest = max(p.stat().st_mtime for p in deps if p.is_file())
             if out.stat().st_mtime >= newest:
                 return out
-        title = _catalogus_tekstblad_pagina_title(leaf_id)
+        title = _tekstblad_pagina_title(md_path, text, leaf_id)
         notes = prose_notes_from_catalogus_md(text)
         detail(f"  tekstblad-pagina {leaf_id}")
         compose_tekstblad_pagina_pdf(
@@ -2383,7 +2623,7 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
         )
         return out
 
-    if "bieb" not in text and "muziek" not in text:
+    if not _markdown_has_pagina_music(text):
         return None
     try:
         flows = parse_page_flows(text)
@@ -2393,7 +2633,8 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
     if not flows:
         return None
 
-    # Bronnen + product-SVG’s voor versheid (geen catalogus-PDF)
+    # Bronnen + product-SVG’s voor versheid (geen catalogus-PDF).
+    # Inline ::: vsa zit in de Markdown: mtime van index.md dekt die al.
     deps = [md_path]
     sources: list[Path] = []
     for flow in flows:

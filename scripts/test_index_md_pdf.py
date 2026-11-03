@@ -325,6 +325,84 @@ gewone alinea links
     assert items[2].text == "gewone alinea links"
 
 
+def test_parse_inline_vsa_fence_between_prose() -> None:
+    """``::: vsa`` / ``::: vsa-notatie`` worden muziek, niet proza-regels."""
+    text = """---
+title: "Demo"
+---
+
+{{< kop >}}Blad{{< /kop >}}
+
+{{< bieb id="a/b/c" />}}
+
+***Eer aan de Vader ...***
+
+### Tropaar
+
+::: vsa
+<!-- commentaar -->
+[:] {/Hei_}{/lig_} is de Heer. [//:]
+:::
+
+***Nu en altijd ...***
+
+::: vsa-notatie
+[:] Amen. [//:]
+:::
+"""
+    flows = pp.parse_page_flows(text)
+    assert len(flows) == 1
+    kinds = [type(i).__name__ for i in flows[0].items]
+    assert kinds == [
+        "TitleItem",
+        "MusicItem",
+        "TextItem",
+        "TitleItem",
+        "InlineVsaItem",
+        "TextItem",
+        "InlineVsaItem",
+    ]
+    first = flows[0].items[4]
+    assert isinstance(first, pp.InlineVsaItem)
+    assert first.key == "inline-vsa-1"
+    assert "Hei_" in first.body
+    assert "::: vsa" not in first.body
+    assert not first.compact
+    second = flows[0].items[6]
+    assert isinstance(second, pp.InlineVsaItem)
+    assert second.key == "inline-vsa-2"
+    assert "Amen" in second.body
+    assert flows[0].has_music
+    assert flows[0].music_ids == ["a/b/c"]
+
+
+def test_parse_inline_vsa_inside_bijelkaar_is_compact() -> None:
+    text = """
+{{< pdf-bijelkaar >}}
+
+::: vsa
+[:] {/Hei_}{/lig_}. [//:]
+:::
+
+{{< /pdf-bijelkaar >}}
+"""
+    flows = pp.parse_page_flows(text)
+    assert len(flows) == 1
+    item = flows[0].items[0]
+    assert isinstance(item, pp.InlineVsaItem)
+    assert item.compact
+    assert flows[0].any_compact
+
+
+def test_parse_unclosed_inline_vsa_raises() -> None:
+    text = """
+::: vsa
+[:] {/Hei_}{/lig_}. [//:]
+"""
+    with pytest.raises(ValueError, match="sluitende"):
+        pp.parse_page_flows(text)
+
+
 def test_build_colofon_when_missing_vbox(tmp_path, monkeypatch) -> None:
     cat = tmp_path / "catalogus"
     leaf = cat / "a" / "b" / "c"
@@ -494,6 +572,16 @@ Dit is alleen van toepassing in een Liturgie waarin ook een Diaken deelneemt.
     ]
 
 
+def test_md_inline_plain_and_style() -> None:
+    assert pp._md_inline_plain_and_style("***vet cursief***") == (
+        "vet cursief",
+        "bolditalic",
+    )
+    assert pp._md_inline_plain_and_style("**vet**") == ("vet", "bold")
+    assert pp._md_inline_plain_and_style("*cursief*") == ("cursief", "italic")
+    assert pp._md_inline_plain_and_style("gewoon") == ("gewoon", "normal")
+
+
 def test_compose_tekstblad_pagina_pdf_trims_and_titles(tmp_path: Path) -> None:
     import pymupdf
 
@@ -510,7 +598,7 @@ def test_compose_tekstblad_pagina_pdf_trims_and_titles(tmp_path: Path) -> None:
         dest,
         title="(7d) Dialoog met Diaken",
         notes=[
-            "Dit is alleen van toepassing in een Liturgie waarin ook een Diaken deelneemt."
+            "***Dit is alleen van toepassing in een Liturgie waarin ook een Diaken deelneemt.***"
         ],
         body_pdf=src_path,
     )
@@ -522,6 +610,7 @@ def test_compose_tekstblad_pagina_pdf_trims_and_titles(tmp_path: Path) -> None:
         doc.close()
     assert "(7d) Dialoog met Diaken" in text
     assert "Diaken deelneemt" in text
+    assert "***" not in text
     assert "Laat ons de Here bidden" in text
 
 

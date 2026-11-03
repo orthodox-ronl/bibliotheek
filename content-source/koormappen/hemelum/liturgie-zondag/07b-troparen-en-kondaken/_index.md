@@ -1,6 +1,6 @@
 ---
 title: "(07b) Troparen en Kondaken"
-weight: 072
+weight: 72
 nav_sort: weight
 publicatiestatus: concept
 automatische_inhoud: true

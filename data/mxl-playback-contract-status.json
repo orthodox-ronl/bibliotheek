@@ -344,6 +344,12 @@
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid --skip-post",
       "issues": []
     },
+    "catalogus/ektinia/tweede-kleine/hemelum-ksl/ektinia-tweede-kleine-hemelum-ksl.mvsa.mxl": {
+      "profile": "satb",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid --skip-post",
+      "issues": []
+    },
     "catalogus/ektinia/vragend-16/hemelum/ektinia-vragend-16-hemelum.mvsa.mxl": {
       "profile": "satb",
       "ok": true,
@@ -926,8 +932,20 @@
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid --skip-post",
       "issues": []
     },
+    "catalogus/tropaar/nikolaas-van-myra-toon-4/hemelum/tropaar-nikolaas-van-myra-toon-4-hemelum.vsa.mxl": {
+      "profile": "mono",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid --skip-post",
+      "issues": []
+    },
     "catalogus/tropaar/nikolaas-van-myra-toon-4/liturgikon/tropaar-nikolaas-van-myra-toon-4-liturgikon.vsa.mxl": {
       "profile": "mono",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid --skip-post",
+      "issues": []
+    },
+    "catalogus/tropaar/nikolaas-van-myra-toon-4/print/tropaar-nikolaas-van-myra-toon-4-print.mscz.mxl": {
+      "profile": "satb",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds mscz,mvsa,vsa --only-invalid --skip-post",
       "issues": []

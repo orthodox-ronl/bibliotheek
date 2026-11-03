@@ -114,7 +114,9 @@ def collect_statuses() -> list[FolderStatus]:
         try:
             job = pagina_pdf_job(md)
         except ValueError as exc:
-            if "bieb" in text or "muziek" in text:
+            from index_md_pdf import _markdown_has_pagina_music
+
+            if _markdown_has_pagina_music(text):
                 statuses.append(check_parse_error(md, str(exc)))
             continue
         if job is None:

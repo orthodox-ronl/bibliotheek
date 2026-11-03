@@ -1,6 +1,6 @@
 ---
-title: "(4a) Tweede Antifoon (weekdagen)"
-weight: 41
+title: "(4) Tweede Antifoon (weekdagen)"
+weight: 40
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

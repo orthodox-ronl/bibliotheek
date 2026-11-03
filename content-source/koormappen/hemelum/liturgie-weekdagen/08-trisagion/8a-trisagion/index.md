@@ -1,6 +1,6 @@
 ---
 title: "(8a) Trisagion (Nederlands)"
-weight: 081
+weight: 81
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

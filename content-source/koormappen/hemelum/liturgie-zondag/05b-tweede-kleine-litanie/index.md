@@ -1,6 +1,6 @@
 ---
-title: "(4b) 2e Kleine Litanie"
-weight: 42
+title: "(5b) 2e Kleine Litanie"
+weight: 52
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---
@@ -11,6 +11,6 @@ automatische_inhoud: false
 
 {{< witruimte groot >}}
 
-{{< kop >}}(4b) Малая ектения{{< /kop >}}
+{{< kop >}}(5b) Малая ектения{{< /kop >}}
 
 {{< bieb id="ektinia/tweede-kleine/hemelum-ksl" />}}

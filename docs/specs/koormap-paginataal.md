@@ -328,12 +328,15 @@ SVG/mscz/tekstblad wél en nog niet eisen.
 Org-/tooling-richting (print vs scherm): kale tall-SVG (catalogusproduct)
 voor scherm-fallback én print-bouwsteen. `pdf.cmd` bouwt `index.md.pdf` uit
 die sibling-SVG + Markdown (geen catalogus-PDF-plak; geen MuseScore als de
-SVG vers is — herkomststempel past bij de bron). Compose snijdt op
-systeembrenzen, zodat rest-ruimte na titel/proza op dezelfde A4-pagina wél
-met muziek wordt gevuld. Een **systeem** is de groep notenbalken binnen één
-accolade (in de MuseScore-SVG: `Bracket`; snede via ``StaffLines``). De snede
-valt in de ruimte tussen die systemen, nooit tussen de sopraan- en de basbalk
-van hetzelfde systeem. Zonder accolade is elke notenbalk een systeem. Een
+SVG vers is — herkomststempel past bij de bron). Inline eenstemmige
+blokken `::: vsa` / `::: vsa-notatie` in de pagina-Markdown worden bij die
+bouw naar SVG gerenderd en in documentvolgorde meegenomen (zelfde alias
+als VSA-tooling). Compose snijdt op systeembrenzen, zodat rest-ruimte na
+titel/proza op dezelfde A4-pagina wél met muziek wordt gevuld. Een
+**systeem** is de groep notenbalken binnen één accolade (in de
+MuseScore-SVG: `Bracket`; snede via ``StaffLines``). De snede valt in de
+ruimte tussen die systemen, nooit tussen de sopraan- en de basbalk van
+hetzelfde systeem. Zonder accolade is elke notenbalk een systeem. Een
 pure `.vsa.svg` (geen MuseScore-notenbalken) snijdt tussen de tekstregels
 (`vsa-line`). Ontbreekt of is de SVG verouderd: alleen lokaal opnieuw
 exporteren (en stempelen). Versheid van `index.md.pdf` hangt ook van die

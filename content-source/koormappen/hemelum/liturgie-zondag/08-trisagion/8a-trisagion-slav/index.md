@@ -1,6 +1,6 @@
 ---
 title: "(8a) Trisagion (met Slavisch)"
-weight: 082
+weight: 82
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---

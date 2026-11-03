@@ -399,6 +399,13 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\ektinia\\tweede-kleine\\hemelum\\ektinia-tweede-kleine-hemelum.mvsa"
   },
   {
+    "dir": "catalogus/ektinia/tweede-kleine/hemelum-ksl",
+    "source": "catalogus/ektinia/tweede-kleine/hemelum-ksl/ektinia-tweede-kleine-hemelum-ksl.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\ektinia\\tweede-kleine\\hemelum-ksl\\ektinia-tweede-kleine-hemelum-ksl.mvsa"
+  },
+  {
     "dir": "catalogus/ektinia/vragend-16/hemelum",
     "source": "catalogus/ektinia/vragend-16/hemelum/ektinia-vragend-16-hemelum.mvsa",
     "ok": true,
@@ -1078,11 +1085,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\marina-grootmartelares-toon-4\\hemelum\\tropaar-marina-grootmartelares-toon-4-hemelum.vsa"
   },
   {
+    "dir": "catalogus/tropaar/nikolaas-van-myra-toon-4/hemelum",
+    "source": "catalogus/tropaar/nikolaas-van-myra-toon-4/hemelum/tropaar-nikolaas-van-myra-toon-4-hemelum.vsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\nikolaas-van-myra-toon-4\\hemelum\\tropaar-nikolaas-van-myra-toon-4-hemelum.vsa"
+  },
+  {
     "dir": "catalogus/tropaar/nikolaas-van-myra-toon-4/liturgikon",
     "source": "catalogus/tropaar/nikolaas-van-myra-toon-4/liturgikon/tropaar-nikolaas-van-myra-toon-4-liturgikon.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\nikolaas-van-myra-toon-4\\liturgikon\\tropaar-nikolaas-van-myra-toon-4-liturgikon.vsa"
+  },
+  {
+    "dir": "catalogus/tropaar/nikolaas-van-myra-toon-4/print",
+    "source": "catalogus/tropaar/nikolaas-van-myra-toon-4/print/tropaar-nikolaas-van-myra-toon-4-print.mscz",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\nikolaas-van-myra-toon-4\\print\\tropaar-nikolaas-van-myra-toon-4-print.mscz"
   },
   {
     "dir": "catalogus/tropaar/ontslapen-moeder-gods-toon-1/hemelum",
