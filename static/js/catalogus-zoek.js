@@ -100,7 +100,10 @@
       const btn = wrap.querySelector(".catalogus-zoek-rate-trigger");
       const panel = wrap.querySelector(".catalogus-zoek-rate-panel");
       if (btn) btn.setAttribute("aria-expanded", "false");
-      if (panel) panel.hidden = true;
+      if (panel) {
+        panel.hidden = true;
+        clearTipPanel(panel);
+      }
     });
   }
 
@@ -305,13 +308,30 @@
       "Bewust als oefenmateriaal vrijgegeven. Meld fouten alsnog als je ze tegenkomt.",
   };
 
+  function placeTipPanel(panel) {
+    if (!panel) return;
+    if (typeof window.bibliotheekPlacePopover === "function") {
+      window.bibliotheekPlacePopover(panel);
+    }
+  }
+
+  function clearTipPanel(panel) {
+    if (!panel) return;
+    if (typeof window.bibliotheekClearPopover === "function") {
+      window.bibliotheekClearPopover(panel);
+    }
+  }
+
   function closeAllTips(root) {
     root.querySelectorAll(".catalogus-zoek-tip.is-open").forEach(function (tip) {
       tip.classList.remove("is-open");
       const btn = tip.querySelector(".catalogus-zoek-tip-trigger");
       const panel = tip.querySelector(".catalogus-zoek-tip-panel");
       if (btn) btn.setAttribute("aria-expanded", "false");
-      if (panel) panel.hidden = true;
+      if (panel) {
+        panel.hidden = true;
+        clearTipPanel(panel);
+      }
     });
   }
 
@@ -324,7 +344,12 @@
     if (tip && open) {
       tip.classList.add("is-open");
       tipTrigger.setAttribute("aria-expanded", "true");
-      if (panel) panel.hidden = false;
+      if (panel) {
+        panel.hidden = false;
+        requestAnimationFrame(function () {
+          placeTipPanel(panel);
+        });
+      }
     }
   }
 
@@ -716,7 +741,12 @@
         if (wrap && open) {
           wrap.classList.add("is-open");
           rateTrigger.setAttribute("aria-expanded", "true");
-          if (panel) panel.hidden = false;
+          if (panel) {
+            panel.hidden = false;
+            requestAnimationFrame(function () {
+              placeTipPanel(panel);
+            });
+          }
         }
         return;
       }
@@ -751,6 +781,17 @@
       ev.preventDefault();
       ev.stopPropagation();
       toggleTip(root, tipTrigger);
+    });
+
+    // Hover-status tips: panel via CSS; schuif bij zichtbaar worden binnen het venster.
+    root.addEventListener("mouseover", function (ev) {
+      const tip = ev.target.closest(".catalogus-zoek-tip--status");
+      if (!tip || !root.contains(tip)) return;
+      const panel = tip.querySelector(".catalogus-zoek-tip-panel");
+      if (!panel) return;
+      requestAnimationFrame(function () {
+        placeTipPanel(panel);
+      });
     });
 
     document.addEventListener("click", function (ev) {

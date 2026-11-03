@@ -22,14 +22,27 @@
     -}}
 {{- $label := index $labels $key | default $raw -}}
 {{- $meaning := index $meanings $key | default "" -}}
+{{- $biebId := "" -}}
+{{- if and .File (eq .Section "catalogus") -}}
+  {{- $dir := strings.TrimSuffix "/" (replace .File.Dir "\\" "/") -}}
+  {{- if strings.HasPrefix $dir "catalogus/" -}}
+    {{- $rel := strings.TrimPrefix "catalogus/" $dir -}}
+    {{- $segs := split $rel "/" -}}
+    {{- if eq (len $segs) 3 -}}
+      {{- $biebId = partial "catalogus-canonical-id.html" (delimit $segs "/") -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
 {{- $email := site.Params.feedback_email -}}
 {{- $github := site.Params.linksGithub | default "https://github.com/orthodox-ronl/bibliotheek" -}}
 {{- $pageTitle := partial "display-title.html" . -}}
 {{- $pageURL := .Permalink -}}
+{{- $idLine := "" -}}
+{{- with $biebId -}}{{- $idLine = printf "Bibliotheek-id: %s\n" . -}}{{- end -}}
 {{- $mailSubject := printf "Oefenhoek: %s (%s)" $pageTitle $label -}}
-{{- $mailBody := printf "Pagina: %s\nAdres: %s\n\nUw opmerking:\n" $pageTitle $pageURL -}}
+{{- $mailBody := printf "Pagina: %s\nAdres: %s\n%s\nUw opmerking:\n" $pageTitle $pageURL $idLine -}}
 {{- $issueTitle := printf "Oefenhoek: %s" $pageTitle -}}
-{{- $issueBody := printf "Pagina: %s\nAdres: %s\n\nOpmerking:\n" $pageTitle $pageURL -}}
+{{- $issueBody := printf "Pagina: %s\nAdres: %s\n%s\nOpmerking:\n" $pageTitle $pageURL $idLine -}}
 {{- $mailto := printf "mailto:%s?subject=%s&body=%s" $email ($mailSubject | urlquery) ($mailBody | urlquery) -}}
 {{- $issue := printf "%s/issues/new?title=%s&body=%s" $github ($issueTitle | urlquery) ($issueBody | urlquery) -}}
 <details class="publicatiestatus-tip" data-publicatiestatus="{{ $key }}">
@@ -40,6 +53,9 @@
   >?</summary>
   <div class="publicatiestatus-tip-panel">
     <p><strong>{{ $label }}:</strong> {{ $meaning }}</p>
+    {{- with $biebId -}}
+    <p class="publicatiestatus-tip-id">Bibliotheek-id: <code>{{ . }}</code></p>
+    {{- end -}}
     <p class="publicatiestatus-tip-feedback">
       Feedback:
       {{ if $email }}<a href="{{ $mailto }}">e-mail</a>{{ end }}{{ if and $email $github }}
