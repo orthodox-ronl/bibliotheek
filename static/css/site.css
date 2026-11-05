@@ -848,6 +848,22 @@ code.catalogus-id {
   text-align: left;
   white-space: normal;
   pointer-events: none;
+  box-sizing: border-box;
+}
+
+/* JS zet tips tijdelijk fixed in het venster (geen overflow-afknip). */
+.site-chrome-tip-panel.is-popover-placed,
+.publicatiestatus-tip-panel.is-popover-placed,
+.catalogus-zoek-tip-panel.is-popover-placed,
+.catalogus-zoek-rate-panel.is-popover-placed,
+.score-oefen-tip-panel.is-popover-placed,
+.score-bron-tip-panel.is-popover-placed,
+.score-action-help.is-popover-placed,
+.score-action-menu-panel.is-popover-placed,
+.site-nav-menu.is-popover-placed {
+  position: fixed;
+  z-index: 200;
+  margin: 0;
 }
 
 .site-chrome-tip-panel::before {
@@ -1992,6 +2008,17 @@ body.score-audio-bar-open {
     right: calc(100% + 0.4rem);
   }
 
+  /* Te dicht bij de rand: label naar de andere kant. */
+  .score-oefen-tip-trigger.score-tip-label--flip::before {
+    left: auto;
+    right: calc(100% + 0.4rem);
+  }
+
+  .score-bron-tip-trigger.score-tip-label--flip::before {
+    left: calc(100% + 0.4rem);
+    right: auto;
+  }
+
   .score-oefen-tip-trigger:hover::before,
   .score-oefen-tip-trigger:focus-visible::before,
   .score-bron-tip-trigger:hover::before,
@@ -2912,6 +2939,7 @@ body.score-audio-bar-open {
   border-radius: 6px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
   text-align: left;
+  box-sizing: border-box;
 }
 
 .catalogus-zoek-tip-panel p {

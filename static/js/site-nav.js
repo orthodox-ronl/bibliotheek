@@ -33,14 +33,21 @@
       groups.forEach(function (other) {
         if (other !== group) other.open = false;
       });
-      // Open dropdown kan de chrome hoger maken.
       syncChromeHeight();
+      if (group.open) {
+        requestAnimationFrame(function () {
+          placePopoverInViewport(group.querySelector(".site-nav-menu"), group);
+        });
+      }
     });
   });
 
   document.addEventListener("click", function (event) {
     groups.forEach(function (group) {
-      if (group.open && !group.contains(event.target)) group.open = false;
+      if (group.open && !group.contains(event.target)) {
+        group.open = false;
+        clearPopoverShift(group.querySelector(".site-nav-menu"));
+      }
     });
     document.querySelectorAll("details.publicatiestatus-tip[open]").forEach(function (tip) {
       if (!tip.contains(event.target)) tip.open = false;
@@ -51,34 +58,185 @@
     syncChromeHeight();
   });
 
-  /* Houd absolute tip-/help-panelen binnen het venster (links/rechts/onder/boven). */
+  var MARGIN = 8;
+  /* Kleine overlap i.p.v. gat: anders verliest :hover de tip bij fixed-plaatsing. */
+  var GAP = 2;
+
   function clearPopoverShift(panel) {
     if (!panel) return;
     panel.style.transform = "";
+    panel.style.position = "";
+    panel.style.left = "";
+    panel.style.right = "";
+    panel.style.top = "";
+    panel.style.bottom = "";
+    panel.style.width = "";
+    panel.style.maxWidth = "";
+    panel.style.minWidth = "";
+    panel.classList.remove("is-popover-placed");
   }
 
-  function placePopoverInViewport(panel) {
+  function findPopoverAnchor(panel) {
+    if (!panel) return null;
+    var wrap = panel.closest(
+      ".site-chrome-tip, .catalogus-zoek-tip, .catalogus-zoek-rate, .publicatiestatus-tip, .score-oefen-tip, .score-bron-tip, .score-action-menu, .site-nav-group"
+    );
+    if (!wrap) return panel.parentElement;
+    if (wrap.matches(".site-nav-group")) {
+      return wrap.querySelector("summary") || wrap;
+    }
+    if (wrap.matches(".publicatiestatus-tip, .score-oefen-tip, .score-bron-tip")) {
+      return wrap.querySelector("summary") || wrap;
+    }
+    if (wrap.matches(".catalogus-zoek-tip, .catalogus-zoek-rate")) {
+      return (
+        wrap.querySelector(
+          ".catalogus-zoek-tip-trigger, .catalogus-zoek-rate-trigger"
+        ) || wrap
+      );
+    }
+    if (wrap.matches(".score-action-menu")) {
+      return (
+        wrap.querySelector(
+          ":scope > .score-action-menu-trigger, :scope > .btn, :scope > a.btn, :scope > button"
+        ) || wrap
+      );
+    }
+    /* site-chrome-tip: knop / label / zoek-toggle */
+    return (
+      wrap.querySelector(
+        ":scope > a, :scope > button, :scope > label, :scope > .site-zoek-toggle, :scope > summary"
+      ) || wrap
+    );
+  }
+
+  function prefersEndAlign(panel) {
+    if (!panel) return false;
+    if (panel.classList.contains("site-chrome-tip-panel--end")) return true;
+    if (panel.closest(".catalogus-zoek-tip--id, .catalogus-zoek-tip--help")) {
+      return true;
+    }
+    if (panel.classList.contains("publicatiestatus-tip-panel")) return true;
+    if (panel.classList.contains("score-bron-tip-panel")) return true;
+    var cs = panel.getAttribute("data-popover-align");
+    return cs === "end";
+  }
+
+  function prefersAbove(panel) {
+    if (!panel) return false;
+    if (panel.classList.contains("score-action-help")) return true;
+    if (panel.classList.contains("catalogus-zoek-rate-panel")) return true;
+    if (panel.closest(".catalogus-zoek-tip--id")) return true;
+    return false;
+  }
+
+  function prefersBeside(panel) {
+    return !!(
+      panel &&
+      (panel.classList.contains("score-oefen-tip-panel") ||
+        panel.classList.contains("score-bron-tip-panel"))
+    );
+  }
+
+  /**
+   * Zet tip-/menu-panelen met position:fixed in het venster.
+   * Ontsnapt overflow op html/body/header; voorkomt afknippen rechts/links.
+   */
+  function placePopoverInViewport(panel, anchor) {
     if (!panel) return;
     clearPopoverShift(panel);
-    var rect = panel.getBoundingClientRect();
-    if (!(rect.width > 0) || !(rect.height > 0)) return;
-    var margin = 8;
-    var dx = 0;
-    var dy = 0;
-    if (rect.right > window.innerWidth - margin) {
-      dx -= rect.right - (window.innerWidth - margin);
+
+    var hadHidden = panel.hasAttribute("hidden");
+    if (hadHidden) panel.hidden = false;
+
+    var prevDisplay = panel.style.display;
+    var cs = getComputedStyle(panel);
+    var forcedDisplay = false;
+    if (cs.display === "none") {
+      panel.style.setProperty("display", "block", "important");
+      forcedDisplay = true;
     }
-    if (rect.left + dx < margin) {
-      dx += margin - (rect.left + dx);
+
+    var anchorEl = anchor || findPopoverAnchor(panel);
+    if (!anchorEl) {
+      if (forcedDisplay) panel.style.display = prevDisplay;
+      if (hadHidden) panel.hidden = true;
+      return;
     }
-    if (rect.bottom > window.innerHeight - margin) {
-      dy -= rect.bottom - (window.innerHeight - margin);
+
+    var a = anchorEl.getBoundingClientRect();
+    var vw = window.innerWidth;
+    var vh = window.innerHeight;
+    var maxW = Math.max(120, vw - MARGIN * 2);
+
+    panel.classList.add("is-popover-placed");
+    panel.style.position = "fixed";
+    panel.style.right = "auto";
+    panel.style.bottom = "auto";
+    panel.style.left = "0px";
+    panel.style.top = "0px";
+    panel.style.maxWidth = maxW + "px";
+    var pw = Math.min(panel.offsetWidth || 0, maxW);
+    if (pw > 0) panel.style.width = Math.round(pw) + "px";
+    var ph = panel.offsetHeight || 0;
+    if (!(pw > 0) || !(ph > 0)) {
+      clearPopoverShift(panel);
+      if (forcedDisplay) panel.style.display = prevDisplay;
+      if (hadHidden) panel.hidden = true;
+      return;
     }
-    if (rect.top + dy < margin) {
-      dy += margin - (rect.top + dy);
+
+    var left;
+    var top;
+    var beside = prefersBeside(panel);
+    var end = prefersEndAlign(panel);
+
+    if (beside) {
+      /* ♪ rechts van knop, {} links — val terug naar onder bij te weinig ruimte. */
+      var sideLeft = end ? a.left - GAP - pw : a.right + GAP;
+      var sideOk =
+        sideLeft >= MARGIN && sideLeft + pw <= vw - MARGIN;
+      if (sideOk) {
+        left = sideLeft;
+        top = a.top;
+        if (top + ph > vh - MARGIN) {
+          top = Math.max(MARGIN, vh - MARGIN - ph);
+        }
+        if (top < MARGIN) top = MARGIN;
+      } else {
+        beside = false;
+      }
     }
-    if (dx || dy) {
-      panel.style.transform = "translate(" + dx + "px, " + dy + "px)";
+
+    if (!beside) {
+      left = end ? a.right - pw : a.left;
+      if (left + pw > vw - MARGIN) left = vw - MARGIN - pw;
+      if (left < MARGIN) left = MARGIN;
+
+      var above = prefersAbove(panel);
+      if (above) {
+        top = a.top - GAP - ph;
+        if (top < MARGIN) top = a.bottom + GAP;
+      } else {
+        top = a.bottom + GAP;
+        if (top + ph > vh - MARGIN) {
+          var up = a.top - GAP - ph;
+          if (up >= MARGIN) top = up;
+          else top = Math.max(MARGIN, vh - MARGIN - ph);
+        }
+      }
+      if (top + ph > vh - MARGIN) {
+        top = Math.max(MARGIN, vh - MARGIN - ph);
+      }
+      if (top < MARGIN) top = MARGIN;
+    }
+
+    panel.style.left = Math.round(left) + "px";
+    panel.style.top = Math.round(top) + "px";
+
+    if (forcedDisplay) {
+      /* Laat CSS (:hover / .is-open) de zichtbaarheid bepalen; fixed-coords blijven. */
+      panel.style.removeProperty("display");
     }
   }
 
@@ -90,30 +248,7 @@
     if (!help) return;
     help.classList.remove("score-action-help--below");
     help.style.top = "";
-    clearPopoverShift(help);
-    // Standaard boven de knop; z-index 110 legt over sticky chrome heen.
-    // Alleen omklappen als de popover nog buiten het venster valt.
-    var rect = help.getBoundingClientRect();
-    if (!(rect.height > 0) || rect.top >= 4) {
-      placePopoverInViewport(help);
-      return;
-    }
-    help.classList.add("score-action-help--below");
-    var panel = menu.querySelector(".score-action-menu-panel");
-    if (!panel) {
-      placePopoverInViewport(help);
-      return;
-    }
-    var panelStyle = getComputedStyle(panel);
-    if (panelStyle.display === "none") {
-      placePopoverInViewport(help);
-      return;
-    }
-    // Keuzelijst zit ook onder de knop: zet uitleg eronder, niet eroverheen.
-    var menuRect = menu.getBoundingClientRect();
-    var panelRect = panel.getBoundingClientRect();
-    help.style.top = panelRect.bottom - menuRect.top + 6 + "px";
-    placePopoverInViewport(help);
+    placePopoverInViewport(help, menu);
   }
 
   function placeScoreActionMenuPanel(menu) {
@@ -121,7 +256,7 @@
     if (!panel) return;
     var style = getComputedStyle(panel);
     if (style.display === "none") return;
-    placePopoverInViewport(panel);
+    placePopoverInViewport(panel, menu);
   }
 
   document.querySelectorAll(".score-action-menu").forEach(function (menu) {
@@ -137,40 +272,24 @@
       }
       placeScoreActionMenuPanel(menu);
     });
+    menu.addEventListener("mouseleave", function () {
+      clearPopoverShift(menu.querySelector(":scope > .score-action-help"));
+      clearPopoverShift(menu.querySelector(":scope > .score-action-menu-panel"));
+    });
   });
 
-  /* ♪/{}-klikpanelen: naast het icoon; verticaal gelijk aan knop, zo nodig omhoog. */
   function placeScoreTipPanel(tip) {
     var panel = tip.querySelector(".score-oefen-tip-panel, .score-bron-tip-panel");
     if (!panel) return;
-    clearPopoverShift(panel);
-    panel.style.top = "0px";
-    var rect = panel.getBoundingClientRect();
-    if (!(rect.height > 0)) return;
-    var margin = 8;
-    var shift = 0;
-    if (rect.bottom > window.innerHeight - margin) {
-      shift -= rect.bottom - (window.innerHeight - margin);
-    }
-    if (rect.top + shift < margin) {
-      shift += margin - (rect.top + shift);
-    }
-    if (shift !== 0) {
-      panel.style.top = shift + "px";
-    }
-    placePopoverInViewport(panel);
+    placePopoverInViewport(panel, tip);
   }
 
   function bindScoreTipPlacement(tip) {
     tip.addEventListener("toggle", function () {
       if (!tip.open) {
-        var panel = tip.querySelector(
-          ".score-oefen-tip-panel, .score-bron-tip-panel"
+        clearPopoverShift(
+          tip.querySelector(".score-oefen-tip-panel, .score-bron-tip-panel")
         );
-        if (panel) {
-          panel.style.top = "";
-          clearPopoverShift(panel);
-        }
         return;
       }
       requestAnimationFrame(function () {
@@ -183,6 +302,30 @@
     .querySelectorAll("details.score-oefen-tip, details.score-bron-tip")
     .forEach(bindScoreTipPlacement);
 
+  /* Hover-labels naast ♪/{}: spiegelen als ze van het scherm af lopen. */
+  document
+    .querySelectorAll(".score-oefen-tip-trigger, .score-bron-tip-trigger")
+    .forEach(function (trigger) {
+      trigger.addEventListener("mouseenter", function () {
+        trigger.classList.remove("score-tip-label--flip");
+        requestAnimationFrame(function () {
+          var tip = trigger.closest(".score-oefen-tip, .score-bron-tip");
+          var isBron = tip && tip.classList.contains("score-bron-tip");
+          var rect = trigger.getBoundingClientRect();
+          /* Pseudo-label ~ max 14rem; als te weinig ruimte: flip. */
+          var need = Math.min(14 * 16, window.innerWidth * 0.7) + 12;
+          if (isBron) {
+            if (rect.left < need) trigger.classList.add("score-tip-label--flip");
+          } else if (rect.right + need > window.innerWidth - MARGIN) {
+            trigger.classList.add("score-tip-label--flip");
+          }
+        });
+      });
+      trigger.addEventListener("mouseleave", function () {
+        trigger.classList.remove("score-tip-label--flip");
+      });
+    });
+
   document.querySelectorAll("details.publicatiestatus-tip").forEach(function (tip) {
     tip.addEventListener("toggle", function () {
       var panel = tip.querySelector(".publicatiestatus-tip-panel");
@@ -191,7 +334,7 @@
         return;
       }
       requestAnimationFrame(function () {
-        placePopoverInViewport(panel);
+        placePopoverInViewport(panel, tip);
       });
     });
   });
@@ -201,7 +344,7 @@
     if (!panel) return;
     function place() {
       requestAnimationFrame(function () {
-        placePopoverInViewport(panel);
+        placePopoverInViewport(panel, tip);
       });
     }
     tip.addEventListener("mouseenter", place);
@@ -213,19 +356,37 @@
 
   document.querySelectorAll(".site-chrome-tip").forEach(bindChromeTipPlacement);
 
-  function placeOpenScoreMenus() {
+  function placeOpenPopovers() {
     document
       .querySelectorAll(
         "details.score-oefen-tip[open], details.score-bron-tip[open]"
       )
       .forEach(placeScoreTipPanel);
     document
-      .querySelectorAll("details.publicatiestatus-tip[open] .publicatiestatus-tip-panel")
-      .forEach(placePopoverInViewport);
+      .querySelectorAll(
+        "details.publicatiestatus-tip[open] .publicatiestatus-tip-panel"
+      )
+      .forEach(function (panel) {
+        placePopoverInViewport(panel);
+      });
+    document.querySelectorAll("details.site-nav-group[open]").forEach(function (group) {
+      placePopoverInViewport(group.querySelector(".site-nav-menu"), group);
+    });
+    document.querySelectorAll(".catalogus-zoek-tip.is-open .catalogus-zoek-tip-panel").forEach(function (panel) {
+      placePopoverInViewport(panel);
+    });
+    document.querySelectorAll(".catalogus-zoek-rate.is-open .catalogus-zoek-rate-panel").forEach(function (panel) {
+      placePopoverInViewport(panel);
+    });
   }
 
-  window.addEventListener("resize", function () {
-    placeOpenScoreMenus();
-  });
+  window.addEventListener("resize", placeOpenPopovers);
+  window.addEventListener(
+    "scroll",
+    function () {
+      placeOpenPopovers();
+    },
+    true
+  );
 
 })();
