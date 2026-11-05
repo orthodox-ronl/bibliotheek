@@ -9,7 +9,7 @@ automatische_inhoud: false
 <!-- Compositieblad: prokimen en alleluia voor zondag in toon 5 (Kiev). -->
 
 {{< kop links middel >}}Prokimen{{< /kop >}}
-{{< bieb id="prokimen/9a-zondag-toon-5/groningen" />}}
+{{< bieb id="prokimen/zondag-toon-5/groningen" />}}
 
 {{< kop links middel >}}Alleluia{{< /kop >}}
 {{< bieb id="alleluia/9a-toon-5/groningen" />}}

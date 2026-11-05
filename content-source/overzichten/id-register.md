@@ -42,7 +42,7 @@ de melodieklasse (Kiev / znameni), niet het liturgienummer.
 | Koormap-pad | Bibliotheek-id (voorbeeld) | Status |
 | --- | --- | --- |
 | `9a-prokimen/weekdagen/` | `prokimen/9a-maandag/groningen` … `9a-zaterdag` | VSA; compositieblad |
-| `9a-prokimen/zondag-toon-N/` | `prokimen/9a-zondag-toon-N/groningen` + `alleluia/9a-toon-N/groningen` | alleluia: `.mvsa` (reviewable); prokimen zondag: voorzien |
+| `9a-prokimen/zondag-toon-N/` | `prokimen/zondag-toon-N/groningen` + `alleluia/9a-toon-N/groningen` | beide: `.mvsa` (reviewable) |
 | `9b-alleluia/` | `alleluia/9a-toon-1/groningen` … `9a-toon-8` | `.mvsa` (reviewable) |
 
 **Znameni (alleen register):** `prokimen/9b-{naam}/{uitvoeringsvorm}`,
