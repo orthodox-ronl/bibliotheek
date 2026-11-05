@@ -196,7 +196,7 @@ Kort overzicht (details en patronen blijven in speelplan.md):
    Playwright-steekproef is uit `check`/CI gehaald.
 
 Repro-voorbeeld volta: catalogus
-`alleluia/9a-toon-1/groningen` (`@speelplan 1, 2, 1, 2, 1, 3`).
+`alleluia/toon-1-kiev/groningen` (`@speelplan 1, 2, 1, 2, 1, 3`).
 
 ---
 
@@ -222,13 +222,13 @@ Repro-voorbeeld volta: catalogus
 | Site-titel | Het onderdeel `muziek` zet geen extra HTML-titel.                                                                                                                                                                                                                                                                          |
 
 **Steekproef (chrome OK):** catalogus
-`alleluia/9a-toon-1/groningen` — `.mvsa.svg` zonder zichtbare
+`alleluia/toon-1-kiev/groningen` — `.mvsa.svg` zonder zichtbare
 partituurtitel/componist, zonder valse 4/4 (`TimeSig`); wel maatnummers +
 volta. Enige `<title>mvsa-…</title>` is SVG-meta, geen bladkop. Technische
 gap-audit: VSA-tooling
 [`docs/plans/schermeisen-vereniging.md`](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/schermeisen-vereniging.md).
 
-**Steekproef (S8 / schermstand):** catalogus `alleluia/9a-toon-8/groningen` —
+**Steekproef (S8 / schermstand):** catalogus `alleluia/toon-8-kiev/groningen` —
 default **SVG** toont sibling `.mvsa.svg`; via {} kun je **OSMG** (from-ir)
 kiezen om te vergelijken. OSMD+adapter-doelbeeld blijft peilbaar met
 `s8-alleluia-hide-check.mjs` op de S8-experimentbranch.
@@ -273,7 +273,7 @@ Per geopende catalogus- of koormap-URL:
 2. Titels (§3): geen dubbele hoofdtitel; geen titel/credits **in** de partituurtekening?
 3. Chrome gedeeld (§4.1): geen partijnamen, metronoom, maatsoort; Source Sans 3; maatnummers (minstens één per systeem, bij voorkeur begin systeem) — **op OSMD én SVG**?
 4. Cues / centreren / wit (§4.2–4.3): leesbaar, niet afgekapt, niet over maatstrepen? Op OSMD: inklappen / cues niet meeschuiven / noten centreren. Op MuseScore-SVG: wrap + juiste maat volstaan nu; centreer/inklappen is best-effort tot scherm-SVG niet meer via MuseScore loopt.
-5. Speelplan (§4.4): bij bron met `@speelplan` — zichtbare herhaal/volta/D.S./… (niet alleen in het MusicXML-bestand)? Steekproef minstens `alleluia/9a-toon-1/groningen`.
+5. Speelplan (§4.4): bij bron met `@speelplan` — zichtbare herhaal/volta/D.S./… (niet alleen in het MusicXML-bestand)? Steekproef minstens `alleluia/toon-1-kiev/groningen`.
 6. Kolom / fallback (§5–7): SVG/mscz/tekstblad zichtbaar in de kolom; geen extra site-titel door `muziek`?
 7. Download: nav-pagina-PDF; tip-icoon **♪** (en op catalogus **{}**) werken?
 

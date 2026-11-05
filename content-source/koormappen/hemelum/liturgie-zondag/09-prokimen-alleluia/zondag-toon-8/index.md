@@ -12,4 +12,4 @@ automatische_inhoud: false
 {{< bieb id="prokimen/zondag-toon-8/groningen" />}}
 
 {{< kop links middel >}}Alleluia{{< /kop >}}
-{{< bieb id="alleluia/9a-toon-8/groningen" />}}
+{{< bieb id="alleluia/toon-8-kiev/groningen" />}}

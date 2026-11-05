@@ -63,7 +63,7 @@ als de Coria-`.mxl`. Ontbreekt of veroudert die, dan faalt
 # EXAMPLES
 
 ```cmd
-scripts\products.cmd --kinds audio alleluia\9a-toon-1\groningen
+scripts\products.cmd --kinds audio alleluia\toon-1-kiev\groningen
 scripts\products.cmd --kinds audio tropaar\maandag-toon-4\hemelum --force
 ```
 

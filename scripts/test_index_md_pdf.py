@@ -77,11 +77,11 @@ title: "9b Alleluia"
 
 {{< kop links middel >}}Toon 1{{< /kop >}}
 
-{{< bieb id="alleluia/9a-toon-1/groningen" />}}
+{{< bieb id="alleluia/toon-1-kiev/groningen" />}}
 
 {{< kop links middel >}}Toon 2{{< /kop >}}
 
-{{< bieb id="alleluia/9a-toon-2/groningen" />}}
+{{< bieb id="alleluia/toon-2-kiev/groningen" />}}
 
 {{< /pdf-bijelkaar >}}
 
@@ -89,7 +89,7 @@ title: "9b Alleluia"
 
 {{< kop links middel >}}Toon 5{{< /kop >}}
 
-{{< bieb id="alleluia/9a-toon-5/groningen" />}}
+{{< bieb id="alleluia/toon-5-kiev/groningen" />}}
 
 {{< /pdf-bijelkaar >}}
 """
@@ -98,10 +98,10 @@ title: "9b Alleluia"
     assert all(f.any_compact for f in flows)
 
     assert flows[0].music_ids == [
-        "alleluia/9a-toon-1/groningen",
-        "alleluia/9a-toon-2/groningen",
+        "alleluia/toon-1-kiev/groningen",
+        "alleluia/toon-2-kiev/groningen",
     ]
-    assert flows[1].music_ids == ["alleluia/9a-toon-5/groningen"]
+    assert flows[1].music_ids == ["alleluia/toon-5-kiev/groningen"]
 
     t0 = [i for i in flows[0].items if isinstance(i, pp.TitleItem)]
     assert [(i.text, i.prominent) for i in t0] == [

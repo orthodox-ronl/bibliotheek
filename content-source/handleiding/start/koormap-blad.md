@@ -146,9 +146,9 @@ Compositie met rubrieken (zoals alleluia-tonen):
 
 {{</* pdf-bijelkaar */>}}
 {{</* kop links middel */>}}Toon 1{{</* /kop */>}}
-{{</* bieb id="alleluia/9a-toon-1/groningen" */>}}
+{{</* bieb id="alleluia/toon-1-kiev/groningen" */>}}
 {{</* kop links middel */>}}Toon 2{{</* /kop */>}}
-{{</* bieb id="alleluia/9a-toon-2/groningen" */>}}
+{{</* bieb id="alleluia/toon-2-kiev/groningen" */>}}
 {{</* /pdf-bijelkaar */>}}
 ```
 

@@ -80,7 +80,7 @@ REM Eerst kijken zonder te schrijven
 scripts\products.cmd --dry-run
 
 REM Eén .mvsa: mvsa + audio + lyrics e.d.; mscz/import slaan over
-scripts\products.cmd content-source\catalogus\alleluia\9a-toon-1\groningen\alleluia-9a-toon-1-groningen.mvsa
+scripts\products.cmd content-source\catalogus\alleluia\toon-1-kiev\groningen\alleluia-toon-1-kiev-groningen.mvsa
 
 REM Alleen één bladermap, alleen partituur + audio (focus)
 scripts\products.cmd content-source\catalogus\trisagion --kinds mscz,audio

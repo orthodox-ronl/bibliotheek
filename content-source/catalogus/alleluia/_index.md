@@ -9,6 +9,6 @@ weight: 950
 
 We hebben verschillende soorten Alleluia's:
 
-- Kiev: `9a-toon-N`
-- Znameni: `9b-toon-N`
+- Kiev: `toon-N-kiev`
+- Znameni: `toon-N-znameni`
 - Alleluia die na het Communievers wordt gebruikt (in F majeur)

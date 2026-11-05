@@ -33,20 +33,22 @@ De migratietabellen SCORE / PRINT / STUB staan onder
 
 ---
 
-## Prokimen / alleluia (Kiev + znameni-reservering)
+## Prokimen / alleluia (Kiev + znameni)
 
 **Koormap-slots:** `9a-prokimen/` (prokimens eerder in de liturgie) en
-`9b-alleluia/`. In de **catalogus** is `9a-` / `9b-` op de *variant*-laag
-de melodieklasse (Kiev / znameni), niet het liturgienummer.
+`9b-alleluia/`. In de **catalogus** staan de melodieklassen in de
+*variant*-id: `toon-N-kiev` en `toon-N-znameni` (niet het liturgienummer
+`9a` / `9b` van de koormap).
 
 | Koormap-pad | Bibliotheek-id (voorbeeld) | Status |
 | --- | --- | --- |
 | `9a-prokimen/weekdagen/` | `prokimen/9a-maandag/groningen` … `9a-zaterdag` | VSA; compositieblad |
-| `9a-prokimen/zondag-toon-N/` | `prokimen/zondag-toon-N/groningen` + `alleluia/9a-toon-N/groningen` | beide: `.mvsa` (reviewable) |
-| `9b-alleluia/` | `alleluia/9a-toon-1/groningen` … `9a-toon-8` | `.mvsa` (reviewable) |
+| `9a-prokimen/zondag-toon-N/` | `prokimen/zondag-toon-N/groningen` + `alleluia/toon-N-kiev/groningen` | beide: `.mvsa` (reviewable) |
+| `9b-alleluia/` | `alleluia/toon-1-kiev/groningen` … `toon-8-kiev` | `.mvsa` (reviewable) |
 
-**Znameni (alleen register):** `prokimen/9b-{naam}/{uitvoeringsvorm}`,
-`alleluia/9b-toon-{1..8}/{uitvoeringsvorm}` — nog geen leafs.
+**Znameni in de catalogus:** `alleluia/toon-{1..8}-znameni/vokn` (`.mvsa`,
+reviewable). Prokimen-znameni blijft gereserveerd als
+`prokimen/9b-{naam}/{uitvoeringsvorm}` — nog geen leafs.
 
 ## Tropaar / kondak
 
