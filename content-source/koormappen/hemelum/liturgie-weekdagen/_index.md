@@ -30,7 +30,8 @@ Liturgiemap voor **weekdagen**. Zondag staat in
 |   9  | [Prokimen](09a-prokimen/) |
 |  --  | [Alleluia](09b-alleluia/) |
 |  10  | [Evangelielezing](10-evangelielezing/) |
-|  11  | [Dringende Litanie](11-dringende-litanie/) |
+|  11  | [Dringende Litanie](11a-dringende-litanie/) |
+|  --  | [Dringende Litanie](11b-dringende-litanie-dinev/) |
 |  12  | [Ontslapenen Litanie](12-ontslapenen-litanie/) |
 |  13  | [Catechumenen Litanie](13-catechumenen-litanie/) |
 |  14  | [Gelovigen Litanie](14-gelovigen-litanie/) |
@@ -47,7 +48,8 @@ Liturgiemap voor **weekdagen**. Zondag staat in
 |  25  | [Communievers](25-communievers/) |
 |  26  | [Gezegend Hij, Die komt ...](26-gezegend-hij-die-komt/) |
 |  27  | [Communiezang](27-communiezang/) |
-|  28  | [Wij hebben het Ware Licht aanschouwd](28-wij-hebben-het-ware-licht/) |
+|  28  | [Wij hebben het Ware Licht aanschouwd](28a-wij-hebben-het-ware-licht/) |
+|  --  | [Slotlitanie](28b-slotlitanie) |
 |  29  | [De Naam des Heren zij gezegend](29-de-naam-des-heren-zij-gezegend/) |
 
 {{< /table-plain >}}

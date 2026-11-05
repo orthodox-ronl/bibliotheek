@@ -201,9 +201,15 @@
     "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum|de-naam-des-heren-zij-gezegend-default-hemelum.mvsa.mp3": {
       "source": "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/de-naam-des-heren-zij-gezegend-default-hemelum.mvsa",
       "product": "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/de-naam-des-heren-zij-gezegend-default-hemelum.mvsa.mp3",
-      "ok": true,
+      "ok": false,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\de-naam-des-heren-zij-gezegend\\default\\hemelum\\de-naam-des-heren-zij-gezegend-default-hemelum.mvsa",
-      "issues": []
+      "issues": [
+        {
+          "kind": "stale_mp3",
+          "file": "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/de-naam-des-heren-zij-gezegend-default-hemelum.mvsa.mp3",
+          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-11-05T21:00:33+00:00); bron is gewijzigd"
+        }
+      ]
     },
     "catalogus/derde-antifoon/geboorte-moeder-gods/liturgikon|derde-antifoon-geboorte-moeder-gods-liturgikon.vsa.mp3": {
       "source": "catalogus/derde-antifoon/geboorte-moeder-gods/liturgikon/derde-antifoon-geboorte-moeder-gods-liturgikon.vsa",
@@ -338,6 +344,13 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\ektinia\\catechumenen\\hemelum-ksl\\ektinia-catechumenen-hemelum-ksl.mvsa",
       "issues": []
     },
+    "catalogus/ektinia/dringend/bulgaarse-melodie-dinev|ektinia-dringend-bulgaarse-melodie-dinev.mvsa.mp3": {
+      "source": "catalogus/ektinia/dringend/bulgaarse-melodie-dinev/ektinia-dringend-bulgaarse-melodie-dinev.mvsa",
+      "product": "catalogus/ektinia/dringend/bulgaarse-melodie-dinev/ektinia-dringend-bulgaarse-melodie-dinev.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\ektinia\\dringend\\bulgaarse-melodie-dinev\\ektinia-dringend-bulgaarse-melodie-dinev.mvsa",
+      "issues": []
+    },
     "catalogus/ektinia/dringend/hemelum|ektinia-dringend-hemelum.mvsa.mp3": {
       "source": "catalogus/ektinia/dringend/hemelum/ektinia-dringend-hemelum.mvsa",
       "product": "catalogus/ektinia/dringend/hemelum/ektinia-dringend-hemelum.mvsa.mp3",
@@ -392,6 +405,13 @@
       "product": "catalogus/ektinia/ontslapenen/hemelum-ksl/ektinia-ontslapenen-hemelum-ksl.mvsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\ektinia\\ontslapenen\\hemelum-ksl\\ektinia-ontslapenen-hemelum-ksl.mvsa",
+      "issues": []
+    },
+    "catalogus/ektinia/slot/hemelum|ektinia-slot-hemelum.mvsa.mp3": {
+      "source": "catalogus/ektinia/slot/hemelum/ektinia-slot-hemelum.mvsa",
+      "product": "catalogus/ektinia/slot/hemelum/ektinia-slot-hemelum.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\ektinia\\slot\\hemelum\\ektinia-slot-hemelum.mvsa",
       "issues": []
     },
     "catalogus/ektinia/tweede-kleine/hemelum|ektinia-tweede-kleine-hemelum.mvsa.mp3": {
@@ -1344,6 +1364,13 @@
       "product": "catalogus/vriendelijk-licht/default/pancakescrawlspace/vriendelijk-licht-default-pancakescrawlspace.mscz.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\vriendelijk-licht\\default\\pancakescrawlspace\\vriendelijk-licht-default-pancakescrawlspace.mscz",
+      "issues": []
+    },
+    "catalogus/wij-hebben-het-ware-licht/default/hemelum|ektinia-slot-hemelum.mvsa.mp3": {
+      "source": "catalogus/wij-hebben-het-ware-licht/default/hemelum/ektinia-slot-hemelum.mvsa",
+      "product": "catalogus/wij-hebben-het-ware-licht/default/hemelum/ektinia-slot-hemelum.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\wij-hebben-het-ware-licht\\default\\hemelum\\ektinia-slot-hemelum.mvsa",
       "issues": []
     },
     "catalogus/wij-hebben-het-ware-licht/default/hemelum|wij-hebben-het-ware-licht-default-hemelum.mvsa.mp3": {

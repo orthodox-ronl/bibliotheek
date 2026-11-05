@@ -189,9 +189,15 @@
     },
     "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum": {
       "source": "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/index.md",
-      "ok": true,
+      "ok": false,
       "fix_cmd": "scripts\\pdf.cmd catalogus\\de-naam-des-heren-zij-gezegend\\default\\hemelum\\index.md",
-      "issues": []
+      "issues": [
+        {
+          "kind": "stale_pdf",
+          "file": "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/index.md.pdf",
+          "detail": "index.md.pdf is ouder dan Markdown, notatiebron of product-SVG"
+        }
+      ]
     },
     "catalogus/derde-antifoon/geboorte-moeder-gods/liturgikon": {
       "source": "catalogus/derde-antifoon/geboorte-moeder-gods/liturgikon/index.md",
@@ -313,6 +319,12 @@
       "fix_cmd": "scripts\\pdf.cmd catalogus\\ektinia\\catechumenen\\hemelum-ksl\\index.md",
       "issues": []
     },
+    "catalogus/ektinia/dringend/bulgaarse-melodie-dinev": {
+      "source": "catalogus/ektinia/dringend/bulgaarse-melodie-dinev/index.md",
+      "ok": true,
+      "fix_cmd": "scripts\\pdf.cmd catalogus\\ektinia\\dringend\\bulgaarse-melodie-dinev\\index.md",
+      "issues": []
+    },
     "catalogus/ektinia/dringend/hemelum": {
       "source": "catalogus/ektinia/dringend/hemelum/index.md",
       "ok": true,
@@ -359,6 +371,12 @@
       "source": "catalogus/ektinia/ontslapenen/hemelum-ksl/index.md",
       "ok": true,
       "fix_cmd": "scripts\\pdf.cmd catalogus\\ektinia\\ontslapenen\\hemelum-ksl\\index.md",
+      "issues": []
+    },
+    "catalogus/ektinia/slot/hemelum": {
+      "source": "catalogus/ektinia/slot/hemelum/index.md",
+      "ok": true,
+      "fix_cmd": "scripts\\pdf.cmd catalogus\\ektinia\\slot\\hemelum\\index.md",
       "issues": []
     },
     "catalogus/ektinia/tweede-kleine/hemelum": {
@@ -1399,10 +1417,16 @@
       "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-weekdagen\\10-evangelielezing\\index.md",
       "issues": []
     },
-    "koormappen/hemelum/liturgie-weekdagen/11-dringende-litanie": {
-      "source": "koormappen/hemelum/liturgie-weekdagen/11-dringende-litanie/index.md",
+    "koormappen/hemelum/liturgie-weekdagen/11a-dringende-litanie": {
+      "source": "koormappen/hemelum/liturgie-weekdagen/11a-dringende-litanie/index.md",
       "ok": true,
-      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-weekdagen\\11-dringende-litanie\\index.md",
+      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-weekdagen\\11a-dringende-litanie\\index.md",
+      "issues": []
+    },
+    "koormappen/hemelum/liturgie-weekdagen/11b-dringende-litanie-dinev": {
+      "source": "koormappen/hemelum/liturgie-weekdagen/11b-dringende-litanie-dinev/index.md",
+      "ok": true,
+      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-weekdagen\\11b-dringende-litanie-dinev\\index.md",
       "issues": []
     },
     "koormappen/hemelum/liturgie-weekdagen/12-ontslapenen-litanie": {
@@ -1525,17 +1549,29 @@
       "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-weekdagen\\27-communiezang\\index.md",
       "issues": []
     },
-    "koormappen/hemelum/liturgie-weekdagen/28-wij-hebben-het-ware-licht": {
-      "source": "koormappen/hemelum/liturgie-weekdagen/28-wij-hebben-het-ware-licht/index.md",
+    "koormappen/hemelum/liturgie-weekdagen/28a-wij-hebben-het-ware-licht": {
+      "source": "koormappen/hemelum/liturgie-weekdagen/28a-wij-hebben-het-ware-licht/index.md",
       "ok": true,
-      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-weekdagen\\28-wij-hebben-het-ware-licht\\index.md",
+      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-weekdagen\\28a-wij-hebben-het-ware-licht\\index.md",
+      "issues": []
+    },
+    "koormappen/hemelum/liturgie-weekdagen/28b-slotlitanie": {
+      "source": "koormappen/hemelum/liturgie-weekdagen/28b-slotlitanie/index.md",
+      "ok": true,
+      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-weekdagen\\28b-slotlitanie\\index.md",
       "issues": []
     },
     "koormappen/hemelum/liturgie-weekdagen/29-de-naam-des-heren-zij-gezegend": {
       "source": "koormappen/hemelum/liturgie-weekdagen/29-de-naam-des-heren-zij-gezegend/index.md",
-      "ok": true,
+      "ok": false,
       "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-weekdagen\\29-de-naam-des-heren-zij-gezegend\\index.md",
-      "issues": []
+      "issues": [
+        {
+          "kind": "stale_pdf",
+          "file": "koormappen/hemelum/liturgie-weekdagen/29-de-naam-des-heren-zij-gezegend/index.md.pdf",
+          "detail": "index.md.pdf is ouder dan Markdown, notatiebron of product-SVG"
+        }
+      ]
     },
     "koormappen/hemelum/liturgie-zondag/01-vredeslitanie": {
       "source": "koormappen/hemelum/liturgie-zondag/01-vredeslitanie/index.md",
@@ -1603,22 +1639,64 @@
       "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\07a-kleine-intocht\\zondag\\index.md",
       "issues": []
     },
-    "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/kondak-nikolaas-van-myra": {
-      "source": "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/kondak-nikolaas-van-myra/index.md",
+    "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/nikolaas-van-myra": {
+      "source": "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/nikolaas-van-myra/index.md",
       "ok": true,
-      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\07b-troparen-en-kondaken\\kondak-nikolaas-van-myra\\index.md",
-      "issues": []
-    },
-    "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/tropaar-nikolaas-van-myra": {
-      "source": "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/tropaar-nikolaas-van-myra/index.md",
-      "ok": true,
-      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\07b-troparen-en-kondaken\\tropaar-nikolaas-van-myra\\index.md",
+      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\07b-troparen-en-kondaken\\nikolaas-van-myra\\index.md",
       "issues": []
     },
     "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/uw-heilig-kruis": {
       "source": "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/uw-heilig-kruis/index.md",
       "ok": true,
       "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\07b-troparen-en-kondaken\\uw-heilig-kruis\\index.md",
+      "issues": []
+    },
+    "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/zondag-toon-1": {
+      "source": "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/zondag-toon-1/index.md",
+      "ok": true,
+      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\07b-troparen-en-kondaken\\zondag-toon-1\\index.md",
+      "issues": []
+    },
+    "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/zondag-toon-2": {
+      "source": "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/zondag-toon-2/index.md",
+      "ok": true,
+      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\07b-troparen-en-kondaken\\zondag-toon-2\\index.md",
+      "issues": []
+    },
+    "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/zondag-toon-3": {
+      "source": "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/zondag-toon-3/index.md",
+      "ok": true,
+      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\07b-troparen-en-kondaken\\zondag-toon-3\\index.md",
+      "issues": []
+    },
+    "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/zondag-toon-4": {
+      "source": "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/zondag-toon-4/index.md",
+      "ok": true,
+      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\07b-troparen-en-kondaken\\zondag-toon-4\\index.md",
+      "issues": []
+    },
+    "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/zondag-toon-5": {
+      "source": "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/zondag-toon-5/index.md",
+      "ok": true,
+      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\07b-troparen-en-kondaken\\zondag-toon-5\\index.md",
+      "issues": []
+    },
+    "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/zondag-toon-6": {
+      "source": "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/zondag-toon-6/index.md",
+      "ok": true,
+      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\07b-troparen-en-kondaken\\zondag-toon-6\\index.md",
+      "issues": []
+    },
+    "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/zondag-toon-7": {
+      "source": "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/zondag-toon-7/index.md",
+      "ok": true,
+      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\07b-troparen-en-kondaken\\zondag-toon-7\\index.md",
+      "issues": []
+    },
+    "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/zondag-toon-8": {
+      "source": "koormappen/hemelum/liturgie-zondag/07b-troparen-en-kondaken/zondag-toon-8/index.md",
+      "ok": true,
+      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\07b-troparen-en-kondaken\\zondag-toon-8\\index.md",
       "issues": []
     },
     "koormappen/hemelum/liturgie-zondag/07c-kondak-moeder-gods-toon-6": {
@@ -1693,10 +1771,16 @@
       "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\10-evangelielezing\\index.md",
       "issues": []
     },
-    "koormappen/hemelum/liturgie-zondag/11-dringende-litanie": {
-      "source": "koormappen/hemelum/liturgie-zondag/11-dringende-litanie/index.md",
+    "koormappen/hemelum/liturgie-zondag/11a-dringende-litanie": {
+      "source": "koormappen/hemelum/liturgie-zondag/11a-dringende-litanie/index.md",
       "ok": true,
-      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\11-dringende-litanie\\index.md",
+      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\11a-dringende-litanie\\index.md",
+      "issues": []
+    },
+    "koormappen/hemelum/liturgie-zondag/11b-dringende-litanie-dinev": {
+      "source": "koormappen/hemelum/liturgie-zondag/11b-dringende-litanie-dinev/index.md",
+      "ok": true,
+      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\11b-dringende-litanie-dinev\\index.md",
       "issues": []
     },
     "koormappen/hemelum/liturgie-zondag/12-ontslapenen-litanie": {
@@ -1819,17 +1903,29 @@
       "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\27-communiezang\\index.md",
       "issues": []
     },
-    "koormappen/hemelum/liturgie-zondag/28-wij-hebben-het-ware-licht": {
-      "source": "koormappen/hemelum/liturgie-zondag/28-wij-hebben-het-ware-licht/index.md",
+    "koormappen/hemelum/liturgie-zondag/28a-wij-hebben-het-ware-licht": {
+      "source": "koormappen/hemelum/liturgie-zondag/28a-wij-hebben-het-ware-licht/index.md",
       "ok": true,
-      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\28-wij-hebben-het-ware-licht\\index.md",
+      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\28a-wij-hebben-het-ware-licht\\index.md",
+      "issues": []
+    },
+    "koormappen/hemelum/liturgie-zondag/28b-slotlitanie": {
+      "source": "koormappen/hemelum/liturgie-zondag/28b-slotlitanie/index.md",
+      "ok": true,
+      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\28b-slotlitanie\\index.md",
       "issues": []
     },
     "koormappen/hemelum/liturgie-zondag/29-de-naam-des-heren-zij-gezegend": {
       "source": "koormappen/hemelum/liturgie-zondag/29-de-naam-des-heren-zij-gezegend/index.md",
-      "ok": true,
+      "ok": false,
       "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\29-de-naam-des-heren-zij-gezegend\\index.md",
-      "issues": []
+      "issues": [
+        {
+          "kind": "stale_pdf",
+          "file": "koormappen/hemelum/liturgie-zondag/29-de-naam-des-heren-zij-gezegend/index.md.pdf",
+          "detail": "index.md.pdf is ouder dan Markdown, notatiebron of product-SVG"
+        }
+      ]
     },
     "koormappen/hemelum/tijdeigen/20261104-icoon-moeder-gods-van-kazan": {
       "source": "koormappen/hemelum/tijdeigen/20261104-icoon-moeder-gods-van-kazan/index.md",

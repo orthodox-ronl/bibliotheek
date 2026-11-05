@@ -141,9 +141,15 @@
     },
     "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum": {
       "source": "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/de-naam-des-heren-zij-gezegend-default-hemelum.mvsa",
-      "ok": true,
+      "ok": false,
       "fix_cmd": "scripts\\products.cmd --kinds mvsa --reasons missing,stale --skip-post catalogus\\de-naam-des-heren-zij-gezegend\\default\\hemelum\\de-naam-des-heren-zij-gezegend-default-hemelum.mvsa",
-      "issues": []
+      "issues": [
+        {
+          "kind": "meta_stale",
+          "file": "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/de-naam-des-heren-zij-gezegend-default-hemelum.mvsa.products-meta.json",
+          "detail": "bron_sha256 wijkt af van huidige bron"
+        }
+      ]
     },
     "catalogus/derde-antifoon/zondag/hemelum": {
       "source": "catalogus/derde-antifoon/zondag/hemelum/derde-antifoon-zondag-hemelum.mvsa",
@@ -173,6 +179,12 @@
       "source": "catalogus/ektinia/catechumenen/hemelum-ksl/ektinia-catechumenen-hemelum-ksl.mvsa",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds mvsa --reasons missing,stale --skip-post catalogus\\ektinia\\catechumenen\\hemelum-ksl\\ektinia-catechumenen-hemelum-ksl.mvsa",
+      "issues": []
+    },
+    "catalogus/ektinia/dringend/bulgaarse-melodie-dinev": {
+      "source": "catalogus/ektinia/dringend/bulgaarse-melodie-dinev/ektinia-dringend-bulgaarse-melodie-dinev.mvsa",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mvsa --reasons missing,stale --skip-post catalogus\\ektinia\\dringend\\bulgaarse-melodie-dinev\\ektinia-dringend-bulgaarse-melodie-dinev.mvsa",
       "issues": []
     },
     "catalogus/ektinia/dringend/hemelum": {
@@ -221,6 +233,12 @@
       "source": "catalogus/ektinia/ontslapenen/hemelum-ksl/ektinia-ontslapenen-hemelum-ksl.mvsa",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds mvsa --reasons missing,stale --skip-post catalogus\\ektinia\\ontslapenen\\hemelum-ksl\\ektinia-ontslapenen-hemelum-ksl.mvsa",
+      "issues": []
+    },
+    "catalogus/ektinia/slot/hemelum": {
+      "source": "catalogus/ektinia/slot/hemelum/ektinia-slot-hemelum.mvsa",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds mvsa --reasons missing,stale --skip-post catalogus\\ektinia\\slot\\hemelum\\ektinia-slot-hemelum.mvsa",
       "issues": []
     },
     "catalogus/ektinia/tweede-kleine/hemelum": {

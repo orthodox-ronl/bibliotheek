@@ -198,8 +198,14 @@
   {
     "dir": "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum",
     "source": "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/de-naam-des-heren-zij-gezegend-default-hemelum.mvsa",
-    "ok": true,
-    "issues": [],
+    "ok": false,
+    "issues": [
+      {
+        "kind": "stale_lyrics",
+        "file": "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/de-naam-des-heren-zij-gezegend-default-hemelum.mvsa.lyrics.txt",
+        "detail": "lyrics ouder dan bron (stamp 2026-11-05T21:00:33+00:00)"
+      }
+    ],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\de-naam-des-heren-zij-gezegend\\default\\hemelum\\de-naam-des-heren-zij-gezegend-default-hemelum.mvsa"
   },
   {
@@ -336,6 +342,13 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\ektinia\\catechumenen\\hemelum-ksl\\ektinia-catechumenen-hemelum-ksl.mvsa"
   },
   {
+    "dir": "catalogus/ektinia/dringend/bulgaarse-melodie-dinev",
+    "source": "catalogus/ektinia/dringend/bulgaarse-melodie-dinev/ektinia-dringend-bulgaarse-melodie-dinev.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\ektinia\\dringend\\bulgaarse-melodie-dinev\\ektinia-dringend-bulgaarse-melodie-dinev.mvsa"
+  },
+  {
     "dir": "catalogus/ektinia/dringend/hemelum",
     "source": "catalogus/ektinia/dringend/hemelum/ektinia-dringend-hemelum.mvsa",
     "ok": true,
@@ -390,6 +403,13 @@
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\ektinia\\ontslapenen\\hemelum-ksl\\ektinia-ontslapenen-hemelum-ksl.mvsa"
+  },
+  {
+    "dir": "catalogus/ektinia/slot/hemelum",
+    "source": "catalogus/ektinia/slot/hemelum/ektinia-slot-hemelum.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\ektinia\\slot\\hemelum\\ektinia-slot-hemelum.mvsa"
   },
   {
     "dir": "catalogus/ektinia/tweede-kleine/hemelum",
@@ -1342,6 +1362,13 @@
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\vriendelijk-licht\\default\\pancakescrawlspace\\vriendelijk-licht-default-pancakescrawlspace.mscz"
+  },
+  {
+    "dir": "catalogus/wij-hebben-het-ware-licht/default/hemelum",
+    "source": "catalogus/wij-hebben-het-ware-licht/default/hemelum/ektinia-slot-hemelum.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\wij-hebben-het-ware-licht\\default\\hemelum\\ektinia-slot-hemelum.mvsa"
   },
   {
     "dir": "catalogus/wij-hebben-het-ware-licht/default/hemelum",
