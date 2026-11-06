@@ -43,8 +43,10 @@ from cli_style import (  # noqa: E402
     detail,
     hard,
     info,
+    note,
     ok,
     refuse,
+    section,
     set_verbose,
 )
 
@@ -719,14 +721,15 @@ def _build_colofon_text(uv_id: str) -> str:
 
 def resolve_bieb_onderdeel(uv_id: str, onderdeel: str, *, veld_pad: str = "") -> str:
     """Platte tekst voor bieb-onderdeel (leeg als onbekend/ontbrekend)."""
+    base = _uv_base(uv_id)
     onderdeel = onderdeel.lower().strip()
     if onderdeel == "veld":
         pad = veld_pad.strip()
         if not pad:
             return ""
-        return _field_from_source_text(_leaf_source_text(uv_id), pad)
+        return _field_from_source_text(_leaf_source_text(base), pad)
     if onderdeel in {"titel", "title"}:
-        text = _leaf_source_text(uv_id)
+        text = _leaf_source_text(base)
         value = _field_from_source_text(text, "title") or _field_from_source_text(
             text, "titel"
         )
@@ -734,23 +737,23 @@ def resolve_bieb_onderdeel(uv_id: str, onderdeel: str, *, veld_pad: str = "") ->
             return value
         from catalogus import derived_leaf_title
 
-        leaf_dir = CATALOGUS.joinpath(*uv_id.split("/"))
-        return derived_leaf_title(uv_id, leaf_dir=leaf_dir)
+        leaf_dir = CATALOGUS.joinpath(*base.split("/"))
+        return derived_leaf_title(base, leaf_dir=leaf_dir)
     if onderdeel == "bron":
-        text = _leaf_source_text(uv_id)
+        text = _leaf_source_text(base)
         return (
             _field_from_source_text(text, "bron")
             or _field_from_source_text(text, "bron.uitgangspunt")
             or _field_from_source_text(text, "uitgangspunt")
         )
     if onderdeel == "copyright":
-        text = _leaf_source_text(uv_id)
+        text = _leaf_source_text(base)
         value = _field_from_source_text(text, "copyright")
         if value:
             return value
-        return _copyright_from_mscz(uv_id)
+        return _copyright_from_mscz(base)
     if onderdeel == "colofon":
-        return _build_colofon_text(uv_id)
+        return _build_colofon_text(base)
     return ""
 
 
@@ -1097,8 +1100,24 @@ def ensure_catalogus_derived_titles(
     return flows
 
 
+def _uv_base(ref: str) -> str:
+    """``z/v/u`` of ``z/v/u@sectie`` → catalogus-pad zonder sectie."""
+    from catalogus_sectie import split_catalogus_ref
+
+    base, _sectie = split_catalogus_ref(ref)
+    return base
+
+
+def _ref_sectie(ref: str) -> str | None:
+    from catalogus_sectie import split_catalogus_ref
+
+    _base, sectie = split_catalogus_ref(ref)
+    return sectie
+
+
 def find_mvsa(uv_id: str) -> Path:
-    leaf = CATALOGUS.joinpath(*uv_id.split("/"))
+    base = _uv_base(uv_id)
+    leaf = CATALOGUS.joinpath(*base.split("/"))
     if not leaf.is_dir():
         raise FileNotFoundError(f"catalogusmap ontbreekt: {leaf}")
     mvsas = sorted(
@@ -1115,8 +1134,10 @@ def try_find_notation_source(uv_id: str) -> Path | None:
     """``.mvsa`` / ``.vsa`` / ``.mscz`` in de catalogusmap, of ``None``.
 
     Ontbrekende map → ``FileNotFoundError``.
+    ``uv_id`` mag ``…@sectie`` bevatten (sectie wordt genegeerd voor de map).
     """
-    leaf = CATALOGUS.joinpath(*uv_id.split("/"))
+    base = _uv_base(uv_id)
+    leaf = CATALOGUS.joinpath(*base.split("/"))
     if not leaf.is_dir():
         raise FileNotFoundError(f"catalogusmap ontbreekt: {leaf}")
     mvsas = sorted(
@@ -1145,7 +1166,8 @@ def find_notation_source(uv_id: str) -> Path:
     """Bron voor kale SVG: ``.mvsa``, anders ``.vsa``, anders ``.mscz``."""
     found = try_find_notation_source(uv_id)
     if found is None:
-        leaf = CATALOGUS.joinpath(*uv_id.split("/"))
+        base = _uv_base(uv_id)
+        leaf = CATALOGUS.joinpath(*base.split("/"))
         raise FileNotFoundError(
             f"geen .mvsa/.vsa/.mscz in {leaf} (pdf.cmd plakt geen catalogus-PDF)"
         )
@@ -1153,7 +1175,7 @@ def find_notation_source(uv_id: str) -> Path:
 
 
 def leaf_has_tekstblad(uv_id: str) -> bool:
-    leaf = CATALOGUS.joinpath(*uv_id.split("/"))
+    leaf = CATALOGUS.joinpath(*_uv_base(uv_id).split("/"))
     if not leaf.is_dir():
         return False
     return any(
@@ -1165,7 +1187,7 @@ def leaf_has_tekstblad(uv_id: str) -> bool:
 
 
 def find_tekstblad_pdf(uv_id: str) -> Path | None:
-    leaf = CATALOGUS.joinpath(*uv_id.split("/"))
+    leaf = CATALOGUS.joinpath(*_uv_base(uv_id).split("/"))
     if not leaf.is_dir():
         return None
     pdfs = sorted(
@@ -1732,9 +1754,16 @@ def _mscz_cli() -> list[str]:
     )
 
 
-def product_svg_path(source: Path) -> Path:
-    """Canonieke sibling-SVG: ``lied.mvsa`` → ``lied.mvsa.svg`` (tall product)."""
+def product_svg_path(source: Path, *, sectie: str | None = None) -> Path:
+    """Canonieke sibling-SVG: ``lied.mvsa`` → ``lied.mvsa.svg`` (tall product).
+
+    Met *sectie*: ``lied.mvsa@sectie.svg``.
+    """
     source = Path(source)
+    if sectie:
+        from catalogus_sectie import product_svg_for_sectie
+
+        return product_svg_for_sectie(source, sectie)
     return source.with_name(source.name + ".svg")
 
 
@@ -1813,12 +1842,17 @@ def legacy_bladreeks_svgs(source: Path) -> list[Path]:
 
 
 def export_blad_svgs(
-    source: Path, dest: Path, *, compact: bool = False
+    source: Path,
+    dest: Path,
+    *,
+    compact: bool = False,
+    section: str | None = None,
 ) -> list[Path]:
     """Lokaal tall-SVG exporteren via street-CLI (ontbrekend of verouderd product).
 
     ``mvsa``/``mscz`` ``svg`` schrijft één compacte tall-SVG. ``compact`` is
     optioneel (tooling-default is al compact); blijft voor CLI-compatibiliteit.
+    *section*: alleen ``mvsa`` — ``--section`` naar ``dest`` (``.mvsa@id.svg``).
     """
     dest.parent.mkdir(parents=True, exist_ok=True)
     if dest.exists():
@@ -1829,13 +1863,27 @@ def export_blad_svgs(
     suffix = source.suffix.lower()
     if suffix == ".mvsa":
         cmd = [*_mvsa_cli(), "svg", str(source), "-o", str(dest)]
+        if section:
+            cmd.extend(["--section", section])
         if compact:
             cmd.append("--compact")
-        label = "SVG (mvsa, lokaal)"
+        label = (
+            f"SVG (mvsa --section {section}, lokaal)"
+            if section
+            else "SVG (mvsa, lokaal)"
+        )
     elif suffix == ".mscz":
+        if section:
+            raise RuntimeError(
+                f"SVG-export: --section alleen voor .mvsa, niet {source.name}"
+            )
         cmd = [*_mscz_cli(), "svg", str(source), "-o", str(dest)]
         label = "SVG (mscz, lokaal)"
     elif suffix == ".vsa":
+        if section:
+            raise RuntimeError(
+                f"SVG-export: --section alleen voor .mvsa, niet {source.name}"
+            )
         cmd = [_vsa_exe(), "svg", str(source), "-o", str(dest)]
         label = "SVG (vsa, lokaal)"
     else:
@@ -1864,10 +1912,16 @@ def export_inline_vsa_svg(body: str, dest: Path) -> list[Path]:
 
 
 def _export_product_svg_for_pdf(
-    source: Path, dest: Path, *, compact: bool = False
+    source: Path,
+    dest: Path,
+    *,
+    compact: bool = False,
+    section: str | None = None,
 ) -> list[Path]:
     """Exporteer sibling-SVG, zet herkomststempel, vernieuw products-meta."""
-    paths = export_blad_svgs(source, dest, compact=compact)
+    paths = export_blad_svgs(
+        source, dest, compact=compact, section=section
+    )
     for path in paths:
         stamp_sibling_svg(source, path)
     refresh_svg_products_meta(source, paths)
@@ -1935,7 +1989,8 @@ def resolve_svgs_for_pdf(
         refresh_svg_products_meta(source, [tpath])
         return [tpath]
 
-    product = product_svg_path(source)
+    sectie = _ref_sectie(uv_id) if uv_id else None
+    product = product_svg_path(source, sectie=sectie)
     if product.is_file() and product_svg_stamp_ok(source, product):
         from input_paths import rel_for_log
 
@@ -1947,20 +2002,25 @@ def resolve_svgs_for_pdf(
             f"  SVG-product verouderd ({product.name}); "
             "lokaal opnieuw exporteren…"
         )
-        return _export_product_svg_for_pdf(source, product, compact=compact)
-
-    legacy = legacy_bladreeks_svgs(source)
-    if legacy:
-        detail(
-            f"  SVG legacy-bladreeks ({len(legacy)}×) naast {source.name}"
+        return _export_product_svg_for_pdf(
+            source, product, compact=compact, section=sectie
         )
-        return legacy
+
+    if not sectie:
+        legacy = legacy_bladreeks_svgs(source)
+        if legacy:
+            detail(
+                f"  SVG legacy-bladreeks ({len(legacy)}×) naast {source.name}"
+            )
+            return legacy
 
     detail(
         f"  SVG-product ontbreekt ({product.name}); "
         "lokaal exporteren naar sibling (MuseScore)…"
     )
-    return _export_product_svg_for_pdf(source, product, compact=compact)
+    return _export_product_svg_for_pdf(
+        source, product, compact=compact, section=sectie
+    )
 
 
 def _staff_line_ys(svg_text: str) -> list[float]:
@@ -2831,31 +2891,21 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Overschrijf ook als de PDF nieuwer lijkt dan de bronnen",
     )
-    from batch_guard import (
-        SKIP,
-        add_yes_argument,
-        confirm_batch,
-        run_timed_batch,
-    )
+    from batch_guard import SKIP, add_yes_argument, run_timed_batch
 
-    add_yes_argument(ap)
     add_verbose_argument(ap)
+    # Geaccepteerd voor fix/products (-y doorgeven); pdf vraagt zelf geen bevestiging.
+    add_yes_argument(ap)
     args = ap.parse_args(argv)
     set_verbose(bool(args.verbose))
 
     targets = iter_targets(args.paths, args.all_koormappen)
     kind = "pagina_pdf"
-    if not confirm_batch(
-        kind,
-        n=len(targets),
-        headline=f"{len(targets)}x index.md -> pagina-PDF",
-        details=[
-            "Actie: bouw/vernieuw index.md.pdf (MuseScore bij pdf-bijelkaar)",
-            f"--force={'ja' if args.force else 'nee (sla over als PDF nieuwer lijkt)'}",
-        ],
-        yes=args.yes,
-    ):
-        return 2
+    section(f"=== pdf: {len(targets)}x index.md ===")
+    count(len(targets), "pagina's", role="info")
+    note(
+        f"--force={'ja' if args.force else 'nee (sla over als PDF nieuwer lijkt)'}"
+    )
 
     failed_paths: list[str] = []
 

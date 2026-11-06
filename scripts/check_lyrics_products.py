@@ -157,24 +157,23 @@ def main() -> int:
     )
 
     from check_report import print_check_findings
+    from cli_style import note
 
-    if bad:
-        print_check_findings(
-            headline=(
-                f"Lyrics: {len(statuses) - len(bad)} ok, {len(bad)} probleem "
-                f"({STATUS_PATH.relative_to(REPO_ROOT).as_posix()})"
-            ),
-            what="Controle: of .lyrics.txt bij de notatiebron past",
-            bad=bad,
-            fix_page=FIX_PAGE,
-            max_dirs=20,
-        )
-        if fail:
-            return 1
-        print("(waarschuwing — zonder --fail geen exit 1)", flush=True)
+    print_check_findings(
+        headline=(
+            f"Lyrics: {len(statuses) - len(bad)} ok, {len(bad)} probleem "
+            f"({STATUS_PATH.relative_to(REPO_ROOT).as_posix()})"
+        ),
+        what="Controle: of .lyrics.txt bij de notatiebron past",
+        bad=bad,
+        fix_page=FIX_PAGE,
+        max_dirs=20,
+    )
+    if not bad:
         return 0
-
-    print(f"Lyrics: OK ({len(statuses)} bronnen)", flush=True)
+    if fail:
+        return 1
+    note("(waarschuwing — zonder --fail geen exit 1)")
     return 0
 
 

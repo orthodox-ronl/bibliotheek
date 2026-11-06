@@ -13,8 +13,8 @@ catalogus-product-PDF’s plakken)
 # SYNOPSIS
 
 ```cmd
-scripts\pdf.cmd <pad\naar\index.md|map> [--force] [--verbose]
-scripts\pdf.cmd --all-koormappen [--force] [--verbose]
+scripts\pdf.cmd <pad\naar\index.md|map> [--force] [-y] [--verbose]
+scripts\pdf.cmd --all-koormappen [--force] [-y] [--verbose]
 ```
 
 # DESCRIPTION
@@ -79,8 +79,8 @@ niet door de letters van een regel heen.
 Invoer volgt [bestand of map](../invoer-bestand-of-map/): één `.md` of een
 map (recursief alle `index.md`). Korte paden mogen (`hemelum\…`,
 `koormappen\hemelum\…`, …). `--all-koormappen` is suiker voor het pad
-`content-source\koormappen`. Bij meerdere pagina’s: preflight met geschatte
-duur en bevestiging (of `-y`).
+`content-source\koormappen`. Geen bevestigingsvraag op aantal pagina’s —
+`pdf` draait meteen door.
 
 **Contract (doelmodel):** de pagina-PDF volgt de koormap-Markdown. Shortcode
 `pdf-bijelkaar` betekent: streef naar **één A4** voor de inhoud van dat blok.
@@ -116,11 +116,12 @@ idealiter op één A4.
 
 # OPTIONS
 
-| Optie              | Betekenis                                                      |
-| ------------------ | -------------------------------------------------------------- |
-| `--all-koormappen` | Suiker: zelfde als pad `content-source\koormappen`             |
-| `--force`          | Opnieuw schrijven, ook als de PDF nieuwer lijkt dan de bronnen |
-| `-y`, `--yes`      | Batch zonder bevestigingsvraag                                 |
+| Optie              | Betekenis                                                                          |
+| ------------------ | ---------------------------------------------------------------------------------- |
+| `--all-koormappen` | Suiker: zelfde als pad `content-source\koormappen`                                 |
+| `--force`          | Opnieuw schrijven, ook als de PDF nieuwer lijkt dan de bronnen                     |
+| `-y`, `--yes`      | Geaccepteerd voor `fix`/`products` (pdf vraagt zelf geen bevestiging)              |
+| `-v`, `--verbose`  | Per-PDF-regels en tussenstappen                                                    |
 
 # EXAMPLES
 

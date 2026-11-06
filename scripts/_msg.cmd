@@ -36,28 +36,30 @@ if "%USE_COLOR%"=="0" goto plain
 
 for /f "delims=" %%E in ('echo prompt $E^| cmd') do set "ESC=%%E"
 
+REM !MSG! / !ESC! (niet %…%): anders breekt cmd op haakjes in de tekst
+REM binnen if (…) (…), bv. «check (validate + …)» → «was unexpected».
 if /I "%ROLE%"=="ok" (
-  echo %ESC%[32m%MSG%%ESC%[0m
+  echo !ESC![32m!MSG!!ESC![0m
   goto done
 )
 if /I "%ROLE%"=="work" (
-  echo %ESC%[33m%MSG%%ESC%[0m
+  echo !ESC![33m!MSG!!ESC![0m
   goto done
 )
 if /I "%ROLE%"=="hard" (
-  echo %ESC%[1;31m%MSG%%ESC%[0m
+  echo !ESC![1;31m!MSG!!ESC![0m
   goto done
 )
 if /I "%ROLE%"=="refuse" (
-  echo %ESC%[35m%MSG%%ESC%[0m
+  echo !ESC![35m!MSG!!ESC![0m
   goto done
 )
 if /I "%ROLE%"=="section" (
-  echo %ESC%[1;36m%MSG%%ESC%[0m
+  echo !ESC![1;36m!MSG!!ESC![0m
   goto done
 )
 if /I "%ROLE%"=="note" (
-  echo %ESC%[2m%MSG%%ESC%[0m
+  echo !ESC![2m!MSG!!ESC![0m
   goto done
 )
 if /I "%ROLE%"=="info" goto plain
@@ -69,7 +71,7 @@ endlocal
 exit /b 1
 
 :plain
-echo %MSG%
+echo(!MSG!
 goto done
 
 :usage
