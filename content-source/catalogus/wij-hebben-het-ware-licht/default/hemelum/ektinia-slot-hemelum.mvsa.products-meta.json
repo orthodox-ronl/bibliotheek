@@ -2,22 +2,42 @@
   "schema": 2,
   "bron": "ektinia-slot-hemelum.mvsa",
   "bron_sha256": "212960b40f968314d79e8bcc0fe2122ec85f78491b45186c5e9441b44ab1a9e8",
-  "generated_at": "2026-11-05T20:59:25+00:00",
+  "generated_at": "2026-11-06T08:23:00+00:00",
   "products": {
+    "from-ir": {
+      "file": "ektinia-slot-hemelum.mvsa.from-ir.musicxml",
+      "sha256": "82bb1e0275afbabc2f05937be458d782315229eda662a5a334c97ec615ef094b",
+      "generated_at": "2026-11-06T08:23:00+00:00"
+    },
+    "lyrics": {
+      "file": "ektinia-slot-hemelum.mvsa.lyrics.txt",
+      "sha256": "02ce3359778b5afe8bb8e3e27f0bc3c208b261b6df4c28ec1250faeda052ade5",
+      "generated_at": "2026-11-06T08:23:00+00:00"
+    },
     "mp3": {
       "file": "ektinia-slot-hemelum.mvsa.mp3",
-      "sha256": "aa1a047814b37a5a42f93931d255b9df8ccf699286ed18a87d3ff06c78f94984",
-      "generated_at": "2026-11-05T20:56:35+00:00"
+      "sha256": "a133b6b3f8c7f8b6fbe62abe5a69d1b5354002d216dfbf520e7f14c79d96cb79",
+      "generated_at": "2026-11-06T08:23:00+00:00"
+    },
+    "mxl": {
+      "file": "ektinia-slot-hemelum.mvsa.mxl",
+      "sha256": "3bdba0409c0c42bb6e76ae6f6564a58cfed42bb38f5cfd0ec74568a4855f8170",
+      "generated_at": "2026-11-06T08:23:00+00:00"
+    },
+    "score-ir": {
+      "file": "ektinia-slot-hemelum.mvsa.score-ir.json",
+      "sha256": "9e9c10d64aa5fe28e317dc9b95bd4e0f5f6d5c5291f16456a31a8e4baa4202c2",
+      "generated_at": "2026-11-06T08:23:00+00:00"
     },
     "svg": {
-      "file": "ektinia-slot-hemelum.mvsa.translit-ksl.svg",
-      "sha256": "8db93ac85ff511cfad8cea471a17f4e5d857c4d781b7bb0e465a106fd09211df",
-      "generated_at": "2026-11-05T20:59:25+00:00"
+      "file": "ektinia-slot-hemelum.mvsa.svg",
+      "sha256": "e6ff7f8065a6c93a0a5a071d4d39f95c1903e3f147468d57b8e41e9836f3d100",
+      "generated_at": "2026-11-06T08:23:00+00:00"
     },
     "svg-translit-ksl": {
       "file": "ektinia-slot-hemelum.mvsa.translit-ksl.svg",
-      "sha256": "77eea2d91efa0015f4c715308582de04346bd4251136d3957a29a6ed12674c25",
-      "generated_at": "2026-11-05T20:59:25+00:00"
+      "sha256": "8db93ac85ff511cfad8cea471a17f4e5d857c4d781b7bb0e465a106fd09211df",
+      "generated_at": "2026-11-06T08:23:00+00:00"
     }
   }
 }
