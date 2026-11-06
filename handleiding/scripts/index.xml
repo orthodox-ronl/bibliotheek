@@ -160,16 +160,14 @@ eruitzien tijdens beheerwerk.&lt;/p&gt;</description></item><item><title>pdf</ti
 samenstellen uit kale blad-SVG’s en Markdown-koppen (geen
 catalogus-product-PDF’s plakken)&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\pdf.cmd &amp;lt;pad\naar\index.md|map&amp;gt; [--force] [--verbose]
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\pdf.cmd --all-koormappen [--force] [--verbose]
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\pdf.cmd &amp;lt;pad\naar\index.md|map&amp;gt; [--force] [-y] [--verbose]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\pdf.cmd --all-koormappen [--force] [-y] [--verbose]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
 &lt;p&gt;Maakt de PDF achter het &lt;strong&gt;download-icoon&lt;/strong&gt; in de navigatie: eerst altijd
 &lt;code&gt;index.md.pdf&lt;/code&gt; naast de Markdown van een bladermap-pagina (Hugo page
 resource). Dat is de PDF van de &lt;strong&gt;getoonde pagina&lt;/strong&gt; (koormap-slot of
 catalogus-uitvoeringsvorm), niet hetzelfde als een losse
-catalogus-product-PDF van één uitvoeringsvorm.&lt;/p&gt;
-&lt;p&gt;Zelfde run schrijft waar nodig ook translit-pagina-PDF’s (§5a), uit de
-translit-SVG-siblings:&lt;/p&gt;</description></item><item><title>opkuisen</title><link>https://orthodox-ronl.github.io/bibliotheek/handleiding/scripts/opkuisen/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/handleiding/scripts/opkuisen/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+catalogus-product-PDF van één uitvoeringsvorm.&lt;/p&gt;</description></item><item><title>opkuisen</title><link>https://orthodox-ronl.github.io/bibliotheek/handleiding/scripts/opkuisen/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/handleiding/scripts/opkuisen/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\opkuisen.cmd&lt;/code&gt; — herkomstanalyse en inhoudelijke opkuis van
 MusicXML- en MuseScore-bestanden (optioneel daarna layout)&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
@@ -557,8 +555,8 @@ ambiguïteitsregels als bij &lt;a href="../bieb-hernoem/"&gt;bieb hernoem&lt;/a&
 backslash, repo-pad, unieke suffix).&lt;/p&gt;</description></item><item><title>bieb kopieer</title><link>https://orthodox-ronl.github.io/bibliotheek/handleiding/scripts/bieb-kopieer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/handleiding/scripts/bieb-kopieer/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;bieb kopieer&lt;/code&gt; — uitvoeringsvorm kopiëren naar een nieuw catalogus-id&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd kopieer &amp;lt;bron-id&amp;gt; &amp;lt;nieuw-id&amp;gt; [--dry-run]
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd copy &amp;lt;bron-id&amp;gt; &amp;lt;nieuw-id&amp;gt; [--dry-run]
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd kopieer &amp;lt;bron-id&amp;gt; &amp;lt;nieuw-id&amp;gt; [--dry-run] [-v]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd copy &amp;lt;bron-id&amp;gt; &amp;lt;nieuw-id&amp;gt; [--dry-run] [-v]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Met &lt;code&gt;.\scripts&lt;/code&gt; op PATH: &lt;code&gt;bieb kopieer …&lt;/code&gt;. Engelse alias: &lt;code&gt;copy&lt;/code&gt;.
 Korte hulp: &lt;code&gt;h bieb kopieer&lt;/code&gt; of &lt;code&gt;bieb kopieer -h&lt;/code&gt;. Typ &lt;code&gt;?&lt;/code&gt; bij een vraag
 voor uitleg.&lt;/p&gt;

@@ -20,18 +20,24 @@ T: c4 -    |
 B: f3 -    | 
 
 @tempo 220
-L: |: (De Naam des He-ren zij ge)-ze_-gend_ | (van nu af tot) in eeu_-wig-heid_ :|
-S: |:  a4                          -   -    | -               g4 a4   -   -     :|
-A: |:  f4                          -   -    | -               e4 f4   -   -     :|
-T: |:  c4                          -   -    | -               -  -    -   -     :|
-B: |:  f3                          -   -    | -               c3 f3   -   -     :|
+L: |: (De Naam des He-ren zij ge)-ze_-gend_ [//.] | (van nu af tot) in eeu_-wig-heid_ [//.] :|
+S: |:  a4                          -   -          | -               g4 a4   -   -           :|
+A: |:  f4                          -   -          | -               e4 f4   -   -           :|
+T: |:  c4                          -   -          | -               -  -    -   -           :|
+B: |:  f3                          -   -          | -               c3 f3   -   -           :|
 
-L:  De Naam des (He-ren zij) ge-ze_-gend_ | (van nu af tot) in  eeu_-wig_-heid__ | A__-men__ ||
-S:  f4 -    g4  a4           g4 a4  -     | -               Bb4 a4   g4   f4     | a4 -      ||
-A:  d4 -    e4  f4           e4 f4  -     | -               g4  f4   e4   c4     | f4 -      ||
-T:  f3 -    c4  -            -  -   -     | d4              -   c4   -    a3     | f3 -      ||
-B:  d3 -    c3  f3           c3 f3  -     | d3              g2  c3   -    f2     | c3 -      ||
+L:  De Naam des (He-ren zij) ge-ze_-gend_ [//.] | (van nu af tot) in  eeu_-wig_-heid__ [//.] |
+S:  f4 -    g4  a4           g4 a4  -           | -               Bb4 a4   g4   f4           |
+A:  d4 -    e4  f4           e4 f4  -           | -               g4  f4   e4   c4           |
+T:  f3 -    c4  -            -  -   -           | d4              -   c4   -    a3           |
+B:  d3 -    c3  f3           c3 f3  -           | d3              g2  c3   -    f2           |
 
+@text "P zegent"
+L: A__-men__ ||
+S: a4 -      ||
+A: f4 -      ||
+T: f3 -      ||
+B: c3 -      ||
 
 @tempo 220
 @tekst "Wegzending"
@@ -53,6 +59,7 @@ A:  f4                                          \   /    -  |
 T:  c4                                          -   -    -  |
 B:  f3                                          -   -    -  |
 
+@tempo 130
 @mscz-newline
 L: Va-der ze_&_-gen__ |
 S: a4 -     /&-  \    |a4
@@ -60,8 +67,7 @@ A: f4 -     -&\  /    |f4
 T: c4 -     /&\  -    |c4
 B: f3 -    \4&/  /3   |f3
 
-@tempo 130
-@tekst "Slotzegen"
+@tekst "P: slotzegen met zegenkruis"
 L: A_&_&_-men__ |
 S: a4&\&/2  \   |a4
 A: f4&-&\   /   |f4
