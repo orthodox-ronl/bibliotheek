@@ -4,14 +4,17 @@ SVG (vorm A), namen gelijk aan VSA-tooling ``derived_svg_output_path``:
 
 - ``{bron}.translit-nls.svg`` — hulpregel Latijn (ksl→nls)
 - ``{bron}.translit-ksl.svg`` — hulpregel Cyrillisch (nl→ksl)
+- ``{bron}.translit.svg`` — beide richtingen in één partituur (alleen hybride)
 
 Coria-MXL (alleen ``.mvsa``): ``{bron}.translit.mxl`` via
 ``mvsa mxl --translit-as-parts`` (extra Nls-/Ksl-parts; één bestand).
 Kale ``{bron}.mxl`` blijft zonder hulp-parts.
 
-Welke modi/SVG’s: puur ksl → nls; puur nl → ksl; hybride → beide.
-Geen Latin/Cyrillisch → geen translit-producten. Translit-MXL volgt
-dezelfde voorwaarde (er is iets te translitereren).
+Welke SVG’s: puur ksl → nls; puur nl → ksl; hybride → nls + ksl + both.
+Geen Latin/Cyrillisch → geen translit-producten. Geen both voor niet-hybride.
+``.mscz`` als notatiebron: geen translit-SVG via bibliotheek-products
+(bewust; zie publicatiecontrole). Translit-MXL volgt «er is iets te
+translitereren».
 
 Aanroep: na kale SVG-export vanuit sync (``vsa svg`` / ``mvsa``-straat);
 niet via OSMG.
@@ -37,22 +40,29 @@ from street_meta import write_products_meta
 
 MODUS_NLS = "nls"
 MODUS_KSL = "ksl"
-MODUS_BEIDE = "beide"
+MODUS_BOTH = "both"
+MODUS_BEIDE = "beide"  # pagina-PDF / UI-stand (niet export-CLI)
 META_KEY_NLS = "svg-translit-nls"
 META_KEY_KSL = "svg-translit-ksl"
+META_KEY_BOTH = "svg-translit-beide"
 META_KEY_MXL = "mxl-translit"
 
 _META_KEYS = {
     MODUS_NLS: META_KEY_NLS,
     MODUS_KSL: META_KEY_KSL,
+    MODUS_BOTH: META_KEY_BOTH,
 }
+
+_EXPORT_MODI = {MODUS_NLS, MODUS_KSL, MODUS_BOTH}
 
 
 def product_translit_svg(source: Path, modus: str) -> Path:
-    """``lied.vsa`` + ``nls`` → ``lied.vsa.translit-nls.svg``."""
+    """``lied.vsa`` + ``nls`` → ``lied.vsa.translit-nls.svg``; ``both`` → ``.translit.svg``."""
     m = (modus or "").casefold()
+    if m in {MODUS_BOTH, MODUS_BEIDE}:
+        return source.with_name(f"{source.name}.translit.svg")
     if m not in {MODUS_NLS, MODUS_KSL}:
-        raise ValueError(f"onbekende translit-modus {modus!r} (nls|ksl)")
+        raise ValueError(f"onbekende translit-modus {modus!r} (nls|ksl|both)")
     return source.with_name(f"{source.name}.translit-{m}.svg")
 
 
@@ -94,13 +104,17 @@ def read_source_body(source: Path) -> str:
 
 
 def translit_modi_for_text(text: str) -> tuple[str, ...]:
-    """Welke ``--translit-modus``-SVG’s bij deze brontekst horen (§5a)."""
+    """Welke translit-SVG-modi bij deze brontekst horen (§5a).
+
+    Puur Cyrillisch → ``nls``; puur Latijn → ``ksl``; hybride →
+    ``nls``, ``ksl`` én ``both`` (``.translit.svg``). Nooit both zonder hybride.
+    """
     from vsa.transliterate import has_cyrillic, has_latin_letter
 
     cyr = has_cyrillic(text)
     lat = has_latin_letter(text)
     if cyr and lat:
-        return (MODUS_NLS, MODUS_KSL)
+        return (MODUS_NLS, MODUS_KSL, MODUS_BOTH)
     if cyr:
         return (MODUS_NLS,)
     if lat:
@@ -119,26 +133,30 @@ def translit_modi_for_source(source: Path) -> tuple[str, ...]:
 
 
 def page_translit_modi(sources: list[Path] | tuple[Path, ...]) -> tuple[str, ...]:
-    """Unie van modi over notatiebronnen op één blad (§5a)."""
+    """Unie van enkelvoudige modi (nls/ksl) over notatiebronnen op één blad."""
     needed: set[str] = set()
     for source in sources:
-        needed.update(translit_modi_for_source(source))
+        for m in translit_modi_for_source(source):
+            if m in {MODUS_NLS, MODUS_KSL}:
+                needed.add(m)
     return tuple(m for m in (MODUS_NLS, MODUS_KSL) if m in needed)
 
 
 def page_needs_beide_pdf(sources: list[Path] | tuple[Path, ...]) -> bool:
-    """True als het blad zowel Nls- als Ksl-translit nodig heeft (gemengd blad)."""
+    """True als het blad zowel Nls- als Ksl-translit nodig heeft (gemengd/hybride)."""
     modi = page_translit_modi(sources)
     return MODUS_NLS in modi and MODUS_KSL in modi
 
 
 def beide_modus_for_source(source: Path) -> str | None:
-    """Welke enkelvoudige translit-SVG past bij «beide knoppen» voor deze bron.
+    """Welke translit-SVG past bij «beide knoppen» voor deze bron.
 
-    Zelfde keuze als het scherm: Ksl-bron → nls; Nls-bron → ksl; hybride → nls.
+    Hybride → ``both`` (``.translit.svg``); puur Ksl → nls; puur Nls → ksl.
     ``None`` = kale SVG.
     """
     modi = translit_modi_for_source(source)
+    if MODUS_BOTH in modi:
+        return MODUS_BOTH
     if MODUS_NLS in modi:
         return MODUS_NLS
     if MODUS_KSL in modi:
@@ -172,16 +190,19 @@ def _source_kind_and_generator(source: Path) -> tuple[str, str]:
 
 
 def export_one_translit_svg(source: Path, modus: str) -> Path:
-    """Roep tooling ``svg --translit-modus`` aan; retourneer bestemming."""
-    dest = product_translit_svg(source, modus)
-    cmd = [
-        *_cli_for_source(source),
-        str(source),
-        "--translit-modus",
-        (modus or "").casefold(),
-        "-o",
-        str(dest),
-    ]
+    """Roep tooling ``svg --translit`` / ``--translit-modus`` aan; retourneer pad."""
+    m = (modus or "").casefold()
+    if m == MODUS_BEIDE:
+        m = MODUS_BOTH
+    if m not in _EXPORT_MODI:
+        raise ValueError(f"onbekende translit-modus {modus!r} (nls|ksl|both)")
+    dest = product_translit_svg(source, m)
+    cmd = [*_cli_for_source(source), str(source), "-o", str(dest)]
+    if m == MODUS_BOTH:
+        # Zonder --translit-modus = beide hulprichtingen (.translit.svg).
+        cmd.append("--translit")
+    else:
+        cmd.extend(["--translit-modus", m])
     check_call(cmd, cwd=str(REPO_ROOT))
     if not dest.is_file():
         raise RuntimeError(f"translit-SVG ontbreekt na export: {dest}")
@@ -255,7 +276,8 @@ def sync_translit_svgs(
         if fresh and not force:
             written[meta_key] = dest
             continue
-        detail(f"  EXP  {rel} -> {dest.name} (--translit-modus {modus})")
+        flag = "--translit" if modus == MODUS_BOTH else f"--translit-modus {modus}"
+        detail(f"  EXP  {rel} -> {dest.name} ({flag})")
         if dry_run:
             written[meta_key] = dest
             continue

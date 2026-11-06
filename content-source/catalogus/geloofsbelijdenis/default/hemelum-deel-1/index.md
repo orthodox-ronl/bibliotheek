@@ -9,4 +9,4 @@ automatische_inhoud: false
 
 {{< witruimte groot>}}
 
-### Hierachter hoort "geloofsbelijdenis/default/hemelum-deel-2"
+{{< kop links klein >}}Hierachter hoort "geloofsbelijdenis/default/hemelum-deel-2"{{< /kop >}}

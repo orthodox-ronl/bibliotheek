@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -240,6 +241,126 @@ class StampOkTests(unittest.TestCase):
             self.assertFalse(sync._stamp_ok_score_ir(ir, "other"))
             self.assertTrue(sync._stamp_ok_from_ir(mxl, "abc123"))
             self.assertFalse(sync._stamp_ok_from_ir(mxl, "other"))
+
+    def test_sectie_ir_gets_bibliotheek_stamp(self) -> None:
+        """Na sectie score-ir: from-ir/score-ir moeten gestempeld zijn."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            content = root / "content-source"
+            leaf = content / "catalogus" / "z" / "v" / "u"
+            leaf.mkdir(parents=True)
+            mvsa = leaf / "lied.mvsa"
+            mvsa.write_text("@sectie a\nL: x |\nS: do |\n", encoding="utf-8")
+            (content / "koormappen").mkdir(parents=True)
+            (content / "koormappen" / "blad.md").write_text(
+                '{{< bieb id="z/v/u@a" >}}\n',
+                encoding="utf-8",
+            )
+            digest = pm.source_sha256(mvsa)
+            score_ir = leaf / "lied.mvsa@a.score-ir.json"
+            from_ir = leaf / "lied.mvsa@a.from-ir.musicxml"
+            svg = leaf / "lied.mvsa@a.svg"
+
+            def fake_ir(path: Path, section: str) -> None:
+                self.assertEqual(section, "a")
+                score_ir.write_text('{"format":"score-ir"}\n', encoding="utf-8")
+                from_ir.write_text(
+                    '<?xml version="1.0"?>\n<score-partwise/>\n',
+                    encoding="utf-8",
+                )
+
+            def fake_svg(path: Path, *, section: str | None = None) -> None:
+                self.assertEqual(section, "a")
+                svg.write_text(
+                    '<?xml version="1.0"?>\n<svg xmlns="http://www.w3.org/2000/svg"/>\n',
+                    encoding="utf-8",
+                )
+
+            with (
+                mock.patch.object(sync, "REPO_ROOT", root),
+                mock.patch.object(
+                    sync, "_run_mvsa_score_ir_section", side_effect=fake_ir
+                ),
+                mock.patch.object(sync, "_run_mvsa_svg", side_effect=fake_svg),
+            ):
+                n = sync.sync_referenced_sectie_products(
+                    content / "catalogus", dry_run=False
+                )
+            self.assertGreaterEqual(n, 1)
+            self.assertTrue(sync._stamp_ok_svg(svg, digest))
+            self.assertTrue(sync._stamp_ok_score_ir(score_ir, digest))
+            self.assertTrue(sync._stamp_ok_from_ir(from_ir, digest))
+
+    def test_sectie_ir_restores_whole_piece_meta(self) -> None:
+        """Sectie-export mag meta from-ir/score-ir niet op @sectie laten staan."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            content = root / "content-source"
+            leaf = content / "catalogus" / "z" / "v" / "u"
+            leaf.mkdir(parents=True)
+            mvsa = leaf / "lied.mvsa"
+            mvsa.write_text("@sectie a\nL: x |\nS: do |\n", encoding="utf-8")
+            (content / "koormappen").mkdir(parents=True)
+            (content / "koormappen" / "blad.md").write_text(
+                '{{< bieb id="z/v/u@a" >}}\n',
+                encoding="utf-8",
+            )
+            whole_ir = sync.product_score_ir_for_mvsa(mvsa)
+            whole_from = sync.product_from_ir_musicxml_for_mvsa(mvsa)
+            whole_ir.write_text('{"format":"score-ir","whole":true}\n', encoding="utf-8")
+            whole_from.write_text(
+                '<?xml version="1.0"?>\n<score-partwise id="whole"/>\n',
+                encoding="utf-8",
+            )
+            # Meta alsof tooling die al naar @sectie wees.
+            sync.write_products_meta(
+                mvsa,
+                {
+                    "score-ir": leaf / "lied.mvsa@a.score-ir.json",
+                    "from-ir": leaf / "lied.mvsa@a.from-ir.musicxml",
+                },
+                merge=False,
+            )
+
+            def fake_ir(path: Path, section: str) -> None:
+                (leaf / f"lied.mvsa@{section}.score-ir.json").write_text(
+                    '{"format":"score-ir"}\n', encoding="utf-8"
+                )
+                (leaf / f"lied.mvsa@{section}.from-ir.musicxml").write_text(
+                    '<?xml version="1.0"?>\n<score-partwise/>\n',
+                    encoding="utf-8",
+                )
+                sync.write_products_meta(
+                    mvsa,
+                    {
+                        "score-ir": leaf / f"lied.mvsa@{section}.score-ir.json",
+                        "from-ir": leaf / f"lied.mvsa@{section}.from-ir.musicxml",
+                    },
+                    merge=True,
+                )
+
+            def fake_svg(path: Path, *, section: str | None = None) -> None:
+                (leaf / f"lied.mvsa@{section}.svg").write_text(
+                    '<?xml version="1.0"?>\n<svg xmlns="http://www.w3.org/2000/svg"/>\n',
+                    encoding="utf-8",
+                )
+
+            with (
+                mock.patch.object(sync, "REPO_ROOT", root),
+                mock.patch.object(
+                    sync, "_run_mvsa_score_ir_section", side_effect=fake_ir
+                ),
+                mock.patch.object(sync, "_run_mvsa_svg", side_effect=fake_svg),
+            ):
+                sync.sync_referenced_sectie_products(
+                    content / "catalogus", dry_run=False
+                )
+
+            meta = json.loads(
+                (leaf / "lied.mvsa.products-meta.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(meta["products"]["score-ir"]["file"], whole_ir.name)
+            self.assertEqual(meta["products"]["from-ir"]["file"], whole_from.name)
 
 
 if __name__ == "__main__":

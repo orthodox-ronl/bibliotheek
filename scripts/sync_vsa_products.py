@@ -1,7 +1,7 @@
 """Maak Coria-``.vsa.mxl`` + muziek-``.vsa.svg`` bij ``.vsa``.
 
 Siblings: ``{stam}.vsa.mxl`` (Coria / Oefenen), ``{stam}.vsa.svg`` (scherm),
-plus optioneel ``.vsa.translit-nls.svg`` / ``.vsa.translit-ksl.svg`` (§5a).
+plus optioneel translit-SVG’s (§5a: nls/ksl/both volgens bronmatrix).
 Export per slot: ``vsa musicxml --syllabify`` en/of ``vsa svg`` (geen
 atomair ``vsa products`` meer — die zou ook mp3/pdf/IR meenemen).
 Translit-SVG’s apart via ``vsa svg --translit-modus``. Daarna optioneel

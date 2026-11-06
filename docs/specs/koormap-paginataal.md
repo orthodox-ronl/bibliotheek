@@ -34,13 +34,13 @@ volgorde, bladindeling).
 
 ## 2. Paginacontract
 
-| Regel | Betekenis |
-| --- | --- |
-| Download / print | Altijd de **getoonde pagina** (koormap-slot of catalogus-blad). |
-| Inhoud | Een koormap-pagina mag **meerdere** zangstukken, varianten en/of uitvoeringsvormen bevatten. Daar legt het systeem geen limiet op. |
-| Catalogus-blad | Bevat per definitie **één** uitvoeringsvorm; download/print van het blad = die pagina (`index.md.pdf`, of bij actieve translit-knop `index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf`; beide knoppen op een gemengd blad: `index.md.translit-beide.pdf`). |
-| Layout | Bladtitels en rubrieken tussen partituren: shortcode `kop` (§6). Uitleg en gewone structuur: Markdown. Catalogusmuziek: `bieb`. Geen HTML voor uitlijning of kopgrootte. |
-| Navbalk | **Download-icoon** (pijl omlaag) en translit-icoonknoppen **Ксл→Nls** (Nls) / **Nls→Ксл** (Ksl) horen bij de pagina (niet per `bieb`-blok). **Ксл** is Ksl in Cyrillische letters. Bij elk muziekblok: tip-icoon **♪** voor oefenen/beluisteren. |
+| Regel            | Betekenis                                                                                                                                                                                                                                                         |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Download / print | Altijd de **getoonde pagina** (koormap-slot of catalogus-blad).                                                                                                                                                                                                   |
+| Inhoud           | Een koormap-pagina mag **meerdere** zangstukken, varianten en/of uitvoeringsvormen bevatten. Daar legt het systeem geen limiet op.                                                                                                                                |
+| Catalogus-blad   | Bevat per definitie **één** uitvoeringsvorm; download/print van het blad = die pagina (`index.md.pdf`, of bij actieve translit-knop `index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf`; beide knoppen: `index.md.translit-beide.pdf` — hybride UV uit `.translit.svg`, anders per UV de enkelvoudige sibling). |
+| Layout           | Bladtitels en rubrieken tussen partituren: shortcode `kop` (§6). Uitleg en gewone structuur: Markdown. Catalogusmuziek: `bieb`. Geen HTML voor uitlijning of kopgrootte.                                                                                          |
+| Navbalk          | **Download-icoon** (pijl omlaag) en translit-icoonknoppen **Ксл→Nls** (Nls) / **Nls→Ксл** (Ksl) horen bij de pagina (niet per `bieb`-blok). **Ксл** is Ksl in Cyrillische letters. Bij elk muziekblok: tip-icoon **♪** voor oefenen/beluisteren.                  |
 
 Plaatsing van download en translit in de navigatie is onderdeel van dit contract.
 
@@ -48,11 +48,11 @@ Plaatsing van download en translit in de navigatie is onderdeel van dit contract
 
 ## 3. Bestand en gewone Markdown
 
-| Onderdeel | Afspraak |
-| --- | --- |
-| Bestand | Koormap-slot: `…/index.md` (of sectie-`_index.md` waar dat al de conventie is). |
-| Frontmatter van de pagina | Blijft zoals nu (`title`, `linkTitle`, `weight`, `publicatiestatus`, `automatische_inhoud`, …). Dat is **pagina**-metadata van de koormap, niet de catalogus-frontmatter van een uitvoeringsvorm. Optioneel: `pdf_bestandsnaam` (zie hieronder). |
-| Body | Gewone Markdown (koppen, alinea’s, lijsten, tabellen, …) plus de shortcodes in dit document. |
+| Onderdeel   | Afspraak                                                                                                                                                                                                                                         |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Bestand     | Koormap-slot: `…/index.md` (of sectie-`_index.md` waar dat al de conventie is).                                                                                                                                                                  |
+| Frontmatter | Blijft zoals nu (`title`, `linkTitle`, `weight`, `publicatiestatus`, `automatische_inhoud`, …). Dat is **pagina**-metadata van de koormap, niet de catalogus-frontmatter van een uitvoeringsvorm. Optioneel: `pdf_bestandsnaam` (zie hieronder). |
+| Body        | Gewone Markdown (koppen, alinea’s, lijsten, tabellen, …) plus de shortcodes in dit document.                                                                                                                                                     |
 
 ### Voorgestelde naam bij het download-icoon
 
@@ -93,15 +93,15 @@ normatief alleen de **extra** koormap-taal. Markdown-`#` / `##` mag voor
 
 ## 4. Overzicht van de taal
 
-| Element | Rol |
-| --- | --- |
-| `bieb` (kort, met `id`) | Één uitvoeringsvorm: standaard het muzikale deel, of een genoemd onderdeel — zie §5.1. |
-| `bieb` … `/bieb` (blok) | Uitvoeringsvorm als **context**; daarbinnen onderdelen zonder telkens `id` — zie §5.2. |
-| Onderdelen (`titel`, `muziek`, …) | Catalogusstukjes van de context-UV, of via `bieb id=…` met expliciet onderdeel — zie §5.3. |
-| `kop` … `/kop` | Bladtitel of rubriek: uitlijning en grootte — zie §6. |
-| `witruimte` | Extra verticale ruimte tussen onderdelen (web én pagina-PDF) — zie §7. |
-| `pdf-pagina` | In de **PDF van deze pagina**: nieuw A4-blad. Op het web geen bladscheiding — zie §8. |
-| `pdf-bijelkaar` … `/pdf-bijelkaar` | In de PDF: streef naar **één** A4 voor de inhoud van het blok — zie §9. |
+| Element                            | Rol                                                                                        |
+| ---------------------------------- | ------------------------------------------------------------------------------------------ |
+| `bieb` (kort, met `id`)            | Één uitvoeringsvorm: standaard het muzikale deel, of een genoemd onderdeel — zie §5.1.     |
+| `bieb` … `/bieb` (blok)            | Uitvoeringsvorm als **context**; daarbinnen onderdelen zonder telkens `id` — zie §5.2.     |
+| Onderdelen (`titel`, `muziek`, …)  | Catalogusstukjes van de context-UV, of via `bieb id=…` met expliciet onderdeel — zie §5.3. |
+| `kop` … `/kop`                     | Bladtitel of rubriek: uitlijning en grootte — zie §6.                                      |
+| `witruimte`                        | Extra verticale ruimte tussen onderdelen (web én pagina-PDF) — zie §7.                     |
+| `pdf-pagina`                       | In de **PDF van deze pagina**: nieuw A4-blad. Op het web geen bladscheiding — zie §8.      |
+| `pdf-bijelkaar` … `/pdf-bijelkaar` | In de PDF: streef naar **één** A4 voor de inhoud van het blok — zie §9.                    |
 
 **PDF-directives** hebben het voorvoegsel `pdf-`, zodat een beheerder meteen
 ziet: dit stuurt de download/print, niet de lopende webtekst. (Hugo-shortcodes
@@ -119,13 +119,14 @@ door elkaar.
 
 ```markdown
 {{< bieb id="zangstuk/variant/uitvoeringsvorm" />}}
+{{< bieb id="zangstuk/variant/uitvoeringsvorm@sectie-id" />}}
 ```
 
-| Eis | Toelichting |
-| --- | --- |
-| `id` | **Verplicht**. Catalogus-id in drie lagen. |
-| Self-close `/>` | **Verplicht** in Hugo voor deze korte vorm (dezelfde shortcode bestaat ook als blok). |
-| Betekenis | Het **muzikale deel** (+ oefenacties bij dat blok). |
+| Eis             | Toelichting                                                                                                               |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `id`            | **Verplicht**. Catalogus-id in drie lagen, optioneel met `@sectie-id` (alleen MVSA-`@sectie`, nooit `@blok`).             |
+| Self-close `/>` | **Verplicht** in Hugo voor deze korte vorm (dezelfde shortcode bestaat ook als blok).                                     |
+| Betekenis       | Het **muzikale deel** (+ oefenacties bij dat blok). Met `@sectie-id`: alleen die sectie (product `*.mvsa@sectie-id.svg`). |
 
 Hugo staat **geen** mix toe van named `id="…"` en positional `titel` /
 `colofon` / `muziek` op één shortcode. Andere onderdelen: gebruik het
@@ -143,11 +144,11 @@ horen bij het **buitenste** `bieb … /bieb`-blok.
 {{< /bieb >}}
 ```
 
-| Eis | Toelichting |
-| --- | --- |
-| `id` | Verplicht op de openings-shortcode. |
-| Context | Onderdelen **zonder** eigen `id` (§5.3) verwijzen naar **deze** uitvoeringsvorm. |
-| Meerdere blokken | Op één pagina mogen meerdere `bieb`-blokken staan, elk met eigen `id`. |
+| Eis              | Toelichting                                                                       |
+| ---------------- | --------------------------------------------------------------------------------- |
+| `id`             | Verplicht op de openings-shortcode.                                               |
+| Context          | Onderdelen **zonder** eigen `id` (§5.3) verwijzen naar **deze** uitvoeringsvorm.  |
+| Meerdere blokken | Op één pagina mogen meerdere `bieb`-blokken staan, elk met eigen `id`.            |
 | Overige Markdown | Koppen, tekst en shortcodes die géén onderdeel zijn, blijven gewone paginainhoud. |
 
 ### 5.3 Onderdelen (met of zonder `bieb`-prefix)
@@ -155,42 +156,60 @@ horen bij het **buitenste** `bieb … /bieb`-blok.
 Twee schrijfwijzen zijn **gelijkwaardig** wanneer er een openstaande
 `bieb`-blokcontext is:
 
-| Zonder prefix | Met prefix |
-| --- | --- |
-| `{{< titel >}}` | `{{< bieb titel  />}}` |
-| `{{< title >}}` | `{{< bieb title  />}}` |
-| `{{< muziek >}}` | `{{< bieb muziek  />}}` |
-| `{{< bron >}}` | `{{< bieb bron  />}}` |
+| Zonder prefix       | Met prefix                 |
+| ------------------- | -------------------------- |
+| `{{< titel >}}`     | `{{< bieb titel  />}}`     |
+| `{{< title >}}`     | `{{< bieb title  />}}`     |
+| `{{< muziek >}}`    | `{{< bieb muziek  />}}`    |
+| `{{< bron >}}`      | `{{< bieb bron  />}}`      |
 | `{{< copyright >}}` | `{{< bieb copyright  />}}` |
-| `{{< colofon >}}` | `{{< bieb colofon  />}}` |
-| `{{< veld "…" >}}` | `{{< bieb veld "…"  />}}` |
+| `{{< colofon >}}`   | `{{< bieb colofon  />}}`   |
+| `{{< veld "…" >}}`  | `{{< bieb veld "…"  />}}`  |
 
-| Situatie | Regel |
-| --- | --- |
-| Binnen `bieb … /bieb` | Onderdeel zonder `id` → context-UV. |
-| Buiten elk `bieb`-blok | Open een `bieb`-blok met `id` en zet daarin het onderdeel (`{{< titel >}}` / `{{< colofon >}}`, …). Hugo staat **geen** mix van named `id=` en positional `titel`/`colofon` op één self-closing shortcode toe. |
-| Binnen een blok, andere UV | Gebruik §5.1 met ander `id`; context van het blok blijft staan. |
+| Situatie                   | Regel                                                                                                                                                                                                          |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Binnen `bieb … /bieb`      | Onderdeel zonder `id` → context-UV.                                                                                                                                                                            |
+| Buiten elk `bieb`-blok     | Open een `bieb`-blok met `id` en zet daarin het onderdeel (`{{< titel >}}` / `{{< colofon >}}`, …). Hugo staat **geen** mix van named `id=` en positional `titel`/`colofon` op één self-closing shortcode toe. |
+| Binnen een blok, andere UV | Gebruik §5.1 met ander `id`; context van het blok blijft staan.                                                                                                                                                |
 
 #### Bekende onderdelen (fase 1 — lijst mag groeien)
 
-| Onderdeel | Aliassen | Betekenis |
-| --- | --- | --- |
-| `titel` | `title` | Catalogustitel van de uitvoeringsvorm, als platte tekst (geschikt in een Markdown-kop of binnen `kop`). |
-| `muziek` | — | Partituurweergave (+ tip-icoon **♪** bij dat blok). Geen paginatitel forceren. **Schermketen en look:** [schermpartituur.md](schermpartituur.md) (normatief). Kort: default tall SVG (``.mvsa.svg`` / ``.vsa.svg`` / ``.mscz.svg``; bij actieve translit-knop: ``.translit-nls.svg`` / ``.translit-ksl.svg``); OSMG/from-ir experimenteel via {}; tekstblad-md of PDF alleen als nood-fallback. Blad download: nav **download-icoon** volgt translit-knoppen. Artifact Score-IR: `vsa mvsa score-ir … --musicxml` in VSA-tooling. |
-| `bron` | — | Korte bronvermelding van de uitvoeringsvorm. |
-| `copyright` | — | Korte copyright-/licentieregel (footer-achtig), alleen als de beheerder dit zet. Verwijst vaak naar het colofon («zie colofon»). |
-| `colofon` | — | Volledige colofontekst: uit MuseScore-colofon-VBox indien aanwezig; anders opgebouwd uit copyright-notice, eredienst-kopieertoestemming, Bron en Bibliotheek-id. Scherm én `index.md.pdf`. |
-| `veld` | — | Generieke frontmatter; zie §5.4. |
+| Onderdeel   | Aliassen | Betekenis                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ----------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `titel`     | `title`  | Catalogustitel van de uitvoeringsvorm, als platte tekst (geschikt in een Markdown-kop of binnen `kop`).                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `muziek`    | —        | Partituurweergave (+ tip-icoon **♪** bij dat blok). Geen paginatitel forceren. **Schermketen en look:** [schermpartituur.md](schermpartituur.md) (normatief). Kort: default tall SVG (``.mvsa.svg`` / ``.vsa.svg`` / ``.mscz.svg``; bij actieve translit-knop: ``.translit-nls.svg`` / ``.translit-ksl.svg``); OSMG/from-ir experimenteel via {}; tekstblad-md of PDF alleen als nood-fallback. Blad download: nav **download-icoon** volgt translit-knoppen. Artifact Score-IR: `vsa mvsa score-ir … --musicxml` in VSA-tooling. |
+| `bron`      | —        | Korte bronvermelding van de uitvoeringsvorm.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `copyright` | —        | Korte copyright-/licentieregel (footer-achtig), alleen als de beheerder dit zet. Verwijst vaak naar het colofon («zie colofon»).                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `colofon`   | —        | Volledige colofontekst: uit MuseScore-colofon-VBox indien aanwezig; anders opgebouwd uit copyright-notice, eredienst-kopieertoestemming, Bron en Bibliotheek-id. Scherm én `index.md.pdf`.                                                                                                                                                                                                                                                                                                                                        |
+| `veld`      | —        | Generieke frontmatter; zie §5.4.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 
 Welke sleutels later **ook zonder** `veld` een eigen korte naam krijgen,
 komt in een uitbreidingstabel. Tot die tijd: `veld`.
 
+#### Sectie-fragment in `id` (nu)
+
+Een `@sectie` in de catalogusbron is adresseerbaar via het id:
+
+```markdown
+{{< bieb id="ektinia/vrede/hemelum@openingsfrase" />}}
+```
+
+| Regel        | Toelichting                                                                                                             |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| Vorm         | `zangstuk/variant/uitvoeringsvorm@sectie-id` — sectie-id zoals in MVSA (`[a-z][a-z0-9_-]*`).                            |
+| Geen `@blok` | Speelblokken horen alleen bij `@speelplan`; niet in een bieb-id.                                                        |
+| Producten    | `scripts\products.cmd --kinds mvsa` maakt `*.mvsa@sectie.svg` (en from-ir) **alleen** als ergens zo’n verwijzing staat. |
+| Web + PDF    | Shortcode en `index.md.pdf` tonen die sibling, niet het hele stuk.                                                      |
+
+Zie VSA-tooling [keywords `@sectie`](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/specification-mvsa/keywords.md).
+
 #### `muziek` — latere parameters (gereserveerd)
 
-In een volgende fase mag `muziek` parameters krijgen om delen van het
-bronbestand te kiezen of op **deze pagina** bij te sturen (bijv. `@blok`,
-`@tempo`, openings-`@tekst`), zonder de catalogusbron te wijzigen. Die
-parameters horen op `muziek` (en eventueel later `tekst`), niet op `veld`.
+In een volgende fase mag `muziek` parameters krijgen om op **deze pagina**
+bij te sturen (bijv. `@tempo`, openings-`@tekst`), zonder de catalogusbron
+te wijzigen. Delen van de bron kies je via `…@sectie` in `id` (hierboven),
+niet via `@blok`. Die parameters horen op `muziek` (en eventueel later
+`tekst`), niet op `veld`.
 
 ### 5.4 `veld` — frontmatter van de uitvoeringsvorm
 
@@ -200,13 +219,13 @@ parameters horen op `muziek` (en eventueel later `tekst`), niet op `veld`.
 {{< bieb id="ektinia/vrede/hemelum" veld "bron.uitgangspunt" />}}
 ```
 
-| Regel | Toelichting |
-| --- | --- |
-| Argument | Pad of sleutel in de frontmatter van de bedoelde uitvoeringsvorm. Canonieke sleutels: [VSA-/MVSA-frontmatter](vsa-frontmatter.md). |
-| Context | Met open blok: die UV. Zonder blok: alleen met `id=` op de korte `bieb`. |
-| Uitvoer | Tekst op de pagina (en in download/print van de pagina). |
-| Ontbrekend | Voorspelbaar gedrag (leeg vs. fout) in het bouwplan. |
-| Geen notatie | `veld` leest geen `@blok`-inhoud; daarvoor later `muziek` / `tekst`. |
+| Regel        | Toelichting                                                                                                                        |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Argument     | Pad of sleutel in de frontmatter van de bedoelde uitvoeringsvorm. Canonieke sleutels: [VSA-/MVSA-frontmatter](vsa-frontmatter.md). |
+| Context      | Met open blok: die UV. Zonder blok: alleen met `id=` op de korte `bieb`.                                                           |
+| Uitvoer      | Tekst op de pagina (en in download/print van de pagina).                                                                           |
+| Ontbrekend   | Voorspelbaar gedrag (leeg vs. fout) in het bouwplan.                                                                               |
+| Geen notatie | `veld` leest geen `@blok`-inhoud; daarvoor later `muziek` / `tekst`.                                                               |
 
 ---
 
@@ -228,20 +247,20 @@ pagina afdrukt (`title`, `linkTitle`, een eigen veld, of een sleutel onder
 in vóór de kop op `index.md.pdf` komt. Een onbekende veldnaam stopt de
 PDF-bouw met een fout.
 
-| Eis | Toelichting |
-| --- | --- |
-| Blokvorm | Openen met `{{< kop … >}}`, sluiten met `{{< /kop >}}`. Inhoud = de zichtbare tekst (platte tekst, of een genest onderdeel zoals `titel` of `param`). Geen geneste Markdown-opmaak in v1 (`**vet**`); wel HTML-inline desgewenst. |
-| Standaard | **Midden** uitgelijnd, grootte **groot** (typische bladtitel). |
-| Knoppen | Optionele woordjes uit twee vaste sets (volgorde vrij; hoogstens één per set). Onbekende woorden: fout bij bouw. |
-| Web en PDF | Zelfde look op de pagina en in de pagina-download. |
-| Geen kleur (v1) | Geen kleurenknoppen en geen vrije kleurcodes. Eventuele vaste rollen (bijv. `zacht`) later via uitbreidingstabel. |
+| Eis             | Toelichting                                                                                                                                                                                                                       |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Blokvorm        | Openen met `{{< kop … >}}`, sluiten met `{{< /kop >}}`. Inhoud = de zichtbare tekst (platte tekst, of een genest onderdeel zoals `titel` of `param`). Geen geneste Markdown-opmaak in v1 (`**vet**`); wel HTML-inline desgewenst. |
+| Standaard       | **Midden** uitgelijnd, grootte **groot** (typische bladtitel).                                                                                                                                                                    |
+| Knoppen         | Optionele woordjes uit twee vaste sets (volgorde vrij; hoogstens één per set). Onbekende woorden: fout bij bouw.                                                                                                                  |
+| Web en PDF      | Zelfde look op de pagina en in de pagina-download.                                                                                                                                                                                |
+| Geen kleur (v1) | Geen kleurenknoppen en geen vrije kleurcodes. Eventuele vaste rollen (bijv. `zacht`) later via uitbreidingstabel.                                                                                                                 |
 
 ### 6.1 Knoppen
 
-| Soort | Toegestane woorden | Betekenis |
-| --- | --- | --- |
-| Uitlijning | `links` · `midden` · `rechts` | Horizontale plaatsing van de tekst. |
-| Grootte | `groot` · `middel` · `klein` | Visuele trap (ongeveer bladkop / rubriek / label). Geen HTML-jargon (`h1`/`h2`) in de beheerderstaal. |
+| Soort      | Toegestane woorden            | Betekenis                                                                                             |
+| ---------- | ----------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Uitlijning | `links` · `midden` · `rechts` | Horizontale plaatsing van de tekst.                                                                   |
+| Grootte    | `groot` · `middel` · `klein`  | Visuele trap (ongeveer bladkop / rubriek / label). Geen HTML-jargon (`h1`/`h2`) in de beheerderstaal. |
 
 Voorbeelden:
 
@@ -256,19 +275,19 @@ Typische rubriek tussen partituren (zoals “Toon 1”): `links` + `middel`.
 
 ### 6.2 Wat `kop` niet is
 
-| Niet | Wel |
-| --- | --- |
+| Niet                                          | Wel                                                                          |
+| --------------------------------------------- | ---------------------------------------------------------------------------- |
 | Vervanging van catalogus-`titel` als databron | `titel` blijft het catalogusonderdeel; `kop` is alleen presentatie eromheen. |
-| Vervanging van alle Markdown-koppen | `#` / `##` blijven voor uitleg en structuur buiten bladlook. |
-| HTML / CSS door de beheerder | Geen `<h1 style="…">`, geen `class="koormap-tussenkop"`. |
+| Vervanging van alle Markdown-koppen           | `#` / `##` blijven voor uitleg en structuur buiten bladlook.                 |
+| HTML / CSS door de beheerder                  | Geen `<h1 style="…">`, geen `class="koormap-tussenkop"`.                     |
 
 ### 6.3 Verouderde middelen (verwijderd of niet schrijven)
 
-| Oud / elders | Op koormap-pagina’s |
-| --- | --- |
-| `<h1 style="text-align: center">…</h1>` e.d. | `kop` (desgewenst met knoppen) |
-| `<p class="koormap-tussenkop">…</p>` | `{{< kop links middel >}}…{{< /kop >}}` (class verwijderd) |
-| Shortcodes `pagebreak`, `pagina`, `keep-together`, `print-only`, `web-only` | Verwijderd; gebruik `pdf-pagina` / `pdf-bijelkaar` |
+| Oud / elders                                                                | Op koormap-pagina’s                                        |
+| --------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| `<h1 style="text-align: center">…</h1>` e.d.                                | `kop` (desgewenst met knoppen)                             |
+| `<p class="koormap-tussenkop">…</p>`                                        | `{{< kop links middel >}}…{{< /kop >}}` (class verwijderd) |
+| Shortcodes `pagebreak`, `pagina`, `keep-together`, `print-only`, `web-only` | Verwijderd; gebruik `pdf-pagina` / `pdf-bijelkaar`         |
 
 Markdown-`#` blijft toegestaan voor uitleg; voor bladlook: `kop`.
 `pdf.cmd` leest nog legacy HTML-`h1` en `#` als fallback.
@@ -286,11 +305,11 @@ Lege Markdown-regels tussen shortcodes geven **geen** zichtbare ruimte
 {{< witruimte klein >}}
 ```
 
-| Eis | Toelichting |
-| --- | --- |
-| Korte vorm | Geen inhoud; optioneel één knop. |
-| Standaard | **middel**. |
-| Knoppen | `klein` · `middel` · `groot` (hoogstens één). |
+| Eis        | Toelichting                                                                        |
+| ---------- | ---------------------------------------------------------------------------------- |
+| Korte vorm | Geen inhoud; optioneel één knop.                                                   |
+| Standaard  | **middel**.                                                                        |
+| Knoppen    | `klein` · `middel` · `groot` (hoogstens één).                                      |
 | Web en PDF | Zelfde intentie: zichtbare verticale ruimte op de pagina en in de pagina-download. |
 
 ### 7.1 NL + KSL op één slot (conventie)
@@ -309,10 +328,10 @@ A4); geen `pdf-bijelkaar` om NL+KSL te forceren.
 {{< pdf-pagina >}}
 ```
 
-| Weergave | Gedrag |
-| --- | --- |
-| Web | Geen zichtbare bladscheiding; geen extra lege ruimte door deze shortcode. |
-| PDF van deze pagina | Hier begint een **nieuw A4-blad**. |
+| Weergave            | Gedrag                                                                    |
+| ------------------- | ------------------------------------------------------------------------- |
+| Web                 | Geen zichtbare bladscheiding; geen extra lege ruimte door deze shortcode. |
+| PDF van deze pagina | Hier begint een **nieuw A4-blad**.                                        |
 
 De beheerder gebruikt dit wanneer blokken in de download **niet** op hetzelfde
 blad mogen staan (bijv. NL en KSL elk een eigen blad).
@@ -359,9 +378,9 @@ Markdown geen `kop`/`#` meer heeft — plan
 {{< /pdf-bijelkaar >}}
 ```
 
-| Weergave | Gedrag |
-| --- | --- |
-| Web | Geen speciale bladwerking; inhoud compact onder elkaar. |
+| Weergave                        | Gedrag                                                       |
+| ------------------------------- | ------------------------------------------------------------ |
+| Web                             | Geen speciale bladwerking; inhoud compact onder elkaar.      |
 | PDF van deze pagina (`pdf.cmd`) | Streef ernaar alles binnen het blok op **één** A4 te houden. |
 
 Dit is een **koormap-keuze**, geen cataloguswijziging. De canonieke
@@ -378,11 +397,11 @@ kleinere systeemafstand en paginamarges). Zie VSA-tooling CLI
 [`mvsa svg` / `mvsa pdf`](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/reference/cli/mvsa.md)
 en [`.mscz` Style-opties](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/mscz.md).
 
-| Laag | Rol |
-| --- | --- |
-| Shortcode `pdf-bijelkaar` | Intentie van de beheerder: “dit hoort op één blad”. |
-| Tooling `--compact` | Concrete dichte export (marges/systeemafstand). |
-| Latere fine-tuning | Optionele parameters op `pdf-bijelkaar` of aparte `pdf-…`-directives die losse Style-vlaggen doorgeven (`--min-system-distance`, marges, …). Tot die tijd: alleen `--compact`. |
+| Laag                      | Rol                                                                                                                                                                            |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Shortcode `pdf-bijelkaar` | Intentie van de beheerder: “dit hoort op één blad”.                                                                                                                            |
+| Tooling `--compact`       | Concrete dichte export (marges/systeemafstand).                                                                                                                                |
+| Latere fine-tuning        | Optionele parameters op `pdf-bijelkaar` of aparte `pdf-…`-directives die losse Style-vlaggen doorgeven (`--min-system-distance`, marges, …). Tot die tijd: alleen `--compact`. |
 
 **Escalatie (bedoeling):**
 
@@ -524,15 +543,15 @@ af van latere `@blok`-selectie; het voorbeeld toont alleen het
 
 ## 11. Uitbreidingspunten (bewust open)
 
-| Uitbreiding | Richting |
-| --- | --- |
-| Meer korte namen i.p.v. `veld` | Tabel: alias → frontmatter-pad. |
-| Parameters op `muziek` / `tekst` | Selectie van `@blok` (en presentatie-overrides op deze pagina). |
-| Meer `pdf-…` directives / params op `pdf-bijelkaar` | Zelfde familie; fine-tuning Style-vlaggen naast de default `--compact`. |
-| Defaults van korte `bieb` zonder onderdeel | Blijft “muziek”; eventueel later andere default = aparte beslissing. |
-| Catalogus-blad | Zelfde taal; context kan impliciet de enige UV van dat blad zijn. |
-| `kop`: vaste kleurrollen | Eventueel later `zacht` (secundair); geen vrije kleurcodes. |
-| `kop`: preset-woord | Eventueel later één woord (bijv. `tussen` = `links` + `middel`) — geen tweede shortcode. |
+| Uitbreiding                                         | Richting                                                                                 |
+| --------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Meer korte namen i.p.v. `veld`                      | Tabel: alias → frontmatter-pad.                                                          |
+| Parameters op `muziek` / `tekst`                    | Presentatie-overrides op deze pagina (sectie-keuze: al via `id…@sectie`).                |
+| Meer `pdf-…` directives / params op `pdf-bijelkaar` | Zelfde familie; fine-tuning Style-vlaggen naast de default `--compact`.                  |
+| Defaults van korte `bieb` zonder onderdeel          | Blijft “muziek”; eventueel later andere default = aparte beslissing.                     |
+| Catalogus-blad                                      | Zelfde taal; context kan impliciet de enige UV van dat blad zijn.                        |
+| `kop`: vaste kleurrollen                            | Eventueel later `zacht` (secundair); geen vrije kleurcodes.                              |
+| `kop`: preset-woord                                 | Eventueel later één woord (bijv. `tussen` = `links` + `middel`) — geen tweede shortcode. |
 
 Niet in deze authoring-taal (bewust):
 
@@ -549,11 +568,11 @@ Niet in deze authoring-taal (bewust):
 
 ## 12. Relatie tot `:::include` en verwante directives
 
-| Middel | Rol |
-| --- | --- |
-| Koormap-paginataal (dit document) | Wat beheerders in koormap- (en later catalogus-)`index.md` schrijven. |
+| Middel                                                 | Rol                                                                                                        |
+| ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
+| Koormap-paginataal (dit document)                      | Wat beheerders in koormap- (en later catalogus-)`index.md` schrijven.                                      |
 | `:::include`, `:::pagebreak:::`, `:::print-only:::`, … | Blijven nuttig in **VSA-tooling**: demo’s, Markdown→PDF-bladen buiten de koormap, interne pijplijn, tests. |
-| Hemelum-koormap-`index.md` | Schrijf **niet** in `:::include`-stijl; gebruik `bieb` / `kop` / `pdf-…`. |
+| Hemelum-koormap-`index.md`                             | Schrijf **niet** in `:::include`-stijl; gebruik `bieb` / `kop` / `pdf-…`.                                  |
 
 **Opruimen?** Niet de tooling-directives zelf afschaffen. Wel:
 
@@ -567,16 +586,16 @@ Niet in deze authoring-taal (bewust):
 
 ## 13. Status
 
-| Onderdeel | Status |
-| --- | --- |
-| Paginacontract; `bieb` kort met `id` (+ onderdeel); `bieb`-blok; onderdelen; `veld`; `pdf-pagina`; `pdf-bijelkaar` | **Afgesproken** |
-| Shortcode `kop` (+ knoppen uitlijning/grootte; geen kleur v1) | **Afgesproken** |
-| Shortcode `witruimte` (`klein` / `middel` / `groot`) | **Afgesproken + web/PDF** |
-| Shortcode-implementatie (web) + print-CSS (`bieb` / `pdf-…`) | **Gedaan (M1)** — self-closing `bieb` schrijven met `/>` (Hugo) |
-| Nav Download/Print | **Gedaan (M2)** |
-| Pagina-PDF-pijplijn | **Gedaan (M3)** — `scripts\pdf.cmd` (koormap); catalogus-dekking + titel zonder `#`: [catalogus-index-md-pdf.md](../plans/catalogus-index-md-pdf.md) |
-| Proefslots + docs (`bieb` / `pdf-…`) | **Gedaan (M4)** — o.a. vredeslitanie, eerste-kleine-litanie; `proef-ektinias` verwijderd |
-| Shortcode `kop` + CSS; proefslots HTML → `kop` | **Gedaan (M5)** — vredeslitanie, eerste-kleine-litanie, alleluia |
-| Handleiding + spiekbriefje voor beheerders | **Gedaan (M6)** — `handleiding/start/koormap-blad.md` |
-| Migratie/opruiming oude layout | **Gedaan (M7)** — `kop` in `pagina_pdf`; CSS/shortcodes `pagebreak`/`keep-together`/`pagina`/`print-only`/`web-only`/`koormap-tussenkop` weg; legacy `#`/`<h1>` blijft fallback in `pagina_pdf` |
-| `@blok`-selectie en presentatie-overrides | **Gereserveerd** |
+| Onderdeel                                                                                                          | Status                                                                                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Paginacontract; `bieb` kort met `id` (+ onderdeel); `bieb`-blok; onderdelen; `veld`; `pdf-pagina`; `pdf-bijelkaar` | **Afgesproken**                                                                                                                                                                                 |
+| Shortcode `kop` (+ knoppen uitlijning/grootte; geen kleur v1)                                                      | **Afgesproken**                                                                                                                                                                                 |
+| Shortcode `witruimte` (`klein` / `middel` / `groot`)                                                               | **Afgesproken + web/PDF**                                                                                                                                                                       |
+| Shortcode-implementatie (web) + print-CSS (`bieb` / `pdf-…`)                                                       | **Gedaan (M1)** — self-closing `bieb` schrijven met `/>` (Hugo)                                                                                                                                 |
+| Nav Download/Print                                                                                                 | **Gedaan (M2)**                                                                                                                                                                                 |
+| Pagina-PDF-pijplijn                                                                                                | **Gedaan (M3)** — `scripts\pdf.cmd` (koormap); catalogus-dekking + titel zonder `#`: [catalogus-index-md-pdf.md](../plans/catalogus-index-md-pdf.md)                                            |
+| Proefslots + docs (`bieb` / `pdf-…`)                                                                               | **Gedaan (M4)** — o.a. vredeslitanie, eerste-kleine-litanie; `proef-ektinias` verwijderd                                                                                                        |
+| Shortcode `kop` + CSS; proefslots HTML → `kop`                                                                     | **Gedaan (M5)** — vredeslitanie, eerste-kleine-litanie, alleluia                                                                                                                                |
+| Handleiding + spiekbriefje voor beheerders                                                                         | **Gedaan (M6)** — `handleiding/start/koormap-blad.md`                                                                                                                                           |
+| Migratie/opruiming oude layout                                                                                     | **Gedaan (M7)** — `kop` in `pagina_pdf`; CSS/shortcodes `pagebreak`/`keep-together`/`pagina`/`print-only`/`web-only`/`koormap-tussenkop` weg; legacy `#`/`<h1>` blijft fallback in `pagina_pdf` |
+| `@blok`-selectie en presentatie-overrides                                                                          | **Gereserveerd**                                                                                                                                                                                |

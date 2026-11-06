@@ -28,8 +28,8 @@ def test_template_fix_cmd():
         "products --kinds mvsa --reasons missing,stale --skip-post {file}"
     )
     assert template_fix_cmd(
-        r"scripts\pdf.cmd koormappen\x\y\index.md"
-    ) == r"scripts\pdf.cmd {file}"
+        r"scripts\pdf.cmd koormappen\x\y\index.md --force"
+    ) == r"scripts\pdf.cmd {file} --force"
 
 
 def test_print_check_findings_compact(capsys):

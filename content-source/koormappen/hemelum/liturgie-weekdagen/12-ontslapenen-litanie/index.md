@@ -7,7 +7,7 @@ automatische_inhoud: false
 
 {{< kop >}}{{< param title >}}{{< /kop >}}
 
-### Facultatief: alleen als het in de instructie staat
+{{< kop links klein >}}Facultatief: alleen als het in de instructie staat{{< /kop >}}
 
 {{< bieb id="ektinia/ontslapenen/hemelum" />}}
 

@@ -262,22 +262,47 @@ def atomic_write_bytes(
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_name(path.name + ".tmp")
     tmp.write_bytes(data)
+    try:
+        atomic_replace(tmp, path, retries=retries)
+    except (OSError, RuntimeError) as exc:
+        try:
+            path.write_bytes(data)
+        except OSError:
+            raise exc
+        finally:
+            tmp.unlink(missing_ok=True)
+
+
+def atomic_replace(
+    src: Path,
+    dest: Path,
+    *,
+    retries: int = 12,
+) -> None:
+    """Vervang ``dest`` door ``src`` (``os.replace``); retry bij Windows-lock.
+
+    PDF-viewers en Verkenner-voorbeeld houden bestanden vaak kort
+    memory-mapped (WinError 1224/32). Korte wacht + opnieuw proberen
+    voorkomt dat ``pdf.cmd`` / ``fix`` onnodig faalt.
+    """
+    src = Path(src)
+    dest = Path(dest)
+    dest.parent.mkdir(parents=True, exist_ok=True)
     last: OSError | None = None
     for attempt in range(max(1, retries)):
         try:
-            os.replace(tmp, path)
+            os.replace(src, dest)
             return
         except OSError as exc:
             last = exc
-            time.sleep(0.05 * (attempt + 1))
-    try:
-        path.write_bytes(data)
-    except OSError:
-        if last is not None:
-            raise last
-        raise
-    finally:
-        tmp.unlink(missing_ok=True)
+            # PDF-locks zijn plakkeriger dan tekst; iets langere backoff.
+            time.sleep(0.15 * (attempt + 1))
+    assert last is not None
+    explained = explain_sync_failure(last)
+    raise RuntimeError(
+        f"Kon {dest.name} niet opslaan: {explained.reason} "
+        f"{explained.solution}"
+    ) from last
 
 
 def run_quiet(
@@ -365,6 +390,8 @@ def is_transient_lock_error(exc: BaseException) -> bool:
         "toegang geweigerd",
         "access is denied",
         "door een ander proces wordt gebruikt",
+        "toegewezen sectie",
+        "user-mapped section",
         "errno 22",
         "lokale sessie",
     )
@@ -382,8 +409,10 @@ def explain_sync_failure(exc: BaseException) -> FailureExplain:
             break
 
     low = combined.lower()
+    win = getattr(exc, "winerror", None) if isinstance(exc, OSError) else None
     if (
-        "winerror 5" in low
+        win in {5, 32}
+        or "winerror 5" in low
         or "winerror 32" in low
         or "toegang geweigerd" in low
         or "access is denied" in low
@@ -391,21 +420,30 @@ def explain_sync_failure(exc: BaseException) -> FailureExplain:
     ):
         return FailureExplain(
             reason=(
-                error_line
-                or "Bestand was vergrendeld (in gebruik door een ander programma)."
+                "Het bestand staat nog open in een ander programma "
+                "(bijvoorbeeld MuseScore, een PDF-/SVG-viewer of Verkenner)."
             ),
             solution=(
-                "Oplossing: sluit MuseScore, een PDF-/SVG-viewer of het "
-                "voorbeeldvenster in Verkenner dat dit bestand open heeft, "
-                "en draai het commando opnieuw."
+                "Oplossing: sluit MuseScore, de PDF-/SVG-viewer of het "
+                "voorbeeldvenster in Verkenner, en draai het commando opnieuw."
             ),
         )
-    if "winerror 1224" in low or "lokale sessie" in low:
+    if (
+        win == 1224
+        or "winerror 1224" in low
+        or "lokale sessie" in low
+        or "toegewezen sectie" in low
+        or "user-mapped section" in low
+    ):
         return FailureExplain(
-            reason=error_line or "Bestand was tijdelijk vergrendeld (WinError 1224).",
+            reason=(
+                "Het PDF-bestand staat nog open in een ander programma "
+                "(PDF-viewer, browser of het voorbeeldpaneel in Verkenner)."
+            ),
             solution=(
-                "Oplossing: sluit het bestand in MuseScore of een viewer en "
-                "draai opnieuw; soms helpt een paar seconden wachten."
+                "Oplossing: sluit de PDF-viewer, browser of het "
+                "voorbeeldpaneel in Verkenner, en draai het commando opnieuw. "
+                "Soms helpt een paar seconden wachten."
             ),
         )
     if "errno 22" in low or "invalid argument" in low:

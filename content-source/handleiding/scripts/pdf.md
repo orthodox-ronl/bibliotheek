@@ -32,6 +32,7 @@ translit-SVG-siblings:
 | ---------------------- | ------------------------------------ |
 | Puur Nederlands        | `index.md.translit-ksl.pdf`          |
 | Puur kerkslavisch      | `index.md.translit-nls.pdf`          |
+| Hybride (NL+Ksl in één bron) | nls- én ksl-PDF, plus `index.md.translit-beide.pdf` uit `.translit.svg` |
 | Hybride (nl + ksl)     | beide                                |
 
 Ontbreekt de bijbehorende `{bron}.translit-*.svg`, dan exporteert

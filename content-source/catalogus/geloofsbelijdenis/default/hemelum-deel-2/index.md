@@ -5,6 +5,6 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-### Hiervoor hoort "geloofsbelijdenis/default/hemelum-deel-1"
+{{< kop links klein >}}Hiervoor hoort "geloofsbelijdenis/default/hemelum-deel-1"{{< /kop >}}
 
 {{< bieb id="geloofsbelijdenis/default/hemelum-deel-2" />}}

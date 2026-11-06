@@ -2,6 +2,9 @@
 
 Product-``.mvsa.pdf`` niet meer verplicht. Slaat import-siblings
 ``*.mscz.mvsa`` over. Schrijft ``data/mvsa-product-status.json``.
+De JSON-sleutel is het bronpad (niet de bladermap): twee ``.mvsa``
+in dezelfde leaf overschrijven elkaar anders, en ``check-fixlist``
+ziet het falende bestand dan niet.
 Exit 1 bij problemen tenzij ``--warn-only``.
 """
 
@@ -186,9 +189,62 @@ def _stamp_issues(mvsa: Path, digest: str) -> list[Issue]:
     return issues
 
 
-def check_one(mvsa: Path) -> FolderStatus:
+def _append_sectie_issues(
+    issues: list[Issue],
+    mvsa: Path,
+    digest: str,
+    refs: dict[str, set[str]],
+) -> None:
+    """Sectie-producten alleen als ergens ``bieb id=\"…@sectie\"`` staat."""
+    from catalogus_sectie import (
+        product_from_ir_for_sectie,
+        product_svg_for_sectie,
+    )
+    from ensure_bibliotheek_id import id_from_catalogus_path
+
+    bib = id_from_catalogus_path(mvsa)
+    if not bib:
+        return
+    for sectie in sorted(refs.get(bib, ())):
+        _check_stamped_product(
+            issues,
+            path=product_svg_for_sectie(mvsa, sectie),
+            digest=digest,
+            missing_kind="missing_sectie_svg",
+            missing_detail=(
+                f"Sectie-SVG (.mvsa@{sectie}.svg) ontbreekt "
+                f"(gerefereerd in bieb-id)"
+            ),
+            unstamped_kind="unstamped_sectie_svg",
+            stale_kind="stale_sectie_svg",
+            label=f"SVG @{sectie}",
+            read_stamp=read_svg_stamp,
+        )
+        _check_stamped_product(
+            issues,
+            path=product_from_ir_for_sectie(mvsa, sectie),
+            digest=digest,
+            missing_kind="missing_sectie_from_ir",
+            missing_detail=(
+                f"Sectie from-ir (.mvsa@{sectie}.from-ir.musicxml) "
+                f"ontbreekt (gerefereerd in bieb-id)"
+            ),
+            unstamped_kind="unstamped_sectie_from_ir",
+            stale_kind="stale_sectie_from_ir",
+            label=f"from-ir @{sectie}",
+            read_stamp=read_from_ir_musicxml_stamp,
+        )
+
+
+def check_one(
+    mvsa: Path, *, sectie_refs: dict[str, set[str]] | None = None
+) -> FolderStatus:
     digest = source_sha256(mvsa)
     fix = products_fix_cmd("mvsa", mvsa)
+    refs = sectie_refs if sectie_refs is not None else {}
+
+    # Sectie-SVG/from-ir staan niet in products-meta-keys; altijd apart
+    # controleren — ook als meta voor mxl/score-ir/from-ir «ok» is.
     issues = issues_from_meta_or(
         mvsa,
         required_keys=set(_MVSA_META_KEYS),
@@ -196,6 +252,7 @@ def check_one(mvsa: Path) -> FolderStatus:
         stamp_issues=lambda: _stamp_issues(mvsa, digest),
         issue_cls=Issue,
     )
+    _append_sectie_issues(issues, mvsa, digest, refs)
     return FolderStatus(
         dir=_bladermap_key(mvsa),
         source=_rel(mvsa),
@@ -206,7 +263,10 @@ def check_one(mvsa: Path) -> FolderStatus:
 
 
 def collect_statuses(root: Path) -> list[FolderStatus]:
-    return [check_one(mvsa) for mvsa in collect_mvsa(root)]
+    from catalogus_sectie import collect_sectie_refs
+
+    refs = collect_sectie_refs(REPO_ROOT / "content-source")
+    return [check_one(mvsa, sectie_refs=refs) for mvsa in collect_mvsa(root)]
 
 
 def write_status_json(statuses: list[FolderStatus], path: Path = STATUS_PATH) -> None:
@@ -214,8 +274,11 @@ def write_status_json(statuses: list[FolderStatus], path: Path = STATUS_PATH) ->
     payload = {
         "fix_page": FIX_PAGE,
         "folders": {
-            s.dir: {
+            # Sleutel = bronpad. Map-pad als sleutel liet een tweede .mvsa
+            # in dezelfde leaf de falende status overschrijven (fixlist leeg).
+            (s.source or s.dir): {
                 "source": s.source,
+                "dir": s.dir,
                 "ok": s.ok,
                 "fix_cmd": s.fix_cmd,
                 "issues": [asdict(i) for i in s.issues],

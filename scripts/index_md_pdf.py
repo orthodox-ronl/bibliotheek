@@ -39,6 +39,7 @@ if str(_SCRIPTS) not in sys.path:
 
 from cli_style import (  # noqa: E402
     add_verbose_argument,
+    atomic_replace,
     count,
     detail,
     hard,
@@ -1509,7 +1510,7 @@ def compose_tekstblad_pagina_pdf_from_body(
         tmp = dest.with_suffix(dest.suffix + ".tmp")
         doc.save(tmp)
         doc.close()
-        tmp.replace(dest)
+        atomic_replace(tmp, dest)
     finally:
         src.close()
 
@@ -1556,7 +1557,7 @@ def compose_voorzien_pdf(dest: Path, *, title: str) -> None:
     tmp = dest.with_suffix(dest.suffix + ".tmp")
     doc.save(tmp)
     doc.close()
-    tmp.replace(dest)
+    atomic_replace(tmp, dest)
 
 
 def _catalogus_voorzien_title(md_path: Path, leaf_id: str) -> str:
@@ -1691,6 +1692,15 @@ def _svg_page_index(path: Path) -> int:
     return int(match.group(1)) if match else 0
 
 
+def _install_pdf(src: Path, dest: Path) -> None:
+    """Zet een klaar PDF-bestand op de definitieve plek (Windows-lock-retry)."""
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    tmp = dest.with_suffix(dest.suffix + ".tmp")
+    if src.resolve() != tmp.resolve():
+        shutil.copy2(src, tmp)
+    atomic_replace(tmp, dest)
+
+
 def stitch_pdfs(sources: list[Path], dest: Path) -> None:
     try:
         from pypdf import PdfReader, PdfWriter
@@ -1706,7 +1716,7 @@ def stitch_pdfs(sources: list[Path], dest: Path) -> None:
     tmp = dest.with_suffix(dest.suffix + ".tmp")
     with tmp.open("wb") as fh:
         writer.write(fh)
-    tmp.replace(dest)
+    atomic_replace(tmp, dest)
 
 
 def _vsa_exe() -> str:
@@ -1939,9 +1949,10 @@ def resolve_svgs_for_pdf(
     """Kies SVG voor compose: verse product → legacy bladreeks → lokaal exporteren.
 
     Met ``translit_modus`` (``nls``/``ksl``/``beide``): translit-sibling als
-    die modus bij de bron hoort (``beide`` = per bron nls of ksl); anders de
+    die modus bij de bron hoort (``beide`` = per bron: hybride →
+    ``.translit.svg`` / both; puur Ksl → nls; puur Nls → ksl); anders de
     kale bron-SVG. Ontbrekende of verouderde translit-SVG wordt lokaal
-    geëxporteerd (``vsa``/``mvsa svg --translit-modus``).
+    geëxporteerd (``vsa``/``mvsa svg --translit`` / ``--translit-modus``).
 
     *work* / *uv_id* blijven voor aanroepers; export schrijft de canonieke
     sibling naast *source* (niet naar een temp-map).
@@ -1978,9 +1989,13 @@ def resolve_svgs_for_pdf(
             )
             return [tpath]
         reason = "verouderd" if tpath.is_file() else "ontbreekt"
+        flag = (
+            "--translit"
+            if (translit_modus or "").casefold() == "both"
+            else f"--translit-modus {translit_modus}"
+        )
         detail(
-            f"  translit-SVG {reason} ({tpath.name}); "
-            f"exporteren (--translit-modus {translit_modus})…"
+            f"  translit-SVG {reason} ({tpath.name}); exporteren ({flag})…"
         )
         export_one_translit_svg(source, translit_modus)
         if not tpath.is_file():
@@ -2650,7 +2665,7 @@ def _compose_flow_svg(
         tmp = dest.with_suffix(dest.suffix + ".tmp")
         doc.save(tmp)
         doc.close()
-        tmp.replace(dest)
+        atomic_replace(tmp, dest)
     finally:
         for docs in svg_pdfs.values():
             for src in docs:
@@ -2732,7 +2747,7 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
             if not parts:
                 return None
             if len(parts) == 1:
-                shutil.copy2(parts[0], out)
+                _install_pdf(parts[0], out)
             else:
                 stitch_pdfs(parts, out)
 
@@ -2749,8 +2764,10 @@ def _build_translit_pagina_pdfs(
 ) -> list[Path]:
     """Schrijf ``index.md.translit-*.pdf`` waar §5a dat vraagt.
 
-    Bij gemengd blad (Nls én Ksl nodig): ook ``index.md.translit-beide.pdf``,
-    per bron de passende richting (zoals beide knoppen op het scherm).
+    Bij gemengd/hybride blad (Nls én Ksl nodig): ook
+    ``index.md.translit-beide.pdf``, per bron de passende SVG (hybride:
+    ``.translit.svg``; puur: enkelvoudige nls- of ksl-sibling) — zoals
+    beide knoppen op het scherm.
     """
     from translit_svg_products import (
         MODUS_BEIDE,
@@ -2811,7 +2828,7 @@ def _build_translit_pagina_pdfs(
             if not parts:
                 continue
             if len(parts) == 1:
-                shutil.copy2(parts[0], dest)
+                _install_pdf(parts[0], dest)
             else:
                 stitch_pdfs(parts, dest)
         written.append(dest)

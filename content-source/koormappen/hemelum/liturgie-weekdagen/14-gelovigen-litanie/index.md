@@ -1,16 +1,18 @@
 ---
-title: "(14) Gelovigen Litanie"
+title: "(14) Gelovigenlitanie"
 weight: 140
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-{{< kop >}}{{< param title >}}{{< /kop >}}
+{{< kop >}}{{< param title >}} / Ектения о верных{{< /kop >}}
 
-{{< bieb id="ektinia/gelovigen/hemelum" />}}
+{{< kop midden klein >}}Als er geen diaken is - alleen de Tweede Gelovigenlitanie{{< /kop >}}
 
-{{< witruimte groot >}}
+{{< bieb id="ektinia/gelovigen/hemelum@eerste-gelovigenlitanie" />}}
+{{< bieb id="ektinia/gelovigen/hemelum-ksl@eerste-gelovigenlitanie" />}}
 
-{{< kop >}}(14) Ектения о верных{{< /kop >}}
+{{< kop >}}Tweede Gelovigenlitanie / Ектения о верных{{< /kop >}}
 
-{{< bieb id="ektinia/gelovigen/hemelum-ksl" />}}
+{{< bieb id="ektinia/gelovigen/hemelum@tweede-gelovigenlitanie" />}}
+{{< bieb id="ektinia/gelovigen/hemelum-ksl@tweede-gelovigenlitanie" />}}

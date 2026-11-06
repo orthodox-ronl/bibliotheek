@@ -1053,3 +1053,13 @@ def test_open_svg_as_pdf_uses_dejavu_not_times(tmp_path: Path) -> None:
         assert abs(spans[1][2] - 60.0) < 0.1
     finally:
         doc.close()
+
+
+def test_main_accepts_yes_flag() -> None:
+    """fix plakt -y op pdf.cmd; argparse mag niet crashen (exit 2)."""
+    with pytest.raises(SystemExit) as ei:
+        pp.main(["-y"])
+    assert ei.value.code != 2
+    with pytest.raises(SystemExit) as ei:
+        pp.main(["--yes"])
+    assert ei.value.code != 2

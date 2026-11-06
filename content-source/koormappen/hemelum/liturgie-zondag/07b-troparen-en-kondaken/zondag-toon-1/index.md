@@ -9,8 +9,8 @@ automatische_inhoud: false
 {{< witruimte >}}
 ## Tropaar
 {{< bieb id="tropaar/zondag-toon-1/groningen" />}}
-### (Eer aan de Vader ...)
+{{< kop links klein >}}(Eer aan de Vader ...){{< /kop >}}
 {{< witruimte klein>}}
 ## Kondak
 {{< bieb id="kondak/zondag-toon-1/groningen" />}}
-### (Nu en altijd ...)
+{{< kop links klein >}}(Nu en altijd ...){{< /kop >}}

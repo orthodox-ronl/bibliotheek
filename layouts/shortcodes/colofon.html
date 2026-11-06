@@ -3,7 +3,8 @@
 {{- if not $id -}}
   {{- errorf "%s: shortcode colofon vereist een ouder-bieb-blok (of gebruik {{</* bieb id=\"…\" */>}} … {{</* colofon */>}} … {{</* /bieb */>}})." $loc -}}
 {{- end -}}
-{{- $id = partial "catalogus-canonical-id.html" $id -}}
+{{- $split := partial "catalogus-split-sectie.html" $id -}}
+{{- $id = partial "catalogus-canonical-id.html" $split.id -}}
 {{- $p := partial "bieb-resolve-page.html" $id -}}
 {{- if not $p -}}
   {{- errorf "%s: shortcode colofon: geen bibliotheek-pagina voor id %q." $loc $id -}}

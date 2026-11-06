@@ -13,7 +13,8 @@ def test_explain_winerror_32() -> None:
         "bestand omdat het door een ander proces wordt gebruikt: 'x-1.svg'"
     )
     explained = cs.explain_sync_failure(exc)
-    assert "WinError 32" in explained.reason or "vergrendeld" in explained.reason.lower()
+    assert "open" in explained.reason.lower()
+    assert "WinError" not in explained.reason
     assert explained.solution.startswith("Oplossing:")
     assert "MuseScore" in explained.solution or "viewer" in explained.solution.lower()
     assert cs.is_transient_lock_error(exc)
@@ -25,9 +26,54 @@ def test_explain_winerror_5() -> None:
         "'C:\\\\tmp\\\\x.mscz.products-meta.json.tmp'"
     )
     explained = cs.explain_sync_failure(exc)
-    assert "WinError 5" in explained.reason or "vergrendeld" in explained.reason.lower()
+    assert "open" in explained.reason.lower()
+    assert "WinError" not in explained.reason
     assert explained.solution.startswith("Oplossing:")
     assert cs.is_transient_lock_error(exc)
+
+
+def test_explain_winerror_1224_dutch() -> None:
+    exc = OSError(
+        1224,
+        "Kan de aangevraagde bewerking niet uitvoeren op een bestand met "
+        "een open door de gebruiker toegewezen sectie",
+        r"C:\tmp\index.md.pdf",
+    )
+    exc.winerror = 1224  # type: ignore[attr-defined]
+    explained = cs.explain_sync_failure(exc)
+    assert "PDF" in explained.reason or "open" in explained.reason.lower()
+    assert "toegewezen sectie" not in explained.reason.lower()
+    assert "WinError" not in explained.reason
+    assert explained.solution.startswith("Oplossing:")
+    assert cs.is_transient_lock_error(exc)
+
+
+def test_atomic_replace_lock_message(tmp_path: Path, monkeypatch) -> None:
+    dest = tmp_path / "blad.pdf"
+    dest.write_bytes(b"old")
+    src = tmp_path / "blad.pdf.tmp"
+    src.write_bytes(b"new")
+
+    def _boom(_a, _b):
+        err = OSError(
+            1224,
+            "Kan de aangevraagde bewerking niet uitvoeren op een bestand met "
+            "een open door de gebruiker toegewezen sectie",
+        )
+        err.winerror = 1224
+        raise err
+
+    monkeypatch.setattr(cs.os, "replace", _boom)
+    monkeypatch.setattr(cs.time, "sleep", lambda _s: None)
+    try:
+        cs.atomic_replace(src, dest, retries=2)
+    except RuntimeError as exc:
+        msg = str(exc)
+        assert "blad.pdf" in msg
+        assert "toegewezen sectie" not in msg.lower()
+        assert "Oplossing:" in msg
+    else:
+        raise AssertionError("verwacht RuntimeError bij vergrendeling")
 
 
 def test_explain_errno_22() -> None:
@@ -130,3 +176,13 @@ def test_atomic_write_json_and_bytes(tmp_path: Path) -> None:
     cs.atomic_write_bytes(blob, b"xyz")
     assert blob.read_bytes() == b"xyz"
     assert not (tmp_path / "a.bin.tmp").exists()
+
+
+def test_atomic_replace(tmp_path: Path) -> None:
+    dest = tmp_path / "page.pdf"
+    dest.write_bytes(b"old")
+    src = tmp_path / "page.pdf.tmp"
+    src.write_bytes(b"new-pdf")
+    cs.atomic_replace(src, dest)
+    assert dest.read_bytes() == b"new-pdf"
+    assert not src.exists()

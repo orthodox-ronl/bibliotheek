@@ -55,8 +55,9 @@ def _bladermap_key(md: Path) -> str:
 
 
 def _fix_cmd(md: Path) -> str:
+    # --force: check zegt al stale/missing; niet overslaan op mtime-race.
     rel = _rel(md).replace("/", "\\")
-    return rf"scripts\pdf.cmd {rel}"
+    return rf"scripts\pdf.cmd {rel} --force"
 
 
 def check_job(job: PaginaPdfJob) -> FolderStatus:

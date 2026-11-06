@@ -21,6 +21,14 @@ class NamingTests(unittest.TestCase):
             tsp.product_translit_svg(vsa, "ksl").name,
             "lied.vsa.translit-ksl.svg",
         )
+        self.assertEqual(
+            tsp.product_translit_svg(vsa, "both").name,
+            "lied.vsa.translit.svg",
+        )
+        self.assertEqual(
+            tsp.product_translit_svg(vsa, "beide").name,
+            "lied.vsa.translit.svg",
+        )
         mvsa = Path("b/score.mvsa")
         self.assertEqual(
             tsp.product_translit_svg(mvsa, "nls").name,
@@ -30,6 +38,7 @@ class NamingTests(unittest.TestCase):
     def test_meta_keys(self) -> None:
         self.assertEqual(tsp.meta_key_for_modus("nls"), "svg-translit-nls")
         self.assertEqual(tsp.meta_key_for_modus("ksl"), "svg-translit-ksl")
+        self.assertEqual(tsp.meta_key_for_modus("both"), "svg-translit-beide")
 
 
 class ModiTests(unittest.TestCase):
@@ -39,10 +48,10 @@ class ModiTests(unittest.TestCase):
     def test_pure_cyrillic_needs_nls(self) -> None:
         self.assertEqual(tsp.translit_modi_for_text("Аминь Господи."), ("nls",))
 
-    def test_hybrid_needs_both(self) -> None:
+    def test_hybrid_needs_nls_ksl_and_both(self) -> None:
         self.assertEqual(
             tsp.translit_modi_for_text("Amen и Аминь"),
-            ("nls", "ksl"),
+            ("nls", "ksl", "both"),
         )
 
     def test_empty_or_digits_only(self) -> None:
@@ -81,6 +90,14 @@ class PagePdfNamingTests(unittest.TestCase):
             self.assertTrue(tsp.page_needs_beide_pdf([nl, ksl]))
             self.assertEqual(tsp.beide_modus_for_source(nl), "ksl")
             self.assertEqual(tsp.beide_modus_for_source(ksl), "nls")
+            hybrid = root / "hybride.mvsa"
+            hybrid.write_text("L: Amen и Аминь\n", encoding="utf-8")
+            self.assertEqual(
+                tsp.translit_modi_for_source(hybrid),
+                ("nls", "ksl", "both"),
+            )
+            self.assertEqual(tsp.beide_modus_for_source(hybrid), "both")
+            self.assertTrue(tsp.page_needs_beide_pdf([hybrid]))
             mscz = root / "x.mscz"
             mscz.write_bytes(b"PK")
             self.assertEqual(tsp.page_translit_modi([mscz]), ())

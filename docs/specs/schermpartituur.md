@@ -35,7 +35,7 @@ Bladvorm op scherm: §4.4 hieronder.
 | Kanaal                | Bedoeling                                                                                                                                                                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Scherm**            | Doorlopende partituur om mee te lezen/oefenen in de browser. Geen A4-bladkaders als primaire look. Translit-icoonknoppen wisselen sibling-SVG’s (vorm A); niet via OSMG. |
-| **Download (pagina)** | Nav **download-icoon** (pijl omlaag): `index.md.pdf` (translit uit), of `index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf` (één knop), of `index.md.translit-beide.pdf` (beide knoppen; per uitvoeringsvorm de passende richting). Geen score-knoppen naar product-`.vsa.pdf` / `.mvsa.pdf`. |
+| **Download (pagina)** | Nav **download-icoon** (pijl omlaag): `index.md.pdf` (translit uit), of `index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf` (één knop), of `index.md.translit-beide.pdf` (beide knoppen; hybride UV → uit `.translit.svg`, anders per UV de enkelvoudige sibling). Geen score-knoppen naar product-`.vsa.pdf` / `.mvsa.pdf`. |
 
 Op het scherm forceert het onderdeel `muziek` **geen** paginatitel. Titels
 horen bij de Hugo-pagina (catalogus-H1) of bij koormap-`kop` / Markdown.
@@ -54,7 +54,7 @@ Default is SVG. Keuze in `localStorage` (`bibliotheek-schermstand`),
 
 | Stand             | Bron op scherm                                                                                                                                                                                                        |
 | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **SVG** (default) | Sibling `{stam}.mvsa.svg` / `.vsa.svg` / `.mscz.svg` (geen ketting `*.mvsa.mscz.svg`); anders legacy bladermap-SVG. Met actieve translit-knop: `{stam}.….translit-nls.svg` of `.translit-ksl.svg` in hetzelfde SVG-paneel. |
+| **SVG** (default) | Sibling `{stam}.mvsa.svg` / `.vsa.svg` / `.mscz.svg` (geen ketting `*.mvsa.mscz.svg`); anders legacy bladermap-SVG. Met actieve translit-knop: `{stam}.….translit-nls.svg` / `.translit-ksl.svg` / (hybride + beide knoppen) `.translit.svg`. |
 | **OSMG**          | Sibling `{stam}.mvsa.from-ir.musicxml` via OpenSheetMusicDisplay (`score-osmd.js`) — experimenteel; **geen** productiepad voor translit.                                                                              |
 
 Geen automatische wissel tussen SVG en OSMG (ook niet bij S8-recite of bij
@@ -63,20 +63,36 @@ dan een korte melding — niet stiekem de andere keten.
 
 **Translit** (nav: icoonknoppen **Ксл→Nls** = Nls en **Nls→Ксл** = Ksl,
 onafhankelijk; default beide uit; **Ксл** is Ksl in Cyrillische letters):
-sitebreed in `localStorage`. Geen
-knop = uit; alleen Nls / alleen Ksl / beide knoppen = bijbehorende
-modus. Nls = Latijn onder kerkslavische tekst; Ksl = Cyrillisch onder
-Nederlandse tekst; beide knoppen = per uitvoeringsvorm alle aanwezige
-translit-SVG’s. Bouwen: `products --kinds vsa`/`mvsa` + `pdf.cmd`.
+sitebreed in `localStorage`. Nls = Latijn onder kerkslavische tekst; Ksl
+= Cyrillisch onder Nederlandse tekst. Bouwen: `products --kinds vsa` /
+`mvsa` + `pdf.cmd`. (``.mscz`` als notatiebron krijgt via
+bibliotheek-products **geen** translit-SVG-siblings.)
 
-**Fallback per uitvoeringsvorm:** ontbreekt de translit-SVG voor de
-actieve modus (bijv. puur Nederlands blad bij Nls), toont het scherm de
-gewone sibling-SVG van die uitvoeringsvorm — niet «missing». Alleen als
-er ook geen kale SVG is, volgt een melding. Op een koormap met NL én
-ksl naast elkaar: bij Nls blijft de Nederlandse litanie zichtbaar (kale
-SVG) terwijl de kerkslavische `.translit-nls.svg` toont; met beide
-knoppen krijgt elke litanie haar passende translit-SVG (of kale
-fallback).
+**Productmatrix per bron** (``.vsa`` / ``.mvsa``):
+
+| Bron | Wel | Niet |
+| --- | --- | --- |
+| Puur Nls | kale + `.translit-ksl.svg` | `.translit-nls.svg`, `.translit.svg` |
+| Puur Ksl | kale + `.translit-nls.svg` | `.translit-ksl.svg`, `.translit.svg` |
+| Hybride (NL én Ksl in één stuk) | kale + `.translit-nls.svg` + `.translit-ksl.svg` + `.translit.svg` | — |
+
+**Knop → SVG:**
+
+| Knopstand | Puur Nls | Puur Ksl | Hybride |
+| --- | --- | --- | --- |
+| uit | kale | kale | kale |
+| alleen Ксл→Nls | kale | `.translit-nls.svg` | `.translit-nls.svg` |
+| alleen Nls→Ксл | `.translit-ksl.svg` | kale | `.translit-ksl.svg` |
+| beide knoppen | `.translit-ksl.svg` | `.translit-nls.svg` | `.translit.svg` |
+
+**Fallback:** ontbreekt de sibling voor de actieve stand, toon de kale
+SVG van die uitvoeringsvorm — niet «missing». Op een koormap met aparte
+NL- én Ksl-UVs naast elkaar: elke UV volgt de tabel hierboven (geen
+per-UV `.translit.svg`).
+
+Implementatie: [`layouts/partials/bieb-score.html`](../../layouts/partials/bieb-score.html);
+products: `scripts/translit_svg_products.py`; regressie:
+`scripts/test_bieb_score_translit_views.py`.
 
 Alleen als **beide** schermproducten ontbreken:
 

@@ -3,8 +3,9 @@
 Export per slot: ``mvsa mxl``, ``mvsa svg``, ``mvsa score-ir``
 (+ ``--musicxml`` voor from-ir) — geen atomair ``mvsa products`` (dat zou
 ook mp3/pdf/mscz meenemen). Translit-SVG’s (``.translit-nls.svg`` /
-``.translit-ksl.svg``) apart via ``mvsa svg --translit-modus``; Coria
-``{bron}.translit.mxl`` via ``mvsa mxl --translit-as-parts`` (§5a).
+``.translit-ksl.svg`` / hybride ``.translit.svg``) via ``mvsa svg
+--translit-modus`` / ``--translit``; Coria ``{bron}.translit.mxl`` via
+``mvsa mxl --translit-as-parts`` (§5a).
 Bibliotheek merget die keys in products-meta. Geen in-file
 versheidstempels (versheid = meta). A4-``.mvsa.pdf`` is geen verplicht
 product (blad = ``index.md.pdf``); PDF-export blijft voor optioneel herstel.
@@ -45,7 +46,10 @@ from product_meta import (
     read_score_ir_stamp,
     read_svg_stamp,
     source_sha256,
+    stamp_from_ir_musicxml,
     stamp_pdf,
+    stamp_score_ir_json,
+    stamp_svg,
     utc_now_iso,
 )
 from product_regen import RegenPolicy, list_source_paths, mxl_contract_ok
@@ -228,9 +232,15 @@ def _run_mvsa_mxl(mvsa: Path) -> None:
         raise RuntimeError(f"MXL ontbreekt na mvsa mxl: {mxl}")
 
 
-def _run_mvsa_svg(mvsa: Path) -> None:
-    """Scherm-``.mvsa.svg`` via ``mvsa svg``."""
-    svg = product_svg_for_mvsa(mvsa)
+def _run_mvsa_svg(mvsa: Path, *, section: str | None = None) -> None:
+    """Scherm-``.mvsa.svg`` (of ``.mvsa@sectie.svg``) via ``mvsa svg``."""
+    from catalogus_sectie import product_svg_for_sectie
+
+    svg = (
+        product_svg_for_sectie(mvsa, section)
+        if section
+        else product_svg_for_mvsa(mvsa)
+    )
     cmd = [
         sys.executable,
         "-m",
@@ -240,9 +250,151 @@ def _run_mvsa_svg(mvsa: Path) -> None:
         "-o",
         str(svg),
     ]
+    if section:
+        cmd.extend(["--section", section])
     check_call(cmd, cwd=str(REPO_ROOT))
-    if not mvsa_svg_outputs(mvsa):
+    if section:
+        if not svg.is_file():
+            raise RuntimeError(f"SVG ontbreekt na mvsa svg --section: {svg}")
+    elif not mvsa_svg_outputs(mvsa):
         raise RuntimeError(f"SVG ontbreekt na mvsa svg: {svg}")
+
+
+def _run_mvsa_score_ir_section(mvsa: Path, section: str) -> None:
+    """Score-IR + from-ir voor één ``@sectie``."""
+    from catalogus_sectie import (
+        product_from_ir_for_sectie,
+        product_score_ir_for_sectie,
+    )
+
+    score_ir = product_score_ir_for_sectie(mvsa, section)
+    from_ir = product_from_ir_for_sectie(mvsa, section)
+    cmd = [
+        sys.executable,
+        "-m",
+        "vsa.cli_mvsa",
+        "score-ir",
+        str(mvsa),
+        "--section",
+        section,
+        "-o",
+        str(score_ir),
+        "--musicxml",
+        str(from_ir),
+    ]
+    check_call(cmd, cwd=str(REPO_ROOT))
+    if not score_ir.is_file():
+        raise RuntimeError(
+            f"Score-IR ontbreekt na mvsa score-ir --section: {score_ir}"
+        )
+    if not from_ir.is_file():
+        raise RuntimeError(
+            f"from-ir ontbreekt na mvsa score-ir --section: {from_ir}"
+        )
+
+
+def sync_referenced_sectie_products(
+    root: Path, *, dry_run: bool = False
+) -> int:
+    """Exporteer ``.mvsa@sectie.svg`` (+ score-ir/from-ir) alleen bij bieb-refs."""
+    from catalogus_sectie import (
+        collect_sectie_refs,
+        mvsa_in_uv_dir,
+        product_from_ir_for_sectie,
+        product_score_ir_for_sectie,
+        product_svg_for_sectie,
+    )
+    from input_paths import rel_for_log
+
+    content = REPO_ROOT / "content-source"
+    catalogus = root if root.name == "catalogus" else root / "catalogus"
+    if not catalogus.is_dir():
+        catalogus = REPO_ROOT / "content-source" / "catalogus"
+    refs = collect_sectie_refs(content)
+    n = 0
+    for uv_id, secties in sorted(refs.items()):
+        leaf = catalogus.joinpath(*uv_id.split("/"))
+        mvsa = mvsa_in_uv_dir(leaf)
+        if mvsa is None:
+            detail(f"  SKIP sectie-ref {uv_id}: geen .mvsa")
+            continue
+        digest = source_sha256(mvsa)
+        for sectie in sorted(secties):
+            svg = product_svg_for_sectie(mvsa, sectie)
+            score_ir = product_score_ir_for_sectie(mvsa, sectie)
+            from_ir = product_from_ir_for_sectie(mvsa, sectie)
+            need_svg = not _stamp_ok_svg(svg, digest)
+            need_ir = not (
+                _stamp_ok_score_ir(score_ir, digest)
+                and _stamp_ok_from_ir(from_ir, digest)
+            )
+            if not need_svg and not need_ir:
+                continue
+            rel = rel_for_log(mvsa, repo_root=REPO_ROOT)
+            if need_svg:
+                detail(f"  EXP  {rel} --section {sectie} -> svg")
+            if need_ir:
+                detail(f"  EXP  {rel} --section {sectie} -> score-ir")
+            n += 1
+            if dry_run:
+                continue
+            if need_svg:
+                _run_mvsa_svg(mvsa, section=sectie)
+                if svg.is_file() and not _stamp_ok_svg(svg, digest):
+                    # MuseScore-export stampt niet altijd; bibliotheek-stempel.
+                    stamp_svg(
+                        svg,
+                        source_hash=digest,
+                        source_kind=SOURCE_KIND_MVSA,
+                        generated_at=utc_now_iso(),
+                        generator=GENERATOR_MVSA,
+                    )
+            if need_ir:
+                _run_mvsa_score_ir_section(mvsa, sectie)
+                # Tooling schrijft geen bibliotheek-stempels; sectie-IR zit
+                # niet in products-meta → hier stempelen (zelfde als SVG).
+                _ensure_sectie_ir_stamps(digest, score_ir=score_ir, from_ir=from_ir)
+        if not dry_run:
+            # ``score-ir --section`` overschrijft meta-keys from-ir/score-ir
+            # met @sectie-paden; check verwacht de hele-stuk-siblings.
+            _restore_whole_piece_ir_meta(mvsa)
+    return n
+
+
+def _ensure_sectie_ir_stamps(
+    digest: str, *, score_ir: Path, from_ir: Path
+) -> None:
+    """Zet herkomststempel op sectie score-ir/from-ir (niet in products-meta)."""
+    when = utc_now_iso()
+    if score_ir.is_file() and not _stamp_ok_score_ir(score_ir, digest):
+        stamp_score_ir_json(
+            score_ir,
+            source_hash=digest,
+            source_kind=SOURCE_KIND_MVSA,
+            generated_at=when,
+            generator=GENERATOR_MVSA,
+        )
+    if from_ir.is_file() and not _stamp_ok_from_ir(from_ir, digest):
+        stamp_from_ir_musicxml(
+            from_ir,
+            source_hash=digest,
+            source_kind=SOURCE_KIND_MVSA,
+            generated_at=when,
+            generator=GENERATOR_MVSA,
+        )
+
+
+def _restore_whole_piece_ir_meta(mvsa: Path) -> None:
+    """Zet products-meta ``score-ir``/``from-ir`` terug op hele-stuk-bestanden."""
+    products: dict[str, Path] = {}
+    score_ir = product_score_ir_for_mvsa(mvsa)
+    from_ir = product_from_ir_musicxml_for_mvsa(mvsa)
+    if score_ir.is_file():
+        products["score-ir"] = score_ir
+    if from_ir.is_file():
+        products["from-ir"] = from_ir
+    if products:
+        write_products_meta(mvsa, products, merge=True)
 
 
 def _run_mvsa_score_ir(mvsa: Path, *, with_from_ir: bool) -> None:
@@ -510,17 +662,27 @@ KIND = MvsaKind()
 
 
 def main(argv: list[str] | None = None) -> int:
-    return main_for_kind(
+    state: dict[str, bool] = {"dry_run": False}
+
+    def _remember(ns: object) -> None:
+        state["dry_run"] = bool(getattr(ns, "dry_run", False))
+
+    rc = main_for_kind(
         KIND,
         argv,
         description=(
             "Exporteer stale Coria-.mxl + koormap-SVG + Score-IR "
             "(+ from-ir MusicXML) vanuit bibliotheek-.mvsa "
             "(via mvsa mxl / svg / score-ir; geen A4-product-PDF; "
-            "blad = index.md.pdf)."
+            "blad = index.md.pdf). Sectie-SVG’s alleen bij bieb …@sectie."
         ),
         default_root=DEFAULT_ROOT,
+        after_parse=_remember,
     )
+    sync_referenced_sectie_products(
+        DEFAULT_ROOT, dry_run=state["dry_run"]
+    )
+    return rc
 
 
 if __name__ == "__main__":

@@ -1,0 +1,30 @@
+{{- /*
+  Splits catalogus-id met optionele @sectie.
+
+  In:  string  zangstuk/variant/uitvoeringsvorm[@sectie]
+  Uit: dict    "id" (z/v/u)  "sectie" (string of leeg)
+
+  Alleen @sectie-ids ([a-z][a-z0-9_-]*). Geen @blok.
+*/ -}}
+{{- $raw := strings.TrimSpace (printf "%s" .) -}}
+{{- $id := $raw -}}
+{{- $sectie := "" -}}
+{{- if strings.Contains $raw "@" -}}
+  {{- $parts := split $raw "@" -}}
+  {{- if ne (len $parts) 2 -}}
+    {{- errorf "catalogus-id %q: hoogstens één @sectie (vorm zangstuk/variant/uitvoeringsvorm@sectie-id)." $raw -}}
+  {{- end -}}
+  {{- $id = strings.TrimSpace (index $parts 0) -}}
+  {{- $sectie = strings.TrimSpace (index $parts 1) -}}
+  {{- if or (not $id) (not $sectie) -}}
+    {{- errorf "catalogus-id %q: leeg deel vóór of na @." $raw -}}
+  {{- end -}}
+  {{- if not (findRE "^[a-z][a-z0-9_-]*$" $sectie) -}}
+    {{- errorf "catalogus-id %q: ongeldige @sectie-id %q (verwacht [a-z][a-z0-9_-]*; geen @blok)." $raw $sectie -}}
+  {{- end -}}
+  {{- $segs := split $id "/" -}}
+  {{- if ne (len $segs) 3 -}}
+    {{- errorf "catalogus-id %q: vóór @ moet zangstuk/variant/uitvoeringsvorm staan." $raw -}}
+  {{- end -}}
+{{- end -}}
+{{- return (dict "id" $id "sectie" $sectie) -}}

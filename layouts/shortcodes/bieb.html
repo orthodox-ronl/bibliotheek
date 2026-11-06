@@ -3,6 +3,7 @@
 
   Vormen:
   - {{< bieb id="z/v/u" />}}                     → muziek
+  - {{< bieb id="z/v/u@sectie" />}}              → alleen die @sectie
   - {{< bieb id="z/v/u" >}} … {{< /bieb >}}      → context voor geneste onderdelen
   - {{< bieb titel />}} / colofon / … binnen blok → onderdeel van ouder-id
   - {{< titel >}} / {{< colofon >}} e.d. binnen blok (zelfde context)
@@ -33,7 +34,8 @@
   {{- if not $id -}}
     {{- errorf "%s: shortcode bieb (blok) mist parameter id. Oplossing: {{</* bieb id=\"zangstuk/variant/uitvoeringsvorm\" */>}} … {{</* /bieb */>}}." $loc -}}
   {{- end -}}
-  {{- $id = partial "catalogus-canonical-id.html" $id -}}
+  {{- $split := partial "catalogus-split-sectie.html" $id -}}
+  {{- $id = partial "catalogus-canonical-id.html" $split.id -}}
   {{- $p := partial "bieb-resolve-page.html" $id -}}
   {{- if not $p -}}
     {{- errorf "%s: shortcode bieb: geen bibliotheek-pagina voor id %q. Oplossing: controleer catalogus/ of verbeter het id." $loc $id -}}
@@ -50,10 +52,12 @@
   {{- if not $onderdeel -}}
     {{- $onderdeel = "muziek" -}}
   {{- end -}}
-  {{- $id = partial "catalogus-canonical-id.html" $id -}}
+  {{- $split := partial "catalogus-split-sectie.html" $id -}}
+  {{- $id = partial "catalogus-canonical-id.html" $split.id -}}
+  {{- $sectie := $split.sectie -}}
   {{- $p := partial "bieb-resolve-page.html" $id -}}
   {{- if not $p -}}
     {{- errorf "%s: shortcode bieb: geen bibliotheek-pagina voor id %q. Oplossing: controleer catalogus/ of verbeter het id." $loc $id -}}
   {{- end -}}
-{{- partial "bieb-onderdeel.html" (dict "score" $p "onderdeel" $onderdeel "veld" $veldPad "viewer" .Page "position" .Position) -}}
+{{- partial "bieb-onderdeel.html" (dict "score" $p "onderdeel" $onderdeel "veld" $veldPad "sectie" $sectie "viewer" .Page "position" .Position) -}}
 {{- end -}}

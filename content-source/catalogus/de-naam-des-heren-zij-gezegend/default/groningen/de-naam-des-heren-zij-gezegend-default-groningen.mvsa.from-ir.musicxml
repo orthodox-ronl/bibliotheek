@@ -597,7 +597,12 @@
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
-<measure number="6">
+<measure number="6" width="120">
+<direction placement="above">
+<direction-type>
+<words font-family="Source Sans 3" font-size="12" justify="left" default-x="28" default-y="50">P zegent</words>
+</direction-type>
+</direction>
 <note>
 <pitch><step>A</step><octave>4</octave></pitch>
 <duration>16</duration>
@@ -1977,7 +1982,7 @@
 </note>
 <barline location="right"><bar-style>regular</bar-style></barline>
 </measure>
-<measure number="6">
+<measure number="6" width="120">
 <note>
 <pitch><step>F</step><octave>3</octave></pitch>
 <duration>16</duration>

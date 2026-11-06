@@ -289,11 +289,16 @@ toont het scherm sibling-SVG’s met die meeleesregel (vorm A); het
 download-icoon volgt die stand. Handig op een koormap met NL én ksl
 naast elkaar. Bestandsnamen naast de bron:
 
-| Stand     | Scherm-SVG                                            | Pagina-PDF                  |
-| --------- | ----------------------------------------------------- | --------------------------- |
-| uit       | `{stam}.vsa.svg` / `{stam}.mvsa.svg`                  | `index.md.pdf`              |
-| aan + Nls | `{stam}.….translit-nls.svg` (Cyrillisch → Latijn)     | `index.md.translit-nls.pdf` |
-| aan + Ksl | `{stam}.….translit-ksl.svg` (Nederlands → Cyrillisch) | `index.md.translit-ksl.pdf` |
+| Stand          | Scherm-SVG (afhankelijk van bron) | Pagina-PDF |
+| -------------- | ----------------------------------- | ---------- |
+| uit            | kale `{stam}.….svg` | `index.md.pdf` |
+| alleen Ксл→Nls | puur Ksl of hybride: `.translit-nls.svg`; puur Nls: kale | `index.md.translit-nls.pdf` (als die er is) |
+| alleen Nls→Ксл | puur Nls of hybride: `.translit-ksl.svg`; puur Ksl: kale | `index.md.translit-ksl.pdf` (als die er is) |
+| beide knoppen  | hybride: `.translit.svg` (beide richtingen); puur: de ene zinvolle sibling | `index.md.translit-beide.pdf` op gemengd/hybride blad |
+
+Puur Nls bouwt **geen** `.translit-nls.svg`; puur Ksl **geen**
+`.translit-ksl.svg`; alleen hybride bouwt `.translit.svg`. Normatief:
+`docs/specs/schermpartituur.md` in deze repository.
 
 Die siblings maak je lokaal met `scripts\products.cmd --kinds vsa` of
 `mvsa`, en **daarna** de pagina-PDF’s met `scripts\pdf.cmd` (eerst
