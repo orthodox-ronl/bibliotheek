@@ -7,7 +7,7 @@ automatische_inhoud: false
 
 {{< kop >}}{{< param title >}} / Ектения о верных{{< /kop >}}
 
-{{< kop midden klein >}}Als er geen diaken is - alleen de Tweede Gelovigenlitanie{{< /kop >}}
+{{< kop links klein >}}Als er geen diaken is - alleen de Tweede Gelovigenlitanie{{< /kop >}}
 
 {{< bieb id="ektinia/gelovigen/hemelum@eerste-gelovigenlitanie" />}}
 {{< bieb id="ektinia/gelovigen/hemelum-ksl@eerste-gelovigenlitanie" />}}
