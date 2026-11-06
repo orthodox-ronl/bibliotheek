@@ -31,8 +31,8 @@ omgewisselde woorden tellen mee. Zoeken loopt over de
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><a class=oefenhoek-breadcrumb-link href=/bibliotheek/preview/handleiding/scripts/>Scripts</a>
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><span class=oefenhoek-breadcrumb-current aria-current=page>pdf</span></nav></div></header><main class=page><h1 id=name>NAME</h1><p><code>scripts\pdf.cmd</code> — PDF van een koormap- of cataloguspagina
 samenstellen uit kale blad-SVG’s en Markdown-koppen (geen
-catalogus-product-PDF’s plakken)</p><h1 id=synopsis>SYNOPSIS</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\pdf.cmd &lt;pad\naar\index.md|map&gt; [--force] [--verbose]
-</span></span><span style=display:flex><span>scripts\pdf.cmd --all-koormappen [--force] [--verbose]
+catalogus-product-PDF’s plakken)</p><h1 id=synopsis>SYNOPSIS</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\pdf.cmd &lt;pad\naar\index.md|map&gt; [--force] [-y] [--verbose]
+</span></span><span style=display:flex><span>scripts\pdf.cmd --all-koormappen [--force] [-y] [--verbose]
 </span></span></code></pre></div><h1 id=description>DESCRIPTION</h1><p>Maakt de PDF achter het <strong>download-icoon</strong> in de navigatie: eerst altijd
 <code>index.md.pdf</code> naast de Markdown van een bladermap-pagina (Hugo page
 resource). Dat is de PDF van de <strong>getoonde pagina</strong> (koormap-slot of
@@ -74,8 +74,8 @@ niet door de letters van een regel heen.</p><p>Invoer volgt <a href=../invoer-be
 : één <code>.md</code> of een
 map (recursief alle <code>index.md</code>). Korte paden mogen (<code>hemelum\…</code>,
 <code>koormappen\hemelum\…</code>, …). <code>--all-koormappen</code> is suiker voor het pad
-<code>content-source\koormappen</code>. Bij meerdere pagina’s: preflight met geschatte
-duur en bevestiging (of <code>-y</code>).</p><p><strong>Contract (doelmodel):</strong> de pagina-PDF volgt de koormap-Markdown. Shortcode
+<code>content-source\koormappen</code>. Geen bevestigingsvraag op aantal pagina’s —
+<code>pdf</code> draait meteen door.</p><p><strong>Contract (doelmodel):</strong> de pagina-PDF volgt de koormap-Markdown. Shortcode
 <code>pdf-bijelkaar</code> betekent: streef naar <strong>één A4</strong> voor de inhoud van dat blok.
 Daarvoor exporteert de pijplijn de muziek in dat blok opnieuw met VSA-tooling
 <strong><code>--compact</code></strong> (dichtere systeemafstand en marges), en zet koppen uit de
@@ -98,7 +98,7 @@ bestand <code>index.md.pdf</code>, zodat het <strong>download-icoon</strong> wer
 <code>bieb accepteer --stub</code> maakt die PDF meteen mee.</p><p>Catalogus-leaf met alleen een <strong>tekstblad</strong> (<code>.tekstblad.pdf</code>): titel uit
 het tekstblad-frontmatter, toelichting uit gewone alinea’s in de leaf-<code>index.md</code>,
 daarna de getrimde inhoud van het tekstblad-PDF (onderste witruimte weg),
-idealiter op één A4.</p><h1 id=options>OPTIONS</h1><div class=table-scroll><table><thead><tr><th>Optie</th><th>Betekenis</th></tr></thead><tbody><tr><td><code>--all-koormappen</code></td><td>Suiker: zelfde als pad <code>content-source\koormappen</code></td></tr><tr><td><code>--force</code></td><td>Opnieuw schrijven, ook als de PDF nieuwer lijkt dan de bronnen</td></tr><tr><td><code>-y</code>, <code>--yes</code></td><td>Batch zonder bevestigingsvraag</td></tr></tbody></table></div><h1 id=examples>EXAMPLES</h1><p>Vredeslitanie (NL + KSL in <code>pdf-bijelkaar</code>):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\pdf.cmd hemelum\liturgie-zondag\vredeslitanie
+idealiter op één A4.</p><h1 id=options>OPTIONS</h1><div class=table-scroll><table><thead><tr><th>Optie</th><th>Betekenis</th></tr></thead><tbody><tr><td><code>--all-koormappen</code></td><td>Suiker: zelfde als pad <code>content-source\koormappen</code></td></tr><tr><td><code>--force</code></td><td>Opnieuw schrijven, ook als de PDF nieuwer lijkt dan de bronnen</td></tr><tr><td><code>-y</code>, <code>--yes</code></td><td>Geaccepteerd voor <code>fix</code>/<code>products</code> (pdf vraagt zelf geen bevestiging)</td></tr><tr><td><code>-v</code>, <code>--verbose</code></td><td>Per-PDF-regels en tussenstappen</td></tr></tbody></table></div><h1 id=examples>EXAMPLES</h1><p>Vredeslitanie (NL + KSL in <code>pdf-bijelkaar</code>):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\pdf.cmd hemelum\liturgie-zondag\vredeslitanie
 </span></span></code></pre></div><p>Hele zondagsliturgie-map:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\pdf.cmd hemelum\liturgie-zondag
 </span></span></code></pre></div><p>Catalogus-leaf (kort t.o.v. catalogus):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\pdf.cmd tweede-antifoon\weekdagen\hemelum
 </span></span></code></pre></div><h1 id=when>WHEN</h1><p>Je hebt de shortcodes op een slot-pagina gezet of gewijzigd en wilt de
