@@ -204,6 +204,18 @@ jobs:
             --minify \
             --baseURL "${{ steps.target.outputs.base_url }}"
 
+      # GitHub Pages soft-limit ~1 GB; sync also times out on huge deltas.
+      # Scherm-translit blijft via SVG; downloadbare translit-PDF’s niet op Pages.
+      - name: Drop translit PDFs (Pages size budget)
+        run: |
+          set -euo pipefail
+          mapfile -t files < <(find generated/site -type f -name '*.translit*.pdf' -print)
+          echo "Removing ${#files[@]} translit PDF(s) from publish dir"
+          if ((${#files[@]} > 0)); then
+            printf '%s\0' "${files[@]}" | xargs -0 rm -f
+          fi
+          du -sh generated/site || true
+
       - name: Deploy to GitHub Pages (subdirectory)
         if: steps.target.outputs.destination_dir != ''
         uses: peaceiris/actions-gh-pages@v4
