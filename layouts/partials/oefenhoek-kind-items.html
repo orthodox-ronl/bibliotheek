@@ -1,0 +1,26 @@
+{{- /*
+  Kind-pagina's van een oefenhoek-sectie (secties + bladermappen), op weight.
+  Leeg als automatische_inhoud niet true is, of hide_page_list/hide_section_list.
+*/ -}}
+{{- $items := slice -}}
+{{- $auto := .Params.automatische_inhoud -}}
+{{- if or (eq $auto true) (eq $auto "true") -}}
+  {{- if not .Params.hide_section_list -}}
+    {{- range .Sections -}}
+      {{- $items = $items | append . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if and .RegularPages (not .Params.hide_page_list) -}}
+    {{- range .RegularPages -}}
+      {{- /* Geen .Title-eis: catalogus-leaves hebben afgeleide titels
+           (display-title), vaak zonder frontmatter title/linkTitle. */ -}}
+      {{- if not .Params.vsa_nav_exclude -}}
+        {{- $items = $items | append . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if $items -}}
+    {{- $items = sort $items "Weight" -}}
+  {{- end -}}
+{{- end -}}
+{{- return $items -}}

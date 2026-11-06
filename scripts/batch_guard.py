@@ -1,0 +1,347 @@
+"""Preflight + bevestiging + duur-schatting voor batch (bestand-of-map).
+
+Houdt per bewerkingstype een **running window** van de laatste N gemeten
+bestanden bij (lokaal in ``generated/batch_timing.json``). Zo kan de
+preflight niet alleen „47 bestanden” zeggen, maar ook „ongeveer 8 minuten”
+op basis van eerdere runs op deze machine.
+
+- Bevestiging alleen als de run **niet kort** is. Kort = minder dan
+  ``CONFIRM_FROM`` items (default = ``HARD_LIMIT`` = 100) **of**
+  geschatte duur ≤ ``SOFT_SECONDS`` (default 30). Preflight blijft.
+- Vanaf ``HARD_LIMIT`` items: dubbele vraag («weet je het zeker?» /
+  «HEEL zeker?») tenzij ``-y`` / ``--yes`` (dan stil door).
+- Zonder TTY: zachte of harde batch → ``-y``; anders stop met uitleg.
+- Na elke gemeten item: sample opslaan (window = 20).
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+import time
+from collections.abc import Callable, Sequence
+from contextlib import contextmanager
+from pathlib import Path
+from typing import Iterator, TypeVar
+
+from cli_style import (
+    configure_stdio,
+    count,
+    note,
+    ok,
+    refuse,
+    section,
+    work,
+)
+
+configure_stdio()
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+STORE_PATH = REPO_ROOT / "generated" / "batch_timing.json"
+WINDOW = 20
+# Boven deze grens: twee expliciete vragen; geen switch-naam onthouden.
+HARD_LIMIT = 100
+# Soft «Doorgaan?» vanaf dit aantal (default = harde limiet → geen soft-vraag).
+CONFIRM_FROM = HARD_LIMIT
+# Bekende schatting tot en met zoveel seconden telt als korte run (geen soft-vraag).
+SOFT_SECONDS = 30
+
+T = TypeVar("T")
+
+
+def _load_store() -> dict[str, list[float]]:
+    if not STORE_PATH.is_file():
+        return {}
+    try:
+        raw = json.loads(STORE_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    if not isinstance(raw, dict):
+        return {}
+    out: dict[str, list[float]] = {}
+    for key, samples in raw.items():
+        if not isinstance(key, str) or not isinstance(samples, list):
+            continue
+        cleaned = [float(x) for x in samples if isinstance(x, (int, float)) and x >= 0]
+        if cleaned:
+            out[key] = cleaned[-WINDOW:]
+    return out
+
+
+def _save_store(store: dict[str, list[float]]) -> None:
+    from cli_style import atomic_write_json
+
+    payload = {k: v[-WINDOW:] for k, v in store.items() if v}
+    atomic_write_json(STORE_PATH, payload, ensure_ascii=False)
+
+
+def record_sample(kind: str, seconds: float) -> None:
+    """Voeg één gemeten duur toe (seconden) voor dit bewerkingstype."""
+    if seconds < 0:
+        return
+    store = _load_store()
+    samples = store.get(kind, [])
+    samples.append(float(seconds))
+    store[kind] = samples[-WINDOW:]
+    _save_store(store)
+
+
+def mean_seconds(kind: str) -> tuple[float, int] | None:
+    """Gemiddelde duur en aantal samples, of None als er nog geen metingen zijn."""
+    samples = _load_store().get(kind) or []
+    if not samples:
+        return None
+    return sum(samples) / len(samples), len(samples)
+
+
+def format_duration(seconds: float) -> str:
+    """Leesbare duur voor beheerders (Nederlands)."""
+    if seconds < 1.5:
+        return "minder dan 2 seconden"
+    if seconds < 60:
+        return f"ongeveer {int(round(seconds))} seconden"
+    minutes = seconds / 60.0
+    if minutes < 90:
+        # één decimaal onder 10 min, anders afronden
+        if minutes < 10:
+            return f"ongeveer {minutes:.1f} minuten".replace(".", ",")
+        return f"ongeveer {int(round(minutes))} minuten"
+    hours = minutes / 60.0
+    if hours < 10:
+        return f"ongeveer {hours:.1f} uur".replace(".", ",")
+    return f"ongeveer {int(round(hours))} uur"
+
+
+def estimated_total_seconds(kind: str, n: int) -> float | None:
+    """Geschatte totale duur in seconden, of None zonder metingen / n≤0."""
+    if n <= 0:
+        return None
+    stats = mean_seconds(kind)
+    if stats is None:
+        return None
+    mean, _ = stats
+    return mean * n
+
+
+def estimate_line(kind: str, n: int) -> str:
+    """Eén regel over geschatte totale duur voor *n* items."""
+    if n <= 0:
+        return "Geschatte duur: —"
+    stats = mean_seconds(kind)
+    if stats is None:
+        return (
+            "Geschatte duur: onbekend "
+            f"(nog geen eerdere metingen voor «{kind}» op deze pc; "
+            "na deze run wel)"
+        )
+    mean, k = stats
+    total = mean * n
+    return (
+        f"Geschatte duur: {format_duration(total)} "
+        f"(gemiddelde {format_duration(mean)}/bestand over laatste {k} metingen)"
+    )
+
+
+def add_yes_argument(parser) -> None:
+    """Voeg ``-y`` / ``--yes`` toe (batch zonder bevestigingsvraag)."""
+    parser.add_argument(
+        "-y",
+        "--yes",
+        action="store_true",
+        help=(
+            "Batch zonder bevestigingsvraag, ook bij "
+            f"{HARD_LIMIT}+ items (nodig zonder TTY)."
+        ),
+    )
+
+
+def add_already_confirmed_argument(parser) -> None:
+    """Intern: parent-batch heeft al bevestigd (ook harde limiet overslaan)."""
+    parser.add_argument(
+        "--already-confirmed",
+        action="store_true",
+        help=argparse.SUPPRESS,
+    )
+
+
+def _read_answer(prompt: str) -> str:
+    try:
+        return input(prompt).strip().lower()
+    except EOFError:
+        return ""
+
+
+def _confirm_hard_limit(n: int, *, hard_limit: int) -> bool:
+    """Dubbele bevestiging boven HARD_LIMIT (alleen zonder ``-y``)."""
+    work(
+        f"Let op: {n} items (harde limiet {hard_limit}). "
+        "Grote batch (bijv. alle producten opnieuw)."
+    )
+    if not sys.stdin.isatty():
+        refuse(
+            "WEIGERT  grote batch zonder terminal (voeg -y toe, of draai interactief)"
+        )
+        return False
+
+    a1 = _read_answer("Weet je het zeker? [j/N] ")
+    if a1 not in {"j", "ja", "y", "yes"}:
+        refuse("WEIGERT  afgebroken")
+        return False
+    a2 = _read_answer('HEEL zeker? Typ precies "ja" om door te gaan: ')
+    if a2 != "ja":
+        refuse("WEIGERT  tweede bevestiging niet «ja»")
+        return False
+    ok("OK  dubbele bevestiging — grote batch start")
+    return True
+
+
+def confirm_batch(
+    kind: str,
+    *,
+    n: int,
+    headline: str,
+    details: Sequence[str] = (),
+    yes: bool = False,
+    already_confirmed: bool = False,
+    confirm_from: int | None = None,
+    hard_limit: int | None = None,
+    soft_seconds: float | None = None,
+) -> bool:
+    """Toon preflight; vraag bevestiging alleen bij niet-korte runs.
+
+    Kort (geen soft-vraag): ``n < confirm_from`` **of** bekende schatting
+    ≤ ``soft_seconds``. Default ``confirm_from`` = ``HARD_LIMIT`` (100),
+    dus in de praktijk alleen de harde dubbele vraag bij 100+ items.
+
+    Bij ``n >= hard_limit``: dubbele zekerheidsvraag, tenzij ``-y`` /
+    ``--yes`` (dan stil door, ook zonder TTY).
+
+    ``already_confirmed=True`` (alleen via parent zoals ``products``):
+    geen enkele vraag meer, ook niet boven de harde limiet — de
+    orchestrator heeft al bevestigd voor de hele run.
+
+    Returns
+    -------
+    bool
+        True = doorgaan, False = afbreken (caller → exit 2).
+    """
+    if confirm_from is None:
+        confirm_from = CONFIRM_FROM
+    if hard_limit is None:
+        hard_limit = HARD_LIMIT
+    if soft_seconds is None:
+        soft_seconds = float(SOFT_SECONDS)
+
+    # Parent (products / products-changed) heeft al bevestigd: geen
+    # preflight-rommel, tenzij --verbose.
+    if already_confirmed:
+        from cli_style import detail
+
+        detail(f"Batch «{kind}»: {headline} (al bevestigd)")
+        for line in details:
+            detail(f"  {line}")
+        detail(f"  Aantal items: {n}")
+        return True
+
+    section(f"Batch «{kind}»: {headline}")
+    for line in details:
+        note(f"  {line}")
+    count(n, "items", role="info")
+    note(estimate_line(kind, n))
+
+    large = n >= hard_limit
+
+    if yes:
+        note("Bevestiging: overgeslagen (-y/--yes).")
+        return True
+
+    if large:
+        return _confirm_hard_limit(n, hard_limit=hard_limit)
+
+    # Korte run: onder item-drempel, of bekende schatting binnen soft_seconds.
+    est = estimated_total_seconds(kind, n)
+    short_by_count = n < confirm_from
+    short_by_time = est is not None and est <= soft_seconds
+    if short_by_count or short_by_time:
+        if short_by_time and not short_by_count:
+            note(f"Bevestiging: overgeslagen (geschat ≤ {int(soft_seconds)} s).")
+        return True
+
+    if not sys.stdin.isatty():
+        refuse(
+            "WEIGERT  batch zonder terminal "
+            "(voeg -y/--yes toe, of draai in een opdrachtvenster)"
+        )
+        return False
+
+    answer = _read_answer("Doorgaan? [j/N] ")
+    if answer in {"j", "ja", "y", "yes"}:
+        return True
+    refuse("WEIGERT  afgebroken")
+    return False
+
+
+@contextmanager
+def timed_sample(kind: str) -> Iterator[None]:
+    """Meet duur van één item en sla op in het running window."""
+    t0 = time.perf_counter()
+    try:
+        yield
+    finally:
+        record_sample(kind, time.perf_counter() - t0)
+
+
+# fn-return: 0 = ok, <0 = overgeslagen (niet meten), >0 = mislukt
+SKIP = -1
+
+
+def run_timed_batch(
+    kind: str,
+    items: Sequence[T],
+    fn: Callable[[T], int],
+    *,
+    label: Callable[[T], str] | None = None,
+) -> tuple[int, int, int]:
+    """Voer ``fn`` per item uit, meet duur, print tussentijdse ETA.
+
+    ``fn`` returnt ``0`` = ok, ``SKIP`` (−1) = overgeslagen (geen timing-sample),
+    anders mislukt. Returns ``(ok, failed, skipped)``.
+    """
+    ok = 0
+    failed = 0
+    skipped = 0
+    remaining = len(items)
+    for i, item in enumerate(items, start=1):
+        name = label(item) if label else str(item)
+        t0 = time.perf_counter()
+        try:
+            code = fn(item)
+        except SystemExit as exc:
+            code = int(exc.code) if isinstance(exc.code, int) else 1
+        except Exception as exc:  # noqa: BLE001 — batch mag niet sterven
+            from cli_style import hard
+
+            hard(f"FOUT  ({name}): {exc}")
+            code = 1
+        elapsed = time.perf_counter() - t0
+        remaining -= 1
+        if code == SKIP or code < 0:
+            skipped += 1
+        elif code == 0:
+            record_sample(kind, elapsed)
+            ok += 1
+        else:
+            record_sample(kind, elapsed)
+            failed += 1
+        stats = mean_seconds(kind)
+        if remaining > 0 and stats is not None and code >= 0:
+            mean, _ = stats
+            from cli_style import detail
+
+            detail(
+                f"  … {i}/{len(items)} klaar; "
+                f"nog ~{format_duration(mean * remaining)} "
+                f"({remaining} bestanden)"
+            )
+    return ok, failed, skipped

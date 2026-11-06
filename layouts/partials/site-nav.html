@@ -1,0 +1,7 @@
+{{- $page := . -}}
+<nav class="site-nav" aria-label="Hoofdnavigatie">
+  {{- $sections := sort site.Home.Sections "Weight" -}}
+  {{- range $sections }}
+    {{- partial "site-nav-section.html" (dict "page" $page "section" .) }}
+  {{- end }}
+</nav>

@@ -1,0 +1,301 @@
+"""Controleer Coria-``.mxl``-siblings tegen de playback-checklist.
+
+Roept ``mxl validate`` aan (VSA-tooling):
+
+- ``*.vsa.mxl`` → ``--profile mono``
+- ``*.mscz.mxl`` / ``*.mvsa.mxl`` → ``--profile satb``
+
+Slaat ``input/`` en ``manueel/manual`` over. Meet alleen bestanden die
+er al zijn (ontbrekend = versheidscontrole). Schrijft
+``data/mxl-playback-contract-status.json``. Exit 1 bij problemen tenzij
+``--warn-only``.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import re
+import sys
+import xml.etree.ElementTree as ET
+import zipfile
+from dataclasses import asdict, dataclass
+from pathlib import Path
+
+from fix_cmds import (
+    coria_source_for_mxl,
+    products_only_invalid_fix_cmd,
+    win_repo_rel,
+)
+from product_regen import mxl_contract_ok
+from sync_vsa_products import folder_is_handmatig
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_ROOT = REPO_ROOT / "content-source" / "catalogus"
+STATUS_PATH = REPO_ROOT / "data" / "mxl-playback-contract-status.json"
+FIX_PAGE = "/handleiding/start/publicatiecontrole/"
+FIX_CMD = r"scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid --skip-post"
+FIX_CMD_SOURCE = (
+    r"python scripts\strip_coria_mxl_source.py"
+    r"  (of products opnieuw; Coria faalt op source+encoding)"
+)
+FIX_CMD_NOTEHEAD = (
+    r"scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid --skip-post"
+    r"  (Coria faalt op <notehead>, o.a. none)"
+)
+
+
+@dataclass
+class Issue:
+    kind: str
+    file: str
+    detail: str
+
+
+def _local(tag: str) -> str:
+    return tag.split("}")[-1] if "}" in tag else tag
+
+
+def _load_score_root(path: Path) -> ET.Element | None:
+    try:
+        if path.suffix.lower() == ".mxl":
+            with zipfile.ZipFile(path) as z:
+                names = [
+                    n
+                    for n in z.namelist()
+                    if n.endswith((".xml", ".musicxml")) and not n.startswith("META")
+                ]
+                if not names:
+                    return None
+                raw = z.read(names[0])
+        else:
+            raw = path.read_bytes()
+        return ET.fromstring(re.sub(rb"<!DOCTYPE[\s\S]*?>", b"", raw, count=1))
+    except (OSError, ET.ParseError, zipfile.BadZipFile):
+        return None
+
+
+def has_coria_source_encoding_clash(path: Path) -> bool:
+    """True als identification zowel ``source`` als ``encoding`` heeft.
+
+    Coria play_from_url geeft dan ``translation failed``. Lokale gate zodat
+    dit niet afhangt van een pin-bump van ``mxl validate``.
+    """
+    root = _load_score_root(path)
+    if root is None:
+        return False
+    for ident in root:
+        if _local(ident.tag) != "identification":
+            continue
+        tags = {_local(c.tag) for c in ident}
+        if "source" in tags and "encoding" in tags:
+            return True
+    return False
+
+
+def has_coria_notehead(path: Path) -> bool:
+    """True als er ``<notehead>`` in de score zit (Coria: translation failed)."""
+    root = _load_score_root(path)
+    if root is None:
+        return False
+    return any(_local(el.tag) == "notehead" for el in root.iter())
+
+
+@dataclass
+class FileStatus:
+    file: str
+    profile: str
+    ok: bool
+    issues: list[Issue]
+    fix_cmd: str
+
+
+def _rel(path: Path) -> str:
+    from input_paths import rel_for_log
+
+    return rel_for_log(path, repo_root=REPO_ROOT)
+
+
+def profile_for_coria_mxl(path: Path) -> str | None:
+    """Return validate-profile, or None if this is not a known Coria-product."""
+    name = path.name.lower()
+    if name.endswith(".vsa.mxl"):
+        return "mono"
+    if name.endswith(".mscz.mxl") or name.endswith(".mvsa.mxl"):
+        return "satb"
+    return None
+
+
+def collect_coria_mxl(root: Path) -> list[tuple[Path, str]]:
+    out: list[tuple[Path, str]] = []
+    if not root.is_dir():
+        return out
+    for path in sorted(root.rglob("*.mxl")):
+        if "input" in path.parts:
+            continue
+        if folder_is_handmatig(path.parent):
+            continue
+        profile = profile_for_coria_mxl(path)
+        if profile is None:
+            continue
+        out.append((path, profile))
+    return out
+
+
+def _fix_cmd_for_mxl(path: Path, *, notehead: bool, source_clash: bool) -> str:
+    if source_clash:
+        return (
+            rf"python scripts\strip_coria_mxl_source.py "
+            rf"{win_repo_rel(path)}"
+        )
+    source = coria_source_for_mxl(path)
+    if source is not None:
+        cmd = products_only_invalid_fix_cmd(source)
+        if notehead:
+            return cmd + r"  (Coria faalt op <notehead>, o.a. none)"
+        return cmd
+    if notehead:
+        return FIX_CMD_NOTEHEAD
+    return FIX_CMD
+
+
+def check_one(path: Path, profile: str) -> FileStatus:
+    issues: list[Issue] = []
+    source_clash = has_coria_source_encoding_clash(path)
+    notehead = has_coria_notehead(path)
+    if source_clash:
+        issues.append(
+            Issue(
+                "coria_source_encoding",
+                _rel(path),
+                "identification heeft <source> én <encoding> "
+                "(Coria: translation failed)",
+            )
+        )
+    if notehead:
+        issues.append(
+            Issue(
+                "coria_notehead",
+                _rel(path),
+                "score bevat <notehead> (Coria: translation failed)",
+            )
+        )
+    result = mxl_contract_ok(path, profile=profile)
+    if result is None:
+        issues.append(
+            Issue(
+                "mxl_cli_missing",
+                _rel(path),
+                "mxl validate niet beschikbaar (installeer vsa-tool / pin bumpen)",
+            )
+        )
+    elif result is False:
+        issues.append(
+            Issue(
+                "invalid_mxl",
+                _rel(path),
+                f"faalt mxl validate --profile {profile} "
+                f"(M2/M8, Coria-importer-tags of meta)",
+            )
+        )
+    fix_cmd = FIX_CMD
+    if issues:
+        fix_cmd = _fix_cmd_for_mxl(
+            path, notehead=notehead, source_clash=source_clash
+        )
+    return FileStatus(
+        file=_rel(path),
+        profile=profile,
+        ok=not issues,
+        issues=issues,
+        fix_cmd=fix_cmd,
+    )
+
+
+def collect_statuses(root: Path) -> list[FileStatus]:
+    return [check_one(path, profile) for path, profile in collect_coria_mxl(root)]
+
+
+def write_status_json(statuses: list[FileStatus], path: Path = STATUS_PATH) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "fix_page": FIX_PAGE,
+        "fix_cmd": FIX_CMD,
+        "files": {
+            s.file: {
+                "profile": s.profile,
+                "ok": s.ok,
+                "fix_cmd": s.fix_cmd,
+                "issues": [asdict(i) for i in s.issues],
+            }
+            for s in statuses
+        },
+    }
+    from cli_style import atomic_write_json
+
+    atomic_write_json(path, payload, ensure_ascii=False)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "root",
+        nargs="?",
+        type=Path,
+        default=DEFAULT_ROOT,
+        help="Zoekroot (default: content-source/catalogus)",
+    )
+    parser.add_argument(
+        "--warn-only",
+        action="store_true",
+        help="Schrijf status-JSON maar exit altijd 0",
+    )
+    parser.add_argument(
+        "--fail",
+        action="store_true",
+        help="Non-zero bij problemen (CI / --strict)",
+    )
+    args = parser.parse_args()
+    root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
+    statuses = collect_statuses(root)
+    write_status_json(statuses)
+    bad = [s for s in statuses if not s.ok]
+    from check_report import print_check_findings
+
+    print_check_findings(
+        headline=(
+            f"MXL-playback-contract: {len(statuses) - len(bad)} ok, "
+            f"{len(bad)} probleem ({_rel(STATUS_PATH)})"
+        ),
+        what="Controle: of Coria-.mxl het afspeelcontract volgt",
+        bad=bad,
+        fix_page=FIX_PAGE,
+    )
+
+    if not bad:
+        return 0
+    if args.warn_only:
+        return 0
+    if args.fail:
+        return 1
+    ref = (
+        os.environ.get("GITHUB_REF", "")
+        or os.environ.get("GITHUB_REF_NAME", "")
+        or ""
+    )
+    if ref in {"main", "refs/heads/main"}:
+        return 1
+    if os.environ.get("BIBLIOTHEEK_PRODUCTS_STRICT", "").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+    }:
+        return 1
+    if os.environ.get("GITHUB_ACTIONS", "").strip().lower() == "true":
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

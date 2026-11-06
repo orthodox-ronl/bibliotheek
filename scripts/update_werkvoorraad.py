@@ -1,0 +1,293 @@
+"""Vul de tabel in content-source/input/werkvoorraad.md vanuit de inputs op schijf.
+
+Draait in check/build/serve. Handmatige notities, doel-id en
+koormap in een bestaande rij blijven staan; stap/volgende worden opnieuw
+afgeleid.
+
+Doel-id is bij voorkeur een bibliotheek-id (zangstuk/variant/uitvoeringsvorm).
+Oude bladermap-namen worden via _SLOT_TO_ID genormaliseerd.
+"""
+
+from __future__ import annotations
+
+import shutil
+from pathlib import Path
+
+from catalogus import folder, leaf_folders, parse_id, resolve_id
+from score_filenames import published_stem
+
+REPO = Path(__file__).resolve().parents[1]
+INPUT = REPO / "content-source" / "input"
+DOC = INPUT / "werkvoorraad.md"
+HERKOMST = ("capella", "vow", "musescore", "musicxml", "pdf")
+INPUT_EXT = {".mxl", ".xml", ".musicxml", ".mscz", ".cap", ".capx", ".pdf", ".vsa"}
+SCORE_EXT = {".mscz", ".mxl", ".pdf", ".vsa"}
+BEGIN = "<!-- werkvoorraad-tabel:begin -->"
+END = "<!-- werkvoorraad-tabel:einde -->"
+
+# Oude mapnaam (Hemelum-slot of leaf) -> bibliotheek-id (koormap-aligned)
+_SLOT_TO_ID = {
+    "15c-cherubijnenhymne-kastorski": "cherubijnenhymne/15c-kastorski/hemelum",
+    "cherubijnenhymne/15c-kastorski": "cherubijnenhymne/15c-kastorski/hemelum",
+    "15e-cherubijnenhymne-bortnjanski": "cherubijnenhymne/15e-bortnjanski/hemelum",
+    "cherubijnenhymne/15e-bortnjanski": "cherubijnenhymne/15e-bortnjanski/hemelum",
+    "15b-fatejev": "cherubijnenhymne/15b-fatejev/hemelum",
+    "15d-kastorski": "cherubijnenhymne/15d-kastorski/hemelum",
+    "15c-cherubijnenhymne-kastorski-ksl-trlat": (
+        "cherubijnenhymne/15c-kastorski/hemelum-ksl-trlat"
+    ),
+    "8a-trisagion": "trisagion/8a-nederlands/hemelum",
+    "8a-trisagion-slav": "trisagion/8a-slav/hemelum",
+    "19a-eucharistische-kanon": "eucharistische-canon/19a-feofan/hemelum",
+    "eucharistische-canon-rostov": "eucharistische-canon/rostov/hemelum",
+    "20d-in-waarheid-moeder-godslied": "moeder-godslied/20d-in-waarheid/hemelum",
+    "moeder-godslied-ontslapen-mgods": "moeder-godslied/ontslapen-moeder-gods/hemelum",
+    "communievers-onthoofding-johannes-de-doper": (
+        "communievers/onthoofding-johannes-de-doper/hemelum"
+    ),
+    "tropaar-nikolaas-van-myra": "tropaar/nikolaas-van-myra-toon-4/hemelum",
+    "eerste-antifoon": "eerste-antifoon/zondag/hemelum",
+    "tweede-antifoon": "tweede-antifoon/zondag/hemelum",
+    "eniggeboren-zoon": "eniggeboren-zoon/default/hemelum",
+    "derde-antifoon-zaligsprekingen": (
+        "derde-antifoon/zondag/hemelum"
+    ),
+    "derde-antifoon": "derde-antifoon/zondag/hemelum",
+    "kleine-intocht": "kleine-intocht/zondag/hemelum",
+    "kleine-intocht/weekdagen/hemelum": "kleine-intocht/weekdagen/hemelum",
+    "kleine-intocht/moeder-gods/hemelum": "kleine-intocht/moeder-gods/hemelum",
+    "kleine-intocht/zo-wk-mg/hemelum": "kleine-intocht/zo-wk-mg/hemelum",
+    "zo-wk-mg": "kleine-intocht/zo-wk-mg/hemelum",
+    "wij-hebben-het-ware-licht": "wij-hebben-het-ware-licht/default/hemelum",
+    "de-naam-des-heren-zij-gezegend": (
+        "de-naam-des-heren-zij-gezegend/default/hemelum"
+    ),
+}
+_ID_TO_SLOT = {v: k for k, v in _SLOT_TO_ID.items()}
+
+
+def _cell(value: str) -> str:
+    return (value or "").replace("|", "\\|")
+
+
+def _parse_rows(markdown: str) -> dict[str, dict[str, str]]:
+    rows: dict[str, dict[str, str]] = {}
+    for line in markdown.splitlines():
+        if not line.startswith("| `"):
+            continue
+        parts = [p.strip() for p in line.strip().strip("|").split("|")]
+        if len(parts) < 7:
+            continue
+        key = parts[0].strip().strip("`")
+        rows[key] = {
+            "doel_id": parts[1].strip().strip("`"),
+            "koormap": parts[2].strip().strip("`"),
+            "doelvorm": parts[3].strip().strip("`"),
+            "stap": parts[4].strip(),
+            "volgende": parts[5].strip(),
+            "notitie": parts[6].strip(),
+        }
+        # Oude kolom "Deelrubriek" (liturgiemap-hemelum / overig)
+        if parts[2].strip() in ("liturgiemap-hemelum", "overig", "bibliotheek"):
+            rows[key]["deelrubriek"] = parts[2].strip()
+    return rows
+
+
+def _has_score(path: Path) -> bool:
+    if not path.is_dir():
+        return False
+    return any(p.is_file() and p.suffix.lower() in SCORE_EXT for p in path.iterdir())
+
+
+def _normalize_id(old_id: str) -> str:
+    if not old_id:
+        return ""
+    if old_id in _SLOT_TO_ID:
+        return _SLOT_TO_ID[old_id]
+    try:
+        parse_id(old_id)
+        return old_id
+    except ValueError:
+        return old_id
+
+
+def _legacy_bladermappen() -> dict[str, Path]:
+    """Geen legacy oefenhoek-bladermappen in deze repo."""
+    return {}
+
+
+def _match_doel(dump_name: str, old_id: str) -> tuple[str, Path | None]:
+    # Capella 7b deelde vroeger doel-id met 7 (zondag).
+    lower = dump_name.lower()
+    if "7b" in lower and "weekdagen" in lower:
+        old_id = "kleine-intocht/weekdagen/hemelum"
+    elif "moedergods" in lower.replace("-", "").replace("_", "") or (
+        "moeder" in lower and "gods" in lower and "intocht" in lower
+    ):
+        if not old_id or old_id == "kleine-intocht":
+            old_id = "kleine-intocht/moeder-gods/hemelum"
+    ident = _normalize_id(old_id)
+    if ident:
+        try:
+            ident = resolve_id(ident)
+        except ValueError:
+            pass
+    leaves = {i: p for i, p in leaf_folders()}
+    if ident in leaves:
+        return ident, leaves[ident]
+    legacy = _legacy_bladermappen()
+    if ident:
+        try:
+            parse_id(ident)
+            dest = folder(ident)
+            if dest.is_dir():
+                return ident, dest
+            # Bibliotheek-id bekend, map nog niet: kijk oude bladermap.
+            slot = _ID_TO_SLOT.get(ident, "")
+            for key in (slot, old_id, Path(old_id).name if old_id else ""):
+                if key and key in legacy:
+                    return ident, legacy[key]
+            return ident, None
+        except ValueError:
+            if ident in legacy:
+                return ident, legacy[ident]
+            if old_id in legacy:
+                return old_id, legacy[old_id]
+            return ident, None
+    stem = published_stem(dump_name)
+    hits = [i for i in leaves if i.endswith("/" + stem) or stem in i]
+    if len(hits) == 1:
+        return hits[0], leaves[hits[0]]
+    if stem in legacy:
+        return _normalize_id(stem) or stem, legacy[stem]
+    return "", None
+
+
+def _koormap(prev: dict[str, str], ident: str) -> str:
+    old = prev.get("koormap") or prev.get("deelrubriek", "")
+    if old == "liturgiemap-hemelum":
+        slot = prev.get("doel_id", "").strip("`")
+        if slot and "/" not in slot:
+            return slot
+        if ident:
+            return ident.split("/")[0]
+        return ""
+    if old in ("overig", "bibliotheek"):
+        return ""
+    return old
+
+
+def _doelvorm(src: Path, old: str) -> str:
+    if old:
+        return f"`{old}`" if not old.startswith("`") else old
+    if src.suffix.lower() == ".vsa":
+        return "`.vsa`"
+    return "`.mscz`"
+
+
+def _stap(path: Path | None, src: Path, *, ident: str = "") -> tuple[str, str]:
+    if path is None:
+        if ident:
+            try:
+                parse_id(ident)
+                return "ontvangen", "migratie"
+            except ValueError:
+                pass
+        return "ontvangen", "doel-id"
+    if _has_score(path):
+        return "gepubliceerd", "—"
+    if src.suffix.lower() == ".mscz":
+        return "ontvangen", "layout"
+    return "ontvangen", "opkuisen"
+
+
+def _inputs() -> list[Path]:
+    out: list[Path] = []
+    for herkomst in HERKOMST:
+        folder_h = INPUT / herkomst
+        if not folder_h.is_dir():
+            continue
+        for path in folder_h.iterdir():
+            if not path.is_file() or path.name.startswith("."):
+                continue
+            if path.name == ".gitkeep":
+                continue
+            if path.suffix.lower() not in INPUT_EXT:
+                continue
+            out.append(path)
+    return sorted(out, key=lambda p: p.relative_to(INPUT).as_posix().lower())
+
+
+def _table(old: dict[str, dict[str, str]]) -> str:
+    lines = [
+        "| Input | Doel-id | Koormap | Doelvorm | Stap | Volgende | Notitie |",
+        "| --- | --- | --- | --- | --- | --- | --- |",
+    ]
+    for src in _inputs():
+        rel = src.relative_to(INPUT).as_posix()
+        prev = old.get(rel, {})
+        raw_id = prev.get("doel_id", "")
+        doel_id, path = _match_doel(src.name, raw_id)
+        koormap = _koormap(prev, doel_id)
+        vorm = _doelvorm(src, prev.get("doelvorm", ""))
+        stap, volgende = _stap(path, src, ident=doel_id)
+        notitie = prev.get("notitie", "")
+        doel_cell = f"`{doel_id}`" if doel_id else ""
+        koor_cell = f"`{koormap}`" if koormap else ""
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    f"`{rel}`",
+                    doel_cell,
+                    koor_cell,
+                    vorm,
+                    _cell(stap),
+                    _cell(volgende),
+                    _cell(notitie),
+                ]
+            )
+            + " |"
+        )
+    return "\n".join(lines) + "\n"
+
+
+def _replace_table(doc: str, table: str) -> str:
+    if BEGIN not in doc or END not in doc:
+        raise SystemExit(f"FAIL: {DOC} mist {BEGIN} / {END}")
+    before, rest = doc.split(BEGIN, 1)
+    _, after = rest.split(END, 1)
+    return f"{before}{BEGIN}\n\n{table}\n{END}{after}"
+
+
+def main() -> int:
+    if not DOC.is_file():
+        print(f"FAIL: {DOC} ontbreekt.", flush=True)
+        return 1
+    text = DOC.read_text(encoding="utf-8")
+    old = _parse_rows(text)
+    updated = _replace_table(text, _table(old))
+    if updated != text:
+        from cli_style import atomic_write_text
+
+        atomic_write_text(DOC, updated, newline="\n")
+        print("Werkvoorraad-tabel bijgewerkt.", flush=True)
+    else:
+        print("Werkvoorraad-tabel ongewijzigd.", flush=True)
+    generated = REPO / "generated" / "content" / "input"
+    if generated.is_dir():
+        shutil.rmtree(generated)
+        print(
+            "generated/content/.../input verwijderd (geen Hugo-pagina's).",
+            flush=True,
+        )
+    # Special page + CLI: open werkbank-cases
+    from werkbank_status import collect, write_json  # noqa: PLC0415
+
+    write_json(collect())
+    print("Werkbank-status-JSON bijgewerkt.", flush=True)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

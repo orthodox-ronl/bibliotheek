@@ -1,0 +1,12 @@
+{{- /*
+  Taalrang voor sortering blaadjes: 0 = Nederlands (geen suffix),
+  1 = -ksl / -nl-ksl, 2 = -ksl-trlat. Output: cijfer als tekst.
+*/ -}}
+{{- $u := . -}}
+{{- if strings.HasSuffix $u "-ksl-trlat" -}}
+2
+{{- else if or (strings.HasSuffix $u "-nl-ksl") (strings.HasSuffix $u "-ksl") -}}
+1
+{{- else -}}
+0
+{{- end -}}

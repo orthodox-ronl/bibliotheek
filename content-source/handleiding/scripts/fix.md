@@ -1,0 +1,96 @@
+---
+title: "fix"
+linkTitle: "fix"
+weight: 22
+---
+
+# NAME
+
+`scripts\fix.cmd` — auto-fixbare problemen uit `check` afwerken via
+`data\check-fixlist.json`
+
+# SYNOPSIS
+
+```cmd
+scripts\fix.cmd [--check | --strict] [--dry-run] [-y] [--verbose]
+```
+
+# DESCRIPTION
+
+Na een `check` (met of zonder `--strict`) schrijft de repository een
+**afwerklijst** in `data\check-fixlist.json`. Elke regel is één probleem
+waarvoor check al een eenvoudig herstelcommando kent (`fix_cmd`),
+bijvoorbeeld `scripts\pdf.cmd catalogus\…\index.md` bij een verouderde
+blad-PDF, of `scripts\products.cmd --kinds mvsa catalogus\…\lied.mvsa`
+voor één verouderde uitvoeringsvorm (niet de hele catalogus). Die paden
+zijn kort (zonder `content-source\`), zodat je ze ook handmatig kunt
+plakken — zie [bestand of map](../invoer-bestand-of-map/).
+
+Product-herstelregels gebruiken `--reasons missing,stale` en
+`--skip-post`. Zo blijft `fix` bij een handvol wijzigingen klein.
+Zoekindex en Coria-fingerprints draait `fix` daarna één keer.
+Identieke `fix_cmd`-regels worden maar één keer uitgevoerd.
+
+**Uitvoer (dry-run / lijst):** tellingen (`  N  fixlist-items`) plus per
+item een korte regel en fix-sjabloon met `{file}`. Tijdens afwerken:
+`>>>` per regel; aan het eind `ok` / `mislukt` / `rest` onder elkaar.
+Ruwe herstel-uitvoer alleen bij `--verbose`, of als het mislukt.
+Bewuste afbraak (geen bevestiging): magenta `WEIGERT`.
+
+Dit commando:
+
+1. **toont** die lijst (`--dry-run`), of
+2. **voert** elke `fix_cmd` uit en **schrapt** geslaagde regels uit het
+   bestand.
+
+Zo kun je na `fix` opnieuw `check --strict` draaien en — voor alles wat
+auto-fixbaar was — op 0 problemen uitkomen.
+
+**`--check` / `--strict`:** runt eerst `check --strict`, bouwt daarna de
+fixlist opnieuw uit de status-JSON’s, en toont of werkt die verse lijst
+af. `--strict` is hetzelfde als `--check`. Exitcode 1 van check (er zijn
+product/pdf-problemen) is **verwacht** en stopt `fix` niet. Exitcode 2 of
+hoger (validate/tooling/usage) wél: dan is er geen betrouwbare lijst.
+
+**`--dry-run`:** schrijft geen producten; met `--check` wél eerst de lijst
+vernieuwen, daarna printen.
+
+Zonder `--check` moet `data\check-fixlist.json` al bestaan (na een
+eerdere `check` of `fix --check`). Ontbreekt het bestand: duidelijke
+foutmelding.
+
+Niet op de lijst: validate- of Hugo-fouten zonder `fix_cmd` — die blijven
+handwerk.
+
+Bij veel items (vaak tientallen of honderden blad-PDF’s) toont `fix`
+preflight met geschatte duur. Korte runs starten zonder vraag; bij 100+
+items de dubbele zekerheidsvraag, tenzij je `-y` / `--yes` meegeeft.
+
+# EXAMPLES
+
+```cmd
+REM Verse inventarisatie + alleen tonen
+scripts\fix.cmd --check --dry-run
+scripts\fix.cmd --strict --dry-run
+
+REM Inventariseren en meteen afwerken
+scripts\fix.cmd --check
+scripts\fix.cmd --strict -y
+
+REM Bestaande lijst bekijken / afwerken (na eerdere check)
+scripts\fix.cmd --dry-run
+scripts\fix.cmd -y
+```
+
+# WHEN
+
+Als `check --strict` product- of blad-PDF-problemen meldt en je die snel
+wilt wegwerken zonder elk `fix:`-commando handmatig te plakken. Niet als
+vervanging van inhoudelijk herstel bij validate-fouten.
+
+# SEE ALSO
+
+- [check](../check/)
+- [pdf](../pdf/)
+- [products](../products/)
+- [Publicatiecontrole](../../start/publicatiecontrole/)

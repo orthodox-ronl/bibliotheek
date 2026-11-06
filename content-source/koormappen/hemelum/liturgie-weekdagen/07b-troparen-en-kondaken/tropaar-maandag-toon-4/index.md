@@ -1,0 +1,10 @@
+---
+title: "Tropaar maandag toon 4 (Heilige Engelen)"
+weight: 10
+publicatiestatus: reviewable
+automatische_inhoud: false
+---
+
+{{< kop >}}{{< param title >}}{{< /kop >}}
+
+{{< bieb id="tropaar/maandag-toon-4/hemelum" />}}

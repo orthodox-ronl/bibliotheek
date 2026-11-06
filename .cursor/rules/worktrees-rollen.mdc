@@ -1,0 +1,21 @@
+# Worktrees: rollen (bibliotheek)
+
+Geldt voor de lokale checkout van deze repo op de beheerder-pc.
+
+## Eén map: `bibliotheek`
+
+Alles gebeurt in **`C:\Git\orthodox-ronl\bibliotheek`**:
+
+- site-/feature-werk (UI, layouts, JS, handleiding, translit-schakelaar,
+  schermstand, docs, CI);
+- bronnen importeren/wijzigen;
+- afgeleide producten genereren (`scripts\products.cmd` e.d.).
+
+Feature-werk op `development` (of een tijdelijke feature-branch). Er is
+geen aparte onderhoud-worktree meer.
+
+## Agent-gedrag
+
+- Workspace-root = `bibliotheek`.
+- Bij twijfel over branch: `development` voor lopend werk; `main` alleen
+  na bewuste merge/pin.

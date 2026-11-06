@@ -1,0 +1,49 @@
+{{ define "main" }}
+{{- $koormap := eq .Section "koormappen" -}}
+{{- $kindItems := partial "oefenhoek-kind-items.html" . -}}
+{{- $isHub := and $koormap (gt (len $kindItems) 0) -}}
+{{- if $isHub -}}
+  {{- .Scratch.Set "koormap-hub-kinderen" true -}}
+<div class="koormap-hub">
+  <div class="page-title-row">
+    <h1>{{ partial "display-title.html" . }}</h1>
+  </div>
+  {{ partial "koormap-liturgie-nav.html" (dict "page" . "placement" "top") }}
+  {{- with .Content -}}
+  <div class="koormap-hub-intro">{{ . }}</div>
+  {{- end -}}
+  {{- if gt (len $kindItems) 1 -}}
+  <ul class="page-list oefenhoek-kinderen oefenhoek-kinderen--hub">
+    {{- range $kindItems -}}
+      {{- $label := partial "display-link-title.html" . -}}
+      {{- if partial "oefenhoek-linkbaar.html" . -}}
+    <li><a href="{{ .RelPermalink }}">{{ $label }}</a>{{- partial "oefenhoek-alias-tag.html" . -}}</li>
+      {{- else -}}
+    <li><span class="oefenhoek-voorzien">{{ $label }} <span class="oefenhoek-voorzien-tag">(voorzien)</span></span>{{- partial "oefenhoek-alias-tag.html" . -}}</li>
+      {{- end -}}
+    {{- end -}}
+  </ul>
+  {{- else if eq (len $kindItems) 1 -}}
+    {{- $one := index $kindItems 0 -}}
+    {{- $label := partial "display-link-title.html" $one -}}
+    {{- if partial "oefenhoek-linkbaar.html" $one -}}
+  <p class="oefenhoek-doorverwijzing"><a href="{{ $one.RelPermalink }}">{{ $label }}</a>{{- partial "oefenhoek-alias-tag.html" $one -}}</p>
+    {{- else -}}
+  <p class="oefenhoek-voorzien">{{ $label }} <span class="oefenhoek-voorzien-tag">(voorzien)</span>{{- partial "oefenhoek-alias-tag.html" $one -}}</p>
+    {{- end -}}
+  {{- end -}}
+</div>
+{{- else -}}
+<div class="page-title-row">
+  <h1>{{ partial "display-title.html" . }}</h1>
+</div>
+{{- if $koormap -}}
+{{ partial "koormap-liturgie-nav.html" (dict "page" . "placement" "top") }}
+{{- end -}}
+{{ partial "oefenhoek-alias.html" . }}
+{{ .Content }}
+{{- if $koormap -}}
+{{ partial "koormap-liturgie-nav.html" (dict "page" . "placement" "bottom") }}
+{{- end -}}
+{{- end -}}
+{{ end }}

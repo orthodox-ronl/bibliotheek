@@ -1,0 +1,207 @@
+@echo off
+setlocal EnableExtensions
+cd /d "%~dp0.."
+
+set "STRICT="
+
+:parse_args
+if "%~1"=="" goto args_done
+if /I "%~1"=="--strict" set "STRICT=1" & shift & goto parse_args
+if /I "%~1"=="-h" goto usage
+if /I "%~1"=="--help" goto usage
+echo Onbekende optie: %~1
+goto usage
+
+:args_done
+
+call scripts\_ensure.cmd --hugo --vsa-tool
+if errorlevel 1 exit /b 1
+
+call scripts\_msg.cmd section "=== bibliotheek check (validate + producten + Hugo + Coria) ==="
+where vsa >nul 2>&1
+if errorlevel 1 (
+  call scripts\_msg.cmd hard "ERROR  vsa not on PATH after _ensure --vsa-tool"
+  exit /b 1
+)
+vsa --version
+if errorlevel 1 exit /b 1
+
+call scripts\validate.cmd content-source\catalogus
+if errorlevel 1 exit /b 1
+
+python scripts\update_werkvoorraad.py
+if errorlevel 1 exit /b 1
+
+REM Product-/pdf-/contract-checks: bij --strict niet meteen stoppen, zodat
+REM data\check-fixlist.json alle bekende fix_cmd’s bevat (voor scripts\fix.cmd).
+REM Zonder --strict: bij onverwachte exit 1 nog steeds meteen stoppen.
+set "PRODUCT_FAIL=0"
+
+if defined STRICT (
+  python scripts\check_vsa_products.py --fail
+) else (
+  python scripts\check_vsa_products.py
+)
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
+
+if defined STRICT (
+  python scripts\check_mscz_products.py --fail
+) else (
+  python scripts\check_mscz_products.py
+)
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
+
+if defined STRICT (
+  python scripts\check_tekstblad_products.py --fail
+) else (
+  python scripts\check_tekstblad_products.py
+)
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
+
+if defined STRICT (
+  python scripts\check_import_mvsa.py --fail
+) else (
+  python scripts\check_import_mvsa.py
+)
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
+
+if defined STRICT (
+  python scripts\check_mvsa_products.py --fail
+) else (
+  python scripts\check_mvsa_products.py
+)
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
+
+if defined STRICT (
+  python scripts\check_audio_products.py --fail
+) else (
+  python scripts\check_audio_products.py
+)
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
+
+if defined STRICT (
+  python scripts\check_lyrics_products.py --fail
+) else (
+  python scripts\check_lyrics_products.py
+)
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
+
+if defined STRICT (
+  python scripts\check_index_md_pdf.py --fail
+) else (
+  python scripts\check_index_md_pdf.py
+)
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
+
+if defined STRICT (
+  python scripts\check_mxl_playback_contract.py --fail
+) else (
+  python scripts\check_mxl_playback_contract.py
+)
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
+
+if defined STRICT (
+  python scripts\ensure_bibliotheek_id.py --check-only --fail
+) else (
+  python scripts\ensure_bibliotheek_id.py --check-only
+)
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
+
+python scripts\check_fixlist.py
+if errorlevel 1 exit /b 1
+
+if defined STRICT if "%PRODUCT_FAIL%"=="1" (
+  call scripts\_msg.cmd work "Check --strict: product/pdf/contract/id-problemen (inventarisatie)"
+  call scripts\_msg.cmd note "Bekijken: scripts\fix.cmd --dry-run   Afwerken: scripts\fix.cmd"
+  exit /b 1
+)
+
+REM Relatieve TOC-links moeten bestaan (anders Hugo-404 na hernoem).
+python scripts\check_koormap_slot_links.py --fail
+if errorlevel 1 exit /b 1
+
+REM Catalogus-titels: UV-labels data synchroon met catalogus.py (Hugo/zoek).
+if defined STRICT (
+  python scripts\check_catalogus_leaf_titles.py --fail
+) else (
+  python scripts\check_catalogus_leaf_titles.py
+)
+if errorlevel 1 exit /b 1
+
+python scripts\fingerprint_coria_mxl.py
+if errorlevel 1 exit /b 1
+
+REM Coria play_from_url: kies host die wél ophaalt (raw vs github.io).
+if defined STRICT (
+  python scripts\probe_coria_fetch.py
+) else (
+  python scripts\probe_coria_fetch.py --warn-only
+)
+if errorlevel 1 exit /b 1
+
+python scripts\sync_oefenhoek_index.py --svg
+if errorlevel 1 exit /b 1
+
+python scripts\build_zoek_index.py
+if errorlevel 1 exit /b 1
+
+python scripts\write_build_stamp.py
+if errorlevel 1 exit /b 1
+
+if exist generated\site rmdir /s /q generated\site
+hugo ^
+  --minify ^
+  --cleanDestinationDir ^
+  --destination generated\site ^
+  --config hugo.toml
+if errorlevel 1 (
+  call scripts\_msg.cmd hard "ERROR  hugo build failed"
+  exit /b 1
+)
+call scripts\_msg.cmd ok "OK  hugo build"
+exit /b 0
+
+:usage
+echo.
+echo Gebruik: scripts\check.cmd [--strict]
+echo.
+echo   --strict   non-zero als er product/pdf/id-problemen zijn ^(CI-spiegel^)
+echo.
+echo Zonder --strict: product-/id-checks waarschuwen lokaal maar stoppen niet
+echo ^(behalve op main / BIBLIOTHEEK_PRODUCTS_STRICT=1^). CI stopt altijd.
+echo   Na product-checks: data\check-fixlist.json
+echo   Bekijken/afwerken: scripts\fix.cmd --dry-run   /   scripts\fix.cmd
+
+echo.
+endlocal
+exit /b 2

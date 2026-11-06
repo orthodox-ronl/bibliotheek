@@ -1,0 +1,99 @@
+---
+description: Duidelijke documentatie — geen zwevende verwijzers, termen uitleggen
+alwaysApply: true
+---
+
+# Documentatie: duidelijk voor de lezer
+
+Geldt voor **alle** documentatie in orthodox-ronl (handleidingen, manuals,
+specs-proza, README’s, demo-pagina’s, **script-man-pages**). Canonieke
+aanvulling op `bron/docs/specs/schrijfconventies.md` (persoonas,
+paginatypen, jargon).
+
+## Doelgroep (standaard)
+
+Schrijf alsof de lezer **beheerder** is: MuseScore en het Windows-opdrachtvenster
+kennen, maar **geen** programmeur. Jargon-labels (`preflight`, `CI-spiegel`,
+`demo-Markdownblad`) alleen ná uitleg in gewone taal, of vermijden.
+
+## Zinnen
+
+- Schrijf **volledige zinnen**. Geen telegramstijl in lopende tekst —
+  ook niet in catalogus-kolommen («Kort»), DESCRIPTION of WHEN.
+- Houd zinnen **kort genoeg** om in één keer te volgen; splits lange zinnen.
+- **Antwoord eerst**, daarna detail (schrijfconventies: pagina-kopnorm).
+
+## Spec versus voorbeeld
+
+- Eerst de **specificatie**: wat het commando doet, van welke bron, naar welk
+  resultaat, en **waartoe** (welk probleem lost het op).
+- Daarna pas **voorbeelden** (concrete paden, ids). Een voorbeeldbestand is
+  geen definitie: noem het pad en leg kort uit wat dat bestand in het traject is.
+- **Fout:** «Bouwt de demo-PDF uit het demo-Markdownblad.»
+- **Goed:** «Maakt het A4-PDF-bestand `static\demo\voorbeeld-blad.pdf` opnieuw
+  uit de bron
+  `content-source\praktijk\demo\assets\voorbeeld-blad.md` (Markdown met VSA).
+  Die PDF hoort bij de Tooling Demo-pagina *Markdown naar PDF* op de site.
+  `check` eist dat die PDF niet ouder is dan die bronnen.»
+
+## Catalogus / korte samenvattingen
+
+Een kolom «Kort» of een one-liner moet genoeg zijn zodat iemand die het
+traject **nog niet** kent begrijpt wat het commando doet — niet alleen een
+intern label. Liever één of twee korte volledige zinnen dan drie jargonwoorden.
+
+## Geen zwevende verwijzers
+
+Vermijd woorden als *dit*, *die*, *deze*, *dat*, *hier*, *daar*, *het*
+wanneer de lezer moet **raden** waarnaar ze verwijzen — vooral over
+zinsgrenzen heen, in opsommingen, of op een pagina die iemand middenin
+opent.
+
+**Fout:** «Wel: MuseScore 4, deze map op je pc, en een zwart venster…»
+(lezer denkt: moet *ik* MuseScore zijn? welke map? ben *ik* het venster?)
+
+**Goed:** «Je hebt drie dingen nodig: het programma MuseScore 4; de
+repository-map `VSA-demo` op je pc; en het Windows-opdrachtvenster
+(`cmd`), waarin je kant-en-klare regels plakt.»
+
+Noem het ding bij naam: het bestand, de map, het programma, de knop, de
+pagina. Herhaal desnoods een korte naam liever dan een onduidelijke *dit*.
+
+## Termen bij eerste gebruik
+
+Bij de **eerste** keer dat een term op een pagina (of in een nieuw
+leerpad) voorkomt: kort uitleggen in dezelfde zin of de zin erna, of
+linken naar de woordenlijst / glossary.
+
+Voorbeelden in de Oefenhoek-handleiding: *bladermap*, *opkuisen*,
+*werkvoorraad*, *doel-id*, *publicatiestatus*.
+
+Org-termen: betekenis uit `bron/docs/specs/terminologie.md` (R1–R5).
+Geen ad-hoc synoniemen.
+
+**TEv2 / TermRefs:** zodra de toolchain in die repo actief is, gebruik
+TermRefs voor glossary-termen. In Hugo-demo (VSA-demo) is TEv2 nog
+uitgesteld (`_deferred/tev2/`); leg termen daar in gewone taal uit of
+link naar bron.
+
+## Twee lezers op één pagina
+
+Blokken voor geroutineerde lezers (bijv. «Snel») mogen dichter zijn, maar
+blijven **leesbaar zonder context van de vorige alinea**: volledige
+commando’s, paden, bestandsnamen — geen «doe hetzelfde» zonder te zeggen
+wat.
+
+Uitgebreide stappen: schrijf alsof de lezer atechnisch is en de site
+alleen in de browser kent, tenzij de pagina expliciet lokaal werk eist.
+
+## Lezerstest (verplicht na schrijven)
+
+Lees de tekst na in de rol van de bedoelde lezer. Vragen:
+
+1. Zou een zin als «dit» / «deze map» zonder vorige alinea nog kloppen?
+2. Weet de lezer welk programma, welk pad, welk bestand bedoeld is?
+3. Is elke nieuwe term uitgelegd of gelinkt?
+4. Kan de lezer de volgende handeling uitvoeren zonder te gokken?
+5. Staat de **spec** (wat/waarom/vanwaar/waartoe) vóór het voorbeeld?
+
+Zo nee: herschrijf tot het antwoord ja is.

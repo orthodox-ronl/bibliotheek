@@ -1,0 +1,32 @@
+{{- /*
+  Render een lijst boom-kinderen (branch of leaf).
+
+  Single-child: een branch met precies één kind krijgt geen eigen
+  <details>; de inhoud van dat kind komt in de plaats (recursief).
+  Zo verdwijnen enkelvoudige tussenlagen (o.a. enige variant-tak).
+
+  Context: dict nodes — slice van:
+    dict "kind" "leaf" "leaf" <leaf-dict>
+    dict "kind" "branch" "label" "…" "children" <nodes> "leafCount" N
+
+  leafCount = aantal bladeren onder de tak (voor de summary-count).
+*/ -}}
+{{- $nodes := .nodes | default slice -}}
+{{- if and (eq (len $nodes) 1) (eq (index $nodes 0).kind "branch") -}}
+  {{- partial "catalogus-boom-nodes.html" (dict "nodes" (index $nodes 0).children) -}}
+{{- else -}}
+  {{- range $nodes -}}
+    {{- if eq .kind "leaf" -}}
+      {{- partial "catalogus-boom-leaf.html" .leaf -}}
+    {{- else if eq (len .children) 1 -}}
+      {{- partial "catalogus-boom-nodes.html" (dict "nodes" .children) -}}
+    {{- else -}}
+<details class="catalogus-boom-branch">
+  <summary>{{ .label }} <span class="catalogus-referentie-count">({{ .leafCount }})</span></summary>
+  <div class="catalogus-boom-children">
+    {{- partial "catalogus-boom-nodes.html" (dict "nodes" .children) -}}
+  </div>
+</details>
+    {{- end -}}
+  {{- end -}}
+{{- end -}}

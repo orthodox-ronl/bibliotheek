@@ -1,0 +1,34 @@
+{{- /*
+  src: bladermap-relatief (T4-11-….pdf, ./…, ../…) of vanaf de site-root
+  (praktijk/…/x.pdf of /praktijk/…/x.pdf). Page-bundle PDF wint als die bestaat.
+*/ -}}
+{{- $raw := .Get "src" -}}
+{{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}
+{{- if not $raw -}}
+  {{- errorf "%s: shortcode pdf-sheet mist parameter src. Oplossing: voeg src=\"naam.pdf\" toe aan de shortcode pdf-sheet." $loc -}}
+{{- end -}}
+{{- $href := "" -}}
+{{- if strings.HasPrefix $raw "/" -}}
+  {{- $href = replaceRE "^/" "" $raw | relURL -}}
+{{- else -}}
+  {{- $res := .Page.Resources.GetMatch (path.Clean $raw) -}}
+  {{- if $res -}}
+    {{- $href = $res.RelPermalink -}}
+  {{- else if or (not (strings.Contains $raw "/")) (strings.HasPrefix $raw "./") (strings.HasPrefix $raw "../") -}}
+    {{- $href = urls.JoinPath .Page.RelPermalink $raw -}}
+  {{- else -}}
+    {{- $href = $raw | relURL -}}
+  {{- end -}}
+{{- end -}}
+{{- $download := or (.Get "download") "Downloaden" -}}
+{{- $print := or (.Get "print") "Printen" -}}
+{{- $showActions := ne (.Get "actions") "false" -}}
+<div class="pdf-sheet vsa-container" data-pdf-src="{{ $href }}">
+  <div class="pdf-sheet-pages vsa-notation" role="img" aria-label="PDF"></div>
+  {{- if $showActions }}
+  <p class="pdf-sheet-actions">
+    <a class="btn" href="{{ $href }}" download>{{ $download }}</a>
+    <a class="btn pdf-sheet-print" href="{{ $href }}">{{ $print }}</a>
+  </p>
+  {{- end }}
+</div>

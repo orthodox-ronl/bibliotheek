@@ -1,0 +1,46 @@
+{{- /*
+  Lees een frontmatter-/@-veld uit het bronbestand van een score-page.
+
+  Context: dict "score" (Page) "pad" (string, bijv. bron.uitgangspunt of copyright)
+  Uit: string (mag leeg).
+*/ -}}
+{{- $score := .score -}}
+{{- $pad := strings.TrimSpace (printf "%s" .pad) -}}
+{{- $out := "" -}}
+{{- if and $score $pad -}}
+  {{- $raw := partial "bieb-source-raw.html" $score -}}
+  {{- $key := $pad -}}
+  {{- if strings.Contains $pad "." -}}
+    {{- $parts := split $pad "." -}}
+    {{- $key = index $parts (sub (len $parts) 1) -}}
+  {{- end -}}
+  {{- $keyLower := lower $key -}}
+  {{- $reYaml := printf `(?m)^%s:\s*["']?([^"'\r\n]+)` $key -}}
+  {{- with findRE $reYaml $raw 1 -}}
+    {{- $m := index . 0 -}}
+    {{- $out = strings.TrimSpace (replaceRE (printf `(?m)^%s:\s*["']?` $key) "" $m) -}}
+    {{- $out = strings.TrimSuffix "'" (strings.TrimSuffix "\"" $out) -}}
+  {{- end -}}
+  {{- if not $out -}}
+    {{- $atName := $key -}}
+    {{- if eq $keyLower "uitgangspunt" -}}{{- $atName = "bron" -}}{{- end -}}
+    {{- if eq $keyLower "bron" -}}{{- $atName = "bron" -}}{{- end -}}
+    {{- if eq $keyLower "copyright" -}}{{- $atName = "copyright" -}}{{- end -}}
+    {{- if or (eq $keyLower "titel") (eq $keyLower "title") -}}{{- $atName = "title" -}}{{- end -}}
+    {{- $reAt := printf `(?m)^@%s\s+"([^"]*)"` $atName -}}
+    {{- with findRE $reAt $raw 1 -}}
+      {{- $m := index . 0 -}}
+      {{- $out = strings.TrimSpace (replaceRE (printf `(?m)^@%s\s+"` $atName) "" $m) -}}
+      {{- $out = strings.TrimSuffix "\"" $out -}}
+    {{- end -}}
+    {{- if not $out -}}
+      {{- $reAt2 := printf `(?m)^@%s\s+'([^']*)'` $atName -}}
+      {{- with findRE $reAt2 $raw 1 -}}
+        {{- $m := index . 0 -}}
+        {{- $out = strings.TrimSpace (replaceRE (printf `(?m)^@%s\s+'` $atName) "" $m) -}}
+        {{- $out = strings.TrimSuffix "'" $out -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $out -}}

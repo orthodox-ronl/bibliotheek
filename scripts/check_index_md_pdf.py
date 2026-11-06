@@ -1,0 +1,207 @@
+"""Controleer bladermap-``index.md.pdf`` (Download/Print pagina).
+
+Geen catalogus-sibling: zelfde selectie als ``pdf.cmd`` (``pagina_pdf_job``).
+Schrijft ``data/pdf-status.json``. Exit 1 bij problemen tenzij
+``--warn-only``. ``--fail`` is voor CI / ``check --strict``.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import sys
+from dataclasses import asdict, dataclass
+from pathlib import Path
+
+from index_md_pdf import (
+    ROOT,
+    PaginaPdfJob,
+    iter_bladermap_index_md,
+    pagina_pdf_job,
+)
+
+REPO_ROOT = ROOT
+STATUS_PATH = REPO_ROOT / "data" / "pdf-status.json"
+FIX_PAGE = "/handleiding/scripts/pdf/"
+
+
+@dataclass
+class Issue:
+    kind: str  # missing_pdf | stale_pdf | parse_error
+    file: str
+    detail: str
+
+
+@dataclass
+class FolderStatus:
+    dir: str
+    source: str
+    ok: bool
+    issues: list[Issue]
+    fix_cmd: str
+
+
+def _rel(path: Path) -> str:
+    from input_paths import rel_for_log
+
+    return rel_for_log(path, repo_root=REPO_ROOT)
+
+
+def _bladermap_key(md: Path) -> str:
+    from input_paths import rel_for_log
+
+    return rel_for_log(md.parent, repo_root=REPO_ROOT)
+
+
+def _fix_cmd(md: Path) -> str:
+    # --force: check zegt al stale/missing; niet overslaan op mtime-race.
+    rel = _rel(md).replace("/", "\\")
+    return rf"scripts\pdf.cmd {rel} --force"
+
+
+def check_job(job: PaginaPdfJob) -> FolderStatus:
+    issues: list[Issue] = []
+    out = job.out_path
+    if not out.is_file():
+        issues.append(
+            Issue(
+                "missing_pdf",
+                _rel(out),
+                "index.md.pdf ontbreekt (Download/Print pagina)",
+            )
+        )
+    else:
+        dep_mtimes = [
+            p.stat().st_mtime for p in job.deps if p.is_file()
+        ]
+        if dep_mtimes and out.stat().st_mtime < max(dep_mtimes):
+            issues.append(
+                Issue(
+                    "stale_pdf",
+                    _rel(out),
+                    "index.md.pdf is ouder dan Markdown, notatiebron of product-SVG",
+                )
+            )
+    return FolderStatus(
+        dir=_bladermap_key(job.md_path),
+        source=_rel(job.md_path),
+        ok=not issues,
+        issues=issues,
+        fix_cmd=_fix_cmd(job.md_path),
+    )
+
+
+def check_parse_error(md: Path, detail: str) -> FolderStatus:
+    return FolderStatus(
+        dir=_bladermap_key(md),
+        source=_rel(md),
+        ok=False,
+        issues=[
+            Issue(
+                "parse_error",
+                _rel(md),
+                f"pdf.cmd kan de Markdown niet lezen: {detail}",
+            )
+        ],
+        fix_cmd=_fix_cmd(md),
+    )
+
+
+def collect_statuses() -> list[FolderStatus]:
+    statuses: list[FolderStatus] = []
+    for md in iter_bladermap_index_md():
+        text = md.read_text(encoding="utf-8")
+        try:
+            job = pagina_pdf_job(md)
+        except ValueError as exc:
+            from index_md_pdf import _markdown_has_pagina_music
+
+            if _markdown_has_pagina_music(text):
+                statuses.append(check_parse_error(md, str(exc)))
+            continue
+        if job is None:
+            continue
+        statuses.append(check_job(job))
+    return sorted(statuses, key=lambda s: s.dir)
+
+
+def write_status_json(statuses: list[FolderStatus], path: Path = STATUS_PATH) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "fix_page": FIX_PAGE,
+        "folders": {
+            s.dir: {
+                "source": s.source,
+                "ok": s.ok,
+                "fix_cmd": s.fix_cmd,
+                "issues": [asdict(i) for i in s.issues],
+            }
+            for s in statuses
+        },
+    }
+    from cli_style import atomic_write_json
+
+    atomic_write_json(path, payload)
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Controleer index.md.pdf bij koormap-/catalogusbladen "
+            "(zelfde selectie als pdf.cmd)."
+        )
+    )
+    parser.add_argument(
+        "--warn-only",
+        action="store_true",
+        help="Schrijf status-JSON maar exit altijd 0",
+    )
+    parser.add_argument(
+        "--fail",
+        action="store_true",
+        help="Non-zero bij problemen (CI / --strict)",
+    )
+    args = parser.parse_args(argv)
+    statuses = collect_statuses()
+    write_status_json(statuses)
+    bad = [s for s in statuses if not s.ok]
+    n_ok = len(statuses) - len(bad)
+    from check_report import print_check_findings
+
+    print_check_findings(
+        headline=(
+            f"Blad-PDF: {n_ok} ok, {len(bad)} probleem "
+            f"({_rel(STATUS_PATH)})"
+        ),
+        what="Controle: of index.md.pdf bij het blad (Markdown/notatie) past",
+        bad=bad,
+        fix_page=FIX_PAGE,
+    )
+    if not bad:
+        return 0
+    if args.warn_only:
+        return 0
+    if args.fail:
+        return 1
+    ref = (
+        os.environ.get("GITHUB_REF", "")
+        or os.environ.get("GITHUB_REF_NAME", "")
+        or ""
+    )
+    if ref in {"main", "refs/heads/main"}:
+        return 1
+    if os.environ.get("BIBLIOTHEEK_PRODUCTS_STRICT", "").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+    }:
+        return 1
+    if os.environ.get("GITHUB_ACTIONS", "").strip().lower() == "true":
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+

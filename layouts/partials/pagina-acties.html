@@ -1,0 +1,160 @@
+{{- /*
+  Acties in de site-header (nav) op bladermap-pagina’s (catalogus / koormappen):
+
+  - Download — icoon; index.md.pdf of translit-pagina-PDF (§5a).
+  - Translit: icoonknoppen Ксл→Nls (Nls: Latijn onder Cyrillisch) en
+    Nls→Ксл (Ksl: Cyrillisch onder Latijn/NL), onafhankelijk.
+    Ксл is Ksl in Cyrillische letters.
+    Geen knop = uit; één of beide = aan (beide = modus beide).
+    Scherm wisselt sibling-SVG’s; download volgt de stand.
+
+  Geen «Print pagina». Printen via de PDF zelf (viewer).
+
+  Voorgestelde downloadnaam (HTML download=…; bestand op schijf blijft
+  index.md.pdf / index.md.translit-*.pdf):
+  1. frontmatter pdf_bestandsnaam
+  2. catalogus: afgeleide bladtitel (display-title); koormap: frontmatter title
+  3. anders mapnaam van de pagina
+  Bij translit: suffix « (translit Nls)» / « (translit Ksl)» vóór .pdf.
+*/ -}}
+{{- $bladermap := in (slice "catalogus" "koormappen") .Section -}}
+{{- if and $bladermap (not .IsSection) .File -}}
+  {{- $paginaPdf := "" -}}
+  {{- $paginaPdfNls := "" -}}
+  {{- $paginaPdfKsl := "" -}}
+  {{- $paginaPdfBeide := "" -}}
+  {{- range .Resources.Match "index.md.pdf" -}}
+    {{- $paginaPdf = .RelPermalink -}}
+  {{- end -}}
+  {{- range .Resources.Match "index.md.translit-nls.pdf" -}}
+    {{- $paginaPdfNls = .RelPermalink -}}
+  {{- end -}}
+  {{- range .Resources.Match "index.md.translit-ksl.pdf" -}}
+    {{- $paginaPdfKsl = .RelPermalink -}}
+  {{- end -}}
+  {{- range .Resources.Match "index.md.translit-beide.pdf" -}}
+    {{- $paginaPdfBeide = .RelPermalink -}}
+  {{- end -}}
+  {{- $dir := strings.TrimSuffix "/" (replace .File.Dir "\\" "/") -}}
+  {{- if $dir -}}
+    {{- $srcDir := printf "content-source/%s" $dir -}}
+    {{- if and (not $paginaPdf) (fileExists (printf "%s/index.md.pdf" $srcDir)) -}}
+      {{- $paginaPdf = printf "%sindex.md.pdf" .RelPermalink -}}
+    {{- end -}}
+    {{- if and (not $paginaPdfNls) (fileExists (printf "%s/index.md.translit-nls.pdf" $srcDir)) -}}
+      {{- $paginaPdfNls = printf "%sindex.md.translit-nls.pdf" .RelPermalink -}}
+    {{- end -}}
+    {{- if and (not $paginaPdfKsl) (fileExists (printf "%s/index.md.translit-ksl.pdf" $srcDir)) -}}
+      {{- $paginaPdfKsl = printf "%sindex.md.translit-ksl.pdf" .RelPermalink -}}
+    {{- end -}}
+    {{- if and (not $paginaPdfBeide) (fileExists (printf "%s/index.md.translit-beide.pdf" $srcDir)) -}}
+      {{- $paginaPdfBeide = printf "%sindex.md.translit-beide.pdf" .RelPermalink -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $dlBase := "" -}}
+  {{- if or $paginaPdf $paginaPdfNls $paginaPdfKsl $paginaPdfBeide -}}
+    {{- if .Params.pdf_bestandsnaam -}}
+      {{- $dlBase = .Params.pdf_bestandsnaam -}}
+    {{- else if eq .Section "catalogus" -}}
+      {{- $dlBase = partial "display-title.html" . -}}
+    {{- else if .Params.title -}}
+      {{- $dlBase = .Params.title -}}
+    {{- else -}}
+      {{- $dlBase = path.Base (strings.TrimSuffix "/" .File.Dir) -}}
+    {{- end -}}
+    {{- $dlBase = $dlBase | replaceRE `[\\/:*?"<>|]+` "-" | replaceRE `(?i)\.pdf$` "" | strings.TrimSpace -}}
+    {{- if eq $dlBase "" -}}
+      {{- $dlBase = path.Base (strings.TrimSuffix "/" .File.Dir) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $dlName := "" -}}
+  {{- $dlNameNls := "" -}}
+  {{- $dlNameKsl := "" -}}
+  {{- $dlNameBeide := "" -}}
+  {{- if $dlBase -}}
+    {{- $dlName = printf "%s.pdf" $dlBase -}}
+    {{- $dlNameNls = printf "%s (translit Nls).pdf" $dlBase -}}
+    {{- $dlNameKsl = printf "%s (translit Ksl).pdf" $dlBase -}}
+    {{- $dlNameBeide = printf "%s (translit beide).pdf" $dlBase -}}
+  {{- end -}}
+  <div class="pagina-acties" role="group" aria-label="Pagina-acties">
+    {{- if or $paginaPdf $paginaPdfNls $paginaPdfKsl $paginaPdfBeide -}}
+    <span class="site-chrome-tip site-chrome-tip--end">
+    <a
+      class="btn pagina-acties-btn pagina-acties-btn--icon"
+      href="{{ or $paginaPdf $paginaPdfNls $paginaPdfKsl $paginaPdfBeide }}"
+      download="{{ or $dlName $dlNameNls $dlNameKsl $dlNameBeide }}"
+      aria-label="Pagina als PDF downloaden"
+      data-pagina-pdf-download
+      {{- if $paginaPdf }} data-pdf-uit="{{ $paginaPdf }}" data-pdf-name-uit="{{ $dlName }}"{{- end }}
+      {{- if $paginaPdfNls }} data-pdf-nls="{{ $paginaPdfNls }}" data-pdf-name-nls="{{ $dlNameNls }}"{{- end }}
+      {{- if $paginaPdfKsl }} data-pdf-ksl="{{ $paginaPdfKsl }}" data-pdf-name-ksl="{{ $dlNameKsl }}"{{- end }}
+      {{- if $paginaPdfBeide }} data-pdf-beide="{{ $paginaPdfBeide }}" data-pdf-name-beide="{{ $dlNameBeide }}"{{- end }}
+    >
+      <svg class="pagina-acties-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path
+          fill="currentColor"
+          d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"
+        />
+      </svg>
+    </a>
+    {{ partial "site-chrome-tip-panel.html" (dict "text" "Download de PDF van deze pagina. Staat transliteratie aan, dan volgt de PDF die stand (één richting, of beide richtingen als beide knoppen aan staan)." "end" true) }}
+    </span>
+    {{- end -}}
+    <div
+      class="pagina-acties-translit"
+      data-translit-controls
+    >
+      <div
+        class="pagina-acties-translit-modus"
+        data-translit-modus-wrap
+        role="group"
+        aria-label="Transliteratie"
+      >
+        <span class="site-chrome-tip site-chrome-tip--end">
+        <label class="pagina-acties-translit-modus-opt">
+          <input
+            type="checkbox"
+            value="nls"
+            class="pagina-acties-translit-modus-input"
+            data-translit-modus="nls"
+            aria-label="Translit Nls: Latijnse letters onder kerkslavische tekst"
+          >
+          <span class="pagina-acties-translit-modus-text">
+            {{- /* Ксл→Nls = kerkslavisch krijgt Latijn eronder (Nls). Ксл is Ksl in Cyrillische letters. */ -}}
+            <span class="pagina-acties-translit-glyph">
+              <span class="pagina-acties-translit-glyph-letters">Ксл</span>
+              <svg class="pagina-acties-translit-glyph-arrow" viewBox="0 0 16 10" aria-hidden="true" focusable="false">
+                <path d="M1 5h11M8.2 1.4 13.4 5 8.2 8.6" />
+              </svg>
+              <span class="pagina-acties-translit-glyph-letters">Nls</span>
+            </span>
+          </span>
+        </label>
+        {{ partial "site-chrome-tip-panel.html" (dict "text" "Transliteratie Nls: bij kerkslavische (Cyrillische) tekst dezelfde woorden in Latijnse letters eronder. Grijs = uit, blauw = aan. Mag samen met de andere knop." "end" true) }}
+        </span>
+        <span class="site-chrome-tip site-chrome-tip--end">
+        <label class="pagina-acties-translit-modus-opt">
+          <input
+            type="checkbox"
+            value="ksl"
+            class="pagina-acties-translit-modus-input"
+            data-translit-modus="ksl"
+            aria-label="Translit Ksl: Cyrillische letters onder Nederlandse tekst"
+          >
+          <span class="pagina-acties-translit-modus-text">
+            <span class="pagina-acties-translit-glyph">
+              <span class="pagina-acties-translit-glyph-letters">Nls</span>
+              <svg class="pagina-acties-translit-glyph-arrow" viewBox="0 0 16 10" aria-hidden="true" focusable="false">
+                <path d="M1 5h11M8.2 1.4 13.4 5 8.2 8.6" />
+              </svg>
+              <span class="pagina-acties-translit-glyph-letters">Ксл</span>
+            </span>
+          </span>
+        </label>
+        {{ partial "site-chrome-tip-panel.html" (dict "text" "Transliteratie Ksl: bij Nederlandse (Latijnse) tekst dezelfde woorden in Cyrillisch eronder. Grijs = uit, blauw = aan. Mag samen met de andere knop." "end" true) }}
+        </span>
+      </div>
+    </div>
+  </div>
+{{- end -}}
