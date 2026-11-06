@@ -1,0 +1,67 @@
+---
+# Werkbank-skelet met niet-triviale bron + dubbele gelegenheid.
+# Spec: docs/specs/vsa-frontmatter.md
+
+do: F4
+mode: major
+tempo: 130
+
+afspelen:
+  do: null
+  mode: null
+  tempo: null
+
+partituur:
+  title: "Moeder Godslied — Verhef, mijne ziel… (Transfiguratie)"
+  subtitle: "Liturgikon"
+  composer: "Traditioneel"
+  arranger: "Hemelum"
+  layout: null
+
+titel: "Verhef mijne ziel — Transfiguratie / Thabor"
+taal: nl
+toon: null
+corpus_id: null
+
+# Primair moeder-godslied; kop in bronnen noemt soms ook «prijslied».
+soort: moeder-godslied
+soorten:
+  - moeder-godslied
+  - prijslied
+
+# Meerdere gelegenheden: lijst onder gelegenheid (naam verplicht).
+gelegenheid:
+  - naam: Verheerlijking op de berg Thabor
+    type: feest
+    datum: 6 aug
+    bron: Liturgikon
+  - naam: nafeest Transfiguratie
+    type: feest
+gelegenheden: null
+
+bron:
+  uitgangspunt: "Liturgikon, p.270"
+  tekst: null
+  melodie: null
+  bewerking: "Hemelum: in koorpraktijk naast weekdag-liturgie gebruikt"
+  korte_vermelding: null
+
+zoek:
+  aliases:
+    - "Verhef mijne ziel met blijde zang"
+    - "Prijslied Transfiguratie"
+  tags:
+    - "6-aug"
+    - "thabor"
+---
+
+<!-- Voorbeeldnotatie (ingekort) — Moeder Godslied Transfiguratie -->
+[\:] {/&/Ver}{/hef_}, {\mij}{/ne} {\\ziel_}, {/&/met} {/blij}{\\de} {/zang_} *
+{Chris_}{\tus} {/de} {/&\Heer_&_}, {\&/Die.&.} {/op.} {/de.} {\&\Tha.&.}{\bor.} {\ver.}{//heer_}{\lijkt_} {\is_}. [:]
+[:] Ver{heug_} {\u}, {/Ko}{\nin}{\gin_}, *
+die {//de} {/glo}rie der maagden en der {\moe_.}{\ders} {/zijt}. *
+{/Want} ook de {meest_} {\wel}{/be}{/spraak_}{\\te} {mond_} *
+kan u niet op waardige wijze {\be}{/&\zin}{\gen_}, *
+en {//geen} {/en}kel ver{\stand_} {\is} in {/staat_} *
+{/om_} {\&/uw} {/ba__}{\\ren} te ver{staan_}. *
+Daarom verheffen wij u met een{/pa_}{\ri}ge {\stem_}. [\:]

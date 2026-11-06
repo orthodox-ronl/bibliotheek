@@ -1,0 +1,405 @@
+"""Kopieer een uitvoeringsvorm naar een nieuw catalogus-id.
+
+Gebruik::
+
+    bieb kopieer <bron-id> <nieuw-id> [--dry-run]
+
+Alleen **uitvoeringsvorm** (leaf). Bron en doel: slash- of stam-vorm;
+nieuw mag alleen het laatste segment zijn (zelfde ouder). Doelmap mag
+nog niet bestaan.
+
+Kopieert bestanden (publicatiestam hernoemd), zet leaf-``index.md`` met
+nieuw ``bieb id`` en afgeleide titels, kopieert bladermap-SVG indien
+aanwezig. Maakt ontbrekende zangstuk-/variant-``_index.md`` aan.
+Geen koormap-slot (handmatig). Geen variant-/zangstuk-kopie.
+"""
+
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import bieb_fs  # noqa: E402
+from catalogus import (  # noqa: E402
+    AmbiguousRefError,
+    REPO_ROOT,
+    complete_new_ref,
+    derived_leaf_link_title,
+    derived_leaf_title,
+    interactive_disambiguate,
+    parse_id,
+    publication_stem_dest_name,
+    ref_folder,
+    resolve_existing_ref,
+    slash_to_stem,
+)
+from bieb_accepteer import ensure_sections  # noqa: E402
+from cli_style import (  # noqa: E402
+    add_verbose_argument,
+    count,
+    detail,
+    note,
+    ok,
+    section,
+    set_verbose,
+)
+
+_SKIP_COPY_DIR_NAMES = frozenset({".mscbackup", ".git", "__pycache__"})
+
+HELP_KOPIEER = """\
+bieb kopieer — uitvoeringsvorm kopiëren naar nieuw id
+
+Alleen leaf (zangstuk/variant/uitvoeringsvorm). Voorbeelden:
+
+  bieb kopieer ektinia/vredes/hemelum ektinia/vredes/groningen --dry-run
+  bieb kopieer ektinia-vredes-hemelum groningen
+  bieb kopieer ektinia\\vredes\\hemelum vredes\\groningen
+  bieb kopieer tropaar/zondag-toon-1/groningen tropaar/zondag-toon-2/groningen
+
+Nieuw mag kort: alleen uv, variant/uv, variant-uv, of vol pad.
+Ambigu? Genummerde voorstellen; Enter = 1.
+Doelmap mag nog niet bestaan. Geen automatische koormap-slot.
+Na kopiëren: products vernieuwen + check.
+"""
+
+
+def _rel(path: Path) -> str:
+    from input_paths import rel_for_log
+
+    return rel_for_log(path, repo_root=REPO_ROOT)
+
+
+def _print_help_block(text: str) -> None:
+    print(flush=True)
+    print(text.rstrip(), flush=True)
+    print(flush=True)
+
+
+def _prompt_line(message: str) -> str:
+    try:
+        return input(message).strip()
+    except EOFError:
+        return ""
+
+
+def _prompt_until(message: str, help_text: str) -> str | None:
+    while True:
+        value = _prompt_line(message)
+        if value == "?":
+            _print_help_block(help_text)
+            continue
+        if not value:
+            print(
+                "Niets ingevuld. Typ een waarde, of ? voor uitleg, "
+                "of Enter opnieuw om te stoppen.",
+                flush=True,
+            )
+            again = _prompt_line(message)
+            if again == "?":
+                _print_help_block(help_text)
+                continue
+            if not again:
+                return None
+            return again
+        return value
+
+
+def _resolve_leaf(raw: str, *, label: str) -> str:
+    try:
+        level, slash = resolve_existing_ref(raw)
+    except AmbiguousRefError as exc:
+        chosen = interactive_disambiguate(
+            exc, help_text=HELP_KOPIEER, prefix="kopieer"
+        )
+        if chosen is None:
+            raise ValueError(
+                f"gestopt: geen {label}.\n"
+                "Oplossing: typ een eenduidig id (slash-vorm) of kies uit de lijst."
+            ) from exc
+        if isinstance(chosen, tuple) and chosen[0]:
+            level, slash = chosen
+        else:
+            text = chosen if isinstance(chosen, str) else chosen[1]
+            level, slash = resolve_existing_ref(text)
+    if level != "leaf":
+        raise ValueError(
+            f"{label} moet een uitvoeringsvorm zijn "
+            f"(zangstuk/variant/uitvoeringsvorm), kreeg {level} {slash!r}.\n"
+            "Oplossing: geef een volledig leaf-id; variant-/zangstuk-kopie "
+            "bestaat nog niet."
+        )
+    return slash
+
+
+def _resolve_new_leaf(bron_slash: str, raw: str) -> str:
+    try:
+        level, slash = complete_new_ref("leaf", bron_slash, raw)
+    except AmbiguousRefError as exc:
+        chosen = interactive_disambiguate(
+            exc, help_text=HELP_KOPIEER, prefix="kopieer"
+        )
+        if chosen is None:
+            raise ValueError(
+                "gestopt: geen nieuw id.\n"
+                "Oplossing: typ een eenduidig nieuw id of kies uit de lijst."
+            ) from exc
+        if isinstance(chosen, tuple) and chosen[0]:
+            level, slash = chosen
+        else:
+            text = chosen if isinstance(chosen, str) else chosen[1]
+            level, slash = complete_new_ref("leaf", bron_slash, text)
+    if level != "leaf":
+        raise ValueError(
+            f"nieuw id is geen uitvoeringsvorm: {slash!r}\n"
+            "Oplossing: geef zangstuk/variant/uitvoeringsvorm of alleen het "
+            "laatste segment (zelfde ouder)."
+        )
+    # complete_new_ref hoeft doel niet te laten bestaan; parse ter controle
+    parse_id(slash)
+    return slash
+
+
+def _fm_value(text: str, key: str) -> str | None:
+    in_fm = False
+    prefix = f"{key.lower()}:"
+    for line in text.splitlines():
+        if line.strip() == "---":
+            if not in_fm:
+                in_fm = True
+                continue
+            break
+        if in_fm and line.lower().startswith(prefix):
+            return line.split(":", 1)[1].strip().strip("\"'")
+    return None
+
+
+def _leaf_index_text(
+    ident: str,
+    *,
+    status: str,
+    manueel: bool,
+    source_paths: list[Path],
+) -> str:
+    title = derived_leaf_title(ident, source_paths=source_paths)
+    link = derived_leaf_link_title(ident)
+    handmatig = "manueel: true\n" if manueel else ""
+    return (
+        f"---\ntitle: \"{title}\"\nlinkTitle: \"{link}\"\n"
+        f"publicatiestatus: {status}\n"
+        f"{handmatig}"
+        "automatische_inhoud: false\n---\n\n"
+        f"# {title}\n\n"
+        f"{{{{< bieb id=\"{ident}\" />}}}}\n"
+    )
+
+
+def _dest_name(name: str, old_stem: str, new_stem: str) -> str:
+    return publication_stem_dest_name(name, old_stem, new_stem) or name
+
+
+def _skip_copy_path(path: Path, *, root: Path) -> bool:
+    try:
+        parts = path.relative_to(root).parts
+    except ValueError:
+        parts = path.parts
+    return any(part in _SKIP_COPY_DIR_NAMES for part in parts)
+
+
+def _svg_root_for(slash_id: str) -> Path:
+    return REPO_ROOT.joinpath(
+        "static", "vsa", "bladermap", "catalogus", *slash_id.split("/")
+    )
+
+
+def _copy_tree_renaming(
+    src: Path,
+    dest: Path,
+    *,
+    old_stem: str,
+    new_stem: str,
+    dry_run: bool,
+) -> int:
+    n = 0
+    files = sorted(
+        p
+        for p in src.rglob("*")
+        if p.is_file() and not _skip_copy_path(p, root=src)
+    )
+    for path in files:
+        rel = path.relative_to(src)
+        parts = list(rel.parts[:-1]) + [_dest_name(rel.name, old_stem, new_stem)]
+        out = dest.joinpath(*parts)
+        detail(f"  copy {_rel(path)} -> {_rel(out)}")
+        if not dry_run:
+            bieb_fs.mkdir(out.parent)
+            bieb_fs.copy2(path, out)
+        n += 1
+    return n
+
+
+def kopieer(bron_raw: str, nieuw_raw: str, *, dry_run: bool) -> int:
+    bron = _resolve_leaf(bron_raw, label="bron")
+    nieuw = _resolve_new_leaf(bron, nieuw_raw)
+    if bron == nieuw:
+        bieb_fs.print_fail(
+            "bron en nieuw id zijn gelijk",
+            oplossing="kies een ander nieuw id (andere uitvoeringsvorm).",
+            stream=sys.stderr,
+        )
+        return 2
+
+    src = ref_folder(bron)
+    dest = ref_folder(nieuw)
+    if not src.is_dir():
+        bieb_fs.print_fail(
+            f"bronmap ontbreekt: {_rel(src)}",
+            oplossing="controleer het bron-id en probeer opnieuw.",
+            stream=sys.stderr,
+        )
+        return 1
+    if dest.exists():
+        bieb_fs.print_refuse(
+            f"doelmap bestaat al: {_rel(dest)}",
+            oplossing="kies een ander nieuw id, of ruim de bestaande map eerst op.",
+        )
+        return 1
+
+    old_stem = slash_to_stem(bron)
+    new_stem = slash_to_stem(nieuw)
+
+    index_src = src / "index.md"
+    status = "reviewable"
+    handmatig = False
+    if index_src.is_file():
+        try:
+            raw_idx = index_src.read_text(encoding="utf-8")
+        except OSError:
+            raw_idx = ""
+        status = _fm_value(raw_idx, "publicatiestatus") or status
+        _truthy = {"true", "yes", "1"}
+        handmatig = (_fm_value(raw_idx, "manueel") or "").lower() in _truthy or (
+            _fm_value(raw_idx, "manual") or ""
+        ).lower() in _truthy
+
+    source_for_title = [
+        p
+        for p in sorted(src.iterdir())
+        if p.is_file() and p.suffix.lower() in {".vsa", ".mvsa"}
+    ]
+
+    section(
+        f"=== bieb kopieer [leaf] {bron} -> {nieuw}"
+        + (" (dry-run)" if dry_run else "")
+    )
+
+    ensure_sections(nieuw, dry_run=dry_run)
+
+    n = 0
+    for path in sorted(
+        p for p in src.rglob("*") if p.is_file() and not _skip_copy_path(p, root=src)
+    ):
+        rel = path.relative_to(src)
+        if rel.name.lower() == "index.md" and len(rel.parts) == 1:
+            out = dest / "index.md"
+            text = _leaf_index_text(
+                nieuw,
+                status=status,
+                manueel=handmatig,
+                source_paths=source_for_title,
+            )
+            detail(f"  write {_rel(out)} (nieuw bieb id)")
+            if not dry_run:
+                bieb_fs.mkdir(out.parent)
+                bieb_fs.write_text(out, text)
+            n += 1
+            continue
+        dest_name = _dest_name(rel.name, old_stem, new_stem)
+        out = dest.joinpath(*rel.parts[:-1], dest_name)
+        detail(f"  copy {_rel(path)} -> {_rel(out)}")
+        if not dry_run:
+            bieb_fs.mkdir(out.parent)
+            bieb_fs.copy2(path, out)
+            # Tekstbestanden: stam/id in inhoud bijwerken (colofon, VSA-paden)
+            if out.suffix.lower() in {".vsa", ".mvsa", ".md", ".txt"}:
+                try:
+                    body = out.read_text(encoding="utf-8")
+                except (OSError, UnicodeDecodeError):
+                    body = ""
+                if body and (bron in body or old_stem in body):
+                    body = body.replace(bron, nieuw).replace(old_stem, new_stem)
+                    # title/linkTitle in gekopieerde niet-index md niet forceren
+                    bieb_fs.write_text(out, body)
+        n += 1
+
+    count(n, "catalogus-bestanden", role="info")
+
+    svg_src = _svg_root_for(bron)
+    svg_dest = _svg_root_for(nieuw)
+    if svg_src.is_dir():
+        if svg_dest.exists():
+            bieb_fs.print_refuse(
+                f"SVG-doel bestaat al: {_rel(svg_dest)}",
+                oplossing="ruim die SVG-map op, of kies een ander nieuw id.",
+            )
+            return 1
+        n_svg = _copy_tree_renaming(
+            svg_src, svg_dest, old_stem=old_stem, new_stem=new_stem, dry_run=dry_run
+        )
+        count(n_svg, "svg-bestanden", role="info")
+    else:
+        note("svg: (geen bronmap)")
+
+    note("koormap-slot: niet aangemaakt (handmatig)")
+    ok("OK  kopieer klaar" + (" (dry-run)" if dry_run else ""))
+    if not dry_run:
+        note(
+            "Vervolg: products; build_zoek_index; check. "
+            "Eventueel koormap-slot met bieb."
+        )
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(
+        prog="bieb kopieer",
+        description="Kopieer een uitvoeringsvorm naar een nieuw catalogus-id.",
+    )
+    parser.add_argument("bron", nargs="?", help="Bron-uitvoeringsvorm (slash of stam)")
+    parser.add_argument(
+        "nieuw",
+        nargs="?",
+        help="Nieuw id (slash, stam, of alleen uitvoeringsvorm-segment)",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Toon acties zonder te schrijven",
+    )
+    add_verbose_argument(parser)
+    args = parser.parse_args(argv)
+    set_verbose(bool(args.verbose))
+
+    bron = args.bron
+    nieuw = args.nieuw
+    if bron in {"?", "-h", "--help"}:
+        _print_help_block(HELP_KOPIEER)
+        return 0 if bron == "?" else 2
+    if not bron:
+        bron = _prompt_until("Bron-id (? voor uitleg): ", HELP_KOPIEER)
+        if bron is None:
+            return 2
+    if not nieuw:
+        nieuw = _prompt_until("Nieuw id (? voor uitleg): ", HELP_KOPIEER)
+        if nieuw is None:
+            return 2
+    try:
+        return kopieer(bron, nieuw, dry_run=args.dry_run)
+    except ValueError as exc:
+        print(f"kopieer: {exc}", file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(bieb_fs.run_handler(main, sys.argv[1:], command="kopieer"))

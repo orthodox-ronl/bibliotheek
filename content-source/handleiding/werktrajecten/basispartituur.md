@@ -1,0 +1,112 @@
+---
+title: "Basispartituur → PDF en Coria"
+linkTitle: "Basispartituur"
+weight: 20
+---
+
+# Basispartituur → PDF en Coria
+
+Dit werktraject maakt uit een **basispartituur-`.mscz`** (MuseScore) de
+bestanden die koorleden downloaden en in Coria oefenen. Representatie-id:
+`partituur`.
+
+{{< cue >}}
+Na normaliseren en review in MuseScore 4:
+```cmd
+scripts\products.cmd --kinds mscz content-source\catalogus\<zangstuk>\<variant>\<uitvoeringsvorm>
+```
+Daarna `scripts\check.cmd --strict`. Geen `*.print.mscz` in deze keten.
+{{< /cue >}}
+
+## Waartoe
+
+Een vierstemmig (of meer) blad in de catalogus moet op de site als
+A4-PDF leesbaar zijn en via **Oefenen** (tip-icoon **♪**) in Coria afspeelbaar. Dit
+traject houdt PDF en Coria-`.mxl` synchroon met de canonieke
+basispartituur.
+
+## Eindresultaat en criteria
+
+| Bestand (in de bladermap) | Rol |
+| --- | --- |
+| `{stam}.mscz` | Canonieke basispartituur |
+| `{stam}.mscz.pdf` (doel) of legacy `{stam}.pdf` / `{stam}.partituur.pdf` | A4-afdruk |
+| `{stam}.mscz.mxl` (doel) of legacy `{stam}.mxl` / `{stam}.partituur.mxl` | MusicXML voor Coria |
+
+**Klaar** als: de PDF/MXL de stamp `vsa-partituur-sha256` van de huidige
+`.mscz` dragen; de colofonregel **Bibliotheek-id:** klopt met het pad;
+`check_mscz_products` (onderdeel van `check --strict`) is groen.
+Meerdere producten van hetzelfde type in één map → expliciete
+doelvorm (zie [Publicatiecontrole](/handleiding/start/publicatiecontrole/)).
+
+## Wanneer wel / wanneer niet
+
+| Wel | Niet |
+| --- | --- |
+| Gewoon oefenmateriaal: één tekst, standaardlayout, automatische Coria | Bestandsnaam eindigt op `.print.mscz` → [Print-vel](../print-vel/) |
+| Na opkuisen, `layout`, en review | Ruwe Capella-`.mxl` zonder basispartituur |
+| | Alleen eenstemmige tekst → [VSA](../vsa/) |
+
+## Volgorde (bestanden)
+
+1. Ruw materiaal via [Opnemen](../opnemen-in-catalogus/) (of al in
+   `_werk\`). Inhoudelijk opkuisen: [Opkuisen](../../partituur/2-opkuisen/).
+2. Normaliseren naar basispartituur-standaard:
+
+```cmd
+scripts\layout.cmd pad\naar\bestand.mscz
+```
+
+   HOW: [Standaard-.mscz](../../partituur/3-standaard-mscz/).
+3. Review in MuseScore 4, daarna opnieuw `layout` indien nodig.
+   HOW: [Reviewen](../../partituur/4-reviewen/).
+4. Bestand in de catalogus (als dat nog niet zo is):
+   `bieb accepteer` — zie [Opnemen](../opnemen-in-catalogus/).
+5. Catalogus-id in colofon/meta (lokaal vaak al via `check`):
+
+```cmd
+scripts\ensure-bibliotheek-id.cmd
+```
+
+6. PDF en Coria-`.mxl` exporteren:
+
+```cmd
+scripts\products.cmd --kinds mscz content-source\catalogus\trisagion\8a-nederlands\hemelum
+```
+
+   Of heel `content-source`. `--force` als producten ouder zijn dan de
+   `.mscz`. HOW: [PDF en Coria](../../partituur/5-pdf-en-coria/).
+7. Site zichtbaar maken: [Site-build](../site-build/).
+
+Voorbeeldbladermap:
+`content-source\catalogus\trisagion\8a-nederlands\hemelum\`.
+
+## Automatisch (CI)
+
+Op GitHub Actions (workflow `pages.yml`):
+
+- **Wel:** `check_mscz_products.py` en `ensure_bibliotheek_id.py --check-only`
+  controleren of PDF/MXL bij de `.mscz` passen en of het catalogus-id
+  klopt.
+- **Niet:** MuseScore-export (`products --kinds mscz`). CI heeft geen MuseScore 4.
+  Verouderde of ontbrekende producten laten de build **falen** — jij
+  vernieuwt ze lokaal met `products --kinds mscz` en commit PDF/MXL mee.
+
+`check` schrijft die producten niet. Ontbrekende catalogus-ids zet je
+met `ensure-bibliotheek-id`; `check` meldt ze alleen.
+
+## Handmatig
+
+| Situatie | Commando | Man-page |
+| --- | --- | --- |
+| Layout / normaliseren | `scripts\layout.cmd` `<pad>` | [layout](../../scripts/layout/) |
+| PDF + Coria | `scripts\products.cmd --kinds mscz` `[map]` | [products (mscz)](../../scripts/mscz-products/) |
+| Catalogus-id in `.mscz` | `scripts\ensure-bibliotheek-id.cmd` | [ensure-bibliotheek-id](../../scripts/ensure-bibliotheek-id/) |
+| Alles vóór commit | `scripts\check.cmd --strict` | [check](../../scripts/check/) |
+
+## Zie ook
+
+- [Afgeleiden](../../partituur/6-afgeleiden/)
+- [Publicatiecontrole](/handleiding/start/publicatiecontrole/)
+
+{{< navbuttons "Opnemen|/handleiding/werktrajecten/opnemen-in-catalogus/" "VSA|/handleiding/werktrajecten/vsa/" >}}

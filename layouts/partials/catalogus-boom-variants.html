@@ -1,0 +1,10 @@
+{{- /*
+  Variant-laag onder een zangstuk → render via catalogus-boom-nodes.
+
+  Enige variant wordt door single-child inklappen weggelaten.
+  Guard default+andere blijft in catalogus-referentie.
+
+  Context: dict leaves (slice leaf-dicts met v/vLabel/vSort/leafSort).
+*/ -}}
+{{- $nodes := partial "catalogus-boom-build-variants.html" .leaves -}}
+{{- partial "catalogus-boom-nodes.html" (dict "nodes" $nodes) -}}

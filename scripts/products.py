@@ -1,0 +1,284 @@
+"""Orchestrator: bibliotheek-producten genereren per kind + regeneratie-condities.
+
+Zie ``scripts\\products.cmd`` en handleiding Publicatiecontrole.
+"""
+
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+from cli_style import (
+    add_verbose_argument,
+    count,
+    detail,
+    error_block,
+    hard,
+    info,
+    note,
+    ok,
+    run_quiet,
+    section,
+    set_verbose,
+)
+from product_kind import KindFailure, collect_failures
+from product_regen import (
+    KIND_HELP,
+    KIND_ORDER,
+    add_regen_arguments,
+    policy_from_args,
+)
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_ROOT = REPO_ROOT / "content-source" / "catalogus"
+
+
+def _parse_kinds(raw: str) -> list[str]:
+    text = (raw or "all").strip().lower()
+    if text in {"all", "*"}:
+        return list(KIND_ORDER)
+    parts = [p.strip().lower() for p in text.replace(";", ",").split(",") if p.strip()]
+    if not parts:
+        raise SystemExit("--kinds mag niet leeg zijn (gebruik all of een lijst)")
+    unknown = [p for p in parts if p not in KIND_ORDER]
+    if unknown:
+        known = ", ".join(KIND_ORDER)
+        raise SystemExit(f"Onbekend kind: {', '.join(unknown)}. Bekend: {known}, all")
+    # Stabiele volgorde zoals KIND_ORDER
+    return [k for k in KIND_ORDER if k in parts]
+
+
+def _print_products_summary(
+    *,
+    kind_failures: dict[str, list[KindFailure]],
+    kind_exit: dict[str, int],
+) -> None:
+    failed_kinds = [k for k, code in kind_exit.items() if code != 0]
+    if not failed_kinds:
+        ok("OK  products klaar")
+        return
+
+    section("=== Samenvatting products ===")
+    count(len(failed_kinds), "kinds-mislukt", role="hard")
+    for kind in failed_kinds:
+        rows = kind_failures.get(kind) or []
+        count(len(rows), kind, role="hard")
+        if not rows:
+            note(
+                f"  exit {kind_exit[kind]} (geen details); "
+                f"opnieuw met --verbose of --kinds {kind}"
+            )
+            continue
+        for fail in rows:
+            hard(f"  {fail.path}")
+            note(f"    {fail.reason}")
+            note(f"    {fail.solution}")
+    hard(
+        "Oplossing: herstel items hierboven, daarna products opnieuw "
+        "(eventueel --kinds …). Meer detail: --verbose."
+    )
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Genereer bibliotheek-afgeleiden onder een map (recursief) of "
+            "voor één bronbestand. Default: ontbrekend, verouderd (stamp) of "
+            "contract-ongeldig. Ontbreekt het brontype voor een kind "
+            "(bijv. geen .mscz bij een .mvsa-pad), dan wordt dat kind "
+            "overgeslagen — dat is geen fout."
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=(
+            "kinds (default: all — inclusief audio en lyrics):\n"
+            + "\n".join(f"  {k:10} {KIND_HELP[k]}" for k in KIND_ORDER)
+            + "\n  all         alle kinds\n"
+            "\n"
+            "--kinds beperkt welke sporen draaien (focus / uitsluiten).\n"
+            "Het vertelt niet dat andere brontypen 'ontbreken': die\n"
+            "sporen slaan vanzelf over als er geen passende bron is.\n"
+            "\n"
+            "voorbeelden:\n"
+            "  python scripts/products.py\n"
+            "  python scripts/products.py pad/naar/lied.mvsa\n"
+            "  python scripts/products.py content-source/catalogus/trisagion "
+            "--kinds mscz,audio\n"
+            "  python scripts/products.py --kinds all --dry-run\n"
+            "  python scripts/products.py --only-invalid --kinds mscz,mvsa,vsa\n"
+            "  python scripts/products.py --verbose\n"
+        ),
+    )
+    parser.add_argument(
+        "root",
+        nargs="?",
+        type=Path,
+        default=DEFAULT_ROOT,
+        help=(
+            "Catalogusmap of één bronbestand (default: "
+            "content-source/catalogus). Korte paden: t.o.v. "
+            "content-source, catalogus of koormappen."
+        ),
+    )
+    parser.add_argument(
+        "--kinds",
+        default="all",
+        metavar="LIST",
+        help=(
+            "Focus: alleen deze kinds (komma-lijst) of 'all' (default). "
+            "Gebruik om werk uit te sluiten, niet omdat andere bronnen "
+            "ontbreken."
+        ),
+    )
+    add_regen_arguments(parser)
+    add_verbose_argument(parser)
+    parser.add_argument(
+        "--skip-post",
+        action="store_true",
+        help=(
+            "Geen zoekindex na afloop (voor batch-wrappers die dat "
+            "één keer zelf doen)."
+        ),
+    )
+    from batch_guard import add_yes_argument
+
+    add_yes_argument(parser)
+    args = parser.parse_args(argv)
+
+    try:
+        kinds = _parse_kinds(args.kinds)
+        policy = policy_from_args(args)
+    except SystemExit as exc:
+        if exc.code not in (0, None):
+            print(exc, file=sys.stderr)
+            return 2
+        raise
+
+    set_verbose(bool(args.verbose))
+    from input_paths import InputPathError, resolve_user_path
+
+    try:
+        root = resolve_user_path(args.root, repo_root=REPO_ROOT)
+    except InputPathError as exc:
+        error(str(exc))
+        error(
+            "Oplossing: geef een bestaande map of bronbestand "
+            "(kort: t.o.v. content-source, catalogus of koormappen)."
+        )
+        return 1
+
+    # Zelfde flags doorgeven aan sync_*-mains (minus --kinds).
+    forward: list[str] = [str(root)]
+    if args.dry_run:
+        forward.append("--dry-run")
+    if args.force:
+        forward.append("--force")
+    if args.only_missing:
+        forward.append("--only-missing")
+    if args.only_stale:
+        forward.append("--only-stale")
+    if args.only_invalid:
+        forward.append("--only-invalid")
+    if args.reasons:
+        forward.extend(["--reasons", args.reasons])
+    if args.verbose:
+        forward.append("--verbose")
+
+    from batch_guard import confirm_batch
+    from input_paths import rel_for_log
+
+    info(
+        f"=== products: kinds={','.join(kinds)} "
+        f"reasons={','.join(policy.active_reasons())} "
+        f"root={rel_for_log(root, repo_root=REPO_ROOT)} ===",
+    )
+
+    # Dunne mains blijven (CLI-compat); elk delegeert naar product_kind.run_kind.
+    runners = {
+        "vsa": "sync_vsa_products",
+        "mscz": "sync_mscz_products",
+        "tekstblad": "sync_tekstblad_products",
+        "mvsa": "sync_mvsa_products",
+        "import": "sync_import_mvsa",
+        "audio": "sync_audio_products",
+        "lyrics": "sync_lyrics_products",
+    }
+
+    # Eén bevestiging voor de hele products-run; kind-sporen krijgen
+    # --already-confirmed (geen tweede vraag halverwege). n = som van
+    # bronbestanden per kind (bovengrens; todo kan kleiner zijn).
+    kind_counts: list[str] = []
+    n_sources = 0
+    for kind in kinds:
+        mod = __import__(runners[kind])
+        count = len(mod.KIND.collect(root))
+        n_sources += count
+        kind_counts.append(f"{kind}: {count} bron(nen)")
+    actie = "dry-run (geen schrijven)" if args.dry_run else "producten schrijven/vernieuwen"
+    if not confirm_batch(
+        "products",
+        n=n_sources,
+        headline=(
+            f"products: {len(kinds)} kind(s), "
+            f"{n_sources} bron(nen) onder root"
+        ),
+        details=[
+            f"Root: {rel_for_log(root, repo_root=REPO_ROOT)}",
+            f"Actie: {actie}",
+            f"Condities: {', '.join(policy.active_reasons())}",
+            *kind_counts,
+        ],
+        yes=bool(args.yes),
+    ):
+        return 2
+
+    forward.append("--already-confirmed")
+    if args.yes:
+        forward.append("-y")
+
+    kind_exit: dict[str, int] = {}
+    kind_failures: dict[str, list[KindFailure]] = {}
+
+    for kind in kinds:
+        mod_name = runners[kind]
+        detail(f"--- {kind} ({KIND_HELP[kind]}) ---")
+        mod = __import__(mod_name)
+        rows: list[KindFailure] = []
+        with collect_failures(rows):
+            code = mod.main(forward)
+        kind_exit[kind] = 0 if code in (0, None) else int(code)
+        kind_failures[kind] = rows
+
+    failed = sum(1 for c in kind_exit.values() if c != 0)
+    if failed:
+        _print_products_summary(kind_failures=kind_failures, kind_exit=kind_exit)
+        return 1
+
+    # Zoekindex hangt af van lyrics, status en audio-paden — altijd vernieuwen
+    # na een geslaagde products-run (ook --only-stale), behalve dry-run
+    # of --skip-post (batch-wrappers).
+    if not args.dry_run and not args.skip_post:
+        info(">>> nabewerking (zoekindex)")
+        from build_zoek_index import main as build_zoek_main
+
+        if run_quiet(
+            "zoekindex",
+            build_zoek_main,
+            [],
+            verbose=bool(args.verbose),
+        ):
+            error_block(
+                [
+                    "FAILED zoekindex",
+                    "Oplossing: controleer de fout hierboven; daarna "
+                    "python scripts\\build_zoek_index.py opnieuw.",
+                ]
+            )
+            return 1
+
+    ok(f"OK  products klaar ({len(kinds)} kinds)")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

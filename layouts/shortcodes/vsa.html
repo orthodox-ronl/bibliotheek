@@ -1,0 +1,6 @@
+{{- $src := .Get "src" -}}
+{{- $src = replaceRE "^/" "" $src -}}
+{{- $alt := or (.Get "alt") "VSA notatie" -}}
+{{- $scale := .Get "scale" -}}
+{{- $size := .Get "size" -}}
+<div class="vsa-container"{{ with $size }} style="--vsa-size: {{ . }}"{{ end }}><img class="vsa-notation" src="{{ $src | relURL }}" alt="{{ $alt }}"{{ if $scale }} style="width: {{ $scale }}; height: auto"{{ end }} loading="lazy"></div>

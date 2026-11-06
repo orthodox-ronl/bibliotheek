@@ -1,0 +1,38 @@
+{{- /*
+  Bouw variant-branch-nodes uit leaves (geen HTML).
+
+  Return: slice nodes voor catalogus-boom-nodes
+  (kind branch/leaf; leaf-dicts met v/vLabel/vSort/leafSort).
+*/ -}}
+{{- $leaves := . -}}
+{{- $vSeen := slice -}}
+{{- $vMeta := slice -}}
+{{- range $leaves -}}
+  {{- if not (in $vSeen .v) -}}
+    {{- $vSeen = $vSeen | append .v -}}
+    {{- $vMeta = $vMeta | append (dict "key" .v "label" .vLabel "sort" .vSort) -}}
+  {{- end -}}
+{{- end -}}
+{{- $vMeta = sort $vMeta "sort" -}}
+{{- $nodes := slice -}}
+{{- range $vMeta -}}
+  {{- $vKey := .key -}}
+  {{- $vLeaves := slice -}}
+  {{- range $leaves -}}
+    {{- if eq .v $vKey -}}
+      {{- $vLeaves = $vLeaves | append . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $vLeaves = sort $vLeaves "leafSort" -}}
+  {{- $children := slice -}}
+  {{- range $vLeaves -}}
+    {{- $children = $children | append (dict "kind" "leaf" "leaf" .) -}}
+  {{- end -}}
+  {{- $nodes = $nodes | append (dict
+    "kind" "branch"
+    "label" .label
+    "children" $children
+    "leafCount" (len $vLeaves)
+  ) -}}
+{{- end -}}
+{{- return $nodes -}}

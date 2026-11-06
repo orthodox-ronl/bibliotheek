@@ -1,0 +1,2972 @@
+"""Bouw index.md.pdf voor bladermap-index.md (koormap/catalogus).
+
+A4-compositie uit shortcode ``kop`` (en legacy ``#`` / HTML-titels) + kale
+muziek-SVG's (geen catalogus-product-PDF's plakken). Bij voorkeur de
+catalogus-sibling tall-SVG (``*.mvsa.svg`` / ``*.mscz.svg`` / ``*.vsa.svg``);
+lokaal opnieuw exporteren als die ontbreekt of de herkomststempel niet bij
+de bron past. Inline ``::: vsa`` / ``::: vsa-notatie``-blokken in de
+Markdown (alias zoals VSA-tooling ``block_parser``) worden naar SVG
+gerenderd en in documentvolgorde meegenomen. Versheid van ``index.md.pdf``
+hangt ook van die sibling-SVG’s af. Compose snijdt op systeembrenzen
+(MuseScore ``StaffLines``, anders VSA ``vsa-line``) zodat rest-ruimte na
+titel/proza op A4 wél gevuld wordt.
+
+Naast de basis-PDF: optioneel ``index.md.translit-nls.pdf`` /
+``index.md.translit-ksl.pdf`` (§5a) uit translit-SVG-siblings
+(``.translit-nls.svg`` / ``.translit-ksl.svg``); bij gemengd blad
+ook ``index.md.translit-beide.pdf`` (per bron de passende richting).
+
+Catalogus-leaves zonder Markdown-titel: afgeleide leaf-titel injecteren
+(zelfde algoritme als Hugo; zie ``ensure_catalogus_derived_titles``).
+"""
+
+from __future__ import annotations
+
+import argparse
+import os
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+from dataclasses import dataclass, field
+from functools import lru_cache
+from pathlib import Path
+
+_SCRIPTS = Path(__file__).resolve().parent
+if str(_SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(_SCRIPTS))
+
+from cli_style import (  # noqa: E402
+    add_verbose_argument,
+    count,
+    detail,
+    hard,
+    info,
+    note,
+    ok,
+    refuse,
+    section,
+    set_verbose,
+)
+
+
+ROOT = Path(__file__).resolve().parents[1]
+CONTENT = ROOT / "content-source"
+CATALOGUS = CONTENT / "catalogus"
+
+# A4 in PDF-punten (1 pt = 1/72 inch)
+_A4_W = 595.28
+_A4_H = 841.89
+_MARGIN = 28.0  # ~10 mm; tooling --compact zet Style-marges al strakker
+# Minimale gap (SVG user space) tussen staflijn-clusters = nieuw systeem
+_SYSTEM_GAP_MIN = 200.0
+
+_SC = re.compile(
+    r"\{\{<\s*(/?)\s*([a-z0-9_-]+)([^>]*)>\}\}",
+    re.IGNORECASE,
+)
+_ID = re.compile(r'\bid\s*=\s*"([^"]+)"', re.IGNORECASE)
+_VELD_PAD = re.compile(r'\bveld\s+"([^"]+)"', re.IGNORECASE)
+_H1_HTML = re.compile(
+    r"<h1\b[^>]*>(.*?)</h1>",
+    re.IGNORECASE | re.DOTALL,
+)
+_AT_FIELD = re.compile(
+    r'(?m)^@(?P<name>[A-Za-z0-9_-]+)\s+(?:"([^"]*)"|\'([^\']*)\')'
+)
+_YAML_FIELD = re.compile(
+    r'(?m)^(?P<name>[A-Za-z0-9_-]+):\s*["\']?([^"\'\r\n]+)'
+)
+_MSCZ_COPYRIGHT = re.compile(
+    r'<metaTag\s+name="copyright">([^<]*)</metaTag>',
+    re.IGNORECASE,
+)
+_ONDERDELEN = frozenset(
+    {"titel", "title", "muziek", "bron", "copyright", "colofon", "veld"}
+)
+_TEXT_ONDERDELEN = frozenset(
+    {"titel", "title", "bron", "copyright", "colofon", "veld"}
+)
+_KOP_ALIGNS = frozenset({"links", "midden", "rechts"})
+_KOP_SIZES = frozenset({"groot", "middel", "klein"})
+# CSS ``koormap-kop--*`` (site.css): ~1.75rem / 1.25rem / 1rem bij 12 pt basis
+_KOP_FONT_PT = {"groot": 21.0, "middel": 15.0, "klein": 12.0}
+_MD_HEADING = re.compile(r"^(#{1,6})\s+(.+?)\s*$")
+_MSCZ_COLOPHON_VBOX = re.compile(
+    r"<VBox>(?:(?!</VBox>).)*?Colofon(?:(?!</VBox>).)*?</VBox>",
+    re.IGNORECASE | re.DOTALL,
+)
+# Alias ``::: vsa`` ≡ ``::: vsa-notatie`` (VSA-tooling block_parser).
+_INLINE_VSA_FENCE = re.compile(
+    r"(?ms)^[ \t]*:::[ \t]*(?:vsa-notatie|vsa)\b[^\n]*\n"
+    r"(.*?)"
+    r"^[ \t]*:::[ \t]*\s*$"
+)
+_INLINE_VSA_OPEN = re.compile(
+    r"(?im)^[ \t]*:::[ \t]*(?:vsa-notatie|vsa)\b"
+)
+_LITURGY_COPY = (
+    "Voor gebruik in de orthodoxe eredienst is kopiëren toegestaan."
+)
+
+
+@dataclass
+class TitleItem:
+    """``kop`` (contract §6) of Markdown-``#``-kop (altijd links)."""
+
+    text: str
+    size: str = "groot"  # groot | middel | klein
+    align: str = "midden"  # links | midden | rechts
+
+    @property
+    def prominent(self) -> bool:
+        return self.size == "groot"
+
+
+@dataclass
+class TextItem:
+    """Markdown-proza of opgelost bieb-onderdeel (links uitgelijnd)."""
+
+    text: str
+
+
+@dataclass
+class MusicItem:
+    uv_id: str
+    compact: bool
+
+
+@dataclass
+class InlineVsaItem:
+    """Eenstemmig VSA-blok uit ``::: vsa`` / ``::: vsa-notatie`` in de Markdown."""
+
+    key: str
+    body: str
+    compact: bool
+
+
+@dataclass
+class SpaceItem:
+    """Verticale witruimte (shortcode ``witruimte``); hoogte in PDF-punten."""
+
+    points: float
+
+
+FlowItem = TitleItem | TextItem | MusicItem | InlineVsaItem | SpaceItem
+
+# klein / middel (default) / groot — zelfde namen als shortcode-knoppen
+_WITRUIMTE_PT = {"klein": 10.0, "middel": 20.0, "groot": 40.0}
+_PROSE_PT = 11.0
+
+
+@dataclass
+class PageFlow:
+    """Eén PDF-bladgroep (pdf-pagina of apart pdf-bijelkaar-blok)."""
+
+    items: list[FlowItem] = field(default_factory=list)
+
+    @property
+    def music_ids(self) -> list[str]:
+        return [i.uv_id for i in self.items if isinstance(i, MusicItem)]
+
+    @property
+    def has_music(self) -> bool:
+        return any(
+            isinstance(i, (MusicItem, InlineVsaItem)) for i in self.items
+        )
+
+    @property
+    def any_compact(self) -> bool:
+        return any(
+            isinstance(i, (MusicItem, InlineVsaItem)) and i.compact
+            for i in self.items
+        )
+
+
+def _parse_onderdeel(params: str) -> str | None:
+    params = params.replace("/", " ")
+    stripped = _ID.sub(" ", params)
+    stripped = re.sub(r'"[^"]*"', " ", stripped)
+    for tok in stripped.split():
+        t = tok.strip().lower()
+        if t in _ONDERDELEN:
+            return t
+    return None
+
+
+def _strip_tags(html: str) -> str:
+    text = re.sub(r"<[^>]+>", "", html)
+    text = re.sub(r"\{\{[^}]+\}\}", "", text)
+    return " ".join(text.split()).strip()
+
+
+def _parse_kop_style(params: str) -> tuple[str, str]:
+    """``(align, size)`` volgens koormap-paginataal §6 / shortcode ``kop``.
+
+    Defaults: midden + groot (zelfde als ``layouts/shortcodes/kop.html``).
+    """
+    align = "midden"
+    size = "groot"
+    has_align = False
+    has_size = False
+    for raw in params.replace("/", " ").split():
+        tok = raw.strip().lower()
+        if not tok:
+            continue
+        if tok in _KOP_ALIGNS:
+            if has_align:
+                raise ValueError(
+                    "shortcode kop: hoogstens één uitlijning "
+                    "(links, midden of rechts)"
+                )
+            align = tok
+            has_align = True
+        elif tok in _KOP_SIZES:
+            if has_size:
+                raise ValueError(
+                    "shortcode kop: hoogstens één grootte "
+                    "(groot, middel of klein)"
+                )
+            size = tok
+            has_size = True
+        else:
+            raise ValueError(
+                f"shortcode kop: onbekende knop {tok!r}. "
+                "Toegestaan: links, midden, rechts, groot, middel, klein."
+            )
+    return align, size
+
+
+def _witruimte_points(params: str) -> float:
+    tokens = [t.strip().lower() for t in params.replace("/", " ").split() if t.strip()]
+    if not tokens:
+        return _WITRUIMTE_PT["middel"]
+    if len(tokens) > 1:
+        raise ValueError(
+            f"shortcode witruimte: hoogstens één grootte, kreeg {tokens!r}"
+        )
+    key = tokens[0]
+    if key not in _WITRUIMTE_PT:
+        raise ValueError(
+            f"shortcode witruimte: onbekende knop {key!r} "
+            "(klein, middel of groot)"
+        )
+    return _WITRUIMTE_PT[key]
+
+
+@lru_cache(maxsize=1)
+def _title_font_files() -> tuple[Path, Path]:
+    """Unicode-lettertypen voor koppen (Cyrillisch e.d.; niet de PDF-standaard helv).
+
+    Terug: (regular, bold). Helvetica mist Cyrillisch → vraagtekens in de PDF.
+    """
+    windir = Path(os.environ.get("WINDIR", r"C:\Windows"))
+    candidates_reg = [
+        windir / "Fonts" / "arial.ttf",
+        windir / "Fonts" / "calibri.ttf",
+        Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"),
+        Path("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf"),
+        Path("/Library/Fonts/Arial.ttf"),
+        Path("/System/Library/Fonts/Supplemental/Arial.ttf"),
+    ]
+    candidates_bold = [
+        windir / "Fonts" / "arialbd.ttf",
+        windir / "Fonts" / "calibrib.ttf",
+        Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"),
+        Path("/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"),
+        Path("/Library/Fonts/Arial Bold.ttf"),
+        Path("/System/Library/Fonts/Supplemental/Arial Bold.ttf"),
+    ]
+    regular = next((p for p in candidates_reg if p.is_file()), None)
+    bold = next((p for p in candidates_bold if p.is_file()), None)
+    if regular is None:
+        raise RuntimeError(
+            "Geen Unicode-font voor pagina-PDF-koppen gevonden "
+            "(verwacht o.a. Arial of DejaVu Sans). "
+            "Oplossing: installeer Arial (Windows) of fonts-dejavu (Linux)."
+        )
+    if bold is None:
+        bold = regular
+    return regular, bold
+
+
+@lru_cache(maxsize=1)
+def _emphasis_font_files() -> tuple[Path, Path, Path, Path]:
+    """``(regular, bold, italic, bolditalic)`` voor Markdown-emphasis in PDF."""
+    regular, bold = _title_font_files()
+    windir = Path(os.environ.get("WINDIR", r"C:\Windows"))
+    candidates_italic = [
+        windir / "Fonts" / "ariali.ttf",
+        windir / "Fonts" / "calibrii.ttf",
+        Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-Oblique.ttf"),
+        Path("/usr/share/fonts/truetype/liberation/LiberationSans-Italic.ttf"),
+        Path("/Library/Fonts/Arial Italic.ttf"),
+        Path("/System/Library/Fonts/Supplemental/Arial Italic.ttf"),
+    ]
+    candidates_bi = [
+        windir / "Fonts" / "arialbi.ttf",
+        windir / "Fonts" / "calibriz.ttf",
+        Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-BoldOblique.ttf"),
+        Path("/usr/share/fonts/truetype/liberation/LiberationSans-BoldItalic.ttf"),
+        Path("/Library/Fonts/Arial Bold Italic.ttf"),
+        Path("/System/Library/Fonts/Supplemental/Arial Bold Italic.ttf"),
+    ]
+    italic = next((p for p in candidates_italic if p.is_file()), None) or regular
+    bolditalic = next((p for p in candidates_bi if p.is_file()), None) or bold
+    return regular, bold, italic, bolditalic
+
+
+def _md_inline_plain_and_style(text: str) -> tuple[str, str]:
+    """Haal omhullende Markdown-emphasis weg.
+
+    Terug: ``(platte tekst, style)`` met style
+    ``normal`` / ``bold`` / ``italic`` / ``bolditalic``.
+    Alleen hele-regel-markers (``***…***``, ``**…**``, ``*…*`` e.d.).
+    """
+    s = text.strip()
+    for marker, style in (
+        ("***", "bolditalic"),
+        ("___", "bolditalic"),
+        ("**", "bold"),
+        ("__", "bold"),
+        ("*", "italic"),
+        ("_", "italic"),
+    ):
+        n = len(marker)
+        if len(s) > 2 * n and s.startswith(marker) and s.endswith(marker):
+            inner = s[n:-n]
+            # Vermijd ``*a*b*`` e.d.: marker mag niet “open” in de kern zitten.
+            if marker not in inner:
+                return inner.strip(), style
+    return s, "normal"
+
+
+def _font_for_md_style(style: str) -> tuple[Path, str]:
+    """Lettertype + PDF-fontnaam voor ``_md_inline_plain_and_style``."""
+    regular, bold, italic, bolditalic = _emphasis_font_files()
+    if style == "bold":
+        return bold, "koormap-md-bold"
+    if style == "italic":
+        return italic, "koormap-md-italic"
+    if style == "bolditalic":
+        return bolditalic, "koormap-md-bolditalic"
+    return regular, "koormap-md-regular"
+
+
+@lru_cache(maxsize=1)
+def _notation_font_file(family: str) -> Path | None:
+    """TTF voor SVG-notatietekst (DejaVu / Consolas) â€” MuPDF vindt die niet zelf.
+
+    VSA-``.vsa.svg`` zet ``font-family="DejaVu Sans"``; PyMuPDF's SVGâ†’PDF
+    vervangt dat door Times/Nimbus â†’ verkeerde breedtes en losse spaties.
+    """
+    key = family.strip().lower().replace('"', "")
+    windir = Path(os.environ.get("WINDIR", r"C:\Windows"))
+    tooling_roots = [
+        ROOT.parent / "VSA-tooling",
+        ROOT / "vendor" / "VSA-tooling",
+    ]
+    if "dejavu" in key:
+        candidates = [
+            *(
+                root / "assets" / "fonts" / name
+                for root in tooling_roots
+                for name in ("DejaVuSans.ttf", "dejavu-sans-ttf-2.37/ttf/DejaVuSans.ttf")
+            ),
+            Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"),
+            windir / "Fonts" / "DejaVuSans.ttf",
+        ]
+        return next((p for p in candidates if p.is_file()), None)
+    if "consolas" in key or "mono" in key:
+        candidates = [
+            windir / "Fonts" / "consola.ttf",
+            windir / "Fonts" / "Consolas.ttf",
+            Path("/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"),
+            *(
+                root / "assets" / "fonts" / "DejaVuSansMono.ttf"
+                for root in tooling_roots
+            ),
+        ]
+        return next((p for p in candidates if p.is_file()), None)
+    return None
+
+
+_SVG_TEXT_RE = re.compile(r"<text\b([^>]*)>(.*?)</text>", re.DOTALL | re.IGNORECASE)
+_SVG_ATTR_RE = re.compile(
+    r'([a-zA-Z_:][-a-zA-Z0-9_.:]*)="([^"]*)"'
+)
+
+
+def _parse_svg_text_nodes(svg: str) -> list[dict[str, object]]:
+    """Haal ``<text>``-nodes uit een VSA/MuseScore-SVG (x/y/baseline)."""
+    nodes: list[dict[str, object]] = []
+    for match in _SVG_TEXT_RE.finditer(svg):
+        attrs = {
+            m.group(1): m.group(2) for m in _SVG_ATTR_RE.finditer(match.group(1))
+        }
+        if "x" not in attrs or "y" not in attrs:
+            continue
+        family = attrs.get("font-family", "")
+        fontfile = _notation_font_file(family)
+        if fontfile is None:
+            continue
+        raw = match.group(2)
+        # Geen geneste tags in VSA-tekst; HTML-entities normaal zeldzaam.
+        text = (
+            raw.replace("&amp;", "&")
+            .replace("&lt;", "<")
+            .replace("&gt;", ">")
+            .replace("&quot;", '"')
+            .replace("&#39;", "'")
+        )
+        fill = attrs.get("fill", "black").strip().lower()
+        color = (0.0, 0.0, 0.0)
+        if fill in {"red", "#f00", "#ff0000"}:
+            color = (1.0, 0.0, 0.0)
+        elif fill not in {"", "black", "#000", "#000000", "currentcolor"}:
+            # Onbekende kleur: toch zwart tekenen (beter leesbaar dan skip).
+            color = (0.0, 0.0, 0.0)
+        nodes.append(
+            {
+                "x": float(attrs["x"]),
+                "y": float(attrs["y"]),
+                "size": float(attrs.get("font-size", "20")),
+                "family": family,
+                "fontfile": fontfile,
+                "text": text,
+                "anchor": attrs.get("text-anchor", "start"),
+                "color": color,
+            }
+        )
+    return nodes
+
+
+def open_svg_as_pdf(svg_path: Path):
+    """SVGâ†’PDF; teken DejaVu/Consolas-tekst opnieuw met echte TTF-bestanden.
+
+    PyMuPDF ``convert_to_pdf`` substitueert ontbrekende families door Times.
+    Voor VSA-product-SVG's (en Consolas-glyphtekst) strippen we ``<text>``,
+    converteren de grafiek, en zetten de letters terug met ``insert_font``.
+    """
+    import pymupdf
+
+    raw = svg_path.read_text(encoding="utf-8")
+    nodes = _parse_svg_text_nodes(raw)
+    if not nodes:
+        svg_doc = pymupdf.open(svg_path)
+        try:
+            return pymupdf.open("pdf", svg_doc.convert_to_pdf())
+        finally:
+            svg_doc.close()
+
+    # Alleen nodes strippen die we opnieuw tekenen (zelfde regex-pass).
+    def _strip_managed(match: re.Match[str]) -> str:
+        attrs = {
+            m.group(1): m.group(2) for m in _SVG_ATTR_RE.finditer(match.group(1))
+        }
+        family = attrs.get("font-family", "")
+        if _notation_font_file(family) is not None:
+            return ""
+        return match.group(0)
+
+    stripped = _SVG_TEXT_RE.sub(_strip_managed, raw)
+    svg_doc = pymupdf.open(stream=stripped.encode("utf-8"), filetype="svg")
+    try:
+        pdf = pymupdf.open("pdf", svg_doc.convert_to_pdf())
+    finally:
+        svg_doc.close()
+
+    page = pdf[0]
+    registered: dict[str, str] = {}
+    font_objs: dict[str, object] = {}
+    for node in nodes:
+        fontfile = Path(str(node["fontfile"]))
+        key = str(fontfile.resolve())
+        if key not in registered:
+            fontname = f"vsa-f{len(registered)}"
+            page.insert_font(fontname=fontname, fontfile=str(fontfile))
+            registered[key] = fontname
+            font_objs[key] = pymupdf.Font(fontfile=str(fontfile))
+        fontname = registered[key]
+        x = float(node["x"])
+        y = float(node["y"])
+        size = float(node["size"])
+        text = str(node["text"])
+        anchor = str(node["anchor"])
+        if anchor in {"middle", "end"}:
+            width = font_objs[key].text_length(text, fontsize=size)  # type: ignore[attr-defined]
+            if anchor == "middle":
+                x -= width / 2
+            else:
+                x -= width
+        page.insert_text(
+            (x, y),
+            text,
+            fontsize=size,
+            fontname=fontname,
+            color=node["color"],  # type: ignore[arg-type]
+        )
+    return pdf
+
+
+def _md_heading_size(level: int) -> str:
+    if level <= 1:
+        return "groot"
+    if level == 2:
+        return "middel"
+    return "klein"
+
+
+def _markdown_has_pagina_music(text: str) -> bool:
+    """True als de pagina-PDF muziek kan hebben (``bieb``/``muziek``/inline VSA)."""
+    if "bieb" in text or "muziek" in text:
+        return True
+    return _INLINE_VSA_OPEN.search(text) is not None
+
+
+def _gap_items(
+    gap: str, *, compact: bool = False
+) -> list[TitleItem | TextItem | InlineVsaItem]:
+    """Markdown in gaten: ``#``-koppen, ``::: vsa``-blokken, alinea’s.
+
+    Shortcode ``kop`` hoort niet hier — die komt via ``parse_page_flows``.
+    Legacy HTML-``<h1>`` blijft ondersteund (links, groot). Inline VSA
+    krijgt ``key=""``; ``parse_page_flows`` vult een unieke sleutel in.
+    """
+    items: list[tuple[int, TitleItem | TextItem | InlineVsaItem]] = []
+    covered: list[tuple[int, int]] = []
+    for m in _INLINE_VSA_FENCE.finditer(gap):
+        body = (m.group(1) or "").strip()
+        if body:
+            items.append(
+                (
+                    m.start(),
+                    InlineVsaItem(key="", body=body, compact=compact),
+                )
+            )
+        covered.append((m.start(), m.end()))
+    for m in _INLINE_VSA_OPEN.finditer(gap):
+        if any(a <= m.start() < b for a, b in covered):
+            continue
+        raise ValueError(
+            "::: vsa-blok zonder sluitende ::: "
+            f"(rond {gap[m.start() : m.start() + 48]!r})"
+        )
+    for m in _H1_HTML.finditer(gap):
+        t = _strip_tags(m.group(1))
+        if t:
+            items.append(
+                (
+                    m.start(),
+                    TitleItem(t, size="groot", align="links"),
+                )
+            )
+            covered.append((m.start(), m.end()))
+    for m in re.finditer(r"(?m)^.*$", gap):
+        line = m.group(0)
+        stripped = line.strip()
+        if not stripped or stripped.startswith("{{"):
+            continue
+        start, end = m.start(), m.end()
+        if any(a <= start < b or a < end <= b for a, b in covered):
+            continue
+        if re.match(r"(?i)^<h1\b", stripped):
+            continue
+        hm = _MD_HEADING.match(stripped)
+        if hm:
+            level = len(hm.group(1))
+            label = hm.group(2).strip()
+            if label and "{{" not in label:
+                items.append(
+                    (
+                        start,
+                        TitleItem(
+                            label,
+                            size=_md_heading_size(level),
+                            align="links",
+                        ),
+                    )
+                )
+            continue
+        items.append((start, TextItem(_strip_tags(stripped))))
+    items.sort(key=lambda x: x[0])
+    return [it for _, it in items]
+
+
+def _veld_pad(params: str) -> str | None:
+    m = _VELD_PAD.search(params)
+    return m.group(1).strip() if m else None
+
+
+def _leaf_source_text(uv_id: str) -> str:
+    """Tekst voor veldresolutie: ``.mvsa`` / ``.vsa``, anders ``.mscz.mvsa``."""
+    leaf = CATALOGUS.joinpath(*uv_id.split("/"))
+    if not leaf.is_dir():
+        return ""
+    preferred = sorted(
+        p
+        for p in leaf.glob("*.mvsa")
+        if not p.name.lower().endswith(".mscz.mvsa")
+    )
+    if not preferred:
+        preferred = sorted(leaf.glob("*.vsa"))
+    if not preferred:
+        preferred = sorted(leaf.glob("*.mscz.mvsa"))
+    if not preferred:
+        return ""
+    try:
+        return preferred[0].read_text(encoding="utf-8")
+    except OSError:
+        return ""
+
+
+def _field_from_source_text(text: str, pad: str) -> str:
+    """Spiegel Hugo ``bieb-veld-waarde``: YAML-sleutel of ``@``-regel."""
+    key = pad.rsplit(".", 1)[-1].strip()
+    if not key or not text:
+        return ""
+    key_l = key.lower()
+    for m in _YAML_FIELD.finditer(text):
+        if m.group("name").lower() == key_l:
+            return m.group(2).strip().strip("\"'")
+    at_name = key
+    if key_l in {"uitgangspunt", "bron"}:
+        at_name = "bron"
+    elif key_l == "copyright":
+        at_name = "copyright"
+    elif key_l in {"titel", "title"}:
+        at_name = "title"
+    for m in _AT_FIELD.finditer(text):
+        if m.group("name").lower() == at_name.lower():
+            return (m.group(2) or m.group(3) or "").strip()
+    return ""
+
+
+def _iter_mscx_texts(uv_id: str):
+    """Yield MSCX XML-strings uit leaf-``.mscz``-bestanden."""
+    import zipfile
+
+    leaf = CATALOGUS.joinpath(*uv_id.split("/"))
+    if not leaf.is_dir():
+        return
+    from score_filenames import is_derived_mscz, is_print_mscz
+
+    for mscz in sorted(leaf.glob("*.mscz")):
+        if is_print_mscz(mscz) or is_derived_mscz(mscz):
+            continue
+        try:
+            with zipfile.ZipFile(mscz) as zf:
+                for name in zf.namelist():
+                    if name.lower().endswith(".mscx"):
+                        yield zf.read(name).decode("utf-8", errors="replace")
+        except (OSError, zipfile.BadZipFile):
+            continue
+
+
+def _copyright_from_mscz(uv_id: str) -> str:
+    for raw in _iter_mscx_texts(uv_id):
+        m = _MSCZ_COPYRIGHT.search(raw)
+        if m:
+            return _strip_tags(m.group(1))
+    return ""
+
+
+def _colofon_from_mscz(uv_id: str) -> str:
+    """Volledige colofontekst uit MuseScore-VBox (titel ``Colofon``).
+
+    MSCX: ``<Text>``-wrapper met geneste ``<text>…</text>`` (kleine letters)
+    waarin ``<br/>`` de regels scheidt.
+    """
+    # Alleen het geneste content-element (niet de ``<Text>``-wrapper).
+    text_re = re.compile(r"<text>(.*?)</text>", re.DOTALL)
+    for raw in _iter_mscx_texts(uv_id):
+        m = _MSCZ_COLOPHON_VBOX.search(raw)
+        if not m:
+            continue
+        tm = text_re.search(m.group(0))
+        if not tm:
+            continue
+        html = tm.group(1).replace("<br/>", "\n").replace("<br>", "\n")
+        # Geen ``_strip_tags`` (die ruimtes/newlines platslaat): alleen tags weg.
+        plain = re.sub(r"<[^>]+>", "", html)
+        plain = plain.replace("\xad", "").replace("\u00ad", "")
+        lines = [ln.strip() for ln in plain.splitlines() if ln.strip()]
+        if lines and lines[0].lower() == "colofon":
+            lines = lines[1:]
+        if lines:
+            return "Colofon\n\n" + "\n".join(lines)
+    return ""
+
+
+def _build_colofon_text(uv_id: str) -> str:
+    """Colofon: uit MSCZ-VBox, anders opgebouwd (copyright + bron + id)."""
+    existing = _colofon_from_mscz(uv_id)
+    if existing:
+        return existing
+    notice = (
+        _field_from_source_text(_leaf_source_text(uv_id), "copyright")
+        or _copyright_from_mscz(uv_id)
+        or "Deze partituur: CC BY-SA 4.0 (orthodox-ronl)."
+    )
+    lines = [notice]
+    if _LITURGY_COPY.lower() not in notice.lower():
+        lines.append(_LITURGY_COPY)
+    bron = resolve_bieb_onderdeel(uv_id, "bron")
+    if bron:
+        lines.append(f"Bron: {bron}")
+    lines.append(f"Bibliotheek-id: {uv_id}")
+    return "Colofon\n\n" + "\n".join(lines)
+
+
+def resolve_bieb_onderdeel(uv_id: str, onderdeel: str, *, veld_pad: str = "") -> str:
+    """Platte tekst voor bieb-onderdeel (leeg als onbekend/ontbrekend)."""
+    base = _uv_base(uv_id)
+    onderdeel = onderdeel.lower().strip()
+    if onderdeel == "veld":
+        pad = veld_pad.strip()
+        if not pad:
+            return ""
+        return _field_from_source_text(_leaf_source_text(base), pad)
+    if onderdeel in {"titel", "title"}:
+        text = _leaf_source_text(base)
+        value = _field_from_source_text(text, "title") or _field_from_source_text(
+            text, "titel"
+        )
+        if value:
+            return value
+        from catalogus import derived_leaf_title
+
+        leaf_dir = CATALOGUS.joinpath(*base.split("/"))
+        return derived_leaf_title(base, leaf_dir=leaf_dir)
+    if onderdeel == "bron":
+        text = _leaf_source_text(base)
+        return (
+            _field_from_source_text(text, "bron")
+            or _field_from_source_text(text, "bron.uitgangspunt")
+            or _field_from_source_text(text, "uitgangspunt")
+        )
+    if onderdeel == "copyright":
+        text = _leaf_source_text(base)
+        value = _field_from_source_text(text, "copyright")
+        if value:
+            return value
+        return _copyright_from_mscz(base)
+    if onderdeel == "colofon":
+        return _build_colofon_text(base)
+    return ""
+
+
+def _body_without_frontmatter(text: str) -> str:
+    """Strip optionele ``---``-YAML-kop; body begint daarna."""
+    if not text.lstrip().startswith("---"):
+        return text
+    parts = text.split("---", 2)
+    if len(parts) < 3:
+        return text
+    return parts[2]
+
+
+def _frontmatter_block(text: str) -> str:
+    if not text.lstrip().startswith("---"):
+        return ""
+    parts = text.split("---", 2)
+    if len(parts) < 3:
+        return ""
+    return parts[1]
+
+
+def _unquote_scalar(raw: str) -> str:
+    value = raw.strip()
+    if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
+        return value[1:-1]
+    return value
+
+
+def _parse_yaml_block(block: str) -> dict:
+    """Kleine YAML-subset: scalars en geneste maps (geen lijsten)."""
+    root: dict = {}
+    stack: list[tuple[int, dict]] = [(-1, root)]
+    for raw in block.splitlines():
+        if not raw.strip() or raw.lstrip().startswith("#"):
+            continue
+        indent = len(raw) - len(raw.lstrip(" "))
+        line = raw.strip()
+        if line.startswith("-") or ":" not in line:
+            continue
+        key, _, rest = line.partition(":")
+        key = key.strip()
+        if not key:
+            continue
+        while stack and indent <= stack[-1][0]:
+            stack.pop()
+        parent = stack[-1][1] if stack else root
+        rest = rest.strip()
+        if rest == "" or rest in {"|", ">"}:
+            child: dict = {}
+            parent[key] = child
+            stack.append((indent, child))
+        else:
+            parent[key] = _unquote_scalar(rest)
+    return root
+
+
+def _hugo_page_params(text: str) -> dict:
+    """Velden die Hugo-shortcode ``param`` op deze pagina ziet.
+
+    Wortel-scalars (``title``, ``linkTitle``, …) plus de map ``params:``.
+    Een wortelveld wint van dezelfde naam onder ``params:``.
+    """
+    fm = _parse_yaml_block(_frontmatter_block(text))
+    out: dict = {}
+    nested = fm.get("params")
+    if isinstance(nested, dict):
+        out.update(nested)
+    for key, value in fm.items():
+        if key == "params":
+            continue
+        out[key] = value
+    return out
+
+
+def _lookup_param(params: dict, key: str) -> str | None:
+    cur: object = params
+    for part in key.split("."):
+        if not isinstance(cur, dict):
+            return None
+        if part in cur:
+            cur = cur[part]
+            continue
+        match = next((k for k in cur if k.lower() == part.lower()), None)
+        if match is None:
+            return None
+        cur = cur[match]
+    if not isinstance(cur, str):
+        return None
+    return cur
+
+
+_PARAM_SC = re.compile(
+    r"\{\{\s*[<%]\s*param\s+"
+    r'(?:"([^"]*)"|\'([^\']*)\'|([A-Za-z0-9_.-]+))'
+    r"\s*/?\s*[>%]\s*\}\}",
+    re.IGNORECASE,
+)
+
+
+def _expand_param_shortcodes(body: str, params: dict) -> str:
+    """Vervang ``{{< param veld >}}`` door de frontmatter-waarde.
+
+    Zelfde korte vorm als Hugo (``{{% param veld %}}`` en aanhalingstekens
+    mogen). Onbekend veld: fout, net als de sitebouw. Koormap-paginataal §6.
+    """
+
+    def repl(match: re.Match[str]) -> str:
+        key = match.group(1) or match.group(2) or match.group(3) or ""
+        key = key.strip()
+        if not key:
+            raise ValueError(
+                "shortcode param mist de veldnaam. "
+                'Oplossing: {{< param title >}}.'
+            )
+        value = _lookup_param(params, key)
+        if value is None:
+            raise ValueError(
+                f"shortcode param: veld {key!r} niet gevonden in de "
+                "frontmatter van deze pagina."
+            )
+        return value
+
+    return _PARAM_SC.sub(repl, body)
+
+
+def parse_page_flows(text: str) -> list[PageFlow]:
+    """Bladgroepen: ``pdf-pagina`` of elk apart ``pdf-bijelkaar``-blok.
+
+    Muziek binnen ``pdf-bijelkaar`` krijgt ``compact=True``.
+
+    Standaard-``kop`` (groot) *vóór* het eerste bijelkaar-blok mag als
+    bladkop alleen op het **eerste** bijelkaar-blad (niet herhaald op een
+    volgend bijelkaar). Overige ``kop``-regels blijven in
+    **documentvolgorde** bij hun muziek (koormap-paginataal §6 / §10.1) —
+    nooit alle groot-koppen vooraf bundelen vóór alle ``bieb``-blokken.
+    """
+    params = _hugo_page_params(text)
+    text = _expand_param_shortcodes(_body_without_frontmatter(text), params)
+    finished: list[PageFlow] = []
+    current = PageFlow()
+    stack: list[str] = []
+    bijelkaar = 0
+    inline_vsa_n = 0
+    # Alleen groot-koppen die nog vóór enige andere inhoud / bijelkaar staan.
+    pending_titles: list[TitleItem] = []
+    kop_stack: list[tuple[str, int]] = []  # (params, inner_start)
+    pos = 0
+
+    def drain_pending() -> None:
+        """Zet uitgestelde bladkoppen in documentvolgorde in ``current``."""
+        if pending_titles:
+            current.items.extend(pending_titles)
+            pending_titles.clear()
+
+    def flush_current() -> None:
+        nonlocal current
+        drain_pending()
+        if current.items:
+            finished.append(current)
+            current = PageFlow()
+
+    def add_title(t: TitleItem) -> None:
+        if bijelkaar == 0 and t.size == "groot" and not current.items:
+            # Bladkop vóór eerste inhoud/bijelkaar → later injecteren
+            # (eenmalig op eerste bijelkaar-blad), of drainen bij eerste
+            # muziek/proza/witruimte zodat volgorde kop→muziek klopt.
+            pending_titles.append(t)
+        else:
+            drain_pending()
+            current.items.append(t)
+
+    def gap_before(end: int) -> None:
+        nonlocal pos, inline_vsa_n
+        gap = text[pos:end]
+        # Binnen ``kop … /kop``: tekst wordt bij sluiten gelezen, niet hier.
+        if not kop_stack:
+            for item in _gap_items(gap, compact=bijelkaar > 0):
+                if isinstance(item, TitleItem):
+                    add_title(item)
+                elif isinstance(item, InlineVsaItem):
+                    drain_pending()
+                    inline_vsa_n += 1
+                    current.items.append(
+                        InlineVsaItem(
+                            key=f"inline-vsa-{inline_vsa_n}",
+                            body=item.body,
+                            compact=item.compact,
+                        )
+                    )
+                else:
+                    drain_pending()
+                    current.items.append(item)
+        pos = end
+
+    def add_music(uv_id: str) -> None:
+        drain_pending()
+        current.items.append(MusicItem(uv_id, compact=bijelkaar > 0))
+
+    def add_bieb_text(uv_id: str, onderdeel: str, *, veld_pad: str = "") -> None:
+        value = resolve_bieb_onderdeel(uv_id, onderdeel, veld_pad=veld_pad)
+        if value:
+            drain_pending()
+            current.items.append(TextItem(value))
+
+    for m in _SC.finditer(text):
+        gap_before(m.start())
+        closing, name, params = m.group(1), m.group(2).lower(), m.group(3)
+        pos = m.end()
+
+        if closing:
+            if name == "kop" and kop_stack:
+                open_params, inner_start = kop_stack.pop()
+                raw = text[inner_start : m.start()]
+                label = _strip_tags(raw)
+                if label:
+                    align, size = _parse_kop_style(open_params)
+                    add_title(TitleItem(label, size=size, align=align))
+            elif name == "bieb" and stack:
+                stack.pop()
+            elif name == "pdf-bijelkaar" and bijelkaar:
+                bijelkaar -= 1
+            continue
+
+        if name == "kop":
+            if params.rstrip().endswith("/"):
+                continue
+            kop_stack.append((params, m.end()))
+            continue
+
+        if name == "witruimte":
+            drain_pending()
+            current.items.append(SpaceItem(_witruimte_points(params)))
+            continue
+
+        if name == "pdf-pagina" or name == "pagina":
+            flush_current()
+            continue
+
+        if name == "pdf-bijelkaar":
+            self_closing = params.rstrip().endswith("/")
+            if self_closing:
+                continue
+            # Nieuw bijelkaar-blok = nieuwe bladgroep (na een vorige met muziek)
+            if current.has_music:
+                flush_current()
+            # Bladkop(pen) vóór dit eerste bijelkaar alleen hier injecteren
+            drain_pending()
+            bijelkaar += 1
+            continue
+
+        if name == "muziek":
+            if not stack:
+                raise ValueError(
+                    "shortcode muziek buiten een bieb-blok (geen id-context)"
+                )
+            add_music(stack[-1])
+            continue
+
+        if name != "bieb":
+            continue
+
+        id_m = _ID.search(params)
+        uv_id = id_m.group(1).strip() if id_m else None
+        onderdeel = _parse_onderdeel(params)
+        self_closing = params.rstrip().endswith("/")
+
+        if not self_closing and uv_id and onderdeel is None:
+            stack.append(uv_id)
+            continue
+
+        if not uv_id:
+            if not stack:
+                raise ValueError(
+                    f"bieb zonder id en zonder ouder-blok: {m.group(0)!r}"
+                )
+            uv_id = stack[-1]
+
+        if onderdeel is None:
+            onderdeel = "muziek"
+        if onderdeel == "muziek":
+            add_music(uv_id)
+        elif onderdeel in _TEXT_ONDERDELEN:
+            add_bieb_text(
+                uv_id,
+                onderdeel,
+                veld_pad=_veld_pad(params) or "",
+            )
+
+    gap_before(len(text))
+    flush_current()
+    return [f for f in finished if f.items]
+
+
+def music_ids_from_markdown(text: str) -> list[str]:
+    """Volgorde van uitvoeringsvorm-ids (compat voor tests/oude callers)."""
+    ids: list[str] = []
+    for flow in parse_page_flows(text):
+        ids.extend(flow.music_ids)
+    return ids
+
+
+def catalogus_leaf_id(md_path: Path) -> str | None:
+    """``zangstuk/variant/uv`` als ``md_path`` een catalogus-leaf-``index.md`` is."""
+    try:
+        rel = md_path.resolve().relative_to(CATALOGUS.resolve())
+    except ValueError:
+        return None
+    if md_path.name != "index.md" or len(rel.parts) != 4:
+        return None
+    return "/".join(rel.parts[:3])
+
+
+def _flow_has_prominent_title(flow: PageFlow) -> bool:
+    return any(
+        isinstance(item, TitleItem) and item.prominent for item in flow.items
+    )
+
+
+def ensure_catalogus_derived_titles(
+    flows: list[PageFlow], md_path: Path
+) -> list[PageFlow]:
+    """Op catalogus-leaves: ontbrekende prominente titel → afgeleide leaf-titel.
+
+    Koormap-slots (buiten ``content-source/catalogus``) blijven ongewijzigd:
+    daar komen titels uit ``kop`` / ``#``. Zie
+    ``docs/plans/catalogus-index-md-pdf.md`` §2.
+    """
+    leaf_id = catalogus_leaf_id(md_path)
+    if not leaf_id:
+        return flows
+
+    from catalogus import derived_leaf_title
+
+    leaf_dir = CATALOGUS.joinpath(*leaf_id.split("/"))
+    title = derived_leaf_title(leaf_id, leaf_dir=leaf_dir)
+    for flow in flows:
+        if not flow.music_ids or _flow_has_prominent_title(flow):
+            continue
+        flow.items = [
+            TitleItem(title, size="groot", align="midden"),
+            *flow.items,
+        ]
+    return flows
+
+
+def _uv_base(ref: str) -> str:
+    """``z/v/u`` of ``z/v/u@sectie`` → catalogus-pad zonder sectie."""
+    from catalogus_sectie import split_catalogus_ref
+
+    base, _sectie = split_catalogus_ref(ref)
+    return base
+
+
+def _ref_sectie(ref: str) -> str | None:
+    from catalogus_sectie import split_catalogus_ref
+
+    _base, sectie = split_catalogus_ref(ref)
+    return sectie
+
+
+def find_mvsa(uv_id: str) -> Path:
+    base = _uv_base(uv_id)
+    leaf = CATALOGUS.joinpath(*base.split("/"))
+    if not leaf.is_dir():
+        raise FileNotFoundError(f"catalogusmap ontbreekt: {leaf}")
+    mvsas = sorted(
+        p
+        for p in leaf.glob("*.mvsa")
+        if not p.name.lower().endswith(".mscz.mvsa")
+    )
+    if not mvsas:
+        raise FileNotFoundError(f"geen .mvsa in {leaf}")
+    return mvsas[0]
+
+
+def try_find_notation_source(uv_id: str) -> Path | None:
+    """``.mvsa`` / ``.vsa`` / ``.mscz`` in de catalogusmap, of ``None``.
+
+    Ontbrekende map → ``FileNotFoundError``.
+    ``uv_id`` mag ``…@sectie`` bevatten (sectie wordt genegeerd voor de map).
+    """
+    base = _uv_base(uv_id)
+    leaf = CATALOGUS.joinpath(*base.split("/"))
+    if not leaf.is_dir():
+        raise FileNotFoundError(f"catalogusmap ontbreekt: {leaf}")
+    mvsas = sorted(
+        p
+        for p in leaf.glob("*.mvsa")
+        if not p.name.lower().endswith(".mscz.mvsa")
+    )
+    if mvsas:
+        return mvsas[0]
+    vsas = sorted(leaf.glob("*.vsa"))
+    if vsas:
+        return vsas[0]
+    from score_filenames import is_derived_mscz, is_print_mscz
+
+    msczs = sorted(
+        p
+        for p in leaf.glob("*.mscz")
+        if not is_print_mscz(p) and not is_derived_mscz(p)
+    )
+    if msczs:
+        return msczs[0]
+    return None
+
+
+def find_notation_source(uv_id: str) -> Path:
+    """Bron voor kale SVG: ``.mvsa``, anders ``.vsa``, anders ``.mscz``."""
+    found = try_find_notation_source(uv_id)
+    if found is None:
+        base = _uv_base(uv_id)
+        leaf = CATALOGUS.joinpath(*base.split("/"))
+        raise FileNotFoundError(
+            f"geen .mvsa/.vsa/.mscz in {leaf} (pdf.cmd plakt geen catalogus-PDF)"
+        )
+    return found
+
+
+def leaf_has_tekstblad(uv_id: str) -> bool:
+    leaf = CATALOGUS.joinpath(*_uv_base(uv_id).split("/"))
+    if not leaf.is_dir():
+        return False
+    return any(
+        p.is_file()
+        and "tekstblad" in p.name.lower()
+        and p.suffix.lower() == ".md"
+        for p in leaf.iterdir()
+    )
+
+
+def find_tekstblad_pdf(uv_id: str) -> Path | None:
+    leaf = CATALOGUS.joinpath(*_uv_base(uv_id).split("/"))
+    if not leaf.is_dir():
+        return None
+    pdfs = sorted(
+        p
+        for p in leaf.iterdir()
+        if p.is_file()
+        and p.suffix.lower() == ".pdf"
+        and ".tekstblad." in p.name.lower()
+    )
+    return pdfs[0] if pdfs else None
+
+
+def find_tekstblad_md(uv_id: str) -> Path | None:
+    leaf = CATALOGUS.joinpath(*uv_id.split("/"))
+    if not leaf.is_dir():
+        return None
+    mds = sorted(
+        p
+        for p in leaf.iterdir()
+        if p.is_file()
+        and p.suffix.lower() == ".md"
+        and ".tekstblad." in p.name.lower()
+    )
+    return mds[0] if mds else None
+
+
+def _frontmatter_title(path: Path) -> str | None:
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError:
+        return None
+    if not text.lstrip().startswith("---"):
+        return None
+    parts = text.split("---", 2)
+    if len(parts) < 3:
+        return None
+    for line in parts[1].splitlines():
+        stripped = line.strip()
+        if stripped.lower().startswith("title:"):
+            return stripped.split(":", 1)[1].strip().strip("\"'")
+    return None
+
+
+def prose_notes_from_catalogus_md(text: str) -> list[str]:
+    """Gewone alinea’s in de leaf-body (geen shortcodes, geen ``#``-titels)."""
+    body = text
+    if body.lstrip().startswith("---"):
+        parts = body.split("---", 2)
+        if len(parts) >= 3:
+            body = parts[2]
+    notes: list[str] = []
+    for raw in body.splitlines():
+        line = raw.strip()
+        if not line or line.startswith("{{") or line.startswith("#"):
+            continue
+        notes.append(line)
+    return notes
+
+
+def _pagina_pdf_out_path(md_path: Path) -> Path:
+    """Sibling PDF: ``index.md`` → ``index.md.pdf`` (zelfde conventie als tooling)."""
+    return md_path.with_name(md_path.name + ".pdf")
+
+
+def _pagina_translit_pdf_out_path(md_path: Path, modus: str) -> Path:
+    """``index.md`` + ``nls`` → ``index.md.translit-nls.pdf``."""
+    from translit_svg_products import pagina_translit_pdf_path
+
+    return pagina_translit_pdf_path(md_path, modus)
+
+
+@dataclass(frozen=True)
+class PaginaPdfJob:
+    """Wat ``pdf.cmd`` zou moeten bouwen (zonder te exporteren)."""
+
+    md_path: Path
+    out_path: Path
+    deps: tuple[Path, ...]
+
+
+def pagina_pdf_job(md_path: Path) -> PaginaPdfJob | None:
+    """Zelfde selectie als ``build_one`` / batch-OVERGESLAGEN, zonder schrijven.
+
+    ``None`` = geen pagina-PDF verwacht (geen ``bieb``/``muziek``, lege flow,
+    of notatiebron ontbreekt zoals bij SKIP in de batch).
+    ``ValueError`` = kapotte shortcodes (zelfde als ``parse_page_flows``).
+    """
+    md_path = md_path.resolve()
+    out = _pagina_pdf_out_path(md_path)
+    text = md_path.read_text(encoding="utf-8")
+
+    if catalogus_needs_voorzien_pdf(md_path) is not None:
+        return PaginaPdfJob(md_path, out, (md_path,))
+
+    tekstblad_job = resolve_tekstblad_pagina_job(md_path)
+    if tekstblad_job is not None:
+        _leaf_id, tb_md = tekstblad_job
+        return PaginaPdfJob(md_path, out, (md_path, tb_md))
+
+    if not _markdown_has_pagina_music(text):
+        return None
+    flows = parse_page_flows(text)
+    flows = ensure_catalogus_derived_titles(flows, md_path)
+    if not flows:
+        return None
+
+    deps: list[Path] = [md_path]
+    try:
+        for flow in flows:
+            for mid in flow.music_ids:
+                src = find_notation_source(mid)
+                deps.append(src)
+                deps.append(product_svg_path(src))
+    except FileNotFoundError:
+        return None
+    return PaginaPdfJob(md_path, out, tuple(deps))
+
+
+def iter_bladermap_index_md() -> list[Path]:
+    """``index.md`` onder koormappen + catalogus (geen ``_dirvolgorde``)."""
+    out: list[Path] = []
+    for base in (CONTENT / "koormappen", CONTENT / "catalogus"):
+        if not base.is_dir():
+            continue
+        for md in sorted(base.rglob("index.md")):
+            if "_dirvolgorde" in md.as_posix():
+                continue
+            out.append(md.resolve())
+    return out
+
+
+def _pdf_page_content_clip(page: object, *, pad: float = 6.0) -> object:
+    """Inhoudsrechthoek van een PDF-pagina (zonder onderste witruimte)."""
+    import pymupdf
+
+    bbox: object | None = None
+    for block in page.get_text("blocks"):
+        if len(block) < 5:
+            continue
+        if isinstance(block[4], str) and not block[4].strip():
+            continue
+        rect = pymupdf.Rect(block[:4])
+        bbox = rect if bbox is None else (bbox | rect)
+    for drawing in page.get_drawings():
+        rect = drawing.get("rect")
+        if rect is None:
+            continue
+        r = pymupdf.Rect(rect)
+        if r.is_empty or r.is_infinite:
+            continue
+        bbox = r if bbox is None else (bbox | r)
+    if bbox is None:
+        return page.rect
+    clip = pymupdf.Rect(bbox)
+    clip.x0 = max(0.0, clip.x0 - pad)
+    clip.y0 = max(0.0, clip.y0 - pad)
+    clip.x1 = min(page.rect.width, clip.x1 + pad)
+    clip.y1 = min(page.rect.height, clip.y1 + pad)
+    return clip
+
+
+def export_tekstblad_md_pdf(md: Path, dest: Path) -> None:
+    """Render ``.tekstblad.md`` naar PDF via ``markdown pdf`` (``::: vsa-notatie``)."""
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    cmd = [
+        sys.executable,
+        "-m",
+        "vsa.cli_md",
+        "pdf",
+        str(md),
+        "-o",
+        str(dest),
+        "--content-root",
+        str(CONTENT),
+    ]
+    detail(f"  tekstblad-body {md.name}")
+    subprocess.check_call(cmd, cwd=str(ROOT))
+    if not dest.is_file():
+        raise RuntimeError(
+            f"tekstblad-body-PDF ontbreekt na markdown pdf: {dest}"
+        )
+
+
+def compose_tekstblad_pagina_pdf(
+    dest: Path,
+    *,
+    title: str,
+    notes: list[str],
+    tekstblad_md: Path,
+) -> None:
+    """A4: titel + toelichting + body uit ``.tekstblad.md`` (geen product-PDF)."""
+    if not tekstblad_md.is_file():
+        raise FileNotFoundError(f"tekstblad-md ontbreekt: {tekstblad_md}")
+    with tempfile.TemporaryDirectory(prefix="pagina-tekstblad-") as tmp:
+        body = Path(tmp) / "body.pdf"
+        export_tekstblad_md_pdf(tekstblad_md, body)
+        compose_tekstblad_pagina_pdf_from_body(
+            dest, title=title, notes=notes, body_pdf=body
+        )
+
+
+def compose_tekstblad_pagina_pdf_from_body(
+    dest: Path,
+    *,
+    title: str,
+    notes: list[str],
+    body_pdf: Path,
+) -> None:
+    """A4: H1-titel + Markdown-toelichting + getrimde body-PDF-inhoud.
+
+    Titel = zelfde grootte als shortcode ``kop`` groot (pagina-H1).
+    Toelichting uit de koormap/catalogus-Markdown: ``***…***`` → vet+cursief,
+    ``**…**`` → vet, ``*…*`` → cursief (hele regel).
+    """
+    try:
+        import pymupdf
+    except ImportError as exc:
+        raise RuntimeError(
+            "pymupdf ontbreekt; installeer met: python -m pip install pymupdf"
+        ) from exc
+
+    if not body_pdf.is_file():
+        raise FileNotFoundError(f"tekstblad-body-PDF ontbreekt: {body_pdf}")
+
+    font_reg, font_bold = _title_font_files()
+    src = pymupdf.open(body_pdf)
+    try:
+        doc = pymupdf.open()
+        page = doc.new_page(width=_A4_W, height=_A4_H)
+        y = _MARGIN
+        content_w = _A4_W - 2 * _MARGIN
+
+        # H1 / ``kop`` groot — zelfde pt als muziek-pagina-PDF’s.
+        title_pt = _KOP_FONT_PT["groot"]
+        title_h = max(36.0, title_pt * 1.85)
+        title_rect = pymupdf.Rect(_MARGIN, y, _A4_W - _MARGIN, y + title_h)
+        rc = page.insert_textbox(
+            title_rect,
+            title,
+            fontsize=title_pt,
+            fontname="koormap-h1",
+            fontfile=str(font_bold),
+            align=pymupdf.TEXT_ALIGN_CENTER,
+        )
+        if rc < 0:
+            raise RuntimeError(f"pagina-titel past niet: {title!r}")
+        y += title_h + 10.0
+
+        for note in notes:
+            plain, style = _md_inline_plain_and_style(note)
+            if not plain:
+                continue
+            note_font, note_fname = _font_for_md_style(style)
+            note_h = max(36.0, _PROSE_PT * 2.4)
+            note_rect = pymupdf.Rect(_MARGIN, y, _A4_W - _MARGIN, y + note_h)
+            rc = page.insert_textbox(
+                note_rect,
+                plain,
+                fontsize=_PROSE_PT,
+                fontname=note_fname,
+                fontfile=str(note_font),
+                align=pymupdf.TEXT_ALIGN_CENTER,
+            )
+            if rc < 0:
+                # Meer regels: hoger vak
+                note_h = 72.0
+                note_rect = pymupdf.Rect(_MARGIN, y, _A4_W - _MARGIN, y + note_h)
+                rc = page.insert_textbox(
+                    note_rect,
+                    plain,
+                    fontsize=_PROSE_PT,
+                    fontname=note_fname,
+                    fontfile=str(note_font),
+                    align=pymupdf.TEXT_ALIGN_CENTER,
+                )
+                if rc < 0:
+                    raise RuntimeError(f"toelichting past niet: {plain!r}")
+            y += note_h + 8.0
+
+        y += 4.0
+        avail_h = _A4_H - _MARGIN - y
+        if avail_h < 40.0:
+            raise RuntimeError("geen ruimte meer voor tekstblad-inhoud op A4")
+
+        # Eén blad: inhoud van alle bronpagina’s onder elkaar, getrimd.
+        clips: list[tuple[object, object]] = []
+        total_h = 0.0
+        max_w = 0.0
+        for i in range(len(src)):
+            sp = src[i]
+            clip = _pdf_page_content_clip(sp)
+            clips.append((sp, clip))
+            total_h += float(clip.height)
+            max_w = max(max_w, float(clip.width))
+        if total_h <= 0 or max_w <= 0:
+            raise RuntimeError(f"lege tekstblad-body-PDF: {body_pdf}")
+
+        gap = 6.0
+        gaps = gap * max(0, len(clips) - 1)
+        scale = min(content_w / max_w, (avail_h - gaps) / total_h, 1.0)
+        scale = max(0.15, scale)
+
+        for i, (sp, clip) in enumerate(clips):
+            draw_w = float(clip.width) * scale
+            draw_h = float(clip.height) * scale
+            if y + draw_h > _A4_H - _MARGIN + 0.5:
+                raise RuntimeError(
+                    f"tekstblad-inhoud past niet op één A4 na trim "
+                    f"(schaal={scale:.3f}, nodig={draw_h:.1f}pt)"
+                )
+            x0 = _MARGIN + max(0.0, (content_w - draw_w) / 2)
+            dest_rect = pymupdf.Rect(x0, y, x0 + draw_w, y + draw_h)
+            page.show_pdf_page(dest_rect, src, sp.number, clip=clip)
+            y += draw_h
+            if i < len(clips) - 1:
+                y += gap
+
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        tmp = dest.with_suffix(dest.suffix + ".tmp")
+        doc.save(tmp)
+        doc.close()
+        tmp.replace(dest)
+    finally:
+        src.close()
+
+
+def compose_voorzien_pdf(dest: Path, *, title: str) -> None:
+    """A4-placeholder: afgeleide titel + korte «voorzien»-tekst (geen notatie)."""
+    try:
+        import pymupdf
+    except ImportError as exc:
+        raise RuntimeError(
+            "pymupdf ontbreekt; installeer met: python -m pip install pymupdf"
+        ) from exc
+
+    font_reg, _font_bold = _title_font_files()
+    doc = pymupdf.open()
+    page = doc.new_page(width=_A4_W, height=_A4_H)
+    y = _MARGIN
+    title_h = max(28.0, 13.0 * 1.85)
+    rect = pymupdf.Rect(_MARGIN, y, _A4_W - _MARGIN, y + title_h)
+    page.insert_textbox(
+        rect,
+        title,
+        fontsize=13.0,
+        fontname="koormap-kop",
+        fontfile=str(font_reg),
+        align=pymupdf.TEXT_ALIGN_CENTER,
+    )
+    y += title_h + 24.0
+    body = (
+        "Voorzien\n\n"
+        "Er is nog geen partituur voor dit blad. "
+        "Het catalogus-id is gereserveerd."
+    )
+    body_rect = pymupdf.Rect(_MARGIN, y, _A4_W - _MARGIN, _A4_H - _MARGIN)
+    page.insert_textbox(
+        body_rect,
+        body,
+        fontsize=12.0,
+        fontname="koormap-voorzien",
+        fontfile=str(font_reg),
+        align=pymupdf.TEXT_ALIGN_CENTER,
+    )
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    tmp = dest.with_suffix(dest.suffix + ".tmp")
+    doc.save(tmp)
+    doc.close()
+    tmp.replace(dest)
+
+
+def _catalogus_voorzien_title(md_path: Path, leaf_id: str) -> str:
+    from catalogus import derived_leaf_title
+
+    leaf_dir = CATALOGUS.joinpath(*leaf_id.split("/"))
+    return derived_leaf_title(leaf_id, leaf_dir=leaf_dir)
+
+
+def catalogus_needs_voorzien_pdf(md_path: Path) -> str | None:
+    """Als deze catalogus-leaf een voorzien-placeholder mag: leaf-id, anders None.
+
+    Geen notatie (``.vsa``/``.mvsa``/``.mscz``) en geen tekstblad-bron.
+    """
+    leaf_id = catalogus_leaf_id(md_path)
+    if not leaf_id:
+        return None
+    if leaf_has_tekstblad(leaf_id) or find_tekstblad_md(leaf_id):
+        return None
+    if try_find_notation_source(leaf_id) is not None:
+        return None
+    return leaf_id
+
+
+def catalogus_tekstblad_pagina_job(
+    md_path: Path,
+) -> tuple[str, Path] | None:
+    """Leaf-id + ``*.tekstblad.md`` als deze catalogus-leaf een tekstblad-PDF krijgt."""
+    leaf_id = catalogus_leaf_id(md_path)
+    if not leaf_id:
+        return None
+    if try_find_notation_source(leaf_id) is not None:
+        return None
+    tb_md = find_tekstblad_md(leaf_id)
+    if tb_md is None:
+        return None
+    return leaf_id, tb_md
+
+
+def _tekstblad_only_from_bieb_flows(
+    flows: list[PageFlow],
+) -> tuple[str, Path] | None:
+    """Eerste ``bieb``-id die alleen ``.tekstblad.md`` heeft (geen notatiebron).
+
+    Gemengde bladen (notatie + tekstblad, of inline ``::: vsa``) → ``None``
+    zodat het gewone SVG-compose-pad (of skip) geldt.
+    """
+    if any(
+        isinstance(item, InlineVsaItem)
+        for flow in flows
+        for item in flow.items
+    ):
+        return None
+    ordered: list[str] = []
+    seen: set[str] = set()
+    for flow in flows:
+        for mid in flow.music_ids:
+            if mid in seen:
+                continue
+            seen.add(mid)
+            ordered.append(mid)
+    if not ordered:
+        return None
+    first: tuple[str, Path] | None = None
+    for mid in ordered:
+        if try_find_notation_source(mid) is not None:
+            return None
+        tb_md = find_tekstblad_md(mid)
+        if tb_md is None:
+            return None
+        if first is None:
+            first = (mid, tb_md)
+    return first
+
+
+def resolve_tekstblad_pagina_job(
+    md_path: Path,
+) -> tuple[str, Path] | None:
+    """Tekstblad-pagina-PDF: catalogus-leaf of koormap-slot via ``bieb``.
+
+    Zo kan ``pdf.cmd`` ook naast
+    ``koormappen/…/07d-dialoog-met-diaken/index.md`` een ``index.md.pdf``
+    zetten (download/print vanaf de koormap).
+    """
+    cat = catalogus_tekstblad_pagina_job(md_path)
+    if cat is not None:
+        return cat
+    try:
+        text = md_path.read_text(encoding="utf-8")
+    except OSError:
+        return None
+    if "bieb" not in text:
+        return None
+    try:
+        flows = parse_page_flows(text)
+    except ValueError:
+        return None
+    return _tekstblad_only_from_bieb_flows(flows)
+
+
+def _catalogus_tekstblad_pagina_title(leaf_id: str) -> str:
+    md = find_tekstblad_md(leaf_id)
+    if md is not None:
+        hint = _frontmatter_title(md)
+        if hint:
+            return hint
+    from catalogus import derived_leaf_title
+
+    return derived_leaf_title(
+        leaf_id, leaf_dir=CATALOGUS.joinpath(*leaf_id.split("/"))
+    )
+
+
+def _tekstblad_pagina_title(md_path: Path, text: str, leaf_id: str) -> str:
+    """Titel voor tekstblad-``index.md.pdf``: kop op de pagina, anders catalogus."""
+    try:
+        flows = parse_page_flows(text)
+    except ValueError:
+        flows = []
+    for flow in flows:
+        for item in flow.items:
+            if isinstance(item, TitleItem) and item.prominent:
+                return item.text
+    fm = _frontmatter_title(md_path)
+    if fm:
+        return fm
+    return _catalogus_tekstblad_pagina_title(leaf_id)
+
+
+def _svg_page_index(path: Path) -> int:
+    match = re.search(r"-(\d+)\.svg$", path.name, re.IGNORECASE)
+    return int(match.group(1)) if match else 0
+
+
+def stitch_pdfs(sources: list[Path], dest: Path) -> None:
+    try:
+        from pypdf import PdfReader, PdfWriter
+    except ImportError as exc:
+        raise RuntimeError(
+            "pypdf ontbreekt; installeer met: python -m pip install pypdf"
+        ) from exc
+
+    writer = PdfWriter()
+    for src in sources:
+        writer.append(PdfReader(str(src)))
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    tmp = dest.with_suffix(dest.suffix + ".tmp")
+    with tmp.open("wb") as fh:
+        writer.write(fh)
+    tmp.replace(dest)
+
+
+def _vsa_exe() -> str:
+    sibling_vsa = (
+        ROOT.parent / "VSA-tooling" / ".venv" / "Scripts" / "vsa.exe"
+    )
+    if sibling_vsa.is_file():
+        return str(sibling_vsa)
+    which = shutil.which("vsa")
+    if which:
+        return which
+    raise RuntimeError(
+        "vsa niet op PATH. Oplossing: scripts\\_ensure.cmd --vsa-tool "
+        "(sibling ..\\VSA-tooling of pin)."
+    )
+
+
+def _mvsa_cli() -> list[str]:
+    # ``mvsa`` is een apart CLI-entry (mvsa.exe), geen subcommando van ``vsa``.
+    sibling_mvsa = (
+        ROOT.parent / "VSA-tooling" / ".venv" / "Scripts" / "mvsa.exe"
+    )
+    if sibling_mvsa.is_file():
+        return [str(sibling_mvsa)]
+    if shutil.which("mvsa"):
+        return ["mvsa"]
+    raise RuntimeError(
+        "mvsa niet op PATH. Oplossing: scripts\\_ensure.cmd --vsa-tool "
+        "(sibling ..\\VSA-tooling of pin)."
+    )
+
+
+def _mscz_cli() -> list[str]:
+    # ``mscz`` is een apart CLI-entry (mscz.exe); ``mvsa svg`` weigert .mscz.
+    sibling_mscz = (
+        ROOT.parent / "VSA-tooling" / ".venv" / "Scripts" / "mscz.exe"
+    )
+    if sibling_mscz.is_file():
+        return [str(sibling_mscz)]
+    if shutil.which("mscz"):
+        return ["mscz"]
+    raise RuntimeError(
+        "mscz niet op PATH. Oplossing: scripts\\_ensure.cmd --vsa-tool "
+        "(sibling ..\\VSA-tooling of pin)."
+    )
+
+
+def product_svg_path(source: Path, *, sectie: str | None = None) -> Path:
+    """Canonieke sibling-SVG: ``lied.mvsa`` → ``lied.mvsa.svg`` (tall product).
+
+    Met *sectie*: ``lied.mvsa@sectie.svg``.
+    """
+    source = Path(source)
+    if sectie:
+        from catalogus_sectie import product_svg_for_sectie
+
+        return product_svg_for_sectie(source, sectie)
+    return source.with_name(source.name + ".svg")
+
+
+def notation_digest(source: Path) -> str:
+    """Herkomst-hash van de notatiebron (zelfde als product-stempels)."""
+    from product_meta import partituur_sha256, source_sha256
+
+    if source.suffix.lower() == ".mscz":
+        return partituur_sha256(source)
+    return source_sha256(source)
+
+
+def product_svg_stamp_ok(source: Path, svg: Path) -> bool:
+    """True als sibling-SVG bestaat en ``vsa-source-sha256`` bij de bron past."""
+    from product_meta import FIELD_SOURCE_SHA, read_svg_stamp, stamp_sha_from_dict
+
+    if not svg.is_file():
+        return False
+    stamp = read_svg_stamp(svg)
+    got = stamp.get(FIELD_SOURCE_SHA) or stamp_sha_from_dict(stamp)
+    return got == notation_digest(source)
+
+
+def stamp_sibling_svg(source: Path, svg: Path) -> None:
+    """Zet bibliotheek-herkomststempel op een zojuist geëxporteerde sibling-SVG."""
+    from product_meta import (
+        GENERATOR_MSCZ,
+        GENERATOR_MVSA,
+        GENERATOR_VSA_PDF,
+        SOURCE_KIND_MVSA,
+        SOURCE_KIND_PARTITUUR,
+        SOURCE_KIND_VSA,
+        stamp_svg,
+        utc_now_iso,
+    )
+
+    suf = source.suffix.lower()
+    if suf == ".mscz":
+        kind, generator = SOURCE_KIND_PARTITUUR, GENERATOR_MSCZ
+    elif suf == ".vsa":
+        kind, generator = SOURCE_KIND_VSA, GENERATOR_VSA_PDF
+    else:
+        kind, generator = SOURCE_KIND_MVSA, GENERATOR_MVSA
+    stamp_svg(
+        svg,
+        source_hash=notation_digest(source),
+        source_kind=kind,
+        generated_at=utc_now_iso(),
+        generator=generator,
+    )
+
+
+def refresh_svg_products_meta(source: Path, svg_paths: list[Path]) -> None:
+    """Werk products-meta bij na SVG-export/stempel (voorkomt meta_stale-lus)."""
+    if not svg_paths:
+        return
+    from street_meta import assign_svg_keys, write_products_meta
+
+    products: dict[str, Path] = {}
+    assign_svg_keys(products, list(svg_paths))
+    if not products:
+        return
+    drop_keys = {"pdf"}
+    if source.suffix.lower() == ".mscz":
+        drop_keys.add("mscz")
+    write_products_meta(source, products, merge=True, drop_keys=drop_keys)
+
+
+def legacy_bladreeks_svgs(source: Path) -> list[Path]:
+    """Oude A4-bladreeks ``{bronnaam}-N.svg`` naast de bron (tot products regen)."""
+    source = Path(source)
+    return sorted(
+        source.parent.glob(f"{source.name}-*.svg"),
+        key=_svg_page_index,
+    )
+
+
+def export_blad_svgs(
+    source: Path,
+    dest: Path,
+    *,
+    compact: bool = False,
+    section: str | None = None,
+) -> list[Path]:
+    """Lokaal tall-SVG exporteren via street-CLI (ontbrekend of verouderd product).
+
+    ``mvsa``/``mscz`` ``svg`` schrijft één compacte tall-SVG. ``compact`` is
+    optioneel (tooling-default is al compact); blijft voor CLI-compatibiliteit.
+    *section*: alleen ``mvsa`` — ``--section`` naar ``dest`` (``.mvsa@id.svg``).
+    """
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    if dest.exists():
+        dest.unlink()
+    for stale in dest.parent.glob(f"{dest.stem}-*.svg"):
+        stale.unlink(missing_ok=True)
+
+    suffix = source.suffix.lower()
+    if suffix == ".mvsa":
+        cmd = [*_mvsa_cli(), "svg", str(source), "-o", str(dest)]
+        if section:
+            cmd.extend(["--section", section])
+        if compact:
+            cmd.append("--compact")
+        label = (
+            f"SVG (mvsa --section {section}, lokaal)"
+            if section
+            else "SVG (mvsa, lokaal)"
+        )
+    elif suffix == ".mscz":
+        if section:
+            raise RuntimeError(
+                f"SVG-export: --section alleen voor .mvsa, niet {source.name}"
+            )
+        cmd = [*_mscz_cli(), "svg", str(source), "-o", str(dest)]
+        label = "SVG (mscz, lokaal)"
+    elif suffix == ".vsa":
+        if section:
+            raise RuntimeError(
+                f"SVG-export: --section alleen voor .mvsa, niet {source.name}"
+            )
+        cmd = [_vsa_exe(), "svg", str(source), "-o", str(dest)]
+        label = "SVG (vsa, lokaal)"
+    else:
+        raise RuntimeError(f"SVG-export: onverwacht brontype {source.name}")
+
+    detail(f"  {label} {source.name}")
+    subprocess.check_call(cmd, cwd=str(ROOT))
+    if dest.is_file():
+        return [dest]
+    pages = sorted(
+        dest.parent.glob(f"{dest.stem}-*.svg"),
+        key=_svg_page_index,
+    )
+    if pages:
+        return pages
+    raise RuntimeError(f"SVG ontbreekt na export: {dest}")
+
+
+def export_inline_vsa_svg(body: str, dest: Path) -> list[Path]:
+    """Schrijf tijdelijke ``.vsa`` uit een fence-body en exporteer kale SVG."""
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    vsa_path = dest.with_suffix(".vsa")
+    vsa_path.write_text(body.rstrip() + "\n", encoding="utf-8")
+    detail(f"  SVG (inline ::: vsa) → {dest.name}")
+    return export_blad_svgs(vsa_path, dest, compact=False)
+
+
+def _export_product_svg_for_pdf(
+    source: Path,
+    dest: Path,
+    *,
+    compact: bool = False,
+    section: str | None = None,
+) -> list[Path]:
+    """Exporteer sibling-SVG, zet herkomststempel, vernieuw products-meta."""
+    paths = export_blad_svgs(
+        source, dest, compact=compact, section=section
+    )
+    for path in paths:
+        stamp_sibling_svg(source, path)
+    refresh_svg_products_meta(source, paths)
+    return paths
+
+
+def resolve_svgs_for_pdf(
+    source: Path,
+    work: Path | None = None,
+    *,
+    uv_id: str = "",
+    compact: bool = False,
+    translit_modus: str | None = None,
+) -> list[Path]:
+    """Kies SVG voor compose: verse product → legacy bladreeks → lokaal exporteren.
+
+    Met ``translit_modus`` (``nls``/``ksl``/``beide``): translit-sibling als
+    die modus bij de bron hoort (``beide`` = per bron nls of ksl); anders de
+    kale bron-SVG. Ontbrekende of verouderde translit-SVG wordt lokaal
+    geëxporteerd (``vsa``/``mvsa svg --translit-modus``).
+
+    *work* / *uv_id* blijven voor aanroepers; export schrijft de canonieke
+    sibling naast *source* (niet naar een temp-map).
+    """
+    if translit_modus:
+        from translit_svg_products import (
+            MODUS_BEIDE,
+            beide_modus_for_source,
+            export_one_translit_svg,
+            product_translit_svg,
+            translit_modi_for_source,
+        )
+
+        pick = (translit_modus or "").casefold()
+        if pick == MODUS_BEIDE:
+            pick = beide_modus_for_source(source) or ""
+            if not pick:
+                return resolve_svgs_for_pdf(
+                    source, work, uv_id=uv_id, compact=compact, translit_modus=None
+                )
+        modi = translit_modi_for_source(source)
+        if pick not in modi:
+            return resolve_svgs_for_pdf(
+                source, work, uv_id=uv_id, compact=compact, translit_modus=None
+            )
+        tpath = product_translit_svg(source, pick)
+        translit_modus = pick
+        if tpath.is_file() and product_svg_stamp_ok(source, tpath):
+            from input_paths import rel_for_log
+
+            detail(
+                f"  SVG translit-{translit_modus} "
+                f"{rel_for_log(tpath, repo_root=ROOT)}"
+            )
+            return [tpath]
+        reason = "verouderd" if tpath.is_file() else "ontbreekt"
+        detail(
+            f"  translit-SVG {reason} ({tpath.name}); "
+            f"exporteren (--translit-modus {translit_modus})…"
+        )
+        export_one_translit_svg(source, translit_modus)
+        if not tpath.is_file():
+            raise RuntimeError(f"translit-SVG ontbreekt na export: {tpath}")
+        stamp_sibling_svg(source, tpath)
+        refresh_svg_products_meta(source, [tpath])
+        return [tpath]
+
+    sectie = _ref_sectie(uv_id) if uv_id else None
+    product = product_svg_path(source, sectie=sectie)
+    if product.is_file() and product_svg_stamp_ok(source, product):
+        from input_paths import rel_for_log
+
+        detail(f"  SVG product {rel_for_log(product, repo_root=ROOT)}")
+        return [product]
+
+    if product.is_file():
+        detail(
+            f"  SVG-product verouderd ({product.name}); "
+            "lokaal opnieuw exporteren…"
+        )
+        return _export_product_svg_for_pdf(
+            source, product, compact=compact, section=sectie
+        )
+
+    if not sectie:
+        legacy = legacy_bladreeks_svgs(source)
+        if legacy:
+            detail(
+                f"  SVG legacy-bladreeks ({len(legacy)}×) naast {source.name}"
+            )
+            return legacy
+
+    detail(
+        f"  SVG-product ontbreekt ({product.name}); "
+        "lokaal exporteren naar sibling (MuseScore)…"
+    )
+    return _export_product_svg_for_pdf(
+        source, product, compact=compact, section=sectie
+    )
+
+
+def _staff_line_ys(svg_text: str) -> list[float]:
+    """Y-coördinaten van MuseScore ``StaffLines`` (SVG user space)."""
+    ys: list[float] = []
+    for pat in (
+        r'<polyline[^>]*class="StaffLines"[^>]*points="([^"]+)"',
+        r'<polyline[^>]*points="([^"]+)"[^>]*class="StaffLines"',
+    ):
+        for m in re.finditer(pat, svg_text):
+            first = m.group(1).split()[0]
+            ys.append(float(first.split(",")[1]))
+    return sorted({round(y, 2) for y in ys})
+
+
+def _cluster_systems(
+    staff_ys: list[float], *, gap_min: float = _SYSTEM_GAP_MIN
+) -> list[tuple[float, float]]:
+    """Per notenbalk (top, bottom) in SVG-y op basis van staflijn-clusters.
+
+    Vijf staflijnen horen bij één balk. De afstand tussen sopraan en bas
+    van hetzelfde systeem is groter dan ``gap_min``; die groepering doet
+    ``_score_systems`` via de accolade (``Bracket``).
+    """
+    if not staff_ys:
+        return []
+    clusters: list[list[float]] = [[staff_ys[0]]]
+    for y in staff_ys[1:]:
+        if y - clusters[-1][-1] > gap_min:
+            clusters.append([y])
+        else:
+            clusters[-1].append(y)
+    return [(c[0], c[-1]) for c in clusters]
+
+
+_SVG_NUM = r"[-+]?(?:\d*\.\d+|\d+)(?:[eE][-+]?\d+)?"
+_BRACKET_OPEN = re.compile(
+    r'<path\b([^>]*\bclass="[^"]*\bBracket\b[^"]*"[^>]*)>',
+    re.IGNORECASE,
+)
+_MATRIX = re.compile(
+    rf"matrix\(\s*({_SVG_NUM})[,\s]+({_SVG_NUM})[,\s]+({_SVG_NUM})"
+    rf"[,\s]+({_SVG_NUM})[,\s]+({_SVG_NUM})[,\s]+({_SVG_NUM})\s*\)"
+)
+_PATH_TOK = re.compile(rf"[MmLlHhVvCcSsQqTtAaZz]|{_SVG_NUM}")
+
+
+def _path_local_ys(d: str) -> list[float]:
+    """Y-coördinaten uit een SVG-path (lokale ruimte, vóór transform)."""
+    tokens = _PATH_TOK.findall(d)
+    ys: list[float] = []
+    i = 0
+    cmd = "M"
+    cx = cy = 0.0
+
+    def num() -> float:
+        nonlocal i
+        value = float(tokens[i])
+        i += 1
+        return value
+
+    while i < len(tokens):
+        token = tokens[i]
+        if re.fullmatch(r"[MmLlHhVvCcSsQqTtAaZz]", token):
+            cmd = token
+            i += 1
+            if cmd in "Zz":
+                continue
+        rel = cmd.islower()
+        kind = cmd.upper()
+        if kind == "M":
+            x, y = num(), num()
+            if rel:
+                x += cx
+                y += cy
+            cx, cy = x, y
+            ys.append(cy)
+            cmd = "l" if rel else "L"
+        elif kind == "L":
+            x, y = num(), num()
+            if rel:
+                x += cx
+                y += cy
+            cx, cy = x, y
+            ys.append(cy)
+        elif kind == "H":
+            x = num()
+            cx = cx + x if rel else x
+        elif kind == "V":
+            y = num()
+            cy = cy + y if rel else y
+            ys.append(cy)
+        elif kind == "C":
+            x = y = 0.0
+            for _ in range(3):
+                x, y = num(), num()
+                if rel:
+                    x += cx
+                    y += cy
+                ys.append(y)
+            cx, cy = x, y
+        elif kind in {"S", "Q"}:
+            x = y = 0.0
+            for _ in range(2):
+                x, y = num(), num()
+                if rel:
+                    x += cx
+                    y += cy
+                ys.append(y)
+            cx, cy = x, y
+        elif kind == "T":
+            x, y = num(), num()
+            if rel:
+                x += cx
+                y += cy
+            cx, cy = x, y
+            ys.append(cy)
+        elif kind == "A":
+            for _ in range(5):
+                num()
+            x, y = num(), num()
+            if rel:
+                x += cx
+                y += cy
+            cx, cy = x, y
+            ys.append(cy)
+        else:
+            break
+    return ys
+
+
+_BRACKET_POLY = re.compile(
+    r'<polyline\b([^>]*\bclass="[^"]*\bBracket\b[^"]*"[^>]*)>',
+    re.IGNORECASE,
+)
+
+
+def _polyline_bracket_spans(svg_text: str) -> list[tuple[float, float]]:
+    """Verticale balk van de accolade (``polyline class=Bracket``)."""
+    spans: list[tuple[float, float]] = []
+    for match in _BRACKET_POLY.finditer(svg_text):
+        points_m = re.search(r'\bpoints="([^"]+)"', match.group(1))
+        if not points_m:
+            continue
+        ys = [
+            float(pair.split(",")[1])
+            for pair in points_m.group(1).split()
+            if "," in pair
+        ]
+        if ys:
+            spans.append((min(ys), max(ys)))
+    return spans
+
+
+def _bracket_spans(svg_text: str) -> list[tuple[float, float]]:
+    """Verticale span (SVG-y) van elke MuseScore-accolade (``Bracket``).
+
+    De balk is een ``polyline``. Ontbreekt die (alleen een haak-``path``
+    met ``matrix``), dan telt dat path.
+    """
+    bars = _polyline_bracket_spans(svg_text)
+    if bars:
+        return bars
+    spans: list[tuple[float, float]] = []
+    for match in _BRACKET_OPEN.finditer(svg_text):
+        attrs = match.group(1)
+        transform_m = re.search(r'\btransform="([^"]+)"', attrs)
+        path_m = re.search(r'\bd="([^"]*)"', attrs)
+        if not transform_m or not path_m:
+            continue
+        matrix = _MATRIX.search(transform_m.group(1))
+        local_ys = _path_local_ys(path_m.group(1))
+        if not matrix or not local_ys:
+            continue
+        # matrix(a b c d e f): y' = b*x + d*y + f. Accolades hebben b ≈ 0.
+        b = float(matrix.group(2))
+        d_scale = float(matrix.group(4))
+        f = float(matrix.group(6))
+        if abs(b) > 1e-3:
+            continue
+        world = [d_scale * y + f for y in local_ys]
+        spans.append((min(world), max(world)))
+    return spans
+
+
+def _group_staves_by_brackets(
+    staves: list[tuple[float, float]],
+    brackets: list[tuple[float, float]],
+) -> list[tuple[float, float]]:
+    """Voeg notenbalken samen die in dezelfde accolade vallen."""
+    if not brackets:
+        return staves
+    parent = list(range(len(staves)))
+
+    def find(index: int) -> int:
+        while parent[index] != index:
+            parent[index] = parent[parent[index]]
+            index = parent[index]
+        return index
+
+    def union(left: int, right: int) -> None:
+        root_l, root_r = find(left), find(right)
+        if root_l != root_r:
+            parent[root_r] = root_l
+
+    for top, bottom in brackets:
+        lo, hi = (top, bottom) if top <= bottom else (bottom, top)
+        members = [
+            index
+            for index, (staff_top, staff_bottom) in enumerate(staves)
+            if lo - 30.0 <= (staff_top + staff_bottom) / 2.0 <= hi + 30.0
+        ]
+        for other in members[1:]:
+            union(members[0], other)
+    grouped: dict[int, list[int]] = {}
+    for index in range(len(staves)):
+        grouped.setdefault(find(index), []).append(index)
+    systems = [
+        (
+            min(staves[index][0] for index in indexes),
+            max(staves[index][1] for index in indexes),
+        )
+        for indexes in grouped.values()
+    ]
+    systems.sort()
+    return systems
+
+
+_VSA_LINE_OPEN = re.compile(
+    r'<g\b(?=[^>]*\bclass="[^"]*\bvsa-line\b)[^>]*>',
+    re.IGNORECASE,
+)
+_VSA_TRANSLATE_Y = re.compile(
+    r'transform="[^"]*translate\(\s*[-\d.]+[,\s]+([-\d.]+)\s*\)',
+    re.IGNORECASE,
+)
+_VSA_Y_ATTR = re.compile(r'\by[12]?="([-\d.]+)"', re.IGNORECASE)
+
+
+_VSA_TEXT_Y = re.compile(
+    r"<text\b[^>]*\by=\"([-\d.]+)\"",
+    re.IGNORECASE,
+)
+
+
+def _vsa_line_systems(svg_text: str) -> list[tuple[float, float]]:
+    """Per VSA-regel (``vsa-line``) (top, bottom) in SVG-y.
+
+    Pure ``.vsa.svg`` heeft geen MuseScore ``StaffLines``; wel één
+    ``<g class="vsa-line">`` per tekstregel. Snede valt tussen die groepen.
+
+    Alleen ``<text y>`` telt (bron + translit-vorm A). Glyph-paden (EHM/ELM)
+    overlappen vaak in y met de volgende regel; die meenemen gaf negatieve
+    gaps en sneden midden door letters in ``index.md.translit-*.pdf``.
+    """
+    opens = list(_VSA_LINE_OPEN.finditer(svg_text))
+    if not opens:
+        return []
+    systems: list[tuple[float, float]] = []
+    for i, m in enumerate(opens):
+        end = opens[i + 1].start() if i + 1 < len(opens) else len(svg_text)
+        chunk = svg_text[m.start() : end]
+        ty = 0.0
+        tm = _VSA_TRANSLATE_Y.search(m.group(0))
+        if tm:
+            ty = float(tm.group(1))
+        ys = [float(y) + ty for y in _VSA_TEXT_Y.findall(chunk)]
+        if not ys:
+            continue
+        systems.append((min(ys), max(ys)))
+    return systems
+
+
+def _score_systems(svg_text: str) -> list[tuple[float, float]]:
+    """Systeembrenzen voor de pagina-PDF (koormap-paginataal §8a).
+
+    MuseScore: accolade (``Bracket``) om de notenbalken van één systeem.
+    Zonder accolade blijft elke notenbalk een systeem. Pure ``.vsa.svg``
+    (geen ``StaffLines``): elke ``vsa-line`` is een systeem.
+    """
+    staves = _cluster_systems(_staff_line_ys(svg_text))
+    if staves:
+        return _group_staves_by_brackets(staves, _bracket_spans(svg_text))
+    return _vsa_line_systems(svg_text)
+
+
+def system_cut_points_pdf(svg_path: Path, pdf_height: float) -> list[float]:
+    """Y-snijpunten in PDF-coördinaten (na SVG→PDF), tussen systemen.
+
+    Snede ligt midden in de gap tussen systemen (accolade / ``Bracket``,
+    of ``vsa-line``), zodat een pagina nooit midden door een systeem,
+    tussen sopraan en bas van hetzelfde systeem, of door een VSA-regel
+    eindigt. Laatste punt = ``pdf_height``.
+    """
+    text = svg_path.read_text(encoding="utf-8")
+    vb_m = re.search(r'viewBox="([^"]+)"', text)
+    if not vb_m:
+        return [pdf_height]
+    vb = [float(x) for x in vb_m.group(1).split()]
+    min_y, vb_h = vb[1], vb[3]
+    if vb_h <= 0:
+        return [pdf_height]
+
+    def to_pdf(svg_y: float) -> float:
+        return (svg_y - min_y) / vb_h * pdf_height
+
+    systems = _score_systems(text)
+    if not systems:
+        return [pdf_height]
+
+    cuts: list[float] = []
+    for i, (_top, bottom) in enumerate(systems):
+        if i + 1 < len(systems):
+            next_top = systems[i + 1][0]
+            if next_top > bottom:
+                mid = (bottom + next_top) / 2.0
+            else:
+                # Overlap (zeldzaam na tekst-only bands): knip vóór volgende regel.
+                mid = next_top
+        else:
+            mid = min_y + vb_h
+        cuts.append(to_pdf(mid))
+    out = sorted({round(c, 3) for c in cuts if 0 < c <= pdf_height + 1e-6})
+    if not out or out[-1] < pdf_height - 0.5:
+        out.append(pdf_height)
+    else:
+        out[-1] = pdf_height
+    return out
+
+
+def export_compact_svg(mvsa: Path, dest: Path) -> None:
+    """Compat: schrijf compacte SVG (of bladreeks) voor ``dest``."""
+    export_blad_svgs(mvsa, dest, compact=True)
+
+
+def _compose_flow_svg(
+    flow: PageFlow,
+    dest: Path,
+    *,
+    work: Path,
+    translit_modus: str | None = None,
+) -> None:
+    """Zet titel(s) + kale muziek-SVG's op A4.
+
+    SVG bij voorkeur uit catalogus-product (tall); anders legacy bladreeks
+    of lokale street-CLI-export. Met ``translit_modus``: translit-SVG’s
+    (§5a). Zonder ``pdf-bijelkaar``: snijden op systeembrenzen
+    (``StaffLines`` of ``vsa-line``) zodat rest-ruimte na titel/proza
+    gevuld wordt.
+    """
+    try:
+        import pymupdf
+    except ImportError as exc:
+        raise RuntimeError(
+            "pymupdf ontbreekt; installeer met: python -m pip install pymupdf"
+        ) from exc
+
+    svg_series: dict[str, list[Path]] = {}
+    # Documentvolgorde (inclusief herhaalde ids) voor schaal/hoogte-som.
+    music_keys: list[str] = []
+    for item in flow.items:
+        if isinstance(item, MusicItem):
+            key = item.uv_id
+            music_keys.append(key)
+            if key in svg_series:
+                continue
+            source = find_notation_source(item.uv_id)
+            from input_paths import rel_for_log
+
+            detail(f"  bron {rel_for_log(source, repo_root=ROOT)}")
+            svg_series[key] = resolve_svgs_for_pdf(
+                source,
+                work,
+                uv_id=item.uv_id,
+                compact=item.compact,
+                translit_modus=translit_modus,
+            )
+        elif isinstance(item, InlineVsaItem):
+            music_keys.append(item.key)
+            if item.key in svg_series:
+                continue
+            inline_svg = work / f"{item.key}.svg"
+            svg_series[item.key] = export_inline_vsa_svg(item.body, inline_svg)
+
+    # Per blad-SVG een PDF-pagina (afmetingen + systeemsnee)
+    svg_pdfs: dict[str, list[object]] = {}
+    sizes: dict[str, list[tuple[float, float]]] = {}
+    cuts_map: dict[str, list[list[float]]] = {}
+    for key, paths in svg_series.items():
+        docs: list[object] = []
+        dims: list[tuple[float, float]] = []
+        cuts_list: list[list[float]] = []
+        for svg_path in paths:
+            src = open_svg_as_pdf(svg_path)
+            sw, sh = src[0].rect.width, src[0].rect.height
+            if sw <= 0 or sh <= 0:
+                src.close()
+                raise RuntimeError(f"ongeldige SVG-afmeting: {svg_path}")
+            docs.append(src)
+            dims.append((sw, sh))
+            cuts_list.append(system_cut_points_pdf(svg_path, sh))
+        svg_pdfs[key] = docs
+        sizes[key] = dims
+        cuts_map[key] = cuts_list
+        n_cuts = sum(len(c) for c in cuts_list)
+        detail(
+            f"  systeemsnee {key}: {n_cuts} snijpunt(en) "
+            f"over {len(paths)} SVG('s)"
+        )
+
+    try:
+        content_w = _A4_W - 2 * _MARGIN
+        avail = _A4_H - 2 * _MARGIN
+        gap = 4.0  # strak, vergelijkbaar met scan-koormap
+
+        n_text = sum(1 for i in flow.items if isinstance(i, TextItem))
+        space_pts = sum(
+            i.points for i in flow.items if isinstance(i, SpaceItem)
+        )
+        title_h = sum(
+            _KOP_FONT_PT.get(i.size, 15.0) * 1.85 + 4.0
+            for i in flow.items
+            if isinstance(i, TitleItem)
+        )
+        n_items = len(flow.items)
+        n_gaps = max(0, n_items - 1)
+        # Extra gaps tussen bladreeks-pagina's van hetzelfde stuk
+        n_page_gaps = sum(max(0, len(sizes[mid]) - 1) for mid in music_keys)
+        sum_sh = sum(h for mid in music_keys for _, h in sizes[mid])
+        max_sw = max(
+            (w for mid in music_keys for w, _ in sizes[mid]),
+            default=content_w,
+        )
+
+        # Schaal: binnen pdf-bijelkaar (--compact) streven naar één A4
+        # (min breedte/hoogte). Zonder bijelkaar: leesbare breedte-schaal;
+        # tall-SVG mag over meerdere A4 (snede op systeembrenzen).
+        fixed = (
+            title_h
+            + n_text * max(36.0, _PROSE_PT * 2.4)
+            + (n_gaps + n_page_gaps) * gap
+            + space_pts
+        )
+        s_h = ((avail - fixed) / sum_sh) if sum_sh > 1e-6 else 1.0
+        s_w = content_w / max_sw if max_sw > 0 else 1.0
+        if flow.any_compact:
+            scale = max(0.12, min(s_w, s_h))
+        else:
+            scale = max(0.12, min(s_w, 1.0))
+        detail(
+            f"  compose-schaal {scale:.3f} "
+            f"(breedte-max {s_w:.3f}, hoogte-fit {s_h:.3f}"
+            f"{', bijelkaar' if flow.any_compact else ', meerbladig-ok'})"
+        )
+
+        doc = pymupdf.open()
+        page = doc.new_page(width=_A4_W, height=_A4_H)
+        y = _MARGIN
+
+        def new_page() -> None:
+            nonlocal page, y
+            page = doc.new_page(width=_A4_W, height=_A4_H)
+            y = _MARGIN
+
+        font_reg, font_bold = _title_font_files()
+
+        def _draw_lines(
+            text: str,
+            *,
+            fontsize: float,
+            fontfile: Path,
+            fontname: str,
+            align: str,
+            pad: float,
+            bold: bool = False,
+        ) -> None:
+            """Regel-voor-regel ``insert_text`` — geen soft-hyphens van textbox."""
+            nonlocal y
+            # PyMuPDF ``insert_text`` + TrueType mag ASCII-``-`` omzetten naar
+            # soft hyphen (U+00AD → raar teken). En-dash (U+2013) blijft intact
+            # en oogt als een normaal streepje in BY–SA / bibliotheek-id.
+            text = (
+                text.replace("\xad", "")
+                .replace("\u00ad", "")
+                .replace("\u2011", "\u2013")
+                .replace("-", "\u2013")
+            )
+            lines = text.splitlines() or [text]
+            line_h = fontsize * 1.35
+            need = line_h * len(lines) + pad
+            if y + need > _A4_H - _MARGIN and y > _MARGIN + 1:
+                new_page()
+            font = pymupdf.Font(fontfile=str(fontfile))
+            for line in lines:
+                if y + line_h > _A4_H - _MARGIN and y > _MARGIN + 1:
+                    new_page()
+                tw = font.text_length(line, fontsize=fontsize)
+                if align == "rechts":
+                    x = _A4_W - _MARGIN - tw
+                elif align == "midden":
+                    x = max(_MARGIN, (_A4_W - tw) / 2)
+                else:
+                    x = _MARGIN
+                # Baseline iets onder de top van de regel
+                page.insert_text(
+                    (x, y + fontsize),
+                    line,
+                    fontsize=fontsize,
+                    fontname=fontname,
+                    fontfile=str(fontfile),
+                )
+                y += line_h
+            y += pad
+
+        def _place_music_strip(
+            src: object,
+            sw: float,
+            sh: float,
+            cuts: list[float],
+            *,
+            use_cuts: bool,
+        ) -> None:
+            """Plaats één SVG-strip; bij ``use_cuts`` pack op systeembrenzen."""
+            nonlocal y
+            draw_w = sw * scale
+            if not use_cuts or len(cuts) <= 1:
+                draw_h = sh * scale
+                if y + draw_h > _A4_H - _MARGIN and y > _MARGIN + 1:
+                    new_page()
+                x0 = _MARGIN + max(0.0, (content_w - draw_w) / 2)
+                dest_rect = pymupdf.Rect(x0, y, x0 + draw_w, y + draw_h)
+                page.show_pdf_page(dest_rect, src, 0)
+                y += draw_h
+                return
+
+            src_y = 0.0
+            cut_i = 0
+            while src_y < sh - 1e-3 and cut_i < len(cuts):
+                page_avail = _A4_H - _MARGIN - y
+                if page_avail < 36.0 and y > _MARGIN + 1:
+                    new_page()
+                    page_avail = _A4_H - _MARGIN - y
+                max_src = src_y + page_avail / scale
+                chosen: float | None = None
+                j = cut_i
+                while j < len(cuts) and cuts[j] <= max_src + 1e-3:
+                    chosen = cuts[j]
+                    j += 1
+                if chosen is None:
+                    if y > _MARGIN + 1:
+                        new_page()
+                        continue
+                    chosen = cuts[cut_i]
+                    info(
+                        "  WAARSCHUWING: systeem hoger dan rest-A4; "
+                        "alsnog één systeem geplaatst"
+                    )
+                band_h = (chosen - src_y) * scale
+                if band_h > 1e-6:
+                    clip = pymupdf.Rect(0, src_y, sw, chosen)
+                    x0 = _MARGIN + max(0.0, (content_w - draw_w) / 2)
+                    dest_rect = pymupdf.Rect(
+                        x0, y, x0 + draw_w, y + band_h
+                    )
+                    page.show_pdf_page(dest_rect, src, 0, clip=clip)
+                    y += band_h
+                while cut_i < len(cuts) and cuts[cut_i] <= chosen + 1e-6:
+                    cut_i += 1
+                src_y = chosen
+                if src_y < sh - 1e-3 and cut_i < len(cuts):
+                    if (_A4_H - _MARGIN - y) < 36.0:
+                        new_page()
+
+        for idx, item in enumerate(flow.items):
+            if isinstance(item, TitleItem):
+                fontsize = _KOP_FONT_PT.get(item.size, 15.0)
+                pad = 6.0 if item.size == "groot" else 3.0
+                fontfile = font_bold if item.size != "groot" else font_reg
+                fontname = (
+                    "koormap-tussenkop"
+                    if item.size != "groot"
+                    else "koormap-kop"
+                )
+                _draw_lines(
+                    item.text,
+                    fontsize=fontsize,
+                    fontfile=fontfile,
+                    fontname=fontname,
+                    align=item.align,
+                    pad=pad,
+                )
+            elif isinstance(item, TextItem):
+                _draw_lines(
+                    item.text,
+                    fontsize=_PROSE_PT,
+                    fontfile=font_reg,
+                    fontname="koormap-prose",
+                    align="links",
+                    pad=6.0,
+                )
+            elif isinstance(item, SpaceItem):
+                if y + item.points > _A4_H - _MARGIN and y > _MARGIN + 1:
+                    new_page()
+                y += item.points
+            elif isinstance(item, (MusicItem, InlineVsaItem)):
+                key = (
+                    item.uv_id
+                    if isinstance(item, MusicItem)
+                    else item.key
+                )
+                docs = svg_pdfs[key]
+                dims = sizes[key]
+                cut_lists = cuts_map[key]
+                use_cuts = not item.compact
+                for page_i, (src, (sw, sh), cuts) in enumerate(
+                    zip(docs, dims, cut_lists)
+                ):
+                    _place_music_strip(
+                        src, sw, sh, cuts, use_cuts=use_cuts
+                    )
+                    if page_i < len(docs) - 1:
+                        y += gap
+            if idx < n_items - 1:
+                y += gap
+
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        tmp = dest.with_suffix(dest.suffix + ".tmp")
+        doc.save(tmp)
+        doc.close()
+        tmp.replace(dest)
+    finally:
+        for docs in svg_pdfs.values():
+            for src in docs:
+                src.close()
+
+
+def build_one(md_path: Path, *, force: bool = False) -> Path | None:
+    md_path = md_path.resolve()
+    out = _pagina_pdf_out_path(md_path)
+    text = md_path.read_text(encoding="utf-8")
+
+    voorzien_id = catalogus_needs_voorzien_pdf(md_path)
+    if voorzien_id is not None:
+        if out.is_file() and not force:
+            if out.stat().st_mtime >= md_path.stat().st_mtime:
+                return out
+        title = _catalogus_voorzien_title(md_path, voorzien_id)
+        detail(f"  voorzien-placeholder {voorzien_id}")
+        compose_voorzien_pdf(out, title=title)
+        return out
+
+    tekstblad_job = resolve_tekstblad_pagina_job(md_path)
+    if tekstblad_job is not None:
+        leaf_id, tb_md = tekstblad_job
+        deps = [md_path, tb_md]
+        if out.is_file() and not force:
+            newest = max(p.stat().st_mtime for p in deps if p.is_file())
+            if out.stat().st_mtime >= newest:
+                return out
+        title = _tekstblad_pagina_title(md_path, text, leaf_id)
+        notes = prose_notes_from_catalogus_md(text)
+        detail(f"  tekstblad-pagina {leaf_id}")
+        compose_tekstblad_pagina_pdf(
+            out, title=title, notes=notes, tekstblad_md=tb_md
+        )
+        return out
+
+    if not _markdown_has_pagina_music(text):
+        return None
+    try:
+        flows = parse_page_flows(text)
+    except ValueError as exc:
+        raise ValueError(f"{md_path}: {exc}") from exc
+    flows = ensure_catalogus_derived_titles(flows, md_path)
+    if not flows:
+        return None
+
+    # Bronnen + product-SVG’s voor versheid (geen catalogus-PDF).
+    # Inline ::: vsa zit in de Markdown: mtime van index.md dekt die al.
+    deps = [md_path]
+    sources: list[Path] = []
+    for flow in flows:
+        for mid in flow.music_ids:
+            src = find_notation_source(mid)
+            deps.append(src)
+            sources.append(src)
+            deps.append(product_svg_path(src))
+
+    skip_base = False
+    if out.is_file() and not force:
+        svgs_fresh = all(
+            product_svg_stamp_ok(src, product_svg_path(src)) for src in sources
+        )
+        if svgs_fresh:
+            newest = max(p.stat().st_mtime for p in deps if p.is_file())
+            if out.stat().st_mtime >= newest:
+                skip_base = True
+
+    if not skip_base:
+        with tempfile.TemporaryDirectory(prefix="pagina-pdf-") as tmp:
+            work = Path(tmp)
+            parts: list[Path] = []
+            for i, flow in enumerate(flows):
+                if not flow.items:
+                    continue
+                part = work / f"flow-{i}.pdf"
+                _compose_flow_svg(flow, part, work=work / f"svg-{i}")
+                parts.append(part)
+            if not parts:
+                return None
+            if len(parts) == 1:
+                shutil.copy2(parts[0], out)
+            else:
+                stitch_pdfs(parts, out)
+
+    _build_translit_pagina_pdfs(md_path, flows, sources, force=force)
+    return out if out.is_file() else None
+
+
+def _build_translit_pagina_pdfs(
+    md_path: Path,
+    flows: list,
+    sources: list[Path],
+    *,
+    force: bool,
+) -> list[Path]:
+    """Schrijf ``index.md.translit-*.pdf`` waar §5a dat vraagt.
+
+    Bij gemengd blad (Nls én Ksl nodig): ook ``index.md.translit-beide.pdf``,
+    per bron de passende richting (zoals beide knoppen op het scherm).
+    """
+    from translit_svg_products import (
+        MODUS_BEIDE,
+        beide_modus_for_source,
+        page_needs_beide_pdf,
+        page_translit_modi,
+        product_translit_svg,
+        translit_modi_for_source,
+    )
+
+    modi = list(page_translit_modi(sources))
+    if page_needs_beide_pdf(sources):
+        modi.append(MODUS_BEIDE)
+    written: list[Path] = []
+    for modus in modi:
+        dest = _pagina_translit_pdf_out_path(md_path, modus)
+        tdeps: list[Path] = [md_path, *sources]
+        tsvgs: list[tuple[Path, Path]] = []
+        for src in sources:
+            if modus == MODUS_BEIDE:
+                pick = beide_modus_for_source(src)
+                if not pick:
+                    continue
+                tsvg = product_translit_svg(src, pick)
+            elif modus in translit_modi_for_source(src):
+                tsvg = product_translit_svg(src, modus)
+            else:
+                continue
+            tdeps.append(tsvg)
+            tsvgs.append((src, tsvg))
+        if dest.is_file() and not force:
+            tsvgs_fresh = all(
+                product_svg_stamp_ok(src, tsvg) for src, tsvg in tsvgs
+            )
+            if tsvgs_fresh:
+                newest = max(
+                    (p.stat().st_mtime for p in tdeps if p.is_file()),
+                    default=0.0,
+                )
+                if newest and dest.stat().st_mtime >= newest:
+                    written.append(dest)
+                    continue
+        detail(f"  pagina translit-{modus} → {dest.name}")
+        with tempfile.TemporaryDirectory(prefix=f"pagina-pdf-{modus}-") as tmp:
+            work = Path(tmp)
+            parts: list[Path] = []
+            for i, flow in enumerate(flows):
+                if not flow.items:
+                    continue
+                part = work / f"flow-{i}.pdf"
+                _compose_flow_svg(
+                    flow,
+                    part,
+                    work=work / f"svg-{i}",
+                    translit_modus=modus,
+                )
+                parts.append(part)
+            if not parts:
+                continue
+            if len(parts) == 1:
+                shutil.copy2(parts[0], dest)
+            else:
+                stitch_pdfs(parts, dest)
+        written.append(dest)
+        from input_paths import rel_for_log
+
+        info(f"  OK translit {rel_for_log(dest, repo_root=ROOT)}")
+    return written
+
+
+def expand_pagina_md_path(path: Path) -> list[Path]:
+    """Eén ``index.md`` of een map → recursief alle ``index.md``."""
+    from input_paths import InputPathError, collect_cli_sources, resolve_user_path
+
+    try:
+        p = resolve_user_path(path, repo_root=ROOT)
+    except InputPathError as exc:
+        raise SystemExit(str(exc)) from exc
+    if p.is_file():
+        if p.suffix.lower() != ".md":
+            raise SystemExit(f"Verwacht .md-bestand of map; kreeg: {p.name}")
+        return [p.resolve()]
+    try:
+        return [
+            f.resolve()
+            for f in collect_cli_sources(p, suffixes=[".md"], names=["index.md"])
+        ]
+    except InputPathError as exc:
+        raise SystemExit(str(exc)) from exc
+
+
+def iter_targets(explicit: list[Path], all_koormappen: bool) -> list[Path]:
+    """Paden (bestand of map) en/of suiker ``--all-koormappen``."""
+    paths = list(explicit)
+    if all_koormappen:
+        paths.append(CONTENT / "koormappen")
+    if not paths:
+        raise SystemExit(
+            "Geef een .md-pad of map, of gebruik --all-koormappen "
+            "(suiker voor content-source\\koormappen)."
+        )
+    out: list[Path] = []
+    seen: set[Path] = set()
+    for raw in paths:
+        for md in expand_pagina_md_path(raw):
+            if md in seen:
+                continue
+            seen.add(md)
+            out.append(md)
+    return out
+
+
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(
+        description=(
+            "Bouw index.md.pdf (+ optioneel index.md.translit-nls.pdf / "
+            "index.md.translit-ksl.pdf) uit kale blad-SVG's + Markdown-koppen "
+            "(pdf-bijelkaar → --compact). Pad = één .md of een map "
+            "(recursief index.md)."
+        )
+    )
+    ap.add_argument(
+        "paths",
+        nargs="*",
+        type=Path,
+        help=(
+            "Pad(en) naar index.md of map(pen) met index.md eronder. "
+            "Korte paden: t.o.v. content-source, catalogus of koormappen."
+        ),
+    )
+    ap.add_argument(
+        "--all-koormappen",
+        action="store_true",
+        help="Suiker: zelfde als pad content-source\\koormappen",
+    )
+    ap.add_argument(
+        "--force",
+        action="store_true",
+        help="Overschrijf ook als de PDF nieuwer lijkt dan de bronnen",
+    )
+    from batch_guard import SKIP, add_yes_argument, run_timed_batch
+
+    add_verbose_argument(ap)
+    # Geaccepteerd voor fix/products (-y doorgeven); pdf vraagt zelf geen bevestiging.
+    add_yes_argument(ap)
+    args = ap.parse_args(argv)
+    set_verbose(bool(args.verbose))
+
+    targets = iter_targets(args.paths, args.all_koormappen)
+    kind = "pagina_pdf"
+    section(f"=== pdf: {len(targets)}x index.md ===")
+    count(len(targets), "pagina's", role="info")
+    note(
+        f"--force={'ja' if args.force else 'nee (sla over als PDF nieuwer lijkt)'}"
+    )
+
+    failed_paths: list[str] = []
+
+    def _one(md: Path) -> int:
+        if not md.is_file():
+            refuse(f"SKIP  bestaat niet: {md}")
+            return SKIP
+        try:
+            out = build_one(md, force=args.force)
+        except FileNotFoundError as exc:
+            msg = str(exc)
+            # Leaf zonder notatiebron (voorzien / tekstblad): geen harde fout
+            if "geen .mvsa/.vsa/.mscz" in msg or "plakt geen catalogus-PDF" in msg:
+                refuse(f"SKIP  {exc}")
+                return SKIP
+            hard(f"FOUT  {exc}")
+            from input_paths import rel_for_log
+
+            failed_paths.append(rel_for_log(md, repo_root=ROOT))
+            return 1
+        except (
+            ValueError,
+            RuntimeError,
+            subprocess.CalledProcessError,
+        ) as exc:
+            hard(f"FOUT  {exc}")
+            from input_paths import rel_for_log
+
+            failed_paths.append(rel_for_log(md, repo_root=ROOT))
+            return 1
+        if out is None:
+            return SKIP
+        from input_paths import rel_for_log
+
+        detail(
+            f"OK {rel_for_log(out, repo_root=ROOT)} "
+            f"({rel_for_log(md, repo_root=ROOT)})"
+        )
+        return 0
+
+    from input_paths import rel_for_log as _rel_log
+
+    written, failed, skipped = run_timed_batch(
+        kind,
+        targets,
+        _one,
+        label=lambda p: _rel_log(p, repo_root=ROOT),
+    )
+    if failed_paths:
+        hard("Mislukt:")
+        for p in failed_paths:
+            hard(f"  {p}")
+    count(written, "pdf-geschreven", role="ok")
+    count(skipped, "overgeslagen", role="refuse" if skipped else "info")
+    count(failed, "mislukt", role="hard" if failed else "info")
+    if failed:
+        hard("pdf klaar met fouten")
+    else:
+        ok("OK  pdf")
+    return 1 if failed else 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

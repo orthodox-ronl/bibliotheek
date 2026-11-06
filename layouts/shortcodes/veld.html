@@ -1,0 +1,18 @@
+{{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}
+{{- $id := partial "bieb-context-id.html" . -}}
+{{- if not $id -}}
+  {{- errorf "%s: shortcode veld vereist een ouder-bieb-blok (of gebruik {{</* bieb id=\"…\" veld \"pad\" */>}})." $loc -}}
+{{- end -}}
+{{- $pad := strings.TrimSpace (.Get 0 | default "") -}}
+{{- if not $pad -}}
+  {{- $pad = strings.TrimSpace (.Get "pad" | default "") -}}
+{{- end -}}
+{{- if not $pad -}}
+  {{- errorf "%s: shortcode veld mist het pad. Oplossing: {{</* veld \"bron.uitgangspunt\" */>}}." $loc -}}
+{{- end -}}
+{{- $id = partial "catalogus-canonical-id.html" $id -}}
+{{- $p := partial "bieb-resolve-page.html" $id -}}
+{{- if not $p -}}
+  {{- errorf "%s: shortcode veld: geen bibliotheek-pagina voor id %q." $loc $id -}}
+{{- end -}}
+{{- partial "bieb-onderdeel.html" (dict "score" $p "onderdeel" "veld" "veld" $pad "viewer" .Page "position" .Position) -}}

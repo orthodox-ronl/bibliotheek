@@ -1,0 +1,226 @@
+"""Publish Coria scores as /mxl/c/<md5>.musicxml (uncompressed XML).
+
+Coria play_from_url rejects URLs that do not end in .xml/.mxl/.musicxml
+(query strings) and cannot fetch GitHub paths with spaces. A single ASCII
+filename under /mxl/c/ avoids that; the hash changes when bytes change.
+
+Coria haalt het bestand server-side op. Fetch-root staat in
+``data/coria-public-base.json`` (``base`` = github.io; geen
+``raw.githubusercontent.com`` — Coria-dev: GitHub behandelt die fetches als
+scraping en cachet mislukte URL's permanent). ``probe_coria_fetch.py``
+controleert of Coria de pages-host nog slikte.
+
+Bronnen:
+- content-source/**/*.mxl (niet input/) — page-bundle Coria-.mxl
+- static/mxl/** (legacy/extra, niet static/mxl/c/)
+- static/vsa/mxl/** (later: vsa musicxml)
+"""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import os
+import re
+import shutil
+import subprocess
+import zipfile
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+DATA_FILE = REPO_ROOT / "data" / "coria-fp.json"
+PUBLIC_BASE_FILE = REPO_ROOT / "data" / "coria-public-base.json"
+DEST_ROOT = REPO_ROOT / "static" / "mxl" / "c"
+CONTENT_SOURCE = REPO_ROOT / "content-source"
+URL_PREFIX = "mxl/c"
+SUFFIXES = {".mxl", ".musicxml"}
+SOURCE_TREES = (
+    (REPO_ROOT / "static" / "mxl", "mxl"),
+    (REPO_ROOT / "static" / "vsa" / "mxl", "vsa/mxl"),
+)
+
+# Keep in sync with .github/workflows/pages.yml (Determine deploy target).
+PAGES_ROOT = "https://orthodox-ronl.github.io/bibliotheek"
+RESERVED_SLUGS = frozenset(
+    {
+        "preview",
+        "main",
+        "gh-pages",
+        "development",
+        "bibliotheek",
+        "catalogus",
+        "overzichten",
+        "koormappen",
+        "handleiding",
+        "coria",
+        "css",
+        "images",
+        "js",
+        "mxl",
+        "vsa",
+        "input",
+    }
+)
+
+
+def _pages_subdir(branch: str) -> str:
+    """Map onder gh-pages / github.io voor deze git-branch (leeg = site-root)."""
+    branch = (branch or "").strip()
+    if branch == "main":
+        return ""
+    if branch == "development":
+        return "preview"
+    slug = re.sub(r"[^a-z0-9_-]+", "-", branch.lower())
+    slug = re.sub(r"-+", "-", slug).strip("-")
+    if not slug:
+        raise ValueError(f"Branchnaam {branch!r} levert geen URL-slug op.")
+    if slug in RESERVED_SLUGS:
+        slug = f"b-{slug}"
+    return slug
+
+
+def _join_root(root: str, subdir: str) -> str:
+    root = root.rstrip("/")
+    if subdir:
+        return f"{root}/{subdir}/"
+    return f"{root}/"
+
+
+def github_pages_base_url(branch: str) -> str:
+    return _join_root(PAGES_ROOT, _pages_subdir(branch))
+
+
+def coria_fetch_base_url(branch: str) -> str:
+    """Publieke Coria-fetch-root: altijd github.io (niet raw.githubusercontent)."""
+    return github_pages_base_url(branch)
+
+
+def detect_git_branch() -> str:
+    head_ref = os.environ.get("GITHUB_HEAD_REF", "").strip()
+    if head_ref:
+        return head_ref
+    ref = os.environ.get("GITHUB_REF", "").strip()
+    if ref.startswith("refs/heads/"):
+        return ref[len("refs/heads/") :]
+    result = subprocess.run(
+        ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    branch = (result.stdout or "").strip()
+    if result.returncode == 0 and branch and branch != "HEAD":
+        return branch
+    raise SystemExit(
+        "FAIL: git-branch onbekend; Coria-public-base kan niet bepaald worden."
+    )
+
+
+def write_public_base(branch: str | None = None) -> str:
+    """Schrijf provisional github.io-base; probe vult probed_at/results."""
+    br = branch or detect_git_branch()
+    base = coria_fetch_base_url(br)
+    from cli_style import atomic_write_json
+
+    atomic_write_json(
+        PUBLIC_BASE_FILE,
+        {
+            "base": base,
+            "alternate": "",
+            "probed_at": None,
+            "canary": None,
+            "canaries": [],
+            "results": {"pages": "skipped"},
+            "sample_results": {},
+        },
+    )
+    return base
+
+
+def _fingerprint(data: bytes) -> str:
+    return hashlib.md5(data).hexdigest()[:12]
+
+
+def _payload_for_coria(path: Path) -> bytes:
+    if path.suffix.lower() != ".mxl":
+        return path.read_bytes()
+    try:
+        with zipfile.ZipFile(path) as z:
+            names = [
+                n
+                for n in z.namelist()
+                if n.endswith((".xml", ".musicxml")) and not n.startswith("META")
+            ]
+            if not names:
+                raise ValueError(f"geen MusicXML in {path}")
+            return z.read(names[0])
+    except zipfile.BadZipFile:
+        return path.read_bytes()
+
+
+def _iter_source_files() -> list[tuple[str, Path]]:
+    files: list[tuple[str, Path]] = []
+    seen_keys: set[str] = set()
+
+    def add(key: str, path: Path) -> None:
+        if key in seen_keys:
+            return
+        seen_keys.add(key)
+        files.append((key, path))
+
+    if CONTENT_SOURCE.is_dir():
+        for path in sorted(CONTENT_SOURCE.rglob("*")):
+            if not path.is_file() or path.suffix.lower() not in SUFFIXES:
+                continue
+            relative = path.relative_to(CONTENT_SOURCE)
+            if "input" in relative.parts:
+                continue
+            key = f"mxl/{relative.as_posix()}".replace("/", "__")
+            add(key, path)
+
+    for root, prefix in SOURCE_TREES:
+        if not root.is_dir():
+            continue
+        for path in sorted(root.rglob("*")):
+            if not path.is_file() or path.suffix.lower() not in SUFFIXES:
+                continue
+            relative = path.relative_to(root)
+            if relative.parts and relative.parts[0] == "c":
+                continue
+            key = f"{prefix}/{relative.as_posix()}".replace("/", "__")
+            add(key, path)
+
+    return files
+
+
+def main() -> int:
+    if DEST_ROOT.exists():
+        shutil.rmtree(DEST_ROOT)
+    DEST_ROOT.mkdir(parents=True, exist_ok=True)
+
+    mapping: dict[str, str] = {}
+    for key, path in _iter_source_files():
+        payload = _payload_for_coria(path)
+        fp = _fingerprint(payload)
+        target = DEST_ROOT / f"{fp}.musicxml"
+        if not target.exists():
+            from cli_style import atomic_write_bytes
+
+            atomic_write_bytes(target, payload)
+        mapping[key] = f"{URL_PREFIX}/{fp}.musicxml"
+
+    from cli_style import atomic_write_json
+
+    atomic_write_json(DATA_FILE, mapping, sort_keys=True)
+    public_base = write_public_base()
+    print(
+        f"Coria MusicXML fingerprints: {len(mapping)} bestand(en); "
+        f"provisional public base {public_base}",
+        flush=True,
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

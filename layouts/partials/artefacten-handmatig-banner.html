@@ -1,0 +1,30 @@
+{{/*
+  Beheerdersmelding als manueel: true of manual: true op deze bibliotheekpagina
+  (of op het bieb-doel vanaf een koormap-slot).
+*/}}
+{{- $bladermap := or (eq .Section "catalogus") (eq .Section "koormappen") -}}
+{{- if $bladermap -}}
+{{- $page := . -}}
+{{- with findRE `\bbieb\s+id="([^"]+)"` .RawContent 1 -}}
+  {{- $m := index . 0 -}}
+  {{- $id := replaceRE `.*id="([^"]+)".*` `$1` $m -}}
+  {{- $id = partial "catalogus-canonical-id.html" $id -}}
+  {{- with site.GetPage (printf "/catalogus/%s" $id) -}}
+    {{- $page = . -}}
+  {{- end -}}
+{{- end -}}
+{{- $handmatig := false -}}
+{{- if or (eq $page.Params.manueel true) (eq $page.Params.manueel "true") (eq $page.Params.manual true) (eq $page.Params.manual "true") -}}
+  {{- $handmatig = true -}}
+{{- end -}}
+{{- if and $handmatig (eq $.Section "catalogus") -}}
+<aside class="artefacten-handmatig-banner" role="status">
+  <p class="artefacten-handmatig-banner-title">Manuele artefacten</p>
+  <p>PDF, Coria-<code>.mxl</code> en andere afgeleiden in deze map worden
+    <strong>niet</strong> automatisch bijgewerkt door de product-pipeline.
+    Bij wijziging van de bron (<code>.mscz</code>, <code>.vsa</code>, …)
+    moet de beheerder de afgeleiden zelf meenemen. Frontmatter:
+    <code>manueel: true</code> of <code>manual: true</code>.</p>
+</aside>
+{{- end -}}
+{{- end -}}

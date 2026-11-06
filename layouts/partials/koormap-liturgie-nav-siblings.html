@@ -1,0 +1,21 @@
+{{- /*
+  Sibling-pagina’s/secties van . (zelfde parent), op weight.
+  Inclusief secties én blad-pagina’s; slaat vsa_nav_exclude over.
+*/ -}}
+{{- $items := slice -}}
+{{- with .Parent -}}
+  {{- range .Sections -}}
+    {{- if not .Params.vsa_nav_exclude -}}
+      {{- $items = $items | append . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- range .RegularPages -}}
+    {{- if not .Params.vsa_nav_exclude -}}
+      {{- $items = $items | append . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if $items -}}
+    {{- $items = sort $items "Weight" "asc" -}}
+  {{- end -}}
+{{- end -}}
+{{- return $items -}}

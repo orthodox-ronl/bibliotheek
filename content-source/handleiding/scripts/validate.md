@@ -1,0 +1,56 @@
+---
+title: "validate"
+linkTitle: "validate"
+weight: 15
+---
+
+# NAME
+
+`scripts\validate.cmd` — controleer of catalogus-`.vsa` (en eventueel
+`.mvsa`) geldig is volgens de `vsa`-/`mvsa`-CLI
+
+# SYNOPSIS
+
+```cmd
+validate
+validate tropaar
+validate catalogus\tropaar
+```
+
+Of: `scripts\validate.cmd` vanuit de repo-root. Zonder argument valideert
+het script de map `content-source\catalogus`. Korte paden mogen — zie
+[bestand of map](../invoer-bestand-of-map/).
+
+# DESCRIPTION
+
+Zet eerst `vsa-tool` klaar (`scripts\_ensure.cmd --vsa-tool`), lost het
+pad op (zelfde zoekvolgorde als products/pdf), en roept daarna de
+gepubliceerde CLI aan:
+
+1. `vsa validate` op het gekozen pad (standaard de hele catalogus-map)
+2. Als er onder dat pad minstens één `.mvsa` staat: ook `mvsa validate`
+   (inclusief import-siblings `*.mscz.mvsa`)
+
+Het script kopieert geen validatielogica uit VSA-tooling; het geeft alleen
+het (opgeloste) pad door. Ruwe dumps onder `content-source\input` horen
+niet bij deze preflight — die map is geen publicatiebron.
+
+# EXAMPLES
+
+```cmd
+cd /d C:\Git\orthodox-ronl\bibliotheek
+validate
+validate tweede-antifoon\weekdagen\hemelum
+```
+
+# WHEN
+
+Los vóór je een `.vsa` commit, of via `check` (die `validate` eerst
+aanroept). Op GitHub Actions draait dezelfde `vsa validate`-stap in de
+Pages-workflow vóór de Hugo-build.
+
+# SEE ALSO
+
+- [check](../check/)
+- [VSA schrijven](/handleiding/vsa/1-vsa-schrijven/)
+- CLI: https://orthodox-ronl.github.io/VSA-tooling/reference/cli/

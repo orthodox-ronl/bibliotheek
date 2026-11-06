@@ -1,0 +1,286 @@
+"""Controleer basispartituur-``.mscz`` vs sibling MXL/SVG (partituur-sha).
+
+Doelvorm: ``{stam}.mscz.mxl`` / ``{stam}.mscz.svg``. Legacy ``{stam}.mxl``
+(en ``.partituur.mxl``) nog toegestaan tot migratie. Product-``.mscz.pdf``
+niet meer verplicht (blad = ``index.md.pdf``).
+
+Schrijft ``data/mscz-product-status.json``. Exit 1 bij problemen tenzij
+``--warn-only``.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import sys
+from dataclasses import asdict, dataclass
+from pathlib import Path
+
+from product_meta import (
+    FIELD_GENERATED_AT,
+    FIELD_SOURCE_SHA,
+    partituur_sha256,
+    read_mxl_stamp,
+    read_svg_stamp,
+    stamp_sha_from_dict,
+)
+from fix_cmds import products_fix_cmd
+from street_meta import issues_from_meta_or
+from sync_mscz_products import (
+    DEFAULT_ROOT,
+    collect_mscz,
+    legacy_mxl_for_mscz,
+    mscz_svg_outputs,
+    product_mxl_for_mscz,
+    product_svg_for_mscz,
+)
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+STATUS_PATH = REPO_ROOT / "data" / "mscz-product-status.json"
+FIX_PAGE = "/handleiding/partituur/5-pdf-en-coria/"
+
+
+@dataclass
+class Issue:
+    kind: str
+    file: str
+    detail: str
+
+
+@dataclass
+class FolderStatus:
+    dir: str
+    mscz: str
+    ok: bool
+    issues: list[Issue]
+    fix_cmd: str
+
+
+def _rel(path: Path) -> str:
+    from input_paths import rel_for_log
+
+    return rel_for_log(path, repo_root=REPO_ROOT)
+
+
+def _bladermap_key(mscz: Path) -> str:
+    from input_paths import rel_for_log
+
+    return rel_for_log(mscz.parent, repo_root=REPO_ROOT)
+
+
+def _resolve_product(canonical: Path, *legacy: Path) -> Path | None:
+    if canonical.is_file():
+        return canonical
+    for path in legacy:
+        if path.is_file():
+            return path
+    return None
+
+
+def _stamp_issues(mscz: Path, digest: str) -> list[Issue]:
+    issues: list[Issue] = []
+    mxl_canon = product_mxl_for_mscz(mscz)
+    mxl = _resolve_product(
+        mxl_canon,
+        legacy_mxl_for_mscz(mscz),
+        mscz.with_suffix(".partituur.mxl"),
+    )
+    if mxl is None:
+        issues.append(
+            Issue(
+                "missing_mxl",
+                _rel(mxl_canon),
+                "Coria-.mxl ontbreekt naast de basispartituur-.mscz",
+            )
+        )
+    else:
+        stamp = read_mxl_stamp(mxl)
+        got = stamp_sha_from_dict(stamp)
+        if not got:
+            issues.append(
+                Issue(
+                    "unstamped_mxl",
+                    _rel(mxl),
+                    "MXL heeft geen vsa-partituur-sha256 (opnieuw genereren)",
+                )
+            )
+        elif got != digest:
+            when = stamp.get(FIELD_GENERATED_AT, "?")
+            issues.append(
+                Issue(
+                    "stale_mxl",
+                    _rel(mxl),
+                    f"MXL-partituur-hash wijkt af (gegenereerd {when}); "
+                    f"basispartituur is gewijzigd",
+                )
+            )
+
+    svg_canon = product_svg_for_mscz(mscz)
+    svg_outs = mscz_svg_outputs(mscz)
+    if not svg_outs:
+        issues.append(
+            Issue(
+                "missing_svg",
+                _rel(svg_canon),
+                "Scherm-.mscz.svg ontbreekt naast de basispartituur-.mscz",
+            )
+        )
+    else:
+        for svg in svg_outs:
+            stamp = read_svg_stamp(svg)
+            got = stamp.get(FIELD_SOURCE_SHA) or stamp_sha_from_dict(stamp)
+            if not got:
+                issues.append(
+                    Issue(
+                        "unstamped_svg",
+                        _rel(svg),
+                        "SVG heeft geen vsa-source-sha256 (opnieuw genereren)",
+                    )
+                )
+            elif got != digest:
+                when = stamp.get(FIELD_GENERATED_AT, "?")
+                issues.append(
+                    Issue(
+                        "stale_svg",
+                        _rel(svg),
+                        f"SVG-partituur-hash wijkt af (gegenereerd {when}); "
+                        f"basispartituur is gewijzigd",
+                    )
+                )
+    return issues
+
+
+def _mscz_meta_keys(mscz: Path) -> set[str]:
+    """Zelfde keys als ``sync_mscz_products`` (geen verplichte product-PDF)."""
+    svg_outs = mscz_svg_outputs(mscz)
+    if len(svg_outs) <= 1:
+        return {"mxl", "svg"}
+    return {"mxl", "svg-1"}
+
+
+def check_one(mscz: Path) -> FolderStatus:
+    digest = partituur_sha256(mscz)
+    fix = products_fix_cmd("mscz", mscz)
+    # Verwijder verouderde ``pdf``-key uit meta (geen verplicht .mscz.pdf meer).
+    from vsa.products_meta import strip_retired_product_keys
+
+    strip_retired_product_keys(mscz)
+    # Alleen mxl/svg: verouderde meta-keys mogen niet eindeloos meta_missing
+    # blijven triggeren na products --kinds mscz.
+    issues = issues_from_meta_or(
+        mscz,
+        required_keys=_mscz_meta_keys(mscz),
+        rel=_rel,
+        stamp_issues=lambda: _stamp_issues(mscz, digest),
+        issue_cls=Issue,
+    )
+    return FolderStatus(
+        dir=_bladermap_key(mscz),
+        mscz=_rel(mscz),
+        ok=not issues,
+        issues=issues,
+        fix_cmd=fix,
+    )
+
+
+def collect_statuses(root: Path) -> list[FolderStatus]:
+    by_dir: dict[str, FolderStatus] = {}
+    for mscz in collect_mscz(root):
+        status = check_one(mscz)
+        prev = by_dir.get(status.dir)
+        if prev is None:
+            by_dir[status.dir] = status
+            continue
+        merged = list(prev.issues) + list(status.issues)
+        by_dir[status.dir] = FolderStatus(
+            dir=status.dir,
+            mscz=prev.mscz + "; " + status.mscz,
+            ok=not merged,
+            issues=merged,
+            fix_cmd=status.fix_cmd,
+        )
+    return sorted(by_dir.values(), key=lambda s: s.dir)
+
+
+def write_status_json(statuses: list[FolderStatus], path: Path = STATUS_PATH) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "fix_page": FIX_PAGE,
+        "folders": {
+            s.dir: {
+                "mscz": s.mscz,
+                "ok": s.ok,
+                "fix_cmd": s.fix_cmd,
+                "issues": [asdict(i) for i in s.issues],
+            }
+            for s in statuses
+        },
+    }
+    from cli_style import atomic_write_json
+
+    atomic_write_json(path, payload, ensure_ascii=False)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "root",
+        nargs="?",
+        type=Path,
+        default=DEFAULT_ROOT,
+        help="Zoekroot (default: content-source/catalogus)",
+    )
+    parser.add_argument(
+        "--warn-only",
+        action="store_true",
+        help="Schrijf status-JSON maar exit altijd 0",
+    )
+    parser.add_argument(
+        "--fail",
+        action="store_true",
+        help="Non-zero bij problemen (CI / --strict)",
+    )
+    args = parser.parse_args()
+    root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
+    statuses = collect_statuses(root)
+    write_status_json(statuses)
+    bad = [s for s in statuses if not s.ok]
+    from check_report import print_check_findings
+
+    print_check_findings(
+        headline=(
+            f"MSCZ-producten: {len(statuses) - len(bad)} ok, {len(bad)} probleem "
+            f"({_rel(STATUS_PATH)})"
+        ),
+        what="Controle: of .mscz-afgeleiden (mxl/svg/…) bij de bron passen",
+        bad=bad,
+        fix_page=FIX_PAGE,
+    )
+
+    if not bad:
+        return 0
+    if args.warn_only:
+        return 0
+    if args.fail:
+        return 1
+    ref = (
+        os.environ.get("GITHUB_REF", "")
+        or os.environ.get("GITHUB_REF_NAME", "")
+        or ""
+    )
+    if ref in {"main", "refs/heads/main"}:
+        return 1
+    if os.environ.get("BIBLIOTHEEK_PRODUCTS_STRICT", "").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+    }:
+        return 1
+    if os.environ.get("GITHUB_ACTIONS", "").strip().lower() == "true":
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

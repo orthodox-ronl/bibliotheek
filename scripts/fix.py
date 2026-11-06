@@ -1,0 +1,277 @@
+"""Afwerklijst uit check: tonen (--dry-run) of uitvoeren (fix_cmd per regel).
+
+Met ``--check`` eerst ``check --strict`` (lijst vernieuwen); problemen
+(exit 1) zijn verwacht. Harde check-fout (validate/tooling) stopt fix.
+"""
+
+from __future__ import annotations
+
+import argparse
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+from batch_guard import add_yes_argument, confirm_batch
+from check_fixlist import (
+    FIXLIST_PATH,
+    FixItem,
+    load_fixlist,
+    print_fixlist,
+    save_fixlist,
+    write_fixlist,
+)
+from cli_style import (
+    add_verbose_argument,
+    count,
+    detail,
+    error,
+    hard,
+    info,
+    ok,
+    refuse,
+    run_quiet,
+    section,
+    set_verbose,
+    work,
+)
+from fix_cmds import is_products_fix_cmd
+from input_paths import rel_for_log
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+CHECK_CMD = REPO_ROOT / "scripts" / "check.cmd"
+
+
+def _fixlist_mtime() -> float:
+    try:
+        return FIXLIST_PATH.stat().st_mtime
+    except OSError:
+        return 0.0
+
+
+def _run_check_strict(*, verbose: bool) -> int:
+    """Run check --strict. Return process exit code."""
+    cmd = ["cmd", "/c", str(CHECK_CMD), "--strict"]
+    section("=== fix: check --strict (fixlist vernieuwen) ===")
+    proc = subprocess.run(
+        cmd,
+        cwd=str(REPO_ROOT),
+        check=False,
+    )
+    if verbose:
+        detail(f"check --strict exit={proc.returncode}")
+    return int(proc.returncode)
+
+
+def _check_failed_before_fixlist(code: int, *, mtime_before: float) -> bool:
+    """True als check stopte vóór een verse fixlist (validate/tooling/…).
+
+    Exit 0/1 mét nieuwere fixlist = ok (0 groen, 1 productproblemen).
+    Exit ≥2, of fixlist niet vernieuwd → niet afwerken.
+    """
+    if code >= 2:
+        return True
+    return _fixlist_mtime() <= mtime_before
+
+
+def _refresh_fixlist_from_status() -> list[FixItem]:
+    items = write_fixlist()
+    count(len(items), "fixlist-items", role="work" if items else "ok")
+    detail(rel_for_log(FIXLIST_PATH, repo_root=REPO_ROOT))
+    return items
+
+
+def _ensure_yes_flag(fix_cmd: str) -> str:
+    """Voeg ``-y`` toe zodat kind-scripts niet opnieuw om bevestiging vragen."""
+    text = (fix_cmd or "").strip()
+    if not text:
+        return text
+    tokens = text.split()
+    if "-y" in tokens or "--yes" in tokens:
+        return text
+    return f"{text} -y"
+
+
+def _run_fix_cmd(fix_cmd: str, *, verbose: bool) -> int:
+    # Parent (fix) heeft al bevestigd: kind-batches stil door (-y).
+    cmd = _ensure_yes_flag(fix_cmd)
+    if verbose:
+        proc = subprocess.run(
+            ["cmd", "/c", cmd],
+            cwd=str(REPO_ROOT),
+            check=False,
+        )
+        info(f"exit={proc.returncode} <- {cmd}")
+        return int(proc.returncode)
+    proc = subprocess.run(
+        ["cmd", "/c", cmd],
+        cwd=str(REPO_ROOT),
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
+    if proc.returncode != 0:
+        error(f"FAILED exit={proc.returncode}")
+        out = (proc.stdout or "").rstrip()
+        err = (proc.stderr or "").rstrip()
+        if out:
+            error(out)
+        if err:
+            error(err)
+    return int(proc.returncode)
+
+
+def _run_products_post(*, verbose: bool) -> int:
+    """Zoekindex + Coria-fingerprints één keer na pad-specifieke products-fixes."""
+    section(">>> nabewerking (zoekindex, Coria-fingerprints)")
+    from build_zoek_index import main as build_zoek_main
+
+    if run_quiet("zoekindex", build_zoek_main, [], verbose=verbose):
+        return 1
+    import fingerprint_coria_mxl as fp_mod
+
+    if run_quiet("fingerprints", lambda _a: fp_mod.main(), [], verbose=verbose):
+        return 1
+    import probe_coria_fetch as probe_mod
+
+    if run_quiet(
+        "coria-probe",
+        lambda _a: probe_mod.apply_probe(warn_only=True),
+        [],
+        verbose=verbose,
+    ):
+        return 1
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Toon of werk de check-fixlist af (één fix_cmd per regel). "
+            "Met --check eerst check --strict."
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=(
+            "voorbeelden:\n"
+            "  python scripts/fix.py --dry-run\n"
+            "  python scripts/fix.py --check --dry-run\n"
+            "  python scripts/fix.py --strict --dry-run\n"
+            "  python scripts/fix.py --check\n"
+            "  python scripts/fix.py -y\n"
+        ),
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Toon de lijst; voer geen fix_cmd uit.",
+    )
+    parser.add_argument(
+        "--check",
+        "--strict",
+        dest="check",
+        action="store_true",
+        help=(
+            "Eerst check --strict (lijst opnieuw bouwen), daarna tonen/afwerken. "
+            "--strict is hetzelfde als --check."
+        ),
+    )
+    add_verbose_argument(parser)
+    add_yes_argument(parser)
+    args = parser.parse_args(argv)
+    set_verbose(bool(args.verbose))
+
+    if args.check:
+        mtime_before = _fixlist_mtime()
+        code = _run_check_strict(verbose=bool(args.verbose))
+        if _check_failed_before_fixlist(code, mtime_before=mtime_before):
+            error(
+                f"check --strict leverde geen verse fixlist "
+                f"(exit {code}). Geen afwerken. "
+                "Herstel validate/tooling eerst, of draai check opnieuw."
+            )
+            return 2
+        # check.cmd schreef al; opnieuw aggregaten dekt race/handmatige status.
+        items = _refresh_fixlist_from_status()
+    else:
+        if not FIXLIST_PATH.is_file():
+            error(
+                "Geen fixlist gevonden (data\\check-fixlist.json). "
+                "Oplossing: scripts\\check.cmd of scripts\\fix.cmd --check"
+            )
+            return 2
+        items = load_fixlist()
+
+    if args.dry_run:
+        print_fixlist(items)
+        ok("OK  dry-run (niets gefixt)")
+        return 0
+
+    if not items:
+        ok("OK  fixlist leeg")
+        return 0
+
+    if not confirm_batch(
+        "fix",
+        n=len(items),
+        headline=f"{len(items)} auto-fix(es) uit check-fixlist",
+        details=[
+            f"Bestand: {rel_for_log(FIXLIST_PATH, repo_root=REPO_ROOT)}",
+            "Elke regel = één fix_cmd (zoals check voorstelt).",
+        ],
+        yes=bool(args.yes),
+    ):
+        refuse("WEIGERT  fix afgebroken (geen bevestiging)")
+        return 2
+
+    remaining = list(items)
+    fixed = 0
+    failed = 0
+    done_cmds: set[str] = set()
+    products_ok = 0
+
+    for item in list(items):
+        if item.fix_cmd in done_cmds:
+            remaining = [x for x in remaining if x.fix_cmd != item.fix_cmd]
+            save_fixlist(remaining)
+            detail(f">>> {item.summary} (zelfde fix_cmd al ok)")
+            continue
+        work(f">>> {item.summary}")
+        detail(f"    {item.fix_cmd}")
+        t0 = time.perf_counter()
+        code = _run_fix_cmd(item.fix_cmd, verbose=bool(args.verbose))
+        elapsed = time.perf_counter() - t0
+        if code == 0:
+            fixed += 1
+            done_cmds.add(item.fix_cmd)
+            if is_products_fix_cmd(item.fix_cmd):
+                products_ok += 1
+            remaining = [x for x in remaining if x.fix_cmd != item.fix_cmd]
+            save_fixlist(remaining)
+            detail(f"    OK ({elapsed:.1f}s, {len(remaining)} rest)")
+        else:
+            failed += 1
+            hard(f"    FAILED exit={code} — blijft op de lijst")
+
+    if products_ok and failed == 0:
+        post = _run_products_post(verbose=bool(args.verbose))
+        if post != 0:
+            return 1
+
+    section("=== Samenvatting fix ===")
+    count(fixed, "ok", role="ok")
+    count(failed, "mislukt", role="hard" if failed else "info")
+    count(len(remaining), "rest", role="work" if remaining else "info")
+    if failed:
+        hard(
+            "Oplossing: bekijk de fout hierboven; daarna "
+            "scripts\\fix.cmd opnieuw (of --dry-run)."
+        )
+        return 1
+    ok("OK  fixlist leeg" if not remaining else "OK  fix afgerond")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

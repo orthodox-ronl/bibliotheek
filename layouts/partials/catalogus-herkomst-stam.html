@@ -1,0 +1,19 @@
+{{- /*
+  Herkomst-stam uit uitvoeringsvorm-id (zonder taalsuffix).
+
+  Taalsuffixes zijn géén aparte herkomst: ``-ksl-trlat``, ``-nl-ksl``,
+  ``-ksl`` (langste eerst). Output: alleen de stam-string (print).
+  taalOrd: gebruik partial catalogus-herkomst-taalord.html.
+
+  Hugo: strings.TrimSuffix SUFFIX STRING (suffix eerst!).
+*/ -}}
+{{- $u := . -}}
+{{- if strings.HasSuffix $u "-ksl-trlat" -}}
+{{- strings.TrimSuffix "-ksl-trlat" $u -}}
+{{- else if strings.HasSuffix $u "-nl-ksl" -}}
+{{- strings.TrimSuffix "-nl-ksl" $u -}}
+{{- else if strings.HasSuffix $u "-ksl" -}}
+{{- strings.TrimSuffix "-ksl" $u -}}
+{{- else -}}
+{{- $u -}}
+{{- end -}}
