@@ -53,22 +53,32 @@ pushen — ook niet met Cursor op een andere computer.
 
 ---
 
-## Stap B — `gh-pages` (site) niet laten vastlopen
+## Stap B — `gh-pages` (site): géén Actions in de bypass
 
-De workflow *Deploy site to GitHub Pages* pusht naar de branch `gh-pages`
-als `github-actions[bot]`.
+De workflow *Deploy site to GitHub Pages* pusht naar `gh-pages` met de
+ingebouwde `GITHUB_TOKEN` (`github-actions[bot]`).
 
-1. Maak een **tweede** branch-ruleset, bijvoorbeeld `Protect gh-pages`.
-2. Target: alleen `gh-pages`.
-3. Rules (minimaal): **Restrict deletions**, **Block force pushes** (force
-   push alleen via bypass als jij dat expres nodig hebt).
-4. Bypass list:
-   - **GitHub Apps** → **GitHub Actions** (of de app die de deploy doet)
-   - **Repository role** → **Admin**
-   - **GitHub Apps** → **Cursor** (alleen als jij wilt dat de agent ook
-     direct op `gh-pages` mag werken, zoals bij opschonen van previews)
-5. Geen verplichte pull request op `gh-pages` tenzij je de deploy-workflow
-   expres anders inricht.
+**Die actor kun je niet in een ruleset-bypass zetten.** In *Add bypass*
+staan rollen, teams en geïnstalleerde GitHub Apps (zoals Cursor) — niet
+“GitHub Actions”. Dat is een GitHub-beperking, geen ontbrekende knop.
+
+### Aanbevolen: geen streng ruleset op `gh-pages`
+
+1. Zet **geen** “block force pushes” / “restrict updates” / verplichte PR
+   op `gh-pages` zolang de deploy via die token pusht.
+2. Bescherm de site indirect: alleen jij (en bewust gekozen accounts) heeft
+   **Write** op de repository (stap C). Zonder Write kan niemand — en geen
+   willekeurige Actions van een fork — naar `gh-pages` pushen.
+3. Optioneel: bypass **Cursor** + **Admin** alleen nodig als je wél een
+   ruleset op `gh-pages` zet én de agent daar direct mag werken.
+
+### Alleen als je `gh-pages` tóch streng wilt vastzetten
+
+Dan moet de deploy **niet** meer met `GITHUB_TOKEN` pushen, maar met een
+**eigen GitHub App** (Contents: Read & Write), die app op de repo
+installeren, die app in de bypass-lijst zetten, en de workflow een token
+van die app laten gebruiken. Dat is een aparte, grotere klus — niet nodig
+voor de basisbescherming van `main`/`development`.
 
 ---
 
