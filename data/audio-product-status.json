@@ -201,15 +201,9 @@
     "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum|de-naam-des-heren-zij-gezegend-default-hemelum.mvsa.mp3": {
       "source": "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/de-naam-des-heren-zij-gezegend-default-hemelum.mvsa",
       "product": "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/de-naam-des-heren-zij-gezegend-default-hemelum.mvsa.mp3",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\de-naam-des-heren-zij-gezegend\\default\\hemelum\\de-naam-des-heren-zij-gezegend-default-hemelum.mvsa",
-      "issues": [
-        {
-          "kind": "stale_mp3",
-          "file": "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/de-naam-des-heren-zij-gezegend-default-hemelum.mvsa.mp3",
-          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-11-05T21:00:33+00:00); bron is gewijzigd"
-        }
-      ]
+      "issues": []
     },
     "catalogus/derde-antifoon/geboorte-moeder-gods/liturgikon|derde-antifoon-geboorte-moeder-gods-liturgikon.vsa.mp3": {
       "source": "catalogus/derde-antifoon/geboorte-moeder-gods/liturgikon/derde-antifoon-geboorte-moeder-gods-liturgikon.vsa",

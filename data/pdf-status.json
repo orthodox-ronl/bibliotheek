@@ -189,15 +189,9 @@
     },
     "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum": {
       "source": "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/index.md",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\pdf.cmd catalogus\\de-naam-des-heren-zij-gezegend\\default\\hemelum\\index.md",
-      "issues": [
-        {
-          "kind": "stale_pdf",
-          "file": "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/index.md.pdf",
-          "detail": "index.md.pdf is ouder dan Markdown, notatiebron of product-SVG"
-        }
-      ]
+      "issues": []
     },
     "catalogus/derde-antifoon/geboorte-moeder-gods/liturgikon": {
       "source": "catalogus/derde-antifoon/geboorte-moeder-gods/liturgikon/index.md",
@@ -1563,15 +1557,9 @@
     },
     "koormappen/hemelum/liturgie-weekdagen/29-de-naam-des-heren-zij-gezegend": {
       "source": "koormappen/hemelum/liturgie-weekdagen/29-de-naam-des-heren-zij-gezegend/index.md",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-weekdagen\\29-de-naam-des-heren-zij-gezegend\\index.md",
-      "issues": [
-        {
-          "kind": "stale_pdf",
-          "file": "koormappen/hemelum/liturgie-weekdagen/29-de-naam-des-heren-zij-gezegend/index.md.pdf",
-          "detail": "index.md.pdf is ouder dan Markdown, notatiebron of product-SVG"
-        }
-      ]
+      "issues": []
     },
     "koormappen/hemelum/liturgie-zondag/01-vredeslitanie": {
       "source": "koormappen/hemelum/liturgie-zondag/01-vredeslitanie/index.md",
@@ -1917,15 +1905,9 @@
     },
     "koormappen/hemelum/liturgie-zondag/29-de-naam-des-heren-zij-gezegend": {
       "source": "koormappen/hemelum/liturgie-zondag/29-de-naam-des-heren-zij-gezegend/index.md",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\29-de-naam-des-heren-zij-gezegend\\index.md",
-      "issues": [
-        {
-          "kind": "stale_pdf",
-          "file": "koormappen/hemelum/liturgie-zondag/29-de-naam-des-heren-zij-gezegend/index.md.pdf",
-          "detail": "index.md.pdf is ouder dan Markdown, notatiebron of product-SVG"
-        }
-      ]
+      "issues": []
     },
     "koormappen/hemelum/tijdeigen/20261104-icoon-moeder-gods-van-kazan": {
       "source": "koormappen/hemelum/tijdeigen/20261104-icoon-moeder-gods-van-kazan/index.md",

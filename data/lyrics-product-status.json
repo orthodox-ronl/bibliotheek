@@ -198,14 +198,8 @@
   {
     "dir": "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum",
     "source": "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/de-naam-des-heren-zij-gezegend-default-hemelum.mvsa",
-    "ok": false,
-    "issues": [
-      {
-        "kind": "stale_lyrics",
-        "file": "catalogus/de-naam-des-heren-zij-gezegend/default/hemelum/de-naam-des-heren-zij-gezegend-default-hemelum.mvsa.lyrics.txt",
-        "detail": "lyrics ouder dan bron (stamp 2026-11-05T21:00:33+00:00)"
-      }
-    ],
+    "ok": true,
+    "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\de-naam-des-heren-zij-gezegend\\default\\hemelum\\de-naam-des-heren-zij-gezegend-default-hemelum.mvsa"
   },
   {
