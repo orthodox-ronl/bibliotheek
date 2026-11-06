@@ -557,8 +557,8 @@ ambiguïteitsregels als bij &lt;a href="../bieb-hernoem/"&gt;bieb hernoem&lt;/a&
 backslash, repo-pad, unieke suffix).&lt;/p&gt;</description></item><item><title>bieb kopieer</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-kopieer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/bieb-kopieer/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;bieb kopieer&lt;/code&gt; — uitvoeringsvorm kopiëren naar een nieuw catalogus-id&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd kopieer &amp;lt;bron-id&amp;gt; &amp;lt;nieuw-id&amp;gt; [--dry-run]
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd copy &amp;lt;bron-id&amp;gt; &amp;lt;nieuw-id&amp;gt; [--dry-run]
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd kopieer &amp;lt;bron-id&amp;gt; &amp;lt;nieuw-id&amp;gt; [--dry-run] [-v]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\bieb.cmd copy &amp;lt;bron-id&amp;gt; &amp;lt;nieuw-id&amp;gt; [--dry-run] [-v]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Met &lt;code&gt;.\scripts&lt;/code&gt; op PATH: &lt;code&gt;bieb kopieer …&lt;/code&gt;. Engelse alias: &lt;code&gt;copy&lt;/code&gt;.
 Korte hulp: &lt;code&gt;h bieb kopieer&lt;/code&gt; of &lt;code&gt;bieb kopieer -h&lt;/code&gt;. Typ &lt;code&gt;?&lt;/code&gt; bij een vraag
 voor uitleg.&lt;/p&gt;
