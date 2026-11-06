@@ -1,6 +1,7 @@
 ---
 zoektekst: >-
-  Heer ontferm U Heer ontferm U Amen Heer ontferm U Heer ontferm U Amen
+  Heer ontferm U Heer ontferm U Amen
+  Heer ontferm U Heer ontferm U Amen
 ---
 
 # Gelovigenlitanie
@@ -17,18 +18,18 @@ zoektekst: >-
 @sectie eerste-gelovigenlitanie
 
 @tekst "P: Nogmaals ... bidden"
-L:  Heer ont-ferm_ U__  |
-S:  a    -   -     -    |
-A:  f    -   -     -    |
-T:  c    -   -     -    |
-B:  f    -   -     -    |
+L:  Heer ont-ferm_ U__  ||
+S:  a    -   -     -    ||
+A:  f    -   -     -    ||
+T:  c    -   -     -    ||
+B:  f    -   -     -    ||
 
 @tekst "P: Help en red ons ... Uw genade"
-L:  Heer ont-ferm_ U__  |
-S:  a    -   \     /    |a
-A:  f    -   \     /    |f
-T:  c    -   -     -    |c
-B:  f    -   c-    f    |f
+L:  Heer ont-ferm_ U__  ||
+S:  a    -   \     /    ||a
+A:  f    -   \     /    ||f
+T:  c    -   -     -    ||c
+B:  f    -   c-    f    ||f
 
 @tekst "P: Want van U ... der eeuwen"
 L: A__-men__ ||
@@ -38,14 +39,15 @@ T:  c   -    ||
 B:  f   -    ||
 
 @mscz-newline
+
 @sectie tweede-gelovigenlitanie
 
 @tekst "P: Nogmaals ... bidden"
-L:  Heer ont-ferm_ U__  |  Heer ont-ferm_ U__  |
-S:  a    -   -     -    |  a    -   \     /    |a
-A:  f    -   -     -    |  f    -   \     /    |f
-T:  c    -   -     -    |  c    -   -     -    |c
-B:  f    -   -     -    |  f    -   c-    f    |f
+L: |: Heer ont-ferm_ U__  |  Heer ont-ferm_ U__ :|
+S: |: a    -   -     -    |  a    -   \     /   :|a
+A: |: f    -   -     -    |  f    -   \     /   :|f
+T: |: c    -   -     -    |  c    -   -     -   :|c
+B: |: f    -   -     -    |  f    -   c-    f   :|f
 
 @tekst "P: Want van U ... der eeuwen"
 L: A_&_&_  -men__ ||
