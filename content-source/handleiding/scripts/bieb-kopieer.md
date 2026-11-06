@@ -11,8 +11,8 @@ weight: 167
 # SYNOPSIS
 
 ```cmd
-scripts\bieb.cmd kopieer <bron-id> <nieuw-id> [--dry-run]
-scripts\bieb.cmd copy <bron-id> <nieuw-id> [--dry-run]
+scripts\bieb.cmd kopieer <bron-id> <nieuw-id> [--dry-run] [-v]
+scripts\bieb.cmd copy <bron-id> <nieuw-id> [--dry-run] [-v]
 ```
 
 Met `.\scripts` op PATH: `bieb kopieer …`. Engelse alias: `copy`.
@@ -34,13 +34,16 @@ Is de bron ambigu, dan genummerde voorstellen (Enter = 1).
 Het script:
 
 1. Controleert dat bron een bestaande uitvoeringsvorm is.
-2. Weigert als de **doelmap al bestaat**.
+2. Weigert als de **doelmap al bestaat** (magenta `WEIGERT`-regel).
 3. Maakt zo nodig zangstuk-/variant-`_index.md` aan.
 4. Kopieert bestanden en hernoemt de publicatiestam.
 5. Schrijft een nieuwe leaf-`index.md` met nieuw `bieb id` en afgeleide
    titels (bouw leidt titels verder af).
 6. Kopieert bladermap-SVG’s onder het nieuwe pad (als die er zijn).
 7. Maakt **geen** koormap-slot — dat blijft handwerk.
+
+Standaard alleen tellingen en eindstatus; per-bestandregels met `-v` /
+`--verbose`.
 
 Daarna: products vernieuwen, zoekindex, `scripts\check.cmd`. Eventueel
 koormap-slot met shortcode `bieb`.

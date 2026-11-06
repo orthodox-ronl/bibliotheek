@@ -39,10 +39,15 @@ if str(_SCRIPTS) not in sys.path:
 
 from cli_style import (  # noqa: E402
     add_verbose_argument,
+    count,
     detail,
+    hard,
     info,
+    ok,
+    refuse,
     set_verbose,
 )
+
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT / "content-source"
@@ -2856,7 +2861,7 @@ def main(argv: list[str] | None = None) -> int:
 
     def _one(md: Path) -> int:
         if not md.is_file():
-            print(f"OVERGESLAGEN (bestaat niet): {md}", file=sys.stderr)
+            refuse(f"SKIP  bestaat niet: {md}")
             return SKIP
         try:
             out = build_one(md, force=args.force)
@@ -2864,9 +2869,9 @@ def main(argv: list[str] | None = None) -> int:
             msg = str(exc)
             # Leaf zonder notatiebron (voorzien / tekstblad): geen harde fout
             if "geen .mvsa/.vsa/.mscz" in msg or "plakt geen catalogus-PDF" in msg:
-                print(f"OVERGESLAGEN: {exc}", file=sys.stderr)
+                refuse(f"SKIP  {exc}")
                 return SKIP
-            print(f"FOUT: {exc}", file=sys.stderr)
+            hard(f"FOUT  {exc}")
             from input_paths import rel_for_log
 
             failed_paths.append(rel_for_log(md, repo_root=ROOT))
@@ -2876,7 +2881,7 @@ def main(argv: list[str] | None = None) -> int:
             RuntimeError,
             subprocess.CalledProcessError,
         ) as exc:
-            print(f"FOUT: {exc}", file=sys.stderr)
+            hard(f"FOUT  {exc}")
             from input_paths import rel_for_log
 
             failed_paths.append(rel_for_log(md, repo_root=ROOT))
@@ -2885,7 +2890,7 @@ def main(argv: list[str] | None = None) -> int:
             return SKIP
         from input_paths import rel_for_log
 
-        print(
+        detail(
             f"OK {rel_for_log(out, repo_root=ROOT)} "
             f"({rel_for_log(md, repo_root=ROOT)})"
         )
@@ -2900,10 +2905,16 @@ def main(argv: list[str] | None = None) -> int:
         label=lambda p: _rel_log(p, repo_root=ROOT),
     )
     if failed_paths:
-        print("Mislukt:", flush=True)
+        hard("Mislukt:")
         for p in failed_paths:
-            print(f"  - {p}", flush=True)
-    print(f"Klaar: {written} PDF(s), {skipped} overgeslagen, {failed} mislukt.")
+            hard(f"  {p}")
+    count(written, "pdf-geschreven", role="ok")
+    count(skipped, "overgeslagen", role="refuse" if skipped else "info")
+    count(failed, "mislukt", role="hard" if failed else "info")
+    if failed:
+        hard("pdf klaar met fouten")
+    else:
+        ok("OK  pdf")
     return 1 if failed else 0
 
 

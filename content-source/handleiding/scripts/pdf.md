@@ -54,10 +54,9 @@ uit de **notatiebronnen**, de sibling-SVG’s en de Markdown-layout, en
 commit je mee. MuseScore 4 is nodig voor `.mvsa`/`.mscz`-SVG-export (en
 dus zodra de pagina zulke bronnen of `pdf-bijelkaar` gebruikt).
 
-**Uitvoer:** standaard `OK …` per gemaakte PDF en een slotregel
-`Klaar: …`. Paden daarin zijn kort (bijv.
-`catalogus\…\index.md.pdf`). Tussenstappen (bron, SVG, schaal, …)
-alleen met `--verbose`.
+**Uitvoer:** standaard tellingen vooraan (`  3  pdf-geschreven`,
+`  1  overgeslagen`, `  0  mislukt`) en `OK  pdf`. Per-PDF-regels en
+tussenstappen alleen met `--verbose`. Bewuste skips: magenta `SKIP`.
 
 Catalogus-leaves: ontwerp en restmijlpalen in
 `docs/plans/catalogus-index-md-pdf.md`.

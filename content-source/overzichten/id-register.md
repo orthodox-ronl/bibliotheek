@@ -203,7 +203,7 @@ of Speciaal.
 | `dringende-litanie/` | `ektinia/dringend/hemelum` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
 | `ontslapenen-litanie/` | `ektinia/ontslapenen/hemelum` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
 | `catechumenen-litanie/` | `ektinia/catechumenen/hemelum` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
-| `gelovigen-litanie/` | `ektinia/gelovigen/hemelum` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
+| `gelovigen-litanie/` | `ektinia/gelovigen-1/hemelum` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
 | `vragende-litanie-16/` | `ektinia/vragend-16/hemelum` + `…/hemelum-ksl` | `.mvsa` (reviewable) |
 | `vredeswens/` | `vredeswens/default/hemelum` | |
 | `en-allen/` | `en-allen/default/hemelum` | |

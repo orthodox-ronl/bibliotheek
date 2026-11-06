@@ -40,7 +40,8 @@ Korte hulp in het opdrachtvenster: `h` (lijst) of `h <naam>` (zelfde als
 | `build` | Site in `generated\site` |
 | `check` | CI-spiegel / preflight (validate + publicatie-/importcontroles + bibliotheek-id + koormap-slotlinks + Coria + Hugo) |
 
-Intern: `_ensure.cmd` (`--hugo`, `--vsa-tool`), `fingerprint_coria_mxl.py`,
+Intern: `_ensure.cmd` (`--hugo`, `--vsa-tool`), `_msg.cmd` + `cli_style.py`
+(console-rollen/kleur; zie bron `repo-scripts.md`), `fingerprint_coria_mxl.py`,
 `probe_coria_fetch.py` (Coria play_from_url via github.io; geen raw),
 `check_koormap_slot_links.py`, `sync_vsa_products.py`,
 `check_vsa_products.py`, `sync_mscz_products.py`,

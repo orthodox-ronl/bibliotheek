@@ -97,10 +97,10 @@ of die PDF er is en niet ouder is dan de Markdown of notatiebron
 fout met `--strict`, in CI, of op `main`. Zonder die PDF tonen
 het download-icoon niet.
 
-Per productcontrole zie je eerst wat er getest wordt, dan de mappen
-die niet kloppen (korte soortlabels zoals `[meta]` / `[stale-pdf]`),
-en één fix-sjabloon met `{file}`. Details en volledige paden alleen
-met `--verbose` / `BIBLIOTHEEK_VERBOSE=1`.
+Per productcontrole zie je eerst wat er getest wordt, dan tellingen
+vooraan (`  3  stale-pdf`, `  1  meta  foute sha256`), de mappen die
+niet kloppen, en één fix-sjabloon met `{file}`. Details en volledige
+paden alleen met `--verbose` / `BIBLIOTHEEK_VERBOSE=1`.
 
 Na die checks schrijft `check` altijd `data\check-fixlist.json`: elk
 auto-fixbaar probleem plus herstelcommando. Met `--strict` betekent

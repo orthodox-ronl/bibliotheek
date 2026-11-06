@@ -70,8 +70,8 @@ def test_print_check_findings_compact(capsys):
     )
     out = capsys.readouterr().out
     assert "Controle: of .mvsa-afgeleiden" in out
-    assert "Niet in orde: 1" in out
-    assert "[meta] foute sha256 (1)" in out
+    assert "  1  niet-in-orde" in out
+    assert "  1  meta  foute sha256" in out
     assert "catalogus/a/b/c" in out
     assert "products-meta.json" not in out.split("fix:")[0]
     assert "fix: `products --kinds mvsa" in out

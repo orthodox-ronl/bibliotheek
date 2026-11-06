@@ -48,6 +48,15 @@ def print_fail(
     print(text, file=out, flush=True)
 
 
+def print_refuse(message: str, *, oplossing: str) -> None:
+    """Bewuste weigering (doel bestaat al e.d.): magenta + Oplossing."""
+    from cli_style import note, refuse
+
+    refuse(f"WEIGERT  {message}")
+    text = oplossing if oplossing.startswith("Oplossing:") else f"Oplossing: {oplossing}"
+    note(text)
+
+
 def format_locus(
     path: str | Path,
     line: int,

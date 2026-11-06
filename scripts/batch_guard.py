@@ -25,7 +25,15 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import Iterator, TypeVar
 
-from cli_style import configure_stdio, safe_print
+from cli_style import (
+    configure_stdio,
+    count,
+    note,
+    ok,
+    refuse,
+    section,
+    work,
+)
 
 configure_stdio()
 
@@ -166,33 +174,25 @@ def _read_answer(prompt: str) -> str:
 
 def _confirm_hard_limit(n: int, *, hard_limit: int) -> bool:
     """Dubbele bevestiging boven HARD_LIMIT (alleen zonder ``-y``)."""
-    safe_print(
-        f"  Let op: {n} items (harde limiet {hard_limit}). "
-        "Dit is een grote batch (bijv. alle producten opnieuw).",
-        flush=True,
+    work(
+        f"Let op: {n} items (harde limiet {hard_limit}). "
+        "Grote batch (bijv. alle producten opnieuw)."
     )
     if not sys.stdin.isatty():
-        safe_print(
-            "  Gestopt: zo’n grote batch zonder terminal vraagt -y/--yes.\n"
-            "  Oplossing: voeg -y toe, of draai in een opdrachtvenster en "
-            "beantwoord «weet je het zeker?» en daarna «HEEL zeker?».",
-            flush=True,
+        refuse(
+            "WEIGERT  grote batch zonder terminal (voeg -y toe, of draai interactief)"
         )
-        safe_print(flush=True)
         return False
 
     a1 = _read_answer("Weet je het zeker? [j/N] ")
     if a1 not in {"j", "ja", "y", "yes"}:
-        safe_print("Afgebroken.", flush=True)
-        safe_print(flush=True)
+        refuse("WEIGERT  afgebroken")
         return False
     a2 = _read_answer('HEEL zeker? Typ precies "ja" om door te gaan: ')
     if a2 != "ja":
-        safe_print("Afgebroken (tweede bevestiging niet «ja»).", flush=True)
-        safe_print(flush=True)
+        refuse("WEIGERT  tweede bevestiging niet «ja»")
         return False
-    safe_print("  Dubbele bevestiging ok — grote batch start.", flush=True)
-    safe_print(flush=True)
+    ok("OK  dubbele bevestiging — grote batch start")
     return True
 
 
@@ -244,18 +244,16 @@ def confirm_batch(
         detail(f"  Aantal items: {n}")
         return True
 
-    safe_print(flush=True)
-    safe_print(f"Batch «{kind}»: {headline}", flush=True)
+    section(f"Batch «{kind}»: {headline}")
     for line in details:
-        safe_print(f"  {line}", flush=True)
-    safe_print(f"  Aantal items: {n}", flush=True)
-    safe_print(f"  {estimate_line(kind, n)}", flush=True)
+        note(f"  {line}")
+    count(n, "items", role="info")
+    note(estimate_line(kind, n))
 
     large = n >= hard_limit
 
     if yes:
-        safe_print("  Bevestiging: overgeslagen (-y/--yes).", flush=True)
-        safe_print(flush=True)
+        note("Bevestiging: overgeslagen (-y/--yes).")
         return True
 
     if large:
@@ -267,30 +265,20 @@ def confirm_batch(
     short_by_time = est is not None and est <= soft_seconds
     if short_by_count or short_by_time:
         if short_by_time and not short_by_count:
-            safe_print(
-                "  Bevestiging: overgeslagen "
-                f"(geschat ≤ {int(soft_seconds)} s).",
-                flush=True,
-            )
-        safe_print(flush=True)
+            note(f"Bevestiging: overgeslagen (geschat ≤ {int(soft_seconds)} s).")
         return True
 
     if not sys.stdin.isatty():
-        safe_print(
-            "  Gestopt: dit is een batch zonder interactieve terminal.\n"
-            "  Oplossing: voeg -y/--yes toe als je bewust wilt doorgaan, "
-            "of draai in een opdrachtvenster.",
-            flush=True,
+        refuse(
+            "WEIGERT  batch zonder terminal "
+            "(voeg -y/--yes toe, of draai in een opdrachtvenster)"
         )
-        safe_print(flush=True)
         return False
 
     answer = _read_answer("Doorgaan? [j/N] ")
     if answer in {"j", "ja", "y", "yes"}:
-        safe_print(flush=True)
         return True
-    safe_print("Afgebroken.", flush=True)
-    safe_print(flush=True)
+    refuse("WEIGERT  afgebroken")
     return False
 
 
@@ -332,7 +320,9 @@ def run_timed_batch(
         except SystemExit as exc:
             code = int(exc.code) if isinstance(exc.code, int) else 1
         except Exception as exc:  # noqa: BLE001 — batch mag niet sterven
-            print(f"FOUT ({name}): {exc}", file=sys.stderr, flush=True)
+            from cli_style import hard
+
+            hard(f"FOUT  ({name}): {exc}")
             code = 1
         elapsed = time.perf_counter() - t0
         remaining -= 1
@@ -347,10 +337,11 @@ def run_timed_batch(
         stats = mean_seconds(kind)
         if remaining > 0 and stats is not None and code >= 0:
             mean, _ = stats
-            print(
+            from cli_style import detail
+
+            detail(
                 f"  … {i}/{len(items)} klaar; "
                 f"nog ~{format_duration(mean * remaining)} "
-                f"({remaining} bestanden)",
-                flush=True,
+                f"({remaining} bestanden)"
             )
     return ok, failed, skipped

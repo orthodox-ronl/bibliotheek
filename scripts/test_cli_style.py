@@ -87,6 +87,30 @@ def test_detail_when_verbose(capsys) -> None:
         cs.set_verbose(False)
 
 
+def test_format_count_aligns() -> None:
+    assert cs.format_count(12, "stale-mxl") == " 12  stale-mxl"
+    assert cs.format_count(3, "missing-pdf") == "  3  missing-pdf"
+    assert cs.format_count(0, "hard", width=3) == "  0  hard"
+
+
+def test_count_work_and_refuse(capsys, monkeypatch) -> None:
+    monkeypatch.setenv("NO_COLOR", "1")
+    cs.count(12, "stale-mxl", role="work")
+    cs.refuse("WEIGERT  doelmap bestaat al")
+    out = capsys.readouterr().out
+    assert " 12  stale-mxl" in out
+    assert "WEIGERT  doelmap bestaat al" in out
+
+
+def test_count_rejects_unknown_role() -> None:
+    try:
+        cs.count(1, "x", role="paars")
+    except ValueError as exc:
+        assert "paars" in str(exc)
+    else:
+        raise AssertionError("verwacht ValueError")
+
+
 def test_atomic_write_text(tmp_path: Path) -> None:
     dest = tmp_path / "out.json"
     cs.atomic_write_text(dest, '{"ok": true}\n')

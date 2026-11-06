@@ -39,10 +39,12 @@ hashes in de meta bij. Bij vsa/mscz worden gewijzigde MXL/SVG-hashes
 gemerged zonder andere meta-keys te wissen. Daarna vernieuwt het de
 zoekindex en Coria-fingerprints.
 
-**Logging:** standaard beknopt (voortgang + fouten met `Oplossing: …`).
+**Logging:** standaard beknopt (tellingen vooraan, kleurenrollen uit
+[repo-scripts](https://github.com/orthodox-ronl/bron/blob/main/docs/specs/repo-scripts.md)).
 Mislukt er iets over meerdere kinds, dan eindigt de run met
-`=== Samenvatting products ===`. Gebruik `-v` / `--verbose` voor
-per-stap detail; zonder die vlag krijgt de VSA-tooling `--quiet`.
+`=== Samenvatting products ===` en regels als `  3  kinds-mislukt`.
+Gebruik `-v` / `--verbose` voor per-stap detail; zonder die vlag krijgt
+de VSA-tooling `--quiet`.
 
 Dit is het **enige** gebruikerscommando voor die producten. Er zijn geen
 aparte `vsa-products.cmd`-wrappers meer. Per kind staat detail op de

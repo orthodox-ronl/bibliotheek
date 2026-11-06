@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from check_report import short_kind, template_fix_cmd
-from cli_style import atomic_write_text, note, ok, work
+from cli_style import atomic_write_text, count, note, ok
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DATA = REPO_ROOT / "data"
@@ -198,20 +198,21 @@ def save_fixlist(items: list[FixItem], *, path: Path = FIXLIST_PATH) -> None:
 def print_fixlist(items: list[FixItem], *, stream=None) -> None:
     stream = stream or sys.stdout
     if not items:
-        # ok()/work() schrijven naar stdout; bij andere stream plain print.
+        # ok()/count() schrijven naar stdout; bij andere stream plain print.
         if stream is sys.stdout:
-            ok("Fixlist leeg (geen auto-fixbare problemen).")
+            ok("OK  fixlist leeg")
         else:
-            print("Fixlist leeg (geen auto-fixbare problemen).", file=stream)
+            print("OK  fixlist leeg", file=stream)
         return
-    msg = (
-        f"Fixlist: {len(items)} auto-fixbare item(s) "
-        "(afwerken: scripts\\fix.cmd; bekijken: --dry-run)"
-    )
     if stream is sys.stdout:
-        work(msg)
+        count(len(items), "fixlist-items", role="work")
+        note("Afwerken: scripts\\fix.cmd; bekijken: --dry-run")
     else:
-        print(msg, file=stream)
+        print(
+            f"{len(items)}  fixlist-items "
+            "(afwerken: scripts\\fix.cmd; bekijken: --dry-run)",
+            file=stream,
+        )
     for i, item in enumerate(items, 1):
         print(f"{i}. {item.summary}", file=stream)
         line = f"   fix: `{template_fix_cmd(item.fix_cmd)}`"
@@ -235,11 +236,8 @@ def main(argv: list[str] | None = None) -> int:
     from input_paths import rel_for_log
 
     rel = rel_for_log(FIXLIST_PATH, repo_root=REPO_ROOT)
-    msg = f"Fixlist bijgewerkt: {len(items)} auto-fixbare item(s) → {rel}"
-    if items:
-        work(msg)
-    else:
-        ok(msg)
+    count(len(items), "fixlist-items", role="work" if items else "ok")
+    note(f"→ {rel}")
     if args.print:
         print_fixlist(items)
     return 0

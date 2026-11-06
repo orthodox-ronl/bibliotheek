@@ -7,6 +7,8 @@ automatische_inhoud: false
 
 {{< kop >}}{{< param title >}}{{< /kop >}}
 
+### Facultatief: alleen als het in de instructie staat
+
 {{< bieb id="ektinia/ontslapenen/hemelum" />}}
 
 {{< witruimte groot >}}

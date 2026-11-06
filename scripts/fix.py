@@ -21,7 +21,20 @@ from check_fixlist import (
     save_fixlist,
     write_fixlist,
 )
-from cli_style import add_verbose_argument, detail, error, info, run_quiet, set_verbose
+from cli_style import (
+    add_verbose_argument,
+    count,
+    detail,
+    error,
+    hard,
+    info,
+    ok,
+    refuse,
+    run_quiet,
+    section,
+    set_verbose,
+    work,
+)
 from fix_cmds import is_products_fix_cmd
 from input_paths import rel_for_log
 
@@ -39,14 +52,14 @@ def _fixlist_mtime() -> float:
 def _run_check_strict(*, verbose: bool) -> int:
     """Run check --strict. Return process exit code."""
     cmd = ["cmd", "/c", str(CHECK_CMD), "--strict"]
-    info("=== fix: check --strict (fixlist vernieuwen) ===")
+    section("=== fix: check --strict (fixlist vernieuwen) ===")
     proc = subprocess.run(
         cmd,
         cwd=str(REPO_ROOT),
         check=False,
     )
     if verbose:
-        info(f"check --strict exit={proc.returncode}")
+        detail(f"check --strict exit={proc.returncode}")
     return int(proc.returncode)
 
 
@@ -63,10 +76,8 @@ def _check_failed_before_fixlist(code: int, *, mtime_before: float) -> bool:
 
 def _refresh_fixlist_from_status() -> list[FixItem]:
     items = write_fixlist()
-    info(
-        f"Fixlist vernieuwd: {len(items)} item(s) → "
-        f"{rel_for_log(FIXLIST_PATH, repo_root=REPO_ROOT)}"
-    )
+    count(len(items), "fixlist-items", role="work" if items else "ok")
+    detail(rel_for_log(FIXLIST_PATH, repo_root=REPO_ROOT))
     return items
 
 
@@ -114,7 +125,7 @@ def _run_fix_cmd(fix_cmd: str, *, verbose: bool) -> int:
 
 def _run_products_post(*, verbose: bool) -> int:
     """Zoekindex + Coria-fingerprints één keer na pad-specifieke products-fixes."""
-    info(">>> nabewerking (zoekindex, Coria-fingerprints)")
+    section(">>> nabewerking (zoekindex, Coria-fingerprints)")
     from build_zoek_index import main as build_zoek_main
 
     if run_quiet("zoekindex", build_zoek_main, [], verbose=verbose):
@@ -194,11 +205,11 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.dry_run:
         print_fixlist(items)
-        info("\nOK: dry-run (niets gefixt)")
+        ok("OK  dry-run (niets gefixt)")
         return 0
 
     if not items:
-        info("Fixlist leeg — niets te doen.")
+        ok("OK  fixlist leeg")
         return 0
 
     if not confirm_batch(
@@ -211,6 +222,7 @@ def main(argv: list[str] | None = None) -> int:
         ],
         yes=bool(args.yes),
     ):
+        refuse("WEIGERT  fix afgebroken (geen bevestiging)")
         return 2
 
     remaining = list(items)
@@ -225,7 +237,7 @@ def main(argv: list[str] | None = None) -> int:
             save_fixlist(remaining)
             detail(f">>> {item.summary} (zelfde fix_cmd al ok)")
             continue
-        info(f">>> {item.summary}")
+        work(f">>> {item.summary}")
         detail(f"    {item.fix_cmd}")
         t0 = time.perf_counter()
         code = _run_fix_cmd(item.fix_cmd, verbose=bool(args.verbose))
@@ -237,24 +249,27 @@ def main(argv: list[str] | None = None) -> int:
                 products_ok += 1
             remaining = [x for x in remaining if x.fix_cmd != item.fix_cmd]
             save_fixlist(remaining)
-            info(f"    OK ({elapsed:.1f}s, {len(remaining)} rest)")
+            detail(f"    OK ({elapsed:.1f}s, {len(remaining)} rest)")
         else:
             failed += 1
-            error(f"    FAILED exit={code} — blijft op de lijst")
+            hard(f"    FAILED exit={code} — blijft op de lijst")
 
     if products_ok and failed == 0:
         post = _run_products_post(verbose=bool(args.verbose))
         if post != 0:
             return 1
 
-    info(f"=== fix klaar: {fixed} ok, {failed} mislukt, {len(remaining)} rest ===")
+    section("=== Samenvatting fix ===")
+    count(fixed, "ok", role="ok")
+    count(failed, "mislukt", role="hard" if failed else "info")
+    count(len(remaining), "rest", role="work" if remaining else "info")
     if failed:
-        error(
+        hard(
             "Oplossing: bekijk de fout hierboven; daarna "
             "scripts\\fix.cmd opnieuw (of --dry-run)."
         )
         return 1
-    info("OK: fixlist leeg" if not remaining else "OK: fix afgerond")
+    ok("OK  fixlist leeg" if not remaining else "OK  fix afgerond")
     return 0
 
 

@@ -31,11 +31,11 @@ Product-herstelregels gebruiken `--reasons missing,stale` en
 Zoekindex en Coria-fingerprints draait `fix` daarna één keer.
 Identieke `fix_cmd`-regels worden maar één keer uitgevoerd.
 
-**Uitvoer (dry-run / lijst):** per item een korte regel
-`[soort] map` en een fix-sjabloon met `{file}` (het pad staat al in de
-regel erboven; je hoeft `{file}` niet in te vullen). Tijdens afwerken:
-per regel `>>>` + `OK` of mislukt. Ruwe herstel-uitvoer alleen bij
-`--verbose`, of als het mislukt.
+**Uitvoer (dry-run / lijst):** tellingen (`  N  fixlist-items`) plus per
+item een korte regel en fix-sjabloon met `{file}`. Tijdens afwerken:
+`>>>` per regel; aan het eind `ok` / `mislukt` / `rest` onder elkaar.
+Ruwe herstel-uitvoer alleen bij `--verbose`, of als het mislukt.
+Bewuste afbraak (geen bevestiging): magenta `WEIGERT`.
 
 Dit commando:
 

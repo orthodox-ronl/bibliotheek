@@ -17,10 +17,10 @@ goto usage
 call scripts\_ensure.cmd --hugo --vsa-tool
 if errorlevel 1 exit /b 1
 
-echo === bibliotheek check ^(validate + producten + Hugo + Coria^) ===
+call scripts\_msg.cmd section "=== bibliotheek check (validate + producten + Hugo + Coria) ==="
 where vsa >nul 2>&1
 if errorlevel 1 (
-  echo ERROR: vsa not on PATH after _ensure --vsa-tool
+  call scripts\_msg.cmd hard "ERROR  vsa not on PATH after _ensure --vsa-tool"
   exit /b 1
 )
 vsa --version
@@ -141,11 +141,8 @@ python scripts\check_fixlist.py
 if errorlevel 1 exit /b 1
 
 if defined STRICT if "%PRODUCT_FAIL%"=="1" (
-  echo.
-  echo Check --strict: er zijn product-/pdf-/contract-/id-problemen gevonden.
-  echo Dat is de inventarisatie - nog niet 'fix mislukt'.
-  echo Bekijken:  scripts\fix.cmd --dry-run
-  echo Afwerken:  scripts\fix.cmd
+  call scripts\_msg.cmd work "Check --strict: product/pdf/contract/id-problemen (inventarisatie)"
+  call scripts\_msg.cmd note "Bekijken: scripts\fix.cmd --dry-run   Afwerken: scripts\fix.cmd"
   exit /b 1
 )
 
@@ -188,10 +185,10 @@ hugo ^
   --destination generated\site ^
   --config hugo.toml
 if errorlevel 1 (
-  echo ERROR: hugo build failed
+  call scripts\_msg.cmd hard "ERROR  hugo build failed"
   exit /b 1
 )
-echo OK: hugo build
+call scripts\_msg.cmd ok "OK  hugo build"
 exit /b 0
 
 :usage

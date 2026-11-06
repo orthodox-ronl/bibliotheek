@@ -11,11 +11,15 @@ from pathlib import Path
 
 from cli_style import (
     add_verbose_argument,
+    count,
     detail,
-    error,
     error_block,
+    hard,
     info,
+    note,
+    ok,
     run_quiet,
+    section,
     set_verbose,
 )
 from product_kind import KindFailure, collect_failures
@@ -52,31 +56,27 @@ def _print_products_summary(
 ) -> None:
     failed_kinds = [k for k, code in kind_exit.items() if code != 0]
     if not failed_kinds:
-        info("\nOK: products klaar")
+        ok("OK  products klaar")
         return
 
-    error("")
-    error("=== Samenvatting products ===")
-    error(f"{len(failed_kinds)} kind(s) mislukt: {', '.join(failed_kinds)}")
+    section("=== Samenvatting products ===")
+    count(len(failed_kinds), "kinds-mislukt", role="hard")
     for kind in failed_kinds:
         rows = kind_failures.get(kind) or []
+        count(len(rows), kind, role="hard")
         if not rows:
-            error(f"\n{kind}: exit {kind_exit[kind]} (geen per-bestanddetails)")
-            error(
-                "  Oplossing: draai opnieuw met --verbose of alleen "
-                f"--kinds {kind} om de fout te zien."
+            note(
+                f"  exit {kind_exit[kind]} (geen details); "
+                f"opnieuw met --verbose of --kinds {kind}"
             )
             continue
-        error(f"\n{kind} ({len(rows)}):")
         for fail in rows:
-            error(f"  - {fail.path}")
-            error(f"    {fail.reason}")
-            error(f"    {fail.solution}")
-    error("")
-    error(
-        "Oplossing: herstel de items hierboven (vaak: bestand sluiten of "
-        "bronfout), daarna opnieuw: scripts\\products.cmd … "
-        "(eventueel --kinds …). Meer detail: voeg --verbose toe."
+            hard(f"  {fail.path}")
+            note(f"    {fail.reason}")
+            note(f"    {fail.solution}")
+    hard(
+        "Oplossing: herstel items hierboven, daarna products opnieuw "
+        "(eventueel --kinds …). Meer detail: --verbose."
     )
 
 
@@ -276,7 +276,7 @@ def main(argv: list[str] | None = None) -> int:
             )
             return 1
 
-    info(f"OK: products klaar ({len(kinds)} kind(s))")
+    ok(f"OK  products klaar ({len(kinds)} kinds)")
     return 0
 
 

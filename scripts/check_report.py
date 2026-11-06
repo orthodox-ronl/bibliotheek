@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections import defaultdict
 from typing import Any, Sequence
 
-from cli_style import hard, is_verbose, note, ok, section, work
+from cli_style import count, is_verbose, note, ok, section, work
 
 # Interne kind → korte label in de log
 KIND_LABELS: dict[str, str] = {
@@ -143,8 +143,8 @@ def print_check_findings(
     show = is_verbose() if verbose is None else bool(verbose)
     if bad:
         work(headline)
-        section(f"  {what}")
-        work(f"  Niet in orde: {len(bad)}")
+        section(what)
+        count(len(bad), "niet-in-orde", role="work")
     else:
         ok(headline)
         return
@@ -156,41 +156,36 @@ def print_check_findings(
     for kind, items in groups.items():
         label = short_kind(kind)
         hint = short_hint(kind, _primary_detail(items[0]), verbose=False)
-        line = f"  [{label}]"
-        if hint:
-            line += f" {hint}"
-        line += f" ({len(items)})"
-        if _is_hard_kind(kind):
-            hard(line)
-        else:
-            work(line)
+        tag = f"{label}  {hint}" if hint else label
+        role = "hard" if _is_hard_kind(kind) else "work"
+        count(len(items), tag, role=role)
         shown = items[:max_dirs]
         for status in shown:
-            print(f"    {status_dir_label(status)}", flush=True)
+            print(f"  {status_dir_label(status)}", flush=True)
             if show:
                 for issue in getattr(status, "issues", None) or []:
                     kind_i = getattr(issue, "kind", "") or ""
                     file_i = getattr(issue, "file", "") or ""
                     detail_i = getattr(issue, "detail", "") or ""
                     print(
-                        f"      - [{kind_i}] {file_i}: {detail_i}",
+                        f"    - [{kind_i}] {file_i}: {detail_i}",
                         flush=True,
                     )
                 fix = getattr(status, "fix_cmd", "") or ""
                 if fix:
-                    note(f"      fix: {fix}")
+                    note(f"    fix: {fix}")
         if len(items) > max_dirs:
-            note(f"    … en {len(items) - max_dirs} meer")
+            note(f"  … en {len(items) - max_dirs} meer")
         if not show:
             fix = getattr(items[0], "fix_cmd", "") or ""
             if fix:
-                note(f"    fix: `{template_fix_cmd(fix)}`")
+                note(f"  fix: `{template_fix_cmd(fix)}`")
 
     if fix_page:
         page = str(fix_page).lstrip("/").replace("/", "\\")
         if not page.lower().startswith("handleiding"):
             page = str(fix_page).lstrip("/")
-        note(f"  Zie: {page}")
+        note(f"Zie: {page}")
 
 
 def print_path_problems(
@@ -205,8 +200,8 @@ def print_path_problems(
     """Voor checks zonder Status-object (pad, soort, detail)."""
     if bad_rows:
         work(headline)
-        section(f"  {what}")
-        work(f"  Niet in orde: {len(bad_rows)}")
+        section(what)
+        count(len(bad_rows), "niet-in-orde", role="work")
     else:
         ok(headline)
         return
@@ -216,18 +211,13 @@ def print_path_problems(
     for kind, rows in groups.items():
         label = short_kind(kind)
         hint = short_hint(kind, rows[0][2], verbose=False)
-        line = f"  [{label}]"
-        if hint:
-            line += f" {hint}"
-        line += f" ({len(rows)})"
-        if _is_hard_kind(kind):
-            hard(line)
-        else:
-            work(line)
+        tag = f"{label}  {hint}" if hint else label
+        role = "hard" if _is_hard_kind(kind) else "work"
+        count(len(rows), tag, role=role)
         for path, _k, _d in rows[:max_dirs]:
-            print(f"    {path}", flush=True)
+            print(f"  {path}", flush=True)
         if len(rows) > max_dirs:
-            note(f"    … en {len(rows) - max_dirs} meer")
-        note(f"    fix: `{fix_template}`")
+            note(f"  … en {len(rows) - max_dirs} meer")
+        note(f"  fix: `{fix_template}`")
     if fix_page:
-        note(f"  Zie: {str(fix_page).lstrip('/')}")
+        note(f"Zie: {str(fix_page).lstrip('/')}")

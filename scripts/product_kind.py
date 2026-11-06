@@ -16,14 +16,19 @@ from typing import Callable, Iterator, Protocol, Sequence
 
 from cli_style import (
     add_verbose_argument,
+    count,
     detail,
     error,
     error_block,
     explain_sync_failure,
     info,
     is_transient_lock_error,
+    ok,
+    section,
     set_verbose,
+    work,
 )
+
 
 # Na de eerste ronde: vergrendelde items nog zo vaak proberen.
 LOCK_RETRY_PASSES = 2
@@ -151,9 +156,9 @@ def parse_product_args(
 def _print_kind_failure_summary(kind_id: str, failures: Sequence[KindFailure]) -> None:
     if not failures:
         return
-    error(f"Mislukt ({kind_id}): {len(failures)}")
+    count(len(failures), f"mislukt-{kind_id}", role="hard")
     for fail in failures:
-        error(f"  - {fail.path}")
+        error(f"  {fail.path}")
         error(f"    {fail.reason}")
         error(f"    {fail.solution}")
 
@@ -236,11 +241,9 @@ def run_kind(
                         new_need[i] = False
                 if any(new_need):
                     trimmed.append((source, new_need, slots))
-            info(
-                f"{len(pending)} product(en) wachten op MuseScore ({kind.id}).",
-            )
+            count(len(pending), f"wacht-op-musescore-{kind.id}", role="work")
             if running_in_ci():
-                info(
+                work(
                     f"CI: sla MuseScore-stappen over voor {kind.id}; "
                     "overige slots wel bijwerken.",
                 )
@@ -259,7 +262,8 @@ def run_kind(
                 if not todo:
                     return 1
 
-    info(f">>> {kind.id}: {len(todo)} van {len(sources)} bijwerken")
+    section(f">>> {kind.id}")
+    count(len(todo), f"bijwerken (van {len(sources)})", role="work")
     from batch_guard import confirm_batch, run_timed_batch
     from input_paths import rel_for_log
 
@@ -309,7 +313,7 @@ def run_kind(
             kind.sync(source, need=need_flags, dry_run=dry_run)
         except Exception as exc:  # noqa: BLE001
             if is_transient_lock_error(exc):
-                info(f"  Uitgesteld (vergrendeld): {rel} — later opnieuw")
+                work(f"  Uitgesteld (vergrendeld): {rel}")
                 deferred.append(item)
                 deferred_exc[source] = exc
                 return SKIP
@@ -328,9 +332,10 @@ def run_kind(
         if not deferred:
             break
         time.sleep(LOCK_RETRY_PAUSE_S * pass_i)
-        info(
-            f">>> {kind.id}: {len(deferred)} opnieuw na vergrendeling "
-            f"(poging {pass_i}/{LOCK_RETRY_PASSES})"
+        count(
+            len(deferred),
+            f"retry-vergrendeling ({pass_i}/{LOCK_RETRY_PASSES})",
+            role="work",
         )
         still: list[tuple[Path, list[bool], list[ProductSlot]]] = []
         for item in deferred:
@@ -343,12 +348,12 @@ def run_kind(
                 if is_transient_lock_error(exc):
                     still.append(item)
                     deferred_exc[source] = exc
-                    info(f"  Nog vergrendeld: {rel}")
+                    work(f"  Nog vergrendeld: {rel}")
                 else:
                     _record_failure(rel, exc)
                     failed += 1
             else:
-                info(f"  OK na herhaling: {rel}")
+                ok(f"  OK na herhaling: {rel}")
         deferred = still
 
     for item in deferred:
@@ -367,8 +372,9 @@ def run_kind(
         # Alleen bij losse kind-CLI: volledige samenvatting hier.
         _print_kind_failure_summary(kind.id, failed_rows)
     if failed:
-        error(f"{failed} mislukt van {len(todo)} ({kind.id})")
+        count(failed, f"mislukt-{kind.id}", role="hard")
         return 1
+    ok(f"OK  {kind.id}")
     return 0
 
 

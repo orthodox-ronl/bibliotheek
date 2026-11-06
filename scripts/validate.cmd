@@ -10,7 +10,7 @@ if errorlevel 1 exit /b 1
 
 where vsa >nul 2>&1
 if errorlevel 1 (
-  echo ERROR: vsa not on PATH after _ensure --vsa-tool
+  call scripts\_msg.cmd hard "ERROR  vsa not on PATH after _ensure --vsa-tool"
   exit /b 1
 )
 
@@ -26,14 +26,14 @@ if errorlevel 1 (
 set /p TARGET=<"%RESOLVE_OUT%"
 del "%RESOLVE_OUT%" 2>nul
 if not defined TARGET (
-  echo FAIL: kon pad niet oplossen: %RAW%
+  call scripts\_msg.cmd hard "FAIL  kon pad niet oplossen: %RAW%"
   exit /b 1
 )
 
-echo === bibliotheek validate: vsa validate %TARGET% ===
+call scripts\_msg.cmd section "=== validate: vsa %TARGET% ==="
 vsa validate "%TARGET%"
 if errorlevel 1 (
-  echo ERROR: vsa validate failed
+  call scripts\_msg.cmd hard "ERROR  vsa validate failed"
   exit /b 1
 )
 
@@ -41,16 +41,16 @@ where mvsa >nul 2>&1
 if not errorlevel 1 (
   dir /s /b "%TARGET%\*.mvsa" >nul 2>&1
   if not errorlevel 1 (
-    echo === bibliotheek validate: mvsa validate %TARGET% ===
+    call scripts\_msg.cmd section "=== validate: mvsa %TARGET% ==="
     mvsa validate "%TARGET%"
     if errorlevel 1 (
-      echo ERROR: mvsa validate failed
+      call scripts\_msg.cmd hard "ERROR  mvsa validate failed"
       exit /b 1
     )
   )
 )
 
-echo OK: validate
+call scripts\_msg.cmd ok "OK  validate"
 exit /b 0
 
 :usage

@@ -19,10 +19,23 @@ _VERBOSE = False
 _RED = "\033[31m"
 _GREEN = "\033[32m"
 _YELLOW = "\033[33m"
+_MAGENTA = "\033[35m"
 _CYAN = "\033[36m"
 _BOLD = "\033[1m"
 _DIM = "\033[2m"
 _RESET = "\033[0m"
+
+# Rollen → ANSI (bron/docs/specs/repo-scripts.md § Console-output)
+_ROLE_CODES: dict[str, tuple[str, ...]] = {
+    "section": (_BOLD, _CYAN),
+    "ok": (_GREEN,),
+    "work": (_YELLOW,),
+    "hard": (_BOLD, _RED),
+    "refuse": (_MAGENTA,),
+    "note": (_DIM,),
+    "info": (),
+    "detail": (),
+}
 
 
 def configure_stdio() -> None:
@@ -95,6 +108,39 @@ def note(msg: str) -> None:
 def hard(msg: str) -> None:
     """Echte fout / onverwacht probleem (rood vet), op stdout."""
     print(paint(msg, _BOLD, _RED), flush=True)
+
+
+def refuse(msg: str) -> None:
+    """Bewuste weigering of skip zonder schade (magenta)."""
+    print(paint(msg, _MAGENTA), flush=True)
+
+
+def format_count(n: int, label: str, *, width: int = 3) -> str:
+    """Rechts uitgelijnd getal + label (`` 12  stale-mxl``)."""
+    return f"{int(n):>{max(1, width)}}  {label}"
+
+
+def count(
+    n: int,
+    label: str,
+    *,
+    role: str = "work",
+    width: int = 3,
+) -> None:
+    """Compacte tellingsregel met rolkleur (default geel = afwerkbaar)."""
+    msg = format_count(n, label, width=width)
+    codes = _ROLE_CODES.get(role)
+    if codes is None:
+        raise ValueError(
+            f"onbekende count-rol {role!r}; verwacht: "
+            + ", ".join(sorted(_ROLE_CODES))
+        )
+    if role == "detail" and not is_verbose():
+        return
+    if not codes:
+        print(msg, flush=True)
+        return
+    print(paint(msg, *codes), flush=True)
 
 
 def set_verbose(enabled: bool) -> None:

@@ -36,6 +36,15 @@ from catalogus import (  # noqa: E402
     slash_to_stem,
 )
 from bieb_accepteer import ensure_sections  # noqa: E402
+from cli_style import (  # noqa: E402
+    add_verbose_argument,
+    count,
+    detail,
+    note,
+    ok,
+    section,
+    set_verbose,
+)
 
 _SKIP_COPY_DIR_NAMES = frozenset({".mscbackup", ".git", "__pycache__"})
 
@@ -222,7 +231,7 @@ def _copy_tree_renaming(
         rel = path.relative_to(src)
         parts = list(rel.parts[:-1]) + [_dest_name(rel.name, old_stem, new_stem)]
         out = dest.joinpath(*parts)
-        print(f"  copy {_rel(path)} -> {_rel(out)}", flush=True)
+        detail(f"  copy {_rel(path)} -> {_rel(out)}")
         if not dry_run:
             bieb_fs.mkdir(out.parent)
             bieb_fs.copy2(path, out)
@@ -251,10 +260,9 @@ def kopieer(bron_raw: str, nieuw_raw: str, *, dry_run: bool) -> int:
         )
         return 1
     if dest.exists():
-        bieb_fs.print_fail(
+        bieb_fs.print_refuse(
             f"doelmap bestaat al: {_rel(dest)}",
             oplossing="kies een ander nieuw id, of ruim de bestaande map eerst op.",
-            stream=sys.stderr,
         )
         return 1
 
@@ -281,10 +289,9 @@ def kopieer(bron_raw: str, nieuw_raw: str, *, dry_run: bool) -> int:
         if p.is_file() and p.suffix.lower() in {".vsa", ".mvsa"}
     ]
 
-    print(
+    section(
         f"=== bieb kopieer [leaf] {bron} -> {nieuw}"
-        + (" (dry-run)" if dry_run else ""),
-        flush=True,
+        + (" (dry-run)" if dry_run else "")
     )
 
     ensure_sections(nieuw, dry_run=dry_run)
@@ -302,7 +309,7 @@ def kopieer(bron_raw: str, nieuw_raw: str, *, dry_run: bool) -> int:
                 manueel=handmatig,
                 source_paths=source_for_title,
             )
-            print(f"  write {_rel(out)} (nieuw bieb id)", flush=True)
+            detail(f"  write {_rel(out)} (nieuw bieb id)")
             if not dry_run:
                 bieb_fs.mkdir(out.parent)
                 bieb_fs.write_text(out, text)
@@ -310,7 +317,7 @@ def kopieer(bron_raw: str, nieuw_raw: str, *, dry_run: bool) -> int:
             continue
         dest_name = _dest_name(rel.name, old_stem, new_stem)
         out = dest.joinpath(*rel.parts[:-1], dest_name)
-        print(f"  copy {_rel(path)} -> {_rel(out)}", flush=True)
+        detail(f"  copy {_rel(path)} -> {_rel(out)}")
         if not dry_run:
             bieb_fs.mkdir(out.parent)
             bieb_fs.copy2(path, out)
@@ -326,33 +333,30 @@ def kopieer(bron_raw: str, nieuw_raw: str, *, dry_run: bool) -> int:
                     bieb_fs.write_text(out, body)
         n += 1
 
-    print(f"  catalogus-bestanden: {n}", flush=True)
+    count(n, "catalogus-bestanden", role="info")
 
     svg_src = _svg_root_for(bron)
     svg_dest = _svg_root_for(nieuw)
     if svg_src.is_dir():
         if svg_dest.exists():
-            bieb_fs.print_fail(
+            bieb_fs.print_refuse(
                 f"SVG-doel bestaat al: {_rel(svg_dest)}",
                 oplossing="ruim die SVG-map op, of kies een ander nieuw id.",
-                stream=sys.stderr,
             )
             return 1
         n_svg = _copy_tree_renaming(
             svg_src, svg_dest, old_stem=old_stem, new_stem=new_stem, dry_run=dry_run
         )
-        print(f"  SVG-bestanden: {n_svg}", flush=True)
+        count(n_svg, "svg-bestanden", role="info")
     else:
-        print("  SVG: (geen bronmap)", flush=True)
+        note("svg: (geen bronmap)")
 
-    print("  koormap-slot: niet aangemaakt (handmatig)", flush=True)
-    print("OK: kopieer klaar" + (" (dry-run, niets geschreven)" if dry_run else ""))
+    note("koormap-slot: niet aangemaakt (handmatig)")
+    ok("OK  kopieer klaar" + (" (dry-run)" if dry_run else ""))
     if not dry_run:
-        print(
-            "Vervolg: products vernieuwen; "
-            "python scripts\\build_zoek_index.py ; "
-            "scripts\\check.cmd. Eventueel koormap-slot met bieb.",
-            flush=True,
+        note(
+            "Vervolg: products; build_zoek_index; check. "
+            "Eventueel koormap-slot met bieb."
         )
     return 0
 
@@ -373,7 +377,9 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Toon acties zonder te schrijven",
     )
+    add_verbose_argument(parser)
     args = parser.parse_args(argv)
+    set_verbose(bool(args.verbose))
 
     bron = args.bron
     nieuw = args.nieuw
