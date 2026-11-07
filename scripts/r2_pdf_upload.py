@@ -239,6 +239,17 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Echt wissen bij --purge-prefix (anders alleen tonen).",
     )
+    ap.add_argument(
+        "--restamp-metadata",
+        action="store_true",
+        help="Zet sha256-metadata op bestaande objecten onder production/ "
+        "(download+hash+put; geen lokale PDF's nodig).",
+    )
+    ap.add_argument(
+        "--only-missing-sha",
+        action="store_true",
+        help="Bij --restamp-metadata: sla objecten over die al sha256 hebben.",
+    )
     args = ap.parse_args(argv)
 
     if args.list_buckets:
@@ -302,6 +313,63 @@ def main(argv: list[str] | None = None) -> int:
             deleted += len(chunk)
             print(f"DEL  {deleted}/{len(keys)}", flush=True)
         print(f"Klaar: {deleted} gewist")
+        return 0
+
+    if args.restamp_metadata:
+        prefix = f"{R2_ENV}/"
+        client, bucket, endpoint, account = r2_client()
+        print(f"Bucket={bucket} Endpoint={endpoint}")
+        print(f"Restamp sha256 onder {prefix}")
+        token = None
+        keys: list[str] = []
+        while True:
+            kw = {"Bucket": bucket, "Prefix": prefix}
+            if token:
+                kw["ContinuationToken"] = token
+            resp = client.list_objects_v2(**kw)
+            for obj in resp.get("Contents") or []:
+                key = obj["Key"]
+                if key.endswith(".pdf"):
+                    keys.append(key)
+            if not resp.get("IsTruncated"):
+                break
+            token = resp.get("NextContinuationToken")
+        print(f"{len(keys)} PDF-object(en)")
+        done = 0
+        skipped = 0
+        for key in keys:
+            if args.only_missing_sha:
+                try:
+                    head = client.head_object(Bucket=bucket, Key=key)
+                    meta = head.get("Metadata") or {}
+                    if (meta.get("sha256") or "").strip():
+                        skipped += 1
+                        continue
+                except Exception:
+                    pass
+            if args.dry_run:
+                print(f"DRY  restamp {key}")
+                done += 1
+                continue
+            try:
+                obj = client.get_object(Bucket=bucket, Key=key)
+                body = obj["Body"].read()
+                digest = hashlib.sha256(body).hexdigest()
+                ctype = (obj.get("ContentType") or "application/pdf")
+                client.put_object(
+                    Bucket=bucket,
+                    Key=key,
+                    Body=body,
+                    ContentType=ctype,
+                    Metadata={"sha256": digest},
+                )
+            except Exception as exc:
+                _die(f"Restamp mislukt voor {key}:\n{exc}")
+            done += 1
+            print(f"META {key} sha256={digest[:12]}…", flush=True)
+            if done % 25 == 0:
+                print(f"… {done}/{len(keys)} (skip={skipped})", flush=True)
+        print(f"Klaar: restamped={done} skipped={skipped}")
         return 0
 
     env = (args.env or R2_ENV).strip().lower()

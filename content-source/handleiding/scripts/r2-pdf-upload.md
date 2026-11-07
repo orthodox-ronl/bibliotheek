@@ -14,6 +14,7 @@ weight: 53
 scripts\r2-pdf-upload.cmd [--dry-run] [pad ...]
 scripts\r2-pdf-upload.cmd --list-buckets
 scripts\r2-pdf-upload.cmd --purge-prefix preview [--apply-purge]
+scripts\r2-pdf-upload.cmd --restamp-metadata [--only-missing-sha] [--dry-run]
 ```
 
 # DESCRIPTION
@@ -29,12 +30,19 @@ Laadt `scripts\r2-env.cmd` / `.ps1` automatisch. EU:
 `--purge-prefix preview --apply-purge` wist de afgeschafte preview-map
 op R2 (eerst zonder `--apply-purge` om te tellen).
 
+`--restamp-metadata` zet of vernieuwt de `sha256`-metadata op alle
+PDF’s die al onder `production/` staan (download + herschrijven). Nodig
+als objecten zonder vingerafdruk zijn geüpload, of na een eenmalige
+migratie. Met `--only-missing-sha` sla je objecten over die al
+`sha256` hebben.
+
 # EXAMPLES
 
 ```cmd
 scripts\r2-pdf-upload.cmd --dry-run catalogus\alleluia
 scripts\r2-pdf-upload.cmd
 scripts\r2-pdf-upload.cmd --purge-prefix preview --apply-purge
+scripts\r2-pdf-upload.cmd --restamp-metadata --only-missing-sha
 ```
 
 # SEE ALSO

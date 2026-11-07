@@ -71,6 +71,15 @@ scripts\r2-pdf-upload.cmd --purge-prefix preview
 scripts\r2-pdf-upload.cmd --purge-prefix preview --apply-purge
 ```
 
+### SHA-256 ontbreekt op R2 (opschonen kan niet vergelijken)
+
+Normale upload zet de vingerafdruk mee. Ontbreekt die op bestaande
+objecten (bijv. na de eerste migratie), dan:
+
+```cmd
+scripts\r2-pdf-upload.cmd --restamp-metadata --only-missing-sha
+```
+
 ### Publieke URL 404
 
 Bestand geüpload onder `production/…`? Public Development URL nog aan?

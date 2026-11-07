@@ -22,8 +22,10 @@ echo.
 echo Gebruik: scripts\r2-pdf-upload.cmd [--env production] [--dry-run] [pad ...]
 echo          scripts\r2-pdf-upload.cmd --list-buckets
 echo          scripts\r2-pdf-upload.cmd --purge-prefix preview [--apply-purge]
+echo          scripts\r2-pdf-upload.cmd --restamp-metadata [--only-missing-sha]
 echo.
 echo Upload blad-PDF's naar R2 production/ ^(één set^). Zet SHA-256-metadata.
+echo --restamp-metadata: vingerafdrukken op bestaande R2-PDF's.
 echo --env preview mag niet meer.
 echo.
 echo Credentials: scripts\r2-env.cmd ^(gitignore^).

@@ -21,6 +21,7 @@ is afgeschaft. Geen history-rewrite in dit traject.
 | `scripts\r2-pdf-upload.cmd` | Naar R2 `production/` (+ metadata `sha256`) |
 | `scripts\r2-pdf-opschonen.cmd [--apply]` | Gelijke lokale PDF’s weg |
 | `r2-pdf-upload --purge-prefix preview --apply-purge` | Eenmalig oude R2-`preview/` legen |
+| `r2-pdf-upload --restamp-metadata [--only-missing-sha]` | SHA-256 op bestaande R2-PDF’s (zonder lokale bestanden) |
 
 Credentials: `scripts\r2-env.cmd` / `.ps1` (gitignore; zie `*.example`).
 EU-bucket: `R2_JURISDICTION=eu`.
