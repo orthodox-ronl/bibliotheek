@@ -1,0 +1,13 @@
+# Kopieer naar r2-env.ps1 (staat in .gitignore) en vul de waarden in.
+# Scripts die naar Cloudflare schrijven (r2-pdf-upload.ps1 / .py) laden dit zelf.
+# Handmatig (dot-source):  . .\scripts\r2-env.ps1
+
+$env:R2_ACCOUNT_ID = "JOUW_ACCOUNT_ID"
+$env:R2_ACCESS_KEY_ID = "JOUW_ACCESS_KEY_ID"
+$env:R2_SECRET_ACCESS_KEY = "JOUW_SECRET_ACCESS_KEY"
+$env:R2_BUCKET = "orthodox-ronl-bibliotheek-pdf"
+$env:R2_JURISDICTION = "eu"
+# Optioneel i.p.v. R2_JURISDICTION:
+# $env:R2_ENDPOINT = "https://$($env:R2_ACCOUNT_ID).eu.r2.cloudflarestorage.com"
+
+Write-Host "R2-omgevingsvariabelen gezet (bucket=$($env:R2_BUCKET), jurisdiction=$($env:R2_JURISDICTION))."

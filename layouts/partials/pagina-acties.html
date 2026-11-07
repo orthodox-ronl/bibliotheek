@@ -51,6 +51,20 @@
       {{- $paginaPdfBeide = printf "%sindex.md.translit-beide.pdf" .RelPermalink -}}
     {{- end -}}
   {{- end -}}
+  {{- /* Lokaal-eerst, anders R2 production/ (docs/plans/pdf-r2.md). */ -}}
+  {{- $pdfCfg := site.Params.pdfAssets | default dict -}}
+  {{- $preferLocal := true -}}
+  {{- if isset $pdfCfg "preferLocal" -}}{{- $preferLocal = $pdfCfg.preferLocal -}}{{- end -}}
+  {{- $paginaPdf = partial "pdf-asset-url.html" (dict "page" . "local" $paginaPdf "filename" "index.md.pdf") -}}
+  {{- if or $paginaPdfNls (not $preferLocal) -}}
+    {{- $paginaPdfNls = partial "pdf-asset-url.html" (dict "page" . "local" $paginaPdfNls "filename" "index.md.translit-nls.pdf") -}}
+  {{- end -}}
+  {{- if or $paginaPdfKsl (not $preferLocal) -}}
+    {{- $paginaPdfKsl = partial "pdf-asset-url.html" (dict "page" . "local" $paginaPdfKsl "filename" "index.md.translit-ksl.pdf") -}}
+  {{- end -}}
+  {{- if or $paginaPdfBeide (not $preferLocal) -}}
+    {{- $paginaPdfBeide = partial "pdf-asset-url.html" (dict "page" . "local" $paginaPdfBeide "filename" "index.md.translit-beide.pdf") -}}
+  {{- end -}}
   {{- $dlBase := "" -}}
   {{- if or $paginaPdf $paginaPdfNls $paginaPdfKsl $paginaPdfBeide -}}
     {{- if .Params.pdf_bestandsnaam -}}

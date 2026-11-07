@@ -1,0 +1,13 @@
+# Overlay: preview/branch-build. WIP-PDF’s in de checkout mogen mee;
+# ontbrekende bladen vallen terug op R2 production/.
+# Gebruik: hugo --config hugo.toml,hugo.pdf-assets.preview.toml …
+
+ignoreFiles = [
+  '(?i)[/\\\\]input[/\\\\]',
+  '(?i)\\.tekstblad\\.md$',
+]
+
+[params.pdfAssets]
+  enabled = true
+  base = "https://pub-16acc8d1bd9b47b684ae5c7aa3215f1d.r2.dev/"
+  preferLocal = true

@@ -1,0 +1,14 @@
+# Overlay: productie-build (main). PDF’s niet in de site; downloads → R2 production/.
+# Gebruik: hugo --config hugo.toml,hugo.pdf-assets.production.toml …
+
+ignoreFiles = [
+  '(?i)[/\\\\]input[/\\\\]',
+  '(?i)\\.tekstblad\\.md$',
+  '(?i)\\.pdf$',
+]
+
+[params.pdfAssets]
+  enabled = true
+  base = "https://pub-16acc8d1bd9b47b684ae5c7aa3215f1d.r2.dev/"
+  # Geen lokale PDF in de publishmap → altijd R2.
+  preferLocal = false

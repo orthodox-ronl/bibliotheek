@@ -50,3 +50,10 @@ Thumbs.db
 !.cursor/rules/**
 bibliotheek-onderhoud.code-workspace
 
+# Cloudflare R2 credentials (lokaal; zie *.example)
+scripts/r2-env.cmd
+scripts/r2-env.ps1
+
+# Blad-PDF’s mogen op development/feature bij WIP (niet op main — CI-guard).
+# Gelijk aan R2 → r2-pdf-opschonen --apply. Zie docs/plans/pdf-r2.md.
+

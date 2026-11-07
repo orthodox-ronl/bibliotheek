@@ -1,0 +1,39 @@
+{{- /*
+  Blad-PDF-URL (docs/plans/pdf-r2.md): lokaal-eerst, anders R2 production/.
+
+  Context dict:
+    page     — pagina met .File
+    local    — relatieve site-URL als het bestand lokaal/in de build zit (mag leeg)
+    filename — bijv. index.md.pdf
+
+  params.pdfAssets:
+    base        — publieke R2-host (eindigend op /)
+    preferLocal — true (default): local wint; false: altijd R2 (main-build)
+    env         — genegeerd voor pad; objecten staan onder production/
+*/ -}}
+{{- $page := .page -}}
+{{- $local := .local | default "" -}}
+{{- $filename := .filename -}}
+{{- $cfg := $page.Site.Params.pdfAssets | default dict -}}
+{{- $base := strings.TrimSpace ($cfg.base | default "") -}}
+{{- $preferLocal := true -}}
+{{- if isset $cfg "preferLocal" -}}
+  {{- $preferLocal = $cfg.preferLocal -}}
+{{- end -}}
+{{- $r2 := "" -}}
+{{- if and (ne $base "") $page.File -}}
+  {{- $dir := strings.TrimSuffix "/" (replace $page.File.Dir "\\" "/") -}}
+  {{- $base = strings.TrimSuffix $base "/" -}}
+  {{- if $dir -}}
+    {{- $r2 = printf "%s/production/%s/%s" $base $dir $filename -}}
+  {{- else -}}
+    {{- $r2 = printf "%s/production/%s" $base $filename -}}
+  {{- end -}}
+{{- end -}}
+{{- if and $preferLocal (ne $local "") -}}
+  {{- $local -}}
+{{- else if ne $r2 "" -}}
+  {{- $r2 -}}
+{{- else -}}
+  {{- $local -}}
+{{- end -}}

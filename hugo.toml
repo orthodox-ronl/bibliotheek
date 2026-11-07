@@ -20,6 +20,13 @@ ignoreFiles = [
   linksGithub = "https://github.com/orthodox-ronl/bibliotheek"
   feedback_email = "orthodoxronl@duck.com"
 
+  # Blad-PDF: lokaal-eerst, anders R2 production/ (docs/plans/pdf-r2.md).
+  # Overlays: hugo.pdf-assets.production.toml / hugo.pdf-assets.preview.toml
+  [params.pdfAssets]
+    enabled = true
+    base = "https://pub-16acc8d1bd9b47b684ae5c7aa3215f1d.r2.dev/"
+    preferLocal = true
+
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
