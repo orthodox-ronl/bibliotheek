@@ -5,7 +5,6 @@ cd /d "%~dp0.."
 if /I "%~1"=="-h" goto usage
 if /I "%~1"=="--help" goto usage
 
-REM Credentials: lokale r2-env (gitignore). Python laadt ze ook zelf als nodig.
 if exist "scripts\r2-env.cmd" (
   call "scripts\r2-env.cmd"
   if errorlevel 1 exit /b %ERRORLEVEL%
@@ -20,21 +19,15 @@ exit /b %ERRORLEVEL%
 
 :usage
 echo.
-echo Gebruik: scripts\r2-pdf-upload.cmd --env production^|preview [--dry-run] [pad ...]
+echo Gebruik: scripts\r2-pdf-upload.cmd [--env production] [--dry-run] [pad ...]
+echo          scripts\r2-pdf-upload.cmd --list-buckets
+echo          scripts\r2-pdf-upload.cmd --purge-prefix preview [--apply-purge]
 echo.
-echo Upload blad-PDF's ^(index.md.pdf / translit^) naar Cloudflare R2.
-echo Object-sleutel: {env}/{pad-onder-content-source}/{bestandsnaam}
-echo Productie en preview zijn strikt gescheiden mappen.
+echo Upload blad-PDF's naar R2 production/ ^(één set^). Zet SHA-256-metadata.
+echo --env preview mag niet meer.
 echo.
-echo Zonder pad: hele content-source. Met --dry-run: alleen sleutels tonen
-echo ^(geen credentials nodig^).
-echo.
-echo Credentials: dit script roept eerst scripts\r2-env.cmd aan als die bestaat
-echo ^(lokaal, in .gitignore; sjabloon: r2-env.*.example^).
-echo Python: pip install boto3
-echo Diagnose: scripts\r2-pdf-upload.cmd --list-buckets
-echo.
-echo Plan/terugkeer: docs\plans\pdf-r2.md
+echo Credentials: scripts\r2-env.cmd ^(gitignore^).
+echo Plan: docs\plans\pdf-r2.md
 echo.
 python scripts\r2_pdf_upload.py -h
 endlocal

@@ -20,15 +20,12 @@ ignoreFiles = [
   linksGithub = "https://github.com/orthodox-ronl/bibliotheek"
   feedback_email = "orthodoxronl@duck.com"
 
-  # Blad-PDF downloads (index.md.pdf / translit). Standaard uit = huidige
-  # situatie (bestand op de site). Aan + base = URL’s naar Cloudflare R2.
-  # Zie docs/plans/pdf-r2.md. Overlays: hugo.pdf-assets.production.toml /
-  # hugo.pdf-assets.preview.toml
+  # Blad-PDF: lokaal-eerst, anders R2 production/ (docs/plans/pdf-r2.md).
+  # Overlays: hugo.pdf-assets.production.toml / hugo.pdf-assets.preview.toml
   [params.pdfAssets]
-    enabled = false
-    base = ""
-    # production | preview — map onder de R2-bucket
-    env = "production"
+    enabled = true
+    base = "https://pub-16acc8d1bd9b47b684ae5c7aa3215f1d.r2.dev/"
+    preferLocal = true
 
 [markup]
   [markup.goldmark]

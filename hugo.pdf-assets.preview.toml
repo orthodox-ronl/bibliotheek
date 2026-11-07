@@ -1,18 +1,13 @@
-# Overlay: blad-PDF downloads via R2-map preview/
+# Overlay: preview/branch-build. WIP-PDF’s in de checkout mogen mee;
+# ontbrekende bladen vallen terug op R2 production/.
 # Gebruik: hugo --config hugo.toml,hugo.pdf-assets.preview.toml …
-# Vul base in ná Cloudflare-proef (docs/plans/pdf-r2.md).
 
-# PDF’s niet als page resources meenemen (R2 host downloads). Voorkomt
-# ~1 GB kopiëren naar generated/site vóór de delete-stap — snellere CI.
-# fileExists in templates blijft de bestanden op schijf zien.
 ignoreFiles = [
   '(?i)[/\\\\]input[/\\\\]',
   '(?i)\\.tekstblad\\.md$',
-  '(?i)\\.pdf$',
 ]
 
 [params.pdfAssets]
   enabled = true
-  # Zelfde publieke basis-URL als production-overlay; andere map via env.
   base = "https://pub-16acc8d1bd9b47b684ae5c7aa3215f1d.r2.dev/"
-  env = "preview"
+  preferLocal = true

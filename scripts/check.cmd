@@ -117,6 +117,14 @@ if errorlevel 1 (
   if not defined STRICT exit /b 1
 )
 
+REM main: geen getrackte blad-PDF’s (R2 is de stabiele set).
+python scripts\r2_pdf_opschonen.py --fail-if-tracked-on-main
+if errorlevel 1 (
+  echo Zie: scripts\r2-pdf-upload.cmd en scripts\r2-pdf-opschonen.cmd --apply
+  set "PRODUCT_FAIL=1"
+  if defined STRICT exit /b 1
+)
+
 if defined STRICT (
   python scripts\check_mxl_playback_contract.py --fail
 ) else (

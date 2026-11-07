@@ -1,6 +1,6 @@
 @echo off
 REM Kopieer naar r2-env.cmd (staat in .gitignore) en vul de waarden in.
-REM Scripts die naar Cloudflare schrijven (r2-pdf-upload) laden dit zelf.
+REM Laden: r2-pdf-upload / r2-pdf-opschonen doen dit zelf.
 REM Handmatig:  call scripts\r2-env.cmd
 
 set "R2_ACCOUNT_ID=JOUW_ACCOUNT_ID"

@@ -52,11 +52,12 @@ verouderd (herkomststempel past niet bij de bron), dan exporteert
 van `products`. Gewijzigde koormap-`index.md` meenemen na een git-edit:
 [products-changed](../products-changed/). De pagina-PDF maak je lokaal
 uit de **notatiebronnen**, de sibling-SVG’s en de Markdown-layout.
-Die PDF commit je **niet** mee (`.gitignore`); op de gepubliceerde site
-haalt het download-icoon hem uit Cloudflare R2. Na `pdf.cmd` dus ook
-[r2-pdf-upload](../r2-pdf-upload/) naar de juiste omgeving (`preview` of
-`production`). MuseScore 4 is nodig voor `.mvsa`/`.mscz`-SVG-export (en
-dus zodra de pagina zulke bronnen of `pdf-bijelkaar` gebruikt).
+Op de site: lokale PDF als die in de build zit (WIP), anders R2
+`production/`. Op `main` geen blad-PDF’s in git; na stabiele upload:
+[r2-pdf-upload](../r2-pdf-upload/) en [r2-pdf-opschonen](../r2-pdf-opschonen/)
+`--apply`. Op development mag een WIP-PDF wél in git. MuseScore 4 is
+nodig voor `.mvsa`/`.mscz`-SVG-export (en dus zodra de pagina zulke
+bronnen of `pdf-bijelkaar` gebruikt).
 
 **Uitvoer:** standaard tellingen vooraan (`  3  pdf-geschreven`,
 `  1  overgeslagen`, `  0  mislukt`) en `OK  pdf`. Per-PDF-regels en

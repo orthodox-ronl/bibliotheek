@@ -73,7 +73,7 @@ jobs:
             # op gh-pages hangen (keep_files) → dikke sync / timeout-risico.
             # Productie-root houdt keep_files=true zodat preview/ niet weggevaagd wordt.
             echo "keep_files=false" >> "$GITHUB_OUTPUT"
-            # Blad-PDF downloads via R2 preview-map (strikt los van production/).
+            # WIP-PDF lokaal-eerst; anders R2 production/ (docs/plans/pdf-r2.md).
             echo "hugo_config=hugo.toml,hugo.pdf-assets.preview.toml" >> "$GITHUB_OUTPUT"
             # products-meta nog niet op tooling main (PR VSA-tooling#58): pin.
             echo "tooling_mode=pin" >> "$GITHUB_OUTPUT"
@@ -99,7 +99,7 @@ jobs:
             echo "label=branch-preview" >> "$GITHUB_OUTPUT"
             # Zelfde als development-preview: subdirectory schoon vervangen.
             echo "keep_files=false" >> "$GITHUB_OUTPUT"
-            # Branch-previews delen de R2 preview/-map (niet production/).
+            # Zelfde als development: lokaal-eerst, R2 production/ als fallback.
             echo "hugo_config=hugo.toml,hugo.pdf-assets.preview.toml" >> "$GITHUB_OUTPUT"
             # products-meta nog niet op tooling main (PR VSA-tooling#58).
             # Deze consumer-branch pint tot die merge; andere branches floaten.
@@ -125,6 +125,18 @@ jobs:
           echo "keep_files: ${{ steps.target.outputs.keep_files }}"
           echo "hugo_config: ${{ steps.target.outputs.hugo_config }}"
           echo "VSA-tooling mode=${{ steps.target.outputs.tooling_mode }} ref=${{ steps.target.outputs.tooling_ref }}"
+
+      - name: Guard — geen getrackte blad-PDF’s op main
+        if: github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          mapfile -t pdfs < <(git ls-files '**/index.md.pdf' '**/index.md.translit*.pdf' || true)
+          if ((${#pdfs[@]} > 0)); then
+            echo "::error::Blad-PDF’s horen niet in git op main (${#pdfs[@]} tracked). Upload naar R2 + r2-pdf-opschonen."
+            printf '%s\n' "${pdfs[@]:0:20}"
+            exit 1
+          fi
+          echo "OK: geen getrackte blad-PDF’s"
 
       - name: Checkout VSA-tooling
         uses: actions/checkout@v5

@@ -90,12 +90,11 @@ import-siblings met [import-mvsa](../import-mvsa/); herstel id’s met
 sibling-SVG (`.vsa.svg` / `.mvsa.svg`); wel de zoekindex en de legacy
 bladermap-SVG bij elke site-deploy.
 
-`pdf.cmd` genereert CI niet. Het blad `index.md.pdf` maak je lokaal
-(ná de catalogusproducten); je commit hem niet (R2 host de download).
-`check` controleert of die PDF **lokaal** er is en niet ouder is dan de
-Markdown of notatiebron (`check_index_md_pdf.py`). Ontbreekt of
-verouderd: waarschuwing lokaal; fout met `--strict`. Na een verse clone
-eerst `pdf.cmd` (of PDF’s van R2) zodat `check` groen kan.
+`pdf.cmd` genereert CI niet. `check` controleert lokale `index.md.pdf`
+versheid waar die bestaat (`check_index_md_pdf.py`). Ontbreekt of
+verouderd: waarschuwing; fout met `--strict`. Op **main** mag geen
+blad-PDF getrackt zijn (guard). Stabiele PDF’s: R2 +
+[r2-pdf-opschonen](../r2-pdf-opschonen/).
 
 Per productcontrole zie je eerst wat er getest wordt, dan tellingen
 vooraan (`  3  stale-pdf`, `  1  meta  foute sha256`), de mappen die

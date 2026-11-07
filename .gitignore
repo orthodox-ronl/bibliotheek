@@ -54,8 +54,6 @@ bibliotheek-onderhoud.code-workspace
 scripts/r2-env.cmd
 scripts/r2-env.ps1
 
-# Blad-PDF’s: site downloadt van R2; lokaal via pdf.cmd (+ r2-pdf-upload).
-# Geen history-rewrite in deze stap — alleen uit tracking. Zie docs/plans/pdf-r2.md.
-**/index.md.pdf
-**/index.md.translit-*.pdf
+# Blad-PDF’s mogen op development/feature bij WIP (niet op main — CI-guard).
+# Gelijk aan R2 → r2-pdf-opschonen --apply. Zie docs/plans/pdf-r2.md.
 
