@@ -1813,7 +1813,25 @@ eis vóór publicatie.&lt;/p&gt;</description></item><item><title>(20) Moeder Go
  &lt;div data-translit-view="aan" data-translit-for-modus="beide" hidden&gt;&lt;div class="vsa-container"&gt;&lt;img class="vsa-notation" src="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/kleine-intocht/die-in-het-vlees-gekruisigd-zijt/hemelum/kleine-intocht-die-in-het-vlees-gekruisigd-zijt-hemelum.mvsa.translit-ksl.svg" alt="Kleine Intocht Die In Het Vlees Gekruisigd Zijt (Hemelum) (translit Ksl)"&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="score-scherm score-scherm--osmg" data-scherm="osmg" hidden&gt;&lt;div class="vsa-container osmd-container" data-osmd-src="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/kleine-intocht/die-in-het-vlees-gekruisigd-zijt/hemelum/kleine-intocht-die-in-het-vlees-gekruisigd-zijt-hemelum.mvsa.from-ir.musicxml" role="img" aria-label="Kleine Intocht Die In Het Vlees Gekruisigd Zijt (Hemelum)"&gt;
- &lt;p class="osmd-status"&gt;Partituur laden…&lt;/p&gt;</description></item><item><title>PDF en Coria-.mxl maken</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/partituur/5-pdf-en-coria/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/partituur/5-pdf-en-coria/</guid><description>&lt;h1 id="pdf-en-coria-mxl-maken"&gt;PDF en Coria-.mxl maken&lt;/h1&gt;
+ &lt;p class="osmd-status"&gt;Partituur laden…&lt;/p&gt;</description></item><item><title>Blad-PDF op R2</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/publiceren/blad-pdf-op-r2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/publiceren/blad-pdf-op-r2/</guid><description>&lt;h1 id="blad-pdf-op-cloudflare-r2"&gt;Blad-PDF op Cloudflare R2&lt;/h1&gt;
+&lt;p&gt;De dikke blad-PDF’s (&lt;code&gt;index.md.pdf&lt;/code&gt; en translit-varianten) staan voor
+bezoekers van de &lt;strong&gt;gepubliceerde&lt;/strong&gt; site in Cloudflare R2, niet meer in
+de GitHub Pages-map. Zo blijft de repo en de Pages-deploy lichter. Lokaal
+op je pc maak en bekijk je die PDF’s nog gewoon naast de Markdown.&lt;/p&gt;
+&lt;h2 id="wat-jij-blijft-doen"&gt;Wat jij blijft doen&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Blad maken of wijzigen (Markdown + notatie).&lt;/li&gt;
+&lt;li&gt;PDF vernieuwen: &lt;code&gt;scripts\pdf.cmd&lt;/code&gt; (zoals nu).&lt;/li&gt;
+&lt;li&gt;Naar Cloudflare zetten: &lt;code&gt;scripts\r2-pdf-upload.cmd&lt;/code&gt; of
+&lt;code&gt;.\scripts\r2-pdf-upload.ps1&lt;/code&gt;, met &lt;code&gt;--env preview&lt;/code&gt; of
+&lt;code&gt;--env production&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Bronnen committen/pushen. De PDF mag dual mode nog in git staan; de
+site-download knop op Pages wijst al naar R2.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Credentials eenmalig in &lt;code&gt;scripts\r2-env.cmd&lt;/code&gt; of &lt;code&gt;r2-env.ps1&lt;/code&gt; (niet in
+git). Het upload-script laadt die bestanden zelf. Zie
+&lt;a href="../../scripts/r2-pdf-upload/"&gt;r2-pdf-upload&lt;/a&gt;
+.&lt;/p&gt;</description></item><item><title>PDF en Coria-.mxl maken</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/partituur/5-pdf-en-coria/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/partituur/5-pdf-en-coria/</guid><description>&lt;h1 id="pdf-en-coria-mxl-maken"&gt;PDF en Coria-.mxl maken&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Werktraject&lt;/strong&gt; (waartoe, criteria, CI):
 &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/basispartituur/"&gt;Basispartituur&lt;/a&gt;
 .
@@ -1938,7 +1956,22 @@ catalogus-product-PDF’s plakken)&lt;/p&gt;
 &lt;code&gt;index.md.pdf&lt;/code&gt; naast de Markdown van een bladermap-pagina (Hugo page
 resource). Dat is de PDF van de &lt;strong&gt;getoonde pagina&lt;/strong&gt; (koormap-slot of
 catalogus-uitvoeringsvorm), niet hetzelfde als een losse
-catalogus-product-PDF van één uitvoeringsvorm.&lt;/p&gt;</description></item><item><title>Tekstblad → PDF</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/tekstblad/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/tekstblad/</guid><description>&lt;h1 id="tekstblad"&gt;Tekstblad&lt;/h1&gt;
+catalogus-product-PDF van één uitvoeringsvorm.&lt;/p&gt;</description></item><item><title>r2-pdf-upload</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/r2-pdf-upload/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/r2-pdf-upload/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;scripts\r2-pdf-upload.cmd&lt;/code&gt; / &lt;code&gt;scripts\r2-pdf-upload.ps1&lt;/code&gt; — blad-PDF’s
+naar Cloudflare R2 zetten (downloadmagazijn voor de site)&lt;/p&gt;
+&lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\r2-pdf-upload.cmd --env production|preview [--dry-run] [pad ...]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\r2-pdf-upload.cmd --list-buckets
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-powershell" data-lang="powershell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;.\scripts\r2-pdf-upload.ps1 --env preview
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;.\scripts\r2-pdf-upload.ps1 --env production
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
+&lt;p&gt;Zet de PDF achter het &lt;strong&gt;download-icoon&lt;/strong&gt; (&lt;code&gt;index.md.pdf&lt;/code&gt; en eventuele
+&lt;code&gt;index.md.translit-*.pdf&lt;/code&gt;) in Cloudflare R2. Op de gepubliceerde site
+wijst die knop naar R2; productie en preview hebben &lt;strong&gt;aparte mappen&lt;/strong&gt;
+(&lt;code&gt;production/…&lt;/code&gt; en &lt;code&gt;preview/…&lt;/code&gt;), zodat die omgevingen elkaar niet
+raken.&lt;/p&gt;
+&lt;p&gt;Het objectpad in R2 volgt de map onder &lt;code&gt;content-source&lt;/code&gt;. Voorbeeld:
+&lt;code&gt;preview/catalogus/…/uitvoeringsvorm/index.md.pdf&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Tekstblad → PDF</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/tekstblad/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/tekstblad/</guid><description>&lt;h1 id="tekstblad"&gt;Tekstblad&lt;/h1&gt;
 &lt;p&gt;Dit werktraject houdt een bibliotheek-bron &lt;strong&gt;&lt;code&gt;{stam}.tekstblad.md&lt;/code&gt;&lt;/strong&gt;
 bij (vooral tekst, eventueel HTML en &lt;code&gt;::: vsa-notatie&lt;/code&gt;). Representatie-id:
 &lt;code&gt;tekstblad&lt;/code&gt;. Op het scherm toont &lt;code&gt;bieb&lt;/code&gt; die inhoud; blokken

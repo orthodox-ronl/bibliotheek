@@ -167,7 +167,22 @@ catalogus-product-PDF’s plakken)&lt;/p&gt;
 &lt;code&gt;index.md.pdf&lt;/code&gt; naast de Markdown van een bladermap-pagina (Hugo page
 resource). Dat is de PDF van de &lt;strong&gt;getoonde pagina&lt;/strong&gt; (koormap-slot of
 catalogus-uitvoeringsvorm), niet hetzelfde als een losse
-catalogus-product-PDF van één uitvoeringsvorm.&lt;/p&gt;</description></item><item><title>opkuisen</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/opkuisen/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/opkuisen/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+catalogus-product-PDF van één uitvoeringsvorm.&lt;/p&gt;</description></item><item><title>r2-pdf-upload</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/r2-pdf-upload/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/r2-pdf-upload/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;scripts\r2-pdf-upload.cmd&lt;/code&gt; / &lt;code&gt;scripts\r2-pdf-upload.ps1&lt;/code&gt; — blad-PDF’s
+naar Cloudflare R2 zetten (downloadmagazijn voor de site)&lt;/p&gt;
+&lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\r2-pdf-upload.cmd --env production|preview [--dry-run] [pad ...]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\r2-pdf-upload.cmd --list-buckets
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-powershell" data-lang="powershell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;.\scripts\r2-pdf-upload.ps1 --env preview
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;.\scripts\r2-pdf-upload.ps1 --env production
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
+&lt;p&gt;Zet de PDF achter het &lt;strong&gt;download-icoon&lt;/strong&gt; (&lt;code&gt;index.md.pdf&lt;/code&gt; en eventuele
+&lt;code&gt;index.md.translit-*.pdf&lt;/code&gt;) in Cloudflare R2. Op de gepubliceerde site
+wijst die knop naar R2; productie en preview hebben &lt;strong&gt;aparte mappen&lt;/strong&gt;
+(&lt;code&gt;production/…&lt;/code&gt; en &lt;code&gt;preview/…&lt;/code&gt;), zodat die omgevingen elkaar niet
+raken.&lt;/p&gt;
+&lt;p&gt;Het objectpad in R2 volgt de map onder &lt;code&gt;content-source&lt;/code&gt;. Voorbeeld:
+&lt;code&gt;preview/catalogus/…/uitvoeringsvorm/index.md.pdf&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>opkuisen</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/opkuisen/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/opkuisen/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\opkuisen.cmd&lt;/code&gt; — herkomstanalyse en inhoudelijke opkuis van
 MusicXML- en MuseScore-bestanden (optioneel daarna layout)&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
