@@ -29,59 +29,23 @@ omgewisselde woorden tellen mee. Zoeken loopt over de
 <strong>uitvoeringsvormen</strong> in de catalogus.</p><p><a href=/bibliotheek/preview/handleiding/start/zoeken/>Uitgebreide uitleg in de handleiding</a>
 (eerst hoofdlijnen, daarna de technische specificatie).</p></span></span></div></form><p class=catalogus-zoek-meta aria-live=polite></p><div class=catalogus-zoek-resultaten></div></div></div></div></div></header></div><header class=oefenhoek-header><div class=oefenhoek-header-inner><nav class=oefenhoek-breadcrumb aria-label=Broodkruimels><a class=oefenhoek-breadcrumb-link href=/bibliotheek/preview/handleiding/>Handleiding</a>
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><a class=oefenhoek-breadcrumb-link href=/bibliotheek/preview/handleiding/publiceren/>Publiceren</a>
-<span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><span class=oefenhoek-breadcrumb-current aria-current=page>Blad-PDF op R2</span></nav></div></header><main class=page><h1 id=blad-pdf-op-cloudflare-r2>Blad-PDF op Cloudflare R2</h1><p>De dikke blad-PDF’s (<code>index.md.pdf</code> en translit-varianten) staan voor
-bezoekers van de <strong>gepubliceerde</strong> site in Cloudflare R2, niet meer in
-de GitHub Pages-map. Zo blijft de repo en de Pages-deploy lichter. Lokaal
-op je pc maak en bekijk je die PDF’s nog gewoon naast de Markdown.</p><h2 id=wat-jij-blijft-doen>Wat jij blijft doen</h2><ol><li>Blad maken of wijzigen (Markdown + notatie).</li><li>PDF vernieuwen: <code>scripts\pdf.cmd</code> (zoals nu).</li><li>Naar Cloudflare zetten: <code>scripts\r2-pdf-upload.cmd</code> of
-<code>.\scripts\r2-pdf-upload.ps1</code>, met <code>--env preview</code> of
-<code>--env production</code>.</li><li>Markdown/notatie committen/pushen. De blad-PDF zelf commit je <strong>niet</strong>
-meer (staat in <code>.gitignore</code>); wél uploaden naar R2. Het download-icoon
-op Pages wijst naar R2.</li></ol><p>Credentials eenmalig in <code>scripts\r2-env.cmd</code> of <code>r2-env.ps1</code> (niet in
-git). Het upload-script laadt die bestanden zelf. Zie
+<span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><span class=oefenhoek-breadcrumb-current aria-current=page>Blad-PDF op R2</span></nav></div></header><main class=page><h1 id=blad-pdf-op-cloudflare-r2>Blad-PDF op Cloudflare R2</h1><p>Stabiele blad-PDF’s (<code>index.md.pdf</code> en translit) staan op <strong>Cloudflare R2</strong>
+in één map: <code>production/…</code>. De downloadknop gebruikt eerst een <strong>lokale</strong>
+PDF (als die in de build zit — typisch WIP), en anders R2.</p><h2 id=wat-jij-doet>Wat jij doet</h2><ol><li>Blad wijzigen → <code>scripts\pdf.cmd</code> (PDF staat lokaal).</li><li>Testen op preview: de PDF mag op <code>development</code>/feature <strong>in git</strong> zolang
+je eraan rommelt.</li><li>Stabiel: uploaden en opschonen:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\r2-pdf-upload.cmd
+</span></span><span style=display:flex><span>scripts\r2-pdf-opschonen.cmd --apply
+</span></span></code></pre></div><ol start=4><li>Op <strong><code>main</code></strong> horen geen blad-PDF’s in git (CI weigert dat). Lokaal op
+main ook leeg houden via opschonen.</li></ol><p>Credentials: <code>scripts\r2-env.cmd</code> of <code>r2-env.ps1</code> (niet in git). Zie
 <a href=../../scripts/r2-pdf-upload/>r2-pdf-upload</a>
-.</p><h2 id=productie-versus-preview>Productie versus preview</h2><div class=table-scroll><table><thead><tr><th>Omgeving</th><th>R2-map</th><th>Site</th></tr></thead><tbody><tr><td>Productie (<code>main</code>)</td><td><code>production/…</code></td><td><a href=https://orthodox-ronl.github.io/bibliotheek/>https://orthodox-ronl.github.io/bibliotheek/</a></td></tr><tr><td>Preview (<code>development</code> e.d.)</td><td><code>preview/…</code></td><td>…/bibliotheek/preview/</td></tr></tbody></table></div><p>Upload nooit per ongeluk preview-bestanden naar <code>production</code> of
-omgekeerd: de mappen zijn bewust gescheiden.</p><h2 id=gratis-limiet-kort>Gratis limiet (kort)</h2><p>R2: ongeveer <strong>10 GB</strong> opslag gratis per maand. Met productie <strong>én</strong>
-preview vol telt de opslag ~dubbel. Downloadverkeer is gratis. Onder de
-limiet betaal je niets; er staat wel een betaalmethode op het
-Cloudflare-account. Detail: <a href=https://github.com/orthodox-ronl/bibliotheek/blob/development/docs/plans/pdf-r2.md>pdf-r2.md</a>
-.</p><h2 id=wat-je-moet-bewaren-niet-in-git>Wat je moet bewaren (niet in git)</h2><p>In <code>scripts\r2-env.cmd</code> of <code>scripts\r2-env.ps1</code> (alleen op jouw pc):</p><div class=table-scroll><table><thead><tr><th>Variabele</th><th>Wat het is</th></tr></thead><tbody><tr><td><code>R2_ACCOUNT_ID</code></td><td>Account ID in het Cloudflare-dashboard (rechts / in de URL). <strong>Niet</strong> de <code>pub-…</code>-tekst uit de publieke download-URL.</td></tr><tr><td><code>R2_ACCESS_KEY_ID</code></td><td>Access Key van een <strong>R2 API-token</strong> (S3), niet een gewone Cloudflare API-token.</td></tr><tr><td><code>R2_SECRET_ACCESS_KEY</code></td><td>Secret van datzelfde R2-token. Cloudflare toont die secret <strong>maar één keer</strong> bij aanmaken.</td></tr><tr><td><code>R2_BUCKET</code></td><td>Exacte bucketnaam, bij ons: <code>orthodox-ronl-bibliotheek-pdf</code>.</td></tr><tr><td><code>R2_JURISDICTION</code></td><td>Bij deze bucket: <code>eu</code> (European Union). Zonder dit faalt upload vaak met “bucket bestaat niet”.</td></tr></tbody></table></div><p>Bewaar een kopie van die waarden op een veilige plek (wachtwoordkluis).
-Verlies je de secret, dan kun je die niet terugkijken in Cloudflare — je
-maakt een <strong>nieuw</strong> token (zie hieronder).</p><h2 id=zeldzame-situaties-wat-te-doen>Zeldzame situaties: wat te doen</h2><h3 id=token-of-secret-kwijt>Token of secret kwijt</h3><p>De secret van een R2 API-token is niet opnieuw op te vragen.</p><ol><li>Cloudflare → <strong>R2</strong> → <strong>Manage R2 API Tokens</strong>.</li><li>Oude token <strong>revoke</strong> / verwijderen (veiliger als hij zoekraakte).</li><li><strong>Create API token</strong>: rechten minstens <strong>Object Read & Write</strong> (of
-Admin Read & Write) op bucket <code>orthodox-ronl-bibliotheek-pdf</code>.</li><li>Nieuwe Access Key ID + Secret meteen overnemen in
-<code>scripts\r2-env.cmd</code> / <code>r2-env.ps1</code> <strong>en</strong> in je kluis.</li><li>Test: <code>scripts\r2-pdf-upload.cmd --list-buckets</code> — je moet de
-bucketnaam zien.</li></ol><h3 id=token-verlopen-ingetrokken-of-access-denied>Token verlopen, ingetrokken, of “Access Denied”</h3><p>Zelfde remedie als hierboven: nieuw R2 API-token, <code>r2-env</code> bijwerken,
-<code>--list-buckets</code> ter controle. Controleer ook of het token nog aan
-<strong>deze</strong> bucket hangt (niet per ongeluk een andere bucket of alleen
-leesrechten).</p><p>Gebruik altijd tokens onder <strong>R2 → Manage R2 API Tokens</strong>. Een token
-vanuit het algemene Cloudflare “API Tokens”-menu is een ander soort
-sleutel en werkt niet voor dit upload-script.</p><h3 id=bucket-bestaat-niet--404-bij-headbucket>“Bucket bestaat niet” / 404 bij HeadBucket</h3><p>Meestal één van deze drie:</p><ol><li><strong>Verkeerd Account ID</strong> — je hebt <code>pub-…</code> uit de publieke URL
-gebruikt, of het ID van een ander Cloudflare-account. Haal het
-Account ID opnieuw uit het dashboard.</li><li><strong>EU vergeten</strong> — zet <code>R2_JURISDICTION=eu</code> (of
-<code>R2_ENDPOINT=https://&lt;ACCOUNT_ID>.eu.r2.cloudflarestorage.com</code>).</li><li><strong>Typfout in <code>R2_BUCKET</code></strong> — naam moet exact kloppen, inclusief
-streepjes.</li></ol><p>Diagnose: <code>scripts\r2-pdf-upload.cmd --list-buckets</code>. Lege lijst of
-fout → credentials/account/endpoint. Bucket in de lijst met pijltje →
-env klopt; dan was het een ander probleem.</p><h3 id=publieke-download-url-doet-het-niet-browser>Publieke download-URL doet het niet (browser)</h3><ol><li>Bestand wel geüpload? Pad moet zijn
-<code>{production|preview}/…pad-onder-content-source…/index.md.pdf</code>.</li><li><strong>Public Development URL</strong> nog aan op de bucket? (Settings → Public
-Development URL → Allowed.) Voor latere productie liever een eigen
-subdomein i.p.v. blijvend <code>r2.dev</code>.</li><li>Basis-URL in de site-overlays
-(<code>hugo.pdf-assets.production.toml</code> /
-<code>hugo.pdf-assets.preview.toml</code>) nog gelijk aan de huidige publieke
-host?</li></ol><p>Handmatige test-URL (voorbeeld):</p><p><code>https://pub-….r2.dev/preview/catalogus/…/index.md.pdf</code></p><h3 id=per-ongeluk-naar-de-verkeerde-omgeving-geüpload>Per ongeluk naar de verkeerde omgeving geüpload</h3><p>Upload hetzelfde pad opnieuw met het <strong>andere</strong> <code>--env</code>. Bestanden in
-de verkeerde map kun je in het Cloudflare-dashboard (R2 → bucket →
-objecten) wissen; ze overschrijven de andere omgeving niet automatisch.</p><h3 id=nieuw-cloudflare-account-of-bucket-verhuisd>Nieuw Cloudflare-account of bucket verhuisd</h3><p>Pas <code>R2_ACCOUNT_ID</code>, eventueel <code>R2_BUCKET</code>, token en de <strong>publieke
-basis-URL</strong> in beide <code>hugo.pdf-assets.*.toml</code>-bestanden aan. Daarna
-opnieuw bulk-uploaden naar <code>preview</code> en <code>production</code>. De oude bucket
-mag leeg of weg als niets er meer naar wijst.</p><h3 id=betaalmethode--r2-uit>Betaalmethode / R2 “uit”</h3><p>R2 vraagt een betaalmethode op het account, ook onder de gratis laag.
-Ontbreekt die of is de kaart afgewezen, dan kunnen uploads of het
-abonnement stoppen. Dashboard → Billing controleren; daarna opnieuw
-<code>--list-buckets</code>.</p><h3 id=upload-onderbroken-laptop-dicht-netwerk-weg>Upload onderbroken (laptop dicht, netwerk weg)</h3><p>Gewoon opnieuw draaien met hetzelfde <code>--env</code>. Bestaande objecten worden
-overschreven; wat al klaar was, hoeft niet handmatig opgeschoond.</p><h2 id=verse-clone--andere-pc>Verse clone / andere pc</h2><p>Na <code>git clone</code> ontbreken de blad-PDF’s lokaal (ze zitten niet meer in
-git). Voor <code>check</code> / lokale controle: opnieuw maken met <code>pdf.cmd</code>, of
-van R2 ophalen (handmatig / later script). Daarna bij wijzigingen weer
-<code>pdf.cmd</code> + <code>r2-pdf-upload</code>.</p><h2 id=terug-naar-alles-via-github>Terug naar “alles via GitHub”</h2><ol><li>Tag <strong><code>pre-r2-pdfs</code></strong> (terugkeerpunt met PDF’s nog in de repo).</li><li>Regels <code>**/index.md.pdf</code> uit <code>.gitignore</code> halen; PDF’s terugzetten
-uit die tag (of opnieuw <code>pdf.cmd</code> + committen).</li><li>CI/overlays uitzetten zodat download weer naar bestanden op de site
-wijst.</li><li>R2-upload stoppen. <strong>Git-geschiedenis opschonen</strong> doen we alleen als
-jij later expliciet akkoord geeft (fase 4b).</li></ol><div class=nav-buttons><a class=btn href=/bibliotheek/preview/handleiding/scripts/pdf/>pdf
+en
+<a href=../../scripts/r2-pdf-opschonen/>r2-pdf-opschonen</a>
+.</p><h2 id=wanneer-wat>Wanneer wat</h2><div class=table-scroll><table><thead><tr><th>Situatie</th><th>Gedrag</th></tr></thead><tbody><tr><td>PDF lokaal aanwezig (WIP)</td><td>Download = bestand op de site</td></tr><tr><td>Geen lokale PDF</td><td>Download = R2 <code>production/…</code></td></tr><tr><td>Lokale PDF = zelfde hash als R2</td><td><code>r2-pdf-opschonen --apply</code> wist lokaal</td></tr></tbody></table></div><h2 id=wat-je-moet-bewaren-niet-in-git>Wat je moet bewaren (niet in git)</h2><p>In <code>scripts\r2-env.cmd</code> of <code>scripts\r2-env.ps1</code>:</p><div class=table-scroll><table><thead><tr><th>Variabele</th><th>Wat het is</th></tr></thead><tbody><tr><td><code>R2_ACCOUNT_ID</code></td><td>Account ID in het dashboard — <strong>niet</strong> <code>pub-…</code> uit de publieke URL</td></tr><tr><td><code>R2_ACCESS_KEY_ID</code> / <code>R2_SECRET_ACCESS_KEY</code></td><td>R2 API-token (S3); secret maar één keer zichtbaar</td></tr><tr><td><code>R2_BUCKET</code></td><td>Exacte bucketnaam</td></tr><tr><td><code>R2_JURISDICTION</code></td><td>Bij ons: <code>eu</code></td></tr></tbody></table></div><h2 id=zeldzame-situaties>Zeldzame situaties</h2><h3 id=token-of-secret-kwijt--access-denied>Token of secret kwijt / Access Denied</h3><ol><li>R2 → <strong>Manage R2 API Tokens</strong> → nieuw token (Object Read & Write op de
+bucket); oude intrekken.</li><li>Waarden in <code>r2-env</code> zetten.</li><li>Test: <code>scripts\r2-pdf-upload.cmd --list-buckets</code>.</li></ol><h3 id=bucket-bestaat-niet>“Bucket bestaat niet”</h3><p>Account ID, <code>R2_JURISDICTION=eu</code>, exacte bucketnaam. Diagnose:
+<code>--list-buckets</code>.</p><h3 id=oude-r2-map-preview-nog-vol>Oude R2-map <code>preview/</code> nog vol</h3><p>Die map gebruiken we niet meer. Eenmalig legen:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\r2-pdf-upload.cmd --purge-prefix preview
+</span></span><span style=display:flex><span>scripts\r2-pdf-upload.cmd --purge-prefix preview --apply-purge
+</span></span></code></pre></div><h3 id=publieke-url-404>Publieke URL 404</h3><p>Bestand geüpload onder <code>production/…</code>? Public Development URL nog aan?
+Basis-URL in <code>hugo.toml</code> / overlays nog juist?</p><p>Meer detail: <a href=https://github.com/orthodox-ronl/bibliotheek/blob/development/docs/plans/pdf-r2.md>docs/plans/pdf-r2.md</a>
+.</p><h2 id=terug-naar-alles-via-github>Terug naar “alles via GitHub”</h2><ol><li>Tag <strong><code>pre-r2-pdfs</code></strong> of PDF’s opnieuw committen.</li><li>R2-fallback in Hugo uitzetten / overlays aanpassen.</li><li>History opschonen alleen na jouw expliciete OK.</li></ol><div class=nav-buttons><a class=btn href=/bibliotheek/preview/handleiding/scripts/pdf/>pdf
 </a><a class=btn href=/bibliotheek/preview/handleiding/scripts/r2-pdf-upload/>r2-pdf-upload</a></div></main><div id=score-audio-bar class=score-audio-bar hidden><div class=score-audio-bar-inner><p class=score-audio-bar-title id=score-audio-bar-title></p><div class=score-audio-bar-row><button type=button class="score-audio-bar-btn score-audio-bar-play" aria-label=Pauzeren aria-controls=score-audio-bar-element aria-pressed=true>
 <span class="score-audio-bar-icon score-audio-bar-icon--pause" aria-hidden=true>❚❚</span>
 <span class="score-audio-bar-icon score-audio-bar-icon--play" aria-hidden=true>▶</span>

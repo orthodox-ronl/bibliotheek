@@ -168,21 +168,51 @@ catalogus-product-PDF’s plakken)&lt;/p&gt;
 resource). Dat is de PDF van de &lt;strong&gt;getoonde pagina&lt;/strong&gt; (koormap-slot of
 catalogus-uitvoeringsvorm), niet hetzelfde als een losse
 catalogus-product-PDF van één uitvoeringsvorm.&lt;/p&gt;</description></item><item><title>r2-pdf-upload</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/r2-pdf-upload/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/r2-pdf-upload/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;scripts\r2-pdf-upload.cmd&lt;/code&gt; / &lt;code&gt;scripts\r2-pdf-upload.ps1&lt;/code&gt; — blad-PDF’s
-naar Cloudflare R2 zetten (downloadmagazijn voor de site)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;scripts\r2-pdf-upload.cmd&lt;/code&gt; — blad-PDF’s naar Cloudflare R2 &lt;code&gt;production/&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\r2-pdf-upload.cmd --env production|preview [--dry-run] [pad ...]
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\r2-pdf-upload.cmd [--dry-run] [pad ...]
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\r2-pdf-upload.cmd --list-buckets
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-powershell" data-lang="powershell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;.\scripts\r2-pdf-upload.ps1 --env preview
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;.\scripts\r2-pdf-upload.ps1 --env production
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\r2-pdf-upload.cmd --purge-prefix preview [--apply-purge]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
-&lt;p&gt;Zet de PDF achter het &lt;strong&gt;download-icoon&lt;/strong&gt; (&lt;code&gt;index.md.pdf&lt;/code&gt; en eventuele
-&lt;code&gt;index.md.translit-*.pdf&lt;/code&gt;) in Cloudflare R2. Op de gepubliceerde site
-wijst die knop naar R2; productie en preview hebben &lt;strong&gt;aparte mappen&lt;/strong&gt;
-(&lt;code&gt;production/…&lt;/code&gt; en &lt;code&gt;preview/…&lt;/code&gt;), zodat die omgevingen elkaar niet
-raken.&lt;/p&gt;
-&lt;p&gt;Het objectpad in R2 volgt de map onder &lt;code&gt;content-source&lt;/code&gt;. Voorbeeld:
-&lt;code&gt;preview/catalogus/…/uitvoeringsvorm/index.md.pdf&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>opkuisen</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/opkuisen/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/opkuisen/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;Zet &lt;code&gt;index.md.pdf&lt;/code&gt; / translit-PDF’s in R2 onder
+&lt;code&gt;production/{pad-onder-content-source}/…&lt;/code&gt;. Zet metadata &lt;code&gt;sha256&lt;/code&gt; voor
+&lt;a href="../r2-pdf-opschonen/"&gt;r2-pdf-opschonen&lt;/a&gt;
+. Alleen &lt;strong&gt;production/&lt;/strong&gt;;
+&lt;code&gt;--env preview&lt;/code&gt; wordt geweigerd.&lt;/p&gt;
+&lt;p&gt;Laadt &lt;code&gt;scripts\r2-env.cmd&lt;/code&gt; / &lt;code&gt;.ps1&lt;/code&gt; automatisch. EU:
+&lt;code&gt;R2_JURISDICTION=eu&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;--purge-prefix preview --apply-purge&lt;/code&gt; wist de afgeschafte preview-map
+op R2 (eerst zonder &lt;code&gt;--apply-purge&lt;/code&gt; om te tellen).&lt;/p&gt;
+&lt;h1 id="examples"&gt;EXAMPLES&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\r2-pdf-upload.cmd --dry-run catalogus\alleluia
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\r2-pdf-upload.cmd
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\r2-pdf-upload.cmd --purge-prefix preview --apply-purge
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="see-also"&gt;SEE ALSO&lt;/h1&gt;
+&lt;p&gt;&lt;a href="../pdf/"&gt;pdf&lt;/a&gt;
+ · &lt;a href="../r2-pdf-opschonen/"&gt;r2-pdf-opschonen&lt;/a&gt;
+ ·
+&lt;a href="../../publiceren/blad-pdf-op-r2/"&gt;Blad-PDF op R2&lt;/a&gt;
+&lt;/p&gt;</description></item><item><title>r2-pdf-opschonen</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/r2-pdf-opschonen/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/r2-pdf-opschonen/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;scripts\r2-pdf-opschonen.cmd&lt;/code&gt; — lokale blad-PDF’s wissen die gelijk zijn
+aan R2&lt;/p&gt;
+&lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\r2-pdf-opschonen.cmd [--apply] [pad ...]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\r2-pdf-opschonen.cmd --fail-if-tracked-on-main
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
+&lt;p&gt;Voor elke lokale &lt;code&gt;index.md.pdf&lt;/code&gt; / translit: SHA-256 vergelijken met
+R2-object &lt;code&gt;production/…&lt;/code&gt; (metadata van &lt;a href="../r2-pdf-upload/"&gt;r2-pdf-upload&lt;/a&gt;
+).
+Bij gelijke inhoud: melden, of met &lt;code&gt;--apply&lt;/code&gt; wissen (tracked → &lt;code&gt;git rm&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Zonder &lt;code&gt;--apply&lt;/code&gt; is het een dry-run. Op branch &lt;code&gt;main&lt;/code&gt; controleert
+&lt;code&gt;check&lt;/code&gt; / CI dat er geen getrackte blad-PDF’s meer zijn
+(&lt;code&gt;--fail-if-tracked-on-main&lt;/code&gt;).&lt;/p&gt;
+&lt;h1 id="examples"&gt;EXAMPLES&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\r2-pdf-opschonen.cmd
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\r2-pdf-opschonen.cmd --apply
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="see-also"&gt;SEE ALSO&lt;/h1&gt;
+&lt;p&gt;&lt;a href="../r2-pdf-upload/"&gt;r2-pdf-upload&lt;/a&gt;
+ · &lt;a href="../../publiceren/blad-pdf-op-r2/"&gt;Blad-PDF op R2&lt;/a&gt;
+&lt;/p&gt;</description></item><item><title>opkuisen</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/opkuisen/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/opkuisen/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\opkuisen.cmd&lt;/code&gt; — herkomstanalyse en inhoudelijke opkuis van
 MusicXML- en MuseScore-bestanden (optioneel daarna layout)&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;

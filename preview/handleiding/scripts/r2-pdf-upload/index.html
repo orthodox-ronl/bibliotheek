@@ -29,37 +29,22 @@ omgewisselde woorden tellen mee. Zoeken loopt over de
 <strong>uitvoeringsvormen</strong> in de catalogus.</p><p><a href=/bibliotheek/preview/handleiding/start/zoeken/>Uitgebreide uitleg in de handleiding</a>
 (eerst hoofdlijnen, daarna de technische specificatie).</p></span></span></div></form><p class=catalogus-zoek-meta aria-live=polite></p><div class=catalogus-zoek-resultaten></div></div></div></div></div></header></div><header class=oefenhoek-header><div class=oefenhoek-header-inner><nav class=oefenhoek-breadcrumb aria-label=Broodkruimels><a class=oefenhoek-breadcrumb-link href=/bibliotheek/preview/handleiding/>Handleiding</a>
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><a class=oefenhoek-breadcrumb-link href=/bibliotheek/preview/handleiding/scripts/>Scripts</a>
-<span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><span class=oefenhoek-breadcrumb-current aria-current=page>r2-pdf-upload</span></nav></div></header><main class=page><h1 id=name>NAME</h1><p><code>scripts\r2-pdf-upload.cmd</code> / <code>scripts\r2-pdf-upload.ps1</code> — blad-PDF’s
-naar Cloudflare R2 zetten (downloadmagazijn voor de site)</p><h1 id=synopsis>SYNOPSIS</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\r2-pdf-upload.cmd --env production|preview [--dry-run] [pad ...]
+<span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><span class=oefenhoek-breadcrumb-current aria-current=page>r2-pdf-upload</span></nav></div></header><main class=page><h1 id=name>NAME</h1><p><code>scripts\r2-pdf-upload.cmd</code> — blad-PDF’s naar Cloudflare R2 <code>production/</code></p><h1 id=synopsis>SYNOPSIS</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\r2-pdf-upload.cmd [--dry-run] [pad ...]
 </span></span><span style=display:flex><span>scripts\r2-pdf-upload.cmd --list-buckets
-</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-powershell data-lang=powershell><span style=display:flex><span>.\scripts\r2-pdf-upload.ps1 --env preview
-</span></span><span style=display:flex><span>.\scripts\r2-pdf-upload.ps1 --env production
-</span></span></code></pre></div><h1 id=description>DESCRIPTION</h1><p>Zet de PDF achter het <strong>download-icoon</strong> (<code>index.md.pdf</code> en eventuele
-<code>index.md.translit-*.pdf</code>) in Cloudflare R2. Op de gepubliceerde site
-wijst die knop naar R2; productie en preview hebben <strong>aparte mappen</strong>
-(<code>production/…</code> en <code>preview/…</code>), zodat die omgevingen elkaar niet
-raken.</p><p>Het objectpad in R2 volgt de map onder <code>content-source</code>. Voorbeeld:
-<code>preview/catalogus/…/uitvoeringsvorm/index.md.pdf</code>.</p><p>Zonder pad: alle blad-PDF’s onder <code>content-source</code>. Met een map of
-bestand: alleen die selectie. <code>--dry-run</code> toont alleen de sleutels; dan
-zijn geen credentials nodig.</p><p><strong>Credentials:</strong> vul eenmalig <code>scripts\r2-env.cmd</code> of
-<code>scripts\r2-env.ps1</code> in (sjabloon: <code>r2-env.*.example</code>; die bestanden
-staan in <code>.gitignore</code>). Dit upload-commando laadt die env <strong>zelf</strong> vóór
-het schrijven naar Cloudflare. Deze bucket gebruikt jurisdiction <strong>EU</strong>
-(<code>R2_JURISDICTION=eu</code> in r2-env).</p><p>Eerst lokaal de PDF maken met <a href=../pdf/>pdf</a>
-, daarna uploaden. Lokaal
-<code>serve</code> blijft de PDF van schijf gebruiken; alleen de GitHub
-Pages-build wijst downloads naar R2.</p><p>Plan, limieten en terugkeerpad:
-<a href=https://github.com/orthodox-ronl/bibliotheek/blob/development/docs/plans/pdf-r2.md>docs/plans/pdf-r2.md</a>
-.</p><p>Zeldzame problemen (token kwijt, verlopen, Access Denied, verkeerd
-Account ID, EU-endpoint, publieke URL stuk): zie
-<a href=../../publiceren/blad-pdf-op-r2/#zeldzame-situaties-wat-te-doen>Blad-PDF op R2 — Zeldzame situaties</a>
-.</p><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\r2-pdf-upload.cmd --list-buckets
-</span></span><span style=display:flex><span>scripts\r2-pdf-upload.cmd --env preview --dry-run catalogus\alleluia
-</span></span><span style=display:flex><span>scripts\r2-pdf-upload.cmd --env preview
-</span></span><span style=display:flex><span>scripts\r2-pdf-upload.cmd --env production
-</span></span></code></pre></div><h1 id=diagnostics>DIAGNOSTICS</h1><div class=table-scroll><table><thead><tr><th>Symptoom</th><th>Eerste stap</th></tr></thead><tbody><tr><td>Access Denied</td><td>Nieuw R2 API-token (Read & Write); <code>r2-env</code> bijwerken</td></tr><tr><td>NoSuchBucket / 404</td><td>Account ID, <code>R2_JURISDICTION=eu</code>, exacte bucketnaam</td></tr><tr><td>Geen credentials</td><td><code>r2-env.cmd</code> / <code>.ps1</code> invullen (niet de <code>.example</code>)</td></tr><tr><td>Bucket wel/niet zichtbaar</td><td><code>--list-buckets</code></td></tr></tbody></table></div><p>Uitgebreid: <a href=../../publiceren/blad-pdf-op-r2/>Blad-PDF op R2</a>
-.</p><h1 id=see-also>SEE ALSO</h1><p><a href=../pdf/>pdf</a>
-· <a href=../../publiceren/blad-pdf-op-r2/>Publiceren: blad-PDF op R2</a></p></main><div id=score-audio-bar class=score-audio-bar hidden><div class=score-audio-bar-inner><p class=score-audio-bar-title id=score-audio-bar-title></p><div class=score-audio-bar-row><button type=button class="score-audio-bar-btn score-audio-bar-play" aria-label=Pauzeren aria-controls=score-audio-bar-element aria-pressed=true>
+</span></span><span style=display:flex><span>scripts\r2-pdf-upload.cmd --purge-prefix preview [--apply-purge]
+</span></span></code></pre></div><h1 id=description>DESCRIPTION</h1><p>Zet <code>index.md.pdf</code> / translit-PDF’s in R2 onder
+<code>production/{pad-onder-content-source}/…</code>. Zet metadata <code>sha256</code> voor
+<a href=../r2-pdf-opschonen/>r2-pdf-opschonen</a>
+. Alleen <strong>production/</strong>;
+<code>--env preview</code> wordt geweigerd.</p><p>Laadt <code>scripts\r2-env.cmd</code> / <code>.ps1</code> automatisch. EU:
+<code>R2_JURISDICTION=eu</code>.</p><p><code>--purge-prefix preview --apply-purge</code> wist de afgeschafte preview-map
+op R2 (eerst zonder <code>--apply-purge</code> om te tellen).</p><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\r2-pdf-upload.cmd --dry-run catalogus\alleluia
+</span></span><span style=display:flex><span>scripts\r2-pdf-upload.cmd
+</span></span><span style=display:flex><span>scripts\r2-pdf-upload.cmd --purge-prefix preview --apply-purge
+</span></span></code></pre></div><h1 id=see-also>SEE ALSO</h1><p><a href=../pdf/>pdf</a>
+· <a href=../r2-pdf-opschonen/>r2-pdf-opschonen</a>
+·
+<a href=../../publiceren/blad-pdf-op-r2/>Blad-PDF op R2</a></p></main><div id=score-audio-bar class=score-audio-bar hidden><div class=score-audio-bar-inner><p class=score-audio-bar-title id=score-audio-bar-title></p><div class=score-audio-bar-row><button type=button class="score-audio-bar-btn score-audio-bar-play" aria-label=Pauzeren aria-controls=score-audio-bar-element aria-pressed=true>
 <span class="score-audio-bar-icon score-audio-bar-icon--pause" aria-hidden=true>❚❚</span>
 <span class="score-audio-bar-icon score-audio-bar-icon--play" aria-hidden=true>▶</span>
 </button>

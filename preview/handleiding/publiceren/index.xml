@@ -77,22 +77,24 @@ de &lt;code&gt;.mxl&lt;/code&gt; in het &lt;strong&gt;bibliotheek&lt;/strong&gt;
 &lt;p&gt;&lt;strong&gt;Wat je nu doet:&lt;/strong&gt; de veelvoorkomende blokkades herkennen. Blijft het
 stuk: bewaar de fouttekst en vraag na; probeer niet drie andere scripts
 tegelijk.&lt;/p&gt;</description></item><item><title>Blad-PDF op R2</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/publiceren/blad-pdf-op-r2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/publiceren/blad-pdf-op-r2/</guid><description>&lt;h1 id="blad-pdf-op-cloudflare-r2"&gt;Blad-PDF op Cloudflare R2&lt;/h1&gt;
-&lt;p&gt;De dikke blad-PDF’s (&lt;code&gt;index.md.pdf&lt;/code&gt; en translit-varianten) staan voor
-bezoekers van de &lt;strong&gt;gepubliceerde&lt;/strong&gt; site in Cloudflare R2, niet meer in
-de GitHub Pages-map. Zo blijft de repo en de Pages-deploy lichter. Lokaal
-op je pc maak en bekijk je die PDF’s nog gewoon naast de Markdown.&lt;/p&gt;
-&lt;h2 id="wat-jij-blijft-doen"&gt;Wat jij blijft doen&lt;/h2&gt;
+&lt;p&gt;Stabiele blad-PDF’s (&lt;code&gt;index.md.pdf&lt;/code&gt; en translit) staan op &lt;strong&gt;Cloudflare R2&lt;/strong&gt;
+in één map: &lt;code&gt;production/…&lt;/code&gt;. De downloadknop gebruikt eerst een &lt;strong&gt;lokale&lt;/strong&gt;
+PDF (als die in de build zit — typisch WIP), en anders R2.&lt;/p&gt;
+&lt;h2 id="wat-jij-doet"&gt;Wat jij doet&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;Blad maken of wijzigen (Markdown + notatie).&lt;/li&gt;
-&lt;li&gt;PDF vernieuwen: &lt;code&gt;scripts\pdf.cmd&lt;/code&gt; (zoals nu).&lt;/li&gt;
-&lt;li&gt;Naar Cloudflare zetten: &lt;code&gt;scripts\r2-pdf-upload.cmd&lt;/code&gt; of
-&lt;code&gt;.\scripts\r2-pdf-upload.ps1&lt;/code&gt;, met &lt;code&gt;--env preview&lt;/code&gt; of
-&lt;code&gt;--env production&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Markdown/notatie committen/pushen. De blad-PDF zelf commit je &lt;strong&gt;niet&lt;/strong&gt;
-meer (staat in &lt;code&gt;.gitignore&lt;/code&gt;); wél uploaden naar R2. Het download-icoon
-op Pages wijst naar R2.&lt;/li&gt;
+&lt;li&gt;Blad wijzigen → &lt;code&gt;scripts\pdf.cmd&lt;/code&gt; (PDF staat lokaal).&lt;/li&gt;
+&lt;li&gt;Testen op preview: de PDF mag op &lt;code&gt;development&lt;/code&gt;/feature &lt;strong&gt;in git&lt;/strong&gt; zolang
+je eraan rommelt.&lt;/li&gt;
+&lt;li&gt;Stabiel: uploaden en opschonen:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Credentials eenmalig in &lt;code&gt;scripts\r2-env.cmd&lt;/code&gt; of &lt;code&gt;r2-env.ps1&lt;/code&gt; (niet in
-git). Het upload-script laadt die bestanden zelf. Zie
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\r2-pdf-upload.cmd
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\r2-pdf-opschonen.cmd --apply
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start="4"&gt;
+&lt;li&gt;Op &lt;strong&gt;&lt;code&gt;main&lt;/code&gt;&lt;/strong&gt; horen geen blad-PDF’s in git (CI weigert dat). Lokaal op
+main ook leeg houden via opschonen.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Credentials: &lt;code&gt;scripts\r2-env.cmd&lt;/code&gt; of &lt;code&gt;r2-env.ps1&lt;/code&gt; (niet in git). Zie
 &lt;a href="../../scripts/r2-pdf-upload/"&gt;r2-pdf-upload&lt;/a&gt;
+ en
+&lt;a href="../../scripts/r2-pdf-opschonen/"&gt;r2-pdf-opschonen&lt;/a&gt;
 .&lt;/p&gt;</description></item></channel></rss>

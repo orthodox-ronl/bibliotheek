@@ -87,12 +87,12 @@ of
 <a href=../layout/>layout</a>
 . CI genereert geen MuseScore-/PDF-/audio-/lyrics-producten en geen
 sibling-SVG (<code>.vsa.svg</code> / <code>.mvsa.svg</code>); wel de zoekindex en de legacy
-bladermap-SVG bij elke site-deploy.</p><p><code>pdf.cmd</code> genereert CI niet. Het blad <code>index.md.pdf</code> maak je lokaal
-(ná de catalogusproducten); je commit hem niet (R2 host de download).
-<code>check</code> controleert of die PDF <strong>lokaal</strong> er is en niet ouder is dan de
-Markdown of notatiebron (<code>check_index_md_pdf.py</code>). Ontbreekt of
-verouderd: waarschuwing lokaal; fout met <code>--strict</code>. Na een verse clone
-eerst <code>pdf.cmd</code> (of PDF’s van R2) zodat <code>check</code> groen kan.</p><p>Per productcontrole zie je eerst wat er getest wordt, dan tellingen
+bladermap-SVG bij elke site-deploy.</p><p><code>pdf.cmd</code> genereert CI niet. <code>check</code> controleert lokale <code>index.md.pdf</code>
+versheid waar die bestaat (<code>check_index_md_pdf.py</code>). Ontbreekt of
+verouderd: waarschuwing; fout met <code>--strict</code>. Op <strong>main</strong> mag geen
+blad-PDF getrackt zijn (guard). Stabiele PDF’s: R2 +
+<a href=../r2-pdf-opschonen/>r2-pdf-opschonen</a>
+.</p><p>Per productcontrole zie je eerst wat er getest wordt, dan tellingen
 vooraan (<code> 3 stale-pdf</code>, <code>1 meta foute sha256</code>), de mappen die
 niet kloppen, en één fix-sjabloon met <code>{file}</code>. Details en volledige
 paden alleen met <code>--verbose</code> / <code>BIBLIOTHEEK_VERBOSE=1</code>.</p><p>Na die checks schrijft <code>check</code> altijd <code>data\check-fixlist.json</code>: elk
