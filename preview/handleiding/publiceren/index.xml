@@ -88,8 +88,9 @@ op je pc maak en bekijk je die PDF’s nog gewoon naast de Markdown.&lt;/p&gt;
 &lt;li&gt;Naar Cloudflare zetten: &lt;code&gt;scripts\r2-pdf-upload.cmd&lt;/code&gt; of
 &lt;code&gt;.\scripts\r2-pdf-upload.ps1&lt;/code&gt;, met &lt;code&gt;--env preview&lt;/code&gt; of
 &lt;code&gt;--env production&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Bronnen committen/pushen. De PDF mag dual mode nog in git staan; de
-site-download knop op Pages wijst al naar R2.&lt;/li&gt;
+&lt;li&gt;Markdown/notatie committen/pushen. De blad-PDF zelf commit je &lt;strong&gt;niet&lt;/strong&gt;
+meer (staat in &lt;code&gt;.gitignore&lt;/code&gt;); wél uploaden naar R2. Het download-icoon
+op Pages wijst naar R2.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Credentials eenmalig in &lt;code&gt;scripts\r2-env.cmd&lt;/code&gt; of &lt;code&gt;r2-env.ps1&lt;/code&gt; (niet in
 git). Het upload-script laadt die bestanden zelf. Zie

@@ -55,12 +55,12 @@ van <code>products</code>. Gewijzigde koormap-<code>index.md</code> meenemen na 
 <a href=../products-changed/>products-changed</a>
 . De pagina-PDF maak je lokaal
 uit de <strong>notatiebronnen</strong>, de sibling-SVG’s en de Markdown-layout.
-Op de gepubliceerde site haalt het download-icoon die PDF uit Cloudflare
-R2; na <code>pdf.cmd</code> dus ook <a href=../r2-pdf-upload/>r2-pdf-upload</a>
-naar de juiste
-omgeving (<code>preview</code> of <code>production</code>). MuseScore 4 is nodig voor
-<code>.mvsa</code>/<code>.mscz</code>-SVG-export (en dus zodra de pagina zulke bronnen of
-<code>pdf-bijelkaar</code> gebruikt).</p><p><strong>Uitvoer:</strong> standaard tellingen vooraan (<code> 3 pdf-geschreven</code>,
+Die PDF commit je <strong>niet</strong> mee (<code>.gitignore</code>); op de gepubliceerde site
+haalt het download-icoon hem uit Cloudflare R2. Na <code>pdf.cmd</code> dus ook
+<a href=../r2-pdf-upload/>r2-pdf-upload</a>
+naar de juiste omgeving (<code>preview</code> of
+<code>production</code>). MuseScore 4 is nodig voor <code>.mvsa</code>/<code>.mscz</code>-SVG-export (en
+dus zodra de pagina zulke bronnen of <code>pdf-bijelkaar</code> gebruikt).</p><p><strong>Uitvoer:</strong> standaard tellingen vooraan (<code> 3 pdf-geschreven</code>,
 <code>1 overgeslagen</code>, <code>0 mislukt</code>) en <code>OK pdf</code>. Per-PDF-regels en
 tussenstappen alleen met <code>--verbose</code>. Bewuste skips: magenta <code>SKIP</code>.</p><p>Catalogus-leaves: ontwerp en restmijlpalen in
 <code>docs/plans/catalogus-index-md-pdf.md</code>.</p><p>Het <strong>download-icoon</strong> gebruikt die PDF’s. De site stelt een bestandsnaam voor:
