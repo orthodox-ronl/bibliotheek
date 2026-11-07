@@ -18,8 +18,9 @@ op je pc maak en bekijk je die PDF’s nog gewoon naast de Markdown.
 3. Naar Cloudflare zetten: `scripts\r2-pdf-upload.cmd` of
    `.\scripts\r2-pdf-upload.ps1`, met `--env preview` of
    `--env production`.
-4. Bronnen committen/pushen. De PDF mag dual mode nog in git staan; de
-   site-download knop op Pages wijst al naar R2.
+4. Markdown/notatie committen/pushen. De blad-PDF zelf commit je **niet**
+   meer (staat in `.gitignore`); wél uploaden naar R2. Het download-icoon
+   op Pages wijst naar R2.
 
 Credentials eenmalig in `scripts\r2-env.cmd` of `r2-env.ps1` (niet in
 git). Het upload-script laadt die bestanden zelf. Zie
@@ -141,15 +142,21 @@ abonnement stoppen. Dashboard → Billing controleren; daarna opnieuw
 Gewoon opnieuw draaien met hetzelfde `--env`. Bestaande objecten worden
 overschreven; wat al klaar was, hoeft niet handmatig opgeschoond.
 
+## Verse clone / andere pc
+
+Na `git clone` ontbreken de blad-PDF’s lokaal (ze zitten niet meer in
+git). Voor `check` / lokale controle: opnieuw maken met `pdf.cmd`, of
+van R2 ophalen (handmatig / later script). Daarna bij wijzigingen weer
+`pdf.cmd` + `r2-pdf-upload`.
+
 ## Terug naar “alles via GitHub”
 
-1. Tag/branch **`pre-r2-pdfs`** in git (terugkeerpunt met PDF’s in de
-   repo).
-2. CI/overlays uitzetten zodat download weer naar bestanden op de site
-   wijst (of vraag de beheerder/agent om de schakelaar terug te zetten).
-3. PDF’s desnoods terugzetten uit die tag, of opnieuw maken met
-   `pdf.cmd` en committen.
-4. R2-upload stoppen. Git-geschiedenis opschonen doen we **alleen** als
-   jij later expliciet akkoord geeft.
+1. Tag **`pre-r2-pdfs`** (terugkeerpunt met PDF’s nog in de repo).
+2. Regels `**/index.md.pdf` uit `.gitignore` halen; PDF’s terugzetten
+   uit die tag (of opnieuw `pdf.cmd` + committen).
+3. CI/overlays uitzetten zodat download weer naar bestanden op de site
+   wijst.
+4. R2-upload stoppen. **Git-geschiedenis opschonen** doen we alleen als
+   jij later expliciet akkoord geeft (fase 4b).
 
 {{< navbuttons "pdf|/handleiding/scripts/pdf/" "r2-pdf-upload|/handleiding/scripts/r2-pdf-upload/" >}}

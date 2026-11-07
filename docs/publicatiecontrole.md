@@ -70,7 +70,8 @@ uit `.vsa` (`python scripts\sync_oefenhoek_index.py --svg`) voor het geval de si
 ontbreekt. Het scherm gebruikt de sibling. Koormap-blad
 `index.md.pdf` hoort niet bij `products.cmd`: lokaal eerst
 `scripts/products.cmd` (verse sibling-SVG’s), daarna `scripts/pdf.cmd`,
-dan committen. `pdf.cmd` gebruikt bij voorkeur die product-SVG’s;
+dan `r2-pdf-upload` (blad-PDF’s zitten niet meer in git). `pdf.cmd`
+gebruikt bij voorkeur die product-SVG’s;
 ontbreekt of is de SVG verouderd (stamp), dan exporteert het lokaal
 opnieuw. Wel in `check` (`check_index_md_pdf.py`): ontbrekend of ouder
 dan Markdown, notatiebron of product-SVG is een waarschuwing lokaal,
