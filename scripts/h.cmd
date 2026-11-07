@@ -87,6 +87,8 @@ echo   lifecycle-grenzen
 echo     grenzen werkbank vs catalogus
 echo   pdf
 echo     PDF van een koormap- of catalogusblad ^(index.md.pdf^)
+echo   r2-pdf-upload
+echo     blad-PDF's naar Cloudflare R2 ^(production/ of preview/^)
 echo.
 echo Uitgebreide man-pages: content-source\handleiding\scripts\
 echo Repo-lijst: scripts\README.md

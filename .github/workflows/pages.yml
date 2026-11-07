@@ -55,6 +55,8 @@ jobs:
             echo "label=production" >> "$GITHUB_OUTPUT"
             # true: behoud preview/ en branch-previews op gh-pages (false wist die weg).
             echo "keep_files=true" >> "$GITHUB_OUTPUT"
+            # Blad-PDF downloads via R2 (docs/plans/pdf-r2.md); productie-map.
+            echo "hugo_config=hugo.toml,hugo.pdf-assets.production.toml" >> "$GITHUB_OUTPUT"
             echo "tooling_mode=pin" >> "$GITHUB_OUTPUT"
             ref="$(tr -d '[:space:]' < vsa-tooling.pin | head -n1)"
             if [[ -z "$ref" ]]; then
@@ -68,6 +70,8 @@ jobs:
             echo "pages_url=https://orthodox-ronl.github.io/bibliotheek/preview/" >> "$GITHUB_OUTPUT"
             echo "label=development-preview" >> "$GITHUB_OUTPUT"
             echo "keep_files=true" >> "$GITHUB_OUTPUT"
+            # Blad-PDF downloads via R2 preview-map (strikt los van production/).
+            echo "hugo_config=hugo.toml,hugo.pdf-assets.preview.toml" >> "$GITHUB_OUTPUT"
             # products-meta nog niet op tooling main (PR VSA-tooling#58): pin.
             echo "tooling_mode=pin" >> "$GITHUB_OUTPUT"
             ref="$(tr -d '[:space:]' < vsa-tooling.pin | head -n1)"
@@ -91,6 +95,8 @@ jobs:
             echo "pages_url=https://orthodox-ronl.github.io/bibliotheek/${slug}/" >> "$GITHUB_OUTPUT"
             echo "label=branch-preview" >> "$GITHUB_OUTPUT"
             echo "keep_files=true" >> "$GITHUB_OUTPUT"
+            # Branch-previews delen de R2 preview/-map (niet production/).
+            echo "hugo_config=hugo.toml,hugo.pdf-assets.preview.toml" >> "$GITHUB_OUTPUT"
             # products-meta nog niet op tooling main (PR VSA-tooling#58).
             # Deze consumer-branch pint tot die merge; andere branches floaten.
             if [[ "$branch" == "feat/products-meta-consumer" ]]; then
@@ -113,6 +119,7 @@ jobs:
           echo "base_url: ${{ steps.target.outputs.base_url }}"
           echo "destination_dir: '${{ steps.target.outputs.destination_dir }}'"
           echo "keep_files: ${{ steps.target.outputs.keep_files }}"
+          echo "hugo_config: ${{ steps.target.outputs.hugo_config }}"
           echo "VSA-tooling mode=${{ steps.target.outputs.tooling_mode }} ref=${{ steps.target.outputs.tooling_ref }}"
 
       - name: Checkout VSA-tooling
@@ -202,15 +209,22 @@ jobs:
             --source . \
             --destination generated/site \
             --minify \
+            --config "${{ steps.target.outputs.hugo_config }}" \
             --baseURL "${{ steps.target.outputs.base_url }}"
 
-      # GitHub Pages soft-limit ~1 GB; sync also times out on huge deltas.
-      # Scherm-translit blijft via SVG; downloadbare translit-PDF’s niet op Pages.
-      - name: Drop translit PDFs (Pages size budget)
+      # GitHub Pages soft-limit ~1 GB; blad-PDF’s staan op R2 (docs/plans/pdf-r2.md).
+      # Downloadknop wijst naar R2; PDF’s blijven dual-mode nog in git/content-source.
+      - name: Drop blad-PDFs from Pages publish dir
         run: |
           set -euo pipefail
-          mapfile -t files < <(find generated/site -type f -name '*.translit*.pdf' -print)
-          echo "Removing ${#files[@]} translit PDF(s) from publish dir"
+          mapfile -t files < <(
+            find generated/site -type f \( \
+              -name 'index.md.pdf' -o \
+              -name 'index.md.translit*.pdf' -o \
+              -name '*.translit*.pdf' \
+            \) -print
+          )
+          echo "Removing ${#files[@]} blad/translit PDF(s) from publish dir (R2 hosts downloads)"
           if ((${#files[@]} > 0)); then
             printf '%s\0' "${files[@]}" | xargs -0 rm -f
           fi

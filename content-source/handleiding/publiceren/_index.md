@@ -25,3 +25,4 @@ Pijplijn-overzicht (opnemen, productsporen, site-build):
 2. [Catalogus en koormap](1-bladermap/) — koormap-slot met `bieb`
 3. [Status en check](2-status-en-check/)
 4. [Als het misgaat](3-als-het-misgaat/)
+5. [Blad-PDF op R2](blad-pdf-op-r2/) — downloadmagazijn Cloudflare; preview ≠ productie

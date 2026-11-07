@@ -1,0 +1,9 @@
+# Overlay: blad-PDF downloads via R2-map preview/
+# Gebruik: hugo --config hugo.toml,hugo.pdf-assets.preview.toml …
+# Vul base in ná Cloudflare-proef (docs/plans/pdf-r2.md).
+
+[params.pdfAssets]
+  enabled = true
+  # Zelfde publieke basis-URL als production-overlay; andere map via env.
+  base = "https://pub-16acc8d1bd9b47b684ae5c7aa3215f1d.r2.dev/"
+  env = "preview"

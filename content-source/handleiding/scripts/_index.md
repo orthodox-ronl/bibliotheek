@@ -51,6 +51,7 @@ tonen paden onder `content-source` zonder die prefix. Zie
 | `werkbank-status` | Overzicht open werkbank-cases; schrijft `data\werkbank-status.json`. | [werkbank-status](werkbank-status/) |
 | `lifecycle-grenzen` | Spaties/ruwe formats in catalogusmappen melden (optioneel `--fail`). | [lifecycle-grenzen](lifecycle-grenzen/) |
 | `pdf.cmd` | Maakt `index.md.pdf` (+ translit-PDF’s) voor het download-icoon uit kale blad-SVG’s + Markdown-koppen (`pdf-bijelkaar` → compact). | [pdf](pdf/) |
+| `r2-pdf-upload` | Blad-PDF’s naar Cloudflare R2 (`--env production` of `preview`); laadt eerst `r2-env`. | [r2-pdf-upload](r2-pdf-upload/) |
 
 Intern (geen apart gebruikerscommando): `python scripts\fingerprint_coria_mxl.py`
 maakt `/mxl/c/<hash>.musicxml` en `data/coria-fp.json` voor **Oefenen** (♪).

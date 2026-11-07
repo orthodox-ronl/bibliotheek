@@ -51,6 +51,19 @@
       {{- $paginaPdfBeide = printf "%sindex.md.translit-beide.pdf" .RelPermalink -}}
     {{- end -}}
   {{- end -}}
+  {{- /* R2-schakelaar: docs/plans/pdf-r2.md — uit = lokale URL behouden. */ -}}
+  {{- if $paginaPdf -}}
+    {{- $paginaPdf = partial "pdf-asset-url.html" (dict "page" . "local" $paginaPdf "filename" "index.md.pdf") -}}
+  {{- end -}}
+  {{- if $paginaPdfNls -}}
+    {{- $paginaPdfNls = partial "pdf-asset-url.html" (dict "page" . "local" $paginaPdfNls "filename" "index.md.translit-nls.pdf") -}}
+  {{- end -}}
+  {{- if $paginaPdfKsl -}}
+    {{- $paginaPdfKsl = partial "pdf-asset-url.html" (dict "page" . "local" $paginaPdfKsl "filename" "index.md.translit-ksl.pdf") -}}
+  {{- end -}}
+  {{- if $paginaPdfBeide -}}
+    {{- $paginaPdfBeide = partial "pdf-asset-url.html" (dict "page" . "local" $paginaPdfBeide "filename" "index.md.translit-beide.pdf") -}}
+  {{- end -}}
   {{- $dlBase := "" -}}
   {{- if or $paginaPdf $paginaPdfNls $paginaPdfKsl $paginaPdfBeide -}}
     {{- if .Params.pdf_bestandsnaam -}}

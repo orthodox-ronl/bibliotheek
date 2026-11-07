@@ -50,3 +50,7 @@ Thumbs.db
 !.cursor/rules/**
 bibliotheek-onderhoud.code-workspace
 
+# Cloudflare R2 credentials (lokaal; zie *.example)
+scripts/r2-env.cmd
+scripts/r2-env.ps1
+

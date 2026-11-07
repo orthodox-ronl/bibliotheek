@@ -1,0 +1,30 @@
+{{- /*
+  Blad-PDF-URL voor downloadknop (schermpartituur §1 / docs/plans/pdf-r2.md).
+
+  Context dict:
+    page     — pagina met .File
+    local    — relatieve site-URL (huidige situatie)
+    filename — bijv. index.md.pdf
+
+  Als params.pdfAssets.enabled en .base gezet: R2-URL
+    {base}{env}/{pad-onder-content-source}/{filename}
+  Anders: local.
+*/ -}}
+{{- $page := .page -}}
+{{- $local := .local -}}
+{{- $filename := .filename -}}
+{{- $cfg := $page.Site.Params.pdfAssets | default dict -}}
+{{- $enabled := $cfg.enabled | default false -}}
+{{- $base := strings.TrimSpace ($cfg.base | default "") -}}
+{{- if and $enabled (ne $base "") $page.File -}}
+  {{- $env := $cfg.env | default "production" -}}
+  {{- $dir := strings.TrimSuffix "/" (replace $page.File.Dir "\\" "/") -}}
+  {{- $base = strings.TrimSuffix $base "/" -}}
+  {{- if $dir -}}
+    {{- printf "%s/%s/%s/%s" $base $env $dir $filename -}}
+  {{- else -}}
+    {{- printf "%s/%s/%s" $base $env $filename -}}
+  {{- end -}}
+{{- else -}}
+  {{- $local -}}
+{{- end -}}

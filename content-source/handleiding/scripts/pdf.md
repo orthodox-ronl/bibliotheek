@@ -51,9 +51,12 @@ verouderd (herkomststempel past niet bij de bron), dan exporteert
 `pdf.cmd` die SVG nog lokaal opnieuw — dat is noodhulp, geen vervanging
 van `products`. Gewijzigde koormap-`index.md` meenemen na een git-edit:
 [products-changed](../products-changed/). De pagina-PDF maak je lokaal
-uit de **notatiebronnen**, de sibling-SVG’s en de Markdown-layout, en
-commit je mee. MuseScore 4 is nodig voor `.mvsa`/`.mscz`-SVG-export (en
-dus zodra de pagina zulke bronnen of `pdf-bijelkaar` gebruikt).
+uit de **notatiebronnen**, de sibling-SVG’s en de Markdown-layout.
+Op de gepubliceerde site haalt het download-icoon die PDF uit Cloudflare
+R2; na `pdf.cmd` dus ook [r2-pdf-upload](../r2-pdf-upload/) naar de juiste
+omgeving (`preview` of `production`). MuseScore 4 is nodig voor
+`.mvsa`/`.mscz`-SVG-export (en dus zodra de pagina zulke bronnen of
+`pdf-bijelkaar` gebruikt).
 
 **Uitvoer:** standaard tellingen vooraan (`  3  pdf-geschreven`,
 `  1  overgeslagen`, `  0  mislukt`) en `OK  pdf`. Per-PDF-regels en
