@@ -32,15 +32,21 @@ omgewisselde woorden tellen mee. Zoeken loopt over de
 <span class=oefenhoek-breadcrumb-sep aria-hidden=true>&#8250;</span><span class=oefenhoek-breadcrumb-current aria-current=page>r2-pdf-upload</span></nav></div></header><main class=page><h1 id=name>NAME</h1><p><code>scripts\r2-pdf-upload.cmd</code> — blad-PDF’s naar Cloudflare R2 <code>production/</code></p><h1 id=synopsis>SYNOPSIS</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\r2-pdf-upload.cmd [--dry-run] [pad ...]
 </span></span><span style=display:flex><span>scripts\r2-pdf-upload.cmd --list-buckets
 </span></span><span style=display:flex><span>scripts\r2-pdf-upload.cmd --purge-prefix preview [--apply-purge]
+</span></span><span style=display:flex><span>scripts\r2-pdf-upload.cmd --restamp-metadata [--only-missing-sha] [--dry-run]
 </span></span></code></pre></div><h1 id=description>DESCRIPTION</h1><p>Zet <code>index.md.pdf</code> / translit-PDF’s in R2 onder
 <code>production/{pad-onder-content-source}/…</code>. Zet metadata <code>sha256</code> voor
 <a href=../r2-pdf-opschonen/>r2-pdf-opschonen</a>
 . Alleen <strong>production/</strong>;
 <code>--env preview</code> wordt geweigerd.</p><p>Laadt <code>scripts\r2-env.cmd</code> / <code>.ps1</code> automatisch. EU:
 <code>R2_JURISDICTION=eu</code>.</p><p><code>--purge-prefix preview --apply-purge</code> wist de afgeschafte preview-map
-op R2 (eerst zonder <code>--apply-purge</code> om te tellen).</p><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\r2-pdf-upload.cmd --dry-run catalogus\alleluia
+op R2 (eerst zonder <code>--apply-purge</code> om te tellen).</p><p><code>--restamp-metadata</code> zet of vernieuwt de <code>sha256</code>-metadata op alle
+PDF’s die al onder <code>production/</code> staan (download + herschrijven). Nodig
+als objecten zonder vingerafdruk zijn geüpload, of na een eenmalige
+migratie. Met <code>--only-missing-sha</code> sla je objecten over die al
+<code>sha256</code> hebben.</p><h1 id=examples>EXAMPLES</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cmd data-lang=cmd><span style=display:flex><span>scripts\r2-pdf-upload.cmd --dry-run catalogus\alleluia
 </span></span><span style=display:flex><span>scripts\r2-pdf-upload.cmd
 </span></span><span style=display:flex><span>scripts\r2-pdf-upload.cmd --purge-prefix preview --apply-purge
+</span></span><span style=display:flex><span>scripts\r2-pdf-upload.cmd --restamp-metadata --only-missing-sha
 </span></span></code></pre></div><h1 id=see-also>SEE ALSO</h1><p><a href=../pdf/>pdf</a>
 · <a href=../r2-pdf-opschonen/>r2-pdf-opschonen</a>
 ·
