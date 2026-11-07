@@ -69,7 +69,10 @@ jobs:
             echo "destination_dir=preview" >> "$GITHUB_OUTPUT"
             echo "pages_url=https://orthodox-ronl.github.io/bibliotheek/preview/" >> "$GITHUB_OUTPUT"
             echo "label=development-preview" >> "$GITHUB_OUTPUT"
-            echo "keep_files=true" >> "$GITHUB_OUTPUT"
+            # false: hele preview/-map vervangen. Anders blijven oude blad-PDF’s
+            # op gh-pages hangen (keep_files) → dikke sync / timeout-risico.
+            # Productie-root houdt keep_files=true zodat preview/ niet weggevaagd wordt.
+            echo "keep_files=false" >> "$GITHUB_OUTPUT"
             # Blad-PDF downloads via R2 preview-map (strikt los van production/).
             echo "hugo_config=hugo.toml,hugo.pdf-assets.preview.toml" >> "$GITHUB_OUTPUT"
             # products-meta nog niet op tooling main (PR VSA-tooling#58): pin.
@@ -94,7 +97,8 @@ jobs:
             echo "destination_dir=${slug}" >> "$GITHUB_OUTPUT"
             echo "pages_url=https://orthodox-ronl.github.io/bibliotheek/${slug}/" >> "$GITHUB_OUTPUT"
             echo "label=branch-preview" >> "$GITHUB_OUTPUT"
-            echo "keep_files=true" >> "$GITHUB_OUTPUT"
+            # Zelfde als development-preview: subdirectory schoon vervangen.
+            echo "keep_files=false" >> "$GITHUB_OUTPUT"
             # Branch-previews delen de R2 preview/-map (niet production/).
             echo "hugo_config=hugo.toml,hugo.pdf-assets.preview.toml" >> "$GITHUB_OUTPUT"
             # products-meta nog niet op tooling main (PR VSA-tooling#58).

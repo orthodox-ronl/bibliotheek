@@ -1,10 +1,15 @@
 # Plan: blad-PDF’s op Cloudflare R2
 
 Status: **fase 2 — dual mode**. CI bouwt met R2-download-URL’s
-(`hugo.pdf-assets.*.toml`); blad-PDF’s verdwijnen uit de Pages-publishmap
-maar blijven nog in git. Lokaal `serve`/`build` blijft standaard **zonder**
-R2 (bestanden op schijf). Terugdraaien: overlays uit CI halen + tag
-`pre-r2-pdfs`.
+(`hugo.pdf-assets.*.toml`); blad-PDF’s worden genegeerd bij de Hugo-build
+én uit de publishmap gehouden, maar blijven dual mode nog in git. Lokaal
+`serve`/`build` blijft standaard **zonder** R2. Terugdraaien: overlays uit
+CI + tag `pre-r2-pdfs`.
+
+**CI-list tegen dikke sync/timeout:** preview- en branch-deploys gebruiken
+`keep_files=false` (subdirectory wordt schoon vervangen — geen oude PDF’s
+meer op `gh-pages/preview/`). Productie-root houdt `keep_files=true` zodat
+`preview/` en branch-mappen niet weggevaagd worden.
 
 Gerelateerd: downloadknop = blad-PDF
 ([schermpartituur.md](../specs/schermpartituur.md) §1);

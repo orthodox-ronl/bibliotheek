@@ -2,6 +2,15 @@
 # Gebruik: hugo --config hugo.toml,hugo.pdf-assets.preview.toml …
 # Vul base in ná Cloudflare-proef (docs/plans/pdf-r2.md).
 
+# PDF’s niet als page resources meenemen (R2 host downloads). Voorkomt
+# ~1 GB kopiëren naar generated/site vóór de delete-stap — snellere CI.
+# fileExists in templates blijft de bestanden op schijf zien.
+ignoreFiles = [
+  '(?i)[/\\\\]input[/\\\\]',
+  '(?i)\\.tekstblad\\.md$',
+  '(?i)\\.pdf$',
+]
+
 [params.pdfAssets]
   enabled = true
   # Zelfde publieke basis-URL als production-overlay; andere map via env.
