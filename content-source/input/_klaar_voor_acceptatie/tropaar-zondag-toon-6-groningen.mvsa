@@ -1,0 +1,133 @@
+---
+titel: Tropaar van de zondag, toon 6
+partituur:
+  title: Tropaar van de zondag, toon 6
+  composer: Traditioneel
+  arranger: Groningen
+toon: 6
+taal: nl
+bron:
+  uitgangspunt: Koormap Groningen
+soort: tropaar
+gelegenheid:
+- naam: Zondag
+  type: zondag
+zoektekst: >-
+  Scharen der engelen waren aan Uw graf, de wachters lagen als gestorven Bij het graf stond
+  Maria Magdalena, zoekend het allerzuiverst lichaam van haar Heer. Gij hebt de hades gevangen
+  genomen zonder erdoor verstrikt te zijn. Tot de Maagd zijt Gij gekomen, Gij die het leven
+  schenkt Uit de doden zijt Gij opgestaan, ere zij U, o Heer.
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# [:] Scharen der engelen wa{/ren} {/aan_} {Uw_} {\graf_}, 
+# {\\de} wach{/ters} {/la}gen als {\ge}{/&\stor_&_}{\ven_} 
+# {/Bij} het graf stond Maria Mag{/da}{/le_}{\na_}, 
+# {\\zoe}kend {/het} {/al}lerzuiverst li{\chaam} {/van_} {\haar_} {\Heer_}. 
+# {/Gij} hebt de hades gevangen {/ge}{/no_}{\men_} 
+# {\\zon}der {/er}{/door} {\ver}{/strikt_} {\te_} {\zijn_}.
+# {/Tot} de Maagd zijt Gij {/ge}{/ko_}{\men_}, 
+# {\\&/Gij} {/die} {\het} {/le_}{\ven_} {\schenkt_} 
+# {/Uit} de doden zijt {/Gij} {/op_}{ge_}{\staan_}, 
+# // {\\&/e}{/re} {\zij} {/U_}, {\o_} {\Heer_}. [\:]
+# <!-- Bron: koormap Groningen -->
+
+# === afgeleide mvsa (VSA + template) ===
+# bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/tropaar/zondag-toon-6/groningen/tropaar-zondag-toon-6-groningen.vsa
+# template: tropaar-toon-6/template.yaml (tropaar-toon-6 -> formule kondak-toon-6)
+# Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
+#  ##########################################################################  #
+#  #                                                                        #  #
+#  #   WAARSCHUWING:                                                        #  #
+#  #                                                                        #  #
+#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
+#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
+#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
+#  #   - melisma-ELMs (``{/&/fi~&~}`` vs ``{/&/fi_}`` → parser-verdubbeling)#  #
+#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
+#  #   - regels hieronder die met ``# WAARSCHUWING:`` beginnen              #  #
+#  #                                                                        #  #
+#  ##########################################################################  #
+# --- specifieke waarschuwingen (emit) ---
+# WAARSCHUWING: frase 2/'2': melisma op 'stor' heeft 2× ELM '_'. Klopt dat met de bron-VSA? Expliciet `_&_` (enz.) is ok; één `_` bij `/&/` wordt door de parser verdubbeld (vaak bedoeld als ~&~).
+# WAARSCHUWING: frase 3/'1': melisma op 'le' heeft 2× ELM '_'. Klopt dat met de bron-VSA? Expliciet `_&_` (enz.) is ok; één `_` bij `/&/` wordt door de parser verdubbeld (vaak bedoeld als ~&~).
+# WAARSCHUWING: frase 5/'1': melisma op 'no' heeft 2× ELM '_'. Klopt dat met de bron-VSA? Expliciet `_&_` (enz.) is ok; één `_` bij `/&/` wordt door de parser verdubbeld (vaak bedoeld als ~&~).
+# WAARSCHUWING: frase 7/'1': melisma op 'ko' heeft 2× ELM '_'. Klopt dat met de bron-VSA? Expliciet `_&_` (enz.) is ok; één `_` bij `/&/` wordt door de parser verdubbeld (vaak bedoeld als ~&~).
+#
+@title "Tropaar van de zondag, toon 6"
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=-1 T=-1 B=-1
+@speelplan 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+
+# template-frase '1' (1/10)
+@blok 1
+L: (Scha-ren der en-ge-len wa)-ren aan_ Uw_ graf_, |
+S: f                           /   /    -   \      |g
+A: c                           -   /3   #-  \2     |d
+T: a                           /   /    -   \      |Bb
+B: f                           -   -    \2  /3     |g
+# template-frase '2' (2/10)
+@blok 2
+L: de wach-ters (la-gen als) ge-stor_&_-ven_ |
+S: e- -    /    /            \  /&\     \    |e-
+A: c  -    -    -            -  -&-     -    |c
+T: g  -    /    /            \  /&\     \    |g
+B: c- -    -    -            -  /2&/    \3   |c-
+# template-frase '1' (3/10)
+@blok 3
+L: (Bij het graf stond Ma-ri-a Mag)-da-le_&_-na_, |
+S: f                                /  /&-   \    |g
+A: c                                -  /3&#- \2   |d
+T: a                                /  /&-   \    |Bb
+B: f                                -  -&\2  /3   |g
+# template-frase '2' (4/10)
+@blok 4
+L: zoe-kend het (al-ler-zui-verst li)-chaam van_ haar_ Heer_\. |
+S: e-  -    /   /                     \     /    \     \       |e-
+A: c   -    -   -                     -     -    -     -       |c
+T: g   -    /   /                     \     /    \     \       |g
+B: c-  -    -   -                     -     /2   /     \3      |c-
+# template-frase '1' (5/10)
+@blok 5
+L: (Gij hebt de ha-des ge-van-gen) ge-no_&_-men_ |
+S: f                               /  /&-   \    |g
+A: c                               -  /3&#- \2   |d
+T: a                               /  /&-   \    |Bb
+B: f                               -  -&\2  /3   |g
+# template-frase '2' (6/10)
+@blok 6
+L: zon-der er-door ver-strikt_ te_ zijn_\. |
+S: e-  -   /  /    \   /       \   \       |e-
+A: c   -   -  -    -   -       -   -       |c
+T: g   -   /  /    \   /       \   \       |g
+B: c-  -   -  -    -   /2      /   \3      |c-
+# template-frase '1' (7/10)
+@blok 7
+L: (Tot de Maagd zijt Gij) ge-ko_&_-men_, |
+S: f                       /  /&-   \     |g
+A: c                       -  /3&#- \2    |d
+T: a                       /  /&-   \     |Bb
+B: f                       -  -&\2  /3    |g
+# template-frase '2' (8/10)
+@blok 8
+L: Gij~&~ die het le_-ven_ schenkt_ |
+S: e-&/   /   \   /   \    \        |e-
+A: c&-    -   -   -   -    -        |c
+T: g&/    /   \   /   \    \        |g
+B: c-&-   -   -   /2  /    \3       |c-
+# template-frase '1' (9/10)
+@blok 9
+L: (Uit de do-den zijt) Gij op_-ge_-staan_, |
+S: f                    /   /   -   \       |g
+A: c                    -   /3  #-  \2      |d
+T: a                    /   /   -   \       |Bb
+B: f                    -   -   \2  /3      |g
+# template-frase 'laatste' (10/10)
+@blok 10
+L: e~&~-re zij U_, o_ Heer__\. |
+S: e-&/ /  \   /   \  \       |e-
+A: c&-  -  -   -   -  -       |c
+T: g&/  /  \   /   \  \       |g
+B: c-&- -  -   /2  /  \3      |c-

@@ -1,0 +1,123 @@
+---
+titel: Kondak van de zondag, toon 1
+toon: 1
+bron:
+  uitgangspunt: Koormap Groningen
+partituur:
+  title: Kondak van de zondag, toon 1
+  composer: Traditioneel
+  arranger: Groningen
+soort: kondak
+taal: nl
+gelegenheid:
+- naam: Zondag
+  type: zondag
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# [:] Ver{/re_}{/zen_} {\\zijt} Gij uit het {/graf} {/in} {/heer_}lijk{heid_} *
+# {\Gij} hebt de wereld met U mede {\op_}ge{\wekt_} *
+# {/&/al_&_}{\\les} wat sterfelijk is prijst {/U} {/als} {/God_} *
+# {\want} de dood is ver{\nie_}{\tigd_} *
+# o Ge{/bie_}{/der_}, {\\A}dam jubelt en Eva {/is} {/ver}{/heugd_} *
+# {\want} heden zijn zij van de {\boe_}ien be{\vrijd_} *
+# zij {/roe_}{/pen_}: {\\Gij} zijt {/het}, {/o} {/Chris_}{tus_} *
+# {\die} aan allen de {/op_}standing {\schenkt_}. [//:]
+# Formule: VSA-tooling library/kondak-toon-1 (|: 1, 2 :| laatste).
+
+@do F4
+# @mode major
+# @oct S=0 A=-1 T=-1 B=-1
+# @speelplan |: 1, 2 :| laatste
+#
+# @blok 1
+# # open do? do? re? mi? (variabel), recite do, cadens re–mi–fa@l.st.
+# # (extra fa-syllaben = H6-hold op hetzelfde slot; scoped nadruk → anker)
+# S: f? -? /_? /_? \2 / / @l.st./_ |
+# A: c  -  /2  /   \3 - /3 -       |
+# T: a  -  /2  -   \2 / /  /_      |
+# B: f  -  \3  /3  -  - -  \4      |
+#
+# @blok 2
+# # @e.st. op mi (scoped inzet), recite mi, cadens re → do@l.st.
+# S: @e.st.a \ @l.st.\_ |
+# A:       f \ @l.st.\2_ |
+# T:       c \ @l.st.\_ |
+# B:       f \3 @l.st./3_ |
+#
+# @blok laatste
+# # @e.st. mi, recite mi, cadens fa → mi@l.st.; slotstreep
+# S: @e.st.a / @l.st.\_ ||
+# A:       f \ @l.st./  ||
+# T:       c - -        ||
+# B:       f \3 @l.st./3 ||
+#
+# === einde formule ===
+# === vsa voorbeeld (* = frasegrens voor template-mapping) ===
+#
+# [:] Ver{/re_}{/zen_} {\\zijt} Gij uit het {/graf} {/in} {/heer_}lijk{heid_} *
+# {\Gij} hebt de wereld met U mede {\op_}ge{\wekt_} *
+# {/&/al_&_}{\\les} wat sterfelijk is prijst {/U} {/als} {/God_} *
+# {\want} de dood is ver{\nie_}{\tigd_} *
+# o Ge{/bie_}{/der_}, {\\A}dam jubelt en Eva {/is} {/ver}{/heugd_} *
+# {\want} heden zijn zij van de {\boe_}ien be{\vrijd_} *
+# zij {/roe_}{/pen_}: {\\Gij} zijt {/het}, {/o} {/Chris_}{tus_} *
+# {\die} aan allen de {/op_}standing {\schenkt_}. [//:]
+#
+# === einde vsa voorbeeld ===
+
+@do F4
+@mode major
+@oct S=0 A=-1 T=-1 B=-1
+@tempo 180
+
+@sectie cyclus-1
+L: Ver-re_-zen_ (zijt Gij uit het) graf in heer_-lijk-heid,_ |
+S: f4  /   /    \2                 /    /  /     -    -      |Bb4
+A: c4  /2  /    \3                 -    /3 -     -    -      |f4
+T: a3  /2  -    \2                 /    /  /     -    -      |d4
+B: f3  \3  /3   -                  -    -  \4    -    -      |Bb2
+
+L: (Gij hebt de we-reld met U me-de) op_-ge-wekt,_ |
+S: a4                                \   -  \      |f4
+A: f4                                \   -  \2     |c4
+T: c4                                \   -  \      |a3
+B: f3                                \3  -  /3     |f3
+
+@sectie herhaling
+L: al_&_ (-les wat ster-fe-lijk is prijst) U als God_ |
+S: g4&/   \2                               / /   /    |Bb4
+A: e4&/   \3                               - /3  -    |f4
+T: c4&-   \2                               / /   /    |d4
+B: c3&/3 -                                - -   \4   |Bb2
+
+L: (want de dood is ver)-nie_-tigd,_ |
+S: a4                    \    \      |f4
+A: f4                    \    \2     |c4
+T: c4                    \    \      |a3
+B: f3                    \3   /3     |f3
+
+L: o  Ge-bie_-der,_ (A-dam ju-belt en E-va) is ver-heugd_ |
+S: f4 -  /    /     \2                      /  /   /      |Bb4
+A: c4 -  /2   /     \3                      -  /3  -      |f4
+T: a3 -  /2   -     \2                      /  /   /      |d4
+B: f3 -  \3   /3    -                       -  -   \4     |Bb2
+
+L: (want he-den zijn zij van de) boei_-en be-vrijd,_ |
+S: a4                            \     -  -  \       |f4
+A: f4                            \     -  -  \2      |c4
+T: c4                            \     -  -  \       |a3
+B: f3                            \3    -  -  /3      |f3
+
+L: zij roe_-pen_ Gij zijt het, o  Chris_-tus,_ |
+S: f4  /    /    \2  -    /    /  /      -     |Bb4
+A: c4  /2   /    \3  -    -    /3 -      -     |f4
+T: a3  /2   -    \2  -    /    /  /      -     |d4
+B: f3  \3   /3   -   -    -    -  \4     -     |Bb2
+
+@sectie laatste
+L: (die aan al-len de) op_-stan-ding schenkt_ ||
+S: a4                  /   -    -    \        ||a4
+A: f4                  \   -    -    /        ||f4
+T: c4                  -   -    -    -        ||c4
+B: f3                  \3  -    -    /3       ||f3

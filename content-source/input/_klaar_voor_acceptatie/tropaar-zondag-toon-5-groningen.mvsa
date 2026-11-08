@@ -1,0 +1,122 @@
+---
+do: F4
+mode: major
+tempo: 180
+titel: Tropaar van de zondag, toon 5
+partituur:
+  title: Tropaar van de zondag, toon 5
+  composer: Traditioneel
+  arranger: Groningen
+toon: 5
+taal: nl
+bron:
+  uitgangspunt: Koormap Groningen
+soort: tropaar
+gelegenheid:
+- naam: Zondag
+  type: zondag
+zoektekst: >-
+  Komt gelovigen laat ons aanbidden en bezingen, het met de Vader en de Geest mede-eeuwige
+  woord, dat uit de Maagd omwille van onze verlossing is geboren want Hij heeft zich verwaardigd,
+  om zich in het vlees aan het Kruis te verheffen, Hij heeft de dood ondergaan. En door Zijn
+  roemrijke verrijzenis heeft Hij de doden opgewekt.
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# [/:] {Komt_} ge{/lo_}{\\vi}{gen_}
+# {//laat} ons aanbidden en be{-&\&\zin_&-&-}{/gen_},
+# het met de {Va_}der en de Geest me{\\de}-{/eeu_}wi{\ge} {\woord_},
+# {///dat_} uit de Maagd omwille van onze verlossing {\is} {/ge}{/bo_}{\\ren_}
+# {//want} Hij heeft zich ver{-&\&\waar_&~&~}{/digd_},
+# om zich in het vlees aan het Kruis te {\\ver}{/&\hef_&~}{\fen_},
+# {///Hij_} heeft de {/dood_} {\\on}der{gaan_}.
+# {//En} door Zijn roemrijke ver{rij_}{\&\ze}{/nis_}
+# // {/heeft} Hij de {\do_}{\den_} {\op_}{/&\ge}{\wekt_}. [\\:]
+# <!-- Bron: koormap Groningen -->
+
+# === afgeleide mvsa (VSA + template) ===
+# bron: C:/Git/orthodox-ronl/bibliotheek/content-source/input/_werk/tropaar-zondag-toon-5-groningen.vsa
+# template: kondak-toon-5/template.yaml (kondak-toon-5)
+# Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
+#  ##########################################################################  #
+#  #                                                                        #  #
+#  #   WAARSCHUWING:                                                        #  #
+#  #                                                                        #  #
+#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
+#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
+#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
+#  #   - melisma-ELMs (``{/&/fi~&~}`` vs ``{/&/fi_}`` → parser-verdubbeling)#  #
+#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
+#  #   - regels hieronder die met ``# WAARSCHUWING:`` beginnen              #  #
+#  #                                                                        #  #
+#  ##########################################################################  #
+@title "Tropaar van de zondag, toon 5"
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=-1 T=-1 B=-1
+@speelplan 1, 2, 3, 4, 5, 6, 7, 8, 9
+
+# template-frase '1' (1/9)
+@blok 1
+L: Komt_ ge-lo_-vi-gen_ |
+S: g     -  /   \2 -    |f
+A: e     -  /   -  -    |f+
+T: c     -  -   \2 -    |a
+B: c-    -  /3  -  -    |f
+# template-frase '2' (2/9)
+@blok 2
+L: (laat ons aan-bid-den en be)-zin_&~&~-gen_, |
+S: a                            -&\&\    /     |g
+A: f+                           -&\&\    /     |e
+T: c                            -&-&-    -     |c
+B: f                            -&\3&-   -     |c-
+# template-frase '3' (3/9)
+@blok 3
+L: (het met de) Va_ (der en de Geest me)-de-eeu_-wi-ge woord_, |
+S: g            -   -                    \2 /    -  \  \       |d-
+A: e            -   -                    \2 /    -  -  -       |d
+T: Bb           -   -                    -  \    -  \  \       |f
+B: c-           -   -                    -  /    -  -  -       |d-
+# template-frase '1' (4/9)
+@blok 4
+L: dat_ (uit de Maagd om-wil-le van on-ze ver-los-sing) is ge-bo_-ren_ |
+S: g    -                                               \  /  /   \2   |f
+A: e    -                                               \  /  /   -    |f+
+T: c    -                                               -  -  -   \2   |a
+B: c-   -                                               -  -  /3  -    |f
+# template-frase '2' (5/9)
+@blok 5
+L: (want Hij heeft zich ver)-waar_&~&~-digd_, |
+S: a                         -&\&\     /      |g
+A: f+                        -&\&\     /      |e
+T: c                         -&-&-     -      |c
+B: f                         -&\3&-    -      |c-
+# template-frase '3' (6/9)
+@blok 6
+L: (om zich in het vlees aan het Kruis te) ver-hef_&~-fen_, |
+S: g                                       \2  /&\    \     |d-
+A: e                                       \2  /&-    -     |d
+T: Bb                                      -   \&\    \     |f
+B: c-                                      -   /&-    -     |d-
+# template-frase '1' (7/9)
+@blok 7
+L: Hij_ (heeft de) dood_ on-der-gaan_\. |
+S: g    -          /     \2 -   -       |f
+A: e    -          /     -  -   -       |f+
+T: c    -          -     \2 -   -       |a
+B: c-   -          /3    -  -   -       |f
+# template-frase '2' (8/9)
+@blok 8
+L: (En door Zijn roem-rij-ke ver)-rij_-ze~&~-nis |
+S: a                              -    \&\   /   |g
+A: f+                             -    \&\   /   |e
+T: c                              -    -&-   -   |c
+B: f                              -    \3&-  -   |c-
+# template-frase 'laatste' (9/9)
+@blok 9
+L: (heeft Hij de) do_-den_ op_-ge~&~-wekt_\. |
+S: a              \   \    \   /&\   \       |d-
+A: f+             \   \    #\  /&#\  /       |d
+T: c              -   \2   -   -&\   \       |f
+B: f              \3  /    \3  -&-   /3      |d-

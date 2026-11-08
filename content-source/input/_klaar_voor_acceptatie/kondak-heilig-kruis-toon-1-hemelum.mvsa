@@ -1,0 +1,108 @@
+---
+do: F4
+mode: major
+tempo: 180
+soort: kondak
+toon: 1
+titel: Kondak Heilig Kruis (toon 1)
+partituur:
+  title: Kondak Heilig Kruis (toon 1)
+  composer: Traditioneel
+  arranger: Hemelum
+bron:
+  uitgangspunt: Liturgikon, p.247 / Hemelum (weekdagen)
+gebruikt-in:
+- derde-antifoon/kruisverheffing/liturgikon
+taal: nl
+gelegenheid:
+- naam: Woensdag
+  type: weekdagen
+- naam: Vrijdag
+  type: weekdagen
+- naam: Kruisverheffing
+  datum: 14 sep
+zoektekst: >-
+  Gij die U vrijwillig op het Kruis hebt verheven, o Christus God, schenk Uw erbarmingen aan
+  Uw nieuwe Gemeente die naar U genoemd is. En verblijd ons met Uw kracht in de strijd tegen
+  de vijand. Want Gij zijt onze Helper door het onoverwinnelijke Vredeswapen van Uw Kruis.
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# <!-- Kondak - Woensdag - H. Kruis - (Toon 1 - Liturgikon, p247) -->
+# <!-- Uitvoeringsvorm: hemelum -->
+#
+# [:] Gij die U vrij{/wil_}{/lig_} {\\op} het Kruis hebt verheven, o {/Chris}{/tus} {/God_}, * 
+# {\schenk} Uw erbarmingen aan Uw nieuwe Gemeente die naar U ge{\noemd_} {\is_}. * 
+# En ver{/blijd_} {/ons_} {\\met} {/&/Uw} {/kracht_} * 
+# {\in} de strijd tegen de {\vij_}{\and_}. * 
+# Want {/&/Gij_&_} {\\zijt} {/on}{/ze} {/Hel_}{per_} * 
+# // {\door} het onoverwinnelijke Vredeswapen {/van_} {Uw_} {\Kruis_}. [//:]
+
+# === afgeleide mvsa (VSA + template) ===
+# bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/kondak/heilig-kruis-toon-1/hemelum/kondak-heilig-kruis-toon-1-hemelum.vsa
+# template: kondak-toon-1/template.yaml (kondak-toon-1)
+# Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
+#  ##########################################################################  #
+#  #                                                                        #  #
+#  #   WAARSCHUWING:                                                        #  #
+#  #                                                                        #  #
+#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
+#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
+#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
+#  #   - melisma-ELMs (``{/&/fi~&~}`` vs ``{/&/fi_}`` → parser-verdubbeling)#  #
+#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
+#  #   - regels hieronder die met ``# WAARSCHUWING:`` beginnen              #  #
+#  #                                                                        #  #
+#  ##########################################################################  #
+# --- specifieke waarschuwingen (emit) ---
+# WAARSCHUWING: frase 5/'1': melisma op 'Gij' heeft 2× ELM '_'. Klopt dat met de bron-VSA? Expliciet `_&_` (enz.) is ok; één `_` bij `/&/` wordt door de parser verdubbeld (vaak bedoeld als ~&~).
+#
+@title "Kondak Heilig Kruis (toon 1)"
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=0 T=-1 B=-1
+@speelplan 1, 2, 3, 4, 5, 6
+
+# template-frase '1' (1/6)
+@blok 1
+L: (Gij die U vrij)-wil_-lig_ (op het Kruis hebt ver-he-ven, o) Chris-tus God_, |
+S: f                /    /    \2                                /     /   /     |Bb
+A: c-               /2   /    \3                                /2    /   -     |f
+T: a                /2   -    \2                                /2    -   /     |d
+B: f                \3   /3   -                                 \3    /3  \4    |Bb-
+# template-frase '2' (2/6)
+@blok 2
+L: (schenk Uw er-bar-min-gen aan Uw nie-u-we Ge-meen-te die naar U ge)-noemd_ is_\. |
+S: a                                                                   \      \     |f
+A: f                                                                   \      \2    |c-
+T: c                                                                   \      \     |a
+B: f                                                                   \3     /3    |f
+# template-frase '1' (3/6)
+@blok 3
+L: (En ver)-blijd_ ons_ (met) Uw~&~ kracht_ |
+S: f        /      /    \2    /&/   /       |Bb
+A: c-       /2     /    \3    /2&/  -       |f
+T: a        /2     -    \2    /2&-  /       |d
+B: f        \3     /3   -     \3&/3 \4      |Bb-
+# template-frase '2' (4/6)
+@blok 4
+L: (in de strijd te-gen de) vij_-and_\. |
+S: a                        \    \      |f
+A: f                        \    \2     |c-
+T: c                        \    \      |a
+B: f                        \3   /3     |f
+# template-frase '1' (5/6)
+@blok 5
+L: Want Gij_&_ (zijt) on-ze Hel_-per_ |
+S: f    /&/    \2     /  /  /    -    |Bb
+A: c-   /2&/   \3     /2 /  -    -    |f
+T: a    /2&-   \2     /2 -  /    -    |d
+B: f    \3&/3  -      \3 /3 \4   -    |Bb-
+# template-frase 'laatste' (6/6)
+@blok 6
+L: (door het o-no-ver-win-ne-lij-ke Vre-des-wa-pen) van Uw_ Kruis_\. |
+S: a                                                /   -   \        |a
+A: f                                                \   -   /        |f
+T: c                                                -   -   -        |c
+B: f                                                \3  -   /3       |f

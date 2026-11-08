@@ -1,0 +1,81 @@
+---
+titel: Kondak van de zondag, toon 4
+partituur:
+  title: Kondak van de zondag, toon 4
+  composer: Traditioneel
+  arranger: Hemelum
+toon: 4
+taal: nl
+bron:
+  uitgangspunt: Koormap Groningen
+soort: kondak
+gelegenheid:
+- naam: Zondag
+  type: zondag
+zoektekst: Mijn Heiland en Verlosser heeft als Barmhartige Heer degenen die op aarde zijn
+  geboren uit de graven opgewekt en van de boeien bevrijd. De poorten van de hades heeft Hij
+  verbroken als Gebieder en Heer, en na drie dagen is Hij opgestaan.
+do: F4
+mode: major
+tempo: 180
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# [//:] Mijn Heiland en Verlosser heeft als Barm{har_}{/ti}ge {\Heer_} 
+# {/de}genen die op aarde zijn ge{bo_}{\ren_} 
+# uit de graven {op_}{/ge_}{\wekt_} 
+# {/en} van de {boe_}ien be{\vrijd_}. 
+# De poorten van de hades heeft Hij ver{-&/bro_&_}{\ken_} 
+# {/als} Ge{bie_}der en {\Heer_}, 
+# // en na drie dagen is Hij {op_}{\ge_}{/staan_}. [//:]
+# <!-- Bron: koormap Groningen -->
+
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=0 T=-1 B=-1
+
+@sectie cyclus-1
+L: (Mijn Hei-land en Ver-los-ser heeft als Barm)-har_-ti-ge Heer_ |
+S: a                                             -    /  -  \     |a
+A: f                                             -    /  -  #\    |f#
+T: c                                             -    /  -  -     |d
+B: f                                             /2   \  -  \3    |d-
+
+L: (de-ge-nen die op aar-de zijn ge)-bo_-ren_ |
+S: Bb                                -   \    |a
+A: g                                 -   \    |f
+T: d                                 -   \    |c
+B: g                                 \4  /3   |f
+
+@sectie herhaling
+L: (uit de gra-ven) op_-ge_-wekt_ |
+S: a                -   /   \     |a
+A: f                -   /   #\    |f#
+T: c                -   /   -     |d
+B: f                /2  \   \3    |d-
+
+L: (en van de) boe_-ien be-vrijd_\. |
+S: Bb          -    -   -  \        |a
+A: g           -    -   -  \        |f
+T: d           -    \   -  -        |c
+B: g           \4   -   -  /3       |f
+
+L: (De poor-ten van de ha-des heeft Hij ver)-bro_&_-ken_ |
+S: a                                         -&/    \    |a
+A: f                                         -&/    #\   |f#
+T: c                                         -&/    -    |d
+B: f                                         /2&\   \3   |d-
+
+L: (als Ge)-bie_-der en Heer_, |
+S: Bb       -    -   -  \      |a
+A: g        -    -   -  \      |f
+T: d        -    \   -  -      |c
+B: g        \4   -   -  /3     |f
+
+@sectie laatste
+L: (en na drie da-gen is Hij) op_-ge_-staan_\. |
+S: a                          -   \   /        |a
+A: f                          -   \   /        |f
+T: c                          -   -   -        |c
+B: f                          -   \3  /3       |f

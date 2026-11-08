@@ -1,0 +1,57 @@
+---
+titel: Tropaar van de zondag, toon 8
+partituur:
+  title: Tropaar van de zondag, toon 8
+  composer: Traditioneel
+  arranger: Groningen
+toon: 8
+taal: nl
+bron:
+  uitgangspunt: Koormap Groningen
+soort: tropaar
+gelegenheid:
+- naam: Zondag
+  type: zondag
+zoektekst: Uit de hoge zijt Gij neergedaald, o Barmhartige. Drie dagen zijt Gij in het graf
+  gebleven om ons van het lijden te verlossen. Gij zijt ons leven en onze verrijzenis, Heer,
+  ere zij U.
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# [:] Uit {/de} {/ho}{/ge} zijt {\Gij} neergedaald, o Barm{\har_}ti{\ge_}. 
+# Drie {/da}{/gen} {/zijt} Gij {\in} het graf ge{\ble_}{\ven_} 
+# om {/ons} {/van} {/het} lij{\den} \te ver{\los_}{\sen_}. 
+# Gij {/zijt} {/ons} {/le}ven {\en} onze verrijzenis, Heer, {\e_}re zij {\U_}. [:]
+# <!-- Bron: koormap Groningen -->
+
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=-1 T=-1 B=-1
+
+@sectie cyclus-1
+L: Uit de ho (ge zijt) (Gij neer-ge-daald, o Barm)-har_-ti-ge_\. |
+S: f   /  /  /         \                           \    -  \     |f
+A: c   -  /3 -         -                           \    -  \2    |c
+T: a   /  /  /         \                           \    -  \     |a
+B: f   \3 /3 \4        /4                          \3   -  /3    |f
+
+@sectie herhaling
+L: Drie da-gen (zijt Gij) (in het graf ge)-ble_-ven_ |
+S: f    /  /   /          \                \    \    |f
+A: c    -  /3  -          -                \    \2   |c
+T: a    /  /   /          \                \    \    |a
+B: f    \3 /3  \4         /4               \3   /3   |f
+
+L: om ons van (het lij) (den te ver)-los_-sen_\. |
+S: f  /   /   /         \            \    \      |f
+A: c  -   /3  -         -            \    \2     |c
+T: a  /   /   /         \            \    \      |a
+B: f  \3  /3  \4        /4           \3   /3     |f
+
+@sectie laatste
+L: Gij zijt ons (le-ven) (en on-ze ver-rij-ze-nis, Heer,) e_ (re zij) U_\. |
+S: f   /    /   /        \                                \  -        \    |f
+A: c   -    /3  -        -                                \  -        \2   |c
+T: a   /    /   /        \                                \  -        \    |a
+B: f   \3   /3  \4       /4                               \3 -        /3   |f

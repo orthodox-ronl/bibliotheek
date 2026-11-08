@@ -1,0 +1,82 @@
+---
+titel: Tropaar van de zondag, toon 7
+partituur:
+  title: Tropaar van de zondag, toon 7
+  composer: Traditioneel
+  arranger: Groningen
+toon: 7
+taal: nl
+bron:
+  uitgangspunt: Koormap Groningen
+soort: tropaar
+gelegenheid:
+- naam: Zondag
+  type: zondag
+zoektekst: Door Uw Kruis zijt Gij de overwinnaar van de dood. Voor de moordenaar hebt Gij
+  het paradijs geopend. De droefheid van de myrondraagsters aan het graf hebt Gij in vreugde
+  veranderd. Gezonden hebt Gij hen naar de apostelen, om te verkondigen dat Gij zijt opgestaan,
+  o Christus God, om aan de wereld te schenken de grote genade.
+do: F4
+mode: major
+tempo: 180
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# [/:] Door Uw {/Kruis} {\zijt} {\Gij} de overwinnaar van {/de} {/dood_}. 
+# Voor de moordenaar hebt Gij het paradijs ge{o_}{\pend_}. 
+# De {/droef}{\heid} {\van} de myrondraagsters aan {/het} {/graf_} 
+# hebt Gij in vreugde ver{an_}{\derd_}.
+# Ge{/zon}{\den} {\hebt} Gij hen naar de apos{/te}{/len_}, 
+# om te verkondigen dat Gij zijt opgestaan, o {Chris_}tus {\God_}, 
+# // {/om} aan de wereld te schenken de {\gro_}{\te} {\ge}{/na__}{\de__}. [\:]
+# <!-- Bron: koormap Groningen -->
+
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=-1 T=-1 B=-1
+
+@sectie cyclus-1
+L: (Door Uw) Kruis zijt (Gij de o-ver-win-naar van) de dood_\. |
+S: g         /     \    \                           /  /       |a
+A: e         /     \    \                           /  /       |f+
+T: c         -     -    \2                          /2 -       |c
+B: c-        /3    \3   /                           \  /3      |f
+
+L: (Voor de moor-de-naar hebt Gij het pa-ra-dijs ge)-o_-pend_\. |
+S: a                                                 -  \       |g
+A: f+                                                -  \       |e
+T: c                                                 -  -       |c
+B: f                                                 -  \3      |c-
+
+@sectie herhaling
+L: De droef-heid (van de my-ron-draag-sters aan) het graf_ |
+S: g  /     \    \                               /   /     |a
+A: e  /     \    \                               /   /     |f+
+T: c  -     -    \2                              /2  -     |c
+B: c- /3    \3   /                               \   /3    |f
+
+L: (hebt Gij in vreug-de ver)-an_-derd_\. |
+S: a                          -   \       |g
+A: f+                         -   \       |e
+T: c                          -   -       |c
+B: f                          -   \3      |c-
+
+L: Ge-zon-den (hebt Gij hen naar de a-pos)-te-len_, |
+S: g  /   \   \                            /  /     |a
+A: e  /   \   \                            /  /     |f+
+T: c  -   -   \2                           /2 -     |c
+B: c- /3  \3  /                            \  /3    |f
+
+L: (om te ver-kon-di-gen dat Gij zijt op-ges-taan, o) Chris_-tus God_, |
+S: a                                                  -      -   \     |g
+A: f+                                                 -      -   \     |e
+T: c                                                  -      -   -     |c
+B: f                                                  -      -   \3    |c-
+
+@sectie laatste
+L: (om aan de we-reld te schen-ken de) gro_-te ge-na__-de__\. |
+S: a                                   \    \  \  /    \      |e-
+A: f+                                  \    \  \  /    \      |c
+T: c                                   -    -  -  #\   \2     |g
+B: f                                   \3   -  -  \3   /3     |c-

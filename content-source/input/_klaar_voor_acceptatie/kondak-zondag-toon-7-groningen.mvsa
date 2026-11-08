@@ -1,0 +1,79 @@
+---
+titel: Kondak van de zondag, toon 7
+partituur:
+  title: Kondak van de zondag, toon 7
+  composer: Traditioneel
+  arranger: Groningen
+toon: 7
+taal: nl
+bron:
+  uitgangspunt: Koormap Groningen
+soort: kondak
+gelegenheid:
+- naam: Zondag
+  type: zondag
+zoektekst: 'Het dodenrijk is niet in staat de doden gevangen te houden, want Christus is afgedaald
+  en heeft zijn kracht vernietigd. De hades werd gebonden. Eenstemmig jubelen en roepen de
+  profeten: de Verlosser is aan hen die geloven verschenen.  Hij sprak: verheft u, sta op
+  uit de dood.'
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# [/:] Het {/do}{\den}{\rijk} is niet in staat de doden gevangen te {-&/hou}{/den_}, 
+# want Christus is {af_}ge{\daald_} 
+# en {/heeft} {\zijn} {\kracht} ver{-&/nie}{/tigd_}. 
+# De hades werd ge{bon_}{\den_}. 
+# Een{/stem}{\mig} {\ju}belen en roepen de pro{-&/fe}{/ten_}: 
+# de Verlosser is aan hen die geloven ver{sche_}{\nen_}. 
+# // {/Hij} sprak: ver{\heft_} {\u}, {\sta} {/op_} uit de {\dood_}. [\:]
+# <!-- Bron: koormap Groningen -->
+
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=-1 T=-1 B=-1
+
+@sectie cyclus-1
+L: Het do-den (-rijk is niet in staat de do-den ge-van-gen te) hou~&~-den_, |
+S: g   /  \   \                                                   -&/  /    |a
+A: e   /  \   \                                                   -&/  /    |f+
+T: c   -  -   \2                                                  -&/2 -    |c
+B: c-  /3 \3  /                                                   -&\  /3   |f
+
+L: (want Chris-tus is) af_-ge-daald_ |
+S: a                   -   -  \      |g
+A: f+                  -   -  \      |e
+T: c                   -   -  -      |c
+B: f                   -   -  \3     |c-
+
+@sectie herhaling
+L: en heeft zijn kracht ver-nie~&~-tigd_\. |
+S: g  /     \    \      -   -&/    /       |a
+A: e  /     \    \      -   -&/    /       |f+
+T: c  -     -    \2     -   -&/2   -       |c
+B: c- /3    \3   /      -   -&\    /3      |f
+
+L: (De ha-des werd ge)-bon_-den_\. |
+S: a                   -    \      |g
+A: f+                  -    \      |e
+T: c                   -    -      |c
+B: f                   -    \3     |c-
+
+L: Een-stem-mig (ju-be-len en roe-pen de pro)-fe~&~-ten_: |
+S: g   /    \   \                             -&/   /     |a
+A: e   /    \   \                             -&/   /     |f+
+T: c   -    -   \2                            -&/2  -     |c
+B: c-  /3   \3  /                             -&\   /3    |f
+
+L: (de Ver-los-ser is aan hen die ge-lo-ven ver)-sche_-nen_\. |
+S: a                                             -     \      |g
+A: f+                                            -     \      |e
+T: c                                             -     -      |c
+B: f                                             -     \3     |c-
+
+@sectie laatste
+L: (Hij sprak: ver)-heft_ u, sta op_ uit de dood_\. |
+S: a                \     \  \   /   -   -  \       |e-
+A: f+               \     \  \   /   -   -  \       |c
+T: c                -     -  -   #\  -   -  \2      |g
+B: f                \3    -  -   \3  -   -  /3      |c-

@@ -1,0 +1,86 @@
+---
+titel: Kondak van de zondag, toon 2
+partituur:
+  title: Kondak van de zondag, toon 2
+  composer: Traditioneel
+  arranger: Groningen
+toon: 2
+taal: nl
+bron:
+  uitgangspunt: Koormap Groningen
+soort: kondak
+gelegenheid:
+- naam: Zondag
+  type: zondag
+zoektekst: Uit het graf zijt Gij, o Verlosser, opgestaan, Gij Almachtige, toen de hades dit
+  wonder aanschouwde was hij verslagen, toen de schepping zag dat de doden waren opgestaan
+  was zij vervuld met vreugde, Adam jubelt en het heelal zingt U lof ten alle tijden, Gij
+  mijn Verlosser en Heer.
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# [/:] Uit het {/graf_} zijt Gij, o Verlos{/ser}, {/op_}{\ge_}{\staan_},
+# Gij Al{\mach_}ti{\ge_},
+# {/toen} de {/ha_}des dit wonder {/aan}{/&\schouw_&_}{\de_}
+# was hij ver{\sla_}{\gen_},
+# {/toen} de {/sche_}pping zag dat de doden wa{/ren} {/op_}{\ge_}{\staan_}
+# was zij vervuld met {\vreu_}{\gde_},
+# {/Adam} {/ju_}belt en het heelal zingt U lof ten al{/le} {/&\tij_&_}{\den_},
+# // Gij {\mijn} {/Ver}{/&\&/los_&~&~}{\ser_} {\en_} {\Heer_}. [:]
+# <!-- Bron: koormap Groningen -->
+
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=0 T=-1 B=-1
+
+@sectie cyclus-1
+L: Uit het graf_ (zijt Gij, o Ver-los)-ser, op_-ge_-staan_, |
+S: g   -   /     -                     /    /   \   \       |a
+A: e-  -   /     -                     -    -   -   --      |f
+T: c   -   -     -                     /   b/   \   \       |c
+B: c-  -   /3    -                     \4   \   /   /4      |f
+
+L: (Gij Al)-mach_-ti-ge_, |
+S: -        \     -  \    |f
+A: -        \     -  \2   |c-
+T: -        \     -  \    |a
+B: -        \3    -  /3   |f
+
+@sectie herhaling
+L: toen de ha_ (-des dit won-der) aan-schouw_&_-de_  |
+S: g   -   /     -                  /       /&\  \   |a
+A: e-  -   /     -                  -       -&-  -   |f
+T: c   -   -     -                  /      b/&\  \   |c
+B: c-  -   /3    -                  \4      \&/  /4  |f
+
+L: (was hij ver)-sla_-gen_, |
+S: a             \    \     |f
+A: -             \    \2    |c-
+T: -             \    \     |a
+B: -             \3   /3    |f
+
+L: toen de schep_(-ping zag dat de do-den wa)-ren op_-ge_-staan_ |
+S: g    -   /     -                           /   /   \   \      |a
+A: e-   -   /     -                           -    -   -   --    |f
+T: c    -   -     -                           /   b/   \   \     |c
+B: c-   -   /3    -                           \4   \   /   /4    |f
+
+L: (was zij ver-vuld met) vreu_-gde_, |
+S: a                      \     \     |f
+A: -                      \     \2    |c-
+T: -                      \     \     |a
+B: -                      \3    /3    |f
+
+L: A-dam ju_(-belt en het hee-lal zingt U lof ten al)-le tij_&_-den_, |
+S: g  -   /   -                                       /    /&\  \     |a
+A: e- -   /   -                                       -    -&-  -     |f
+T: c  -   -   -                                       /   b/&\  \     |c
+B: c- -   /3  -                                       \4   \&/  /4    |f
+
+@sectie laatste
+L: Gij mijn Ver-los_&~&~-ser_ en_ Heer_. |
+S: a   \    /      /&\&/  \   \   \      |f
+A: f   \2   /2     -&-&-  -   \   \2     |c-
+T: c   \    /      /&\&/  \   \   \      |a
+B: f   /    \    \4&/4&\4 /   -   /3     |f
