@@ -1,82 +1,110 @@
 ---
 titel: Kondak van de zondag, toon 3
+taal: nl
+soort: kondak
+toon: 3
+template: tropaar-toon-3-groningen
 partituur:
   title: Kondak van de zondag, toon 3
   composer: Traditioneel
   arranger: Groningen
-toon: 3
-taal: nl
 bron:
   uitgangspunt: liturgikon
   bewerking: zetting/praktijk Groningen
-soort: kondak
 gelegenheid:
 - naam: Zondag
   type: zondag
 zoektekst: |-
-  Uit het graf zijt Gij thans opgestaan, o Barmhartige Heer. Gij hebt ons geleid uit de poorten des doods. Heden jubelen Adam en Eva vol vreugde, de pro feten en patriarchen bezingen U zonder einde. De goddelijke macht van Uw Heerschappij zij geloofd, o Heer.
+  Uit het graf zijt Gij thans opgestaan,
+  o Barmhartige Heer,
+  Gij hebt ons geleid uit de poorten des doods.
+  Heden jubelen Adam en Eva vol vreugde,
+  de profeten en patriarchen
+  bezingen U zonder einde.
+  De goddelijke macht van Uw Heerschappij
+  zij geloofd, o Heer.
 ---
 
 # === oorspronkelijke VSA (commentaar) ===
-# [\\:] Uit {/het} {/graf} zijt {\Gij} {/thans} {/&/op}ge{staan_},
-# o Barm{\har_}{\ti}{\ge} {\Heer_}.
-# Gij {/hebt} {/ons} geleid {\uit} {/de} {/&/poor}ten des {doods_}.
-# Heden jubelen Adam en Eva vol {\&\&\vreug_&~&~}{\de_},
-# de {/pro}{/fe}ten en {\pa}{/tri}{/&/ar}{chen_}
-# bezingen {\U} {/zon}{/der} {/&\ein_&_}{\de_}.
-# De goddelijke macht van Uw {Heer_}schappij
+# [\\:] Uit {/het} {/graf} zijt {\Gij} {/thans} {/&/op}ge{staan_}, *
+# o Barm{\har_}{\ti}{\ge} {\Heer_}, *
+# Gij {/hebt} {/ons} geleid {\uit} {/de} {/&/poor}ten des {doods_}. *
+# Heden jubelen Adam en Eva vol {\&\&\vreug_&~&~}{\de_}, *
+# de {/pro}{/fe}ten en {\pa}{/tri}{/&/ar}{chen_} *
+# bezingen {\U} {/zon}{/der} {/&\ein_&_}{\de_}. *
+# De goddelijke macht van Uw {Heer_}schappij *
 # // {\zij} {\ge}{/&/&/&\&\&\loofd.&.&.&.&.&.}, {/o} {\Heer__}. [:]
 # <!-- Bron: koormap Groningen -->
 
-@do G3
+# === afgeleide mvsa (VSA + template) ===
+# bron: C:/Git/orthodox-ronl/bibliotheek/content-source/input/_werk/problemen-toon-3/kondak-zondag-toon-3-groningen.vsa
+# template: tropaar-toon-3-groningen/template.yaml (tropaar-toon-3-groningen)
+# Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
+#  ##########################################################################  #
+#  #                                                                        #  #
+#  #   WAARSCHUWING:                                                        #  #
+#  #                                                                        #  #
+#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
+#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
+#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
+#  #   - melisma-ELMs (``{/&/fi~&~}`` vs ``{/&/fi_}`` → parser-verdubbeling)#  #
+#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
+#  #   - regels hieronder die met ``# WAARSCHUWING:`` beginnen              #  #
+#  #                                                                        #  #
+#  ##########################################################################  #
+# --- specifieke waarschuwingen (emit) ---
+# WAARSCHUWING: frase 6/'1': melisma op 'ein' heeft 2× ELM '_'. Klopt dat met de bron-VSA? Expliciet `_&_` (enz.) is ok; één `_` bij `/&/` wordt door de parser verdubbeld (vaak bedoeld als ~&~).
+#
+@title "Kondak van de zondag, toon 3"
+@do F4
 @mode major
-@tempo 160
-@oct S=0 A=0 T=0 B=-1
+@tempo 180
+@oct S=0 A=0 T=-1 B=-1
 
-L: Uit het graf zijt Gij thans op~&~-ge-staan_, |
-S: e   /   /    -    \   /       /&/  -  -      |b+
-A: e   -   -    -   #\   /       /&/  -  -      |g+
-T: g   /   /    -    -   -      /2&-  -  -      |d
-B: e   -   -    -    \3  /3      \&/3 -  -      |g+
+L: (Uit) het graf zijt Gij thans op~&~-ge-staan_, |
+S: d-    /   /    -    \   /     /&/   -  -       |a
+A: d-    -   -    -    -   -     /&/   -  -       |f
+T: f+    /   /    -    \   /     \5&-  -  -       |c
+B: d     -   -    -    -   -     \&\4  -  -       |f
 
-L: o Barm-har_-ti-ge Heer_\. |
-S: - -    \    \  \  \       |e
-A: - -    \    \ #\  /       |e
-T: - -    -    \2 \  \       |g
-B: - -    \3   /  \3 /3      |e
+L: (o Barm)-har_-ti-ge Heer_, |
+S: a        \    \  \  \      |d-
+A: f        \    \  -  -      |d-
+T: c        -    /5 \  \      |f+
+B: f        /4   /  -  -      |d
 
-L: Gij hebt (ons ge-leid) uit de poor~&~-ten des doods_\. |
-S: e   /     /            \   /      /&/  -   -   -       |b+
-A: e   -     -           #\   /      /&/  -   -   -       |g+
-T: g   /     /            -   -     /2&-  -   -   -       |d
-B: e   -     -            \3  /3     \&/3 -   -   -       |g+
+L: (Gij) hebt ons ge-leid uit de poor~&~-ten des doods_\. |
+S: d-    /    /   -  -    \   /  /&/     -   -   -        |a
+A: d-    -    -   -  -    -   -  /&/     -   -   -        |f
+T: f+    /    /   -  -    \   /  \5&-    -   -   -        |c
+B: d     -    -   -  -    -   -  \&\4    -   -   -        |f
 
 L: (He-den ju-be-len A-dam en E-va vol) vreug_&~&~-de_, |
-S:  -                                        \&\&\  \   |e
-A:  -                                        \&\&#\ /   |e
-T:  -                                        -&\2&\ \   |g   
-B:  -                                       \3&/&\3 /3  |e
+S: a                                    \&\&\      \    |d-
+A: f                                    \&\&-      -    |d-
+T: c                                    -&/5&\     \    |f+
+B: f                                    /4&/&-     -    |d
 
-L: de pro (-fe-ten en) pa-tri-ar~&~-chen_ |
-S: -  /   /            \  /     /&/  -    |b+
-A: -  -   -           #\  /     /&/  -    |g+
-T: -  /   /            -  -    /2&-  -    |d
-B: -  -   -            \3 /3    \&/3 -    |g+
+L: (de) pro-fe-ten en pa-tri-ar~&~-chen_ |
+S: d-   /   /  -   -  \  /   /&/   -     |a
+A: d-   -   -  -   -  -  -   /&/   -     |f
+T: f+   /   /  -   -  \  /   \5&-  -     |c
+B: d    -   -  -   -  -  -   \&\4  -     |f
 
-L: (be-zin-gen) U zon-der ein_&_-de_\. |
-S: -            \ /   /      /&\  \    |b+
-A: -            - -   -      -&-  -    |g+
-T: -            \ /   /     b/&\  \    |d
-B: -            - -   \4     \&/  /4   |g+
+L: (be-zin-gen) U  zon-der ein_&_-de_\. |
+S: a            \  /   /   /&\    \     |a
+A: f            \  /   /   /&\    \     |f
+T: c            -  -   /   /&\    \     |c
+B: f            /4 \4  /   /&\    \     |f
 
-L: (De god-de-lij-ke macht van Uw) Heer_-schap-pij |
-S: -                               -     -     -   |b+
-A: -                               -     -     -   |g+
-T: -                               -     -     -   |d
-B: -                               -     -     -   |g+
+L: (De god-de-lij-ke macht van Uw Heer-schap-pij) |
+S: a                                              |a
+A: f                                              |f
+T: c                                              |c
+B: f                                              |f
 
-L: zij ge-loofd.&.&.&.&.&., o Heer__\. |
-S: \   \       /&/&/&\&\&\  /  \       |g+
-A: \   \       -&-&-&-&-&-  /  \2      |d
-T: -   \2      /&/&/&\&\&\  /  \       |b
-B: \3  /      \4&-&-&-&-&/4 \  /3      |g+
+L: zij ge-loofd~&~&~&~&~&~, o  Heer__\. |
+S: g   \  /&/&/&\&\&\       /  \        |f
+A: e-  \  /&/&/&\&\&\       /  \        |d-
+T: c   /5 \5&-&/&\&-&/5     \5 /5       |a+
+B: c   /  \&\4&/&\&/4&/     \  /        |d

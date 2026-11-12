@@ -12,17 +12,11 @@ soort: tropaar
 gelegenheid:
 - naam: Zondag
   type: zondag
-zoektekst: |-
-  Scharen der engelen waren aan Uw graf,
-  de wachters lagen als gestorven
-  Bij het graf stond Maria Magdalena,
-  zoekend het allerzuiverst lichaam van haar Heer.
-  Gij hebt de hades gevangen genomen
-  zonder erdoor verstrikt te zijn.
-  Tot de Maagd zijt Gij gekomen,
-  Gij die het leven schenkt
-  Uit de doden zijt Gij opgestaan,
-  ere zij U, o Heer.
+zoektekst: >-
+  Scharen der engelen waren aan Uw graf, de wachters lagen als gestorven Bij het graf stond
+  Maria Magdalena, zoekend het allerzuiverst lichaam van haar Heer. Gij hebt de hades gevangen
+  genomen zonder erdoor verstrikt te zijn. Tot de Maagd zijt Gij gekomen, Gij die het leven
+  schenkt Uit de doden zijt Gij opgestaan, ere zij U, o Heer.
 ---
 
 # === oorspronkelijke VSA (commentaar) ===
@@ -42,30 +36,12 @@ zoektekst: |-
 # bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/tropaar/zondag-toon-6/groningen/tropaar-zondag-toon-6-groningen.vsa
 # template: tropaar-toon-6/template.yaml (tropaar-toon-6 -> formule kondak-toon-6)
 # Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
-#  ##########################################################################  #
-#  #                                                                        #  #
-#  #   WAARSCHUWING:                                                        #  #
-#  #                                                                        #  #
-#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
-#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
-#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
-#  #   - melisma-ELMs (``{/&/fi~&~}`` vs ``{/&/fi_}`` → parser-verdubbeling)#  #
-#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
-#  #   - regels hieronder die met ``# WAARSCHUWING:`` beginnen              #  #
-#  #                                                                        #  #
-#  ##########################################################################  #
-# --- specifieke waarschuwingen (emit) ---
-# WAARSCHUWING: frase 2/'2': melisma op 'stor' heeft 2× ELM '_'. Klopt dat met de bron-VSA? Expliciet `_&_` (enz.) is ok; één `_` bij `/&/` wordt door de parser verdubbeld (vaak bedoeld als ~&~).
-# WAARSCHUWING: frase 3/'1': melisma op 'le' heeft 2× ELM '_'. Klopt dat met de bron-VSA? Expliciet `_&_` (enz.) is ok; één `_` bij `/&/` wordt door de parser verdubbeld (vaak bedoeld als ~&~).
-# WAARSCHUWING: frase 5/'1': melisma op 'no' heeft 2× ELM '_'. Klopt dat met de bron-VSA? Expliciet `_&_` (enz.) is ok; één `_` bij `/&/` wordt door de parser verdubbeld (vaak bedoeld als ~&~).
-# WAARSCHUWING: frase 7/'1': melisma op 'ko' heeft 2× ELM '_'. Klopt dat met de bron-VSA? Expliciet `_&_` (enz.) is ok; één `_` bij `/&/` wordt door de parser verdubbeld (vaak bedoeld als ~&~).
-#
+
 @title "Tropaar van de zondag, toon 6"
 @do F4
 @mode major
 @tempo 180
 @oct S=0 A=-1 T=-1 B=-1
-@speelplan 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 
 # template-frase '1' (1/10)
 @blok 1

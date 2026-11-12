@@ -1,19 +1,25 @@
 ---
 titel: Tropaar van de zondag, toon 3
+taal: nl
+soort: tropaar
+toon: 3
+template: tropaar-toon-3-groningen
 partituur:
   title: Tropaar van de zondag, toon 3
   composer: Traditioneel
   arranger: Groningen
-toon: 3
-taal: nl
 bron:
   uitgangspunt: Koormap Groningen
-soort: tropaar
 gelegenheid:
 - naam: Zondag
   type: zondag
 zoektekst: |-
-  Dat hemelse en aardse wezens jubelen en zich verblijden, want de Heer heeft de kracht van Zijn arm geopenbaard. Uit de doden was Hij de eerstgeborene, uit de schoot van de hades heeft Hij ons verlost en aan de wereld grote genade geschonken
+  Dat hemelse en aardse wezens
+  jubelen en zich verblijden,
+  want de Heer heeft de kracht van Zijn arm geopenbaard.
+  Uit de doden was Hij de eerstgeborene,
+  uit de schoot van de hades heeft Hij ons verlost
+  en aan de wereld grote genade geschonken.
 ---
 
 # === oorspronkelijke VSA (commentaar) ===
@@ -25,43 +31,60 @@ zoektekst: |-
 # // en aan de wereld grote ge{na_}{\de} {\ge}{/&/&/&\&\&\&/schon.&.&.&.&.&.&~}{\ken__}. [:]
 # <!-- Bron: koormap Groningen -->
 
-@do G3
+# === afgeleide mvsa (VSA + template) ===
+# bron: C:/Git/orthodox-ronl/bibliotheek/content-source/input/_werk/problemen-toon-3/tropaar-zondag-toon-3-groningen.vsa
+# template: tropaar-toon-3-groningen/template.yaml (tropaar-toon-3-groningen)
+# Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
+#  ##########################################################################  #
+#  #                                                                        #  #
+#  #   WAARSCHUWING:                                                        #  #
+#  #                                                                        #  #
+#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
+#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
+#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
+#  #   - melisma-ELMs (``{/&/fi~&~}`` vs ``{/&/fi_}`` → parser-verdubbeling)#  #
+#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
+#  #   - regels hieronder die met ``# WAARSCHUWING:`` beginnen              #  #
+#  #                                                                        #  #
+#  ##########################################################################  #
+@title "Tropaar van de zondag, toon 3"
+@do F4
 @mode major
-@tempo 160
-@oct S=0 A=0 T=0 B=-1
+@tempo 180
+@oct S=0 A=0 T=-1 B=-1
 
-L: Dat (he-mel-se en) aard-se we~&~-zens_ |
-S: e   /2             \    /    /&/   -   |b+
-A: e   -             #\    /    /&/   -   |g+
-T: g   /2             -    -   /2&-   -   |d
-B: e   -              \3   /3   \&/3  -   |g+
+L: (Dat) he-mel-se en aard-se we~&~-zens_ |
+S: d-    /2 -   -  -  \    /  /&/   -     |a
+A: d-    -  -   -  -  -    -  /&/   -     |f
+T: f+    /2 -   -  -  \    /  \5&-  -     |c
+B: d     -  -   -  -  -    -  \&\4  -     |f
 
 L: (ju-be-len en zich ver)-blij_&~&~-den_, |
-S: -                           \&\&\   \   |e 
-A: -                           \&\&#\  /   |e
-T: -                           -&\2&\  \   |g
-B: -                          \3&/&\3  /3  |e
+S: a                       \&\&\     \     |d-
+A: f                       \&\&-     -     |d-
+T: c                       -&/5&\    \     |f+
+B: f                       /4&/&-    -     |d
 
-L: want de (Heer heeft de kracht van Zijn) arm ge-o~&~-pen-baard_\. |
-S: e    /   /                              \   /  /&/  -   -        |b+
-A: e    -   -                             #\   /  /&/  -   -        |g+
-T: g    /   /                              -   - /2&-  -   -        |d
-B: e    -   -                              \3  /3 \&/3 -   -        |g+
+L: (want) de Heer heeft de kracht van Zijn arm ge-o~&~-pen-baard_\. |
+S: d-     /  /    -     -  -      -   -    \   /  /&/  -   -        |a
+A: d-     -  -    -     -  -      -   -    -   -  /&/  -   -        |f
+T: f+     /  /    -     -  -      -   -    \   /  \5&- -   -        |c
+B: d      -  -    -     -  -      -   -    -   -  \&\4 -   -        |f
 
 L: (Uit de do-den was Hij de eerst-ge)-bo_-re-ne_, |
-S:  -                                  /   -   \   |b+
-A:  -                                  -   -   -   |g+
-T:  -                                  /   -   \   |d
-B:  -                                  \4  -   /4  |g+
+S: a                                   /   -  \    |a
+A: f                                   /   -  \    |f
+T: c                                   /   -  \    |c
+B: f                                   /   -  \    |f
 
 L: (uit de schoot van de) ha~&~-des heeft Hij_ ons ver-lost_ |
-S: -                       -&\   /   /    /    \   -   \     |b+
-A: -                       -&-   -   -    -    -   -   -     |g+
-T: -                       -&\   /   /   b/    \   -   \     |d
-B: -                       -&-   -   \4   \    /   -   /4    |g+
+S: a                      -&\   /   /     /    \   -   \     |a
+A: f                      -&\   /   /     /    \   -   \     |f
+T: c                      -&-   -   /     /    \   -   \     |c
+B: f                      -&/4  \4  /     /    \   -   \     |f
 
-L: (en aan de we-reld gro-te ge)-na_-de ge-schon.&.&.&.&.&.&~-ken__ |
-S: -                             -   \  \       /&/&/&\&\&\&/   \   |g+
-A: -                             -   \  \       -&-&-&-&-&-&/   \2  |d
-T: -                             -   -  \2      /&/&/&\&\&\&/   \   |b
-B: -                             -   \3 /      \4&-&-&-&-&/4&\  /3  |g+
+L: (en aan de we-reld gro-te ge)-na_-de ge-schon~&~&~&~&~&~&~-ken__\. |
+S: a                             -   \  \  /&/&/&\&\&\&/      \       |f
+A: f                             -   \  \  /&/&/&\&\&\&/      \       |d-
+T: c                             -   -  /5 \5&-&/&\&-&/5&\5   /5      |a+
+B: f                             -   /4 /  \&\4&/&\&/4&/&\    /       |d

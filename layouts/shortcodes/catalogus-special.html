@@ -1,7 +1,7 @@
 {{- /*
   Special-page lijsten voor de catalogus (build-time, Wikipedia-achtig).
 
-  kind: voorzien | ongerefereerd | oefenbaar | werkbank | handmatig | mscz-bron
+  kind: voorzien | ongerefereerd | oefenbaar | werkbank | handmatig | mscz-bron | formules
 */ -}}
 {{- $kind := .Get "kind" | default "voorzien" -}}
 {{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}
@@ -224,6 +224,67 @@
     {{- end -}}
   {{- end -}}
 
+{{- else if eq $kind "formules" -}}
+  {{- /* Canonieke VSA-templates + aliassen (library aliases.yaml via data/). */ -}}
+  {{- $formulesSect := site.GetPage "/catalogus/formules" -}}
+  {{- if not $formulesSect -}}
+    {{- errorf "%s: shortcode catalogus-special kind=formules: sectie catalogus/formules ontbreekt." $loc -}}
+  {{- end -}}
+  {{- $aliasSrc := index hugo.Data "vsa_template_aliases" -}}
+  {{- if not $aliasSrc -}}
+    {{- errorf "%s: shortcode catalogus-special kind=formules: data/vsa_template_aliases.yaml ontbreekt. Oplossing: kopieer VSA-tooling docs/specification-vsa-templates/library/aliases.yaml naar data/vsa_template_aliases.yaml." $loc -}}
+  {{- end -}}
+  {{- $aliasMap := $aliasSrc.aliases | default dict -}}
+  {{- /* alias → canonieke id  ⇒  canonieke id → gesorteerde aliaslijst */ -}}
+  {{- $byCanon := dict -}}
+  {{- range $alias, $canon := $aliasMap -}}
+    {{- $canon = printf "%s" $canon -}}
+    {{- $prev := index $byCanon $canon | default slice -}}
+    {{- $byCanon = merge $byCanon (dict $canon ($prev | append (printf "%s" $alias))) -}}
+  {{- end -}}
+  {{- $rows := slice -}}
+  {{- range $formulesSect.Pages -}}
+    {{- $fid := "" -}}
+    {{- with .Params.formule_id -}}{{- $fid = printf "%s" . -}}{{- end -}}
+    {{- if not $fid -}}
+      {{- with .File -}}{{- $fid = .Dir | strings.TrimSuffix "/" | path.Base -}}{{- end -}}
+    {{- end -}}
+    {{- if and $fid (ne $fid "formules") -}}
+      {{- $aliases := index $byCanon $fid | default slice -}}
+      {{- $aliases = sort $aliases -}}
+      {{- $rows = $rows | append (dict "page" . "id" $fid "aliases" $aliases) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $rows = sort $rows "id" -}}
+  {{- if $rows -}}
+<table class="catalogus-special-formules">
+  <thead>
+    <tr>
+      <th>Template</th>
+      <th>Aliassen</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{- range $rows -}}
+    <tr>
+      <td><a href="{{ .page.RelPermalink }}"><code>{{ .id }}</code></a></td>
+      <td>
+        {{- if .aliases -}}
+          {{- range $i, $a := .aliases -}}
+            {{- if $i -}}{{ ", " }}{{- end -}}<code>{{ $a }}</code>
+          {{- end -}}
+        {{- else -}}
+          —
+        {{- end -}}
+      </td>
+    </tr>
+  {{- end -}}
+  </tbody>
+</table>
+  {{- else -}}
+<p>Nog geen formule-pagina’s onder catalogus/formules.</p>
+  {{- end -}}
+
 {{- else -}}
-  {{- errorf "%s: shortcode catalogus-special: onbekend kind %q. Oplossing: gebruik kind=\"voorzien\", \"ongerefereerd\", \"oefenbaar\", \"werkbank\", \"handmatig\" of \"mscz-bron\"." $loc $kind -}}
+  {{- errorf "%s: shortcode catalogus-special: onbekend kind %q. Oplossing: gebruik kind=\"voorzien\", \"ongerefereerd\", \"oefenbaar\", \"werkbank\", \"handmatig\", \"mscz-bron\" of \"formules\"." $loc $kind -}}
 {{- end -}}

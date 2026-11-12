@@ -31,7 +31,7 @@ te gooien — **geen** notatie herschrijven.
 | Actie | Wat |
 | ----- | --- |
 | Weg | `null`, `""`, lege mapping/lijst |
-| Weg | Sleutels die niet in dit document staan (o.a. ruwe `herkomst_vsa_demo`, `stap2_*`, `extractie`, oude `template`) |
+| Weg | Sleutels die niet in dit document staan (o.a. ruwe `herkomst_vsa_demo`, `stap2_*`, `extractie`) |
 | Behouden | Gedocumenteerde sleutels met inhoud die aan het criterium voldoet |
 | Controleren | `corpus_id` (als aanwezig): moet overeenkomen met de afgesproken identifier van dit stuk |
 
@@ -49,6 +49,42 @@ Koppeling aan `bieb accepteer`: nog te doen.
 | Cataloguspagina | `index.md` | vinden, publicatiestatus |
 | VSA/MVSA | `*.vsa` / `*.mvsa` | afspelen, partituur, soort, toon, taal, bron, gelegenheid |
 | Koormap-slot | koormap-`index.md` | lokale titel; `bieb id` |
+
+## Verplicht op `.vsa` — `soort` en `toon`
+
+Op **elke** `.vsa` horen `soort` en `toon` in de frontmatter (behalve de
+toon-uitzondering hieronder). Die twee sleutels staan **direct onder
+elkaar**, in die volgorde (`soort` dan `toon`), zodat formulekeuze
+(`{soort}-toon-{n}-…`) en zoeken eenduidig zijn.
+
+| Sleutel | Op `.vsa` | Op `.mvsa` |
+| ------- | --------- | ---------- |
+| `soort` | **verplicht** | sterk aanbevolen (catalogus) |
+| `toon` | **verplicht** als het stuk een Oktoëchos-toon heeft (1–8), of als `toon-N` in pad/bestandsnaam staat | idem |
+
+**Geen Oktoëchos-toon** (bijv. sommige antifonen, geloofsbelijdenis,
+communievers zonder toon-id): `soort` blijft verplicht; `toon` mag
+ontbreken. Zodra de bestandsnaam of de catalogusmap wél `toon-1` …
+`toon-8` bevat, is `toon` weer verplicht.
+
+**Pure syntax-voorbeelden** in VSA-tooling onder
+`examples/docs-walkthroughs/` (alleen notatie-demo, geen catalogusstuk):
+`soort`/`toon` mogen ontbreken. Zodra zo’n bestand een liturgisch stuk
+voorstelt (titel of pad noemt tropaar/kondak/… of `toon-N`), gelden
+weer de gewone eisen.
+
+**Geen YAML-frontmatter** (parser-/SVG-/edge-case-tests zonder `---`
+blok): de eis geldt niet tot er frontmatter wordt toegevoegd; dan wel
+direct `soort` (en `toon` waar van toepassing).
+
+**Voorkeursvolgorde** top-level (relevante kop): `titel`, `taal`,
+`soort`, `toon`, optioneel `formule` (melodieformule ≠ liturgische
+soort), daarna `template` / `template_opgegeven` (alleen afgeleide
+MVSA), dan `partituur`, `bron`, `gelegenheid`, `zoektekst`,
+afspeelsleutels (`do` / `mode` / `tempo`).
+
+Controle lokaal: `scripts\frontmatter-canoniek.cmd --check` (meldt
+ontbrekende `soort`/`toon` op `.vsa`).
 
 ---
 
@@ -123,25 +159,71 @@ latere transliteratie: eigenschap van de VSA, niet van de partituurkop).
 
 **Voorbeelden:** `nl` · `ksl`
 
-### `toon` (geheel, optioneel)
-
-Waarvoor: Oktoëchos-toon van dit stuk (eigenschap van de VSA).
-
-**Criterium:** geheel getal **1 t/m 8**. Geen vrije labels (`"Toon 4"` →
-`4`).
-
-**Voorbeelden:** `4` · `1`
-
-### `soort` (string)
+### `soort` (string) — verplicht op `.vsa`
 
 Waarvoor: liturgische/genre-context in het bestand zelf.
 
 **Criterium:** één canonieke term uit de org-glossary / catalogus-boom
 (`tropaar`, `kondak`, `derde-antifoon`, `prijslied`, `moeder-godslied`,
 …). Geen vrije synoniemen (`troparion` → `tropaar`). Oude `genre:` →
-`soort`.
+`soort`. Op `.vsa` mag dit veld niet ontbreken (zie
+[Verplicht op `.vsa`](#verplicht-op-vsa--soort-en-toon)).
 
 **Voorbeelden:** `tropaar` · `derde-antifoon`
+
+### `toon` (geheel) — verplicht bij Oktoëchos
+
+Waarvoor: Oktoëchos-toon van dit stuk (eigenschap van de VSA).
+
+**Criterium:** geheel getal **1 t/m 8**. Geen vrije labels (`"Toon 4"` →
+`4`). Op `.vsa` verplicht wanneer het stuk een toon heeft of `toon-N` in
+pad/naam staat; anders weglaten (geen `null`). Staat direct **onder**
+`soort`.
+
+**Voorbeelden:** `4` · `1`
+
+### `formule` (string, optioneel) — melodieformule ≠ `soort`
+
+Waarvoor: wanneer de **gezongen formule** een andere genre-naam heeft dan
+de liturgische `soort`. T1 (`vsa mvsa`) zoekt dan templates op
+`formule` + `toon` in plaats van op `soort` + `toon`. `soort` blijft het
+liturgische label (catalogus, titel, zoeken).
+
+**Criterium:** formule-genre (`stichier`, `vers`, …) **of** een bestaande
+library-id/alias (`stichier-toon-6-groningen`). Alleen zetten als die
+afwijkt van wat T1 uit `soort` zou kiezen. Staat bij voorkeur direct
+**onder** `toon`.
+
+**Voorbeelden:** `stichier` (bij `soort: kondak`, `toon: 6`) ·
+`stichier-toon-6-groningen`
+
+Contract: VSA-tooling
+[vsa-mvsa-contract.md](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/specification-vsa-templates/vsa-mvsa-contract.md)
+(T1).
+
+### `template` (string, optioneel)
+
+Waarvoor: **feitelijk gebruikte** formule-id waarmee een afgeleide
+`.mvsa` uit `.vsa` is gezet — na alias- en `same_as`-resolutie —
+`{soort}-toon-{n}-{bron}`, bijv. `kondak-toon-8-hemelum`. Geen playback
+(`do`/`tempo` blijven `@`-regels of platte afspeelsleutels).
+
+**Criterium:** bestaande library-map-id uit VSA-tooling
+(`docs/specification-vsa-templates/library/`). Op schets-MVSA’s van
+`vsa mvsa` is dit veld **verplicht** (T1/T6).
+
+**Voorbeelden:** `tropaar-toon-4-hemelum` · `kondak-toon-5-groningen`
+
+### `template_opgegeven` (string, optioneel)
+
+Waarvoor: de template-id die bij de conversie werd **gevraagd** (CLI
+`--template`, frontmatter, of afgeleide default), als die afwijkt van
+`template` — typisch een alias (`kondak-toon-8`) of een `same_as`-naam
+(`tropaar-toon-2-groningen` → formule `kondak-toon-2-groningen`).
+
+**Criterium:** alleen zetten als ≠ `template`. Bekende alias of library-id.
+
+**Voorbeelden:** `kondak-toon-8` · `tropaar-toon-2`
 
 ### `soorten` (lijst, optioneel)
 
@@ -304,7 +386,8 @@ Waarvoor: alleen als pagina/zoekindex dit later uit VSA leest.
 | `identificatie.tone` / top-`tone` | `toon` | Geheel 1–8 |
 | `genre` | `soort` | |
 | `corpus_id` | `corpus_id` | Behouden; gate mag valideren |
-| `template` | — | Weg (oud artefact) |
+| `template` (oud demo-artefact) | `template` (formule-id) | Alleen behouden als het een echte library-id/alias is; anders weg |
+
 | `identificatie.bron` / `sources[]` / `bronnen[]` (duidelijke boek/koormap) | `bron.uitgangspunt` | Eerste bruikbare string; rest handmatig of → `bewerking` |
 | Praktijk-/aanpassingszin | `bron.bewerking` | Bijv. “Praktijk in Groningen…” |
 | Onduidelijk / gemengd | `bron.korte_vermelding` of handmatig | Liever niet raden naar tekst vs melodie |

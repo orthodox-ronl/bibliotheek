@@ -87,6 +87,17 @@ if errorlevel 1 (
   if not defined STRICT exit /b 1
 )
 
+REM T1/T6: her-map .mvsa met template: + VSA-commentaar/sibling (geen byte-diff).
+if defined STRICT (
+  python scripts\check_template_provenance.py --fail
+) else (
+  python scripts\check_template_provenance.py
+)
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
+
 if defined STRICT (
   python scripts\check_audio_products.py --fail
 ) else (

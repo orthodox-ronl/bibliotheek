@@ -13,13 +13,14 @@ aliases:
 Automatisch bijgehouden overzichten over de catalogus (zoals Wikipedia
 special pages). Voor beheerders en wie de catalogus wil controleren.
 
-| Pagina | Inhoud |
-| --- | --- |
-| [Werkbank](werkbank/) | Onder handen: open inputs + stubs (lifecycle) |
-| [Voorzien](voorzien/) | Zangstukken zonder oefenbare inhoud |
-| [Ongerefereerd](ongerefereerd/) | In de catalogus, nog niet in een koormap |
-| [Oefenbaar](oefenbaar/) | Platte lijst oefenbare uitvoeringsvormen |
-| [Handmatig](handmatig/) | Uitvoeringsvormen met `manueel: true` |
+| Pagina                    | Inhoud                                                                                         |
+| ------------------------- | ---------------------------------------------------------------------------------------------- |
+| [Werkbank](werkbank/)     | Onder handen: open inputs + stubs (lifecycle)                                                  |
+| [Voorzien](voorzien/)     | Zangstukken zonder oefenbare inhoud                                                            |
+| [Ongerefereerd](ongerefereerd/) | In de catalogus, nog niet in een koormap                                                 |
+| [Oefenbaar](oefenbaar/)   | Platte lijst oefenbare uitvoeringsvormen                                                       |
+| [Handmatig](handmatig/)   | Uitvoeringsvormen met `manueel: true`                                                          |
 | [MuseScore (.mscz)](mscz-bron/) | Basispartituur-`.mscz` in de catalogus (kandidaat voor latere `.mvsa`; koninklijke route = `.mvsa`) |
+| [Formules](formules/)     | Canonieke VSA-templates (gesorteerd) met hun aliassen                                          |
 
 Lifecycle-uitleg: [Levenscyclus](/handleiding/start/levenscyclus/).
