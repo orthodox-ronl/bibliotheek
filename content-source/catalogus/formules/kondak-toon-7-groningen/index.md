@@ -9,6 +9,8 @@ formule_id: "kondak-toon-7-groningen"
 
 # `kondak-toon-7-groningen`
 
+
+![Formuleblad kondak-toon-7-groningen](template.svg)
 | Veld | Waarde |
 | --- | --- |
 | Soort | kondak |

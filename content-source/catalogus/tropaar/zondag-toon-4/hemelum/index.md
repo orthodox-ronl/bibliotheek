@@ -3,4 +3,4 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-{{< bieb id="tropaar/uw-heilig-kruis/groningen-ksl" />}}
+{{< bieb id="tropaar/zondag-toon-4/hemelum" />}}

@@ -6,6 +6,6 @@ automatische_inhoud: false
 ---
 
 {{< kop >}}{{< param title >}}{{< /kop >}}
-{{< bieb id="tropaar/uw-heilig-kruis/groningen" />}}
+{{< bieb id="tropaar/uw-heilig-kruis/hemelum" />}}
 {{< witruimte >}}
-{{< bieb id="tropaar/uw-heilig-kruis/groningen-ksl" />}}
+{{< bieb id="tropaar/uw-heilig-kruis/hemelum-ksl" />}}

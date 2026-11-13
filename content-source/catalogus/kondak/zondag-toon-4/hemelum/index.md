@@ -3,4 +3,4 @@ publicatiestatus: reviewable
 automatische_inhoud: false
 ---
 
-{{< bieb id="tropaar/uw-heilig-kruis/liturgikon-ksl" />}}
+{{< bieb id="kondak/zondag-toon-4/hemelum" />}}

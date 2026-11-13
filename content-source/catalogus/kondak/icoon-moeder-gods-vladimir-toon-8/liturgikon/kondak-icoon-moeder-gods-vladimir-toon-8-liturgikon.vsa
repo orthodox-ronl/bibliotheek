@@ -2,13 +2,13 @@
 taal: nl
 soort: kondak
 toon: 8
+partituur:
+  arranger: Hemelum
 bron:
-  uitgangspunt: Koorinstructie Hemelum
+  uitgangspunt: liturgikon
+  bewerking: zetting/praktijk Hemelum (Koorinstructie)
 gelegenheid:
 - naam: Icoon Moeder Gods van Vladimir
-do: F4
-mode: major
-tempo: 180
 zoektekst: |-
   Gij zijt de Aanvoerdster die voor ons strijdt,
   en die ons van de boze hebt bevrijd.
@@ -16,12 +16,15 @@ zoektekst: |-
   Maar door uw onoverwinnelijke macht, o Moeder Gods,
   red nu ook uit alle gevaren het bevrijde volk dat tot u zingt:
   verheug u, ongehuwde Bruid.
+do: F4
+mode: major
+tempo: 180
 ---
 
-<!-- Kondak icoon MGs, Toon 4 (Koorinstructie Hemelum, 20260908) -->
+<!-- Kondak icoon MGs, Toon 8 (Koorinstructie Hemelum, 20260908) -->
 [:] Gij {/zijt} {/de} {/Aan}voerd{\ster} die {\voor} ons {\strijdt_}, *
 en {/die} {/ons} van de {/bo}{\ze} {\hebt} be{\vrijd_}. *
 Daar{/om} {/zin}gen wij u vol {/dank}baar{\heid} het {\ze}ge{\lied_}. *
 Maar {/door} {/uw} onoverwinnelijke {/macht}, {\o} {\Moe}der {\Gods_}, *
-red {/nu} {/ook} uit alle ge{/va}{\ren} het bevrijde volk dat {\tot} u {\zingt_}: *
+red {/nu} {/ook} uit alle ge{/va}{\ren} het bevrijde volk dat {\tot} u {\zingt_}: **
 {-&/ver}{/heug} {/u}, {\on}ge{/huw_}{de_} {\Bruid_}. [//:]

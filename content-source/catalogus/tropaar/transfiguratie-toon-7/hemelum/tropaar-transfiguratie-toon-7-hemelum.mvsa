@@ -1,0 +1,78 @@
+---
+taal: nl
+soort: tropaar
+toon: 7
+template: kondak-toon-7-groningen
+template_opgegeven: tropaar-toon-7-groningen
+partituur:
+  arranger: Hemelum
+bron:
+  uitgangspunt: Liturgikon
+  bewerking: zetting/praktijk Groningen, Hemelum
+gelegenheid:
+- naam: Verheerlijking op de berg Thabor
+  datum: 6 aug
+zoektekst: |-
+  Gij werd verheerlijkt op de berg, o Christus God,
+  en aan Uw Leerlingen toonde Gij Uw heerlijkheid.
+  Doe ook voor ons, zondaars, Uw eeuwig Licht stralen:
+  Gij die ons het Licht schenkt, ere zij U.
+gebruikt-in:
+- derde-antifoon/transfiguratie/liturgikon
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# <!-- Tropaar Verheerlijking op de berg Thabor, Toon 7 (Liturgikon, p.268) -->
+# [/:] Gij werd ver{/&\heer}{\lijkt} op de berg, o Chris{/tus} {/God_}, *
+# en aan Uw Leerlingen toonde Gij Uw {\heer_}lijk{heid_}. *
+# Doe ook voor {/&\ons}, {\zon}daars, Uw eeuwig {/Licht} {/stra_}{len_}: **
+# Gij die ons het {\Licht_} {\&\schenkt~&~}, {/e_}re zij {\U__}. [/:]
+
+# === afgeleide mvsa (VSA + template) ===
+# bron: content-source/catalogus/tropaar/transfiguratie-toon-7/hemelum/tropaar-transfiguratie-toon-7-hemelum.vsa
+# template: tropaar-toon-7-groningen/template.yaml (tropaar-toon-7-groningen -> formule kondak-toon-7-groningen)
+# Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
+#  ##########################################################################  #
+#  #                                                                        #  #
+#  #   WAARSCHUWING:                                                        #  #
+#  #                                                                        #  #
+#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
+#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
+#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
+#  #   - melisma-slots (``_&_`` / ``~&~`` voor stem-sync; later samentrekken)#  #
+#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
+#  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
+#  #                                                                        #  #
+#  ##########################################################################  #
+@title "tropaar-transfiguratie-toon-7-hemelum"
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=-1 T=-1 B=-1
+
+@sectie cyclus-1
+L: (Gij werd ver)-heer~&~ (lijkt op de berg, o Chris)-tus God_, |
+S: g              /&\     \                           /   /     |a
+A: e              /&\     \                           /   /     |f+
+T: c              -&-     \2                          /2  -     |c
+B: c-             /3&\3   /                           \   /3    |f
+
+L: (en aan Uw Leer-lin-gen toon-de Gij Uw) heer_-lijk-heid_\. |
+S: a                                       \     -    -       |g
+A: f+                                      \     -    -       |e
+T: c                                       -     -    -       |c
+B: f                                       \3    -    -       |c-
+
+@sectie herhaling
+L: (Doe ook voor) ons~&~, (zon-daars, Uw eeu-wig) Licht stra_-len_: |
+S: g              /&\     \                       /     /     -     |a
+A: e              /&\     \                       /     /     -     |f+
+T: c              -&-     \2                      /2    -     -     |c
+B: c-             /3&\3   /                       \     /3    -     |f
+
+@sectie laatste
+L: (Gij die ons het) Licht_ schenkt~&~, e_-re zij U__\. |
+S: a                 \      \&\         /  -  -   \     |e-
+A: f+                \      \&\         /  -  -   \     |c
+T: c                 -      -&-         #\ -  -   \2    |g
+B: f                 \3     -&-         \3 -  -   /3    |c-

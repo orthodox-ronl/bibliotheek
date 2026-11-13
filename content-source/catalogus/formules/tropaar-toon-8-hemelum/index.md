@@ -9,6 +9,8 @@ formule_id: "tropaar-toon-8-hemelum"
 
 # `tropaar-toon-8-hemelum`
 
+
+![Formuleblad tropaar-toon-8-hemelum](template.svg)
 | Veld | Waarde |
 | --- | --- |
 | Soort | tropaar |

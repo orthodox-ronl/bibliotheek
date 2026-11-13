@@ -9,6 +9,8 @@ formule_id: "stichier-toon-5-pdf"
 
 # `stichier-toon-5-pdf`
 
+
+![Formuleblad stichier-toon-5-pdf](template.svg)
 | Veld | Waarde |
 | --- | --- |
 | Soort | stichier |

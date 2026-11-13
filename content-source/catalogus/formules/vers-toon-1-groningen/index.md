@@ -9,6 +9,8 @@ formule_id: "vers-toon-1-groningen"
 
 # `vers-toon-1-groningen`
 
+
+![Formuleblad vers-toon-1-groningen](template.svg)
 | Veld | Waarde |
 | --- | --- |
 | Soort | vers |

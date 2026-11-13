@@ -9,6 +9,8 @@ formule_id: "kondak-toon-8-hemelum"
 
 # `kondak-toon-8-hemelum`
 
+
+![Formuleblad kondak-toon-8-hemelum](template.svg)
 | Veld | Waarde |
 | --- | --- |
 | Soort | kondak |

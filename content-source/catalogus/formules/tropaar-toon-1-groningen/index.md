@@ -9,6 +9,8 @@ formule_id: "tropaar-toon-1-groningen"
 
 # `tropaar-toon-1-groningen`
 
+
+![Formuleblad tropaar-toon-1-groningen](template.svg)
 | Veld | Waarde |
 | --- | --- |
 | Soort | tropaar |
