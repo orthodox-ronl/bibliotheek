@@ -131,7 +131,7 @@ if errorlevel 1 (
 REM main: geen getrackte blad-PDF’s (R2 is de stabiele set).
 python scripts\r2_pdf_opschonen.py --fail-if-tracked-on-main
 if errorlevel 1 (
-  echo Zie: scripts\r2-pdf-upload.cmd en scripts\r2-pdf-opschonen.cmd --apply
+  echo Zie: scripts\r2-pdf-upload.cmd / scripts\r2-pdf-promote.cmd ^(docs\plans\pdf-r2.md^)
   set "PRODUCT_FAIL=1"
   if defined STRICT exit /b 1
 )

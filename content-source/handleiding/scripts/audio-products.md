@@ -41,11 +41,12 @@ mappen met `manueel: true`, import-siblings `*.mscz.mvsa`,
 anders `*.mvsa.mscz.mp3`). Zo’n afgeleide wél als bron: geef het
 bestand expliciet als pad op de commandoregel.
 
-Onder de motorkap: tooling-CLI `vsa audio` (MuseScore 4). Bij `.vsa`
-syllabificeert het script eerst in een **tijdelijk** bestand (zelfde als
-`products --kinds vsa` voor Coria), zodat Beluisteren dezelfde lettergreep-noten
-heeft als Oefenen; de canonieke `.vsa` blijft ongewijzigd. CI genereert
-**geen** audio; jij wel lokaal, daarna committen.
+Onder de motorkap: tooling-CLI `vsa mp3` / `mvsa mp3` / `mscz mp3`
+(MuseScore 4; uitvoer met `-o`). Bij `.vsa` syllabificeert het script eerst
+in een **tijdelijk** bestand (zelfde als `products --kinds vsa` voor Coria),
+zodat Beluisteren dezelfde lettergreep-noten heeft als Oefenen; de canonieke
+`.vsa` blijft ongewijzigd. CI genereert **geen** audio; jij wel lokaal,
+daarna committen.
 
 **Belangrijk:** elke catalogus-`.mvsa` / basis-`.mscz` / `.vsa` (buiten
 handmatige mappen) hoort een passende `.mp3` te hebben — dezelfde scope

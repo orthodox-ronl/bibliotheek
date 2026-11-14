@@ -1,0 +1,26 @@
+{{- /*
+  Preview-waarschuwing als er blad-PDF-overrides op R2 development/ staan.
+  Alleen tonen als params.pdfAssets.allowDevelopmentOverrides true is.
+*/ -}}
+{{- $cfg := site.Params.pdfAssets | default dict -}}
+{{- $allow := false -}}
+{{- if isset $cfg "allowDevelopmentOverrides" -}}
+  {{- $allow = $cfg.allowDevelopmentOverrides -}}
+{{- end -}}
+{{- if $allow -}}
+  {{- $man := site.Data.pdf_r2_development | default dict -}}
+  {{- $overrides := $man.overrides | default slice -}}
+  {{- $n := len $overrides -}}
+  {{- if gt $n 0 -}}
+<aside class="pdf-r2-development-banner" role="status">
+  <p class="pdf-r2-development-banner-title">Preview-PDF’s op R2</p>
+  <p>
+    Er staan {{ $n }} blad-PDF{{ if ne $n 1 }}’s{{ end }} als preview op
+    Cloudflare R2 onder <code>development/</code>. Die set is alleen de
+    diff t.o.v. productie. Na merge naar <code>main</code>:
+    <code>scripts\r2-pdf-promote.cmd</code> (kopieert naar
+    <code>production/</code> en maakt <code>development/</code> leeg).
+  </p>
+</aside>
+  {{- end -}}
+{{- end -}}

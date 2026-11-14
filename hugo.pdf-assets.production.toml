@@ -10,5 +10,6 @@ ignoreFiles = [
 [params.pdfAssets]
   enabled = true
   base = "https://pub-16acc8d1bd9b47b684ae5c7aa3215f1d.r2.dev/"
-  # Geen lokale PDF in de publishmap → altijd R2.
+  # Geen lokale PDF in de publishmap → altijd R2 production/.
   preferLocal = false
+  allowDevelopmentOverrides = false

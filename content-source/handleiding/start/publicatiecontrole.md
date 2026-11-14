@@ -21,7 +21,8 @@ Naamgevingsconventie voor conversies (tooling):
 {{< cue >}}
 - **Bron** = één echte extensie: `{stam}.vsa`, `{stam}.mscz`, `{stam}.mvsa`
 - **Afgeleide** = `{stam}.{bron-extensie}.{doel-extensie}` —
-  bijv. `{stam}.vsa.mxl`, `{stam}.mscz.pdf`, `{stam}.vsa.lyrics.txt`
+  bijv. `{stam}.vsa.svg`, `{stam}.vsa.mvsa`, `{stam}.mscz.pdf`,
+  `{stam}.vsa.lyrics.txt`
 - **Publicatiecontrole** = versheidscontrole op site-producten (sibling +
   herkomststempel); CI genereert niet, jij wel lokaal
 - **Handmatig** = `manueel: true` op `index.md` (vervangt het
@@ -205,14 +206,14 @@ Vervangen MuseScore-bron bewaren in
 
 | Spoor (brontype)          | Canonieke bron                                   | Verwachte afgeleiden (doelvorm)                                                                                                                               | Stamp in afgeleide                                                      | Lokaal maken                                                | Publicatiecontrole                                                |
 | ------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------------- |
-| **vsa**                   | `{stam}.vsa`                                     | `{stam}.vsa.mxl` (Coria), `{stam}.vsa.svg` (scherm); optioneel translit-SVG’s (puur ksl → `.translit-nls.svg`; puur nls → `.translit-ksl.svg`; hybride → beide + `.translit.svg`; check eist die nog niet; geen verplichte `.vsa.pdf`) | `vsa-source-sha256` van de `.vsa`                                       | `scripts\products.cmd --kinds vsa`                          | **Actief:** `check_vsa_products`                                  |
+| **vsa**                   | `{stam}.vsa`                                     | `{stam}.vsa.svg` (scherm); schets-`{stam}.vsa.mvsa` via T1 (`formule:` / soort+toon; geen default → soft skip; check eist `.vsa.mvsa` alleen bij gekozen template); optioneel translit-SVG’s; **geen** `{stam}.vsa.mxl` / geen verplichte `.vsa.pdf`. Cascade: producten op de schets alsof die `.mvsa` de bron is | `vsa-source-sha256` / products-meta van de `.vsa`                       | `scripts\products.cmd --kinds vsa`                          | **Actief:** `check_vsa_products`                                  |
 | **lyrics** (zoektekst)    | `{stam}.vsa` / `.mvsa` / `.mscz`                 | `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` / `.mscz.lyrics.txt`                                                                                             | `vsa-source-sha256` van de bron (`kind` = `vsa` / `mvsa` / `partituur`) | `scripts\products.cmd --kinds lyrics`                       | **Actief:** `check_lyrics_products`                               |
 | **mscz** (basispartituur) | `{stam}.mscz`                                    | `{stam}.mscz.mxl`, `{stam}.mscz.svg` (scherm; geen verplichte `.mscz.pdf`; geen translit-SVG via bibliotheek-products)                                        | `vsa-partituur-sha256` van de `.mscz`                                   | `scripts\products.cmd --kinds mscz`                         | **Actief:** `check_mscz_products`                                 |
 | **import** (bewerkvorm)   | `{stam}.mscz`                                    | `{stam}.mscz.mvsa` (optioneel)                                                                                                                                | `vsa-partituur-sha256` in commentaren                                   | `scripts\import-mvsa.cmd`                                   | **Actief:** `check_import_mvsa` (alleen bestaande siblings)       |
-| **mvsa**                  | `{stam}.mvsa`                                    | `{stam}.mvsa.mxl`, `{stam}.mvsa.score-ir.json`, `{stam}.mvsa.from-ir.musicxml`; `{stam}.mvsa.svg` optioneel bij geldige from-ir; optioneel translit-SVG’s (zelfde matrix als vsa; check eist die nog niet; geen verplichte `.mvsa.pdf`) | `vsa-source-sha256` van de `.mvsa`                                      | `scripts\products.cmd --kinds mvsa`                         | **Actief:** `check_mvsa_products`                                 |
-| **audio** (preview)       | `{stam}.mvsa` / `.mscz` / `.vsa`                 | `{stam}.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3`                                                                                                                  | hash van die bron in het mp3                                            | `scripts\products.cmd --kinds audio` (of `products`)        | **Actief:** `check_audio_products` (zelfde bronnen als Coria-MXL) |
+| **mvsa**                  | `{stam}.mvsa` of afgeleide `{stam}.vsa.mvsa`     | `{stam}.mvsa.mxl`, `{stam}.mvsa.score-ir.json`, `{stam}.mvsa.from-ir.musicxml`; `{stam}.mvsa.svg` optioneel bij geldige from-ir; optioneel translit-SVG’s (zelfde matrix als vsa; check eist die nog niet; geen verplichte `.mvsa.pdf`) | `vsa-source-sha256` van die `.mvsa`                                     | `scripts\products.cmd --kinds mvsa` (of cascade vanuit vsa) | **Actief:** `check_mvsa_products`                                 |
+| **audio** (preview)       | `{stam}.mvsa` / `.mscz` / `.vsa` (incl. `.vsa.mvsa`) | `{stam}.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3` / `.vsa.mvsa.mp3`                                                                                            | hash van die bron in het mp3                                            | `scripts\products.cmd --kinds audio` (of cascade vanuit vsa) | **Actief:** `check_audio_products`                               |
 | **tekstblad**             | `{stam}.tekstblad.md`                            | geen verplichte product-PDF; blad = `index.md.pdf`                                                                                                            | —                                                                       | `scripts\pdf.cmd`                                           | **Actief:** `check_tekstblad_products` (bron)                     |
-| **Coria-contract**        | bestaande `.vsa.mxl` / `.mscz.mxl` / `.mvsa.mxl` | (geen nieuw bestand; checklist op de sibling)                                                                                                                 | —                                                                       | `scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid` | **Actief:** `check_mxl_playback_contract`                         |
+| **Coria-contract**        | bestaande `.mscz.mxl` / `.mvsa.mxl` (incl. `….vsa.mvsa.mxl`; legacy `….vsa.mxl` nog mono) | (geen nieuw bestand; checklist op de sibling)                                                                                            | —                                                                       | `scripts\products.cmd --kinds mscz,mvsa,vsa --only-invalid` | **Actief:** `check_mxl_playback_contract`                         |
 
 **Catalogus-id** (`zangstuk/variant/uitvoeringsvorm`) hoort op elk
 menselijk leesbaar blad (PDF / MuseScore-colofon). Scripts geven dat
@@ -302,12 +303,14 @@ opent **Oefenen** en **Beluisteren** (Beluisteren bij elke bron met
 passende `.mp3`). **Oefenen** volgt dezelfde translit-stand als de
 navigatieknoppen: uit → gewone Coria-`.mxl`; Nls, Ksl of beide aan →
 sibling `…translit.mxl` (geen aparte keuzelijst daarvoor). Alleen in de
-catalogus: icoon **{}** (rechtsboven) opent **Bronnen** als er een
-`.vsa` of `.mvsa` is; dat toont de feitelijke brontekst in plaats van
-de gerenderde partituur. In de navigatie: **download-icoon** (volgt
-translit-stand) en icoonknoppen **Ксл→Nls** (Nls) / **Nls→Ксл** (Ksl).
-**Ксл** is Ksl in Cyrillische letters. Bij alleen een `.mscz` (geen
-VSA-tekst) ontbreekt het icoon **Bronnen**.
+catalogus: icoon **{}** (rechtsboven) opent **Bronnen** (het echte
+`.vsa`- en `.mvsa`-/`.vsa.mvsa`-bestand als tekst), plus **Notatie** /
+**Partituur** (default: notatie) en eventueel **SVG** / **OSMG**. Op
+een koormap: **{}** alleen met Notatie/Partituur als beide
+schermproducten er zijn (geen Bronnen-lijst). In de navigatie:
+**download-icoon** (volgt translit-stand) en icoonknoppen **Ксл→Nls**
+(Nls) / **Nls→Ксл** (Ksl). **Ксл** is Ksl in Cyrillische letters. Bij
+alleen een `.mscz` (geen VSA-tekst) ontbreekt **Bronnen** in **{}**.
 
 ## Legacy-namen (nog toegestaan tot migratie)
 

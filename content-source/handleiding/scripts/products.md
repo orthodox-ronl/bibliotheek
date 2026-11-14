@@ -26,18 +26,21 @@ Kinds: `vsa`, `mscz`, `tekstblad`, `import`, `mvsa`, `audio`, `lyrics`.
 # DESCRIPTION
 
 Bouwt de bestanden die de site en Coria nodig hebben naast de bron in de
-catalogus. Preflight en bevestiging gebeuren **één keer** voor de hele
-run (som van bronnen over de gekozen kinds). Korte runs starten zonder
-vraag; bij 100+ bronnen volgt de dubbele zekerheidsvraag, tenzij je
-`-y` / `--yes` meegeeft — dan geen vraag. Na een geslaagde run
-(niet `--dry-run`) schrijft de tooling voor vsa/mvsa/mscz
-`{bron}.products-meta.json` (snelle versheid; bladreeks-SVG als `svg-1`…).
-Die export is **kaal**: lyrics en preview-mp3 krijgen daarbij nog geen
-bibliotheek-herkomststempel. Direct daarna zet `products` die stempels
-wél (zelfde regels als `--kinds lyrics` / `--kinds audio`) en werkt de
-hashes in de meta bij. Bij vsa/mscz worden gewijzigde MXL/SVG-hashes
-gemerged zonder andere meta-keys te wissen. Daarna vernieuwt het de
-zoekindex en Coria-fingerprints.
+catalogus. Bij een `.vsa` hoort daar nu schets-`.vsa.mvsa` bij (T1) plus
+cascade van mvsa-producten; Coria-`.mxl` zit op die schets, niet meer op
+de kale `.vsa` — zie [products (vsa)](../vsa-products/). Preflight en
+bevestiging gebeuren **één keer** voor de hele run (som van bronnen over
+de gekozen kinds). Korte runs starten zonder vraag; bij 100+ bronnen
+volgt de dubbele zekerheidsvraag, tenzij je `-y` / `--yes` meegeeft —
+dan geen vraag. Na een geslaagde run (niet `--dry-run`) schrijft de
+tooling voor vsa/mvsa/mscz `{bron}.products-meta.json` (snelle versheid;
+bladreeks-SVG als `svg-1`…). Die export is **kaal**: lyrics en
+preview-mp3 krijgen daarbij nog geen bibliotheek-herkomststempel.
+Direct daarna zet `products` die stempels wél (zelfde regels als
+`--kinds lyrics` / `--kinds audio`) en werkt de hashes in de meta bij.
+Bij vsa/mscz worden gewijzigde product-hashes gemerged zonder andere
+meta-keys te wissen. Daarna vernieuwt het de zoekindex en
+Coria-fingerprints.
 
 **Logging:** standaard beknopt (tellingen vooraan, kleurenrollen uit
 [repo-scripts](https://github.com/orthodox-ronl/bron/blob/main/docs/specs/repo-scripts.md)).

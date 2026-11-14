@@ -8,9 +8,12 @@ Tooling-conventie (naamgeving conversies):
 [VSA-tooling — bestandsnaamgeving](https://orthodox-ronl.github.io/VSA-tooling/formats/canonical-checklists/#bestandsnaamgeving-conventie).
 
 Ownership: sibling-namen, publicatie-/importcontroles en Hugo-CI horen
-**hier**; geldigheid/conversie/layoutprofielen in
-[VSA-tooling](https://github.com/orthodox-ronl/VSA-tooling). Zie
-[tooling-koppeling.md](tooling-koppeling.md).
+**hier**; geldigheid/conversie/layoutprofielen/formatcontracten in
+[VSA-tooling](https://github.com/orthodox-ronl/VSA-tooling)
+([contract-index](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/contract-index.md)
+§Contract-skelet / C* / Dekkingsmatrix). Zie
+[tooling-koppeling.md](tooling-koppeling.md) (§Canoniek in de catalogus =
+tooling-contract **plus** deze publicatieregels).
 
 ## Terminologie
 
@@ -25,11 +28,11 @@ Ownership: sibling-namen, publicatie-/importcontroles en Hugo-CI horen
 
 ## Naamgeving (doel)
 
-| Rol       | Patroon                                                                                                    |
-| --------- | ---------------------------------------------------------------------------------------------------------- |
-| Bron      | `{stam}.{ext}` met één echte extensie: `.vsa` / `.mscz` / `.mvsa`                                          |
-| Afgeleide | `{stam}.{bron-ext}.{doel-ext}` — bijv. `.vsa.mxl`, `.vsa.pdf`, `.mscz.pdf`, `.mscz.mxl`, `.vsa.lyrics.txt`, `.mscz.lyrics.txt` |
-| Tekstblad | uitzondering: `{stam}.tekstblad.md` → `{stam}.tekstblad.pdf`                                               |
+| Rol       | Patroon                                                                                                                      |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Bron      | `{stam}.{ext}` met één echte extensie: `.vsa` / `.mscz` / `.mvsa`                                                            |
+| Afgeleide | `{stam}.{bron-ext}.{doel-ext}` — bijv. `.vsa.svg`, `.vsa.mvsa`, `.vsa.mvsa.mxl`, `.mscz.pdf`, `.mscz.mxl`, `.vsa.lyrics.txt` |
+| Tekstblad | uitzondering: `{stam}.tekstblad.md` → `{stam}.tekstblad.pdf`                                                                 |
 
 **Eén canonieke notatiebron per leaf:** niet tegelijk `.vsa` én `.mvsa`
 én/of basis-`.mscz` in dezelfde uitvoeringsvorm-map. Optioneel
@@ -41,8 +44,11 @@ archiveren onder `content-source/input/archief-bronnen/`. Contract:
 **Geen product-van-product:**
  uit één bron komt hoogstens één laag
 afgeleiden (`….mvsa.mp3`, `….mscz.mxl`, optioneel `….mvsa.mscz`). Niet
-`….mvsa.mscz.mp3`, `….mscz.mscz…`, of Score-IR/from-ir op `.mscz`/`.vsa`
-(die horen alleen bij canonieke `.mvsa`). Bulk-`products` slaat afgeleide
+`….mvsa.mscz.mp3`, `….mscz.mscz…`, of Score-IR/from-ir rechtstreeks op
+kale `.mscz`/`.vsa` (die horen bij `.mvsa`, inclusief afgeleide
+`….vsa.mvsa`). Uitzondering: catalogus-`.vsa` mag schets-`….vsa.mvsa`
+krijgen (`vsa mvsa`, T1); die schets geldt daarna als mvsa-bron voor
+mxl/svg/IR/audio/lyrics. Bulk-`products` slaat afgeleide
 `*.vsa.mscz` / `*.mvsa.mscz` over; een expliciet CLI-bestandspad mag wél.
 Rommel opruimen: [`scripts/cleanup-chained-products.cmd`](../scripts/cleanup-chained-products.cmd).
 
@@ -51,27 +57,28 @@ Geen nieuwe `.print.mscz`: handmatige MuseScore-bladen = `{stam}.mscz` +
 
 ## Publicatiecontroles
 
-| Spoor                  | Bron                                             | Sibling                                                                                                                                                                                         | Status in deze repo                                                                                                                              |
-| ---------------------- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| VSA                    | `.vsa`                                           | `.vsa.mxl` + `.vsa.svg` (+ optioneel translit: puur ksl → `.translit-nls.svg`; puur nls → `.translit-ksl.svg`; hybride → beide + `.translit.svg`); geen verplichte `.vsa.pdf`                  | **Actief** (`products --kinds vsa` / `check_vsa_products`; translit-SVG via sync, check eist die nog niet)                                       |
-| Lyrics (zoektekst)     | `.vsa` / `.mvsa` / `.mscz`                       | `.vsa.lyrics.txt` / `.mvsa.lyrics.txt` / `.mscz.lyrics.txt` + source-sha                                                                                                                        | **Actief** (`products --kinds lyrics` / `check_lyrics_products`)                                                                                 |
-| Partituur (mscz)       | `.mscz`                                          | `.mscz.mxl` + `.mscz.svg` (scherm) + partituur-sha (geen verplichte `.mscz.pdf`; **geen** translit-SVG via bibliotheek-products)                                                                  | **Actief** (`products --kinds mscz` / `check_mscz_products`)                                                                                     |
-| Tekstblad              | `.tekstblad.md`                                  | geen verplichte product-PDF; blad = `index.md.pdf` uit de `.md`                                                                                                                                 | **Actief** (`check_tekstblad_products` = bron aanwezig; `pdf.cmd`)                                                                               |
-| Import (bewerkvorm)    | `.mscz`                                          | `.mscz.mvsa` + partituur-sha (optioneel)                                                                                                                                                        | **Actief** (`import-mvsa` / `check_import_mvsa`; alleen bestaande paren)                                                                         |
-| mvsa (canonieke bron)  | `.mvsa`                                          | `.mvsa.mxl` + `.score-ir.json` + `.from-ir.musicxml` + source-sha; `.mvsa.svg` optioneel als from-ir er is; + optioneel translit-SVG’s (zelfde matrix als VSA; geen verplichte `.mvsa.pdf`)     | **Actief** (`products --kinds mvsa` / `check_mvsa_products`; translit-SVG via sync, check eist die nog niet)                                     |
-| Score-IR scherm (OSMD) | `.mvsa`                                          | `.mvsa.score-ir.json` + `.mvsa.from-ir.musicxml`                                                                                                                                                | **Actief** (`products --kinds mvsa` / `check`). Scherm: OSMD. `.mvsa.svg` alleen scherm-fallback; check eist die SVG niet als from-ir geldig is. |
-| Audio (preview)        | `.mvsa` / `.mscz` / `.vsa`                       | `.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3` + stamp                                                                                                                                                  | **Actief** (`products --kinds audio` / `check_audio_products`; zelfde bronnen als Coria-MXL)                                                     |
-| Coria-contract         | bestaande `.vsa.mxl` / `.mscz.mxl` / `.mvsa.mxl` | `mxl validate` (mono / satb)                                                                                                                                                                    | **Actief** (`check_mxl_playback_contract`)                                                                                                       |
-| VSA-SVG (legacy pad)   | `.vsa`                                           | `static/vsa/bladermap/….svg`                                                                                                                                                                    | **Legacy**; scherm gebruikt sibling `.vsa.svg` (zie VSA hierboven). Optioneel nog `python scripts\sync_oefenhoek_index.py --svg`                 |
+| Spoor                      | Bron                                                                                      | Sibling                                                                                                                                                                                                            | Status in deze repo                                                                                                                              |
+| -------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| VSA                        | `.vsa`                                                                                    | `.vsa.svg` (+ optioneel translit); schets-`.vsa.mvsa` via T1 (`formule:` / soort+toon; geen default → soft skip; check eist `.vsa.mvsa` alleen bij gekozen template); geen `.vsa.mxl` / geen verplichte `.vsa.pdf` | **Actief** (`products --kinds vsa` / `check_vsa_products`; cascade mvsa-producten op de schets; translit-SVG via sync, check eist die nog niet)  |
+| Lyrics (zoektekst)         | `.vsa` / `.mvsa` / `.mscz`                                                                | `.vsa.lyrics.txt` / `.mvsa.lyrics.txt` / `.mscz.lyrics.txt` + source-sha                                                                                                                                           | **Actief** (`products --kinds lyrics` / `check_lyrics_products`)                                                                                 |
+| Partituur (mscz)           | `.mscz`                                                                                   | `.mscz.mxl` + `.mscz.svg` (scherm) + partituur-sha (geen verplichte `.mscz.pdf`; **geen** translit-SVG via bibliotheek-products)                                                                                   | **Actief** (`products --kinds mscz` / `check_mscz_products`)                                                                                     |
+| Tekstblad                  | `.tekstblad.md`                                                                           | geen verplichte product-PDF; blad = `index.md.pdf` uit de `.md`                                                                                                                                                    | **Actief** (`check_tekstblad_products` = bron aanwezig; `pdf.cmd`)                                                                               |
+| Import (bewerkvorm)        | `.mscz`                                                                                   | `.mscz.mvsa` + partituur-sha (optioneel)                                                                                                                                                                           | **Actief** (`import-mvsa` / `check_import_mvsa`; alleen bestaande paren)                                                                         |
+| mvsa (canonieke of schets) | `.mvsa` / afgeleide `.vsa.mvsa`                                                           | `.mvsa.mxl` + `.score-ir.json` + `.from-ir.musicxml` + source-sha; `.mvsa.svg` optioneel als from-ir er is; + optioneel translit-SVG’s (zelfde matrix als VSA; geen verplichte `.mvsa.pdf`)                        | **Actief** (`products --kinds mvsa` / cascade vanuit vsa / `check_mvsa_products`; translit-SVG via sync, check eist die nog niet)                |
+| Score-IR scherm (OSMD)     | `.mvsa` / `.vsa.mvsa`                                                                     | `.mvsa.score-ir.json` + `.mvsa.from-ir.musicxml`                                                                                                                                                                   | **Actief** (`products --kinds mvsa` / `check`). Scherm: OSMD. `.mvsa.svg` alleen scherm-fallback; check eist die SVG niet als from-ir geldig is. |
+| Audio (preview)            | `.mvsa` / `.mscz` / `.vsa` (incl. `.vsa.mvsa`)                                            | `.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3` / `.vsa.mvsa.mp3` + stamp                                                                                                                                                   | **Actief** (`products --kinds audio` / cascade / `check_audio_products`)                                                                         |
+| Coria-contract             | bestaande `.mscz.mxl` / `.mvsa.mxl` (incl. `….vsa.mvsa.mxl`; legacy `….vsa.mxl` nog mono) | `mxl validate` (mono / satb)                                                                                                                                                                                       | **Actief** (`check_mxl_playback_contract`)                                                                                                       |
+| VSA-SVG (legacy pad)       | `.vsa`                                                                                    | `static/vsa/bladermap/….svg`                                                                                                                                                                                       | **Legacy**; scherm gebruikt sibling `.vsa.svg` (zie VSA hierboven). Optioneel nog `python scripts\sync_oefenhoek_index.py --svg`                 |
 
 CI genereert geen MuseScore-/PDF-/audio-producten en geen sibling-SVG
 (`.vsa.svg` / `.mvsa.svg`). Wel, vóór Hugo, een legacy bladermap-plaatje
 uit `.vsa` (`python scripts\sync_oefenhoek_index.py --svg`) voor het geval de sibling-SVG nog
 ontbreekt. Het scherm gebruikt de sibling. Koormap-blad
 `index.md.pdf` hoort niet bij `products.cmd`: lokaal eerst
-`scripts/products.cmd` (verse sibling-SVG’s), daarna `scripts/pdf.cmd`,
-dan bij stabiel `r2-pdf-upload` + `r2-pdf-opschonen --apply`. Op main
-geen getrackte blad-PDF’s. `pdf.cmd` gebruikt bij voorkeur die
+`scripts/products.cmd` (verse sibling-SVG’s), daarna `scripts/pdf.cmd`.
+Blad-PDF’s niet in git; op `development` de diff naar R2 met
+`r2-pdf-upload --env development`, na merge naar main
+`r2-pdf-promote`. Op main geen getrackte blad-PDF’s. `pdf.cmd` gebruikt bij voorkeur die
 product-SVG’s;
 ontbreekt of is de SVG verouderd (stamp), dan exporteert het lokaal
 opnieuw. Wel in `check` (`check_index_md_pdf.py`): ontbrekend of ouder

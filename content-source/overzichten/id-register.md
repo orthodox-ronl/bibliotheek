@@ -86,7 +86,7 @@ Voorbeelden (publicatiestam):
 
 - `cherubijnenhymne-15c-kastorski-hemelum` — Nederlands (geen suffix)
 - `prijslied-bisschop-gregorios-hemelum` / `…-hemelum-ksl` — paar (schets)
-- `tropaar-uw-heilig-kruis-groningen-ksl` — KSL Cyrillisch
+- `tropaar-uw-heilig-kruis-hemelum-ksl` — KSL Cyrillisch
 - `cherubijnenhymne-15c-kastorski-hemelum-nl-ksl` — mengvorm (indien nodig)
 
 Getranslitereerde producten later; bestaande stub

@@ -32,7 +32,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"FAIL: {exc}", file=sys.stderr)
         print(
             "Oplossing: geef een bestaande map of bronbestand "
-            "(kort: t.o.v. content-source, catalogus of koormappen).",
+            "(kort: t.o.v. content-source, catalogus of koormappen; "
+            "pad:regel:kolom uit een foutmelding mag ook).",
             file=sys.stderr,
         )
         return 1

@@ -1,7 +1,7 @@
 """Maak sibling preview-``.mp3`` bij bibliotheek-``.mvsa`` / ``.mscz`` / ``.vsa``.
 
 Per brontype een eigen product: ``{stam}.mvsa.mp3``, ``{stam}.mscz.mp3``,
-``{stam}.vsa.mp3``. Straat-puur: ``mvsa mp3`` / ``mscz mp3`` / ``vsa audio``
+``{stam}.vsa.mp3``. Straat-puur: ``mvsa mp3`` / ``mscz mp3`` / ``vsa mp3``
 (MuseScore). Bij ``.vsa`` eerst tijdelijk syllabifyen (zelfde als
 ``products --kinds vsa`` / Coria-``.vsa.mxl``), zodat preview-audio dezelfde
 lettergreep-notatie krijgt. Zet herkomststempel in ID3
@@ -133,12 +133,12 @@ def is_stale(job: AudioJob) -> bool:
 
 
 def _audio_cli_cmd(job: AudioJob, mp3: Path) -> list[str]:
-    """Canonieke street-CLI per brontype (``vsa audio`` weigert .mscz/.mvsa)."""
+    """Canonieke street-CLI per brontype (``vsa mp3`` weigert .mscz/.mvsa)."""
     if job.kind == SOURCE_KIND_PARTITUUR:
         return ["mscz", "mp3", str(job.source), "-o", str(mp3)]
     if job.kind == SOURCE_KIND_MVSA:
         return ["mvsa", "mp3", str(job.source), "-o", str(mp3)]
-    return ["vsa", "audio", str(job.source), str(mp3), "--format", "mp3"]
+    return ["vsa", "mp3", str(job.source), "-o", str(mp3)]
 
 
 def _run_audio(job: AudioJob, mp3: Path) -> None:

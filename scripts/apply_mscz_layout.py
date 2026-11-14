@@ -129,7 +129,16 @@ def _layout_one(
 
 
 def main(argv: list[str] | None = None) -> int:
-    p = argparse.ArgumentParser(description=__doc__)
+    from cli_help import make_parser
+
+    argv = list(sys.argv[1:] if argv is None else argv)
+    p = make_parser(
+        prog="layout",
+        description=(
+            "Basispartituur-standaard (layoutprofiel partituur) op .mscz of .mxl. "
+            "Handleiding: content-source\\handleiding\\scripts\\layout.md"
+        ),
+    )
     p.add_argument(
         "path",
         type=Path,
@@ -150,10 +159,15 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument(
         "--bron",
         default=None,
-        help="Bronvermelding → MuseScore meta source + colofon (default: "
-        "bron.uitgangspunt uit sibling .vsa/.mvsa indien aanwezig)",
+        help=(
+            "Bronvermelding → MuseScore meta source + colofon "
+            "(standaard: bron.uitgangspunt uit sibling .vsa/.mvsa indien aanwezig)"
+        ),
     )
     add_yes_argument(p)
+    if not argv or argv[0] in {"-h", "--help"}:
+        p.print_help()
+        return 0 if argv else 2
     args = p.parse_args(argv)
 
     root = args.path if args.path.is_absolute() else REPO_ROOT / args.path

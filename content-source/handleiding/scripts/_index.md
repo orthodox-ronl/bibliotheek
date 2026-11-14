@@ -31,6 +31,8 @@ tonen paden onder `content-source` zonder die prefix. Zie
 | `serve` | Lokale preview op http://127.0.0.1:18732/ (niet 1313, niet 18731). | [serve](serve/) |
 | `products` | Catalogus-afgeleiden bouwen (`--kinds vsa,mvsa,mscz,audio,lyrics,…` of `all`). | [products](products/) |
 | `products-changed` | Alleen producten (+ koormap-`index.md.pdf`) voor git-gewijzigde bronnen onder `content-source` (missing+stale). | [products-changed](products-changed/) |
+| `commit` | Commit gewijzigde bronnen onder catalogus + koormappen (geen afgeleiden); optioneel `--vsa` / `--mvsa` / `--mscz` / `--md` / `--tekstblad`, of `--all` (hele repo minus afgeleiden/product-JSON). | [commit](commit/) |
+| `stage` | Zelfde selectie als `commit`, maar alleen `git add` (geen `-m`). | [stage](stage/) |
 | `products --kinds vsa` | `{stam}.vsa.mxl` + `{stam}.vsa.svg` bij catalogus-`.vsa`. | [products (vsa)](vsa-products/) |
 | `products --kinds mscz` | `{stam}.mscz.mxl` + `{stam}.mscz.svg` bij basispartituur-`.mscz`. | [products (mscz)](mscz-products/) |
 | `products --kinds tekstblad` | Tekstblad-kind (blad-PDF via [pdf](pdf/)). | [products (tekstblad)](tekstblad-products/) |
@@ -51,8 +53,9 @@ tonen paden onder `content-source` zonder die prefix. Zie
 | `werkbank-status` | Overzicht open werkbank-cases; schrijft `data\werkbank-status.json`. | [werkbank-status](werkbank-status/) |
 | `lifecycle-grenzen` | Spaties/ruwe formats in catalogusmappen melden (optioneel `--fail`). | [lifecycle-grenzen](lifecycle-grenzen/) |
 | `pdf.cmd` | Maakt `index.md.pdf` (+ translit-PDF’s) voor het download-icoon uit kale blad-SVG’s + Markdown-koppen (`pdf-bijelkaar` → compact). | [pdf](pdf/) |
-| `r2-pdf-upload` | Blad-PDF’s naar R2 `production/` (+ SHA-256); laadt `r2-env`. | [r2-pdf-upload](r2-pdf-upload/) |
-| `r2-pdf-opschonen` | Wis lokale blad-PDF’s die gelijk zijn aan R2 (`--apply`). | [r2-pdf-opschonen](r2-pdf-opschonen/) |
+| `r2-pdf-upload` | Blad-PDF’s naar R2: `production/` of `development/` (alleen diff); laadt `r2-env`. | [r2-pdf-upload](r2-pdf-upload/) |
+| `r2-pdf-promote` | Na merge naar main: `development/` → `production/`, legen + leeg manifest. | [r2-pdf-promote](r2-pdf-promote/) |
+| `r2-pdf-opschonen` | Optioneel: wis lokale blad-PDF’s die gelijk zijn aan `production/` (`--apply`). | [r2-pdf-opschonen](r2-pdf-opschonen/) |
 
 Intern (geen apart gebruikerscommando): `python scripts\fingerprint_coria_mxl.py`
 maakt `/mxl/c/<hash>.musicxml` en `data/coria-fp.json` voor **Oefenen** (♪).

@@ -94,7 +94,7 @@ tonen —zelfde mechaniek, andere leeservaring:
 | Patroon            | Wanneer                                           | Voorbeeld                                                                |
 | ------------------ | ------------------------------------------------- | ------------------------------------------------------------------------ |
 | **Boom**           | De zanger kiest één variant (of bladert per kind) | Cherubijnenhymne: sectie → 15b, 15c, …; antifoon: weekdagen / zondag     |
-| **Compositieblad** | Eén pagina bundelt een set (proza + scores)       | Prokimens voor de hele week op één `index.md`, met shortcode per weekdag |
+| **Compositieblad** | Eén pagina bundelt een set (proza + scores)       | Prokimens per weekdag; geloofsbelijdenis deel-1+2; stichier couplet 1+2 — [Stichieren](/handleiding/start/stichieren/) |
 
 Voorbeeld compositieblad (schets):
 
@@ -331,7 +331,7 @@ Nederlandse leaf:
 
 Precedent in het [Id-register](/overzichten/id-register/): o.a.
 `cherubijnenhymne/15c-kastorski/hemelum-ksl` (stub) en bestaande
-`-ksl`-leaves zoals `tropaar/uw-heilig-kruis/groningen-ksl`.
+`-ksl`-leaves zoals `tropaar/uw-heilig-kruis/hemelum-ksl`.
 
 ### Canonieke bron vs afgeleiden
 
@@ -340,7 +340,7 @@ In **elke** leaf-map liggen bron en afgeleiden naast elkaar (siblings):
 | Soort              | Voorbeelden                                                            | Rol                            |
 | ------------------ | ---------------------------------------------------------------------- | ------------------------------ |
 | **Canonieke bron** | `{stam}.vsa`, `{stam}.mscz`, `{stam}.mvsa`, `{stam}.tekstblad.md`      | Hier bewerk je                 |
-| **Afgeleiden**     | `{stam}.vsa.mxl`, `{stam}.vsa.pdf`, `{stam}.mp3`, `{stam}.mscz.pdf`, … | Regenereren met productscripts |
+| **Afgeleiden**     | `{stam}.vsa.svg`, `{stam}.vsa.mvsa`, `{stam}.vsa.mp3`, `{stam}.mscz.mxl`, … | Regenereren met productscripts |
 
 Formaat is **geen** id-laag: geen aparte map `pdf/` of `mxl/` onder de
 leaf. PDF, MusicXML en audio blijven siblings van de bron in dezelfde

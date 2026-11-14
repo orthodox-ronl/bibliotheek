@@ -6,7 +6,9 @@ Tooling-contract: [docs/tooling-koppeling.md](../docs/tooling-koppeling.md)
 `.\scripts` op PATH; Python 3.14; Hugo Extended 0.160.1.
 
 Korte hulp in het opdrachtvenster: `h` (lijst) of `h <naam>` (zelfde als
-`<naam> -h`).
+`<naam> -h`). Cmd-wrappers geven bij `-h` / `--help` dezelfde argparse-help
+als de Python-entrypoint (inclusief defaults en, bij multi-command CLI’s,
+de subcommando’s). Zie `scripts\cli_help.py`.
 
 **Paden:** bij `products` / `pdf.cmd` mag je kort typen (t.o.v.
 `content-source`, `catalogus` of `koormappen`). Logs laten paden onder
@@ -20,6 +22,8 @@ Korte hulp in het opdrachtvenster: `h` (lijst) of `h <naam>` (zelfde als
 | `fix` | Auto-fixbare problemen uit `data\check-fixlist.json` afwerken (`--check` = eerst `check --strict`; `--dry-run` = tonen) |
 | `products` | Afgeleiden bouwen (`--kinds vsa,mvsa,mscz,audio,lyrics,…` of `all`); daarna Coria-fingerprints (niet bij `--dry-run`). Geen `pdf.cmd`. |
 | `products-changed` | Alleen producten (+ koormap-`index.md.pdf`) voor git-gewijzigde bronnen onder `content-source` (missing+stale; geen invalid). |
+| `commit` | Commit gewijzigde bronnen onder catalogus + koormappen (geen afgeleiden); filters of `--all` (hele repo minus afgeleiden/product-JSON). |
+| `stage` | Zelfde selectie als `commit`, maar alleen `git add` (geen `-m`). |
 | `import-mvsa` | Maakt/vernieuwt bewerkvorm `{stam}.mscz.mvsa` via `mscz import` + stamp (standaard alleen bestaande siblings) |
 | `pdf.cmd` | `index.md.pdf` naast een koormap- of catalogus-`index.md` (lokaal; niet in `products` / `check` / CI) |
 | `r2-pdf-upload` | Blad-PDF’s naar R2 `production/` (+ SHA-256); laadt `r2-env`; zie [docs/plans/pdf-r2.md](../docs/plans/pdf-r2.md) |

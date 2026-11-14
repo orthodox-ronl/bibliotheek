@@ -1,0 +1,84 @@
+---
+titel: Silouan de Athoniet
+taal: nl
+soort: kondak
+toon: 8
+template: kondak-toon-8-hemelum
+partituur:
+  title: Silouan de Athoniet
+  arranger: Asten
+bron:
+  uitgangspunt: Koorinstructie Hemelum
+gelegenheid:
+- naam: Silouan de Athoniet
+  datum: 24 sep
+zoektekst: |-
+  Tijdens uw aardse leven hebt gij Christus gediend
+  en Zijn wegen nagevolgd, o heilige Vader,
+  nu schouwt gij in de Hemel Hem Die gij hebt liefgehad;
+  gij verblijft met Hem zoals Hij aan Zijn uitverkorenen beloofd heeft,
+  heilige Vader Silouan, leer ons de weg die gij zijt gegaan.
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# <!-- Kondak H. Silouan de Athoniet, toon 8 - Mineon-09.3 (23-30 September) , p.45 - Asten-->
+# [:] Tij{/dens} {/uw} {/aard}se {\le}ven hebt gij {\Chris_}tus ge{\diend_} *
+# en {/Zijn} {/we}gen nagevolgd, o {/hei}{\li}ge {\Va_}{\der_}, *
+# nu {/schouwt} {/gij} in de {/He}mel {\Hem} Die gij hebt {\lief}ge{\had_}; *
+# gij {/ver}{/blijft} met {/Hem} zo{\als} Hij aan Zijn uitverkorenen be{\loofd_} {\heeft_}, **
+# hei{/li}{/ge} {/Va}der {\Si}louan, leer ons de {\weg} {/die} {/gij_} zijt ge{\gaan_}. [//:]
+
+# === afgeleide mvsa (VSA + template) ===
+# bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/kondak/silouan-de-athoniet-toon-4/asten/kondak-silouan-de-athoniet-toon-4-asten.vsa
+# template: kondak-toon-8-hemelum/template.yaml (kondak-toon-8-hemelum)
+# Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
+#  ##########################################################################  #
+#  #                                                                        #  #
+#  #   WAARSCHUWING:                                                        #  #
+#  #                                                                        #  #
+#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
+#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
+#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
+#  #   - melisma-slots (``_&_`` / ``~&~`` voor stem-sync; later samentrekken)#  #
+#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
+#  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
+#  #                                                                        #  #
+#  ##########################################################################  #
+@title "Silouan de Athoniet"
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=-1 T=-1 B=-1
+
+@sectie cyclus-1
+L: Tij-dens (uw) aard-se le-ven hebt gij Chris_-tus ge-diend_ |
+S: f   /    /    /    -  \  -   -    -   \      -   -  \      |f
+A: c   -    /3   -    -  -  -   -    -   \      -   -  \2     |c
+T: a   /    /    /    -  \  -   -    -   \      -   -  \      |a
+B: f   \3   /3   \4   -  /4 -   -    -   \3     -   -  /3     |f
+
+@sectie herhaling
+L: en Zijn (we-gen na-ge-volgd, o) hei-li-ge Va_-der_, |
+S: f  /    /                       /   \  -  \   \     |f
+A: c  -    /3                      -   -  -  \   \2    |c
+T: a  /    /                       /   \  -  \   \     |a
+B: f  \3   /3                      \4  /4 -  \3  /3    |f
+
+L: nu schouwt (gij in de) He-mel Hem Die gij hebt lief-ge-had_; |
+S: f  /       /           /  -   \   -   -   -    \    -  \     |f
+A: c  -       /3          -  -   -   -   -   -    \    -  \2    |c
+T: a  /       /           /  -   \   -   -   -    \    -  \     |a
+B: f  \3      /3          \4 -   /4  -   -   -    \3   -  /3    |f
+
+L: gij ver (blijft met) Hem zo-als Hij aan Zijn uit-ver-ko-re-nen be-loofd_ heeft_, |
+S: f   /   /            /   -  \   -   -   -    -   -   -  -  -   -  \      \       |f
+A: c   -   /3           -   -  -   -   -   -    -   -   -  -  -   -  \      \2      |c
+T: a   /   /            /   -  \   -   -   -    -   -   -  -  -   -  \      \       |a
+B: f   \3  /3           \4  -  /4  -   -   -    -   -   -  -  -   -  \3     /3      |f
+
+@sectie laatste
+L: hei-li-ge (Va-der) (Si-lou-an, leer ons de) weg die gij_ zijt ge-gaan_\. |
+S: f   /  /  /        \                        \   /   /    -    -  \       |a
+A: c   -  /3 -        -                        -   -   \    -    -  \2      |c
+T: a   /  /  /        \                        \   /   -    -    -  -       |c
+B: f   \3 /3 \4       /4                       \4  /4  \3   -    -  /3      |f

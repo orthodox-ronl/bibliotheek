@@ -47,6 +47,10 @@ Het eerste bestaande bestand of de eerste bestaande map wint. Bestaat
 dezelfde relatieve naam onder catalogus én koormappen, dan wint
 **catalogus**.
 
+Uit een foutmelding mag je het pad **inclusief** `:regel:kolom`
+plakken (bijv. `catalogus\…\lied.vsa:29:28`); die locatie-suffix wordt
+weggelaten voordat het pad wordt gezocht.
+
 Voorbeelden die hetzelfde blad bedoelen:
 
 ```cmd

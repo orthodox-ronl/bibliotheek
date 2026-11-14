@@ -1,5 +1,5 @@
 {{- /*
-  Blad-PDF-URL (docs/plans/pdf-r2.md): lokaal-eerst, anders R2 production/.
+  Blad-PDF-URL (docs/plans/pdf-r2.md): lokaal-eerst, anders R2.
 
   Context dict:
     page     — pagina met .File
@@ -7,9 +7,10 @@
     filename — bijv. index.md.pdf
 
   params.pdfAssets:
-    base        — publieke R2-host (eindigend op /)
-    preferLocal — true (default): local wint; false: altijd R2 (main-build)
-    env         — genegeerd voor pad; objecten staan onder production/
+    base                       — publieke R2-host (eindigend op /)
+    preferLocal                — true (default): local wint; false: altijd R2 (main-build)
+    allowDevelopmentOverrides  — true op preview: pad in data/pdf-r2-development.json
+                                 → development/, anders production/
 */ -}}
 {{- $page := .page -}}
 {{- $local := .local | default "" -}}
@@ -20,15 +21,31 @@
 {{- if isset $cfg "preferLocal" -}}
   {{- $preferLocal = $cfg.preferLocal -}}
 {{- end -}}
+{{- $allowDev := false -}}
+{{- if isset $cfg "allowDevelopmentOverrides" -}}
+  {{- $allowDev = $cfg.allowDevelopmentOverrides -}}
+{{- end -}}
+{{- $r2Env := "production" -}}
 {{- $r2 := "" -}}
 {{- if and (ne $base "") $page.File -}}
   {{- $dir := strings.TrimSuffix "/" (replace $page.File.Dir "\\" "/") -}}
-  {{- $base = strings.TrimSuffix $base "/" -}}
+  {{- $rel := "" -}}
   {{- if $dir -}}
-    {{- $r2 = printf "%s/production/%s/%s" $base $dir $filename -}}
+    {{- $rel = printf "%s/%s" $dir $filename -}}
   {{- else -}}
-    {{- $r2 = printf "%s/production/%s" $base $filename -}}
+    {{- $rel = $filename -}}
   {{- end -}}
+  {{- if $allowDev -}}
+    {{- $man := $page.Site.Data.pdf_r2_development | default dict -}}
+    {{- $overrides := $man.overrides | default slice -}}
+    {{- range $overrides -}}
+      {{- if eq . $rel -}}
+        {{- $r2Env = "development" -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $base = strings.TrimSuffix $base "/" -}}
+  {{- $r2 = printf "%s/%s/%s" $base $r2Env $rel -}}
 {{- end -}}
 {{- if and $preferLocal (ne $local "") -}}
   {{- $local -}}

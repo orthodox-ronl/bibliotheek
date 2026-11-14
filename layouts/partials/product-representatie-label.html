@@ -99,10 +99,14 @@
 {{- $detail := "" -}}
 {{- if eq $id "vsa" -}}
   {{- $label = "Melodie (één stem)" -}}
-  {{- $detail = "Zoals de notatie op deze pagina" -}}
+  {{- $detail = "Eenstemmige notatie (.vsa)" -}}
 {{- else if eq $id "mvsa" -}}
   {{- $label = "Koorblad (meerdere stemmen)" -}}
-  {{- $detail = "Uit meerstemmige tekstbron (.mvsa)" -}}
+  {{- if strings.Contains $lower ".vsa.mvsa" -}}
+    {{- $detail = "Schets-partituur uit VSA + formule (.vsa.mvsa)" -}}
+  {{- else -}}
+    {{- $detail = "Uit meerstemmige tekstbron (.mvsa)" -}}
+  {{- end -}}
 {{- else if eq $id "partituur" -}}
   {{- $label = "Koorblad (meerdere stemmen)" -}}
   {{- $detail = "Uit MuseScore-partituur (.mscz)" -}}

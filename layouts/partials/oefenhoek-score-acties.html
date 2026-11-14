@@ -4,9 +4,9 @@
   de shortcode staat — bepaalt knopset), optioneel "position".
 
   Oefenen / Beluisteren: compact ♪-menu linksboven op de partituur
-  (catalogus én koormap). {}-menu alleen catalogus: brontekst .mvsa/.vsa
-  + knop SVG/OSMG. Schermstand zelf (localStorage) geldt sitebreed, ook
-  op koormap-pagina’s — daar geen wisselknop.
+  (catalogus én koormap). {}-menu: op catalogus brontekst + SVG/OSMG;
+  knop Notatie/Partituur als beide schermproducten er zijn (ook op
+  koormap). Schermstand SVG|OSMG (localStorage) geldt sitebreed.
   Download blad: nav download-icoon (index.md.pdf / translit-PDF).
   Transliteratie: icoonknoppen Ксл→Nls (Nls) / Nls→Ксл (Ksl) in de nav.
 */ -}}
@@ -242,15 +242,23 @@
   {{- end -}}
   {{- $bronMenu = $bronPreferred | append $bronOther -}}
 {{- end -}}
-{{- /* Schermstand-knop alleen catalogus; stand zelf geldt sitebreed (JS). */ -}}
+{{- /* Schermstand-knop (SVG|OSMG) alleen catalogus; Notatie|Partituur
+     ook op koormap als beide schermproducten bestaan. */ -}}
 {{- $hasSchermSvg := false -}}
 {{- $hasSchermOsmg := false -}}
-{{- if $inCatalogus -}}
+{{- $hasNotatieSvg := false -}}
+{{- $hasPartituurScherm := false -}}
 {{- range $score.Resources -}}
   {{- $n := lower .Name -}}
   {{- $kettingSvg := or (strings.Contains $n ".mvsa.mscz.") (strings.Contains $n ".vsa.mscz.") (strings.Contains $n ".mscz.mscz.") -}}
   {{- if and (not $kettingSvg) (or (strings.HasSuffix $n ".mvsa.svg") (strings.HasSuffix $n ".vsa.svg") (strings.HasSuffix $n ".mscz.svg")) -}}
     {{- $hasSchermSvg = true -}}
+  {{- end -}}
+  {{- if and (not $kettingSvg) (strings.HasSuffix $n ".vsa.svg") (not (strings.Contains $n ".vsa.mvsa.")) -}}
+    {{- $hasNotatieSvg = true -}}
+  {{- end -}}
+  {{- if or (strings.HasSuffix $n ".from-ir.musicxml") (and (not $kettingSvg) (or (strings.HasSuffix $n ".mvsa.svg") (strings.HasSuffix $n ".mscz.svg") (strings.Contains $n ".vsa.mvsa."))) -}}
+    {{- $hasPartituurScherm = true -}}
   {{- end -}}
   {{- if strings.HasSuffix $n ".from-ir.musicxml" -}}
     {{- $hasSchermOsmg = true -}}
@@ -266,6 +274,12 @@
         {{- if and (not $kettingSvg) (or (strings.HasSuffix $nl ".mvsa.svg") (strings.HasSuffix $nl ".vsa.svg") (strings.HasSuffix $nl ".mscz.svg")) -}}
           {{- $hasSchermSvg = true -}}
         {{- end -}}
+        {{- if and (not $kettingSvg) (strings.HasSuffix $nl ".vsa.svg") (not (strings.Contains $nl ".vsa.mvsa.")) -}}
+          {{- $hasNotatieSvg = true -}}
+        {{- end -}}
+        {{- if or (strings.HasSuffix $nl ".from-ir.musicxml") (and (not $kettingSvg) (or (strings.HasSuffix $nl ".mvsa.svg") (strings.HasSuffix $nl ".mscz.svg") (strings.Contains $nl ".vsa.mvsa."))) -}}
+          {{- $hasPartituurScherm = true -}}
+        {{- end -}}
         {{- if strings.HasSuffix $nl ".from-ir.musicxml" -}}
           {{- $hasSchermOsmg = true -}}
         {{- end -}}
@@ -273,12 +287,12 @@
     {{- end -}}
   {{- end -}}
 {{- end -}}
-{{- end -}}
 {{- $showSchermstandKnop := and $inCatalogus $hasSchermSvg $hasSchermOsmg -}}
+{{- $showScorebronKnop := and $hasNotatieSvg $hasPartituurScherm -}}
 {{- $hasOefenen := gt (len $oefenMenu) 0 -}}
 {{- $hasAudio := gt (len $audioMenu) 0 -}}
 {{- $hasBron := and $inCatalogus (gt (len $bronMenu) 0) -}}
-{{- $hasBronTip := or $hasBron $showSchermstandKnop -}}
+{{- $hasBronTip := or $hasBron $showSchermstandKnop $showScorebronKnop -}}
 {{- if or $hasOefenen $hasAudio $hasBronTip -}}
 {{- /* Geen indentatie/newlines: bieb-Inner gaat door markdownify; 4 spaties → codeblok.
      Native details: open/dicht zonder JS (voorkomt dubbele handlers bij livereload). */ -}}
@@ -307,7 +321,7 @@
 <details class="score-oefen-tip"><summary class="score-oefen-tip-trigger" aria-label="Oefenen en beluisteren">♪</summary><div class="score-oefen-tip-panel"><div class="{{ $wrapClass }}">{{ partial "score-action-menu.html" (dict "title" "Oefenen" "items" $oefenMenu "btnClass" "btn" "hint" $oefenHint "role" "oefenen") }}{{ partial "score-action-menu.html" (dict "title" "Beluisteren" "items" $audioMenu "btnClass" "btn" "hint" $audioHint "role" "beluisteren") }}</div></div></details>
 {{- end -}}
 {{- if $hasBronTip -}}
-<details class="score-bron-tip"><summary class="score-bron-tip-trigger" aria-label="Bronnen en scherm">{}</summary><div class="score-bron-tip-panel"><div class="{{ $wrapClass }}">{{- if $hasBron -}}<div class="score-action-menu score-action-menu--bron-mode" data-score-role="bron-download" hidden><a class="btn" data-bron-download href="#" download>Downloaden</a></div><div class="score-action-menu score-action-menu--bron-mode" data-score-role="bron-print" hidden><button type="button" class="btn" data-bron-print>Printen</button></div>{{ partial "score-action-menu.html" (dict "title" "Bronnen" "items" $bronMenu "btnClass" "btn" "hint" $bronHint "role" "bronnen") }}{{- end -}}{{- if $showSchermstandKnop -}}<div class="score-action-menu" data-score-role="schermstand"><button type="button" class="btn" data-schermstand-switch data-schermstand="osmg">OSMG</button></div>{{- end -}}</div></div></details>
+<details class="score-bron-tip"><summary class="score-bron-tip-trigger" aria-label="Bronnen en scherm">{}</summary><div class="score-bron-tip-panel"><div class="{{ $wrapClass }}">{{- if $hasBron -}}<div class="score-action-menu score-action-menu--bron-mode" data-score-role="bron-download" hidden><a class="btn" data-bron-download href="#" download>Downloaden</a></div><div class="score-action-menu score-action-menu--bron-mode" data-score-role="bron-print" hidden><button type="button" class="btn" data-bron-print>Printen</button></div>{{ partial "score-action-menu.html" (dict "title" "Bronnen" "items" $bronMenu "btnClass" "btn" "hint" $bronHint "role" "bronnen") }}{{- end -}}{{- if $showScorebronKnop -}}<div class="score-action-menu" data-score-role="scorebron"><button type="button" class="btn" data-scorebron-switch data-scorebron="partituur">Partituur</button></div>{{- end -}}{{- if $showSchermstandKnop -}}<div class="score-action-menu" data-score-role="schermstand"><button type="button" class="btn" data-schermstand-switch data-schermstand="osmg">OSMG</button></div>{{- end -}}</div></div></details>
 {{- end -}}
 {{- end -}}
 {{- end -}}

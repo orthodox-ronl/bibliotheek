@@ -23,6 +23,84 @@ def test_ensure_yes_flag_appends_once() -> None:
     assert fix_mod._ensure_yes_flag(cmd + " --yes") == cmd + " --yes"
 
 
+def test_extract_child_failure_reason_from_mislukt_block() -> None:
+    text = """
+=== products: kinds=vsa ===
+Batch «products»: products: 1 kind(s)
+Bevestiging: overgeslagen (-y/--yes).
+>>> vsa
+  1  bijwerken (van 1)
+  1  mislukt-vsa
+=== Samenvatting products ===
+  1  kinds-mislukt
+MISLUKT catalogus/tropaar/uw-heilig-kruis/groningen/x.vsa
+  hoogte-mismatch op lettergreep 'Uw' (klinkend E4).
+  Oplossing: herstel de fout hierboven en draai opnieuw.
+"""
+    assert (
+        fix_mod._extract_child_failure_reason(text)
+        == "hoogte-mismatch op lettergreep 'Uw' (klinkend E4)."
+    )
+
+
+def test_extract_child_failure_reason_keeps_file_line_col() -> None:
+    text = """
+MISLUKT catalogus/tropaar/x/y/lied.vsa
+  catalogus/tropaar/x/y/lied.vsa:29:28: hoogte-mismatch op lettergreep 'door' (klinkend G4).
+  Oplossing: Zet ** op de regel ervoor.
+"""
+    reason = fix_mod._extract_child_failure_reason(text)
+    assert reason.startswith("catalogus/tropaar/x/y/lied.vsa:29:28:")
+    assert "door" in reason
+
+
+def test_item_path_label_prefers_vsa_from_fix_cmd() -> None:
+    item = FixItem(
+        id="vsa:a",
+        checker="vsa",
+        summary="[meta-missing] catalogus/tropaar/x/y",
+        fix_cmd=(
+            r"scripts\products.cmd --kinds vsa --skip-post "
+            r"catalogus\tropaar\x\y\lied.vsa"
+        ),
+        kind="meta_missing",
+        file="catalogus/tropaar/x/y/lied.vsa.products-meta.json",
+        source="catalogus/tropaar/x/y",
+    )
+    assert (
+        fix_mod._item_path_label(item)
+        == "catalogus/tropaar/x/y/lied.vsa"
+    )
+
+
+def test_extract_child_failure_reason_meerdere_templates() -> None:
+    text = """
+VSA-tooling: mode=float ref=main
+MISLUKT catalogus/kondak/silouan/asten/x.vsa
+  meerdere templates voor soort='kondak' toon=8: a, b. Geef --template.
+  Oplossing: herstel de fout hierboven.
+"""
+    reason = fix_mod._extract_child_failure_reason(text)
+    assert reason.startswith("meerdere templates")
+    assert fix_mod._failure_group(reason) == "meerdere templates"
+
+
+def test_failure_group_template_slots() -> None:
+    reason = "verplicht(e) template-slot(s) niet aangedaan in frase '1': ti-1."
+    assert fix_mod._failure_group(reason) == "template-slots"
+
+
+def test_item_path_label_from_summary() -> None:
+    item = FixItem(
+        id="vsa:a",
+        checker="vsa",
+        summary="[meta-missing] catalogus/tropaar/x/y",
+        fix_cmd="products x",
+        kind="meta_missing",
+    )
+    assert fix_mod._item_path_label(item) == "catalogus/tropaar/x/y"
+
+
 def _write_pdf_status(data_dir: Path, *, stale: bool) -> None:
     folders = {
         "catalogus/x/ok": {
@@ -225,7 +303,9 @@ def test_fix_run_removes_success(tmp_path: Path, monkeypatch):
         "save_fixlist",
         lambda items: save_fixlist(items, path=path),
     )
-    monkeypatch.setattr(fix_mod, "_run_fix_cmd", lambda *_a, **_k: 0)
+    monkeypatch.setattr(
+        fix_mod, "_run_fix_cmd", lambda *_a, **_k: (0, "")
+    )
     monkeypatch.setattr(
         fix_mod,
         "confirm_batch",
@@ -258,9 +338,9 @@ def test_fix_skips_duplicate_fix_cmd(tmp_path: Path, monkeypatch):
     )
     calls: list[str] = []
 
-    def _run(cmd: str, *, verbose: bool = False) -> int:
+    def _run(cmd: str, **_k) -> tuple[int, str]:
         calls.append(cmd)
-        return 0
+        return 0, ""
 
     monkeypatch.setattr(fix_mod, "load_fixlist", lambda: load_fixlist(path))
     monkeypatch.setattr(
@@ -274,3 +354,103 @@ def test_fix_skips_duplicate_fix_cmd(tmp_path: Path, monkeypatch):
     assert fix_mod.main(["-y"]) == 0
     assert calls == [shared]
     assert load_fixlist(path) == []
+
+
+def test_fix_failure_summary_is_grouped(tmp_path: Path, monkeypatch, capsys):
+    """Mislukte fixes: geen dump; eindsamenvatting gegroepeerd."""
+    path = tmp_path / "check-fixlist.json"
+    save_fixlist(
+        [
+            FixItem(
+                id="vsa:a",
+                checker="vsa",
+                summary="[meta-missing] catalogus/tropaar/a/x",
+                fix_cmd=r"scripts\products.cmd --kinds vsa a.vsa",
+                kind="meta_missing",
+            ),
+            FixItem(
+                id="vsa:b",
+                checker="vsa",
+                summary="[meta-missing] catalogus/tropaar/b/y",
+                fix_cmd=r"scripts\products.cmd --kinds vsa b.vsa",
+                kind="meta_missing",
+            ),
+        ],
+        path=path,
+    )
+
+    def _run(cmd: str, **_k) -> tuple[int, str]:
+        if "a.vsa" in cmd:
+            return 1, "hoogte-mismatch op lettergreep 'Uw' (klinkend E4)."
+        return 1, "meerdere templates voor soort='tropaar' toon=4: a, b."
+
+    monkeypatch.setattr(fix_mod, "load_fixlist", lambda: load_fixlist(path))
+    monkeypatch.setattr(
+        fix_mod,
+        "save_fixlist",
+        lambda items: save_fixlist(items, path=path),
+    )
+    monkeypatch.setattr(fix_mod, "_run_fix_cmd", _run)
+    monkeypatch.setattr(fix_mod, "confirm_batch", lambda *_a, **_k: True)
+    assert fix_mod.main(["-y"]) == 1
+    out = capsys.readouterr().out
+    assert "Rest (handwerk), gegroepeerd:" in out
+    assert "hoogte-mismatch" in out
+    assert "meerdere templates" in out
+    assert "catalogus/tropaar/a/x" in out
+    assert "Batch «products»" not in out
+
+
+def test_fix_verbose_writes_detail_log(tmp_path: Path, monkeypatch, capsys):
+    """--verbose: scherm kort; details in data/fix-last.log."""
+    path = tmp_path / "check-fixlist.json"
+    log = tmp_path / "fix-last.log"
+    save_fixlist(
+        [
+            FixItem(
+                id="pdf:a",
+                checker="pdf",
+                summary="[stale-pdf] catalogus/x/a",
+                fix_cmd=r"scripts\pdf.cmd a\index.md",
+                kind="stale_pdf",
+            ),
+        ],
+        path=path,
+    )
+
+    def _run(cmd: str, **kwargs) -> tuple[int, str]:
+        log_path = kwargs.get("log_path")
+        assert log_path is not None
+        fix_mod._append_fix_log(
+            log_path,
+            summary=kwargs.get("summary") or "x",
+            cmd=cmd,
+            code=1,
+            stdout=(
+                "=== products banner ===\n"
+                "MISLUKT a\n"
+                "  hoogte-mismatch op 'Uw'.\n"
+            ),
+            stderr="",
+            elapsed_s=0.1,
+        )
+        return 1, "hoogte-mismatch op 'Uw'."
+
+    open_orig = fix_mod._open_fix_log
+    monkeypatch.setattr(fix_mod, "load_fixlist", lambda: load_fixlist(path))
+    monkeypatch.setattr(
+        fix_mod,
+        "save_fixlist",
+        lambda items: save_fixlist(items, path=path),
+    )
+    monkeypatch.setattr(fix_mod, "_open_fix_log", lambda: open_orig(log))
+    monkeypatch.setattr(fix_mod, "_run_fix_cmd", _run)
+    monkeypatch.setattr(fix_mod, "confirm_batch", lambda *_a, **_k: True)
+
+    assert fix_mod.main(["-y", "--verbose"]) == 1
+    out = capsys.readouterr().out
+    assert "Detail-log:" in out
+    assert "=== products banner ===" not in out
+    text = log.read_text(encoding="utf-8")
+    assert "=== products banner ===" in text
+    assert "hoogte-mismatch" in text

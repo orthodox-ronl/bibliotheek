@@ -33,9 +33,15 @@ Identieke `fix_cmd`-regels worden maar één keer uitgevoerd.
 
 **Uitvoer (dry-run / lijst):** tellingen (`  N  fixlist-items`) plus per
 item een korte regel en fix-sjabloon met `{file}`. Tijdens afwerken:
-`>>>` per regel; aan het eind `ok` / `mislukt` / `rest` onder elkaar.
-Ruwe herstel-uitvoer alleen bij `--verbose`, of als het mislukt.
-Bewuste afbraak (geen bevestiging): magenta `WEIGERT`.
+`>>>` per regel. Bij mislukken: **één** korte redenregel (geen banner-dump
+van `products`/`pdf`). Aan het eind: `ok` / `mislukt` / `rest`, en bij
+restfouten een **gegroepeerde** lijst (bijv. hoogte-mismatch, meerdere
+templates) met **bronbestand** + reden. Bij VSA-templatefouten bevat de
+reden idealiter `bestand:regel:kolom:` (waar de mismatch zit). Met
+`--verbose` blijft het **scherm** die samenvatting; de volledige
+kind-uitvoer gaat naar `data\fix-last.log` (pad staat aan begin en eind
+van de run), en herstelhints zijn uitgebreider. Bewuste afbraak (geen
+bevestiging): magenta `WEIGERT`.
 
 Dit commando:
 

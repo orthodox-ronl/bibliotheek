@@ -83,6 +83,86 @@ def test_explain_errno_22() -> None:
     assert explained.solution.startswith("Oplossing:")
 
 
+def test_paint_source_locations_splits_dir_file_linecol(monkeypatch) -> None:
+    monkeypatch.setenv("FORCE_COLOR", "1")
+    monkeypatch.delenv("NO_COLOR", raising=False)
+    loc = (
+        "catalogus/tropaar/heer-red-uw-volk/rode-gebedenboek/"
+        "tropaar-heer-red-uw-volk-rode-gebedenboek.vsa:30:1"
+    )
+    painted = cs.paint_source_locations(f"{loc}: hoogte-mismatch")
+    assert cs._CYAN in painted
+    assert cs._YELLOW in painted
+    assert cs._DIM in painted
+    assert "rode-gebedenboek.vsa" in painted
+    assert ":30:1" in painted
+    assert "hoogte-mismatch" in painted
+    # Zonder kleur: platte tekst (logs / extractie blijven schoon).
+    monkeypatch.setenv("NO_COLOR", "1")
+    plain = cs.paint_source_locations(f"{loc}: hoogte-mismatch")
+    assert plain == f"{loc}: hoogte-mismatch"
+    assert "\033[" not in plain
+
+
+def test_paint_source_locations_windows_path(monkeypatch) -> None:
+    monkeypatch.setenv("FORCE_COLOR", "1")
+    monkeypatch.delenv("NO_COLOR", raising=False)
+    loc = r"C:\Git\orthodox-ronl\bibliotheek\content-source\x.vsa:31:1"
+    painted = cs.paint_source_locations(loc)
+    assert "x.vsa" in painted
+    assert ":31:1" in painted
+    assert cs._CYAN in painted
+
+
+def test_hard_colors_location_parts(capsys, monkeypatch) -> None:
+    monkeypatch.setenv("FORCE_COLOR", "1")
+    monkeypatch.delenv("NO_COLOR", raising=False)
+    cs.hard("  catalogus/a/b.vsa:4:2: fouttekst")
+    out = capsys.readouterr().out
+    assert "b.vsa" in out
+    assert ":4:2" in out
+    assert "fouttekst" in out
+    assert "\033[" in out
+
+
+def test_explain_template_instance_includes_location() -> None:
+    """VSA-template-fout: reden met pad:regel:kolom + hint als Oplossing."""
+
+    class FakeTemplateErr(Exception):
+        def __init__(self) -> None:
+            self.message_nl = (
+                "hoogte-mismatch op lettergreep 'door' (klinkend G4).\n"
+                "Geen passend slot meer (verwacht o.a. fa, mi)."
+            )
+            self.hint_nl = (
+                "Waarschijnlijk ontbreekt een frasescheiding.\n"
+                "  de over{/win_}{/ning_} … {den_} **\n"
+                "Zet `**` aan het eind van die regel."
+            )
+            self.source = (
+                "catalogus/tropaar/heer-red-uw-volk/rode-gebedenboek/"
+                "tropaar-heer-red-uw-volk-rode-gebedenboek.vsa"
+            )
+            self.line = 30
+            self.column = 1
+            self.code = "VSA-TEMPLATE-PITCH-MISMATCH"
+
+    cs.set_verbose(False)
+    explained = cs.explain_sync_failure(FakeTemplateErr())
+    assert "rode-gebedenboek" in explained.reason
+    assert ":30:1:" in explained.reason
+    assert "hoogte-mismatch" in explained.reason
+    assert "Geen passend slot" not in explained.reason  # alleen bij --verbose
+    assert explained.solution.startswith("Oplossing:")
+    assert "**" in explained.solution
+
+    cs.set_verbose(True)
+    verbose = cs.explain_sync_failure(FakeTemplateErr())
+    assert "Geen passend slot" in verbose.reason
+    assert "frasescheiding" in verbose.solution
+    cs.set_verbose(False)
+
+
 def test_safe_print_replaces_unencodable() -> None:
     class BoomStream:
         encoding = "cp1252"

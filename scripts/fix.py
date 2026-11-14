@@ -7,9 +7,12 @@ Met ``--check`` eerst ``check --strict`` (lijst vernieuwen); problemen
 from __future__ import annotations
 
 import argparse
+import re
 import subprocess
 import sys
 import time
+from collections import defaultdict
+from datetime import datetime, timezone
 from pathlib import Path
 
 from batch_guard import add_yes_argument, confirm_batch
@@ -27,7 +30,7 @@ from cli_style import (
     detail,
     error,
     hard,
-    info,
+    note,
     ok,
     refuse,
     run_quiet,
@@ -40,6 +43,214 @@ from input_paths import rel_for_log
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CHECK_CMD = REPO_ROOT / "scripts" / "check.cmd"
+FIX_LOG_PATH = REPO_ROOT / "data" / "fix-last.log"
+
+# Regels die geen korte foutreden zijn (banners / meta van kind-scripts).
+_NOISE_LINE_PREFIXES = (
+    "===",
+    ">>>",
+    "VSA-tooling:",
+    "Batch «",
+    "Bevestiging:",
+    "Geschatte duur:",
+    "Root:",
+    "Actie:",
+    "Condities:",
+    "Bestand:",
+    "Elke regel",
+    "FAILED exit=",
+    "OK ",
+    "OK:",
+    "Oplossing:",
+    "Werkvoorraad",
+    "Werkbank",
+    "Controle:",
+    "Zie:",
+    "fix:",
+)
+
+
+def _is_noise_line(line: str) -> bool:
+    text = (line or "").strip()
+    if not text:
+        return True
+    if any(text.startswith(p) for p in _NOISE_LINE_PREFIXES):
+        return True
+    if text.endswith(" items") and text[:1].isdigit():
+        return True
+    if "  items" in text and text.lstrip()[:1].isdigit():
+        return True
+    low = text.lower()
+    if low.startswith("vsa:") and "bron" in low:
+        return True
+    if "mislukt-" in low and text.lstrip()[:1].isdigit():
+        return True
+    if "kinds-mislukt" in low:
+        return True
+    if "bijwerken (van" in low:
+        return True
+    return False
+
+
+# ``catalogus/…/lied.vsa:29:28: hoogte-mismatch…`` (of Windows-pad).
+_LOC_REASON_RE = re.compile(
+    r"^(?P<loc>\S+\.\S+:\d+:\d+):\s+(?P<body>.+)$"
+)
+
+
+def _extract_child_failure_reason(text: str) -> str:
+    """Haal één korte reden uit kind-script-uitvoer (geen hele banner-dump).
+
+    Voorkeur: regel met ``bestand:regel:kolom:`` (VSA-tooling / explain).
+    """
+    lines = [ln.rstrip() for ln in (text or "").splitlines()]
+
+    def _from_candidates(cands: list[str]) -> str | None:
+        # 1) Locatieregel met inhoudelijke body (niet alleen een CODE).
+        for s in cands:
+            m = _LOC_REASON_RE.match(s)
+            if not m:
+                continue
+            body = m.group("body").strip()
+            if body.startswith("VSA-") and " " not in body and "-" in body:
+                continue
+            return s
+        # 2) Locatie + volgende mismatch-regel samenvoegen.
+        for i, s in enumerate(cands):
+            m = _LOC_REASON_RE.match(s)
+            if not m:
+                continue
+            body = m.group("body").strip()
+            if body.startswith("VSA-"):
+                for nxt in cands[i + 1 :]:
+                    if _is_noise_line(nxt) or nxt.startswith("Oplossing:"):
+                        continue
+                    return f"{m.group('loc')}: {nxt}"
+            return s
+        markers = (
+            "hoogte-mismatch",
+            "meerdere templates",
+            "template-slot",
+            "ERROR:",
+        )
+        for s in cands:
+            low = s.lower()
+            if any(m in low for m in markers):
+                return s
+        return None
+
+    after_mislukt: list[str] = []
+    for i, ln in enumerate(lines):
+        if not ln.strip().startswith("MISLUKT "):
+            continue
+        for nxt in lines[i + 1 :]:
+            s = nxt.strip()
+            if not s:
+                continue
+            if s.startswith("Oplossing:"):
+                break
+            if _is_noise_line(s):
+                continue
+            after_mislukt.append(s)
+        hit = _from_candidates(after_mislukt)
+        if hit:
+            return hit
+        if after_mislukt:
+            return after_mislukt[0]
+
+    all_cands = [
+        ln.strip()
+        for ln in lines
+        if ln.strip() and not _is_noise_line(ln.strip())
+    ]
+    hit = _from_candidates(all_cands)
+    if hit:
+        return hit
+    for ln in reversed(lines):
+        s = ln.strip()
+        if _is_noise_line(s):
+            continue
+        if s.startswith("MISLUKT "):
+            continue
+        return s
+    return "herstel mislukt (geen korte reden; gebruik --verbose)"
+
+
+def _failure_group(reason: str, kind: str = "") -> str:
+    """Korte groepsnaam voor de eindsamenvatting."""
+    low = (reason or "").lower()
+    if "hoogte-mismatch" in low:
+        return "hoogte-mismatch"
+    if "meerdere templates" in low:
+        return "meerdere templates"
+    if "template-slot" in low:
+        return "template-slots"
+    if kind:
+        from check_report import short_kind
+
+        return short_kind(kind)
+    head = (reason or "").strip()
+    if not head:
+        return "onbekend"
+    if len(head) > 72:
+        return head[:69] + "..."
+    return head
+
+
+def _item_path_label(item: FixItem) -> str:
+    """Bronbestand of map: liever ``.vsa``/``.mvsa`` dan alleen de leaf-map."""
+    for raw in (item.file, item.source):
+        text = _rel_content_like(raw)
+        if not text:
+            continue
+        # Meta-sidecar → onderliggende bron.
+        for suf in (
+            ".vsa.products-meta.json",
+            ".mvsa.products-meta.json",
+            ".mscz.products-meta.json",
+            ".products-meta.json",
+        ):
+            if text.endswith(suf):
+                text = text[: -len(suf)]
+                break
+        if text.endswith((".vsa", ".mvsa", ".mscz", ".md")):
+            return text
+    # fix_cmd eindigt vaak op het bronbestand.
+    cmd = (item.fix_cmd or "").replace("/", "\\")
+    for tok in reversed(cmd.split()):
+        t = tok.strip('"').replace("\\", "/")
+        low = t.lower()
+        if low.endswith((".vsa", ".mvsa", ".mscz", ".md")):
+            if "content-source/" in t:
+                t = t.split("content-source/", 1)[1]
+            return t
+    text = (item.summary or "").strip()
+    if "] " in text:
+        return text.split("] ", 1)[1]
+    return text or item.id
+
+
+def _rel_content_like(path_str: str) -> str:
+    text = (path_str or "").replace("\\", "/").strip()
+    while text.startswith("./"):
+        text = text[2:]
+    prefix = "content-source/"
+    if text.startswith(prefix):
+        return text[len(prefix) :]
+    return text
+
+
+def _print_failed_groups(failures: list[tuple[FixItem, str]]) -> None:
+    """Restfouten gegroepeerd: telling + pad + één redenregel."""
+    groups: dict[str, list[tuple[FixItem, str]]] = defaultdict(list)
+    for item, reason in failures:
+        groups[_failure_group(reason, item.kind)].append((item, reason))
+    section("Rest (handwerk), gegroepeerd:")
+    for group, rows in sorted(groups.items(), key=lambda kv: (-len(kv[1]), kv[0])):
+        count(len(rows), group, role="hard")
+        for item, reason in rows:
+            hard(f"  {_item_path_label(item)}")
+            note(f"    {reason}")
 
 
 def _fixlist_mtime() -> float:
@@ -92,17 +303,65 @@ def _ensure_yes_flag(fix_cmd: str) -> str:
     return f"{text} -y"
 
 
-def _run_fix_cmd(fix_cmd: str, *, verbose: bool) -> int:
+def _open_fix_log(path: Path = FIX_LOG_PATH) -> Path:
+    """Maak/leg `data/fix-last.log` leeg met kopregel; return pad."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%SZ")
+    header = (
+        f"# fix-last.log — {stamp}\n"
+        f"# Scherm = samenvatting; dit bestand = volledige kind-uitvoer.\n"
+        f"# Repo: {REPO_ROOT}\n\n"
+    )
+    path.write_text(header, encoding="utf-8", newline="\n")
+    return path
+
+
+def _append_fix_log(
+    path: Path,
+    *,
+    summary: str,
+    cmd: str,
+    code: int,
+    stdout: str,
+    stderr: str,
+    elapsed_s: float,
+) -> None:
+    """Voeg één fix_cmd-blok toe aan de verbose-log."""
+    parts = [
+        f"===== {summary} =====",
+        f"cmd: {cmd}",
+        f"exit: {code}",
+        f"duur: {elapsed_s:.1f}s",
+    ]
+    out = (stdout or "").rstrip()
+    err = (stderr or "").rstrip()
+    if out:
+        parts.append("--- stdout ---")
+        parts.append(out)
+    if err:
+        parts.append("--- stderr ---")
+        parts.append(err)
+    if not out and not err:
+        parts.append("(geen stdout/stderr)")
+    parts.append("")
+    with path.open("a", encoding="utf-8", newline="\n") as fh:
+        fh.write("\n".join(parts) + "\n")
+
+
+def _run_fix_cmd(
+    fix_cmd: str,
+    *,
+    summary: str = "",
+    log_path: Path | None = None,
+) -> tuple[int, str]:
+    """Voer één fix_cmd uit. Return ``(exitcode, korte_reden)``.
+
+    Scherm blijft kort. Met ``log_path`` gaat de volledige kind-uitvoer
+    naar dat bestand (``--verbose``).
+    """
     # Parent (fix) heeft al bevestigd: kind-batches stil door (-y).
     cmd = _ensure_yes_flag(fix_cmd)
-    if verbose:
-        proc = subprocess.run(
-            ["cmd", "/c", cmd],
-            cwd=str(REPO_ROOT),
-            check=False,
-        )
-        info(f"exit={proc.returncode} <- {cmd}")
-        return int(proc.returncode)
+    t0 = time.perf_counter()
     proc = subprocess.run(
         ["cmd", "/c", cmd],
         cwd=str(REPO_ROOT),
@@ -112,15 +371,24 @@ def _run_fix_cmd(fix_cmd: str, *, verbose: bool) -> int:
         errors="replace",
         check=False,
     )
-    if proc.returncode != 0:
-        error(f"FAILED exit={proc.returncode}")
-        out = (proc.stdout or "").rstrip()
-        err = (proc.stderr or "").rstrip()
-        if out:
-            error(out)
-        if err:
-            error(err)
-    return int(proc.returncode)
+    elapsed = time.perf_counter() - t0
+    code = int(proc.returncode)
+    out = proc.stdout or ""
+    err = proc.stderr or ""
+    if log_path is not None:
+        _append_fix_log(
+            log_path,
+            summary=summary or cmd,
+            cmd=cmd,
+            code=code,
+            stdout=out,
+            stderr=err,
+            elapsed_s=elapsed,
+        )
+    if code == 0:
+        return 0, ""
+    combined = "\n".join(p for p in (out, err) if p)
+    return code, _extract_child_failure_reason(combined)
 
 
 def _run_products_post(*, verbose: bool) -> int:
@@ -230,6 +498,14 @@ def main(argv: list[str] | None = None) -> int:
     failed = 0
     done_cmds: set[str] = set()
     products_ok = 0
+    failures: list[tuple[FixItem, str]] = []
+    log_path: Path | None = None
+    if args.verbose:
+        log_path = _open_fix_log()
+        note(
+            f"Detail-log: {rel_for_log(log_path, repo_root=REPO_ROOT)} "
+            "(scherm blijft samenvatting)"
+        )
 
     for item in list(items):
         if item.fix_cmd in done_cmds:
@@ -238,9 +514,12 @@ def main(argv: list[str] | None = None) -> int:
             detail(f">>> {item.summary} (zelfde fix_cmd al ok)")
             continue
         work(f">>> {item.summary}")
-        detail(f"    {item.fix_cmd}")
         t0 = time.perf_counter()
-        code = _run_fix_cmd(item.fix_cmd, verbose=bool(args.verbose))
+        code, reason = _run_fix_cmd(
+            item.fix_cmd,
+            summary=item.summary,
+            log_path=log_path,
+        )
         elapsed = time.perf_counter() - t0
         if code == 0:
             fixed += 1
@@ -252,21 +531,35 @@ def main(argv: list[str] | None = None) -> int:
             detail(f"    OK ({elapsed:.1f}s, {len(remaining)} rest)")
         else:
             failed += 1
-            hard(f"    FAILED exit={code} — blijft op de lijst")
+            failures.append((item, reason or "herstel mislukt"))
+            hard(f"    {reason or 'herstel mislukt'}")
 
     if products_ok and failed == 0:
         post = _run_products_post(verbose=bool(args.verbose))
         if post != 0:
+            if log_path is not None:
+                note(
+                    f"Detail-log: {rel_for_log(log_path, repo_root=REPO_ROOT)}"
+                )
             return 1
 
     section("=== Samenvatting fix ===")
     count(fixed, "ok", role="ok")
     count(failed, "mislukt", role="hard" if failed else "info")
     count(len(remaining), "rest", role="work" if remaining else "info")
+    if log_path is not None:
+        note(f"Detail-log: {rel_for_log(log_path, repo_root=REPO_ROOT)}")
     if failed:
+        _print_failed_groups(failures)
         hard(
-            "Oplossing: bekijk de fout hierboven; daarna "
+            "Oplossing: herstel de rest hierboven; daarna "
             "scripts\\fix.cmd opnieuw (of --dry-run)."
+            + (
+                f" Volledige kind-uitvoer: "
+                f"{rel_for_log(log_path, repo_root=REPO_ROOT)}."
+                if log_path is not None
+                else " Volledige kind-uitvoer: --verbose → data\\fix-last.log."
+            )
         )
         return 1
     ok("OK  fixlist leeg" if not remaining else "OK  fix afgerond")

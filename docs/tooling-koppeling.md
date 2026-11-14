@@ -2,14 +2,47 @@
 
 Normatief voor deze repo. Zie ook [AGENTS.md](../AGENTS.md).
 
-**Print-/export-contracten** (checklists, layoutprofielen, Score-IR/OSMD)
+**Print-/export-contracten** (checklists, layoutprofielen, Score-IR/OSMD,
+Contract-skelet, canoniciteit C1–C4, proces «nieuwe regel → naleving»)
 wonen in VSA-tooling — start bij
-[contract-index](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/contract-index.md).
+[contract-index](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/contract-index.md)
+(§Contract-skelet, §Canoniciteit C*, §Dekkingsmatrix, §Nieuwe regel).
 Bibliotheek-specs (o.a. schermpartituur) **linken** daarnaar; geen parallelle
-checklist hier. Straat-CLIs / products-meta in tooling:
+checklist hier. Agentregels: `.cursor/rules/contracten-eerst.mdc`,
+`.cursor/rules/canonieke-bestanden.mdc`. Straat-CLIs / products-meta in tooling:
 [straat-clis](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/straat-clis.md).
 Bibliotheek orchestreert met `scripts\products.cmd` en blad-PDF
 `scripts\pdf.cmd` → `index.md.pdf`.
+
+## Canoniek in de catalogus
+
+Een catalogusbestand is **canoniek voor publicatie** als:
+
+1. het voldoet aan het **VSA-tooling-formatcontract** van dat type
+   (zelfde H2-topics / C1–C4), én
+2. het voldoet aan de **bibliotheek-publicatieregels**
+   ([publicatiecontrole](publicatiecontrole.md),
+   [catalogus-notatiebron](catalogus-notatiebron.md),
+   frontmatter [vsa-frontmatter](specs/vsa-frontmatter.md) waar van toepassing).
+
+Zing-deling, melisma, recite/leesbaarheid: **niet** hier herformuleren —
+formatpagina’s in tooling, o.a.:
+
+| Type / product              | Formatcontract (VSA-tooling)                                                                                                                                                                                                                                                                  |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `.vsa`                      | [formats/vsa.md](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/vsa.md)                                                                                                                                                                                                  |
+| `.mvsa`                     | [formats/mvsa.md](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/mvsa.md)                                                                                                                                                                                                |
+| `.mscz`                     | [formats/mscz.md](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/mscz.md)                                                                                                                                                                                                |
+| `.mxl`                      | [formats/mxl.md](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/mxl.md)                                                                                                                                                                                                  |
+| Score-IR / from-ir          | [score-ir](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/score-ir.md) · [from-ir](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/from-ir.md)                                                                                                       |
+| SVG (vsa / mvsa / translit) | [vsa-svg](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/vsa-svg.md) · [mvsa-svg](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/mvsa-svg.md) · [translit-svg](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/translit-svg.md) |
+| `*.lyrics.txt`              | [lyrics.txt](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/lyrics.txt.md)                                                                                                                                                                                               |
+| audio                       | [audio](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/audio.md)                                                                                                                                                                                                         |
+| products-meta               | [products-meta](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/products-meta.md)                                                                                                                                                                                         |
+| Syllabificatie (diepte)     | [syllabificatie](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/syllabificatie.md)                                                                                                                                                                                       |
+
+Scherm-look (site): [schermpartituur](specs/schermpartituur.md) — linkt
+naar tooling voor S8/melisma; voegt geen tweede checklist toe.
 
 ## Afspraken
 
@@ -84,10 +117,10 @@ koormap-pagina’s even herbouwen (serve herstarten of de betreffende
 
 Workflow Pages bepaalt de ref:
 
-| Trigger-branch | Mode | Ref |
-| -------------- | ---- | --- |
-| `development` (en feature-branches) | float | `main` |
-| `main` | pin | regel uit `vsa-tooling.pin` |
+| Trigger-branch                      | Mode  | Ref                         |
+| ----------------------------------- | ----- | --------------------------- |
+| `development` (en feature-branches) | float | `main`                      |
+| `main`                              | pin   | regel uit `vsa-tooling.pin` |
 
 ## Pin bumpen
 

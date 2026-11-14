@@ -63,6 +63,10 @@ echo   products
 echo     afgeleide producten ^(MXL/SVG/mp3/...^); --kinds vsa^|mvsa^|mscz^|audio^|lyrics^|...
 echo   products-changed
 echo     alleen producten/pdf voor git-gewijzigde bronnen ^(missing+stale^)
+echo   commit
+echo     commit alleen gewijzigde bronnen ^(catalogus/koormappen; geen afgeleiden^)
+echo   stage
+echo     stage alleen gewijzigde bronnen ^(zelfde selectie als commit; geen -m^)
 echo   import-mvsa
 echo     bewerkvorm .mscz.mvsa naast basis-.mscz
 echo   layout

@@ -1,0 +1,54 @@
+---
+description: Canonieke bestanden — skelet/C*/naleving via VSA-tooling contract-index
+alwaysApply: true
+---
+
+# Canonieke bestanden (bibliotheek)
+
+Geldt voor **alle** chats in deze repo. De gebruiker hoeft dit niet
+opnieuw te noemen.
+
+**Norm** woont in VSA-tooling — open altijd:
+
+- sibling
+  [`../VSA-tooling/docs/formats/contract-index.md`](../../VSA-tooling/docs/formats/contract-index.md)
+  (§Contract-skelet, §Canoniciteit C*, §Nieuwe regel), of
+- https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/contract-index.md
+
+Tooling-spiegelregel:
+`VSA-tooling/.cursor/rules/canonieke-bestanden.mdc`.
+
+## Kern
+
+1. **Canoniek** = voldoet aan het formatcontract van dat type (tooling).
+2. **Conversie / products:** canonieke bron → canonieke doel tenzij de
+   CLI een expliciete uitzondering noemt.
+3. Bibliotheek-docs (**linken**, geen parallelle checklist): o.a.
+   [`docs/tooling-koppeling.md`](docs/tooling-koppeling.md),
+   [`docs/specs/schermpartituur.md`](docs/specs/schermpartituur.md),
+   [`docs/specs/vsa-frontmatter.md`](docs/specs/vsa-frontmatter.md).
+4. Frontmatter / Scherm / publicatiekeuze blijven bibliotheek-eigendom;
+   inhoudsnormen van notatiebestanden niet hier herformuleren.
+
+## Volledige afspraak-dekking
+
+Als je in de catalogus of scripts gedrag raakt dat een formatregel
+raakt: controleer dat die regel op de **toepasselijke** tooling-
+formatpagina’s staat (samenvatting + id + link). Ontbreekt dat → eerst
+tooling-hub/contracten, niet stil in bibliotheek “oplossen”.
+
+## Nieuwe of gewijzigde regel — verplicht proces
+
+Zelfde stappen als in de tooling-contract-index:
+
+1. Hub in VSA-tooling eerst.
+2. Alle toepasselijke formatcontracten in tooling bijwerken.
+3. Contract-index bijwerken.
+4. **Naleving starten** voor bestaande catalogusbestanden van die types
+   (products-regen, bronfix, steekproef → bulk na OK; `scripts\products.cmd`
+   e.d.). Geen stille «alleen docs».
+5. Bibliotheek-docs die ernaar linken synchroon houden.
+
+Werk aan de norm zelf hoort in **VSA-tooling** (nieuwe chat / move to
+root) tenzij deze chat alleen bibliotheek-links of catalogusnaleving
+doet — zeg dat expliciet.

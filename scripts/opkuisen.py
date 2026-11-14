@@ -382,12 +382,28 @@ def process_one(
     return EXIT_OK
 
 
+_OPKUISEN_EPILOG = """\
+Invoer: .mxl / .musicxml / .xml / .mscz / .mscx (map = recursief).
+Optioneel .vsa/.mvsa alleen met --analyze/--dry-run.
+
+Default-diepte: content (inhoudsfixes). Geen A4/PDF/Coria zonder --layout;
+PDF/Coria hoort bij mscz-products. Ruwe input\\capella\\ nooit stil
+overschrijven: gebruik -o of --in-place.
+
+Handleiding: content-source\\handleiding\\scripts\\opkuisen.md
+"""
+
+
 def build_parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(
+    from cli_help import make_parser
+
+    p = make_parser(
+        prog="opkuisen",
         description=(
-            "Opkuisen: herkomstanalyse en inhoudelijke opschoning van "
-            "MusicXML/MuseScore (optioneel layout). Zie h.cmd opkuisen."
-        )
+            "Herkomstanalyse en inhoudelijke opschoning van MusicXML/MuseScore "
+            "(optioneel daarna layout)."
+        ),
+        epilog=_OPKUISEN_EPILOG,
     )
     p.add_argument(
         "paths",
@@ -399,7 +415,8 @@ def build_parser() -> argparse.ArgumentParser:
         "-o",
         "--output",
         type=Path,
-        help="Doelbestand of doelmap",
+        default=None,
+        help="Doelbestand of doelmap (standaard: naast bron / gepubliceerde stam)",
     )
     p.add_argument(
         "--in-place",
@@ -408,7 +425,8 @@ def build_parser() -> argparse.ArgumentParser:
     )
     p.add_argument(
         "--ext",
-        help="Doel-extensie (bijv. .mxl of .mscz)",
+        default=None,
+        help="Doel-extensie (bijv. .mxl of .mscz; standaard: afgeleid van bron)",
     )
     p.add_argument(
         "--analyze",
@@ -430,7 +448,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument(
         "--assume",
         choices=sorted(KNOWN_HOEKEN),
-        help="Overschrijf herkomstdetectie",
+        default=None,
+        help="Overschrijf herkomstdetectie (standaard: automatisch)",
     )
     p.add_argument(
         "--force",
@@ -440,8 +459,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument(
         "--id",
         dest="bibliotheek_id",
-        default="",
-        help="Bibliotheek-id voor layout-diepte (optioneel)",
+        default=None,
+        help="Bibliotheek-id voor layout-diepte (standaard: geen)",
     )
     from batch_guard import add_yes_argument
 
@@ -451,6 +470,11 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     from batch_guard import SKIP, confirm_batch, run_timed_batch
+
+    argv = list(sys.argv[1:] if argv is None else argv)
+    if not argv or argv[0] in {"-h", "--help"}:
+        build_parser().print_help()
+        return 0 if argv else 2
 
     args = build_parser().parse_args(argv)
     files = expand_opkuis_paths(args.paths)

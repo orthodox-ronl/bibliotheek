@@ -2,8 +2,9 @@
 
 Padschema (docs/plans/pdf-r2.md):
   production/{relatief-pad-onder-content-source}/{bestandsnaam}
+  development/… — alleen diff t.o.v. production/ (+ manifest)
 
-Alleen de map production/ (één set). Bij PUT: metadata sha256=<hex>.
+Bij PUT: metadata sha256=<hex>.
 
 Vereist (S3-compatibel API van R2):
   R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET
@@ -16,13 +17,17 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 import os
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT / "content-source"
-R2_ENV = "production"
+MANIFEST_PATH = ROOT / "data" / "pdf-r2-development.json"
+R2_ENV_PRODUCTION = "production"
+R2_ENV_DEVELOPMENT = "development"
+ALLOWED_ENVS = frozenset({R2_ENV_PRODUCTION, R2_ENV_DEVELOPMENT})
 PDF_NAMES = (
     "index.md.pdf",
     "index.md.translit-nls.pdf",
@@ -60,12 +65,16 @@ def _iter_pdfs(paths: list[Path]) -> list[Path]:
     return sorted({f.resolve() for f in found})
 
 
-def object_key(pdf: Path, env: str = R2_ENV) -> str:
+def content_rel(pdf: Path) -> str:
     try:
-        rel = pdf.relative_to(CONTENT).as_posix()
+        return pdf.relative_to(CONTENT).as_posix()
     except ValueError:
         _die(f"PDF ligt niet onder content-source: {pdf}")
-    return f"{env}/{rel}"
+        raise  # unreachable
+
+
+def object_key(pdf: Path, env: str = R2_ENV_PRODUCTION) -> str:
+    return f"{env}/{content_rel(pdf)}"
 
 
 def sha256_file(path: Path) -> str:
@@ -201,10 +210,96 @@ def r2_client():
     return client, bucket, endpoint, account
 
 
+def r2_object_sha256(client, bucket: str, key: str) -> str | None:
+    try:
+        head = client.head_object(Bucket=bucket, Key=key)
+    except Exception:
+        return None
+    meta = head.get("Metadata") or {}
+    digest = (meta.get("sha256") or meta.get("Sha256") or "").strip()
+    if digest:
+        return digest.lower()
+    try:
+        obj = client.get_object(Bucket=bucket, Key=key)
+        body = obj["Body"]
+        h = hashlib.sha256()
+        for chunk in iter(lambda: body.read(1024 * 1024), b""):
+            h.update(chunk)
+        return h.hexdigest()
+    except Exception:
+        return None
+
+
+def list_keys(client, bucket: str, prefix: str) -> list[str]:
+    if not prefix.endswith("/"):
+        prefix = prefix + "/"
+    keys: list[str] = []
+    token = None
+    while True:
+        kw: dict = {"Bucket": bucket, "Prefix": prefix}
+        if token:
+            kw["ContinuationToken"] = token
+        resp = client.list_objects_v2(**kw)
+        for obj in resp.get("Contents") or []:
+            keys.append(obj["Key"])
+        if not resp.get("IsTruncated"):
+            break
+        token = resp.get("NextContinuationToken")
+    return keys
+
+
+def delete_keys(client, bucket: str, keys: list[str]) -> int:
+    deleted = 0
+    for i in range(0, len(keys), 1000):
+        chunk = keys[i : i + 1000]
+        if not chunk:
+            continue
+        client.delete_objects(
+            Bucket=bucket,
+            Delete={"Objects": [{"Key": k} for k in chunk], "Quiet": True},
+        )
+        deleted += len(chunk)
+    return deleted
+
+
+def write_development_manifest(rels: list[str]) -> None:
+    MANIFEST_PATH.parent.mkdir(parents=True, exist_ok=True)
+    payload = {"overrides": sorted(set(rels))}
+    MANIFEST_PATH.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+    print(f"Manifest {MANIFEST_PATH.relative_to(ROOT).as_posix()} "
+          f"({len(payload['overrides'])} overrides)")
+
+
+def manifest_rels_from_keys(keys: list[str]) -> list[str]:
+    out: list[str] = []
+    prefix = f"{R2_ENV_DEVELOPMENT}/"
+    for key in keys:
+        if not key.startswith(prefix) or not key.endswith(".pdf"):
+            continue
+        out.append(key[len(prefix) :])
+    return sorted(set(out))
+
+
+def _upload_file(client, bucket: str, pdf: Path, key: str, digest: str) -> None:
+    client.upload_file(
+        str(pdf),
+        bucket,
+        key,
+        ExtraArgs={
+            "ContentType": "application/pdf",
+            "Metadata": {"sha256": digest},
+        },
+    )
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(
         description=(
-            "Upload blad-PDF's naar Cloudflare R2 (alleen production/)."
+            "Upload blad-PDF's naar Cloudflare R2 "
+            "(production/ of development/-diff)."
         )
     )
     ap.add_argument(
@@ -215,8 +310,8 @@ def main(argv: list[str] | None = None) -> int:
     )
     ap.add_argument(
         "--env",
-        default=R2_ENV,
-        help="Alleen 'production' (default). 'preview' is niet meer toegestaan.",
+        default=R2_ENV_PRODUCTION,
+        help="production (default) of development (alleen diff t.o.v. production)",
     )
     ap.add_argument(
         "--dry-run",
@@ -231,8 +326,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument(
         "--purge-prefix",
         metavar="PREFIX",
-        help="Wis alle objecten onder PREFIX/ in de bucket (bijv. preview). "
-        "Vereist --apply-purge. Geen upload.",
+        help="Wis alle objecten onder PREFIX/ in de bucket "
+        "(bijv. development of oude preview). Vereist --apply-purge.",
     )
     ap.add_argument(
         "--apply-purge",
@@ -249,6 +344,12 @@ def main(argv: list[str] | None = None) -> int:
         "--only-missing-sha",
         action="store_true",
         help="Bij --restamp-metadata: sla objecten over die al sha256 hebben.",
+    )
+    ap.add_argument(
+        "--write-manifest-from-r2",
+        action="store_true",
+        help="Schrijf data/pdf-r2-development.json uit R2 development/ "
+        "(geen upload).",
     )
     args = ap.parse_args(argv)
 
@@ -277,23 +378,12 @@ def main(argv: list[str] | None = None) -> int:
     if args.purge_prefix is not None:
         prefix = args.purge_prefix.strip().strip("/")
         if not prefix:
-            _die("Geef een niet-lege --purge-prefix (bijv. preview).")
+            _die("Geef een niet-lege --purge-prefix (bijv. development).")
         prefix = prefix + "/"
         client, bucket, endpoint, account = r2_client()
         print(f"Bucket={bucket} Endpoint={endpoint}")
         print(f"Prefix={prefix}")
-        token = None
-        keys: list[str] = []
-        while True:
-            kw: dict = {"Bucket": bucket, "Prefix": prefix}
-            if token:
-                kw["ContinuationToken"] = token
-            resp = client.list_objects_v2(**kw)
-            for obj in resp.get("Contents") or []:
-                keys.append(obj["Key"])
-            if not resp.get("IsTruncated"):
-                break
-            token = resp.get("NextContinuationToken")
+        keys = list_keys(client, bucket, prefix)
         print(f"{len(keys)} object(en) onder {prefix}")
         if not args.apply_purge:
             for k in keys[:20]:
@@ -302,38 +392,26 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"… +{len(keys) - 20} meer")
             print("Voeg --apply-purge toe om te wissen.")
             return 0
-        # Batch delete (max 1000)
-        deleted = 0
-        for i in range(0, len(keys), 1000):
-            chunk = keys[i : i + 1000]
-            client.delete_objects(
-                Bucket=bucket,
-                Delete={"Objects": [{"Key": k} for k in chunk], "Quiet": True},
-            )
-            deleted += len(chunk)
-            print(f"DEL  {deleted}/{len(keys)}", flush=True)
+        deleted = delete_keys(client, bucket, keys)
         print(f"Klaar: {deleted} gewist")
+        if prefix.rstrip("/") == R2_ENV_DEVELOPMENT:
+            write_development_manifest([])
+        return 0
+
+    if args.write_manifest_from_r2:
+        client, bucket, endpoint, account = r2_client()
+        print(f"Bucket={bucket} Endpoint={endpoint}")
+        keys = list_keys(client, bucket, f"{R2_ENV_DEVELOPMENT}/")
+        rels = manifest_rels_from_keys(keys)
+        write_development_manifest(rels)
         return 0
 
     if args.restamp_metadata:
-        prefix = f"{R2_ENV}/"
+        prefix = f"{R2_ENV_PRODUCTION}/"
         client, bucket, endpoint, account = r2_client()
         print(f"Bucket={bucket} Endpoint={endpoint}")
         print(f"Restamp sha256 onder {prefix}")
-        token = None
-        keys: list[str] = []
-        while True:
-            kw = {"Bucket": bucket, "Prefix": prefix}
-            if token:
-                kw["ContinuationToken"] = token
-            resp = client.list_objects_v2(**kw)
-            for obj in resp.get("Contents") or []:
-                key = obj["Key"]
-                if key.endswith(".pdf"):
-                    keys.append(key)
-            if not resp.get("IsTruncated"):
-                break
-            token = resp.get("NextContinuationToken")
+        keys = [k for k in list_keys(client, bucket, prefix) if k.endswith(".pdf")]
         print(f"{len(keys)} PDF-object(en)")
         done = 0
         skipped = 0
@@ -355,7 +433,7 @@ def main(argv: list[str] | None = None) -> int:
                 obj = client.get_object(Bucket=bucket, Key=key)
                 body = obj["Body"].read()
                 digest = hashlib.sha256(body).hexdigest()
-                ctype = (obj.get("ContentType") or "application/pdf")
+                ctype = obj.get("ContentType") or "application/pdf"
                 client.put_object(
                     Bucket=bucket,
                     Key=key,
@@ -372,11 +450,15 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Klaar: restamped={done} skipped={skipped}")
         return 0
 
-    env = (args.env or R2_ENV).strip().lower()
-    if env != R2_ENV:
+    env = (args.env or R2_ENV_PRODUCTION).strip().lower()
+    if env == "preview":
         _die(
-            f"--env {args.env!r} mag niet. Alleen production/ "
-            "(één R2-set; preview-map is afgeschaft)."
+            "--env preview is vervangen door --env development "
+            "(alleen de diff t.o.v. production/). Zie docs/plans/pdf-r2.md."
+        )
+    if env not in ALLOWED_ENVS:
+        _die(
+            f"--env {args.env!r} mag niet. Gebruik production of development."
         )
 
     roots = args.paths or [CONTENT]
@@ -385,7 +467,7 @@ def main(argv: list[str] | None = None) -> int:
         print("Geen blad-PDF's gevonden.")
         return 0
 
-    print(f"{len(pdfs)} PDF(s) → env={env}")
+    print(f"{len(pdfs)} lokale PDF(s) → env={env}")
     client = bucket = None
     if not args.dry_run:
         client, bucket, endpoint, account = r2_client()
@@ -403,28 +485,86 @@ def main(argv: list[str] | None = None) -> int:
             )
 
     ok = 0
+    skipped_same = 0
+    removed_dev = 0
+
+    if env == R2_ENV_PRODUCTION:
+        for pdf in pdfs:
+            key = object_key(pdf, env)
+            digest = sha256_file(pdf)
+            if args.dry_run:
+                print(f"DRY  {key} sha256={digest[:12]}…")
+                ok += 1
+                continue
+            assert client is not None and bucket is not None
+            try:
+                _upload_file(client, bucket, pdf, key, digest)
+            except Exception as exc:
+                _die(f"Upload mislukt voor {key}:\n{exc}")
+            print(f"PUT  {key} sha256={digest[:12]}…", flush=True)
+            ok += 1
+            if ok % 25 == 0:
+                print(f"… {ok}/{len(pdfs)}", flush=True)
+        print(f"Klaar: put={ok}")
+        return 0
+
+    # development: alleen diff t.o.v. production/
+    if args.dry_run and client is None:
+        # Diff-vergelijking zonder credentials kan niet; toon voorgenomen keys.
+        print(
+            "DRY development zonder credentials: toont alle lokale PDF’s "
+            "als kandidaat (geen SHA-vergelijking met production/)."
+        )
+        for pdf in pdfs:
+            key = object_key(pdf, R2_ENV_DEVELOPMENT)
+            digest = sha256_file(pdf)
+            print(f"DRY? {key} sha256={digest[:12]}…")
+            ok += 1
+        print(f"Klaar: kandidaten={ok} (geen echte diff zonder R2)")
+        return 0
+
+    assert client is not None and bucket is not None
     for pdf in pdfs:
-        key = object_key(pdf, env)
+        rel = content_rel(pdf)
         digest = sha256_file(pdf)
+        prod_key = f"{R2_ENV_PRODUCTION}/{rel}"
+        dev_key = f"{R2_ENV_DEVELOPMENT}/{rel}"
+        prod_sha = r2_object_sha256(client, bucket, prod_key)
+        if prod_sha == digest:
+            skipped_same += 1
+            # Geen override meer: development-key weg als die er nog staat.
+            try:
+                client.head_object(Bucket=bucket, Key=dev_key)
+            except Exception:
+                continue
+            if args.dry_run:
+                print(f"DRY  delete {dev_key} (gelijk aan production)")
+            else:
+                client.delete_object(Bucket=bucket, Key=dev_key)
+                print(f"DEL  {dev_key} (gelijk aan production)", flush=True)
+            removed_dev += 1
+            continue
         if args.dry_run:
-            print(f"DRY  {key} sha256={digest[:12]}…")
+            why = "missing-on-production" if prod_sha is None else "diff"
+            print(f"DRY  {dev_key} ({why}) sha256={digest[:12]}…")
             ok += 1
             continue
-        assert client is not None and bucket is not None
-        extra = {
-            "ContentType": "application/pdf",
-            "Metadata": {"sha256": digest},
-        }
         try:
-            client.upload_file(str(pdf), bucket, key, ExtraArgs=extra)
+            _upload_file(client, bucket, pdf, dev_key, digest)
         except Exception as exc:
-            _die(f"Upload mislukt voor {key}:\n{exc}")
-        print(f"PUT  {key} sha256={digest[:12]}…", flush=True)
+            _die(f"Upload mislukt voor {dev_key}:\n{exc}")
+        print(f"PUT  {dev_key} sha256={digest[:12]}…", flush=True)
         ok += 1
         if ok % 25 == 0:
-            print(f"… {ok}/{len(pdfs)}", flush=True)
+            print(f"… put={ok} skip={skipped_same}", flush=True)
 
-    print(f"Klaar: {ok}")
+    if not args.dry_run:
+        keys = list_keys(client, bucket, f"{R2_ENV_DEVELOPMENT}/")
+        write_development_manifest(manifest_rels_from_keys(keys))
+    print(
+        f"Klaar: put={ok} gelijk-aan-production={skipped_same} "
+        f"dev-opgeruimd={removed_dev}"
+    )
     return 0
 
 

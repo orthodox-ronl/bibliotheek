@@ -25,6 +25,24 @@ _BOLD = "\033[1m"
 _DIM = "\033[2m"
 _RESET = "\033[0m"
 
+# Locatie-onderdelen in foutregels (pad / bestand / regel:kolom).
+_LOC_DIR = (_DIM,)
+_LOC_FILE = (_BOLD, _CYAN)
+_LOC_LINECOL = (_BOLD, _YELLOW)
+
+# ``map/bestand.vsa:12:3`` of ``C:\map\bestand.vsa:12:3`` (ook met /).
+_SOURCE_LOC_RE = re.compile(
+    r"(?P<dir>(?:[A-Za-z]:[\\/])?(?:[^:\s\"'<>|]+[\\/])*)"
+    r"(?P<file>[^:\\/\s\"'<>|]+\.[A-Za-z][A-Za-z0-9]*)"
+    r":(?P<line>\d+):(?P<col>\d+)"
+)
+# Pad+bestand zonder ``:regel:kolom`` (bijv. mislukte productregel).
+_SOURCE_PATH_RE = re.compile(
+    r"(?P<dir>(?:[A-Za-z]:[\\/])?(?:[^:\s\"'<>|]+[\\/])+)"
+    r"(?P<file>[^:\\/\s\"'<>|]+\.[A-Za-z][A-Za-z0-9]*)"
+    r"(?!\s*:\d+:\d+)"
+)
+
 # Rollen → ANSI (bron/docs/specs/repo-scripts.md § Console-output)
 _ROLE_CODES: dict[str, tuple[str, ...]] = {
     "section": (_BOLD, _CYAN),
@@ -38,8 +56,28 @@ _ROLE_CODES: dict[str, tuple[str, ...]] = {
 }
 
 
+def _enable_windows_ansi() -> None:
+    """Zet VT/ANSI aan op Windows-consoles (CMD/PS, ook in VS Code)."""
+    if sys.platform != "win32":
+        return
+    try:
+        import ctypes
+
+        kernel32 = ctypes.windll.kernel32  # type: ignore[attr-defined]
+        enable_vt = 0x0004
+        for std_id in (-11, -12):  # STD_OUTPUT_HANDLE, STD_ERROR_HANDLE
+            handle = kernel32.GetStdHandle(std_id)
+            mode = ctypes.c_uint32()
+            if not kernel32.GetConsoleMode(handle, ctypes.byref(mode)):
+                continue
+            kernel32.SetConsoleMode(handle, mode.value | enable_vt)
+    except Exception:  # noqa: BLE001
+        pass
+
+
 def configure_stdio() -> None:
     """Forceer UTF-8 op stdout/stderr (Windows cp1252 crasht op →/←/…)."""
+    _enable_windows_ansi()
     for stream in (sys.stdout, sys.stderr):
         reconf = getattr(stream, "reconfigure", None)
         if not callable(reconf):
@@ -85,6 +123,49 @@ def paint(msg: str, *codes: str, stream=None) -> str:
     return f"{''.join(codes)}{msg}{_RESET}"
 
 
+def _wrap(codes: tuple[str, ...], text: str) -> str:
+    if not codes or not text:
+        return text
+    return f"{''.join(codes)}{text}{_RESET}"
+
+
+def paint_source_locations(msg: str, *, stream=None, body_codes: tuple[str, ...] = ()) -> str:
+    """Kleur ``pad/`` + ``bestand.ext`` + ``:regel:kolom`` apart in één regel.
+
+    Zonder kleur-TTY: ``msg`` ongewijzigd. ``body_codes`` kleurt de rest van
+    de regel (bijv. hard-rood); locatie-onderdelen houden hun eigen rollen.
+    """
+    target = sys.stdout if stream is None else stream
+    text = str(msg)
+    if not _use_color(target):
+        return text
+
+    parts: list[str] = []
+    cursor = 0
+    for match in _SOURCE_LOC_RE.finditer(text):
+        if match.start() > cursor:
+            parts.append(_wrap(body_codes, text[cursor : match.start()]))
+        parts.append(_wrap(_LOC_DIR, match.group("dir")))
+        parts.append(_wrap(_LOC_FILE, match.group("file")))
+        parts.append(
+            _wrap(_LOC_LINECOL, f":{match.group('line')}:{match.group('col')}")
+        )
+        cursor = match.end()
+    if cursor == 0:
+        # Geen ``:regel:kolom`` — eventueel alleen pad+bestand kleuren.
+        for match in _SOURCE_PATH_RE.finditer(text):
+            if match.start() > cursor:
+                parts.append(_wrap(body_codes, text[cursor : match.start()]))
+            parts.append(_wrap(_LOC_DIR, match.group("dir")))
+            parts.append(_wrap(_LOC_FILE, match.group("file")))
+            cursor = match.end()
+    if cursor < len(text):
+        parts.append(_wrap(body_codes, text[cursor:]))
+    if not parts:
+        return _wrap(body_codes, text) if body_codes else text
+    return "".join(parts)
+
+
 def section(msg: str) -> None:
     """Start van een controle/stap (cyaan)."""
     print(paint(msg, _BOLD, _CYAN), flush=True)
@@ -97,22 +178,25 @@ def ok(msg: str) -> None:
 
 def work(msg: str) -> None:
     """Er is afwerkbaar werk / bevinding (geel)."""
-    print(paint(msg, _YELLOW), flush=True)
+    print(paint_source_locations(msg, body_codes=(_YELLOW,)), flush=True)
 
 
 def note(msg: str) -> None:
-    """Neutrale toelichting (dim)."""
-    print(paint(msg, _DIM), flush=True)
+    """Neutrale toelichting (dim); locaties blijven herkenbaar gekleurd."""
+    print(paint_source_locations(msg, body_codes=(_DIM,)), flush=True)
 
 
 def hard(msg: str) -> None:
     """Echte fout / onverwacht probleem (rood vet), op stdout."""
-    print(paint(msg, _BOLD, _RED), flush=True)
+    print(
+        paint_source_locations(msg, body_codes=(_BOLD, _RED)),
+        flush=True,
+    )
 
 
 def refuse(msg: str) -> None:
     """Bewuste weigering of skip zonder schade (magenta)."""
-    print(paint(msg, _MAGENTA), flush=True)
+    print(paint_source_locations(msg, body_codes=(_MAGENTA,)), flush=True)
 
 
 def format_count(n: int, label: str, *, width: int = 3) -> str:
@@ -331,12 +415,13 @@ def run_quiet(
 
 
 def error(msg: str) -> None:
-    """Foutregel (rood op een kleuren-terminal)."""
+    """Foutregel (rood op een kleuren-terminal); locaties apart gekleurd."""
     stream = sys.stderr
-    if _use_color(stream):
-        print(f"{_RED}{msg}{_RESET}", file=stream, flush=True)
-    else:
-        print(msg, file=stream, flush=True)
+    print(
+        paint_source_locations(msg, stream=stream, body_codes=(_RED,)),
+        file=stream,
+        flush=True,
+    )
 
 
 def error_block(lines: Sequence[str]) -> None:
@@ -398,8 +483,93 @@ def is_transient_lock_error(exc: BaseException) -> bool:
     return any(m in low for m in markers)
 
 
+def _exc_location_prefix(exc: BaseException) -> str:
+    """``pad:regel:kolom`` uit exception-attributen (TemplateInstanceError e.d.)."""
+    source = getattr(exc, "source", None)
+    name = str(source or "").replace("\\", "/").strip()
+    line = getattr(exc, "line", None)
+    column = getattr(exc, "column", None)
+    if not name:
+        return ""
+    if isinstance(line, int) and line > 0:
+        col = column if isinstance(column, int) and column > 0 else 1
+        return f"{name}:{line}:{col}"
+    return name
+
+
+def _explain_located_message(exc: BaseException) -> FailureExplain | None:
+    """Rijke VSA/template-fouten: locatie + korte reden + hint als Oplossing."""
+    msg_nl = getattr(exc, "message_nl", None)
+    if not isinstance(msg_nl, str) or not msg_nl.strip():
+        return None
+    msg_lines = [ln.strip() for ln in msg_nl.splitlines() if ln.strip()]
+    if not msg_lines:
+        return None
+    first = msg_lines[0]
+    # Skip leading bare CODE-regel als die apart staat.
+    if first.startswith("VSA-") and len(msg_lines) > 1 and ":" not in first[4:]:
+        first = msg_lines[1]
+        detail_lines = msg_lines[2:]
+    else:
+        detail_lines = msg_lines[1:]
+    loc = _exc_location_prefix(exc)
+    reason = f"{loc}: {first}" if loc else first
+    if is_verbose() and detail_lines:
+        # Extra context alleen bij --verbose (verwacht slot, enz.).
+        extra = detail_lines[0]
+        if len(extra) > 160:
+            extra = extra[:157] + "..."
+        reason = f"{reason} — {extra}"
+    if len(reason) > 280:
+        reason = reason[:277] + "..."
+
+    hint = (getattr(exc, "hint_nl", None) or "").strip()
+    if hint:
+        if is_verbose():
+            solution = (
+                hint
+                if hint.lower().startswith("oplossing:")
+                else f"Oplossing: {hint}"
+            )
+        else:
+            # Eerste alinea van de hint (vaak al de werkende gok).
+            first_hint = hint.split("\n\n", 1)[0].strip()
+            # Behoud regels tot en met de voorgestelde VSA-regel.
+            hint_lines = first_hint.splitlines()
+            keep: list[str] = []
+            for hl in hint_lines:
+                keep.append(hl)
+                s = hl.strip()
+                if s.startswith("  ") and ("*" in s or "**" in s):
+                    break
+            if len(keep) < 2:
+                keep = hint_lines[:4]
+            block = "\n".join(keep).strip()
+            solution = (
+                block
+                if block.lower().startswith("oplossing:")
+                else f"Oplossing: {block}"
+            )
+            if "\n" in hint and block != hint:
+                solution = (
+                    f"{solution}\n"
+                    "(Meer herstelhints: zelfde commando met --verbose.)"
+                )
+    else:
+        solution = (
+            "Oplossing: herstel de fout hierboven (bronbestand of tools) "
+            "en draai het commando opnieuw. Voor meer detail: zelfde "
+            "commando met --verbose."
+        )
+    return FailureExplain(reason=reason, solution=solution)
+
+
 def explain_sync_failure(exc: BaseException) -> FailureExplain:
     """Vertaal ruwe uitzondering naar reden + Oplossing."""
+    located = _explain_located_message(exc)
+    if located is not None:
+        return located
+
     combined = _exception_text(exc)
 
     error_line = ""
@@ -467,6 +637,28 @@ def explain_sync_failure(exc: BaseException) -> FailureExplain:
                 "staat, of draai scripts\\_ensure.cmd."
             ),
         )
+
+    # CLI-tekst die al ``pad:regel:kolom: …`` bevat (via check_call / stderr).
+    loc_re = re.compile(r"^(\S+:\d+:\d+):\s+(.+)$")
+    for line in combined.splitlines():
+        s = line.strip()
+        m = loc_re.match(s)
+        if m:
+            rest = m.group(2).strip()
+            if rest.startswith("VSA-") and " " not in rest.split(":", 1)[0]:
+                # Alleen code op die regel → zoek volgende inhoudelijke regel.
+                continue
+            reason = s
+            if len(reason) > 280:
+                reason = reason[:277] + "..."
+            return FailureExplain(
+                reason=reason,
+                solution=(
+                    "Oplossing: herstel de fout hierboven (bronbestand of tools) "
+                    "en draai het commando opnieuw. Voor meer detail: zelfde "
+                    "commando met --verbose."
+                ),
+            )
 
     if error_line:
         short = error_line

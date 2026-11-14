@@ -96,6 +96,14 @@ def coria_fetch_base_url(branch: str) -> str:
 
 
 def detect_git_branch() -> str:
+    """Bepaal branch voor Coria-public-base (github.io-subdir).
+
+    Bij detached HEAD: kies een lokale branch die naar dezelfde tip wijst
+    (voorkeur ``development``, dan ``main``). Override: ``CORIA_GIT_BRANCH``.
+    """
+    override = os.environ.get("CORIA_GIT_BRANCH", "").strip()
+    if override:
+        return override
     head_ref = os.environ.get("GITHUB_HEAD_REF", "").strip()
     if head_ref:
         return head_ref
@@ -112,8 +120,30 @@ def detect_git_branch() -> str:
     branch = (result.stdout or "").strip()
     if result.returncode == 0 and branch and branch != "HEAD":
         return branch
+    # Detached HEAD: branches die naar deze tip wijzen.
+    pointed = subprocess.run(
+        [
+            "git",
+            "for-each-ref",
+            "--format=%(refname:short)",
+            "--points-at",
+            "HEAD",
+            "refs/heads",
+        ],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    refs = [r.strip() for r in (pointed.stdout or "").splitlines() if r.strip()]
+    for preferred in ("development", "main"):
+        if preferred in refs:
+            return preferred
+    if refs:
+        return refs[0]
     raise SystemExit(
-        "FAIL: git-branch onbekend; Coria-public-base kan niet bepaald worden."
+        "FAIL: git-branch onbekend; Coria-public-base kan niet bepaald worden. "
+        "Zet CORIA_GIT_BRANCH of check uit op een branch (bijv. development)."
     )
 
 

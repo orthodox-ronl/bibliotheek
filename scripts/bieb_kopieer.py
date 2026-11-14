@@ -362,7 +362,9 @@ def kopieer(bron_raw: str, nieuw_raw: str, *, dry_run: bool) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(
+    from cli_help import make_parser
+
+    parser = make_parser(
         prog="bieb kopieer",
         description="Kopieer een uitvoeringsvorm naar een nieuw catalogus-id.",
     )

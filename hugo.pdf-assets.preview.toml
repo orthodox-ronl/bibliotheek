@@ -1,5 +1,6 @@
-# Overlay: preview/branch-build. WIP-PDF’s in de checkout mogen mee;
-# ontbrekende bladen vallen terug op R2 production/.
+# Overlay: preview/branch-build. Lokale PDF’s in de build winnen;
+# anders R2 development/ als pad in data/pdf-r2-development.json staat,
+# anders R2 production/. Zie docs/plans/pdf-r2.md.
 # Gebruik: hugo --config hugo.toml,hugo.pdf-assets.preview.toml …
 
 ignoreFiles = [
@@ -11,3 +12,4 @@ ignoreFiles = [
   enabled = true
   base = "https://pub-16acc8d1bd9b47b684ae5c7aa3215f1d.r2.dev/"
   preferLocal = true
+  allowDevelopmentOverrides = true

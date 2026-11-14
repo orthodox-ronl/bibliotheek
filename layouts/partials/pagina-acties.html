@@ -51,7 +51,7 @@
       {{- $paginaPdfBeide = printf "%sindex.md.translit-beide.pdf" .RelPermalink -}}
     {{- end -}}
   {{- end -}}
-  {{- /* Lokaal-eerst, anders R2 production/ (docs/plans/pdf-r2.md). */ -}}
+  {{- /* Lokaal-eerst, anders R2 development-override of production/ (docs/plans/pdf-r2.md). */ -}}
   {{- $pdfCfg := site.Params.pdfAssets | default dict -}}
   {{- $preferLocal := true -}}
   {{- if isset $pdfCfg "preferLocal" -}}{{- $preferLocal = $pdfCfg.preferLocal -}}{{- end -}}

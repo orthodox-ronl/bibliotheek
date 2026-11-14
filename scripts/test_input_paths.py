@@ -142,6 +142,41 @@ def test_resolve_user_path_missing(
         resolve_user_path(Path("bestaat-niet"), repo_root=repo)
 
 
+def test_resolve_user_path_strips_line_col_from_error_paste(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Foutmelding ``…/lied.vsa:29:28`` mag zo in de CLI geplakt worden."""
+    from input_paths import strip_cli_location_suffix
+
+    repo = _fake_repo(tmp_path)
+    monkeypatch.chdir(repo)
+    assert (
+        strip_cli_location_suffix(
+            "catalogus/tweede-antifoon/lied.vsa:29:28"
+        )
+        == "catalogus/tweede-antifoon/lied.vsa"
+    )
+    assert (
+        strip_cli_location_suffix(
+            r'catalogus\tweede-antifoon\lied.vsa:30:1:'
+        )
+        == "catalogus/tweede-antifoon/lied.vsa"
+    )
+    got = resolve_user_path(
+        "catalogus/tweede-antifoon/lied.vsa:29:28",
+        repo_root=repo,
+    )
+    assert got == (
+        repo
+        / "content-source"
+        / "catalogus"
+        / "tweede-antifoon"
+        / "lied.vsa"
+    ).resolve()
+    # Zonder extensie-achtige suffix: niet strippen.
+    assert strip_cli_location_suffix("hemelum:1") == "hemelum:1"
+
+
 def test_rel_for_log_under_content_source(tmp_path: Path) -> None:
     repo = _fake_repo(tmp_path)
     p = repo / "content-source" / "catalogus" / "tweede-antifoon" / "lied.vsa"

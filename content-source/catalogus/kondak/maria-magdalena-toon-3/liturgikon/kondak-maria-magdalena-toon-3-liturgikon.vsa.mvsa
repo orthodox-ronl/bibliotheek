@@ -1,0 +1,93 @@
+---
+taal: nl
+soort: kondak
+toon: 3
+template: tropaar-toon-3-groningen
+bron:
+  uitgangspunt: Liturgikon
+gelegenheid:
+- naam: Maria Magdalena
+  datum: 22 jul
+zoektekst: |-
+  Gij waart met de Vrouwen onder het Kruis van de Verlosser,
+  en had schreiend medelijden met de Moeder des Heren.
+  Daarom hebt gij de hymne gezongen:
+  Wat is dit voor een onbegrijpelijk wonder?
+  Hij, Die de gehele schepping in Zijn hand omsloten houdt,
+  heeft voor ons willen lijden.
+  Ere zij Uw macht, o Heer.
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# <!-- Kondak Maria Magdalena, Toon 3 (Liturgikon, p267) -->
+# [\\:] Gij waart met {/de} {/Vrou}wen onder het Kruis van {\de} {/Ver}{/&/los}{ser_}, *
+# en had schreiend medelijden met de Moeder des {\&\&\He_&-&-}{\ren_}. *
+# Daar{/om} {/hebt} gij de hym{\ne} {/ge}{/&/zon}{gen_}: *
+# Wat is dit voor een onbegrijpelijk {/won__}{\der_}? *
+# Hij, Die de gehele schepping in {\Zijn} {/hand} {/om}{/slo_.}{\ten} {\houdt_}, *
+# heeft voor ons willen {/lij_}{\den_}. *
+# Ere {\zij} {\Uw} {/&/&/&\&\&\&/macht-&-&-&-&-&-&_}, {o_} {\Heer_}. [:]
+
+# === afgeleide mvsa (VSA + template) ===
+# bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/kondak/maria-magdalena-toon-3/liturgikon/kondak-maria-magdalena-toon-3-liturgikon.vsa
+# template: tropaar-toon-3-groningen/template.yaml (tropaar-toon-3-groningen)
+# Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
+#  ##########################################################################  #
+#  #                                                                        #  #
+#  #   WAARSCHUWING:                                                        #  #
+#  #                                                                        #  #
+#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
+#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
+#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
+#  #   - melisma-slots (``_&_`` / ``~&~`` voor stem-sync; later samentrekken)#  #
+#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
+#  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
+#  #                                                                        #  #
+#  ##########################################################################  #
+@title "kondak-maria-magdalena-toon-3-liturgikon"
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=0 T=-1 B=-1
+
+L: (Gij waart met) de Vrou-wen on-der het Kruis van de Ver-los~&~-ser_, |
+S: d-              /  /    -   -  -   -   -     -   \  /   /&/    -     |a
+A: d-              -  -    -   -  -   -   -     -   -  -   /&/    -     |f
+T: f+              /  /    -   -  -   -   -     -   \  /   \5&-   -     |c
+B: d               -  -    -   -  -   -   -     -   -  -   \&\4   -     |f
+
+L: (en had schrei-end me-de-lij-den met de Moe-der des) He_&~&~-ren_\. |
+S: a                                                    \&\&\   \      |d-
+A: f                                                    \&\&-   -      |d-
+T: c                                                    -&/5&\  \      |f+
+B: f                                                    /4&/&-  -      |d
+
+L: (Daar)-om hebt gij de hym-ne ge-zon~&~-gen_: |
+S: d-     /  /    -   -  -   \  /  /&/    -     |a
+A: d-     -  -    -   -  -   -  -  /&/    -     |f
+T: f+     /  /    -   -  -   \  /  \5&-   -     |c
+B: d      -  -    -   -  -   -  -  \&\4   -     |f
+
+L: (Wat is dit voor een on-beg-rij-pe-lijk) won__-der_? |
+S: a                                        /     \     |a
+A: f                                        /     \     |f
+T: c                                        /     \     |c
+B: f                                        /     \     |f
+
+L: (Hij, Die de ge-he-le schep-ping in) Zijn hand om-slo_.-ten houdt_, |
+S: a                                    \    /    /  /     \   \       |a
+A: f                                    \    /    /  /     \   \       |f
+T: c                                    -    -    /  /     \   \       |c
+B: f                                    /4   \4   /  /     \   \       |f
+
+L: (heeft voor ons wil-len) lij_-den_\. |
+S: a                        /    \      |a
+A: f                        /    \      |f
+T: c                        /    \      |c
+B: f                        /    \      |f
+
+L: (E-re) zij Uw macht~&~&~&~&~&~&_, o_ Heer_\. |
+S: a      \   \  /&/&/&\&\&\&/       -  \       |f
+A: f      \   \  /&/&/&\&\&\&/       -  \       |d-
+T: c      -   /5 \5&-&/&\&-&/5&\5    -  /5      |a+
+B: f      /4  /  \&\4&/&\&/4&/&\     -  /       |d

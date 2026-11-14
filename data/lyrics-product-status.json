@@ -520,8 +520,14 @@
   {
     "dir": "catalogus/geloofsbelijdenis/default/hemelum-deel-2",
     "source": "catalogus/geloofsbelijdenis/default/hemelum-deel-2/geloofsbelijdenis-default-hemelum-deel-2.vsa",
-    "ok": true,
-    "issues": [],
+    "ok": false,
+    "issues": [
+      {
+        "kind": "stale_lyrics",
+        "file": "catalogus/geloofsbelijdenis/default/hemelum-deel-2/geloofsbelijdenis-default-hemelum-deel-2.vsa.lyrics.txt",
+        "detail": "lyrics ouder dan bron (stamp 2026-11-11T22:58:10+00:00)"
+      }
+    ],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\geloofsbelijdenis\\default\\hemelum-deel-2\\geloofsbelijdenis-default-hemelum-deel-2.vsa"
   },
   {
@@ -574,11 +580,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\apostel-andreas-toon-2\\hemelum\\kondak-apostel-andreas-toon-2-hemelum.vsa"
   },
   {
+    "dir": "catalogus/kondak/apostel-andreas-toon-2/hemelum",
+    "source": "catalogus/kondak/apostel-andreas-toon-2/hemelum/kondak-apostel-andreas-toon-2-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\apostel-andreas-toon-2\\hemelum\\kondak-apostel-andreas-toon-2-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/kondak/apostel-thaddeos-toon-4/hemelum",
     "source": "catalogus/kondak/apostel-thaddeos-toon-4/hemelum/kondak-apostel-thaddeos-toon-4-hemelum.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\apostel-thaddeos-toon-4\\hemelum\\kondak-apostel-thaddeos-toon-4-hemelum.vsa"
+  },
+  {
+    "dir": "catalogus/kondak/apostel-thaddeos-toon-4/hemelum",
+    "source": "catalogus/kondak/apostel-thaddeos-toon-4/hemelum/kondak-apostel-thaddeos-toon-4-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\apostel-thaddeos-toon-4\\hemelum\\kondak-apostel-thaddeos-toon-4-hemelum.vsa.mvsa"
   },
   {
     "dir": "catalogus/kondak/dinsdag-toon-3/hemelum",
@@ -588,11 +608,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\dinsdag-toon-3\\hemelum\\kondak-dinsdag-toon-3-hemelum.vsa"
   },
   {
+    "dir": "catalogus/kondak/dinsdag-toon-3/hemelum",
+    "source": "catalogus/kondak/dinsdag-toon-3/hemelum/kondak-dinsdag-toon-3-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\dinsdag-toon-3\\hemelum\\kondak-dinsdag-toon-3-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/kondak/donderdag-toon-2/hemelum",
     "source": "catalogus/kondak/donderdag-toon-2/hemelum/kondak-donderdag-toon-2-hemelum.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\donderdag-toon-2\\hemelum\\kondak-donderdag-toon-2-hemelum.vsa"
+  },
+  {
+    "dir": "catalogus/kondak/donderdag-toon-2/hemelum",
+    "source": "catalogus/kondak/donderdag-toon-2/hemelum/kondak-donderdag-toon-2-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\donderdag-toon-2\\hemelum\\kondak-donderdag-toon-2-hemelum.vsa.mvsa"
   },
   {
     "dir": "catalogus/kondak/geboorte-moeder-gods-toon-4/liturgikon",
@@ -602,11 +636,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\geboorte-moeder-gods-toon-4\\liturgikon\\kondak-geboorte-moeder-gods-toon-4-liturgikon.vsa"
   },
   {
+    "dir": "catalogus/kondak/geboorte-moeder-gods-toon-4/liturgikon",
+    "source": "catalogus/kondak/geboorte-moeder-gods-toon-4/liturgikon/kondak-geboorte-moeder-gods-toon-4-liturgikon.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\geboorte-moeder-gods-toon-4\\liturgikon\\kondak-geboorte-moeder-gods-toon-4-liturgikon.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/kondak/heilig-kruis-toon-1/hemelum",
     "source": "catalogus/kondak/heilig-kruis-toon-1/hemelum/kondak-heilig-kruis-toon-1-hemelum.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\heilig-kruis-toon-1\\hemelum\\kondak-heilig-kruis-toon-1-hemelum.vsa"
+  },
+  {
+    "dir": "catalogus/kondak/heilig-kruis-toon-1/hemelum",
+    "source": "catalogus/kondak/heilig-kruis-toon-1/hemelum/kondak-heilig-kruis-toon-1-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\heilig-kruis-toon-1\\hemelum\\kondak-heilig-kruis-toon-1-hemelum.vsa.mvsa"
   },
   {
     "dir": "catalogus/kondak/icoon-moeder-gods-vladimir-toon-8/liturgikon",
@@ -616,11 +664,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\icoon-moeder-gods-vladimir-toon-8\\liturgikon\\kondak-icoon-moeder-gods-vladimir-toon-8-liturgikon.vsa"
   },
   {
+    "dir": "catalogus/kondak/icoon-moeder-gods-vladimir-toon-8/liturgikon",
+    "source": "catalogus/kondak/icoon-moeder-gods-vladimir-toon-8/liturgikon/kondak-icoon-moeder-gods-vladimir-toon-8-liturgikon.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\icoon-moeder-gods-vladimir-toon-8\\liturgikon\\kondak-icoon-moeder-gods-vladimir-toon-8-liturgikon.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/kondak/johannes-de-theoloog-toon-2/liturgikon",
     "source": "catalogus/kondak/johannes-de-theoloog-toon-2/liturgikon/kondak-johannes-de-theoloog-toon-2-liturgikon.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\johannes-de-theoloog-toon-2\\liturgikon\\kondak-johannes-de-theoloog-toon-2-liturgikon.vsa"
+  },
+  {
+    "dir": "catalogus/kondak/johannes-de-theoloog-toon-2/liturgikon",
+    "source": "catalogus/kondak/johannes-de-theoloog-toon-2/liturgikon/kondak-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\johannes-de-theoloog-toon-2\\liturgikon\\kondak-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa"
   },
   {
     "dir": "catalogus/kondak/johannes-shanghai-toon-2/hemelum",
@@ -630,11 +692,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\johannes-shanghai-toon-2\\hemelum\\kondak-johannes-shanghai-toon-2-hemelum.vsa"
   },
   {
+    "dir": "catalogus/kondak/johannes-shanghai-toon-2/hemelum",
+    "source": "catalogus/kondak/johannes-shanghai-toon-2/hemelum/kondak-johannes-shanghai-toon-2-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\johannes-shanghai-toon-2\\hemelum\\kondak-johannes-shanghai-toon-2-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/kondak/maandag-toon-2/hemelum",
     "source": "catalogus/kondak/maandag-toon-2/hemelum/kondak-maandag-toon-2-hemelum.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\maandag-toon-2\\hemelum\\kondak-maandag-toon-2-hemelum.vsa"
+  },
+  {
+    "dir": "catalogus/kondak/maandag-toon-2/hemelum",
+    "source": "catalogus/kondak/maandag-toon-2/hemelum/kondak-maandag-toon-2-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\maandag-toon-2\\hemelum\\kondak-maandag-toon-2-hemelum.vsa.mvsa"
   },
   {
     "dir": "catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/hemelum",
@@ -644,11 +720,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\maria-hulp-der-christenen-pokrof-toon-3\\hemelum\\kondak-maria-hulp-der-christenen-pokrof-toon-3-hemelum.vsa"
   },
   {
+    "dir": "catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/hemelum",
+    "source": "catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/hemelum/kondak-maria-hulp-der-christenen-pokrof-toon-3-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\maria-hulp-der-christenen-pokrof-toon-3\\hemelum\\kondak-maria-hulp-der-christenen-pokrof-toon-3-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/liturgikon",
     "source": "catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/liturgikon/kondak-maria-hulp-der-christenen-pokrof-toon-3-liturgikon.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\maria-hulp-der-christenen-pokrof-toon-3\\liturgikon\\kondak-maria-hulp-der-christenen-pokrof-toon-3-liturgikon.vsa"
+  },
+  {
+    "dir": "catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/liturgikon",
+    "source": "catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/liturgikon/kondak-maria-hulp-der-christenen-pokrof-toon-3-liturgikon.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\maria-hulp-der-christenen-pokrof-toon-3\\liturgikon\\kondak-maria-hulp-der-christenen-pokrof-toon-3-liturgikon.vsa.mvsa"
   },
   {
     "dir": "catalogus/kondak/maria-magdalena-toon-3/liturgikon",
@@ -658,11 +748,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\maria-magdalena-toon-3\\liturgikon\\kondak-maria-magdalena-toon-3-liturgikon.vsa"
   },
   {
+    "dir": "catalogus/kondak/maria-magdalena-toon-3/liturgikon",
+    "source": "catalogus/kondak/maria-magdalena-toon-3/liturgikon/kondak-maria-magdalena-toon-3-liturgikon.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\maria-magdalena-toon-3\\liturgikon\\kondak-maria-magdalena-toon-3-liturgikon.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/kondak/maria-magdalena-toon-4/heiligenjaar",
     "source": "catalogus/kondak/maria-magdalena-toon-4/heiligenjaar/kondak-maria-magdalena-toon-4-heiligenjaar.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\maria-magdalena-toon-4\\heiligenjaar\\kondak-maria-magdalena-toon-4-heiligenjaar.vsa"
+  },
+  {
+    "dir": "catalogus/kondak/maria-magdalena-toon-4/heiligenjaar",
+    "source": "catalogus/kondak/maria-magdalena-toon-4/heiligenjaar/kondak-maria-magdalena-toon-4-heiligenjaar.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\maria-magdalena-toon-4\\heiligenjaar\\kondak-maria-magdalena-toon-4-heiligenjaar.vsa.mvsa"
   },
   {
     "dir": "catalogus/kondak/marina-grootmartelares-toon-3/hemelum",
@@ -672,11 +776,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\marina-grootmartelares-toon-3\\hemelum\\kondak-marina-grootmartelares-toon-3-hemelum.vsa"
   },
   {
+    "dir": "catalogus/kondak/marina-grootmartelares-toon-3/hemelum",
+    "source": "catalogus/kondak/marina-grootmartelares-toon-3/hemelum/kondak-marina-grootmartelares-toon-3-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\marina-grootmartelares-toon-3\\hemelum\\kondak-marina-grootmartelares-toon-3-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/kondak/moeder-gods-toon-6/groningen",
     "source": "catalogus/kondak/moeder-gods-toon-6/groningen/kondak-moeder-gods-toon-6-groningen.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\moeder-gods-toon-6\\groningen\\kondak-moeder-gods-toon-6-groningen.vsa"
+  },
+  {
+    "dir": "catalogus/kondak/moeder-gods-toon-6/groningen",
+    "source": "catalogus/kondak/moeder-gods-toon-6/groningen/kondak-moeder-gods-toon-6-groningen.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\moeder-gods-toon-6\\groningen\\kondak-moeder-gods-toon-6-groningen.vsa.mvsa"
   },
   {
     "dir": "catalogus/kondak/moeder-gods-toon-6/hemelum",
@@ -686,11 +804,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\moeder-gods-toon-6\\hemelum\\kondak-moeder-gods-toon-6-hemelum.vsa"
   },
   {
+    "dir": "catalogus/kondak/moeder-gods-toon-6/hemelum",
+    "source": "catalogus/kondak/moeder-gods-toon-6/hemelum/kondak-moeder-gods-toon-6-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\moeder-gods-toon-6\\hemelum\\kondak-moeder-gods-toon-6-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/kondak/nikolaas-van-myra-toon-3/hemelum",
     "source": "catalogus/kondak/nikolaas-van-myra-toon-3/hemelum/kondak-nikolaas-van-myra-toon-3-hemelum.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\nikolaas-van-myra-toon-3\\hemelum\\kondak-nikolaas-van-myra-toon-3-hemelum.vsa"
+  },
+  {
+    "dir": "catalogus/kondak/nikolaas-van-myra-toon-3/hemelum",
+    "source": "catalogus/kondak/nikolaas-van-myra-toon-3/hemelum/kondak-nikolaas-van-myra-toon-3-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\nikolaas-van-myra-toon-3\\hemelum\\kondak-nikolaas-van-myra-toon-3-hemelum.vsa.mvsa"
   },
   {
     "dir": "catalogus/kondak/onthoofding-johannes-de-doper-toon-5/hemelum",
@@ -700,11 +832,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\onthoofding-johannes-de-doper-toon-5\\hemelum\\kondak-onthoofding-johannes-de-doper-toon-5-hemelum.vsa"
   },
   {
+    "dir": "catalogus/kondak/onthoofding-johannes-de-doper-toon-5/hemelum",
+    "source": "catalogus/kondak/onthoofding-johannes-de-doper-toon-5/hemelum/kondak-onthoofding-johannes-de-doper-toon-5-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\onthoofding-johannes-de-doper-toon-5\\hemelum\\kondak-onthoofding-johannes-de-doper-toon-5-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/kondak/ontslapen-moeder-gods-toon-2/liturgikon",
     "source": "catalogus/kondak/ontslapen-moeder-gods-toon-2/liturgikon/kondak-ontslapen-moeder-gods-toon-2-liturgikon.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\ontslapen-moeder-gods-toon-2\\liturgikon\\kondak-ontslapen-moeder-gods-toon-2-liturgikon.vsa"
+  },
+  {
+    "dir": "catalogus/kondak/ontslapen-moeder-gods-toon-2/liturgikon",
+    "source": "catalogus/kondak/ontslapen-moeder-gods-toon-2/liturgikon/kondak-ontslapen-moeder-gods-toon-2-liturgikon.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\ontslapen-moeder-gods-toon-2\\liturgikon\\kondak-ontslapen-moeder-gods-toon-2-liturgikon.vsa.mvsa"
   },
   {
     "dir": "catalogus/kondak/profeet-elia-toon-2/liturgikon",
@@ -714,11 +860,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\profeet-elia-toon-2\\liturgikon\\kondak-profeet-elia-toon-2-liturgikon.vsa"
   },
   {
+    "dir": "catalogus/kondak/profeet-elia-toon-2/liturgikon",
+    "source": "catalogus/kondak/profeet-elia-toon-2/liturgikon/kondak-profeet-elia-toon-2-liturgikon.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\profeet-elia-toon-2\\liturgikon\\kondak-profeet-elia-toon-2-liturgikon.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/kondak/silouan-de-athoniet-toon-4/asten",
     "source": "catalogus/kondak/silouan-de-athoniet-toon-4/asten/kondak-silouan-de-athoniet-toon-4-asten.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\silouan-de-athoniet-toon-4\\asten\\kondak-silouan-de-athoniet-toon-4-asten.vsa"
+  },
+  {
+    "dir": "catalogus/kondak/silouan-de-athoniet-toon-4/asten",
+    "source": "catalogus/kondak/silouan-de-athoniet-toon-4/asten/kondak-silouan-de-athoniet-toon-4-asten.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\silouan-de-athoniet-toon-4\\asten\\kondak-silouan-de-athoniet-toon-4-asten.vsa.mvsa"
   },
   {
     "dir": "catalogus/kondak/tempelgang-moeder-gods-toon-4/hemelum",
@@ -728,11 +888,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\tempelgang-moeder-gods-toon-4\\hemelum\\kondak-tempelgang-moeder-gods-toon-4-hemelum.vsa"
   },
   {
+    "dir": "catalogus/kondak/tempelgang-moeder-gods-toon-4/hemelum",
+    "source": "catalogus/kondak/tempelgang-moeder-gods-toon-4/hemelum/kondak-tempelgang-moeder-gods-toon-4-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\tempelgang-moeder-gods-toon-4\\hemelum\\kondak-tempelgang-moeder-gods-toon-4-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/kondak/transfiguratie-toon-7/liturgikon",
     "source": "catalogus/kondak/transfiguratie-toon-7/liturgikon/kondak-transfiguratie-toon-7-liturgikon.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\transfiguratie-toon-7\\liturgikon\\kondak-transfiguratie-toon-7-liturgikon.vsa"
+  },
+  {
+    "dir": "catalogus/kondak/transfiguratie-toon-7/liturgikon",
+    "source": "catalogus/kondak/transfiguratie-toon-7/liturgikon/kondak-transfiguratie-toon-7-liturgikon.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\transfiguratie-toon-7\\liturgikon\\kondak-transfiguratie-toon-7-liturgikon.vsa.mvsa"
   },
   {
     "dir": "catalogus/kondak/vera-dadjezjda-ljoebov-toon-1/hemelum",
@@ -742,11 +916,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\vera-dadjezjda-ljoebov-toon-1\\hemelum\\kondak-vera-dadjezjda-ljoebov-toon-1-hemelum.vsa"
   },
   {
+    "dir": "catalogus/kondak/vera-dadjezjda-ljoebov-toon-1/hemelum",
+    "source": "catalogus/kondak/vera-dadjezjda-ljoebov-toon-1/hemelum/kondak-vera-dadjezjda-ljoebov-toon-1-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\vera-dadjezjda-ljoebov-toon-1\\hemelum\\kondak-vera-dadjezjda-ljoebov-toon-1-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/kondak/zaterdag-gestorvenen-toon-8/hemelum",
     "source": "catalogus/kondak/zaterdag-gestorvenen-toon-8/hemelum/kondak-zaterdag-gestorvenen-toon-8-hemelum.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zaterdag-gestorvenen-toon-8\\hemelum\\kondak-zaterdag-gestorvenen-toon-8-hemelum.vsa"
+  },
+  {
+    "dir": "catalogus/kondak/zaterdag-gestorvenen-toon-8/hemelum",
+    "source": "catalogus/kondak/zaterdag-gestorvenen-toon-8/hemelum/kondak-zaterdag-gestorvenen-toon-8-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zaterdag-gestorvenen-toon-8\\hemelum\\kondak-zaterdag-gestorvenen-toon-8-hemelum.vsa.mvsa"
   },
   {
     "dir": "catalogus/kondak/zaterdag-heiligen-toon-8/hemelum",
@@ -756,11 +944,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zaterdag-heiligen-toon-8\\hemelum\\kondak-zaterdag-heiligen-toon-8-hemelum.vsa"
   },
   {
+    "dir": "catalogus/kondak/zaterdag-heiligen-toon-8/hemelum",
+    "source": "catalogus/kondak/zaterdag-heiligen-toon-8/hemelum/kondak-zaterdag-heiligen-toon-8-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zaterdag-heiligen-toon-8\\hemelum\\kondak-zaterdag-heiligen-toon-8-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/kondak/zondag-toon-1/groningen",
     "source": "catalogus/kondak/zondag-toon-1/groningen/kondak-zondag-toon-1-groningen.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-1\\groningen\\kondak-zondag-toon-1-groningen.vsa"
+  },
+  {
+    "dir": "catalogus/kondak/zondag-toon-1/groningen",
+    "source": "catalogus/kondak/zondag-toon-1/groningen/kondak-zondag-toon-1-groningen.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-1\\groningen\\kondak-zondag-toon-1-groningen.vsa.mvsa"
   },
   {
     "dir": "catalogus/kondak/zondag-toon-2/groningen",
@@ -770,11 +972,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-2\\groningen\\kondak-zondag-toon-2-groningen.vsa"
   },
   {
+    "dir": "catalogus/kondak/zondag-toon-2/groningen",
+    "source": "catalogus/kondak/zondag-toon-2/groningen/kondak-zondag-toon-2-groningen.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-2\\groningen\\kondak-zondag-toon-2-groningen.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/kondak/zondag-toon-3/groningen",
     "source": "catalogus/kondak/zondag-toon-3/groningen/kondak-zondag-toon-3-groningen.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-3\\groningen\\kondak-zondag-toon-3-groningen.vsa"
+  },
+  {
+    "dir": "catalogus/kondak/zondag-toon-3/groningen",
+    "source": "catalogus/kondak/zondag-toon-3/groningen/kondak-zondag-toon-3-groningen.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-3\\groningen\\kondak-zondag-toon-3-groningen.vsa.mvsa"
   },
   {
     "dir": "catalogus/kondak/zondag-toon-4/groningen",
@@ -784,11 +1000,39 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-4\\groningen\\kondak-zondag-toon-4-groningen.vsa"
   },
   {
+    "dir": "catalogus/kondak/zondag-toon-4/groningen",
+    "source": "catalogus/kondak/zondag-toon-4/groningen/kondak-zondag-toon-4-groningen.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-4\\groningen\\kondak-zondag-toon-4-groningen.vsa.mvsa"
+  },
+  {
+    "dir": "catalogus/kondak/zondag-toon-4/hemelum",
+    "source": "catalogus/kondak/zondag-toon-4/hemelum/kondak-zondag-toon-4-hemelum.vsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-4\\hemelum\\kondak-zondag-toon-4-hemelum.vsa"
+  },
+  {
+    "dir": "catalogus/kondak/zondag-toon-4/hemelum",
+    "source": "catalogus/kondak/zondag-toon-4/hemelum/kondak-zondag-toon-4-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-4\\hemelum\\kondak-zondag-toon-4-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/kondak/zondag-toon-5/groningen",
     "source": "catalogus/kondak/zondag-toon-5/groningen/kondak-zondag-toon-5-groningen.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-5\\groningen\\kondak-zondag-toon-5-groningen.vsa"
+  },
+  {
+    "dir": "catalogus/kondak/zondag-toon-5/groningen",
+    "source": "catalogus/kondak/zondag-toon-5/groningen/kondak-zondag-toon-5-groningen.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-5\\groningen\\kondak-zondag-toon-5-groningen.vsa.mvsa"
   },
   {
     "dir": "catalogus/kondak/zondag-toon-6/groningen",
@@ -798,6 +1042,13 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-6\\groningen\\kondak-zondag-toon-6-groningen.vsa"
   },
   {
+    "dir": "catalogus/kondak/zondag-toon-6/groningen",
+    "source": "catalogus/kondak/zondag-toon-6/groningen/kondak-zondag-toon-6-groningen.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-6\\groningen\\kondak-zondag-toon-6-groningen.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/kondak/zondag-toon-7/groningen",
     "source": "catalogus/kondak/zondag-toon-7/groningen/kondak-zondag-toon-7-groningen.vsa",
     "ok": true,
@@ -805,11 +1056,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-7\\groningen\\kondak-zondag-toon-7-groningen.vsa"
   },
   {
+    "dir": "catalogus/kondak/zondag-toon-7/groningen",
+    "source": "catalogus/kondak/zondag-toon-7/groningen/kondak-zondag-toon-7-groningen.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-7\\groningen\\kondak-zondag-toon-7-groningen.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/kondak/zondag-toon-8/groningen",
     "source": "catalogus/kondak/zondag-toon-8/groningen/kondak-zondag-toon-8-groningen.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-8\\groningen\\kondak-zondag-toon-8-groningen.vsa"
+  },
+  {
+    "dir": "catalogus/kondak/zondag-toon-8/groningen",
+    "source": "catalogus/kondak/zondag-toon-8/groningen/kondak-zondag-toon-8-groningen.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-8\\groningen\\kondak-zondag-toon-8-groningen.vsa.mvsa"
   },
   {
     "dir": "catalogus/moeder-godslied/20d-in-waarheid/hemelum",
@@ -994,6 +1259,183 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\prokimen\\zondag-toon-8\\groningen\\prokimen-zondag-toon-8-groningen.mvsa"
   },
   {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-1/groningen",
+    "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen/stichier-heer-ik-roep-toon-1-groningen.vsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen\\stichier-heer-ik-roep-toon-1-groningen.vsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-1/groningen",
+    "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen/stichier-heer-ik-roep-toon-1-groningen.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen\\stichier-heer-ik-roep-toon-1-groningen.vsa.mvsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-1/groningen-1",
+    "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen-1/stichier-heer-ik-roep-toon-1-groningen-1.vsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen-1\\stichier-heer-ik-roep-toon-1-groningen-1.vsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-1/groningen-1",
+    "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen-1/stichier-heer-ik-roep-toon-1-groningen-1.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen-1\\stichier-heer-ik-roep-toon-1-groningen-1.vsa.mvsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-1/groningen-2",
+    "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen-2/stichier-heer-ik-roep-toon-1-groningen-2.vsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen-2\\stichier-heer-ik-roep-toon-1-groningen-2.vsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-1/groningen-2",
+    "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen-2/stichier-heer-ik-roep-toon-1-groningen-2.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen-2\\stichier-heer-ik-roep-toon-1-groningen-2.vsa.mvsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-2/groningen",
+    "source": "catalogus/stichier/heer-ik-roep-toon-2/groningen/stichier-heer-ik-roep-toon-2-groningen.vsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-2\\groningen\\stichier-heer-ik-roep-toon-2-groningen.vsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-2/groningen",
+    "source": "catalogus/stichier/heer-ik-roep-toon-2/groningen/stichier-heer-ik-roep-toon-2-groningen.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-2\\groningen\\stichier-heer-ik-roep-toon-2-groningen.vsa.mvsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-2/groningen-1",
+    "source": "catalogus/stichier/heer-ik-roep-toon-2/groningen-1/stichier-heer-ik-roep-toon-2-groningen-1.vsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-2\\groningen-1\\stichier-heer-ik-roep-toon-2-groningen-1.vsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-2/groningen-1",
+    "source": "catalogus/stichier/heer-ik-roep-toon-2/groningen-1/stichier-heer-ik-roep-toon-2-groningen-1.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-2\\groningen-1\\stichier-heer-ik-roep-toon-2-groningen-1.vsa.mvsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-2/groningen-2",
+    "source": "catalogus/stichier/heer-ik-roep-toon-2/groningen-2/stichier-heer-ik-roep-toon-2-groningen-2.vsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-2\\groningen-2\\stichier-heer-ik-roep-toon-2-groningen-2.vsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-2/groningen-2",
+    "source": "catalogus/stichier/heer-ik-roep-toon-2/groningen-2/stichier-heer-ik-roep-toon-2-groningen-2.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-2\\groningen-2\\stichier-heer-ik-roep-toon-2-groningen-2.vsa.mvsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-3/groningen",
+    "source": "catalogus/stichier/heer-ik-roep-toon-3/groningen/stichier-heer-ik-roep-toon-3-groningen.vsa",
+    "ok": false,
+    "issues": [
+      {
+        "kind": "missing_lyrics",
+        "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen/stichier-heer-ik-roep-toon-3-groningen.vsa.lyrics.txt",
+        "detail": "lyrics.txt ontbreekt naast de bron (.vsa/.mvsa/.mscz)"
+      }
+    ],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-3\\groningen\\stichier-heer-ik-roep-toon-3-groningen.vsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-3/groningen-1",
+    "source": "catalogus/stichier/heer-ik-roep-toon-3/groningen-1/stichier-heer-ik-roep-toon-3-groningen-1.vsa",
+    "ok": false,
+    "issues": [
+      {
+        "kind": "missing_lyrics",
+        "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen-1/stichier-heer-ik-roep-toon-3-groningen-1.vsa.lyrics.txt",
+        "detail": "lyrics.txt ontbreekt naast de bron (.vsa/.mvsa/.mscz)"
+      }
+    ],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-3\\groningen-1\\stichier-heer-ik-roep-toon-3-groningen-1.vsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-3/groningen-2",
+    "source": "catalogus/stichier/heer-ik-roep-toon-3/groningen-2/stichier-heer-ik-roep-toon-3-groningen-2.vsa",
+    "ok": false,
+    "issues": [
+      {
+        "kind": "missing_lyrics",
+        "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen-2/stichier-heer-ik-roep-toon-3-groningen-2.vsa.lyrics.txt",
+        "detail": "lyrics.txt ontbreekt naast de bron (.vsa/.mvsa/.mscz)"
+      }
+    ],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-3\\groningen-2\\stichier-heer-ik-roep-toon-3-groningen-2.vsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-6/groningen",
+    "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen/stichier-heer-ik-roep-toon-6-groningen.vsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen\\stichier-heer-ik-roep-toon-6-groningen.vsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-6/groningen",
+    "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen/stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa",
+    "ok": false,
+    "issues": [
+      {
+        "kind": "stale_lyrics",
+        "file": "catalogus/stichier/heer-ik-roep-toon-6/groningen/stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa.lyrics.txt",
+        "detail": "lyrics ouder dan bron (stamp 2026-11-12T23:05:50+00:00)"
+      }
+    ],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen\\stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1",
+    "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1/stichier-heer-ik-roep-toon-6-groningen-1.vsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen-1\\stichier-heer-ik-roep-toon-6-groningen-1.vsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1",
+    "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1/stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa",
+    "ok": false,
+    "issues": [
+      {
+        "kind": "stale_lyrics",
+        "file": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1/stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa.lyrics.txt",
+        "detail": "lyrics ouder dan bron (stamp 2026-11-11T23:22:27+00:00)"
+      }
+    ],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen-1\\stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-6/groningen-2",
+    "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen-2/stichier-heer-ik-roep-toon-6-groningen-2.vsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen-2\\stichier-heer-ik-roep-toon-6-groningen-2.vsa"
+  },
+  {
+    "dir": "catalogus/stichier/heer-ik-roep-toon-6/groningen-2",
+    "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen-2/stichier-heer-ik-roep-toon-6-groningen-2.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen-2\\stichier-heer-ik-roep-toon-6-groningen-2.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/trisagion/8a-nederlands/hemelum",
     "source": "catalogus/trisagion/8a-nederlands/hemelum/trisagion-8a-nederlands-hemelum.mvsa",
     "ok": true,
@@ -1015,11 +1457,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\apostel-andreas-toon-4\\hemelum\\tropaar-apostel-andreas-toon-4-hemelum.vsa"
   },
   {
+    "dir": "catalogus/tropaar/apostel-andreas-toon-4/hemelum",
+    "source": "catalogus/tropaar/apostel-andreas-toon-4/hemelum/tropaar-apostel-andreas-toon-4-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\apostel-andreas-toon-4\\hemelum\\tropaar-apostel-andreas-toon-4-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/tropaar/besnijdenis-des-heren-toon-2/hemelum",
     "source": "catalogus/tropaar/besnijdenis-des-heren-toon-2/hemelum/tropaar-besnijdenis-des-heren-toon-2-hemelum.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\besnijdenis-des-heren-toon-2\\hemelum\\tropaar-besnijdenis-des-heren-toon-2-hemelum.vsa"
+  },
+  {
+    "dir": "catalogus/tropaar/besnijdenis-des-heren-toon-2/hemelum",
+    "source": "catalogus/tropaar/besnijdenis-des-heren-toon-2/hemelum/tropaar-besnijdenis-des-heren-toon-2-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\besnijdenis-des-heren-toon-2\\hemelum\\tropaar-besnijdenis-des-heren-toon-2-hemelum.vsa.mvsa"
   },
   {
     "dir": "catalogus/tropaar/dinsdag-toon-2/hemelum",
@@ -1029,11 +1485,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\dinsdag-toon-2\\hemelum\\tropaar-dinsdag-toon-2-hemelum.vsa"
   },
   {
+    "dir": "catalogus/tropaar/dinsdag-toon-2/hemelum",
+    "source": "catalogus/tropaar/dinsdag-toon-2/hemelum/tropaar-dinsdag-toon-2-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\dinsdag-toon-2\\hemelum\\tropaar-dinsdag-toon-2-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/tropaar/donderdag-toon-3/hemelum",
     "source": "catalogus/tropaar/donderdag-toon-3/hemelum/tropaar-donderdag-toon-3-hemelum.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\donderdag-toon-3\\hemelum\\tropaar-donderdag-toon-3-hemelum.vsa"
+  },
+  {
+    "dir": "catalogus/tropaar/donderdag-toon-3/hemelum",
+    "source": "catalogus/tropaar/donderdag-toon-3/hemelum/tropaar-donderdag-toon-3-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\donderdag-toon-3\\hemelum\\tropaar-donderdag-toon-3-hemelum.vsa.mvsa"
   },
   {
     "dir": "catalogus/tropaar/geboorte-johannes-de-voorloper-toon-4/hemelum",
@@ -1043,11 +1513,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\geboorte-johannes-de-voorloper-toon-4\\hemelum\\tropaar-geboorte-johannes-de-voorloper-toon-4-hemelum.vsa"
   },
   {
+    "dir": "catalogus/tropaar/geboorte-johannes-de-voorloper-toon-4/hemelum",
+    "source": "catalogus/tropaar/geboorte-johannes-de-voorloper-toon-4/hemelum/tropaar-geboorte-johannes-de-voorloper-toon-4-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\geboorte-johannes-de-voorloper-toon-4\\hemelum\\tropaar-geboorte-johannes-de-voorloper-toon-4-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/tropaar/geboorte-mg-toon-4/meneon-i-den-haag",
     "source": "catalogus/tropaar/geboorte-mg-toon-4/meneon-i-den-haag/tropaar-geboorte-mg-toon-4-meneon-i-den-haag.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\geboorte-mg-toon-4\\meneon-i-den-haag\\tropaar-geboorte-mg-toon-4-meneon-i-den-haag.vsa"
+  },
+  {
+    "dir": "catalogus/tropaar/geboorte-mg-toon-4/meneon-i-den-haag",
+    "source": "catalogus/tropaar/geboorte-mg-toon-4/meneon-i-den-haag/tropaar-geboorte-mg-toon-4-meneon-i-den-haag.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\geboorte-mg-toon-4\\meneon-i-den-haag\\tropaar-geboorte-mg-toon-4-meneon-i-den-haag.vsa.mvsa"
   },
   {
     "dir": "catalogus/tropaar/gregorios-van-utrecht-toon-4/hemelum",
@@ -1057,6 +1541,13 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\gregorios-van-utrecht-toon-4\\hemelum\\tropaar-gregorios-van-utrecht-toon-4-hemelum.vsa"
   },
   {
+    "dir": "catalogus/tropaar/gregorios-van-utrecht-toon-4/hemelum",
+    "source": "catalogus/tropaar/gregorios-van-utrecht-toon-4/hemelum/tropaar-gregorios-van-utrecht-toon-4-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\gregorios-van-utrecht-toon-4\\hemelum\\tropaar-gregorios-van-utrecht-toon-4-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/tropaar/heer-red-uw-volk/hemelum",
     "source": "catalogus/tropaar/heer-red-uw-volk/hemelum/tropaar-heer-red-uw-volk-hemelum.vsa",
     "ok": true,
@@ -1064,11 +1555,18 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\heer-red-uw-volk\\hemelum\\tropaar-heer-red-uw-volk-hemelum.vsa"
   },
   {
-    "dir": "catalogus/tropaar/heer-red-uw-volk/liturgikon",
-    "source": "catalogus/tropaar/heer-red-uw-volk/liturgikon/tropaar-heer-red-uw-volk-liturgikon.vsa",
+    "dir": "catalogus/tropaar/heer-red-uw-volk/hemelum",
+    "source": "catalogus/tropaar/heer-red-uw-volk/hemelum/tropaar-heer-red-uw-volk-hemelum.vsa.mvsa",
     "ok": true,
     "issues": [],
-    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\heer-red-uw-volk\\liturgikon\\tropaar-heer-red-uw-volk-liturgikon.vsa"
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\heer-red-uw-volk\\hemelum\\tropaar-heer-red-uw-volk-hemelum.vsa.mvsa"
+  },
+  {
+    "dir": "catalogus/tropaar/heer-red-uw-volk/liturgikon",
+    "source": "catalogus/tropaar/heer-red-uw-volk/liturgikon/tropaar-heer-red-uw-volk-liturgikon.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\heer-red-uw-volk\\liturgikon\\tropaar-heer-red-uw-volk-liturgikon.mvsa"
   },
   {
     "dir": "catalogus/tropaar/heer-red-uw-volk/rode-gebedenboek",
@@ -1078,11 +1576,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\heer-red-uw-volk\\rode-gebedenboek\\tropaar-heer-red-uw-volk-rode-gebedenboek.vsa"
   },
   {
+    "dir": "catalogus/tropaar/heer-red-uw-volk/rode-gebedenboek",
+    "source": "catalogus/tropaar/heer-red-uw-volk/rode-gebedenboek/tropaar-heer-red-uw-volk-rode-gebedenboek.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\heer-red-uw-volk\\rode-gebedenboek\\tropaar-heer-red-uw-volk-rode-gebedenboek.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/tropaar/heilige-martelaren-toon-4/hemelum",
     "source": "catalogus/tropaar/heilige-martelaren-toon-4/hemelum/tropaar-heilige-martelaren-toon-4-hemelum.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\heilige-martelaren-toon-4\\hemelum\\tropaar-heilige-martelaren-toon-4-hemelum.vsa"
+  },
+  {
+    "dir": "catalogus/tropaar/heilige-martelaren-toon-4/hemelum",
+    "source": "catalogus/tropaar/heilige-martelaren-toon-4/hemelum/tropaar-heilige-martelaren-toon-4-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\heilige-martelaren-toon-4\\hemelum\\tropaar-heilige-martelaren-toon-4-hemelum.vsa.mvsa"
   },
   {
     "dir": "catalogus/tropaar/icoon-moeder-gods-van-kazan-toon-4/hemelum",
@@ -1092,6 +1604,13 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\icoon-moeder-gods-van-kazan-toon-4\\hemelum\\tropaar-icoon-moeder-gods-van-kazan-toon-4-hemelum.vsa"
   },
   {
+    "dir": "catalogus/tropaar/icoon-moeder-gods-van-kazan-toon-4/hemelum",
+    "source": "catalogus/tropaar/icoon-moeder-gods-van-kazan-toon-4/hemelum/tropaar-icoon-moeder-gods-van-kazan-toon-4-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\icoon-moeder-gods-van-kazan-toon-4\\hemelum\\tropaar-icoon-moeder-gods-van-kazan-toon-4-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/tropaar/icoon-moeder-gods-vladimir-toon-4/hemelum",
     "source": "catalogus/tropaar/icoon-moeder-gods-vladimir-toon-4/hemelum/tropaar-icoon-moeder-gods-vladimir-toon-4-hemelum.vsa",
     "ok": true,
@@ -1099,11 +1618,37 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\icoon-moeder-gods-vladimir-toon-4\\hemelum\\tropaar-icoon-moeder-gods-vladimir-toon-4-hemelum.vsa"
   },
   {
-    "dir": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon",
-    "source": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa",
+    "dir": "catalogus/tropaar/icoon-moeder-gods-vladimir-toon-4/hemelum",
+    "source": "catalogus/tropaar/icoon-moeder-gods-vladimir-toon-4/hemelum/tropaar-icoon-moeder-gods-vladimir-toon-4-hemelum.vsa.mvsa",
     "ok": true,
     "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\icoon-moeder-gods-vladimir-toon-4\\hemelum\\tropaar-icoon-moeder-gods-vladimir-toon-4-hemelum.vsa.mvsa"
+  },
+  {
+    "dir": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon",
+    "source": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa",
+    "ok": false,
+    "issues": [
+      {
+        "kind": "missing_lyrics",
+        "file": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.lyrics.txt",
+        "detail": "lyrics.txt ontbreekt naast de bron (.vsa/.mvsa/.mscz)"
+      }
+    ],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\johannes-de-theoloog-toon-2\\liturgikon\\tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa"
+  },
+  {
+    "dir": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon",
+    "source": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa",
+    "ok": false,
+    "issues": [
+      {
+        "kind": "missing_lyrics",
+        "file": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa.lyrics.txt",
+        "detail": "lyrics.txt ontbreekt naast de bron (.vsa/.mvsa/.mscz)"
+      }
+    ],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\johannes-de-theoloog-toon-2\\liturgikon\\tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa"
   },
   {
     "dir": "catalogus/tropaar/johannes-van-shanghai-en-san-francisco/hemelum",
@@ -1113,11 +1658,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\johannes-van-shanghai-en-san-francisco\\hemelum\\tropaar-johannes-van-shanghai-en-san-francisco-hemelum.vsa"
   },
   {
+    "dir": "catalogus/tropaar/johannes-van-shanghai-en-san-francisco/hemelum",
+    "source": "catalogus/tropaar/johannes-van-shanghai-en-san-francisco/hemelum/tropaar-johannes-van-shanghai-en-san-francisco-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\johannes-van-shanghai-en-san-francisco\\hemelum\\tropaar-johannes-van-shanghai-en-san-francisco-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/tropaar/maandag-toon-4/hemelum",
     "source": "catalogus/tropaar/maandag-toon-4/hemelum/tropaar-maandag-toon-4-hemelum.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\maandag-toon-4\\hemelum\\tropaar-maandag-toon-4-hemelum.vsa"
+  },
+  {
+    "dir": "catalogus/tropaar/maandag-toon-4/hemelum",
+    "source": "catalogus/tropaar/maandag-toon-4/hemelum/tropaar-maandag-toon-4-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\maandag-toon-4\\hemelum\\tropaar-maandag-toon-4-hemelum.vsa.mvsa"
   },
   {
     "dir": "catalogus/tropaar/mantel-moeder-gods-toon-4/hemelum",
@@ -1127,11 +1686,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\mantel-moeder-gods-toon-4\\hemelum\\tropaar-mantel-moeder-gods-toon-4-hemelum.vsa"
   },
   {
+    "dir": "catalogus/tropaar/mantel-moeder-gods-toon-4/hemelum",
+    "source": "catalogus/tropaar/mantel-moeder-gods-toon-4/hemelum/tropaar-mantel-moeder-gods-toon-4-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\mantel-moeder-gods-toon-4\\hemelum\\tropaar-mantel-moeder-gods-toon-4-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/tropaar/maria-hulp-der-christenen-pokrof-toon-4/liturgikon",
     "source": "catalogus/tropaar/maria-hulp-der-christenen-pokrof-toon-4/liturgikon/tropaar-maria-hulp-der-christenen-pokrof-toon-4-liturgikon.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\maria-hulp-der-christenen-pokrof-toon-4\\liturgikon\\tropaar-maria-hulp-der-christenen-pokrof-toon-4-liturgikon.vsa"
+  },
+  {
+    "dir": "catalogus/tropaar/maria-hulp-der-christenen-pokrof-toon-4/liturgikon",
+    "source": "catalogus/tropaar/maria-hulp-der-christenen-pokrof-toon-4/liturgikon/tropaar-maria-hulp-der-christenen-pokrof-toon-4-liturgikon.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\maria-hulp-der-christenen-pokrof-toon-4\\liturgikon\\tropaar-maria-hulp-der-christenen-pokrof-toon-4-liturgikon.vsa.mvsa"
   },
   {
     "dir": "catalogus/tropaar/maria-magdalena-toon-1/heiligenjaar",
@@ -1141,6 +1714,13 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\maria-magdalena-toon-1\\heiligenjaar\\tropaar-maria-magdalena-toon-1-heiligenjaar.vsa"
   },
   {
+    "dir": "catalogus/tropaar/maria-magdalena-toon-1/heiligenjaar",
+    "source": "catalogus/tropaar/maria-magdalena-toon-1/heiligenjaar/tropaar-maria-magdalena-toon-1-heiligenjaar.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\maria-magdalena-toon-1\\heiligenjaar\\tropaar-maria-magdalena-toon-1-heiligenjaar.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/tropaar/maria-magdalena-toon-1/liturgikon",
     "source": "catalogus/tropaar/maria-magdalena-toon-1/liturgikon/tropaar-maria-magdalena-toon-1-liturgikon.vsa",
     "ok": true,
@@ -1148,11 +1728,37 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\maria-magdalena-toon-1\\liturgikon\\tropaar-maria-magdalena-toon-1-liturgikon.vsa"
   },
   {
-    "dir": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum",
-    "source": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa",
+    "dir": "catalogus/tropaar/maria-magdalena-toon-1/liturgikon",
+    "source": "catalogus/tropaar/maria-magdalena-toon-1/liturgikon/tropaar-maria-magdalena-toon-1-liturgikon.vsa.mvsa",
     "ok": true,
     "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\maria-magdalena-toon-1\\liturgikon\\tropaar-maria-magdalena-toon-1-liturgikon.vsa.mvsa"
+  },
+  {
+    "dir": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum",
+    "source": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa",
+    "ok": false,
+    "issues": [
+      {
+        "kind": "stale_lyrics",
+        "file": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.lyrics.txt",
+        "detail": "lyrics ouder dan bron (stamp 2026-11-11T23:27:22+00:00)"
+      }
+    ],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\marina-grootmartelares-toon-4\\hemelum\\tropaar-marina-grootmartelares-toon-4-hemelum.vsa"
+  },
+  {
+    "dir": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum",
+    "source": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mvsa",
+    "ok": false,
+    "issues": [
+      {
+        "kind": "stale_lyrics",
+        "file": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mvsa.lyrics.txt",
+        "detail": "lyrics ouder dan bron (stamp 2026-11-11T23:27:32+00:00)"
+      }
+    ],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\marina-grootmartelares-toon-4\\hemelum\\tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mvsa"
   },
   {
     "dir": "catalogus/tropaar/nikolaas-van-myra-toon-4/hemelum",
@@ -1162,11 +1768,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\nikolaas-van-myra-toon-4\\hemelum\\tropaar-nikolaas-van-myra-toon-4-hemelum.vsa"
   },
   {
+    "dir": "catalogus/tropaar/nikolaas-van-myra-toon-4/hemelum",
+    "source": "catalogus/tropaar/nikolaas-van-myra-toon-4/hemelum/tropaar-nikolaas-van-myra-toon-4-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\nikolaas-van-myra-toon-4\\hemelum\\tropaar-nikolaas-van-myra-toon-4-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/tropaar/nikolaas-van-myra-toon-4/liturgikon",
     "source": "catalogus/tropaar/nikolaas-van-myra-toon-4/liturgikon/tropaar-nikolaas-van-myra-toon-4-liturgikon.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\nikolaas-van-myra-toon-4\\liturgikon\\tropaar-nikolaas-van-myra-toon-4-liturgikon.vsa"
+  },
+  {
+    "dir": "catalogus/tropaar/nikolaas-van-myra-toon-4/liturgikon",
+    "source": "catalogus/tropaar/nikolaas-van-myra-toon-4/liturgikon/tropaar-nikolaas-van-myra-toon-4-liturgikon.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\nikolaas-van-myra-toon-4\\liturgikon\\tropaar-nikolaas-van-myra-toon-4-liturgikon.vsa.mvsa"
   },
   {
     "dir": "catalogus/tropaar/nikolaas-van-myra-toon-4/print",
@@ -1183,11 +1803,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\ontslapen-moeder-gods-toon-1\\hemelum\\tropaar-ontslapen-moeder-gods-toon-1-hemelum.vsa"
   },
   {
+    "dir": "catalogus/tropaar/ontslapen-moeder-gods-toon-1/hemelum",
+    "source": "catalogus/tropaar/ontslapen-moeder-gods-toon-1/hemelum/tropaar-ontslapen-moeder-gods-toon-1-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\ontslapen-moeder-gods-toon-1\\hemelum\\tropaar-ontslapen-moeder-gods-toon-1-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/tropaar/profeet-elia-toon-4/liturgikon",
     "source": "catalogus/tropaar/profeet-elia-toon-4/liturgikon/tropaar-profeet-elia-toon-4-liturgikon.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\profeet-elia-toon-4\\liturgikon\\tropaar-profeet-elia-toon-4-liturgikon.vsa"
+  },
+  {
+    "dir": "catalogus/tropaar/profeet-elia-toon-4/liturgikon",
+    "source": "catalogus/tropaar/profeet-elia-toon-4/liturgikon/tropaar-profeet-elia-toon-4-liturgikon.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\profeet-elia-toon-4\\liturgikon\\tropaar-profeet-elia-toon-4-liturgikon.vsa.mvsa"
   },
   {
     "dir": "catalogus/tropaar/silouan-de-athoniet-toon-4/asten",
@@ -1197,11 +1831,38 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\silouan-de-athoniet-toon-4\\asten\\tropaar-silouan-de-athoniet-toon-4-asten.vsa"
   },
   {
+    "dir": "catalogus/tropaar/silouan-de-athoniet-toon-4/asten",
+    "source": "catalogus/tropaar/silouan-de-athoniet-toon-4/asten/tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa",
+    "ok": false,
+    "issues": [
+      {
+        "kind": "missing_lyrics",
+        "file": "catalogus/tropaar/silouan-de-athoniet-toon-4/asten/tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa.lyrics.txt",
+        "detail": "lyrics.txt ontbreekt naast de bron (.vsa/.mvsa/.mscz)"
+      }
+    ],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\silouan-de-athoniet-toon-4\\asten\\tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/tropaar/tempelgang-moeder-gods-toon-4/hemelum",
     "source": "catalogus/tropaar/tempelgang-moeder-gods-toon-4/hemelum/tropaar-tempelgang-moeder-gods-toon-4-hemelum.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\tempelgang-moeder-gods-toon-4\\hemelum\\tropaar-tempelgang-moeder-gods-toon-4-hemelum.vsa"
+  },
+  {
+    "dir": "catalogus/tropaar/tempelgang-moeder-gods-toon-4/hemelum",
+    "source": "catalogus/tropaar/tempelgang-moeder-gods-toon-4/hemelum/tropaar-tempelgang-moeder-gods-toon-4-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\tempelgang-moeder-gods-toon-4\\hemelum\\tropaar-tempelgang-moeder-gods-toon-4-hemelum.vsa.mvsa"
+  },
+  {
+    "dir": "catalogus/tropaar/transfiguratie-toon-7/hemelum",
+    "source": "catalogus/tropaar/transfiguratie-toon-7/hemelum/tropaar-transfiguratie-toon-7-hemelum.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\transfiguratie-toon-7\\hemelum\\tropaar-transfiguratie-toon-7-hemelum.mvsa"
   },
   {
     "dir": "catalogus/tropaar/transfiguratie-toon-7/hemelum",
@@ -1211,32 +1872,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\transfiguratie-toon-7\\hemelum\\tropaar-transfiguratie-toon-7-hemelum.vsa"
   },
   {
-    "dir": "catalogus/tropaar/uw-heilig-kruis/groningen",
-    "source": "catalogus/tropaar/uw-heilig-kruis/groningen/tropaar-uw-heilig-kruis-groningen.vsa",
+    "dir": "catalogus/tropaar/uw-heilig-kruis/hemelum",
+    "source": "catalogus/tropaar/uw-heilig-kruis/hemelum/tropaar-uw-heilig-kruis-hemelum.mvsa",
     "ok": true,
     "issues": [],
-    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\uw-heilig-kruis\\groningen\\tropaar-uw-heilig-kruis-groningen.vsa"
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\uw-heilig-kruis\\hemelum\\tropaar-uw-heilig-kruis-hemelum.mvsa"
   },
   {
-    "dir": "catalogus/tropaar/uw-heilig-kruis/groningen-ksl",
-    "source": "catalogus/tropaar/uw-heilig-kruis/groningen-ksl/tropaar-uw-heilig-kruis-groningen-ksl.vsa",
+    "dir": "catalogus/tropaar/uw-heilig-kruis/hemelum-ksl",
+    "source": "catalogus/tropaar/uw-heilig-kruis/hemelum-ksl/tropaar-uw-heilig-kruis-hemelum-ksl.mvsa",
     "ok": true,
     "issues": [],
-    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\uw-heilig-kruis\\groningen-ksl\\tropaar-uw-heilig-kruis-groningen-ksl.vsa"
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\uw-heilig-kruis\\hemelum-ksl\\tropaar-uw-heilig-kruis-hemelum-ksl.mvsa"
   },
   {
     "dir": "catalogus/tropaar/uw-heilig-kruis/liturgikon",
-    "source": "catalogus/tropaar/uw-heilig-kruis/liturgikon/tropaar-uw-heilig-kruis-liturgikon.vsa",
+    "source": "catalogus/tropaar/uw-heilig-kruis/liturgikon/tropaar-uw-heilig-kruis-liturgikon.mvsa",
     "ok": true,
     "issues": [],
-    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\uw-heilig-kruis\\liturgikon\\tropaar-uw-heilig-kruis-liturgikon.vsa"
-  },
-  {
-    "dir": "catalogus/tropaar/uw-heilig-kruis/liturgikon-ksl",
-    "source": "catalogus/tropaar/uw-heilig-kruis/liturgikon-ksl/tropaar-uw-heilig-kruis-liturgikon-ksl.vsa",
-    "ok": true,
-    "issues": [],
-    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\uw-heilig-kruis\\liturgikon-ksl\\tropaar-uw-heilig-kruis-liturgikon-ksl.vsa"
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\uw-heilig-kruis\\liturgikon\\tropaar-uw-heilig-kruis-liturgikon.mvsa"
   },
   {
     "dir": "catalogus/tropaar/zaterdag-gestorvenen-toon-2/hemelum",
@@ -1246,6 +1900,13 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zaterdag-gestorvenen-toon-2\\hemelum\\tropaar-zaterdag-gestorvenen-toon-2-hemelum.vsa"
   },
   {
+    "dir": "catalogus/tropaar/zaterdag-gestorvenen-toon-2/hemelum",
+    "source": "catalogus/tropaar/zaterdag-gestorvenen-toon-2/hemelum/tropaar-zaterdag-gestorvenen-toon-2-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zaterdag-gestorvenen-toon-2\\hemelum\\tropaar-zaterdag-gestorvenen-toon-2-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum",
     "source": "catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum/tropaar-zaterdag-heiligen-toon-2-hemelum.vsa",
     "ok": true,
@@ -1253,11 +1914,18 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zaterdag-heiligen-toon-2\\hemelum\\tropaar-zaterdag-heiligen-toon-2-hemelum.vsa"
   },
   {
-    "dir": "catalogus/tropaar/zondag-toon-1/groningen",
-    "source": "catalogus/tropaar/zondag-toon-1/groningen/tropaar-zondag-toon-1-groningen.vsa",
+    "dir": "catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum",
+    "source": "catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum/tropaar-zaterdag-heiligen-toon-2-hemelum.vsa.mvsa",
     "ok": true,
     "issues": [],
-    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-1\\groningen\\tropaar-zondag-toon-1-groningen.vsa"
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zaterdag-heiligen-toon-2\\hemelum\\tropaar-zaterdag-heiligen-toon-2-hemelum.vsa.mvsa"
+  },
+  {
+    "dir": "catalogus/tropaar/zondag-toon-1/groningen",
+    "source": "catalogus/tropaar/zondag-toon-1/groningen/tropaar-zondag-toon-1-groningen.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-1\\groningen\\tropaar-zondag-toon-1-groningen.mvsa"
   },
   {
     "dir": "catalogus/tropaar/zondag-toon-2/groningen",
@@ -1267,11 +1935,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-2\\groningen\\tropaar-zondag-toon-2-groningen.vsa"
   },
   {
+    "dir": "catalogus/tropaar/zondag-toon-2/groningen",
+    "source": "catalogus/tropaar/zondag-toon-2/groningen/tropaar-zondag-toon-2-groningen.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-2\\groningen\\tropaar-zondag-toon-2-groningen.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/tropaar/zondag-toon-3/groningen",
     "source": "catalogus/tropaar/zondag-toon-3/groningen/tropaar-zondag-toon-3-groningen.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-3\\groningen\\tropaar-zondag-toon-3-groningen.vsa"
+  },
+  {
+    "dir": "catalogus/tropaar/zondag-toon-3/groningen",
+    "source": "catalogus/tropaar/zondag-toon-3/groningen/tropaar-zondag-toon-3-groningen.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-3\\groningen\\tropaar-zondag-toon-3-groningen.vsa.mvsa"
   },
   {
     "dir": "catalogus/tropaar/zondag-toon-4/groningen",
@@ -1281,11 +1963,39 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-4\\groningen\\tropaar-zondag-toon-4-groningen.vsa"
   },
   {
+    "dir": "catalogus/tropaar/zondag-toon-4/groningen",
+    "source": "catalogus/tropaar/zondag-toon-4/groningen/tropaar-zondag-toon-4-groningen.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-4\\groningen\\tropaar-zondag-toon-4-groningen.vsa.mvsa"
+  },
+  {
+    "dir": "catalogus/tropaar/zondag-toon-4/hemelum",
+    "source": "catalogus/tropaar/zondag-toon-4/hemelum/tropaar-zondag-toon-4-hemelum.vsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-4\\hemelum\\tropaar-zondag-toon-4-hemelum.vsa"
+  },
+  {
+    "dir": "catalogus/tropaar/zondag-toon-4/hemelum",
+    "source": "catalogus/tropaar/zondag-toon-4/hemelum/tropaar-zondag-toon-4-hemelum.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-4\\hemelum\\tropaar-zondag-toon-4-hemelum.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/tropaar/zondag-toon-5/groningen",
     "source": "catalogus/tropaar/zondag-toon-5/groningen/tropaar-zondag-toon-5-groningen.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-5\\groningen\\tropaar-zondag-toon-5-groningen.vsa"
+  },
+  {
+    "dir": "catalogus/tropaar/zondag-toon-5/groningen",
+    "source": "catalogus/tropaar/zondag-toon-5/groningen/tropaar-zondag-toon-5-groningen.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-5\\groningen\\tropaar-zondag-toon-5-groningen.vsa.mvsa"
   },
   {
     "dir": "catalogus/tropaar/zondag-toon-6/groningen",
@@ -1295,11 +2005,25 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-6\\groningen\\tropaar-zondag-toon-6-groningen.vsa"
   },
   {
+    "dir": "catalogus/tropaar/zondag-toon-6/groningen",
+    "source": "catalogus/tropaar/zondag-toon-6/groningen/tropaar-zondag-toon-6-groningen.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-6\\groningen\\tropaar-zondag-toon-6-groningen.vsa.mvsa"
+  },
+  {
     "dir": "catalogus/tropaar/zondag-toon-7/groningen",
     "source": "catalogus/tropaar/zondag-toon-7/groningen/tropaar-zondag-toon-7-groningen.vsa",
     "ok": true,
     "issues": [],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-7\\groningen\\tropaar-zondag-toon-7-groningen.vsa"
+  },
+  {
+    "dir": "catalogus/tropaar/zondag-toon-7/groningen",
+    "source": "catalogus/tropaar/zondag-toon-7/groningen/tropaar-zondag-toon-7-groningen.vsa.mvsa",
+    "ok": true,
+    "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-7\\groningen\\tropaar-zondag-toon-7-groningen.vsa.mvsa"
   },
   {
     "dir": "catalogus/tropaar/zondag-toon-8/groningen",
@@ -1309,10 +2033,23 @@
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-8\\groningen\\tropaar-zondag-toon-8-groningen.vsa"
   },
   {
-    "dir": "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon",
-    "source": "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon/tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa",
+    "dir": "catalogus/tropaar/zondag-toon-8/groningen",
+    "source": "catalogus/tropaar/zondag-toon-8/groningen/tropaar-zondag-toon-8-groningen.vsa.mvsa",
     "ok": true,
     "issues": [],
+    "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-8\\groningen\\tropaar-zondag-toon-8-groningen.vsa.mvsa"
+  },
+  {
+    "dir": "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon",
+    "source": "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon/tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa",
+    "ok": false,
+    "issues": [
+      {
+        "kind": "stale_lyrics",
+        "file": "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon/tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa.lyrics.txt",
+        "detail": "lyrics ouder dan bron (stamp 2026-11-11T22:59:11+00:00)"
+      }
+    ],
     "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tweede-antifoon\\geboorte-moeder-gods\\liturgikon\\tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa"
   },
   {

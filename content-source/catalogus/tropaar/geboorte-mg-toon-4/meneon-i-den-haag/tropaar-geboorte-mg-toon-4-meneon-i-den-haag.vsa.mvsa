@@ -1,0 +1,98 @@
+---
+taal: nl
+soort: tropaar
+toon: 4
+template: tropaar-toon-4-hemelum
+bron:
+  uitgangspunt: Liturgikon, p.274-275
+gelegenheid:
+- naam: Geboorte van de Moeder Gods
+  datum: 8 sep
+zoektekst: |-
+  Uw Geboorte, o Moeder Gods,
+  heeft de Vreugde geopenbaard aan heel de wereld.
+  Want uit U is opgegaan de Zon der Gerechtigheid: Christus onze God;
+  Hij heeft ons van de vervloeking bevrijd
+  en schenkt ons Zijn zegen.
+  Hij heeft de dood teniet gedaan
+  en Hij verleent ons het eeuwige Leven.
+gebruikt-in:
+- derde-antifoon/geboorte-moeder-gods/liturgikon
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# <!-- Tropaar Geboorte van de Moeder Gods, Toon 4 (Meneon I, p.12-13) -->
+# [//:] Uw Geboorte, o {Moe_.}{/der} {\Gods_},
+# {/heeft} de Vreugde geopenbaard aan heel de {\we__}{reld_}.
+# Want uit U is opgegaan de Zon der Gerechtigheid: Christus {on_}{/ze} {\God_};
+# {/Hij} heeft ons van de ver{vloe_}king be{\vrijd_}
+# en schenkt ons Zijn {-&/ze_&_}{\gen_}.
+# {/Hij} heeft de dood te{niet_.} ge{\daan_}
+# en Hij verleent ons het eeuwige {-&/Le_&_}{\ven_}. [//:]
+
+# === afgeleide mvsa (VSA + template) ===
+# bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/tropaar/geboorte-mg-toon-4/meneon-i-den-haag/tropaar-geboorte-mg-toon-4-meneon-i-den-haag.vsa
+# template: tropaar-toon-4-hemelum/template.yaml (tropaar-toon-4-hemelum)
+# Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
+#  ##########################################################################  #
+#  #                                                                        #  #
+#  #   WAARSCHUWING:                                                        #  #
+#  #                                                                        #  #
+#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
+#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
+#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
+#  #   - melisma-slots (``_&_`` / ``~&~`` voor stem-sync; later samentrekken)#  #
+#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
+#  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
+#  #                                                                        #  #
+#  ##########################################################################  #
+@title "tropaar-geboorte-mg-toon-4-meneon-i-den-haag"
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=0 T=-1 B=-1
+
+@sectie cyclus-1
+L: (Uw Ge-boor-te, o) Moe_.-der Gods_, |
+S: a                  -     /   \      |a
+A: f                  -     /   #\     |f#
+T: c                  -     /   -      |d
+B: f                  /2    \   \3     |d-
+
+L: (heeft de Vreug-de ge-o-pen-baard aan heel de) we__-reld_\. |
+S: Bb                                             \    -       |a
+A: g                                              \    -       |f
+T: d                                              \    -       |c
+B: g                                              \    -       |f
+
+@sectie herhaling
+L: (Want uit U is op-ge-gaan de Zon der Ge-rech-tig-heid: Chris-tus) on_-ze God_; |
+S: a                                                                 -   /  \     |a
+A: f                                                                 -   /  #\    |f#
+T: c                                                                 -   /  -     |d
+B: f                                                                 /2  \  \3    |d-
+
+L: (Hij heeft ons van de ver)-vloe_-king be-vrijd_ |
+S: Bb                         -     -    -  \      |a
+A: g                          -     -    -  \      |f
+T: d                          -     \    -  -      |c
+B: g                          \4    -    -  /3     |f
+
+L: (en schenkt ons Zijn) ze_&_-gen_\. |
+S: a                     -&/   \      |a
+A: f                     -&/   #\     |f#
+T: c                     -&/   -      |d
+B: f                     /2&\  \3     |d-
+
+L: (Hij heeft de dood te)-niet_. ge-daan_ |
+S: Bb                     -      -  \     |a
+A: g                      -      -  \     |f
+T: d                      -      \  -     |c
+B: g                      \4     -  /3    |f
+
+@sectie laatste
+L: (en Hij ver-leent ons het ee-u-wi-ge) Le_&_-ven_\. |
+S: a                                     -&/   \      |a
+A: f                                     -&/   \      |f
+T: c                                     -&/   \      |c
+B: f                                     -&/   \      |f

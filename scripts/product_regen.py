@@ -210,7 +210,7 @@ KIND_ORDER = (
 )
 
 KIND_HELP = {
-    "vsa": "Coria-.vsa.mxl + .vsa.svg",
+    "vsa": ".vsa.svg + .vsa.mvsa (+ cascade mvsa)",
     "mscz": ".mscz.mxl + .mscz.svg",
     "tekstblad": ".tekstblad.scherm.html + block-SVG’s bij ::: vsa-notatie",
     "mvsa": ".mvsa.mxl + .mvsa.svg + score-ir/from-ir",

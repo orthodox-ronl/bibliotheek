@@ -35,9 +35,13 @@ gebruikersregel `contracten-eerst-orthodox-ronl`
 5. Noem het contract-id / de spec-sectie in uitleg, tests en PR.
 6. Wijzig normatieve tekst **alleen** in de canonieke hub; elders alleen
    linken.
+7. Canoniciteit / skelet / nieuwe-regel-proces: zie ook
+   [`canonieke-bestanden.mdc`](canonieke-bestanden.mdc) en tooling
+   contract-index §Contract-skelet, §C*, §Nieuwe regel.
 
 **Verboden:** exporteren/composeren “op gevoel”; aannemen dat een bestaande
 helper het contract al volgt zonder de hub te lezen; PDF-/SVG-volgorde
 afwijken van de Markdown-bladintentie.
 
-Tooling-spiegel: VSA-tooling `.cursor/rules/contracten-eerst.mdc`.
+Tooling-spiegel: VSA-tooling `.cursor/rules/contracten-eerst.mdc` en
+`canonieke-bestanden.mdc`.

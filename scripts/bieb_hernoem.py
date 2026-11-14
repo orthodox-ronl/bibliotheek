@@ -534,7 +534,9 @@ def hernoem(old_raw: str, new_raw: str, *, dry_run: bool) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(
+    from cli_help import make_parser
+
+    parser = make_parser(
         prog="bieb hernoem",
         description=(
             "Hernoem catalogus-id (zangstuk/variant/uitvoeringsvorm): "

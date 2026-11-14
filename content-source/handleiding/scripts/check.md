@@ -24,8 +24,8 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 1. `validate` — `vsa validate` op `content-source\catalogus` (en
    `mvsa validate` als daar `.mvsa`-bestanden staan)
 2. VSA-publicatiecontrole — of elke catalogus-`.vsa` (behalve
-   `manueel` / `manual`) passende siblings `{stam}.vsa.mxl`,
-   `{stam}.vsa.pdf` en `{stam}.vsa.svg` heeft met `vsa-source-sha256`
+   `manueel` / `manual`) passende `{stam}.vsa.svg` heeft, en — als T1
+   een formule kiest — ook `{stam}.vsa.mvsa` (geen `.vsa.mxl` meer)
 3. MSCZ-publicatiecontrole — of elke basispartituur-`.mscz` (behalve
    handmatig/print) passende siblings `{stam}.mscz.pdf` en
    `{stam}.mscz.mxl` heeft met `vsa-partituur-sha256`
@@ -34,9 +34,10 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 5. Importcontrole — of elke **bestaande** `{stam}.mscz.mvsa` bij de
    bijbehorende basispartituur-`.mscz` past (`vsa-partituur-sha256`);
    ontbrekende import-siblings zijn geen fout
-6. MVSA-publicatiecontrole — of elke canonieke catalogus-`.mvsa`
-   (geen `.mscz.mvsa`) passende siblings `{stam}.mvsa.mxl`,
-   `{stam}.mvsa.pdf` en `{stam}.mvsa.svg` heeft met `vsa-source-sha256`
+6. MVSA-publicatiecontrole — of elke catalogus-`.mvsa` (inclusief
+   afgeleide `.vsa.mvsa`, geen `.mscz.mvsa`) passende siblings
+   (o.a. `{stam}.mvsa.mxl`, score-ir/from-ir; svg optioneel bij from-ir)
+   heeft met herkomststempel / products-meta
 7. Audio-publicatiecontrole — of elke canonieke `.mvsa` / basis-`.mscz` /
    `.vsa` een passende preview-`.mp3` heeft met herkomststempel
 8. Lyrics-publicatiecontrole — of elke catalogus-`.vsa` / `.mvsa` /

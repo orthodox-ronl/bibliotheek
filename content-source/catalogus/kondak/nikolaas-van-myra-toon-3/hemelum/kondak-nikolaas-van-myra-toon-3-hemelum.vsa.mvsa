@@ -1,0 +1,89 @@
+---
+taal: nl
+soort: kondak
+toon: 3
+template: tropaar-toon-3-groningen
+partituur:
+  arranger: Hemelum
+bron:
+  uitgangspunt: Liturgikon
+  bewerking: zetting/praktijk Hemelum
+gelegenheid:
+- naam: Nikolaas van Myra
+  datum: 6 dec
+zoektekst: |-
+  Heilige Nikolaas van Myra,
+  gij zijt werkelijk de Hogepriester van Christus.
+  Volgens het Evangelie hebt gij uw leven ingezet
+  om onschuldigen te redden uit de dood.
+  Daarin hebt gij de heiligheid gevonden,
+  als de Uitdeler der Mysteriën van Gods genade.
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# <!-- Kondak H. Nikolaas van Myra, Toon 3 (Liturgikon, p283) -->
+# <!-- Uitvoeringsvorm: hemelum -->
+# [\\:] Heili{/ge} {/Ni}ko{\laas} {/van} {/&/My}{ra_}, 
+# gij zijt werkelijk de Hogepriester van {\&\&\Chris_&~&~}{\tus_}. 
+# Volgens het E{/van}{/ge}lie hebt gij uw {\le}{/ven} {/&/in}ge{zet_} 
+# om onschuldigen te {/red_}den uit de {\dood_}. 
+# Daarin hebt gij de heiligheid {/ge}{/&\von_&_}{\den_}, //
+# als de Uitdeler der Mysteriën van {\Gods_} {\ge_}{/&/&/&\&\&\&/na~&~&~&~&~&~&_}{\de_}. [:]
+
+# === afgeleide mvsa (VSA + template) ===
+# bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/kondak/nikolaas-van-myra-toon-3/hemelum/kondak-nikolaas-van-myra-toon-3-hemelum.vsa
+# template: tropaar-toon-3-groningen/template.yaml (tropaar-toon-3-groningen)
+# Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
+#  ##########################################################################  #
+#  #                                                                        #  #
+#  #   WAARSCHUWING:                                                        #  #
+#  #                                                                        #  #
+#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
+#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
+#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
+#  #   - melisma-slots (``_&_`` / ``~&~`` voor stem-sync; later samentrekken)#  #
+#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
+#  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
+#  #                                                                        #  #
+#  ##########################################################################  #
+@title "kondak-nikolaas-van-myra-toon-3-hemelum"
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=0 T=-1 B=-1
+
+L: (Hei-li)-ge Ni-ko-laas van My~&~-ra_, |
+S: d-       /  /  -  \    /   /&/   -    |a
+A: d-       -  -  -  -    -   /&/   -    |f
+T: f+       /  /  -  \    /   \5&-  -    |c
+B: d        -  -  -  -    -   \&\4  -    |f
+
+L: (gij zijt wer-ke-lijk de Ho-gep-ries-ter van) Chris_&~&~-tus_\. |
+S: a                                             \&\&\      \      |d-
+A: f                                             \&\&-      -      |d-
+T: c                                             -&/5&\     \      |f+
+B: f                                             /4&/&-     -      |d
+
+L: (Vol-gens het E)-van-ge-lie hebt gij uw le-ven in~&~-ge-zet_ |
+S: d-               /   /  -   -    -   -  \  /   /&/   -  -    |a
+A: d-               -   -  -   -    -   -  -  -   /&/   -  -    |f
+T: f+               /   /  -   -    -   -  \  /   \5&-  -  -    |c
+B: d                -   -  -   -    -   -  -  -   \&\4  -  -    |f
+
+L: (om on-schul-di-gen te) red_-den uit de dood_\. |
+S: a                       /    -   -   -  \       |a
+A: f                       /    -   -   -  \       |f
+T: c                       /    -   -   -  \       |c
+B: f                       /    -   -   -  \       |f
+
+L: (Daa-rin hebt gij de hei-lig-heid) ge-von_&_-den_, |
+S: a                                  /  /&\    \     |a
+A: f                                  /  /&\    \     |f
+T: c                                  /  /&\    \     |c
+B: f                                  /  /&\    \     |f
+
+L: (als de Uit-de-ler der Mys-te-ri-ën van) Gods_ ge_-na~&~&~&~&~&~&_ -de_\. |
+S: a                                        \     \   /&/&/&\&\&\&/    \     |f
+A: f                                        \     \   /&/&/&\&\&\&/    \     |d-
+T: c                                        -     /5  \5&-&/&\&-&/5&\5 /5    |a+
+B: f                                        /4    /   \&\4&/&\&/4&/&\  /     |d

@@ -9,6 +9,7 @@ import argparse
 import sys
 from pathlib import Path
 
+from cli_help import CliHelpFormatter
 from cli_style import (
     add_verbose_argument,
     count,
@@ -89,7 +90,7 @@ def main(argv: list[str] | None = None) -> int:
             "(bijv. geen .mscz bij een .mvsa-pad), dan wordt dat kind "
             "overgeslagen — dat is geen fout."
         ),
-        formatter_class=argparse.RawDescriptionHelpFormatter,
+        formatter_class=CliHelpFormatter,
         epilog=(
             "kinds (default: all — inclusief audio en lyrics):\n"
             + "\n".join(f"  {k:10} {KIND_HELP[k]}" for k in KIND_ORDER)

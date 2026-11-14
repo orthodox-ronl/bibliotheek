@@ -25,7 +25,7 @@ hernoemen dezelfde taal spreken.
 
 | Soort | Betekenis | Voorbeelden (huidige ids) |
 | --- | --- | --- |
-| **Genre-emmer** | Catalogus van losse werken onder één genre. Elk werk is een **variant**. | `tropaar`, `kondak` |
+| **Genre-emmer** | Catalogus van losse werken onder één genre. Elk werk is een **variant**. | `tropaar`, `kondak`, `stichier` |
 | **Liturgische familie** | Zelfde liturgische rol of tekstfamilie; meerdere teksten of settings als variant. | `ektinia`, `cherubijnenhymne`, `trisagion`, antifonen, `prokimen`, `alleluia`, `prijslied`, `moeder-godslied` |
 | **Enkelvoudig werk** | Eén herkenbaar stuk; hoogstens settings of talen als variant. | `eniggeboren-zoon`, `wij-hebben-het-ware-licht`, `de-naam-des-heren-zij-gezegend` |
 
@@ -71,6 +71,7 @@ al als `zangstuk-id`.
 | Soort | Voorbeeld-id | Betekenis |
 | --- | --- | --- |
 | Genre-emmer | `tropaar/zondag-toon-3/groningen` | Catalogus «Troparen»; elk werk = variant |
+| Genre-emmer (coupletten) | `stichier/heer-ik-roep-toon-6/groningen-1` | Stichieren; couplet = uitvoeringsvorm — [Stichieren](../stichieren/) |
 | Liturgische familie | `ektinia/eerste-kleine/hemelum` | Familie «Ektinia»; soort ektinia = variant |
 | Familie + VO-code | `cherubijnenhymne/15c-kastorski/hemelum` | Setting/VO-label op variant |
 | Enkelvoudig werk | `eniggeboren-zoon/default/hemelum` | Eén stuk; `default` tot er een tweede setting is |
@@ -155,6 +156,7 @@ opmerkingen is alleen geschiedenis.
 | --- | --- | --- |
 | `tropaar` | genre-emmer | Was `110-tropaar`; kruisvarianten `heer-red-uw-volk`, `uw-heilig-kruis` eronder |
 | `kondak` | genre-emmer | Was `120-kondak` |
+| `stichier` | genre-emmer | o.a. *Heer ik roep* per toon; coupletten als UV — [Stichieren](../stichieren/) |
 | `ektinia` | liturgische familie | Was aparte litanie-zangstukken; koormap-slots houden pleknamen |
 | `cherubijnenhymne` | liturgische familie | Was `15-cherubijnenhymne`; VO-codes op variant |
 | `trisagion` | liturgische familie | Was `8-trisagion`; VO-/taallabel op variant |

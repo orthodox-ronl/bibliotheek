@@ -523,9 +523,15 @@
     "catalogus/geloofsbelijdenis/default/hemelum-deel-2|geloofsbelijdenis-default-hemelum-deel-2.vsa.mp3": {
       "source": "catalogus/geloofsbelijdenis/default/hemelum-deel-2/geloofsbelijdenis-default-hemelum-deel-2.vsa",
       "product": "catalogus/geloofsbelijdenis/default/hemelum-deel-2/geloofsbelijdenis-default-hemelum-deel-2.vsa.mp3",
-      "ok": true,
+      "ok": false,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\geloofsbelijdenis\\default\\hemelum-deel-2\\geloofsbelijdenis-default-hemelum-deel-2.vsa",
-      "issues": []
+      "issues": [
+        {
+          "kind": "stale_mp3",
+          "file": "catalogus/geloofsbelijdenis/default/hemelum-deel-2/geloofsbelijdenis-default-hemelum-deel-2.vsa.mp3",
+          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-11-11T22:43:19+00:00); bron is gewijzigd"
+        }
+      ]
     },
     "catalogus/gezegend-hij-die-komt/default/hemelum|gezegend-hij-die-komt-default-hemelum.mvsa.mp3": {
       "source": "catalogus/gezegend-hij-die-komt/default/hemelum/gezegend-hij-die-komt-default-hemelum.mvsa",
@@ -576,11 +582,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\apostel-andreas-toon-2\\hemelum\\kondak-apostel-andreas-toon-2-hemelum.vsa",
       "issues": []
     },
+    "catalogus/kondak/apostel-andreas-toon-2/hemelum|kondak-apostel-andreas-toon-2-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/apostel-andreas-toon-2/hemelum/kondak-apostel-andreas-toon-2-hemelum.vsa.mvsa",
+      "product": "catalogus/kondak/apostel-andreas-toon-2/hemelum/kondak-apostel-andreas-toon-2-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\apostel-andreas-toon-2\\hemelum\\kondak-apostel-andreas-toon-2-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/kondak/apostel-thaddeos-toon-4/hemelum|kondak-apostel-thaddeos-toon-4-hemelum.vsa.mp3": {
       "source": "catalogus/kondak/apostel-thaddeos-toon-4/hemelum/kondak-apostel-thaddeos-toon-4-hemelum.vsa",
       "product": "catalogus/kondak/apostel-thaddeos-toon-4/hemelum/kondak-apostel-thaddeos-toon-4-hemelum.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\apostel-thaddeos-toon-4\\hemelum\\kondak-apostel-thaddeos-toon-4-hemelum.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/apostel-thaddeos-toon-4/hemelum|kondak-apostel-thaddeos-toon-4-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/apostel-thaddeos-toon-4/hemelum/kondak-apostel-thaddeos-toon-4-hemelum.vsa.mvsa",
+      "product": "catalogus/kondak/apostel-thaddeos-toon-4/hemelum/kondak-apostel-thaddeos-toon-4-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\apostel-thaddeos-toon-4\\hemelum\\kondak-apostel-thaddeos-toon-4-hemelum.vsa.mvsa",
       "issues": []
     },
     "catalogus/kondak/dinsdag-toon-3/hemelum|kondak-dinsdag-toon-3-hemelum.vsa.mp3": {
@@ -590,11 +610,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\dinsdag-toon-3\\hemelum\\kondak-dinsdag-toon-3-hemelum.vsa",
       "issues": []
     },
+    "catalogus/kondak/dinsdag-toon-3/hemelum|kondak-dinsdag-toon-3-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/dinsdag-toon-3/hemelum/kondak-dinsdag-toon-3-hemelum.vsa.mvsa",
+      "product": "catalogus/kondak/dinsdag-toon-3/hemelum/kondak-dinsdag-toon-3-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\dinsdag-toon-3\\hemelum\\kondak-dinsdag-toon-3-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/kondak/donderdag-toon-2/hemelum|kondak-donderdag-toon-2-hemelum.vsa.mp3": {
       "source": "catalogus/kondak/donderdag-toon-2/hemelum/kondak-donderdag-toon-2-hemelum.vsa",
       "product": "catalogus/kondak/donderdag-toon-2/hemelum/kondak-donderdag-toon-2-hemelum.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\donderdag-toon-2\\hemelum\\kondak-donderdag-toon-2-hemelum.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/donderdag-toon-2/hemelum|kondak-donderdag-toon-2-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/donderdag-toon-2/hemelum/kondak-donderdag-toon-2-hemelum.vsa.mvsa",
+      "product": "catalogus/kondak/donderdag-toon-2/hemelum/kondak-donderdag-toon-2-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\donderdag-toon-2\\hemelum\\kondak-donderdag-toon-2-hemelum.vsa.mvsa",
       "issues": []
     },
     "catalogus/kondak/geboorte-moeder-gods-toon-4/liturgikon|kondak-geboorte-moeder-gods-toon-4-liturgikon.vsa.mp3": {
@@ -604,11 +638,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\geboorte-moeder-gods-toon-4\\liturgikon\\kondak-geboorte-moeder-gods-toon-4-liturgikon.vsa",
       "issues": []
     },
+    "catalogus/kondak/geboorte-moeder-gods-toon-4/liturgikon|kondak-geboorte-moeder-gods-toon-4-liturgikon.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/geboorte-moeder-gods-toon-4/liturgikon/kondak-geboorte-moeder-gods-toon-4-liturgikon.vsa.mvsa",
+      "product": "catalogus/kondak/geboorte-moeder-gods-toon-4/liturgikon/kondak-geboorte-moeder-gods-toon-4-liturgikon.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\geboorte-moeder-gods-toon-4\\liturgikon\\kondak-geboorte-moeder-gods-toon-4-liturgikon.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/kondak/heilig-kruis-toon-1/hemelum|kondak-heilig-kruis-toon-1-hemelum.vsa.mp3": {
       "source": "catalogus/kondak/heilig-kruis-toon-1/hemelum/kondak-heilig-kruis-toon-1-hemelum.vsa",
       "product": "catalogus/kondak/heilig-kruis-toon-1/hemelum/kondak-heilig-kruis-toon-1-hemelum.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\heilig-kruis-toon-1\\hemelum\\kondak-heilig-kruis-toon-1-hemelum.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/heilig-kruis-toon-1/hemelum|kondak-heilig-kruis-toon-1-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/heilig-kruis-toon-1/hemelum/kondak-heilig-kruis-toon-1-hemelum.vsa.mvsa",
+      "product": "catalogus/kondak/heilig-kruis-toon-1/hemelum/kondak-heilig-kruis-toon-1-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\heilig-kruis-toon-1\\hemelum\\kondak-heilig-kruis-toon-1-hemelum.vsa.mvsa",
       "issues": []
     },
     "catalogus/kondak/icoon-moeder-gods-vladimir-toon-8/liturgikon|kondak-icoon-moeder-gods-vladimir-toon-8-liturgikon.vsa.mp3": {
@@ -618,11 +666,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\icoon-moeder-gods-vladimir-toon-8\\liturgikon\\kondak-icoon-moeder-gods-vladimir-toon-8-liturgikon.vsa",
       "issues": []
     },
+    "catalogus/kondak/icoon-moeder-gods-vladimir-toon-8/liturgikon|kondak-icoon-moeder-gods-vladimir-toon-8-liturgikon.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/icoon-moeder-gods-vladimir-toon-8/liturgikon/kondak-icoon-moeder-gods-vladimir-toon-8-liturgikon.vsa.mvsa",
+      "product": "catalogus/kondak/icoon-moeder-gods-vladimir-toon-8/liturgikon/kondak-icoon-moeder-gods-vladimir-toon-8-liturgikon.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\icoon-moeder-gods-vladimir-toon-8\\liturgikon\\kondak-icoon-moeder-gods-vladimir-toon-8-liturgikon.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/kondak/johannes-de-theoloog-toon-2/liturgikon|kondak-johannes-de-theoloog-toon-2-liturgikon.vsa.mp3": {
       "source": "catalogus/kondak/johannes-de-theoloog-toon-2/liturgikon/kondak-johannes-de-theoloog-toon-2-liturgikon.vsa",
       "product": "catalogus/kondak/johannes-de-theoloog-toon-2/liturgikon/kondak-johannes-de-theoloog-toon-2-liturgikon.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\johannes-de-theoloog-toon-2\\liturgikon\\kondak-johannes-de-theoloog-toon-2-liturgikon.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/johannes-de-theoloog-toon-2/liturgikon|kondak-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/johannes-de-theoloog-toon-2/liturgikon/kondak-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa",
+      "product": "catalogus/kondak/johannes-de-theoloog-toon-2/liturgikon/kondak-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\johannes-de-theoloog-toon-2\\liturgikon\\kondak-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa",
       "issues": []
     },
     "catalogus/kondak/johannes-shanghai-toon-2/hemelum|kondak-johannes-shanghai-toon-2-hemelum.vsa.mp3": {
@@ -632,11 +694,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\johannes-shanghai-toon-2\\hemelum\\kondak-johannes-shanghai-toon-2-hemelum.vsa",
       "issues": []
     },
+    "catalogus/kondak/johannes-shanghai-toon-2/hemelum|kondak-johannes-shanghai-toon-2-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/johannes-shanghai-toon-2/hemelum/kondak-johannes-shanghai-toon-2-hemelum.vsa.mvsa",
+      "product": "catalogus/kondak/johannes-shanghai-toon-2/hemelum/kondak-johannes-shanghai-toon-2-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\johannes-shanghai-toon-2\\hemelum\\kondak-johannes-shanghai-toon-2-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/kondak/maandag-toon-2/hemelum|kondak-maandag-toon-2-hemelum.vsa.mp3": {
       "source": "catalogus/kondak/maandag-toon-2/hemelum/kondak-maandag-toon-2-hemelum.vsa",
       "product": "catalogus/kondak/maandag-toon-2/hemelum/kondak-maandag-toon-2-hemelum.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\maandag-toon-2\\hemelum\\kondak-maandag-toon-2-hemelum.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/maandag-toon-2/hemelum|kondak-maandag-toon-2-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/maandag-toon-2/hemelum/kondak-maandag-toon-2-hemelum.vsa.mvsa",
+      "product": "catalogus/kondak/maandag-toon-2/hemelum/kondak-maandag-toon-2-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\maandag-toon-2\\hemelum\\kondak-maandag-toon-2-hemelum.vsa.mvsa",
       "issues": []
     },
     "catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/hemelum|kondak-maria-hulp-der-christenen-pokrof-toon-3-hemelum.vsa.mp3": {
@@ -646,11 +722,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\maria-hulp-der-christenen-pokrof-toon-3\\hemelum\\kondak-maria-hulp-der-christenen-pokrof-toon-3-hemelum.vsa",
       "issues": []
     },
+    "catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/hemelum|kondak-maria-hulp-der-christenen-pokrof-toon-3-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/hemelum/kondak-maria-hulp-der-christenen-pokrof-toon-3-hemelum.vsa.mvsa",
+      "product": "catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/hemelum/kondak-maria-hulp-der-christenen-pokrof-toon-3-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\maria-hulp-der-christenen-pokrof-toon-3\\hemelum\\kondak-maria-hulp-der-christenen-pokrof-toon-3-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/liturgikon|kondak-maria-hulp-der-christenen-pokrof-toon-3-liturgikon.vsa.mp3": {
       "source": "catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/liturgikon/kondak-maria-hulp-der-christenen-pokrof-toon-3-liturgikon.vsa",
       "product": "catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/liturgikon/kondak-maria-hulp-der-christenen-pokrof-toon-3-liturgikon.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\maria-hulp-der-christenen-pokrof-toon-3\\liturgikon\\kondak-maria-hulp-der-christenen-pokrof-toon-3-liturgikon.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/liturgikon|kondak-maria-hulp-der-christenen-pokrof-toon-3-liturgikon.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/liturgikon/kondak-maria-hulp-der-christenen-pokrof-toon-3-liturgikon.vsa.mvsa",
+      "product": "catalogus/kondak/maria-hulp-der-christenen-pokrof-toon-3/liturgikon/kondak-maria-hulp-der-christenen-pokrof-toon-3-liturgikon.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\maria-hulp-der-christenen-pokrof-toon-3\\liturgikon\\kondak-maria-hulp-der-christenen-pokrof-toon-3-liturgikon.vsa.mvsa",
       "issues": []
     },
     "catalogus/kondak/maria-magdalena-toon-3/liturgikon|kondak-maria-magdalena-toon-3-liturgikon.vsa.mp3": {
@@ -660,11 +750,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\maria-magdalena-toon-3\\liturgikon\\kondak-maria-magdalena-toon-3-liturgikon.vsa",
       "issues": []
     },
+    "catalogus/kondak/maria-magdalena-toon-3/liturgikon|kondak-maria-magdalena-toon-3-liturgikon.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/maria-magdalena-toon-3/liturgikon/kondak-maria-magdalena-toon-3-liturgikon.vsa.mvsa",
+      "product": "catalogus/kondak/maria-magdalena-toon-3/liturgikon/kondak-maria-magdalena-toon-3-liturgikon.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\maria-magdalena-toon-3\\liturgikon\\kondak-maria-magdalena-toon-3-liturgikon.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/kondak/maria-magdalena-toon-4/heiligenjaar|kondak-maria-magdalena-toon-4-heiligenjaar.vsa.mp3": {
       "source": "catalogus/kondak/maria-magdalena-toon-4/heiligenjaar/kondak-maria-magdalena-toon-4-heiligenjaar.vsa",
       "product": "catalogus/kondak/maria-magdalena-toon-4/heiligenjaar/kondak-maria-magdalena-toon-4-heiligenjaar.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\maria-magdalena-toon-4\\heiligenjaar\\kondak-maria-magdalena-toon-4-heiligenjaar.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/maria-magdalena-toon-4/heiligenjaar|kondak-maria-magdalena-toon-4-heiligenjaar.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/maria-magdalena-toon-4/heiligenjaar/kondak-maria-magdalena-toon-4-heiligenjaar.vsa.mvsa",
+      "product": "catalogus/kondak/maria-magdalena-toon-4/heiligenjaar/kondak-maria-magdalena-toon-4-heiligenjaar.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\maria-magdalena-toon-4\\heiligenjaar\\kondak-maria-magdalena-toon-4-heiligenjaar.vsa.mvsa",
       "issues": []
     },
     "catalogus/kondak/marina-grootmartelares-toon-3/hemelum|kondak-marina-grootmartelares-toon-3-hemelum.vsa.mp3": {
@@ -674,11 +778,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\marina-grootmartelares-toon-3\\hemelum\\kondak-marina-grootmartelares-toon-3-hemelum.vsa",
       "issues": []
     },
+    "catalogus/kondak/marina-grootmartelares-toon-3/hemelum|kondak-marina-grootmartelares-toon-3-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/marina-grootmartelares-toon-3/hemelum/kondak-marina-grootmartelares-toon-3-hemelum.vsa.mvsa",
+      "product": "catalogus/kondak/marina-grootmartelares-toon-3/hemelum/kondak-marina-grootmartelares-toon-3-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\marina-grootmartelares-toon-3\\hemelum\\kondak-marina-grootmartelares-toon-3-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/kondak/moeder-gods-toon-6/groningen|kondak-moeder-gods-toon-6-groningen.vsa.mp3": {
       "source": "catalogus/kondak/moeder-gods-toon-6/groningen/kondak-moeder-gods-toon-6-groningen.vsa",
       "product": "catalogus/kondak/moeder-gods-toon-6/groningen/kondak-moeder-gods-toon-6-groningen.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\moeder-gods-toon-6\\groningen\\kondak-moeder-gods-toon-6-groningen.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/moeder-gods-toon-6/groningen|kondak-moeder-gods-toon-6-groningen.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/moeder-gods-toon-6/groningen/kondak-moeder-gods-toon-6-groningen.vsa.mvsa",
+      "product": "catalogus/kondak/moeder-gods-toon-6/groningen/kondak-moeder-gods-toon-6-groningen.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\moeder-gods-toon-6\\groningen\\kondak-moeder-gods-toon-6-groningen.vsa.mvsa",
       "issues": []
     },
     "catalogus/kondak/moeder-gods-toon-6/hemelum|kondak-moeder-gods-toon-6-hemelum.vsa.mp3": {
@@ -688,11 +806,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\moeder-gods-toon-6\\hemelum\\kondak-moeder-gods-toon-6-hemelum.vsa",
       "issues": []
     },
+    "catalogus/kondak/moeder-gods-toon-6/hemelum|kondak-moeder-gods-toon-6-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/moeder-gods-toon-6/hemelum/kondak-moeder-gods-toon-6-hemelum.vsa.mvsa",
+      "product": "catalogus/kondak/moeder-gods-toon-6/hemelum/kondak-moeder-gods-toon-6-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\moeder-gods-toon-6\\hemelum\\kondak-moeder-gods-toon-6-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/kondak/nikolaas-van-myra-toon-3/hemelum|kondak-nikolaas-van-myra-toon-3-hemelum.vsa.mp3": {
       "source": "catalogus/kondak/nikolaas-van-myra-toon-3/hemelum/kondak-nikolaas-van-myra-toon-3-hemelum.vsa",
       "product": "catalogus/kondak/nikolaas-van-myra-toon-3/hemelum/kondak-nikolaas-van-myra-toon-3-hemelum.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\nikolaas-van-myra-toon-3\\hemelum\\kondak-nikolaas-van-myra-toon-3-hemelum.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/nikolaas-van-myra-toon-3/hemelum|kondak-nikolaas-van-myra-toon-3-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/nikolaas-van-myra-toon-3/hemelum/kondak-nikolaas-van-myra-toon-3-hemelum.vsa.mvsa",
+      "product": "catalogus/kondak/nikolaas-van-myra-toon-3/hemelum/kondak-nikolaas-van-myra-toon-3-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\nikolaas-van-myra-toon-3\\hemelum\\kondak-nikolaas-van-myra-toon-3-hemelum.vsa.mvsa",
       "issues": []
     },
     "catalogus/kondak/onthoofding-johannes-de-doper-toon-5/hemelum|kondak-onthoofding-johannes-de-doper-toon-5-hemelum.vsa.mp3": {
@@ -702,11 +834,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\onthoofding-johannes-de-doper-toon-5\\hemelum\\kondak-onthoofding-johannes-de-doper-toon-5-hemelum.vsa",
       "issues": []
     },
+    "catalogus/kondak/onthoofding-johannes-de-doper-toon-5/hemelum|kondak-onthoofding-johannes-de-doper-toon-5-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/onthoofding-johannes-de-doper-toon-5/hemelum/kondak-onthoofding-johannes-de-doper-toon-5-hemelum.vsa.mvsa",
+      "product": "catalogus/kondak/onthoofding-johannes-de-doper-toon-5/hemelum/kondak-onthoofding-johannes-de-doper-toon-5-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\onthoofding-johannes-de-doper-toon-5\\hemelum\\kondak-onthoofding-johannes-de-doper-toon-5-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/kondak/ontslapen-moeder-gods-toon-2/liturgikon|kondak-ontslapen-moeder-gods-toon-2-liturgikon.vsa.mp3": {
       "source": "catalogus/kondak/ontslapen-moeder-gods-toon-2/liturgikon/kondak-ontslapen-moeder-gods-toon-2-liturgikon.vsa",
       "product": "catalogus/kondak/ontslapen-moeder-gods-toon-2/liturgikon/kondak-ontslapen-moeder-gods-toon-2-liturgikon.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\ontslapen-moeder-gods-toon-2\\liturgikon\\kondak-ontslapen-moeder-gods-toon-2-liturgikon.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/ontslapen-moeder-gods-toon-2/liturgikon|kondak-ontslapen-moeder-gods-toon-2-liturgikon.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/ontslapen-moeder-gods-toon-2/liturgikon/kondak-ontslapen-moeder-gods-toon-2-liturgikon.vsa.mvsa",
+      "product": "catalogus/kondak/ontslapen-moeder-gods-toon-2/liturgikon/kondak-ontslapen-moeder-gods-toon-2-liturgikon.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\ontslapen-moeder-gods-toon-2\\liturgikon\\kondak-ontslapen-moeder-gods-toon-2-liturgikon.vsa.mvsa",
       "issues": []
     },
     "catalogus/kondak/profeet-elia-toon-2/liturgikon|kondak-profeet-elia-toon-2-liturgikon.vsa.mp3": {
@@ -716,11 +862,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\profeet-elia-toon-2\\liturgikon\\kondak-profeet-elia-toon-2-liturgikon.vsa",
       "issues": []
     },
+    "catalogus/kondak/profeet-elia-toon-2/liturgikon|kondak-profeet-elia-toon-2-liturgikon.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/profeet-elia-toon-2/liturgikon/kondak-profeet-elia-toon-2-liturgikon.vsa.mvsa",
+      "product": "catalogus/kondak/profeet-elia-toon-2/liturgikon/kondak-profeet-elia-toon-2-liturgikon.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\profeet-elia-toon-2\\liturgikon\\kondak-profeet-elia-toon-2-liturgikon.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/kondak/silouan-de-athoniet-toon-4/asten|kondak-silouan-de-athoniet-toon-4-asten.vsa.mp3": {
       "source": "catalogus/kondak/silouan-de-athoniet-toon-4/asten/kondak-silouan-de-athoniet-toon-4-asten.vsa",
       "product": "catalogus/kondak/silouan-de-athoniet-toon-4/asten/kondak-silouan-de-athoniet-toon-4-asten.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\silouan-de-athoniet-toon-4\\asten\\kondak-silouan-de-athoniet-toon-4-asten.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/silouan-de-athoniet-toon-4/asten|kondak-silouan-de-athoniet-toon-4-asten.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/silouan-de-athoniet-toon-4/asten/kondak-silouan-de-athoniet-toon-4-asten.vsa.mvsa",
+      "product": "catalogus/kondak/silouan-de-athoniet-toon-4/asten/kondak-silouan-de-athoniet-toon-4-asten.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\silouan-de-athoniet-toon-4\\asten\\kondak-silouan-de-athoniet-toon-4-asten.vsa.mvsa",
       "issues": []
     },
     "catalogus/kondak/tempelgang-moeder-gods-toon-4/hemelum|kondak-tempelgang-moeder-gods-toon-4-hemelum.vsa.mp3": {
@@ -730,11 +890,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\tempelgang-moeder-gods-toon-4\\hemelum\\kondak-tempelgang-moeder-gods-toon-4-hemelum.vsa",
       "issues": []
     },
+    "catalogus/kondak/tempelgang-moeder-gods-toon-4/hemelum|kondak-tempelgang-moeder-gods-toon-4-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/tempelgang-moeder-gods-toon-4/hemelum/kondak-tempelgang-moeder-gods-toon-4-hemelum.vsa.mvsa",
+      "product": "catalogus/kondak/tempelgang-moeder-gods-toon-4/hemelum/kondak-tempelgang-moeder-gods-toon-4-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\tempelgang-moeder-gods-toon-4\\hemelum\\kondak-tempelgang-moeder-gods-toon-4-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/kondak/transfiguratie-toon-7/liturgikon|kondak-transfiguratie-toon-7-liturgikon.vsa.mp3": {
       "source": "catalogus/kondak/transfiguratie-toon-7/liturgikon/kondak-transfiguratie-toon-7-liturgikon.vsa",
       "product": "catalogus/kondak/transfiguratie-toon-7/liturgikon/kondak-transfiguratie-toon-7-liturgikon.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\transfiguratie-toon-7\\liturgikon\\kondak-transfiguratie-toon-7-liturgikon.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/transfiguratie-toon-7/liturgikon|kondak-transfiguratie-toon-7-liturgikon.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/transfiguratie-toon-7/liturgikon/kondak-transfiguratie-toon-7-liturgikon.vsa.mvsa",
+      "product": "catalogus/kondak/transfiguratie-toon-7/liturgikon/kondak-transfiguratie-toon-7-liturgikon.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\transfiguratie-toon-7\\liturgikon\\kondak-transfiguratie-toon-7-liturgikon.vsa.mvsa",
       "issues": []
     },
     "catalogus/kondak/vera-dadjezjda-ljoebov-toon-1/hemelum|kondak-vera-dadjezjda-ljoebov-toon-1-hemelum.vsa.mp3": {
@@ -744,11 +918,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\vera-dadjezjda-ljoebov-toon-1\\hemelum\\kondak-vera-dadjezjda-ljoebov-toon-1-hemelum.vsa",
       "issues": []
     },
+    "catalogus/kondak/vera-dadjezjda-ljoebov-toon-1/hemelum|kondak-vera-dadjezjda-ljoebov-toon-1-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/vera-dadjezjda-ljoebov-toon-1/hemelum/kondak-vera-dadjezjda-ljoebov-toon-1-hemelum.vsa.mvsa",
+      "product": "catalogus/kondak/vera-dadjezjda-ljoebov-toon-1/hemelum/kondak-vera-dadjezjda-ljoebov-toon-1-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\vera-dadjezjda-ljoebov-toon-1\\hemelum\\kondak-vera-dadjezjda-ljoebov-toon-1-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/kondak/zaterdag-gestorvenen-toon-8/hemelum|kondak-zaterdag-gestorvenen-toon-8-hemelum.vsa.mp3": {
       "source": "catalogus/kondak/zaterdag-gestorvenen-toon-8/hemelum/kondak-zaterdag-gestorvenen-toon-8-hemelum.vsa",
       "product": "catalogus/kondak/zaterdag-gestorvenen-toon-8/hemelum/kondak-zaterdag-gestorvenen-toon-8-hemelum.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zaterdag-gestorvenen-toon-8\\hemelum\\kondak-zaterdag-gestorvenen-toon-8-hemelum.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/zaterdag-gestorvenen-toon-8/hemelum|kondak-zaterdag-gestorvenen-toon-8-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/zaterdag-gestorvenen-toon-8/hemelum/kondak-zaterdag-gestorvenen-toon-8-hemelum.vsa.mvsa",
+      "product": "catalogus/kondak/zaterdag-gestorvenen-toon-8/hemelum/kondak-zaterdag-gestorvenen-toon-8-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zaterdag-gestorvenen-toon-8\\hemelum\\kondak-zaterdag-gestorvenen-toon-8-hemelum.vsa.mvsa",
       "issues": []
     },
     "catalogus/kondak/zaterdag-heiligen-toon-8/hemelum|kondak-zaterdag-heiligen-toon-8-hemelum.vsa.mp3": {
@@ -758,11 +946,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zaterdag-heiligen-toon-8\\hemelum\\kondak-zaterdag-heiligen-toon-8-hemelum.vsa",
       "issues": []
     },
+    "catalogus/kondak/zaterdag-heiligen-toon-8/hemelum|kondak-zaterdag-heiligen-toon-8-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/zaterdag-heiligen-toon-8/hemelum/kondak-zaterdag-heiligen-toon-8-hemelum.vsa.mvsa",
+      "product": "catalogus/kondak/zaterdag-heiligen-toon-8/hemelum/kondak-zaterdag-heiligen-toon-8-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zaterdag-heiligen-toon-8\\hemelum\\kondak-zaterdag-heiligen-toon-8-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/kondak/zondag-toon-1/groningen|kondak-zondag-toon-1-groningen.vsa.mp3": {
       "source": "catalogus/kondak/zondag-toon-1/groningen/kondak-zondag-toon-1-groningen.vsa",
       "product": "catalogus/kondak/zondag-toon-1/groningen/kondak-zondag-toon-1-groningen.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-1\\groningen\\kondak-zondag-toon-1-groningen.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/zondag-toon-1/groningen|kondak-zondag-toon-1-groningen.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/zondag-toon-1/groningen/kondak-zondag-toon-1-groningen.vsa.mvsa",
+      "product": "catalogus/kondak/zondag-toon-1/groningen/kondak-zondag-toon-1-groningen.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-1\\groningen\\kondak-zondag-toon-1-groningen.vsa.mvsa",
       "issues": []
     },
     "catalogus/kondak/zondag-toon-2/groningen|kondak-zondag-toon-2-groningen.vsa.mp3": {
@@ -772,11 +974,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-2\\groningen\\kondak-zondag-toon-2-groningen.vsa",
       "issues": []
     },
+    "catalogus/kondak/zondag-toon-2/groningen|kondak-zondag-toon-2-groningen.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/zondag-toon-2/groningen/kondak-zondag-toon-2-groningen.vsa.mvsa",
+      "product": "catalogus/kondak/zondag-toon-2/groningen/kondak-zondag-toon-2-groningen.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-2\\groningen\\kondak-zondag-toon-2-groningen.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/kondak/zondag-toon-3/groningen|kondak-zondag-toon-3-groningen.vsa.mp3": {
       "source": "catalogus/kondak/zondag-toon-3/groningen/kondak-zondag-toon-3-groningen.vsa",
       "product": "catalogus/kondak/zondag-toon-3/groningen/kondak-zondag-toon-3-groningen.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-3\\groningen\\kondak-zondag-toon-3-groningen.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/zondag-toon-3/groningen|kondak-zondag-toon-3-groningen.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/zondag-toon-3/groningen/kondak-zondag-toon-3-groningen.vsa.mvsa",
+      "product": "catalogus/kondak/zondag-toon-3/groningen/kondak-zondag-toon-3-groningen.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-3\\groningen\\kondak-zondag-toon-3-groningen.vsa.mvsa",
       "issues": []
     },
     "catalogus/kondak/zondag-toon-4/groningen|kondak-zondag-toon-4-groningen.vsa.mp3": {
@@ -786,11 +1002,39 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-4\\groningen\\kondak-zondag-toon-4-groningen.vsa",
       "issues": []
     },
+    "catalogus/kondak/zondag-toon-4/groningen|kondak-zondag-toon-4-groningen.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/zondag-toon-4/groningen/kondak-zondag-toon-4-groningen.vsa.mvsa",
+      "product": "catalogus/kondak/zondag-toon-4/groningen/kondak-zondag-toon-4-groningen.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-4\\groningen\\kondak-zondag-toon-4-groningen.vsa.mvsa",
+      "issues": []
+    },
+    "catalogus/kondak/zondag-toon-4/hemelum|kondak-zondag-toon-4-hemelum.vsa.mp3": {
+      "source": "catalogus/kondak/zondag-toon-4/hemelum/kondak-zondag-toon-4-hemelum.vsa",
+      "product": "catalogus/kondak/zondag-toon-4/hemelum/kondak-zondag-toon-4-hemelum.vsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-4\\hemelum\\kondak-zondag-toon-4-hemelum.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/zondag-toon-4/hemelum|kondak-zondag-toon-4-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/zondag-toon-4/hemelum/kondak-zondag-toon-4-hemelum.vsa.mvsa",
+      "product": "catalogus/kondak/zondag-toon-4/hemelum/kondak-zondag-toon-4-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-4\\hemelum\\kondak-zondag-toon-4-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/kondak/zondag-toon-5/groningen|kondak-zondag-toon-5-groningen.vsa.mp3": {
       "source": "catalogus/kondak/zondag-toon-5/groningen/kondak-zondag-toon-5-groningen.vsa",
       "product": "catalogus/kondak/zondag-toon-5/groningen/kondak-zondag-toon-5-groningen.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-5\\groningen\\kondak-zondag-toon-5-groningen.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/zondag-toon-5/groningen|kondak-zondag-toon-5-groningen.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/zondag-toon-5/groningen/kondak-zondag-toon-5-groningen.vsa.mvsa",
+      "product": "catalogus/kondak/zondag-toon-5/groningen/kondak-zondag-toon-5-groningen.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-5\\groningen\\kondak-zondag-toon-5-groningen.vsa.mvsa",
       "issues": []
     },
     "catalogus/kondak/zondag-toon-6/groningen|kondak-zondag-toon-6-groningen.vsa.mp3": {
@@ -800,6 +1044,13 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-6\\groningen\\kondak-zondag-toon-6-groningen.vsa",
       "issues": []
     },
+    "catalogus/kondak/zondag-toon-6/groningen|kondak-zondag-toon-6-groningen.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/zondag-toon-6/groningen/kondak-zondag-toon-6-groningen.vsa.mvsa",
+      "product": "catalogus/kondak/zondag-toon-6/groningen/kondak-zondag-toon-6-groningen.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-6\\groningen\\kondak-zondag-toon-6-groningen.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/kondak/zondag-toon-7/groningen|kondak-zondag-toon-7-groningen.vsa.mp3": {
       "source": "catalogus/kondak/zondag-toon-7/groningen/kondak-zondag-toon-7-groningen.vsa",
       "product": "catalogus/kondak/zondag-toon-7/groningen/kondak-zondag-toon-7-groningen.vsa.mp3",
@@ -807,11 +1058,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-7\\groningen\\kondak-zondag-toon-7-groningen.vsa",
       "issues": []
     },
+    "catalogus/kondak/zondag-toon-7/groningen|kondak-zondag-toon-7-groningen.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/zondag-toon-7/groningen/kondak-zondag-toon-7-groningen.vsa.mvsa",
+      "product": "catalogus/kondak/zondag-toon-7/groningen/kondak-zondag-toon-7-groningen.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-7\\groningen\\kondak-zondag-toon-7-groningen.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/kondak/zondag-toon-8/groningen|kondak-zondag-toon-8-groningen.vsa.mp3": {
       "source": "catalogus/kondak/zondag-toon-8/groningen/kondak-zondag-toon-8-groningen.vsa",
       "product": "catalogus/kondak/zondag-toon-8/groningen/kondak-zondag-toon-8-groningen.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-8\\groningen\\kondak-zondag-toon-8-groningen.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/zondag-toon-8/groningen|kondak-zondag-toon-8-groningen.vsa.mvsa.mp3": {
+      "source": "catalogus/kondak/zondag-toon-8/groningen/kondak-zondag-toon-8-groningen.vsa.mvsa",
+      "product": "catalogus/kondak/zondag-toon-8/groningen/kondak-zondag-toon-8-groningen.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\kondak\\zondag-toon-8\\groningen\\kondak-zondag-toon-8-groningen.vsa.mvsa",
       "issues": []
     },
     "catalogus/moeder-godslied/20d-in-waarheid/hemelum|moeder-godslied-20d-in-waarheid-hemelum.mscz.mp3": {
@@ -996,6 +1261,195 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\prokimen\\zondag-toon-8\\groningen\\prokimen-zondag-toon-8-groningen.mvsa",
       "issues": []
     },
+    "catalogus/stichier/heer-ik-roep-toon-1/groningen|stichier-heer-ik-roep-toon-1-groningen.vsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen/stichier-heer-ik-roep-toon-1-groningen.vsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-1/groningen/stichier-heer-ik-roep-toon-1-groningen.vsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen\\stichier-heer-ik-roep-toon-1-groningen.vsa",
+      "issues": []
+    },
+    "catalogus/stichier/heer-ik-roep-toon-1/groningen|stichier-heer-ik-roep-toon-1-groningen.vsa.mvsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen/stichier-heer-ik-roep-toon-1-groningen.vsa.mvsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-1/groningen/stichier-heer-ik-roep-toon-1-groningen.vsa.mvsa.mp3",
+      "ok": false,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen\\stichier-heer-ik-roep-toon-1-groningen.vsa.mvsa",
+      "issues": [
+        {
+          "kind": "stale_mp3",
+          "file": "catalogus/stichier/heer-ik-roep-toon-1/groningen/stichier-heer-ik-roep-toon-1-groningen.vsa.mvsa.mp3",
+          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-11-11T22:09:19+00:00); bron is gewijzigd"
+        }
+      ]
+    },
+    "catalogus/stichier/heer-ik-roep-toon-1/groningen-1|stichier-heer-ik-roep-toon-1-groningen-1.vsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen-1/stichier-heer-ik-roep-toon-1-groningen-1.vsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-1/groningen-1/stichier-heer-ik-roep-toon-1-groningen-1.vsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen-1\\stichier-heer-ik-roep-toon-1-groningen-1.vsa",
+      "issues": []
+    },
+    "catalogus/stichier/heer-ik-roep-toon-1/groningen-1|stichier-heer-ik-roep-toon-1-groningen-1.vsa.mvsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen-1/stichier-heer-ik-roep-toon-1-groningen-1.vsa.mvsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-1/groningen-1/stichier-heer-ik-roep-toon-1-groningen-1.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen-1\\stichier-heer-ik-roep-toon-1-groningen-1.vsa.mvsa",
+      "issues": []
+    },
+    "catalogus/stichier/heer-ik-roep-toon-1/groningen-2|stichier-heer-ik-roep-toon-1-groningen-2.vsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen-2/stichier-heer-ik-roep-toon-1-groningen-2.vsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-1/groningen-2/stichier-heer-ik-roep-toon-1-groningen-2.vsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen-2\\stichier-heer-ik-roep-toon-1-groningen-2.vsa",
+      "issues": []
+    },
+    "catalogus/stichier/heer-ik-roep-toon-1/groningen-2|stichier-heer-ik-roep-toon-1-groningen-2.vsa.mvsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen-2/stichier-heer-ik-roep-toon-1-groningen-2.vsa.mvsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-1/groningen-2/stichier-heer-ik-roep-toon-1-groningen-2.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen-2\\stichier-heer-ik-roep-toon-1-groningen-2.vsa.mvsa",
+      "issues": []
+    },
+    "catalogus/stichier/heer-ik-roep-toon-2/groningen|stichier-heer-ik-roep-toon-2-groningen.vsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-2/groningen/stichier-heer-ik-roep-toon-2-groningen.vsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-2/groningen/stichier-heer-ik-roep-toon-2-groningen.vsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-2\\groningen\\stichier-heer-ik-roep-toon-2-groningen.vsa",
+      "issues": []
+    },
+    "catalogus/stichier/heer-ik-roep-toon-2/groningen|stichier-heer-ik-roep-toon-2-groningen.vsa.mvsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-2/groningen/stichier-heer-ik-roep-toon-2-groningen.vsa.mvsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-2/groningen/stichier-heer-ik-roep-toon-2-groningen.vsa.mvsa.mp3",
+      "ok": false,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-2\\groningen\\stichier-heer-ik-roep-toon-2-groningen.vsa.mvsa",
+      "issues": [
+        {
+          "kind": "stale_mp3",
+          "file": "catalogus/stichier/heer-ik-roep-toon-2/groningen/stichier-heer-ik-roep-toon-2-groningen.vsa.mvsa.mp3",
+          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-11-11T23:21:44+00:00); bron is gewijzigd"
+        }
+      ]
+    },
+    "catalogus/stichier/heer-ik-roep-toon-2/groningen-1|stichier-heer-ik-roep-toon-2-groningen-1.vsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-2/groningen-1/stichier-heer-ik-roep-toon-2-groningen-1.vsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-2/groningen-1/stichier-heer-ik-roep-toon-2-groningen-1.vsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-2\\groningen-1\\stichier-heer-ik-roep-toon-2-groningen-1.vsa",
+      "issues": []
+    },
+    "catalogus/stichier/heer-ik-roep-toon-2/groningen-1|stichier-heer-ik-roep-toon-2-groningen-1.vsa.mvsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-2/groningen-1/stichier-heer-ik-roep-toon-2-groningen-1.vsa.mvsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-2/groningen-1/stichier-heer-ik-roep-toon-2-groningen-1.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-2\\groningen-1\\stichier-heer-ik-roep-toon-2-groningen-1.vsa.mvsa",
+      "issues": []
+    },
+    "catalogus/stichier/heer-ik-roep-toon-2/groningen-2|stichier-heer-ik-roep-toon-2-groningen-2.vsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-2/groningen-2/stichier-heer-ik-roep-toon-2-groningen-2.vsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-2/groningen-2/stichier-heer-ik-roep-toon-2-groningen-2.vsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-2\\groningen-2\\stichier-heer-ik-roep-toon-2-groningen-2.vsa",
+      "issues": []
+    },
+    "catalogus/stichier/heer-ik-roep-toon-2/groningen-2|stichier-heer-ik-roep-toon-2-groningen-2.vsa.mvsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-2/groningen-2/stichier-heer-ik-roep-toon-2-groningen-2.vsa.mvsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-2/groningen-2/stichier-heer-ik-roep-toon-2-groningen-2.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-2\\groningen-2\\stichier-heer-ik-roep-toon-2-groningen-2.vsa.mvsa",
+      "issues": []
+    },
+    "catalogus/stichier/heer-ik-roep-toon-3/groningen|stichier-heer-ik-roep-toon-3-groningen.vsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-3/groningen/stichier-heer-ik-roep-toon-3-groningen.vsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-3/groningen/stichier-heer-ik-roep-toon-3-groningen.vsa.mp3",
+      "ok": false,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-3\\groningen\\stichier-heer-ik-roep-toon-3-groningen.vsa",
+      "issues": [
+        {
+          "kind": "missing_mp3",
+          "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen/stichier-heer-ik-roep-toon-3-groningen.vsa.mp3",
+          "detail": "Preview-.mp3 ontbreekt naast de bron (Beluisteren)"
+        }
+      ]
+    },
+    "catalogus/stichier/heer-ik-roep-toon-3/groningen-1|stichier-heer-ik-roep-toon-3-groningen-1.vsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-3/groningen-1/stichier-heer-ik-roep-toon-3-groningen-1.vsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-3/groningen-1/stichier-heer-ik-roep-toon-3-groningen-1.vsa.mp3",
+      "ok": false,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-3\\groningen-1\\stichier-heer-ik-roep-toon-3-groningen-1.vsa",
+      "issues": [
+        {
+          "kind": "missing_mp3",
+          "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen-1/stichier-heer-ik-roep-toon-3-groningen-1.vsa.mp3",
+          "detail": "Preview-.mp3 ontbreekt naast de bron (Beluisteren)"
+        }
+      ]
+    },
+    "catalogus/stichier/heer-ik-roep-toon-3/groningen-2|stichier-heer-ik-roep-toon-3-groningen-2.vsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-3/groningen-2/stichier-heer-ik-roep-toon-3-groningen-2.vsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-3/groningen-2/stichier-heer-ik-roep-toon-3-groningen-2.vsa.mp3",
+      "ok": false,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-3\\groningen-2\\stichier-heer-ik-roep-toon-3-groningen-2.vsa",
+      "issues": [
+        {
+          "kind": "missing_mp3",
+          "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen-2/stichier-heer-ik-roep-toon-3-groningen-2.vsa.mp3",
+          "detail": "Preview-.mp3 ontbreekt naast de bron (Beluisteren)"
+        }
+      ]
+    },
+    "catalogus/stichier/heer-ik-roep-toon-6/groningen|stichier-heer-ik-roep-toon-6-groningen.vsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen/stichier-heer-ik-roep-toon-6-groningen.vsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-6/groningen/stichier-heer-ik-roep-toon-6-groningen.vsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen\\stichier-heer-ik-roep-toon-6-groningen.vsa",
+      "issues": []
+    },
+    "catalogus/stichier/heer-ik-roep-toon-6/groningen|stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen/stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-6/groningen/stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa.mp3",
+      "ok": false,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen\\stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa",
+      "issues": [
+        {
+          "kind": "stale_mp3",
+          "file": "catalogus/stichier/heer-ik-roep-toon-6/groningen/stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa.mp3",
+          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-11-12T23:05:57+00:00); bron is gewijzigd"
+        }
+      ]
+    },
+    "catalogus/stichier/heer-ik-roep-toon-6/groningen-1|stichier-heer-ik-roep-toon-6-groningen-1.vsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1/stichier-heer-ik-roep-toon-6-groningen-1.vsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1/stichier-heer-ik-roep-toon-6-groningen-1.vsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen-1\\stichier-heer-ik-roep-toon-6-groningen-1.vsa",
+      "issues": []
+    },
+    "catalogus/stichier/heer-ik-roep-toon-6/groningen-1|stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1/stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1/stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa.mp3",
+      "ok": false,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen-1\\stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa",
+      "issues": [
+        {
+          "kind": "stale_mp3",
+          "file": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1/stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa.mp3",
+          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-11-11T23:22:31+00:00); bron is gewijzigd"
+        }
+      ]
+    },
+    "catalogus/stichier/heer-ik-roep-toon-6/groningen-2|stichier-heer-ik-roep-toon-6-groningen-2.vsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen-2/stichier-heer-ik-roep-toon-6-groningen-2.vsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-6/groningen-2/stichier-heer-ik-roep-toon-6-groningen-2.vsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen-2\\stichier-heer-ik-roep-toon-6-groningen-2.vsa",
+      "issues": []
+    },
+    "catalogus/stichier/heer-ik-roep-toon-6/groningen-2|stichier-heer-ik-roep-toon-6-groningen-2.vsa.mvsa.mp3": {
+      "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen-2/stichier-heer-ik-roep-toon-6-groningen-2.vsa.mvsa",
+      "product": "catalogus/stichier/heer-ik-roep-toon-6/groningen-2/stichier-heer-ik-roep-toon-6-groningen-2.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen-2\\stichier-heer-ik-roep-toon-6-groningen-2.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/trisagion/8a-nederlands/hemelum|trisagion-8a-nederlands-hemelum.mvsa.mp3": {
       "source": "catalogus/trisagion/8a-nederlands/hemelum/trisagion-8a-nederlands-hemelum.mvsa",
       "product": "catalogus/trisagion/8a-nederlands/hemelum/trisagion-8a-nederlands-hemelum.mvsa.mp3",
@@ -1017,11 +1471,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\apostel-andreas-toon-4\\hemelum\\tropaar-apostel-andreas-toon-4-hemelum.vsa",
       "issues": []
     },
+    "catalogus/tropaar/apostel-andreas-toon-4/hemelum|tropaar-apostel-andreas-toon-4-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/apostel-andreas-toon-4/hemelum/tropaar-apostel-andreas-toon-4-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/apostel-andreas-toon-4/hemelum/tropaar-apostel-andreas-toon-4-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\apostel-andreas-toon-4\\hemelum\\tropaar-apostel-andreas-toon-4-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/tropaar/besnijdenis-des-heren-toon-2/hemelum|tropaar-besnijdenis-des-heren-toon-2-hemelum.vsa.mp3": {
       "source": "catalogus/tropaar/besnijdenis-des-heren-toon-2/hemelum/tropaar-besnijdenis-des-heren-toon-2-hemelum.vsa",
       "product": "catalogus/tropaar/besnijdenis-des-heren-toon-2/hemelum/tropaar-besnijdenis-des-heren-toon-2-hemelum.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\besnijdenis-des-heren-toon-2\\hemelum\\tropaar-besnijdenis-des-heren-toon-2-hemelum.vsa",
+      "issues": []
+    },
+    "catalogus/tropaar/besnijdenis-des-heren-toon-2/hemelum|tropaar-besnijdenis-des-heren-toon-2-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/besnijdenis-des-heren-toon-2/hemelum/tropaar-besnijdenis-des-heren-toon-2-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/besnijdenis-des-heren-toon-2/hemelum/tropaar-besnijdenis-des-heren-toon-2-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\besnijdenis-des-heren-toon-2\\hemelum\\tropaar-besnijdenis-des-heren-toon-2-hemelum.vsa.mvsa",
       "issues": []
     },
     "catalogus/tropaar/dinsdag-toon-2/hemelum|tropaar-dinsdag-toon-2-hemelum.vsa.mp3": {
@@ -1031,11 +1499,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\dinsdag-toon-2\\hemelum\\tropaar-dinsdag-toon-2-hemelum.vsa",
       "issues": []
     },
+    "catalogus/tropaar/dinsdag-toon-2/hemelum|tropaar-dinsdag-toon-2-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/dinsdag-toon-2/hemelum/tropaar-dinsdag-toon-2-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/dinsdag-toon-2/hemelum/tropaar-dinsdag-toon-2-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\dinsdag-toon-2\\hemelum\\tropaar-dinsdag-toon-2-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/tropaar/donderdag-toon-3/hemelum|tropaar-donderdag-toon-3-hemelum.vsa.mp3": {
       "source": "catalogus/tropaar/donderdag-toon-3/hemelum/tropaar-donderdag-toon-3-hemelum.vsa",
       "product": "catalogus/tropaar/donderdag-toon-3/hemelum/tropaar-donderdag-toon-3-hemelum.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\donderdag-toon-3\\hemelum\\tropaar-donderdag-toon-3-hemelum.vsa",
+      "issues": []
+    },
+    "catalogus/tropaar/donderdag-toon-3/hemelum|tropaar-donderdag-toon-3-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/donderdag-toon-3/hemelum/tropaar-donderdag-toon-3-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/donderdag-toon-3/hemelum/tropaar-donderdag-toon-3-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\donderdag-toon-3\\hemelum\\tropaar-donderdag-toon-3-hemelum.vsa.mvsa",
       "issues": []
     },
     "catalogus/tropaar/geboorte-johannes-de-voorloper-toon-4/hemelum|tropaar-geboorte-johannes-de-voorloper-toon-4-hemelum.vsa.mp3": {
@@ -1045,11 +1527,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\geboorte-johannes-de-voorloper-toon-4\\hemelum\\tropaar-geboorte-johannes-de-voorloper-toon-4-hemelum.vsa",
       "issues": []
     },
+    "catalogus/tropaar/geboorte-johannes-de-voorloper-toon-4/hemelum|tropaar-geboorte-johannes-de-voorloper-toon-4-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/geboorte-johannes-de-voorloper-toon-4/hemelum/tropaar-geboorte-johannes-de-voorloper-toon-4-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/geboorte-johannes-de-voorloper-toon-4/hemelum/tropaar-geboorte-johannes-de-voorloper-toon-4-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\geboorte-johannes-de-voorloper-toon-4\\hemelum\\tropaar-geboorte-johannes-de-voorloper-toon-4-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/tropaar/geboorte-mg-toon-4/meneon-i-den-haag|tropaar-geboorte-mg-toon-4-meneon-i-den-haag.vsa.mp3": {
       "source": "catalogus/tropaar/geboorte-mg-toon-4/meneon-i-den-haag/tropaar-geboorte-mg-toon-4-meneon-i-den-haag.vsa",
       "product": "catalogus/tropaar/geboorte-mg-toon-4/meneon-i-den-haag/tropaar-geboorte-mg-toon-4-meneon-i-den-haag.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\geboorte-mg-toon-4\\meneon-i-den-haag\\tropaar-geboorte-mg-toon-4-meneon-i-den-haag.vsa",
+      "issues": []
+    },
+    "catalogus/tropaar/geboorte-mg-toon-4/meneon-i-den-haag|tropaar-geboorte-mg-toon-4-meneon-i-den-haag.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/geboorte-mg-toon-4/meneon-i-den-haag/tropaar-geboorte-mg-toon-4-meneon-i-den-haag.vsa.mvsa",
+      "product": "catalogus/tropaar/geboorte-mg-toon-4/meneon-i-den-haag/tropaar-geboorte-mg-toon-4-meneon-i-den-haag.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\geboorte-mg-toon-4\\meneon-i-den-haag\\tropaar-geboorte-mg-toon-4-meneon-i-den-haag.vsa.mvsa",
       "issues": []
     },
     "catalogus/tropaar/gregorios-van-utrecht-toon-4/hemelum|tropaar-gregorios-van-utrecht-toon-4-hemelum.vsa.mp3": {
@@ -1059,6 +1555,13 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\gregorios-van-utrecht-toon-4\\hemelum\\tropaar-gregorios-van-utrecht-toon-4-hemelum.vsa",
       "issues": []
     },
+    "catalogus/tropaar/gregorios-van-utrecht-toon-4/hemelum|tropaar-gregorios-van-utrecht-toon-4-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/gregorios-van-utrecht-toon-4/hemelum/tropaar-gregorios-van-utrecht-toon-4-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/gregorios-van-utrecht-toon-4/hemelum/tropaar-gregorios-van-utrecht-toon-4-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\gregorios-van-utrecht-toon-4\\hemelum\\tropaar-gregorios-van-utrecht-toon-4-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/tropaar/heer-red-uw-volk/hemelum|tropaar-heer-red-uw-volk-hemelum.vsa.mp3": {
       "source": "catalogus/tropaar/heer-red-uw-volk/hemelum/tropaar-heer-red-uw-volk-hemelum.vsa",
       "product": "catalogus/tropaar/heer-red-uw-volk/hemelum/tropaar-heer-red-uw-volk-hemelum.vsa.mp3",
@@ -1066,11 +1569,18 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\heer-red-uw-volk\\hemelum\\tropaar-heer-red-uw-volk-hemelum.vsa",
       "issues": []
     },
-    "catalogus/tropaar/heer-red-uw-volk/liturgikon|tropaar-heer-red-uw-volk-liturgikon.vsa.mp3": {
-      "source": "catalogus/tropaar/heer-red-uw-volk/liturgikon/tropaar-heer-red-uw-volk-liturgikon.vsa",
-      "product": "catalogus/tropaar/heer-red-uw-volk/liturgikon/tropaar-heer-red-uw-volk-liturgikon.vsa.mp3",
+    "catalogus/tropaar/heer-red-uw-volk/hemelum|tropaar-heer-red-uw-volk-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/heer-red-uw-volk/hemelum/tropaar-heer-red-uw-volk-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/heer-red-uw-volk/hemelum/tropaar-heer-red-uw-volk-hemelum.vsa.mvsa.mp3",
       "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\heer-red-uw-volk\\liturgikon\\tropaar-heer-red-uw-volk-liturgikon.vsa",
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\heer-red-uw-volk\\hemelum\\tropaar-heer-red-uw-volk-hemelum.vsa.mvsa",
+      "issues": []
+    },
+    "catalogus/tropaar/heer-red-uw-volk/liturgikon|tropaar-heer-red-uw-volk-liturgikon.mvsa.mp3": {
+      "source": "catalogus/tropaar/heer-red-uw-volk/liturgikon/tropaar-heer-red-uw-volk-liturgikon.mvsa",
+      "product": "catalogus/tropaar/heer-red-uw-volk/liturgikon/tropaar-heer-red-uw-volk-liturgikon.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\heer-red-uw-volk\\liturgikon\\tropaar-heer-red-uw-volk-liturgikon.mvsa",
       "issues": []
     },
     "catalogus/tropaar/heer-red-uw-volk/rode-gebedenboek|tropaar-heer-red-uw-volk-rode-gebedenboek.vsa.mp3": {
@@ -1080,11 +1590,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\heer-red-uw-volk\\rode-gebedenboek\\tropaar-heer-red-uw-volk-rode-gebedenboek.vsa",
       "issues": []
     },
+    "catalogus/tropaar/heer-red-uw-volk/rode-gebedenboek|tropaar-heer-red-uw-volk-rode-gebedenboek.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/heer-red-uw-volk/rode-gebedenboek/tropaar-heer-red-uw-volk-rode-gebedenboek.vsa.mvsa",
+      "product": "catalogus/tropaar/heer-red-uw-volk/rode-gebedenboek/tropaar-heer-red-uw-volk-rode-gebedenboek.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\heer-red-uw-volk\\rode-gebedenboek\\tropaar-heer-red-uw-volk-rode-gebedenboek.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/tropaar/heilige-martelaren-toon-4/hemelum|tropaar-heilige-martelaren-toon-4-hemelum.vsa.mp3": {
       "source": "catalogus/tropaar/heilige-martelaren-toon-4/hemelum/tropaar-heilige-martelaren-toon-4-hemelum.vsa",
       "product": "catalogus/tropaar/heilige-martelaren-toon-4/hemelum/tropaar-heilige-martelaren-toon-4-hemelum.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\heilige-martelaren-toon-4\\hemelum\\tropaar-heilige-martelaren-toon-4-hemelum.vsa",
+      "issues": []
+    },
+    "catalogus/tropaar/heilige-martelaren-toon-4/hemelum|tropaar-heilige-martelaren-toon-4-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/heilige-martelaren-toon-4/hemelum/tropaar-heilige-martelaren-toon-4-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/heilige-martelaren-toon-4/hemelum/tropaar-heilige-martelaren-toon-4-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\heilige-martelaren-toon-4\\hemelum\\tropaar-heilige-martelaren-toon-4-hemelum.vsa.mvsa",
       "issues": []
     },
     "catalogus/tropaar/icoon-moeder-gods-van-kazan-toon-4/hemelum|tropaar-icoon-moeder-gods-van-kazan-toon-4-hemelum.vsa.mp3": {
@@ -1094,6 +1618,13 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\icoon-moeder-gods-van-kazan-toon-4\\hemelum\\tropaar-icoon-moeder-gods-van-kazan-toon-4-hemelum.vsa",
       "issues": []
     },
+    "catalogus/tropaar/icoon-moeder-gods-van-kazan-toon-4/hemelum|tropaar-icoon-moeder-gods-van-kazan-toon-4-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/icoon-moeder-gods-van-kazan-toon-4/hemelum/tropaar-icoon-moeder-gods-van-kazan-toon-4-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/icoon-moeder-gods-van-kazan-toon-4/hemelum/tropaar-icoon-moeder-gods-van-kazan-toon-4-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\icoon-moeder-gods-van-kazan-toon-4\\hemelum\\tropaar-icoon-moeder-gods-van-kazan-toon-4-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/tropaar/icoon-moeder-gods-vladimir-toon-4/hemelum|tropaar-icoon-moeder-gods-vladimir-toon-4-hemelum.vsa.mp3": {
       "source": "catalogus/tropaar/icoon-moeder-gods-vladimir-toon-4/hemelum/tropaar-icoon-moeder-gods-vladimir-toon-4-hemelum.vsa",
       "product": "catalogus/tropaar/icoon-moeder-gods-vladimir-toon-4/hemelum/tropaar-icoon-moeder-gods-vladimir-toon-4-hemelum.vsa.mp3",
@@ -1101,18 +1632,51 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\icoon-moeder-gods-vladimir-toon-4\\hemelum\\tropaar-icoon-moeder-gods-vladimir-toon-4-hemelum.vsa",
       "issues": []
     },
+    "catalogus/tropaar/icoon-moeder-gods-vladimir-toon-4/hemelum|tropaar-icoon-moeder-gods-vladimir-toon-4-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/icoon-moeder-gods-vladimir-toon-4/hemelum/tropaar-icoon-moeder-gods-vladimir-toon-4-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/icoon-moeder-gods-vladimir-toon-4/hemelum/tropaar-icoon-moeder-gods-vladimir-toon-4-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\icoon-moeder-gods-vladimir-toon-4\\hemelum\\tropaar-icoon-moeder-gods-vladimir-toon-4-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon|tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mp3": {
       "source": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa",
       "product": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mp3",
-      "ok": true,
+      "ok": false,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\johannes-de-theoloog-toon-2\\liturgikon\\tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa",
-      "issues": []
+      "issues": [
+        {
+          "kind": "missing_mp3",
+          "file": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mp3",
+          "detail": "Preview-.mp3 ontbreekt naast de bron (Beluisteren)"
+        }
+      ]
+    },
+    "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon|tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa",
+      "product": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa.mp3",
+      "ok": false,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\johannes-de-theoloog-toon-2\\liturgikon\\tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa",
+      "issues": [
+        {
+          "kind": "missing_mp3",
+          "file": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa.mp3",
+          "detail": "Preview-.mp3 ontbreekt naast de bron (Beluisteren)"
+        }
+      ]
     },
     "catalogus/tropaar/johannes-van-shanghai-en-san-francisco/hemelum|tropaar-johannes-van-shanghai-en-san-francisco-hemelum.vsa.mp3": {
       "source": "catalogus/tropaar/johannes-van-shanghai-en-san-francisco/hemelum/tropaar-johannes-van-shanghai-en-san-francisco-hemelum.vsa",
       "product": "catalogus/tropaar/johannes-van-shanghai-en-san-francisco/hemelum/tropaar-johannes-van-shanghai-en-san-francisco-hemelum.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\johannes-van-shanghai-en-san-francisco\\hemelum\\tropaar-johannes-van-shanghai-en-san-francisco-hemelum.vsa",
+      "issues": []
+    },
+    "catalogus/tropaar/johannes-van-shanghai-en-san-francisco/hemelum|tropaar-johannes-van-shanghai-en-san-francisco-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/johannes-van-shanghai-en-san-francisco/hemelum/tropaar-johannes-van-shanghai-en-san-francisco-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/johannes-van-shanghai-en-san-francisco/hemelum/tropaar-johannes-van-shanghai-en-san-francisco-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\johannes-van-shanghai-en-san-francisco\\hemelum\\tropaar-johannes-van-shanghai-en-san-francisco-hemelum.vsa.mvsa",
       "issues": []
     },
     "catalogus/tropaar/maandag-toon-4/hemelum|tropaar-maandag-toon-4-hemelum.vsa.mp3": {
@@ -1122,11 +1686,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\maandag-toon-4\\hemelum\\tropaar-maandag-toon-4-hemelum.vsa",
       "issues": []
     },
+    "catalogus/tropaar/maandag-toon-4/hemelum|tropaar-maandag-toon-4-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/maandag-toon-4/hemelum/tropaar-maandag-toon-4-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/maandag-toon-4/hemelum/tropaar-maandag-toon-4-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\maandag-toon-4\\hemelum\\tropaar-maandag-toon-4-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/tropaar/mantel-moeder-gods-toon-4/hemelum|tropaar-mantel-moeder-gods-toon-4-hemelum.vsa.mp3": {
       "source": "catalogus/tropaar/mantel-moeder-gods-toon-4/hemelum/tropaar-mantel-moeder-gods-toon-4-hemelum.vsa",
       "product": "catalogus/tropaar/mantel-moeder-gods-toon-4/hemelum/tropaar-mantel-moeder-gods-toon-4-hemelum.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\mantel-moeder-gods-toon-4\\hemelum\\tropaar-mantel-moeder-gods-toon-4-hemelum.vsa",
+      "issues": []
+    },
+    "catalogus/tropaar/mantel-moeder-gods-toon-4/hemelum|tropaar-mantel-moeder-gods-toon-4-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/mantel-moeder-gods-toon-4/hemelum/tropaar-mantel-moeder-gods-toon-4-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/mantel-moeder-gods-toon-4/hemelum/tropaar-mantel-moeder-gods-toon-4-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\mantel-moeder-gods-toon-4\\hemelum\\tropaar-mantel-moeder-gods-toon-4-hemelum.vsa.mvsa",
       "issues": []
     },
     "catalogus/tropaar/maria-hulp-der-christenen-pokrof-toon-4/liturgikon|tropaar-maria-hulp-der-christenen-pokrof-toon-4-liturgikon.vsa.mp3": {
@@ -1136,11 +1714,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\maria-hulp-der-christenen-pokrof-toon-4\\liturgikon\\tropaar-maria-hulp-der-christenen-pokrof-toon-4-liturgikon.vsa",
       "issues": []
     },
+    "catalogus/tropaar/maria-hulp-der-christenen-pokrof-toon-4/liturgikon|tropaar-maria-hulp-der-christenen-pokrof-toon-4-liturgikon.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/maria-hulp-der-christenen-pokrof-toon-4/liturgikon/tropaar-maria-hulp-der-christenen-pokrof-toon-4-liturgikon.vsa.mvsa",
+      "product": "catalogus/tropaar/maria-hulp-der-christenen-pokrof-toon-4/liturgikon/tropaar-maria-hulp-der-christenen-pokrof-toon-4-liturgikon.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\maria-hulp-der-christenen-pokrof-toon-4\\liturgikon\\tropaar-maria-hulp-der-christenen-pokrof-toon-4-liturgikon.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/tropaar/maria-magdalena-toon-1/heiligenjaar|tropaar-maria-magdalena-toon-1-heiligenjaar.vsa.mp3": {
       "source": "catalogus/tropaar/maria-magdalena-toon-1/heiligenjaar/tropaar-maria-magdalena-toon-1-heiligenjaar.vsa",
       "product": "catalogus/tropaar/maria-magdalena-toon-1/heiligenjaar/tropaar-maria-magdalena-toon-1-heiligenjaar.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\maria-magdalena-toon-1\\heiligenjaar\\tropaar-maria-magdalena-toon-1-heiligenjaar.vsa",
+      "issues": []
+    },
+    "catalogus/tropaar/maria-magdalena-toon-1/heiligenjaar|tropaar-maria-magdalena-toon-1-heiligenjaar.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/maria-magdalena-toon-1/heiligenjaar/tropaar-maria-magdalena-toon-1-heiligenjaar.vsa.mvsa",
+      "product": "catalogus/tropaar/maria-magdalena-toon-1/heiligenjaar/tropaar-maria-magdalena-toon-1-heiligenjaar.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\maria-magdalena-toon-1\\heiligenjaar\\tropaar-maria-magdalena-toon-1-heiligenjaar.vsa.mvsa",
       "issues": []
     },
     "catalogus/tropaar/maria-magdalena-toon-1/liturgikon|tropaar-maria-magdalena-toon-1-liturgikon.vsa.mp3": {
@@ -1150,12 +1742,38 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\maria-magdalena-toon-1\\liturgikon\\tropaar-maria-magdalena-toon-1-liturgikon.vsa",
       "issues": []
     },
+    "catalogus/tropaar/maria-magdalena-toon-1/liturgikon|tropaar-maria-magdalena-toon-1-liturgikon.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/maria-magdalena-toon-1/liturgikon/tropaar-maria-magdalena-toon-1-liturgikon.vsa.mvsa",
+      "product": "catalogus/tropaar/maria-magdalena-toon-1/liturgikon/tropaar-maria-magdalena-toon-1-liturgikon.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\maria-magdalena-toon-1\\liturgikon\\tropaar-maria-magdalena-toon-1-liturgikon.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum|tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mp3": {
       "source": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa",
       "product": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mp3",
-      "ok": true,
+      "ok": false,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\marina-grootmartelares-toon-4\\hemelum\\tropaar-marina-grootmartelares-toon-4-hemelum.vsa",
-      "issues": []
+      "issues": [
+        {
+          "kind": "stale_mp3",
+          "file": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mp3",
+          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-11-11T23:27:22+00:00); bron is gewijzigd"
+        }
+      ]
+    },
+    "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum|tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mvsa.mp3",
+      "ok": false,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\marina-grootmartelares-toon-4\\hemelum\\tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mvsa",
+      "issues": [
+        {
+          "kind": "stale_mp3",
+          "file": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mvsa.mp3",
+          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-11-11T23:27:37+00:00); bron is gewijzigd"
+        }
+      ]
     },
     "catalogus/tropaar/nikolaas-van-myra-toon-4/hemelum|tropaar-nikolaas-van-myra-toon-4-hemelum.vsa.mp3": {
       "source": "catalogus/tropaar/nikolaas-van-myra-toon-4/hemelum/tropaar-nikolaas-van-myra-toon-4-hemelum.vsa",
@@ -1164,11 +1782,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\nikolaas-van-myra-toon-4\\hemelum\\tropaar-nikolaas-van-myra-toon-4-hemelum.vsa",
       "issues": []
     },
+    "catalogus/tropaar/nikolaas-van-myra-toon-4/hemelum|tropaar-nikolaas-van-myra-toon-4-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/nikolaas-van-myra-toon-4/hemelum/tropaar-nikolaas-van-myra-toon-4-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/nikolaas-van-myra-toon-4/hemelum/tropaar-nikolaas-van-myra-toon-4-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\nikolaas-van-myra-toon-4\\hemelum\\tropaar-nikolaas-van-myra-toon-4-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/tropaar/nikolaas-van-myra-toon-4/liturgikon|tropaar-nikolaas-van-myra-toon-4-liturgikon.vsa.mp3": {
       "source": "catalogus/tropaar/nikolaas-van-myra-toon-4/liturgikon/tropaar-nikolaas-van-myra-toon-4-liturgikon.vsa",
       "product": "catalogus/tropaar/nikolaas-van-myra-toon-4/liturgikon/tropaar-nikolaas-van-myra-toon-4-liturgikon.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\nikolaas-van-myra-toon-4\\liturgikon\\tropaar-nikolaas-van-myra-toon-4-liturgikon.vsa",
+      "issues": []
+    },
+    "catalogus/tropaar/nikolaas-van-myra-toon-4/liturgikon|tropaar-nikolaas-van-myra-toon-4-liturgikon.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/nikolaas-van-myra-toon-4/liturgikon/tropaar-nikolaas-van-myra-toon-4-liturgikon.vsa.mvsa",
+      "product": "catalogus/tropaar/nikolaas-van-myra-toon-4/liturgikon/tropaar-nikolaas-van-myra-toon-4-liturgikon.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\nikolaas-van-myra-toon-4\\liturgikon\\tropaar-nikolaas-van-myra-toon-4-liturgikon.vsa.mvsa",
       "issues": []
     },
     "catalogus/tropaar/nikolaas-van-myra-toon-4/print|tropaar-nikolaas-van-myra-toon-4-print.mscz.mp3": {
@@ -1185,11 +1817,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\ontslapen-moeder-gods-toon-1\\hemelum\\tropaar-ontslapen-moeder-gods-toon-1-hemelum.vsa",
       "issues": []
     },
+    "catalogus/tropaar/ontslapen-moeder-gods-toon-1/hemelum|tropaar-ontslapen-moeder-gods-toon-1-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/ontslapen-moeder-gods-toon-1/hemelum/tropaar-ontslapen-moeder-gods-toon-1-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/ontslapen-moeder-gods-toon-1/hemelum/tropaar-ontslapen-moeder-gods-toon-1-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\ontslapen-moeder-gods-toon-1\\hemelum\\tropaar-ontslapen-moeder-gods-toon-1-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/tropaar/profeet-elia-toon-4/liturgikon|tropaar-profeet-elia-toon-4-liturgikon.vsa.mp3": {
       "source": "catalogus/tropaar/profeet-elia-toon-4/liturgikon/tropaar-profeet-elia-toon-4-liturgikon.vsa",
       "product": "catalogus/tropaar/profeet-elia-toon-4/liturgikon/tropaar-profeet-elia-toon-4-liturgikon.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\profeet-elia-toon-4\\liturgikon\\tropaar-profeet-elia-toon-4-liturgikon.vsa",
+      "issues": []
+    },
+    "catalogus/tropaar/profeet-elia-toon-4/liturgikon|tropaar-profeet-elia-toon-4-liturgikon.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/profeet-elia-toon-4/liturgikon/tropaar-profeet-elia-toon-4-liturgikon.vsa.mvsa",
+      "product": "catalogus/tropaar/profeet-elia-toon-4/liturgikon/tropaar-profeet-elia-toon-4-liturgikon.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\profeet-elia-toon-4\\liturgikon\\tropaar-profeet-elia-toon-4-liturgikon.vsa.mvsa",
       "issues": []
     },
     "catalogus/tropaar/silouan-de-athoniet-toon-4/asten|tropaar-silouan-de-athoniet-toon-4-asten.vsa.mp3": {
@@ -1199,11 +1845,38 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\silouan-de-athoniet-toon-4\\asten\\tropaar-silouan-de-athoniet-toon-4-asten.vsa",
       "issues": []
     },
+    "catalogus/tropaar/silouan-de-athoniet-toon-4/asten|tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/silouan-de-athoniet-toon-4/asten/tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa",
+      "product": "catalogus/tropaar/silouan-de-athoniet-toon-4/asten/tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa.mp3",
+      "ok": false,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\silouan-de-athoniet-toon-4\\asten\\tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa",
+      "issues": [
+        {
+          "kind": "missing_mp3",
+          "file": "catalogus/tropaar/silouan-de-athoniet-toon-4/asten/tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa.mp3",
+          "detail": "Preview-.mp3 ontbreekt naast de bron (Beluisteren)"
+        }
+      ]
+    },
     "catalogus/tropaar/tempelgang-moeder-gods-toon-4/hemelum|tropaar-tempelgang-moeder-gods-toon-4-hemelum.vsa.mp3": {
       "source": "catalogus/tropaar/tempelgang-moeder-gods-toon-4/hemelum/tropaar-tempelgang-moeder-gods-toon-4-hemelum.vsa",
       "product": "catalogus/tropaar/tempelgang-moeder-gods-toon-4/hemelum/tropaar-tempelgang-moeder-gods-toon-4-hemelum.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\tempelgang-moeder-gods-toon-4\\hemelum\\tropaar-tempelgang-moeder-gods-toon-4-hemelum.vsa",
+      "issues": []
+    },
+    "catalogus/tropaar/tempelgang-moeder-gods-toon-4/hemelum|tropaar-tempelgang-moeder-gods-toon-4-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/tempelgang-moeder-gods-toon-4/hemelum/tropaar-tempelgang-moeder-gods-toon-4-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/tempelgang-moeder-gods-toon-4/hemelum/tropaar-tempelgang-moeder-gods-toon-4-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\tempelgang-moeder-gods-toon-4\\hemelum\\tropaar-tempelgang-moeder-gods-toon-4-hemelum.vsa.mvsa",
+      "issues": []
+    },
+    "catalogus/tropaar/transfiguratie-toon-7/hemelum|tropaar-transfiguratie-toon-7-hemelum.mvsa.mp3": {
+      "source": "catalogus/tropaar/transfiguratie-toon-7/hemelum/tropaar-transfiguratie-toon-7-hemelum.mvsa",
+      "product": "catalogus/tropaar/transfiguratie-toon-7/hemelum/tropaar-transfiguratie-toon-7-hemelum.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\transfiguratie-toon-7\\hemelum\\tropaar-transfiguratie-toon-7-hemelum.mvsa",
       "issues": []
     },
     "catalogus/tropaar/transfiguratie-toon-7/hemelum|tropaar-transfiguratie-toon-7-hemelum.vsa.mp3": {
@@ -1213,32 +1886,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\transfiguratie-toon-7\\hemelum\\tropaar-transfiguratie-toon-7-hemelum.vsa",
       "issues": []
     },
-    "catalogus/tropaar/uw-heilig-kruis/groningen|tropaar-uw-heilig-kruis-groningen.vsa.mp3": {
-      "source": "catalogus/tropaar/uw-heilig-kruis/groningen/tropaar-uw-heilig-kruis-groningen.vsa",
-      "product": "catalogus/tropaar/uw-heilig-kruis/groningen/tropaar-uw-heilig-kruis-groningen.vsa.mp3",
+    "catalogus/tropaar/uw-heilig-kruis/hemelum|tropaar-uw-heilig-kruis-hemelum.mvsa.mp3": {
+      "source": "catalogus/tropaar/uw-heilig-kruis/hemelum/tropaar-uw-heilig-kruis-hemelum.mvsa",
+      "product": "catalogus/tropaar/uw-heilig-kruis/hemelum/tropaar-uw-heilig-kruis-hemelum.mvsa.mp3",
       "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\uw-heilig-kruis\\groningen\\tropaar-uw-heilig-kruis-groningen.vsa",
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\uw-heilig-kruis\\hemelum\\tropaar-uw-heilig-kruis-hemelum.mvsa",
       "issues": []
     },
-    "catalogus/tropaar/uw-heilig-kruis/groningen-ksl|tropaar-uw-heilig-kruis-groningen-ksl.vsa.mp3": {
-      "source": "catalogus/tropaar/uw-heilig-kruis/groningen-ksl/tropaar-uw-heilig-kruis-groningen-ksl.vsa",
-      "product": "catalogus/tropaar/uw-heilig-kruis/groningen-ksl/tropaar-uw-heilig-kruis-groningen-ksl.vsa.mp3",
+    "catalogus/tropaar/uw-heilig-kruis/hemelum-ksl|tropaar-uw-heilig-kruis-hemelum-ksl.mvsa.mp3": {
+      "source": "catalogus/tropaar/uw-heilig-kruis/hemelum-ksl/tropaar-uw-heilig-kruis-hemelum-ksl.mvsa",
+      "product": "catalogus/tropaar/uw-heilig-kruis/hemelum-ksl/tropaar-uw-heilig-kruis-hemelum-ksl.mvsa.mp3",
       "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\uw-heilig-kruis\\groningen-ksl\\tropaar-uw-heilig-kruis-groningen-ksl.vsa",
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\uw-heilig-kruis\\hemelum-ksl\\tropaar-uw-heilig-kruis-hemelum-ksl.mvsa",
       "issues": []
     },
-    "catalogus/tropaar/uw-heilig-kruis/liturgikon|tropaar-uw-heilig-kruis-liturgikon.vsa.mp3": {
-      "source": "catalogus/tropaar/uw-heilig-kruis/liturgikon/tropaar-uw-heilig-kruis-liturgikon.vsa",
-      "product": "catalogus/tropaar/uw-heilig-kruis/liturgikon/tropaar-uw-heilig-kruis-liturgikon.vsa.mp3",
+    "catalogus/tropaar/uw-heilig-kruis/liturgikon|tropaar-uw-heilig-kruis-liturgikon.mvsa.mp3": {
+      "source": "catalogus/tropaar/uw-heilig-kruis/liturgikon/tropaar-uw-heilig-kruis-liturgikon.mvsa",
+      "product": "catalogus/tropaar/uw-heilig-kruis/liturgikon/tropaar-uw-heilig-kruis-liturgikon.mvsa.mp3",
       "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\uw-heilig-kruis\\liturgikon\\tropaar-uw-heilig-kruis-liturgikon.vsa",
-      "issues": []
-    },
-    "catalogus/tropaar/uw-heilig-kruis/liturgikon-ksl|tropaar-uw-heilig-kruis-liturgikon-ksl.vsa.mp3": {
-      "source": "catalogus/tropaar/uw-heilig-kruis/liturgikon-ksl/tropaar-uw-heilig-kruis-liturgikon-ksl.vsa",
-      "product": "catalogus/tropaar/uw-heilig-kruis/liturgikon-ksl/tropaar-uw-heilig-kruis-liturgikon-ksl.vsa.mp3",
-      "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\uw-heilig-kruis\\liturgikon-ksl\\tropaar-uw-heilig-kruis-liturgikon-ksl.vsa",
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\uw-heilig-kruis\\liturgikon\\tropaar-uw-heilig-kruis-liturgikon.mvsa",
       "issues": []
     },
     "catalogus/tropaar/zaterdag-gestorvenen-toon-2/hemelum|tropaar-zaterdag-gestorvenen-toon-2-hemelum.vsa.mp3": {
@@ -1248,6 +1914,13 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zaterdag-gestorvenen-toon-2\\hemelum\\tropaar-zaterdag-gestorvenen-toon-2-hemelum.vsa",
       "issues": []
     },
+    "catalogus/tropaar/zaterdag-gestorvenen-toon-2/hemelum|tropaar-zaterdag-gestorvenen-toon-2-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/zaterdag-gestorvenen-toon-2/hemelum/tropaar-zaterdag-gestorvenen-toon-2-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/zaterdag-gestorvenen-toon-2/hemelum/tropaar-zaterdag-gestorvenen-toon-2-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zaterdag-gestorvenen-toon-2\\hemelum\\tropaar-zaterdag-gestorvenen-toon-2-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum|tropaar-zaterdag-heiligen-toon-2-hemelum.vsa.mp3": {
       "source": "catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum/tropaar-zaterdag-heiligen-toon-2-hemelum.vsa",
       "product": "catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum/tropaar-zaterdag-heiligen-toon-2-hemelum.vsa.mp3",
@@ -1255,11 +1928,18 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zaterdag-heiligen-toon-2\\hemelum\\tropaar-zaterdag-heiligen-toon-2-hemelum.vsa",
       "issues": []
     },
-    "catalogus/tropaar/zondag-toon-1/groningen|tropaar-zondag-toon-1-groningen.vsa.mp3": {
-      "source": "catalogus/tropaar/zondag-toon-1/groningen/tropaar-zondag-toon-1-groningen.vsa",
-      "product": "catalogus/tropaar/zondag-toon-1/groningen/tropaar-zondag-toon-1-groningen.vsa.mp3",
+    "catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum|tropaar-zaterdag-heiligen-toon-2-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum/tropaar-zaterdag-heiligen-toon-2-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum/tropaar-zaterdag-heiligen-toon-2-hemelum.vsa.mvsa.mp3",
       "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-1\\groningen\\tropaar-zondag-toon-1-groningen.vsa",
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zaterdag-heiligen-toon-2\\hemelum\\tropaar-zaterdag-heiligen-toon-2-hemelum.vsa.mvsa",
+      "issues": []
+    },
+    "catalogus/tropaar/zondag-toon-1/groningen|tropaar-zondag-toon-1-groningen.mvsa.mp3": {
+      "source": "catalogus/tropaar/zondag-toon-1/groningen/tropaar-zondag-toon-1-groningen.mvsa",
+      "product": "catalogus/tropaar/zondag-toon-1/groningen/tropaar-zondag-toon-1-groningen.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-1\\groningen\\tropaar-zondag-toon-1-groningen.mvsa",
       "issues": []
     },
     "catalogus/tropaar/zondag-toon-2/groningen|tropaar-zondag-toon-2-groningen.vsa.mp3": {
@@ -1269,11 +1949,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-2\\groningen\\tropaar-zondag-toon-2-groningen.vsa",
       "issues": []
     },
+    "catalogus/tropaar/zondag-toon-2/groningen|tropaar-zondag-toon-2-groningen.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/zondag-toon-2/groningen/tropaar-zondag-toon-2-groningen.vsa.mvsa",
+      "product": "catalogus/tropaar/zondag-toon-2/groningen/tropaar-zondag-toon-2-groningen.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-2\\groningen\\tropaar-zondag-toon-2-groningen.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/tropaar/zondag-toon-3/groningen|tropaar-zondag-toon-3-groningen.vsa.mp3": {
       "source": "catalogus/tropaar/zondag-toon-3/groningen/tropaar-zondag-toon-3-groningen.vsa",
       "product": "catalogus/tropaar/zondag-toon-3/groningen/tropaar-zondag-toon-3-groningen.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-3\\groningen\\tropaar-zondag-toon-3-groningen.vsa",
+      "issues": []
+    },
+    "catalogus/tropaar/zondag-toon-3/groningen|tropaar-zondag-toon-3-groningen.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/zondag-toon-3/groningen/tropaar-zondag-toon-3-groningen.vsa.mvsa",
+      "product": "catalogus/tropaar/zondag-toon-3/groningen/tropaar-zondag-toon-3-groningen.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-3\\groningen\\tropaar-zondag-toon-3-groningen.vsa.mvsa",
       "issues": []
     },
     "catalogus/tropaar/zondag-toon-4/groningen|tropaar-zondag-toon-4-groningen.vsa.mp3": {
@@ -1283,11 +1977,39 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-4\\groningen\\tropaar-zondag-toon-4-groningen.vsa",
       "issues": []
     },
+    "catalogus/tropaar/zondag-toon-4/groningen|tropaar-zondag-toon-4-groningen.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/zondag-toon-4/groningen/tropaar-zondag-toon-4-groningen.vsa.mvsa",
+      "product": "catalogus/tropaar/zondag-toon-4/groningen/tropaar-zondag-toon-4-groningen.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-4\\groningen\\tropaar-zondag-toon-4-groningen.vsa.mvsa",
+      "issues": []
+    },
+    "catalogus/tropaar/zondag-toon-4/hemelum|tropaar-zondag-toon-4-hemelum.vsa.mp3": {
+      "source": "catalogus/tropaar/zondag-toon-4/hemelum/tropaar-zondag-toon-4-hemelum.vsa",
+      "product": "catalogus/tropaar/zondag-toon-4/hemelum/tropaar-zondag-toon-4-hemelum.vsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-4\\hemelum\\tropaar-zondag-toon-4-hemelum.vsa",
+      "issues": []
+    },
+    "catalogus/tropaar/zondag-toon-4/hemelum|tropaar-zondag-toon-4-hemelum.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/zondag-toon-4/hemelum/tropaar-zondag-toon-4-hemelum.vsa.mvsa",
+      "product": "catalogus/tropaar/zondag-toon-4/hemelum/tropaar-zondag-toon-4-hemelum.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-4\\hemelum\\tropaar-zondag-toon-4-hemelum.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/tropaar/zondag-toon-5/groningen|tropaar-zondag-toon-5-groningen.vsa.mp3": {
       "source": "catalogus/tropaar/zondag-toon-5/groningen/tropaar-zondag-toon-5-groningen.vsa",
       "product": "catalogus/tropaar/zondag-toon-5/groningen/tropaar-zondag-toon-5-groningen.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-5\\groningen\\tropaar-zondag-toon-5-groningen.vsa",
+      "issues": []
+    },
+    "catalogus/tropaar/zondag-toon-5/groningen|tropaar-zondag-toon-5-groningen.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/zondag-toon-5/groningen/tropaar-zondag-toon-5-groningen.vsa.mvsa",
+      "product": "catalogus/tropaar/zondag-toon-5/groningen/tropaar-zondag-toon-5-groningen.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-5\\groningen\\tropaar-zondag-toon-5-groningen.vsa.mvsa",
       "issues": []
     },
     "catalogus/tropaar/zondag-toon-6/groningen|tropaar-zondag-toon-6-groningen.vsa.mp3": {
@@ -1297,11 +2019,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-6\\groningen\\tropaar-zondag-toon-6-groningen.vsa",
       "issues": []
     },
+    "catalogus/tropaar/zondag-toon-6/groningen|tropaar-zondag-toon-6-groningen.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/zondag-toon-6/groningen/tropaar-zondag-toon-6-groningen.vsa.mvsa",
+      "product": "catalogus/tropaar/zondag-toon-6/groningen/tropaar-zondag-toon-6-groningen.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-6\\groningen\\tropaar-zondag-toon-6-groningen.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/tropaar/zondag-toon-7/groningen|tropaar-zondag-toon-7-groningen.vsa.mp3": {
       "source": "catalogus/tropaar/zondag-toon-7/groningen/tropaar-zondag-toon-7-groningen.vsa",
       "product": "catalogus/tropaar/zondag-toon-7/groningen/tropaar-zondag-toon-7-groningen.vsa.mp3",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-7\\groningen\\tropaar-zondag-toon-7-groningen.vsa",
+      "issues": []
+    },
+    "catalogus/tropaar/zondag-toon-7/groningen|tropaar-zondag-toon-7-groningen.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/zondag-toon-7/groningen/tropaar-zondag-toon-7-groningen.vsa.mvsa",
+      "product": "catalogus/tropaar/zondag-toon-7/groningen/tropaar-zondag-toon-7-groningen.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-7\\groningen\\tropaar-zondag-toon-7-groningen.vsa.mvsa",
       "issues": []
     },
     "catalogus/tropaar/zondag-toon-8/groningen|tropaar-zondag-toon-8-groningen.vsa.mp3": {
@@ -1311,12 +2047,25 @@
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-8\\groningen\\tropaar-zondag-toon-8-groningen.vsa",
       "issues": []
     },
+    "catalogus/tropaar/zondag-toon-8/groningen|tropaar-zondag-toon-8-groningen.vsa.mvsa.mp3": {
+      "source": "catalogus/tropaar/zondag-toon-8/groningen/tropaar-zondag-toon-8-groningen.vsa.mvsa",
+      "product": "catalogus/tropaar/zondag-toon-8/groningen/tropaar-zondag-toon-8-groningen.vsa.mvsa.mp3",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\zondag-toon-8\\groningen\\tropaar-zondag-toon-8-groningen.vsa.mvsa",
+      "issues": []
+    },
     "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon|tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa.mp3": {
       "source": "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon/tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa",
       "product": "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon/tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa.mp3",
-      "ok": true,
+      "ok": false,
       "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tweede-antifoon\\geboorte-moeder-gods\\liturgikon\\tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa",
-      "issues": []
+      "issues": [
+        {
+          "kind": "stale_mp3",
+          "file": "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon/tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa.mp3",
+          "detail": "MP3-source-hash wijkt af (gegenereerd 2026-11-11T22:57:30+00:00); bron is gewijzigd"
+        }
+      ]
     },
     "catalogus/tweede-antifoon/kruisverheffing/liturgikon|tweede-antifoon-kruisverheffing-liturgikon.vsa.mp3": {
       "source": "catalogus/tweede-antifoon/kruisverheffing/liturgikon/tweede-antifoon-kruisverheffing-liturgikon.vsa",

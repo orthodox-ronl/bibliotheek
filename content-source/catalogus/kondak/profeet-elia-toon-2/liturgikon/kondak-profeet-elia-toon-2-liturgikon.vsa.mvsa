@@ -1,0 +1,72 @@
+---
+taal: nl
+soort: kondak
+toon: 2
+template: kondak-toon-2-groningen
+bron:
+  uitgangspunt: Liturgikon
+gelegenheid:
+- naam: Profeet Elia
+  datum: 20 jul
+zoektekst: |-
+  Profeet en Schouwer van Gods machtige daden,
+  vermaarde Elia,
+  die door uw woord de regenwolken gevangen hield,
+  bid voor ons tot de enig menslievende
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# <!-- Kondak Profeet Elia, Toon 2, Liturgikon p.267 -->
+# [/:] Profeet en {/Schouw}er van Gods machti{/ge_} {/&\da_&_}{\den_}, *
+# vermaarde E{\li_}{\a_}, *
+# {/die} door uw {/woord_} de regenwolken {/ge}{/van_}{\gen_} {\hield_}, **
+# bid {\voor} {/ons} {/tot} de {\e}nig {/mens}{\lie_}{\ven_}{\de_} [:]
+
+# === afgeleide mvsa (VSA + template) ===
+# bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/kondak/profeet-elia-toon-2/liturgikon/kondak-profeet-elia-toon-2-liturgikon.vsa
+# template: kondak-toon-2-groningen/template.yaml (kondak-toon-2-groningen)
+# Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
+#  ##########################################################################  #
+#  #                                                                        #  #
+#  #   WAARSCHUWING:                                                        #  #
+#  #                                                                        #  #
+#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
+#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
+#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
+#  #   - melisma-slots (``_&_`` / ``~&~`` voor stem-sync; later samentrekken)#  #
+#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
+#  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
+#  #                                                                        #  #
+#  ##########################################################################  #
+@title "kondak-profeet-elia-toon-2-liturgikon"
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=0 T=-1 B=-1
+
+@sectie cyclus-1
+L: (Pro-feet en) (Schouw-er van Gods mach-ti)-ge_ da_&_-den_, |
+S: g             /                            /   /&\   \     |a
+A: e-            /                            -   -&-   -     |f
+T: c             -                            /   b/&\  \     |c
+B: c-            /3                           \4  \&/   /4    |f
+
+L: (ver-maar-de E)-li_-a_, |
+S: a               \   \   |f
+A: f               \   \2  |c-
+T: c               \   \   |a
+B: f               \3  /3  |f
+
+@sectie herhaling
+L: (die door uw) woord_ (de re-gen-wol-ken) ge-van_-gen_ hield_, |
+S: g             /      -                   /  /    \    \       |a
+A: e-            /      -                   -  -    -    -       |f
+T: c             -      -                   /  b/   \    \       |c
+B: c-            /3     -                   \4 \    /    /4      |f
+
+@sectie laatste
+L: (bid) voor ons tot de e -nig mens-lie_-ven_-de_ |
+S: a     \    /   /   -  \  -   /    \    \    \   |f
+A: f     \2   /2  -   -  -  -   -    -    \    \2  |c-
+T: c     \    /   /   -  \  -   /    \    \    \   |a
+B: f     /    \   \4  -  /4 -   \4   /    -    /3  |f

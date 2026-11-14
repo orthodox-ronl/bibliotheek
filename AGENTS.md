@@ -5,11 +5,15 @@ Richtlijnen voor AI-assistenten in deze repository.
 Organisatie-context: [orthodox-ronl/AGENTS.md](https://github.com/orthodox-ronl/bron/blob/main/AGENTS.md)
 (of org-root). Terminologie: [bron/docs/specs/terminologie.md](https://github.com/orthodox-ronl/bron/blob/main/docs/specs/terminologie.md).
 
-Tooling-contract: [docs/tooling-koppeling.md](docs/tooling-koppeling.md).
+Tooling-contract: [docs/tooling-koppeling.md](docs/tooling-koppeling.md)
+(§Canoniek in de catalogus + links naar formatpagina’s).
 **Contracten eerst** (hard): bij elk werk aan bestandsinhoud/export/PDF/SVG/…
-eerst VSA-tooling `docs/formats/contract-index.md` + bibliotheek-specs
+eerst VSA-tooling `docs/formats/contract-index.md` (§Contract-skelet,
+§Canoniciteit C*, §Dekkingsmatrix, §Nieuwe regel) + bibliotheek-specs
 (`docs/specs/koormap-paginataal.md`, `schermpartituur.md`, …) lezen en
-naleven — zie `.cursor/rules/contracten-eerst.mdc`.
+naleven — zie `.cursor/rules/contracten-eerst.mdc` en
+`.cursor/rules/canonieke-bestanden.mdc` (canonieke bron/doel; bij nieuwe
+regels alle toepasselijke contracten + naleving catalogusbestanden).
 Publicatiecontrole / sibling-namen: [docs/publicatiecontrole.md](docs/publicatiecontrole.md)
 (leesbaar: handleiding *Publicatiecontrole*).
 Lifecycle Werkbank/Catalogus: [docs/levenscyclus.md](docs/levenscyclus.md)
@@ -63,6 +67,10 @@ impliciet weggelaten variant-id.
 | Scripts | `scripts/` |
 | Gegenereerd | `generated/` (niet committen) |
 | Tooling-pin | `vsa-tooling.pin` |
+
+Stichieren: genre-emmer `catalogus/stichier/`; coupletten als aparte
+uitvoeringsvormen (`groningen-1`, …) + verzamel-`.vsa` — handleiding
+[Stichieren](content-source/handleiding/start/stichieren.md).
 
 ---
 

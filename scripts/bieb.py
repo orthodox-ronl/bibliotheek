@@ -64,25 +64,67 @@ def _load_handler(canonical: str):
     return handler
 
 
+_BIEB_EPILOG = """\
+Engelse aliassen: accept, rename, delete, copy.
+
+Geen gedeelde top-level opties: elke subcommando heeft eigen flags
+(standaard o.a. --dry-run uit). Hulp per subcommando: bieb <naam> -h
+
+Voorbeelden:
+  bieb accepteer trisagion/8a-nederlands/hemelum pad\\x.mscz --dry-run
+  bieb hernoem ektinia/vredes ektinia/litanie --dry-run
+  bieb verwijder ektinia/vredes/hemelum --dry-run
+  bieb kopieer ektinia/vredes/hemelum groningen --dry-run
+
+Handleiding: content-source\\handleiding\\scripts\\bieb-*.md
+"""
+
+
+def build_root_parser():
+    """Top-level help: subcommando's + epilog (zelfde stijl als ``bieb hernoem -h``)."""
+    from cli_help import make_parser
+
+    p = make_parser(
+        prog="bieb",
+        description=(
+            "Catalogus-CLI: partituur/tekstblad opnemen, hernoemen, "
+            "verwijderen of kopiëren onder content-source\\catalogus."
+        ),
+        epilog=_BIEB_EPILOG,
+    )
+    sub = p.add_subparsers(
+        title="subcommando's",
+        dest="command",
+        metavar="{accepteer,hernoem,verwijder,kopieer}",
+        required=True,
+    )
+    sub.add_parser(
+        "accepteer",
+        aliases=["accept"],
+        help="partituur/tekstblad opnemen onder catalogus-id",
+    )
+    sub.add_parser(
+        "hernoem",
+        aliases=["rename"],
+        help="catalogus-id hernoemen (zangstuk/variant/uitvoeringsvorm)",
+    )
+    sub.add_parser(
+        "verwijder",
+        aliases=["delete"],
+        help="catalogus-id wissen (dangling refs rapporteren)",
+    )
+    sub.add_parser(
+        "kopieer",
+        aliases=["copy"],
+        help="uitvoeringsvorm kopiëren naar nieuw id",
+    )
+    return p
+
+
 def main(argv: list[str] | None = None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
     if not argv or argv[0] in {"-h", "--help"}:
-        print(
-            "Gebruik: bieb <subcommando> [args...]\n"
-            "\n"
-            "  accepteer   partituur/tekstblad opnemen onder catalogus-id\n"
-            "  hernoem     catalogus-id hernoemen (zangstuk/variant/uitvoeringsvorm)\n"
-            "  verwijder   catalogus-id wissen (dangling refs rapporteren)\n"
-            "  kopieer     uitvoeringsvorm kopiëren naar nieuw id\n"
-            "\n"
-            "Engelse aliassen: accept, rename, delete, copy.\n"
-            "\n"
-            "Voorbeelden:\n"
-            "  bieb accepteer trisagion/8a-nederlands/hemelum pad\\x.mscz --dry-run\n"
-            "  bieb hernoem ektinia/vredes ektinia/litanie --dry-run\n"
-            "  bieb verwijder ektinia/vredes/hemelum --dry-run\n"
-            "  bieb kopieer ektinia/vredes/hemelum groningen --dry-run\n"
-        )
+        build_root_parser().print_help()
         return 0 if argv else 2
     canonical = resolve_subcommand(argv[0])
     if canonical is None:
@@ -92,6 +134,7 @@ def main(argv: list[str] | None = None) -> int:
             "of accept, rename, delete, copy)",
             file=sys.stderr,
         )
+        build_root_parser().print_help()
         return 2
     try:
         handler = _load_handler(canonical)

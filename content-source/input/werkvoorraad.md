@@ -64,6 +64,14 @@ voor wie converteert.
 | `musescore/15b CherubijneCherubijnenhymne Fatejev.musicxml` |  |  | `.mscz` | ontvangen | doel-id |  |
 | `musescore/alleluja-toon-1.mscz` |  |  | `.mscz` | ontvangen | doel-id |  |
 | `musescore/allelujas 1-8 - ruw.mscz` |  |  | `.mscz` | ontvangen | doel-id |  |
+| `musescore/cherubijnenhymne-kastorski-15d-pancakescrawlspace.mscz` |  |  | `.mscz` | ontvangen | doel-id |  |
+| `musescore/eis_polla_eti_koor-pancakescrawlspace.mscz` |  |  | `.mscz` | ontvangen | doel-id |  |
+| `musescore/eis_polla_eti_trio-pancakescrawlspace.mscz` |  |  | `.mscz` | ontvangen | doel-id |  |
+| `musescore/gij-allen-pancakescrawlspace.mscz` |  |  | `.mscz` | ontvangen | doel-id |  |
+| `musescore/groot_prokimen_pinksteren-pancakescrawlspace.mscz` |  |  | `.mscz` | ontvangen | doel-id |  |
+| `musescore/megalinarion_geboorte-verheft-mijn-ziel-pancakescrawlspace.mscz` |  |  | `.mscz` | ontvangen | doel-id |  |
+| `musescore/uw_heilig_kruis-pancakescrawlspace.mscz` |  |  | `.mscz` | ontvangen | doel-id |  |
+| `musescore/verheug_u_maagd-pancakescrawlspace.mscz` |  |  | `.mscz` | ontvangen | doel-id |  |
 | `musicxml/021-prokimen-alleluja-toon-1.mscz` |  |  | `.mscz` | ontvangen | doel-id |  |
 | `musicxml/021-prokimen-alleluja-toon-1.musicxml` |  |  | `.mscz` | ontvangen | doel-id |  |
 | `musicxml/022-prokimen-alleluja-toon-2.mscz` |  |  | `.mscz` | ontvangen | doel-id |  |

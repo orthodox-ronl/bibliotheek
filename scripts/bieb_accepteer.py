@@ -964,14 +964,17 @@ def resolve_bestanden_en_stub(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(
+    from cli_help import make_parser
+
+    p = make_parser(
+        prog="bieb accepteer",
         description=(
             "Neem .mscz / .vsa / .mvsa / .tekstblad.md (en optioneel PDF/MXL) op in "
             "content-source/catalogus onder een catalogus-id. "
             "Pad: één bestand óf een map (recursief primaire bronnen → batch). "
             "Zonder argumenten: eerst bestand (validatie + id uit stam), daarna id. "
             "Typ ? voor uitleg."
-        )
+        ),
     )
     p.add_argument(
         "ident",

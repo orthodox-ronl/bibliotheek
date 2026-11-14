@@ -5,6 +5,15 @@ Goedgekeurde beleidsregel. Leesbare vorm:
 (§ Publicatiesporen) en archief:
 [`content-source/input/archief-bronnen/`](../content-source/input/archief-bronnen/).
 
+**Canoniek** voor de *inhoud* van `.vsa` / `.mvsa` / `.mscz` = VSA-tooling
+formatcontract
+([contract-index](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/contract-index.md);
+pagina’s [vsa](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/vsa.md) /
+[mvsa](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/mvsa.md) /
+[mscz](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/mscz.md)).
+Dit document regelt alleen: **één** van die drie per leaf. Zie ook
+[tooling-koppeling — Canoniek in de catalogus](tooling-koppeling.md#canoniek-in-de-catalogus).
+
 ## Doel
 
 Op één uitvoeringsvorm-blad (`zangstuk/variant/uitvoeringsvorm`) toont
@@ -16,21 +25,22 @@ over wat leidend is.
 
 Per catalogus-leaf geldt voor **notatie** precies **één** canonieke bron:
 
-| Toegestaan (kies er één) | Bestandsvorm |
-| --- | --- |
-| VSA | `{stam}.vsa` |
-| MVSA | `{stam}.mvsa` |
+| Toegestaan (kies er één) | Bestandsvorm  |
+| ------------------------ | ------------- |
+| VSA                      | `{stam}.vsa`  |
+| MVSA                     | `{stam}.mvsa` |
 | Basispartituur MuseScore | `{stam}.mscz` |
 
 **Niet** tegelijk twee of meer van die drie in dezelfde leaf-map.
 
 ### Wat wél naast de gekozen bron mag
 
-| Soort | Voorbeeld | Rol |
-| --- | --- | --- |
-| Afgeleiden van die bron | `{stam}.mvsa.svg`, `{stam}.mvsa.mscz`, `{stam}.mscz.mxl`, … | Producten (één laag; geen product-van-product) |
-| Import-bewerkvorm bij **alleen** `.mscz` | `{stam}.mscz.mvsa` | Bewerk-/importvorm, **geen** tweede canonieke bron |
-| Tekstblad | `{stam}.tekstblad.md` | Eigen spoor (dialoog e.d.); geen notatie-SVG |
+| Soort                                    | Voorbeeld                                                   | Rol                                                                                                  |
+| ---------------------------------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Afgeleiden van die bron                  | `{stam}.mvsa.svg`, `{stam}.mvsa.mscz`, `{stam}.mscz.mxl`, … | Producten (één laag; geen product-van-product)                                                       |
+| Schets-MVSA bij **alleen** `.vsa`        | `{stam}.vsa.mvsa`                                           | Product van `vsa mvsa` (T1); daarna mvsa-bron voor mxl/svg/IR/audio — **geen** tweede canonieke bron |
+| Import-bewerkvorm bij **alleen** `.mscz` | `{stam}.mscz.mvsa`                                          | Bewerk-/importvorm, **geen** tweede canonieke bron                                                   |
+| Tekstblad                                | `{stam}.tekstblad.md`                                       | Eigen spoor (dialoog e.d.); geen notatie-SVG                                                         |
 
 `{stam}.mvsa.mscz` / `{stam}.vsa.mscz` is een **product** van mvsa/vsa,
 geen tweede bron. Zie [publicatiecontrole.md](publicatiecontrole.md).
@@ -62,6 +72,22 @@ onder `.archief/` blijft genegeerd door git — daar hoort dit **niet**.
 leaf meer dan één canonieke notatiebron heeft. Status: **contract vast;
 automatische check nog niet gebouwd**.
 
+## Uitzondering: formule dekt het blad niet
+
+Soms past een goedgekeurde zetting **niet** in `vsa mvsa` (T1–T7), bv.
+een ere-coda buiten de standaardfrasen. Dan:
+
+1. Canonieke bron = **`{stam}.mvsa`** (handmatig onderhouden).
+2. Eventuele oude `{stam}.vsa` → `content-source/input/archief-bronnen/`
+   (melodie-archief; **niet** leidend voor products/check).
+3. Geen `{stam}.vsa.mvsa` in de leaf (dat zou weer naar VSA wijzen).
+4. Op de blad-`index.md` kort vermelden: notatiebron = `.mvsa`; niet
+   overschrijven met `vsa mvsa` / `products --kinds vsa`.
+
+Voorbeeld: `tropaar/zondag-toon-1/groningen` (ere zij Uw Koningschap /
+Voorzienigheid). Later eventueel `mvsa → vsa` (S-extractie); géén
+mapper-special-case in T1.
+
 ## Hard rules (agents)
 
 1. Geen tweede canonieke `.vsa` / `.mvsa` / `.mscz` in een leaf zetten.
@@ -72,3 +98,5 @@ automatische check nog niet gebouwd**.
 4. `Meerdere bronnen in één map mogen` in oudere tekst = **achterhaald**
    voor canonieke notatie; alleen nog: één notatiebron + diens spoor
    (+ optioneel tekstblad / import-bewerkvorm).
+5. Bij formule-uitzondering (zie hierboven): `.mvsa` wint; geen stille
+   VSA→MVSA-regeneratie op dat leaf.

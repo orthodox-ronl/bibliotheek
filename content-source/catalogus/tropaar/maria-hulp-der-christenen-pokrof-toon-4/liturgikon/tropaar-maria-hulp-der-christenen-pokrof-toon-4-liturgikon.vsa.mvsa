@@ -1,0 +1,96 @@
+---
+taal: nl
+soort: tropaar
+toon: 4
+template: tropaar-toon-4-hemelum
+bron:
+  uitgangspunt: Liturgikon, p 279
+gelegenheid:
+  naam: Maria, Hulp der Christenen (Pokrof)
+  datum: 1 okt
+zoektekst: |-
+  Heden viert het Orthodoxe volk
+  het stralende feest van uw komst.
+  En staande voor uw reine Ikoon roepen wij smekend tot u:
+  bescherm ons door uw kostbare beschutting.
+  Verlos ons uit alle nood,
+  en bid tot uw Zoon, Christus God,
+  om onze zielen te redden.
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# <!-- Tropaar Maria, Hulp der Christenen (Pokrof), Toon 4, Liturgikon p.279 -->
+# [//:] Heden viert het Ortho{do_}{/xe_} {\volk_} *
+# {/het} stralende {feest_} van uw {\komst_}. *
+# En staande voor uw reine Ikoon roepen wij {sme_}{/kend} tot {\u_}: *
+# {/be}scherm ons door uw kostbare be{schut__}{\ting_}. *
+# Verlos ons uit {al_}{/le_} {\nood_}, *
+# {/en} bid tot uw Zoon, {Chris_}{tus_} {\God}, **
+# om onze zielen te {-&/red_&_}{\den_}. [//:]
+
+# === afgeleide mvsa (VSA + template) ===
+# bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/tropaar/maria-hulp-der-christenen-pokrof-toon-4/liturgikon/tropaar-maria-hulp-der-christenen-pokrof-toon-4-liturgikon.vsa
+# template: tropaar-toon-4-hemelum/template.yaml (tropaar-toon-4-hemelum)
+# Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
+#  ##########################################################################  #
+#  #                                                                        #  #
+#  #   WAARSCHUWING:                                                        #  #
+#  #                                                                        #  #
+#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
+#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
+#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
+#  #   - melisma-slots (``_&_`` / ``~&~`` voor stem-sync; later samentrekken)#  #
+#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
+#  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
+#  #                                                                        #  #
+#  ##########################################################################  #
+@title "tropaar-maria-hulp-der-christenen-pokrof-toon-4-liturgikon"
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=0 T=-1 B=-1
+
+@sectie cyclus-1
+L: (He-den viert het Or-tho)-do_-xe_ volk_ |
+S: a                         -   /   \     |a
+A: f                         -   /   #\    |f#
+T: c                         -   /   -     |d
+B: f                         /2  \   \3    |d-
+
+L: (het stra-len-de) feest_ van uw komst_\. |
+S: Bb                -      -   -  \        |a
+A: g                 -      -   -  \        |f
+T: d                 -      \   -  -        |c
+B: g                 \4     -   -  /3       |f
+
+@sectie herhaling
+L: (En staan-de voor uw rei-ne I-koon roe-pen wij) sme_-kend tot u_: |
+S: a                                               -    /    -   \   |a
+A: f                                               -    /    -   #\  |f#
+T: c                                               -    /    -   -   |d
+B: f                                               /2   \    -   \3  |d-
+
+L: (be-scherm ons door uw kost-ba-re be)-schut__-ting_\. |
+S: Bb                                    -       \       |a
+A: g                                     -       \       |f
+T: d                                     -       \       |c
+B: g                                     \4      /3      |f
+
+L: (Ver-los ons uit) al_-le_ nood_, |
+S: a                 -   /   \      |a
+A: f                 -   /   #\     |f#
+T: c                 -   /   -      |d
+B: f                 /2  \   \3     |d-
+
+L: (en bid tot uw Zoon,) Chris_-tus_ God, |
+S: Bb                    -      -    \    |a
+A: g                     -      -    \    |f
+T: d                     -      \    -    |c
+B: g                     \4     -    /3   |f
+
+@sectie laatste
+L: (om on-ze zie-len te) red_&_-den_\. |
+S: a                     -&/    \      |a
+A: f                     -&/    \      |f
+T: c                     -&/    \      |c
+B: f                     -&/    \      |f

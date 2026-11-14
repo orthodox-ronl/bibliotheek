@@ -4,6 +4,14 @@ Normatief voor **gedocumenteerde** sleutels. Alleen deze sleutels
 mogen in `.vsa` / `.mvsa` (ook in de werkbank). Ongedocumenteerd =
 weigeren of wegstrippen bij de canonieke-vorm-gate.
 
+**Eigendom:** bibliotheek (deze pagina). Tooling-formatcontracten
+verwijzen hierheen onder §Inhoud en metadata — zie
+[`.vsa`](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/vsa.md) /
+[`.mvsa`](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/mvsa.md)
+en
+[contract-index](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/contract-index.md).
+Geen tweede zing-deling- of exportchecklist hier.
+
 ## Werkbank versus catalogus
 
 | Fase | Frontmatter |

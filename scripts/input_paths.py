@@ -12,12 +12,34 @@ Enkelvoudige uitvoerpaden (``-o`` / ``--output``) alleen bij precies één bron.
 
 from __future__ import annotations
 
+import re
 from collections.abc import Iterable, Sequence
 from pathlib import Path
+
+# Foutlocatie uit CLI: ``…/lied.vsa:29:28`` of ``…/lied.vsa:29:28:``.
+_LOC_SUFFIX_RE = re.compile(
+    r"^(?P<path>.+\.[A-Za-z0-9_+-]+)(?::\d+){1,2}:?$"
+)
 
 
 class InputPathError(ValueError):
     """Pad ontbreekt, is geen bestand/map, of past niet bij de extensies."""
+
+
+def strip_cli_location_suffix(raw: Path | str) -> str:
+    """Haal ``:regel`` / ``:regel:kolom`` weg (plakken vanuit foutmeldingen).
+
+    Quotes rondom het pad worden ook gestript. Geen wijziging als het geen
+    locatie-suffix is (gewone paden blijven intact).
+    """
+    text = str(raw).strip()
+    if len(text) >= 2 and text[0] == text[-1] and text[0] in "\"'":
+        text = text[1:-1].strip()
+    match = _LOC_SUFFIX_RE.match(text.replace("\\", "/"))
+    if not match:
+        return text
+    # Forward slashes: ``Path`` op Windows accepteert die in kandidaten.
+    return match.group("path")
 
 
 def resolve_user_path(raw: Path | str, *, repo_root: Path) -> Path:
@@ -31,12 +53,16 @@ def resolve_user_path(raw: Path | str, *, repo_root: Path) -> Path:
     3. ``content-source/catalogus/<pad>``;
     4. ``content-source/koormappen/<pad>``.
 
+    Plakfouten uit logs: optionele ``:regel:kolom``-suffix wordt genegeerd
+    (bijv. ``catalogus/…/lied.vsa:29:28``).
+
     Raises
     ------
     InputPathError
         Geen kandidaat bestaat.
     """
-    raw_path = Path(raw)
+    cleaned = strip_cli_location_suffix(raw)
+    raw_path = Path(cleaned)
     root = Path(repo_root)
     content = root / "content-source"
     if raw_path.is_absolute():

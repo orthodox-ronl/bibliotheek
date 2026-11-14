@@ -556,7 +556,9 @@ def verwijder(raw: str, *, dry_run: bool, force: bool) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(
+    from cli_help import make_parser
+
+    parser = make_parser(
         prog="bieb verwijder",
         description=(
             "Verwijder catalogus-id; rapporteer dangling refs / koormap-slots."

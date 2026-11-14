@@ -29,12 +29,8 @@ python scripts\probe_coria_fetch.py --warn-only
 exit /b %ERRORLEVEL%
 
 :usage
-echo.
-echo Gebruik: scripts\products.cmd [args...]
-echo.
-echo   Korte hulp via Python ^(argparse^). Voorbeeldopties vaak: [pad] --dry-run --force
-echo   Na succes ^(niet --dry-run^): Coria-fingerprints voor de Oefenen-knop.
-echo.
+REM Help = Python argparse (één bron van waarheid). Na succes (niet --dry-run):
+REM Coria-fingerprints — zie products.py epilog.
 python scripts\products.py -h
 endlocal
 exit /b %ERRORLEVEL%

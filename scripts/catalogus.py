@@ -459,6 +459,8 @@ UITVOERINGSVORM_LINK_TITLES: dict[str, str] = {
     "liturgikon-ksl": "Liturgikon (ksl)",
     "heiligenjaar": "Heiligenjaar",
     "groningen": "Groningen",
+    "groningen-1": "Groningen 1",
+    "groningen-2": "Groningen 2",
     "groningen-ksl": "Groningen (ksl)",
     "meneon-1": "Meneon I",
     "meneon-i-den-haag": "Meneon I Den Haag",

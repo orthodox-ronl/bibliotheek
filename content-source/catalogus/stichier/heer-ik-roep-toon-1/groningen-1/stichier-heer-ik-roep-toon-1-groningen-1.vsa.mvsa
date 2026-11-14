@@ -1,0 +1,84 @@
+---
+titel: Heer ik roep - Toon 1 (couplet 1)
+taal: nl
+soort: stichier
+toon: 1
+formule: stichier
+template: stichier-toon-1-groningen
+partituur:
+  title: Heer ik roep - Toon 1 (couplet 1)
+  arranger: Groningen
+bron:
+  uitgangspunt: stichiertonen/heer_ik_roep_t1.mscz
+zoektekst: Heer ik roep tot U verhoor mij, verhoor mij o Heer, Heer ik roep tot U verhoor mij, sla acht op de stem van mijn smeking, wanneer ik tot U roep, verhoor mij o Heer.
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# <!-- Couplet 1 — 6 strofes → 1,2,3,2,voorlaatste,laatste -->
+# [///:] Heer ik roep tot U ver-hoor {\\\mij_},
+# {//ver_}hoor mij o {\Heer_},
+# {//Heer_} ik roep tot U ver-hoor {\\mij_},
+# {/sla_} acht op de stem van mijn sme{\king_},
+# {//wan_}neer ik tot U {\\\roep_}, //
+# {////ver_}{/hoor_} {\mij_} {\o_} {\&/&\&\Heer__&~&~&~}. [/:]
+
+# === afgeleide mvsa (VSA + template) ===
+# bron: content-source/catalogus/stichier/heer-ik-roep-toon-1/groningen-1/stichier-heer-ik-roep-toon-1-groningen-1.vsa
+# template: stichier-toon-1-groningen/template.yaml (stichier-toon-1-groningen)
+# Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
+#  ##########################################################################  #
+#  #                                                                        #  #
+#  #   WAARSCHUWING:                                                        #  #
+#  #                                                                        #  #
+#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
+#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
+#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
+#  #   - melisma-slots (``_&_`` / ``~&~`` voor stem-sync; later samentrekken)#  #
+#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
+#  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
+#  #                                                                        #  #
+#  ##########################################################################  #
+@title "Heer ik roep - Toon 1 (couplet 1)"
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=0 T=-1 B=-2
+
+@sectie cyclus-1
+L: (Heer ik roep tot U ver-hoor) mij_, |
+S: Bb                            \3    |f
+A: g                             \3    |d-
+T: c                             \2    |a
+B: c                             /     |d
+
+L: (ver-hoor mij o) Heer_, |
+S: a                \      |g
+A: f                \      |e-
+T: c                -      |c
+B: f+               \3     |c
+
+L: (Heer ik roep tot U ver-hoor) mij_, |
+S: Bb                            \2    |g
+A: g                             \2    |e-
+T: c                             -     |c
+B: c                             -     |c
+
+@sectie herhaling
+L: (sla acht op de stem van mijn sme)-king_, |
+S: a                                  \      |g
+A: f                                  \      |e-
+T: c                                  -      |c
+B: f+                                 \3     |c
+
+L: (wan-neer ik tot U) roep_, |
+S: Bb                  \3     |f
+A: g                   \3     |d-
+T: c                   \2     |a
+B: c                   /      |d
+
+@sectie laatste
+L: (ver)-hoor_ mij_ o_ Heer__&~&~&~\. |
+S: c     /     \    \  \&/&\&\        |g
+A: a     /     \    \  \&/&\&\        |e-
+T: f+    -     -    \  \2&-&-&-       |c
+B: f+    -     -    \3 /3&\&/&\3      |c

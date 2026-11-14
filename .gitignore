@@ -6,6 +6,7 @@ resources/
 data/build.yaml
 data/coria-fp.json
 data/coria-public-base.json
+data/fix-last.log
 static/mxl/
 static/vsa/mxl/
 static/coria/
@@ -54,6 +55,8 @@ bibliotheek-onderhoud.code-workspace
 scripts/r2-env.cmd
 scripts/r2-env.ps1
 
-# Blad-PDF’s mogen op development/feature bij WIP (niet op main — CI-guard).
-# Gelijk aan R2 → r2-pdf-opschonen --apply. Zie docs/plans/pdf-r2.md.
+# Blad-PDF’s: lokaal + R2 (production/ + development/-diff); niet in git.
+# Zie docs/plans/pdf-r2.md. Inputscans onder content-source/input/pdf/ blijven getrackt.
+content-source/**/index.md.pdf
+content-source/**/index.md.translit*.pdf
 
