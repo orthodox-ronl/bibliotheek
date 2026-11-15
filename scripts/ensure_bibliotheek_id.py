@@ -8,7 +8,6 @@ Colofonregel blijft ``Bibliotheek-id:`` (VSA-tooling-contract).
 
 from __future__ import annotations
 
-import argparse
 import os
 import re
 import sys
@@ -132,18 +131,36 @@ def _fix(mscz: Path, expected: str) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    p = argparse.ArgumentParser(description=__doc__)
+    from cli_help import make_parser
+    from input_paths import InputPathError, resolve_user_path
+
+    p = make_parser(
+        prog="ensure-bibliotheek-id",
+        description=(
+            "Zet of controleer Bibliotheek-id in basispartituur-.mscz "
+            "onder een map of op één bestand."
+        ),
+    )
     p.add_argument(
         "root",
         nargs="?",
         type=Path,
         default=DEFAULT_ROOT,
-        help="Zoekroot (default: content-source/catalogus)",
+        help=(
+            "Zoekroot of één .mscz (standaard: content-source/catalogus). "
+            "Korte paden: t.o.v. content-source, catalogus of koormappen."
+        ),
     )
     p.add_argument(
         "--check-only",
         action="store_true",
         help="Niet herschrijven; alleen controleren",
+    )
+    p.add_argument(
+        "--dry-run",
+        action="store_true",
+        dest="check_only",
+        help="Synoniem van --check-only: geen schrijven",
     )
     p.add_argument(
         "--fail",
@@ -156,7 +173,11 @@ def main(argv: list[str] | None = None) -> int:
         help="Altijd exit 0",
     )
     args = p.parse_args(argv)
-    root = args.root if args.root.is_absolute() else REPO_ROOT / args.root
+    try:
+        root = resolve_user_path(args.root, repo_root=REPO_ROOT)
+    except InputPathError as exc:
+        print(f"FAIL: {exc}", file=sys.stderr)
+        return 1
     items = collect_basispartituren(root)
     write = not args.check_only and not _running_in_ci()
 

@@ -2881,13 +2881,16 @@ def iter_targets(explicit: list[Path], all_koormappen: bool) -> list[Path]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    from cli_help import CliHelpFormatter
+
     ap = argparse.ArgumentParser(
         description=(
             "Bouw index.md.pdf (+ optioneel index.md.translit-nls.pdf / "
             "index.md.translit-ksl.pdf) uit kale blad-SVG's + Markdown-koppen "
             "(pdf-bijelkaar → --compact). Pad = één .md of een map "
             "(recursief index.md)."
-        )
+        ),
+        formatter_class=CliHelpFormatter,
     )
     ap.add_argument(
         "paths",
@@ -2908,6 +2911,11 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Overschrijf ook als de PDF nieuwer lijkt dan de bronnen",
     )
+    ap.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Toon welke index.md-PDF’s gebouwd zouden worden; schrijf niets",
+    )
     from batch_guard import SKIP, add_yes_argument, run_timed_batch
 
     add_verbose_argument(ap)
@@ -2923,6 +2931,13 @@ def main(argv: list[str] | None = None) -> int:
     note(
         f"--force={'ja' if args.force else 'nee (sla over als PDF nieuwer lijkt)'}"
     )
+    if args.dry_run:
+        note("(dry-run — geen PDF schrijven)")
+        for md in targets:
+            from input_paths import rel_for_log
+
+            print(f"  zou bouwen: {rel_for_log(md, repo_root=ROOT)}", flush=True)
+        return 0
 
     failed_paths: list[str] = []
 

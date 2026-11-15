@@ -49,6 +49,7 @@ from score_filenames import (  # noqa: E402
 EXIT_OK = 0
 EXIT_ERROR = 1
 EXIT_REFUSED = 2
+REPO_ROOT = SCRIPT_DIR.parent
 
 
 def expand_opkuis_paths(paths: list[Path]) -> list[Path]:
@@ -409,7 +410,10 @@ def build_parser() -> argparse.ArgumentParser:
         "paths",
         nargs="+",
         type=Path,
-        help="Bestand of map (recursief; ondersteunde score-extensies)",
+        help=(
+            "Bestand of map (recursief; ondersteunde score-extensies). "
+            "Korte paden: t.o.v. content-source, catalogus of koormappen."
+        ),
     )
     p.add_argument(
         "-o",
@@ -477,7 +481,21 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if argv else 2
 
     args = build_parser().parse_args(argv)
-    files = expand_opkuis_paths(args.paths)
+    from input_paths import InputPathError, resolve_user_path
+
+    resolved: list[Path] = []
+    for raw in args.paths:
+        try:
+            resolved.append(resolve_user_path(raw, repo_root=REPO_ROOT))
+        except InputPathError as exc:
+            print(f"FAIL: {exc}", flush=True)
+            print(
+                "Oplossing: geef een bestaande map of scorebestand "
+                "(kort: t.o.v. content-source, catalogus of koormappen).",
+                flush=True,
+            )
+            return EXIT_ERROR
+    files = expand_opkuis_paths(resolved)
     if not files:
         print("Geen ondersteunde score-bestanden gevonden.", flush=True)
         return EXIT_ERROR

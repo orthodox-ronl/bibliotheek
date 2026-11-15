@@ -1,94 +1,26 @@
 """Bestand-of-map-invoer voor bibliotheek-CLI's.
 
-**Afspraak** (spiegel VSA-tooling ``vsa.input_paths``): een ``path``-argument
-is óf één bronbestand met de juiste extensie, óf een map waarvan (standaard
-recursief) alle passende bestanden worden verzameld.
-
-CLI-paden: :func:`resolve_user_path` (as-is → ``content-source`` →
-``catalogus`` → ``koormappen``). Logs: :func:`rel_for_log`.
-
-Enkelvoudige uitvoerpaden (``-o`` / ``--output``) alleen bij precies één bron.
+**Norm:** VSA-tooling ``docs/reference/cli/input-pad.md`` (G2).
+Padresolutie delegeert naar ``vsa.input_paths.resolve_cli_path``.
+Lokale ``collect_*`` blijft voor samengestelde suffixes (``.tekstblad.md``)
+en ``names=`` (bijv. ``index.md``). Logs: :func:`rel_for_log`.
 """
 
 from __future__ import annotations
 
-import re
 from collections.abc import Iterable, Sequence
 from pathlib import Path
 
-# Foutlocatie uit CLI: ``…/lied.vsa:29:28`` of ``…/lied.vsa:29:28:``.
-_LOC_SUFFIX_RE = re.compile(
-    r"^(?P<path>.+\.[A-Za-z0-9_+-]+)(?::\d+){1,2}:?$"
+from vsa.input_paths import (  # noqa: F401 — re-export
+    InputPathError,
+    resolve_cli_path,
+    strip_cli_location_suffix,
 )
 
 
-class InputPathError(ValueError):
-    """Pad ontbreekt, is geen bestand/map, of past niet bij de extensies."""
-
-
-def strip_cli_location_suffix(raw: Path | str) -> str:
-    """Haal ``:regel`` / ``:regel:kolom`` weg (plakken vanuit foutmeldingen).
-
-    Quotes rondom het pad worden ook gestript. Geen wijziging als het geen
-    locatie-suffix is (gewone paden blijven intact).
-    """
-    text = str(raw).strip()
-    if len(text) >= 2 and text[0] == text[-1] and text[0] in "\"'":
-        text = text[1:-1].strip()
-    match = _LOC_SUFFIX_RE.match(text.replace("\\", "/"))
-    if not match:
-        return text
-    # Forward slashes: ``Path`` op Windows accepteert die in kandidaten.
-    return match.group("path")
-
-
 def resolve_user_path(raw: Path | str, *, repo_root: Path) -> Path:
-    """Bestaand bestand of map zoeken voor een CLI-padargument.
-
-    Volgorde (eerste bestaande kandidaat wint):
-
-    1. pad zoals opgegeven (absoluut, of relatief t.o.v. de cwd; bij een
-       relatief pad ook ``repo_root / pad`` als dat iets anders is);
-    2. ``content-source/<pad>`` onder ``repo_root``;
-    3. ``content-source/catalogus/<pad>``;
-    4. ``content-source/koormappen/<pad>``.
-
-    Plakfouten uit logs: optionele ``:regel:kolom``-suffix wordt genegeerd
-    (bijv. ``catalogus/…/lied.vsa:29:28``).
-
-    Raises
-    ------
-    InputPathError
-        Geen kandidaat bestaat.
-    """
-    cleaned = strip_cli_location_suffix(raw)
-    raw_path = Path(cleaned)
-    root = Path(repo_root)
-    content = root / "content-source"
-    if raw_path.is_absolute():
-        candidates = [raw_path]
-    else:
-        candidates = [
-            raw_path,
-            root / raw_path,
-            content / raw_path,
-            content / "catalogus" / raw_path,
-            content / "koormappen" / raw_path,
-        ]
-
-    seen: set[str] = set()
-    for cand in candidates:
-        try:
-            key = str(cand.resolve())
-        except OSError:
-            key = str(cand)
-        if key in seen:
-            continue
-        seen.add(key)
-        if cand.exists():
-            return cand.resolve()
-
-    raise InputPathError(f"Pad niet gevonden: {raw_path}")
+    """Bestaand bestand of map zoeken (G2 stappen 1–2; canonieke tooling-API)."""
+    return resolve_cli_path(raw, repo_root=repo_root)
 
 
 def rel_for_log(path: Path | str, *, repo_root: Path) -> str:

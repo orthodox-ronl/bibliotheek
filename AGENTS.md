@@ -45,6 +45,12 @@ Onderscheid: **bibliotheek** = deze repository / de site als geheel;
 3. **Float vs pin:** `development` float op tooling `main`; productie (`main`)
    pin’t via [`vsa-tooling.pin`](vsa-tooling.pin). Detail:
    [docs/tooling-koppeling.md](docs/tooling-koppeling.md).
+4. **Gedeeld CLI-contract (G1–G8):** padresolutie, `--dry-run`, `-h` met
+   defaults — zelfde gevoel als `vsa`/`mvsa`. Norm:
+   [VSA-tooling `docs/reference/cli/input-pad.md`](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/reference/cli/input-pad.md).
+   Bibliotheek: `scripts\input_paths.py` → `resolve_user_path` /
+   `collect_cli_sources` (geen ad-hoc pad-lookup). Handleiding:
+   [Invoer: bestand of map](content-source/handleiding/scripts/invoer-bestand-of-map.md).
 
 ---
 

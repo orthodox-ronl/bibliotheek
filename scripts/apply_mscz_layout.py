@@ -19,7 +19,12 @@ from pathlib import Path
 
 from batch_guard import add_yes_argument, confirm_batch, run_timed_batch
 from coria_mxl import require_no_spaces
-from input_paths import InputPathError, collect_cli_sources, reject_multi_with_output
+from input_paths import (
+    InputPathError,
+    collect_cli_sources,
+    reject_multi_with_output,
+    resolve_user_path,
+)
 from sync_mscz_products import is_print_mscz
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -164,14 +169,19 @@ def main(argv: list[str] | None = None) -> int:
             "(standaard: bron.uitgangspunt uit sibling .vsa/.mvsa indien aanwezig)"
         ),
     )
+    p.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Toon welke bestanden layout zouden krijgen; schrijf niets",
+    )
     add_yes_argument(p)
     if not argv or argv[0] in {"-h", "--help"}:
         p.print_help()
         return 0 if argv else 2
     args = p.parse_args(argv)
 
-    root = args.path if args.path.is_absolute() else REPO_ROOT / args.path
     try:
+        root = resolve_user_path(args.path, repo_root=REPO_ROOT)
         sources = collect_cli_sources(root, suffixes=_LAYOUT_SUFFIXES)
         reject_multi_with_output(sources, args.output)
     except InputPathError as exc:
@@ -211,6 +221,12 @@ def main(argv: list[str] | None = None) -> int:
             "Let op: .mxl in een map-batch faalt zonder per-bestand -o; "
             "layout die eerst los of converteer naar .mscz."
         )
+    if args.dry_run:
+        print(f"(dry-run) layout zou {len(sources)} bestand(en) raken:", flush=True)
+        for src in sources:
+            print(f"  {src.as_posix()}", flush=True)
+        return 0
+
     if not confirm_batch(
         _BATCH_KIND,
         n=len(sources),

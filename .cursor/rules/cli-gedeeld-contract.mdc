@@ -1,0 +1,20 @@
+# Gedeeld CLI-contract (bibliotheek)
+
+**Norm (canoniek in VSA-tooling):**
+https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/reference/cli/input-pad.md
+(G1–G8). Lokale samenvatting:
+`content-source/handleiding/scripts/invoer-bestand-of-map.md`.
+
+Bij **nieuwe of gewijzigde** `scripts\*.py` / `*.cmd` met pad-argument:
+
+1. Pad: `resolve_user_path` / `collect_cli_sources` uit
+   `scripts/input_paths.py` (delegeert naar tooling G2) — geen ad-hoc
+   `REPO_ROOT / pad` of eigen `rglob`.
+2. Schrijvend: `--dry-run` (of documenteer waarom niet); `-h` via
+   `cli_help.make_parser` / `CliHelpFormatter` zodat defaults zichtbaar zijn.
+3. `-o` alleen bij precies één bron (`reject_multi_with_output`).
+4. Id-commando’s (`bieb hernoem` e.d.) blijven catalogus-id’s — buiten
+   G2-bestandsscan; dat expliciet in de man-pagina houden.
+
+Tooling-handhaving (scan-test): VSA-tooling
+`tests/test_cli_input_contract_scan.py`.

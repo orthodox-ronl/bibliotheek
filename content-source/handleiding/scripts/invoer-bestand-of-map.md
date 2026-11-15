@@ -10,8 +10,13 @@ Invoerconventie — pad zoeken, bestand of map, en korte logregels
 
 # DESCRIPTION
 
-Veel bibliotheek-commando’s die op bestanden werken volgen dezelfde
-afspraak als in VSA-tooling: het pad-argument is
+Veel bibliotheek-commando’s die op bestanden werken volgen het **gedeelde
+CLI-contract** (invoer, uitvoer, `--dry-run`, canoniciteit) van
+VSA-tooling. Canonieke hub:
+[input-pad.md](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/reference/cli/input-pad.md)
+(G1–G8). Hieronder de bibliotheek-leesbare samenvatting voor paden.
+
+Het pad-argument is
 
 1. **één bronbestand** met de juiste extensie, of
 2. **een map**, waarvan (standaard recursief) alle passende bestanden
@@ -19,6 +24,8 @@ afspraak als in VSA-tooling: het pad-argument is
 
 Lege map (geen treffers) → duidelijke fout. Een enkelvoudig uitvoerpad
 (`-o` / `--output`) mag alleen bij precies **één** bronbestand.
+Schrijvende scripts tonen defaults in `-h` en kennen waar van toepassing
+`--dry-run` (geen schrijven).
 
 Dit geldt onder meer voor [layout](../layout/), [pdf](../pdf/),
 [bieb accepteer](../bieb-accepteer/), [opkuisen](../opkuisen/) en

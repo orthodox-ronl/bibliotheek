@@ -23,7 +23,6 @@ Standaard alleen melden (dry-run). Echt wissen: ``--apply``.
 
 from __future__ import annotations
 
-import argparse
 import sys
 from pathlib import Path
 
@@ -58,13 +57,17 @@ def _rel(path: Path) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(
+    from cli_help import make_parser
+    from input_paths import InputPathError, resolve_user_path
+
+    parser = make_parser(
         prog="cleanup-chained-products",
         description=(
             "Verwijdert ketting-afgeleiden zoals "
             "{stam}.mvsa.mscz.mp3 of {stam}.vsa.mscz.mscz. "
             "Laat geldige enkele producten staan ({stam}.mvsa.mscz, "
-            "{stam}.mvsa.mp3, {stam}.mscz.mvsa, …)."
+            "{stam}.mvsa.mp3, {stam}.mscz.mvsa, …). "
+            "Standaard dry-run; echt wissen: --apply."
         ),
     )
     parser.add_argument(
@@ -73,7 +76,8 @@ def main(argv: list[str] | None = None) -> int:
         default=str(DEFAULT_ROOT),
         help=(
             "Catalogusmap of één bestand "
-            f"(standaard: {DEFAULT_ROOT.relative_to(REPO_ROOT).as_posix()})"
+            f"(standaard: {DEFAULT_ROOT.relative_to(REPO_ROOT).as_posix()}). "
+            "Korte paden: t.o.v. content-source, catalogus of koormappen."
         ),
     )
     parser.add_argument(
@@ -81,19 +85,27 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Bestanden echt verwijderen (zonder deze vlag alleen tonen)",
     )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Alleen tonen, niets wissen (standaardgedrag; expliciete vlag)",
+    )
     args = parser.parse_args(argv)
 
-    root = Path(args.root)
-    if not root.is_absolute():
-        root = (REPO_ROOT / root).resolve()
-    else:
-        root = root.resolve()
-
-    if not root.exists():
-        print(f"FAIL: pad bestaat niet: {_rel(root)}", file=sys.stderr)
+    try:
+        root = resolve_user_path(args.root, repo_root=REPO_ROOT)
+    except InputPathError as exc:
+        print(f"FAIL: {exc}", file=sys.stderr)
         print(
             "Oplossing: geef een bestaande catalogusmap of laat het "
             "standaardpad staan.",
+            file=sys.stderr,
+        )
+        return 1
+
+    if args.dry_run and args.apply:
+        print(
+            "FAIL: gebruik --dry-run of --apply, niet beide.",
             file=sys.stderr,
         )
         return 1
