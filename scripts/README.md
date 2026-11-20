@@ -18,7 +18,7 @@ de subcommando’s). Zie `scripts\cli_help.py`.
 | Commando | Doel |
 | -------- | ---- |
 | `h` | Overzicht van commando’s; `h <naam>` = `<naam> -h` |
-| `validate` | `vsa validate` op `content-source\catalogus` (plus `mvsa validate` als er `.mvsa` staat) |
+| `validate` | `.vsa` → `vsa validate`; `.mvsa` → `mvsa validate`; map → beide waar nodig |
 | `fix` | Auto-fixbare problemen uit `data\check-fixlist.json` afwerken (`--check` = eerst `check --strict`; `--dry-run` = tonen) |
 | `products` | Afgeleiden bouwen (`--kinds vsa,mvsa,mscz,audio,lyrics,…` of `all`); daarna Coria-fingerprints (niet bij `--dry-run`). Geen `pdf.cmd`. |
 | `products-changed` | Alleen producten (+ koormap-`index.md.pdf`) voor git-gewijzigde bronnen onder `content-source` (missing+stale; geen invalid). |

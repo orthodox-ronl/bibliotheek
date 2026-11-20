@@ -15,6 +15,7 @@ weight: 15
 validate
 validate tropaar
 validate catalogus\tropaar
+validate content-source\catalogus\…\lied.mvsa
 ```
 
 Of: `scripts\validate.cmd` vanuit de repo-root. Zonder argument valideert
@@ -24,12 +25,14 @@ het script de map `content-source\catalogus`. Korte paden mogen — zie
 # DESCRIPTION
 
 Zet eerst `vsa-tool` klaar (`scripts\_ensure.cmd --vsa-tool`), lost het
-pad op (zelfde zoekvolgorde als products/pdf), en roept daarna de
-gepubliceerde CLI aan:
+pad op (zelfde zoekvolgorde als products/pdf), en roept daarna het **juiste**
+straat-commando aan:
 
-1. `vsa validate` op het gekozen pad (standaard de hele catalogus-map)
-2. Als er onder dat pad minstens één `.mvsa` staat: ook `mvsa validate`
-   (inclusief import-siblings `*.mscz.mvsa`)
+| Doel                | Commando                                                         |
+| ------------------- | ---------------------------------------------------------------- |
+| Één `.vsa`-bestand  | `vsa validate`                                                   |
+| Één `.mvsa`-bestand | `mvsa validate` (niet `vsa validate`)                            |
+| Map                 | `vsa validate`; plus `mvsa validate` als er `.mvsa` onder staat  |
 
 Het script kopieert geen validatielogica uit VSA-tooling; het geeft alleen
 het (opgeloste) pad door. Ruwe dumps onder `content-source\input` horen
@@ -41,6 +44,7 @@ niet bij deze preflight — die map is geen publicatiebron.
 cd /d C:\Git\orthodox-ronl\bibliotheek
 validate
 validate tweede-antifoon\weekdagen\hemelum
+validate content-source\catalogus\trisagion\8a-slav\hemelum\trisagion-8a-slav-hemelum.mvsa
 ```
 
 # WHEN

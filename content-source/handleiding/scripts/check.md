@@ -21,8 +21,8 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 
 `check` is de preflight voor deze repo (CI-spiegel):
 
-1. `validate` — `vsa validate` op `content-source\catalogus` (en
-   `mvsa validate` als daar `.mvsa`-bestanden staan)
+1. `validate` — `.vsa` → `vsa validate`, `.mvsa` → `mvsa validate`
+   (map: beide waar nodig)
 2. VSA-publicatiecontrole — of elke catalogus-`.vsa` (behalve
    `manueel` / `manual`) passende `{stam}.vsa.svg` heeft, en — als T1
    een formule kiest — ook `{stam}.vsa.mvsa` (geen `.vsa.mxl` meer)

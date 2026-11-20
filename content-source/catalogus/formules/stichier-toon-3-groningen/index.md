@@ -51,5 +51,5 @@ Het plaatje hierboven is voorlopig het schermbeeld van het catalogusvoorbeeld
 Machinebestand: [stichier-toon-3-groningen/template.yaml](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/specification-vsa-templates/library/stichier-toon-3-groningen/template.yaml).
 Mappingregels (technisch): [mapping-vsa.md](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/specification-vsa-templates/mapping-vsa.md).
 
-Catalogus-voorbeeld (coupletten): [stichier/heer-ik-roep-toon-3]({{< relref "/catalogus/stichier/heer-ik-roep-toon-3" >}}).
+Catalogus-voorbeeld (coupletten): **TBD (Heer, ik roep (Toon 6))**
 Handleiding: [Stichieren]({{< relref "/handleiding/start/stichieren" >}}).
