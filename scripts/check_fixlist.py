@@ -32,6 +32,7 @@ STATUS_SOURCES: tuple[tuple[str, str, str | None], ...] = (
     ("lyrics", "lyrics-product-status.json", None),
     ("pdf", "pdf-status.json", "folders"),
     ("mxl-contract", "mxl-playback-contract-status.json", "files"),
+    ("gebreken", "gebreken-status.json", "folders"),
 )
 
 
@@ -47,6 +48,7 @@ FIX_ORDER: tuple[str, ...] = (
     "audio",
     "lyrics",
     "mxl-contract",
+    "gebreken",  # SVG-stempels vóór de pdf (pdf leunt op de SVG)
     "pdf",
 )
 

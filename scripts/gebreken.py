@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import re
 import sys
+from dataclasses import dataclass
 from pathlib import Path
 
 from catalogus import CATALOGUS_ROOT, REPO_ROOT, id_from_path, leaf_folders
@@ -536,6 +537,125 @@ def find_gebreken_issues() -> tuple[list[str], list[str]]:
     return errors, warnings
 
 
+STATUS_PATH = REPO_ROOT / "data" / "gebreken-status.json"
+
+
+@dataclass(frozen=True)
+class GebrekenIssue:
+    kind: str
+    file: str
+    detail: str
+
+
+@dataclass(frozen=True)
+class GebrekenStatus:
+    """Zelfde vorm als de andere status-JSON's (voor check_fixlist/fix)."""
+
+    dir: str
+    source: str
+    ok: bool
+    fix_cmd: str
+    issues: list[GebrekenIssue]
+
+
+def collect_gebreken_statuses() -> tuple[list[GebrekenStatus], int]:
+    """Afwerkbare gebreken-problemen per leaf + aantal gecontroleerde leaves.
+
+    * SVG-stempel ontbreekt (of staat er onterecht op) → ``gebreken.py <leaf>``.
+    * PDF/translit-PDF mist watermark → ``scripts\\pdf.cmd <leaf>\\index.md --force``.
+
+    Harde fouten (productie + gebreken) horen hier niet: die vragen handwerk
+    en blijven in ``find_gebreken_issues``.
+    """
+    from input_paths import rel_for_log
+
+    statuses: list[GebrekenStatus] = []
+    n_leaves = 0
+    for _ident, folder in leaf_folders():
+        n_leaves += 1
+        rel = rel_for_log(folder, repo_root=REPO_ROOT)
+        rel_win = rel.replace("/", "\\")
+        index = leaf_index_md(folder)
+        actief, _tip = effective_gebreken_for_folder(folder)
+        svg_issues: list[GebrekenIssue] = []
+        pdf_issues: list[GebrekenIssue] = []
+        for svg in product_svgs_in_leaf(folder):
+            has = svg_has_gebreken_stempel(svg)
+            if actief and not has:
+                svg_issues.append(
+                    GebrekenIssue(
+                        "stempel_ontbreekt",
+                        rel_for_log(svg, repo_root=REPO_ROOT),
+                        "effectieve gebreken aan maar SVG mist stempel",
+                    )
+                )
+            elif not actief and has:
+                svg_issues.append(
+                    GebrekenIssue(
+                        "stempel_te_veel",
+                        rel_for_log(svg, repo_root=REPO_ROOT),
+                        "effectieve gebreken uit maar SVG heeft stempel",
+                    )
+                )
+        if actief:
+            pdfs = [index.with_name("index.md.pdf")]
+            pdfs += sorted(folder.glob("index.md.translit-*.pdf"))
+            for pdf in pdfs:
+                if pdf.is_file() and not pdf_has_gebreken_stempel(pdf):
+                    pdf_issues.append(
+                        GebrekenIssue(
+                            "watermark_ontbreekt",
+                            rel_for_log(pdf, repo_root=REPO_ROOT),
+                            "effectieve gebreken aan maar PDF mist watermark",
+                        )
+                    )
+        source = rel_for_log(index, repo_root=REPO_ROOT)
+        if svg_issues:
+            statuses.append(
+                GebrekenStatus(
+                    dir=rel,
+                    source=source,
+                    ok=False,
+                    fix_cmd=rf"python scripts\gebreken.py {rel_win}",
+                    issues=svg_issues,
+                )
+            )
+        if pdf_issues:
+            statuses.append(
+                GebrekenStatus(
+                    dir=f"{rel} (pdf)",
+                    source=source,
+                    ok=False,
+                    fix_cmd=rf"scripts\pdf.cmd {rel_win}\index.md --force",
+                    issues=pdf_issues,
+                )
+            )
+    return statuses, n_leaves
+
+
+def write_gebreken_status_json(
+    statuses: list[GebrekenStatus], path: Path = STATUS_PATH
+) -> None:
+    from dataclasses import asdict
+
+    from cli_style import atomic_write_json
+
+    atomic_write_json(
+        path,
+        {
+            "folders": {
+                s.dir: {
+                    "source": s.source,
+                    "ok": s.ok,
+                    "fix_cmd": s.fix_cmd,
+                    "issues": [asdict(i) for i in s.issues],
+                }
+                for s in statuses
+            }
+        },
+    )
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
@@ -554,6 +674,12 @@ def main(argv: list[str] | None = None) -> int:
         "--dry-run",
         action="store_true",
         help="Alleen tellen; niets schrijven",
+    )
+    parser.add_argument(
+        "-y",
+        "--yes",
+        action="store_true",
+        help="Accepteren (fix voegt -y toe aan elk fix_cmd); geen effect.",
     )
     args = parser.parse_args(argv)
     if args.dry_run:

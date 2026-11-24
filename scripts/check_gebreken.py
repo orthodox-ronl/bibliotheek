@@ -14,6 +14,32 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from gebreken import find_gebreken_issues  # noqa: E402
 
 
+def _write_status() -> int:
+    from check_report import print_check_findings
+    from gebreken import (
+        STATUS_PATH,
+        collect_gebreken_statuses,
+        write_gebreken_status_json,
+    )
+    from input_paths import rel_for_log
+    from gebreken import REPO_ROOT
+
+    statuses, n_leaves = collect_gebreken_statuses()
+    write_gebreken_status_json(statuses)
+    bad_leaves = {s.dir.removesuffix(" (pdf)") for s in statuses}
+    print_check_findings(
+        headline=(
+            f"Gebreken-stempels: {n_leaves - len(bad_leaves)} ok, "
+            f"{len(bad_leaves)} probleem "
+            f"({rel_for_log(STATUS_PATH, repo_root=REPO_ROOT)})"
+        ),
+        what="Controle: of SVG-stempel/PDF-watermark bij de gebreken-markering passen",
+        bad=statuses,
+        fix_page=None,
+    )
+    return 1 if statuses else 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
@@ -31,7 +57,17 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Exit 1 alleen bij harde fouten (productie+gebreken)",
     )
+    parser.add_argument(
+        "--write-status",
+        action="store_true",
+        help=(
+            "Schrijf data/gebreken-status.json (voor check-fixlist/fix) en "
+            "toon de afwerkbare stempel-/watermerkproblemen; exit 1 bij problemen."
+        ),
+    )
     args = parser.parse_args(argv)
+    if args.write_status:
+        return _write_status()
     errors, warnings = find_gebreken_issues()
     if not errors and not warnings:
         print("gebreken: OK")

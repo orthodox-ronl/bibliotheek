@@ -58,6 +58,12 @@ Of: `scripts\check.cmd` vanuit de repo-root.
     `index.md.pdf` de stempel mist terwijl de markering aan staat (fout
     met `--strict`). Handleiding:
     [Status en check](../../publiceren/2-status-en-check/)
+    Stempel- en watermerkproblemen komen ook in `data\check-fixlist.json`
+    (via `python scripts\check_gebreken.py --write-status`, vóór de
+    fixlist-stap) en worden door `fix` afgewerkt: SVG-stempels met
+    `python scripts\gebreken.py <map>`, een PDF zonder watermerk met
+    `scripts\pdf.cmd <map>\index.md --force`. De stempelstap staat in de
+    afwerkvolgorde vóór de pdf.
 13. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
 14. Coria-fetch-probe (`python scripts\probe_coria_fetch.py`) — of Coria
     een steekproef (mscz/mvsa/vsa) vanaf **github.io** kan ophalen (geen
