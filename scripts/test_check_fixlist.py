@@ -468,3 +468,34 @@ def test_fix_volgorde_pdf_na_producten() -> None:
         "mxl-contract",
         "pdf",
     ]
+
+
+def test_products_post_zet_gebreken_stempels(monkeypatch) -> None:
+    """De fix-nabewerking moet de gebreken-stempels op SVG's zetten.
+
+    De fix-commando's lopen met ``--skip-post``; zonder deze stap meldt
+    check daarna "SVG mist stempel".
+    """
+    import sys
+    import types
+
+    import gebreken
+
+    calls: list[object] = []
+    monkeypatch.setattr(
+        gebreken,
+        "sync_gebreken_stempels_under",
+        lambda root: (calls.append(root), (1, 2, 3))[1],
+    )
+    zoek = types.ModuleType("build_zoek_index")
+    zoek.main = lambda _argv=None: 0
+    fp = types.ModuleType("fingerprint_coria_mxl")
+    fp.main = lambda: 0
+    probe = types.ModuleType("probe_coria_fetch")
+    probe.apply_probe = lambda warn_only=True: 0
+    monkeypatch.setitem(sys.modules, "build_zoek_index", zoek)
+    monkeypatch.setitem(sys.modules, "fingerprint_coria_mxl", fp)
+    monkeypatch.setitem(sys.modules, "probe_coria_fetch", probe)
+
+    assert fix_mod._run_products_post(verbose=True) == 0
+    assert calls == [gebreken.CATALOGUS_ROOT]

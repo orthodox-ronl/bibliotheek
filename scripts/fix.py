@@ -392,11 +392,27 @@ def _run_fix_cmd(
 
 
 def _run_products_post(*, verbose: bool) -> int:
-    """Zoekindex + Coria-fingerprints één keer na pad-specifieke products-fixes."""
-    section(">>> nabewerking (zoekindex, Coria-fingerprints)")
+    """Zoekindex, gebreken-stempels + Coria-fingerprints, één keer na de fixes.
+
+    De fix-commando’s lopen met ``--skip-post``; ``products`` zet dan ook de
+    gebreken-stempels op de SVG’s niet. Die stap hoort hier (net als in
+    ``products`` zelf), anders meldt check "SVG mist stempel".
+    """
+    section(">>> nabewerking (zoekindex, gebreken-stempels, Coria-fingerprints)")
     from build_zoek_index import main as build_zoek_main
 
     if run_quiet("zoekindex", build_zoek_main, [], verbose=verbose):
+        return 1
+    import gebreken as gebreken_mod
+
+    def _stempels(_args: list[str]) -> int:
+        _touched, changed, seen = gebreken_mod.sync_gebreken_stempels_under(
+            gebreken_mod.CATALOGUS_ROOT
+        )
+        detail(f"gebreken-stempels: {changed} SVG gewijzigd ({seen} bekeken)")
+        return 0
+
+    if run_quiet("gebreken-stempels", _stempels, [], verbose=verbose):
         return 1
     import fingerprint_coria_mxl as fp_mod
 
