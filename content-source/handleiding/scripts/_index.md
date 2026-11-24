@@ -45,6 +45,7 @@ tonen paden onder `content-source` zonder die prefix. Zie
 | `bump-vsa-tooling-pin` | Zet `vsa-tooling.pin` op de tip van VSA-tooling (productie-pin); commit/PR zelf. | [bump-vsa-tooling-pin](bump-vsa-tooling-pin/) |
 | `opkuisen` | Herkomstanalyse + inhoudelijke opkuis (Capella/MusicXML/MuseScore); optioneel `--layout`. | [opkuisen](opkuisen/) |
 | `cleanup-chained-products` | Verwijdert ketting-afgeleiden (`*.mvsa.mscz.mp3`, `*.mscz.mscz…`) en score-ir/from-ir op `.mscz`/`.vsa`; dry-run zonder `--apply`. | [cleanup-chained-products](cleanup-chained-products/) |
+| `wis-producten` | Wist alle gegenereerde bestanden (products, meta, `index.md.pdf`) uit catalogus en koormappen; laat bronnen, `formules` en handmatige mappen staan; dry-run zonder `--apply`. | [wis-producten](wis-producten/) |
 | `bieb accepteer` (`accept`) | Partituur/tekstblad opnemen onder een catalogus-id (Werkbank → Catalogus). | [bieb accepteer](bieb-accepteer/) |
 | `bieb hernoem` (`rename`) | Catalogus-id hernoemen (zangstuk/variant/uitvoeringsvorm; map, stam, refs, koormap-slots). Id-vormen: slash, dash, pad, unieke suffix. | [bieb hernoem](bieb-hernoem/) |
 | `bieb verwijder` (`delete`) | Catalogus-id wissen; dangling refs en koormap-slots rapporteren. | [bieb verwijder](bieb-verwijder/) |

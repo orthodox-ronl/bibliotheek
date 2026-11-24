@@ -79,6 +79,8 @@ echo   opkuisen
 echo     herkomstanalyse + inhoudsopkuis
 echo   cleanup-chained-products
 echo     ketting-afgeleiden + verkeerde score-ir/from-ir wissen ^(dry-run zonder --apply^)
+echo   wis-producten
+echo     alle gegenereerde bestanden wissen ^(dry-run zonder --apply^)
 echo   seed-repo
 echo     kale kopie naar externe map ^(optioneel configure / git / ensure^)
 echo   bieb
