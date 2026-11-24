@@ -33,6 +33,7 @@ de subcommando’s). Zie `scripts\cli_help.py`.
 | `bump-vsa-tooling-pin` | Zet `vsa-tooling.pin` op tip van VSA-tooling (`main` of andere ref) |
 | `opkuisen` | Herkomstanalyse + inhoudsopkuis (niet in `check`/CI) |
 | `cleanup-chained-products` | Ketting-afgeleiden + score-ir/from-ir op `.mscz`/`.vsa` wissen (dry-run zonder `--apply`) |
+| `wis-producten` | Alle gegenereerde bestanden uit catalogus + koormappen wissen (niet `formules`, handmatige mappen, bronnen; dry-run zonder `--apply`) |
 | `seed-repo` | Kale kopie naar externe map (zonder regenereerbare producten); optioneel configure/git/ensure |
 | `bieb accepteer` (`accept`) | Opnemen in `content-source\catalogus` onder catalogus-id (Werkbank → Catalogus) |
 | `bieb hernoem` (`rename`) | Catalogus-id hernoemen (zangstuk/variant/uitvoeringsvorm; map, stam, refs, koormap-slots; flexibele id-vormen) |
