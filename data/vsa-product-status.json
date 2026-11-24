@@ -111,15 +111,9 @@
     },
     "catalogus/geloofsbelijdenis/default/hemelum-deel-2": {
       "vsa": "catalogus/geloofsbelijdenis/default/hemelum-deel-2/geloofsbelijdenis-default-hemelum-deel-2.vsa",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\geloofsbelijdenis\\default\\hemelum-deel-2\\geloofsbelijdenis-default-hemelum-deel-2.vsa",
-      "issues": [
-        {
-          "kind": "meta_stale",
-          "file": "catalogus/geloofsbelijdenis/default/hemelum-deel-2/geloofsbelijdenis-default-hemelum-deel-2.vsa.products-meta.json",
-          "detail": "bron_sha256 wijkt af van huidige bron"
-        }
-      ]
+      "issues": []
     },
     "catalogus/kondak/apostel-andreas-toon-2/hemelum": {
       "vsa": "catalogus/kondak/apostel-andreas-toon-2/hemelum/kondak-apostel-andreas-toon-2-hemelum.vsa",
@@ -161,6 +155,12 @@
       "vsa": "catalogus/kondak/icoon-moeder-gods-vladimir-toon-8/liturgikon/kondak-icoon-moeder-gods-vladimir-toon-8-liturgikon.vsa",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\kondak\\icoon-moeder-gods-vladimir-toon-8\\liturgikon\\kondak-icoon-moeder-gods-vladimir-toon-8-liturgikon.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/johannes-de-barmhartige-toon-2/hemelum": {
+      "vsa": "catalogus/kondak/johannes-de-barmhartige-toon-2/hemelum/kondak-johannes-de-barmhartige-toon-2-hemelum.vsa",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\kondak\\johannes-de-barmhartige-toon-2\\hemelum\\kondak-johannes-de-barmhartige-toon-2-hemelum.vsa",
       "issues": []
     },
     "catalogus/kondak/johannes-de-theoloog-toon-2/liturgikon": {
@@ -239,6 +239,12 @@
       "vsa": "catalogus/kondak/ontslapen-moeder-gods-toon-2/liturgikon/kondak-ontslapen-moeder-gods-toon-2-liturgikon.vsa",
       "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\kondak\\ontslapen-moeder-gods-toon-2\\liturgikon\\kondak-ontslapen-moeder-gods-toon-2-liturgikon.vsa",
+      "issues": []
+    },
+    "catalogus/kondak/ontvangenis-moeder-gods-toon-4/hemelum": {
+      "vsa": "catalogus/kondak/ontvangenis-moeder-gods-toon-4/hemelum/kondak-ontvangenis-moeder-gods-toon-4-hemelum.vsa",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\kondak\\ontvangenis-moeder-gods-toon-4\\hemelum\\kondak-ontvangenis-moeder-gods-toon-4-hemelum.vsa",
       "issues": []
     },
     "catalogus/kondak/profeet-elia-toon-2/liturgikon": {
@@ -421,102 +427,27 @@
       "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\prokimen\\transfiguratie-toon-4\\hemelum\\prokimen-transfiguratie-toon-4-hemelum.vsa",
       "issues": []
     },
-    "catalogus/stichier/heer-ik-roep-toon-1/groningen": {
-      "vsa": "catalogus/stichier/heer-ik-roep-toon-1/groningen/stichier-heer-ik-roep-toon-1-groningen.vsa",
+    "catalogus/stichier/heer-ik-roep-toon-1/groningen-1": {
+      "vsa": "catalogus/stichier/heer-ik-roep-toon-1/groningen-1/stichier-heer-ik-roep-toon-1-groningen-1.vsa",
       "ok": false,
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen\\stichier-heer-ik-roep-toon-1-groningen.vsa",
+      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen-1\\stichier-heer-ik-roep-toon-1-groningen-1.vsa",
       "issues": [
         {
           "kind": "meta_stale",
-          "file": "catalogus/stichier/heer-ik-roep-toon-1/groningen/stichier-heer-ik-roep-toon-1-groningen.vsa.products-meta.json",
-          "detail": "product 'mvsa' sha256 wijkt af van bestand"
+          "file": "catalogus/stichier/heer-ik-roep-toon-1/groningen-1/stichier-heer-ik-roep-toon-1-groningen-1.vsa.products-meta.json",
+          "detail": "product 'svg-translit-ksl' sha256 wijkt af van bestand"
         }
       ]
-    },
-    "catalogus/stichier/heer-ik-roep-toon-1/groningen-1": {
-      "vsa": "catalogus/stichier/heer-ik-roep-toon-1/groningen-1/stichier-heer-ik-roep-toon-1-groningen-1.vsa",
-      "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen-1\\stichier-heer-ik-roep-toon-1-groningen-1.vsa",
-      "issues": []
     },
     "catalogus/stichier/heer-ik-roep-toon-1/groningen-2": {
       "vsa": "catalogus/stichier/heer-ik-roep-toon-1/groningen-2/stichier-heer-ik-roep-toon-1-groningen-2.vsa",
-      "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen-2\\stichier-heer-ik-roep-toon-1-groningen-2.vsa",
-      "issues": []
-    },
-    "catalogus/stichier/heer-ik-roep-toon-2/groningen": {
-      "vsa": "catalogus/stichier/heer-ik-roep-toon-2/groningen/stichier-heer-ik-roep-toon-2-groningen.vsa",
       "ok": false,
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-2\\groningen\\stichier-heer-ik-roep-toon-2-groningen.vsa",
+      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen-2\\stichier-heer-ik-roep-toon-1-groningen-2.vsa",
       "issues": [
         {
           "kind": "meta_stale",
-          "file": "catalogus/stichier/heer-ik-roep-toon-2/groningen/stichier-heer-ik-roep-toon-2-groningen.vsa.products-meta.json",
-          "detail": "product 'mvsa' sha256 wijkt af van bestand"
-        }
-      ]
-    },
-    "catalogus/stichier/heer-ik-roep-toon-2/groningen-1": {
-      "vsa": "catalogus/stichier/heer-ik-roep-toon-2/groningen-1/stichier-heer-ik-roep-toon-2-groningen-1.vsa",
-      "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-2\\groningen-1\\stichier-heer-ik-roep-toon-2-groningen-1.vsa",
-      "issues": []
-    },
-    "catalogus/stichier/heer-ik-roep-toon-2/groningen-2": {
-      "vsa": "catalogus/stichier/heer-ik-roep-toon-2/groningen-2/stichier-heer-ik-roep-toon-2-groningen-2.vsa",
-      "ok": true,
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-2\\groningen-2\\stichier-heer-ik-roep-toon-2-groningen-2.vsa",
-      "issues": []
-    },
-    "catalogus/stichier/heer-ik-roep-toon-3/groningen": {
-      "vsa": "catalogus/stichier/heer-ik-roep-toon-3/groningen/stichier-heer-ik-roep-toon-3-groningen.vsa",
-      "ok": false,
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-3\\groningen\\stichier-heer-ik-roep-toon-3-groningen.vsa",
-      "issues": [
-        {
-          "kind": "missing_svg",
-          "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen/stichier-heer-ik-roep-toon-3-groningen.vsa.svg",
-          "detail": "Muziek-.vsa.svg ontbreekt naast de bibliotheek-.vsa (scherm)"
-        },
-        {
-          "kind": "missing_mvsa",
-          "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen/stichier-heer-ik-roep-toon-3-groningen.vsa.mvsa",
-          "detail": "Schets-.vsa.mvsa ontbreekt naast de bibliotheek-.vsa (products --kinds vsa; T1)"
-        }
-      ]
-    },
-    "catalogus/stichier/heer-ik-roep-toon-3/groningen-1": {
-      "vsa": "catalogus/stichier/heer-ik-roep-toon-3/groningen-1/stichier-heer-ik-roep-toon-3-groningen-1.vsa",
-      "ok": false,
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-3\\groningen-1\\stichier-heer-ik-roep-toon-3-groningen-1.vsa",
-      "issues": [
-        {
-          "kind": "missing_svg",
-          "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen-1/stichier-heer-ik-roep-toon-3-groningen-1.vsa.svg",
-          "detail": "Muziek-.vsa.svg ontbreekt naast de bibliotheek-.vsa (scherm)"
-        },
-        {
-          "kind": "missing_mvsa",
-          "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen-1/stichier-heer-ik-roep-toon-3-groningen-1.vsa.mvsa",
-          "detail": "Schets-.vsa.mvsa ontbreekt naast de bibliotheek-.vsa (products --kinds vsa; T1)"
-        }
-      ]
-    },
-    "catalogus/stichier/heer-ik-roep-toon-3/groningen-2": {
-      "vsa": "catalogus/stichier/heer-ik-roep-toon-3/groningen-2/stichier-heer-ik-roep-toon-3-groningen-2.vsa",
-      "ok": false,
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-3\\groningen-2\\stichier-heer-ik-roep-toon-3-groningen-2.vsa",
-      "issues": [
-        {
-          "kind": "missing_svg",
-          "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen-2/stichier-heer-ik-roep-toon-3-groningen-2.vsa.svg",
-          "detail": "Muziek-.vsa.svg ontbreekt naast de bibliotheek-.vsa (scherm)"
-        },
-        {
-          "kind": "missing_mvsa",
-          "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen-2/stichier-heer-ik-roep-toon-3-groningen-2.vsa.mvsa",
-          "detail": "Schets-.vsa.mvsa ontbreekt naast de bibliotheek-.vsa (products --kinds vsa; T1)"
+          "file": "catalogus/stichier/heer-ik-roep-toon-1/groningen-2/stichier-heer-ik-roep-toon-1-groningen-2.vsa.products-meta.json",
+          "detail": "product 'svg-translit-ksl' sha256 wijkt af van bestand"
         }
       ]
     },
@@ -528,7 +459,7 @@
         {
           "kind": "meta_stale",
           "file": "catalogus/stichier/heer-ik-roep-toon-6/groningen/stichier-heer-ik-roep-toon-6-groningen.vsa.products-meta.json",
-          "detail": "product 'mvsa' sha256 wijkt af van bestand"
+          "detail": "product 'svg-translit-ksl' sha256 wijkt af van bestand"
         }
       ]
     },
@@ -540,15 +471,21 @@
         {
           "kind": "meta_stale",
           "file": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1/stichier-heer-ik-roep-toon-6-groningen-1.vsa.products-meta.json",
-          "detail": "product 'mvsa' sha256 wijkt af van bestand"
+          "detail": "product 'svg-translit-ksl' sha256 wijkt af van bestand"
         }
       ]
     },
     "catalogus/stichier/heer-ik-roep-toon-6/groningen-2": {
       "vsa": "catalogus/stichier/heer-ik-roep-toon-6/groningen-2/stichier-heer-ik-roep-toon-6-groningen-2.vsa",
-      "ok": true,
+      "ok": false,
       "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen-2\\stichier-heer-ik-roep-toon-6-groningen-2.vsa",
-      "issues": []
+      "issues": [
+        {
+          "kind": "meta_stale",
+          "file": "catalogus/stichier/heer-ik-roep-toon-6/groningen-2/stichier-heer-ik-roep-toon-6-groningen-2.vsa.products-meta.json",
+          "detail": "product 'svg-translit-ksl' sha256 wijkt af van bestand"
+        }
+      ]
     },
     "catalogus/tropaar/apostel-andreas-toon-4/hemelum": {
       "vsa": "catalogus/tropaar/apostel-andreas-toon-4/hemelum/tropaar-apostel-andreas-toon-4-hemelum.vsa",
@@ -624,15 +561,9 @@
     },
     "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon": {
       "vsa": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\tropaar\\johannes-de-theoloog-toon-2\\liturgikon\\tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa",
-      "issues": [
-        {
-          "kind": "missing_svg",
-          "file": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.svg",
-          "detail": "Muziek-.vsa.svg ontbreekt naast de bibliotheek-.vsa (scherm)"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/johannes-van-shanghai-en-san-francisco/hemelum": {
       "vsa": "catalogus/tropaar/johannes-van-shanghai-en-san-francisco/hemelum/tropaar-johannes-van-shanghai-en-san-francisco-hemelum.vsa",
@@ -672,15 +603,9 @@
     },
     "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum": {
       "vsa": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\tropaar\\marina-grootmartelares-toon-4\\hemelum\\tropaar-marina-grootmartelares-toon-4-hemelum.vsa",
-      "issues": [
-        {
-          "kind": "meta_stale",
-          "file": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.products-meta.json",
-          "detail": "bron_sha256 wijkt af van huidige bron"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/nikolaas-van-myra-toon-4/hemelum": {
       "vsa": "catalogus/tropaar/nikolaas-van-myra-toon-4/hemelum/tropaar-nikolaas-van-myra-toon-4-hemelum.vsa",
@@ -700,6 +625,18 @@
       "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\tropaar\\ontslapen-moeder-gods-toon-1\\hemelum\\tropaar-ontslapen-moeder-gods-toon-1-hemelum.vsa",
       "issues": []
     },
+    "catalogus/tropaar/ontvangenis-moeder-gods-toon-4/hemelum": {
+      "vsa": "catalogus/tropaar/ontvangenis-moeder-gods-toon-4/hemelum/tropaar-ontvangenis-moeder-gods-toon-4-hemelum.vsa",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\tropaar\\ontvangenis-moeder-gods-toon-4\\hemelum\\tropaar-ontvangenis-moeder-gods-toon-4-hemelum.vsa",
+      "issues": []
+    },
+    "catalogus/tropaar/ontvangenis-moeder-gods-toon-4/meneon-1": {
+      "vsa": "catalogus/tropaar/ontvangenis-moeder-gods-toon-4/meneon-1/tropaar-ontvangenis-moeder-gods-toon-4-meneon-1.vsa",
+      "ok": true,
+      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\tropaar\\ontvangenis-moeder-gods-toon-4\\meneon-1\\tropaar-ontvangenis-moeder-gods-toon-4-meneon-1.vsa",
+      "issues": []
+    },
     "catalogus/tropaar/profeet-elia-toon-4/liturgikon": {
       "vsa": "catalogus/tropaar/profeet-elia-toon-4/liturgikon/tropaar-profeet-elia-toon-4-liturgikon.vsa",
       "ok": true,
@@ -708,15 +645,9 @@
     },
     "catalogus/tropaar/silouan-de-athoniet-toon-4/asten": {
       "vsa": "catalogus/tropaar/silouan-de-athoniet-toon-4/asten/tropaar-silouan-de-athoniet-toon-4-asten.vsa",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\tropaar\\silouan-de-athoniet-toon-4\\asten\\tropaar-silouan-de-athoniet-toon-4-asten.vsa",
-      "issues": [
-        {
-          "kind": "meta_missing",
-          "file": "catalogus/tropaar/silouan-de-athoniet-toon-4/asten/tropaar-silouan-de-athoniet-toon-4-asten.vsa.products-meta.json",
-          "detail": "product 'mvsa' ontbreekt in meta"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/tempelgang-moeder-gods-toon-4/hemelum": {
       "vsa": "catalogus/tropaar/tempelgang-moeder-gods-toon-4/hemelum/tropaar-tempelgang-moeder-gods-toon-4-hemelum.vsa",
@@ -726,15 +657,9 @@
     },
     "catalogus/tropaar/transfiguratie-toon-7/hemelum": {
       "vsa": "catalogus/tropaar/transfiguratie-toon-7/hemelum/tropaar-transfiguratie-toon-7-hemelum.vsa",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\tropaar\\transfiguratie-toon-7\\hemelum\\tropaar-transfiguratie-toon-7-hemelum.vsa",
-      "issues": [
-        {
-          "kind": "meta_missing",
-          "file": "catalogus/tropaar/transfiguratie-toon-7/hemelum/tropaar-transfiguratie-toon-7-hemelum.vsa.products-meta.json",
-          "detail": "product 'mvsa' ontbreekt in meta"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tropaar/zaterdag-gestorvenen-toon-2/hemelum": {
       "vsa": "catalogus/tropaar/zaterdag-gestorvenen-toon-2/hemelum/tropaar-zaterdag-gestorvenen-toon-2-hemelum.vsa",
@@ -798,15 +723,9 @@
     },
     "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon": {
       "vsa": "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon/tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa",
-      "ok": false,
+      "ok": true,
       "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\tweede-antifoon\\geboorte-moeder-gods\\liturgikon\\tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa",
-      "issues": [
-        {
-          "kind": "meta_stale",
-          "file": "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon/tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa.products-meta.json",
-          "detail": "bron_sha256 wijkt af van huidige bron"
-        }
-      ]
+      "issues": []
     },
     "catalogus/tweede-antifoon/kruisverheffing/liturgikon": {
       "vsa": "catalogus/tweede-antifoon/kruisverheffing/liturgikon/tweede-antifoon-kruisverheffing-liturgikon.vsa",

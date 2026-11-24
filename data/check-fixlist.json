@@ -1,510 +1,24 @@
 {
   "version": 1,
-  "generated_at": "2026-11-13T09:07:49Z",
+  "generated_at": "2026-11-24T15:19:01Z",
   "items": [
     {
-      "id": "audio:catalogus/geloofsbelijdenis/default/hemelum-deel-2|geloofsbelijdenis-default-hemelum-deel-2.vsa.mp3",
-      "checker": "audio",
-      "summary": "[stale-mp3] catalogus/geloofsbelijdenis/default/hemelum-deel-2|geloofsbelijdenis-default-hemelum-deel-2.vsa.mp3",
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\geloofsbelijdenis\\default\\hemelum-deel-2\\geloofsbelijdenis-default-hemelum-deel-2.vsa",
-      "kind": "stale_mp3",
-      "file": "catalogus/geloofsbelijdenis/default/hemelum-deel-2/geloofsbelijdenis-default-hemelum-deel-2.vsa.mp3",
-      "source": "catalogus/geloofsbelijdenis/default/hemelum-deel-2/geloofsbelijdenis-default-hemelum-deel-2.vsa"
-    },
-    {
-      "id": "audio:catalogus/stichier/heer-ik-roep-toon-1/groningen|stichier-heer-ik-roep-toon-1-groningen.vsa.mvsa.mp3",
-      "checker": "audio",
-      "summary": "[stale-mp3] catalogus/stichier/heer-ik-roep-toon-1/groningen|stichier-heer-ik-roep-toon-1-groningen.vsa.mvsa.mp3",
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen\\stichier-heer-ik-roep-toon-1-groningen.vsa.mvsa",
-      "kind": "stale_mp3",
-      "file": "catalogus/stichier/heer-ik-roep-toon-1/groningen/stichier-heer-ik-roep-toon-1-groningen.vsa.mvsa.mp3",
-      "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen/stichier-heer-ik-roep-toon-1-groningen.vsa.mvsa"
-    },
-    {
-      "id": "audio:catalogus/stichier/heer-ik-roep-toon-2/groningen|stichier-heer-ik-roep-toon-2-groningen.vsa.mvsa.mp3",
-      "checker": "audio",
-      "summary": "[stale-mp3] catalogus/stichier/heer-ik-roep-toon-2/groningen|stichier-heer-ik-roep-toon-2-groningen.vsa.mvsa.mp3",
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-2\\groningen\\stichier-heer-ik-roep-toon-2-groningen.vsa.mvsa",
-      "kind": "stale_mp3",
-      "file": "catalogus/stichier/heer-ik-roep-toon-2/groningen/stichier-heer-ik-roep-toon-2-groningen.vsa.mvsa.mp3",
-      "source": "catalogus/stichier/heer-ik-roep-toon-2/groningen/stichier-heer-ik-roep-toon-2-groningen.vsa.mvsa"
-    },
-    {
-      "id": "audio:catalogus/stichier/heer-ik-roep-toon-3/groningen-1|stichier-heer-ik-roep-toon-3-groningen-1.vsa.mp3",
-      "checker": "audio",
-      "summary": "[missing-mp3] catalogus/stichier/heer-ik-roep-toon-3/groningen-1|stichier-heer-ik-roep-toon-3-groningen-1.vsa.mp3",
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-3\\groningen-1\\stichier-heer-ik-roep-toon-3-groningen-1.vsa",
-      "kind": "missing_mp3",
-      "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen-1/stichier-heer-ik-roep-toon-3-groningen-1.vsa.mp3",
-      "source": "catalogus/stichier/heer-ik-roep-toon-3/groningen-1/stichier-heer-ik-roep-toon-3-groningen-1.vsa"
-    },
-    {
-      "id": "audio:catalogus/stichier/heer-ik-roep-toon-3/groningen-2|stichier-heer-ik-roep-toon-3-groningen-2.vsa.mp3",
-      "checker": "audio",
-      "summary": "[missing-mp3] catalogus/stichier/heer-ik-roep-toon-3/groningen-2|stichier-heer-ik-roep-toon-3-groningen-2.vsa.mp3",
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-3\\groningen-2\\stichier-heer-ik-roep-toon-3-groningen-2.vsa",
-      "kind": "missing_mp3",
-      "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen-2/stichier-heer-ik-roep-toon-3-groningen-2.vsa.mp3",
-      "source": "catalogus/stichier/heer-ik-roep-toon-3/groningen-2/stichier-heer-ik-roep-toon-3-groningen-2.vsa"
-    },
-    {
-      "id": "audio:catalogus/stichier/heer-ik-roep-toon-3/groningen|stichier-heer-ik-roep-toon-3-groningen.vsa.mp3",
-      "checker": "audio",
-      "summary": "[missing-mp3] catalogus/stichier/heer-ik-roep-toon-3/groningen|stichier-heer-ik-roep-toon-3-groningen.vsa.mp3",
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-3\\groningen\\stichier-heer-ik-roep-toon-3-groningen.vsa",
-      "kind": "missing_mp3",
-      "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen/stichier-heer-ik-roep-toon-3-groningen.vsa.mp3",
-      "source": "catalogus/stichier/heer-ik-roep-toon-3/groningen/stichier-heer-ik-roep-toon-3-groningen.vsa"
-    },
-    {
-      "id": "audio:catalogus/stichier/heer-ik-roep-toon-6/groningen-1|stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa.mp3",
-      "checker": "audio",
-      "summary": "[stale-mp3] catalogus/stichier/heer-ik-roep-toon-6/groningen-1|stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa.mp3",
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen-1\\stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa",
-      "kind": "stale_mp3",
-      "file": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1/stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa.mp3",
-      "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1/stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa"
-    },
-    {
-      "id": "audio:catalogus/stichier/heer-ik-roep-toon-6/groningen|stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa.mp3",
-      "checker": "audio",
-      "summary": "[stale-mp3] catalogus/stichier/heer-ik-roep-toon-6/groningen|stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa.mp3",
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen\\stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa",
-      "kind": "stale_mp3",
-      "file": "catalogus/stichier/heer-ik-roep-toon-6/groningen/stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa.mp3",
-      "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen/stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa"
-    },
-    {
-      "id": "audio:catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon|tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mp3",
-      "checker": "audio",
-      "summary": "[missing-mp3] catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon|tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mp3",
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\johannes-de-theoloog-toon-2\\liturgikon\\tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa",
-      "kind": "missing_mp3",
-      "file": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mp3",
-      "source": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa"
-    },
-    {
-      "id": "audio:catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon|tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa.mp3",
-      "checker": "audio",
-      "summary": "[missing-mp3] catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon|tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa.mp3",
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\johannes-de-theoloog-toon-2\\liturgikon\\tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa",
-      "kind": "missing_mp3",
-      "file": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa.mp3",
-      "source": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa"
-    },
-    {
-      "id": "audio:catalogus/tropaar/marina-grootmartelares-toon-4/hemelum|tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mp3",
-      "checker": "audio",
-      "summary": "[stale-mp3] catalogus/tropaar/marina-grootmartelares-toon-4/hemelum|tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mp3",
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\marina-grootmartelares-toon-4\\hemelum\\tropaar-marina-grootmartelares-toon-4-hemelum.vsa",
-      "kind": "stale_mp3",
-      "file": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mp3",
-      "source": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa"
-    },
-    {
-      "id": "audio:catalogus/tropaar/marina-grootmartelares-toon-4/hemelum|tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mvsa.mp3",
-      "checker": "audio",
-      "summary": "[stale-mp3] catalogus/tropaar/marina-grootmartelares-toon-4/hemelum|tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mvsa.mp3",
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\marina-grootmartelares-toon-4\\hemelum\\tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mvsa",
-      "kind": "stale_mp3",
-      "file": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mvsa.mp3",
-      "source": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mvsa"
-    },
-    {
-      "id": "audio:catalogus/tropaar/silouan-de-athoniet-toon-4/asten|tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa.mp3",
-      "checker": "audio",
-      "summary": "[missing-mp3] catalogus/tropaar/silouan-de-athoniet-toon-4/asten|tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa.mp3",
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tropaar\\silouan-de-athoniet-toon-4\\asten\\tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa",
-      "kind": "missing_mp3",
-      "file": "catalogus/tropaar/silouan-de-athoniet-toon-4/asten/tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa.mp3",
-      "source": "catalogus/tropaar/silouan-de-athoniet-toon-4/asten/tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa"
-    },
-    {
-      "id": "audio:catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon|tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa.mp3",
-      "checker": "audio",
-      "summary": "[stale-mp3] catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon|tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa.mp3",
-      "fix_cmd": "scripts\\products.cmd --kinds audio --reasons missing,stale --skip-post catalogus\\tweede-antifoon\\geboorte-moeder-gods\\liturgikon\\tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa",
-      "kind": "stale_mp3",
-      "file": "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon/tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa.mp3",
-      "source": "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon/tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa"
-    },
-    {
-      "id": "lyrics:catalogus/geloofsbelijdenis/default/hemelum-deel-2",
-      "checker": "lyrics",
-      "summary": "[stale-lyrics] catalogus/geloofsbelijdenis/default/hemelum-deel-2",
-      "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\geloofsbelijdenis\\default\\hemelum-deel-2\\geloofsbelijdenis-default-hemelum-deel-2.vsa",
-      "kind": "stale_lyrics",
-      "file": "catalogus/geloofsbelijdenis/default/hemelum-deel-2/geloofsbelijdenis-default-hemelum-deel-2.vsa.lyrics.txt",
-      "source": "catalogus/geloofsbelijdenis/default/hemelum-deel-2/geloofsbelijdenis-default-hemelum-deel-2.vsa"
-    },
-    {
-      "id": "lyrics:catalogus/stichier/heer-ik-roep-toon-3/groningen",
-      "checker": "lyrics",
-      "summary": "[missing-lyrics] catalogus/stichier/heer-ik-roep-toon-3/groningen",
-      "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-3\\groningen\\stichier-heer-ik-roep-toon-3-groningen.vsa",
-      "kind": "missing_lyrics",
-      "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen/stichier-heer-ik-roep-toon-3-groningen.vsa.lyrics.txt",
-      "source": "catalogus/stichier/heer-ik-roep-toon-3/groningen/stichier-heer-ik-roep-toon-3-groningen.vsa"
-    },
-    {
-      "id": "lyrics:catalogus/stichier/heer-ik-roep-toon-3/groningen-1",
-      "checker": "lyrics",
-      "summary": "[missing-lyrics] catalogus/stichier/heer-ik-roep-toon-3/groningen-1",
-      "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-3\\groningen-1\\stichier-heer-ik-roep-toon-3-groningen-1.vsa",
-      "kind": "missing_lyrics",
-      "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen-1/stichier-heer-ik-roep-toon-3-groningen-1.vsa.lyrics.txt",
-      "source": "catalogus/stichier/heer-ik-roep-toon-3/groningen-1/stichier-heer-ik-roep-toon-3-groningen-1.vsa"
-    },
-    {
-      "id": "lyrics:catalogus/stichier/heer-ik-roep-toon-3/groningen-2",
-      "checker": "lyrics",
-      "summary": "[missing-lyrics] catalogus/stichier/heer-ik-roep-toon-3/groningen-2",
-      "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-3\\groningen-2\\stichier-heer-ik-roep-toon-3-groningen-2.vsa",
-      "kind": "missing_lyrics",
-      "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen-2/stichier-heer-ik-roep-toon-3-groningen-2.vsa.lyrics.txt",
-      "source": "catalogus/stichier/heer-ik-roep-toon-3/groningen-2/stichier-heer-ik-roep-toon-3-groningen-2.vsa"
-    },
-    {
-      "id": "lyrics:catalogus/stichier/heer-ik-roep-toon-6/groningen",
-      "checker": "lyrics",
-      "summary": "[stale-lyrics] catalogus/stichier/heer-ik-roep-toon-6/groningen",
-      "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen\\stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa",
-      "kind": "stale_lyrics",
-      "file": "catalogus/stichier/heer-ik-roep-toon-6/groningen/stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa.lyrics.txt",
-      "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen/stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa"
-    },
-    {
-      "id": "lyrics:catalogus/stichier/heer-ik-roep-toon-6/groningen-1",
-      "checker": "lyrics",
-      "summary": "[stale-lyrics] catalogus/stichier/heer-ik-roep-toon-6/groningen-1",
-      "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen-1\\stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa",
-      "kind": "stale_lyrics",
-      "file": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1/stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa.lyrics.txt",
-      "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1/stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa"
-    },
-    {
-      "id": "lyrics:catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon",
-      "checker": "lyrics",
-      "summary": "[missing-lyrics] catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon",
-      "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\johannes-de-theoloog-toon-2\\liturgikon\\tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa",
-      "kind": "missing_lyrics",
-      "file": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.lyrics.txt",
-      "source": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa"
-    },
-    {
-      "id": "lyrics:catalogus/tropaar/marina-grootmartelares-toon-4/hemelum",
-      "checker": "lyrics",
-      "summary": "[stale-lyrics] catalogus/tropaar/marina-grootmartelares-toon-4/hemelum",
-      "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\marina-grootmartelares-toon-4\\hemelum\\tropaar-marina-grootmartelares-toon-4-hemelum.vsa",
-      "kind": "stale_lyrics",
-      "file": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.lyrics.txt",
-      "source": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa"
-    },
-    {
-      "id": "lyrics:catalogus/tropaar/silouan-de-athoniet-toon-4/asten",
-      "checker": "lyrics",
-      "summary": "[missing-lyrics] catalogus/tropaar/silouan-de-athoniet-toon-4/asten",
-      "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tropaar\\silouan-de-athoniet-toon-4\\asten\\tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa",
-      "kind": "missing_lyrics",
-      "file": "catalogus/tropaar/silouan-de-athoniet-toon-4/asten/tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa.lyrics.txt",
-      "source": "catalogus/tropaar/silouan-de-athoniet-toon-4/asten/tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa"
-    },
-    {
-      "id": "lyrics:catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon",
-      "checker": "lyrics",
-      "summary": "[stale-lyrics] catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon",
-      "fix_cmd": "scripts\\products.cmd --kinds lyrics --reasons missing,stale --skip-post catalogus\\tweede-antifoon\\geboorte-moeder-gods\\liturgikon\\tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa",
-      "kind": "stale_lyrics",
-      "file": "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon/tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa.lyrics.txt",
-      "source": "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon/tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa"
-    },
-    {
-      "id": "mvsa:catalogus/stichier/heer-ik-roep-toon-1/groningen/stichier-heer-ik-roep-toon-1-groningen.vsa.mvsa",
-      "checker": "mvsa",
-      "summary": "[meta] catalogus/stichier/heer-ik-roep-toon-1/groningen/stichier-heer-ik-roep-toon-1-groningen.vsa.mvsa",
-      "fix_cmd": "scripts\\products.cmd --kinds mvsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen\\stichier-heer-ik-roep-toon-1-groningen.vsa.mvsa",
-      "kind": "meta_stale",
-      "file": "catalogus/stichier/heer-ik-roep-toon-1/groningen/stichier-heer-ik-roep-toon-1-groningen.vsa.mvsa.products-meta.json",
-      "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen/stichier-heer-ik-roep-toon-1-groningen.vsa.mvsa"
-    },
-    {
-      "id": "mvsa:catalogus/stichier/heer-ik-roep-toon-2/groningen/stichier-heer-ik-roep-toon-2-groningen.vsa.mvsa",
-      "checker": "mvsa",
-      "summary": "[meta] catalogus/stichier/heer-ik-roep-toon-2/groningen/stichier-heer-ik-roep-toon-2-groningen.vsa.mvsa",
-      "fix_cmd": "scripts\\products.cmd --kinds mvsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-2\\groningen\\stichier-heer-ik-roep-toon-2-groningen.vsa.mvsa",
-      "kind": "meta_stale",
-      "file": "catalogus/stichier/heer-ik-roep-toon-2/groningen/stichier-heer-ik-roep-toon-2-groningen.vsa.mvsa.products-meta.json",
-      "source": "catalogus/stichier/heer-ik-roep-toon-2/groningen/stichier-heer-ik-roep-toon-2-groningen.vsa.mvsa"
-    },
-    {
-      "id": "mvsa:catalogus/stichier/heer-ik-roep-toon-6/groningen-1/stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa",
-      "checker": "mvsa",
-      "summary": "[meta] catalogus/stichier/heer-ik-roep-toon-6/groningen-1/stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa",
-      "fix_cmd": "scripts\\products.cmd --kinds mvsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen-1\\stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa",
-      "kind": "meta_stale",
-      "file": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1/stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa.products-meta.json",
-      "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1/stichier-heer-ik-roep-toon-6-groningen-1.vsa.mvsa"
-    },
-    {
-      "id": "mvsa:catalogus/stichier/heer-ik-roep-toon-6/groningen/stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa",
-      "checker": "mvsa",
-      "summary": "[meta] catalogus/stichier/heer-ik-roep-toon-6/groningen/stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa",
-      "fix_cmd": "scripts\\products.cmd --kinds mvsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen\\stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa",
-      "kind": "meta_stale",
-      "file": "catalogus/stichier/heer-ik-roep-toon-6/groningen/stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa.products-meta.json",
-      "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen/stichier-heer-ik-roep-toon-6-groningen.vsa.mvsa"
-    },
-    {
-      "id": "mvsa:catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa",
-      "checker": "mvsa",
-      "summary": "[missing-mxl] catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa",
-      "fix_cmd": "scripts\\products.cmd --kinds mvsa --reasons missing,stale --skip-post catalogus\\tropaar\\johannes-de-theoloog-toon-2\\liturgikon\\tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa",
-      "kind": "missing_mxl",
-      "file": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa.mxl",
-      "source": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.mvsa"
-    },
-    {
-      "id": "mvsa:catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mvsa",
-      "checker": "mvsa",
-      "summary": "[meta] catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mvsa",
-      "fix_cmd": "scripts\\products.cmd --kinds mvsa --reasons missing,stale --skip-post catalogus\\tropaar\\marina-grootmartelares-toon-4\\hemelum\\tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mvsa",
-      "kind": "meta_stale",
-      "file": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mvsa.products-meta.json",
-      "source": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.mvsa"
-    },
-    {
-      "id": "mvsa:catalogus/tropaar/silouan-de-athoniet-toon-4/asten/tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa",
-      "checker": "mvsa",
-      "summary": "[missing-mxl] catalogus/tropaar/silouan-de-athoniet-toon-4/asten/tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa",
-      "fix_cmd": "scripts\\products.cmd --kinds mvsa --reasons missing,stale --skip-post catalogus\\tropaar\\silouan-de-athoniet-toon-4\\asten\\tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa",
-      "kind": "missing_mxl",
-      "file": "catalogus/tropaar/silouan-de-athoniet-toon-4/asten/tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa.mxl",
-      "source": "catalogus/tropaar/silouan-de-athoniet-toon-4/asten/tropaar-silouan-de-athoniet-toon-4-asten.vsa.mvsa"
-    },
-    {
-      "id": "pdf:catalogus/geloofsbelijdenis/default/hemelum-deel-2",
-      "checker": "pdf",
-      "summary": "[stale-pdf] catalogus/geloofsbelijdenis/default/hemelum-deel-2",
-      "fix_cmd": "scripts\\pdf.cmd catalogus\\geloofsbelijdenis\\default\\hemelum-deel-2\\index.md --force",
-      "kind": "stale_pdf",
-      "file": "catalogus/geloofsbelijdenis/default/hemelum-deel-2/index.md.pdf",
-      "source": "catalogus/geloofsbelijdenis/default/hemelum-deel-2/index.md"
-    },
-    {
-      "id": "pdf:catalogus/kondak/johannes-de-theoloog-toon-2/liturgikon",
-      "checker": "pdf",
-      "summary": "[stale-pdf] catalogus/kondak/johannes-de-theoloog-toon-2/liturgikon",
-      "fix_cmd": "scripts\\pdf.cmd catalogus\\kondak\\johannes-de-theoloog-toon-2\\liturgikon\\index.md --force",
-      "kind": "stale_pdf",
-      "file": "catalogus/kondak/johannes-de-theoloog-toon-2/liturgikon/index.md.pdf",
-      "source": "catalogus/kondak/johannes-de-theoloog-toon-2/liturgikon/index.md"
-    },
-    {
-      "id": "pdf:catalogus/kondak/silouan-de-athoniet-toon-4/asten",
-      "checker": "pdf",
-      "summary": "[stale-pdf] catalogus/kondak/silouan-de-athoniet-toon-4/asten",
-      "fix_cmd": "scripts\\pdf.cmd catalogus\\kondak\\silouan-de-athoniet-toon-4\\asten\\index.md --force",
-      "kind": "stale_pdf",
-      "file": "catalogus/kondak/silouan-de-athoniet-toon-4/asten/index.md.pdf",
-      "source": "catalogus/kondak/silouan-de-athoniet-toon-4/asten/index.md"
-    },
-    {
-      "id": "pdf:catalogus/stichier/heer-ik-roep-toon-1/groningen",
-      "checker": "pdf",
-      "summary": "[stale-pdf] catalogus/stichier/heer-ik-roep-toon-1/groningen",
-      "fix_cmd": "scripts\\pdf.cmd catalogus\\stichier\\heer-ik-roep-toon-1\\groningen\\index.md --force",
-      "kind": "stale_pdf",
-      "file": "catalogus/stichier/heer-ik-roep-toon-1/groningen/index.md.pdf",
-      "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen/index.md"
-    },
-    {
-      "id": "pdf:catalogus/stichier/heer-ik-roep-toon-2/groningen",
-      "checker": "pdf",
-      "summary": "[stale-pdf] catalogus/stichier/heer-ik-roep-toon-2/groningen",
-      "fix_cmd": "scripts\\pdf.cmd catalogus\\stichier\\heer-ik-roep-toon-2\\groningen\\index.md --force",
-      "kind": "stale_pdf",
-      "file": "catalogus/stichier/heer-ik-roep-toon-2/groningen/index.md.pdf",
-      "source": "catalogus/stichier/heer-ik-roep-toon-2/groningen/index.md"
-    },
-    {
-      "id": "pdf:catalogus/stichier/heer-ik-roep-toon-3/groningen",
-      "checker": "pdf",
-      "summary": "[missing-pdf] catalogus/stichier/heer-ik-roep-toon-3/groningen",
-      "fix_cmd": "scripts\\pdf.cmd catalogus\\stichier\\heer-ik-roep-toon-3\\groningen\\index.md --force",
-      "kind": "missing_pdf",
-      "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen/index.md.pdf",
-      "source": "catalogus/stichier/heer-ik-roep-toon-3/groningen/index.md"
-    },
-    {
-      "id": "pdf:catalogus/stichier/heer-ik-roep-toon-3/groningen-1",
-      "checker": "pdf",
-      "summary": "[missing-pdf] catalogus/stichier/heer-ik-roep-toon-3/groningen-1",
-      "fix_cmd": "scripts\\pdf.cmd catalogus\\stichier\\heer-ik-roep-toon-3\\groningen-1\\index.md --force",
-      "kind": "missing_pdf",
-      "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen-1/index.md.pdf",
-      "source": "catalogus/stichier/heer-ik-roep-toon-3/groningen-1/index.md"
-    },
-    {
-      "id": "pdf:catalogus/stichier/heer-ik-roep-toon-3/groningen-2",
-      "checker": "pdf",
-      "summary": "[missing-pdf] catalogus/stichier/heer-ik-roep-toon-3/groningen-2",
-      "fix_cmd": "scripts\\pdf.cmd catalogus\\stichier\\heer-ik-roep-toon-3\\groningen-2\\index.md --force",
-      "kind": "missing_pdf",
-      "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen-2/index.md.pdf",
-      "source": "catalogus/stichier/heer-ik-roep-toon-3/groningen-2/index.md"
-    },
-    {
-      "id": "pdf:catalogus/stichier/heer-ik-roep-toon-6/groningen",
-      "checker": "pdf",
-      "summary": "[stale-pdf] catalogus/stichier/heer-ik-roep-toon-6/groningen",
-      "fix_cmd": "scripts\\pdf.cmd catalogus\\stichier\\heer-ik-roep-toon-6\\groningen\\index.md --force",
-      "kind": "stale_pdf",
-      "file": "catalogus/stichier/heer-ik-roep-toon-6/groningen/index.md.pdf",
-      "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen/index.md"
-    },
-    {
-      "id": "pdf:catalogus/stichier/heer-ik-roep-toon-6/groningen-1",
-      "checker": "pdf",
-      "summary": "[stale-pdf] catalogus/stichier/heer-ik-roep-toon-6/groningen-1",
-      "fix_cmd": "scripts\\pdf.cmd catalogus\\stichier\\heer-ik-roep-toon-6\\groningen-1\\index.md --force",
-      "kind": "stale_pdf",
-      "file": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1/index.md.pdf",
-      "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1/index.md"
-    },
-    {
-      "id": "pdf:catalogus/tropaar/heer-red-uw-volk/hemelum",
-      "checker": "pdf",
-      "summary": "[stale-pdf] catalogus/tropaar/heer-red-uw-volk/hemelum",
-      "fix_cmd": "scripts\\pdf.cmd catalogus\\tropaar\\heer-red-uw-volk\\hemelum\\index.md --force",
-      "kind": "stale_pdf",
-      "file": "catalogus/tropaar/heer-red-uw-volk/hemelum/index.md.pdf",
-      "source": "catalogus/tropaar/heer-red-uw-volk/hemelum/index.md"
-    },
-    {
-      "id": "pdf:catalogus/tropaar/heer-red-uw-volk/rode-gebedenboek",
-      "checker": "pdf",
-      "summary": "[stale-pdf] catalogus/tropaar/heer-red-uw-volk/rode-gebedenboek",
-      "fix_cmd": "scripts\\pdf.cmd catalogus\\tropaar\\heer-red-uw-volk\\rode-gebedenboek\\index.md --force",
-      "kind": "stale_pdf",
-      "file": "catalogus/tropaar/heer-red-uw-volk/rode-gebedenboek/index.md.pdf",
-      "source": "catalogus/tropaar/heer-red-uw-volk/rode-gebedenboek/index.md"
-    },
-    {
-      "id": "pdf:catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon",
-      "checker": "pdf",
-      "summary": "[missing-pdf] catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon",
-      "fix_cmd": "scripts\\pdf.cmd catalogus\\tropaar\\johannes-de-theoloog-toon-2\\liturgikon\\index.md --force",
-      "kind": "missing_pdf",
-      "file": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/index.md.pdf",
-      "source": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/index.md"
-    },
-    {
-      "id": "pdf:catalogus/tropaar/maria-magdalena-toon-1/liturgikon",
-      "checker": "pdf",
-      "summary": "[stale-pdf] catalogus/tropaar/maria-magdalena-toon-1/liturgikon",
-      "fix_cmd": "scripts\\pdf.cmd catalogus\\tropaar\\maria-magdalena-toon-1\\liturgikon\\index.md --force",
-      "kind": "stale_pdf",
-      "file": "catalogus/tropaar/maria-magdalena-toon-1/liturgikon/index.md.pdf",
-      "source": "catalogus/tropaar/maria-magdalena-toon-1/liturgikon/index.md"
-    },
-    {
-      "id": "pdf:catalogus/tropaar/marina-grootmartelares-toon-4/hemelum",
-      "checker": "pdf",
-      "summary": "[stale-pdf] catalogus/tropaar/marina-grootmartelares-toon-4/hemelum",
-      "fix_cmd": "scripts\\pdf.cmd catalogus\\tropaar\\marina-grootmartelares-toon-4\\hemelum\\index.md --force",
-      "kind": "stale_pdf",
-      "file": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/index.md.pdf",
-      "source": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/index.md"
-    },
-    {
-      "id": "pdf:catalogus/tropaar/silouan-de-athoniet-toon-4/asten",
-      "checker": "pdf",
-      "summary": "[stale-pdf] catalogus/tropaar/silouan-de-athoniet-toon-4/asten",
-      "fix_cmd": "scripts\\pdf.cmd catalogus\\tropaar\\silouan-de-athoniet-toon-4\\asten\\index.md --force",
-      "kind": "stale_pdf",
-      "file": "catalogus/tropaar/silouan-de-athoniet-toon-4/asten/index.md.pdf",
-      "source": "catalogus/tropaar/silouan-de-athoniet-toon-4/asten/index.md"
-    },
-    {
-      "id": "pdf:catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon",
-      "checker": "pdf",
-      "summary": "[stale-pdf] catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon",
-      "fix_cmd": "scripts\\pdf.cmd catalogus\\tweede-antifoon\\geboorte-moeder-gods\\liturgikon\\index.md --force",
-      "kind": "stale_pdf",
-      "file": "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon/index.md.pdf",
-      "source": "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon/index.md"
-    },
-    {
-      "id": "pdf:koormappen/hemelum/liturgie-weekdagen/18-geloofsbelijdenis",
-      "checker": "pdf",
-      "summary": "[stale-pdf] koormappen/hemelum/liturgie-weekdagen/18-geloofsbelijdenis",
-      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-weekdagen\\18-geloofsbelijdenis\\index.md --force",
-      "kind": "stale_pdf",
-      "file": "koormappen/hemelum/liturgie-weekdagen/18-geloofsbelijdenis/index.md.pdf",
-      "source": "koormappen/hemelum/liturgie-weekdagen/18-geloofsbelijdenis/index.md"
-    },
-    {
-      "id": "pdf:koormappen/hemelum/liturgie-zondag/18-geloofsbelijdenis",
-      "checker": "pdf",
-      "summary": "[stale-pdf] koormappen/hemelum/liturgie-zondag/18-geloofsbelijdenis",
-      "fix_cmd": "scripts\\pdf.cmd koormappen\\hemelum\\liturgie-zondag\\18-geloofsbelijdenis\\index.md --force",
-      "kind": "stale_pdf",
-      "file": "koormappen/hemelum/liturgie-zondag/18-geloofsbelijdenis/index.md.pdf",
-      "source": "koormappen/hemelum/liturgie-zondag/18-geloofsbelijdenis/index.md"
-    },
-    {
-      "id": "vsa:catalogus/geloofsbelijdenis/default/hemelum-deel-2",
+      "id": "vsa:catalogus/stichier/heer-ik-roep-toon-1/groningen-1",
       "checker": "vsa",
-      "summary": "[meta] catalogus/geloofsbelijdenis/default/hemelum-deel-2",
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\geloofsbelijdenis\\default\\hemelum-deel-2\\geloofsbelijdenis-default-hemelum-deel-2.vsa",
+      "summary": "[meta] catalogus/stichier/heer-ik-roep-toon-1/groningen-1",
+      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen-1\\stichier-heer-ik-roep-toon-1-groningen-1.vsa",
       "kind": "meta_stale",
-      "file": "catalogus/geloofsbelijdenis/default/hemelum-deel-2/geloofsbelijdenis-default-hemelum-deel-2.vsa.products-meta.json",
-      "source": "catalogus/geloofsbelijdenis/default/hemelum-deel-2"
+      "file": "catalogus/stichier/heer-ik-roep-toon-1/groningen-1/stichier-heer-ik-roep-toon-1-groningen-1.vsa.products-meta.json",
+      "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen-1"
     },
     {
-      "id": "vsa:catalogus/stichier/heer-ik-roep-toon-1/groningen",
+      "id": "vsa:catalogus/stichier/heer-ik-roep-toon-1/groningen-2",
       "checker": "vsa",
-      "summary": "[meta] catalogus/stichier/heer-ik-roep-toon-1/groningen",
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen\\stichier-heer-ik-roep-toon-1-groningen.vsa",
+      "summary": "[meta] catalogus/stichier/heer-ik-roep-toon-1/groningen-2",
+      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-1\\groningen-2\\stichier-heer-ik-roep-toon-1-groningen-2.vsa",
       "kind": "meta_stale",
-      "file": "catalogus/stichier/heer-ik-roep-toon-1/groningen/stichier-heer-ik-roep-toon-1-groningen.vsa.products-meta.json",
-      "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen"
-    },
-    {
-      "id": "vsa:catalogus/stichier/heer-ik-roep-toon-2/groningen",
-      "checker": "vsa",
-      "summary": "[meta] catalogus/stichier/heer-ik-roep-toon-2/groningen",
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-2\\groningen\\stichier-heer-ik-roep-toon-2-groningen.vsa",
-      "kind": "meta_stale",
-      "file": "catalogus/stichier/heer-ik-roep-toon-2/groningen/stichier-heer-ik-roep-toon-2-groningen.vsa.products-meta.json",
-      "source": "catalogus/stichier/heer-ik-roep-toon-2/groningen"
-    },
-    {
-      "id": "vsa:catalogus/stichier/heer-ik-roep-toon-3/groningen",
-      "checker": "vsa",
-      "summary": "[missing-svg] catalogus/stichier/heer-ik-roep-toon-3/groningen",
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-3\\groningen\\stichier-heer-ik-roep-toon-3-groningen.vsa",
-      "kind": "missing_svg",
-      "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen/stichier-heer-ik-roep-toon-3-groningen.vsa.svg",
-      "source": "catalogus/stichier/heer-ik-roep-toon-3/groningen"
-    },
-    {
-      "id": "vsa:catalogus/stichier/heer-ik-roep-toon-3/groningen-1",
-      "checker": "vsa",
-      "summary": "[missing-svg] catalogus/stichier/heer-ik-roep-toon-3/groningen-1",
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-3\\groningen-1\\stichier-heer-ik-roep-toon-3-groningen-1.vsa",
-      "kind": "missing_svg",
-      "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen-1/stichier-heer-ik-roep-toon-3-groningen-1.vsa.svg",
-      "source": "catalogus/stichier/heer-ik-roep-toon-3/groningen-1"
-    },
-    {
-      "id": "vsa:catalogus/stichier/heer-ik-roep-toon-3/groningen-2",
-      "checker": "vsa",
-      "summary": "[missing-svg] catalogus/stichier/heer-ik-roep-toon-3/groningen-2",
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-3\\groningen-2\\stichier-heer-ik-roep-toon-3-groningen-2.vsa",
-      "kind": "missing_svg",
-      "file": "catalogus/stichier/heer-ik-roep-toon-3/groningen-2/stichier-heer-ik-roep-toon-3-groningen-2.vsa.svg",
-      "source": "catalogus/stichier/heer-ik-roep-toon-3/groningen-2"
+      "file": "catalogus/stichier/heer-ik-roep-toon-1/groningen-2/stichier-heer-ik-roep-toon-1-groningen-2.vsa.products-meta.json",
+      "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen-2"
     },
     {
       "id": "vsa:catalogus/stichier/heer-ik-roep-toon-6/groningen",
@@ -525,49 +39,67 @@
       "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1"
     },
     {
-      "id": "vsa:catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon",
+      "id": "vsa:catalogus/stichier/heer-ik-roep-toon-6/groningen-2",
       "checker": "vsa",
-      "summary": "[missing-svg] catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon",
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\tropaar\\johannes-de-theoloog-toon-2\\liturgikon\\tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa",
-      "kind": "missing_svg",
-      "file": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon/tropaar-johannes-de-theoloog-toon-2-liturgikon.vsa.svg",
-      "source": "catalogus/tropaar/johannes-de-theoloog-toon-2/liturgikon"
-    },
-    {
-      "id": "vsa:catalogus/tropaar/marina-grootmartelares-toon-4/hemelum",
-      "checker": "vsa",
-      "summary": "[meta] catalogus/tropaar/marina-grootmartelares-toon-4/hemelum",
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\tropaar\\marina-grootmartelares-toon-4\\hemelum\\tropaar-marina-grootmartelares-toon-4-hemelum.vsa",
+      "summary": "[meta] catalogus/stichier/heer-ik-roep-toon-6/groningen-2",
+      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\stichier\\heer-ik-roep-toon-6\\groningen-2\\stichier-heer-ik-roep-toon-6-groningen-2.vsa",
       "kind": "meta_stale",
-      "file": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum/tropaar-marina-grootmartelares-toon-4-hemelum.vsa.products-meta.json",
-      "source": "catalogus/tropaar/marina-grootmartelares-toon-4/hemelum"
+      "file": "catalogus/stichier/heer-ik-roep-toon-6/groningen-2/stichier-heer-ik-roep-toon-6-groningen-2.vsa.products-meta.json",
+      "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen-2"
     },
     {
-      "id": "vsa:catalogus/tropaar/silouan-de-athoniet-toon-4/asten",
-      "checker": "vsa",
-      "summary": "[meta-missing] catalogus/tropaar/silouan-de-athoniet-toon-4/asten",
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\tropaar\\silouan-de-athoniet-toon-4\\asten\\tropaar-silouan-de-athoniet-toon-4-asten.vsa",
-      "kind": "meta_missing",
-      "file": "catalogus/tropaar/silouan-de-athoniet-toon-4/asten/tropaar-silouan-de-athoniet-toon-4-asten.vsa.products-meta.json",
-      "source": "catalogus/tropaar/silouan-de-athoniet-toon-4/asten"
+      "id": "pdf:catalogus/stichier/heer-ik-roep-toon-1/groningen",
+      "checker": "pdf",
+      "summary": "[stale-pdf] catalogus/stichier/heer-ik-roep-toon-1/groningen",
+      "fix_cmd": "scripts\\pdf.cmd catalogus\\stichier\\heer-ik-roep-toon-1\\groningen\\index.md --force",
+      "kind": "stale_pdf",
+      "file": "catalogus/stichier/heer-ik-roep-toon-1/groningen/index.md.pdf",
+      "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen/index.md"
     },
     {
-      "id": "vsa:catalogus/tropaar/transfiguratie-toon-7/hemelum",
-      "checker": "vsa",
-      "summary": "[meta-missing] catalogus/tropaar/transfiguratie-toon-7/hemelum",
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\tropaar\\transfiguratie-toon-7\\hemelum\\tropaar-transfiguratie-toon-7-hemelum.vsa",
-      "kind": "meta_missing",
-      "file": "catalogus/tropaar/transfiguratie-toon-7/hemelum/tropaar-transfiguratie-toon-7-hemelum.vsa.products-meta.json",
-      "source": "catalogus/tropaar/transfiguratie-toon-7/hemelum"
+      "id": "pdf:catalogus/stichier/heer-ik-roep-toon-1/groningen-1",
+      "checker": "pdf",
+      "summary": "[stale-pdf] catalogus/stichier/heer-ik-roep-toon-1/groningen-1",
+      "fix_cmd": "scripts\\pdf.cmd catalogus\\stichier\\heer-ik-roep-toon-1\\groningen-1\\index.md --force",
+      "kind": "stale_pdf",
+      "file": "catalogus/stichier/heer-ik-roep-toon-1/groningen-1/index.md.pdf",
+      "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen-1/index.md"
     },
     {
-      "id": "vsa:catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon",
-      "checker": "vsa",
-      "summary": "[meta] catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon",
-      "fix_cmd": "scripts\\products.cmd --kinds vsa --reasons missing,stale --skip-post catalogus\\tweede-antifoon\\geboorte-moeder-gods\\liturgikon\\tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa",
-      "kind": "meta_stale",
-      "file": "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon/tweede-antifoon-geboorte-moeder-gods-liturgikon.vsa.products-meta.json",
-      "source": "catalogus/tweede-antifoon/geboorte-moeder-gods/liturgikon"
+      "id": "pdf:catalogus/stichier/heer-ik-roep-toon-1/groningen-2",
+      "checker": "pdf",
+      "summary": "[stale-pdf] catalogus/stichier/heer-ik-roep-toon-1/groningen-2",
+      "fix_cmd": "scripts\\pdf.cmd catalogus\\stichier\\heer-ik-roep-toon-1\\groningen-2\\index.md --force",
+      "kind": "stale_pdf",
+      "file": "catalogus/stichier/heer-ik-roep-toon-1/groningen-2/index.md.pdf",
+      "source": "catalogus/stichier/heer-ik-roep-toon-1/groningen-2/index.md"
+    },
+    {
+      "id": "pdf:catalogus/stichier/heer-ik-roep-toon-6/groningen",
+      "checker": "pdf",
+      "summary": "[stale-pdf] catalogus/stichier/heer-ik-roep-toon-6/groningen",
+      "fix_cmd": "scripts\\pdf.cmd catalogus\\stichier\\heer-ik-roep-toon-6\\groningen\\index.md --force",
+      "kind": "stale_pdf",
+      "file": "catalogus/stichier/heer-ik-roep-toon-6/groningen/index.md.pdf",
+      "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen/index.md"
+    },
+    {
+      "id": "pdf:catalogus/stichier/heer-ik-roep-toon-6/groningen-1",
+      "checker": "pdf",
+      "summary": "[stale-pdf] catalogus/stichier/heer-ik-roep-toon-6/groningen-1",
+      "fix_cmd": "scripts\\pdf.cmd catalogus\\stichier\\heer-ik-roep-toon-6\\groningen-1\\index.md --force",
+      "kind": "stale_pdf",
+      "file": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1/index.md.pdf",
+      "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen-1/index.md"
+    },
+    {
+      "id": "pdf:catalogus/stichier/heer-ik-roep-toon-6/groningen-2",
+      "checker": "pdf",
+      "summary": "[stale-pdf] catalogus/stichier/heer-ik-roep-toon-6/groningen-2",
+      "fix_cmd": "scripts\\pdf.cmd catalogus\\stichier\\heer-ik-roep-toon-6\\groningen-2\\index.md --force",
+      "kind": "stale_pdf",
+      "file": "catalogus/stichier/heer-ik-roep-toon-6/groningen-2/index.md.pdf",
+      "source": "catalogus/stichier/heer-ik-roep-toon-6/groningen-2/index.md"
     }
   ]
 }
