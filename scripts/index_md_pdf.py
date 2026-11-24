@@ -1253,6 +1253,24 @@ def _pagina_pdf_out_path(md_path: Path) -> Path:
     return md_path.with_name(md_path.name + ".pdf")
 
 
+def _apply_gebreken_watermark_if_needed(md_path: Path, pdf_path: Path) -> None:
+    """Watermark op pagina-PDF als leaf (of bieb-doel) ``gebreken: true`` heeft."""
+    from gebreken import (
+        apply_pdf_gebreken_watermark,
+        pdf_has_gebreken_stempel,
+        resolve_gebreken_for_md,
+    )
+
+    if not pdf_path.is_file():
+        return
+    actief, toelichting = resolve_gebreken_for_md(md_path)
+    if not actief:
+        return
+    if pdf_has_gebreken_stempel(pdf_path):
+        return
+    apply_pdf_gebreken_watermark(pdf_path, toelichting=toelichting)
+
+
 def _pagina_translit_pdf_out_path(md_path: Path, modus: str) -> Path:
     """``index.md`` + ``nls`` → ``index.md.translit-nls.pdf``."""
     from translit_svg_products import pagina_translit_pdf_path
@@ -2681,10 +2699,12 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
     if voorzien_id is not None:
         if out.is_file() and not force:
             if out.stat().st_mtime >= md_path.stat().st_mtime:
+                _apply_gebreken_watermark_if_needed(md_path, out)
                 return out
         title = _catalogus_voorzien_title(md_path, voorzien_id)
         detail(f"  voorzien-placeholder {voorzien_id}")
         compose_voorzien_pdf(out, title=title)
+        _apply_gebreken_watermark_if_needed(md_path, out)
         return out
 
     tekstblad_job = resolve_tekstblad_pagina_job(md_path)
@@ -2694,6 +2714,7 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
         if out.is_file() and not force:
             newest = max(p.stat().st_mtime for p in deps if p.is_file())
             if out.stat().st_mtime >= newest:
+                _apply_gebreken_watermark_if_needed(md_path, out)
                 return out
         title = _tekstblad_pagina_title(md_path, text, leaf_id)
         notes = prose_notes_from_catalogus_md(text)
@@ -2701,6 +2722,7 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
         compose_tekstblad_pagina_pdf(
             out, title=title, notes=notes, tekstblad_md=tb_md
         )
+        _apply_gebreken_watermark_if_needed(md_path, out)
         return out
 
     if not _markdown_has_pagina_music(text):
@@ -2751,6 +2773,7 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
             else:
                 stitch_pdfs(parts, out)
 
+    _apply_gebreken_watermark_if_needed(md_path, out)
     _build_translit_pagina_pdfs(md_path, flows, sources, force=force)
     return out if out.is_file() else None
 
@@ -2808,6 +2831,7 @@ def _build_translit_pagina_pdfs(
                     default=0.0,
                 )
                 if newest and dest.stat().st_mtime >= newest:
+                    _apply_gebreken_watermark_if_needed(md_path, dest)
                     written.append(dest)
                     continue
         detail(f"  pagina translit-{modus} → {dest.name}")
@@ -2831,6 +2855,7 @@ def _build_translit_pagina_pdfs(
                 _install_pdf(parts[0], dest)
             else:
                 stitch_pdfs(parts, dest)
+        _apply_gebreken_watermark_if_needed(md_path, dest)
         written.append(dest)
         from input_paths import rel_for_log
 

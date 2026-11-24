@@ -40,6 +40,7 @@
 {{- if $koormap -}}
 {{ partial "koormap-liturgie-nav.html" (dict "page" . "placement" "top") }}
 {{- end -}}
+{{ partial "gebreken-banner.html" . }}
 {{ partial "oefenhoek-alias.html" . }}
 {{ .Content }}
 {{- if $koormap -}}

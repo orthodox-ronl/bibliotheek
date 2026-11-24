@@ -39,7 +39,7 @@ formatpagina’s in tooling, o.a.:
 | `*.lyrics.txt`              | [lyrics.txt](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/lyrics.txt.md)                                                                                                                                                                                               |
 | audio                       | [audio](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/audio.md)                                                                                                                                                                                                         |
 | products-meta               | [products-meta](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/products-meta.md)                                                                                                                                                                                         |
-| Syllabificatie (diepte)     | [syllabificatie](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/syllabificatie.md)                                                                                                                                                                                       |
+| Syllabificatie (diepte)     | [syllabificatie](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/syllabificatie.md) (`auto` = per woord nl+ksl; `--lyrics-lang` forceert één taal; FM `taal`)                                                                                                              |
 
 Scherm-look (site): [schermpartituur](specs/schermpartituur.md) — linkt
 naar tooling voor S8/melisma; voegt geen tweede checklist toe.

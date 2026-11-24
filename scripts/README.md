@@ -44,12 +44,13 @@ de subcommando’s). Zie `scripts\cli_help.py`.
 | *(intern)* `sync_oefenhoek_index.py --svg` | Legacy SVG uit catalogus-`.vsa` → `static\vsa\bladermap\` (via check/build/serve/CI; geen stamp). Scherm gebruikt sibling `{stam}.vsa.svg` zodra die er is. |
 | `serve` | Hugo-preview op http://127.0.0.1:18732/ (niet 1313, niet 18731) |
 | `build` | Site in `generated\site` |
-| `check` | CI-spiegel / preflight (validate + publicatie-/importcontroles + bibliotheek-id + koormap-slotlinks + Coria + Hugo) |
+| `check` | CI-spiegel / preflight (validate + publicatie-/importcontroles + bibliotheek-id + koormap-slotlinks + gebreken + Coria + Hugo) |
 
 Intern: `_ensure.cmd` (`--hugo`, `--vsa-tool`), `_msg.cmd` + `cli_style.py`
 (console-rollen/kleur; zie bron `repo-scripts.md`), `fingerprint_coria_mxl.py`,
 `probe_coria_fetch.py` (Coria play_from_url via github.io; geen raw),
-`check_koormap_slot_links.py`, `sync_vsa_products.py`,
+`check_koormap_slot_links.py`, `gebreken.py`, `check_gebreken.py`,
+`sync_vsa_products.py`,
 `check_vsa_products.py`, `sync_mscz_products.py`,
 `check_mscz_products.py`, `sync_tekstblad_products.py`,
 `check_tekstblad_products.py`, `sync_import_mvsa.py`,

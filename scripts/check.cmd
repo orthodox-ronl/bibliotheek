@@ -177,6 +177,14 @@ if defined STRICT (
 )
 if errorlevel 1 exit /b 1
 
+REM Gebreken-markering: geen productie+gebreken; stempels op SVG/PDF.
+if defined STRICT (
+  python scripts\check_gebreken.py --fail
+) else (
+  python scripts\check_gebreken.py
+)
+if errorlevel 1 exit /b 1
+
 python scripts\fingerprint_coria_mxl.py
 if errorlevel 1 exit /b 1
 

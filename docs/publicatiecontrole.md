@@ -55,6 +55,14 @@ Rommel opruimen: [`scripts/cleanup-chained-products.cmd`](../scripts/cleanup-cha
 Geen nieuwe `.print.mscz`: handmatige MuseScore-bladen = `{stam}.mscz` +
 `manueel: true` op `index.md`.
 
+**Gebreken-markering** (bibliotheek-laag, geen tooling-kale-SVG-norm):
+frontmatter `gebreken` / `gebreken_toelichting` op leaf-`index.md`,
+variant- of zangstuk-`_index.md` (overerving naar leaves). Effect op
+schermbanner, SVG-stempel na `products`, watermark op `index.md.pdf` via
+`pdf.cmd`. Controle: `check_gebreken.py` in `check`. Leesbaar:
+[Status en check](../content-source/handleiding/publiceren/2-status-en-check.md);
+look: [schermpartituur.md](specs/schermpartituur.md) §1.
+
 ## Publicatiecontroles
 
 | Spoor                      | Bron                                                                                      | Sibling                                                                                                                                                                                                            | Status in deze repo                                                                                                                              |

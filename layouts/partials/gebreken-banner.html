@@ -1,0 +1,95 @@
+{{/*
+  Waarschuwing bij effectieve gebreken-markering.
+
+  Catalogus: overerving leaf → variant → zangstuk (dichtstbijzijnde
+  expliciete `gebreken` wint; `false` zet uit). Koormap: via bieb-doel
+  (zelfde overerving op die catalogus-leaf).
+*/}}
+{{- $bladermap := or (eq .Section "catalogus") (eq .Section "koormappen") -}}
+{{- if $bladermap -}}
+{{- $actief := false -}}
+{{- $toelichting := "" -}}
+{{- $resolved := false -}}
+
+{{- if eq .Section "catalogus" -}}
+  {{- $cursor := . -}}
+  {{- range seq 1 8 -}}
+    {{- if and $cursor (not $resolved) (eq $cursor.Section "catalogus") -}}
+      {{- if isset $cursor.Params "gebreken" -}}
+        {{- $resolved = true -}}
+        {{- if or (eq $cursor.Params.gebreken true) (eq $cursor.Params.gebreken "true") -}}
+          {{- $actief = true -}}
+        {{- end -}}
+      {{- end -}}
+      {{- $cursor = $cursor.Parent -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if $actief -}}
+    {{- $cursor := . -}}
+    {{- range seq 1 8 -}}
+      {{- if and $cursor (eq $toelichting "") (eq $cursor.Section "catalogus") -}}
+        {{- with $cursor.Params.gebreken_toelichting -}}
+          {{- $toelichting = . -}}
+        {{- end -}}
+        {{- $cursor = $cursor.Parent -}}
+      {{- else -}}
+        {{- $cursor = false -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if not $actief -}}
+  {{- range findRE `\bbieb\s+id="([^"]+)"` .RawContent -}}
+    {{- if not $actief -}}
+      {{- $m := . -}}
+      {{- $id := replaceRE `.*id="([^"]+)".*` `$1` $m -}}
+      {{- $idParts := split $id "@" -}}
+      {{- $id = index $idParts 0 -}}
+      {{- $id = partial "catalogus-canonical-id.html" $id -}}
+      {{- with site.GetPage (printf "/catalogus/%s" $id) -}}
+        {{- $leaf := . -}}
+        {{- $bResolved := false -}}
+        {{- $bActief := false -}}
+        {{- $cursor := $leaf -}}
+        {{- range seq 1 8 -}}
+          {{- if and $cursor (not $bResolved) (eq $cursor.Section "catalogus") -}}
+            {{- if isset $cursor.Params "gebreken" -}}
+              {{- $bResolved = true -}}
+              {{- if or (eq $cursor.Params.gebreken true) (eq $cursor.Params.gebreken "true") -}}
+                {{- $bActief = true -}}
+              {{- end -}}
+            {{- end -}}
+            {{- $cursor = $cursor.Parent -}}
+          {{- end -}}
+        {{- end -}}
+        {{- if $bActief -}}
+          {{- $actief = true -}}
+          {{- $cursor := $leaf -}}
+          {{- range seq 1 8 -}}
+            {{- if and $cursor (eq $toelichting "") (eq $cursor.Section "catalogus") -}}
+              {{- with $cursor.Params.gebreken_toelichting -}}
+                {{- $toelichting = . -}}
+              {{- end -}}
+              {{- $cursor = $cursor.Parent -}}
+            {{- else -}}
+              {{- $cursor = false -}}
+            {{- end -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if $actief -}}
+<aside class="gebreken-banner" role="alert">
+  <p class="gebreken-banner-title">Gebreken - niet als definitief gebruiken</p>
+  {{- with $toelichting -}}
+  <p class="gebreken-banner-toelichting">{{ . }}</p>
+  {{- end -}}
+  <p>Dit blad blijft beschikbaar om te oefenen of te printen, maar de inhoud
+    heeft ernstige gebreken. Gebruik het niet als definitieve kooruitgave.</p>
+</aside>
+{{- end -}}
+{{- end -}}

@@ -158,14 +158,20 @@ bijschaven).
 **Voorbeelden:** `"Nikolaas van Myra — tropaar toon 4"` ·
 `"Wij verheerlijken U, bisschop Gregorios"`
 
-### `taal` (string)
+### `taal` (string of lijst)
 
-Waarvoor: taal van de gezongen tekst in **dit** bestand (ook bij
+Waarvoor: taal van de gezongen lyrics in **dit** bestand (ook bij
 latere transliteratie: eigenschap van de VSA, niet van de partituurkop).
+De syllable-dictionary en `vsa`/`mvsa` validate gebruiken dit als
+declaratie; tijdelijk één taal overslaan doe je met CLI
+`--lyrics-lang`, niet hier. Norm:
+[syllabificatie](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/formats/syllabificatie.md).
 
-**Criterium:** korte code die de toolchain kent.
+**Criterium:** korte code(s) die de toolchain kent (`nl`, `ksl`). Eén
+string is de normale case. YAML-lijst alleen als er echt meerdere
+lyric-talen in hetzelfde bestand zitten.
 
-**Voorbeelden:** `nl` · `ksl`
+**Voorbeelden:** `nl` · `ksl` · `[nl, ksl]`
 
 ### `soort` (string) — verplicht op `.vsa`
 

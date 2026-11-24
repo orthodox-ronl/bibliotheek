@@ -277,6 +277,16 @@ def main(argv: list[str] | None = None) -> int:
             )
             return 1
 
+        # Gebreken-stempel op sibling-SVG’s (bibliotheek-laag ná kale export).
+        info(">>> nabewerking (gebreken-stempels)")
+        from gebreken import sync_gebreken_stempels_under
+
+        _touched, changed, seen = sync_gebreken_stempels_under(root)
+        detail(
+            f"gebreken-stempels: {changed} SVG gewijzigd "
+            f"({seen} bekeken onder root)"
+        )
+
     ok(f"OK  products klaar ({len(kinds)} kinds)")
     return 0
 
