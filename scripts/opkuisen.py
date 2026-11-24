@@ -18,6 +18,7 @@ if str(SCRIPT_DIR) not in sys.path:
 from apply_mscz_layout import main as layout_main  # noqa: E402
 from cleanup_capella_mxl import cleanup, cleanup_generic  # noqa: E402
 from mscz_content_cleanup import content_cleanup_mscx  # noqa: E402
+import lyric_word_check  # noqa: E402
 from opkuis_detect import (  # noqa: E402
     HOEK_CAPELLA,
     HOEK_MUSICXML_GENERIC,
@@ -208,6 +209,9 @@ def apply_content(path: Path, det: DetectResult, dest: Path) -> list[str]:
             )
         root, xml_name, extras = load_musicxml(path)
         if hoek == HOEK_CAPELLA:
+            lyric_word_check.require_known_words(
+                lyric_word_check.musicxml_items(root), source=path.name
+            )
             cleanup(root)
             notes.append("capella-musicxml (lagen 1-3)")
         else:
@@ -227,6 +231,9 @@ def apply_content(path: Path, det: DetectResult, dest: Path) -> list[str]:
                     f"print-.mscz hoort niet in content-opkuis: {path.name}\n"
                     r"Zie handleiding partituur/7-print-mscz."
                 )
+            lyric_word_check.require_known_words(
+                lyric_word_check.mscx_items(read_mscz(path)[0]), source=path.name
+            )
             if dest != path:
                 from cli_style import atomic_write_bytes
 
@@ -242,6 +249,9 @@ def apply_content(path: Path, det: DetectResult, dest: Path) -> list[str]:
             return notes
         if suf == ".mscx":
             text = read_mscx_file(path)
+            lyric_word_check.require_known_words(
+                lyric_word_check.mscx_items(text), source=path.name
+            )
             new_text, cnotes = content_cleanup_mscx(text)
             notes.extend(cnotes)
             write_mscx_file(dest if dest != path else path, new_text)
@@ -461,6 +471,15 @@ def build_parser() -> argparse.ArgumentParser:
         help="Ga door bij lage confidence (zonder --assume)",
     )
     p.add_argument(
+        "--allow-unknown-words",
+        action="store_true",
+        dest="allow_unknown_words",
+        help=(
+            "Kuis ook als woorden niet in de lettergreeplijst staan "
+            "(die woorden blijven ongewijzigd; standaard stopt het opkuisen)"
+        ),
+    )
+    p.add_argument(
         "--id",
         dest="bibliotheek_id",
         default=None,
@@ -481,6 +500,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if argv else 2
 
     args = build_parser().parse_args(argv)
+    lyric_word_check.ALLOW_UNKNOWN = bool(args.allow_unknown_words)
     from input_paths import InputPathError, resolve_user_path
 
     resolved: list[Path] = []
