@@ -9,6 +9,7 @@ import fix as fix_mod
 from check_fixlist import (
     FixItem,
     _rel_content_source,
+    fix_sort_key,
     collect_items,
     load_fixlist,
     save_fixlist,
@@ -454,3 +455,16 @@ def test_fix_verbose_writes_detail_log(tmp_path: Path, monkeypatch, capsys):
     text = log.read_text(encoding="utf-8")
     assert "=== products banner ===" in text
     assert "hoogte-mismatch" in text
+
+
+def test_fix_volgorde_pdf_na_producten() -> None:
+    """pdf moet ná de producten (anders is de pdf direct weer stale)."""
+    mk = lambda c: FixItem(id=f"{c}:x", checker=c, summary="s", fix_cmd="c")
+    items = [mk("pdf"), mk("audio"), mk("mvsa"), mk("vsa"), mk("mxl-contract")]
+    assert [i.checker for i in sorted(items, key=fix_sort_key)] == [
+        "vsa",
+        "mvsa",
+        "audio",
+        "mxl-contract",
+        "pdf",
+    ]
