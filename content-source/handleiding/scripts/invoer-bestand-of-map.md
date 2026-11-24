@@ -39,6 +39,7 @@ Dit geldt onder meer voor [layout](../layout/), [pdf](../pdf/),
 Bij [products](../products/) (en elk product-kind), [pdf](../pdf/),
 [layout](../layout/), [opkuisen](../opkuisen/),
 [cleanup-chained-products](../cleanup-chained-products/),
+[wis-producten](../wis-producten/),
 [ensure-bibliotheek-id](../ensure-bibliotheek-id/),
 [bieb accepteer](../bieb-accepteer/) en [validate](../validate/)
 zoekt het script een ontbrekend pad in deze volgorde:
