@@ -58,8 +58,8 @@ naar tooling voor S8/melisma; voegt geen tweede checklist toe.
 
 3. **Float vs pin**
    - Branch **`development`** (preview-CI): **float** op
-     `orthodox-ronl/VSA-tooling@main` — nieuwe tools op tooling-main worden
-     hier meteen meegenomen.
+     `orthodox-ronl/VSA-tooling@development` — nieuwe tools op tooling-development
+     worden hier meteen meegenomen (tooling-`main` volgt pas na akkoord).
    - Branch **`main`** (productie): **pin** via [`vsa-tooling.pin`](../vsa-tooling.pin)
      (commit-SHA of tag). Bump het pin-bestand bewust als productie een
      nieuwere tooling mag gebruiken.
@@ -76,7 +76,7 @@ Volgorde die `_ensure` volgt voor `vsa-tool`:
 2. Anders: `pip install vsa-tool[rendering] @ git+…@<ref>`
    - ref = inhoud van `vsa-tooling.pin` als `BIBLIOTHEEK_TOOLING_MODE=pin`
      of als je op productie-achtige flows zit
-   - ref = `main` bij float (default op development / lokale preview)
+   - ref = `development` bij float (default op development / lokale preview)
 
 Override: omgevingvariabele `VSA_TOOLING_REF` (wint van pin/float).
 
@@ -119,7 +119,7 @@ Workflow Pages bepaalt de ref:
 
 | Trigger-branch                      | Mode  | Ref                         |
 | ----------------------------------- | ----- | --------------------------- |
-| `development` (en feature-branches) | float | `main`                      |
+| `development` (en feature-branches) | float | `development`               |
 | `main`                              | pin   | regel uit `vsa-tooling.pin` |
 
 ## Pin bumpen

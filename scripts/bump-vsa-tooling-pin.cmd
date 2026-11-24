@@ -109,7 +109,7 @@ echo.
 echo   --dry-run   Toon oud/nieuw, schrijf het bestand niet.
 echo.
 echo   Commit en PR naar bibliotheek-main doe je zelf na een geslaagde bump.
-echo   Preview-branch development floatt al op tooling-main ^(geen pin nodig^).
+echo   Preview-branch development floatt al op tooling-development ^(geen pin nodig^).
 echo.
 echo Handleiding: content-source\handleiding\scripts\bump-vsa-tooling-pin.md
 echo Afspraken:   docs\tooling-koppeling.md
