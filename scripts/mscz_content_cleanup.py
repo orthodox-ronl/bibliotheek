@@ -4,7 +4,7 @@ from __future__ import annotations
 import re
 from fractions import Fraction
 
-from nl_hyphen import hyphenate_token, split_syllabic
+from vsa.syllabify import hyphenate_token_parts, split_syllabic
 
 MEASURE_RE = re.compile(r"<Measure\b.*?</Measure>", re.S)
 VOICE_RE = re.compile(r"<voice>.*?</voice>", re.S)
@@ -383,10 +383,10 @@ def _split_undersplit_lyrics(mscx: str) -> tuple[str, int]:
                         raw = _chord_lyric_plain(chord)
                         if not raw:
                             continue
-                        # Multi-woord recite-tekst niet via hyphenate_token uit elkaar trekken
+                        # Multi-woord recite-tekst niet via hyphenate_token_parts uit elkaar trekken
                         if " " in raw.strip():
                             continue
-                        parts = hyphenate_token(raw)
+                        parts = hyphenate_token_parts(raw)
                         if len(parts) <= 1:
                             continue
                         ops.append((i, parts, _chord_syllabic(chord)))

@@ -81,7 +81,7 @@ import zipfile
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
-from nl_hyphen import hyphenate_token, split_syllabic
+from vsa.syllabify import hyphenate_token_parts, split_syllabic
 from staff_clefs import ensure_two_staff_clefs_musicxml
 
 
@@ -379,7 +379,7 @@ def split_lyrics_keep_quarters(root: ET.Element) -> int:
                 syll_v = (syll.text or "single") if syll is not None else "single"
                 raw = (txt_el.text or "") if txt_el is not None else ""
                 raw = raw.replace("\xa0", " ").strip()
-                parts = hyphenate_token(raw)
+                parts = hyphenate_token_parts(raw)
                 if len(parts) <= 1:
                     if txt_el is not None:
                         txt_el.text = raw
