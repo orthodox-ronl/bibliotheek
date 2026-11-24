@@ -605,11 +605,9 @@ def _leaf_source_text(uv_id: str) -> str:
     leaf = CATALOGUS.joinpath(*uv_id.split("/"))
     if not leaf.is_dir():
         return ""
-    preferred = sorted(
-        p
-        for p in leaf.glob("*.mvsa")
-        if not p.name.lower().endswith(".mscz.mvsa")
-    )
+    from score_filenames import is_canonical_mvsa
+
+    preferred = sorted(p for p in leaf.glob("*.mvsa") if is_canonical_mvsa(p))
     if not preferred:
         preferred = sorted(leaf.glob("*.vsa"))
     if not preferred:
@@ -1132,7 +1130,7 @@ def find_mvsa(uv_id: str) -> Path:
 
 
 def try_find_notation_source(uv_id: str) -> Path | None:
-    """``.mvsa`` / ``.vsa`` / ``.mscz`` in de catalogusmap, of ``None``.
+    """``.mvsa`` (bron) / ``.vsa`` / ``.mscz`` in de catalogusmap, of ``None``.
 
     Ontbrekende map → ``FileNotFoundError``.
     ``uv_id`` mag ``…@sectie`` bevatten (sectie wordt genegeerd voor de map).
@@ -1141,10 +1139,20 @@ def try_find_notation_source(uv_id: str) -> Path | None:
     leaf = CATALOGUS.joinpath(*base.split("/"))
     if not leaf.is_dir():
         raise FileNotFoundError(f"catalogusmap ontbreekt: {leaf}")
+    from score_filenames import is_canonical_mvsa
+
+    # ``{stam}.vsa.mvsa`` is uit de .vsa afgeleid: de .vsa blijft de bron (en
+    # dus ``.vsa.svg`` in de pdf). Alleen bij een ``@sectie``-verwijzing telt
+    # die afgeleide schets mee, omdat secties alleen in MVSA bestaan.
+    sectie = _ref_sectie(uv_id)
     mvsas = sorted(
         p
         for p in leaf.glob("*.mvsa")
-        if not p.name.lower().endswith(".mscz.mvsa")
+        if is_canonical_mvsa(p)
+        or (
+            sectie
+            and p.name.lower().endswith(".vsa.mvsa")
+        )
     )
     if mvsas:
         return mvsas[0]

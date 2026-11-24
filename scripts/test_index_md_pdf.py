@@ -1063,3 +1063,30 @@ def test_main_accepts_yes_flag() -> None:
     with pytest.raises(SystemExit) as ei:
         pp.main(["--yes"])
     assert ei.value.code != 2
+
+
+def test_notatiebron_is_vsa_niet_afgeleide_vsa_mvsa(monkeypatch, tmp_path) -> None:
+    """``x.vsa.mvsa`` is afgeleid: de pdf gebruikt ``x.vsa`` (dus ``x.vsa.svg``)."""
+    import index_md_pdf as m
+
+    leaf = tmp_path / "kondak" / "x" / "hemelum"
+    leaf.mkdir(parents=True)
+    vsa = leaf / "kondak-x-hemelum.vsa"
+    vsa.write_text("v", encoding="utf-8")
+    (leaf / "kondak-x-hemelum.vsa.mvsa").write_text("m", encoding="utf-8")
+    monkeypatch.setattr(m, "CATALOGUS", tmp_path)
+
+    assert m.try_find_notation_source("kondak/x/hemelum") == vsa
+    assert m.product_svg_path(vsa).name == "kondak-x-hemelum.vsa.svg"
+
+    # Een echte (enkelvoudige) .mvsa-bron wint wel van de .vsa.
+    mvsa = leaf / "kondak-x-hemelum.mvsa"
+    mvsa.write_text("m", encoding="utf-8")
+    assert m.try_find_notation_source("kondak/x/hemelum") == mvsa
+    mvsa.unlink()
+
+    # Met @sectie telt de afgeleide schets mee (secties bestaan alleen in MVSA).
+    assert (
+        m.try_find_notation_source("kondak/x/hemelum@cyclus-1").name
+        == "kondak-x-hemelum.vsa.mvsa"
+    )

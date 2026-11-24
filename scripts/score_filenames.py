@@ -58,6 +58,19 @@ def is_derived_mscz(path: Path | str) -> bool:
     return base.endswith((".vsa", ".mvsa", ".mscz"))
 
 
+def is_canonical_mvsa(path: Path | str) -> bool:
+    """Canonieke ``.mvsa``-bron: enkele extensie (geen afgeleide of import).
+
+    ``{stam}.vsa.mvsa`` is uit een ``.vsa`` afgeleid (schets) en ``.mscz.mvsa``
+    is een import-bewerkvorm; geen van beide is de notatiebron van het blad.
+    """
+    name = path.name if isinstance(path, Path) else Path(path).name
+    lower = name.lower()
+    if not lower.endswith(".mvsa"):
+        return False
+    return not lower.endswith((".vsa.mvsa", ".mscz.mvsa"))
+
+
 def is_chained_product_name(name: str) -> bool:
     """True voor ketting-afgeleiden zoals ``{stam}.mvsa.mscz.mp3``."""
     return _CHAINED_PRODUCT.search(name) is not None
