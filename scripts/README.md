@@ -63,6 +63,21 @@ Intern: `_ensure.cmd` (`--hugo`, `--vsa-tool`), `_msg.cmd` + `cli_style.py`
 `lifecycle_grenzen.py`, `catalogus.py`, `product_meta.py`,
 `coria_mxl.py`.
 
+### Woordcontrole bij opkuisen
+
+`opkuisen` volgt dezelfde regel als `.vsa`/`.mvsa`: een woord dat niet in
+`data/syllable_dictionary.nl.txt` staat wordt nooit stilzwijgend aangepast.
+
+- **Heel woord in één token** dat niet in de lijst staat: het opkuisen stopt met een
+  rapport. Voeg het woord toe aan de lijst, of kuis door met `--allow-unknown-words`
+  (dat woord blijft dan ongewijzigd).
+- **Woord uit losse lettergrepen** (Capella/MuseScore, zonder betrouwbare streepjes):
+  het woord wordt herbouwd uit de begin/middle/end-markeringen en vergeleken met de lijst.
+  Afwijkingen worden alleen **gemeld** (niet blokkerend), omdat die markeringen in
+  de bronbestanden niet altijd kloppen. Jij beslist dan met de hand.
+- Bekende beperking: lettergrepen zonder streepje én zonder begin/middle/end-markering
+  kunnen niet tot een woord worden samengevoegd en worden dus niet gecontroleerd.
+
 **Geen forks van VSA-tooling.** Bibliotheek-specifieke wrappers mogen; die
 roepen `vsa` / `mvsa` aan. Zie tooling-koppeling (float op `development`,
 pin op `main` via `vsa-tooling.pin`).
