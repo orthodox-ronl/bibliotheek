@@ -91,7 +91,7 @@ inhoudelijke editslag.
 
 ### Lettergrepen en stemdekking (contract-fixes)
 
-- Multi-klinker tokens splitsen (`nl_hyphen.py`).
+- Woorden uit de lettergreeplijst splitsen (`vsa.syllabify.hyphenate_token_parts`); onbekende woorden blijven heel.
 - Waar nodig: extra noten invoegen of langere noten knippen zodat **elke
   partij minstens één noot per lettergreep** heeft (SATB homofoon).
 - Lege maat-balken (vaak een derde lege balk na Capella SAT+B-import)
