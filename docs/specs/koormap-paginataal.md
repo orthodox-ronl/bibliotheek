@@ -203,6 +203,20 @@ Een `@sectie` in de catalogusbron is adresseerbaar via het id:
 
 Zie VSA-tooling [keywords `@sectie`](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/specification-mvsa/keywords.md).
 
+#### `uitlijning` — muziek links, midden of rechts (alleen pdf)
+
+Op `bieb` (met `id`) of `muziek` mag `uitlijning="links"`, `"midden"` of
+`"rechts"` staan. Standaard is **midden**. Het effect zit in `scripts\pdf.cmd`:
+een SVG die na schaling smaller is dan de paginabreedte (bijvoorbeeld een kort
+tropaar) staat links, midden of rechts; een SVG over de volle breedte
+verandert niet. Een ongeldige waarde is een fout. Op een openend `bieb`-blok
+geldt de waarde voor alle `muziek` erin, tenzij `muziek` een eigen waarde heeft.
+De webweergave (Hugo) negeert de parameter voorlopig.
+
+```markdown
+{{< bieb id="kondak/johannes-de-barmhartige-toon-2/hemelum" uitlijning="links" />}}
+```
+
 #### `muziek` — latere parameters (gereserveerd)
 
 In een volgende fase mag `muziek` parameters krijgen om op **deze pagina**

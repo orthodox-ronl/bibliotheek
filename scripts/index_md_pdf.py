@@ -69,6 +69,8 @@ _SC = re.compile(
 )
 _ID = re.compile(r'\bid\s*=\s*"([^"]+)"', re.IGNORECASE)
 _VELD_PAD = re.compile(r'\bveld\s+"([^"]+)"', re.IGNORECASE)
+_UITLIJNING = re.compile(r'\buitlijning\s*=\s*"([^"]*)"', re.IGNORECASE)
+_UITLIJNINGEN = ("links", "midden", "rechts")
 _H1_HTML = re.compile(
     r"<h1\b[^>]*>(.*?)</h1>",
     re.IGNORECASE | re.DOTALL,
@@ -136,6 +138,7 @@ class TextItem:
 class MusicItem:
     uv_id: str
     compact: bool
+    align: str = "midden"  # links | midden | rechts (alleen bij smallere SVG)
 
 
 @dataclass
@@ -183,6 +186,19 @@ class PageFlow:
             isinstance(i, (MusicItem, InlineVsaItem)) and i.compact
             for i in self.items
         )
+
+
+def _parse_uitlijning(params: str) -> str | None:
+    """``uitlijning="links|midden|rechts"`` op ``bieb``/``muziek`` (of ``None``)."""
+    m = _UITLIJNING.search(params)
+    if not m:
+        return None
+    value = m.group(1).strip().lower()
+    if value not in _UITLIJNINGEN:
+        raise ValueError(
+            f'uitlijning="{m.group(1)}" onbekend; kies links, midden of rechts'
+        )
+    return value
 
 
 def _parse_onderdeel(params: str) -> str | None:
@@ -895,6 +911,7 @@ def parse_page_flows(text: str) -> list[PageFlow]:
     finished: list[PageFlow] = []
     current = PageFlow()
     stack: list[str] = []
+    align_stack: list[str | None] = []  # uitlijning van het openstaande bieb-blok
     bijelkaar = 0
     inline_vsa_n = 0
     # Alleen groot-koppen die nog vóór enige andere inhoud / bijelkaar staan.
@@ -948,9 +965,11 @@ def parse_page_flows(text: str) -> list[PageFlow]:
                     current.items.append(item)
         pos = end
 
-    def add_music(uv_id: str) -> None:
+    def add_music(uv_id: str, align: str | None = None) -> None:
         drain_pending()
-        current.items.append(MusicItem(uv_id, compact=bijelkaar > 0))
+        current.items.append(
+            MusicItem(uv_id, compact=bijelkaar > 0, align=align or "midden")
+        )
 
     def add_bieb_text(uv_id: str, onderdeel: str, *, veld_pad: str = "") -> None:
         value = resolve_bieb_onderdeel(uv_id, onderdeel, veld_pad=veld_pad)
@@ -973,6 +992,8 @@ def parse_page_flows(text: str) -> list[PageFlow]:
                     add_title(TitleItem(label, size=size, align=align))
             elif name == "bieb" and stack:
                 stack.pop()
+                if align_stack:
+                    align_stack.pop()
             elif name == "pdf-bijelkaar" and bijelkaar:
                 bijelkaar -= 1
             continue
@@ -1009,7 +1030,11 @@ def parse_page_flows(text: str) -> list[PageFlow]:
                 raise ValueError(
                     "shortcode muziek buiten een bieb-blok (geen id-context)"
                 )
-            add_music(stack[-1])
+            add_music(
+                stack[-1],
+                _parse_uitlijning(params)
+                or (align_stack[-1] if align_stack else None),
+            )
             continue
 
         if name != "bieb":
@@ -1022,6 +1047,7 @@ def parse_page_flows(text: str) -> list[PageFlow]:
 
         if not self_closing and uv_id and onderdeel is None:
             stack.append(uv_id)
+            align_stack.append(_parse_uitlijning(params))
             continue
 
         if not uv_id:
@@ -1034,7 +1060,11 @@ def parse_page_flows(text: str) -> list[PageFlow]:
         if onderdeel is None:
             onderdeel = "muziek"
         if onderdeel == "muziek":
-            add_music(uv_id)
+            add_music(
+                uv_id,
+                _parse_uitlijning(params)
+                or (align_stack[-1] if align_stack and not id_m else None),
+            )
         elif onderdeel in _TEXT_ONDERDELEN:
             add_bieb_text(
                 uv_id,
@@ -2583,15 +2613,18 @@ def _compose_flow_svg(
             cuts: list[float],
             *,
             use_cuts: bool,
+            align: str = "midden",
         ) -> None:
             """Plaats één SVG-strip; bij ``use_cuts`` pack op systeembrenzen."""
             nonlocal y
             draw_w = sw * scale
+            spare = max(0.0, content_w - draw_w)
+            x_off = 0.0 if align == "links" else spare if align == "rechts" else spare / 2
             if not use_cuts or len(cuts) <= 1:
                 draw_h = sh * scale
                 if y + draw_h > _A4_H - _MARGIN and y > _MARGIN + 1:
                     new_page()
-                x0 = _MARGIN + max(0.0, (content_w - draw_w) / 2)
+                x0 = _MARGIN + x_off
                 dest_rect = pymupdf.Rect(x0, y, x0 + draw_w, y + draw_h)
                 page.show_pdf_page(dest_rect, src, 0)
                 y += draw_h
@@ -2622,7 +2655,7 @@ def _compose_flow_svg(
                 band_h = (chosen - src_y) * scale
                 if band_h > 1e-6:
                     clip = pymupdf.Rect(0, src_y, sw, chosen)
-                    x0 = _MARGIN + max(0.0, (content_w - draw_w) / 2)
+                    x0 = _MARGIN + x_off
                     dest_rect = pymupdf.Rect(
                         x0, y, x0 + draw_w, y + band_h
                     )
@@ -2680,7 +2713,12 @@ def _compose_flow_svg(
                     zip(docs, dims, cut_lists)
                 ):
                     _place_music_strip(
-                        src, sw, sh, cuts, use_cuts=use_cuts
+                        src,
+                        sw,
+                        sh,
+                        cuts,
+                        use_cuts=use_cuts,
+                        align=getattr(item, "align", "midden"),
                     )
                     if page_i < len(docs) - 1:
                         y += gap

@@ -1090,3 +1090,77 @@ def test_notatiebron_is_vsa_niet_afgeleide_vsa_mvsa(monkeypatch, tmp_path) -> No
         m.try_find_notation_source("kondak/x/hemelum@cyclus-1").name
         == "kondak-x-hemelum.vsa.mvsa"
     )
+
+
+def test_parse_uitlijning_op_bieb_en_muziek(tmp_path, monkeypatch) -> None:
+    """``uitlijning="links|midden|rechts"`` op bieb/muziek; default midden."""
+    cat = tmp_path / "catalogus"
+    for uv in ("a/b/c", "a/b/d", "a/b/e"):
+        leaf = cat.joinpath(*uv.split("/"))
+        leaf.mkdir(parents=True)
+        (leaf / "x.mvsa").write_text("@do C4\nL: a |\nS: c |\n", encoding="utf-8")
+    monkeypatch.setattr(pp, "CATALOGUS", cat)
+    text = """---
+title: "Demo"
+---
+
+{{< bieb id="a/b/c" uitlijning="links" />}}
+
+{{< bieb id="a/b/d" />}}
+
+{{< bieb id="a/b/e" uitlijning="rechts" >}}
+{{< muziek >}}
+{{< muziek uitlijning="links" >}}
+{{< /bieb >}}
+"""
+    flows = pp.parse_page_flows(text)
+    music = [i for f in flows for i in f.items if isinstance(i, pp.MusicItem)]
+    assert [(m.uv_id, m.align) for m in music] == [
+        ("a/b/c", "links"),
+        ("a/b/d", "midden"),
+        ("a/b/e", "rechts"),  # blok-uitlijning geldt voor muziek zonder eigen waarde
+        ("a/b/e", "links"),  # eigen waarde wint
+    ]
+
+
+def test_parse_uitlijning_ongeldig_geeft_fout(tmp_path, monkeypatch) -> None:
+    cat = tmp_path / "catalogus"
+    leaf = cat / "a" / "b" / "c"
+    leaf.mkdir(parents=True)
+    (leaf / "x.mvsa").write_text("@do C4\nL: a |\nS: c |\n", encoding="utf-8")
+    monkeypatch.setattr(pp, "CATALOGUS", cat)
+    text = '{{< bieb id="a/b/c" uitlijning="diagonaal" />}}\n'
+    with pytest.raises(ValueError, match="uitlijning"):
+        pp.parse_page_flows(text)
+
+
+def test_muziek_uitlijning_in_pdf(tmp_path, monkeypatch) -> None:
+    """Een smalle SVG staat links/midden/rechts op de pagina."""
+    import pymupdf
+
+    svg = tmp_path / "lied.mvsa.svg"
+    svg.write_text(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="60" '
+        'viewBox="0 0 200 60"><text x="0" y="30" font-size="20" '
+        'font-family="DejaVu Sans">KLANK</text></svg>',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(pp, "find_notation_source", lambda _uv: tmp_path / "lied.mvsa")
+    monkeypatch.setattr(pp, "resolve_svgs_for_pdf", lambda *a, **k: [svg])
+
+    def x_of(align: str) -> float:
+        dest = tmp_path / f"{align}.pdf"
+        flow = pp.PageFlow(items=[pp.MusicItem("a/b/c", compact=False, align=align)])
+        pp._compose_flow_svg(flow, dest, work=tmp_path / f"w-{align}")
+        doc = pymupdf.open(dest)
+        try:
+            words = [w for w in doc[0].get_text("words") if "KLANK" in w[4]]
+        finally:
+            doc.close()
+        assert words, "tekst uit de SVG ontbreekt in de pdf"
+        return float(words[0][0])
+
+    links, midden, rechts = x_of("links"), x_of("midden"), x_of("rechts")
+    assert links < midden < rechts
+    assert abs(links - pp._MARGIN) < 3.0
+    assert rechts > pp._A4_W - pp._MARGIN - 200 - 3.0
