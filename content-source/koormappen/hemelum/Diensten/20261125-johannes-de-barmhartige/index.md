@@ -1,6 +1,6 @@
 ---
 title: "20261125 - H. Johannes de Barmhartige"
-weight: 10
+weight: 20261125
 publicatiestatus: reviewable
 automatische_inhoud: false
 ---
