@@ -203,6 +203,16 @@ Een `@sectie` in de catalogusbron is adresseerbaar via het id:
 
 Zie VSA-tooling [keywords `@sectie`](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/specification-mvsa/keywords.md).
 
+#### `weergave` — VSA of partituur
+
+Op `bieb` (met `id`) of `muziek` mag `weergave="vsa"` of
+`weergave="partituur"` staan. De waarde is de eerste keuze op deze pagina en
+gaat vóór `weergave:` in de blad-`index.md` van de uitvoeringsvorm. Op een
+openend `bieb`-blok geldt de waarde voor alle `muziek` erin, tenzij `muziek`
+een eigen waarde heeft. De waarde geldt nu alleen voor het scherm; `pdf.cmd`
+volgt haar nog niet. Zie
+[schermpartituur.md §2.1](schermpartituur.md#21-weergave-vsa-of-partituur).
+
 #### `uitlijning` — muziek links, midden of rechts
 
 Op `bieb` (met `id`) of `muziek` mag `uitlijning="links"`, `"midden"` of

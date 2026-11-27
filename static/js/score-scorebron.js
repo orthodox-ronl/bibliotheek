@@ -1,13 +1,12 @@
 /**
- * Scherm: Notatie (.vsa.svg) ↔ Partituur (.mvsa.svg / from-ir), via {}.
- * Alleen als beide aanwezig zijn op het blad. Keuze sitebreed in
- * localStorage (`bibliotheek-scorebron`). Default: notatie (VSA).
- * Contract: docs/specs/schermpartituur.md §2 (scorebron).
+ * Scherm: weergave VSA (.vsa.svg) of partituur (.mvsa.svg / .mscz.svg /
+ * from-ir), per muziekstuk, via de knop naast de muzieknoot. Alleen als
+ * beide aanwezig zijn. Eerste keuze: data-weergave op [data-scherm-root]
+ * (bieb/muziek > blad-index.md > vsa). De keuze van de lezer geldt voor dat
+ * ene stuk, zolang de pagina open is.
+ * Contract: docs/specs/schermpartituur.md §2.1.
  */
 (function () {
-  var STORAGE_KEY = "bibliotheek-scorebron";
-  var DEFAULT_BRON = "notatie";
-
   function bronFromSrc(src) {
     var n = String(src || "").toLowerCase();
     if (
@@ -25,27 +24,9 @@
       n.indexOf(".vsa.translit") >= 0 ||
       /\.vsa\.svg(\?|#|$)/.test(n)
     ) {
-      return "notatie";
+      return "vsa";
     }
     return "partituur";
-  }
-
-  function readBron() {
-    try {
-      var v = (localStorage.getItem(STORAGE_KEY) || "").trim().toLowerCase();
-      if (v === "notatie" || v === "partituur") return v;
-    } catch (e) {
-      /* private mode */
-    }
-    return DEFAULT_BRON;
-  }
-
-  function writeBron(bron) {
-    try {
-      localStorage.setItem(STORAGE_KEY, bron);
-    } catch (e) {
-      /* ignore */
-    }
   }
 
   function setHidden(el, hidden) {
@@ -55,17 +36,13 @@
   }
 
   function otherBron(bron) {
-    return bron === "notatie" ? "partituur" : "notatie";
-  }
-
-  function labelFor(bron) {
-    return bron === "notatie" ? "Notatie" : "Partituur";
+    return bron === "vsa" ? "partituur" : "vsa";
   }
 
   function tagRoot(root) {
     if (!root || root.getAttribute("data-scorebron-tagged")) return;
     root.setAttribute("data-scorebron-tagged", "1");
-    var hasNotatie = false;
+    var hasVsa = false;
     var hasPartituur = false;
     root.querySelectorAll(".vsa-container").forEach(function (box) {
       var src = "";
@@ -75,34 +52,62 @@
       if (!src) return;
       var bron = bronFromSrc(src);
       box.setAttribute("data-scorebron", bron);
-      if (bron === "notatie") hasNotatie = true;
+      if (bron === "vsa") hasVsa = true;
       if (bron === "partituur") hasPartituur = true;
     });
-    if (hasNotatie && hasPartituur) {
+    if (hasVsa && hasPartituur) {
       root.setAttribute("data-scorebron-dual", "");
     }
   }
 
-  function applyRoot(root, bron) {
+  function wanted(root) {
+    return (
+      root.__weergaveKeuze ||
+      (root.getAttribute("data-weergave") === "partituur" ? "partituur" : "vsa")
+    );
+  }
+
+  function buttonsFor(root) {
+    var bundle = root.closest(".score-bundle");
+    return bundle ? bundle.querySelector(".score-weergave") : null;
+  }
+
+  function applyRoot(root) {
     tagRoot(root);
+    var group = buttonsFor(root);
     if (!root.hasAttribute("data-scorebron-dual")) {
       root.removeAttribute("data-scorebron-active");
+      setHidden(group, true);
       return;
     }
-    var hasBron = false;
-    root.querySelectorAll(".vsa-container[data-scorebron]").forEach(function (box) {
-      if ((box.getAttribute("data-scorebron") || "") === bron) hasBron = true;
+    var bron = wanted(root);
+    root.setAttribute("data-scorebron-active", bron);
+    /* Per paneel (translit-stand, OSMG): ontbreekt daar de gekozen
+       weergave, dan blijft wat er wel is zichtbaar. */
+    root.querySelectorAll("[data-translit-view], [data-scherm='osmg']").forEach(function (panel) {
+      var boxes = panel.querySelectorAll(".vsa-container[data-scorebron]");
+      var has = false;
+      boxes.forEach(function (box) {
+        if (box.getAttribute("data-scorebron") === bron) has = true;
+      });
+      var show = has ? bron : otherBron(bron);
+      boxes.forEach(function (box) {
+        setHidden(box, box.getAttribute("data-scorebron") !== show);
+      });
     });
-    var effective = hasBron ? bron : otherBron(bron);
-    root.setAttribute("data-scorebron-active", effective);
-    root.querySelectorAll(".vsa-container[data-scorebron]").forEach(function (box) {
-      var b = box.getAttribute("data-scorebron") || "";
-      setHidden(box, b !== effective);
-    });
+    if (group) {
+      setHidden(group, false);
+      group.querySelectorAll("[data-weergave-kies]").forEach(function (btn) {
+        btn.setAttribute(
+          "aria-pressed",
+          btn.getAttribute("data-weergave-kies") === bron ? "true" : "false"
+        );
+      });
+    }
     try {
       document.dispatchEvent(
         new CustomEvent("vsa:scorebron", {
-          detail: { root: root, bron: effective },
+          detail: { root: root, bron: bron },
         })
       );
     } catch (e) {
@@ -110,58 +115,34 @@
     }
   }
 
-  function applyButtons(bron) {
-    var next = otherBron(bron);
-    document.querySelectorAll("[data-scorebron-switch]").forEach(function (btn) {
-      var root = btn.closest(".score-bundle");
-      var dual = root && root.querySelector("[data-scorebron-dual]");
-      setHidden(btn.closest(".score-action-menu") || btn, !dual);
-      btn.setAttribute("data-scorebron", next);
-      btn.textContent = labelFor(next);
-      btn.setAttribute(
-        "aria-label",
-        "Scherm wisselen naar " + labelFor(next)
-      );
-    });
-  }
-
-  function applyAll(bron) {
-    document.querySelectorAll("[data-scherm-root]").forEach(function (root) {
-      applyRoot(root, bron);
-    });
-    applyButtons(bron);
-    /* Na scorebron: schermstand opnieuw (OSMG alleen bij partituur). */
+  function applyAll() {
+    document.querySelectorAll("[data-scherm-root]").forEach(applyRoot);
+    /* Na de weergave: schermstand opnieuw (OSMG alleen bij partituur). */
     if (typeof window.__bibliotheekApplySchermstand === "function") {
       window.__bibliotheekApplySchermstand();
     }
   }
 
-  function applyStored() {
-    applyAll(readBron());
-  }
-
   function onClick(event) {
-    var btn = event.target.closest("[data-scorebron-switch]");
+    var btn = event.target.closest("[data-weergave-kies]");
     if (!btn) return;
     event.preventDefault();
-    var bron = (btn.getAttribute("data-scorebron") || "").toLowerCase();
-    if (bron !== "notatie" && bron !== "partituur") return;
-    writeBron(bron);
-    applyAll(bron);
-    var tip = btn.closest("details.score-bron-tip");
-    if (tip) tip.open = false;
+    var bundle = btn.closest(".score-bundle");
+    var root = bundle && bundle.querySelector("[data-scherm-root]");
+    if (!root) return;
+    root.__weergaveKeuze = btn.getAttribute("data-weergave-kies");
+    applyRoot(root);
+    if (typeof window.__bibliotheekApplySchermstand === "function") {
+      window.__bibliotheekApplySchermstand();
+    }
   }
 
   function init() {
     document.addEventListener("click", onClick);
-    window.addEventListener("storage", function (ev) {
-      if (ev.key !== STORAGE_KEY) return;
-      applyStored();
-    });
-    applyStored();
+    applyAll();
   }
 
-  window.__bibliotheekApplyScorebron = applyStored;
+  window.__bibliotheekApplyScorebron = applyAll;
   window.__bibliotheekScorebronFromSrc = bronFromSrc;
 
   if (document.readyState === "loading") {

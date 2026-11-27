@@ -2,7 +2,8 @@
   Actieknoppen + PDF/SVG van een bibliotheek-uitvoeringsvorm-pagina.
 
   Context: dict "score" (Page), optioneel "viewer" (pagina van de shortcode),
-  optioneel "position" (shortcode-Position), optioneel "sectie" (@sectie-id).
+  optioneel "position" (shortcode-Position), optioneel "sectie" (@sectie-id),
+  optioneel "weergave" (vsa|partituur van bieb/muziek).
 */ -}}
 {{- $p := .score -}}
 {{- $viewer := or .viewer $p -}}
@@ -62,7 +63,6 @@
   in het SVG-paneel; niet via OSMG. Keuze SVG|OSMG via {}-menu →
   localStorage. Print/blad: index.md.pdf (+ translit-PDF’s) in de nav.
 */ -}}
-<div class="score-partituur" data-scherm-root>
 {{- $pdf := "" -}}
 {{- $fromIrPlain := slice -}}
 {{- $musicSvgs := slice -}}
@@ -204,6 +204,36 @@
   {{- end -}}
 {{- end -}}
 {{- $alt := partial "display-title.html" $p -}}
+{{- /* Weergave (schermpartituur §2.1): bieb/muziek > blad-index.md > vsa.
+     De laatste bronextensie bepaalt de soort: .vsa.svg / .mvsa.vsa.svg = vsa;
+     .mvsa.svg / .vsa.mvsa.svg / .mscz.svg / from-ir = partituur. */ -}}
+{{- $heeftVsa := gt (len $staticSvgs) 0 -}}
+{{- $heeftPartituur := gt (len $fromIrPlain) 0 -}}
+{{- range $musicSvgs -}}
+  {{- $n := lower . -}}
+  {{- if and (strings.HasSuffix $n ".vsa.svg") (not (strings.Contains $n ".vsa.mvsa.")) -}}
+    {{- $heeftVsa = true -}}
+  {{- else -}}
+    {{- $heeftPartituur = true -}}
+  {{- end -}}
+{{- end -}}
+{{- $vanPlek := lower (strings.TrimSpace (printf "%s" (.weergave | default ""))) -}}
+{{- $vanBlad := lower (strings.TrimSpace (printf "%s" ($p.Params.weergave | default ""))) -}}
+{{- if and $vanBlad (not (in (slice "vsa" "partituur") $vanBlad)) -}}
+  {{- errorf "%s: frontmatter weergave=%q onbekend in %s. Oplossing: kies vsa of partituur." $loc $vanBlad $p.RelPermalink -}}
+{{- end -}}
+{{- $weergave := or $vanPlek $vanBlad "vsa" -}}
+{{- /* Alleen een uitdrukkelijke keuze is een fout als die weergave ontbreekt
+     terwijl de andere er wel is. Een @sectie is altijd partituur: daar telt
+     alleen wat bieb/muziek zelf vraagt. */ -}}
+{{- $uitdrukkelijk := $vanPlek -}}
+{{- if and (not $uitdrukkelijk) (not $sectie) -}}
+  {{- $uitdrukkelijk = $vanBlad -}}
+{{- end -}}
+{{- if or (and (eq $uitdrukkelijk "vsa") (not $heeftVsa) $heeftPartituur) (and (eq $uitdrukkelijk "partituur") (not $heeftPartituur) $heeftVsa) -}}
+  {{- errorf "%s: weergave %q gevraagd, maar %s heeft die niet. Oplossing: kies de andere weergave of maak het ontbrekende plaatje (scripts\\products.cmd)." $loc $uitdrukkelijk $p.RelPermalink -}}
+{{- end -}}
+<div class="score-partituur" data-scherm-root data-weergave="{{ $weergave }}">
 {{- $hasSvgView := or (gt (len $musicSvgs) 0) (gt (len $staticSvgs) 0) (gt (len $musicSvgsTranslitAny) 0) -}}
 {{- $hasOsmgView := gt (len $fromIrAny) 0 -}}
 {{- $hasTranslit := gt (len $musicSvgsTranslitAny) 0 -}}
