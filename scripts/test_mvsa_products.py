@@ -12,6 +12,12 @@ import product_meta as pm
 import sync_mvsa_products as sync
 
 
+def _fake_translit_svg(source, modus, sectie=None):
+    dest = source.with_name(f"{source.name}@{sectie}.translit-{modus}.svg")
+    dest.write_text('<svg xmlns="http://www.w3.org/2000/svg"/>\n', encoding="utf-8")
+    return dest
+
+
 class CollectTests(unittest.TestCase):
     def test_skips_import_sibling(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -282,6 +288,9 @@ class StampOkTests(unittest.TestCase):
                     sync, "_run_mvsa_score_ir_section", side_effect=fake_ir
                 ),
                 mock.patch.object(sync, "_run_mvsa_svg", side_effect=fake_svg),
+                mock.patch.object(
+                    sync, "export_one_translit_svg", side_effect=_fake_translit_svg
+                ),
             ):
                 n = sync.sync_referenced_sectie_products(
                     content / "catalogus", dry_run=False
@@ -351,6 +360,9 @@ class StampOkTests(unittest.TestCase):
                     sync, "_run_mvsa_score_ir_section", side_effect=fake_ir
                 ),
                 mock.patch.object(sync, "_run_mvsa_svg", side_effect=fake_svg),
+                mock.patch.object(
+                    sync, "export_one_translit_svg", side_effect=_fake_translit_svg
+                ),
             ):
                 sync.sync_referenced_sectie_products(
                     content / "catalogus", dry_run=False
