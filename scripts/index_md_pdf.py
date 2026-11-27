@@ -29,6 +29,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field, replace
 from functools import lru_cache
 from pathlib import Path
@@ -431,44 +432,88 @@ _SVG_ATTR_RE = re.compile(
 )
 
 
+_SVG_TRANSFORM_RE = re.compile(r"([a-zA-Z]+)\s*\(([^)]*)\)")
+_Matrix = tuple[float, float, float, float, float, float]
+_IDENTITY: _Matrix = (1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
+
+
+def _svg_matrix(transform: str) -> _Matrix:
+    """SVG-``transform`` (translate / scale / matrix) als (a b c d e f)."""
+    out = _IDENTITY
+    for name, args in _SVG_TRANSFORM_RE.findall(transform):
+        v = [float(x) for x in re.split(r"[\s,]+", args.strip()) if x]
+        if name == "translate":
+            step = (1.0, 0.0, 0.0, 1.0, v[0], v[1] if len(v) > 1 else 0.0)
+        elif name == "scale":
+            step = (v[0], 0.0, 0.0, v[1] if len(v) > 1 else v[0], 0.0, 0.0)
+        elif name == "matrix" and len(v) == 6:
+            step = (v[0], v[1], v[2], v[3], v[4], v[5])
+        else:
+            raise RuntimeError(f"SVG-transform niet ondersteund in blad-PDF: {name}")
+        out = _matrix_mul(out, step)
+    return out
+
+
+def _matrix_mul(m: _Matrix, n: _Matrix) -> _Matrix:
+    a, b, c, d, e, f = m
+    g, h, i, j, k, l = n
+    return (
+        a * g + c * h,
+        b * g + d * h,
+        a * i + c * j,
+        b * i + d * j,
+        a * k + c * l + e,
+        b * k + d * l + f,
+    )
+
+
+def _walk_svg(svg: str):
+    """(element, tag, matrix, vsa-regel) in documentvolgorde.
+
+    *matrix* telt alle ``transform``s van het element en zijn ouders mee,
+    net als de browser (schermpartituur.md §2.3).
+    """
+    root = ET.fromstring(svg.encode("utf-8"))
+    stack = [(root, _IDENTITY, None)]
+    while stack:
+        el, parent, line = stack.pop()
+        transform = el.get("transform")
+        matrix = _matrix_mul(parent, _svg_matrix(transform)) if transform else parent
+        if "vsa-line" in (el.get("class") or "").split():
+            line = el
+        yield el, el.tag.rsplit("}", 1)[-1], matrix, line
+        stack.extend((child, matrix, line) for child in reversed(list(el)))
+
+
 def _parse_svg_text_nodes(svg: str) -> list[dict[str, object]]:
-    """Haal ``<text>``-nodes uit een VSA/MuseScore-SVG (x/y/baseline)."""
+    """``<text>``-nodes uit een VSA/MuseScore-SVG, op hun uiteindelijke plaats."""
     nodes: list[dict[str, object]] = []
-    for match in _SVG_TEXT_RE.finditer(svg):
-        attrs = {
-            m.group(1): m.group(2) for m in _SVG_ATTR_RE.finditer(match.group(1))
-        }
-        if "x" not in attrs or "y" not in attrs:
+    if "<text" not in svg:
+        return nodes
+    for el, tag, (a, b, c, d, e, f), _line in _walk_svg(svg):
+        if tag != "text" or el.get("x") is None or el.get("y") is None:
             continue
-        family = attrs.get("font-family", "")
+        family = el.get("font-family", "")
         fontfile = _notation_font_file(family)
         if fontfile is None:
             continue
-        raw = match.group(2)
-        # Geen geneste tags in VSA-tekst; HTML-entities normaal zeldzaam.
-        text = (
-            raw.replace("&amp;", "&")
-            .replace("&lt;", "<")
-            .replace("&gt;", ">")
-            .replace("&quot;", '"')
-            .replace("&#39;", "'")
-        )
-        fill = attrs.get("fill", "black").strip().lower()
+        if abs(b) > 1e-9 or abs(c) > 1e-9:
+            raise RuntimeError("SVG-transform niet ondersteund in blad-PDF: schuine tekst")
+        x, y = float(el.get("x")), float(el.get("y"))
+        fill = el.get("fill", "black").strip().lower()
         color = (0.0, 0.0, 0.0)
         if fill in {"red", "#f00", "#ff0000"}:
             color = (1.0, 0.0, 0.0)
-        elif fill not in {"", "black", "#000", "#000000", "currentcolor"}:
-            # Onbekende kleur: toch zwart tekenen (beter leesbaar dan skip).
-            color = (0.0, 0.0, 0.0)
+        # Onbekende kleur: toch zwart tekenen (beter leesbaar dan skip).
         nodes.append(
             {
-                "x": float(attrs["x"]),
-                "y": float(attrs["y"]),
-                "size": float(attrs.get("font-size", "20")),
+                "x": a * x + e,
+                "y": d * y + f,
+                "size": float(el.get("font-size", "20")) * d,
                 "family": family,
                 "fontfile": fontfile,
-                "text": text,
-                "anchor": attrs.get("text-anchor", "start"),
+                "text": "".join(el.itertext()),
+                "anchor": el.get("text-anchor", "start"),
                 "color": color,
             }
         )
@@ -2409,23 +2454,6 @@ def _group_staves_by_brackets(
     return systems
 
 
-_VSA_LINE_OPEN = re.compile(
-    r'<g\b(?=[^>]*\bclass="[^"]*\bvsa-line\b)[^>]*>',
-    re.IGNORECASE,
-)
-_VSA_TRANSLATE_Y = re.compile(
-    r'transform="[^"]*translate\(\s*[-\d.]+[,\s]+([-\d.]+)\s*\)',
-    re.IGNORECASE,
-)
-_VSA_Y_ATTR = re.compile(r'\by[12]?="([-\d.]+)"', re.IGNORECASE)
-
-
-_VSA_TEXT_Y = re.compile(
-    r"<text\b[^>]*\by=\"([-\d.]+)\"",
-    re.IGNORECASE,
-)
-
-
 def _vsa_line_systems(svg_text: str) -> list[tuple[float, float]]:
     """Per VSA-regel (``vsa-line``) (top, bottom) in SVG-y.
 
@@ -2436,22 +2464,13 @@ def _vsa_line_systems(svg_text: str) -> list[tuple[float, float]]:
     overlappen vaak in y met de volgende regel; die meenemen gaf negatieve
     gaps en sneden midden door letters in ``index.md.translit-*.pdf``.
     """
-    opens = list(_VSA_LINE_OPEN.finditer(svg_text))
-    if not opens:
+    if "vsa-line" not in svg_text:
         return []
-    systems: list[tuple[float, float]] = []
-    for i, m in enumerate(opens):
-        end = opens[i + 1].start() if i + 1 < len(opens) else len(svg_text)
-        chunk = svg_text[m.start() : end]
-        ty = 0.0
-        tm = _VSA_TRANSLATE_Y.search(m.group(0))
-        if tm:
-            ty = float(tm.group(1))
-        ys = [float(y) + ty for y in _VSA_TEXT_Y.findall(chunk)]
-        if not ys:
-            continue
-        systems.append((min(ys), max(ys)))
-    return systems
+    lines: dict[object, list[float]] = {}
+    for el, tag, (_a, _b, _c, d, _e, f), line in _walk_svg(svg_text):
+        if line is not None and tag == "text" and el.get("y") is not None:
+            lines.setdefault(line, []).append(d * float(el.get("y")) + f)
+    return [(min(ys), max(ys)) for ys in lines.values()]
 
 
 def _score_systems(svg_text: str) -> list[tuple[float, float]]:

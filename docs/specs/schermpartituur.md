@@ -177,6 +177,23 @@ tekening tot stand komt — met één **tijdelijke** uitzondering: een paar
 cue-/centreer-regels zijn nu alleen bindend voor OSMD (§4.2–4.3), zolang
 scherm-SVG via MuseScore loopt.
 
+### 2.3 Blad-PDF: tekst en accenttekens op hun plaats
+
+In de blad-PDF staat elke lettergreep **op dezelfde plaats ten opzichte van de
+hoogte- en lengtetekens als op het scherm**: hoogtetekens vlak boven de tekst,
+lengtetekens eronder en nooit erdoorheen.
+
+- Wie tekst uit een SVG apart op de PDF-pagina zet (lettertype), telt alle
+  `transform`s van het element en zijn ouders mee. Dat geldt ook voor het
+  berekenen van snijpunten tussen regels. Een onbekende `transform` is een
+  fout, niet iets om over te slaan.
+- Muziekplaatjes worden gemaakt met `vsa-tool[rendering]` (Pillow); zonder
+  die meting kunnen lettergrepen over elkaar vallen.
+- **Verplichte controle** bij elke wijziging aan de SVG-naar-PDF-omzetting,
+  de SVG-opmaak of de VSA-tooling-pin: `scripts/test_vsa_pdf_uitlijning.py`
+  (draait ook in CI), plus één blad-PDF met `::: vsa` of een `.vsa.svg`
+  **bekijken**.
+
 ---
 
 ## 3. Titels en pagina-chrome (site)
@@ -362,6 +379,8 @@ Per geopende catalogus- of koormap-URL:
 5. Speelplan (§4.4): bij bron met `@speelplan` — zichtbare herhaal/volta/D.S./… (niet alleen in het MusicXML-bestand)? Steekproef minstens `alleluia/toon-1-kiev/groningen`.
 6. Kolom / fallback (§5–7): SVG/mscz/tekstblad zichtbaar in de kolom; geen extra site-titel door `muziek`?
 7. Download: nav-pagina-PDF; tip-icoon **♪** (en op catalogus **{}**) werken?
+
+8. Blad-PDF met streepjesnotatie (§2.3): tekens boven en onder de tekst, niet erdoorheen?
 
 Neem in een steekproef **korte én lange** stukken mee (en bij mvsa bij voorkeur
 ook een multi-`bieb`-pagina NL+KSL).
