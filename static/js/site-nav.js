@@ -168,6 +168,8 @@
     var vw = window.innerWidth;
     var vh = window.innerHeight;
     var maxW = Math.max(120, vw - MARGIN * 2);
+    var cssMax = parseFloat(cs.maxWidth);
+    var cappedMaxWidth = isFinite(cssMax) && cssMax > 0 ? Math.min(cssMax, maxW) : maxW;
 
     panel.classList.add("is-popover-placed");
     panel.style.position = "fixed";
@@ -175,8 +177,10 @@
     panel.style.bottom = "auto";
     panel.style.left = "0px";
     panel.style.top = "0px";
-    panel.style.maxWidth = maxW + "px";
-    var pw = Math.min(panel.offsetWidth || 0, maxW);
+    /* Respecteer de max-width uit de CSS (bv. 22rem): een popover is nooit breder
+       dan zijn inhoud en nooit breder dan het venster min de randen. */
+    panel.style.maxWidth = cappedMaxWidth + "px";
+    var pw = Math.min(panel.offsetWidth || 0, cappedMaxWidth);
     if (pw > 0) panel.style.width = Math.round(pw) + "px";
     var ph = panel.offsetHeight || 0;
     if (!(pw > 0) || !(ph > 0)) {
@@ -190,8 +194,39 @@
     var top;
     var beside = prefersBeside(panel);
     var end = prefersEndAlign(panel);
+    var sub = null;
 
-    if (beside) {
+    /* Submenu in het ♪-/{}-menu: naast het menu, niet eroverheen; zo blijven de
+       andere keuzes (Printen, ...) bereikbaar. Op smalle schermen doet CSS dit inline. */
+    if (
+      !beside &&
+      vw > 640 &&
+      panel.classList.contains("score-action-menu-panel") &&
+      panel.closest(".score-actions--in-tip")
+    ) {
+      var parentPanel = panel.closest(".score-oefen-tip-panel, .score-bron-tip-panel");
+      if (parentPanel) {
+        var pr = parentPanel.getBoundingClientRect();
+        var right = pr.right - GAP;
+        var leftSide = pr.left + GAP - pw;
+        var useRight = right + pw <= vw - MARGIN;
+        var useLeft = leftSide >= MARGIN;
+        if (useRight || useLeft) {
+          var bronMenu = !!panel.closest(".score-bron-tip-panel");
+          var goLeft = bronMenu ? useLeft : !useRight;
+          sub = {
+            left: goLeft ? leftSide : right,
+            top: a.top,
+          };
+        }
+      }
+    }
+
+    if (sub) {
+      left = sub.left;
+      top = Math.min(sub.top, vh - MARGIN - ph);
+      if (top < MARGIN) top = MARGIN;
+    } else if (beside) {
       /* ♪ rechts van knop, {} links — val terug naar onder bij te weinig ruimte. */
       var sideLeft = end ? a.left - GAP - pw : a.right + GAP;
       var sideOk =
@@ -208,7 +243,7 @@
       }
     }
 
-    if (!beside) {
+    if (!beside && !sub) {
       left = end ? a.right - pw : a.left;
       if (left + pw > vw - MARGIN) left = vw - MARGIN - pw;
       if (left < MARGIN) left = MARGIN;
