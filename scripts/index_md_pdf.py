@@ -2125,7 +2125,19 @@ def _export_product_svg_for_pdf(
     for path in paths:
         stamp_sibling_svg(source, path)
     refresh_svg_products_meta(source, paths)
+    _gebreken_stempel_na_export(source)
     return paths
+
+
+def _gebreken_stempel_na_export(source: Path) -> None:
+    """Gebreken-stempel meteen na een SVG-export, vóór de PDF.
+
+    Stempelt de nabewerking pas daarna, dan is de SVG nieuwer dan de PDF en
+    meldt de volgende controle die PDF weer als verouderd.
+    """
+    from gebreken import sync_leaf_svg_stempels
+
+    sync_leaf_svg_stempels(source.parent)
 
 
 def resolve_svgs_for_pdf(
@@ -2192,6 +2204,7 @@ def resolve_svgs_for_pdf(
             raise RuntimeError(f"translit-SVG ontbreekt na export: {tpath}")
         stamp_sibling_svg(source, tpath)
         refresh_svg_products_meta(source, [tpath])
+        _gebreken_stempel_na_export(source)
         return [tpath]
 
     sectie = _ref_sectie(uv_id) if uv_id else None

@@ -252,6 +252,15 @@
 {{- if $wisselbaar -}}
   {{- $viewer.Store.Add "weergaveWissel" (slice (substr $weergave 0 1)) -}}
 {{- end -}}
+{{- /* Welke translit-blad-PDF's horen bij deze pagina (pagina-acties). Zelfde
+     regel als scripts/pdf.cmd: een richting bestaat als een muziekstuk op de
+     pagina daarvoor een translit-SVG heeft. */ -}}
+{{- if $musicSvgsTranslitNls -}}
+  {{- $viewer.Store.Add "translitPdf" (slice "nls") -}}
+{{- end -}}
+{{- if $musicSvgsTranslitKsl -}}
+  {{- $viewer.Store.Add "translitPdf" (slice "ksl") -}}
+{{- end -}}
 <div class="score-partituur" data-scherm-root data-weergave="{{ $weergave }}"{{ if $wisselbaar }} data-wisselbaar{{ end }}>
 {{- $hasSvgView := or (gt (len $musicSvgs) 0) (gt (len $staticSvgs) 0) (gt (len $musicSvgsTranslitAny) 0) -}}
 {{- $hasOsmgView := gt (len $fromIrAny) 0 -}}
