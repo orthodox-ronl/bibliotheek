@@ -90,6 +90,11 @@ def coria_source_for_mxl(mxl: Path) -> Path | None:
     return None
 
 
+def is_pdf_fix_cmd(fix_cmd: str) -> bool:
+    text = (fix_cmd or "").replace("/", "\\").lower()
+    return r"scripts\pdf.cmd" in text
+
+
 def is_products_fix_cmd(fix_cmd: str) -> bool:
     text = (fix_cmd or "").replace("/", "\\").lower()
     return r"scripts\products.cmd" in text

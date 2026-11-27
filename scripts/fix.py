@@ -38,7 +38,7 @@ from cli_style import (
     set_verbose,
     work,
 )
-from fix_cmds import is_products_fix_cmd
+from fix_cmds import is_pdf_fix_cmd, is_products_fix_cmd
 from input_paths import rel_for_log
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -391,6 +391,28 @@ def _run_fix_cmd(
     return code, _extract_child_failure_reason(combined)
 
 
+def _sync_stempels(*, verbose: bool) -> int:
+    """Gebreken-stempels op de SVG's zetten/halen (ververst ook de meta-hash)."""
+    import gebreken as gebreken_mod
+
+    def _stempels(_args: list[str]) -> int:
+        _touched, changed, seen = gebreken_mod.sync_gebreken_stempels_under(
+            gebreken_mod.CATALOGUS_ROOT
+        )
+        detail(f"gebreken-stempels: {changed} SVG gewijzigd ({seen} bekeken)")
+        return 0
+
+    return run_quiet("gebreken-stempels", _stempels, [], verbose=verbose)
+
+
+def _stempels_voor_pdf_nodig(
+    fix_cmd: str, *, products_ok: int, stempels_gezet: bool
+) -> bool:
+    """Eerst stempelen, dan pdf: een pdf maken van een nog ongestempelde SVG
+    maakt de pdf stale zodra de nabewerking stempelt (tweede fix-run nodig)."""
+    return bool(products_ok) and not stempels_gezet and is_pdf_fix_cmd(fix_cmd)
+
+
 def _run_products_post(*, verbose: bool) -> int:
     """Zoekindex, gebreken-stempels + Coria-fingerprints, één keer na de fixes.
 
@@ -403,16 +425,7 @@ def _run_products_post(*, verbose: bool) -> int:
 
     if run_quiet("zoekindex", build_zoek_main, [], verbose=verbose):
         return 1
-    import gebreken as gebreken_mod
-
-    def _stempels(_args: list[str]) -> int:
-        _touched, changed, seen = gebreken_mod.sync_gebreken_stempels_under(
-            gebreken_mod.CATALOGUS_ROOT
-        )
-        detail(f"gebreken-stempels: {changed} SVG gewijzigd ({seen} bekeken)")
-        return 0
-
-    if run_quiet("gebreken-stempels", _stempels, [], verbose=verbose):
+    if _sync_stempels(verbose=verbose):
         return 1
     import fingerprint_coria_mxl as fp_mod
 
@@ -514,6 +527,7 @@ def main(argv: list[str] | None = None) -> int:
     failed = 0
     done_cmds: set[str] = set()
     products_ok = 0
+    stempels_gezet = False
     failures: list[tuple[FixItem, str]] = []
     log_path: Path | None = None
     if args.verbose:
@@ -529,6 +543,14 @@ def main(argv: list[str] | None = None) -> int:
             save_fixlist(remaining)
             detail(f">>> {item.summary} (zelfde fix_cmd al ok)")
             continue
+        if _stempels_voor_pdf_nodig(
+            item.fix_cmd, products_ok=products_ok, stempels_gezet=stempels_gezet
+        ):
+            if _sync_stempels(verbose=bool(args.verbose)):
+                failed += 1
+                failures.append((item, "gebreken-stempels mislukt"))
+                continue
+            stempels_gezet = True
         work(f">>> {item.summary}")
         t0 = time.perf_counter()
         code, reason = _run_fix_cmd(
