@@ -156,6 +156,13 @@ if errorlevel 1 (
   if not defined STRICT exit /b 1
 )
 
+REM Gebreken: SVG-stempel/PDF-watermark (afwerkbaar via fix) in de fixlist.
+python scripts\check_gebreken.py --write-status
+if errorlevel 1 (
+  set "PRODUCT_FAIL=1"
+  if not defined STRICT exit /b 1
+)
+
 python scripts\check_fixlist.py
 if errorlevel 1 exit /b 1
 
@@ -174,6 +181,14 @@ if defined STRICT (
   python scripts\check_catalogus_leaf_titles.py --fail
 ) else (
   python scripts\check_catalogus_leaf_titles.py
+)
+if errorlevel 1 exit /b 1
+
+REM Gebreken-markering: geen productie+gebreken; stempels op SVG/PDF.
+if defined STRICT (
+  python scripts\check_gebreken.py --fail
+) else (
+  python scripts\check_gebreken.py
 )
 if errorlevel 1 exit /b 1
 

@@ -1,10 +1,12 @@
 ---
+titel: Transfiguratie (Toon 7)
 taal: nl
 soort: kondak
 toon: 7
 template: kondak-toon-7-groningen
 bron:
   uitgangspunt: Liturgikon
+  bewerking: liturgikon
 gelegenheid:
 - naam: Verheerlijking op de berg Thabor
   datum: 6 aug
@@ -20,11 +22,11 @@ zoektekst: |-
 # === oorspronkelijke VSA (commentaar) ===
 # <!-- Kondak Verheerlijking op de berg Thabor, Toon 7 (Liturgikon, p.269) -->
 # [/:] Op de {/&\berg} {\werd} Gij {/ver}{/heer_}{lijkt_}, *
-# en vol verbazing mochten Uw Leerlingen Uw heerlijkheid aan{\schou_}{wen_}. *
-# Opdat zij, wan{/&\neer} {\zij} U gekruisigd zou{/den} {/zien}, *
-# Uw Lijden als vrijwillig zouden er{\ken_}{nen_}, *
-# en aan de {/&\we}{\reld} zouden {/ver}{/kon_}di{gen_}, *
-# dat Gij in waarheid zijt de {\Af_}{\glans} {\des} {/Va__}{\ders}. [\:]
+# en vol ver-ba-zing moch-ten Uw Leer-lin-gen Uw heer-lijk-heid aan{\schou_}{wen_}. *
+# Op-dat zij, wan{/&\neer} {\zij} U ge-krui-sigd zou{/den} {/zien}, *
+# Uw Lij-den als vrij-wil-lig zou-den er{\ken_}{nen_}, *
+# en aan de {/&\we}{\reld} zou-den {/ver}{/kon_}di{gen_}, *
+# dat Gij in waar-heid zijt de {\Af_}{\glans} {\des} {/Va__}{\ders}. [\:]
 
 # === afgeleide mvsa (VSA + template) ===
 # bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/kondak/transfiguratie-toon-7/liturgikon/kondak-transfiguratie-toon-7-liturgikon.vsa
@@ -42,18 +44,18 @@ zoektekst: |-
 #  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
 #  #                                                                        #  #
 #  ##########################################################################  #
-@title "kondak-transfiguratie-toon-7-liturgikon"
+@title "Transfiguratie (Toon 7)"
 @do F4
 @mode major
 @tempo 180
 @oct S=0 A=-1 T=-1 B=-1
 
 @sectie cyclus-1
-L: (Op de) berg~&~ (werd Gij) ver-heer_-lijkt_, |
-S: g       /&\     \          /   /     -       |a
-A: e       /&\     \          /   /     -       |f+
-T: c       -&-     \2         /2  -     -       |c
-B: c-      /3&\3   /          \   /3    -       |f
+L: (Op de) berg~&~  (werd Gij) ver-heer_-lijkt_, |
+S: g       /    &\  \          /   /     -       |a
+A: e       /    &\  \          /   /     -       |f+
+T: c       -    &-  \2         /2  -     -       |c
+B: c-      /3   &\3 /          \   /3    -       |f
 
 L: (en vol ver-ba-zing moch-ten Uw Leer-lin-gen Uw heer-lijk-heid aan)-schou_-wen_\. |
 S: a                                                                   \      -      |g
@@ -62,11 +64,11 @@ T: c                                                                   -      - 
 B: f                                                                   \3     -      |c-
 
 @sectie herhaling
-L: (Op-dat zij, wan)-neer~&~ (zij U gek-rui-sigd zou)-den zien, |
-S: g                 /&\     \                        /   /     |a
-A: e                 /&\     \                        /   /     |f+
-T: c                 -&-     \2                       /2  -     |c
-B: c-                /3&\3   /                        \   /3    |f
+L: (Op-dat zij, wan)-neer~&~  (zij U ge-krui-sigd zou)-den zien, |
+S: g                 /    &\  \                        /   /     |a
+A: e                 /    &\  \                        /   /     |f+
+T: c                 -    &-  \2                       /2  -     |c
+B: c-                /3   &\3 /                        \   /3    |f
 
 L: (Uw Lij-den als vrij-wil-lig zou-den er)-ken_-nen_, |
 S: a                                        \    -     |g
@@ -74,11 +76,11 @@ A: f+                                       \    -     |e
 T: c                                        -    -     |c
 B: f                                        \3   -     |c-
 
-L: (en aan de) we~&~ (reld zou-den) ver-kon_-di-gen_, |
-S: g           /&\   \              /   /    -  -     |a
-A: e           /&\   \              /   /    -  -     |f+
-T: c           -&-   \2             /2  -    -  -     |c
-B: c-          /3&\3 /              \   /3   -  -     |f
+L: (en aan de) we~&~  (-reld zou-den) ver-kon_-di-gen_, |
+S: g           /  &\  \               /   /    -  -     |a
+A: e           /  &\  \               /   /    -  -     |f+
+T: c           -  &-  \2              /2  -    -  -     |c
+B: c-          /3 &\3 /               \   /3   -  -     |f
 
 @sectie laatste
 L: (dat Gij in waar-heid zijt de) Af_-glans des Va__-ders\. |

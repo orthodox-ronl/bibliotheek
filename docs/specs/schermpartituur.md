@@ -47,6 +47,17 @@ Bladvorm op scherm: §4.4 hieronder.
 | **Scherm**            | Doorlopende partituur om mee te lezen/oefenen in de browser. Geen A4-bladkaders als primaire look. Translit-icoonknoppen wisselen sibling-SVG’s (vorm A); niet via OSMG.                                                                                                                                                                                                                                                                                             |
 | **Download (pagina)** | Nav **download-icoon** (pijl omlaag): `index.md.pdf` (translit uit), of `index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf` (één knop), of `index.md.translit-beide.pdf` (beide knoppen; hybride UV → uit `.translit.svg`, anders per UV de enkelvoudige sibling). Geen score-knoppen naar product-`.vsa.pdf` / `.mvsa.pdf`. Hosting: lokaal in de build als aanwezig, anders R2 `development/` (override) of `production/` — [pdf-r2.md](../plans/pdf-r2.md). |
 
+**Gebreken-markering (bibliotheek-laag):** als de *effectieve* markering
+aan staat (`gebreken: true` op leaf, variant-`_index` of
+zangstuk-`_index`, met overerving; dichtstbijzijnde expliciete waarde
+wint), toont het scherm een rode banner met de vaste tekst «Gebreken -
+niet als definitief gebruiken»; `index.md.pdf` (en translit-PDF’s)
+krijgen een watermark; sibling-SVG’s krijgen na `products` een
+stempelgroep (`id="bibliotheek-gebreken-stempel"`). Dat is **geen**
+wijziging van het VSA-tooling-contract voor kale muziek-SVG — alleen een
+consumer-nabewerking. Handleiding:
+[Status en check](../../content-source/handleiding/publiceren/2-status-en-check.md).
+
 Op het scherm forceert het onderdeel `muziek` **geen** paginatitel. Titels
 horen bij de Hugo-pagina (catalogus-H1) of bij koormap-`kop` / Markdown.
 
@@ -54,42 +65,67 @@ horen bij de Hugo-pagina (catalogus-H1) of bij koormap-`kop` / Markdown.
 
 ## 2. Welk plaatje op het scherm
 
-### 2.1 Scorebron: Notatie ↔ Partituur
+### 2.1 Weergave: VSA of partituur
 
-Als een blad **beide** schermproducten heeft — eenstemmige
-`{stam}.vsa.svg` **én** meerstemmige `{stam}.vsa.mvsa.svg` /
-`{stam}.mvsa.svg` / from-ir — toont **{}** de wisselknop **Notatie** /
-**Partituur** (catalogus **én** koormap). Keuze in `localStorage`
-(`bibliotheek-scorebron`), sitebreed; default **notatie** (VSA).
+Een uitvoeringsvorm kan twee schermplaatjes hebben. De laatste
+bronextensie in de bestandsnaam bepaalt de soort; welke uit welke is
+gemaakt doet er niet toe.
+
+| Weergave      | Op scherm                                                                        |
+| ------------- | -------------------------------------------------------------------------------- |
+| **vsa**       | `{stam}.vsa.svg` of `{stam}.mvsa.vsa.svg` (streepjesnotatie); altijd SVG         |
+| **partituur** | `{stam}.mvsa.svg` / `.vsa.mvsa.svg` / `.mscz.svg`; OSMG mag (from-ir)            |
+
+VSA staat voor Vereenvoudigde Slavische Accentnotatie.
+
+**Eerste keuze**, in deze volgorde:
+
+1. `weergave="…"` op `bieb` / `muziek` (koormap);
+2. frontmatter `weergave: …` in de blad-`index.md` van de uitvoeringsvorm;
+3. anders `vsa`.
+
+De waarde is `vsa` of `partituur`; iets anders is een bouwfout. Wie
+uitdrukkelijk een weergave vraagt die ontbreekt terwijl de andere er wel
+is, krijgt ook een bouwfout. Zonder uitdrukkelijke keuze toont de site wat
+er is.
+
+Zijn **beide** er, dan staat naast **♪** de knop **VSA | Partituur**
+(catalogus én koormap). De keuze van de lezer geldt voor dat ene
+muziekstuk, zolang de pagina open is; er wordt niets onthouden.
 Implementatie: `static/js/score-scorebron.js`.
 
-Op **koormap**: alleen die wissel. Op **catalogus**: daarnaast
-**Bronnen** (tekst van het echte `.vsa`- en `.mvsa`-/`.vsa.mvsa`-bestand)
-en eventueel SVG/OSMG.
+Translit-knoppen en ♪ (Coria / Beluisteren) blijven werken. Ontbreekt in
+een translit-stand de gekozen weergave, dan blijft de andere zichtbaar.
 
-| Scorebron             | Op scherm                                                       |
-| --------------------- | --------------------------------------------------------------- |
-| **Notatie** (default) | `.vsa.svg` (eenstemmig); geen OSMG (forceert SVG-stand)         |
-| **Partituur**         | `.mvsa.svg` / `.vsa.mvsa.svg` / `.mscz.svg`; OSMG mag (from-ir) |
+**Download volgt de keuze.** `pdf.cmd` maakt per combinatie van wisselbare
+stukken een kant-en-klare PDF; de pagina-download (nav-pijl) wijst naar de
+PDF die bij de knoppen past (niets daarvan wordt onthouden na herladen).
 
-Translit-knoppen en ♪ (Coria / Beluisteren) blijven werken: ze volgen de
-actieve siblings / producten van die bron (o.a. `.vsa.mp3` én
-`.vsa.mvsa.mp3` in het menu). Pagina-download (nav-pijl) blijft
-`index.md.pdf` / translit-blad-PDF’s — niet per scorebron.
+- De standaardkeuze van het blad blijft `index.md.pdf` (plus translit).
+- Elke andere keuze: `index.md.weergave-<letters>.pdf` (en
+  `….translit-<stand>.pdf`), met één letter `v` (VSA) of `p` (partituur) per
+  wisselbaar stuk in documentvolgorde.
+- Wisselbaar: `muziek` (geen `@sectie`) waarvan de catalogusmap zowel een
+  VSA- als een partituur-SVG heeft. `scripts/weergave.py` en
+  `bieb-score.html` volgen dezelfde regel.
+- **Grens: 4 wisselbare stukken per pagina** (16 combinaties). Daarboven
+  bouwt `pdf.cmd` alleen de standaard-PDF, volgt de download de keuze niet,
+  geeft Hugo een waarschuwing en meldt `check` een probleem. Wordt de grens
+  geraakt: eerst opnieuw overleggen, niet stilzwijgend verhogen.
 
 ### 2.2 Tekenketen: SVG ↔ OSMG
 
 Op **catalogus**-bladen: in **{}** ook **Bronnen** (brontekst) en de
 wisselknop **OSMG** / **SVG**. Op **koormap** alleen als er iets te
-wisselen valt (scorebron; geen Bronnen-lijst). Default tekenketen is
+wisselen valt (geen Bronnen-lijst). Default tekenketen is
 SVG. Keuze in `localStorage` (`bibliotheek-schermstand`), **sitebreed**
 ([`bieb-score.html`](../../layouts/partials/bieb-score.html) +
 `static/js/score-schermstand.js`).
 
 | Stand             | Bron op scherm                                                                                                                                                                                                             |
 | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **SVG** (default) | Sibling van de actieve scorebron: `{stam}.mvsa.svg` / `.vsa.mvsa.svg` / `.vsa.svg` / `.mscz.svg` (geen ketting `*.mvsa.mscz.svg`); anders legacy bladermap-SVG. Met actieve translit-knop: bijbehorende `.translit-*.svg`. |
-| **OSMG**          | Sibling `{stam}.….from-ir.musicxml` (alleen bij scorebron **partituur**) via OpenSheetMusicDisplay (`score-osmd.js`) — experimenteel; **geen** productiepad voor translit.                                                 |
+| **SVG** (default) | Sibling van de actieve weergave: `{stam}.mvsa.svg` / `.vsa.mvsa.svg` / `.vsa.svg` / `.mscz.svg` (geen ketting `*.mvsa.mscz.svg`); anders legacy bladermap-SVG. Met actieve translit-knop: bijbehorende `.translit-*.svg`. |
+| **OSMG**          | Sibling `{stam}.….from-ir.musicxml` (alleen bij weergave **partituur**) via OpenSheetMusicDisplay (`score-osmd.js`) — experimenteel; **geen** productiepad voor translit.                                                 |
 
 Geen automatische wissel tussen SVG en OSMG (ook niet bij S8-recite of bij
 translit-knoppen). Ontbreekt het product voor de gekozen SVG/OSMG-stand,
@@ -150,7 +186,7 @@ scherm-SVG via MuseScore loopt.
 | Catalogusblad           | Precies **één** zichtbare hoofdtitel (template-H1 uit afgeleide catalogustitel). Geen tweede dezelfde titel via `bieb titel` of een Markdown-`#` met dezelfde tekst.                                                                                                                                                                                                                                   |
 | Koormap-slot            | **Geen** template-H1. Bladtitel en rubrieken via `kop` (of afgesproken Markdown). Geen dubbele titel naast `bieb titel`.                                                                                                                                                                                                                                                                               |
 | In de partituurtekening | Geen titel/ondertitel/componist/lyricist/credits — alleen muziek (**OSMD én SVG**, besluit 1). Catalogus-PDF-op-scherm mag wel een titel in het PDF-blad hebben (nood-fallback = printlook).                                                                                                                                                                                                           |
-| Download/Print          | Nav **download-icoon** volgt translit-knoppen (`index.md.pdf` of `index.md.translit-*.pdf`). Per muziekblok: ♪-menu oefenen/beluisteren (beide scorebronnen als die er zijn); catalogus **{}** ook Bronnen + Notatie/Partituur + SVG/OSMG; koormap **{}** bij duale scorebron. **Oefenen** wisselt Coria-URL mee met translit (gewoon `.mxl` ↔ `…translit.mxl`). Geen score-Download naar product-PDF. |
+| Download/Print          | Nav **download-icoon** volgt translit-knoppen (`index.md.pdf` of `index.md.translit-*.pdf`). Per muziekblok: ♪-menu oefenen/beluisteren (beide weergaven als die er zijn); knop VSA/Partituur bij twee weergaven; catalogus **{}** ook Bronnen + SVG/OSMG. **Oefenen** wisselt Coria-URL mee met translit (gewoon `.mxl` ↔ `…translit.mxl`). Geen score-Download naar product-PDF. |
 
 ---
 

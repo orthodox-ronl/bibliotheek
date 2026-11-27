@@ -40,7 +40,11 @@ Direct daarna zet `products` die stempels wél (zelfde regels als
 `--kinds lyrics` / `--kinds audio`) en werkt de hashes in de meta bij.
 Bij vsa/mscz worden gewijzigde product-hashes gemerged zonder andere
 meta-keys te wissen. Daarna vernieuwt het de zoekindex en
-Coria-fingerprints.
+Coria-fingerprints. Zelfde nabewerking (niet bij `--dry-run` /
+`--skip-post`): gebreken-stempels op sibling-SVG’s onder de root,
+volgens effectieve frontmatter `gebreken` op leaf, variant- of
+zangstuk-`_index` (overerving; zie
+[Status en check](../../publiceren/2-status-en-check/)).
 
 **Logging:** standaard beknopt (tellingen vooraan, kleurenrollen uit
 [repo-scripts](https://github.com/orthodox-ronl/bron/blob/main/docs/specs/repo-scripts.md)).

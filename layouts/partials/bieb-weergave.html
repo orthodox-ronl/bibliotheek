@@ -1,0 +1,34 @@
+{{- /*
+  Gevraagde weergave van een uitvoeringsvorm op deze plek: vsa of partituur.
+
+  Eigen param weergave="…" op bieb/muziek, anders die van het dichtstbijzijnde
+  ouder-bieb-blok, anders leeg (dan beslist de blad-index.md van de
+  uitvoeringsvorm; zie bieb-score).
+  In: shortcode context (.).  Uit: vsa|partituur|"".
+*/ -}}
+{{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}
+{{- $val := "" -}}
+{{- with .Get "weergave" -}}
+  {{- $val = lower (strings.TrimSpace .) -}}
+{{- end -}}
+{{- if not $val -}}
+  {{- $cur := .Parent -}}
+  {{- range seq 1 12 -}}
+    {{- if not $cur -}}
+      {{- break -}}
+    {{- end -}}
+    {{- if eq $cur.Name "bieb" -}}
+      {{- with $cur.Get "weergave" -}}
+        {{- $val = lower (strings.TrimSpace .) -}}
+      {{- end -}}
+      {{- if $val -}}
+        {{- break -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $cur = $cur.Parent -}}
+  {{- end -}}
+{{- end -}}
+{{- if and $val (not (in (slice "vsa" "partituur") $val)) -}}
+  {{- errorf "%s: weergave=%q onbekend. Oplossing: kies vsa of partituur." $loc $val -}}
+{{- end -}}
+{{- return $val -}}

@@ -18,6 +18,10 @@ Status: **lokaal bewaren; git negeert blad-PDF’s; `production/` = main;
 5. **Na merge naar main:** `r2-pdf-promote` kopieert `development/` →
    `production/`, wist `development/`, leegt het manifest.
 
+Naast `index.md.pdf` en `index.md.translit-*.pdf` horen ook
+`index.md.weergave-*.pdf` (keuze VSA / partituur,
+[schermpartituur.md §2.1](../specs/schermpartituur.md)) bij de blad-PDF’s.
+
 ## Commando’s
 
 | Commando | Rol |

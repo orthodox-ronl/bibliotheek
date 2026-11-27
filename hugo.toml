@@ -14,6 +14,33 @@ ignoreFiles = [
   '(?i)\\.tekstblad\\.md$',
 ]
 
+# Woordenlijsten (.txt) in data/ zijn voor de tooling, niet voor Hugo: Hugo leest
+# data/ als gegevens en kan .txt niet inlezen. De standaard-mounts staan hier
+# daarom expliciet, met alleen data/ ontdaan van .txt.
+[module]
+  [[module.mounts]]
+    source = "content-source"
+    target = "content"
+  [[module.mounts]]
+    source = "data"
+    target = "data"
+    files = ["! **.txt"]
+  [[module.mounts]]
+    source = "layouts"
+    target = "layouts"
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+  [[module.mounts]]
+    source = "i18n"
+    target = "i18n"
+  [[module.mounts]]
+    source = "archetypes"
+    target = "archetypes"
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+
 [params]
   linksBron = "https://orthodox-ronl.github.io/bron/"
   linksVsaTooling = "https://orthodox-ronl.github.io/VSA-tooling/"

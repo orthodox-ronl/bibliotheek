@@ -920,7 +920,7 @@ niet slechts de zwakheden van het lichaam, * maar ook de diepe wonden der ziel. 
 
 ## 16 nov. Apostel Mattheos, de Evangelist
 
-**TROPARION t.3** – Toen Christus, de Meester, riep uit het tollenaarschap, * hebt gij de in geen twijfel Gekomene vol ijver gevolgd. * Met luide stem hebt gij aan allen het Evangelie verkondigd, * uitverkoren Apostel, God-sprekende Mattheos, * bid tot de barmhartige God om vergeving voor onze zielen.
+**TROPARION t.3** – Toen Christus, de Meester, U riep uit het tollenaarschap, * hebt gij de in geen twijfel Gekomene vol ijver gevolgd. * Met luide stem hebt gij aan allen het Evangelie verkondigd, * uitverkoren Apostel, God-sprekende Mattheos, * bid tot de barmhartige God om vergeving voor onze zielen.
 
 **KONDAKION t.4** – Het tollenaarsjuk hebt gij afgeworpen voor het juk der Gerechtigheid, * om de ware rijkdom te verzamelen der hemelse Wijsheid. * Daarom hebt gij ook ons het Woord der Waarheid geleerd, * en ons opgeschrikt uit de zorgeloosheid * door uw bericht over het Uur van het Oordeel.
 

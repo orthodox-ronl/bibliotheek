@@ -10,6 +10,7 @@ partituur:
   arranger: Groningen
 bron:
   uitgangspunt: Koormap Groningen
+  bewerking: groningen
 gelegenheid:
 - naam: Zondag
   type: zondag
@@ -23,12 +24,12 @@ zoektekst: |-
 ---
 
 # === oorspronkelijke VSA (commentaar) ===
-# [\\:] Dat {//he}melse en {\aard}{/se} {/&/we}{zens_} *
-# jubelen en zich ver{\&\&\blij_&~&~}{\den_}, *
+# [\\:] Dat {//he}mel-se en {\aard}{/se} {/&/we}{zens_} *
+# ju-be-len en zich ver{\&\&\blij_&~&~}{\den_}, *
 # want {/de} {/Heer} heeft de kracht van Zijn {\arm} {/ge}{/&/o}pen{baard_}. *
-# Uit de doden was Hij de eerstge{/bo_}re{\ne_}, *
+# Uit de do-den was Hij de eerst-ge{/bo_}re{\ne_}, *
 # uit de schoot van de {-&\ha}{/des} {/heeft} {/Hij_} {\ons} ver{\lost_} * //
-# en aan de wereld grote ge{na_}{\de} {\ge}{/&/&/&\&\&\&/schon.&.&.&.&.&.&~}{\ken__}. [:]
+# en aan de we-reld gro-te ge{na_}{\de} {\ge}{/&/&/&\&\&\&/schon.&.&.&.&.&.&~}{\ken__}. [:]
 # <!-- Bron: koormap Groningen -->
 
 # === afgeleide mvsa (VSA + template) ===
@@ -53,23 +54,23 @@ zoektekst: |-
 @tempo 180
 @oct S=0 A=0 T=-1 B=-1
 
-L: (Dat) he-mel-se en aard-se we~&~-zens_ |
-S: d-    /2 -   -  -  \    /  /&/   -     |a
-A: d-    -  -   -  -  -    -  /&/   -     |f
-T: f+    /2 -   -  -  \    /  \5&-  -     |c
-B: d     -  -   -  -  -    -  \&\4  -     |f
+L: (Dat) he-mel-se en aard-se we~&~ -zens_ |
+S: d-    /2 -   -  -  \    /  /  &/  -     |a
+A: d-    -  -   -  -  -    -  /  &/  -     |f
+T: f+    /2 -   -  -  \    /  \5 &-  -     |c
+B: d     -  -   -  -  -    -  \  &\4 -     |f
 
-L: (ju-be-len en zich ver)-blij_&~&~-den_, |
-S: a                       \&\&\     \     |d-
-A: f                       \&\&-     -     |d-
-T: c                       -&/5&\    \     |f+
-B: f                       /4&/&-    -     |d
+L: (ju-be-len en zich ver)-blij_&~ &~-den_, |
+S: a                       \    &\ &\ \     |d-
+A: f                       \    &\ &- -     |d-
+T: c                       -    &/5&\ \     |f+
+B: f                       /4   &/ &- -     |d
 
-L: (want) de Heer heeft de kracht van Zijn arm ge-o~&~-pen-baard_\. |
-S: d-     /  /    -     -  -      -   -    \   /  /&/  -   -        |a
-A: d-     -  -    -     -  -      -   -    -   -  /&/  -   -        |f
-T: f+     /  /    -     -  -      -   -    \   /  \5&- -   -        |c
-B: d      -  -    -     -  -      -   -    -   -  \&\4 -   -        |f
+L: (want) de Heer heeft de kracht van Zijn arm ge-o~&~ -pen-baard_\. |
+S: d-     /  /    -     -  -      -   -    \   /  / &/  -   -        |a
+A: d-     -  -    -     -  -      -   -    -   -  / &/  -   -        |f
+T: f+     /  /    -     -  -      -   -    \   /  \5&-  -   -        |c
+B: d      -  -    -     -  -      -   -    -   -  \ &\4 -   -        |f
 
 L: (Uit de do-den was Hij de eerst-ge)-bo_-re-ne_, |
 S: a                                   /   -  \    |a
@@ -77,14 +78,14 @@ A: f                                   /   -  \    |f
 T: c                                   /   -  \    |c
 B: f                                   /   -  \    |f
 
-L: (uit de schoot van de) ha~&~-des heeft Hij_ ons ver-lost_ |
-S: a                      -&\   /   /     /    \   -   \     |a
-A: f                      -&\   /   /     /    \   -   \     |f
-T: c                      -&-   -   /     /    \   -   \     |c
-B: f                      -&/4  \4  /     /    \   -   \     |f
+L: (uit de schoot van de) ha~&~ -des heeft Hij_ ons ver-lost_ |
+S: a                      -  &\  /   /     /    \   -   \     |a
+A: f                      -  &\  /   /     /    \   -   \     |f
+T: c                      -  &-  -   /     /    \   -   \     |c
+B: f                      -  &/4 \4  /     /    \   -   \     |f
 
-L: (en aan de we-reld gro-te ge)-na_-de ge-schon~&~&~&~&~&~&~-ken__\. |
-S: a                             -   \  \  /&/&/&\&\&\&/      \       |f
-A: f                             -   \  \  /&/&/&\&\&\&/      \       |d-
-T: c                             -   -  /5 \5&-&/&\&-&/5&\5   /5      |a+
-B: f                             -   /4 /  \&\4&/&\&/4&/&\    /       |d
+L: (en aan de we-reld gro-te ge)-na_-de ge-schon~&~ &~&~&~ &~ &~ -ken__\. |
+S: a                             -   \  \  /     &/ &/&\&\ &\ &/  \       |f
+A: f                             -   \  \  /     &/ &/&\&\ &\ &/  \       |d-
+T: c                             -   -  /5 \5    &- &/&\&- &/5&\5 /5      |a+
+B: f                             -   /4 /  \     &\4&/&\&/4&/ &\  /       |d

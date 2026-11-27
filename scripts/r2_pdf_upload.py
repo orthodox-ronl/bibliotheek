@@ -34,6 +34,8 @@ PDF_NAMES = (
     "index.md.translit-ksl.pdf",
     "index.md.translit-beide.pdf",
 )
+# Andere weergave-keuzes (incl. translit): index.md.weergave-vp[.translit-nls].pdf
+PDF_VARIANT_GLOB = "index.md.weergave-*.pdf"
 
 _R2_ENV_KEYS = (
     "R2_ACCOUNT_ID",
@@ -55,12 +57,12 @@ def _iter_pdfs(paths: list[Path]) -> list[Path]:
     for p in paths:
         p = p.resolve()
         if p.is_file():
-            if p.name in PDF_NAMES:
+            if p.name in PDF_NAMES or p.match(PDF_VARIANT_GLOB):
                 found.append(p)
             continue
         if not p.is_dir():
             _die(f"Geen bestand of map: {p}")
-        for name in PDF_NAMES:
+        for name in (*PDF_NAMES, PDF_VARIANT_GLOB):
             found.extend(p.rglob(name))
     return sorted({f.resolve() for f in found})
 

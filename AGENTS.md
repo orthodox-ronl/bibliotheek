@@ -121,6 +121,9 @@ scripts\_ensure.cmd --hugo --vsa-tool
 - Partituren alleen onder `content-source/catalogus/…`
 - Koormap-slots: markdown + `{{</* bieb id="zangstuk/variant/uitvoeringsvorm" */>}}`
 - `publicatiestatus` + `automatische_inhoud` op bladermap-pagina’s
+- Optioneel `gebreken` / `gebreken_toelichting` op catalogus-leaf of
+  variant-/zangstuk-`_index` (overerving naar leaves; stempel op
+  scherm/SVG/`index.md.pdf`) — handleiding *Status en check*
 - Ruwe dumps in `content-source/input/` (gitignore `_inbox/` / `_werk/`)
 - Taal: geen suffix op uitvoeringsvorm-id = Nederlands; andere talen
  als suffix (`-ksl`, …) — zie handleiding

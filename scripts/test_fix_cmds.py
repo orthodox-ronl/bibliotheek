@@ -56,3 +56,21 @@ def test_is_products_fix_cmd():
         r"scripts\products.cmd --kinds mvsa --skip-post x.mvsa"
     )
     assert not is_products_fix_cmd(r"scripts\pdf.cmd catalogus\a\index.md")
+
+
+def test_is_pdf_fix_cmd():
+    from fix_cmds import is_pdf_fix_cmd
+
+    assert is_pdf_fix_cmd(r"scripts\pdf.cmd catalogus\x --force")
+    assert not is_pdf_fix_cmd(r"scripts\products.cmd --kinds vsa x")
+
+
+def test_stempels_voor_pdf_nodig():
+    import fix
+
+    pdf = r"scripts\pdf.cmd catalogus\x --force"
+    prod = r"scripts\products.cmd --kinds vsa x"
+    assert fix._stempels_voor_pdf_nodig(pdf, products_ok=2, stempels_gezet=False)
+    assert not fix._stempels_voor_pdf_nodig(pdf, products_ok=0, stempels_gezet=False)
+    assert not fix._stempels_voor_pdf_nodig(pdf, products_ok=2, stempels_gezet=True)
+    assert not fix._stempels_voor_pdf_nodig(prod, products_ok=2, stempels_gezet=False)

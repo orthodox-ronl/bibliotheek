@@ -3,7 +3,7 @@
   "version": "0.1",
   "profile": "partituur",
   "meta": {
-    "title": "kondak-ontslapen-moeder-gods-toon-2-liturgikon",
+    "title": "Ontslapen moeder gods (Toon 2)",
     "bibliotheekId": "content-source/catalogus/kondak",
     "tempo": "180"
   },
@@ -43,7 +43,7 @@
           "syllables": [
             {
               "text": "Moe",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -57,7 +57,7 @@
           "syllables": [
             {
               "text": "der",
-              "syllabic": "end"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -98,7 +98,7 @@
           "syllables": [
             {
               "text": "on",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -112,7 +112,7 @@
           "syllables": [
             {
               "text": "ver",
-              "syllabic": "middle"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -125,27 +125,13 @@
         {
           "syllables": [
             {
-              "text": "moe",
-              "syllabic": "middle"
+              "text": "moei",
+              "syllabic": "single"
             }
           ],
           "layers": {
             "1": [
-              "moe"
-            ]
-          },
-          "recite": true
-        },
-        {
-          "syllables": [
-            {
-              "text": "i",
-              "syllabic": "middle"
-            }
-          ],
-          "layers": {
-            "1": [
-              "i"
+              "moei"
             ]
           },
           "recite": true
@@ -154,7 +140,7 @@
           "syllables": [
             {
               "text": "baar",
-              "syllabic": "end"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -356,21 +342,6 @@
               "elm": "~"
             },
             "lyricIndex": 9,
-            "recite": true,
-            "print": {
-              "spacer": true,
-              "stemless": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "A",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "~"
-            },
-            "lyricIndex": 10,
             "recite": true
           },
           {
@@ -382,7 +353,7 @@
             "duration": {
               "elm": "~"
             },
-            "lyricIndex": 11
+            "lyricIndex": 10
           },
           {
             "pitch": {
@@ -392,7 +363,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 12
+            "lyricIndex": 11
           },
           {
             "pitch": {
@@ -403,7 +374,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 13
+            "lyricIndex": 12
           },
           {
             "pitch": {
@@ -413,7 +384,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 14
+            "lyricIndex": 13
           }
         ],
         "A": [
@@ -540,21 +511,6 @@
               "elm": "~"
             },
             "lyricIndex": 9,
-            "recite": true,
-            "print": {
-              "spacer": true,
-              "stemless": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "F",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "~"
-            },
-            "lyricIndex": 10,
             "recite": true
           },
           {
@@ -564,6 +520,16 @@
             },
             "duration": {
               "elm": "~"
+            },
+            "lyricIndex": 10
+          },
+          {
+            "pitch": {
+              "step": "F",
+              "octave": 4
+            },
+            "duration": {
+              "elm": "_"
             },
             "lyricIndex": 11
           },
@@ -586,16 +552,6 @@
               "elm": "_"
             },
             "lyricIndex": 13
-          },
-          {
-            "pitch": {
-              "step": "F",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "_"
-            },
-            "lyricIndex": 14
           }
         ],
         "T": [
@@ -722,21 +678,6 @@
               "elm": "~"
             },
             "lyricIndex": 9,
-            "recite": true,
-            "print": {
-              "spacer": true,
-              "stemless": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "C",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "~"
-            },
-            "lyricIndex": 10,
             "recite": true
           },
           {
@@ -747,7 +688,7 @@
             "duration": {
               "elm": "~"
             },
-            "lyricIndex": 11
+            "lyricIndex": 10
           },
           {
             "pitch": {
@@ -758,7 +699,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 12
+            "lyricIndex": 11
           },
           {
             "pitch": {
@@ -768,7 +709,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 13
+            "lyricIndex": 12
           },
           {
             "pitch": {
@@ -778,7 +719,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 14
+            "lyricIndex": 13
           }
         ],
         "B": [
@@ -905,21 +846,6 @@
               "elm": "~"
             },
             "lyricIndex": 9,
-            "recite": true,
-            "print": {
-              "spacer": true,
-              "stemless": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "F",
-              "octave": 3
-            },
-            "duration": {
-              "elm": "~"
-            },
-            "lyricIndex": 10,
             "recite": true
           },
           {
@@ -931,7 +857,7 @@
             "duration": {
               "elm": "~"
             },
-            "lyricIndex": 11
+            "lyricIndex": 10
           },
           {
             "pitch": {
@@ -941,7 +867,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 12
+            "lyricIndex": 11
           },
           {
             "pitch": {
@@ -952,7 +878,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 13
+            "lyricIndex": 12
           },
           {
             "pitch": {
@@ -962,7 +888,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 14
+            "lyricIndex": 13
           }
         ]
       }
@@ -992,7 +918,7 @@
           "syllables": [
             {
               "text": "on",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1006,7 +932,7 @@
           "syllables": [
             {
               "text": "ze",
-              "syllabic": "end"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1020,7 +946,7 @@
           "syllables": [
             {
               "text": "on",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1034,7 +960,7 @@
           "syllables": [
             {
               "text": "wan",
-              "syllabic": "middle"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1048,7 +974,7 @@
           "syllables": [
             {
               "text": "kel",
-              "syllabic": "middle"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1062,7 +988,7 @@
           "syllables": [
             {
               "text": "ba",
-              "syllabic": "middle"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1076,7 +1002,7 @@
           "syllables": [
             {
               "text": "re",
-              "syllabic": "end"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -2576,7 +2502,7 @@
           "syllables": [
             {
               "text": "Moe",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -2590,7 +2516,7 @@
           "syllables": [
             {
               "text": "der",
-              "syllabic": "end"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -3112,7 +3038,7 @@
           "syllables": [
             {
               "text": "o",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -3126,7 +3052,7 @@
           "syllables": [
             {
               "text": "ver",
-              "syllabic": "middle"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -3139,13 +3065,13 @@
         {
           "syllables": [
             {
-              "text": "geb",
-              "syllabic": "middle"
+              "text": "ge",
+              "syllabic": "single"
             }
           ],
           "layers": {
             "1": [
-              "geb"
+              "ge"
             ]
           },
           "recite": true
@@ -3153,13 +3079,13 @@
         {
           "syllables": [
             {
-              "text": "racht",
-              "syllabic": "end"
+              "text": "bracht",
+              "syllabic": "single"
             }
           ],
           "layers": {
             "1": [
-              "racht"
+              "bracht"
             ]
           },
           "recite": true

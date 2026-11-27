@@ -1,10 +1,12 @@
 ---
+titel: Maria magdalena (Toon 3)
 taal: nl
 soort: kondak
 toon: 3
 template: tropaar-toon-3-groningen
 bron:
   uitgangspunt: Liturgikon
+  bewerking: liturgikon
 gelegenheid:
 - naam: Maria Magdalena
   datum: 22 jul
@@ -20,13 +22,13 @@ zoektekst: |-
 
 # === oorspronkelijke VSA (commentaar) ===
 # <!-- Kondak Maria Magdalena, Toon 3 (Liturgikon, p267) -->
-# [\\:] Gij waart met {/de} {/Vrou}wen onder het Kruis van {\de} {/Ver}{/&/los}{ser_}, *
-# en had schreiend medelijden met de Moeder des {\&\&\He_&-&-}{\ren_}. *
+# [\\:] Gij waart met {/de} {/Vrou}wen on-der het Kruis van {\de} {/Ver}{/&/los}{ser_}, *
+# en had schrei-end me-de-lij-den met de Moe-der des {\&\&\He_&-&-}{\ren_}. *
 # Daar{/om} {/hebt} gij de hym{\ne} {/ge}{/&/zon}{gen_}: *
-# Wat is dit voor een onbegrijpelijk {/won__}{\der_}? *
-# Hij, Die de gehele schepping in {\Zijn} {/hand} {/om}{/slo_.}{\ten} {\houdt_}, *
-# heeft voor ons willen {/lij_}{\den_}. *
-# Ere {\zij} {\Uw} {/&/&/&\&\&\&/macht-&-&-&-&-&-&_}, {o_} {\Heer_}. [:]
+# Wat is dit voor een on-be-grij-pe-lijk {/won__}{\der_}? *
+# Hij, Die de ge-he-le schep-ping in {\Zijn} {/hand} {/om}{/slo_.}{\ten} {\houdt_}, *
+# heeft voor ons wil-len {/lij_}{\den_}. *
+# E-re {\zij} {\Uw} {/&/&/&\&\&\&/macht-&-&-&-&-&-&_}, {o_} {\Heer_}. [:]
 
 # === afgeleide mvsa (VSA + template) ===
 # bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/kondak/maria-magdalena-toon-3/liturgikon/kondak-maria-magdalena-toon-3-liturgikon.vsa
@@ -44,31 +46,31 @@ zoektekst: |-
 #  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
 #  #                                                                        #  #
 #  ##########################################################################  #
-@title "kondak-maria-magdalena-toon-3-liturgikon"
+@title "Maria magdalena (Toon 3)"
 @do F4
 @mode major
 @tempo 180
 @oct S=0 A=0 T=-1 B=-1
 
-L: (Gij waart met) de Vrou-wen on-der het Kruis van de Ver-los~&~-ser_, |
-S: d-              /  /    -   -  -   -   -     -   \  /   /&/    -     |a
-A: d-              -  -    -   -  -   -   -     -   -  -   /&/    -     |f
-T: f+              /  /    -   -  -   -   -     -   \  /   \5&-   -     |c
-B: d               -  -    -   -  -   -   -     -   -  -   \&\4   -     |f
+L: (Gij waart met) de Vrou-wen on-der het Kruis van de Ver-los~&~ -ser_, |
+S: d-              /  /    -   -  -   -   -     -   \  /   /   &/  -     |a
+A: d-              -  -    -   -  -   -   -     -   -  -   /   &/  -     |f
+T: f+              /  /    -   -  -   -   -     -   \  /   \5  &-  -     |c
+B: d               -  -    -   -  -   -   -     -   -  -   \   &\4 -     |f
 
-L: (en had schrei-end me-de-lij-den met de Moe-der des) He_&~&~-ren_\. |
-S: a                                                    \&\&\   \      |d-
-A: f                                                    \&\&-   -      |d-
-T: c                                                    -&/5&\  \      |f+
-B: f                                                    /4&/&-  -      |d
+L: (en had schrei-end me-de-lij-den met de Moe-der des) He_&~ &~-ren_\. |
+S: a                                                    \  &\ &\ \      |d-
+A: f                                                    \  &\ &- -      |d-
+T: c                                                    -  &/5&\ \      |f+
+B: f                                                    /4 &/ &- -      |d
 
-L: (Daar)-om hebt gij de hym-ne ge-zon~&~-gen_: |
-S: d-     /  /    -   -  -   \  /  /&/    -     |a
-A: d-     -  -    -   -  -   -  -  /&/    -     |f
-T: f+     /  /    -   -  -   \  /  \5&-   -     |c
-B: d      -  -    -   -  -   -  -  \&\4   -     |f
+L: (Daar)-om hebt gij de hym-ne ge-zon~&~ -gen_: |
+S: d-     /  /    -   -  -   \  /  /   &/  -     |a
+A: d-     -  -    -   -  -   -  -  /   &/  -     |f
+T: f+     /  /    -   -  -   \  /  \5  &-  -     |c
+B: d      -  -    -   -  -   -  -  \   &\4 -     |f
 
-L: (Wat is dit voor een on-beg-rij-pe-lijk) won__-der_? |
+L: (Wat is dit voor een on-be-grij-pe-lijk) won__-der_? |
 S: a                                        /     \     |a
 A: f                                        /     \     |f
 T: c                                        /     \     |c
@@ -86,8 +88,8 @@ A: f                        /    \      |f
 T: c                        /    \      |c
 B: f                        /    \      |f
 
-L: (E-re) zij Uw macht~&~&~&~&~&~&_, o_ Heer_\. |
-S: a      \   \  /&/&/&\&\&\&/       -  \       |f
-A: f      \   \  /&/&/&\&\&\&/       -  \       |d-
-T: c      -   /5 \5&-&/&\&-&/5&\5    -  /5      |a+
-B: f      /4  /  \&\4&/&\&/4&/&\     -  /       |d
+L: (E-re) zij Uw macht~&~ &~&~&~ &~ &_, o_ Heer_\. |
+S: a      \   \  /     &/ &/&\&\ &\ &/  -  \       |f
+A: f      \   \  /     &/ &/&\&\ &\ &/  -  \       |d-
+T: c      -   /5 \5    &- &/&\&- &/5&\5 -  /5      |a+
+B: f      /4  /  \     &\4&/&\&/4&/ &\  -  /       |d

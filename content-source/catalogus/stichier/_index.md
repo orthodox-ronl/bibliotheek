@@ -1,6 +1,8 @@
 ---
 nav_sort: weight
 publicatiestatus: concept
+gebreken: true
+gebreken_toelichting: "De (technische) muziek-templates werken toch niet zoals het moet"
 automatische_inhoud: true
 weight: 755
 ---

@@ -44,11 +44,11 @@
     var panels = root.querySelectorAll("[data-scherm]");
     if (!panels.length) return;
     var scorebron = (root.getAttribute("data-scorebron-active") || "").toLowerCase();
-    /* Notatie (.vsa) heeft geen from-ir: forceer SVG als scorebron=notatie. */
+    /* VSA heeft geen from-ir: forceer SVG als de weergave vsa is. */
     var want = stand;
     if (
       root.hasAttribute("data-scorebron-dual") &&
-      scorebron === "notatie"
+      scorebron === "vsa"
     ) {
       want = "svg";
     }

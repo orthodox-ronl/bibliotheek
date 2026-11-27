@@ -167,7 +167,7 @@
           "syllables": [
             {
               "text": "ver",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -181,7 +181,7 @@
           "syllables": [
             {
               "text": "he",
-              "syllabic": "middle"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -195,7 +195,7 @@
           "syllables": [
             {
               "text": "ven,",
-              "syllabic": "end"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1136,7 +1136,7 @@
           "syllables": [
             {
               "text": "er",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1150,7 +1150,7 @@
           "syllables": [
             {
               "text": "bar",
-              "syllabic": "middle"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1164,7 +1164,7 @@
           "syllables": [
             {
               "text": "min",
-              "syllabic": "middle"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1178,7 +1178,7 @@
           "syllables": [
             {
               "text": "gen",
-              "syllabic": "end"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1219,27 +1219,13 @@
         {
           "syllables": [
             {
-              "text": "nie",
-              "syllabic": "begin"
+              "text": "nieu",
+              "syllabic": "single"
             }
           ],
           "layers": {
             "1": [
-              "nie"
-            ]
-          },
-          "recite": true
-        },
-        {
-          "syllables": [
-            {
-              "text": "u",
-              "syllabic": "middle"
-            }
-          ],
-          "layers": {
-            "1": [
-              "u"
+              "nieu"
             ]
           },
           "recite": true
@@ -1248,7 +1234,7 @@
           "syllables": [
             {
               "text": "we",
-              "syllabic": "end"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1262,7 +1248,7 @@
           "syllables": [
             {
               "text": "Ge",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1276,7 +1262,7 @@
           "syllables": [
             {
               "text": "meen",
-              "syllabic": "middle"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1290,7 +1276,7 @@
           "syllables": [
             {
               "text": "te",
-              "syllabic": "end"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1630,21 +1616,6 @@
               "elm": "~"
             },
             "lyricIndex": 16,
-            "recite": true,
-            "print": {
-              "spacer": true,
-              "stemless": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "A",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "~"
-            },
-            "lyricIndex": 17,
             "recite": true
           },
           {
@@ -1655,7 +1626,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 18
+            "lyricIndex": 17
           },
           {
             "pitch": {
@@ -1665,7 +1636,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 19
+            "lyricIndex": 18
           }
         ],
         "A": [
@@ -1914,21 +1885,6 @@
               "elm": "~"
             },
             "lyricIndex": 16,
-            "recite": true,
-            "print": {
-              "spacer": true,
-              "stemless": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "F",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "~"
-            },
-            "lyricIndex": 17,
             "recite": true
           },
           {
@@ -1939,7 +1895,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 18
+            "lyricIndex": 17
           },
           {
             "pitch": {
@@ -1949,7 +1905,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 19
+            "lyricIndex": 18
           }
         ],
         "T": [
@@ -2198,21 +2154,6 @@
               "elm": "~"
             },
             "lyricIndex": 16,
-            "recite": true,
-            "print": {
-              "spacer": true,
-              "stemless": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "C",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "~"
-            },
-            "lyricIndex": 17,
             "recite": true
           },
           {
@@ -2224,7 +2165,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 18
+            "lyricIndex": 17
           },
           {
             "pitch": {
@@ -2234,7 +2175,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 19
+            "lyricIndex": 18
           }
         ],
         "B": [
@@ -2483,21 +2424,6 @@
               "elm": "~"
             },
             "lyricIndex": 16,
-            "recite": true,
-            "print": {
-              "spacer": true,
-              "stemless": true
-            }
-          },
-          {
-            "pitch": {
-              "step": "F",
-              "octave": 3
-            },
-            "duration": {
-              "elm": "~"
-            },
-            "lyricIndex": 17,
             "recite": true
           },
           {
@@ -2508,7 +2434,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 18
+            "lyricIndex": 17
           },
           {
             "pitch": {
@@ -2518,7 +2444,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 19
+            "lyricIndex": 18
           }
         ]
       }
@@ -3032,7 +2958,7 @@
           "syllables": [
             {
               "text": "te",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -3046,7 +2972,7 @@
           "syllables": [
             {
               "text": "gen",
-              "syllabic": "end"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -4003,8 +3929,22 @@
         {
           "syllables": [
             {
+              "text": "on",
+              "syllabic": "single"
+            }
+          ],
+          "layers": {
+            "1": [
+              "on"
+            ]
+          },
+          "recite": true
+        },
+        {
+          "syllables": [
+            {
               "text": "o",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -4017,22 +3957,8 @@
         {
           "syllables": [
             {
-              "text": "no",
-              "syllabic": "middle"
-            }
-          ],
-          "layers": {
-            "1": [
-              "no"
-            ]
-          },
-          "recite": true
-        },
-        {
-          "syllables": [
-            {
               "text": "ver",
-              "syllabic": "middle"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -4046,7 +3972,7 @@
           "syllables": [
             {
               "text": "win",
-              "syllabic": "middle"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -4060,7 +3986,7 @@
           "syllables": [
             {
               "text": "ne",
-              "syllabic": "middle"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -4074,7 +4000,7 @@
           "syllables": [
             {
               "text": "lij",
-              "syllabic": "middle"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -4088,7 +4014,7 @@
           "syllables": [
             {
               "text": "ke",
-              "syllabic": "end"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -4102,7 +4028,7 @@
           "syllables": [
             {
               "text": "Vre",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -4116,7 +4042,7 @@
           "syllables": [
             {
               "text": "des",
-              "syllabic": "middle"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -4130,7 +4056,7 @@
           "syllables": [
             {
               "text": "wa",
-              "syllabic": "middle"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -4144,7 +4070,7 @@
           "syllables": [
             {
               "text": "pen",
-              "syllabic": "end"
+              "syllabic": "single"
             }
           ],
           "layers": {

@@ -10,6 +10,7 @@ partituur:
   arranger: Groningen
 bron:
   uitgangspunt: Koormap Groningen
+  bewerking: groningen
 gelegenheid:
 - naam: Zondag
   type: zondag
@@ -27,14 +28,14 @@ zoektekst: |-
 
 # === oorspronkelijke VSA (commentaar) ===
 # [//:] Toen zij van de {-&/en_&_}{\gel_} 
-# {/de} blijde boodschap van de opstanding hadden ver{no_}{\men_}, 
-# wierpen zij {van_} {/zich_} {\af_} 
-# {/de} veroordeling van de {voor_}ou{\ders_}. 
-# De vrouwen die de Heer {-&/dien_&_}{\den_}  
-# {/rie}pen jubelend tot de a{pos_}te{\len_}: 
+# {/de} blij-de bood-schap van de op-stan-ding had-den ver{no_}{\men_}, 
+# wier-pen zij {van_} {/zich_} {\af_} 
+# {/de} ver-oor-de-ling van de {voor_}ou{\ders_}. 
+# De vrou-wen die de Heer {-&/dien_&_}{\den_}  
+# {/rie}pen ju-be-lend tot de a{pos_}te{\len_}: 
 # ver{nie_}{/tigd} is de {\dood_}, 
-# {/want} opgestaan is {Chris_}tus {\God_}, //
-# om aan de wereld te schenken de grote ge{-&\na_&_}{/de__}. [//:]
+# {/want} op-ge-staan is {Chris_}tus {\God_}, //
+# om aan de we-reld te schen-ken de gro-te ge{-&\na_&_}{/de__}. [//:]
 # <!-- Bron: koormap Groningen -->
 
 # === afgeleide mvsa (VSA + template) ===
@@ -61,10 +62,10 @@ zoektekst: |-
 
 @sectie cyclus-1
 L: (Toen zij van de) en_&_-gel_ |
-S: a                 -&/   \    |a
-A: f                 -&/   #\   |f#
-T: c                 -&/   -    |d
-B: f                 -&/   \3   |d-
+S: a                 -  &/ \    |a
+A: f                 -  &/ #\   |f#
+T: c                 -  &/ -    |d
+B: f                 -  &/ \3   |d-
 
 L: (de blij-de bood-schap van de op-stan-ding had-den ver)-no_-men_, |
 S: Bb                                                      -   \     |a
@@ -79,17 +80,17 @@ A: f              -    /     #\  |f#
 T: c              -    /     -   |d
 B: f              -    /     \3  |d-
 
-L: (de ve-roor-de-ling van de) voor_-ou-ders_\. |
+L: (de ver-oor-de-ling van de) voor_-ou-ders_\. |
 S: Bb                          -     -  \       |a
 A: g                           -     -  \       |f
 T: d                           -     \  -       |c
 B: g                           -     \4 /3      |f
 
 L: (De vrou-wen die de Heer) dien_&_-den_ |
-S: a                         -&/     \    |a
-A: f                         -&/     #\   |f#
-T: c                         -&/     -    |d
-B: f                         -&/     \3   |d-
+S: a                         -    &/ \    |a
+A: f                         -    &/ #\   |f#
+T: c                         -    &/ -    |d
+B: f                         -    &/ \3   |d-
 
 L: (rie-pen ju-be-lend tot de a)-pos_-te-len_: |
 S: Bb                            -    -  \     |a
@@ -103,15 +104,15 @@ A: f     -    /    -  -  #\     |f#
 T: c     -    /    -  -  -      |d
 B: f     -    /    -  -  \3     |d-
 
-L: (want op-ges-taan is) Chris_-tus God_, |
+L: (want op-ge-staan is) Chris_-tus God_, |
 S: Bb                    -      -   \     |a
 A: g                     -      -   \     |f
 T: d                     -      \   -     |c
 B: g                     -      \4  /3    |f
 
 @sectie laatste
-L: (om aan de we-reld te schen-ken de gro-te ge)-na_&_-de__\. |
-S: a                                             -&\   /      |a
-A: f                                             -&\   /      |f
-T: c                                             -&-   -      |c
-B: f                                             -&\3  /3     |f
+L: (om aan de we-reld te schen-ken de gro-te ge)-na_&_ -de__\. |
+S: a                                             -  &\  /      |a
+A: f                                             -  &\  /      |f
+T: c                                             -  &-  -      |c
+B: f                                             -  &\3 /3     |f

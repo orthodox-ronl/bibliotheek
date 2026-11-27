@@ -25,6 +25,10 @@ Naamgevingsconventie voor conversies (tooling):
   `{stam}.vsa.lyrics.txt`
 - **Publicatiecontrole** = versheidscontrole op site-producten (sibling +
   herkomststempel); CI genereert niet, jij wel lokaal
+- **Gebreken** = `gebreken: true` op catalogus-leaf of variant-/zangstuk-`_index`
+  (overerving; rode stempel op scherm/SVG/PDF) — zie
+  [Status en check](/handleiding/publiceren/2-status-en-check/); niet hetzelfde
+  als publicatiestatus of manueel
 - **Handmatig** = `manueel: true` op `index.md` (vervangt het
   oude `.print.mscz`-spoor)
 {{< /cue >}}
@@ -302,12 +306,13 @@ Op bibliotheek-bladermappen: icoon **♪** (linksboven op de partituur)
 opent **Oefenen** en **Beluisteren** (Beluisteren bij elke bron met
 passende `.mp3`). **Oefenen** volgt dezelfde translit-stand als de
 navigatieknoppen: uit → gewone Coria-`.mxl`; Nls, Ksl of beide aan →
-sibling `…translit.mxl` (geen aparte keuzelijst daarvoor). Alleen in de
+sibling `…translit.mxl` (geen aparte keuzelijst daarvoor). Heeft een muziekstuk twee weergaven, dan staat naast **♪** de knop
+**VSA | Partituur** (VSA is de streepjesnotatie). Welke weergave eerst
+zichtbaar is, staat in `weergave: vsa` of `weergave: partituur` bovenin de
+`index.md` van de uitvoeringsvorm (zonder die regel: `vsa`). Alleen in de
 catalogus: icoon **{}** (rechtsboven) opent **Bronnen** (het echte
-`.vsa`- en `.mvsa`-/`.vsa.mvsa`-bestand als tekst), plus **Notatie** /
-**Partituur** (default: notatie) en eventueel **SVG** / **OSMG**. Op
-een koormap: **{}** alleen met Notatie/Partituur als beide
-schermproducten er zijn (geen Bronnen-lijst). In de navigatie:
+`.vsa`- en `.mvsa`-/`.vsa.mvsa`-bestand als tekst) en eventueel **SVG** /
+**OSMG**. In de navigatie:
 **download-icoon** (volgt translit-stand) en icoonknoppen **Ксл→Nls**
 (Nls) / **Nls→Ксл** (Ksl). **Ксл** is Ksl in Cyrillische letters. Bij
 alleen een `.mscz` (geen VSA-tekst) ontbreekt **Bronnen** in **{}**.

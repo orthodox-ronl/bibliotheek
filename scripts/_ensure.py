@@ -132,7 +132,7 @@ def resolve_tooling_ref() -> tuple[str, str]:
     mode = detect_tooling_mode()
     if mode == "pin":
         return read_pin(), "pin"
-    return "main", "float"
+    return "development", "float"
 
 
 def main() -> int:

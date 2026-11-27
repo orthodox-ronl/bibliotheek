@@ -6,11 +6,13 @@
   <h1>{{ partial "display-title.html" . }}</h1>
 </div>
 {{ partial "catalogus-id-line.html" . }}
+{{ partial "gebreken-banner.html" . }}
 {{ partial "artefacten-handmatig-banner.html" . }}
 {{ partial "partituur-product-banner.html" . }}
 {{ partial "vsa-product-banner.html" . }}
 {{- else -}}
 {{ partial "koormap-liturgie-nav.html" (dict "page" . "placement" "top") }}
+{{ partial "gebreken-banner.html" . }}
 {{- end -}}
 <div class="oefenhoek-body">{{ .Content }}</div>
 {{- if eq .Section "koormappen" -}}

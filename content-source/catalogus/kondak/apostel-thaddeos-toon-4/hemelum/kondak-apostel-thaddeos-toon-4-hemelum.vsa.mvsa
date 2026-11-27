@@ -1,4 +1,5 @@
 ---
+titel: Apostel thaddeos (Toon 4)
 taal: nl
 soort: kondak
 toon: 4
@@ -7,6 +8,7 @@ partituur:
   arranger: Hemelum
 bron:
   uitgangspunt: Koorinstructie Hemelum
+  bewerking: hemelum
 gelegenheid:
 - naam: Apostel Thaddeos
 zoektekst: |-
@@ -21,13 +23,13 @@ zoektekst: |-
 
 # === oorspronkelijke VSA (commentaar) ===
 # <!-- Kondak H. Apostel Thaddeos, Toon 4 (Koorinstructie 20260903) -->
-# [//:] De Kerk heeft u ontvangen als een {stra_}{/len}de {\ster_} *
+# [//:] De Kerk heeft u ont-van-gen als een {stra_}{/len}de {\ster_} *
 # {/want} zij wordt {hel_}der ver{\licht_} *
-# door de menigte uwer {won_}{/de_}{\ren_}, *
-# {/hei}lige Apostel Thad{de_}{\os_}. *
-# Daarom roepen wij tot {Chris}{/tus_} {\God_}: *
+# door de me-nig-te uwer {won_}{/de_}{\ren_}, *
+# {/hei}li-ge A-pos-tel Thad{de_}{\os_}. *
+# Daar-om roe-pen wij tot {Chris}{/tus_} {\God_}: *
 # {/Ver}los ons Barm{har_}{ti_}{\ge_}, **
-# die in ge{loof_} de gedachtenis van Uw Apostel {-&\vie_&_}{/ren_}. [//:]
+# die in ge{loof_} de ge-dach-te-nis van Uw A-pos-tel {-&\vie_&_}{/ren_}. [//:]
 
 # === afgeleide mvsa (VSA + template) ===
 # bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/kondak/apostel-thaddeos-toon-4/hemelum/kondak-apostel-thaddeos-toon-4-hemelum.vsa
@@ -45,7 +47,7 @@ zoektekst: |-
 #  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
 #  #                                                                        #  #
 #  ##########################################################################  #
-@title "kondak-apostel-thaddeos-toon-4-hemelum"
+@title "Apostel thaddeos (Toon 4)"
 @do F4
 @mode major
 @tempo 180
@@ -77,7 +79,7 @@ A: g                          -   \     |f
 T: d                          -   \     |c
 B: g                          \4  /3    |f
 
-L: (Daa-rom roe-pen wij tot Chris)-tus_ God_: |
+L: (Daar-om roe-pen wij tot Chris)-tus_ God_: |
 S: a                               /    \     |a
 A: f                               /    #\    |f#
 T: c                               /    -     |d
@@ -90,8 +92,8 @@ T: d                  -    \   -    |c
 B: g                  \4   -   /3   |f
 
 @sectie laatste
-L: (die in ge)-loof_ de ge-dach-te-nis van Uw A-pos-tel vie_&_-ren_\. |
-S: a           -     -  -  -    -  -   -   -  - -   -   -&\    /      |a
-A: f           -     -  -  -    -  -   -   -  - -   -   -&\    /      |f
-T: c           -     -  -  -    -  -   -   -  - -   -   -&-    -      |c
-B: f           -     -  -  -    -  -   -   -  - -   -   -&\3   /3     |f
+L: (die in ge)-loof_ de ge-dach-te-nis van Uw A-pos-tel vie_&_ -ren_\. |
+S: a           -     -  -  -    -  -   -   -  - -   -   -   &\  /      |a
+A: f           -     -  -  -    -  -   -   -  - -   -   -   &\  /      |f
+T: c           -     -  -  -    -  -   -   -  - -   -   -   &-  -      |c
+B: f           -     -  -  -    -  -   -   -  - -   -   -   &\3 /3     |f

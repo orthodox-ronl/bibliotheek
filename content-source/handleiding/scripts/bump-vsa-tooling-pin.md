@@ -26,7 +26,7 @@ de tip van `main`) en schrijft die naar het pin-bestand.
 
 Het script **commit niet**. Na een bump: commit + PR naar bibliotheek-`main`.
 
-Branch **`development`** floatt al op tooling-`main`; daar hoef je de pin niet
+Branch **`development`** floatt al op tooling-`development`; daar hoef je de pin niet
 te zetten voor preview.
 
 Vereist: [GitHub CLI](https://cli.github.com/) (`gh`), ingelogd.

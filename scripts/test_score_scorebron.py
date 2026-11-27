@@ -1,4 +1,4 @@
-"""Regressie: scorebron-classificatie (Notatie vs Partituur).
+"""Regressie: weergave-classificatie (VSA vs partituur).
 
 Spiegel van ``static/js/score-scorebron.js`` → ``bronFromSrc``.
 Contract: docs/specs/schermpartituur.md §2.1.
@@ -30,27 +30,29 @@ def bron_from_src(src: str) -> str:
         or ".vsa.translit" in n
         or re.search(r"\.vsa\.svg(\?|#|$)", n)
     ):
-        return "notatie"
+        return "vsa"
     return "partituur"
 
 
 class ScorebronFromSrcTests(unittest.TestCase):
     def test_js_exports_classifier(self) -> None:
         text = JS.read_text(encoding="utf-8")
-        self.assertIn("bibliotheek-scorebron", text)
+        self.assertNotIn("localStorage.", text)
         self.assertIn("__bibliotheekScorebronFromSrc", text)
-        self.assertIn("data-scorebron-switch", text)
+        self.assertIn("data-weergave-kies", text)
 
-    def test_notatie_vs_partituur(self) -> None:
+    def test_vsa_vs_partituur(self) -> None:
         cases = [
-            ("/x/lied.vsa.svg", "notatie"),
-            ("/x/lied.vsa.translit-ksl.svg", "notatie"),
-            ("/vsa/bladermap/a/b.svg", "notatie"),
+            ("/x/lied.vsa.svg", "vsa"),
+            ("/x/lied.vsa.translit-ksl.svg", "vsa"),
+            ("/vsa/bladermap/a/b.svg", "vsa"),
             ("/x/lied.vsa.mvsa.svg", "partituur"),
             ("/x/lied.vsa.mvsa.translit-ksl.svg", "partituur"),
             ("/x/lied.mvsa.svg", "partituur"),
             ("/x/lied.mvsa.from-ir.musicxml", "partituur"),
             ("/x/lied.mscz.svg", "partituur"),
+            ("/x/lied.mvsa.vsa.svg", "vsa"),
+            ("/x/lied.mvsa.vsa.translit-ksl.svg", "vsa"),
         ]
         for src, want in cases:
             with self.subTest(src=src):
