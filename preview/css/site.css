@@ -1962,6 +1962,88 @@ body.score-audio-bar-open {
   letter-spacing: -0.04em;
 }
 
+/* Knop VSA | Partituur, rechts naast ♪. */
+.score-bundle:has(> .score-weergave) {
+  position: relative;
+}
+
+/* Ruimte boven de muziek, zodat de knop geen regel afdekt. */
+.score-bundle:has(> .score-weergave:not([hidden])) > .score-partituur {
+  padding-top: 2.4rem;
+}
+
+.score-weergave {
+  position: absolute;
+  top: 0.45rem;
+  left: calc(0.45rem + 30px + 0.4rem);
+  z-index: 5;
+  display: inline-flex;
+  height: 30px;
+  border: 1.5px solid #003366;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+}
+
+.score-weergave[hidden] {
+  display: none;
+}
+
+.score-weergave--zonder-oefenen {
+  left: 0.45rem;
+}
+
+.score-weergave button {
+  position: relative;
+  padding: 0 0.6rem;
+  border: 0;
+  background: transparent;
+  color: #003366;
+  font: 600 0.75rem/1 system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.score-weergave button:first-child {
+  border-radius: 999px 0 0 999px;
+}
+
+.score-weergave button:last-child {
+  border-radius: 0 999px 999px 0;
+}
+
+.score-weergave button[aria-pressed="true"] {
+  background: #003366;
+  color: #fff;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .score-weergave button:hover::after,
+  .score-weergave button:focus-visible::after {
+    content: attr(data-tip);
+    position: absolute;
+    top: calc(100% + 0.4rem);
+    left: 0;
+    z-index: 50;
+    padding: 0.28rem 0.5rem;
+    border-radius: 4px;
+    background: #1a1a1a;
+    color: #fff;
+    font-weight: 500;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+}
+
+@media print {
+  .score-weergave {
+    display: none;
+  }
+
+  .score-bundle:has(> .score-weergave) > .score-partituur {
+    padding-top: 0;
+  }
+}
+
 /* Geen browser-driehoek naast ♪ / {} */
 .score-oefen-tip-trigger::-webkit-details-marker,
 .score-bron-tip-trigger::-webkit-details-marker {
