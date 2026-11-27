@@ -94,6 +94,11 @@ afspeelsleutels (`do` / `mode` / `tempo`).
 Controle lokaal: `scripts\frontmatter-canoniek.cmd --check` (meldt
 ontbrekende `soort`/`toon` op `.vsa`).
 
+`zoektekst` is bedoeld voor zoeken **in de editor**. De zoekfunctie op de
+site leest dat veld niet; die leest de `*.lyrics.txt` naast de canonieke
+bron (handleiding [Zoeken](../../content-source/handleiding/start/zoeken.md),
+script [zoek-index](../../content-source/handleiding/scripts/zoek-index.md)).
+
 ---
 
 ## Elementcatalogus

@@ -45,6 +45,11 @@ Per catalogus-leaf geldt voor **notatie** precies **één** canonieke bron:
 `{stam}.mvsa.mscz` / `{stam}.vsa.mscz` is een **product** van mvsa/vsa,
 geen tweede bron. Zie [publicatiecontrole.md](publicatiecontrole.md).
 
+**Tekstbron voor zoeken en lyrics:** alleen de canonieke bron. De schets-MVSA
+(`{stam}.vsa.mvsa`) en de import-bewerkvorm (`{stam}.mscz.mvsa`) leveren
+nooit de gezongen tekst voor de zoekindex; zie
+[zoek-index](../content-source/handleiding/scripts/zoek-index.md).
+
 ### Voorkeur bij nieuwe of blijvende bron
 
 Nieuwe of omgezette notatie bij voorkeur **`.mvsa`** (één keten met

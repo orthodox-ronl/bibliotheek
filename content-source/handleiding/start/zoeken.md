@@ -13,6 +13,14 @@ Deze pagina legt eerst uit wat een bezoeker mag verwachten. Daarna volgt
 de technische specificatie, zodat je kunt beoordelen of het zoeken nog
 past bij wat jullie nodig hebben.
 
+**Wie leest wat?**
+
+| Jij bent … | Lees … |
+| --- | --- |
+| Koorlid dat een stuk zoekt | De korte tips op de zoekpagina [Zoeken](/overzichten/zoeken/), en hieronder *Waarop matcht een zoekterm?* en *Hoe staan de treffers op volgorde?* |
+| Beheerder van de catalogus | *Hoofdlijnen* en *Beheer: iets wordt niet gevonden*; het script staat bij [zoek-index](/handleiding/scripts/zoek-index/) |
+| Ontwikkelaar of AI-assistent | *Specificatie (detail)*; de logica staat in `static/js/catalogus-zoek-kern.js` en `scripts/build_zoek_index.py` |
+
 {{< cue >}}
 - Ingang voor koorleden: knop **Zoeken** in de kop, of `/overzichten/zoeken/`
 - Korte tip: ga met de muis over de knop **Zoeken** in de kop (popover);
@@ -197,6 +205,27 @@ id.
 
 `data-base` op `.catalogus-zoek` is het pad van `site.BaseURL` (eindigend
 op `/`), zodat links onder preview/branch kloppen.
+
+### Beheer: iets wordt niet gevonden
+
+Zoek je als beheerder een stuk dat niet verschijnt, loop dan deze punten
+na, in deze volgorde:
+
+1. **Staat de uitvoeringsvorm in de index?** Open `static\zoek\index.json`
+   en zoek op het id. Ontbreekt het? Draai `python scripts\build_zoek_index.py`
+   (of `check`) en kijk of het id nu wel verschijnt.
+2. **Staat het woord in de gezongen tekst?** Open het bestand
+   `{stam}.vsa.lyrics.txt` of `{stam}.mvsa.lyrics.txt` naast de bron. Staat
+   het woord daar in stukjes (*on wankelbare*) of niet, dan zit de fout in
+   de bron of in tooling, niet in de zoekfunctie. Vernieuw de lyrics met
+   `scripts\products.cmd --kinds lyrics`.
+3. **Welke bron wordt gelezen?** Alleen de canonieke bron: `.mvsa`, `.vsa`
+   of basis-`.mscz`. Afgeleide bestanden als `{stam}.vsa.mvsa` tellen nooit mee.
+4. **Het veld `zoektekst` bovenin een `.vsa` of `.mvsa`** is bedoeld voor
+   zoeken in de editor (bijvoorbeeld Ctrl+Shift+F in VS Code). De
+   zoekfunctie op de site leest dat veld niet; die leest de lyrics-bestanden.
+5. **Spelling- of naamvarianten** (*alleluja*/*alleluia*, *litanie*/*ektinia*)
+   los je op met een regel in `data\zoek-synoniemen.yaml`.
 
 ### Beheer: synoniemen en lyrics bijwerken
 
