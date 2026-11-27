@@ -14,6 +14,7 @@ import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
+import weergave
 from index_md_pdf import (
     ROOT,
     PaginaPdfJob,
@@ -28,7 +29,7 @@ FIX_PAGE = "/handleiding/scripts/pdf/"
 
 @dataclass
 class Issue:
-    kind: str  # missing_pdf | stale_pdf | parse_error
+    kind: str  # missing_pdf | stale_pdf | parse_error | grens_weergave
     file: str
     detail: str
 
@@ -83,6 +84,36 @@ def check_job(job: PaginaPdfJob) -> FolderStatus:
                     "index.md.pdf is ouder dan Markdown, notatiebron of product-SVG",
                 )
             )
+    deps_mtime = max(
+        (p.stat().st_mtime for p in job.deps if p.is_file()), default=0.0
+    )
+    for variant in job.variants:
+        if not variant.is_file():
+            issues.append(
+                Issue(
+                    "missing_pdf",
+                    _rel(variant),
+                    "PDF voor een andere weergave-keuze ontbreekt",
+                )
+            )
+        elif variant.stat().st_mtime < deps_mtime:
+            issues.append(
+                Issue(
+                    "stale_pdf",
+                    _rel(variant),
+                    "PDF voor een andere weergave-keuze is verouderd",
+                )
+            )
+    if job.wisselbaar > weergave.MAX_WISSELBAAR:
+        issues.append(
+            Issue(
+                "grens_weergave",
+                _rel(job.md_path),
+                f"{job.wisselbaar} wisselbare stukken (vsa/partituur) op één blad; "
+                f"grens is {weergave.MAX_WISSELBAAR}. Download volgt de keuze "
+                "niet. Eerst opnieuw overleggen (schermpartituur.md §2.1).",
+            )
+        )
     return FolderStatus(
         dir=_bladermap_key(job.md_path),
         source=_rel(job.md_path),

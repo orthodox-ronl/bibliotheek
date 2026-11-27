@@ -68,8 +68,11 @@ muziekstuk, en anders VSA. Wil je op jouw koormap de andere, zet het erbij:
 ```
 
 De zanger kan op de website zelf wisselen met de knop **VSA | Partituur**.
-Let op: het download-icoon volgt die keuze nog niet; dat komt in een
-volgende stap.
+Het download-icoon volgt die keuze: `pdf.cmd` maakt daarvoor naast
+`index.md.pdf` voor elke andere keuze een bestand
+`index.md.weergave-….pdf`. Zet niet meer dan **4** wisselbare stukken op één
+pagina; bij meer meldt `check` een probleem en moet er eerst opnieuw over
+nagedacht worden.
 
 ### Kopjes op het blad
 

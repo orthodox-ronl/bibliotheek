@@ -97,10 +97,21 @@ Implementatie: `static/js/score-scorebron.js`.
 Translit-knoppen en ♪ (Coria / Beluisteren) blijven werken. Ontbreekt in
 een translit-stand de gekozen weergave, dan blijft de andere zichtbaar.
 
-**Nog niet gebouwd:** de pagina-download (nav-pijl) blijft `index.md.pdf` /
-translit-blad-PDF’s en volgt de knop nog niet. Afspraak voor de volgende
-stap: een kant-en-klare PDF per combinatie van wisselbare stukken, met een
-grens van 4 wisselbare stukken per pagina (daarboven opnieuw beslissen).
+**Download volgt de keuze.** `pdf.cmd` maakt per combinatie van wisselbare
+stukken een kant-en-klare PDF; de pagina-download (nav-pijl) wijst naar de
+PDF die bij de knoppen past (niets daarvan wordt onthouden na herladen).
+
+- De standaardkeuze van het blad blijft `index.md.pdf` (plus translit).
+- Elke andere keuze: `index.md.weergave-<letters>.pdf` (en
+  `….translit-<stand>.pdf`), met één letter `v` (VSA) of `p` (partituur) per
+  wisselbaar stuk in documentvolgorde.
+- Wisselbaar: `muziek` (geen `@sectie`) waarvan de catalogusmap zowel een
+  VSA- als een partituur-SVG heeft. `scripts/weergave.py` en
+  `bieb-score.html` volgen dezelfde regel.
+- **Grens: 4 wisselbare stukken per pagina** (16 combinaties). Daarboven
+  bouwt `pdf.cmd` alleen de standaard-PDF, volgt de download de keuze niet,
+  geeft Hugo een waarschuwing en meldt `check` een probleem. Wordt de grens
+  geraakt: eerst opnieuw overleggen, niet stilzwijgend verhogen.
 
 ### 2.2 Tekenketen: SVG ↔ OSMG
 

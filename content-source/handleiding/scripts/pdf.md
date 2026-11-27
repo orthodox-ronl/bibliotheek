@@ -35,6 +35,13 @@ translit-SVG-siblings:
 | Hybride (NL+Ksl in één bron) | nls- én ksl-PDF, plus `index.md.translit-beide.pdf` uit `.translit.svg` |
 | Hybride (nl + ksl)     | beide                                |
 
+**VSA of partituur.** Heeft een stuk op het blad beide, dan maakt `pdf.cmd`
+voor elke andere keuze ook `index.md.weergave-<letters>.pdf` (letters `v` /
+`p`, één per wisselbaar stuk, van boven naar beneden). Het download-icoon
+kiest vanzelf het juiste bestand. `check` eist deze bestanden ook. Grens: 4
+wisselbare stukken per pagina; zie
+`docs\specs\schermpartituur.md` §2.1.
+
 Ontbreekt de bijbehorende `{bron}.translit-*.svg`, dan exporteert
 `pdf.cmd` die SVG onderweg (MuseScore bij `.mvsa`). Op de site volgt
 het **download-icoon** de translit-knoppen (geen knop → basis-PDF;

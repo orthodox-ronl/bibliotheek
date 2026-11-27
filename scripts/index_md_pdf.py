@@ -29,7 +29,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from functools import lru_cache
 from pathlib import Path
 
@@ -37,6 +37,8 @@ _SCRIPTS = Path(__file__).resolve().parent
 if str(_SCRIPTS) not in sys.path:
     sys.path.insert(0, str(_SCRIPTS))
 
+import weergave  # noqa: E402
+import weergave  # noqa: E402
 from cli_style import (  # noqa: E402
     add_verbose_argument,
     atomic_replace,
@@ -139,6 +141,15 @@ class MusicItem:
     uv_id: str
     compact: bool
     align: str = "links"  # links | midden | rechts (alleen bij smallere SVG)
+    weergave: str | None = None  # weergave= op bieb/muziek
+    source: Path | None = None  # gekozen bron bij een wisselbaar stuk
+
+    @property
+    def key(self) -> str:
+        return str(self.source) if self.source else self.uv_id
+
+    def bron(self) -> Path:
+        return self.source or find_notation_source(self.uv_id)
 
 
 @dataclass
@@ -199,6 +210,11 @@ def _parse_uitlijning(params: str) -> str | None:
             f'uitlijning="{m.group(1)}" onbekend; kies links, midden of rechts'
         )
     return value
+
+
+def _parse_weergave(params: str) -> str | None:
+    m = re.search(r"""\bweergave\s*=\s*["'`]([^"'`]*)["'`]""", params)
+    return weergave.controleer(m.group(1), "bieb/muziek") if m else None
 
 
 def _parse_onderdeel(params: str) -> str | None:
@@ -912,6 +928,7 @@ def parse_page_flows(text: str) -> list[PageFlow]:
     current = PageFlow()
     stack: list[str] = []
     align_stack: list[str | None] = []  # uitlijning van het openstaande bieb-blok
+    weergave_stack: list[str | None] = []  # idem voor weergave=
     bijelkaar = 0
     inline_vsa_n = 0
     # Alleen groot-koppen die nog vóór enige andere inhoud / bijelkaar staan.
@@ -965,10 +982,17 @@ def parse_page_flows(text: str) -> list[PageFlow]:
                     current.items.append(item)
         pos = end
 
-    def add_music(uv_id: str, align: str | None = None) -> None:
+    def add_music(
+        uv_id: str, align: str | None = None, keuze: str | None = None
+    ) -> None:
         drain_pending()
         current.items.append(
-            MusicItem(uv_id, compact=bijelkaar > 0, align=align or "links")
+            MusicItem(
+                uv_id,
+                compact=bijelkaar > 0,
+                align=align or "links",
+                weergave=keuze,
+            )
         )
 
     def add_bieb_text(uv_id: str, onderdeel: str, *, veld_pad: str = "") -> None:
@@ -994,6 +1018,7 @@ def parse_page_flows(text: str) -> list[PageFlow]:
                 stack.pop()
                 if align_stack:
                     align_stack.pop()
+                    weergave_stack.pop()
             elif name == "pdf-bijelkaar" and bijelkaar:
                 bijelkaar -= 1
             continue
@@ -1034,6 +1059,8 @@ def parse_page_flows(text: str) -> list[PageFlow]:
                 stack[-1],
                 _parse_uitlijning(params)
                 or (align_stack[-1] if align_stack else None),
+                _parse_weergave(params)
+                or next((w for w in reversed(weergave_stack) if w), None),
             )
             continue
 
@@ -1048,6 +1075,7 @@ def parse_page_flows(text: str) -> list[PageFlow]:
         if not self_closing and uv_id and onderdeel is None:
             stack.append(uv_id)
             align_stack.append(_parse_uitlijning(params))
+            weergave_stack.append(_parse_weergave(params))
             continue
 
         if not uv_id:
@@ -1064,6 +1092,8 @@ def parse_page_flows(text: str) -> list[PageFlow]:
                 uv_id,
                 _parse_uitlijning(params)
                 or (align_stack[-1] if align_stack and not id_m else None),
+                _parse_weergave(params)
+                or next((w for w in reversed(weergave_stack) if w), None),
             )
         elif onderdeel in _TEXT_ONDERDELEN:
             add_bieb_text(
@@ -1286,6 +1316,57 @@ def prose_notes_from_catalogus_md(text: str) -> list[str]:
     return notes
 
 
+def _leaf_dir(uv_id: str) -> Path:
+    return CATALOGUS.joinpath(*_uv_base(uv_id).split("/"))
+
+
+def wisselbare_stukken(flows: list[PageFlow]) -> list[weergave.Wisselbaar]:
+    """Wisselbare muziekstukken in documentvolgorde (nooit een ``@sectie``)."""
+    out: list[weergave.Wisselbaar] = []
+    for flow in flows:
+        for item in flow.items:
+            if isinstance(item, MusicItem) and not _ref_sectie(item.uv_id):
+                stuk = weergave.wisselbaar(_leaf_dir(item.uv_id), item.weergave)
+                if stuk:
+                    out.append(stuk)
+    return out
+
+
+def flows_met_keuzes(flows: list[PageFlow], keuzes: list[str]) -> list[PageFlow]:
+    """Kopie van *flows* met per wisselbaar stuk de gekozen bron."""
+    volgende = iter(keuzes)
+    out: list[PageFlow] = []
+    for flow in flows:
+        items: list[FlowItem] = []
+        for item in flow.items:
+            if isinstance(item, MusicItem) and not _ref_sectie(item.uv_id):
+                stuk = weergave.wisselbaar(_leaf_dir(item.uv_id), item.weergave)
+                if stuk:
+                    item = replace(item, source=stuk.bronnen[next(volgende)])
+            items.append(item)
+        out.append(PageFlow(items=items))
+    return out
+
+
+def _wissel_deps(stukken: list[weergave.Wisselbaar]) -> list[Path]:
+    """Alles waarvan een wisselbaar blad ook afhangt (versheid)."""
+    deps: list[Path] = []
+    for stuk in stukken:
+        deps.append(stuk.leaf / "index.md")
+        for src in stuk.bronnen.values():
+            deps += [src, product_svg_path(src)]
+    return deps
+
+
+def _flow_sources(flows: list[PageFlow]) -> list[Path]:
+    return [
+        item.bron()
+        for flow in flows
+        for item in flow.items
+        if isinstance(item, MusicItem)
+    ]
+
+
 def _pagina_pdf_out_path(md_path: Path) -> Path:
     """Sibling PDF: ``index.md`` → ``index.md.pdf`` (zelfde conventie als tooling)."""
     return md_path.with_name(md_path.name + ".pdf")
@@ -1323,6 +1404,8 @@ class PaginaPdfJob:
     md_path: Path
     out_path: Path
     deps: tuple[Path, ...]
+    variants: tuple[Path, ...] = ()  # andere weergave-keuzes van hetzelfde blad
+    wisselbaar: int = 0  # aantal wisselbare muziekstukken
 
 
 def pagina_pdf_job(md_path: Path) -> PaginaPdfJob | None:
@@ -1352,15 +1435,21 @@ def pagina_pdf_job(md_path: Path) -> PaginaPdfJob | None:
         return None
 
     deps: list[Path] = [md_path]
+    stukken = wisselbare_stukken(flows)
     try:
-        for flow in flows:
-            for mid in flow.music_ids:
-                src = find_notation_source(mid)
-                deps.append(src)
-                deps.append(product_svg_path(src))
+        for src in _flow_sources(
+            flows_met_keuzes(flows, [s.standaard for s in stukken])
+        ):
+            deps.append(src)
+            deps.append(product_svg_path(src))
     except FileNotFoundError:
         return None
-    return PaginaPdfJob(md_path, out, tuple(deps))
+    deps += _wissel_deps(stukken)
+    variants = tuple(
+        weergave.variant_pad(md_path, c)
+        for c in weergave.andere_combinaties(stukken)
+    )
+    return PaginaPdfJob(md_path, out, tuple(deps), variants, len(stukken))
 
 
 def iter_bladermap_index_md() -> list[Path]:
@@ -2454,11 +2543,11 @@ def _compose_flow_svg(
     music_keys: list[str] = []
     for item in flow.items:
         if isinstance(item, MusicItem):
-            key = item.uv_id
+            key = item.key
             music_keys.append(key)
             if key in svg_series:
                 continue
-            source = find_notation_source(item.uv_id)
+            source = item.bron()
             from input_paths import rel_for_log
 
             detail(f"  bron {rel_for_log(source, repo_root=ROOT)}")
@@ -2701,7 +2790,7 @@ def _compose_flow_svg(
                 y += item.points
             elif isinstance(item, (MusicItem, InlineVsaItem)):
                 key = (
-                    item.uv_id
+                    item.key
                     if isinstance(item, MusicItem)
                     else item.key
                 )
@@ -2783,45 +2872,99 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
 
     # Bronnen + product-SVG’s voor versheid (geen catalogus-PDF).
     # Inline ::: vsa zit in de Markdown: mtime van index.md dekt die al.
-    deps = [md_path]
-    sources: list[Path] = []
-    for flow in flows:
-        for mid in flow.music_ids:
-            src = find_notation_source(mid)
-            deps.append(src)
-            sources.append(src)
-            deps.append(product_svg_path(src))
+    stukken = wisselbare_stukken(flows)
+    standaard = [s.standaard for s in stukken]
+    eerste = flows_met_keuzes(flows, standaard)
+    combinaties = weergave.andere_combinaties(stukken)
+    if len(stukken) > weergave.MAX_WISSELBAAR:
+        info(
+            f"  GRENS: {len(stukken)} wisselbare stukken op {md_path.parent.name} "
+            f"(grens {weergave.MAX_WISSELBAAR}); alleen de standaard-PDF. "
+            "Eerst opnieuw overleggen (schermpartituur.md §2.1)."
+        )
 
-    skip_base = False
+    # Translit-standen: over alle weergaven samen, zodat elke combinatie
+    # dezelfde set bestanden heeft.
+    alle_bronnen = _flow_sources(eerste)
+    for stuk in stukken:
+        alle_bronnen += [p for p in stuk.bronnen.values() if p not in alle_bronnen]
+
+    deps = [md_path, *_wissel_deps(stukken)]
+    for src in _flow_sources(eerste):
+        deps += [src, product_svg_path(src)]
+
+    # Verouderde combinaties (andere standaard of andere stukken) opruimen.
+    stems = {weergave.variant_pad(md_path, c).name[: -len(".pdf")] for c in combinaties}
+    for oud in md_path.parent.glob(weergave.VARIANT_GLOB):
+        if oud.name[: -len(".pdf")].split(".translit-")[0] not in stems:
+            oud.unlink()
+
+    if stukken:
+        # Eerst alle product-SVG's op orde, dan pas PDF's schrijven: anders
+        # maakt een latere variant een eerdere PDF meteen weer verouderd.
+        _ververs_svgs(alle_bronnen)
+
+    bladen = [(out, eerste)] + [
+        (weergave.variant_pad(md_path, c), flows_met_keuzes(flows, c))
+        for c in combinaties
+    ]
+    for dest, blad in bladen:
+        if not _build_pagina_pdf(dest, blad, deps=deps, force=force):
+            return None
+        _apply_gebreken_watermark_if_needed(md_path, dest)
+        _build_translit_pagina_pdfs(
+            md_path,
+            blad,
+            _flow_sources(blad),
+            force=force,
+            base=dest,
+            modus_sources=alle_bronnen,
+            deps=deps,
+        )
+    return out if out.is_file() else None
+
+
+def _ververs_svgs(sources: list[Path]) -> None:
+    """Exporteer ontbrekende of verouderde (translit-)SVG's van *sources*."""
+    from translit_svg_products import translit_modi_for_source
+
+    with tempfile.TemporaryDirectory(prefix="pagina-svg-") as tmp:
+        for src in sources:
+            resolve_svgs_for_pdf(src, Path(tmp))
+            for modus in translit_modi_for_source(src):
+                resolve_svgs_for_pdf(src, Path(tmp), translit_modus=modus)
+
+
+def _build_pagina_pdf(
+    out: Path, flows: list[PageFlow], *, deps: list[Path], force: bool
+) -> bool:
+    """Eén blad-PDF (zonder translit); sla over als nieuwer dan alle *deps*."""
     if out.is_file() and not force:
         svgs_fresh = all(
-            product_svg_stamp_ok(src, product_svg_path(src)) for src in sources
+            product_svg_stamp_ok(src, product_svg_path(src))
+            for src in _flow_sources(flows)
         )
         if svgs_fresh:
             newest = max(p.stat().st_mtime for p in deps if p.is_file())
             if out.stat().st_mtime >= newest:
-                skip_base = True
+                return True
 
-    if not skip_base:
-        with tempfile.TemporaryDirectory(prefix="pagina-pdf-") as tmp:
-            work = Path(tmp)
-            parts: list[Path] = []
-            for i, flow in enumerate(flows):
-                if not flow.items:
-                    continue
-                part = work / f"flow-{i}.pdf"
-                _compose_flow_svg(flow, part, work=work / f"svg-{i}")
-                parts.append(part)
-            if not parts:
-                return None
-            if len(parts) == 1:
-                _install_pdf(parts[0], out)
-            else:
-                stitch_pdfs(parts, out)
-
-    _apply_gebreken_watermark_if_needed(md_path, out)
-    _build_translit_pagina_pdfs(md_path, flows, sources, force=force)
-    return out if out.is_file() else None
+    with tempfile.TemporaryDirectory(prefix="pagina-pdf-") as tmp:
+        work = Path(tmp)
+        parts: list[Path] = []
+        for i, flow in enumerate(flows):
+            if not flow.items:
+                continue
+            part = work / f"flow-{i}.pdf"
+            _compose_flow_svg(flow, part, work=work / f"svg-{i}")
+            parts.append(part)
+        if not parts:
+            return False
+        if len(parts) == 1:
+            _install_pdf(parts[0], out)
+        else:
+            stitch_pdfs(parts, out)
+    return True
 
 
 def _build_translit_pagina_pdfs(
@@ -2830,6 +2973,9 @@ def _build_translit_pagina_pdfs(
     sources: list[Path],
     *,
     force: bool,
+    base: Path | None = None,
+    modus_sources: list[Path] | None = None,
+    deps: list[Path] | None = None,
 ) -> list[Path]:
     """Schrijf ``index.md.translit-*.pdf`` waar §5a dat vraagt.
 
@@ -2847,13 +2993,16 @@ def _build_translit_pagina_pdfs(
         translit_modi_for_source,
     )
 
-    modi = list(page_translit_modi(sources))
-    if page_needs_beide_pdf(sources):
+    modus_sources = modus_sources or sources
+    modi = list(page_translit_modi(modus_sources))
+    if page_needs_beide_pdf(modus_sources):
         modi.append(MODUS_BEIDE)
     written: list[Path] = []
     for modus in modi:
         dest = _pagina_translit_pdf_out_path(md_path, modus)
-        tdeps: list[Path] = [md_path, *sources]
+        if base is not None and base != _pagina_pdf_out_path(md_path):
+            dest = base.with_name(f"{base.name[: -len('.pdf')]}.translit-{modus}.pdf")
+        tdeps: list[Path] = [md_path, *sources, *(deps or [])]
         tsvgs: list[tuple[Path, Path]] = []
         for src in sources:
             if modus == MODUS_BEIDE:

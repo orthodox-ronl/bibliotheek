@@ -556,7 +556,10 @@ def find_gebreken_issues() -> tuple[list[str], list[str]]:
                 "effectieve gebreken aan maar PDF mist watermark "
                 "(draai scripts\\pdf.cmd voor deze leaf)"
             )
-        for sibling in folder.glob("index.md.translit-*.pdf"):
+        for sibling in [
+            *folder.glob("index.md.translit-*.pdf"),
+            *folder.glob("index.md.weergave-*.pdf"),
+        ]:
             if sibling.is_file() and not pdf_has_gebreken_stempel(sibling):
                 warnings.append(
                     f"{rel_for_log(sibling, repo_root=REPO_ROOT)}: "
@@ -629,6 +632,7 @@ def collect_gebreken_statuses() -> tuple[list[GebrekenStatus], int]:
         if actief:
             pdfs = [index.with_name("index.md.pdf")]
             pdfs += sorted(folder.glob("index.md.translit-*.pdf"))
+            pdfs += sorted(folder.glob("index.md.weergave-*.pdf"))
             for pdf in pdfs:
                 if pdf.is_file() and not pdf_has_gebreken_stempel(pdf):
                     pdf_issues.append(

@@ -233,7 +233,26 @@
 {{- if or (and (eq $uitdrukkelijk "vsa") (not $heeftVsa) $heeftPartituur) (and (eq $uitdrukkelijk "partituur") (not $heeftPartituur) $heeftVsa) -}}
   {{- errorf "%s: weergave %q gevraagd, maar %s heeft die niet. Oplossing: kies de andere weergave of maak het ontbrekende plaatje (scripts\\products.cmd)." $loc $uitdrukkelijk $p.RelPermalink -}}
 {{- end -}}
-<div class="score-partituur" data-scherm-root data-weergave="{{ $weergave }}">
+{{- /* Wisselbaar: beide schermplaatjes (zelfde regel als scripts/weergave.py).
+     De pagina-download telt de stukken in documentvolgorde. */ -}}
+{{- $wisselbaar := false -}}
+{{- if not $sectie -}}
+  {{- $heeftVsaSvg := false -}}
+  {{- $heeftPartSvg := false -}}
+  {{- range $musicSvgs -}}
+    {{- $n := lower . -}}
+    {{- if and (strings.HasSuffix $n ".vsa.svg") (not (strings.Contains $n ".vsa.mvsa.")) -}}
+      {{- $heeftVsaSvg = true -}}
+    {{- else -}}
+      {{- $heeftPartSvg = true -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $wisselbaar = and $heeftVsaSvg $heeftPartSvg -}}
+{{- end -}}
+{{- if $wisselbaar -}}
+  {{- $viewer.Store.Add "weergaveWissel" (slice (substr $weergave 0 1)) -}}
+{{- end -}}
+<div class="score-partituur" data-scherm-root data-weergave="{{ $weergave }}"{{ if $wisselbaar }} data-wisselbaar{{ end }}>
 {{- $hasSvgView := or (gt (len $musicSvgs) 0) (gt (len $staticSvgs) 0) (gt (len $musicSvgsTranslitAny) 0) -}}
 {{- $hasOsmgView := gt (len $fromIrAny) 0 -}}
 {{- $hasTranslit := gt (len $musicSvgsTranslitAny) 0 -}}
