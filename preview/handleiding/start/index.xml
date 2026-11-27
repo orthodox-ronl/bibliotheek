@@ -450,27 +450,30 @@ in de site-kop, of via &lt;a href="https://orthodox-ronl.github.io/bibliotheek/p
 &lt;p&gt;Deze pagina legt eerst uit wat een bezoeker mag verwachten. Daarna volgt
 de technische specificatie, zodat je kunt beoordelen of het zoeken nog
 past bij wat jullie nodig hebben.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Wie leest wat?&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Jij bent …&lt;/th&gt;
+ &lt;th&gt;Lees …&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Koorlid dat een stuk zoekt&lt;/td&gt;
+ &lt;td&gt;De korte tips op de zoekpagina &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/overzichten/zoeken/"&gt;Zoeken&lt;/a&gt;
+, en hieronder &lt;em&gt;Waarop matcht een zoekterm?&lt;/em&gt; en &lt;em&gt;Hoe staan de treffers op volgorde?&lt;/em&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Beheerder van de catalogus&lt;/td&gt;
+ &lt;td&gt;&lt;em&gt;Hoofdlijnen&lt;/em&gt; en &lt;em&gt;Beheer: iets wordt niet gevonden&lt;/em&gt;; het script staat bij &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/zoek-index/"&gt;zoek-index&lt;/a&gt;
+&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Ontwikkelaar of AI-assistent&lt;/td&gt;
+ &lt;td&gt;&lt;em&gt;Specificatie (detail)&lt;/em&gt;; de logica staat in &lt;code&gt;static/js/catalogus-zoek-kern.js&lt;/code&gt; en &lt;code&gt;scripts/build_zoek_index.py&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
 &lt;aside class="handleiding-cue"&gt;
- &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
- &lt;div class="handleiding-cue-body"&gt;
- &lt;ul&gt;
-&lt;li&gt;Ingang voor koorleden: knop &lt;strong&gt;Zoeken&lt;/strong&gt; in de kop, of &lt;code&gt;/overzichten/zoeken/&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Korte tip: ga met de muis over de knop &lt;strong&gt;Zoeken&lt;/strong&gt; in de kop (popover);
-in het zoekvenster zelf staat nog een &lt;strong&gt;?&lt;/strong&gt; bij het zoekveld&lt;/li&gt;
-&lt;li&gt;Indexbestand: &lt;code&gt;static\zoek\index.json&lt;/code&gt; (bij Pages-deploy opnieuw gebouwd)&lt;/li&gt;
-&lt;li&gt;Synoniemen: &lt;a href="https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml"&gt;&lt;code&gt;data/zoek-synoniemen.yaml&lt;/code&gt;&lt;/a&gt;
-&lt;/li&gt;
-&lt;li&gt;Gezongen tekst: sibling &lt;code&gt;{stam}.vsa.lyrics.txt&lt;/code&gt; / &lt;code&gt;.mvsa.lyrics.txt&lt;/code&gt; /
-&lt;code&gt;.mscz.lyrics.txt&lt;/code&gt; — zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/lyrics-products/"&gt;products (lyrics)&lt;/a&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-
- &lt;/div&gt;
-&lt;/aside&gt;
-
-&lt;h2 id="hoofdlijnen"&gt;Hoofdlijnen&lt;/h2&gt;
-&lt;h3 id="wat-zit-er-in-de-zoekindex"&gt;Wat zit er in de zoekindex?&lt;/h3&gt;
-&lt;p&gt;Elke &lt;strong&gt;uitvoeringsvorm&lt;/strong&gt; in &lt;code&gt;content-source\catalogus\&lt;/code&gt; (bladermap met
-&lt;code&gt;index.md&lt;/code&gt;) kan in de index komen. Per treffer zie je onder meer de titel,
-de publicatiestatus, soms een stukje begrotekst (incipit uit lyrics van
-&lt;code&gt;.vsa&lt;/code&gt; / &lt;code&gt;.mvsa&lt;/code&gt; / &lt;code&gt;.mscz&lt;/code&gt;), het catalogus-id, en soms een beluister-knop.&lt;/p&gt;</description></item></channel></rss>
+ &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;</description></item></channel></rss>

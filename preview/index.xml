@@ -279,24 +279,12 @@ inputs in de werkvoorraad, stubs zonder canonieke bron). Lokale
  &lt;p&gt;&lt;strong&gt;Waarop zoeken?&lt;/strong&gt; Titel of korte naam van het stuk,
  het &lt;strong&gt;catalogus-id&lt;/strong&gt; (bijv. &lt;code&gt;tropaar/…/hemelum&lt;/code&gt;),
  of een stukje &lt;strong&gt;gezongen tekst&lt;/strong&gt;.&lt;/p&gt;
- &lt;p&gt;Spellingvarianten (alleluja/alleluia, Johannes/Joannes) en
- omgewisselde woorden tellen mee. Zoeken loopt over de
- &lt;strong&gt;uitvoeringsvormen&lt;/strong&gt; in de catalogus.&lt;/p&gt;
- &lt;p&gt;&lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/zoeken/"&gt;Uitgebreide uitleg in de handleiding&lt;/a&gt;
- (eerst hoofdlijnen, daarna de technische specificatie).&lt;/p&gt;
- &lt;/span&gt;
-&lt;/span&gt;
-
- &lt;/div&gt;
- &lt;/form&gt;
- &lt;p class="catalogus-zoek-meta" aria-live="polite"&gt;&lt;/p&gt;
- &lt;div class="catalogus-zoek-resultaten"&gt;&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Klik op &lt;strong&gt;?&lt;/strong&gt; naast &lt;strong&gt;Zoeken&lt;/strong&gt; voor een korte tip. Uitgebreide uitleg
-(hoofdlijnen en technische specificatie):
-&lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/zoeken/"&gt;Zoeken in de handleiding&lt;/a&gt;
-.&lt;/p&gt;</description></item><item><title>Catalogus alfabetisch</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/overzichten/alfabetisch/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/overzichten/alfabetisch/</guid><description>&lt;p&gt;Oefenbare uitvoeringsvormen als &lt;strong&gt;boom&lt;/strong&gt;: eerst zangstuk (A–Z), dan
+ &lt;p&gt;Typ gewoon een of meer woorden. Alle woorden moeten voorkomen;
+ staat dat nergens, dan zie je daaronder de stukken met een deel van je
+ woorden. Hoofdletters, accenten en streepjes tellen niet mee
+ (&lt;em&gt;eeu-wi-ge&lt;/em&gt; vindt &lt;em&gt;eeuwige&lt;/em&gt;). Spellingvarianten
+ (alleluja/alleluia, Johannes/Joannes) tellen wel mee. Zoeken loopt over
+ de &lt;strong&gt;uitvoeringsvormen&lt;/strong&gt; in de catalogus.&lt;/p&gt;</description></item><item><title>Catalogus alfabetisch</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/overzichten/alfabetisch/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/overzichten/alfabetisch/</guid><description>&lt;p&gt;Oefenbare uitvoeringsvormen als &lt;strong&gt;boom&lt;/strong&gt;: eerst zangstuk (A–Z), dan
 variant, dan uitvoeringsvorm. Klap een blad open voor twee kleine knoppen:
 &lt;strong&gt;Naar catalogus&lt;/strong&gt; opent de pagina van die uitvoeringsvorm, &lt;strong&gt;Beluisteren&lt;/strong&gt;
 speelt het geluid af (alleen als dat er is). Daaronder staat de eerste
@@ -1905,7 +1893,9 @@ falen; met &lt;code&gt;--strict&lt;/code&gt; exit 1&lt;/li&gt;
 &lt;code&gt;static\vsa\bladermap\&lt;/code&gt; uit &lt;code&gt;.vsa&lt;/code&gt;, zonder stempel. Het scherm
 gebruikt sibling &lt;code&gt;{stam}.vsa.svg&lt;/code&gt; (stap 2) zodra die er is; dit
 plaatje is alleen de fallback&lt;/li&gt;
-&lt;li&gt;Zoekindex (&lt;code&gt;python scripts\build_zoek_index.py&lt;/code&gt; → &lt;code&gt;static\zoek\index.json&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Zoekindex (&lt;code&gt;python scripts\build_zoek_index.py&lt;/code&gt; → &lt;code&gt;static\zoek\index.json&lt;/code&gt;;
+zie &lt;a href="../zoek-index/"&gt;zoek-index&lt;/a&gt;
+)&lt;/li&gt;
 &lt;li&gt;Bouwtijd-stempel (&lt;code&gt;python scripts\write_build_stamp.py&lt;/code&gt; →
 &lt;code&gt;data\build.yaml&lt;/code&gt;; footer «Gegenereerd» op de homepage; niet
 committen)&lt;/li&gt;
@@ -3664,30 +3654,33 @@ in de site-kop, of via &lt;a href="https://orthodox-ronl.github.io/bibliotheek/p
 &lt;p&gt;Deze pagina legt eerst uit wat een bezoeker mag verwachten. Daarna volgt
 de technische specificatie, zodat je kunt beoordelen of het zoeken nog
 past bij wat jullie nodig hebben.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Wie leest wat?&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Jij bent …&lt;/th&gt;
+ &lt;th&gt;Lees …&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Koorlid dat een stuk zoekt&lt;/td&gt;
+ &lt;td&gt;De korte tips op de zoekpagina &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/overzichten/zoeken/"&gt;Zoeken&lt;/a&gt;
+, en hieronder &lt;em&gt;Waarop matcht een zoekterm?&lt;/em&gt; en &lt;em&gt;Hoe staan de treffers op volgorde?&lt;/em&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Beheerder van de catalogus&lt;/td&gt;
+ &lt;td&gt;&lt;em&gt;Hoofdlijnen&lt;/em&gt; en &lt;em&gt;Beheer: iets wordt niet gevonden&lt;/em&gt;; het script staat bij &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/zoek-index/"&gt;zoek-index&lt;/a&gt;
+&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Ontwikkelaar of AI-assistent&lt;/td&gt;
+ &lt;td&gt;&lt;em&gt;Specificatie (detail)&lt;/em&gt;; de logica staat in &lt;code&gt;static/js/catalogus-zoek-kern.js&lt;/code&gt; en &lt;code&gt;scripts/build_zoek_index.py&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
 &lt;aside class="handleiding-cue"&gt;
- &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
- &lt;div class="handleiding-cue-body"&gt;
- &lt;ul&gt;
-&lt;li&gt;Ingang voor koorleden: knop &lt;strong&gt;Zoeken&lt;/strong&gt; in de kop, of &lt;code&gt;/overzichten/zoeken/&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Korte tip: ga met de muis over de knop &lt;strong&gt;Zoeken&lt;/strong&gt; in de kop (popover);
-in het zoekvenster zelf staat nog een &lt;strong&gt;?&lt;/strong&gt; bij het zoekveld&lt;/li&gt;
-&lt;li&gt;Indexbestand: &lt;code&gt;static\zoek\index.json&lt;/code&gt; (bij Pages-deploy opnieuw gebouwd)&lt;/li&gt;
-&lt;li&gt;Synoniemen: &lt;a href="https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml"&gt;&lt;code&gt;data/zoek-synoniemen.yaml&lt;/code&gt;&lt;/a&gt;
-&lt;/li&gt;
-&lt;li&gt;Gezongen tekst: sibling &lt;code&gt;{stam}.vsa.lyrics.txt&lt;/code&gt; / &lt;code&gt;.mvsa.lyrics.txt&lt;/code&gt; /
-&lt;code&gt;.mscz.lyrics.txt&lt;/code&gt; — zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/lyrics-products/"&gt;products (lyrics)&lt;/a&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-
- &lt;/div&gt;
-&lt;/aside&gt;
-
-&lt;h2 id="hoofdlijnen"&gt;Hoofdlijnen&lt;/h2&gt;
-&lt;h3 id="wat-zit-er-in-de-zoekindex"&gt;Wat zit er in de zoekindex?&lt;/h3&gt;
-&lt;p&gt;Elke &lt;strong&gt;uitvoeringsvorm&lt;/strong&gt; in &lt;code&gt;content-source\catalogus\&lt;/code&gt; (bladermap met
-&lt;code&gt;index.md&lt;/code&gt;) kan in de index komen. Per treffer zie je onder meer de titel,
-de publicatiestatus, soms een stukje begrotekst (incipit uit lyrics van
-&lt;code&gt;.vsa&lt;/code&gt; / &lt;code&gt;.mvsa&lt;/code&gt; / &lt;code&gt;.mscz&lt;/code&gt;), het catalogus-id, en soms een beluister-knop.&lt;/p&gt;</description></item><item><title>Kondak zaterdag heiligen toon 8</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/07b-troparen-en-kondaken/kondak-zaterdag-heiligen-toon-8/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/07b-troparen-en-kondaken/kondak-zaterdag-heiligen-toon-8/</guid><description>&lt;h1 class="koormap-kop koormap-kop--midden koormap-kop--groot"&gt;Kondak zaterdag heiligen toon 8&lt;/h1&gt;
+ &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;</description></item><item><title>Kondak zaterdag heiligen toon 8</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/07b-troparen-en-kondaken/kondak-zaterdag-heiligen-toon-8/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/koormappen/hemelum/liturgie-weekdagen/07b-troparen-en-kondaken/kondak-zaterdag-heiligen-toon-8/</guid><description>&lt;h1 class="koormap-kop koormap-kop--midden koormap-kop--groot"&gt;Kondak zaterdag heiligen toon 8&lt;/h1&gt;
 &lt;div class="score-bundle score-uitlijning-links"&gt;
 &lt;details class="score-oefen-tip"&gt;&lt;summary class="score-oefen-tip-trigger" aria-label="Oefenen en beluisteren"&gt;♪&lt;/summary&gt;&lt;div class="score-oefen-tip-panel"&gt;&lt;div class="score-actions oefenhoek-acties score-actions--in-tip"&gt;&lt;div class="score-action-menu" data-score-role="oefenen"&gt;&lt;a class="btn coria-play" href="https://coria.nl/play_from_url?back=coria.nl&amp;amp;url=https%3A%2F%2Forthodox-ronl.github.io%2Fbibliotheek%2Fpreview%2Fmxl%2Fc%2F8207cd97180d.musicxml" target="_blank" rel="noopener noreferrer" data-coria-uit="https://coria.nl/play_from_url?back=coria.nl&amp;url=https%3A%2F%2Forthodox-ronl.github.io%2Fbibliotheek%2Fpreview%2Fmxl%2Fc%2F8207cd97180d.musicxml" data-coria-translit="https://coria.nl/play_from_url?back=coria.nl&amp;url=https%3A%2F%2Forthodox-ronl.github.io%2Fbibliotheek%2Fpreview%2Fmxl%2Fc%2F03ca7b60d7ea.musicxml"&gt;Oefenen&lt;/a&gt;&lt;/div&gt;&lt;div class="score-action-menu" data-score-role="beluisteren"&gt;&lt;button type="button" class="btn score-action-menu-trigger" aria-haspopup="true" aria-expanded="false"&gt;Beluisteren&lt;/button&gt;&lt;ul class="score-action-menu-panel" role="menu"&gt;&lt;li class="score-action-menu-hint" role="presentation"&gt;Kies welke bron je wilt beluisteren (meerstemmig .mvsa eerst, daarna MuseScore, daarna eenstemmig).&lt;/li&gt;&lt;li role="none"&gt;&lt;a role="menuitem" class="score-audio-play" href="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/kondak/zaterdag-heiligen-toon-8/hemelum/kondak-zaterdag-heiligen-toon-8-hemelum.vsa.mvsa.mp3" data-audio-title="Koorblad (meerdere stemmen) — Beluisteren vanuit het koorblad (.mvsa)"&gt;&lt;span class="score-action-menu-label"&gt;Koorblad (meerdere stemmen)&lt;/span&gt;&lt;span class="score-action-menu-detail"&gt;Beluisteren vanuit het koorblad (.mvsa)&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;&lt;li role="none"&gt;&lt;a role="menuitem" class="score-audio-play" href="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/kondak/zaterdag-heiligen-toon-8/hemelum/kondak-zaterdag-heiligen-toon-8-hemelum.vsa.mp3" data-audio-title="Melodie (één stem) — Beluisteren vanuit de eenstemmige melodie"&gt;&lt;span class="score-action-menu-label"&gt;Melodie (één stem)&lt;/span&gt;&lt;span class="score-action-menu-detail"&gt;Beluisteren vanuit de eenstemmige melodie&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/details&gt;&lt;div class="score-weergave" role="group" aria-label="Weergave van de muziek" hidden&gt;&lt;button type="button" data-weergave-kies="vsa" aria-pressed="false" aria-label="VSA: Vereenvoudigde Slavische Accentnotatie (streepjesnotatie)" data-tip="Vereenvoudigde Slavische Accentnotatie (streepjesnotatie)"&gt;VSA&lt;/button&gt;&lt;button type="button" data-weergave-kies="partituur" aria-pressed="false" aria-label="Partituur met notenbalken" data-tip="Partituur met notenbalken"&gt;Partituur&lt;/button&gt;&lt;/div&gt;&lt;div class="score-partituur" data-scherm-root data-weergave="vsa" data-wisselbaar&gt;&lt;div class="score-scherm score-scherm--svg" data-scherm="svg" data-has-translit-svg&gt;
  &lt;div data-translit-view="uit"&gt;&lt;div class="vsa-container"&gt;&lt;img class="vsa-notation" src="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/kondak/zaterdag-heiligen-toon-8/hemelum/kondak-zaterdag-heiligen-toon-8-hemelum.vsa.mvsa.svg" alt="Kondak — Zaterdag heiligen (Toon 8) (Hemelum)"&gt;&lt;/div&gt;&lt;div class="vsa-container"&gt;&lt;img class="vsa-notation" src="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/kondak/zaterdag-heiligen-toon-8/hemelum/kondak-zaterdag-heiligen-toon-8-hemelum.vsa.svg" alt="Kondak — Zaterdag heiligen (Toon 8) (Hemelum)"&gt;&lt;/div&gt;&lt;/div&gt;&lt;div data-translit-view="aan" data-translit-for-modus="nls" hidden&gt;&lt;div class="vsa-container"&gt;&lt;img class="vsa-notation" src="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/kondak/zaterdag-heiligen-toon-8/hemelum/kondak-zaterdag-heiligen-toon-8-hemelum.vsa.mvsa.svg" alt="Kondak — Zaterdag heiligen (Toon 8) (Hemelum)"&gt;&lt;/div&gt;&lt;div class="vsa-container"&gt;&lt;img class="vsa-notation" src="https://orthodox-ronl.github.io/bibliotheek/preview/catalogus/kondak/zaterdag-heiligen-toon-8/hemelum/kondak-zaterdag-heiligen-toon-8-hemelum.vsa.svg" alt="Kondak — Zaterdag heiligen (Toon 8) (Hemelum)"&gt;&lt;/div&gt;&lt;/div&gt;
@@ -4000,7 +3993,23 @@ op schijf. Er is geen &lt;code&gt;-m&lt;/code&gt;: je commit daarna zelf (&lt;co
 &lt;a href="../commit/"&gt;commit&lt;/a&gt;
 ).&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Wat telt als bron?&lt;/strong&gt; Zie de tabel bij &lt;a href="../commit/"&gt;commit&lt;/a&gt;
-.&lt;/p&gt;</description></item><item><title>products — vsa</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+.&lt;/p&gt;</description></item><item><title>zoek-index</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/zoek-index/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/zoek-index/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;build_zoek_index.py&lt;/code&gt; — bouwt de zoekindex &lt;code&gt;static\zoek\index.json&lt;/code&gt; waarmee
+&lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/overzichten/zoeken/"&gt;Zoeken&lt;/a&gt;
+ op de site werkt&lt;/p&gt;
+&lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;python scripts\build_zoek_index.py [map]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Zonder &lt;code&gt;map&lt;/code&gt; leest het script &lt;code&gt;content-source\catalogus&lt;/code&gt;. Korte hulp:
+&lt;code&gt;python scripts\build_zoek_index.py -h&lt;/code&gt;. Er is geen losse &lt;code&gt;.cmd&lt;/code&gt;: &lt;code&gt;check&lt;/code&gt;,
+&lt;code&gt;products&lt;/code&gt; en de GitHub Pages-deploy draaien het script zelf.&lt;/p&gt;
+&lt;h1 id="description"&gt;DESCRIPTION&lt;/h1&gt;
+&lt;p&gt;Maakt één bestand met een regel per &lt;strong&gt;uitvoeringsvorm&lt;/strong&gt; (de bladermap met een
+&lt;code&gt;index.md&lt;/code&gt; onder &lt;code&gt;zangstuk\variant\uitvoeringsvorm&lt;/code&gt;). Per uitvoeringsvorm
+komen er in: titel, id, publicatiestatus, de eerste woorden van de
+gezongen tekst (incipit), de volledige tekst (voor uitklappen), soort, toon
+en taal, het pad naar een beluister-mp3 en één
+&lt;strong&gt;zoektekst-blok&lt;/strong&gt;. Dat blok bevat de titel, de woorden uit het id en de
+volledige gezongen tekst, in een vaste schrijfwijze:&lt;/p&gt;</description></item><item><title>products — vsa</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/scripts/vsa-products/</guid><description>&lt;h1 id="name"&gt;NAME&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;scripts\products.cmd --kinds vsa&lt;/code&gt; — muziek-&lt;code&gt;.vsa.svg&lt;/code&gt;, schets-&lt;code&gt;.vsa.mvsa&lt;/code&gt;
 en (via cascade) de mvsa-producten bij een catalogus-&lt;code&gt;.vsa&lt;/code&gt;&lt;/p&gt;
 &lt;h1 id="synopsis"&gt;SYNOPSIS&lt;/h1&gt;
