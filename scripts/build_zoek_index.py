@@ -12,6 +12,7 @@ import argparse
 import json
 import re
 import sys
+import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -40,6 +41,23 @@ OUT_PATH = REPO_ROOT / "static" / "zoek" / "index.json"
 SYNONYM_PATH = REPO_ROOT / "data" / "zoek-synoniemen.yaml"
 _PUNCT_RE = re.compile(r"[^\w\s]+", re.UNICODE)
 _SPACE_RE = re.compile(r"\s+")
+# Samengesteld woord met harde streepjes: "Drie-eenheid", "God-sprekende".
+_COMPOUND_RE = re.compile(r"\w+(?:-\w+)+", re.UNICODE)
+
+
+def strip_accents(text: str) -> str:
+    """Kleine letters zonder accenten of trema's (``mysteriën`` -> ``mysterien``).
+
+    Zelfde regel als ``stripAccents`` in ``static/js/catalogus-zoek-kern.js``.
+    """
+    decomposed = unicodedata.normalize("NFD", text.casefold())
+    return "".join(c for c in decomposed if not unicodedata.combining(c))
+
+
+def _expand_compound(match: re.Match[str]) -> str:
+    """``drie-eenheid`` -> ``drie eenheid drieeenheid`` (los én aaneen)."""
+    parts = match.group(0).split("-")
+    return " ".join(parts) + " " + "".join(parts)
 
 
 def _fm(path: Path) -> dict[str, str]:
@@ -84,14 +102,21 @@ def _load_synonyms() -> dict[str, str]:
     for key, val in data.items():
         if key is None or val is None:
             continue
-        canon = str(val).strip().lower()
-        mapping[str(key).strip().lower()] = canon
+        canon = strip_accents(str(val).strip())
+        mapping[strip_accents(str(key).strip())] = canon
         mapping[canon] = canon
     return mapping
 
 
 def normalize_text(text: str, synonyms: dict[str, str]) -> str:
-    lowered = text.casefold()
+    """Zoekblob-normalisatie; spiegel: ``norm`` in ``catalogus-zoek-kern.js``.
+
+    Kleine letters, zonder accenten; ``_`` weg; harde streepjes binnen een
+    woord geven zowel de losse delen als het aaneengeschreven woord;
+    leestekens weg; synoniemen per woord.
+    """
+    # ``_`` (melisma-streepje, bv. ``verhoor_``) hoort niet bij het woord.
+    lowered = _COMPOUND_RE.sub(_expand_compound, strip_accents(text).replace("_", ""))
     stripped = _PUNCT_RE.sub(" ", lowered)
     parts: list[str] = []
     for token in _SPACE_RE.split(stripped.strip()):
@@ -99,11 +124,6 @@ def normalize_text(text: str, synonyms: dict[str, str]) -> str:
             continue
         parts.append(synonyms.get(token, token))
     return " ".join(parts)
-
-
-def token_sort_key(normalized: str) -> str:
-    toks = sorted(set(normalized.split()))
-    return " ".join(toks)
 
 
 def _catalogus_id_for_leaf_dir(leaf_dir: Path) -> str | None:
@@ -151,7 +171,9 @@ def _lyric_sources_in_dir(leaf_dir: Path) -> list[Path]:
         name = path.name.lower()
         if name.endswith(".syl.vsa"):
             continue
-        if name.endswith(".mscz.mvsa"):
+        # Afgeleide notatie is geen tekstbron: ``{stam}.vsa.mvsa`` (schets uit .vsa)
+        # en ``{stam}.mscz.mvsa`` (importvorm). Zie docs/catalogus-notatiebron.md.
+        if name.endswith((".vsa.mvsa", ".mscz.mvsa")):
             continue
         if suf == ".mscz" and is_print_mscz(path):
             continue
@@ -279,7 +301,6 @@ def _entry_for_leaf(leaf: Path, synonyms: dict[str, str]) -> dict | None:
         "variantTitle": var_title,
         "status": leaf_fm.get("publicatiestatus") or "",
         "text": norm,
-        "tokens": token_sort_key(norm),
         "incipit": " ".join(plain.split()[:12]),
         "audio": preferred_audio_url(leaf_dir, ident),
     }

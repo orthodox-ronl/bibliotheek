@@ -13,6 +13,14 @@ Deze pagina legt eerst uit wat een bezoeker mag verwachten. Daarna volgt
 de technische specificatie, zodat je kunt beoordelen of het zoeken nog
 past bij wat jullie nodig hebben.
 
+**Wie leest wat?**
+
+| Jij bent … | Lees … |
+| --- | --- |
+| Koorlid dat een stuk zoekt | De korte tips op de zoekpagina [Zoeken](/overzichten/zoeken/), en hieronder *Waarop matcht een zoekterm?* en *Hoe staan de treffers op volgorde?* |
+| Beheerder van de catalogus | *Hoofdlijnen* en *Beheer: iets wordt niet gevonden*; het script staat bij [zoek-index](/handleiding/scripts/zoek-index/) |
+| Ontwikkelaar of AI-assistent | *Specificatie (detail)*; de logica staat in `static/js/catalogus-zoek-kern.js` en `scripts/build_zoek_index.py` |
+
 {{< cue >}}
 - Ingang voor koorleden: knop **Zoeken** in de kop, of `/overzichten/zoeken/`
 - Korte tip: ga met de muis over de knop **Zoeken** in de kop (popover);
@@ -21,6 +29,8 @@ past bij wat jullie nodig hebben.
 - Synoniemen: [`data/zoek-synoniemen.yaml`](https://github.com/orthodox-ronl/bibliotheek/blob/development/data/zoek-synoniemen.yaml)
 - Gezongen tekst: sibling `{stam}.vsa.lyrics.txt` / `.mvsa.lyrics.txt` /
   `.mscz.lyrics.txt` — zie [products (lyrics)](/handleiding/scripts/lyrics-products/)
+- Zoeklogica: `static\js\catalogus-zoek-kern.js`; test:
+  `node --test tests\zoek-kern.test.mjs` (draait ook mee in `pytest`)
 {{< /cue >}}
 
 ## Hoofdlijnen
@@ -49,15 +59,37 @@ Je mag zoeken op:
    canonieke `.vsa` of `.mvsa`, dan wint die notatie — niet de (vaak
    langere) `.mscz`-lyrics met foute lettergreep-koppeling.
 
-Daarnaast:
+Daarnaast geldt:
 
 - **Hoofdletters** doen niet mee.
+- **Accenten en trema's** doen niet mee: *mysterien* vindt *Mysteriën*.
 - **Leestekens** worden genegeerd.
+- **Streepjes binnen een woord** doen niet mee. Je mag zoeken op
+  *eeuwige*, *eeu-wige* of *eeu-wi-ge*: alle drie geven hetzelfde
+  resultaat. Dat geldt ook voor echte samenstellingen: *Drie-eenheid*,
+  *drieeenheid* en *drie eenheid* vinden dezelfde uitvoeringsvormen.
+- **Een zoekwoord matcht vanaf het begin van een woord.** *eeuw* vindt
+  *eeuwige*; *wige* vindt dat woord niet.
 - **Synoniemen** uit `data\zoek-synoniemen.yaml` (bijv. *alleluja* →
   *alleluia*, *litanie* → *ektinia*) worden op zoekterm én op
   geïndexeerde tekst toegepast.
-- **Omgewisselde woorden** kunnen nog matchen via een gesorteerde
-  tokensleutel (zelfde woorden, andere volgorde).
+
+### Hoe staan de treffers op volgorde?
+
+1. Bovenaan staan de uitvoeringsvormen waarin **alle** woorden uit je
+   zoekterm voorkomen.
+2. Daaronder, na de tussenkop *Ook gevonden, maar niet met alle
+   woorden*, staan de uitvoeringsvormen met **zoveel mogelijk** van je
+   woorden. Bij een zoekterm van twee woorden telt één woord al mee; bij
+   langere zoektermen moet minstens de helft van de woorden voorkomen.
+   Een zoekterm met alleen korte woordjes als *de* of *u* levert geen
+   deeltreffers op.
+3. Bij evenveel gevonden woorden komt vóór wie je woorden **aaneen** en
+   **in de gezochte volgorde** bevat, en daarna wie ze in de titel of het
+   id heeft.
+
+De lijst toont telkens 40 treffers. Met de knop *Toon meer* zie je de
+volgende 40.
 
 ### Wat toont een treffer?
 
@@ -77,7 +109,7 @@ baseURL*.
 ### Wat zoeken niet doet (nu)
 
 - Geen full-text over koormappen of handleidingpagina’s.
-- Geen server-side ranking of typfout-correctie buiten de synoniemenlijst.
+- Geen typfout-correctie buiten de synoniemenlijst.
 
 ## Specificatie (detail)
 
@@ -94,7 +126,12 @@ productscripts slaan die over). Gezongen tekst wordt toegevoegd als er in
 die bladermap een canonieke `.vsa`, `.mvsa` of basispartituur-`.mscz` is
 (lyrics-sibling of live `vsa text` / MusicXML). Bij meerdere bronnen in
 dezelfde bladermap: eerst `.mvsa`, dan `.vsa`, dan `.mscz`; binnen die
-keuze de langste bruikbare tekst.
+keuze de langste bruikbare tekst. **Afgeleide notatie telt nooit als
+tekstbron:** `{stam}.vsa.mvsa` (de schets die uit een `.vsa` wordt
+gemaakt) en `{stam}.mscz.mvsa` (de importvorm van een `.mscz`) worden
+overgeslagen. Daarin stonden woorden soms in stukjes (*on wankelbare*),
+waardoor zoeken op het hele woord misliep. Zie
+[Catalogus: één canonieke notatiebron](https://github.com/orthodox-ronl/bibliotheek/blob/development/docs/catalogus-notatiebron.md).
 Uitvoer: `static\zoek\index.json` met o.a.:
 
 | Veld | Inhoud |
@@ -114,7 +151,6 @@ Uitvoer: `static\zoek\index.json` met o.a.:
 | `zangstukTitle` / `variantTitle` | Afgeleid uit de bovenliggende mapnamen |
 | `status` | `publicatiestatus` van de leaf |
 | `text` | Genormaliseerde zoekblob (titels + id-woorden + gezongen tekst) |
-| `tokens` | Gesorteerde unieke tokens van `text` (woordvolgorde-varianten) |
 | `incipit` | Eerste ~12 woorden van de platte brontekst (niet genormaliseerd voor weergave) |
 | `audio` | Site-absoluut pad naar voorkeurs-`.mp3` in de bladermap, of leeg |
 
@@ -123,29 +159,39 @@ Audio-voorkeur in de bladermap: `.mvsa.mp3`, dan `.mscz.mp3`, dan
 
 ### Normalisatie
 
-Zowel bij indexeren als bij de zoekterm in de browser:
+Zowel bij indexeren (`scripts\build_zoek_index.py`, functie
+`normalize_text`) als in de browser (`static/js/catalogus-zoek-kern.js`,
+functie `norm`) gelden dezelfde stappen. Een test legt vast dat ze
+hetzelfde resultaat geven.
 
-1. `casefold` / lowercase.
-2. Leestekens → spatie.
-3. Tokens opsplitsen; elk token via synoniemenmap (zo aanwezig).
-4. Weer samenvoegen tot één string (`text`) of gesorteerde unieke tokens
-   (`tokens` / `tokenSort` in JS).
+1. Kleine letters.
+2. Accenten en trema's weg (*mysteriën* → *mysterien*).
+3. `_` weg (het melisma-streepje in *verhoor_*).
+4. Een woord met harde streepjes (*Drie-eenheid*) wordt los én aaneen
+   opgeslagen: *drie eenheid drieeenheid*.
+5. Overige leestekens → spatie.
+6. Per woord de synoniemenmap (zo aanwezig).
+7. Alles weer samenvoegen tot één string (`text`).
 
-### Scoring in de browser (`static/js/catalogus-zoek.js`)
+De zoekterm doorloopt dezelfde stappen, met één verschil: een woord met
+streepjes in de zoekterm (*eeu-wi-ge*) wordt aaneen gezocht (*eeuwige*)
+én als losse woorden (*eeu wi ge*), zodat je ook een id of een echte
+samenstelling kunt plakken.
 
-Globale index één keer laden per pagina (gedeeld door kop-zoeken en
-pagina-formulier). Per entry een score > 0 om als treffer te tonen
-(max. 40 getoond, hoogste score eerst, dan id).
+### Zoeken en rangschikken in de browser
 
-Indicatie van de gewichten (kan wijzigen; dit is de huidige code):
+De logica staat in `static/js/catalogus-zoek-kern.js` (zonder
+schermcode, zodat ze getest kan worden); `static/js/catalogus-zoek.js`
+toont de uitkomst. De index wordt één keer per pagina geladen (gedeeld
+door kop-zoeken en pagina-formulier).
 
-- Treffer in titel/linkTitle: zwaar
-- Treffer in id (met `/` en `-` als spaties): middel
-- Treffer in genormaliseerde `text`: middel
-- Exacte match op gesorteerde tokens: bonus
-- Deelmatches op query-woorden: lichte bonus naar verhouding
-
-Synoniemen uit de JSON worden op de zoekterm toegepast vóór scoren.
+Een zoekwoord telt als gevonden als een woord in de titel, het id of de
+gezongen tekst ermee **begint**. Een uitvoeringsvorm is een treffer als
+alle woorden gevonden zijn, of — bij meer dan één woord — als minstens
+de helft gevonden is (en dan niet alleen korte woordjes). Sorteervolgorde:
+aantal gevonden woorden, dan aaneen-in-volgorde, dan gevonden woorden in
+de gezochte volgorde, dan treffer in titel boven id boven tekst, dan het
+id.
 
 ### UI-ingangen
 
@@ -154,10 +200,32 @@ Synoniemen uit de JSON worden op de zoekterm toegepast vóór scoren.
 | Catalogus-zoekpagina | shortcode `zoek-formulier` |
 | Site-kop | partial `site-zoek` |
 | Tip **?** | partial `zoek-help-tip` → deze handleidingpagina |
-| Gedrag | `static/js/catalogus-zoek.js` |
+| Zoeklogica (normaliseren, scoren) | `static/js/catalogus-zoek-kern.js` |
+| Gedrag en weergave | `static/js/catalogus-zoek.js` |
 
 `data-base` op `.catalogus-zoek` is het pad van `site.BaseURL` (eindigend
 op `/`), zodat links onder preview/branch kloppen.
+
+### Beheer: iets wordt niet gevonden
+
+Zoek je als beheerder een stuk dat niet verschijnt, loop dan deze punten
+na, in deze volgorde:
+
+1. **Staat de uitvoeringsvorm in de index?** Open `static\zoek\index.json`
+   en zoek op het id. Ontbreekt het? Draai `python scripts\build_zoek_index.py`
+   (of `check`) en kijk of het id nu wel verschijnt.
+2. **Staat het woord in de gezongen tekst?** Open het bestand
+   `{stam}.vsa.lyrics.txt` of `{stam}.mvsa.lyrics.txt` naast de bron. Staat
+   het woord daar in stukjes (*on wankelbare*) of niet, dan zit de fout in
+   de bron of in tooling, niet in de zoekfunctie. Vernieuw de lyrics met
+   `scripts\products.cmd --kinds lyrics`.
+3. **Welke bron wordt gelezen?** Alleen de canonieke bron: `.mvsa`, `.vsa`
+   of basis-`.mscz`. Afgeleide bestanden als `{stam}.vsa.mvsa` tellen nooit mee.
+4. **Het veld `zoektekst` bovenin een `.vsa` of `.mvsa`** is bedoeld voor
+   zoeken in de editor (bijvoorbeeld Ctrl+Shift+F in VS Code). De
+   zoekfunctie op de site leest dat veld niet; die leest de lyrics-bestanden.
+5. **Spelling- of naamvarianten** (*alleluja*/*alleluia*, *litanie*/*ektinia*)
+   los je op met een regel in `data\zoek-synoniemen.yaml`.
 
 ### Beheer: synoniemen en lyrics bijwerken
 

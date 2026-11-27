@@ -41,7 +41,9 @@ kale `.lyrics.txt` schreef — anders zou de volgende `check` ten onrechte
 ook `static\zoek\index.json` (zelfde stap als `products` en `check`). Op
 GitHub Pages (productie, preview én branch-previews) bouwt de deploy-workflow
 die index opnieuw vóór Hugo, zodat zoeken altijd bij de gecommitte catalogus
-past.
+past. Welke bronnen de index leest en hoe de tekst voor de zoekindex wordt
+geschreven, staat bij [zoek-index](../zoek-index/): afgeleide notatie als
+`{stam}.vsa.mvsa` telt nooit als tekstbron.
 
 Zoekt onder het opgegeven pad (of, zonder pad, onder
 `content-source\catalogus`). Korte paden mogen — zie

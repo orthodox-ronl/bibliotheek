@@ -74,7 +74,8 @@ Of: `scripts\check.cmd` vanuit de repo-root.
    `static\vsa\bladermap\` uit `.vsa`, zonder stempel. Het scherm
    gebruikt sibling `{stam}.vsa.svg` (stap 2) zodra die er is; dit
    plaatje is alleen de fallback
-16. Zoekindex (`python scripts\build_zoek_index.py` → `static\zoek\index.json`)
+16. Zoekindex (`python scripts\build_zoek_index.py` → `static\zoek\index.json`;
+    zie [zoek-index](../zoek-index/))
 17. Bouwtijd-stempel (`python scripts\write_build_stamp.py` →
     `data\build.yaml`; footer «Gegenereerd» op de homepage; niet
     committen)

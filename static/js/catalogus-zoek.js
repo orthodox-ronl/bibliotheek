@@ -11,8 +11,11 @@
   if (!roots.length) return;
 
   let entries = [];
-  let synonyms = {};
+  let searcher = null;
   let indexPromise = null;
+  const Kern = window.CatalogusZoekKern;
+  /** Zoveel treffers per keer tonen; "Toon meer" voegt er steeds zoveel toe. */
+  const PAGE_SIZE = 40;
 
   /** Één gedeelde speler voor zoektreffers. */
   const player = new Audio();
@@ -137,110 +140,6 @@
       "</div>" +
       "</span></span>"
     );
-  }
-
-  function strip(s) {
-    return String(s || "")
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^\w\s]+/g, " ")
-      .replace(/\s+/g, " ")
-      .trim();
-  }
-
-  /** Exacte synoniemen; vanaf 3 letters ook prefix van een synoniemsleutel/canon. */
-  const SYNONYM_PREFIX_MIN = 3;
-
-  function expandToken(token) {
-    if (!token) return [];
-    const exact = synonyms[token];
-    if (exact) return [exact];
-    const alts = [token];
-    if (token.length < SYNONYM_PREFIX_MIN) return alts;
-    const seen = Object.create(null);
-    seen[token] = true;
-    Object.keys(synonyms).forEach(function (key) {
-      const canon = synonyms[key];
-      if (!canon) return;
-      if (key.startsWith(token) || canon.startsWith(token)) {
-        if (!seen[canon]) {
-          seen[canon] = true;
-          alts.push(canon);
-        }
-      }
-    });
-    return alts;
-  }
-
-  function normalize(s) {
-    const base = strip(s);
-    if (!base) return "";
-    return base
-      .split(" ")
-      .filter(Boolean)
-      .map(function (token) {
-        return synonyms[token] || token;
-      })
-      .join(" ");
-  }
-
-  function queryPhrases(rawQ) {
-    const tokens = strip(rawQ).split(" ").filter(Boolean);
-    if (!tokens.length) return [];
-    let phrases = [[]];
-    for (let i = 0; i < tokens.length; i++) {
-      const alts = expandToken(tokens[i]);
-      const next = [];
-      for (let p = 0; p < phrases.length; p++) {
-        for (let a = 0; a < alts.length; a++) {
-          next.push(phrases[p].concat([alts[a]]));
-        }
-      }
-      phrases = next;
-      if (phrases.length > 48) break;
-    }
-    return phrases;
-  }
-
-  function score(entry, rawQ) {
-    const phrases = queryPhrases(rawQ);
-    if (!phrases.length) return 0;
-    let s = 0;
-    const title = normalize(entry.title + " " + entry.linkTitle);
-    const id = normalize(entry.id.replace(/\//g, " ").replace(/-/g, " "));
-    const text = entry.text || "";
-    let best = 0;
-    for (let i = 0; i < phrases.length; i++) {
-      const words = phrases[i];
-      const qNorm = words.join(" ");
-      let ps = 0;
-      if (title.includes(qNorm)) ps += 50;
-      if (id.includes(qNorm)) ps += 30;
-      if (text.includes(qNorm)) ps += 20;
-      const qTokens = Array.from(new Set(words.filter(Boolean)))
-        .sort()
-        .join(" ");
-      if (qTokens && entry.tokens && entry.tokens.includes(qTokens)) ps += 25;
-      if (ps > best) best = ps;
-    }
-    s += best;
-    const tokens = strip(rawQ).split(" ").filter(Boolean);
-    let hit = 0;
-    for (let i = 0; i < tokens.length; i++) {
-      const alts = expandToken(tokens[i]);
-      let ok = false;
-      for (let a = 0; a < alts.length; a++) {
-        const w = alts[a];
-        if (text.includes(w) || title.includes(w) || id.includes(w)) {
-          ok = true;
-          break;
-        }
-      }
-      if (ok) hit += 1;
-    }
-    if (tokens.length) s += (hit / tokens.length) * 15;
-    return s;
   }
 
   function escapeHtml(s) {
@@ -575,7 +474,8 @@
     document.body.removeChild(ta);
   }
 
-  function render(root, out, meta, rows, q) {
+  function render(root, out, meta, result, q, limit) {
+    const rows = result.rows;
     closeAllTips(root);
     if (!q) {
       out.innerHTML =
@@ -588,9 +488,27 @@
       if (meta) meta.textContent = "";
       return;
     }
-    if (meta) meta.textContent = rows.length + " treffer(s)";
+    if (meta) {
+      const deels = rows.length - result.completeCount;
+      meta.textContent =
+        result.tokenCount > 1 && deels > 0
+          ? result.completeCount +
+            " treffer(s) met alle woorden, " +
+            deels +
+            " met een deel van de woorden"
+          : rows.length + " treffer(s)";
+    }
     const html = ['<ul class="catalogus-zoek-lijst">'];
-    for (const row of rows.slice(0, 40)) {
+    let scheidingGetoond = false;
+    for (const row of rows.slice(0, limit)) {
+      if (!row.complete && !scheidingGetoond) {
+        scheidingGetoond = true;
+        html.push(
+          '<li class="catalogus-zoek-scheiding" role="separator">' +
+            "Ook gevonden, maar niet met alle woorden" +
+            "</li>"
+        );
+      }
       const e = row.entry;
       const status = e.status
         ? ' <span class="catalogus-zoek-status-line">' +
@@ -637,6 +555,14 @@
       );
     }
     html.push("</ul>");
+    if (rows.length > limit) {
+      html.push(
+        '<p class="catalogus-zoek-meer-rij">' +
+          '<button type="button" class="catalogus-zoek-meer">Toon meer (' +
+          (rows.length - limit) +
+          " nog)</button></p>"
+      );
+    }
     out.innerHTML = html.join("");
     syncRateUi(out);
   }
@@ -649,15 +575,9 @@
 
     const q = input.value.trim();
     stopAudio();
-    const scored = [];
-    for (const entry of entries) {
-      const sc = score(entry, q);
-      if (sc > 0) scored.push({ entry, sc });
-    }
-    scored.sort(
-      (a, b) => b.sc - a.sc || a.entry.id.localeCompare(b.entry.id)
-    );
-    render(root, out, meta, scored, q);
+    const result = searcher ? searcher.search(q) : { rows: [], completeCount: 0 };
+    root._zoekState = { result: result, limit: PAGE_SIZE };
+    render(root, out, meta, result, q, PAGE_SIZE);
   }
 
   function loadIndex(root) {
@@ -670,10 +590,10 @@
       })
       .then(function (data) {
         entries = data.entries || [];
-        synonyms =
-          data.synonyms && typeof data.synonyms === "object"
-            ? data.synonyms
-            : {};
+        searcher = Kern.createSearcher(
+          entries,
+          data.synonyms && typeof data.synonyms === "object" ? data.synonyms : {}
+        );
         return data;
       });
     return indexPromise;
@@ -721,6 +641,15 @@
     });
 
     out.addEventListener("click", function (ev) {
+      if (ev.target.closest(".catalogus-zoek-meer")) {
+        ev.preventDefault();
+        const state = root._zoekState;
+        if (state) {
+          state.limit += PAGE_SIZE;
+          render(root, out, meta, state.result, input.value.trim(), state.limit);
+        }
+        return;
+      }
       const rateOpt = ev.target.closest(".catalogus-zoek-rate-option");
       if (rateOpt) {
         ev.preventDefault();
