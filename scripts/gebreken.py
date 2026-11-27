@@ -424,6 +424,34 @@ def apply_pdf_gebreken_watermark(
     atomic_replace(tmp, pdf_path)
 
 
+def _ververs_meta_hash(leaf_dir: Path, svg: Path) -> None:
+    """Zet de sha256 van ``svg`` in de products-meta opnieuw.
+
+    Een (ont)stempeling wijzigt de SVG nadat ``products`` de meta schreef;
+    zonder verversen meldt check ``meta foute sha256`` en maakt fix ze
+    elke run opnieuw (en stempelt weer).
+    """
+    import json
+
+    from street_meta import write_products_meta
+
+    for meta in sorted(leaf_dir.glob("*.products-meta.json")):
+        try:
+            data = json.loads(meta.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        producten = data.get("products")
+        bron_naam = data.get("bron")
+        if not isinstance(producten, dict) or not isinstance(bron_naam, str):
+            continue
+        for key, info in producten.items():
+            if isinstance(info, dict) and info.get("file") == svg.name:
+                bron = leaf_dir / bron_naam
+                if bron.is_file():
+                    write_products_meta(bron, {key: svg}, merge=True)
+                break
+
+
 def sync_leaf_svg_stempels(leaf_dir: Path) -> tuple[int, int]:
     """Pas SVG-stempels aan volgens effectieve gebreken. Returns (gewijzigd, bekeken)."""
     index = leaf_index_md(leaf_dir)
@@ -435,6 +463,7 @@ def sync_leaf_svg_stempels(leaf_dir: Path) -> tuple[int, int]:
     for svg in svgs:
         if ensure_svg_gebreken_stempel(svg, actief=actief):
             changed += 1
+            _ververs_meta_hash(leaf_dir, svg)
     return changed, len(svgs)
 
 

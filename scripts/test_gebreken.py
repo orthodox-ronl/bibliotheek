@@ -142,5 +142,33 @@ class GebrekenPdfTests(unittest.TestCase):
             self.assertTrue(g.pdf_has_gebreken_stempel(path))
 
 
+def test_stempel_ververst_meta_hash(tmp_path, monkeypatch) -> None:
+    """Stempelen wijzigt de SVG; de sha256 in products-meta moet meegaan."""
+    import json
+
+    from vsa.products_meta import write_meta
+
+    leaf = tmp_path / "leaf"
+    leaf.mkdir()
+    (leaf / "index.md").write_text("---\ntitle: x\n---\n", encoding="utf-8")
+    bron = leaf / "x.vsa"
+    bron.write_text("L: a\n", encoding="utf-8")
+    svg = leaf / "x.vsa.svg"
+    svg.write_text(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50"></svg>',
+        encoding="utf-8",
+    )
+    write_meta(bron, {"svg": svg})
+    monkeypatch.setattr(g, "effective_gebreken_for_folder", lambda _f: (True, None))
+    changed, seen = g.sync_leaf_svg_stempels(leaf)
+    assert (changed, seen) == (1, 1)
+    meta = json.loads((leaf / "x.vsa.products-meta.json").read_text("utf-8"))
+    import hashlib
+
+    assert meta["products"]["svg"]["sha256"] == hashlib.sha256(svg.read_bytes()).hexdigest()
+    # tweede run: niets meer te doen
+    assert g.sync_leaf_svg_stempels(leaf) == (0, 1)
+
+
 if __name__ == "__main__":
     unittest.main()
