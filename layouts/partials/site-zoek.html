@@ -11,7 +11,7 @@
   {{- $basePath = printf "%s/" $basePath -}}
 {{- end -}}
 {{- $docsUrl := "handleiding/start/zoeken/" | relURL -}}
-{{- $zoekHelp := printf `<p><strong>Waarop zoeken?</strong> Titel of korte naam van het stuk, het <strong>catalogus-id</strong> (bijv. <code>tropaar/…/hemelum</code>), of een stukje <strong>gezongen tekst</strong>.</p><p>Typ gewoon een of meer woorden. Alle woorden moeten voorkomen; staat dat nergens, dan zie je daaronder de stukken met een deel van je woorden. Hoofdletters, accenten en streepjes tellen niet mee (<em>eeu-wi-ge</em> vindt <em>eeuwige</em>). Spellingvarianten (alleluja/alleluia, Johannes/Joannes) tellen wel mee. Zoeken loopt over de <strong>uitvoeringsvormen</strong> in de catalogus.</p><p><a href="%s">Uitgebreide uitleg in de handleiding</a> (eerst hoofdlijnen, daarna de technische specificatie).</p>` $docsUrl -}}
+{{- $zoekHelp := printf `<p><strong>Waarop zoeken?</strong> Titel of korte naam van het stuk, het <strong>catalogus-id</strong> (bijv. <code>tropaar/…/hemelum</code>), of een stukje <strong>gezongen tekst</strong>.</p><p>Typ gewoon een of meer woorden. Alle woorden moeten voorkomen; staat dat nergens, dan zie je daaronder de stukken met een deel van je woorden. Hoofdletters, accenten en streepjes tellen niet mee (<em>eeu-wi-ge</em> vindt <em>eeuwige</em>). Spellingvarianten (alleluja/alleluia, Johannes/Joannes) tellen wel mee. Zoeken loopt over de <strong>uitvoeringsvormen</strong> in de catalogus.</p><p>Onder het zoekveld kies je ook een <strong>soort</strong> (tropaar, kondak, …) en een <strong>toon</strong> (1–8). Met <em>Toon hele tekst</em> klap je de volledige tekst van een treffer open.</p><p><a href="%s">Uitgebreide uitleg in de handleiding</a> (eerst hoofdlijnen, daarna de technische specificatie).</p>` $docsUrl -}}
 <div
   class="site-zoek catalogus-zoek"
   data-index="{{ "zoek/index.json" | relURL }}"
@@ -66,6 +66,17 @@
           {{ partial "zoek-help-tip.html" (dict) }}
         </div>
       </form>
+    <div class="catalogus-zoek-filters" hidden>
+      <label class="catalogus-zoek-filter">Soort
+        <select data-filter="soort"><option value="">alle</option></select>
+      </label>
+      <label class="catalogus-zoek-filter">Toon
+        <select data-filter="toon"><option value="">alle</option></select>
+      </label>
+      <label class="catalogus-zoek-filter" hidden>Taal
+        <select data-filter="taal"><option value="">alle</option></select>
+      </label>
+    </div>
       <p class="catalogus-zoek-meta" aria-live="polite"></p>
       <div class="catalogus-zoek-resultaten"></div>
     </div>

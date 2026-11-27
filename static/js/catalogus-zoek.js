@@ -474,12 +474,128 @@
     document.body.removeChild(ta);
   }
 
+  const TAAL_NAMEN = {
+    nl: "Nederlands",
+    cu: "Kerkslavisch",
+    el: "Grieks",
+    la: "Latijn",
+    en: "Engels",
+    ksl: "Kerkslavisch",
+    ru: "Russisch",
+  };
+
+  function soortLabel(soort) {
+    const t = String(soort || "").replace(/-/g, " ");
+    return t.charAt(0).toUpperCase() + t.slice(1);
+  }
+
+  function taalLabel(taal) {
+    return TAAL_NAMEN[taal] || String(taal || "").toUpperCase();
+  }
+
+  /** Kleine labels bij een treffer: soort, toon (alleen als die er is), taal. */
+  function badgesHtml(e) {
+    const b = [];
+    if (e.soort) b.push('<span class="catalogus-zoek-badge">' + escapeHtml(soortLabel(e.soort)) + "</span>");
+    if (e.toon) b.push('<span class="catalogus-zoek-badge catalogus-zoek-badge--toon">toon ' + escapeHtml(e.toon) + "</span>");
+    if (e.taal) b.push('<span class="catalogus-zoek-badge catalogus-zoek-badge--taal">' + escapeHtml(taalLabel(e.taal)) + "</span>");
+    return b.length ? '<span class="catalogus-zoek-badges">' + b.join("") + "</span>" : "";
+  }
+
+  /** Volledige tekst, uitklapbaar (koorleden willen meer dan de eerste regel). */
+  function tekstHtml(e) {
+    const regels = String(e.tekst || "")
+      .split(/\n+/)
+      .map(function (r) {
+        return r.trim();
+      })
+      .filter(Boolean);
+    if (!regels.length) return "";
+    return (
+      '<details class="catalogus-zoek-tekst"><summary>Toon hele tekst</summary>' +
+      regels
+        .map(function (r) {
+          return "<p>" + escapeHtml(r) + "</p>";
+        })
+        .join("") +
+      "</details>"
+    );
+  }
+
+  /** Eén uitvoeringsvorm; compact=true binnen een variantgroep (titel = uitvoeringsvorm). */
+  function rowHtml(root, e, compact) {
+    const status = e.status
+      ? ' <span class="catalogus-zoek-status-line">' +
+        '<span class="catalogus-zoek-status">' +
+        escapeHtml(e.status) +
+        "</span>" +
+        statusHelpHtml(root, e.status, e) +
+        "</span>"
+      : "";
+    const incipit = e.incipit
+      ? '<div class="catalogus-zoek-incipit">' + escapeHtml(e.incipit) + "</div>"
+      : "";
+    const audio = e.audio
+      ? '<span class="catalogus-zoek-play-wrap">' +
+        '<button type="button" class="catalogus-zoek-play" data-audio="' +
+        escapeAttr(e.audio) +
+        '" aria-label="Beluisteren" aria-pressed="false" title="Beluisteren">▶</button>' +
+        rateControlHtml() +
+        "</span>"
+      : '<span class="catalogus-zoek-play catalogus-zoek-play--empty" aria-hidden="true"></span>';
+    const uv = String(e.id || "").split("/")[2] || "";
+    const titel = compact ? (e.linkTitle && e.linkTitle !== e.variantTitle ? e.linkTitle : uv) : displayTitle(e);
+    return (
+      '<a class="catalogus-zoek-title" href="' +
+      escapeAttr(resolveUrl(root, e.url)) +
+      '"><strong>' +
+      escapeHtml(titel) +
+      "</strong></a>" +
+      (compact ? "" : badgesHtml(e)) +
+      status +
+      incipit +
+      tekstHtml(e) +
+      '<div class="catalogus-zoek-id-rij">' +
+      audio +
+      '<button type="button" class="catalogus-zoek-id" data-id="' +
+      escapeAttr(e.id) +
+      '" title="Kopieer bieb-shortcode">' +
+      "<code>" +
+      escapeHtml(e.id) +
+      "</code>" +
+      "</button>" +
+      idHelpHtml(root) +
+      "</div>"
+    );
+  }
+
+  /**
+   * Groepeert de zichtbare rijen per variant (zelfde zangstuk + variant, bv. alle
+   * uitvoeringsvormen van "kondak/moeder-gods-toon-6"), binnen "alle woorden" resp.
+   * "deel van de woorden". De volgorde van de beste treffer per groep blijft gelden.
+   */
+  function groepeer(rows) {
+    const groepen = [];
+    const index = {};
+    rows.forEach(function (row) {
+      const sleutel = (row.complete ? "c|" : "d|") + (row.entry.variant || row.entry.id);
+      if (index[sleutel] === undefined) {
+        index[sleutel] = groepen.length;
+        groepen.push({ complete: row.complete, rows: [] });
+      }
+      groepen[index[sleutel]].rows.push(row);
+    });
+    return groepen;
+  }
+
   function render(root, out, meta, result, q, limit) {
     const rows = result.rows;
     closeAllTips(root);
-    if (!q) {
+    const filter = root._zoekFilter || {};
+    const filterActief = !!(filter.soort || filter.toon || filter.taal);
+    if (!q && !filterActief) {
       out.innerHTML =
-        '<p class="catalogus-zoek-leeg">Typ een titel, id of stukje tekst.</p>';
+        '<p class="catalogus-zoek-leeg">Typ een titel, id of stukje tekst, of kies een soort of toon.</p>';
       if (meta) meta.textContent = "";
       return;
     }
@@ -500,8 +616,8 @@
     }
     const html = ['<ul class="catalogus-zoek-lijst">'];
     let scheidingGetoond = false;
-    for (const row of rows.slice(0, limit)) {
-      if (!row.complete && !scheidingGetoond) {
+    groepeer(rows.slice(0, limit)).forEach(function (g) {
+      if (!g.complete && !scheidingGetoond) {
         scheidingGetoond = true;
         html.push(
           '<li class="catalogus-zoek-scheiding" role="separator">' +
@@ -509,51 +625,32 @@
             "</li>"
         );
       }
-      const e = row.entry;
-      const status = e.status
-        ? ' <span class="catalogus-zoek-status-line">' +
-          '<span class="catalogus-zoek-status">' +
-          escapeHtml(e.status) +
-          "</span>" +
-          statusHelpHtml(root, e.status, e) +
-          "</span>"
-        : "";
-      const incipit = e.incipit
-        ? '<div class="catalogus-zoek-incipit">' +
-          escapeHtml(e.incipit) +
-          "</div>"
-        : "";
-      const audio = e.audio
-        ? '<span class="catalogus-zoek-play-wrap">' +
-          '<button type="button" class="catalogus-zoek-play" data-audio="' +
-          escapeAttr(e.audio) +
-          '" aria-label="Beluisteren" aria-pressed="false" title="Beluisteren">▶</button>' +
-          rateControlHtml() +
-          "</span>"
-        : '<span class="catalogus-zoek-play catalogus-zoek-play--empty" aria-hidden="true"></span>';
+      if (g.rows.length === 1) {
+        html.push("<li>" + rowHtml(root, g.rows[0].entry, false) + "</li>");
+        return;
+      }
+      const eerste = g.rows[0].entry;
+      const kop = [eerste.zangstukTitle, eerste.variantTitle]
+        .filter(Boolean)
+        .join(" ");
       html.push(
-        "<li>" +
-          '<a class="catalogus-zoek-title" href="' +
-          escapeAttr(resolveUrl(root, e.url)) +
-          '"><strong>' +
-          escapeHtml(displayTitle(e)) +
-          "</strong></a>" +
-          status +
-          incipit +
-          '<div class="catalogus-zoek-id-rij">' +
-          audio +
-          '<button type="button" class="catalogus-zoek-id" data-id="' +
-          escapeAttr(e.id) +
-          '" title="Kopieer bieb-shortcode">' +
-          "<code>" +
-          escapeHtml(e.id) +
-          "</code>" +
-          "</button>" +
-          idHelpHtml(root) +
-          "</div>" +
-          "</li>"
+        '<li class="catalogus-zoek-groep">' +
+          '<div class="catalogus-zoek-groep-kop"><strong>' +
+          escapeHtml(kop || eerste.variant) +
+          "</strong>" +
+          badgesHtml(eerste) +
+          '<span class="catalogus-zoek-groep-aantal">' +
+          g.rows.length +
+          " uitvoeringsvormen</span></div>" +
+          '<ul class="catalogus-zoek-groep-lijst">' +
+          g.rows
+            .map(function (r) {
+              return "<li>" + rowHtml(root, r.entry, true) + "</li>";
+            })
+            .join("") +
+          "</ul></li>"
       );
-    }
+    });
     html.push("</ul>");
     if (rows.length > limit) {
       html.push(
@@ -567,6 +664,54 @@
     syncRateUi(out);
   }
 
+  /** Vult de dropdowns (soort, toon, taal) uit de index; verbergt wat niets te kiezen geeft. */
+  function buildFilters(root) {
+    const box = root.querySelector(".catalogus-zoek-filters");
+    if (!box || !searcher) return;
+    const f = searcher.facets();
+    const velden = {
+      soort: function (o) {
+        return soortLabel(o.waarde) + " (" + o.aantal + ")";
+      },
+      toon: function (o) {
+        return "Toon " + o.waarde + " (" + o.aantal + ")";
+      },
+      taal: function (o) {
+        return taalLabel(o.waarde) + " (" + o.aantal + ")";
+      },
+    };
+    let zichtbaar = 0;
+    Object.keys(velden).forEach(function (k) {
+      const sel = box.querySelector('select[data-filter="' + k + '"]');
+      if (!sel) return;
+      const wrap = sel.closest(".catalogus-zoek-filter");
+      const opties = f[k] || [];
+      // Taal alleen tonen als er meer dan één taal is.
+      const nuttig = k === "taal" ? opties.length > 1 : opties.length > 0;
+      if (wrap) wrap.hidden = !nuttig;
+      if (!nuttig) return;
+      zichtbaar += 1;
+      const huidig = sel.value;
+      sel.innerHTML =
+        '<option value="">alle</option>' +
+        opties
+          .map(function (o) {
+            return '<option value="' + escapeAttr(o.waarde) + '">' + escapeHtml(velden[k](o)) + "</option>";
+          })
+          .join("");
+      sel.value = huidig;
+    });
+    box.hidden = !zichtbaar;
+  }
+
+  function readFilter(root) {
+    const filter = { soort: "", toon: "", taal: "" };
+    root.querySelectorAll(".catalogus-zoek-filter select[data-filter]").forEach(function (sel) {
+      filter[sel.getAttribute("data-filter")] = sel.value;
+    });
+    return filter;
+  }
+
   function runRoot(root) {
     const input = root.querySelector(".catalogus-zoek-input, input[type='search']");
     const out = root.querySelector(".catalogus-zoek-resultaten");
@@ -575,7 +720,10 @@
 
     const q = input.value.trim();
     stopAudio();
-    const result = searcher ? searcher.search(q) : { rows: [], completeCount: 0 };
+    root._zoekFilter = readFilter(root);
+    const result = searcher
+      ? searcher.search(q, root._zoekFilter)
+      : { rows: [], completeCount: 0 };
     root._zoekState = { result: result, limit: PAGE_SIZE };
     render(root, out, meta, result, q, PAGE_SIZE);
   }
@@ -638,6 +786,11 @@
     });
     input.addEventListener("input", function () {
       runRoot(root);
+    });
+    root.querySelectorAll(".catalogus-zoek-filter select").forEach(function (sel) {
+      sel.addEventListener("change", function () {
+        runRoot(root);
+      });
     });
 
     out.addEventListener("click", function (ev) {
@@ -754,6 +907,7 @@
 
     loadIndex(root)
       .then(function (data) {
+        buildFilters(root);
         if (meta && !input.value.trim()) {
           meta.textContent =
             (data.count || entries.length) + " uitvoeringsvormen in de index";

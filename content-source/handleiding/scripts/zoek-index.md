@@ -24,7 +24,8 @@ Zonder `map` leest het script `content-source\catalogus`. Korte hulp:
 Maakt één bestand met een regel per **uitvoeringsvorm** (de bladermap met een
 `index.md` onder `zangstuk\variant\uitvoeringsvorm`). Per uitvoeringsvorm
 komen er in: titel, id, publicatiestatus, de eerste woorden van de
-gezongen tekst (incipit), het pad naar een beluister-mp3 en één
+gezongen tekst (incipit), de volledige tekst (voor uitklappen), soort, toon
+en taal, het pad naar een beluister-mp3 en één
 **zoektekst-blok**. Dat blok bevat de titel, de woorden uit het id en de
 volledige gezongen tekst, in een vaste schrijfwijze:
 

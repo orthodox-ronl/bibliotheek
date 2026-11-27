@@ -128,3 +128,47 @@ test("lege zoekterm geeft geen treffers", () => {
   assert.deepEqual(zoek.search("   ").rows, []);
   assert.deepEqual(zoek.search("--").rows, []);
 });
+
+// --- Deel 2: soort/toon/taal ---------------------------------------------
+const MET_VELDEN = [
+  { id: "kondak/johannes-toon-3/hemelum", title: "Kondak Johannes", text: "kondak johannes toon 3 beminde", soort: "kondak", toon: "3", taal: "nl" },
+  { id: "kondak/johannes-toon-3/groningen", title: "Kondak Johannes", text: "kondak johannes toon 3 beminde", soort: "kondak", toon: "3", taal: "nl" },
+  { id: "kondak/johannes-toon-6/hemelum", title: "Kondak Johannes", text: "kondak johannes toon 6 beminde", soort: "kondak", toon: "6", taal: "nl" },
+  { id: "tropaar/johannes-toon-3/hemelum", title: "Tropaar Johannes", text: "tropaar johannes toon 3 beminde", soort: "tropaar", toon: "3", taal: "cu" },
+  { id: "cherubijnenhymne/a/hemelum", title: "Cherubijnenhymne", text: "cherubijnenhymne wij die de cherubijnen beelden", soort: "cherubijnenhymne", toon: "", taal: "nl" },
+];
+
+test("filter op soort en toon beperkt de treffers", () => {
+  const s = createSearcher(MET_VELDEN, {});
+  assert.equal(s.search("johannes").rows.length, 4);
+  assert.equal(s.search("johannes", { soort: "kondak" }).rows.length, 3);
+  assert.equal(s.search("johannes", { soort: "kondak", toon: "3" }).rows.length, 2);
+  assert.equal(s.search("johannes", { taal: "cu" }).rows.length, 1);
+});
+
+test("filter zonder zoekwoorden toont alles binnen het filter", () => {
+  const s = createSearcher(MET_VELDEN, {});
+  assert.equal(s.search("").rows.length, 0);
+  const r = s.search("", { soort: "kondak", toon: "3" });
+  assert.deepEqual(r.rows.map((x) => x.entry.id), [
+    "kondak/johannes-toon-3/groningen",
+    "kondak/johannes-toon-3/hemelum",
+  ]);
+  assert.equal(r.completeCount, 2);
+});
+
+test("stukken zonder toon vallen weg bij een toonfilter, niet bij 'alle'", () => {
+  const s = createSearcher(MET_VELDEN, {});
+  assert.equal(s.search("cherubijnen", { toon: "3" }).rows.length, 0);
+  assert.equal(s.search("cherubijnen").rows.length, 1);
+});
+
+test("facets: toon numeriek, lege waarden niet", () => {
+  const f = createSearcher(MET_VELDEN, {}).facets();
+  assert.deepEqual(f.toon.map((x) => x.waarde), ["3", "6"]);
+  assert.deepEqual(f.soort.map((x) => [x.waarde, x.aantal]), [
+    ["cherubijnenhymne", 1],
+    ["kondak", 3],
+    ["tropaar", 1],
+  ]);
+});
