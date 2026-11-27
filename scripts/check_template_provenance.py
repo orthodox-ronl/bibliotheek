@@ -20,6 +20,8 @@ import re
 import sys
 from pathlib import Path
 
+from cli_style import ok, work  # kleurrollen (groen = ok, geel = werk)
+
 REPO = Path(__file__).resolve().parents[1]
 
 
@@ -151,12 +153,15 @@ def main(argv: list[str] | None = None) -> int:
         all_issues.extend(check_one(mvsa))
 
     if all_issues:
-        print(f"template-provenance: {len(all_issues)} probleem(en), {n_checked} gecontroleerd")
+        work(
+            f"template-provenance: {len(all_issues)} probleem(en), "
+            f"{n_checked} gecontroleerd"
+        )
         for line in all_issues:
-            print(f"  - {line}")
+            work(f"  - {line}")
         return 1 if args.fail else 0
 
-    print(f"template-provenance: ok ({n_checked} met template:)")
+    ok(f"template-provenance: ok ({n_checked} met template:)")
     return 0
 
 

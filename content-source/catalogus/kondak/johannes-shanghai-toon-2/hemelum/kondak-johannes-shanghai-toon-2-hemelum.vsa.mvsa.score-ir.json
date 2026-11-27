@@ -3,7 +3,7 @@
   "version": "0.1",
   "profile": "partituur",
   "meta": {
-    "title": "kondak-johannes-shanghai-toon-2-hemelum",
+    "title": "Johannes shanghai (Toon 2)",
     "bibliotheekId": "content-source/catalogus/kondak",
     "tempo": "180"
   },
@@ -29,7 +29,7 @@
           "syllables": [
             {
               "text": "God",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -43,7 +43,7 @@
           "syllables": [
             {
               "text": "de",
-              "syllabic": "middle"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -57,7 +57,7 @@
           "syllables": [
             {
               "text": "lij",
-              "syllabic": "middle"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -71,7 +71,7 @@
           "syllables": [
             {
               "text": "ke",
-              "syllabic": "end"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -672,7 +672,7 @@
           "syllables": [
             {
               "text": "plan",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -686,7 +686,7 @@
           "syllables": [
             {
               "text": "ter",
-              "syllabic": "end"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1078,13 +1078,13 @@
         {
           "syllables": [
             {
-              "text": "roe",
-              "syllabic": "begin"
+              "text": "roei",
+              "syllabic": "end"
             }
           ],
           "layers": {
             "1": [
-              "roe"
+              "roei"
             ]
           },
           "recite": true
@@ -1092,13 +1092,13 @@
         {
           "syllables": [
             {
-              "text": "ier",
-              "syllabic": "end"
+              "text": "er",
+              "syllabic": "single"
             }
           ],
           "layers": {
             "1": [
-              "ier"
+              "er"
             ]
           },
           "recite": true
@@ -1529,7 +1529,7 @@
           "syllables": [
             {
               "text": "Be",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1543,7 +1543,7 @@
           "syllables": [
             {
               "text": "min",
-              "syllabic": "middle"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1557,7 +1557,7 @@
           "syllables": [
             {
               "text": "de",
-              "syllabic": "end"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1585,7 +1585,7 @@
           "syllables": [
             {
               "text": "Hei",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1599,7 +1599,7 @@
           "syllables": [
             {
               "text": "li",
-              "syllabic": "middle"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -1613,7 +1613,7 @@
           "syllables": [
             {
               "text": "ge",
-              "syllabic": "end"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -2215,7 +2215,7 @@
           "syllables": [
             {
               "text": "Gro",
-              "syllabic": "begin"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -2229,7 +2229,7 @@
           "syllables": [
             {
               "text": "te",
-              "syllabic": "end"
+              "syllabic": "single"
             }
           ],
           "layers": {
@@ -2256,7 +2256,7 @@
           "syllables": [
             {
               "text": "der,",
-              "syllabic": "single"
+              "syllabic": "end"
             }
           ],
           "layers": {
@@ -2269,13 +2269,13 @@
         {
           "syllables": [
             {
-              "text": "Hi",
-              "syllabic": "begin"
+              "text": "Hiër",
+              "syllabic": "single"
             }
           ],
           "layers": {
             "1": [
-              "Hi"
+              "Hiër"
             ]
           },
           "recite": true
@@ -2283,27 +2283,13 @@
         {
           "syllables": [
             {
-              "text": "ë",
-              "syllabic": "middle"
+              "text": "arch",
+              "syllabic": "single"
             }
           ],
           "layers": {
             "1": [
-              "ë"
-            ]
-          },
-          "recite": true
-        },
-        {
-          "syllables": [
-            {
-              "text": "rarch",
-              "syllabic": "end"
-            }
-          ],
-          "layers": {
-            "1": [
-              "rarch"
+              "arch"
             ]
           },
           "recite": true
@@ -2417,17 +2403,6 @@
           },
           {
             "pitch": {
-              "step": "A",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "~"
-            },
-            "lyricIndex": 6,
-            "recite": true
-          },
-          {
-            "pitch": {
               "step": "B",
               "octave": 4,
               "alter": -1.0
@@ -2435,7 +2410,7 @@
             "duration": {
               "elm": "~"
             },
-            "lyricIndex": 7
+            "lyricIndex": 6
           },
           {
             "pitch": {
@@ -2445,7 +2420,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 8,
+            "lyricIndex": 7,
             "melisma": {
               "extend": true,
               "slurStart": true
@@ -2472,7 +2447,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 9
+            "lyricIndex": 8
           }
         ],
         "A": [
@@ -2549,18 +2524,7 @@
             "duration": {
               "elm": "~"
             },
-            "lyricIndex": 6,
-            "recite": true
-          },
-          {
-            "pitch": {
-              "step": "F",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "~"
-            },
-            "lyricIndex": 7
+            "lyricIndex": 6
           },
           {
             "pitch": {
@@ -2570,7 +2534,7 @@
             "duration": {
               "elm": "__"
             },
-            "lyricIndex": 8
+            "lyricIndex": 7
           },
           {
             "pitch": {
@@ -2580,7 +2544,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 9
+            "lyricIndex": 8
           }
         ],
         "T": [
@@ -2651,24 +2615,13 @@
           },
           {
             "pitch": {
-              "step": "C",
-              "octave": 4
-            },
-            "duration": {
-              "elm": "~"
-            },
-            "lyricIndex": 6,
-            "recite": true
-          },
-          {
-            "pitch": {
               "step": "D",
               "octave": 4
             },
             "duration": {
               "elm": "~"
             },
-            "lyricIndex": 7
+            "lyricIndex": 6
           },
           {
             "pitch": {
@@ -2679,7 +2632,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 8,
+            "lyricIndex": 7,
             "melisma": {
               "extend": true,
               "slurStart": true
@@ -2705,7 +2658,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 9
+            "lyricIndex": 8
           }
         ],
         "B": [
@@ -2776,17 +2729,6 @@
           },
           {
             "pitch": {
-              "step": "F",
-              "octave": 3
-            },
-            "duration": {
-              "elm": "~"
-            },
-            "lyricIndex": 6,
-            "recite": true
-          },
-          {
-            "pitch": {
               "step": "B",
               "octave": 2,
               "alter": -1.0
@@ -2794,7 +2736,7 @@
             "duration": {
               "elm": "~"
             },
-            "lyricIndex": 7
+            "lyricIndex": 6
           },
           {
             "pitch": {
@@ -2804,7 +2746,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 8,
+            "lyricIndex": 7,
             "melisma": {
               "extend": true,
               "slurStart": true
@@ -2831,7 +2773,7 @@
             "duration": {
               "elm": "_"
             },
-            "lyricIndex": 9
+            "lyricIndex": 8
           }
         ]
       }

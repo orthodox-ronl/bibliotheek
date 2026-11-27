@@ -1,10 +1,12 @@
 ---
+titel: Maria hulp der christenen pokrof (Toon 4)
 taal: nl
 soort: tropaar
 toon: 4
 template: tropaar-toon-4-hemelum
 bron:
   uitgangspunt: Liturgikon, p 279
+  bewerking: liturgikon
 gelegenheid:
   naam: Maria, Hulp der Christenen (Pokrof)
   datum: 1 okt
@@ -20,13 +22,13 @@ zoektekst: |-
 
 # === oorspronkelijke VSA (commentaar) ===
 # <!-- Tropaar Maria, Hulp der Christenen (Pokrof), Toon 4, Liturgikon p.279 -->
-# [//:] Heden viert het Ortho{do_}{/xe_} {\volk_} *
-# {/het} stralende {feest_} van uw {\komst_}. *
-# En staande voor uw reine Ikoon roepen wij {sme_}{/kend} tot {\u_}: *
-# {/be}scherm ons door uw kostbare be{schut__}{\ting_}. *
-# Verlos ons uit {al_}{/le_} {\nood_}, *
+# [//:] He-den viert het Or-tho{dox_}{/e_} {\volk_} *
+# {/het} stra-len-de {feest_} van uw {\komst_}. *
+# En staan-de voor uw rei-ne Ikoon roe-pen wij {sme_}{/kend} tot {\u_}: *
+# {/be}scherm ons door uw kost-ba-re be{schut__}{\ting_}. *
+# Ver-los ons uit {al_}{/le_} {\nood_}, *
 # {/en} bid tot uw Zoon, {Chris_}{tus_} {\God}, **
-# om onze zielen te {-&/red_&_}{\den_}. [//:]
+# om on-ze zie-len te {-&/red_&_}{\den_}. [//:]
 
 # === afgeleide mvsa (VSA + template) ===
 # bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/tropaar/maria-hulp-der-christenen-pokrof-toon-4/liturgikon/tropaar-maria-hulp-der-christenen-pokrof-toon-4-liturgikon.vsa
@@ -44,18 +46,18 @@ zoektekst: |-
 #  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
 #  #                                                                        #  #
 #  ##########################################################################  #
-@title "tropaar-maria-hulp-der-christenen-pokrof-toon-4-liturgikon"
+@title "Maria hulp der christenen pokrof (Toon 4)"
 @do F4
 @mode major
 @tempo 180
 @oct S=0 A=0 T=-1 B=-1
 
 @sectie cyclus-1
-L: (He-den viert het Or-tho)-do_-xe_ volk_ |
-S: a                         -   /   \     |a
-A: f                         -   /   #\    |f#
-T: c                         -   /   -     |d
-B: f                         /2  \   \3    |d-
+L: (He-den viert het Or-tho)-dox_-e_ volk_ |
+S: a                         -    /  \     |a
+A: f                         -    /  #\    |f#
+T: c                         -    /  -     |d
+B: f                         /2   \  \3    |d-
 
 L: (het stra-len-de) feest_ van uw komst_\. |
 S: Bb                -      -   -  \        |a
@@ -90,7 +92,7 @@ B: g                     \4     -    /3   |f
 
 @sectie laatste
 L: (om on-ze zie-len te) red_&_-den_\. |
-S: a                     -&/    \      |a
-A: f                     -&/    \      |f
-T: c                     -&/    \      |c
-B: f                     -&/    \      |f
+S: a                     -   &/ \      |a
+A: f                     -   &/ \      |f
+T: c                     -   &/ \      |c
+B: f                     -   &/ \      |f

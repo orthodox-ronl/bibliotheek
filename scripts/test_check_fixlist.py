@@ -9,6 +9,7 @@ import fix as fix_mod
 from check_fixlist import (
     FixItem,
     _rel_content_source,
+    fix_sort_key,
     collect_items,
     load_fixlist,
     save_fixlist,
@@ -454,3 +455,109 @@ def test_fix_verbose_writes_detail_log(tmp_path: Path, monkeypatch, capsys):
     text = log.read_text(encoding="utf-8")
     assert "=== products banner ===" in text
     assert "hoogte-mismatch" in text
+
+
+def test_fix_volgorde_pdf_na_producten() -> None:
+    """pdf moet ná de producten (anders is de pdf direct weer stale)."""
+    mk = lambda c: FixItem(id=f"{c}:x", checker=c, summary="s", fix_cmd="c")
+    items = [mk("pdf"), mk("audio"), mk("mvsa"), mk("vsa"), mk("mxl-contract")]
+    assert [i.checker for i in sorted(items, key=fix_sort_key)] == [
+        "vsa",
+        "mvsa",
+        "audio",
+        "mxl-contract",
+        "pdf",
+    ]
+
+
+def test_products_post_zet_gebreken_stempels(monkeypatch) -> None:
+    """De fix-nabewerking moet de gebreken-stempels op SVG's zetten.
+
+    De fix-commando's lopen met ``--skip-post``; zonder deze stap meldt
+    check daarna "SVG mist stempel".
+    """
+    import sys
+    import types
+
+    import gebreken
+
+    calls: list[object] = []
+    monkeypatch.setattr(
+        gebreken,
+        "sync_gebreken_stempels_under",
+        lambda root: (calls.append(root), (1, 2, 3))[1],
+    )
+    zoek = types.ModuleType("build_zoek_index")
+    zoek.main = lambda _argv=None: 0
+    fp = types.ModuleType("fingerprint_coria_mxl")
+    fp.main = lambda: 0
+    probe = types.ModuleType("probe_coria_fetch")
+    probe.apply_probe = lambda warn_only=True: 0
+    monkeypatch.setitem(sys.modules, "build_zoek_index", zoek)
+    monkeypatch.setitem(sys.modules, "fingerprint_coria_mxl", fp)
+    monkeypatch.setitem(sys.modules, "probe_coria_fetch", probe)
+
+    assert fix_mod._run_products_post(verbose=True) == 0
+    assert calls == [gebreken.CATALOGUS_ROOT]
+
+
+def test_gebreken_status_komt_in_fixlist_voor_pdf(tmp_path: Path) -> None:
+    data = tmp_path / "data"
+    data.mkdir()
+    (data / "gebreken-status.json").write_text(
+        json.dumps(
+            {
+                "folders": {
+                    "catalogus/x/y": {
+                        "source": "catalogus/x/y/index.md",
+                        "ok": False,
+                        "fix_cmd": r"python scripts\gebreken.py catalogus\x\y",
+                        "issues": [
+                            {
+                                "kind": "stempel_ontbreekt",
+                                "file": "catalogus/x/y/a.vsa.svg",
+                                "detail": "mist stempel",
+                            }
+                        ],
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    _write_pdf_status(data, stale=True)
+    items = sorted(collect_items(data), key=fix_sort_key)
+    assert [i.checker for i in items] == ["gebreken", "pdf"]
+    assert items[0].fix_cmd.startswith("python scripts\\gebreken.py ")
+    assert items[0].summary == "[stempel-ontbreekt] catalogus/x/y"
+
+
+def test_collect_gebreken_statuses(monkeypatch, tmp_path: Path) -> None:
+    import gebreken
+
+    leaf = tmp_path / "content-source" / "catalogus" / "x" / "y"
+    leaf.mkdir(parents=True)
+    (leaf / "index.md").write_text("x", encoding="utf-8")
+    svg = leaf / "a.vsa.svg"
+    svg.write_text("<svg/>", encoding="utf-8")
+    pdf = leaf / "index.md.pdf"
+    pdf.write_bytes(b"%PDF")
+    monkeypatch.setattr(gebreken, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(gebreken, "leaf_folders", lambda: [("x/y", leaf)])
+    monkeypatch.setattr(
+        gebreken, "effective_gebreken_for_folder", lambda _f: (True, None)
+    )
+    monkeypatch.setattr(gebreken, "svg_has_gebreken_stempel", lambda _s: False)
+    monkeypatch.setattr(gebreken, "pdf_has_gebreken_stempel", lambda _p: False)
+
+    statuses, n = gebreken.collect_gebreken_statuses()
+    assert n == 1
+    assert [s.dir for s in statuses] == ["catalogus/x/y", "catalogus/x/y (pdf)"]
+    assert statuses[0].fix_cmd == r"python scripts\gebreken.py catalogus\x\y"
+    assert statuses[0].issues[0].kind == "stempel_ontbreekt"
+    assert statuses[1].fix_cmd == r"scripts\pdf.cmd catalogus\x\y\index.md --force"
+
+    # Stempels aanwezig → niets te doen.
+    monkeypatch.setattr(gebreken, "svg_has_gebreken_stempel", lambda _s: True)
+    monkeypatch.setattr(gebreken, "pdf_has_gebreken_stempel", lambda _p: True)
+    assert gebreken.collect_gebreken_statuses() == ([], 1)

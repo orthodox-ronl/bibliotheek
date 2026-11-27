@@ -35,6 +35,13 @@ translit-SVG-siblings:
 | Hybride (NL+Ksl in één bron) | nls- én ksl-PDF, plus `index.md.translit-beide.pdf` uit `.translit.svg` |
 | Hybride (nl + ksl)     | beide                                |
 
+**VSA of partituur.** Heeft een stuk op het blad beide, dan maakt `pdf.cmd`
+voor elke andere keuze ook `index.md.weergave-<letters>.pdf` (letters `v` /
+`p`, één per wisselbaar stuk, van boven naar beneden). Het download-icoon
+kiest vanzelf het juiste bestand. `check` eist deze bestanden ook. Grens: 4
+wisselbare stukken per pagina; zie
+`docs\specs\schermpartituur.md` §2.1.
+
 Ontbreekt de bijbehorende `{bron}.translit-*.svg`, dan exporteert
 `pdf.cmd` die SVG onderweg (MuseScore bij `.mvsa`). Op de site volgt
 het **download-icoon** de translit-knoppen (geen knop → basis-PDF;
@@ -65,6 +72,14 @@ tussenstappen alleen met `--verbose`. Bewuste skips: magenta `SKIP`.
 
 Catalogus-leaves: ontwerp en restmijlpalen in
 `docs/plans/catalogus-index-md-pdf.md`.
+
+**Gebreken:** als de catalogus-leaf (of via overerving de variant- of
+zangstuk-`_index`, of via `bieb` op een koormap) effectief `gebreken`
+heeft, zet `pdf.cmd` op elke pagina van `index.md.pdf` en van de
+translit-PDF’s een kopstrook plus watermark met de vaste tekst
+«Gebreken - niet als definitief gebruiken». Eerst sibling-SVG’s via
+[products](../products/) vernieuwen, dan pas `pdf.cmd`. Handleiding:
+[Status en check](../../publiceren/2-status-en-check/).
 
 Het **download-icoon** gebruikt die PDF’s. De site stelt een bestandsnaam voor:
 frontmatter `pdf_bestandsnaam`; anders op een koormap `title`, op een catalogus-blad

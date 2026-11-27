@@ -1,10 +1,12 @@
 ---
+titel: Johannes de theoloog (Toon 2)
 taal: nl
 soort: kondak
 toon: 2
 template: kondak-toon-2-groningen
 bron:
   uitgangspunt: Liturgikon, p 278-279
+  bewerking: liturgikon
 gelegenheid:
 - naam: Johannes de Theoloog, Apostel en Evangelist
   datum: 26 sept
@@ -18,11 +20,11 @@ zoektekst: |-
 
 # === oorspronkelijke VSA (commentaar) ===
 # <!-- Kondak Johannes de Theoloog, Apostel en Evangelist, Toon 2, Liturgikon p.278-2799 -->
-# [/:] Wie kan uw {/da_}den naar waarheid {/ver}{/&\ha_&_}{\len_}, *
-# reine Apostel Jo{\an_}{\nes_}? *
-# {/Want} als uit een {/bron_} schenkt gij wonderbare {/ge}{/ne_.}{\zin}{\gen_}, *
-# en gij bidt voor onze {\zie_}{\len_} **
-# {//als} de Theoloog {\en} {/de} {/Vriend_} {\&/van} {\&\Chris_&_}{\tus}. [:]
+# [/:] Wie kan uw {/da_}den naar waar-heid {/ver}{/&\ha_&_}{\len_}, *
+# rei-ne A-pos-tel Jo{\an_}{\nes_}? *
+# {/Want} als uit een {/bron_} schenkt gij won-der-ba-re {/ge}{/ne_.}{\zin}{\gen_}, *
+# en gij bidt voor on-ze {\zie_}{\len_} **
+# {//als} de The-o-loog {\en} {/de} {/Vriend_} {\&/van} {\&\Chris_&_}{\tus}. [:]
 
 # === afgeleide mvsa (VSA + template) ===
 # bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/kondak/johannes-de-theoloog-toon-2/liturgikon/kondak-johannes-de-theoloog-toon-2-liturgikon.vsa
@@ -40,18 +42,18 @@ zoektekst: |-
 #  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
 #  #                                                                        #  #
 #  ##########################################################################  #
-@title "kondak-johannes-de-theoloog-toon-2-liturgikon"
+@title "Johannes de theoloog (Toon 2)"
 @do F4
 @mode major
 @tempo 180
 @oct S=0 A=0 T=-1 B=-1
 
 @sectie cyclus-1
-L: (Wie kan uw) da_ (den naar waar-heid) ver-ha_&_-len_, |
-S: g            /   -                    /   /&\   \     |a
-A: e-           /   -                    -   -&-   -     |f
-T: c            -   -                    /   b/&\  \     |c
-B: c-           /3  -                    \4  \&/   /4    |f
+L: (Wie kan uw) da_ (-den naar waar-heid) ver-ha_&_-len_, |
+S: g            /   -                     /   /  &\ \     |a
+A: e-           /   -                     -   -  &- -     |f
+T: c            -   -                     /   b/ &\ \     |c
+B: c-           /3  -                     \4  \  &/ /4    |f
 
 L: (rei-ne A-pos-tel Jo)-an_-nes_? |
 S: a                     \   \     |f
@@ -73,8 +75,8 @@ T: c                        \    \    |a
 B: f                        \3   /3   |f
 
 @sectie laatste
-L: (als de The-o-loog) en de Vriend_ van~&~ Chris_&_-tus\. |
-S: a                   \  /  /       \&/    \&\      \     |f
-A: f                   \2 /2 -       -&-    -&\      \2    |c-
-T: c                   \  /  /       \&/    \&\      \     |a
-B: f                   /  \  \4      /4&\4  /&-      /3    |f
+L: (als de The-o-loog) en de Vriend_ van~&~  Chris_&_-tus\. |
+S: a                   \  /  /       \   &/  \     &\ \     |f
+A: f                   \2 /2 -       -   &-  -     &\ \2    |c-
+T: c                   \  /  /       \   &/  \     &\ \     |a
+B: f                   /  \  \4      /4  &\4 /     &- /3    |f

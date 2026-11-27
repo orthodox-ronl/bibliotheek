@@ -149,10 +149,12 @@ bron (VSA/mvsa-`titel:`). Handmatige redactionele titels horen in
 
 Elke catalogus-pagina (`_index.md` of leaf-`index.md`) heeft minstens:
 
-| Veld                  | Rol                                                                                  |
-| --------------------- | ------------------------------------------------------------------------------------ |
-| `publicatiestatus`    | Wat koorleden mogen verwachten (`voorzien` / `concept` / `reviewable` / `productie`) |
-| `automatische_inhoud` | Sectie: meestal `true` (kindlijst). Leaf: altijd `false` (score via `bieb`)          |
+| Veld                   | Rol                                                                                                             |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `publicatiestatus`     | Wat koorleden mogen verwachten (`voorzien` / `concept` / `reviewable` / `productie`)                            |
+| `automatische_inhoud`  | Sectie: meestal `true` (kindlijst). Leaf: altijd `false` (score via `bieb`)                                     |
+| `gebreken`             | Optioneel op leaf, variant- of zangstuk-`_index`: ernstige gebreken; overerft naar leaves ([Status en check](../publiceren/2-status-en-check/)) |
+| `gebreken_toelichting` | Optioneel bij `gebreken`: korte uitleg; dichtstbijzijnde wint                                                   |
 
 Ids komen uit het **pad** (`zangstuk/variant/uitvoeringsvorm`). Tooling en
 shortcode `bieb` gebruiken het pad. Op id-pagina’s zet je geen frontmatter

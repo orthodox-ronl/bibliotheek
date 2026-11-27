@@ -1,15 +1,12 @@
 ---
-do: F4
-mode: major
-tempo: 130
 titel: Prijslied - Icoon Moeder Gods Vladimir
+taal: nl
+soort: prijslied
 partituur:
   title: Prijslied - Icoon Moeder Gods Vladimir
   composer: Traditioneel
-taal: nl
 bron:
   uitgangspunt: Meneon I, p.21 / Horologion
-soort: prijslied
 gelegenheid:
 - naam: Icoon Moeder Gods van Vladimir
 zoektekst: |-
@@ -18,13 +15,16 @@ zoektekst: |-
   alheilige Maagd
   Wij vereren uw heilige ouders,
   en loven uw roemrijke Geboorte.
+do: F4
+mode: major
+tempo: 131
 ---
 
 <!-- Prijslied (na de Polyleos), Meneon I, p.21 -->
 <!-- Muziek: Horologion. blz 111 -->
 [:] {-&/Wij} {/&\prij_&_}{+\zen_}, *
 {/&/wij} {/&\&\prij}{+\zen} {/u_} *
-al{+\hei_}lige {/Maagd_} *
+al{+\hei_}li-ge {/Maagd_} *
 {\Wij} {/ver}{/e}ren uw {-&\\hei}{/li}{/ge} {/&\&\&+\ou}{/ders_}, *
-en loven {/uw} {/roem_}rij{/ke} Ge{\&\boor_&_}{\te__}.
+en lo-ven {/uw} {/roem_}rij{/ke} Ge{\&\boor_&_}{\te__}.
 <!-- De hoogte-markering op het eind (`[/:]`) komt als de nieuwe `+\` semantiek operationeel is -->

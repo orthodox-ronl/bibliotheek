@@ -44,7 +44,7 @@
       {{- end -}}
     {{- end -}}
   {{- end -}}
-  {{- $base = strings.TrimSuffix $base "/" -}}
+  {{- $base = strings.TrimSuffix "/" $base -}}
   {{- $r2 = printf "%s/%s/%s" $base $r2Env $rel -}}
 {{- end -}}
 {{- if and $preferLocal (ne $local "") -}}

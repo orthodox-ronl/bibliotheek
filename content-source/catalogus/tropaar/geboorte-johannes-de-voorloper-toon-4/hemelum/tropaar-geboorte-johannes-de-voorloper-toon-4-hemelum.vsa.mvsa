@@ -1,4 +1,5 @@
 ---
+titel: Geboorte johannes de voorloper (Toon 4)
 taal: nl
 soort: tropaar
 toon: 4
@@ -7,6 +8,7 @@ partituur:
   arranger: Hemelum
 bron:
   uitgangspunt: Koorinstructie Hemelum
+  bewerking: hemelum
 gelegenheid:
 - naam: Geboorte Johannes de Voorloper
   datum: 24 jun
@@ -21,17 +23,17 @@ zoektekst: |-
 
 # === oorspronkelijke VSA (commentaar) ===
 # <!-- Tropaar Geboorte van Johannes de Voorloper, Toon 4 -->
-# [//:] Profeet en Voorloper van {Chris_}{/tus_} {\komst_},
-# {/wij} zijn niet in staat u naar waarde te {lo_.}{\ven_}
-# die wij met liefde ver{-&/e_&_}{\ren_}.
-# {/Want} de onvruchtbaarheid van uw moeder en de stomheid
-#     van uw vader werd opge{he_.}{\ven_}
-# door uw roemrijke en eerbiedwaardige Ge{-&/boor_&_}{\te_}. //
-# Toen werd de Vleeswording van Gods Zoon aan de wereld
+# [//:] Pro-feet en Voor-lo-per van {Chris_}{/tus_} {\komst_},
+# {/wij} zijn niet in staat u naar waar-de te {lo_.}{\ven_}
+# die wij met lief-de ver{-&/e_&_}{\ren_}.
+# {/Want} de on-vrucht-baar-heid van uw moe-der en de stom-heid
+#     van uw va-der werd op-ge{he_.}{\ven_}
+# door uw roem-rij-ke en eer-bied-waar-di-ge Ge{-&/boor_&_}{\te_}. //
+# Toen werd de Vlees-wor-ding van Gods Zoon aan de we-reld
 #     ver{-&\kon_&_}{/digd_}. [//:]
 
 # === afgeleide mvsa (VSA + template) ===
-# bron: content-source/catalogus/tropaar/geboorte-johannes-de-voorloper-toon-4/hemelum/tropaar-geboorte-johannes-de-voorloper-toon-4-hemelum.vsa
+# bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/tropaar/geboorte-johannes-de-voorloper-toon-4/hemelum/tropaar-geboorte-johannes-de-voorloper-toon-4-hemelum.vsa
 # template: tropaar-toon-4-hemelum/template.yaml (tropaar-toon-4-hemelum)
 # Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
 #  ##########################################################################  #
@@ -46,7 +48,7 @@ zoektekst: |-
 #  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
 #  #                                                                        #  #
 #  ##########################################################################  #
-@title "tropaar-geboorte-johannes-de-voorloper-toon-4-hemelum"
+@title "Geboorte johannes de voorloper (Toon 4)"
 @do F4
 @mode major
 @tempo 180
@@ -67,9 +69,9 @@ B: g                                          \4   /3   |f
 
 @sectie herhaling
 L: (die wij met lief-de ver)-e_&_-ren_\. |
-S: a                         -&/  \      |a
-A: f                         -&/  #\     |f#
-T: c                         -&/  -      |d
+S: a                         - &/ \      |a
+A: f                         - &/ #\     |f#
+T: c                         - &/ -      |d
 B: f                         /2&\ \3     |d-
 
 L: (Want de on-vrucht-baar-heid van uw moe-der en de stom-heid) |
@@ -85,10 +87,10 @@ T: d                          -    \    |c
 B: g                          \4   /3   |f
 
 L: (door uw roem-rij-ke en eer-bied-waar-di-ge Ge)-boor_&_-te_\. |
-S: a                                               -&/     \     |a
-A: f                                               -&/     #\    |f#
-T: c                                               -&/     -     |d
-B: f                                               /2&\    \3    |d-
+S: a                                               -    &/ \     |a
+A: f                                               -    &/ #\    |f#
+T: c                                               -    &/ -     |d
+B: f                                               /2   &\ \3    |d-
 
 @sectie laatste
 L: (Toen werd de Vlees-wor-ding van Gods Zoon aan de we-reld) |
@@ -97,8 +99,8 @@ A: f                                                          |f
 T: c                                                          |c
 B: f                                                          |f
 
-L: (ver)-kon_&_-digd_\. |
-S: a     -&\    /       |a
-A: f     -&\    /       |f
-T: c     -&-    -       |c
-B: f     -&\3   /3      |f
+L: (ver)-kon_&_ -digd_\. |
+S: a     -   &\  /       |a
+A: f     -   &\  /       |f
+T: c     -   &-  -       |c
+B: f     -   &\3 /3      |f

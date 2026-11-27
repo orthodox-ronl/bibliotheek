@@ -11,6 +11,7 @@ partituur:
   arranger: Groningen
 bron:
   uitgangspunt: Koormap Groningen
+  bewerking: groningen
 gelegenheid:
 - naam: Zondag
   type: zondag
@@ -26,12 +27,12 @@ zoektekst: |-
 
 # === oorspronkelijke VSA (commentaar) ===
 # [/:] Toen {/Gij_} tot de dood {/zijt} {/ne_}{\der}ge{\daald_},
-# Gij onsterfelijk {\le_}{\ven_}
-# {/hebt} Gij de {/ha_}des gedood door het hemellicht {/der} {/God_}{\heid}, o {\Heer_}
-# de gestorvenen hebt Gij opgewekt uit het {\do_}den{\rijk_}.
-# {/Al}le {/he_}melse machten hebben U toe{/ge}{/&\roe_&_}{\pen_},
-# Gij Schenker van het {\le_}{\ven_}. //
-# {//O} Christus {\on}{/ze} {/&\&/God_&~&~}, {\e_}{\re} zij {\U_} [:]
+# Gij on-ster-fe-lijk {\le_}{\ven_}
+# {/hebt} Gij de {/ha_}des ge-dood door het he-mel-licht {/der} {/God_}{\heid}, o {\Heer_}
+# de ge-stor-ve-nen hebt Gij op-ge-wekt uit het {\do_}den{\rijk_}.
+# {/Al}le {/he_}mel-se mach-ten heb-ben U toe{/ge}{/&\roe_&_}{\pen_},
+# Gij Schen-ker van het {\le_}{\ven_}. //
+# {//O} Chris-tus {\on}{/ze} {/&\&/God_&~&~}, {\e_}{\re} zij {\U_} [:]
 # <!-- Bron: koormap Groningen -->
 
 # === afgeleide mvsa (VSA + template) ===
@@ -70,23 +71,23 @@ T: c                     \   \    |a
 B: f                     \3  /3   |f
 
 @sectie herhaling
-L: (hebt Gij de) ha_ (des ge-dood door het he-mel-licht) der God_-heid, o Heer_ |
-S: g             /   -                                   /   /    \     - \     |a
-A: e-            /   -                                   -   -    -     - -     |f
-T: c             -   -                                   /   b/   \     - \     |c
-B: c-            /3  -                                   \4  \    /     - /4    |f
+L: (hebt Gij de) ha_ (-des ge-dood door het he-mel-licht) der God_-heid, o Heer_ |
+S: g             /   -                                    /   /    \     - \     |a
+A: e-            /   -                                    -   -    -     - -     |f
+T: c             -   -                                    /   b/   \     - \     |c
+B: c-            /3  -                                    \4  \    /     - /4    |f
 
-L: (de ges-tor-ve-nen hebt Gij op-ge-wekt uit het) do_-den-rijk_\. |
+L: (de ge-stor-ve-nen hebt Gij op-ge-wekt uit het) do_-den-rijk_\. |
 S: a                                               \   -   \       |f
 A: f                                               \   -   \2      |c-
 T: c                                               \   -   \       |a
 B: f                                               \3  -   /3      |f
 
-L: (Al-le) he_ (mel-se mach-ten heb-ben U toe)-ge-roe_&_-pen_, |
-S: g       /   -                               /  /&\    \     |a
-A: e-      /   -                               -  -&-    -     |f
-T: c       -   -                               /  b/&\   \     |c
-B: c-      /3  -                               \4 \&/    /4    |f
+L: (Al-le) he_ (-mel-se mach-ten heb-ben U toe)-ge-roe_&_-pen_, |
+S: g       /   -                                /  /   &\ \     |a
+A: e-      /   -                                -  -   &- -     |f
+T: c       -   -                                /  b/  &\ \     |c
+B: c-      /3  -                                \4 \   &/ /4    |f
 
 L: (Gij Schen-ker van het) le_-ven_\. |
 S: a                       \   \      |f
@@ -95,8 +96,8 @@ T: c                       \   \      |a
 B: f                       \3  /3     |f
 
 @sectie laatste
-L: (O Chris-tus) on-ze God_&~&~, e_-re zij U_ |
-S: a             \  /  /&\&/     \  \  -   \  |f
-A: f             \2 /2 -&-&-     -  \  -   \2 |c-
-T: c             \  /  /&\&/     \  \  -   \  |a
-B: f             /  \  \4&/4&\4  /  -  -   /3 |f
+L: (O Chris-tus) on-ze God_&~ &~, e_-re zij U_ |
+S: a             \  /  /   &\ &/  \  \  -   \  |f
+A: f             \2 /2 -   &- &-  -  \  -   \2 |c-
+T: c             \  /  /   &\ &/  \  \  -   \  |a
+B: f             /  \  \4  &/4&\4 /  -  -   /3 |f

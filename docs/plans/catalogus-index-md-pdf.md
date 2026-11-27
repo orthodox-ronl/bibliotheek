@@ -24,7 +24,7 @@ voor elke catalogus-uitvoeringsvorm-pagina, zonder catalogus-product-PDF’s
 | --- | --- |
 | Self-closing `{{</* bieb id="zangstuk/variant/uv" */>}}` | Markdown-`#` / `<h1>` met dezelfde (of andere) hoofdtitel als de template-H1 |
 | Korte toelichting in gewone alinea’s (zeldzaam; bijv. dialoog) | Shortcode `kop` als tweede hoofdtitel naast de template-H1 |
-| Frontmatter: `publicatiestatus`, `automatische_inhoud: false`, optioneel `pdf_bestandsnaam`, product-/buildflags | Redactionele `title` / `linkTitle` (bouw leidt af; zie `docs/catalogus-titels.md`) |
+| Frontmatter: `publicatiestatus`, `automatische_inhoud: false`, optioneel `gebreken` / `gebreken_toelichting` (ook via overerving van variant-/zangstuk-`_index`), `pdf_bestandsnaam`, product-/buildflags | Redactionele `title` / `linkTitle` (bouw leidt af; zie `docs/catalogus-titels.md`) |
 | Shortcode `kop` als **ondertitel** (liturgische regel) | `kop` als enige/vervangende hoofdtitel i.p.v. weergavetitel |
 | | `pdf-bijelkaar` op een leaf met **één** stuk — geen winst; compact is koormap-keuze |
 

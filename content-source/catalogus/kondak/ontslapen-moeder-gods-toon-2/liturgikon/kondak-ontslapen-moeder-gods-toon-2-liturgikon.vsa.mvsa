@@ -1,10 +1,12 @@
 ---
+titel: Ontslapen moeder gods (Toon 2)
 taal: nl
 soort: kondak
 toon: 2
 template: kondak-toon-2-groningen
 bron:
   uitgangspunt: Liturgikon, p.270-272
+  bewerking: liturgikon
 gelegenheid:
 - naam: Ontslapen van de Moeder Gods
   datum: 15 aug
@@ -19,11 +21,11 @@ zoektekst: |-
 
 # === oorspronkelijke VSA (commentaar) ===
 # <!-- Kondak Ontslaping van de Moeder Gods, Toon 2 (Liturgikon, p.271) -->
-# [/:] De Moeder {/Gods_}, die onvermoeibaar on{/ze} {/voor_}{\spraak_} {\is_}, *
-# en onze onwankelbare hoop door haar ge{\be_}{\den_}, *
+# [/:] De Moe-der {/Gods_}, die on-ver-moei-baar on{/ze} {/voor_}{\spraak_} {\is_}, *
+# en on-ze on-wan-kel-ba-re hoop door haar ge{\be_}{\den_}, *
 # {/werd} door {/graf_} noch dood o{/ver}{/&\won_&_}{\nen_}. *
-# Want als de Moeder des {\Le_}{\vens_} *
-# {/heeft} {/Hij_} haar overgebracht naar {/het} {/&\Le_&_}{\ven_}, *
+# Want als de Moe-der des {\Le_}{\vens_} *
+# {/heeft} {/Hij_} haar o-ver-ge-bracht naar {/het} {/&\Le_&_}{\ven_}, *
 # Die {\&/eens} {/woon_}de {\in} {/Haar} {\maag_}de{\lij}ke {\schoot_}. [:]
 
 # === afgeleide mvsa (VSA + template) ===
@@ -42,18 +44,18 @@ zoektekst: |-
 #  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
 #  #                                                                        #  #
 #  ##########################################################################  #
-@title "kondak-ontslapen-moeder-gods-toon-2-liturgikon"
+@title "Ontslapen moeder gods (Toon 2)"
 @do F4
 @mode major
 @tempo 180
 @oct S=0 A=0 T=-1 B=-1
 
 @sectie cyclus-1
-L: (De Moe-der) Gods_, (die on-ver-moe-i-baar on)-ze voor_-spraak_ is_, |
-S: g            /      -                          /  /     \       \    |a
-A: e-           /      -                          -  -     -       -    |f
-T: c            -      -                          /  b/    \       \    |c
-B: c-           /3     -                          \4 \     /       /4   |f
+L: (De Moe-der) Gods_, (die on-ver-moei-baar on)-ze voor_-spraak_ is_, |
+S: g            /      -                         /  /     \       \    |a
+A: e-           /      -                         -  -     -       -    |f
+T: c            -      -                         /  b/    \       \    |c
+B: c-           /3     -                         \4 \     /       /4   |f
 
 L: (en on-ze on-wan-kel-ba-re hoop door haar ge)-be_-den_, |
 S: a                                             \   \     |f
@@ -63,10 +65,10 @@ B: f                                             \3  /3    |f
 
 @sectie herhaling
 L: (werd door) graf_ (noch dood o)-ver-won_&_-nen_\. |
-S: g           /     -             /   /&\    \      |a
-A: e-          /     -             -   -&-    -      |f
-T: c           -     -             /   b/&\   \      |c
-B: c-          /3    -             \4  \&/    /4     |f
+S: g           /     -             /   /   &\ \      |a
+A: e-          /     -             -   -   &- -      |f
+T: c           -     -             /   b/  &\ \      |c
+B: c-          /3    -             \4  \   &/ /4     |f
 
 L: (Want als de Moe-der des) Le_-vens_ |
 S: a                         \   \     |f
@@ -74,15 +76,15 @@ A: f                         \   \2    |c-
 T: c                         \   \     |a
 B: f                         \3  /3    |f
 
-L: heeft Hij_ (haar o-ver-geb-racht naar) het Le_&_-ven_, |
-S: g     /    -                           /   /&\   \     |a
-A: e-    /    -                           -   -&-   -     |f
-T: c     -    -                           /   b/&\  \     |c
-B: c-    /3   -                           \4  \&/   /4    |f
+L: heeft Hij_ (haar o-ver-ge-bracht naar) het Le_&_-ven_, |
+S: g     /    -                           /   /  &\ \     |a
+A: e-    /    -                           -   -  &- -     |f
+T: c     -    -                           /   b/ &\ \     |c
+B: c-    /3   -                           \4  \  &/ /4    |f
 
 @sectie laatste
-L: (Die) eens~&~ woon_-de in Haar maag_-de-lij-ke schoot_\. |
-S: a     \&/     /     -  \  /    \     -  \   -  \         |f
-A: f     \2&/2   -     -  -  -    -     -  \   -  \2        |c-
-T: c     \&/     /     -  \  /    \     -  \   -  \         |a
-B: f     /&\     \4    -  /4 \4   /     -  -   -  /3        |f
+L: (Die) eens~&~  woon_-de in Haar maag_-de-lij-ke schoot_\. |
+S: a     \    &/  /     -  \  /    \     -  \   -  \         |f
+A: f     \2   &/2 -     -  -  -    -     -  \   -  \2        |c-
+T: c     \    &/  /     -  \  /    \     -  \   -  \         |a
+B: f     /    &\  \4    -  /4 \4   /     -  -   -  /3        |f

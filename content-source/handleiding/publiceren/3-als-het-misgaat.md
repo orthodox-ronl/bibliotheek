@@ -191,6 +191,22 @@ regel `publicatiestatus` in de `---` hebben. Handleiding-pagina’s niet.
 koormap-slots) verschijnt een `?` naast de titel met uitleg en
 feedbacklinks; op map-overzichten en hulppagina’s (zoals zoeken) niet.
 
+## `check` klaagt over gebreken + productie
+
+Op de leaf staat `publicatiestatus: productie`, terwijl `gebreken: true`
+op die leaf, de variant-`_index` of het zangstuk-`_index` effectief aan
+staat. Kies één: haal `gebreken` weg (of zet `gebreken: false` op de
+leaf), of zet de status op `reviewable` / `concept`. Uitleg:
+[Status en check](../2-status-en-check/) (sectie *Gebreken*).
+
+## Banner of stempel ontbreekt na `gebreken: true`
+
+De frontmatter staat goed, maar scherm/SVG/PDF tonen geen waarschuwing.
+Draai eerst `scripts\products.cmd` op de zangstuk- of variantmap (SVG),
+daarna `scripts\pdf.cmd` op dezelfde map (watermark op `index.md.pdf`).
+Op een koormap-slot komt de banner via het `bieb`-doel in de catalogus —
+controleer dat id.
+
 ## Preview op de verkeerde poort
 
 http://127.0.0.1:**18732**/ — niet 1313.

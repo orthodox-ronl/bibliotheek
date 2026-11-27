@@ -100,6 +100,7 @@ def main(argv: list[str] | None = None) -> int:
                 "ls-files",
                 "**/index.md.pdf",
                 "**/index.md.translit*.pdf",
+                "**/index.md.weergave-*.pdf",
             ],
             cwd=str(ROOT),
             capture_output=True,

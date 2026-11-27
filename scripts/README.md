@@ -18,14 +18,14 @@ de subcommando’s). Zie `scripts\cli_help.py`.
 | Commando | Doel |
 | -------- | ---- |
 | `h` | Overzicht van commando’s; `h <naam>` = `<naam> -h` |
-| `validate` | `vsa validate` op `content-source\catalogus` (plus `mvsa validate` als er `.mvsa` staat) |
+| `validate` | `.vsa` → `vsa validate`; `.mvsa` → `mvsa validate`; map → beide waar nodig |
 | `fix` | Auto-fixbare problemen uit `data\check-fixlist.json` afwerken (`--check` = eerst `check --strict`; `--dry-run` = tonen) |
 | `products` | Afgeleiden bouwen (`--kinds vsa,mvsa,mscz,audio,lyrics,…` of `all`); daarna Coria-fingerprints (niet bij `--dry-run`). Geen `pdf.cmd`. |
 | `products-changed` | Alleen producten (+ koormap-`index.md.pdf`) voor git-gewijzigde bronnen onder `content-source` (missing+stale; geen invalid). |
 | `commit` | Commit gewijzigde bronnen onder catalogus + koormappen (geen afgeleiden); filters of `--all` (hele repo minus afgeleiden/product-JSON). |
 | `stage` | Zelfde selectie als `commit`, maar alleen `git add` (geen `-m`). |
 | `import-mvsa` | Maakt/vernieuwt bewerkvorm `{stam}.mscz.mvsa` via `mscz import` + stamp (standaard alleen bestaande siblings) |
-| `pdf.cmd` | `index.md.pdf` naast een koormap- of catalogus-`index.md` (lokaal; niet in `products` / `check` / CI) |
+| `pdf.cmd` | `index.md.pdf` naast een koormap- of catalogus-`index.md` (plus translit- en `weergave-`-varianten; lokaal; niet in `products` / CI) |
 | `r2-pdf-upload` | Blad-PDF’s naar R2 `production/` (+ SHA-256); laadt `r2-env`; zie [docs/plans/pdf-r2.md](../docs/plans/pdf-r2.md) |
 | `r2-pdf-opschonen` | Wis lokale blad-PDF’s die gelijk zijn aan R2 (`--apply`) |
 | `layout` | Past layoutprofiel `partituur` toe op `.mscz` / `.mxl` (via tooling) |
@@ -45,12 +45,13 @@ de subcommando’s). Zie `scripts\cli_help.py`.
 | *(intern)* `sync_oefenhoek_index.py --svg` | Legacy SVG uit catalogus-`.vsa` → `static\vsa\bladermap\` (via check/build/serve/CI; geen stamp). Scherm gebruikt sibling `{stam}.vsa.svg` zodra die er is. |
 | `serve` | Hugo-preview op http://127.0.0.1:18732/ (niet 1313, niet 18731) |
 | `build` | Site in `generated\site` |
-| `check` | CI-spiegel / preflight (validate + publicatie-/importcontroles + bibliotheek-id + koormap-slotlinks + Coria + Hugo) |
+| `check` | CI-spiegel / preflight (validate + publicatie-/importcontroles + bibliotheek-id + koormap-slotlinks + gebreken + Coria + Hugo) |
 
 Intern: `_ensure.cmd` (`--hugo`, `--vsa-tool`), `_msg.cmd` + `cli_style.py`
 (console-rollen/kleur; zie bron `repo-scripts.md`), `fingerprint_coria_mxl.py`,
 `probe_coria_fetch.py` (Coria play_from_url via github.io; geen raw),
-`check_koormap_slot_links.py`, `sync_vsa_products.py`,
+`check_koormap_slot_links.py`, `gebreken.py`, `check_gebreken.py`,
+`sync_vsa_products.py`,
 `check_vsa_products.py`, `sync_mscz_products.py`,
 `check_mscz_products.py`, `sync_tekstblad_products.py`,
 `check_tekstblad_products.py`, `sync_import_mvsa.py`,

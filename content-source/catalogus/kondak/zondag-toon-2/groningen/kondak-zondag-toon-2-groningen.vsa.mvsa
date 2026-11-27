@@ -10,6 +10,7 @@ partituur:
   arranger: Groningen
 bron:
   uitgangspunt: Koormap Groningen
+  bewerking: groningen
 gelegenheid:
 - naam: Zondag
   type: zondag
@@ -25,13 +26,13 @@ zoektekst: |-
 ---
 
 # === oorspronkelijke VSA (commentaar) ===
-# [/:] Uit het {/graf_} zijt Gij, o Verlos{/ser}, {/op_}{\ge_}{\staan_},
+# [/:] Uit het {/graf_} zijt Gij, o Ver-los{/ser}, {/op_}{\ge_}{\staan_},
 # Gij Al{\mach_}ti{\ge_},
-# {/toen} de {/ha_}des dit wonder {/aan}{/&\schouw_&_}{\de_}
+# {/toen} de {/ha_}des dit won-der {/aan}{/&\schouw_&_}{\de_}
 # was hij ver{\sla_}{\gen_},
-# {/toen} de {/sche_}pping zag dat de doden wa{/ren} {/op_}{\ge_}{\staan_}
-# was zij vervuld met {\vreu_}{\gde_},
-# {/Adam} {/ju_}belt en het heelal zingt U lof ten al{/le} {/&\tij_&_}{\den_}, //
+# {/toen} de {/schep_}ping zag dat de do-den wa{/ren} {/op_}{\ge_}{\staan_}
+# was zij ver-vuld met {\vreug_}{\de_},
+# {/A}dam {/ju_}belt en het heel-al zingt U lof ten al{/le} {/&\tij_&_}{\den_}, //
 # Gij {\mijn} {/Ver}{/&\&/los_&~&~}{\ser_} {\en_} {\Heer_}. [:]
 # <!-- Bron: koormap Groningen -->
 
@@ -71,11 +72,11 @@ T: c        \     -  \    |a
 B: f        \3    -  /3   |f
 
 @sectie herhaling
-L: (toen de) ha_ (des dit won-der) aan-schouw_&_-de_ |
-S: g         /   -                 /   /&\       \   |a
-A: e-        /   -                 -   -&-       -   |f
-T: c         -   -                 /   b/&\      \   |c
-B: c-        /3  -                 \4  \&/       /4  |f
+L: (toen de) ha_ (-des dit won-der) aan-schouw_&_-de_ |
+S: g         /   -                  /   /      &\ \   |a
+A: e-        /   -                  -   -      &- -   |f
+T: c         -   -                  /   b/     &\ \   |c
+B: c-        /3  -                  \4  \      &/ /4  |f
 
 L: (was hij ver)-sla_-gen_, |
 S: a             \    \     |f
@@ -83,27 +84,27 @@ A: f             \    \2    |c-
 T: c             \    \     |a
 B: f             \3   /3    |f
 
-L: (toen de) sche_ (pping zag dat de do-den wa)-ren op_-ge_-staan_ |
-S: g         /     -                            /   /   \   \      |a
-A: e-        /     -                            -   -   -   -      |f
-T: c         -     -                            /   b/  \   \      |c
-B: c-        /3    -                            \4  \   /   /4     |f
+L: (toen de) schep_ (-ping zag dat de do-den wa)-ren op_-ge_-staan_ |
+S: g         /      -                            /   /   \   \      |a
+A: e-        /      -                            -   -   -   -      |f
+T: c         -      -                            /   b/  \   \      |c
+B: c-        /3     -                            \4  \   /   /4     |f
 
-L: (was zij ver-vuld met) vreu_-gde_, |
-S: a                      \     \     |f
-A: f                      \     \2    |c-
-T: c                      \     \     |a
-B: f                      \3    /3    |f
+L: (was zij ver-vuld met) vreug_-de_, |
+S: a                      \      \    |f
+A: f                      \      \2   |c-
+T: c                      \      \    |a
+B: f                      \3     /3   |f
 
-L: Adam ju_ (belt en het hee-lal zingt U lof ten al)-le tij_&_-den_, |
-S: g    /   -                                        /  /&\    \     |a
-A: e-   /   -                                        -  -&-    -     |f
-T: c    -   -                                        /  b/&\   \     |c
-B: c-   /3  -                                        \4 \&/    /4    |f
+L: (A-dam) ju_ (-belt en het heel-al zingt U lof ten al)-le tij_&_-den_, |
+S: g       /   -                                         /  /   &\ \     |a
+A: e-      /   -                                         -  -   &- -     |f
+T: c       -   -                                         /  b/  &\ \     |c
+B: c-      /3  -                                         \4 \   &/ /4    |f
 
 @sectie laatste
-L: (Gij) mijn Ver-los_&~&~-ser_ en_ Heer_\. |
-S: a     \    /   /&\&/    \    \   \       |f
-A: f     \2   /2  -&-&-    -    \   \2      |c-
-T: c     \    /   /&\&/    \    \   \       |a
-B: f     /    \   \4&/4&\4 /    -   /3      |f
+L: (Gij) mijn Ver-los_&~ &~ -ser_ en_ Heer_\. |
+S: a     \    /   /   &\ &/  \    \   \       |f
+A: f     \2   /2  -   &- &-  -    \   \2      |c-
+T: c     \    /   /   &\ &/  \    \   \       |a
+B: f     /    \   \4  &/4&\4 /    -   /3      |f

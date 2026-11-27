@@ -1,4 +1,5 @@
 ---
+titel: Zaterdag heiligen (Toon 2)
 taal: nl
 soort: tropaar
 toon: 2
@@ -8,6 +9,7 @@ partituur:
   arranger: Hemelum
 bron:
   uitgangspunt: Hemelum
+  bewerking: hemelum
 gelegenheid:
 - naam: Zaterdag
   type: weekdagen
@@ -26,12 +28,12 @@ zoektekst: |-
 # <!-- Tropaar - Zaterdag - Koren der Heiligen/Gestorvenen (Toon 2 - Liturgikon, p250) -->
 # <!-- Uitvoeringsvorm: hemelum -->
 #
-# [/:] Apostelen, {/Mar}telaren en {/Pro}{/&\fe_&_}{\ten_}, * 
-# Hiërarchen, Heiligen en Ge{\rech_}{\ten_}, * 
-# {/die} de goede strijd vol{/ein}digd en het geloof {/be}{/&\waard_&_} {\hebt_}, * 
-# gij hebt toegang tot de Ver{\los_}{\ser_}. * 
+# [/:] A-pos-te-len, {/Mar}te-la-ren en {/Pro}{/&\fe_&_}{\ten_}, * 
+# Hiër-ar-chen, Hei-li-gen en Ge{\rech_}{\ten_}, * 
+# {/die} de goe-de strijd vol{/ein}digd en het ge-loof {/be}{/&\waard_&_} {\hebt_}, * 
+# gij hebt toe-gang tot de Ver{\los_}{\ser_}. * 
 # {/Smeekt} tot {/Hem_}, als {/de} {/Goe_}{\de}, voor {\ons_}, **
-# opdat {\on}{/ze} {/zie}len {\mo}{/gen} {\wor_}{\den} ge{\red_}. [:]
+# op-dat {\on}{/ze} {/zie}len {\mo}{/gen} {\wor_}{\den} ge{\red_}. [:]
 
 # === afgeleide mvsa (VSA + template) ===
 # bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/tropaar/zaterdag-heiligen-toon-2/hemelum/tropaar-zaterdag-heiligen-toon-2-hemelum.vsa
@@ -49,7 +51,7 @@ zoektekst: |-
 #  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
 #  #                                                                        #  #
 #  ##########################################################################  #
-@title "tropaar-zaterdag-heiligen-toon-2-hemelum"
+@title "Zaterdag heiligen (Toon 2)"
 @do F4
 @mode major
 @tempo 180
@@ -57,23 +59,23 @@ zoektekst: |-
 
 @sectie cyclus-1
 L: (A-pos-te-len,) (Mar-te-la-ren en) Pro-fe_&_-ten_, |
-S: g               /                  /   /&\   \     |a
-A: e-              /                  -   -&-   -     |f
-T: c               -                  /   b/&\  \     |c
-B: c-              /3                 \4  \&/   /4    |f
+S: g               /                  /   /  &\ \     |a
+A: e-              /                  -   -  &- -     |f
+T: c               -                  /   b/ &\ \     |c
+B: c-              /3                 \4  \  &/ /4    |f
 
-L: (Hi-ë-rar-chen, Hei-li-gen en Ge)-rech_-ten_, |
-S: a                                 \     \     |f
-A: f                                 \     \2    |c-
-T: c                                 \     \     |a
-B: f                                 \3    /3    |f
+L: (Hiër-ar-chen, Hei-li-gen en Ge)-rech_-ten_, |
+S: a                                \     \     |f
+A: f                                \     \2    |c-
+T: c                                \     \     |a
+B: f                                \3    /3    |f
 
 @sectie herhaling
-L: (die de goe-de strijd vol) (ein-digd en het ge-loof) be-waard_&_ hebt_, |
-S: g                          /                         /  /&\      \      |a
-A: e-                         /                         -  -&-      -      |f
-T: c                          -                         /  b/&\     \      |c
-B: c-                         /3                        \4 \&/      /4     |f
+L: (die de goe-de strijd vol) (-ein-digd en het ge-loof) be-waard_&_ hebt_, |
+S: g                          /                          /  /     &\ \      |a
+A: e-                         /                          -  -     &- -      |f
+T: c                          -                          /  b/    &\ \      |c
+B: c-                         /3                         \4 \     &/ /4     |f
 
 L: (gij hebt toe-gang tot de Ver)-los_-ser_\. |
 S: a                              \    \      |f

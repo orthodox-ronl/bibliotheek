@@ -10,17 +10,24 @@ partituur:
   arranger: Groningen
 bron:
   uitgangspunt: stichiertonen/heer_ik_roep_t6.mscz
-zoektekst: Heer ik roep tot U verhoor mij, verhoor mij o Heer, Heer ik roep tot U verhoor mij, sla acht op de stem van mijn smeking, wanneer ik tot U roep, verhoor mij o Heer.
+  bewerking: groningen-1
+zoektekst: |-
+  Heer ik roep tot U verhoor mij,
+  verhoor_ mij o Heer,
+  Heer ik roep tot U verhoor mij,
+  sla acht op de stem van mijn smeking,
+  wanneer ik tot_ U roep,
+  verhoor mij o Heer.
 ---
 
 # === oorspronkelijke VSA (commentaar) ===
 # <!-- Couplet 1 — 6 strofes → speelplan voorlaatste + laatste (n×3) -->
 # [:] Heer ik roep tot U ver{\hoor_} {/mij_},
-# {/ver}-hoor_ {\mij} o {/Heer_},
-# {/Heer} ik roep tot U ver{\&\hoor_&~}{\mij_},
+# {/ver}hoor_ {\mij} o {/Heer_},
+# {/Heer} ik roep tot U ver{\&\hoor_&~} {\mij_},
 # {/sla} acht op de stem van mijn {\sme_}{/king_},
-# {/wan}-neer ik tot_ {\U_}{\roep_}, //
-# {/ver} {/hoor_}{/mij_}{\o_}{\&\He_&_}{/er__}. [:]
+# {/wan}neer ik tot_ {\U_} {\roep_}, //
+# {/&/ver}{/&\hoor_.&-} {\mij_} {\o_} {/Heer__}. [:]
 
 # === afgeleide mvsa (VSA + template) ===
 # bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/stichier/heer-ik-roep-toon-6/groningen-1/stichier-heer-ik-roep-toon-6-groningen-1.vsa
@@ -51,17 +58,17 @@ A: d-                       \     /     |d-
 T: a                        \     /     |a
 B: f                        \3    /3    |f
 
-L: ver-hoor_ mij o Heer_, |
-S: g   -     \   - /      |g
-A: e-  -     \   - /      |e-
-T: Bb  -     \   - /      |Bb
-B: g   -     \   - /      |g
+L: (ver-hoor)_ mij o Heer_, |
+S: g           \   - /      |g
+A: e-          \   - /      |e-
+T: Bb          \   - /      |Bb
+B: g           \   - /      |g
 
-L: (Heer ik roep tot U ver)-hoor_&~-mij_, |
-S: a                        \&\     \     |e-
-A: f                        \&\     \     |c-
-T: c                        \&\     \     |g
-B: f                        /&\     \3    |c-
+L: (Heer ik roep tot U ver)-hoor_&~ mij_, |
+S: a                        \    &\ \     |e-
+A: f                        \    &\ \     |c-
+T: c                        \    &\ \     |g
+B: f                        /    &\ \3    |c-
 
 @sectie herhaling
 L: (sla acht op de stem van mijn) sme_-king_, |
@@ -70,15 +77,15 @@ A: d-                             \    /      |d-
 T: a                              \    /      |a
 B: f                              \3   /3     |f
 
-L: (wan-neer ik tot_) U_-roep_, |
+L: (wan-neer ik tot)_ U_ roep_, |
 S: g                  \  \      |e-
 A: e-                 \  \      |c-
 T: Bb                 \  \      |g
 B: g                  \  \3     |c-
 
 @sectie laatste
-L: (ver) hoor_-mij_-o_-He_&_-er__\. |
-S: f     /     /    \  \&\   /      |f
-A: d-    /     /    \  \&\   /      |d-
-T: a     /     /    \  \&\   /      |a
-B: f     /     \    /  \&\3  /3     |f
+L: (ver)-hoor_.&~&~ mij_ o_ Heer__\. |
+S: f     /2    &\&- \    \  /        |f
+A: d-    /2    &\&- \    \  /        |d-
+T: a     /2    &\&- \    \  /        |a
+B: f     -     &/&- \    \3 /3       |f
