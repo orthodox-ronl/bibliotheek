@@ -1,0 +1,88 @@
+---
+titel: Maandag (Toon 2)
+taal: nl
+soort: kondak
+toon: 2
+template: kondak-toon-2-groningen
+partituur:
+  arranger: Hemelum
+bron:
+  uitgangspunt: Hemelum
+  bewerking: hemelum
+gelegenheid:
+- naam: Maandag
+  type: weekdagen
+- naam: Engelen
+  type: heiligendag
+zoektekst: |-
+  Aanvoerders van Gods Heerscharen,
+  Liturgen der goddelijke heerlijkheid,
+  Begeleiders der mensen en Leiders der Engelen,
+  bidt voor ons om het goede en de grote genade,
+  gij Aanvoerders der Onlichamelijken.
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# <!-- Kondak - Maandag - H. Engelen - (Toon 2 - Liturgikon, 244) -->
+# <!-- Uitvoeringsvorm: hemelum -->
+#
+# [//:] Aan-voer-ders van {/Gods} {/Heer_}{\scha_}{\ren_}, * 
+# Li-tur-gen der god-de-lij-ke {\heer_}lijk{\heid_}, * 
+# {/Be}ge-lei-ders der {/men_}sen en Lei-ders {/der} {/En_}{\ge_}{\len_}, * 
+# bidt voor ons om het goe-de en de gro-te ge{\na_}{\de_}, **
+# {//gij} Aan-voer{\ders} {/der} {/On_}{\&/li}{\cha_}{\me}lij{\ken}. [:]
+
+# === afgeleide mvsa (VSA + template) ===
+# bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/kondak/maandag-toon-2/hemelum/kondak-maandag-toon-2-hemelum.vsa
+# template: kondak-toon-2-groningen/template.yaml (kondak-toon-2-groningen)
+# Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
+#  ##########################################################################  #
+#  #                                                                        #  #
+#  #   WAARSCHUWING:                                                        #  #
+#  #                                                                        #  #
+#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
+#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
+#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
+#  #   - melisma-slots (``_&_`` / ``~&~`` voor stem-sync; later samentrekken)#  #
+#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
+#  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
+#  #                                                                        #  #
+#  ##########################################################################  #
+@title "Maandag (Toon 2)"
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=0 T=-1 B=-1
+
+@sectie cyclus-1
+L: (Aan-voer-ders van) Gods Heer_-scha_-ren_, |
+S: a                   /    /     \     \     |a
+A: f                   -    -     -     -     |f
+T: c                   /    b/    \     \     |c
+B: f                   \4   \     /     /4    |f
+
+L: (Li-tur-gen der god-de-lij-ke) heer_-lijk-heid_, |
+S: a                              \     -    \      |f
+A: f                              \     -    \2     |c-
+T: c                              \     -    \      |a
+B: f                              \3    -    /3     |f
+
+@sectie herhaling
+L: (Be-ge-lei-ders der) men_ (-sen en Lei-ders) der En_-ge_-len_, |
+S: g                    /    -                  /   /   \   \     |a
+A: e-                   /    -                  -   -   -   -     |f
+T: c                    -    -                  /   b/  \   \     |c
+B: c-                   /3   -                  \4  \   /   /4    |f
+
+L: (bidt voor ons om het goe-de en de gro-te ge)-na_-de_, |
+S: a                                             \   \    |f
+A: f                                             \   \2   |c-
+T: c                                             \   \    |a
+B: f                                             \3  /3   |f
+
+@sectie laatste
+L: (gij Aan-voer)-ders der On_-li~&~ -cha_-me-lij-ken\. |
+S: a              \    /   /   \  &/  \    \  -   \     |f
+A: f              \2   /2  -   -  &-  -    \  -   \2    |c-
+T: c              \    /   /   \  &/  \    \  -   \     |a
+B: f              /    \   \4  /4 &\4 /    -  -   /3    |f
