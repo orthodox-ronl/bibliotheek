@@ -1218,6 +1218,11 @@ svg:not(.site-jump-icon),
   background: #ffffff;
 }
 
+/* Uitlijning van muziek (bieb/muziek uitlijning="…"); standaard links. */
+.score-uitlijning-links .vsa-container { text-align: left; }
+.score-uitlijning-midden .vsa-container { text-align: center; }
+.score-uitlijning-rechts .vsa-container { text-align: right; }
+
 .oefenhoek-page .vsa-container {
   overflow-x: hidden;
 }
@@ -2526,6 +2531,28 @@ body.score-audio-bar-open {
   border-color: #9bbb9f;
 }
 
+.pdf-r2-development-banner {
+  margin: 0 0 1rem;
+  padding: 0.65rem 0.9rem;
+  border: 2px solid #6d4c00;
+  background: #fff6e0;
+  color: #3b2a00;
+  font-size: 0.95rem;
+}
+
+.pdf-r2-development-banner-title {
+  margin: 0 0 0.35rem;
+  font-weight: 700;
+}
+
+.pdf-r2-development-banner p {
+  margin: 0;
+}
+
+.pdf-r2-development-banner code {
+  font-size: 0.88em;
+}
+
 .hub-product-banner,
 .partituur-product-banner {
   margin: 0 0 1.25rem;
@@ -2573,6 +2600,25 @@ body.score-audio-bar-open {
 }
 
 .artefacten-handmatig-banner p {
+  margin: 0.35rem 0 0;
+}
+
+.gebreken-banner {
+  margin: 0 0 1.25rem;
+  padding: 0.75rem 0.9rem;
+  border: 2px solid #b00020;
+  background: #fde8eb;
+  color: #3b0008;
+  font-size: 0.95rem;
+}
+
+.gebreken-banner-title {
+  margin: 0 0 0.4rem;
+  font-weight: 700;
+}
+
+.gebreken-banner-toelichting,
+.gebreken-banner p {
   margin: 0.35rem 0 0;
 }
 

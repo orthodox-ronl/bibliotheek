@@ -241,9 +241,15 @@ Naamgevingsconventie voor conversies (tooling):
  &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Bron&lt;/strong&gt; = één echte extensie: &lt;code&gt;{stam}.vsa&lt;/code&gt;, &lt;code&gt;{stam}.mscz&lt;/code&gt;, &lt;code&gt;{stam}.mvsa&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Afgeleide&lt;/strong&gt; = &lt;code&gt;{stam}.{bron-extensie}.{doel-extensie}&lt;/code&gt; —
-bijv. &lt;code&gt;{stam}.vsa.mxl&lt;/code&gt;, &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt;, &lt;code&gt;{stam}.vsa.lyrics.txt&lt;/code&gt;&lt;/li&gt;
+bijv. &lt;code&gt;{stam}.vsa.svg&lt;/code&gt;, &lt;code&gt;{stam}.vsa.mvsa&lt;/code&gt;, &lt;code&gt;{stam}.mscz.pdf&lt;/code&gt;,
+&lt;code&gt;{stam}.vsa.lyrics.txt&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Publicatiecontrole&lt;/strong&gt; = versheidscontrole op site-producten (sibling +
 herkomststempel); CI genereert niet, jij wel lokaal&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Gebreken&lt;/strong&gt; = &lt;code&gt;gebreken: true&lt;/code&gt; op catalogus-leaf of variant-/zangstuk-&lt;code&gt;_index&lt;/code&gt;
+(overerving; rode stempel op scherm/SVG/PDF) — zie
+&lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/publiceren/2-status-en-check/"&gt;Status en check&lt;/a&gt;
+; niet hetzelfde
+als publicatiestatus of manueel&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Handmatig&lt;/strong&gt; = &lt;code&gt;manueel: true&lt;/code&gt; op &lt;code&gt;index.md&lt;/code&gt; (vervangt het
 oude &lt;code&gt;.print.mscz&lt;/code&gt;-spoor)&lt;/li&gt;
 &lt;/ul&gt;
@@ -331,7 +337,7 @@ het beleid hieronder&lt;/li&gt;
  &lt;tr&gt;
  &lt;td&gt;&lt;strong&gt;Genre-emmer&lt;/strong&gt;&lt;/td&gt;
  &lt;td&gt;Catalogus van losse werken onder één genre. Elk werk is een &lt;strong&gt;variant&lt;/strong&gt;.&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;tropaar&lt;/code&gt;, &lt;code&gt;kondak&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;tropaar&lt;/code&gt;, &lt;code&gt;kondak&lt;/code&gt;, &lt;code&gt;stichier&lt;/code&gt;&lt;/td&gt;
  &lt;/tr&gt;
  &lt;tr&gt;
  &lt;td&gt;&lt;strong&gt;Liturgische familie&lt;/strong&gt;&lt;/td&gt;
@@ -347,7 +353,43 @@ het beleid hieronder&lt;/li&gt;
 &lt;/table&gt;
 &lt;p&gt;&lt;strong&gt;Alias-varianten&lt;/strong&gt; (&lt;code&gt;alias_van&lt;/code&gt;) blijven een apart mechanisme: dezelfde
 variant onder een tweede naam (bijvoorbeeld maandag-tropaar = tropaar van
-de Heilige Engelen). Dat is geen vierde soort zangstuk.&lt;/p&gt;</description></item><item><title>Woorden en bestanden</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/woorden/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/woorden/</guid><description>&lt;h1 id="woorden-en-bestanden"&gt;Woorden en bestanden&lt;/h1&gt;
+de Heilige Engelen). Dat is geen vierde soort zangstuk.&lt;/p&gt;</description></item><item><title>Stichieren in de catalogus</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/stichieren/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/stichieren/</guid><description>&lt;h1 id="stichieren-in-de-catalogus"&gt;Stichieren in de catalogus&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Antwoord eerst:&lt;/strong&gt; stichieren horen onder de genre-emmer &lt;code&gt;stichier&lt;/code&gt;. Elk
+werk (bijvoorbeeld &lt;em&gt;Heer ik roep&lt;/em&gt; in één toon) is een &lt;strong&gt;variant&lt;/strong&gt;. Coupletten
+die je als aparte partituur in een koormap wilt, krijgen elk een eigen
+&lt;strong&gt;uitvoeringsvorm&lt;/strong&gt;. De verzamel-&lt;code&gt;.vsa&lt;/code&gt; met alle bekende coupletten staat in
+een aparte uitvoeringsvorm &lt;code&gt;groningen&lt;/code&gt; (of een andere herkomst).&lt;/p&gt;
+&lt;h2 id="padmodel-voorbeeld-toon-6"&gt;Padmodel (voorbeeld toon 6)&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;catalogus/stichier/
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; heer-ik-roep-toon-6/
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; groningen-1/ ← couplet 1 (canonieke .vsa + products)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; groningen-2/ ← couplet 2
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; groningen/ ← alle bekende coupletten in één .vsa
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Catalogus-id&lt;/th&gt;
+ &lt;th&gt;Rol&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;stichier/heer-ik-roep-toon-6/groningen-1&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;Eerste couplet (&lt;em&gt;Heer ik roep…&lt;/em&gt;) voor blad/scherm&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;stichier/heer-ik-roep-toon-6/groningen-2&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;Tweede couplet (&lt;em&gt;Laat mijn gebed…&lt;/em&gt;)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;stichier/heer-ik-roep-toon-6/groningen&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;Verzamelbron: beide coupletten (later meer) in één &lt;code&gt;.vsa&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Publicatiestam: &lt;code&gt;stichier-heer-ik-roep-toon-6-groningen-1&lt;/code&gt; enzovoort.
+Navigatielabels: &lt;em&gt;Groningen 1&lt;/em&gt;, &lt;em&gt;Groningen 2&lt;/em&gt;, &lt;em&gt;Groningen&lt;/em&gt;
+(&lt;code&gt;data/uitvoeringsvorm-link-titles.yaml&lt;/code&gt;).&lt;/p&gt;</description></item><item><title>Woorden en bestanden</title><link>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/woorden/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/start/woorden/</guid><description>&lt;h1 id="woorden-en-bestanden"&gt;Woorden en bestanden&lt;/h1&gt;
 &lt;aside class="handleiding-cue"&gt;
  &lt;p class="handleiding-cue-label"&gt;Snel (als je het al eens deed)&lt;/p&gt;
  &lt;div class="handleiding-cue-body"&gt;
@@ -361,6 +403,8 @@ de Heilige Engelen). Dat is geen vierde soort zangstuk.&lt;/p&gt;</description><
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;geldigheidscontrole&lt;/strong&gt; = &lt;code&gt;vsa validate&lt;/code&gt; / &lt;code&gt;mvsa validate&lt;/code&gt; / …&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;manueel&lt;/strong&gt; / &lt;strong&gt;manual&lt;/strong&gt; = frontmatter op catalogus-&lt;code&gt;index.md&lt;/code&gt; (&lt;code&gt;manueel: true&lt;/code&gt; of &lt;code&gt;manual: true&lt;/code&gt;): PDF/MXL niet auto-bijwerken&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gebreken&lt;/strong&gt; = frontmatter op catalogus-leaf of variant-/zangstuk-&lt;code&gt;_index&lt;/code&gt; (&lt;code&gt;gebreken: true&lt;/code&gt; / &lt;code&gt;false&lt;/code&gt;): ernstige inhoudsfouten met overerving naar leaves; vaste stempel op scherm, SVG en &lt;code&gt;index.md.pdf&lt;/code&gt; — zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/publiceren/2-status-en-check/"&gt;Status en check&lt;/a&gt;
+&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;.mxl&lt;/code&gt; / &lt;code&gt;.vsa.mxl&lt;/code&gt; / &lt;code&gt;.mscz.mxl&lt;/code&gt; = MusicXML voor Coria (&lt;strong&gt;afgeleide&lt;/strong&gt;; niet terug importeren om te layouten)&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;.pdf&lt;/code&gt; / &lt;code&gt;.mscz.pdf&lt;/code&gt; = A4-afgeleide om te lezen of te printen&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;.mp3&lt;/code&gt; / &lt;code&gt;.mvsa.mp3&lt;/code&gt; / &lt;code&gt;.mscz.mp3&lt;/code&gt; / &lt;code&gt;.vsa.mp3&lt;/code&gt; = preview-audio voor &lt;strong&gt;Beluisteren&lt;/strong&gt; (zelfde bronnen als Coria-&lt;code&gt;.mxl&lt;/code&gt;; zie &lt;a href="https://orthodox-ronl.github.io/bibliotheek/preview/handleiding/werktrajecten/audio/"&gt;audio&lt;/a&gt;

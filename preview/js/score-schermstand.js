@@ -43,13 +43,22 @@
     if (!root) return;
     var panels = root.querySelectorAll("[data-scherm]");
     if (!panels.length) return;
+    var scorebron = (root.getAttribute("data-scorebron-active") || "").toLowerCase();
+    /* Notatie (.vsa) heeft geen from-ir: forceer SVG als scorebron=notatie. */
+    var want = stand;
+    if (
+      root.hasAttribute("data-scorebron-dual") &&
+      scorebron === "notatie"
+    ) {
+      want = "svg";
+    }
     var hasStand = false;
     panels.forEach(function (panel) {
       var kind = (panel.getAttribute("data-scherm") || "").toLowerCase();
-      if (kind === stand) hasStand = true;
+      if (kind === want) hasStand = true;
     });
     var effective = hasStand
-      ? stand
+      ? want
       : panels[0].getAttribute("data-scherm") || DEFAULT_STAND;
     panels.forEach(function (panel) {
       var kind = (panel.getAttribute("data-scherm") || "").toLowerCase();
