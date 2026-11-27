@@ -56,13 +56,21 @@
   {{- $preferLocal := true -}}
   {{- if isset $pdfCfg "preferLocal" -}}{{- $preferLocal = $pdfCfg.preferLocal -}}{{- end -}}
   {{- $paginaPdf = partial "pdf-asset-url.html" (dict "page" . "local" $paginaPdf "filename" "index.md.pdf") -}}
-  {{- if or $paginaPdfNls (not $preferLocal) -}}
+  {{- /* .Content eerst: dan heeft bieb-score de translit-richtingen en de
+       wisselbare stukken van deze pagina geteld. Welke translit-PDF's er horen
+       te zijn volgt uit de pagina, niet uit lokale bestanden: op de gebouwde
+       site staan de blad-PDF's alleen op R2 (docs/plans/pdf-r2.md). */ -}}
+  {{- $_ := .Content -}}
+  {{- $translit := .Store.Get "translitPdf" | default slice -}}
+  {{- $metNls := in $translit "nls" -}}
+  {{- $metKsl := in $translit "ksl" -}}
+  {{- if or $paginaPdfNls $metNls -}}
     {{- $paginaPdfNls = partial "pdf-asset-url.html" (dict "page" . "local" $paginaPdfNls "filename" "index.md.translit-nls.pdf") -}}
   {{- end -}}
-  {{- if or $paginaPdfKsl (not $preferLocal) -}}
+  {{- if or $paginaPdfKsl $metKsl -}}
     {{- $paginaPdfKsl = partial "pdf-asset-url.html" (dict "page" . "local" $paginaPdfKsl "filename" "index.md.translit-ksl.pdf") -}}
   {{- end -}}
-  {{- if or $paginaPdfBeide (not $preferLocal) -}}
+  {{- if or $paginaPdfBeide (and $metNls $metKsl) -}}
     {{- $paginaPdfBeide = partial "pdf-asset-url.html" (dict "page" . "local" $paginaPdfBeide "filename" "index.md.translit-beide.pdf") -}}
   {{- end -}}
   {{- $dlBase := "" -}}
@@ -91,9 +99,7 @@
     {{- $dlNameKsl = printf "%s (translit Ksl).pdf" $dlBase -}}
     {{- $dlNameBeide = printf "%s (translit beide).pdf" $dlBase -}}
   {{- end -}}
-  {{- /* PDF's voor andere weergave-keuzes (schermpartituur §2.1).
-       .Content eerst: dan heeft bieb-score de wisselbare stukken geteld. */ -}}
-  {{- $_ := .Content -}}
+  {{- /* PDF's voor andere weergave-keuzes (schermpartituur §2.1). */ -}}
   {{- $letters := .Store.Get "weergaveWissel" | default slice -}}
   {{- $aantal := len $letters -}}
   {{- $standaard := delimit $letters "" -}}

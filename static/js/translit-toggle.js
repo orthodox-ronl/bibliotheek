@@ -80,21 +80,6 @@
     return n;
   }
 
-  /** Raden van translit-beide-URL als het data-attribuut ontbreekt. */
-  function deriveBeidePdfUrl(a) {
-    var beide = a.getAttribute("data-pdf-beide") || "";
-    if (beide) return beide;
-    var nls = a.getAttribute("data-pdf-nls") || "";
-    if (nls.indexOf(".translit-nls.pdf") !== -1) {
-      return nls.split(".translit-nls.pdf").join(".translit-beide.pdf");
-    }
-    var ksl = a.getAttribute("data-pdf-ksl") || "";
-    if (ksl.indexOf(".translit-ksl.pdf") !== -1) {
-      return ksl.split(".translit-ksl.pdf").join(".translit-beide.pdf");
-    }
-    return "";
-  }
-
   /**
    * Letters van de huidige weergave-keuze (v/p per wisselbaar stuk,
    * documentvolgorde); "" als dit de standaard van het blad is.
@@ -141,7 +126,7 @@
       name: a.getAttribute("data-pdf-name-ksl") || uit.name,
     };
     var beide = {
-      href: andere ? url("beide") : deriveBeidePdfUrl(a),
+      href: url("beide"),
       name: a.getAttribute("data-pdf-name-beide") || "blad (translit beide).pdf",
     };
     var list = [];
