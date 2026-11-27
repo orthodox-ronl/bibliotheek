@@ -1,0 +1,45 @@
+---
+titel: Heer, red Uw volk
+taal: nl
+soort: tropaar
+toon: 1
+partituur:
+  title: Heer, red Uw volk
+  composer: Traditioneel
+  arranger: Hemelum
+bron:
+  uitgangspunt: Liturgikon, p247 en p276
+  bewerking: Hemelum
+gelegenheid:
+- naam: Woensdag
+  type: weekdagen
+- naam: Vrijdag
+  type: weekdagen
+- naam: Kruisverheffing
+  datum: 14 sep
+zoektekst: |-
+  Heer red Uw volk en zegen Uw erfdeel;
+  en bescherm uw gemeente door Uw kruis.
+---
+
+@title "Heer, red Uw volk"
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=0 T=-1 B=-1
+
+# Omdat deze tropaar zeer kort is (2 strofes), past hij niet op 
+# de template, die strofe 1, strofe 2 en 'laatste' verwacht.
+# De tekst uit het Liturgikon gebruikt alleen strofe 1 en strofe 2.
+
+L: (Heer red Uw) volk_&_ (en ze)-gen Uw erf_-deel_, |
+S: f             /&/     \2      /   /  /    -      |Bb
+A: c-            /2&/    \3      -   /3 -    -      |f
+T: a             /2&-    \2      /   /  /    -      |d
+B: f             \3&/3   -       -   -  \4   -      |Bb-
+
+L: (en be-scherm uw ge-meen-te) door_ Uw_ kruis__\. |
+S: a                            \     -   \         |f
+A: f                            \     -   \2        |c-
+T: c                            \     -   \         |a
+B: f                            \3    -   /3        |f
