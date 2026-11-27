@@ -39,6 +39,12 @@ gebruikersregel `contracten-eerst-orthodox-ronl`
    [`canonieke-bestanden.mdc`](canonieke-bestanden.mdc) en tooling
    contract-index §Contract-skelet, §C*, §Nieuwe regel.
 
+**Blad-PDF en SVG:** bij elke wijziging aan de SVG-naar-PDF-omzetting, de
+SVG-opmaak of de VSA-tooling-pin:
+[`schermpartituur.md` §2.3](docs/specs/schermpartituur.md) naleven, draai
+`scripts/test_vsa_pdf_uitlijning.py` en bekijk een blad-PDF met
+streepjesnotatie. Een geslaagde bouw alleen is geen controle.
+
 **Verboden:** exporteren/composeren “op gevoel”; aannemen dat een bestaande
 helper het contract al volgt zonder de hub te lezen; PDF-/SVG-volgorde
 afwijken van de Markdown-bladintentie.

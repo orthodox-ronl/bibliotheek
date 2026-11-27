@@ -21,13 +21,14 @@ Daar-om {/roe_}{/pen_} {\\de} he-mel-se mach{/ten} {/U} {/toe:_} *
 {\e}re zij {\Uw} {/Voor}{/zie_}nig{heid_} *
 {\Gij} e-nig Mens{\lie_}{ven_}{\de_} [:]
 :::
+{{< witruimte klein >}}
 
+## Tropaar H. Nicolaas van Myra (t.4)  ***Nls en Ksl***
+
+{{< bieb id="tropaar/nikolaas-van-myra-toon-4/hemelum" />}}
+{{< witruimte klein >}}
 ## Tropaar H. Mattheüs (t.3 - Liturgikon p. 281) Ksl: zie kalender
 
-{{< bieb id="tropaar/apostel-evangelist-mattheus-toon-3/hemelum" uitlijning="links" />}}
-
-## Tropaar H. Nicolaas van Myra (T.4)  ***Nls en Ksl***
-
-{{< bieb id="tropaar/nikolaas-van-myra-toon-4/hemelum" uitlijning="links" />}}
-
+{{< bieb id="tropaar/apostel-evangelist-mattheus-toon-3/hemelum" />}}
+{{< witruimte klein >}}
 {{< kop links klein >}}(Eer aan de Vader ...){{< /kop >}}
