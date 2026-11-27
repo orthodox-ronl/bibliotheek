@@ -14,6 +14,7 @@ from cli_style import (
     add_verbose_argument,
     count,
     detail,
+    error,
     error_block,
     hard,
     info,
