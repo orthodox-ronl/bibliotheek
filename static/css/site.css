@@ -866,6 +866,51 @@ code.catalogus-id {
   margin: 0;
 }
 
+/* Tekstpopovers: bij fixed-plaatsing is "100%" de breedte van het VENSTER, dus de
+   breedte uit de gewone regels (max(12rem,100%) e.d.) zou het hele venster vullen.
+   Hier: precies zo breed als de inhoud, begrensd door max-width (CSS) en het venster. */
+body .site-chrome-tip-panel.is-popover-placed,
+body .publicatiestatus-tip-panel.is-popover-placed,
+body .catalogus-zoek-tip-panel.is-popover-placed,
+body .catalogus-zoek-rate-panel.is-popover-placed,
+body .score-action-help.is-popover-placed,
+body .score-action-menu-panel.is-popover-placed {
+  width: max-content;
+  min-width: 0;
+  max-height: calc(100vh - 16px);
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+body .score-action-menu-panel.is-popover-placed {
+  min-width: min(17rem, calc(100vw - 16px));
+}
+
+/* Smalle schermen (telefoon): een submenu in het ♪-/{}-menu klapt open in de lijst
+   zelf, zodat het de andere keuzes niet bedekt. */
+@media (max-width: 640px) {
+  .score-oefen-tip-panel.is-popover-placed,
+  .score-bron-tip-panel.is-popover-placed {
+    width: min(16rem, calc(100vw - 16px)) !important;
+    max-height: calc(100vh - 16px);
+    overflow-y: auto;
+  }
+
+  body .score-actions--in-tip .score-action-menu-panel.is-popover-placed {
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    max-height: none;
+    margin: 0.2rem 0 0.3rem;
+    box-shadow: none;
+  }
+}
+
 .site-chrome-tip-panel::before {
   content: "";
   position: absolute;
