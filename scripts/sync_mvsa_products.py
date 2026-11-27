@@ -58,6 +58,8 @@ from street_meta import stamp_ok_or_meta, write_products_meta
 from sync_import_mvsa import is_import_mvsa
 from sync_vsa_products import folder_is_handmatig
 from translit_svg_products import (
+    export_one_translit_svg,
+    restore_whole_piece_svg_meta,
     expects_translit_mxl,
     product_translit_mxl,
     product_translit_svg,
@@ -328,16 +330,33 @@ def sync_referenced_sectie_products(
                 _stamp_ok_score_ir(score_ir, digest)
                 and _stamp_ok_from_ir(from_ir, digest)
             )
-            if not need_svg and not need_ir:
+            need_translit = [
+                m
+                for m in translit_modi_for_source(mvsa)
+                if not _stamp_ok_svg(product_translit_svg(mvsa, m, sectie), digest)
+            ]
+            if not need_svg and not need_ir and not need_translit:
                 continue
             rel = rel_for_log(mvsa, repo_root=REPO_ROOT)
             if need_svg:
                 detail(f"  EXP  {rel} --section {sectie} -> svg")
             if need_ir:
                 detail(f"  EXP  {rel} --section {sectie} -> score-ir")
+            for modus in need_translit:
+                dest = product_translit_svg(mvsa, modus, sectie)
+                detail(f"  EXP  {rel} --section {sectie} -> {dest.name}")
             n += 1
             if dry_run:
                 continue
+            for modus in need_translit:
+                dest = export_one_translit_svg(mvsa, modus, sectie)
+                stamp_svg(
+                    dest,
+                    source_hash=digest,
+                    source_kind=SOURCE_KIND_MVSA,
+                    generated_at=utc_now_iso(),
+                    generator=GENERATOR_MVSA,
+                )
             if need_svg:
                 _run_mvsa_svg(mvsa, section=sectie)
                 if svg.is_file() and not _stamp_ok_svg(svg, digest):
@@ -358,6 +377,7 @@ def sync_referenced_sectie_products(
             # ``score-ir --section`` overschrijft meta-keys from-ir/score-ir
             # met @sectie-paden; check verwacht de hele-stuk-siblings.
             _restore_whole_piece_ir_meta(mvsa)
+            restore_whole_piece_svg_meta(mvsa)
     return n
 
 

@@ -201,6 +201,10 @@ def _append_sectie_issues(
         product_svg_for_sectie,
     )
     from ensure_bibliotheek_id import id_from_catalogus_path
+    from translit_svg_products import (
+        product_translit_svg,
+        translit_modi_for_source,
+    )
 
     bib = id_from_catalogus_path(mvsa)
     if not bib:
@@ -234,6 +238,22 @@ def _append_sectie_issues(
             label=f"from-ir @{sectie}",
             read_stamp=read_from_ir_musicxml_stamp,
         )
+        for modus in translit_modi_for_source(mvsa):
+            path = product_translit_svg(mvsa, modus, sectie)
+            _check_stamped_product(
+                issues,
+                path=path,
+                digest=digest,
+                missing_kind="missing_sectie_translit_svg",
+                missing_detail=(
+                    f"Sectie-translit-SVG ({path.name}) ontbreekt "
+                    f"(gerefereerd in bieb-id)"
+                ),
+                unstamped_kind="unstamped_sectie_translit_svg",
+                stale_kind="stale_sectie_translit_svg",
+                label=f"translit-{modus} @{sectie}",
+                read_stamp=read_svg_stamp,
+            )
 
 
 def check_one(

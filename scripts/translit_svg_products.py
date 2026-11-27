@@ -56,14 +56,20 @@ _META_KEYS = {
 _EXPORT_MODI = {MODUS_NLS, MODUS_KSL, MODUS_BOTH}
 
 
-def product_translit_svg(source: Path, modus: str) -> Path:
-    """``lied.vsa`` + ``nls`` → ``lied.vsa.translit-nls.svg``; ``both`` → ``.translit.svg``."""
+def product_translit_svg(
+    source: Path, modus: str, sectie: str | None = None
+) -> Path:
+    """``lied.vsa`` + ``nls`` → ``lied.vsa.translit-nls.svg``; ``both`` → ``.translit.svg``.
+
+    Met *sectie* (alleen ``.mvsa``): ``lied.mvsa@sectie.translit-nls.svg``.
+    """
+    stam = f"{source.name}@{sectie}" if sectie else source.name
     m = (modus or "").casefold()
     if m in {MODUS_BOTH, MODUS_BEIDE}:
-        return source.with_name(f"{source.name}.translit.svg")
+        return source.with_name(f"{stam}.translit.svg")
     if m not in {MODUS_NLS, MODUS_KSL}:
         raise ValueError(f"onbekende translit-modus {modus!r} (nls|ksl|both)")
-    return source.with_name(f"{source.name}.translit-{m}.svg")
+    return source.with_name(f"{stam}.translit-{m}.svg")
 
 
 def product_translit_mxl(source: Path) -> Path:
@@ -189,15 +195,19 @@ def _source_kind_and_generator(source: Path) -> tuple[str, str]:
     return SOURCE_KIND_VSA, GENERATOR_VSA_PDF
 
 
-def export_one_translit_svg(source: Path, modus: str) -> Path:
+def export_one_translit_svg(
+    source: Path, modus: str, sectie: str | None = None
+) -> Path:
     """Roep tooling ``svg --translit`` / ``--translit-modus`` aan; retourneer pad."""
     m = (modus or "").casefold()
     if m == MODUS_BEIDE:
         m = MODUS_BOTH
     if m not in _EXPORT_MODI:
         raise ValueError(f"onbekende translit-modus {modus!r} (nls|ksl|both)")
-    dest = product_translit_svg(source, m)
+    dest = product_translit_svg(source, m, sectie)
     cmd = [*_cli_for_source(source), str(source), "-o", str(dest)]
+    if sectie:
+        cmd.extend(["--section", sectie])
     if m == MODUS_BOTH:
         # Zonder --translit-modus = beide hulprichtingen (.translit.svg).
         cmd.append("--translit")
@@ -299,6 +309,23 @@ def sync_translit_svgs(
             written["svg"] = main_svg
         write_products_meta(source, written, merge=True)
     return written
+
+
+def restore_whole_piece_svg_meta(source: Path) -> None:
+    """Zet products-meta ``svg``/``svg-translit-*`` terug op hele-stuk-bestanden.
+
+    Een ``--section``-export laat tooling die keys naar het sectiebestand wijzen.
+    """
+    products: dict[str, Path] = {}
+    main_svg = source.with_name(f"{source.name}.svg")
+    if main_svg.is_file():
+        products["svg"] = main_svg
+    for modus in translit_modi_for_source(source):
+        path = product_translit_svg(source, modus)
+        if path.is_file():
+            products[meta_key_for_modus(modus)] = path
+    if products:
+        write_products_meta(source, products, merge=True)
 
 
 def _stamp_ok_translit_mxl(mxl: Path, source_hash: str) -> bool:

@@ -1412,6 +1412,31 @@ def _flow_sources(flows: list[PageFlow]) -> list[Path]:
     ]
 
 
+def _flow_muziek(flows: list[PageFlow]) -> list[tuple[Path, str | None]]:
+    """(notatiebron, ``@sectie`` of None) per muziekstuk, documentvolgorde."""
+    return [
+        (item.bron(), _ref_sectie(item.uv_id))
+        for flow in flows
+        for item in flow.items
+        if isinstance(item, MusicItem)
+    ]
+
+
+def _sectie_translit_svgs(flows: list[PageFlow]) -> list[tuple[Path, str, Path]]:
+    """(bron, modus, SVG) voor elke translit-SVG van een ``@sectie`` op het blad."""
+    from translit_svg_products import product_translit_svg, translit_modi_for_source
+
+    out: list[tuple[Path, str, Path]] = []
+    for src, sectie in _flow_muziek(flows):
+        if not sectie:
+            continue
+        for modus in translit_modi_for_source(src):
+            entry = (src, modus, product_translit_svg(src, modus, sectie))
+            if entry not in out:
+                out.append(entry)
+    return out
+
+
 def _pagina_pdf_out_path(md_path: Path) -> Path:
     """Sibling PDF: ``index.md`` → ``index.md.pdf`` (zelfde conventie als tooling)."""
     return md_path.with_name(md_path.name + ".pdf")
@@ -1487,6 +1512,7 @@ def pagina_pdf_job(md_path: Path) -> PaginaPdfJob | None:
         ):
             deps.append(src)
             deps.append(product_svg_path(src))
+        deps += [svg for _src, _modus, svg in _sectie_translit_svgs(flows)]
     except FileNotFoundError:
         return None
     deps += _wissel_deps(stukken)
@@ -2180,7 +2206,8 @@ def resolve_svgs_for_pdf(
             return resolve_svgs_for_pdf(
                 source, work, uv_id=uv_id, compact=compact, translit_modus=None
             )
-        tpath = product_translit_svg(source, pick)
+        sectie = _ref_sectie(uv_id) if uv_id else None
+        tpath = product_translit_svg(source, pick, sectie)
         translit_modus = pick
         if tpath.is_file() and product_svg_stamp_ok(source, tpath):
             from input_paths import rel_for_log
@@ -2199,11 +2226,17 @@ def resolve_svgs_for_pdf(
         detail(
             f"  translit-SVG {reason} ({tpath.name}); exporteren ({flag})…"
         )
-        export_one_translit_svg(source, translit_modus)
+        export_one_translit_svg(source, translit_modus, sectie)
         if not tpath.is_file():
             raise RuntimeError(f"translit-SVG ontbreekt na export: {tpath}")
         stamp_sibling_svg(source, tpath)
-        refresh_svg_products_meta(source, [tpath])
+        if sectie:
+            # Sectie-producten staan niet in products-meta.
+            from translit_svg_products import restore_whole_piece_svg_meta
+
+            restore_whole_piece_svg_meta(source)
+        else:
+            refresh_svg_products_meta(source, [tpath])
         _gebreken_stempel_na_export(source)
         return [tpath]
 
@@ -2924,6 +2957,7 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
     deps = [md_path, *_wissel_deps(stukken)]
     for src in _flow_sources(eerste):
         deps += [src, product_svg_path(src)]
+    deps += [svg for _src, _modus, svg in _sectie_translit_svgs(eerste)]
 
     # Verouderde combinaties (andere standaard of andere stukken) opruimen.
     stems = {weergave.variant_pad(md_path, c).name[: -len(".pdf")] for c in combinaties}
@@ -2935,6 +2969,8 @@ def build_one(md_path: Path, *, force: bool = False) -> Path | None:
         # Eerst alle product-SVG's op orde, dan pas PDF's schrijven: anders
         # maakt een latere variant een eerdere PDF meteen weer verouderd.
         _ververs_svgs(alle_bronnen)
+    # Zelfde reden voor de translit-SVG's per @sectie: eerst SVG, dan PDF.
+    _ververs_sectie_translit_svgs(eerste)
 
     bladen = [(out, eerste)] + [
         (weergave.variant_pad(md_path, c), flows_met_keuzes(flows, c))
@@ -2965,6 +3001,18 @@ def _ververs_svgs(sources: list[Path]) -> None:
             resolve_svgs_for_pdf(src, Path(tmp))
             for modus in translit_modi_for_source(src):
                 resolve_svgs_for_pdf(src, Path(tmp), translit_modus=modus)
+
+
+def _ververs_sectie_translit_svgs(flows: list[PageFlow]) -> None:
+    """Exporteer ontbrekende of verouderde translit-SVG's per ``@sectie``."""
+    from translit_svg_products import translit_modi_for_source
+
+    for flow in flows:
+        for item in flow.items:
+            if isinstance(item, MusicItem) and _ref_sectie(item.uv_id):
+                src = item.bron()
+                for modus in translit_modi_for_source(src):
+                    resolve_svgs_for_pdf(src, uv_id=item.uv_id, translit_modus=modus)
 
 
 def _build_pagina_pdf(
@@ -3036,14 +3084,14 @@ def _build_translit_pagina_pdfs(
             dest = base.with_name(f"{base.name[: -len('.pdf')]}.translit-{modus}.pdf")
         tdeps: list[Path] = [md_path, *sources, *(deps or [])]
         tsvgs: list[tuple[Path, Path]] = []
-        for src in sources:
+        for src, sectie in _flow_muziek(flows):
             if modus == MODUS_BEIDE:
                 pick = beide_modus_for_source(src)
                 if not pick:
                     continue
-                tsvg = product_translit_svg(src, pick)
+                tsvg = product_translit_svg(src, pick, sectie)
             elif modus in translit_modi_for_source(src):
-                tsvg = product_translit_svg(src, modus)
+                tsvg = product_translit_svg(src, modus, sectie)
             else:
                 continue
             tdeps.append(tsvg)

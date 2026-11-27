@@ -199,6 +199,7 @@ Een `@sectie` in de catalogusbron is adresseerbaar via het id:
 | Vorm         | `zangstuk/variant/uitvoeringsvorm@sectie-id` — sectie-id zoals in MVSA (`[a-z][a-z0-9_-]*`).                            |
 | Geen `@blok` | Speelblokken horen alleen bij `@speelplan`; niet in een bieb-id.                                                        |
 | Producten    | `scripts\products.cmd --kinds mvsa` maakt `*.mvsa@sectie.svg` (en from-ir) **alleen** als ergens zo’n verwijzing staat. |
+| Translit     | Per sectie `*.mvsa@sectie.translit-*.svg`, met dezelfde richtingen als de hele bron. Scherm en pagina-download gebruiken alleen die sectie. |
 | Web + PDF    | Shortcode en `index.md.pdf` tonen die sibling, niet het hele stuk.                                                      |
 
 Zie VSA-tooling [keywords `@sectie`](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/specification-mvsa/keywords.md).

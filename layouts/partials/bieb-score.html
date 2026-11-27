@@ -90,10 +90,16 @@
       {{- $fromIrPlain = $fromIrPlain | append .RelPermalink -}}
     {{- else if and (not $kettingSvg) (strings.HasSuffix $n $sectieSvgSuffix) -}}
       {{- $musicSvgs = $musicSvgs | append .RelPermalink -}}
+    {{- else if strings.HasSuffix $n (printf ".mvsa@%s.translit-ksl.svg" $sectie) -}}
+      {{- $musicSvgsTranslitKsl = $musicSvgsTranslitKsl | append .RelPermalink -}}
+    {{- else if strings.HasSuffix $n (printf ".mvsa@%s.translit-nls.svg" $sectie) -}}
+      {{- $musicSvgsTranslitNls = $musicSvgsTranslitNls | append .RelPermalink -}}
+    {{- else if strings.HasSuffix $n (printf ".mvsa@%s.translit.svg" $sectie) -}}
+      {{- $musicSvgsTranslitBeide = $musicSvgsTranslitBeide | append .RelPermalink -}}
     {{- end -}}
   {{- else if and (strings.HasSuffix $n ".from-ir.musicxml") (not (strings.Contains $n ".translit")) (not (strings.Contains $n ".mvsa@")) -}}
     {{- $fromIrPlain = $fromIrPlain | append .RelPermalink -}}
-  {{- else if and (not $kettingSvg) (strings.HasSuffix $n ".svg") -}}
+  {{- else if and (not $kettingSvg) (strings.HasSuffix $n ".svg") (not (strings.Contains $n ".mvsa@")) -}}
     {{- if strings.Contains $n ".translit-ksl.svg" -}}
       {{- $musicSvgsTranslitKsl = $musicSvgsTranslitKsl | append .RelPermalink -}}
     {{- else if strings.Contains $n ".translit-nls.svg" -}}
@@ -135,6 +141,18 @@
             {{- if not (in $musicSvgs $url) -}}
               {{- $musicSvgs = $musicSvgs | append $url -}}
             {{- end -}}
+          {{- else if strings.HasSuffix $nameLower (printf ".mvsa@%s.translit-ksl.svg" $sectie) -}}
+            {{- if not (in $musicSvgsTranslitKsl $url) -}}
+              {{- $musicSvgsTranslitKsl = $musicSvgsTranslitKsl | append $url -}}
+            {{- end -}}
+          {{- else if strings.HasSuffix $nameLower (printf ".mvsa@%s.translit-nls.svg" $sectie) -}}
+            {{- if not (in $musicSvgsTranslitNls $url) -}}
+              {{- $musicSvgsTranslitNls = $musicSvgsTranslitNls | append $url -}}
+            {{- end -}}
+          {{- else if strings.HasSuffix $nameLower (printf ".mvsa@%s.translit.svg" $sectie) -}}
+            {{- if not (in $musicSvgsTranslitBeide $url) -}}
+              {{- $musicSvgsTranslitBeide = $musicSvgsTranslitBeide | append $url -}}
+            {{- end -}}
           {{- end -}}
         {{- else -}}
           {{- if and (strings.HasSuffix $nameLower ".from-ir.musicxml") (not (strings.Contains $nameLower ".translit")) (not (strings.Contains $nameLower ".mvsa@")) -}}
@@ -142,7 +160,7 @@
               {{- $fromIrPlain = $fromIrPlain | append $url -}}
             {{- end -}}
           {{- end -}}
-          {{- if and (not $kettingSvg) (strings.HasSuffix $nameLower ".svg") -}}
+          {{- if and (not $kettingSvg) (strings.HasSuffix $nameLower ".svg") (not (strings.Contains $nameLower ".mvsa@")) -}}
             {{- if strings.Contains $nameLower ".translit-ksl.svg" -}}
               {{- if not (in $musicSvgsTranslitKsl $url) -}}
                 {{- $musicSvgsTranslitKsl = $musicSvgsTranslitKsl | append $url -}}
