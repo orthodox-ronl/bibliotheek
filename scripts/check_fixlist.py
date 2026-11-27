@@ -32,7 +32,33 @@ STATUS_SOURCES: tuple[tuple[str, str, str | None], ...] = (
     ("lyrics", "lyrics-product-status.json", None),
     ("pdf", "pdf-status.json", "folders"),
     ("mxl-contract", "mxl-playback-contract-status.json", "files"),
+    ("gebreken", "gebreken-status.json", "folders"),
 )
+
+
+# Afwerkvolgorde = afhankelijkheid: bronproducten eerst, afgeleide laatste.
+# De pdf leunt op product-SVG's/notatie; draait hij vóór de producten, dan
+# maakt een latere product-fix de pdf direct weer "stale" (nieuwere SVG).
+FIX_ORDER: tuple[str, ...] = (
+    "vsa",
+    "mscz",
+    "tekstblad",
+    "import",
+    "mvsa",
+    "audio",
+    "lyrics",
+    "mxl-contract",
+    "gebreken",  # SVG-stempels vóór de pdf (pdf leunt op de SVG)
+    "pdf",
+)
+
+
+def fix_sort_key(item: "FixItem") -> tuple[int, str, str]:
+    try:
+        rank = FIX_ORDER.index(item.checker)
+    except ValueError:
+        rank = len(FIX_ORDER)
+    return (rank, item.checker, item.id)
 
 
 @dataclass(frozen=True)
@@ -135,7 +161,7 @@ def collect_items(data_dir: Path = DATA) -> list[FixItem]:
             seen.add(item.id)
             items.append(item)
 
-    items.sort(key=lambda x: (x.checker, x.id))
+    items.sort(key=fix_sort_key)
     return items
 
 

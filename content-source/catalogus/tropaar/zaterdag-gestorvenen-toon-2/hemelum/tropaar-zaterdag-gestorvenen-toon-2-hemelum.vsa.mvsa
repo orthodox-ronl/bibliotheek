@@ -1,4 +1,5 @@
 ---
+titel: Zaterdag gestorvenen (Toon 2)
 taal: nl
 soort: tropaar
 toon: 2
@@ -8,6 +9,7 @@ partituur:
   arranger: Hemelum
 bron:
   uitgangspunt: Hemelum
+  bewerking: hemelum
 gelegenheid:
 - naam: Zaterdag
   type: weekdagen
@@ -16,18 +18,17 @@ zoektekst: |-
   Gedenk, Heer, in Uw goedheid Uw dienaren en dienaressen,
   en vergeef hun wat zij in dit leven hebben gezondigd.
   Want niemand is zonder zonde, buiten U,
-  Die de macht bezit om ook aan hen, die zijn overgegaan,
-  de rust te verlenen.
+  Die de macht bezit om ook aan hen, die zijn overgegaan, de rust te verlenen.
 ---
 
 # === oorspronkelijke VSA (commentaar) ===
 # <!-- Tropaar - Zaterdag - Koren der Heiligen/Gestorvenen (Toon 2 - Liturgikon, p250) -->
 # <!-- Uitvoeringsvorm: hemelum -->
 #
-# [/:] Ge{/denk_}, Heer, in Uw goedheid Uw dienaren en die{/na}{/&\res_&_}{\sen_}, * 
-# en vergeef hun wat zij in dit leven hebben ge{\zon_}{\digd_}. * 
-# {/Want} {/nie_}mand is zonder zon{/de}, {/bui_}{\ten_} {\U_}, ** 
-# Die de macht bezit om ook aan hen, die zijn overge{\gaan},
+# [/:] Ge{/denk_}, Heer, in Uw goed-heid Uw die-na-ren en die{/na}{/&\res_&_}{\sen_}, * 
+# en ver-geef hun wat zij in dit le-ven heb-ben ge{\zon_}{\digd_}. * 
+# {/Want} {/nie_}mand is zon-der zon{/de}, {/bui_}{\ten_} {\U_}, ** 
+# Die de macht be-zit om ook aan hen, die zijn o-ver-ge{\gaan},
 #    {/de} {/rust_} {\te} {/ver}{\&\le_&_}{\nen}. [:]
 
 # === afgeleide mvsa (VSA + template) ===
@@ -46,7 +47,7 @@ zoektekst: |-
 #  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
 #  #                                                                        #  #
 #  ##########################################################################  #
-@title "tropaar-zaterdag-gestorvenen-toon-2-hemelum"
+@title "Zaterdag gestorvenen (Toon 2)"
 @do F4
 @mode major
 @tempo 180
@@ -54,10 +55,10 @@ zoektekst: |-
 
 @sectie cyclus-1
 L: Ge-denk_, (Heer, in Uw goed-heid Uw die-na-ren en die)-na-res_&_-sen_, |
-S: g  /      -                                            /  /&\    \     |a
-A: e- /      -                                            -  -&-    -     |f
-T: c  -      -                                            /  b/&\   \     |c
-B: c- /3     -                                            \4 \&/    /4    |f
+S: g  /      -                                            /  /   &\ \     |a
+A: e- /      -                                            -  -   &- -     |f
+T: c  -      -                                            /  b/  &\ \     |c
+B: c- /3     -                                            \4 \   &/ /4    |f
 
 L: (en ver-geef hun wat zij in dit le-ven heb-ben ge)-zon_-digd_\. |
 S: a                                                  \    \       |f
@@ -66,11 +67,11 @@ T: c                                                  \    \       |a
 B: f                                                  \3   /3      |f
 
 @sectie herhaling
-L: Want nie_ (mand is zon-der zon)-de, bui_-ten_ U_, |
-S: g    /    -                     /   /    \    \   |a
-A: e-   /    -                     -   -    -    -   |f
-T: c    -    -                     /   b/   \    \   |c
-B: c-   /3   -                     \4  \    /    /4  |f
+L: Want nie_ (-mand is zon-der zon)-de, bui_-ten_ U_, |
+S: g    /    -                      /   /    \    \   |a
+A: e-   /    -                      -   -    -    -   |f
+T: c    -    -                      /   b/   \    \   |c
+B: c-   /3   -                      \4  \    /    /4  |f
 
 @sectie laatste
 L: (Die de macht be-zit om ook aan hen, die zijn o-ver-ge)-gaan, |
@@ -80,7 +81,7 @@ T: c                                                       \     |Bb
 B: f                                                       /     |g
 
 L: de rust_ te ver-le_&_-nen\. |
-S: a  /     \  /   \&\   \     |f
-A: f  -     -  -   -&\   \2    |c-
-T: c  /     \  /   \&\   \     |a
-B: f  \4    /4 \4  /&-   /3    |f
+S: a  /     \  /   \  &\ \     |f
+A: f  -     -  -   -  &\ \2    |c-
+T: c  /     \  /   \  &\ \     |a
+B: f  \4    /4 \4  /  &- /3    |f

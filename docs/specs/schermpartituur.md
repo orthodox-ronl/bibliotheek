@@ -47,6 +47,17 @@ Bladvorm op scherm: §4.4 hieronder.
 | **Scherm**            | Doorlopende partituur om mee te lezen/oefenen in de browser. Geen A4-bladkaders als primaire look. Translit-icoonknoppen wisselen sibling-SVG’s (vorm A); niet via OSMG.                                                                                                                                                                                                                                                                                             |
 | **Download (pagina)** | Nav **download-icoon** (pijl omlaag): `index.md.pdf` (translit uit), of `index.md.translit-nls.pdf` / `index.md.translit-ksl.pdf` (één knop), of `index.md.translit-beide.pdf` (beide knoppen; hybride UV → uit `.translit.svg`, anders per UV de enkelvoudige sibling). Geen score-knoppen naar product-`.vsa.pdf` / `.mvsa.pdf`. Hosting: lokaal in de build als aanwezig, anders R2 `development/` (override) of `production/` — [pdf-r2.md](../plans/pdf-r2.md). |
 
+**Gebreken-markering (bibliotheek-laag):** als de *effectieve* markering
+aan staat (`gebreken: true` op leaf, variant-`_index` of
+zangstuk-`_index`, met overerving; dichtstbijzijnde expliciete waarde
+wint), toont het scherm een rode banner met de vaste tekst «Gebreken -
+niet als definitief gebruiken»; `index.md.pdf` (en translit-PDF’s)
+krijgen een watermark; sibling-SVG’s krijgen na `products` een
+stempelgroep (`id="bibliotheek-gebreken-stempel"`). Dat is **geen**
+wijziging van het VSA-tooling-contract voor kale muziek-SVG — alleen een
+consumer-nabewerking. Handleiding:
+[Status en check](../../content-source/handleiding/publiceren/2-status-en-check.md).
+
 Op het scherm forceert het onderdeel `muziek` **geen** paginatitel. Titels
 horen bij de Hugo-pagina (catalogus-H1) of bij koormap-`kop` / Markdown.
 

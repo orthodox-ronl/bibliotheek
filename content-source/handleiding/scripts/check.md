@@ -21,8 +21,8 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 
 `check` is de preflight voor deze repo (CI-spiegel):
 
-1. `validate` — `vsa validate` op `content-source\catalogus` (en
-   `mvsa validate` als daar `.mvsa`-bestanden staan)
+1. `validate` — `.vsa` → `vsa validate`, `.mvsa` → `mvsa validate`
+   (map: beide waar nodig)
 2. VSA-publicatiecontrole — of elke catalogus-`.vsa` (behalve
    `manueel` / `manual`) passende `{stam}.vsa.svg` heeft, en — als T1
    een formule kiest — ook `{stam}.vsa.mvsa` (geen `.vsa.mxl` meer)
@@ -52,21 +52,33 @@ Of: `scripts\check.cmd` vanuit de repo-root.
 11. Catalogus-leaf-titels (`check_catalogus_leaf_titles`) — of leaf-`title`
     niet alleen het zangstuk-id is en `linkTitle` een leesbaar
     uitvoeringsvorm-label is (waarschuwing; met `--strict` fout)
-12. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
-13. Coria-fetch-probe (`python scripts\probe_coria_fetch.py`) — of Coria
+12. Gebreken-markering (`python scripts\check_gebreken.py`) — geen
+    `publicatiestatus: productie` samen met *effectieve* `gebreken`
+    (leaf/variant/zangstuk, met overerving); waarschuwing als SVG of
+    `index.md.pdf` de stempel mist terwijl de markering aan staat (fout
+    met `--strict`). Handleiding:
+    [Status en check](../../publiceren/2-status-en-check/)
+    Stempel- en watermerkproblemen komen ook in `data\check-fixlist.json`
+    (via `python scripts\check_gebreken.py --write-status`, vóór de
+    fixlist-stap) en worden door `fix` afgewerkt: SVG-stempels met
+    `python scripts\gebreken.py <map>`, een PDF zonder watermerk met
+    `scripts\pdf.cmd <map>\index.md --force`. De stempelstap staat in de
+    afwerkvolgorde vóór de pdf.
+13. Coria-fingerprints (`python scripts\fingerprint_coria_mxl.py`)
+14. Coria-fetch-probe (`python scripts\probe_coria_fetch.py`) — of Coria
     een steekproef (mscz/mvsa/vsa) vanaf **github.io** kan ophalen (geen
     `raw.githubusercontent.com`); zet `base` in
     `data\coria-public-base.json`. Zonder `--strict` alleen waarschuwen bij
     falen; met `--strict` exit 1
-14. Legacy bladermap-SVG (`python scripts\sync_oefenhoek_index.py --svg`) — plaatje onder
+15. Legacy bladermap-SVG (`python scripts\sync_oefenhoek_index.py --svg`) — plaatje onder
    `static\vsa\bladermap\` uit `.vsa`, zonder stempel. Het scherm
    gebruikt sibling `{stam}.vsa.svg` (stap 2) zodra die er is; dit
    plaatje is alleen de fallback
-15. Zoekindex (`python scripts\build_zoek_index.py` → `static\zoek\index.json`)
-16. Bouwtijd-stempel (`python scripts\write_build_stamp.py` →
+16. Zoekindex (`python scripts\build_zoek_index.py` → `static\zoek\index.json`)
+17. Bouwtijd-stempel (`python scripts\write_build_stamp.py` →
     `data\build.yaml`; footer «Gegenereerd» op de homepage; niet
     committen)
-17. Hugo-build naar `generated\site` (footer «Bijgewerkt» via
+18. Hugo-build naar `generated\site` (footer «Bijgewerkt» via
     Git-geschiedenis van het contentbestand)
 
 De Pages-deploy (productie, `/preview/`, branch-previews) bouwt de

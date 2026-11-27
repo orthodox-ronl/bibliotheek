@@ -10,6 +10,7 @@ partituur:
   arranger: Groningen
 bron:
   uitgangspunt: Koormap Groningen
+  bewerking: groningen
 gelegenheid:
 - naam: Zondag
   type: zondag
@@ -26,13 +27,13 @@ zoektekst: |-
 
 # === oorspronkelijke VSA (commentaar) ===
 # [:] Ver{/re_}{/zen_} {\\zijt} Gij uit het {/graf} {/in} {/heer_}lijk{heid_},
-# {\Gij} hebt de wereld met U mede {\op_}ge{\wekt_},
-# {/&/al_&_}{\\les} wat sterfelijk is prijst {/U} {/als} {/God_}
+# {\Gij} hebt de we-reld met U me-de {\op_}ge{\wekt_},
+# {/&/al_&_}{\\les} wat ster-fe-lijk is prijst {/U} {/als} {/God_}
 # {\want} de dood is ver{\nie_}{\tigd_},
-# o Ge{/bie_}{/der_}, {\\A}dam jubelt en Eva {/is} {/ver}{/heugd_}
-# {\want} heden zijn zij van de {\boe_}ien be{\vrijd_},
+# o Ge{/bie_}{/der_}, {\\A}dam ju-belt en Eva {/is} {/ver}{/heugd_}
+# {\want} he-den zijn zij van de {\boei_}en be{\vrijd_},
 # zij {/roe_}{/pen_}: {\\Gij} zijt {/het}, {/o} {/Chris_}tus, //
-# {\die} aan allen de {/op_}standing {\schenkt}. [//:]
+# {\die} aan al-len de {/op_}stan-ding {\schenkt}. [//:]
 # <!-- Bron: koormap Groningen -->
 
 # === afgeleide mvsa (VSA + template) ===
@@ -71,11 +72,11 @@ T: c                                 \   -  \      |a
 B: f                                 \3  -  /3     |f
 
 @sectie herhaling
-L: al_&_ (les wat ster-fe-lijk is prijst) U als God_ |
-S: g&/   \2                               / /   /    |Bb
-A: e-&/  \3                               - /3  -    |f
-T: c&-   \2                               / /   /    |d
-B: c-&/3 -                                - -   \4   |Bb-
+L: al_&_  (-les wat ster-fe-lijk is prijst) U als God_ |
+S: g  &/  \2                                / /   /    |Bb
+A: e- &/  \3                                - /3  -    |f
+T: c  &-  \2                                / /   /    |d
+B: c- &/3 -                                 - -   \4   |Bb-
 
 L: (want de dood is ver)-nie_-tigd_, |
 S: a                     \    \      |f
@@ -89,11 +90,11 @@ A: c-     /2   /     \3                      -  /3  -      |f
 T: a      /2   -     \2                      /  /   /      |d
 B: f      \3   /3    -                       -  -   \4     |Bb-
 
-L: (want he-den zijn zij van de) boe_-ien be-vrijd_, |
-S: a                             \    -   -  \       |f
-A: f                             \    -   -  \2      |c-
-T: c                             \    -   -  \       |a
-B: f                             \3   -   -  /3      |f
+L: (want he-den zijn zij van de) boei_-en be-vrijd_, |
+S: a                             \     -  -  \       |f
+A: f                             \     -  -  \2      |c-
+T: c                             \     -  -  \       |a
+B: f                             \3    -  -  /3      |f
 
 L: zij roe_-pen_: (Gij zijt) het, o  Chris_-tus, |
 S: f   /    /     \2         /    /  /      -    |Bb

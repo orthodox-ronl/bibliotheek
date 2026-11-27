@@ -1218,6 +1218,11 @@ svg:not(.site-jump-icon),
   background: #ffffff;
 }
 
+/* Uitlijning van muziek (bieb/muziek uitlijning="…"); standaard links. */
+.score-uitlijning-links .vsa-container { text-align: left; }
+.score-uitlijning-midden .vsa-container { text-align: center; }
+.score-uitlijning-rechts .vsa-container { text-align: right; }
+
 .oefenhoek-page .vsa-container {
   overflow-x: hidden;
 }
@@ -2595,6 +2600,25 @@ body.score-audio-bar-open {
 }
 
 .artefacten-handmatig-banner p {
+  margin: 0.35rem 0 0;
+}
+
+.gebreken-banner {
+  margin: 0 0 1.25rem;
+  padding: 0.75rem 0.9rem;
+  border: 2px solid #b00020;
+  background: #fde8eb;
+  color: #3b0008;
+  font-size: 0.95rem;
+}
+
+.gebreken-banner-title {
+  margin: 0 0 0.4rem;
+  font-weight: 700;
+}
+
+.gebreken-banner-toelichting,
+.gebreken-banner p {
   margin: 0.35rem 0 0;
 }
 

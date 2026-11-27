@@ -25,6 +25,10 @@ Naamgevingsconventie voor conversies (tooling):
   `{stam}.vsa.lyrics.txt`
 - **Publicatiecontrole** = versheidscontrole op site-producten (sibling +
   herkomststempel); CI genereert niet, jij wel lokaal
+- **Gebreken** = `gebreken: true` op catalogus-leaf of variant-/zangstuk-`_index`
+  (overerving; rode stempel op scherm/SVG/PDF) — zie
+  [Status en check](/handleiding/publiceren/2-status-en-check/); niet hetzelfde
+  als publicatiestatus of manueel
 - **Handmatig** = `manueel: true` op `index.md` (vervangt het
   oude `.print.mscz`-spoor)
 {{< /cue >}}

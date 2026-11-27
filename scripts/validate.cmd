@@ -16,6 +16,8 @@ if errorlevel 1 (
 
 set "RAW=content-source\catalogus"
 if not "%~1"=="" set "RAW=%~1"
+REM Extra CLI-opties na het pad (bijv. --lyrics-lang nl); lege %n vallen weg.
+set "EXTRA=%2 %3 %4 %5 %6 %7 %8 %9"
 
 set "RESOLVE_OUT=%TEMP%\bibliotheek-validate-target.txt"
 python scripts\resolve_cli_path.py "%RAW%" > "%RESOLVE_OUT%"
@@ -43,7 +45,7 @@ if "!IS_DIR!"=="0" if exist "%TARGET%" (
 
 REM Map: vsa voor .vsa/.md; mvsa als er .mvsa onder staat.
 call scripts\_msg.cmd section "=== validate: vsa %TARGET% ==="
-vsa validate "%TARGET%"
+vsa validate "%TARGET%" !EXTRA!
 if errorlevel 1 (
   call scripts\_msg.cmd hard "ERROR  vsa validate failed"
   exit /b 1
@@ -54,7 +56,7 @@ if errorlevel 1 goto validate_ok
 dir /s /b "%TARGET%\*.mvsa" >nul 2>&1
 if errorlevel 1 goto validate_ok
 call scripts\_msg.cmd section "=== validate: mvsa %TARGET% ==="
-mvsa validate "%TARGET%"
+mvsa validate "%TARGET%" !EXTRA!
 if errorlevel 1 (
   call scripts\_msg.cmd hard "ERROR  mvsa validate failed"
   exit /b 1
@@ -63,7 +65,7 @@ goto validate_ok
 
 :validate_vsa_file
 call scripts\_msg.cmd section "=== validate: vsa %TARGET% ==="
-vsa validate "%TARGET%"
+vsa validate "%TARGET%" !EXTRA!
 if errorlevel 1 (
   call scripts\_msg.cmd hard "ERROR  vsa validate failed"
   exit /b 1
@@ -77,7 +79,7 @@ if errorlevel 1 (
   exit /b 1
 )
 call scripts\_msg.cmd section "=== validate: mvsa %TARGET% ==="
-mvsa validate "%TARGET%"
+mvsa validate "%TARGET%" !EXTRA!
 if errorlevel 1 (
   call scripts\_msg.cmd hard "ERROR  mvsa validate failed"
   exit /b 1
@@ -90,12 +92,13 @@ exit /b 0
 
 :usage
 echo.
-echo Gebruik: scripts\validate.cmd [map^|bestand]
+echo Gebruik: scripts\validate.cmd [map^|bestand] [extra vsa/mvsa-opties…]
 echo.
 echo   Zonder argument: content-source\catalogus
 echo   .vsa-bestand  → vsa validate
 echo   .mvsa-bestand → mvsa validate
 echo   Map           → vsa validate, plus mvsa validate als er .mvsa onder staat
+echo   Extra opties  → doorgegeven, bv. --lyrics-lang nl ^(alleen Nederlands^)
 echo   Korte paden: t.o.v. content-source, catalogus of koormappen
 echo                ^(zelfde G2 als raw vsa/mvsa validate: alleluia, communievers, …^).
 echo.

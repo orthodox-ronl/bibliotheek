@@ -50,7 +50,7 @@ de een-na-laatste strofe**, zodat zangers al zien dat de volgende regel
 Machinebestand: [stichier-toon-6-groningen/template.yaml](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/specification-vsa-templates/library/stichier-toon-6-groningen/template.yaml).
 Mappingregels (technisch): [mapping-vsa.md](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/specification-vsa-templates/mapping-vsa.md).
 
-Catalogus-voorbeeld (coupletten): [stichier/heer-ik-roep-toon-6]({{< relref "/catalogus/stichier/heer-ik-roep-toon-6" >}}).
+Catalogus-voorbeeld (coupletten): **TBD (Heer, ik roep (Toon 6))**
 Ook gebruikt met `formule: stichier` op liturgisch andere stukken, o.a.
 [kondak Moeder Gods toon 6]({{< relref "/catalogus/kondak/moeder-gods-toon-6" >}}).
 Handleiding: [Stichieren]({{< relref "/handleiding/start/stichieren" >}}).

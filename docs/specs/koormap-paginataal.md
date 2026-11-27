@@ -51,7 +51,7 @@ Plaatsing van download en translit in de navigatie is onderdeel van dit contract
 | Onderdeel   | Afspraak                                                                                                                                                                                                                                         |
 | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Bestand     | Koormap-slot: `…/index.md` (of sectie-`_index.md` waar dat al de conventie is).                                                                                                                                                                  |
-| Frontmatter | Blijft zoals nu (`title`, `linkTitle`, `weight`, `publicatiestatus`, `automatische_inhoud`, …). Dat is **pagina**-metadata van de koormap, niet de catalogus-frontmatter van een uitvoeringsvorm. Optioneel: `pdf_bestandsnaam` (zie hieronder). |
+| Frontmatter | Blijft zoals nu (`title`, `linkTitle`, `weight`, `publicatiestatus`, `automatische_inhoud`, …). Dat is **pagina**-metadata van de koormap, niet de catalogus-frontmatter van een uitvoeringsvorm. Optioneel: `pdf_bestandsnaam` (zie hieronder). Gebreken-markering (`gebreken`) hoort op de **catalogus**-leaf/variant/zangstuk; op het koormap-slot verschijnt de banner via `bieb`. |
 | Body        | Gewone Markdown (koppen, alinea’s, lijsten, tabellen, …) plus de shortcodes in dit document.                                                                                                                                                     |
 
 ### Voorgestelde naam bij het download-icoon
@@ -202,6 +202,21 @@ Een `@sectie` in de catalogusbron is adresseerbaar via het id:
 | Web + PDF    | Shortcode en `index.md.pdf` tonen die sibling, niet het hele stuk.                                                      |
 
 Zie VSA-tooling [keywords `@sectie`](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/specification-mvsa/keywords.md).
+
+#### `uitlijning` — muziek links, midden of rechts
+
+Op `bieb` (met `id`) of `muziek` mag `uitlijning="links"`, `"midden"` of
+`"rechts"` staan. Standaard is **links** (ook op de website). Het effect zit in `scripts\pdf.cmd`:
+een SVG die na schaling smaller is dan de paginabreedte (bijvoorbeeld een kort
+tropaar) staat links, midden of rechts; een SVG over de volle breedte
+verandert niet. Een ongeldige waarde is een fout. Op een openend `bieb`-blok
+geldt de waarde voor alle `muziek` erin, tenzij `muziek` een eigen waarde heeft.
+Op de website geldt dezelfde waarde (CSS-klasse `score-uitlijning-…` op de
+muziek-bundel); standaard staat de muziek daar ook links.
+
+```markdown
+{{< bieb id="kondak/johannes-de-barmhartige-toon-2/hemelum" uitlijning="links" />}}
+```
 
 #### `muziek` — latere parameters (gereserveerd)
 

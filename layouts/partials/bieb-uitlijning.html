@@ -1,0 +1,36 @@
+{{- /*
+  Uitlijning van de muziek: links (standaard), midden of rechts.
+
+  Eigen param uitlijning="…" op bieb/muziek, anders die van het dichtstbijzijnde
+  ouder-bieb-blok, anders links.
+  In: shortcode context (.).  Uit: links|midden|rechts.
+*/ -}}
+{{- $loc := partial "diag-location.html" (dict "position" .Position "page" .Page) -}}
+{{- $val := "" -}}
+{{- with .Get "uitlijning" -}}
+  {{- $val = lower (strings.TrimSpace .) -}}
+{{- end -}}
+{{- if not $val -}}
+  {{- $cur := .Parent -}}
+  {{- range seq 1 12 -}}
+    {{- if not $cur -}}
+      {{- break -}}
+    {{- end -}}
+    {{- if eq $cur.Name "bieb" -}}
+      {{- with $cur.Get "uitlijning" -}}
+        {{- $val = lower (strings.TrimSpace .) -}}
+      {{- end -}}
+      {{- if $val -}}
+        {{- break -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $cur = $cur.Parent -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $val -}}
+  {{- $val = "links" -}}
+{{- end -}}
+{{- if not (in (slice "links" "midden" "rechts") $val) -}}
+  {{- errorf "%s: uitlijning=%q onbekend. Oplossing: kies links, midden of rechts." $loc $val -}}
+{{- end -}}
+{{- return $val -}}

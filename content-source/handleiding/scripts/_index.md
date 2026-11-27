@@ -66,11 +66,14 @@ Coria via **github.io** (geen raw); schrijft `base` in
 `python scripts\sync_oefenhoek_index.py --svg`. Dit alles wordt al door
 `check` / `build` / `serve` aangeroepen.
 `check_koormap_slot_links.py` controleert relatieve links in koormappen
-(onderdeel van `check` / CI). `check_vsa_products.py`,
-`check_mscz_products.py`, `check_tekstblad_products.py`,
-`check_import_mvsa.py`, `check_mvsa_products.py`,
-`check_audio_products.py` en `check_lyrics_products.py` schrijven
-status-JSON (versheid / importcontrole).
+(onderdeel van `check` / CI). `check_gebreken.py` controleert
+gebreken-markering versus stempels op SVG/PDF (onderdeel van `check` /
+CI). `check_vsa_products.py`, `check_mscz_products.py`,
+`check_tekstblad_products.py`, `check_import_mvsa.py`,
+`check_mvsa_products.py`, `check_audio_products.py` en
+`check_lyrics_products.py` schrijven status-JSON (versheid /
+importcontrole). `gebreken.py` zet of verwijdert SVG-stempels (ook als
+nabewerking van `products`).
 
 Detail: [scripts/README.md](https://github.com/orthodox-ronl/bibliotheek/blob/development/scripts/README.md)
 in de repo.

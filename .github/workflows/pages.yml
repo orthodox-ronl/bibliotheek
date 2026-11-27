@@ -113,7 +113,7 @@ jobs:
               echo "tooling_ref=$ref" >> "$GITHUB_OUTPUT"
             else
               echo "tooling_mode=float" >> "$GITHUB_OUTPUT"
-              echo "tooling_ref=main" >> "$GITHUB_OUTPUT"
+              echo "tooling_ref=development" >> "$GITHUB_OUTPUT"
             fi
           fi
 

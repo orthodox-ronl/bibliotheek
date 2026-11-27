@@ -40,6 +40,69 @@ Optioneel op catalogus-`index.md`: `manueel: true` als PDF
 en Coria-`.mxl` in die map niet via de product-pipeline mogen lopen (print /
 template). Zie [Print-.mscz](../../partituur/7-print-mscz/).
 
+## Gebreken (ernstige fouten op een blad)
+
+Als materiaal al in de catalogus staat maar ernstige gebreken blijkt te
+hebben, markeer je dat met frontmatter — **niet** door alleen
+`publicatiestatus` te wijzigen. Je mag dat zetten op drie niveaus:
+
+| Niveau          | Bestand               | Effect                              |
+| --------------- | --------------------- | ----------------------------------- |
+| Uitvoeringsvorm | leaf-`index.md`       | Alleen die uitvoeringsvorm          |
+| Variant         | variant-`_index.md`   | Alle leaves onder die variant       |
+| Zangstuk        | zangstuk-`_index.md`  | Alle leaves onder dat zangstuk      |
+
+**Voorbeeld** — één leaf:
+
+```yaml
+publicatiestatus: reviewable
+gebreken: true
+gebreken_toelichting: "Melodie couplet 2 klopt niet; wacht op herziening."
+```
+
+**Voorbeeld** — heel zangstuk, één leaf uitzonderen. Op
+`catalogus\tropaar\voorbeeld\_index.md`:
+
+```yaml
+gebreken: true
+gebreken_toelichting: "Hele zangstuk herzien na foutieve opname."
+```
+
+Op de leaf die wél goed is, `catalogus\tropaar\voorbeeld\hemelum\groningen\index.md`:
+
+```yaml
+gebreken: false
+```
+
+| Veld                   | Rol                                                                              |
+| ---------------------- | -------------------------------------------------------------------------------- |
+| `gebreken: true`       | Markering aan op dit niveau (en lager, tenzij een kind uitzondert)               |
+| `gebreken: false`      | Markering uit op dit niveau, ook als een ouder `true` heeft                      |
+| `gebreken_toelichting` | Optioneel; de dichtstbijzijnde niet-lege tekst wint (leaf vóór variant vóór zangstuk) |
+
+**Overerving:** de dichtstbijzijnde expliciete `gebreken` wint (eerst de
+leaf, dan de variant, dan het zangstuk). Ontbreekt het veld overal, dan
+is er geen markering.
+
+Vaste stempeltekst overal: **Gebreken - niet als definitief gebruiken**.
+Die verschijnt op het scherm (rode banner op catalogusblad, variant- of
+zangstukoverzicht, en op koormap-slots via `bieb`), in `index.md.pdf`
+(watermark) en op de sibling-SVG’s na `products`. Het blad blijft
+vindbaar en bruikbaar om te oefenen; het is geen verborgen stub.
+
+Advies: zet `publicatiestatus` op getroffen leaves desgewenst op
+`reviewable` of `concept`. `check` weigert `productie` op een leaf met
+*effectieve* gebreken (dus ook bij markering alleen op variant of
+zangstuk). Na zetten of wissen:
+
+```cmd
+scripts\products.cmd content-source\catalogus\tropaar\voorbeeld
+scripts\pdf.cmd content-source\catalogus\tropaar\voorbeeld
+```
+
+`products` zet of haalt de SVG-stempel op alle getroffen leaves onder die
+map; `pdf` vernieuwt de pagina-PDF’s (watermark).
+
 ## Check
 
 In de map `bibliotheek`:
@@ -53,10 +116,12 @@ Dat controleert onder meer VSA-notatie, Coria-`.mxl` (basispartituur én
 links op de site kloppen. Rood = niet naar live; eerst
 [als het misgaat](../3-als-het-misgaat/).
 
-`publicatiestatus` en andere frontmatter-titels controleert `check`
-**niet** automatisch; die zet je zelf volgens
+`publicatiestatus` zelf controleert `check` **niet** automatisch; die zet
+je zelf volgens
 [Catalogus en koormappen](../../start/catalogus-en-koormappen/)
-(sectie *Titels en frontmatter*).
+(sectie *Titels en frontmatter*). Wél controleert `check` of een leaf met
+effectieve `gebreken` niet op `productie` staat, en of SVG/PDF een
+stempel hebben wanneer de markering aan staat.
 
 `check` schrijft geen PDF, Coria-`.mxl` of SVG. Die maak je lokaal met
 `products` (of het passende `*-products`-commando) en commit je mee.
@@ -78,7 +143,9 @@ map te staan. Open jouw **koormap-slot** in de liturgiemap. Open tip-icoon
 de translit-icoonknoppen, blader de partituur — alsof je koorlid bent.
 Rode banner over partituur- of VSA-afgeleiden? Terug naar
 [Afgeleiden](../../partituur/6-afgeleiden/). Gele banner “Handmatige
-artefacten”? Verwacht — jij houdt PDF/MXL zelf bij.
+artefacten”? Verwacht — jij houdt PDF/MXL zelf bij. Rode banner
+“Gebreken - niet als definitief gebruiken”? Frontmatter `gebreken: true`
+op de catalogus-leaf (zie hierboven).
 
 ## Op internet
 

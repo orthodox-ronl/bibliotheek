@@ -14,6 +14,7 @@ weight: 30
 - **importcontrole** = versheidscontrole op bewerk-/importvorm (bijv. `.mscz.mvsa`); zie [import-mvsa](/handleiding/scripts/import-mvsa/)
 - **geldigheidscontrole** = `vsa validate` / `mvsa validate` / …
 - **manueel** / **manual** = frontmatter op catalogus-`index.md` (`manueel: true` of `manual: true`): PDF/MXL niet auto-bijwerken
+- **gebreken** = frontmatter op catalogus-leaf of variant-/zangstuk-`_index` (`gebreken: true` / `false`): ernstige inhoudsfouten met overerving naar leaves; vaste stempel op scherm, SVG en `index.md.pdf` — zie [Status en check](/handleiding/publiceren/2-status-en-check/)
 - `.mxl` / `.vsa.mxl` / `.mscz.mxl` = MusicXML voor Coria (**afgeleide**; niet terug importeren om te layouten)
 - `.pdf` / `.mscz.pdf` = A4-afgeleide om te lezen of te printen
 - `.mp3` / `.mvsa.mp3` / `.mscz.mp3` / `.vsa.mp3` = preview-audio voor **Beluisteren** (zelfde bronnen als Coria-`.mxl`; zie [audio](/handleiding/werktrajecten/audio/))
@@ -85,6 +86,7 @@ lettergrepen synchroon met noten. MusicXML: `scripts\opkuisen.cmd`. Bij een
 | **Levenscyclus** | Case per uitvoeringsvorm door fases; los van `publicatiestatus` — [Levenscyclus](/handleiding/start/levenscyclus/) |
 | **Publicatiestatus** | Op leaf-`index.md` in catalogus én koormap: `voorzien`, `reviewable`, `concept`, `productie` (`?` naast de titel; niet raden) |
 | **manueel** / **manual** | Frontmatter (`manueel:` of `manual:`): afgeleiden in die catalogusmap niet auto; gele banner voor beheerders |
+| **gebreken** | Frontmatter op leaf/variant/zangstuk (`gebreken: true`/`false`, optioneel toelichting): ernstige gebreken met overerving; rode stempel op scherm/SVG/PDF — niet hetzelfde als `publicatiestatus` |
 | **SATB** | Sopraan, alt, tenor, bas — de vier stemmen op één partituur |
 | **Coria** | Online oefenen; via tip-icoon **♪** → **Oefenen** bij shortcode `bieb`; heeft een schone `.mxl` nodig |
 | **Uitvoeringsvorm** | Een concrete manier om een zangstuk uit te voeren (schrijf het woord uit; gebruik niet de afkorting “uv”) |
