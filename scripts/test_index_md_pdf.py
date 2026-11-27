@@ -1117,7 +1117,7 @@ title: "Demo"
     music = [i for f in flows for i in f.items if isinstance(i, pp.MusicItem)]
     assert [(m.uv_id, m.align) for m in music] == [
         ("a/b/c", "links"),
-        ("a/b/d", "midden"),
+        ("a/b/d", "links"),
         ("a/b/e", "rechts"),  # blok-uitlijning geldt voor muziek zonder eigen waarde
         ("a/b/e", "links"),  # eigen waarde wint
     ]

@@ -54,7 +54,7 @@
     {{- $bronPanels = $bronMsczMvsaPanels -}}
   {{- end -}}
 {{- end -}}
-<div class="score-bundle">
+<div class="score-bundle score-uitlijning-{{ .uitlijning | default "links" }}">
 {{ partial "oefenhoek-score-acties.html" (dict "score" $p "viewer" $viewer "position" .position) }}
 {{- /*
   Scherm: SVG (default) en OSMG (experimenteel, from-ir) naast elkaar.

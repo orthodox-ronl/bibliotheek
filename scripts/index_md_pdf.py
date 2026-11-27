@@ -138,7 +138,7 @@ class TextItem:
 class MusicItem:
     uv_id: str
     compact: bool
-    align: str = "midden"  # links | midden | rechts (alleen bij smallere SVG)
+    align: str = "links"  # links | midden | rechts (alleen bij smallere SVG)
 
 
 @dataclass
@@ -968,7 +968,7 @@ def parse_page_flows(text: str) -> list[PageFlow]:
     def add_music(uv_id: str, align: str | None = None) -> None:
         drain_pending()
         current.items.append(
-            MusicItem(uv_id, compact=bijelkaar > 0, align=align or "midden")
+            MusicItem(uv_id, compact=bijelkaar > 0, align=align or "links")
         )
 
     def add_bieb_text(uv_id: str, onderdeel: str, *, veld_pad: str = "") -> None:
@@ -2613,7 +2613,7 @@ def _compose_flow_svg(
             cuts: list[float],
             *,
             use_cuts: bool,
-            align: str = "midden",
+            align: str = "links",
         ) -> None:
             """Plaats één SVG-strip; bij ``use_cuts`` pack op systeembrenzen."""
             nonlocal y
@@ -2718,7 +2718,7 @@ def _compose_flow_svg(
                         sh,
                         cuts,
                         use_cuts=use_cuts,
-                        align=getattr(item, "align", "midden"),
+                        align=getattr(item, "align", "links"),
                     )
                     if page_i < len(docs) - 1:
                         y += gap

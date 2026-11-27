@@ -6,6 +6,7 @@
     "onderdeel" titel|title|muziek|bron|copyright|colofon|veld
     "veld" optioneel pad voor veld
     "sectie" optioneel @sectie-id (alleen muziek)
+    "uitlijning" optioneel links|midden|rechts (alleen muziek; standaard links)
     "viewer" Page
     "position" optional
 */ -}}
@@ -20,7 +21,7 @@
 {{- if or (eq $onderdeel "titel") (eq $onderdeel "title") -}}
 {{- partial "display-title.html" $score -}}
 {{- else if eq $onderdeel "muziek" -}}
-{{ partial "bieb-score.html" (dict "score" $score "viewer" $viewer "position" .position "sectie" $sectie) }}
+{{ partial "bieb-score.html" (dict "score" $score "viewer" $viewer "position" .position "sectie" $sectie "uitlijning" (.uitlijning | default "links")) }}
 {{- else if eq $onderdeel "bron" -}}
 {{- $v := partial "bieb-veld-waarde.html" (dict "score" $score "pad" "bron") -}}
 {{- if not $v -}}
