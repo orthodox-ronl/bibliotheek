@@ -1218,6 +1218,11 @@ svg:not(.site-jump-icon),
   background: #ffffff;
 }
 
+/* Uitlijning van muziek (bieb/muziek uitlijning="…"); standaard links. */
+.score-uitlijning-links .vsa-container { text-align: left; }
+.score-uitlijning-midden .vsa-container { text-align: center; }
+.score-uitlijning-rechts .vsa-container { text-align: right; }
+
 .oefenhoek-page .vsa-container {
   overflow-x: hidden;
 }
