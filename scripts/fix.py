@@ -443,6 +443,57 @@ def _run_products_post(*, verbose: bool) -> int:
     return 0
 
 
+MAX_RONDES = 3
+
+
+def _werk_af(
+    items: list[FixItem], *, verbose: bool, log_path: Path | None
+) -> tuple[int, int, list[tuple[FixItem, str]], list[FixItem], int]:
+    """Eén ronde: alle items afwerken. Retour: (ok, mislukt, fouten, rest, products_ok)."""
+    remaining = list(items)
+    fixed = 0
+    failed = 0
+    done_cmds: set[str] = set()
+    products_ok = 0
+    stempels_gezet = False
+    failures: list[tuple[FixItem, str]] = []
+    for item in list(items):
+        if item.fix_cmd in done_cmds:
+            remaining = [x for x in remaining if x.fix_cmd != item.fix_cmd]
+            save_fixlist(remaining)
+            detail(f">>> {item.summary} (zelfde fix_cmd al ok)")
+            continue
+        if _stempels_voor_pdf_nodig(
+            item.fix_cmd, products_ok=products_ok, stempels_gezet=stempels_gezet
+        ):
+            if _sync_stempels(verbose=verbose):
+                failed += 1
+                failures.append((item, "gebreken-stempels mislukt"))
+                continue
+            stempels_gezet = True
+        work(f">>> {item.summary}")
+        t0 = time.perf_counter()
+        code, reason = _run_fix_cmd(
+            item.fix_cmd,
+            summary=item.summary,
+            log_path=log_path,
+        )
+        elapsed = time.perf_counter() - t0
+        if code == 0:
+            fixed += 1
+            done_cmds.add(item.fix_cmd)
+            if is_products_fix_cmd(item.fix_cmd):
+                products_ok += 1
+            remaining = [x for x in remaining if x.fix_cmd != item.fix_cmd]
+            save_fixlist(remaining)
+            detail(f"    OK ({elapsed:.1f}s, {len(remaining)} rest)")
+        else:
+            failed += 1
+            failures.append((item, reason or "herstel mislukt"))
+            hard(f"    {reason or 'herstel mislukt'}")
+    return fixed, failed, failures, remaining, products_ok
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
@@ -522,13 +573,6 @@ def main(argv: list[str] | None = None) -> int:
         refuse("WEIGERT  fix afgebroken (geen bevestiging)")
         return 2
 
-    remaining = list(items)
-    fixed = 0
-    failed = 0
-    done_cmds: set[str] = set()
-    products_ok = 0
-    stempels_gezet = False
-    failures: list[tuple[FixItem, str]] = []
     log_path: Path | None = None
     if args.verbose:
         log_path = _open_fix_log()
@@ -537,49 +581,58 @@ def main(argv: list[str] | None = None) -> int:
             "(scherm blijft samenvatting)"
         )
 
-    for item in list(items):
-        if item.fix_cmd in done_cmds:
-            remaining = [x for x in remaining if x.fix_cmd != item.fix_cmd]
-            save_fixlist(remaining)
-            detail(f">>> {item.summary} (zelfde fix_cmd al ok)")
-            continue
-        if _stempels_voor_pdf_nodig(
-            item.fix_cmd, products_ok=products_ok, stempels_gezet=stempels_gezet
-        ):
-            if _sync_stempels(verbose=bool(args.verbose)):
-                failed += 1
-                failures.append((item, "gebreken-stempels mislukt"))
-                continue
-            stempels_gezet = True
-        work(f">>> {item.summary}")
-        t0 = time.perf_counter()
-        code, reason = _run_fix_cmd(
-            item.fix_cmd,
-            summary=item.summary,
-            log_path=log_path,
+    fixed = 0
+    failed = 0
+    failures: list[tuple[FixItem, str]] = []
+    remaining = list(items)
+    current = list(items)
+    vorige_cmds: set[str] = set()
+    for ronde in range(1, MAX_RONDES + 1):
+        if ronde > 1:
+            section(f"=== fix: ronde {ronde} (door de vorige ronde nieuw verouderd) ===")
+        r_fixed, r_failed, r_failures, remaining, products_ok = _werk_af(
+            current, verbose=bool(args.verbose), log_path=log_path
         )
-        elapsed = time.perf_counter() - t0
-        if code == 0:
-            fixed += 1
-            done_cmds.add(item.fix_cmd)
-            if is_products_fix_cmd(item.fix_cmd):
-                products_ok += 1
-            remaining = [x for x in remaining if x.fix_cmd != item.fix_cmd]
-            save_fixlist(remaining)
-            detail(f"    OK ({elapsed:.1f}s, {len(remaining)} rest)")
-        else:
-            failed += 1
-            failures.append((item, reason or "herstel mislukt"))
-            hard(f"    {reason or 'herstel mislukt'}")
-
-    if products_ok and failed == 0:
-        post = _run_products_post(verbose=bool(args.verbose))
-        if post != 0:
-            if log_path is not None:
-                note(
-                    f"Detail-log: {rel_for_log(log_path, repo_root=REPO_ROOT)}"
-                )
-            return 1
+        fixed += r_fixed
+        failed += r_failed
+        failures += r_failures
+        if r_failed:
+            break
+        if products_ok:
+            post = _run_products_post(verbose=bool(args.verbose))
+            if post != 0:
+                if log_path is not None:
+                    note(
+                        f"Detail-log: {rel_for_log(log_path, repo_root=REPO_ROOT)}"
+                    )
+                return 1
+        if not args.check or not r_fixed:
+            break
+        # Producten/SVG's die net zijn bijgewerkt maken andere PDF's verouderd;
+        # die stonden nog niet in de lijst. Opnieuw controleren: één run moet
+        # genoeg zijn (de volgende `fix --strict` hoort niets meer te vinden).
+        mtime_before = _fixlist_mtime()
+        code = _run_check_strict(verbose=bool(args.verbose))
+        if _check_failed_before_fixlist(code, mtime_before=mtime_before):
+            error(
+                f"controle na afwerken mislukte (exit {code}); "
+                "draai scripts\\fix.cmd --strict nog eens."
+            )
+            break
+        nxt = _refresh_fixlist_from_status()
+        remaining = list(nxt)
+        if not nxt:
+            break
+        nxt_cmds = {x.fix_cmd for x in nxt}
+        if nxt_cmds <= vorige_cmds | {x.fix_cmd for x in current}:
+            hard(
+                "Dezelfde onderdelen worden direct na herstel opnieuw "
+                "verouderd gemeld: dat is een fout in de volgorde/controle, "
+                "geen gewone rest. Meld dit met de lijst hieronder."
+            )
+            break
+        vorige_cmds |= {x.fix_cmd for x in current}
+        current = list(nxt)
 
     section("=== Samenvatting fix ===")
     count(fixed, "ok", role="ok")
@@ -599,6 +652,9 @@ def main(argv: list[str] | None = None) -> int:
                 else " Volledige kind-uitvoer: --verbose → data\\fix-last.log."
             )
         )
+        return 1
+    if remaining and args.check:
+        hard(f"{len(remaining)} onderdeel/onderdelen blijven over; zie boven.")
         return 1
     ok("OK  fixlist leeg" if not remaining else "OK  fix afgerond")
     return 0

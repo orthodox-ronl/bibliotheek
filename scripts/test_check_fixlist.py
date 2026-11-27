@@ -561,3 +561,72 @@ def test_collect_gebreken_statuses(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setattr(gebreken, "svg_has_gebreken_stempel", lambda _s: True)
     monkeypatch.setattr(gebreken, "pdf_has_gebreken_stempel", lambda _p: True)
     assert gebreken.collect_gebreken_statuses() == ([], 1)
+
+
+def _fix_ronde_setup(monkeypatch, tmp_path, na_check):
+    """Gemeenschappelijke stubs voor de meerrondes-tests; geeft de uitgevoerde cmds."""
+    path = tmp_path / "check-fixlist.json"
+    save_fixlist(
+        [
+            FixItem(
+                id="mvsa:a",
+                checker="mvsa",
+                summary="a",
+                fix_cmd=r"scripts\products.cmd --kinds mvsa --skip-post a.mvsa",
+            )
+        ],
+        path=path,
+    )
+    uitgevoerd: list[str] = []
+    checks = iter(na_check)
+    monkeypatch.setattr(fix_mod, "FIXLIST_PATH", path)
+    monkeypatch.setattr(fix_mod, "load_fixlist", lambda: load_fixlist(path))
+    monkeypatch.setattr(
+        fix_mod, "save_fixlist", lambda items: save_fixlist(items, path=path)
+    )
+    mt = iter(range(1, 100))
+    monkeypatch.setattr(fix_mod, "_fixlist_mtime", lambda: next(mt))
+    monkeypatch.setattr(fix_mod, "_run_check_strict", lambda **_k: 1)
+    first = [True]
+
+    def _refresh():
+        if first[0]:
+            first[0] = False
+            return load_fixlist(path)
+        return next(checks)
+
+    monkeypatch.setattr(fix_mod, "_refresh_fixlist_from_status", _refresh)
+    monkeypatch.setattr(fix_mod, "_sync_stempels", lambda **_k: 0)
+    monkeypatch.setattr(fix_mod, "_run_products_post", lambda **_k: 0)
+
+    def _run(cmd, **_k):
+        uitgevoerd.append(cmd)
+        return 0, ""
+
+    monkeypatch.setattr(fix_mod, "_run_fix_cmd", _run)
+    monkeypatch.setattr(fix_mod, "confirm_batch", lambda *_a, **_k: True)
+    return uitgevoerd
+
+
+def test_fix_tweede_ronde_pakt_nieuw_verouderde_pdfs(tmp_path, monkeypatch):
+    """Na producten zijn andere PDF's verouderd: dezelfde run maakt ze af."""
+    pdf = FixItem(
+        id="pdf:x", checker="pdf", summary="x", fix_cmd=r"scripts\pdf.cmd x\index.md"
+    )
+    uitgevoerd = _fix_ronde_setup(monkeypatch, tmp_path, [[pdf], []])
+    assert fix_mod.main(["--strict", "-y"]) == 0
+    assert len(uitgevoerd) == 2
+    assert "pdf.cmd" in uitgevoerd[1]
+
+
+def test_fix_stopt_bij_niet_convergeren(tmp_path, monkeypatch):
+    """Dezelfde fix_cmd blijft terugkomen: niet eindeloos herhalen, exit 1."""
+    prod = FixItem(
+        id="mvsa:a",
+        checker="mvsa",
+        summary="a",
+        fix_cmd=r"scripts\products.cmd --kinds mvsa --skip-post a.mvsa",
+    )
+    uitgevoerd = _fix_ronde_setup(monkeypatch, tmp_path, [[prod], [prod], [prod]])
+    assert fix_mod.main(["--strict", "-y"]) == 1
+    assert len(uitgevoerd) == 1
