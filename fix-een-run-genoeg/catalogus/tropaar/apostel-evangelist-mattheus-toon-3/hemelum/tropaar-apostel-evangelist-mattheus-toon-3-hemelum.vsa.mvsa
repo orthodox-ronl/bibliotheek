@@ -1,0 +1,82 @@
+---
+titel: H. Apostel en Evangelist Mattheüs
+taal: nl
+soort: tropaar
+toon: 3
+template: tropaar-toon-3-groningen
+partituur:
+  arranger: Hemelum
+bron:
+  uitgangspunt: Liturgikon, p.281
+  bewerking: hemelum
+gelegenheid:
+- naam: Apostelen
+  type: heiligendag
+- naam: H. Apostel en Evangelist Matteos
+  datum: 16 nov
+zoektekst: |-
+  Toen Christus, de Meester, U riep uit het tollenaarschap,
+  hebt gij de in genade Gekomene vol ijver gevolgd.
+  Met luide stem hebt gij aan allen het Evangelie verkondigd,
+  uitverkoren Apostel, God-sprekende Mattheos,
+  bid tot de barmhartige God om vergeving voor onze zielen.
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# [\\:] Toen Chris-tus, {/de} {/Mees}ter, U riep {\uit} {/het} {/tol}{/le}naar{schap_}, *
+# hebt gij de in ge-na-de Ge-ko-me-ne vol {\ij_}{\ver} {\ge}{\volgd_}. *
+# Met lui{/de} {/stem} hebt gij aan al-len het E-van-ge{\lie} {/ver}{/&/kon}{digd_}, *
+# uit-ver-ko-ren A-pos-tel, God=spre-ken-de Mat{/the__}{\os_}, **
+# bid tot de barm-har-ti-ge {God_} om ver-ge{\ving} {\voor} {/on}{/ze} {/&\&\&\&/zie~&~&~&~&_}{\len_}. [:]
+
+# === afgeleide mvsa (VSA + template) ===
+# bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/tropaar/apostel-evangelist-mattheus-toon-3/hemelum/tropaar-apostel-evangelist-mattheus-toon-3-hemelum.vsa
+# template: tropaar-toon-3-groningen/template.yaml (tropaar-toon-3-groningen)
+# Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
+#  ##########################################################################  #
+#  #                                                                        #  #
+#  #   WAARSCHUWING:                                                        #  #
+#  #                                                                        #  #
+#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
+#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
+#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
+#  #   - melisma-slots (``_&_`` / ``~&~`` voor stem-sync; later samentrekken)#  #
+#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
+#  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
+#  #                                                                        #  #
+#  ##########################################################################  #
+@title "H. Apostel en Evangelist Mattheüs"
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=0 T=-1 B=-1
+
+L: (Toen Chris-tus,) de Mees-ter, U riep uit het tol-le-naar-schap_, |
+S: d-                /  /    -    - -    \   /   /   /  -    -       |a
+A: d-                -  -    -    - -    -   -   /   /  -    -       |f
+T: f+                /  /    -    - -    \   /   \5  -  -    -       |c
+B: d                 -  -    -    - -    -   -   \   \4 -    -       |f
+
+L: (hebt gij de in ge-na-de Ge-ko-me-ne vol) ij_-ver ge-volgd_\. |
+S: a                                         \   \   \  \        |d-
+A: f                                         \   \   -  -        |d-
+T: c                                         -   /5  \  \        |f+
+B: f                                         /4  /   -  -        |d
+
+L: (Met lui)-de stem hebt gij aan al-len het E-van-ge-lie ver-kon~&~ -digd_, |
+S: d-        /  /    -    -   -   -  -   -   - -   -  \   /   /   &/  -      |a
+A: d-        -  -    -    -   -   -  -   -   - -   -  -   -   /   &/  -      |f
+T: f+        /  /    -    -   -   -  -   -   - -   -  \   /   \5  &-  -      |c
+B: d         -  -    -    -   -   -  -   -   - -   -  -   -   \   &\4 -      |f
+
+L: (uit-ver-ko-ren A-pos-tel, God=spre-ken-de Mat)-the__-os_, |
+S: a                                               /     \    |a
+A: f                                               /     \    |f
+T: c                                               /     \    |c
+B: f                                               /     \    |f
+
+L: (bid tot de barm-har-ti-ge) God_ om ver-ge-ving voor on-ze zie~&~&~ &~ &_ -len_\. |
+S: a                           -    -  -   -  \    \    /  /  /   &\&\ &\ &/  \      |f
+A: f                           -    -  -   -  \    \    /  /  /   &\&\ &\ &/  \      |d-
+T: c                           -    -  -   -  -    /5   \5 -  /   &\&- &/5&\5 /5     |a+
+B: f                           -    -  -   -  /4   /    \  \4 /   &\&/4&/ &\  /      |d
