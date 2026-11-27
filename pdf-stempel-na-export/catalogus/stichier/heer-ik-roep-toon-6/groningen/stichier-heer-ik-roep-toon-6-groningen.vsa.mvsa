@@ -1,0 +1,139 @@
+---
+titel: Heer ik roep - Toon 6 (Groningen, bekende coupletten)
+taal: nl
+soort: stichier
+toon: 6
+formule: stichier
+template: stichier-toon-6-groningen
+partituur:
+  title: Heer ik roep - Toon 6 (Groningen)
+  arranger: Groningen
+bron:
+  uitgangspunt: stichiertonen/heer_ik_roep_t6.mscz
+  bewerking: groningen
+zoektekst: |-
+  Heer ik roep tot U verhoor mij,
+  verhoor mij o Heer,
+  Heer ik roep tot U verhoor mij,
+  sla acht op de stem van mijn smeking,
+  wanneer ik tot U roep,
+  verhoor mij o Heer.
+  Laat mijn gebed als wierook,
+  opstijgen voor Uw aangezicht,
+  de opheffing van mijn handen,
+  zij een avondoffer,
+  verhoor mij o Heer.
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# <!--
+#   VerzamelVSA: bekende coupletten. Sterke frasescheider aan het eind van de
+#   eennalaatste strofe. Template: stichier-toon-6-groningen (plan two couplets,
+#   11 strofes). Voor partituur in de koormap: groningen-1 / groningen-2.
+# >
+#
+# <!-- Couplet 1 — 6 strofes → 1,2,3,1,voorlaatste,laatste -->
+# [:] Heer ik roep tot U ver{\hoor_} {/mij_},
+# {/ver}{hoor_} {\mij} o {/Heer_.},
+# {/Heer_} ik roep tot U ver{\&\hoor_.&~} {\mij_},
+# {/sla} acht op de stem van mijn {\sme_}{/king_},
+# {/wan}neer ik {tot_} {\U_} {\roep_}, //
+# {/&/ver}{/&\hoor_.&-} {\mij_} {\o_} {/Heer__}. [:]
+#
+# <!-- Couplet 2 — 5 strofes → 1,2,3,1,laatste -->
+# [:] Laat mijn ge-bed als {\wie_}{/rook_},
+# {/op}stij-gen voor Uw {aan_}{\ge_}{/zicht_},
+# {/de} op-hef-fing van mijn {\&\han_.&~}{\den_},
+# {/zij} een a-vond{\of_}{/fer_}, //
+# {-&/ver}{/&\hoor_.&-} {\mij_} {\o_} {/Heer__}. [:]
+
+# === afgeleide mvsa (VSA + template) ===
+# bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/stichier/heer-ik-roep-toon-6/groningen/stichier-heer-ik-roep-toon-6-groningen.vsa
+# template: stichier-toon-6-groningen/template.yaml (stichier-toon-6-groningen)
+# Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
+#  ##########################################################################  #
+#  #                                                                        #  #
+#  #   WAARSCHUWING:                                                        #  #
+#  #                                                                        #  #
+#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
+#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
+#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
+#  #   - melisma-slots (``_&_`` / ``~&~`` voor stem-sync; later samentrekken)#  #
+#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
+#  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
+#  #                                                                        #  #
+#  ##########################################################################  #
+@title "Heer ik roep - Toon 6 (Groningen, bekende coupletten)"
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=0 T=-1 B=-1
+
+@sectie cyclus-1
+L: (Heer ik roep tot U ver)-hoor_ mij_, |
+S: f                        \     /     |f
+A: d-                       \     /     |d-
+T: a                        \     /     |a
+B: f                        \3    /3    |f
+
+L: (ver-hoor) mij o Heer_., |
+S: g          \   - /       |g
+A: e-         \   - /       |e-
+T: Bb         \   - /       |Bb
+B: g          \   - /       |g
+
+L: (Heer ik roep tot U ver)-hoor_.&~ mij_, |
+S: a                        \     &\ \     |e-
+A: f                        \     &\ \     |c-
+T: c                        \     &\ \     |g
+B: f                        /     &\ \3    |c-
+
+@sectie herhaling
+L: (sla acht op de stem van mijn) sme_-king_, |
+S: f                              \    /      |f
+A: d-                             \    /      |d-
+T: a                              \    /      |a
+B: f                              \3   /3     |f
+
+L: (wan-neer ik) tot_ U_ roep_, |
+S: g             -    \  \      |e-
+A: e-            -    \  \      |c-
+T: Bb            -    \  \      |g
+B: g             -    \  \3     |c-
+
+@sectie laatste
+L: (ver)-hoor_.&~&~ mij_ o_ Heer__\. |
+S: f     /2    &\&- \    \  /        |f
+A: d-    /2    &\&- \    \  /        |d-
+T: a     /2    &\&- \    \  /        |a
+B: f     -     &/&- \    \3 /3       |f
+
+L: (Laat mijn ge-bed als) wie_-rook_, |
+S: f                      \    /      |f
+A: d-                     \    /      |d-
+T: a                      \    /      |a
+B: f                      \3   /3     |f
+
+L: (op-stij-gen voor Uw) aan_-ge_-zicht_, |
+S: g                     -    \   /       |g
+A: e-                    -    \   /       |e-
+T: Bb                    -    \   /       |Bb
+B: g                     -    \   /       |g
+
+L: (de op-hef-fing van mijn) han_.&~-den_, |
+S: a                         \    &\ \     |e-
+A: f                         \    &\ \     |c-
+T: c                         \    &\ \     |g
+B: f                         /    &\ \3    |c-
+
+L: (zij een a-vond)-of_-fer_, |
+S: f                \   /     |f
+A: d-               \   /     |d-
+T: a                \   /     |a
+B: f                \3  /3    |f
+
+L: (ver)-hoor_.&~&~ mij_ o_ Heer__\. |
+S: f     /2    &\&- \    \  /        |f
+A: d-    /2    &\&- \    \  /        |d-
+T: a     /2    &\&- \    \  /        |a
+B: f     -     &/&- \    \3 /3       |f
