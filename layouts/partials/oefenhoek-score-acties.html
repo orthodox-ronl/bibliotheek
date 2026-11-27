@@ -4,9 +4,9 @@
   de shortcode staat — bepaalt knopset), optioneel "position".
 
   Oefenen / Beluisteren: compact ♪-menu linksboven op de partituur
-  (catalogus én koormap). {}-menu: op catalogus brontekst + SVG/OSMG;
-  knop Notatie/Partituur als beide schermproducten er zijn (ook op
-  koormap). Schermstand SVG|OSMG (localStorage) geldt sitebreed.
+  (catalogus én koormap). Ernaast: knop VSA | Partituur als beide
+  schermproducten er zijn. {}-menu: op catalogus brontekst + SVG/OSMG.
+  Schermstand SVG|OSMG (localStorage) geldt sitebreed.
   Download blad: nav download-icoon (index.md.pdf / translit-PDF).
   Transliteratie: icoonknoppen Ксл→Nls (Nls) / Nls→Ксл (Ksl) in de nav.
 */ -}}
@@ -292,8 +292,8 @@
 {{- $hasOefenen := gt (len $oefenMenu) 0 -}}
 {{- $hasAudio := gt (len $audioMenu) 0 -}}
 {{- $hasBron := and $inCatalogus (gt (len $bronMenu) 0) -}}
-{{- $hasBronTip := or $hasBron $showSchermstandKnop $showScorebronKnop -}}
-{{- if or $hasOefenen $hasAudio $hasBronTip -}}
+{{- $hasBronTip := or $hasBron $showSchermstandKnop -}}
+{{- if or $hasOefenen $hasAudio $hasBronTip $showScorebronKnop -}}
 {{- /* Geen indentatie/newlines: bieb-Inner gaat door markdownify; 4 spaties → codeblok.
      Native details: open/dicht zonder JS (voorkomt dubbele handlers bij livereload). */ -}}
 {{- $wrapClass := "score-actions oefenhoek-acties score-actions--in-tip" -}}
@@ -320,8 +320,11 @@
 {{- if or $hasOefenen $hasAudio -}}
 <details class="score-oefen-tip"><summary class="score-oefen-tip-trigger" aria-label="Oefenen en beluisteren">♪</summary><div class="score-oefen-tip-panel"><div class="{{ $wrapClass }}">{{ partial "score-action-menu.html" (dict "title" "Oefenen" "items" $oefenMenu "btnClass" "btn" "hint" $oefenHint "role" "oefenen") }}{{ partial "score-action-menu.html" (dict "title" "Beluisteren" "items" $audioMenu "btnClass" "btn" "hint" $audioHint "role" "beluisteren") }}</div></div></details>
 {{- end -}}
+{{- if $showScorebronKnop -}}
+<div class="score-weergave{{ if not (or $hasOefenen $hasAudio) }} score-weergave--zonder-oefenen{{ end }}" role="group" aria-label="Weergave van de muziek" hidden><button type="button" data-weergave-kies="vsa" aria-pressed="false" aria-label="VSA: Vereenvoudigde Slavische Accentnotatie (streepjesnotatie)" data-tip="Vereenvoudigde Slavische Accentnotatie (streepjesnotatie)">VSA</button><button type="button" data-weergave-kies="partituur" aria-pressed="false" aria-label="Partituur met notenbalken" data-tip="Partituur met notenbalken">Partituur</button></div>
+{{- end -}}
 {{- if $hasBronTip -}}
-<details class="score-bron-tip"><summary class="score-bron-tip-trigger" aria-label="Bronnen en scherm">{}</summary><div class="score-bron-tip-panel"><div class="{{ $wrapClass }}">{{- if $hasBron -}}<div class="score-action-menu score-action-menu--bron-mode" data-score-role="bron-download" hidden><a class="btn" data-bron-download href="#" download>Downloaden</a></div><div class="score-action-menu score-action-menu--bron-mode" data-score-role="bron-print" hidden><button type="button" class="btn" data-bron-print>Printen</button></div>{{ partial "score-action-menu.html" (dict "title" "Bronnen" "items" $bronMenu "btnClass" "btn" "hint" $bronHint "role" "bronnen") }}{{- end -}}{{- if $showScorebronKnop -}}<div class="score-action-menu" data-score-role="scorebron"><button type="button" class="btn" data-scorebron-switch data-scorebron="partituur">Partituur</button></div>{{- end -}}{{- if $showSchermstandKnop -}}<div class="score-action-menu" data-score-role="schermstand"><button type="button" class="btn" data-schermstand-switch data-schermstand="osmg">OSMG</button></div>{{- end -}}</div></div></details>
+<details class="score-bron-tip"><summary class="score-bron-tip-trigger" aria-label="Bronnen en scherm">{}</summary><div class="score-bron-tip-panel"><div class="{{ $wrapClass }}">{{- if $hasBron -}}<div class="score-action-menu score-action-menu--bron-mode" data-score-role="bron-download" hidden><a class="btn" data-bron-download href="#" download>Downloaden</a></div><div class="score-action-menu score-action-menu--bron-mode" data-score-role="bron-print" hidden><button type="button" class="btn" data-bron-print>Printen</button></div>{{ partial "score-action-menu.html" (dict "title" "Bronnen" "items" $bronMenu "btnClass" "btn" "hint" $bronHint "role" "bronnen") }}{{- end -}}{{- if $showSchermstandKnop -}}<div class="score-action-menu" data-score-role="schermstand"><button type="button" class="btn" data-schermstand-switch data-schermstand="osmg">OSMG</button></div>{{- end -}}</div></div></details>
 {{- end -}}
 {{- end -}}
 {{- end -}}

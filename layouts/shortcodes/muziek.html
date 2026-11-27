@@ -10,4 +10,5 @@
   {{- errorf "%s: shortcode muziek: geen bibliotheek-pagina voor id %q." $loc $id -}}
 {{- end -}}
 {{- $uitlijning := partial "bieb-uitlijning.html" . -}}
-{{- partial "bieb-onderdeel.html" (dict "score" $p "onderdeel" "muziek" "sectie" $split.sectie "uitlijning" $uitlijning "viewer" .Page "position" .Position) -}}
+{{- $weergave := partial "bieb-weergave.html" . -}}
+{{- partial "bieb-onderdeel.html" (dict "score" $p "weergave" $weergave "onderdeel" "muziek" "sectie" $split.sectie "uitlijning" $uitlijning "viewer" .Page "position" .Position) -}}

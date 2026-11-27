@@ -56,6 +56,24 @@ schuine strepen). Zonder onderdeelnaam betekent de korte `bieb` hetzelfde
 als muziek. Binnen een `bieb`-blok mag je `muziek` en `titel` zonder
 telkens het id te herhalen.
 
+### Streepjesnotatie of partituur
+
+Sommige muziekstukken hebben twee weergaven: VSA (Vereenvoudigde Slavische
+Accentnotatie, de streepjesnotatie) en de partituur met notenbalken. Zonder
+extra woord toont de koormap de weergave uit de `index.md` van het
+muziekstuk, en anders VSA. Wil je op jouw koormap de andere, zet het erbij:
+
+```markdown
+{{</* bieb id="tropaar/zondag-toon-4/hemelum" weergave="partituur" />}}
+```
+
+De zanger kan op de website zelf wisselen met de knop **VSA | Partituur**.
+Het download-icoon volgt die keuze: `pdf.cmd` maakt daarvoor naast
+`index.md.pdf` voor elke andere keuze een bestand
+`index.md.weergave-….pdf`. Zet niet meer dan **4** wisselbare stukken op één
+pagina; bij meer meldt `check` een probleem en moet er eerst opnieuw over
+nagedacht worden.
+
 ### Kopjes op het blad
 
 ```markdown

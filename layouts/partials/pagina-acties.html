@@ -91,6 +91,47 @@
     {{- $dlNameKsl = printf "%s (translit Ksl).pdf" $dlBase -}}
     {{- $dlNameBeide = printf "%s (translit beide).pdf" $dlBase -}}
   {{- end -}}
+  {{- /* PDF's voor andere weergave-keuzes (schermpartituur §2.1).
+       .Content eerst: dan heeft bieb-score de wisselbare stukken geteld. */ -}}
+  {{- $_ := .Content -}}
+  {{- $letters := .Store.Get "weergaveWissel" | default slice -}}
+  {{- $aantal := len $letters -}}
+  {{- $standaard := delimit $letters "" -}}
+  {{- $varianten := dict -}}
+  {{- if gt $aantal 4 -}}
+    {{- warnf "%s: %d wisselbare stukken (vsa/partituur) op één blad; de grens is 4. De download volgt de keuze hier niet. Eerst opnieuw overleggen (docs/specs/schermpartituur.md §2.1)." .File.Path $aantal -}}
+  {{- else if and (gt $aantal 0) $paginaPdf -}}
+    {{- $codes := slice "" -}}
+    {{- range $letters -}}
+      {{- $next := slice -}}
+      {{- range $codes -}}
+        {{- $next = $next | append (printf "%sv" .) (printf "%sp" .) -}}
+      {{- end -}}
+      {{- $codes = $next -}}
+    {{- end -}}
+    {{- range $code := $codes -}}
+      {{- if ne $code $standaard -}}
+        {{- $set := dict -}}
+        {{- range $stand := slice "uit" "nls" "ksl" "beide" -}}
+          {{- $naam := printf "index.md.weergave-%s.pdf" $code -}}
+          {{- if ne $stand "uit" -}}
+            {{- $naam = printf "index.md.weergave-%s.translit-%s.pdf" $code $stand -}}
+          {{- end -}}
+          {{- $lokaal := "" -}}
+          {{- if and $preferLocal (fileExists (printf "content-source/%s%s" (replace $.File.Dir "\\" "/") $naam)) -}}
+            {{- $lokaal = printf "%s%s" $.RelPermalink $naam -}}
+          {{- end -}}
+          {{- /* Translit alleen als de standaard die stand ook heeft. */ -}}
+          {{- $heeft := dict "uit" $paginaPdf "nls" $paginaPdfNls "ksl" $paginaPdfKsl "beide" $paginaPdfBeide -}}
+          {{- if index $heeft $stand -}}
+            {{- $url := partial "pdf-asset-url.html" (dict "page" $ "local" $lokaal "filename" $naam) -}}
+            {{- $set = merge $set (dict $stand $url) -}}
+          {{- end -}}
+        {{- end -}}
+        {{- $varianten = merge $varianten (dict $code $set) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
   <div class="pagina-acties" role="group" aria-label="Pagina-acties">
     {{- if or $paginaPdf $paginaPdfNls $paginaPdfKsl $paginaPdfBeide -}}
     <span class="site-chrome-tip site-chrome-tip--end">
@@ -100,6 +141,7 @@
       download="{{ or $dlName $dlNameNls $dlNameKsl $dlNameBeide }}"
       aria-label="Pagina als PDF downloaden"
       data-pagina-pdf-download
+      {{- if $varianten }} data-weergave-standaard="{{ $standaard }}" data-weergave-pdfs="{{ jsonify $varianten }}"{{ end }}
       {{- if $paginaPdf }} data-pdf-uit="{{ $paginaPdf }}" data-pdf-name-uit="{{ $dlName }}"{{- end }}
       {{- if $paginaPdfNls }} data-pdf-nls="{{ $paginaPdfNls }}" data-pdf-name-nls="{{ $dlNameNls }}"{{- end }}
       {{- if $paginaPdfKsl }} data-pdf-ksl="{{ $paginaPdfKsl }}" data-pdf-name-ksl="{{ $dlNameKsl }}"{{- end }}

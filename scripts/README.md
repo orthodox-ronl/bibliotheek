@@ -25,7 +25,7 @@ de subcommando’s). Zie `scripts\cli_help.py`.
 | `commit` | Commit gewijzigde bronnen onder catalogus + koormappen (geen afgeleiden); filters of `--all` (hele repo minus afgeleiden/product-JSON). |
 | `stage` | Zelfde selectie als `commit`, maar alleen `git add` (geen `-m`). |
 | `import-mvsa` | Maakt/vernieuwt bewerkvorm `{stam}.mscz.mvsa` via `mscz import` + stamp (standaard alleen bestaande siblings) |
-| `pdf.cmd` | `index.md.pdf` naast een koormap- of catalogus-`index.md` (lokaal; niet in `products` / `check` / CI) |
+| `pdf.cmd` | `index.md.pdf` naast een koormap- of catalogus-`index.md` (plus translit- en `weergave-`-varianten; lokaal; niet in `products` / CI) |
 | `r2-pdf-upload` | Blad-PDF’s naar R2 `production/` (+ SHA-256); laadt `r2-env`; zie [docs/plans/pdf-r2.md](../docs/plans/pdf-r2.md) |
 | `r2-pdf-opschonen` | Wis lokale blad-PDF’s die gelijk zijn aan R2 (`--apply`) |
 | `layout` | Past layoutprofiel `partituur` toe op `.mscz` / `.mxl` (via tooling) |

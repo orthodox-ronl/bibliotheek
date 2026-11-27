@@ -130,7 +130,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           set -euo pipefail
-          mapfile -t pdfs < <(git ls-files '**/index.md.pdf' '**/index.md.translit*.pdf' || true)
+          mapfile -t pdfs < <(git ls-files '**/index.md.pdf' '**/index.md.translit*.pdf' '**/index.md.weergave-*.pdf' || true)
           if ((${#pdfs[@]} > 0)); then
             echo "::error::Blad-PDF’s horen niet in git op main (${#pdfs[@]} tracked). Upload naar R2 + r2-pdf-opschonen."
             printf '%s\n' "${pdfs[@]:0:20}"
@@ -237,6 +237,7 @@ jobs:
             find generated/site -type f \( \
               -name 'index.md.pdf' -o \
               -name 'index.md.translit*.pdf' -o \
+              -name 'index.md.weergave-*.pdf' -o \
               -name '*.translit*.pdf' \
             \) -print
           )

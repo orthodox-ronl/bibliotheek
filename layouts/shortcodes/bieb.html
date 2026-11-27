@@ -60,5 +60,6 @@
     {{- errorf "%s: shortcode bieb: geen bibliotheek-pagina voor id %q. Oplossing: controleer catalogus/ of verbeter het id." $loc $id -}}
   {{- end -}}
 {{- $uitlijning := partial "bieb-uitlijning.html" . -}}
-{{- partial "bieb-onderdeel.html" (dict "score" $p "onderdeel" $onderdeel "veld" $veldPad "sectie" $sectie "uitlijning" $uitlijning "viewer" .Page "position" .Position) -}}
+{{- $weergave := partial "bieb-weergave.html" . -}}
+{{- partial "bieb-onderdeel.html" (dict "score" $p "weergave" $weergave "onderdeel" $onderdeel "veld" $veldPad "sectie" $sectie "uitlijning" $uitlijning "viewer" .Page "position" .Position) -}}
 {{- end -}}

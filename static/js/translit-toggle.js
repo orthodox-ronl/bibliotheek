@@ -95,21 +95,53 @@
     return "";
   }
 
+  /**
+   * Letters van de huidige weergave-keuze (v/p per wisselbaar stuk,
+   * documentvolgorde); "" als dit de standaard van het blad is.
+   */
+  function weergaveCode(a) {
+    var standaard = a.getAttribute("data-weergave-standaard") || "";
+    if (!standaard) return "";
+    var code = "";
+    document.querySelectorAll("[data-scherm-root][data-wisselbaar]").forEach(function (root) {
+      var keuze = root.__weergaveKeuze || root.getAttribute("data-weergave") || "vsa";
+      code += keuze.charAt(0);
+    });
+    return code === standaard || code.length !== standaard.length ? "" : code;
+  }
+
+  /** Download-URL's voor de huidige weergave-keuze. */
+  function weergaveUrls(a) {
+    var code = weergaveCode(a);
+    if (!code) return null;
+    try {
+      return JSON.parse(a.getAttribute("data-weergave-pdfs") || "{}")[code] || {};
+    } catch (e) {
+      return {};
+    }
+  }
+
   function pdfCandidates(a, aan, modus) {
+    var andere = weergaveUrls(a);
+    function url(stand) {
+      /* Bij een andere keuze nooit terugvallen op de standaard-PDF. */
+      if (andere) return andere[stand] || "";
+      return a.getAttribute("data-pdf-" + stand) || "";
+    }
     var uit = {
-      href: a.getAttribute("data-pdf-uit") || "",
+      href: url("uit"),
       name: a.getAttribute("data-pdf-name-uit") || "blad.pdf",
     };
     var nls = {
-      href: a.getAttribute("data-pdf-nls") || "",
+      href: url("nls"),
       name: a.getAttribute("data-pdf-name-nls") || uit.name,
     };
     var ksl = {
-      href: a.getAttribute("data-pdf-ksl") || "",
+      href: url("ksl"),
       name: a.getAttribute("data-pdf-name-ksl") || uit.name,
     };
     var beide = {
-      href: deriveBeidePdfUrl(a),
+      href: andere ? url("beide") : deriveBeidePdfUrl(a),
       name: a.getAttribute("data-pdf-name-beide") || "blad (translit beide).pdf",
     };
     var list = [];
@@ -336,6 +368,14 @@
       });
     });
   }
+
+  /* Weergave-knop (VSA | Partituur): download volgt de keuze. */
+  document.addEventListener("vsa:scorebron", function () {
+    var flags = flagsFromDom();
+    var stored = document.querySelector("[data-translit-modus]") ? flags : readStoredFlags();
+    var modus = modusFromFlags(stored.nls, stored.ksl);
+    applyPaginaPdfDownload(!!(stored.nls || stored.ksl), modus === "uit" ? "nls" : modus);
+  });
 
   var initial = readStoredFlags();
   applyState(initial.nls, initial.ksl);
