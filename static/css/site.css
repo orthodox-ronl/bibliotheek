@@ -2726,6 +2726,18 @@ body.score-audio-bar-open {
   border-top: 1px solid var(--border-color);
 }
 
+.catalogus-zoek-lijst li.catalogus-zoek-scheiding {
+  padding: 0.75rem 0 0.35rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #555;
+  border-top: 2px solid var(--border-color);
+}
+
+.catalogus-zoek-meer-rij {
+  margin: 0.75rem 0 0;
+}
+
 .catalogus-zoek-id-rij {
   display: flex;
   align-items: center;
