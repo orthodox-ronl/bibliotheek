@@ -98,3 +98,27 @@ def test_lyric_sources_skip_derived_notation(tmp_path: Path) -> None:
         (tmp_path / name).write_text("x", encoding="utf-8")
     names = sorted(p.name for p in _lyric_sources_in_dir(tmp_path))
     assert names == ["a.vsa", "b.mvsa", "c.mscz"]
+
+
+def test_soort_toon_taal_uit_frontmatter():
+    from build_zoek_index import soort_toon_taal
+
+    fm = {"soort": "Kondak", "toon": "6", "taal": "NL"}
+    assert soort_toon_taal("kondak/moeder-gods-toon-6/hemelum", fm) == ("kondak", "6", "nl")
+
+
+def test_toon_valt_terug_op_variant_id():
+    from build_zoek_index import soort_toon_taal
+
+    assert soort_toon_taal("tropaar/zondag-toon-4/groningen", {}) == ("tropaar", "4", "")
+    # zangstuk-id is de soort als de frontmatter die niet geeft
+    assert soort_toon_taal("ektinia/slot/hemelum", {})[0] == "ektinia"
+
+
+def test_geen_toon_blijft_leeg():
+    from build_zoek_index import soort_toon_taal
+
+    # toon is een eigenschap, geen soort: cherubijnenhymne heeft er geen.
+    assert soort_toon_taal("cherubijnenhymne/a/hemelum", {})[1] == ""
+    # onzin in frontmatter geeft geen toon
+    assert soort_toon_taal("cherubijnenhymne/a/hemelum", {"toon": "negen"})[1] == ""

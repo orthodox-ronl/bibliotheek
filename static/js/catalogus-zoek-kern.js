@@ -153,10 +153,33 @@
       };
     });
 
-    function search(rawQ) {
+    /** Past een filter {soort, toon, taal} toe; lege waarde = alles. */
+    function passes(entry, filter) {
+      if (!filter) return true;
+      return ["soort", "toon", "taal"].every(function (k) {
+        return !filter[k] || String(entry[k] || "") === String(filter[k]);
+      });
+    }
+
+    function search(rawQ, filter) {
       const tokens = queryTokens(rawQ);
       const n = tokens.length;
-      if (!n) return { rows: [], tokenCount: 0, completeCount: 0 };
+      if (!n) {
+        // Zonder zoekwoorden maar mét filter: alles binnen het filter, op id.
+        const actief = filter && (filter.soort || filter.toon || filter.taal);
+        if (!actief) return { rows: [], tokenCount: 0, completeCount: 0 };
+        const alle = prepared
+          .filter(function (p) {
+            return passes(p.entry, filter);
+          })
+          .map(function (p) {
+            return { entry: p.entry, complete: true, hits: 0, frase: 0, volgorde: 0, gewicht: 0 };
+          })
+          .sort(function (a, b) {
+            return String(a.entry.id).localeCompare(String(b.entry.id));
+          });
+        return { rows: alle, tokenCount: 0, completeCount: alle.length };
+      }
       const frasen = phrases(tokens);
       const heeftLang = tokens.some(function (t) {
         return !t.kort;
@@ -165,6 +188,7 @@
       const rows = [];
 
       prepared.forEach(function (p) {
+        if (!passes(p.entry, filter)) return;
         let hits = 0;
         let langeHits = 0;
         let gewicht = 0;
@@ -231,7 +255,32 @@
       return { rows: rows, tokenCount: n, completeCount: completeCount };
     }
 
-    return { search: search };
+    /**
+     * Keuzes voor de dropdowns: {soort:[{waarde,aantal}], toon:[...], taal:[...]}.
+     * Toon numeriek gesorteerd, de rest alfabetisch; lege waarden tellen niet mee.
+     */
+    function facets() {
+      const out = { soort: {}, toon: {}, taal: {} };
+      entries.forEach(function (e) {
+        Object.keys(out).forEach(function (k) {
+          const v = String(e[k] || "");
+          if (v) out[k][v] = (out[k][v] || 0) + 1;
+        });
+      });
+      const res = {};
+      Object.keys(out).forEach(function (k) {
+        res[k] = Object.keys(out[k])
+          .sort(function (a, b) {
+            return k === "toon" ? Number(a) - Number(b) : a.localeCompare(b, "nl");
+          })
+          .map(function (v) {
+            return { waarde: v, aantal: out[k][v] };
+          });
+      });
+      return res;
+    }
+
+    return { search: search, facets: facets };
   }
 
   return { createSearcher: createSearcher, norm: norm, stripAccents: stripAccents };

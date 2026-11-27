@@ -267,6 +267,38 @@ def _plain_for_source(source: Path) -> str:
         return ""
 
 
+_TOON_IN_ID_RE = re.compile(r"(?:^|-)toon-([1-8])(?:-|$)")
+
+
+def _canonical_source_fm(leaf_dir: Path) -> dict[str, str]:
+    """Frontmatter van de canonieke ``.mvsa``/``.vsa`` (bron van soort/toon/taal)."""
+    best: tuple[int, Path] | None = None
+    for source in _lyric_sources_in_dir(leaf_dir):
+        rank = _plain_source_rank(source)
+        if source.suffix.lower() == ".mscz":
+            continue
+        if best is None or rank < best[0]:
+            best = (rank, source)
+    return _fm(best[1]) if best else {}
+
+
+def soort_toon_taal(ident: str, fm: dict[str, str]) -> tuple[str, str, str]:
+    """``(soort, toon, taal)`` voor de zoekindex.
+
+    ``soort`` = frontmatter ``soort`` (anders het zangstuk-id: tropaar, ektinia, ...).
+    ``toon`` is een eigenschap, geen soort: frontmatter ``toon``, anders ``toon-N``
+    in het variant-id; leeg als het stuk geen toon heeft (bv. cherubijnenhymne).
+    """
+    zangstuk, variant, _uv = ident.split("/")
+    soort = (fm.get("soort") or fm.get("genre") or zangstuk).strip().lower()
+    toon = (fm.get("toon") or fm.get("tone") or "").strip()
+    if not re.fullmatch(r"[1-8]", toon):
+        m = _TOON_IN_ID_RE.search(variant)
+        toon = m.group(1) if m else ""
+    taal = (fm.get("taal") or "").strip().lower()
+    return soort, toon, taal
+
+
 def _entry_for_leaf(leaf: Path, synonyms: dict[str, str]) -> dict | None:
     leaf_dir = leaf.parent
     ident = _catalogus_id_for_leaf_dir(leaf_dir)
@@ -292,8 +324,13 @@ def _entry_for_leaf(leaf: Path, synonyms: dict[str, str]) -> dict | None:
         ),
         synonyms,
     )
+    soort, toon, taal = soort_toon_taal(ident, _canonical_source_fm(leaf_dir))
     return {
         "id": ident,
+        "variant": f"{zangstuk}/{variant}",
+        "soort": soort,
+        "toon": toon,
+        "taal": taal,
         "url": f"/catalogus/{ident}/",
         "title": title,
         "linkTitle": link,
@@ -302,6 +339,8 @@ def _entry_for_leaf(leaf: Path, synonyms: dict[str, str]) -> dict | None:
         "status": leaf_fm.get("publicatiestatus") or "",
         "text": norm,
         "incipit": " ".join(plain.split()[:12]),
+        # Volledige gezongen tekst (regels zoals in .lyrics.txt) voor "Toon tekst".
+        "tekst": plain,
         "audio": preferred_audio_url(leaf_dir, ident),
     }
 

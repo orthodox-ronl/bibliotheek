@@ -94,6 +94,11 @@ afspeelsleutels (`do` / `mode` / `tempo`).
 Controle lokaal: `scripts\frontmatter-canoniek.cmd --check` (meldt
 ontbrekende `soort`/`toon` op `.vsa`).
 
+`soort`, `toon` en `taal` van de canonieke bron gaan als aparte velden in de
+zoekindex (dropdowns Soort/Toon/Taal). `toon` is een eigenschap, geen soort;
+zonder `toon` valt de index terug op `toon-N` in de variantnaam. Stukken
+zonder toon horen leeg te blijven, niet `0` of `-`.
+
 `zoektekst` is bedoeld voor zoeken **in de editor**. De zoekfunctie op de
 site leest dat veld niet; die leest de `*.lyrics.txt` naast de canonieke
 bron (handleiding [Zoeken](../../content-source/handleiding/start/zoeken.md),

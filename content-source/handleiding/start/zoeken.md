@@ -97,10 +97,34 @@ volgende 40.
 | --- | --- |
 | Titel (link) | Gaat naar de cataloguspagina van die uitvoeringsvorm |
 | Publicatiestatus + **?** | Wat *concept* / *reviewable* / … betekent; feedback-links |
+| Labels | Soort, toon (alleen als het stuk er een heeft) en taal |
 | Incipit | Eerste woorden van de gezongen tekst |
+| *Toon hele tekst* | Klapt de volledige gezongen tekst open (regel voor regel zoals in de `.lyrics.txt`) |
 | ▶ | Preview-audio beluisteren (als er een `.mp3` bij de bladermap staat) |
 | Snelheid | Afspeelsnelheid voor zoektreffers in dit tabblad |
 | Catalogus-id + **?** | Klik op het id om `{{</* bieb id="…" */>}}` te kopiëren voor een koormap |
+
+**Groeperen.** Uitvoeringsvormen van dezelfde variant (zelfde zangstuk en
+variant, bijvoorbeeld `kondak/moeder-gods-toon-6/…`) staan onder één kop met
+het aantal uitvoeringsvormen. Binnen zo'n kop heet elke regel naar de
+uitvoeringsvorm (Groningen, Hemelum, …). Treffers met alle woorden en
+treffers met een deel van de woorden blijven gescheiden.
+
+### Kiezen op soort, toon en taal
+
+Onder het zoekveld staan keuzelijsten (dropdowns):
+
+- **Soort** is het soort zangstuk: *tropaar*, *kondak*, *ektinia*, … Dat
+  komt uit het veld `soort` van de bron, en anders uit het zangstuk-id.
+- **Toon** (1 tot 8) is een **eigenschap** van een stuk en geen soort. Het
+  komt uit het veld `toon` van de bron, en anders uit `toon-N` in de
+  variantnaam. Stukken zonder toon, zoals de cherubijnenhymne, hebben
+  geen toon en staan dus niet bij een gekozen toon; bij *alle* wel.
+- **Taal** verschijnt alleen als de catalogus meer dan één taal heeft.
+
+De keuzes combineren met de zoekterm (en-en). Zonder zoekterm toont de lijst
+alle stukken binnen de keuze, gesorteerd op id. De getallen tussen haakjes
+zijn aantallen uitvoeringsvormen.
 
 Op GitHub Pages (productie, preview en branch-previews) moeten trefferlinks
 onder de site-baseURL blijven — zie de Cursor-regel *interne links ×
@@ -151,6 +175,11 @@ Uitvoer: `static\zoek\index.json` met o.a.:
 | `zangstukTitle` / `variantTitle` | Afgeleid uit de bovenliggende mapnamen |
 | `status` | `publicatiestatus` van de leaf |
 | `text` | Genormaliseerde zoekblob (titels + id-woorden + gezongen tekst) |
+| `variant` | `zangstuk/variant` (groepeert uitvoeringsvormen in de lijst) |
+| `soort` | Frontmatter `soort` van de canonieke `.mvsa`/`.vsa`, anders het zangstuk-id; kleine letters |
+| `toon` | `"1"`–`"8"` uit frontmatter `toon`, anders uit `toon-N` in het variant-id, anders leeg |
+| `taal` | Frontmatter `taal` (`nl`, `ksl`, …), of leeg |
+| `tekst` | Volledige gezongen tekst met regelovergangen, voor *Toon hele tekst* (niet genormaliseerd) |
 | `incipit` | Eerste ~12 woorden van de platte brontekst (niet genormaliseerd voor weergave) |
 | `audio` | Site-absoluut pad naar voorkeurs-`.mp3` in de bladermap, of leeg |
 
@@ -192,6 +221,10 @@ de helft gevonden is (en dan niet alleen korte woordjes). Sorteervolgorde:
 aantal gevonden woorden, dan aaneen-in-volgorde, dan gevonden woorden in
 de gezochte volgorde, dan treffer in titel boven id boven tekst, dan het
 id.
+
+Filteren (soort/toon/taal) en de keuzes voor de dropdowns (`facets()`)
+staan ook in `catalogus-zoek-kern.js`; `search(zoekterm, {soort, toon, taal})`
+filtert vóór het scoren. Tests: `tests/zoek-kern.test.mjs`.
 
 ### UI-ingangen
 

@@ -2734,6 +2734,93 @@ body.score-audio-bar-open {
   border-top: 2px solid var(--border-color);
 }
 
+.catalogus-zoek-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin: 0.6rem 0 0;
+}
+
+.catalogus-zoek-filters[hidden],
+.catalogus-zoek-filter[hidden] {
+  display: none;
+}
+
+.catalogus-zoek-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+}
+
+.catalogus-zoek-filter select {
+  max-width: 14rem;
+}
+
+.catalogus-zoek-badges {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-left: 0.4rem;
+  vertical-align: baseline;
+}
+
+.catalogus-zoek-badge {
+  font-size: 0.8rem;
+  padding: 0 0.4rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.7rem;
+  color: #444;
+  white-space: nowrap;
+}
+
+.catalogus-zoek-badge--toon {
+  font-weight: 600;
+}
+
+.catalogus-zoek-groep-kop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem;
+}
+
+.catalogus-zoek-groep-aantal {
+  margin-left: auto;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.catalogus-zoek-groep-lijst {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0 0 0 0.9rem;
+  border-left: 3px solid var(--border-color);
+}
+
+.catalogus-zoek-lijst .catalogus-zoek-groep-lijst li {
+  padding: 0.45rem 0;
+  border-top: 1px dotted var(--border-color);
+}
+
+.catalogus-zoek-lijst .catalogus-zoek-groep-lijst li:first-child {
+  border-top: 0;
+}
+
+.catalogus-zoek-tekst {
+  margin-top: 0.25rem;
+  font-size: 0.95rem;
+}
+
+.catalogus-zoek-tekst summary {
+  cursor: pointer;
+  color: #0b5394;
+}
+
+.catalogus-zoek-tekst p {
+  margin: 0.2rem 0;
+}
+
 .catalogus-zoek-meer-rij {
   margin: 0.75rem 0 0;
 }

@@ -32,6 +32,17 @@
       {{ partial "zoek-help-tip.html" (dict) }}
     </div>
   </form>
+  <div class="catalogus-zoek-filters" hidden>
+    <label class="catalogus-zoek-filter">Soort
+      <select data-filter="soort"><option value="">alle</option></select>
+    </label>
+    <label class="catalogus-zoek-filter">Toon
+      <select data-filter="toon"><option value="">alle</option></select>
+    </label>
+    <label class="catalogus-zoek-filter" hidden>Taal
+      <select data-filter="taal"><option value="">alle</option></select>
+    </label>
+  </div>
   <p class="catalogus-zoek-meta" aria-live="polite"></p>
   <div class="catalogus-zoek-resultaten"></div>
 </div>
