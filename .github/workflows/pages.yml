@@ -211,6 +211,9 @@ jobs:
       - name: Bladermap SVG from .vsa
         run: python scripts/sync_oefenhoek_index.py --svg
 
+      - name: Beginnoot voor Inzet bij stukken met alleen een melodie
+        run: python scripts/build_inzet_melodie.py
+
       - name: Build catalogus zoekindex
         run: python scripts/build_zoek_index.py
 

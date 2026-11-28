@@ -209,6 +209,10 @@ if errorlevel 1 exit /b 1
 python scripts\build_zoek_index.py
 if errorlevel 1 exit /b 1
 
+REM Beginnoot voor de knop Inzet bij stukken met alleen een melodie.
+python scripts\build_inzet_melodie.py
+if errorlevel 1 exit /b 1
+
 python scripts\write_build_stamp.py
 if errorlevel 1 exit /b 1
 

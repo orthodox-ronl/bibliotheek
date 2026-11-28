@@ -92,9 +92,19 @@ donkerblauwe knopjes:
     het zangstuk klinkt; in het echt klinkt het vaak anders.
 - **Inzet** (rechtsboven bij de muziek) — voor de koorleider: je hoort
   de eerste noot van sopraan, alt, tenor en bas na elkaar. Nog een keer
-  klikken stopt het geluid. De knop staat alleen bij muziek waarvan alle
-  vier de stemmen bekend zijn. Hoor je niets, zet dan het geluid van je
-  telefoon of computer harder.
+  klikken stopt het geluid. Staat er **Inzet 1 stem**, dan is alleen de
+  melodie bekend en hoor je één toon. Hoor je niets, zet dan het geluid
+  van je telefoon of computer harder.
+  - Met het knopje ernaast (**±**) zet je de inzet **hoger of lager**, in
+    stappen van een halve toon. Op **Algemeen** geldt dat meteen voor
+    alle stukken die op Algemeen staan.
+  - Wil je voor één stuk iets anders, kies dan **Eigen voor dit stuk**.
+    De knop wordt oranje en er staat «eigen» op. Kies weer **Algemeen**
+    om het stuk de algemene hoogte te laten volgen.
+  - In hetzelfde venster kun je tenor en bas **een octaaf hoger** laten
+    klinken. Dat geldt voor alle stukken.
+  - De keuzes worden bewaard op jouw telefoon of computer; anderen zien
+    ze niet.
 - <span class="home-score-icon home-score-icon--bron" aria-hidden="true">{}</span>
   (rechtsboven, alleen in de **catalogus**) — menu voor beheerders
   en ontwikkelaars: brontekst bekijken, en soms wisselen tussen
