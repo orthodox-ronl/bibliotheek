@@ -2089,6 +2089,50 @@ body.score-audio-bar-open {
   }
 }
 
+/* Knop Inzet, rechtsboven; op catalogusbladen links naast {}. */
+.score-bundle:has(> .score-inzet) {
+  position: relative;
+}
+
+.score-bundle:has(> .score-inzet) > .score-partituur {
+  padding-top: 2.4rem;
+}
+
+.score-inzet {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.45rem;
+  z-index: 5;
+  height: 30px;
+  padding: 0 0.7rem;
+  border: 1.5px solid #003366;
+  border-radius: 999px;
+  background: #fff;
+  color: #003366;
+  font: 600 0.75rem/1 system-ui, sans-serif;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+}
+
+.score-bundle:has(> .score-bron-tip) > .score-inzet {
+  right: calc(0.45rem + 30px + 0.4rem);
+}
+
+.score-inzet[aria-pressed="true"] {
+  background: #003366;
+  color: #fff;
+}
+
+@media print {
+  .score-inzet {
+    display: none;
+  }
+
+  .score-bundle:has(> .score-inzet) > .score-partituur {
+    padding-top: 0;
+  }
+}
+
 /* Geen browser-driehoek naast ♪ / {} */
 .score-oefen-tip-trigger::-webkit-details-marker,
 .score-bron-tip-trigger::-webkit-details-marker {

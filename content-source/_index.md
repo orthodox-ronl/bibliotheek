@@ -90,6 +90,11 @@ donkerblauwe knopjes:
   - **Beluisteren** speelt een voorbeeldbestand af onderaan het scherm
     (afspelen, terug/vooruit, snelheid). Dat geeft een *indruk* van hoe
     het zangstuk klinkt; in het echt klinkt het vaak anders.
+- **Inzet** (rechtsboven bij de muziek) — voor de koorleider: je hoort
+  de eerste noot van sopraan, alt, tenor en bas na elkaar. Nog een keer
+  klikken stopt het geluid. De knop staat alleen bij muziek waarvan alle
+  vier de stemmen bekend zijn. Hoor je niets, zet dan het geluid van je
+  telefoon of computer harder.
 - <span class="home-score-icon home-score-icon--bron" aria-hidden="true">{}</span>
   (rechtsboven, alleen in de **catalogus**) — menu voor beheerders
   en ontwikkelaars: brontekst bekijken, en soms wisselen tussen
