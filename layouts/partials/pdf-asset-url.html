@@ -18,12 +18,12 @@
 {{- $cfg := $page.Site.Params.pdfAssets | default dict -}}
 {{- $base := strings.TrimSpace ($cfg.base | default "") -}}
 {{- $preferLocal := true -}}
-{{- if isset $cfg "preferLocal" -}}
-  {{- $preferLocal = $cfg.preferLocal -}}
+{{- if isset $cfg "preferlocal" -}}
+  {{- $preferLocal = $cfg.preferlocal -}}
 {{- end -}}
 {{- $allowDev := false -}}
-{{- if isset $cfg "allowDevelopmentOverrides" -}}
-  {{- $allowDev = $cfg.allowDevelopmentOverrides -}}
+{{- if isset $cfg "allowdevelopmentoverrides" -}}
+  {{- $allowDev = $cfg.allowdevelopmentoverrides -}}
 {{- end -}}
 {{- $r2Env := "production" -}}
 {{- $r2 := "" -}}
@@ -36,7 +36,7 @@
     {{- $rel = $filename -}}
   {{- end -}}
   {{- if $allowDev -}}
-    {{- $man := $page.Site.Data.pdf_r2_development | default dict -}}
+    {{- $man := index $page.Site.Data "pdf-r2-development" | default dict -}}
     {{- $overrides := $man.overrides | default slice -}}
     {{- range $overrides -}}
       {{- if eq . $rel -}}
