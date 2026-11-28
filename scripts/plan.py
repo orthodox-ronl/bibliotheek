@@ -49,13 +49,23 @@ class Product:
     stempel_ok: bool
     contract_ok: bool | None
     alleen_lokaal: bool
+    #: ``True`` als dit product nu nog klopt, maar verouderd raakt doordat zijn
+    #: bron in dezelfde run opnieuw gemaakt wordt (gevolg, geen eigen reden).
+    gevolg: bool = False
 
     @property
     def te_maken(self) -> bool:
-        return (not self.bestaat) or (not self.stempel_ok) or self.contract_ok is False
+        return (
+            self.gevolg
+            or (not self.bestaat)
+            or (not self.stempel_ok)
+            or self.contract_ok is False
+        )
 
     @property
     def reden(self) -> str:
+        if self.gevolg:
+            return "gevolg"
         if not self.bestaat:
             return "ontbreekt"
         if not self.stempel_ok:
@@ -66,11 +76,19 @@ class Product:
 
 
 @dataclass
+class PdfItem:
+    pdf: str
+    reden: str  # ok | ontbreekt | verouderd | gevolg
+    via: str = ""  # welk te maken product (of nu verouderde afhankelijkheid)
+
+
+@dataclass
 class Plan:
     producten: list[Product] = field(default_factory=list)
     bronnen: dict[str, list[str]] = field(default_factory=dict)  # kind -> bronnen
     randen: list[tuple[str, str, str, str]] = field(default_factory=list)
     problemen: list[str] = field(default_factory=list)
+    pdfs: list[PdfItem] = field(default_factory=list)
 
 
 def _rel(path: Path, root: Path) -> str:
@@ -114,6 +132,7 @@ def bouw_plan(
                 )
 
     _controleer_graaf(plan, bron_kind, volgorde)
+    sluit_af(plan)
     return plan
 
 
@@ -157,6 +176,71 @@ def _controleer_graaf(
             plan.problemen.append(f"keten: {pad} bevat een niet-toegestane keten {bron_ext}")
 
 
+def sluit_af(plan: Plan) -> None:
+    """Markeer producten die verouderd raken omdat hun bron opnieuw gemaakt wordt.
+
+    Een bron (bijv. ``a.vsa.mvsa``) die in dezelfde run vernieuwd wordt, maakt
+    alles wat eruit afgeleid is verouderd, ook als dat nu nog klopt. Zo staat het
+    volledige werk van één run vooraf in het plan.
+    """
+    nieuw = {p.pad for p in plan.producten if p.te_maken}
+    veranderd = True
+    while veranderd:
+        veranderd = False
+        for p in plan.producten:
+            if p.te_maken or p.bron not in nieuw:
+                continue
+            p.gevolg = True
+            nieuw.add(p.pad)
+            veranderd = True
+
+
+def beoordeel_pdfs(plan: Plan, jobs: list, root: Path) -> None:
+    """Zet per ``index.md``-PDF (en weergave-variant) in het plan wat er moet.
+
+    ``jobs`` zijn ``PaginaPdfJob``-achtige objecten (``out_path``, ``variants``,
+    ``deps``). Een PDF is verouderd als een afhankelijkheid nieuwer is, of
+    (nieuw) als een afhankelijkheid in deze run opnieuw gemaakt wordt.
+    """
+    vers: dict[Path, Product] = {}
+    for p in plan.producten:
+        if p.te_maken:
+            vers[(root / p.pad).resolve()] = p
+    for job in jobs:
+        deps = [Path(d) for d in job.deps]
+        dep_mtime = max((d.stat().st_mtime for d in deps if d.is_file()), default=0.0)
+        via = next(
+            (vers[d.resolve()] for d in deps if d.resolve() in vers),
+            None,
+        )
+        for out in [job.out_path, *job.variants]:
+            out = Path(out)
+            naam = _rel(out, REPO_ROOT)
+            if not out.is_file():
+                plan.pdfs.append(PdfItem(naam, "ontbreekt"))
+            elif dep_mtime and out.stat().st_mtime < dep_mtime:
+                plan.pdfs.append(PdfItem(naam, "verouderd"))
+            elif via is not None:
+                plan.pdfs.append(PdfItem(naam, "gevolg", via.pad))
+            else:
+                plan.pdfs.append(PdfItem(naam, "ok"))
+
+
+def _pdf_jobs() -> list:
+    """Alle ``index.md``-PDF-jobs (zoals ``check_index_md_pdf`` ze bepaalt)."""
+    from index_md_pdf import iter_bladermap_index_md, pagina_pdf_job
+
+    jobs = []
+    for md in iter_bladermap_index_md():
+        try:
+            job = pagina_pdf_job(md)
+        except ValueError:
+            continue
+        if job is not None:
+            jobs.append(job)
+    return jobs
+
+
 def samenvatting(plan: Plan) -> list[str]:
     regels: list[str] = []
     per_kind: dict[str, list[Product]] = {}
@@ -173,6 +257,13 @@ def samenvatting(plan: Plan) -> list[str]:
         if lokaal:
             regel += f" ({lokaal} alleen lokaal: MuseScore)"
         regels.append(regel)
+    if plan.pdfs:
+        te_pdf = [x for x in plan.pdfs if x.reden != "ok"]
+        gevolg = sum(1 for x in te_pdf if x.reden == "gevolg")
+        regels.append(
+            f"{'pdf':10} {len(plan.pdfs):4} bestanden {'':20}"
+            f"{len(te_pdf):4} te maken ({gevolg} als gevolg van producten)"
+        )
     afgeleid: dict[str, int] = {}
     for _b, kind, _pad, kind_van_pad in plan.randen:
         sleutel = f"{kind} -> {kind_van_pad}"
@@ -196,10 +287,13 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("root", nargs="?", type=Path, default=DEFAULT_ROOT)
     parser.add_argument("--lijst", action="store_true", help="toon elk te maken product")
     parser.add_argument("--contract", action="store_true", help="ook mxl-contract (traag)")
+    parser.add_argument("--geen-pdf", action="store_true", help="sla de index.md-PDF's over")
     parser.add_argument("--json", type=Path, default=None, metavar="BESTAND")
     args = parser.parse_args(argv)
 
     plan = bouw_plan(args.root.resolve(), contract=args.contract)
+    if not args.geen_pdf:
+        beoordeel_pdfs(plan, _pdf_jobs(), args.root.resolve())
     for regel in samenvatting(plan):
         print(regel)
     if args.lijst:
@@ -208,11 +302,16 @@ def main(argv: list[str] | None = None) -> int:
             if p.te_maken:
                 extra = " [alleen lokaal]" if p.alleen_lokaal else ""
                 print(f"  {p.reden:9} {p.kind:9} {p.pad}{extra}")
+        for x in plan.pdfs:
+            if x.reden != "ok":
+                via = f"  (via {x.via})" if x.via else ""
+                print(f"  {x.reden:9} {'pdf':9} {x.pdf}{via}")
     if args.json:
         args.json.write_text(
             json.dumps(
                 {
                     "producten": [asdict(p) for p in plan.producten],
+                    "pdfs": [asdict(x) for x in plan.pdfs],
                     "randen": plan.randen,
                     "problemen": plan.problemen,
                 },

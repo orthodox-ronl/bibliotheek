@@ -57,3 +57,57 @@ def test_samenvatting_telt_te_maken_en_lokaal():
     tekst = "\n".join(pl.samenvatting(plan))
     assert "1 te maken (1 alleen lokaal" in tekst
     assert "Graaf in orde" in tekst
+
+
+def test_sluit_af_markeert_afgeleiden_van_een_vernieuwde_bron():
+    plan = pl.Plan(
+        producten=[
+            _p("vsa", "a.vsa", "a.vsa.mvsa", stempel=False),  # te maken
+            _p("mvsa", "a.vsa.mvsa", "a.vsa.mvsa.svg"),  # nu ok, straks niet
+            _p("audio", "a.vsa.mvsa", "a.vsa.mvsa.mp3"),
+            _p("vsa", "b.vsa", "b.vsa.svg"),  # onaangeroerd
+        ]
+    )
+    pl.sluit_af(plan)
+    assert [p.reden for p in plan.producten] == ["verouderd", "gevolg", "gevolg", "ok"]
+    assert plan.producten[1].te_maken
+
+
+def test_pdf_wordt_gevolg_als_een_afhankelijkheid_vernieuwd_wordt(tmp_path):
+    svg = tmp_path / "a.vsa.svg"
+    svg.write_text("x")
+    pdf = tmp_path / "index.md.pdf"
+    pdf.write_text("p")
+    import os
+
+    os.utime(svg, (1, 1))
+    os.utime(pdf, (2, 2))  # pdf nieuwer dan svg: nu in orde
+
+    class Job:
+        out_path = pdf
+        variants = []
+        deps = [svg]
+
+    plan = pl.Plan(producten=[pl.Product("vsa", "a.vsa", "a.vsa.svg", True, False, None, False)])
+    pl.beoordeel_pdfs(plan, [Job()], tmp_path)
+    assert [(x.reden, x.via) for x in plan.pdfs] == [("gevolg", "a.vsa.svg")]
+
+
+def test_pdf_ontbreekt_en_verouderd(tmp_path):
+    import os
+
+    dep = tmp_path / "index.md"
+    dep.write_text("m")
+    pdf = tmp_path / "index.md.pdf"
+    pdf.write_text("p")
+    os.utime(pdf, (1, 1))
+    os.utime(dep, (5, 5))
+
+    class Job:
+        out_path = pdf
+        variants = [tmp_path / "index.md.weergave-p.pdf"]
+        deps = [dep]
+
+    plan = pl.Plan()
+    pl.beoordeel_pdfs(plan, [Job()], tmp_path)
+    assert [x.reden for x in plan.pdfs] == ["verouderd", "ontbreekt"]
