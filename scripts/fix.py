@@ -19,6 +19,7 @@ from batch_guard import add_yes_argument, confirm_batch
 from check_fixlist import (
     FIXLIST_PATH,
     FixItem,
+    fix_sort_key,
     load_fixlist,
     print_fixlist,
     save_fixlist,
@@ -446,6 +447,29 @@ def _run_products_post(*, verbose: bool) -> int:
 MAX_RONDES = 3
 
 
+def _gevolgen_van(items: list[FixItem]) -> list[FixItem]:
+    """Wat verouderd raakt doordat ``items`` hun producten vernieuwen (plan)."""
+    import plan as plan_mod
+
+    p = plan_mod.bouw_plan()
+    plan_mod.beoordeel_pdfs(p, plan_mod._pdf_jobs(), plan_mod.DEFAULT_ROOT)
+    return plan_mod.aanvullend_werk(p)
+
+
+def _met_gevolgen(items: list[FixItem]) -> list[FixItem]:
+    """Voeg de gevolgen toe aan de lijst, in afwerkvolgorde, zonder dubbelen."""
+    try:
+        extra = _gevolgen_van(items)
+    except Exception as exc:  # plan mag fix nooit breken: rondes vangen de rest
+        note(f"plan van gevolgen niet beschikbaar ({exc}); rondes vangen dat op.")
+        return items
+    bestaand = {x.fix_cmd for x in items}
+    nieuw = [x for x in extra if x.fix_cmd not in bestaand]
+    if nieuw:
+        note(f"{len(nieuw)} onderdeel/onderdelen die door dit herstel verouderen, direct meegenomen")
+    return sorted([*items, *nieuw], key=fix_sort_key)
+
+
 def _werk_af(
     items: list[FixItem], *, verbose: bool, log_path: Path | None
 ) -> tuple[int, int, list[tuple[FixItem, str]], list[FixItem], int]:
@@ -550,6 +574,9 @@ def main(argv: list[str] | None = None) -> int:
             )
             return 2
         items = load_fixlist()
+
+    if args.check and items:
+        items = _met_gevolgen(items)
 
     if args.dry_run:
         print_fixlist(items)

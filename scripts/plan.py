@@ -80,6 +80,7 @@ class PdfItem:
     pdf: str
     reden: str  # ok | ontbreekt | verouderd | gevolg
     via: str = ""  # welk te maken product (of nu verouderde afhankelijkheid)
+    md: str = ""  # de index.md waar deze PDF bij hoort (t.o.v. de repo)
 
 
 @dataclass
@@ -216,14 +217,63 @@ def beoordeel_pdfs(plan: Plan, jobs: list, root: Path) -> None:
         for out in [job.out_path, *job.variants]:
             out = Path(out)
             naam = _rel(out, REPO_ROOT)
+            md = _rel(Path(getattr(job, "md_path", out.parent / "index.md")), REPO_ROOT)
             if not out.is_file():
-                plan.pdfs.append(PdfItem(naam, "ontbreekt"))
+                plan.pdfs.append(PdfItem(naam, "ontbreekt", md=md))
             elif dep_mtime and out.stat().st_mtime < dep_mtime:
-                plan.pdfs.append(PdfItem(naam, "verouderd"))
+                plan.pdfs.append(PdfItem(naam, "verouderd", md=md))
             elif via is not None:
-                plan.pdfs.append(PdfItem(naam, "gevolg", via.pad))
+                plan.pdfs.append(PdfItem(naam, "gevolg", via.pad, md=md))
             else:
-                plan.pdfs.append(PdfItem(naam, "ok"))
+                plan.pdfs.append(PdfItem(naam, "ok", md=md))
+
+
+def aanvullend_werk(plan: Plan, root: Path = DEFAULT_ROOT) -> list:
+    """Herstelregels voor wat **als gevolg** van andere herstelwerk verouderd raakt.
+
+    Deze staan nu nog niet in de ``check``-lijst (alles klopt tot de bron
+    vernieuwd is), maar horen in dezelfde run mee. Elk product krijgt het
+    gewone ``products``-commando voor zijn bron; PDF's het gewone ``pdf``-
+    commando. De afwerkvolgorde (``FIX_ORDER``) zorgt dat producten eerst
+    komen, afgeleide bronnen vóór wat eruit voortkomt, en PDF's als laatste.
+    """
+    from check_fixlist import FixItem
+    from fix_cmds import products_fix_cmd
+
+    uit: dict[str, FixItem] = {}
+    for p in plan.producten:
+        if not p.gevolg or p.kind == "import":
+            continue
+        cmd = products_fix_cmd(p.kind, root / p.bron)
+        uit.setdefault(
+            cmd,
+            FixItem(
+                id=f"gevolg:{p.kind}:{p.bron}",
+                checker=p.kind,
+                summary=f"{p.bron}: verouderd na vernieuwen van zijn bron",
+                fix_cmd=cmd,
+                kind="gevolg",
+                file=p.pad,
+                source=p.bron,
+            ),
+        )
+    for x in plan.pdfs:
+        if x.reden != "gevolg" or not x.md:
+            continue
+        cmd = rf"scripts\pdf.cmd {x.md.replace('/', chr(92))} --force"
+        uit.setdefault(
+            cmd,
+            FixItem(
+                id=f"gevolg:pdf:{x.md}",
+                checker="pdf",
+                summary=f"{x.md}: PDF verouderd na vernieuwen van {x.via}",
+                fix_cmd=cmd,
+                kind="gevolg",
+                file=x.pdf,
+                source=x.md,
+            ),
+        )
+    return list(uit.values())
 
 
 def _pdf_jobs() -> list:

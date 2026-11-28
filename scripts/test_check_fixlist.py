@@ -597,6 +597,7 @@ def _fix_ronde_setup(monkeypatch, tmp_path, na_check):
 
     monkeypatch.setattr(fix_mod, "_refresh_fixlist_from_status", _refresh)
     monkeypatch.setattr(fix_mod, "_sync_stempels", lambda **_k: 0)
+    monkeypatch.setattr(fix_mod, "_gevolgen_van", lambda items: [])
     monkeypatch.setattr(fix_mod, "_run_products_post", lambda **_k: 0)
 
     def _run(cmd, **_k):
@@ -630,3 +631,16 @@ def test_fix_stopt_bij_niet_convergeren(tmp_path, monkeypatch):
     uitgevoerd = _fix_ronde_setup(monkeypatch, tmp_path, [[prod], [prod], [prod]])
     assert fix_mod.main(["--strict", "-y"]) == 1
     assert len(uitgevoerd) == 1
+
+
+def test_fix_neemt_gevolgen_mee_in_dezelfde_run(tmp_path, monkeypatch):
+    """Gevolgen uit het plan worden toegevoegd en in afwerkvolgorde uitgevoerd."""
+    pdf = FixItem(
+        id="g:pdf", checker="pdf", summary="pdf", fix_cmd=r"scripts\pdf.cmd x\index.md --force"
+    )
+    uitgevoerd = _fix_ronde_setup(monkeypatch, tmp_path, [[]])
+    monkeypatch.setattr(fix_mod, "_gevolgen_van", lambda items: [pdf])
+    assert fix_mod.main(["--strict", "-y"]) == 0
+    assert "products.cmd" in uitgevoerd[0]
+    assert "pdf.cmd" in uitgevoerd[-1]
+    assert len(uitgevoerd) == 2
