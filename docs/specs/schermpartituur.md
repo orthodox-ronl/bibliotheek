@@ -198,20 +198,28 @@ lengtetekens eronder en nooit erdoorheen.
 
 ### 2.4 Inzet (beginnoten laten horen)
 
-Een koorleider kan per muziekstuk de eerste noot van S, A, T en B laten
-horen.
+Een koorleider kan per muziekstuk de beginnoten laten horen, zo nodig hoger
+of lager dan genoteerd.
 
 | Eis | Toelichting |
 | --- | --- |
-| Knop | **Inzet**, rechtsboven bij de muziek (catalogus en koormap); op catalogus links naast **{}**. Niet in print. |
-| Wanneer | Alleen als het stuk een `….from-ir.musicxml` heeft (bij `@sectie`: die van de sectie). Anders geen knop. |
-| Noten | Eerste klinkende noot per stem: deel 1 `voice` 1 = S, `voice` 2 = A; deel 2 `voice` 1 = T, `voice` 2 = B. Rusten worden overgeslagen. |
-| Klank | Volgorde S, A, T, B; elke toon 0,5 s, 0,1 s stilte ertussen. Toonhoogte zoals genoteerd, A4 = 440 Hz. Door de browser gemaakt (geen audiobestanden). |
-| Bediening | Nog eens klikken stopt. Een andere **Inzet** of **Inzet** tijdens Beluisteren stopt wat al klinkt. |
+| Knop | **Inzet** met daarnaast het instelknopje (**±**, of de verschuiving), direct rechts van **VSA \| Partituur** (zonder die knop: rechts van **♪**), catalogus en koormap. Smal scherm met **VSA \| Partituur**: eigen regel direct eronder. Niet in print. |
+| Vier stemmen | Als het stuk een `….from-ir.musicxml` heeft (bij `@sectie`: die van de sectie). Eerste klinkende noot per stem: deel 1 `voice` 1 = S, `voice` 2 = A; deel 2 `voice` 1 = T, `voice` 2 = B. Rusten tellen niet. |
+| Alleen melodie | Alleen `.vsa` en geen from-ir: knop **Inzet 1 stem**, het paneel zegt dat alleen de melodie bekend is, en er klinkt één toon. De noot komt uit `data/inzet-melodie.json` (`scripts/build_inzet_melodie.py`, rekent met VSA-tooling; niet in git). |
+| Geen knop | Stukken met alleen `.mscz` en geen from-ir. |
+| Klank | Volgorde S, A, T, B; elke toon standaard 0,5 s, 0,1 s stilte ertussen; A4 = 440 Hz. Door de browser gemaakt (geen audiobestanden). |
+| Klank en toonlengte | Klank **Orgel** (standaard), **Fluit** of **Stemfluit**; toonlengte 0,3 · **0,5** · 0,8 · 1,2 · 2 s. Geldt voor alle stukken. |
+| Hoger/lager | Per halve toon, hoogstens 12. Eén **algemene** waarde voor alle stukken; een stuk (uitvoeringsvorm) kan een **eigen** waarde krijgen (keuze «Alleen voor dit stuk»). Wijzigen geldt voor wat bij dat stuk gekozen is. Eigen begint op de algemene waarde; terug naar Algemeen wist de eigen waarde. |
+| Eigen zichtbaar | Knop oranje én het woord «eigen» erop. |
+| Tenor en bas | Keuze «TB octaaf hoger», geldt voor alle vierstemmige stukken, los van algemeen/eigen. |
+| Paneel | Toont de verschuiving, hoe do klinkt (majeur) en de klinkende notennamen (`SATB: F,C,A,F`). Sluit met Escape of een klik ernaast. |
+| Onthouden | `localStorage` sleutel `bibliotheek-inzet`: per apparaat en browser, niet gedeeld met het koor. |
+| Bediening | Nog eens klikken op **Inzet** stopt. Een andere **Inzet** of **Inzet** tijdens Beluisteren stopt wat al klinkt. |
 
 Weergave (VSA/partituur), SVG/OSMG en translit veranderen de inzet niet.
-Implementatie: `static/js/inzet.js` en `static/js/inzet-kern.js`; test:
-`scripts/test_inzet_kern_js.py`.
+De verschuiving verandert alleen de inzet, niet het blad, Oefenen of
+Beluisteren. Implementatie: `static/js/inzet.js` en `static/js/inzet-kern.js`;
+tests: `scripts/test_inzet_kern_js.py`, `scripts/test_build_inzet_melodie.py`.
 
 ---
 

@@ -41,6 +41,7 @@ tonen paden onder `content-source` zonder die prefix. Zie
 | `products --kinds audio` | Preview-`{stam}.{bron}.mp3` (Beluisteren). | [products (audio)](audio-products/) |
 | `products --kinds lyrics` | `{stam}.….lyrics.txt` (zoektekst). | [products (lyrics)](lyrics-products/) |
 | `build_zoek_index.py` | Bouwt `static\zoek\index.json`, de index achter [Zoeken](/overzichten/zoeken/) op de site (draait ook in `check`, `products` en bij elke Pages-deploy). | [zoek-index](zoek-index/) |
+| `build_inzet_melodie.py` | Zoekt de beginnoot voor de knop **Inzet** bij stukken met alleen een melodie (draait in `check`, `build`, `serve` en bij elke Pages-deploy). | [inzet-melodie](inzet-melodie/) |
 | `layout` | Past de basispartituur-standaard toe op `.mscz` of `.mxl` (tooling-layoutprofiel `partituur`). | [layout](layout/) |
 | `ensure-bibliotheek-id` | Zet of controleert de colofonregel `Bibliotheek-id:` op basispartituur-`.mscz`. | [ensure-bibliotheek-id](ensure-bibliotheek-id/) |
 | `bump-vsa-tooling-pin` | Zet `vsa-tooling.pin` op de tip van VSA-tooling (productie-pin); commit/PR zelf. | [bump-vsa-tooling-pin](bump-vsa-tooling-pin/) |
