@@ -2023,6 +2023,8 @@ body.score-audio-bar-open {
   left: calc(0.45rem + 30px + 0.4rem);
   z-index: 5;
   display: inline-flex;
+  box-sizing: border-box;
+  width: 8.4rem; /* vast: de plaats van Inzet rekent hiermee */
   height: 30px;
   border: 1.5px solid #003366;
   border-radius: 999px;
@@ -2039,6 +2041,7 @@ body.score-audio-bar-open {
 }
 
 .score-weergave button {
+  flex: 1 1 auto;
   position: relative;
   padding: 0 0.6rem;
   border: 0;
@@ -2089,7 +2092,7 @@ body.score-audio-bar-open {
   }
 }
 
-/* Inzet + instelknopje, rechtsboven; op catalogusbladen links naast {}. */
+/* Inzet + instelknopje, direct naast VSA | Partituur (anders naast ♪). */
 .score-bundle:has(> .score-inzet) {
   position: relative;
 }
@@ -2102,7 +2105,7 @@ body.score-audio-bar-open {
   --inzet-kleur: #003366;
   position: absolute;
   top: 0.45rem;
-  right: 0.45rem;
+  left: 0.45rem;
   z-index: 7;
   display: inline-flex;
   height: 30px;
@@ -2112,8 +2115,16 @@ body.score-audio-bar-open {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
 }
 
-.score-bundle:has(> .score-bron-tip) > .score-inzet {
-  right: calc(0.45rem + 30px + 0.4rem);
+.score-bundle:has(> .score-oefen-tip) > .score-inzet {
+  left: calc(0.45rem + 30px + 0.4rem);
+}
+
+.score-bundle:has(> .score-weergave:not([hidden])) > .score-inzet {
+  left: calc(0.45rem + 30px + 0.4rem + 8.4rem + 0.4rem);
+}
+
+.score-bundle:has(> .score-weergave--zonder-oefenen:not([hidden])) > .score-inzet {
+  left: calc(0.45rem + 8.4rem + 0.4rem);
 }
 
 /* Eigen instelling voor dit stuk: oranje, en het woord «eigen» op de knop. */
@@ -2158,7 +2169,7 @@ body.score-audio-bar-open {
 .inzet-paneel {
   position: absolute;
   top: calc(100% + 0.4rem);
-  right: 0;
+  left: 0;
   width: min(17rem, calc(100vw - 4rem));
   box-sizing: border-box;
   padding: 0.7rem;
@@ -2169,11 +2180,6 @@ body.score-audio-bar-open {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
   font: 400 0.8rem/1.35 system-ui, sans-serif;
   text-align: left;
-}
-
-/* Catalogus: paneel uitlijnen op de rand voorbij {}, anders valt het smal buiten beeld. */
-.score-bundle:has(> .score-bron-tip) .inzet-paneel {
-  right: calc(-30px - 0.4rem);
 }
 
 .inzet-paneel p {
@@ -2251,11 +2257,11 @@ body.score-audio-bar-open {
   border-top: 1px solid #ddd;
 }
 
-/* Smal scherm met VSA | Partituur: Inzet op een eigen regel eronder. */
+/* Smal scherm met VSA | Partituur: Inzet op een eigen regel er direct onder. */
 @media (max-width: 480px) {
   .score-bundle:has(> .score-weergave:not([hidden])):has(> .score-inzet) > .score-inzet {
     top: 2.9rem;
-    right: 0.45rem;
+    left: 0.45rem;
   }
 
   .score-bundle:has(> .score-weergave:not([hidden])):has(> .score-inzet) > .score-partituur {
