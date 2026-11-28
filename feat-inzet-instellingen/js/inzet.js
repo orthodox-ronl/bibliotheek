@@ -205,7 +205,7 @@
     regime.setAttribute("role", "group");
     regime.setAttribute("aria-label", "Welke instelling geldt voor dit stuk");
     regime.appendChild(keuzeknop("Algemeen", "algemeen", !eigen));
-    regime.appendChild(keuzeknop("Eigen voor dit stuk", "eigen", eigen));
+    regime.appendChild(keuzeknop("Alleen voor dit stuk", "eigen", eigen));
     paneel.appendChild(regime);
 
     var stapper = element("div", "inzet-stapper");
@@ -236,11 +236,20 @@
     gegevens(vak).then(
       function (uit) {
         if (paneel !== dit) return;
-        var noten = klinkend(vak, uit)
+        var klank = klinkend(vak, uit);
+        var stemmen = klank
           .map(function (noot) {
-            return (noot.stem ? noot.stem + ": " : "Toon: ") + Kern.nootnaam(noot.midi);
+            return noot.stem || "";
           })
-          .join(" \u00b7 ");
+          .join("");
+        var noten =
+          (stemmen || "Toon") +
+          ": " +
+          klank
+            .map(function (noot) {
+              return Kern.nootnaam(noot.midi);
+            })
+            .join(",");
         var doTekst =
           uit.doKlasse === null
             ? ""
@@ -260,7 +269,7 @@
       vink.setAttribute("data-inzet-actie", "tb");
       label.appendChild(vink);
       label.appendChild(
-        document.createTextNode(" Tenor en bas een octaaf hoger (bij alle stukken)")
+        document.createTextNode(" TB octaaf hoger (bij alle stukken)")
       );
       paneel.appendChild(label);
     }
