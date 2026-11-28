@@ -206,6 +206,9 @@ if errorlevel 1 exit /b 1
 python scripts\sync_oefenhoek_index.py --svg
 if errorlevel 1 exit /b 1
 
+python scripts\sync_inline_vsa.py
+if errorlevel 1 exit /b 1
+
 python scripts\build_zoek_index.py
 if errorlevel 1 exit /b 1
 

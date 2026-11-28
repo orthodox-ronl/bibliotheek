@@ -90,7 +90,7 @@ donkerblauwe knopjes:
   - **Beluisteren** speelt een voorbeeldbestand af onderaan het scherm
     (afspelen, terug/vooruit, snelheid). Dat geeft een *indruk* van hoe
     het zangstuk klinkt; in het echt klinkt het vaak anders.
-- **Inzet** (rechtsboven bij de muziek) — voor de koorleider: je hoort
+- **Inzet** (boven de muziek, naast **VSA | Partituur**) — voor de koorleider: je hoort
   de eerste noot van sopraan, alt, tenor en bas na elkaar. Nog een keer
   klikken stopt het geluid. Staat er **Inzet 1 stem**, dan is alleen de
   melodie bekend en hoor je één toon. Hoor je niets, zet dan het geluid

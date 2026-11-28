@@ -294,7 +294,7 @@
 {{- end -}}
 {{- $melodie := false -}}
 {{- if and (not $inzetSrc) (not $sectie) $inzetId -}}
-  {{- with index site.Data "inzet-melodie" -}}
+  {{- with index hugo.Data "inzet-melodie" -}}
     {{- $melodie = index . $inzetId -}}
   {{- end -}}
 {{- end -}}

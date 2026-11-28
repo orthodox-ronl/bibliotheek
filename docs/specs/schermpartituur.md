@@ -203,7 +203,7 @@ of lager dan genoteerd.
 
 | Eis | Toelichting |
 | --- | --- |
-| Knop | **Inzet** met daarnaast het instelknopje (**±**, of de verschuiving), rechtsboven bij de muziek; op catalogus links naast **{}**. Smal scherm met **VSA \| Partituur**: eigen regel eronder. Niet in print. |
+| Knop | **Inzet** met daarnaast het instelknopje (**±**, of de verschuiving), direct rechts van **VSA \| Partituur** (zonder die knop: rechts van **♪**), catalogus en koormap. Smal scherm met **VSA \| Partituur**: eigen regel direct eronder. Niet in print. |
 | Vier stemmen | Als het stuk een `….from-ir.musicxml` heeft (bij `@sectie`: die van de sectie). Eerste klinkende noot per stem: deel 1 `voice` 1 = S, `voice` 2 = A; deel 2 `voice` 1 = T, `voice` 2 = B. Rusten tellen niet. |
 | Alleen melodie | Alleen `.vsa` en geen from-ir: knop **Inzet 1 stem**, het paneel zegt dat alleen de melodie bekend is, en er klinkt één toon. De noot komt uit `data/inzet-melodie.json` (`scripts/build_inzet_melodie.py`, rekent met VSA-tooling; niet in git). |
 | Geen knop | Stukken met alleen `.mscz` en geen from-ir. |

@@ -1,0 +1,14 @@
+{{- /* .Content, met elk ``::: vsa`` / ``::: vsa-notatie``-blok als SVG
+     (gemaakt door scripts/sync_inline_vsa.py). Zonder blok: gewoon .Content. */ -}}
+{{- $re := `(?ms)^[ \t]*:::[ \t]*(?:vsa-notatie|vsa)\b[^\n]*\n(.*?)^[ \t]*:::[ \t]*$` -}}
+{{- $raw := replace .RawContent "\r" "" -}}
+{{- $blocks := findRE $re $raw -}}
+{{- if $blocks -}}
+  {{- range $block := $blocks -}}
+    {{- $key := md5 (trim (replaceRE $re "$1" $block) " \n\t") -}}
+    {{- $raw = replace $raw $block (printf "{{< vsa-blok key=%q >}}" $key) -}}
+  {{- end -}}
+  {{- .RenderString (dict "display" "block") $raw -}}
+{{- else -}}
+  {{- .Content -}}
+{{- end -}}
