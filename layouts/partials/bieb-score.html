@@ -279,7 +279,8 @@
 {{- if $musicSvgsTranslitKsl -}}
   {{- $viewer.Store.Add "translitPdf" (slice "ksl") -}}
 {{- end -}}
-{{- /* Knop Inzet (schermpartituur §2.4): alleen met vierstemmige from-ir.
+{{- /* Knop Inzet (schermpartituur §2.4): vierstemmige from-ir, anders de
+     beginnoot van de melodie (data/inzet-melodie.json).
      Bij meer dan één from-ir gaat de eigen bron voor de afgeleide .vsa.mvsa. */ -}}
 {{- $inzetSrc := "" -}}
 {{- range $fromIrPlain -}}
@@ -287,8 +288,18 @@
     {{- $inzetSrc = . -}}
   {{- end -}}
 {{- end -}}
-{{- with $inzetSrc }}
-<button type="button" class="score-inzet" data-inzet-src="{{ . }}" aria-pressed="false" aria-label="Inzet: de beginnoten van sopraan, alt, tenor en bas na elkaar laten horen" title="Beginnoten S, A, T, B laten horen">Inzet</button>
+{{- $inzetId := "" -}}
+{{- with $p.File -}}
+  {{- $inzetId = strings.TrimSuffix "/" (replace .Dir "\\" "/") -}}
+{{- end -}}
+{{- $melodie := false -}}
+{{- if and (not $inzetSrc) (not $sectie) $inzetId -}}
+  {{- with index hugo.Data "inzet-melodie" -}}
+    {{- $melodie = index . $inzetId -}}
+  {{- end -}}
+{{- end -}}
+{{- if or $inzetSrc $melodie }}
+<div class="score-inzet" data-inzet data-inzet-id="{{ $inzetId }}"{{ if $inzetSrc }} data-inzet-src="{{ $inzetSrc }}"{{ else }} data-inzet-midi="{{ $melodie.midi }}" data-inzet-do="{{ $melodie.do }}"{{ end }}><button type="button" class="score-inzet-speel" data-inzet-speel aria-pressed="false" title="{{ if $inzetSrc }}Beginnoten S, A, T, B laten horen{{ else }}Alleen de melodie: beginnoot laten horen{{ end }}">{{ if $inzetSrc }}Inzet{{ else }}Inzet 1 stem{{ end }}</button><button type="button" class="score-inzet-kies" data-inzet-kies aria-expanded="false" aria-label="Inzet instellen">±</button></div>
 {{- end }}
 <div class="score-partituur" data-scherm-root data-weergave="{{ $weergave }}"{{ if $wisselbaar }} data-wisselbaar{{ end }}>
 {{- $hasSvgView := or (gt (len $musicSvgs) 0) (gt (len $staticSvgs) 0) (gt (len $musicSvgsTranslitAny) 0) -}}
