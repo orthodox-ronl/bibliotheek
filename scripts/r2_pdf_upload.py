@@ -500,6 +500,9 @@ def main(argv: list[str] | None = None) -> int:
                 ok += 1
                 continue
             assert client is not None and bucket is not None
+            if r2_object_sha256(client, bucket, key) == digest:
+                skipped_same += 1
+                continue
             try:
                 _upload_file(client, bucket, pdf, key, digest)
             except Exception as exc:
@@ -508,7 +511,7 @@ def main(argv: list[str] | None = None) -> int:
             ok += 1
             if ok % 25 == 0:
                 print(f"… {ok}/{len(pdfs)}", flush=True)
-        print(f"Klaar: put={ok}")
+        print(f"Klaar: put={ok} ongewijzigd={skipped_same}")
         return 0
 
     # development: alleen diff t.o.v. production/

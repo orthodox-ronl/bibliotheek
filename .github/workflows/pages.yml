@@ -225,22 +225,29 @@ jobs:
       - name: Build catalogus zoekindex
         run: python scripts/build_zoek_index.py
 
-      # Alleen development (testversie): blad-PDF's bouwen, de diff naar R2
-      # development/ zetten en het manifest voor deze build schrijven
-      # (docs/plans/pdf-r2.md). Zonder R2-secrets: overslaan.
-      - name: Blad-PDF's bouwen en naar R2 development/
+      # Blad-PDF's bouwen en naar R2 zetten (docs/plans/pdf-r2.md).
+      # development: alleen de diff naar R2 development/; een fout laat de
+      # testsite toch verschijnen (zie "Blad-PDF-upload gelukt?").
+      # main: de volledige set naar R2 production/; een fout stopt de
+      # publicatie vóór de site verandert.
+      - name: Blad-PDF's bouwen en naar R2
         id: bladpdf
-        if: github.ref == 'refs/heads/development'
-        continue-on-error: true
+        if: github.ref == 'refs/heads/development' || github.ref == 'refs/heads/main'
+        continue-on-error: ${{ github.ref == 'refs/heads/development' }}
         env:
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
           R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           R2_BUCKET: ${{ secrets.R2_BUCKET }}
           R2_JURISDICTION: ${{ secrets.R2_JURISDICTION }}
+          R2_ENV: ${{ github.ref == 'refs/heads/main' && 'production' || 'development' }}
         run: |
           set -euo pipefail
           if [[ -z "$R2_ACCOUNT_ID" || -z "$R2_ACCESS_KEY_ID" || -z "$R2_SECRET_ACCESS_KEY" || -z "$R2_BUCKET" ]]; then
+            if [[ "$R2_ENV" == "production" ]]; then
+              echo "::error::R2-secrets ontbreken; zonder blad-PDF's wordt de echte site niet gepubliceerd."
+              exit 1
+            fi
             echo "::notice::R2-secrets ontbreken; blad-PDF's niet automatisch geupload."
             exit 0
           fi
@@ -251,12 +258,12 @@ jobs:
           mkdir -p "$RUNNER_TEMP/browser"
           ln -sf "$(command -v google-chrome)" "$RUNNER_TEMP/browser/msedge"
           PATH="$RUNNER_TEMP/browser:$PATH" python scripts/index_md_pdf.py content-source/koormappen content-source/catalogus
-          python scripts/r2_pdf_upload.py --env development
+          python scripts/r2_pdf_upload.py --env "$R2_ENV"
 
       # Altijd weg vóór Hugo: anders linkt de site naar lokale PDF's die niet
       # gepubliceerd worden.
       - name: Gebouwde blad-PDF's opruimen
-        if: github.ref == 'refs/heads/development'
+        if: github.ref == 'refs/heads/development' || github.ref == 'refs/heads/main'
         run: |
           find content-source -type f \( -name 'index.md.pdf' -o -name 'index.md.translit*.pdf' \
             -o -name 'index.md.weergave-*.pdf' \) ! -path '*/input/*' -delete
@@ -324,6 +331,17 @@ jobs:
           publish_branch: gh-pages
           publish_dir: ./generated/site
           keep_files: ${{ steps.target.outputs.keep_files }}
+
+      # De stap hierboven voegt alleen toe (keep_files). Haal daarna weg wat
+      # niet meer in de echte site hoort.
+      - name: Verwijder verouderde bestanden van de echte site
+        if: github.ref == 'refs/heads/main'
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: python scripts/opruim_productie.py generated/site
 
       # Alle publicaties zitten in dezelfde concurrency-groep, dus niemand
       # schrijft tegelijk naar gh-pages.

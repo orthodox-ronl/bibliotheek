@@ -1,6 +1,9 @@
 # Plan: de GitHub Pages-publicatie onder 1 GB
 
-Status: **voorstel, nog niet uitgevoerd** (metingen van 28 november 2026).
+Status (metingen van 28 november 2026): **de stappen 1 tot en met 4 zijn
+gebouwd op `development`.** Ze werken pas na de samenvoeging naar `main`.
+Die samenvoeging zet eerst alle blad-PDF's op R2 en haalt daarna de oude
+bestanden weg (zie [pdf-r2.md](pdf-r2.md)).
 
 ## Antwoord eerst
 

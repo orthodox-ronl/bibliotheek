@@ -20,8 +20,9 @@ Leest alle blad-PDF’s onder R2 `development/`, schrijft ze naar hetzelfde
 relatieve pad onder `production/` (met `sha256`-metadata), wist daarna
 `development/`, en maakt `data\pdf-r2-development.json` leeg.
 
-Dit hoort **na een merge van `development` naar `main`**, zodat preview-
-overrides niet blijven hangen en main alleen `production/` gebruikt.
+Dit commando is een **noodmiddel**. Na een samenvoeging van `development`
+naar `main` bouwt GitHub de blad-PDF's zelf en zet ze op `production/`
+(zie [Blad-PDF op R2](../../publiceren/blad-pdf-op-r2/)).
 
 Laadt `scripts\r2-env.cmd` / `.ps1`. Commit het lege manifest mee.
 
