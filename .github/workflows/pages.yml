@@ -243,6 +243,10 @@ jobs:
           fi
           sudo apt-get install -y --no-install-recommends fonts-liberation fonts-dejavu-core
           python -m pip install pymupdf "pypdf>=5.0" boto3
+          # Tekstbladen drukken via een browser. Google Chrome van de runner mag
+          # zijn sandbox gebruiken (AppArmor-profiel); een losse chromium niet.
+          export CHROME_PATH="$(command -v google-chrome-stable || command -v google-chrome)"
+          echo "Browser: $CHROME_PATH"
           python scripts/index_md_pdf.py content-source/koormappen content-source/catalogus
           python scripts/r2_pdf_upload.py --env development
 
