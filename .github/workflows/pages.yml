@@ -229,8 +229,8 @@ jobs:
       # publicatie vóór de site verandert.
       - name: Blad-PDF's bouwen en naar R2
         id: bladpdf
-        if: github.ref == 'refs/heads/development' || github.ref == 'refs/heads/main'
-        continue-on-error: ${{ github.ref == 'refs/heads/development' }}
+        if: github.ref == 'refs/heads/proef-pdf-bouw'
+        continue-on-error: false
         env:
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
           R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
@@ -255,12 +255,12 @@ jobs:
           mkdir -p "$RUNNER_TEMP/browser"
           ln -sf "$(command -v google-chrome)" "$RUNNER_TEMP/browser/msedge"
           PATH="$RUNNER_TEMP/browser:$PATH" python scripts/index_md_pdf.py content-source/koormappen content-source/catalogus
-          python scripts/r2_pdf_upload.py --env "$R2_ENV"
+          python scripts/r2_pdf_upload.py --env production --dry-run | tail -3
 
       # Altijd weg vóór Hugo: anders linkt de site naar lokale PDF's die niet
       # gepubliceerd worden.
       - name: Gebouwde blad-PDF's opruimen
-        if: github.ref == 'refs/heads/development' || github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/proef-pdf-bouw'
         run: |
           find content-source -type f \( -name 'index.md.pdf' -o -name 'index.md.translit*.pdf' \
             -o -name 'index.md.weergave-*.pdf' \) ! -path '*/input/*' -delete
