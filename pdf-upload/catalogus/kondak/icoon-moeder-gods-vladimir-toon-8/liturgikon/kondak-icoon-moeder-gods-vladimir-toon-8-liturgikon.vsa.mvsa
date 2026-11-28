@@ -1,0 +1,91 @@
+---
+titel: Icoon moeder gods vladimir (Toon 8)
+taal: nl
+soort: kondak
+toon: 8
+template: kondak-toon-8-hemelum
+partituur:
+  arranger: Hemelum
+bron:
+  uitgangspunt: liturgikon
+  bewerking: zetting/praktijk Hemelum (Koorinstructie)
+gelegenheid:
+- naam: Icoon Moeder Gods van Vladimir
+zoektekst: |-
+  Gij zijt de Aanvoerdster die voor ons strijdt,
+  en die ons van de boze hebt bevrijd.
+  Daarom zingen wij u vol dankbaarheid het zegelied.
+  Maar door uw onoverwinnelijke macht, o Moeder Gods,
+  red nu ook uit alle gevaren het bevrijde volk dat tot u zingt:
+  verheug u, ongehuwde Bruid.
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# <!-- Kondak icoon MGs, Toon 8 (Koorinstructie Hemelum, 20260908) -->
+# [:] Gij {/zijt} {/de} {/Aan}voerd{\ster} die {\voor} ons {\strijdt_}, *
+# en {/die} {/ons} van de {/bo}{\ze} {\hebt} be{\vrijd_}. *
+# Daar{/om} {/zin}gen wij u vol {/dank}baar{\heid} het {\ze}ge{\lied_}. *
+# Maar {/door} {/uw} on-o-ver-win-ne-lij-ke {/macht}, {\o} {\Moe}der {\Gods_}, *
+# red {/nu} {/ook} uit al-le ge{/va}{\ren} het be-vrij-de volk dat {\tot} u {\zingt_}: **
+# {-&/ver}{/heug} {/u}, {\on}ge{/huw_}{de_} {\Bruid_}. [//:]
+
+# === afgeleide mvsa (VSA + template) ===
+# bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/kondak/icoon-moeder-gods-vladimir-toon-8/liturgikon/kondak-icoon-moeder-gods-vladimir-toon-8-liturgikon.vsa
+# template: kondak-toon-8-hemelum/template.yaml (kondak-toon-8-hemelum)
+# Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
+#  ##########################################################################  #
+#  #                                                                        #  #
+#  #   WAARSCHUWING:                                                        #  #
+#  #                                                                        #  #
+#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
+#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
+#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
+#  #   - melisma-slots (``_&_`` / ``~&~`` voor stem-sync; later samentrekken)#  #
+#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
+#  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
+#  #                                                                        #  #
+#  ##########################################################################  #
+@title "Icoon moeder gods vladimir (Toon 8)"
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=-1 T=-1 B=-1
+
+@sectie cyclus-1
+L: Gij zijt (de) Aan-voerd-ster die voor ons strijdt_, |
+S: f   /    /    /   -     \    -   \    -   \         |f
+A: c   -    /3   -   -     -    -   \    -   \2        |c
+T: a   /    /    /   -     \    -   \    -   \         |a
+B: f   \3   /3   \4  -     /4   -   \3   -   /3        |f
+
+@sectie herhaling
+L: en die (ons van de) bo-ze hebt be-vrijd_\. |
+S: f  /   /            /  \  \    -  \        |f
+A: c  -   /3           -  -  \    -  \2       |c
+T: a  /   /            /  \  \    -  \        |a
+B: f  \3  /3           \4 /4 \3   -  /3       |f
+
+L: Daar-om (zin-gen wij u vol) dank-baar-heid het ze-ge-lied_\. |
+S: f    /  /                   /    -    \    -   \  -  \       |f
+A: c    -  /3                  -    -    -    -   \  -  \2      |c
+T: a    /  /                   /    -    \    -   \  -  \       |a
+B: f    \3 /3                  \4   -    /4   -   \3 -  /3      |f
+
+L: Maar door (uw on-o-ver-win-ne-lij-ke) macht, o  Moe-der Gods_, |
+S: f    /    /                           /      \  \   -   \      |f
+A: c    -    /3                          -      -  \   -   \2     |c
+T: a    /    /                           /      \  \   -   \      |a
+B: f    \3   /3                          \4     /4 \3  -   /3     |f
+
+L: red nu (ook uit al-le ge)-va-ren het be-vrij-de volk dat tot u zingt_: |
+S: f   /  /                  /  \   -   -  -    -  -    -   \   - \       |f
+A: c   -  /3                 -  -   -   -  -    -  -    -   \   - \2      |c
+T: a   /  /                  /  \   -   -  -    -  -    -   \   - \       |a
+B: f   \3 /3                 \4 /4  -   -  -    -  -    -   \3  - /3      |f
+
+@sectie laatste
+L: ver~&~ -heug u, (on-ge)-huw_-de_ Bruid_\. |
+S: f   &/  /    /  \       /    -   \        |a
+A: c   &-  /3   -  -       \    -   \2       |c
+T: a   &/  /    /  \       -    -   -        |c
+B: f   &\3 /3   \4 /4      \3   -   /3       |f
