@@ -15,7 +15,14 @@ Status: **lokaal bewaren; git negeert blad-PDF’s; `production/` = main;
 3. **R2 `production/`:** volledige stabiele set (main).
 4. **R2 `development/`:** alleen PDF’s waarvan de lokale SHA-256 afwijkt
    van (of ontbreekt op) `production/` — geen dubbele volledige set.
-5. **Na merge naar main:** `r2-pdf-promote` kopieert `development/` →
+5. **Automatisch (branch `development`):** de Pages-workflow bouwt alle
+   blad-PDF’s, zet de diff op `development/` (ongewijzigde worden
+   overgeslagen) en schrijft het manifest voor die build; niets te
+   committen. Vereist de repository-secrets `R2_ACCOUNT_ID`,
+   `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET` en
+   `R2_JURISDICTION`; zonder secrets gebeurt er niets. Andere branches
+   uploaden niet (er is één `development/`).
+6. **Na merge naar main:** `r2-pdf-promote` kopieert `development/` →
    `production/`, wist `development/`, leegt het manifest.
 
 Naast `index.md.pdf` en `index.md.translit-*.pdf` horen ook

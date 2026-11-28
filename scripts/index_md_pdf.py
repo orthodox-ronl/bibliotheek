@@ -295,20 +295,22 @@ def _title_font_files() -> tuple[Path, Path]:
 
     Terug: (regular, bold). Helvetica mist Cyrillisch → vraagtekens in de PDF.
     """
+    # Buiten Windows eerst Liberation Sans: zelfde letterbreedtes als Arial, dus
+    # dezelfde regelafbreking en paginering als op de Windows-pc (CI-build).
     windir = Path(os.environ.get("WINDIR", r"C:\Windows"))
     candidates_reg = [
         windir / "Fonts" / "arial.ttf",
         windir / "Fonts" / "calibri.ttf",
-        Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"),
         Path("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf"),
+        Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"),
         Path("/Library/Fonts/Arial.ttf"),
         Path("/System/Library/Fonts/Supplemental/Arial.ttf"),
     ]
     candidates_bold = [
         windir / "Fonts" / "arialbd.ttf",
         windir / "Fonts" / "calibrib.ttf",
-        Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"),
         Path("/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"),
+        Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"),
         Path("/Library/Fonts/Arial Bold.ttf"),
         Path("/System/Library/Fonts/Supplemental/Arial Bold.ttf"),
     ]
@@ -333,16 +335,16 @@ def _emphasis_font_files() -> tuple[Path, Path, Path, Path]:
     candidates_italic = [
         windir / "Fonts" / "ariali.ttf",
         windir / "Fonts" / "calibrii.ttf",
-        Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-Oblique.ttf"),
         Path("/usr/share/fonts/truetype/liberation/LiberationSans-Italic.ttf"),
+        Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-Oblique.ttf"),
         Path("/Library/Fonts/Arial Italic.ttf"),
         Path("/System/Library/Fonts/Supplemental/Arial Italic.ttf"),
     ]
     candidates_bi = [
         windir / "Fonts" / "arialbi.ttf",
         windir / "Fonts" / "calibriz.ttf",
-        Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-BoldOblique.ttf"),
         Path("/usr/share/fonts/truetype/liberation/LiberationSans-BoldItalic.ttf"),
+        Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-BoldOblique.ttf"),
         Path("/Library/Fonts/Arial Bold Italic.ttf"),
         Path("/System/Library/Fonts/Supplemental/Arial Bold Italic.ttf"),
     ]
@@ -1724,7 +1726,7 @@ def compose_tekstblad_pagina_pdf_from_body(
 
         dest.parent.mkdir(parents=True, exist_ok=True)
         tmp = dest.with_suffix(dest.suffix + ".tmp")
-        doc.save(tmp)
+        doc.save(tmp, no_new_id=True)
         doc.close()
         atomic_replace(tmp, dest)
     finally:
@@ -1771,7 +1773,7 @@ def compose_voorzien_pdf(dest: Path, *, title: str) -> None:
     )
     dest.parent.mkdir(parents=True, exist_ok=True)
     tmp = dest.with_suffix(dest.suffix + ".tmp")
-    doc.save(tmp)
+    doc.save(tmp, no_new_id=True)
     doc.close()
     atomic_replace(tmp, dest)
 
@@ -2881,7 +2883,7 @@ def _compose_flow_svg(
 
         dest.parent.mkdir(parents=True, exist_ok=True)
         tmp = dest.with_suffix(dest.suffix + ".tmp")
-        doc.save(tmp)
+        doc.save(tmp, no_new_id=True)
         doc.close()
         atomic_replace(tmp, dest)
     finally:
