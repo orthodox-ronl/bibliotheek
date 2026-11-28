@@ -222,6 +222,38 @@ jobs:
       - name: Build catalogus zoekindex
         run: python scripts/build_zoek_index.py
 
+      # Alleen development (testversie): blad-PDF's bouwen, de diff naar R2
+      # development/ zetten en het manifest voor deze build schrijven
+      # (docs/plans/pdf-r2.md). Zonder R2-secrets: overslaan.
+      - name: Blad-PDF's bouwen en naar R2 development/
+        id: bladpdf
+        if: github.ref == 'refs/heads/development'
+        continue-on-error: true
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          R2_JURISDICTION: ${{ secrets.R2_JURISDICTION }}
+        run: |
+          set -euo pipefail
+          if [[ -z "$R2_ACCOUNT_ID" || -z "$R2_ACCESS_KEY_ID" || -z "$R2_SECRET_ACCESS_KEY" || -z "$R2_BUCKET" ]]; then
+            echo "::notice::R2-secrets ontbreken; blad-PDF's niet automatisch geupload."
+            exit 0
+          fi
+          sudo apt-get install -y --no-install-recommends fonts-liberation fonts-dejavu-core
+          python -m pip install pymupdf "pypdf>=5.0" boto3
+          python scripts/index_md_pdf.py content-source/koormappen content-source/catalogus
+          python scripts/r2_pdf_upload.py --env development
+
+      # Altijd weg vóór Hugo: anders linkt de site naar lokale PDF's die niet
+      # gepubliceerd worden.
+      - name: Gebouwde blad-PDF's opruimen
+        if: github.ref == 'refs/heads/development'
+        run: |
+          find content-source -type f \( -name 'index.md.pdf' -o -name 'index.md.translit*.pdf' \
+            -o -name 'index.md.weergave-*.pdf' \) ! -path '*/input/*' -delete
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
@@ -296,6 +328,13 @@ jobs:
           GIT_COMMITTER_NAME: github-actions[bot]
           GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
         run: python scripts/opruim_previews.py
+
+      # Pas na de deploy: de testsite komt er, maar de mislukte upload valt op.
+      - name: Blad-PDF-upload gelukt?
+        if: steps.bladpdf.outcome == 'failure'
+        run: |
+          echo "::error::Blad-PDF's bouwen of uploaden naar R2 mislukte; zie die stap hierboven."
+          exit 1
 
       - name: Show site URL
         run: |

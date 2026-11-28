@@ -416,7 +416,7 @@ def apply_pdf_gebreken_watermark(
                         color=(0.35, 0.1, 0.12),
                     )
         tmp = pdf_path.with_suffix(pdf_path.suffix + ".gebreken.tmp")
-        doc.save(tmp, deflate=True)
+        doc.save(tmp, deflate=True, no_new_id=True)
     finally:
         doc.close()
     from cli_style import atomic_replace

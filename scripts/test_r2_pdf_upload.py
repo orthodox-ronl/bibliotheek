@@ -47,3 +47,33 @@ def test_write_development_manifest(tmp_path: Path, monkeypatch) -> None:
         "catalogus/a/index.md.pdf",
         "catalogus/b/index.md.pdf",
     ]
+
+
+def test_development_slaat_ongewijzigde_over(tmp_path: Path, monkeypatch) -> None:
+    content = tmp_path / "content-source"
+    oud, nieuw = (content / "catalogus" / n / "index.md.pdf" for n in "ab")
+    for pdf, data in ((oud, b"%PDF oud"), (nieuw, b"%PDF nieuw")):
+        pdf.parent.mkdir(parents=True)
+        pdf.write_bytes(data)
+    oud_sha = r2.sha256_file(oud)
+    geplaatst: list[str] = []
+
+    class Client:
+        def head_bucket(self, **_kw):
+            return {}
+
+    monkeypatch.setattr(r2, "ROOT", tmp_path)
+    monkeypatch.setattr(r2, "CONTENT", content)
+    monkeypatch.setattr(r2, "MANIFEST_PATH", tmp_path / "data" / "m.json")
+    monkeypatch.setattr(r2, "r2_client", lambda: (Client(), "b", "e", "account"))
+    monkeypatch.setattr(
+        r2,
+        "r2_object_sha256",
+        lambda _c, _b, key: oud_sha if key == "development/catalogus/a/index.md.pdf" else None,
+    )
+    monkeypatch.setattr(
+        r2, "_upload_file", lambda _c, _b, _p, key, _d: geplaatst.append(key)
+    )
+    monkeypatch.setattr(r2, "list_keys", lambda *_a: [])
+    assert r2.main(["--env", "development"]) == 0
+    assert geplaatst == ["development/catalogus/b/index.md.pdf"]
