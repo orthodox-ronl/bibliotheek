@@ -208,10 +208,10 @@ of lager dan genoteerd.
 | Alleen melodie | Alleen `.vsa` en geen from-ir: knop **Inzet 1 stem**, het paneel zegt dat alleen de melodie bekend is, en er klinkt één toon. De noot komt uit `data/inzet-melodie.json` (`scripts/build_inzet_melodie.py`, rekent met VSA-tooling; niet in git). |
 | Geen knop | Stukken met alleen `.mscz` en geen from-ir. |
 | Klank | Volgorde S, A, T, B; elke toon 0,5 s, 0,1 s stilte ertussen; A4 = 440 Hz. Door de browser gemaakt (geen audiobestanden). |
-| Hoger/lager | Per halve toon, hoogstens 12. Eén **algemene** waarde voor alle stukken; een stuk (uitvoeringsvorm) kan een **eigen** waarde krijgen. Wijzigen geldt voor wat bij dat stuk gekozen is. Eigen begint op de algemene waarde; terug naar Algemeen wist de eigen waarde. |
+| Hoger/lager | Per halve toon, hoogstens 12. Eén **algemene** waarde voor alle stukken; een stuk (uitvoeringsvorm) kan een **eigen** waarde krijgen (keuze «Alleen voor dit stuk»). Wijzigen geldt voor wat bij dat stuk gekozen is. Eigen begint op de algemene waarde; terug naar Algemeen wist de eigen waarde. |
 | Eigen zichtbaar | Knop oranje én het woord «eigen» erop. |
-| Tenor en bas | Keuze «een octaaf hoger», geldt voor alle vierstemmige stukken, los van algemeen/eigen. |
-| Paneel | Toont de verschuiving, hoe do klinkt (majeur) en de klinkende notennamen. Sluit met Escape of een klik ernaast. |
+| Tenor en bas | Keuze «TB octaaf hoger», geldt voor alle vierstemmige stukken, los van algemeen/eigen. |
+| Paneel | Toont de verschuiving, hoe do klinkt (majeur) en de klinkende notennamen (`SATB: F,C,A,F`). Sluit met Escape of een klik ernaast. |
 | Onthouden | `localStorage` sleutel `bibliotheek-inzet`: per apparaat en browser, niet gedeeld met het koor. |
 | Bediening | Nog eens klikken op **Inzet** stopt. Een andere **Inzet** of **Inzet** tijdens Beluisteren stopt wat al klinkt. |
 

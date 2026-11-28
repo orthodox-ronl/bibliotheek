@@ -98,11 +98,11 @@ donkerblauwe knopjes:
   - Met het knopje ernaast (**±**) zet je de inzet **hoger of lager**, in
     stappen van een halve toon. Op **Algemeen** geldt dat meteen voor
     alle stukken die op Algemeen staan.
-  - Wil je voor één stuk iets anders, kies dan **Eigen voor dit stuk**.
+  - Wil je voor één stuk iets anders, kies dan **Alleen voor dit stuk**.
     De knop wordt oranje en er staat «eigen» op. Kies weer **Algemeen**
     om het stuk de algemene hoogte te laten volgen.
-  - In hetzelfde venster kun je tenor en bas **een octaaf hoger** laten
-    klinken. Dat geldt voor alle stukken.
+  - In hetzelfde venster kun je **TB octaaf hoger** aanzetten: tenor en bas
+    klinken dan een octaaf hoger. Dat geldt voor alle stukken.
   - De keuzes worden bewaard op jouw telefoon of computer; anderen zien
     ze niet.
 - <span class="home-score-icon home-score-icon--bron" aria-hidden="true">{}</span>
