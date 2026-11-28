@@ -246,7 +246,11 @@ jobs:
           fi
           sudo apt-get install -y --no-install-recommends fonts-liberation fonts-dejavu-core
           python -m pip install pymupdf "pypdf>=5.0" boto3
-          python scripts/index_md_pdf.py content-source/koormappen content-source/catalogus
+          # Tekstblad-PDF's gebruiken een browser. Neem Google Chrome: de losse
+          # Chromium op deze machine kan zijn sandbox niet starten.
+          mkdir -p "$RUNNER_TEMP/browser"
+          ln -sf "$(command -v google-chrome)" "$RUNNER_TEMP/browser/msedge"
+          PATH="$RUNNER_TEMP/browser:$PATH" python scripts/index_md_pdf.py content-source/koormappen content-source/catalogus
           python scripts/r2_pdf_upload.py --env development
 
       # Altijd weg vóór Hugo: anders linkt de site naar lokale PDF's die niet
