@@ -1,0 +1,18 @@
+{{- /* Alleen voor partials/content-met-vsa.html; niet zelf in Markdown zetten. */ -}}
+{{- $key := .Get "key" -}}
+{{- $files := slice -}}
+{{- if fileExists (printf "static/vsa/blok/%s.svg" $key) -}}
+  {{- $files = slice (printf "vsa/blok/%s.svg" $key) -}}
+{{- else -}}
+  {{- range seq 1 20 -}}
+    {{- if fileExists (printf "static/vsa/blok/%s-%d.svg" $key .) -}}
+      {{- $files = $files | append (printf "vsa/blok/%s-%d.svg" $key .) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- range $files -}}
+<div class="vsa-container"><img class="vsa-notation" src="{{ . | relURL }}" alt="VSA-notatie"></div>
+{{- else -}}
+  {{- warnf "%s: geen SVG voor ::: vsa-blok; draai python scripts\\sync_inline_vsa.py" .Page.File.Path -}}
+<p class="score-scherm-missing">Geen plaatje voor dit <code>::: vsa</code>-blok. Start <code>scripts\serve.cmd</code> opnieuw.</p>
+{{- end -}}

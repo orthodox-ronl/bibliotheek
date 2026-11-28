@@ -374,6 +374,41 @@ class StampOkTests(unittest.TestCase):
             self.assertEqual(meta["products"]["score-ir"]["file"], whole_ir.name)
             self.assertEqual(meta["products"]["from-ir"]["file"], whole_from.name)
 
+    def test_sectie_sync_blijft_binnen_map_en_herschrijft_niets(self) -> None:
+        """Buiten de opgegeven map niets doen; zonder export meta niet aanraken."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            content = root / "content-source"
+            leaf = content / "catalogus" / "z" / "v" / "u"
+            anders = content / "catalogus" / "tropaar" / "x"
+            leaf.mkdir(parents=True)
+            anders.mkdir(parents=True)
+            (leaf / "lied.mvsa").write_text("@sectie a\n", encoding="utf-8")
+            (content / "koormappen").mkdir(parents=True)
+            (content / "koormappen" / "blad.md").write_text(
+                '{{< bieb id="z/v/u@a" >}}\n', encoding="utf-8"
+            )
+            with (
+                mock.patch.object(sync, "REPO_ROOT", root),
+                mock.patch.object(sync, "_restore_whole_piece_ir_meta") as ir,
+                mock.patch.object(sync, "restore_whole_piece_svg_meta") as svg,
+            ):
+                self.assertEqual(
+                    sync.sync_referenced_sectie_products(anders, dry_run=False), 0
+                )
+                # Wel in bereik, maar alles al vers: niets schrijven.
+                with (
+                    mock.patch.object(sync, "_stamp_ok_svg", return_value=True),
+                    mock.patch.object(sync, "_stamp_ok_score_ir", return_value=True),
+                    mock.patch.object(sync, "_stamp_ok_from_ir", return_value=True),
+                ):
+                    for scope in (leaf, leaf / "lied.mvsa", content / "catalogus"):
+                        self.assertEqual(
+                            sync.sync_referenced_sectie_products(scope), 0
+                        )
+            ir.assert_not_called()
+            svg.assert_not_called()
+
 
 if __name__ == "__main__":
     unittest.main()
