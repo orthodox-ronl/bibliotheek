@@ -17,6 +17,7 @@ over. CI genereert niet — alleen ``check_mvsa_products``; vernieuw lokaal met
 
 from __future__ import annotations
 
+import json
 import re
 import sys
 from pathlib import Path
@@ -28,12 +29,14 @@ _SVG_PAGE_RE = re.compile(r"-(\d+)\.svg$", re.IGNORECASE)
 
 from coria_mxl import require_no_spaces
 from ensure_bibliotheek_id import id_from_catalogus_path
+from input_paths import InputPathError
 from product_kind import (
     DEFAULT_ROOT,
     REPO_ROOT,
     ProductSlot,
     catalog_eligible,
     main_for_kind,
+    resolve_root,
 )
 from product_meta import (
     FIELD_SOURCE_KIND,
@@ -298,7 +301,11 @@ def _run_mvsa_score_ir_section(mvsa: Path, section: str) -> None:
 def sync_referenced_sectie_products(
     root: Path, *, dry_run: bool = False
 ) -> int:
-    """Exporteer ``.mvsa@sectie.svg`` (+ score-ir/from-ir) alleen bij bieb-refs."""
+    """Exporteer ``.mvsa@sectie.svg`` (+ score-ir/from-ir) alleen bij bieb-refs.
+
+    Alleen uitvoeringsvormen onder *root* (map of bronbestand), net als de
+    rest van ``products``.
+    """
     from catalogus_sectie import (
         collect_sectie_refs,
         mvsa_in_uv_dir,
@@ -309,18 +316,23 @@ def sync_referenced_sectie_products(
     from input_paths import rel_for_log
 
     content = REPO_ROOT / "content-source"
-    catalogus = root if root.name == "catalogus" else root / "catalogus"
-    if not catalogus.is_dir():
-        catalogus = REPO_ROOT / "content-source" / "catalogus"
+    catalogus = content / "catalogus"
+    scope = root.resolve()
+    if scope.is_file():
+        scope = scope.parent
     refs = collect_sectie_refs(content)
     n = 0
     for uv_id, secties in sorted(refs.items()):
         leaf = catalogus.joinpath(*uv_id.split("/"))
+        leaf_r = leaf.resolve()
+        if not (leaf_r.is_relative_to(scope) or scope.is_relative_to(leaf_r)):
+            continue
         mvsa = mvsa_in_uv_dir(leaf)
         if mvsa is None:
             detail(f"  SKIP sectie-ref {uv_id}: geen .mvsa")
             continue
         digest = source_sha256(mvsa)
+        geexporteerd = False
         for sectie in sorted(secties):
             svg = product_svg_for_sectie(mvsa, sectie)
             score_ir = product_score_ir_for_sectie(mvsa, sectie)
@@ -348,6 +360,7 @@ def sync_referenced_sectie_products(
             n += 1
             if dry_run:
                 continue
+            geexporteerd = True
             for modus in need_translit:
                 dest = export_one_translit_svg(mvsa, modus, sectie)
                 stamp_svg(
@@ -373,12 +386,24 @@ def sync_referenced_sectie_products(
                 # Tooling schrijft geen bibliotheek-stempels; sectie-IR zit
                 # niet in products-meta → hier stempelen (zelfde als SVG).
                 _ensure_sectie_ir_stamps(digest, score_ir=score_ir, from_ir=from_ir)
-        if not dry_run:
+        # Niet herschrijven als er niets gemaakt is: anders verandert elke
+        # run de tijdstippen in products-meta.
+        if not dry_run and (geexporteerd or _meta_wijst_naar_sectie(mvsa)):
             # ``score-ir --section`` overschrijft meta-keys from-ir/score-ir
             # met @sectie-paden; check verwacht de hele-stuk-siblings.
             _restore_whole_piece_ir_meta(mvsa)
             restore_whole_piece_svg_meta(mvsa)
     return n
+
+
+def _meta_wijst_naar_sectie(mvsa: Path) -> bool:
+    """True als products-meta (na een afgebroken run) een @sectie-bestand noemt."""
+    meta = mvsa.with_name(f"{mvsa.name}.products-meta.json")
+    try:
+        products = json.loads(meta.read_text(encoding="utf-8"))["products"]
+        return any("@" in str(info.get("file", "")) for info in products.values())
+    except (OSError, ValueError, KeyError, AttributeError):
+        return False
 
 
 def _ensure_sectie_ir_stamps(
@@ -682,10 +707,11 @@ KIND = MvsaKind()
 
 
 def main(argv: list[str] | None = None) -> int:
-    state: dict[str, bool] = {"dry_run": False}
+    state: dict[str, object] = {"dry_run": False, "root": None}
 
     def _remember(ns: object) -> None:
         state["dry_run"] = bool(getattr(ns, "dry_run", False))
+        state["root"] = getattr(ns, "root", None)
 
     rc = main_for_kind(
         KIND,
@@ -699,9 +725,11 @@ def main(argv: list[str] | None = None) -> int:
         default_root=DEFAULT_ROOT,
         after_parse=_remember,
     )
-    sync_referenced_sectie_products(
-        DEFAULT_ROOT, dry_run=state["dry_run"]
-    )
+    try:
+        root = resolve_root(state["root"], repo_root=REPO_ROOT)
+    except InputPathError:
+        return rc  # al gemeld door main_for_kind
+    sync_referenced_sectie_products(root, dry_run=bool(state["dry_run"]))
     return rc
 
 

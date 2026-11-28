@@ -99,8 +99,18 @@ test("algemeen en eigen instelling", () => {
 });
 
 test("kapotte opslag levert een geldige stand", () => {
-  assert.deepEqual(Kern.instellingen("rommel"), { algemeen: 0, tbHoger: false, eigen: {} });
-  assert.deepEqual(Kern.instellingen({ algemeen: "99", tbHoger: "ja", eigen: { x: -2.4 } }), {
-    algemeen: 12, tbHoger: false, eigen: { x: -2 },
+  assert.deepEqual(Kern.instellingen("rommel"), {
+    algemeen: 0, tbHoger: false, klank: "orgel", lengte: 0.5, eigen: {},
   });
+  assert.deepEqual(Kern.instellingen({ algemeen: "99", tbHoger: "ja", eigen: { x: -2.4 } }), {
+    algemeen: 12, tbHoger: false, klank: "orgel", lengte: 0.5, eigen: { x: -2 },
+  });
+});
+
+test("klank en toonlengte", () => {
+  const stand = Kern.instellingen({ klank: "stemfluit", lengte: "1.2" });
+  assert.deepEqual([stand.klank, stand.lengte], ["stemfluit", 1.2]);
+  assert.equal(Kern.instellingen({ klank: "tuba", lengte: 9 }).klank, "orgel");
+  const schema = Kern.speelschema([{ midi: 69 }, { midi: 69 }], 2);
+  assert.deepEqual(schema.map((t) => [Number(t.start.toFixed(1)), t.duur]), [[0, 2], [2.1, 2]]);
 });

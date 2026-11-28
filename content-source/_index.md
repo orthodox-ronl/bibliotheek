@@ -103,6 +103,9 @@ donkerblauwe knopjes:
     om het stuk de algemene hoogte te laten volgen.
   - In hetzelfde venster kun je **TB octaaf hoger** aanzetten: tenor en bas
     klinken dan een octaaf hoger. Dat geldt voor alle stukken.
+  - Onderin kies je de **Klank** (**Orgel**, **Fluit** of **Stemfluit**) en
+    de **Toonlengte**: hoe lang elke toon klinkt. Ook dit geldt voor alle
+    stukken.
   - De keuzes worden bewaard op jouw telefoon of computer; anderen zien
     ze niet.
 - <span class="home-score-icon home-score-icon--bron" aria-hidden="true">{}</span>
