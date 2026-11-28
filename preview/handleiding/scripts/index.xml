@@ -240,8 +240,10 @@ catalogus-product-PDF van één uitvoeringsvorm.&lt;/p&gt;</description></item><
 &lt;p&gt;Leest alle blad-PDF’s onder R2 &lt;code&gt;development/&lt;/code&gt;, schrijft ze naar hetzelfde
 relatieve pad onder &lt;code&gt;production/&lt;/code&gt; (met &lt;code&gt;sha256&lt;/code&gt;-metadata), wist daarna
 &lt;code&gt;development/&lt;/code&gt;, en maakt &lt;code&gt;data\pdf-r2-development.json&lt;/code&gt; leeg.&lt;/p&gt;
-&lt;p&gt;Dit hoort &lt;strong&gt;na een merge van &lt;code&gt;development&lt;/code&gt; naar &lt;code&gt;main&lt;/code&gt;&lt;/strong&gt;, zodat preview-
-overrides niet blijven hangen en main alleen &lt;code&gt;production/&lt;/code&gt; gebruikt.&lt;/p&gt;
+&lt;p&gt;Dit commando is een &lt;strong&gt;noodmiddel&lt;/strong&gt;. Na een samenvoeging van &lt;code&gt;development&lt;/code&gt;
+naar &lt;code&gt;main&lt;/code&gt; bouwt GitHub de blad-PDF&amp;rsquo;s zelf en zet ze op &lt;code&gt;production/&lt;/code&gt;
+(zie &lt;a href="../../publiceren/blad-pdf-op-r2/"&gt;Blad-PDF op R2&lt;/a&gt;
+).&lt;/p&gt;
 &lt;p&gt;Laadt &lt;code&gt;scripts\r2-env.cmd&lt;/code&gt; / &lt;code&gt;.ps1&lt;/code&gt;. Commit het lege manifest mee.&lt;/p&gt;
 &lt;h1 id="examples"&gt;EXAMPLES&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\r2-pdf-promote.cmd --dry-run

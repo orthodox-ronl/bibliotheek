@@ -85,10 +85,6 @@ in de build zit), anders R2 (&lt;code&gt;development/&lt;/code&gt; als override,
 &lt;code&gt;production/&lt;/code&gt;).&lt;/p&gt;
 &lt;p&gt;Blad-PDF’s horen &lt;strong&gt;niet in git&lt;/strong&gt; (lokaal wel op schijf voor &lt;code&gt;serve&lt;/code&gt;).&lt;/p&gt;
 &lt;h2 id="wat-jij-doet"&gt;Wat jij doet&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;Blad wijzigen → &lt;code&gt;scripts\pdf.cmd&lt;/code&gt; of &lt;code&gt;fix --strict&lt;/code&gt; (PDF staat lokaal).&lt;/li&gt;
-&lt;li&gt;Lokaal testen met &lt;code&gt;serve&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Op &lt;code&gt;development&lt;/code&gt;: diff naar R2 (en manifest bijwerken):&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cmd" data-lang="cmd"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;scripts\r2-pdf-upload.cmd --env development
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Commit het bijgewerkte &lt;code&gt;data\pdf-r2-development.json&lt;/code&gt; mee (geen PDF’s).&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;Voor het publiceren hoef je niets met R2 te doen. Wijzig het blad, bekijk het
+met &lt;code&gt;serve&lt;/code&gt; en leg de bron vast op &lt;code&gt;development&lt;/code&gt;. GitHub doet daarna het
+volgende vanzelf:&lt;/p&gt;</description></item></channel></rss>
