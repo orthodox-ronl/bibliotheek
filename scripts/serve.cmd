@@ -19,6 +19,8 @@ python scripts\sync_inline_vsa.py
 if errorlevel 1 exit /b 1
 python scripts\write_build_stamp.py
 if errorlevel 1 exit /b 1
+python scripts\build_inzet_melodie.py
+if errorlevel 1 exit /b 1
 
 REM Poort 18732: niet 1313 (lokaal gereserveerd), niet 18731 (VSA-demo).
 hugo server ^

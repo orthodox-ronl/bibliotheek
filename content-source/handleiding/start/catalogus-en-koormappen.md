@@ -80,9 +80,11 @@ bladtitel; anders uit de mapnaam. Bij elk muziekblok: tip-icoon **♪** voor
 **Oefenen** / **Beluisteren** van **dat** stuk. **Oefenen** opent Coria
 met de gewone of de translit-MusicXML, automatisch volgens de
 translit-knoppen (geen keuze «gewoon / translit» in het ♪-menu).
-Rechtsboven staat bij vierstemmige muziek de knop **Inzet**: de eerste
-noot van sopraan, alt, tenor en bas klinkt na elkaar. De noten komen uit
-het product `.from-ir.musicxml`; zonder dat bestand is er geen knop.
+Boven de muziek, naast **VSA | Partituur**, staat de knop **Inzet**: de eerste noot van sopraan, alt,
+tenor en bas klinkt na elkaar. De noten komen uit het product
+`.from-ir.musicxml`. Bij een stuk met alleen een `.vsa` heet de knop
+**Inzet 1 stem** en klinkt alleen de beginnoot van de melodie. Met **±**
+stelt de koorleider de inzet hoger of lager in (algemeen of per stuk).
 Pagina-PDF bouwen: [pdf](../scripts/pdf/).
 
 **Spiekbriefje voor beheerders:** [Koormap-blad schrijven](koormap-blad/).

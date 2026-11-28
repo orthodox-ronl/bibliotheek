@@ -219,6 +219,9 @@ jobs:
       - name: SVG voor vsa-blokken in index.md
         run: python scripts/sync_inline_vsa.py
 
+      - name: Beginnoot voor Inzet bij stukken met alleen een melodie
+        run: python scripts/build_inzet_melodie.py
+
       - name: Build catalogus zoekindex
         run: python scripts/build_zoek_index.py
 

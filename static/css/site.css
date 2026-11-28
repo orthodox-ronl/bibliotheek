@@ -2023,6 +2023,8 @@ body.score-audio-bar-open {
   left: calc(0.45rem + 30px + 0.4rem);
   z-index: 5;
   display: inline-flex;
+  box-sizing: border-box;
+  width: 8.4rem; /* vast: de plaats van Inzet rekent hiermee */
   height: 30px;
   border: 1.5px solid #003366;
   border-radius: 999px;
@@ -2039,6 +2041,7 @@ body.score-audio-bar-open {
 }
 
 .score-weergave button {
+  flex: 1 1 auto;
   position: relative;
   padding: 0 0.6rem;
   border: 0;
@@ -2089,7 +2092,7 @@ body.score-audio-bar-open {
   }
 }
 
-/* Knop Inzet, rechtsboven; op catalogusbladen links naast {}. */
+/* Inzet + instelknopje, direct naast VSA | Partituur (anders naast ♪). */
 .score-bundle:has(> .score-inzet) {
   position: relative;
 }
@@ -2099,28 +2102,192 @@ body.score-audio-bar-open {
 }
 
 .score-inzet {
+  --inzet-kleur: #003366;
   position: absolute;
   top: 0.45rem;
-  right: 0.45rem;
-  z-index: 5;
+  left: 0.45rem;
+  z-index: 7;
+  display: inline-flex;
   height: 30px;
-  padding: 0 0.7rem;
-  border: 1.5px solid #003366;
+  border: 1.5px solid var(--inzet-kleur);
   border-radius: 999px;
   background: #fff;
-  color: #003366;
-  font: 600 0.75rem/1 system-ui, sans-serif;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+}
+
+.score-bundle:has(> .score-oefen-tip) > .score-inzet {
+  left: calc(0.45rem + 30px + 0.4rem);
+}
+
+.score-bundle:has(> .score-weergave:not([hidden])) > .score-inzet {
+  left: calc(0.45rem + 30px + 0.4rem + 8.4rem + 0.4rem);
+}
+
+.score-bundle:has(> .score-weergave--zonder-oefenen:not([hidden])) > .score-inzet {
+  left: calc(0.45rem + 8.4rem + 0.4rem);
+}
+
+/* Eigen instelling voor dit stuk: oranje, en het woord «eigen» op de knop. */
+.score-inzet--eigen {
+  --inzet-kleur: #a84300;
+  background: #a84300;
+}
+
+.score-inzet > button {
+  padding: 0 0.55rem;
+  border: 0;
+  background: transparent;
+  color: var(--inzet-kleur);
+  font: 600 0.75rem/1 system-ui, sans-serif;
+  white-space: nowrap;
   cursor: pointer;
 }
 
-.score-bundle:has(> .score-bron-tip) > .score-inzet {
-  right: calc(0.45rem + 30px + 0.4rem);
+.score-inzet--eigen > button {
+  color: #fff;
 }
 
-.score-inzet[aria-pressed="true"] {
-  background: #003366;
+.score-inzet > .score-inzet-speel {
+  border-radius: 999px 0 0 999px;
+}
+
+.score-inzet > .score-inzet-kies {
+  min-width: 30px;
+  border-left: 1px solid currentColor;
+  border-radius: 0 999px 999px 0;
+}
+
+.score-inzet > .score-inzet-speel[aria-pressed="true"] {
+  background: var(--inzet-kleur);
   color: #fff;
+}
+
+.score-inzet--eigen > .score-inzet-speel[aria-pressed="true"] {
+  background: #5c2500;
+}
+
+.inzet-paneel {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  left: 0;
+  width: min(17rem, calc(100vw - 4rem));
+  box-sizing: border-box;
+  padding: 0.7rem;
+  border: 1.5px solid var(--inzet-kleur);
+  border-radius: 8px;
+  background: #fff;
+  color: #1a1a1a;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  font: 400 0.8rem/1.35 system-ui, sans-serif;
+  text-align: left;
+}
+
+.inzet-paneel p {
+  margin: 0.45rem 0 0;
+  font-size: inherit;
+}
+
+.inzet-paneel .inzet-let-op {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+}
+
+.inzet-paneel button {
+  min-height: 32px;
+  border: 1.5px solid var(--inzet-kleur);
+  background: #fff;
+  color: var(--inzet-kleur);
+  font: 600 0.78rem/1.2 system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.inzet-regime {
+  display: flex;
+}
+
+.inzet-regime button {
+  flex: 1;
+}
+
+.inzet-regime button:first-child {
+  border-radius: 6px 0 0 6px;
+}
+
+.inzet-regime button:last-child {
+  border-radius: 0 6px 6px 0;
+}
+
+.inzet-paneel .inzet-regime button[aria-pressed="true"] {
+  background: var(--inzet-kleur);
+  color: #fff;
+}
+
+.inzet-stapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.55rem;
+}
+
+.inzet-paneel .inzet-stapper button {
+  width: 40px;
+  min-height: 36px;
+  border-radius: 6px;
+  font-size: 1.1rem;
+}
+
+.inzet-stapper output {
+  flex: 1;
+  text-align: center;
+  font-weight: 600;
+}
+
+.inzet-tonen {
+  white-space: pre-line;
+}
+
+.inzet-uitleg {
+  color: #555;
+}
+
+.inzet-geluid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+  margin-top: 0.55rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid #ddd;
+}
+
+.inzet-geluid label {
+  display: flex;
+  flex: 1 1 6rem;
+  flex-direction: column;
+  margin: 0;
+}
+
+.inzet-geluid .inzet-uitleg {
+  flex-basis: 100%;
+  margin: 0;
+}
+
+.inzet-tb {
+  display: block;
+  margin-top: 0.55rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid #ddd;
+}
+
+/* Smal scherm met VSA | Partituur: Inzet op een eigen regel er direct onder. */
+@media (max-width: 480px) {
+  .score-bundle:has(> .score-weergave:not([hidden])):has(> .score-inzet) > .score-inzet {
+    top: 2.9rem;
+    left: 0.45rem;
+  }
+
+  .score-bundle:has(> .score-weergave:not([hidden])):has(> .score-inzet) > .score-partituur {
+    padding-top: 4.9rem;
+  }
 }
 
 @media print {
