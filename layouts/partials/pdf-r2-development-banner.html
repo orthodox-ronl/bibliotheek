@@ -4,11 +4,11 @@
 */ -}}
 {{- $cfg := site.Params.pdfAssets | default dict -}}
 {{- $allow := false -}}
-{{- if isset $cfg "allowDevelopmentOverrides" -}}
-  {{- $allow = $cfg.allowDevelopmentOverrides -}}
+{{- if isset $cfg "allowdevelopmentoverrides" -}}
+  {{- $allow = $cfg.allowdevelopmentoverrides -}}
 {{- end -}}
 {{- if $allow -}}
-  {{- $man := site.Data.pdf_r2_development | default dict -}}
+  {{- $man := index site.Data "pdf-r2-development" | default dict -}}
   {{- $overrides := $man.overrides | default slice -}}
   {{- $n := len $overrides -}}
   {{- if gt $n 0 -}}

@@ -54,7 +54,7 @@
   {{- /* Lokaal-eerst, anders R2 development-override of production/ (docs/plans/pdf-r2.md). */ -}}
   {{- $pdfCfg := site.Params.pdfAssets | default dict -}}
   {{- $preferLocal := true -}}
-  {{- if isset $pdfCfg "preferLocal" -}}{{- $preferLocal = $pdfCfg.preferLocal -}}{{- end -}}
+  {{- if isset $pdfCfg "preferlocal" -}}{{- $preferLocal = $pdfCfg.preferlocal -}}{{- end -}}
   {{- $paginaPdf = partial "pdf-asset-url.html" (dict "page" . "local" $paginaPdf "filename" "index.md.pdf") -}}
   {{- /* .Content eerst: dan heeft bieb-score de translit-richtingen en de
        wisselbare stukken van deze pagina geteld. Welke translit-PDF's er horen
