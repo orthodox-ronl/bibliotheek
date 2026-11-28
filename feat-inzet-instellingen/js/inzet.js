@@ -50,17 +50,26 @@
     knop = null;
   }
 
-  /* Boventonen: lage noten blijven zo hoorbaar op een telefoonluidspreker. */
-  function orgelklank() {
-    var sterkte = [0, 1, 0.5, 0.3, 0.15, 0.08];
-    return context.createPeriodicWave(
-      new Float32Array(sterkte.length),
-      new Float32Array(sterkte)
-    );
-  }
+  /*
+   * Sterkte per boventoon (index 1 = grondtoon). Boventonen houden lage noten
+   * hoorbaar op een telefoonluidspreker; de fluit heeft er bewust weinig.
+   */
+  var KLANKEN = {
+    orgel: { naam: "Orgel", volume: 0.5, sterkte: [0, 1, 0.5, 0.3, 0.15, 0.08] },
+    fluit: { naam: "Fluit", volume: 0.6, sterkte: [0, 1, 0.12, 0.05] },
+    stemfluit: {
+      naam: "Stemfluit",
+      volume: 0.4,
+      sterkte: [0, 1, 0.8, 0.75, 0.6, 0.5, 0.4, 0.3, 0.22, 0.16, 0.1],
+    },
+  };
 
   function speel(schema) {
-    var klank = orgelklank();
+    var gekozen = KLANKEN[stand.klank];
+    var klank = context.createPeriodicWave(
+      new Float32Array(gekozen.sterkte.length),
+      new Float32Array(gekozen.sterkte)
+    );
     var nu = context.currentTime + 0.05;
     schema.forEach(function (toon) {
       var osc = context.createOscillator();
@@ -71,8 +80,8 @@
       osc.frequency.value = toon.frequentie;
       /* Zacht in en uit, anders hoor je klikken. */
       volume.gain.setValueAtTime(0, begin);
-      volume.gain.linearRampToValueAtTime(0.5, begin + 0.02);
-      volume.gain.setValueAtTime(0.5, slot - 0.05);
+      volume.gain.linearRampToValueAtTime(gekozen.volume, begin + 0.02);
+      volume.gain.setValueAtTime(gekozen.volume, slot - 0.05);
       volume.gain.linearRampToValueAtTime(0, slot);
       osc.connect(volume);
       volume.connect(context.destination);
@@ -140,7 +149,7 @@
     Promise.all([gegevens(vak), wakker])
       .then(function (uit) {
         if (mijnBeurt !== beurt) return;
-        speel(Kern.speelschema(klinkend(vak, uit[0])));
+        speel(Kern.speelschema(klinkend(vak, uit[0]), stand.lengte));
       })
       .catch(function (fout) {
         if (mijnBeurt !== beurt) return;
@@ -184,6 +193,21 @@
     return b;
   }
 
+  /* Kleine keuzelijst; opties als [waarde, tekst]. */
+  function keuzelijst(titel, veld, opties, waarde) {
+    var label = element("label", "", titel);
+    var lijst = element("select");
+    lijst.setAttribute("data-inzet-veld", veld);
+    opties.forEach(function (optie) {
+      var o = element("option", "", optie[1]);
+      o.value = optie[0];
+      o.selected = String(optie[0]) === String(waarde);
+      lijst.appendChild(o);
+    });
+    label.appendChild(lijst);
+    return label;
+  }
+
   function tekenPaneel() {
     var vak = paneel.parentNode;
     var id = vak.getAttribute("data-inzet-id");
@@ -192,6 +216,9 @@
     var vierstemmig = !!vak.getAttribute("data-inzet-src");
     var focus = paneel.contains(document.activeElement)
       ? document.activeElement.getAttribute("data-inzet-actie")
+      : null;
+    var veld = paneel.contains(document.activeElement)
+      ? document.activeElement.getAttribute("data-inzet-veld")
       : null;
     paneel.textContent = "";
 
@@ -274,8 +301,34 @@
       paneel.appendChild(label);
     }
 
-    if (focus) {
-      var terug = paneel.querySelector('[data-inzet-actie="' + focus + '"]');
+    var geluid = element("div", "inzet-geluid");
+    geluid.appendChild(
+      keuzelijst(
+        "Klank",
+        "klank",
+        Kern.KLANKEN.map(function (k) {
+          return [k, KLANKEN[k].naam];
+        }),
+        stand.klank
+      )
+    );
+    geluid.appendChild(
+      keuzelijst(
+        "Toonlengte",
+        "lengte",
+        Kern.LENGTES.map(function (l) {
+          return [l, String(l).replace(".", ",") + " s"];
+        }),
+        stand.lengte
+      )
+    );
+    geluid.appendChild(element("p", "inzet-uitleg", "Voor alle stukken."));
+    paneel.appendChild(geluid);
+
+    if (focus || veld) {
+      var terug = paneel.querySelector(
+        focus ? '[data-inzet-actie="' + focus + '"]' : '[data-inzet-veld="' + veld + '"]'
+      );
       if (terug) terug.focus();
     }
   }
@@ -315,6 +368,17 @@
     tekenPaneel();
   }
 
+  document.addEventListener("change", function (event) {
+    var veld = event.target.getAttribute("data-inzet-veld");
+    if (!veld || !paneel) return;
+    stop();
+    beurt++;
+    if (veld === "klank") stand.klank = event.target.value;
+    else stand.lengte = Number(event.target.value);
+    stand = Kern.instellingen(stand);
+    bewaar();
+    tekenPaneel();
+  });
   document.addEventListener("click", function (event) {
     var doel = event.target;
     if (paneel && paneel.contains(doel)) {

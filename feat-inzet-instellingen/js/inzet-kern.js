@@ -8,7 +8,9 @@
 (function (root) {
   var STEMMEN = ["S", "A", "T", "B"];
   var HALVE_TONEN = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
-  var TOON_SECONDEN = 0.5;
+  var TOON_SECONDEN = 0.5; /* standaard */
+  var LENGTES = [0.3, 0.5, 0.8, 1.2, 2];
+  var KLANKEN = ["orgel", "fluit", "stemfluit"]; /* de eerste is standaard */
   var PAUZE_SECONDEN = 0.1;
   var MAX_HALVE_TONEN = 12;
   var NOOTNAMEN = ["C", "Des", "D", "Es", "E", "F", "Fis", "G", "As", "A", "Bes", "B"];
@@ -56,13 +58,14 @@
   }
 
   /** Wanneer elke toon klinkt, in seconden vanaf de start. */
-  function speelschema(noten) {
+  function speelschema(noten, seconden) {
+    var duur = seconden || TOON_SECONDEN;
     return noten.map(function (noot, i) {
       return {
         stem: noot.stem,
         frequentie: frequentie(noot.midi),
-        start: i * (TOON_SECONDEN + PAUZE_SECONDEN),
-        duur: TOON_SECONDEN,
+        start: i * (duur + PAUZE_SECONDEN),
+        duur: duur,
       };
     });
   }
@@ -110,12 +113,20 @@
     return (n > 0 ? "+" : "\u2212") + grootte(n);
   }
 
-  /** Instellingen uit opslag opschonen: {algemeen, tbHoger, eigen: {id: n}}. */
+  /** Instellingen uit opslag opschonen: {algemeen, tbHoger, klank, lengte, eigen}. */
   function instellingen(ruw) {
-    var uit = { algemeen: 0, tbHoger: false, eigen: {} };
+    var uit = {
+      algemeen: 0,
+      tbHoger: false,
+      klank: KLANKEN[0],
+      lengte: TOON_SECONDEN,
+      eigen: {},
+    };
     if (!ruw || typeof ruw !== "object") return uit;
     uit.algemeen = grens(ruw.algemeen);
     uit.tbHoger = ruw.tbHoger === true;
+    if (KLANKEN.indexOf(ruw.klank) >= 0) uit.klank = ruw.klank;
+    if (LENGTES.indexOf(Number(ruw.lengte)) >= 0) uit.lengte = Number(ruw.lengte);
     Object.keys(ruw.eigen || {}).forEach(function (id) {
       uit.eigen[id] = grens(ruw.eigen[id]);
     });
@@ -143,6 +154,8 @@
   }
 
   var api = {
+    KLANKEN: KLANKEN,
+    LENGTES: LENGTES,
     doUitKruizen: doUitKruizen,
     nootnaam: nootnaam,
     verschuif: verschuif,
