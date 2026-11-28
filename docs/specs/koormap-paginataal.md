@@ -390,6 +390,12 @@ sibling-SVG af. Zie
 [VSA-tooling — kale-muziek-svg-en-uitgaven](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/kale-muziek-svg-en-uitgaven.md)
 §4 en [partituur-ir §7](https://github.com/orthodox-ronl/VSA-tooling/blob/main/docs/plans/partituur-ir.md).
 
+**Op het scherm** staan dezelfde blokken in een `index.md` onder
+`koormappen/` of `catalogus/` ook als plaatje (SVG). Het script
+`scripts/sync_inline_vsa.py` maakt de plaatjes vlak voor Hugo; `serve`,
+`build`, `check` en de GitHub-publicatie starten dat script zelf. De plaatjes
+staan niet in git. Wie tijdens `serve` een blok wijzigt, start `serve` opnieuw.
+
 **Catalogus-leaves** (één uitvoeringsvorm per `index.md`): body zonder
 dubbele Markdown-H1; PDF-titel uit afgeleide catalogustitel wanneer de
 Markdown geen `kop`/`#` meer heeft — plan
