@@ -163,6 +163,9 @@ jobs:
           python -m pytest -q scripts/test_vsa_pdf_uitlijning.py scripts/test_pdf_r2_links.py
 
       - name: Validate VSA content
+        env:
+          # CI mag bronnen niet stil herschrijven: afwijking = fout, lokaal oplossen met fix.
+          VSA_VALIDATE_NO_REWRITE: "1"
         run: |
           vsa validate content-source/catalogus
           if find content-source/catalogus -name '*.mvsa' -print -quit | grep -q .; then
