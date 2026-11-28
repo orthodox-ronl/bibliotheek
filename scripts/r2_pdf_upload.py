@@ -488,6 +488,7 @@ def main(argv: list[str] | None = None) -> int:
 
     ok = 0
     skipped_same = 0
+    unchanged_dev = 0
     removed_dev = 0
 
     if env == R2_ENV_PRODUCTION:
@@ -551,6 +552,10 @@ def main(argv: list[str] | None = None) -> int:
             print(f"DRY  {dev_key} ({why}) sha256={digest[:12]}…")
             ok += 1
             continue
+        # Al zo op development/ (CI bouwt elke keer alles opnieuw): overslaan.
+        if r2_object_sha256(client, bucket, dev_key) == digest:
+            unchanged_dev += 1
+            continue
         try:
             _upload_file(client, bucket, pdf, dev_key, digest)
         except Exception as exc:
@@ -564,7 +569,8 @@ def main(argv: list[str] | None = None) -> int:
         keys = list_keys(client, bucket, f"{R2_ENV_DEVELOPMENT}/")
         write_development_manifest(manifest_rels_from_keys(keys))
     print(
-        f"Klaar: put={ok} gelijk-aan-production={skipped_same} "
+        f"Klaar: put={ok} ongewijzigd-op-development={unchanged_dev} "
+        f"gelijk-aan-production={skipped_same} "
         f"dev-opgeruimd={removed_dev}"
     )
     return 0
