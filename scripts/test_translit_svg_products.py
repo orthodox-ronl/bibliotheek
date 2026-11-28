@@ -41,6 +41,39 @@ class NamingTests(unittest.TestCase):
         self.assertEqual(tsp.meta_key_for_modus("both"), "svg-translit-beide")
 
 
+class SourceTests(unittest.TestCase):
+    MVSA = (
+        '@title "t"\n@do F4\n@mode major\n'
+        "L: Гос-по_-ди_ ||\nS: a - - ||\nA: f - - ||\n"
+        "T: c - - ||\nB: f - - ||\n"
+    )
+
+    def test_voice_lines_do_not_make_hybrid(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / "lied.mvsa"
+            source.write_text(self.MVSA, encoding="utf-8")
+            self.assertEqual(tsp.translit_modi_for_source(source), ("nls",))
+
+    def test_obsolete_siblings_are_removed(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / "lied.mvsa"
+            source.write_text(self.MVSA, encoding="utf-8")
+            names = [
+                "lied.mvsa.translit-nls.svg",
+                "lied.mvsa.translit-ksl.svg",
+                "lied.mvsa.translit.svg",
+                "lied.mvsa@deel.translit-ksl.svg",
+                "lied.mvsa.translit.mxl",
+            ]
+            for name in names:
+                (Path(tmp) / name).write_text("x", encoding="utf-8")
+            tsp.remove_obsolete_translit(source)
+            self.assertEqual(
+                sorted(p.name for p in Path(tmp).glob("*translit*")),
+                ["lied.mvsa.translit-nls.svg", "lied.mvsa.translit.mxl"],
+            )
+
+
 class ModiTests(unittest.TestCase):
     def test_pure_latin_needs_ksl(self) -> None:
         self.assertEqual(tsp.translit_modi_for_text("Amen Heer."), ("ksl",))
@@ -91,7 +124,7 @@ class PagePdfNamingTests(unittest.TestCase):
             self.assertEqual(tsp.beide_modus_for_source(nl), "ksl")
             self.assertEqual(tsp.beide_modus_for_source(ksl), "nls")
             hybrid = root / "hybride.mvsa"
-            hybrid.write_text("L: Amen и Аминь\n", encoding="utf-8")
+            hybrid.write_text("L: Amen и Аминь ||\nS: a - - - ||\n", encoding="utf-8")
             self.assertEqual(
                 tsp.translit_modi_for_source(hybrid),
                 ("nls", "ksl", "both"),
@@ -114,7 +147,7 @@ class TranslitMxlNamingTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             mvsa = root / "nl.mvsa"
-            mvsa.write_text("L: Amen\n", encoding="utf-8")
+            mvsa.write_text("L: Amen ||\nS: a - ||\n", encoding="utf-8")
             self.assertTrue(tsp.expects_translit_mxl(mvsa))
             vsa = root / "x.vsa"
             vsa.write_text("[:] Amen. [:]\n", encoding="utf-8")
@@ -126,7 +159,7 @@ class SyncTranslitMxlTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             mvsa = root / "lied.mvsa"
-            mvsa.write_text("L: Amen\nS: a\n", encoding="utf-8")
+            mvsa.write_text("L: Amen ||\nS: a - ||\n", encoding="utf-8")
             dest = tsp.product_translit_mxl(mvsa)
 
             def fake_export(source: Path) -> Path:

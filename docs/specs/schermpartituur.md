@@ -138,7 +138,11 @@ sitebreed in `localStorage`. Nls = Latijn onder kerkslavische tekst; Ksl
 `mvsa` + `pdf.cmd`. (``.mscz`` als notatiebron krijgt via
 bibliotheek-products **geen** translit-SVG-siblings.)
 
-**Productmatrix per bron** (``.vsa`` / ``.mvsa``):
+**Productmatrix per bron** (``.vsa`` / ``.mvsa``). Of een bron Nls, Ksl of
+hybride is, volgt alleen uit de **gezongen tekst**: stemregels, frontmatter,
+commentaar en passages in een andere taal (`@taal ro`) tellen niet mee
+(VSA-tooling `translit_modi_for_source`). Siblings die niet (meer) bij de bron
+horen, wist de translit-synchronisatie.
 
 | Bron                            | Wel                                                                | Niet                                 |
 | ------------------------------- | ------------------------------------------------------------------ | ------------------------------------ |

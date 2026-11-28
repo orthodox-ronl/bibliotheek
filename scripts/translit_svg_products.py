@@ -22,6 +22,7 @@ niet via OSMG.
 
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -95,20 +96,6 @@ def meta_key_for_modus(modus: str) -> str:
     return _META_KEYS[m]
 
 
-def read_source_body(source: Path) -> str:
-    """Tekst voor schriftdetectie (``.vsa``: body zonder YAML-frontmatter)."""
-    raw = source.read_text(encoding="utf-8")
-    if source.suffix.lower() != ".vsa":
-        return raw
-    try:
-        from vsa.yaml_frontmatter import parse_vsa_frontmatter
-
-        _meta, body = parse_vsa_frontmatter(raw)
-        return body
-    except Exception:
-        return raw
-
-
 def translit_modi_for_text(text: str) -> tuple[str, ...]:
     """Welke translit-SVG-modi bij deze brontekst horen (§5a).
 
@@ -129,13 +116,22 @@ def translit_modi_for_text(text: str) -> tuple[str, ...]:
 
 
 def translit_modi_for_source(source: Path) -> tuple[str, ...]:
+    """Modi uit de gezongen tekst van een ``.vsa``/``.mvsa``.
+
+    Welke tekst telt (geen stemregels, frontmatter, commentaar of andere talen)
+    bepaalt VSA-tooling; hier komt alleen ``both`` erbij voor hybride stukken.
+    """
     if source.suffix.lower() not in {".vsa", ".mvsa"}:
         return ()
+    from vsa.transliterate import translit_modi_for_source as sung_modi
+
     try:
-        text = read_source_body(source)
+        modi = sung_modi(source)
     except OSError:
         return ()
-    return translit_modi_for_text(text)
+    if MODUS_NLS in modi and MODUS_KSL in modi:
+        return (MODUS_NLS, MODUS_KSL, MODUS_BOTH)
+    return modi
 
 
 def page_translit_modi(sources: list[Path] | tuple[Path, ...]) -> tuple[str, ...]:
@@ -255,6 +251,41 @@ def _stamp_ok_translit_svg(
     return stamp.get(FIELD_SOURCE_SHA, "") == source_hash
 
 
+def remove_obsolete_translit(source: Path) -> list[Path]:
+    """Wis translit-siblings (ook ``@sectie``) die niet meer bij de bron horen.
+
+    Bijv. na een taalcorrectie van hybride naar puur Kerkslavisch.
+    """
+    modi = translit_modi_for_source(source)
+    pattern = re.compile(
+        re.escape(source.name) + r"(@[^/]*?)?\.translit(-nls|-ksl)?\.(svg|mxl)"
+    )
+    removed: list[Path] = []
+    drop_keys: set[str] = set()
+    for path in sorted(source.parent.iterdir()):
+        match = pattern.fullmatch(path.name)
+        if not match:
+            continue
+        modus = (match[2] or f"-{MODUS_BOTH}")[1:]
+        if match[3] == "mxl":
+            if modi:
+                continue
+            key = META_KEY_MXL
+        else:
+            if modus in modi:
+                continue
+            key = meta_key_for_modus(modus)
+        detail(f"  DEL  {path.name} (hoort niet meer bij de bron)")
+        path.unlink()
+        removed.append(path)
+        if not match[1]:
+            drop_keys.add(key)
+    keep = source.with_name(f"{source.name}.svg")
+    if drop_keys and keep.is_file():
+        write_products_meta(source, {"svg": keep}, merge=True, drop_keys=drop_keys)
+    return removed
+
+
 def sync_translit_svgs(
     source: Path,
     *,
@@ -266,6 +297,8 @@ def sync_translit_svgs(
     ``force``: altijd opnieuw exporteren (bijv. na kale bron-SVG-export).
     Retourneert meta-key → pad voor geschreven (of al verse) bestanden.
     """
+    if not dry_run:
+        remove_obsolete_translit(source)
     modi = translit_modi_for_source(source)
     if not modi:
         return {}
