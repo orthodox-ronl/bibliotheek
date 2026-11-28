@@ -22,7 +22,12 @@ Status: **lokaal bewaren; git negeert blad-PDF’s; `production/` = main;
    `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET` en
    `R2_JURISDICTION`; zonder secrets gebeurt er niets. Andere branches
    uploaden niet (er is één `development/`).
-6. **Na merge naar main:** `r2-pdf-promote` kopieert `development/` →
+6. **Automatisch (branch `main`):** de Pages-workflow bouwt alle blad-PDF’s
+   uit `main` en zet ze op `production/` (ongewijzigde worden overgeslagen).
+   Mislukt dat, dan verandert de echte site niet. Na de publicatie haalt
+   `scripts/opruim_productie.py` verouderde bestanden van de echte site.
+   Handmatig promoveren is daardoor niet meer nodig.
+7. **Alleen als noodmiddel na merge naar main:** `r2-pdf-promote` kopieert `development/` →
    `production/`, wist `development/`, leegt het manifest.
 
 Naast `index.md.pdf` en `index.md.translit-*.pdf` horen ook

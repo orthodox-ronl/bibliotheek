@@ -56,7 +56,7 @@ tonen paden onder `content-source` zonder die prefix. Zie
 | `lifecycle-grenzen` | Spaties/ruwe formats in catalogusmappen melden (optioneel `--fail`). | [lifecycle-grenzen](lifecycle-grenzen/) |
 | `pdf.cmd` | Maakt `index.md.pdf` (+ translit-PDF’s) voor het download-icoon uit kale blad-SVG’s + Markdown-koppen (`pdf-bijelkaar` → compact). | [pdf](pdf/) |
 | `r2-pdf-upload` | Blad-PDF’s naar R2: `production/` of `development/` (alleen diff); laadt `r2-env`. | [r2-pdf-upload](r2-pdf-upload/) |
-| `r2-pdf-promote` | Na merge naar main: `development/` → `production/`, legen + leeg manifest. | [r2-pdf-promote](r2-pdf-promote/) |
+| `r2-pdf-promote` | Noodmiddel: `development/` → `production/`, legen + leeg manifest. | [r2-pdf-promote](r2-pdf-promote/) |
 | `r2-pdf-opschonen` | Optioneel: wis lokale blad-PDF’s die gelijk zijn aan `production/` (`--apply`). | [r2-pdf-opschonen](r2-pdf-opschonen/) |
 
 Intern (geen apart gebruikerscommando): `python scripts\fingerprint_coria_mxl.py`

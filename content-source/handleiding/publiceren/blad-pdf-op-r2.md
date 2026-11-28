@@ -17,29 +17,24 @@ Blad-PDF’s horen **niet in git** (lokaal wel op schijf voor `serve`).
 
 ## Wat jij doet
 
-1. Blad wijzigen → `scripts\pdf.cmd` of `fix --strict` (PDF staat lokaal).
-2. Lokaal testen met `serve`.
-3. Op `development`: diff naar R2 (en manifest bijwerken):
+Voor het publiceren hoef je niets met R2 te doen. Wijzig het blad, bekijk het
+met `serve` en leg de bron vast op `development`. GitHub doet daarna het
+volgende vanzelf:
 
-```cmd
-scripts\r2-pdf-upload.cmd --env development
-```
+- Na een wijziging op `development` bouwt GitHub de blad-PDF's en zet de
+  gewijzigde PDF's op R2 `development/`.
+- Na een samenvoeging van `development` naar `main` bouwt GitHub alle
+  blad-PDF's en zet ze op R2 `production/`. Mislukt het bouwen of uploaden,
+  dan verandert de echte site niet. De mislukte publicatie staat dan op
+  GitHub onder het tabblad **Actions**.
 
-Commit het bijgewerkte `data\pdf-r2-development.json` mee (geen PDF’s).
+GitHub gebruikt hiervoor de R2-sleutels die in de instellingen van de
+repository staan (**Settings**, **Secrets and variables**, **Actions**).
 
-4. Na merge naar `main`: promoveren en `development/` legen:
-
-```cmd
-scripts\r2-pdf-promote.cmd
-```
-
-Commit het lege manifest. Optioneel daarna nog
-`scripts\r2-pdf-upload.cmd --env production` als je bewust de hele
-productieset wilt verversen.
-
-Credentials: `scripts\r2-env.cmd` of `r2-env.ps1` (niet in git). Zie
-[r2-pdf-upload](../../scripts/r2-pdf-upload/) en
-[r2-pdf-promote](../../scripts/r2-pdf-promote/).
+De scripts [r2-pdf-upload](../../scripts/r2-pdf-upload/) en
+[r2-pdf-promote](../../scripts/r2-pdf-promote/) zijn alleen nog een
+noodmiddel, voor als GitHub het niet kan. Die scripts lezen de sleutels uit
+`scripts\r2-env.cmd` of `r2-env.ps1` (niet in git).
 
 ## Wanneer wat
 

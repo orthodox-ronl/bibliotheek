@@ -32,7 +32,8 @@ Zet `index.md.pdf` / translit-PDF’s in R2. Metadata `sha256` gaat mee.
 Laadt `scripts\r2-env.cmd` / `.ps1` automatisch. EU:
 `R2_JURISDICTION=eu`.
 
-Na merge naar `main`: [r2-pdf-promote](../r2-pdf-promote/).
+GitHub uploadt na elke publicatie van `development` en `main` zelf; zie
+[Blad-PDF op R2](../../publiceren/blad-pdf-op-r2/).
 
 # EXAMPLES
 
