@@ -1,0 +1,79 @@
+---
+titel: Ontslapen moeder gods (Toon 1)
+taal: nl
+soort: tropaar
+toon: 1
+template: kondak-toon-1-groningen
+template_opgegeven: tropaar-toon-1-groningen
+partituur:
+  arranger: Hemelum
+bron:
+  uitgangspunt: Liturgikon, p.270-272
+  bewerking: zetting/praktijk Hemelum
+gelegenheid:
+- naam: Ontslapen van de Moeder Gods
+  datum: 15 aug
+zoektekst: |-
+  Hoewel gij gebaard hebt, zijt gij Maagd gebleven,
+  en na uw sterven hebt gij de wereld niet achtergelaten, o Moeder Gods.
+  Gij zijt opgegaan tot het leven, o Moeder des levens,
+  en door uw gebeden redt gij onze zielen van de dood.
+gebruikt-in:
+- derde-antifoon/ontslapen-moeder-gods/liturgikon
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# <!-- Tropaar Ontslaping van de Moeder Gods, Toon 1 (Liturgikon, p.271) -->
+# [//:] {\\Hoe}wel gij ge{/baard_} {/hebt}, {\\zijt} gij {/Maagd} {/ge}{/ble_}{ven_}, *
+# {\en} na uw ster-ven hebt gij de we-reld niet ach-ter-ge-la-ten, o {\Moe_}der {\Gods_}. *
+# Gij zijt op-ge-gaan tot het {/le_}{/ven_}, {\\o} Moe{/der} {/des} {/le_}{vens_}, *
+# {\en} door uw ge-be-den redt gij on-ze zie-len {/van_} {de_} {\dood_}. [//:]
+
+# === afgeleide mvsa (VSA + template) ===
+# bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/tropaar/ontslapen-moeder-gods-toon-1/hemelum/tropaar-ontslapen-moeder-gods-toon-1-hemelum.vsa
+# template: tropaar-toon-1-groningen/template.yaml (tropaar-toon-1-groningen -> formule kondak-toon-1-groningen)
+# Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
+#  ##########################################################################  #
+#  #                                                                        #  #
+#  #   WAARSCHUWING:                                                        #  #
+#  #                                                                        #  #
+#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
+#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
+#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
+#  #   - melisma-slots (``_&_`` / ``~&~`` voor stem-sync; later samentrekken)#  #
+#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
+#  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
+#  #                                                                        #  #
+#  ##########################################################################  #
+@title "Ontslapen moeder gods (Toon 1)"
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=0 T=-1 B=-1
+
+@sectie cyclus-1
+L: (Hoe-wel gij ge)-baard_ hebt, (zijt gij) Maagd ge-ble_-ven_, |
+S: f                /      /     \2         /     /  /    -     |Bb
+A: c-               /2     /     \3         -     /3 -    -     |f
+T: a                /2     -     \2         /     /  /    -     |d
+B: f                \3     /3    -          -     -  \4   -     |Bb-
+
+L: (en na uw ster-ven hebt gij de we-reld niet ach-ter-ge-la-ten, o) Moe_-der Gods_\. |
+S: a                                                                 \    -   \       |f
+A: f                                                                 \    -   \2      |c-
+T: c                                                                 \    -   \       |a
+B: f                                                                 \3   -   /3      |f
+
+@sectie herhaling
+L: (Gij zijt op-ge-gaan tot het) le_-ven_, (o Moe)-der des le_-vens_, |
+S: f                             /   /     \2      /   /   /   -      |Bb
+A: c-                            /2  /     \3      -   /3  -   -      |f
+T: a                             /2  -     \2      /   /   /   -      |d
+B: f                             \3  /3    -       -   -   \4  -      |Bb-
+
+@sectie laatste
+L: (en door uw ge-be-den redt gij on-ze zie-len) van_ de_ dood_\. |
+S: a                                             /    -   \       |a
+A: f                                             \    -   /       |f
+T: c                                             -    -   -       |c
+B: f                                             \3   -   /3      |f
