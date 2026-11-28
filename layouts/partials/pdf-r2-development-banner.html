@@ -13,14 +13,8 @@
   {{- $n := len $overrides -}}
   {{- if gt $n 0 -}}
 <aside class="pdf-r2-development-banner" role="status">
-  <p class="pdf-r2-development-banner-title">Preview-PDF’s op R2</p>
-  <p>
-    Er staan {{ $n }} blad-PDF{{ if ne $n 1 }}’s{{ end }} als preview op
-    Cloudflare R2 onder <code>development/</code>. Die set is alleen de
-    diff t.o.v. productie. Na merge naar <code>main</code>:
-    <code>scripts\r2-pdf-promote.cmd</code> (kopieert naar
-    <code>production/</code> en maakt <code>development/</code> leeg).
-  </p>
+  <p class="pdf-r2-development-banner-title">{{ $n }} preview-PDF{{ if ne $n 1 }}’s{{ end }} op Cloudflare R2</p>
+  <p>Gebruik <code>r2-pdf-promote.cmd</code> na merge naar main.</p>
 </aside>
   {{- end -}}
 {{- end -}}
