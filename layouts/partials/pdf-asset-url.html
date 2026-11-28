@@ -36,7 +36,7 @@
     {{- $rel = $filename -}}
   {{- end -}}
   {{- if $allowDev -}}
-    {{- $man := index $page.Site.Data "pdf-r2-development" | default dict -}}
+    {{- $man := index hugo.Data "pdf-r2-development" | default dict -}}
     {{- $overrides := $man.overrides | default slice -}}
     {{- range $overrides -}}
       {{- if eq . $rel -}}
