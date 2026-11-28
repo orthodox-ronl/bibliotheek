@@ -279,6 +279,17 @@
 {{- if $musicSvgsTranslitKsl -}}
   {{- $viewer.Store.Add "translitPdf" (slice "ksl") -}}
 {{- end -}}
+{{- /* Knop Inzet (schermpartituur §2.4): alleen met vierstemmige from-ir.
+     Bij meer dan één from-ir gaat de eigen bron voor de afgeleide .vsa.mvsa. */ -}}
+{{- $inzetSrc := "" -}}
+{{- range $fromIrPlain -}}
+  {{- if or (not $inzetSrc) (and (strings.Contains (lower $inzetSrc) ".vsa.mvsa") (not (strings.Contains (lower .) ".vsa.mvsa"))) -}}
+    {{- $inzetSrc = . -}}
+  {{- end -}}
+{{- end -}}
+{{- with $inzetSrc }}
+<button type="button" class="score-inzet" data-inzet-src="{{ . }}" aria-pressed="false" aria-label="Inzet: de beginnoten van sopraan, alt, tenor en bas na elkaar laten horen" title="Beginnoten S, A, T, B laten horen">Inzet</button>
+{{- end }}
 <div class="score-partituur" data-scherm-root data-weergave="{{ $weergave }}"{{ if $wisselbaar }} data-wisselbaar{{ end }}>
 {{- $hasSvgView := or (gt (len $musicSvgs) 0) (gt (len $staticSvgs) 0) (gt (len $musicSvgsTranslitAny) 0) -}}
 {{- $hasOsmgView := gt (len $fromIrAny) 0 -}}

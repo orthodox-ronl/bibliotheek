@@ -196,6 +196,25 @@ lengtetekens eronder en nooit erdoorheen.
 
 ---
 
+### 2.4 Inzet (beginnoten laten horen)
+
+Een koorleider kan per muziekstuk de eerste noot van S, A, T en B laten
+horen.
+
+| Eis | Toelichting |
+| --- | --- |
+| Knop | **Inzet**, rechtsboven bij de muziek (catalogus en koormap); op catalogus links naast **{}**. Niet in print. |
+| Wanneer | Alleen als het stuk een `….from-ir.musicxml` heeft (bij `@sectie`: die van de sectie). Anders geen knop. |
+| Noten | Eerste klinkende noot per stem: deel 1 `voice` 1 = S, `voice` 2 = A; deel 2 `voice` 1 = T, `voice` 2 = B. Rusten worden overgeslagen. |
+| Klank | Volgorde S, A, T, B; elke toon 0,5 s, 0,1 s stilte ertussen. Toonhoogte zoals genoteerd, A4 = 440 Hz. Door de browser gemaakt (geen audiobestanden). |
+| Bediening | Nog eens klikken stopt. Een andere **Inzet** of **Inzet** tijdens Beluisteren stopt wat al klinkt. |
+
+Weergave (VSA/partituur), SVG/OSMG en translit veranderen de inzet niet.
+Implementatie: `static/js/inzet.js` en `static/js/inzet-kern.js`; test:
+`scripts/test_inzet_kern_js.py`.
+
+---
+
 ## 3. Titels en pagina-chrome (site)
 
 | Context                 | Eis                                                                                                                                                                                                                                                                                                                                                                                                    |
