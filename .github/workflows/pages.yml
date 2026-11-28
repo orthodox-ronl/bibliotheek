@@ -4,6 +4,8 @@
 # - andere branch     -> branch-preview; VSA-tooling FLOAT @main
 # URL prod:        https://orthodox-ronl.github.io/bibliotheek/
 # URL development: https://orthodox-ronl.github.io/bibliotheek/preview/
+# Branch-previews van verwijderde takken: opgeruimd bij de eerstvolgende
+# publicatie van development (scripts/opruim_previews.py).
 # Pages setting: Deploy from a branch -> gh-pages -> /.
 # Tooling: docs/tooling-koppeling.md
 
@@ -223,6 +225,38 @@ jobs:
       - name: Build catalogus zoekindex
         run: python scripts/build_zoek_index.py
 
+      # Alleen development (testversie): blad-PDF's bouwen, de diff naar R2
+      # development/ zetten en het manifest voor deze build schrijven
+      # (docs/plans/pdf-r2.md). Zonder R2-secrets: overslaan.
+      - name: Blad-PDF's bouwen en naar R2 development/
+        id: bladpdf
+        if: github.ref == 'refs/heads/development'
+        continue-on-error: true
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          R2_JURISDICTION: ${{ secrets.R2_JURISDICTION }}
+        run: |
+          set -euo pipefail
+          if [[ -z "$R2_ACCOUNT_ID" || -z "$R2_ACCESS_KEY_ID" || -z "$R2_SECRET_ACCESS_KEY" || -z "$R2_BUCKET" ]]; then
+            echo "::notice::R2-secrets ontbreken; blad-PDF's niet automatisch geupload."
+            exit 0
+          fi
+          sudo apt-get install -y --no-install-recommends fonts-liberation fonts-dejavu-core
+          python -m pip install pymupdf "pypdf>=5.0" boto3
+          python scripts/index_md_pdf.py content-source/koormappen content-source/catalogus
+          python scripts/r2_pdf_upload.py --env development
+
+      # Altijd weg vóór Hugo: anders linkt de site naar lokale PDF's die niet
+      # gepubliceerd worden.
+      - name: Gebouwde blad-PDF's opruimen
+        if: github.ref == 'refs/heads/development'
+        run: |
+          find content-source -type f \( -name 'index.md.pdf' -o -name 'index.md.translit*.pdf' \
+            -o -name 'index.md.weergave-*.pdf' \) ! -path '*/input/*' -delete
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
@@ -261,6 +295,13 @@ jobs:
           fi
           du -sh generated/site || true
 
+      # Merkteken voor scripts/opruim_previews.py: welke tak hoort bij deze map.
+      - name: Merk proefsite met taknaam
+        if: steps.target.outputs.label == 'branch-preview'
+        env:
+          BRANCH: ${{ steps.target.outputs.branch }}
+        run: printf '%s\n' "$BRANCH" > generated/site/.branch-preview
+
       - name: Deploy to GitHub Pages (subdirectory)
         if: steps.target.outputs.destination_dir != ''
         uses: peaceiris/actions-gh-pages@v4
@@ -279,6 +320,24 @@ jobs:
           publish_branch: gh-pages
           publish_dir: ./generated/site
           keep_files: ${{ steps.target.outputs.keep_files }}
+
+      # Alle publicaties zitten in dezelfde concurrency-groep, dus niemand
+      # schrijft tegelijk naar gh-pages.
+      - name: Ruim proefsites van verwijderde takken op
+        if: github.ref == 'refs/heads/development'
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: python scripts/opruim_previews.py
+
+      # Pas na de deploy: de testsite komt er, maar de mislukte upload valt op.
+      - name: Blad-PDF-upload gelukt?
+        if: steps.bladpdf.outcome == 'failure'
+        run: |
+          echo "::error::Blad-PDF's bouwen of uploaden naar R2 mislukte; zie die stap hierboven."
+          exit 1
 
       - name: Show site URL
         run: |
