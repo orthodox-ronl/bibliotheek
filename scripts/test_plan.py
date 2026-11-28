@@ -111,3 +111,18 @@ def test_pdf_ontbreekt_en_verouderd(tmp_path):
     plan = pl.Plan()
     pl.beoordeel_pdfs(plan, [Job()], tmp_path)
     assert [x.reden for x in plan.pdfs] == ["verouderd", "ontbreekt"]
+
+
+def test_aanvullend_werk_geeft_commandos_voor_gevolgen(tmp_path):
+    plan = pl.Plan(
+        producten=[
+            _p("vsa", "a.vsa", "a.vsa.mvsa", stempel=False),
+            _p("mvsa", "a.vsa.mvsa", "a.vsa.mvsa.svg"),
+        ],
+        pdfs=[pl.PdfItem("x/index.md.pdf", "gevolg", "a.vsa.mvsa.svg", md="x/index.md")],
+    )
+    pl.sluit_af(plan)
+    items = pl.aanvullend_werk(plan, tmp_path)
+    assert [i.checker for i in items] == ["mvsa", "pdf"]
+    assert "products.cmd --kinds mvsa" in items[0].fix_cmd
+    assert items[1].fix_cmd == "scripts\\pdf.cmd x\\index.md --force"
