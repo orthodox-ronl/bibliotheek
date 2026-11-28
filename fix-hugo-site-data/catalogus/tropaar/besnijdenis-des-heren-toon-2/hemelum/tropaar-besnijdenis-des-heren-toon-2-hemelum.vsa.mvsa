@@ -1,0 +1,93 @@
+---
+titel: Besnijdenis des heren (Toon 2)
+taal: nl
+soort: tropaar
+toon: 2
+template: kondak-toon-2-groningen
+template_opgegeven: tropaar-toon-2-groningen
+partituur:
+  arranger: Hemelum
+bron:
+  uitgangspunt: Liturgikon
+  bewerking: zetting/praktijk Hemelum
+gelegenheid:
+- naam: Besnijdenis des Heren
+  datum: 1 jan
+zoektekst: |-
+  Formeerder der gehele schepping
+  Gij hebt seizoenen en tijden vastgesteld
+  in de volkomenheid van Uw macht
+  Zegen, Heer, de jaarkrans Uwer goedheid.
+  Bewaar de overheid en Uw volk in vrede,
+  en verlos ons.
+---
+
+# === oorspronkelijke VSA (commentaar) ===
+# <!-- Tropaar Johannes de Doper, Toon 2 (Liturgikon, p 253) -->
+# [/:] For{/meer}der der ge-he{/le} {/&\schep_&_}{\ping_} *
+# Gij hebt sei-zoe-nen en tij-den {\vast_}ge{\steld_} *
+# {/in} de vol{/ko_}men{/heid} {/van_} {\Uw_} {\macht_} *
+# Ze-gen, Heer, de jaar-krans Uwer {\goed_}{\heid_}. *
+# {/Be}waar de {/o_}ver-heid en Uw volk {/in} {/&\vre_&_}{\de_}, **
+# {\&/en} {/ver}{\&\los_&_} {\ons_}. [:]
+
+# === afgeleide mvsa (VSA + template) ===
+# bron: C:/Git/orthodox-ronl/bibliotheek/content-source/catalogus/tropaar/besnijdenis-des-heren-toon-2/hemelum/tropaar-besnijdenis-des-heren-toon-2-hemelum.vsa
+# template: tropaar-toon-2-groningen/template.yaml (tropaar-toon-2-groningen -> formule kondak-toon-2-groningen)
+# Notatie: ag-vsa; recite = template-kwart óf same-pitch-kwart-run.
+#  ##########################################################################  #
+#  #                                                                        #  #
+#  #   WAARSCHUWING:                                                        #  #
+#  #                                                                        #  #
+#  #   DIT BESTAND IS AFGELEID UIT VSA + TEMPLATE EN IS EEN SCHETS.         #  #
+#  #   CONTROLEER VÓÓR OPNAME IN DE CATALOGUS TEN MINSTE:                   #  #
+#  #   - duren (halve noten ``_`` blijven eigen L-posities; recite = kwart) #  #
+#  #   - melisma-slots (``_&_`` / ``~&~`` voor stem-sync; later samentrekken)#  #
+#  #   - recite-haakjes, woordstreepjes, A/T/B t.o.v. S                     #  #
+#  #   - eventuele regels hieronder met ``# WAARSCHUWING:``                 #  #
+#  #                                                                        #  #
+#  ##########################################################################  #
+@title "Besnijdenis des heren (Toon 2)"
+@do F4
+@mode major
+@tempo 180
+@oct S=0 A=0 T=-1 B=-1
+
+@sectie cyclus-1
+L: For (-meer-der der ge-he)-le schep_&_-ping_ |
+S: g   /                     /  /     &\ \     |a
+A: e-  /                     -  -     &- -     |f
+T: c   -                     /  b/    &\ \     |c
+B: c-  /3                    \4 \     &/ /4    |f
+
+L: (Gij hebt sei-zoe-nen en tij-den) vast_-ge-steld_ |
+S: a                                 \     -  \      |f
+A: f                                 \     -  \2     |c-
+T: c                                 \     -  \      |a
+B: f                                 \3    -  /3     |f
+
+@sectie herhaling
+L: (in de vol)-ko_-men-heid van_ Uw_ macht_ |
+S: g           /   -   /    /    \   \      |a
+A: e-          /   -   -    -    -   -      |f
+T: c           -   -   /    b/   \   \      |c
+B: c-          /3  -   \4   \    /   /4     |f
+
+L: (Ze-gen, Heer, de jaar-krans U-wer) goed_-heid_\. |
+S: a                                   \     \       |f
+A: f                                   \     \2      |c-
+T: c                                   \     \       |a
+B: f                                   \3    /3      |f
+
+L: (Be-waar de) o_ (-ver-heid en Uw volk) in vre_&_-de_, |
+S: g            /  -                      /  /   &\ \    |a
+A: e-           /  -                      -  -   &- -    |f
+T: c            -  -                      /  b/  &\ \    |c
+B: c-           /3 -                      \4 \   &/ /4   |f
+
+@sectie laatste
+L: en~&~  ver-los_&_  ons_\. |
+S: g  &/  /   \   &\  \      |f
+A: d- &/2 -   -   &\  \2     |c-
+T: Bb &/  /   \   &\  \      |a
+B: g  &\  \4  /4  &\3 /3     |f
